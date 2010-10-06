@@ -1,0 +1,63 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en_US" language="de_DE">
+<phrase>
+    <source>Open</source>
+    <target>Öffnen</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>Beenden</target>
+</phrase>
+<phrase>
+    <source>Blue</source>
+    <target>Blau</target>
+</phrase>
+<phrase>
+    <source>White</source>
+    <target>Weiß</target>
+</phrase>
+<phrase>
+    <source>Reset</source>
+    <target>Zurücksetzen</target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target>Anzeige</target>
+</phrase>
+<phrase>
+    <source>Weight</source>
+    <target>Gewicht</target>
+</phrase>
+<phrase>
+    <source>File</source>
+    <target>Datei</target>
+</phrase>
+<phrase>
+    <source>Settings</source>
+    <target>Einstellungen</target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>Speichern</target>
+</phrase>
+<phrase>
+    <source>Select Font</source>
+    <target>Schriftart wählen</target>
+</phrase>
+<phrase>
+    <source>Select Color</source>
+    <target>Farbe wählen</target>
+</phrase>
+<phrase>
+    <source>Clubs</source>
+    <target>Vereine</target>
+</phrase>
+<phrase>
+    <source>About</source>
+    <target>Über</target>
+</phrase>
+<phrase>
+    <source>(Neuer Eintrag)</source>
+    <target></target>
+</phrase>
+</QPH>
