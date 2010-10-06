@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>images/off.png</file>
+        <file>images/on.png</file>
+        <file>images/off_hansokumake.png</file>
+        <file>images/on_hansokumake.png</file>
+        <file>images/ippon.png</file>
+        <file>images/wazaari.png</file>
+        <file>images/yuko.png</file>
+        <file>images/logo.png</file>
+        <file>images/no_club_logo.png</file>
+        <file>images/choose_blue_16.png</file>
+        <file>images/choose_white_16.png</file>
+        <file>emblems/bushido_amberg.png</file>
+        <file>emblems/kodokan_muenchen.png</file>
+        <file>emblems/koenigsbrunn.png</file>
+        <file>emblems/lohr.png</file>
+        <file>emblems/mainburg.png</file>
+        <file>emblems/sf_harteck.png</file>
+        <file>emblems/tg_landshut.png</file>
+        <file>emblems/tsv_peiting.png</file>
+        <file>emblems/default.png</file>
+        <file>images/off_empty.png</file>
+        <file>images/sand_clock.png</file>
+    </qresource>
+</RCC>

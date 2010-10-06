@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100%"
+   height="100%"
+   viewBox="0 0 480 360"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="sonomama.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <metadata
+     id="metadata40">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="1033"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     showgrid="false"
+     inkscape:zoom="4.5333333"
+     inkscape:cx="129.44095"
+     inkscape:cy="252.16009"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="g31" />
+  <defs
+     id="defs4">
+    <linearGradient
+       y2="1"
+       x2="0"
+       y1="0"
+       x1="0"
+       gardientUnits="objectBoundingBox"
+       id="linearGradient4683">
+      <stop
+         id="stop4685"
+         stop-opacity="1"
+         offset="0"
+         stop-color="#FFFFFF" />
+      <stop
+         id="stop4687"
+         stop-opacity="0"
+         offset="0.22891191"
+         stop-color="#FFFFFF" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(1.3674982,0,0,0.4275982,-1.8980523,3.1617503)"
+       y2="123.56474"
+       y1="12.970884"
+       x2="117.55174"
+       x1="117.55174"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3367">
+      <stop
+         style="stop-color:#9a5d5d;stop-opacity:1;"
+         id="stop3369"
+         offset="0"
+         stop-color="#434343" />
+      <stop
+         style="stop-color:#9a2020;stop-opacity:1;"
+         id="stop3371"
+         offset="0.67000002"
+         stop-color="#000000" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective42" />
+    <linearGradient
+       id="button_surface"
+       gradientUnits="userSpaceOnUse"
+       x1="117.55174"
+       x2="117.55174"
+       y1="12.970884"
+       y2="123.56474"
+       gradientTransform="matrix(1.3674982,0,0,0.4275982,-1.8980523,3.1617503)">
+      <stop
+         stop-color="#434343"
+         offset="0"
+         id="stop7"
+         style="stop-color:#5d5d5d;stop-opacity:1;" />
+      <stop
+         stop-color="#000000"
+         offset="0.67000002"
+         id="stop9"
+         style="stop-color:#202020;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="virtual_light"
+       gradientUnits="userSpaceOnUse"
+       x1="8.3230889"
+       x2="8.3230889"
+       y1="15.889533"
+       y2="122.28032"
+       gradientTransform="matrix(1.4060968,0,0,0.4331991,-3.4862299,1.9842392)">
+      <stop
+         stop-color="#EEEEEE"
+         offset="0"
+         stop-opacity="1"
+         id="stop12" />
+      <stop
+         stop-color="#EEEEEE"
+         offset="0.4"
+         stop-opacity="0"
+         id="stop14" />
+    </linearGradient>
+    <linearGradient
+       id="reflection_fill"
+       gardientUnits="objectBoundingBox"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         stop-color="#FFFFFF"
+         offset="0"
+         stop-opacity="1"
+         id="stop17" />
+      <stop
+         stop-color="#FFFFFF"
+         offset="0.2"
+         stop-opacity="0"
+         id="stop19" />
+    </linearGradient>
+<!-- object to mask the reflection -->    <rect
+       id="reflection_mask"
+       x="0"
+       y="0"
+       width="220"
+       height="100"
+       fill="url(#reflection_fill)" />
+<!-- reflection to match virtual lighting effect -->    <filter
+       id="reflection"
+       filterUnits="objectBoundingBox"
+       x="-0.1"
+       y="-0.1"
+       width="1.2"
+       height="1.2">
+<!-- flip the original object -->      <feTransform
+         in="SourceGraphic"
+         transform="matrix(1,0,0,-1,0,182)"
+         result="reflected_graphic"
+         id="feTransform23" />
+<!-- specify the mask and translate it -->      <feImage
+         xlink:href="#reflection_mask"
+         result="filter_mask"
+         id="feImage25" />
+      <feTransform
+         in="filter_mask"
+         transform="translate(0 182)"
+         result="filter_mask"
+         id="feTransform27" />
+<!-- combine the mask and the flipped object -->      <feComposite
+         in="reflected_graphic"
+         in2="filter_mask"
+         operator="in"
+         id="feComposite29" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3367"
+       id="linearGradient3363"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.3674982,0,0,0.4275982,-1.3098178,57.720574)"
+       x1="117.55174"
+       y1="12.970884"
+       x2="117.55174"
+       y2="123.56474" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#virtual_light"
+       id="linearGradient3365"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.4060968,0,0,0.4331991,-2.8979968,56.543063)"
+       x1="8.3230889"
+       y1="15.889533"
+       x2="8.3230889"
+       y2="122.28032" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4683"
+       id="linearGradient4681"
+       x1="29.487957"
+       y1="11.241818"
+       x2="122.17997"
+       y2="122.59085"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9984533,0,0,0.8764292,0.2392015,2.0373211)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#button_surface"
+       id="linearGradient4717"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.3674982,0,0,0.4275982,-2.5230422,-50.698546)"
+       x1="117.55174"
+       y1="12.970884"
+       x2="117.55174"
+       y2="123.56474" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4683"
+       id="linearGradient4719"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9984533,0,0,0.8764292,-0.3857892,-51.822975)"
+       x1="29.487957"
+       y1="11.241818"
+       x2="122.17997"
+       y2="122.59085" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3367"
+       id="linearGradient4721"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.3674982,0,0,0.4275982,-1.8980523,3.1617503)"
+       x1="117.55174"
+       y1="12.970884"
+       x2="117.55174"
+       y2="123.56474" />
+  </defs>
+<!-- button content -->  <g
+     id="g31"
+     transform="translate(90,67.941176)"
+     style="filter:url(#reflected_graphic)">
+    <rect
+       x="7.4558711"
+       y="8.7793999"
+       rx="15.023532"
+       ry="11.625005"
+       width="150.89706"
+       height="46.926495"
+       id="rect33"
+       style="fill:url(#linearGradient4721);fill-opacity:1;stroke:#7b3039;stroke-width:4;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\_Downloads\SVG\sonomama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <rect
+       x="12.034491"
+       y="12.916843"
+       rx="12.645008"
+       ry="8.2932739"
+       width="142.62216"
+       height="37.989841"
+       id="rect37"
+       style="opacity:0.81735158;fill:url(#linearGradient4681);fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.4"
+       inkscape:export-filename="C:\_Downloads\SVG\sonomama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <text
+       x="20.884567"
+       y="36.974182"
+       font-size="20"
+       font-weight="500"
+       id="text35"
+       style="font-size:24.27606773000000100px;font-weight:500;fill:#ffffff;font-family:Tahoma;opacity:0.98"
+       transform="scale(0.8238566,1.2138035)"
+       inkscape:export-filename="C:\_Downloads\SVG\sonomama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77">
+      <tspan
+         style="font-size:29.13128280999999800px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Tahoma;-inkscape-font-specification:Tahoma Bold;fill:#ffffff;fill-opacity:1;opacity:0.97999999999999998"
+         id="tspan2419">SonoMama</tspan>
+    </text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Hobo Std;-inkscape-font-specification:Hobo Std"
+       x="153.5294"
+       y="120.88235"
+       id="text2415"
+       transform="translate(-90,-67.941176)"><tspan
+         sodipodi:role="line"
+         id="tspan2417"
+         x="153.5294"
+         y="120.88235" /></text>
+    <rect
+       x="8.7058592"
+       y="63.558815"
+       rx="15.023532"
+       ry="8.7573576"
+       width="150.23532"
+       height="46.705906"
+       id="rect3355"
+       style="fill:url(#linearGradient3363);fill-opacity:1;stroke:#7b3039;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#reflected_graphic)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <rect
+       x="9.313899"
+       y="63.725666"
+       rx="15.264872"
+       ry="8.9782581"
+       width="148.57806"
+       height="45.489845"
+       id="rect3357"
+       style="opacity:0.81735158;fill:url(#linearGradient3365);stroke:#ffffff;stroke-width:0;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.4;filter:url(#reflected_graphic)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <text
+       x="21.598566"
+       y="81.922836"
+       font-size="20"
+       font-weight="500"
+       id="text3359"
+       style="font-size:24.27606773px;font-weight:500;fill:#ffffff;filter:url(#reflected_graphic);font-family:Tahoma"
+       transform="scale(0.8238566,1.2138035)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77">
+      <tspan
+         style="font-size:29.13128281px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Tahoma;-inkscape-font-specification:Tahoma Bold"
+         id="tspan3361">SonoMama</tspan>
+    </text>
+    <rect
+       x="6.8308778"
+       y="-45.080898"
+       rx="15.023532"
+       ry="11.625005"
+       width="150.89706"
+       height="46.926495"
+       id="rect4709"
+       style="fill:url(#linearGradient4717);fill-opacity:1;stroke:#737373;stroke-width:4;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#reflected_graphic)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama_off.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <rect
+       x="11.409498"
+       y="-40.943455"
+       rx="12.645008"
+       ry="8.2932739"
+       width="142.62216"
+       height="37.989841"
+       id="rect4711"
+       style="opacity:0.81735158;fill:url(#linearGradient4719);fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.4;filter:url(#reflected_graphic)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama_off.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77" />
+    <text
+       x="20.125965"
+       y="-7.3989749"
+       font-size="20"
+       font-weight="500"
+       id="text4713"
+       style="font-size:24.27606773px;font-weight:500;opacity:0.75;fill:#ffffff;filter:url(#reflected_graphic);font-family:Tahoma"
+       transform="scale(0.8238566,1.2138035)"
+       inkscape:export-filename="C:\_Downloads\SVG\sono_mama_off.png"
+       inkscape:export-xdpi="160.77"
+       inkscape:export-ydpi="160.77">
+      <tspan
+         style="font-size:29.13128281px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;opacity:0.75;fill:#ffffff;fill-opacity:1;font-family:Tahoma;-inkscape-font-specification:Tahoma Bold"
+         id="tspan4715">SonoMama</tspan>
+    </text>
+  </g>
+</svg>

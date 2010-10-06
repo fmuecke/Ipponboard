@@ -1,0 +1,840 @@
+#include "controller.h"
+#include "iview.h"
+#include "score.h"
+#include "tournamentmodel.h"
+
+#include <QTimer>
+#include <QSound>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <algorithm>
+#include <functional>
+#include "statemachine.h"
+
+using namespace Ipponboard;
+
+const char* const Controller::msg_Ippon = "Ippon";
+const char* const Controller::msg_WazariAwaseteIppon = "Wazaari awasete ippon";
+const char* const Controller::msg_Wazaari = "Wazaari";
+const char* const Controller::msg_Yuko = "Yuko";
+const char* const Controller::msg_Shido = "Shido";
+const char* const Controller::msg_Hansokumake = "Hansokumake";
+const char* const Controller::msg_Osaekomi = "Osae Komi";
+const char* const Controller::msg_SonoMama = "Sono Mama";
+//const char* const Controller::msg_Hantei = "Hantei";
+const char* const Controller::msg_Hikiwaki = "Hikiwaki";
+const char* const Controller::msg_Winner = "Winner";
+
+//=========================================================
+Controller::Controller()
+	//: m_TournamentScoreModels[] = ...
+	// m_TournamentModelsPtrs[] = ...
+	: m_currentMatch(0)
+	, m_currentTournament(0)
+	, m_pSM(0)
+	, m_State(eState_TimerStopped)
+	, m_pTimerMain(0)
+	, m_pTimerHold(0)
+	, m_pTimeMain(0)
+	//, m_pTimeHold()
+	, m_Tori(eFighter_Nobody)
+	, setPointsInOsaekomi(false)
+	, m_isSonoMama(false)
+	, m_roundTime(0,5,0,0)
+//=========================================================
+{
+	m_pSM = new IpponboardSM();
+	m_pSM->SetCore( this );
+	m_pTimerMain = new QTimer(this);
+	m_pTimerHold = new QTimer(this);
+	m_pTimeMain = new QTime();
+	m_pTimeHold[eFighter_Blue] = new QTime();
+	m_pTimeHold[eFighter_White] = new QTime();
+
+	m_TournamentModelsPtrs[0] = new TournamentModel(&m_TournamentScores[0]);
+	m_TournamentModelsPtrs[1] = new TournamentModel(&m_TournamentScores[1]);
+
+	Reset_();
+	m_pSM->start();
+
+	connect( m_pTimerMain, SIGNAL(timeout()), this, SLOT(UpdateTime_()) );
+	connect( m_pTimerHold, SIGNAL(timeout()), this, SLOT(UpdateHoldTime_()) );
+}
+
+//=========================================================
+Controller::~Controller()
+//=========================================================
+{
+	m_Views.clear();
+	delete m_TournamentModelsPtrs[0];
+	delete m_TournamentModelsPtrs[1];
+	//delete m_pTimeHold;
+	//delete m_pTimeMain;
+	delete m_pSM;
+}
+
+//=========================================================
+int Controller::GetScore( EFighter whos, EPoint point ) const
+//=========================================================
+{
+	int value(0);
+	const Score& score = GetScore_(whos);
+	switch(point)
+	{
+		case ePoint_Yuko:
+			value = score.Yuko();
+			break;
+
+		case ePoint_Wazaari:
+			value = /*score.IsAwaseteIppon() ? 0 : */score.Wazaari();
+			break;
+
+		case ePoint_Ippon:
+			if( score.Ippon() || score.IsAwaseteIppon() )
+				value =  1;
+			else
+				value = 0;
+			break;
+
+		case ePoint_Shido:
+			value = score.Shido();
+			break;
+
+		case ePoint_Hansokumake:
+			value = score.Hansokumake()? 1 : 0;
+			break;
+
+		default:
+			//Q_ASSERT(!"Unknown case in switch!");
+			break;
+	}
+	return value;
+}
+
+
+//=========================================================
+void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
+//=========================================================
+{
+	if( doRevoke )
+	{
+		switch( action )
+		{
+		case eAction_Yuko:
+			m_pSM->process_event(IpponboardSM_::RevokeYuko(whos));
+			break;
+
+		case eAction_Wazaari:
+			m_pSM->process_event(IpponboardSM_::RevokeWazaari(whos));
+			break;
+
+		case eAction_Ippon:
+			m_pSM->process_event(IpponboardSM_::RevokeIppon(whos));
+			break;
+
+		case eAction_Shido:
+		case eAction_Hansokumake:
+			m_pSM->process_event(IpponboardSM_::RevokeShidoHM(whos));
+			break;
+
+		default:
+			return;
+		}
+	}
+	else
+	{
+		switch( action )
+		{
+		case eAction_Hajime_Matte:
+			if( eState_Holding == m_State )
+				m_isSonoMama = true;
+			else
+				m_isSonoMama = false;
+			m_pSM->process_event(IpponboardSM_::Hajime_Matte());
+			break;
+
+		case eAction_OsaeKomi_Toketa:
+			if( eFighter_Blue == whos )
+				m_pSM->process_event(IpponboardSM_::Osaekomi_Toketa_Blue()); //FIXME!
+			else
+				m_pSM->process_event(IpponboardSM_::Osaekomi_Toketa_White()); //FIXME!
+			m_Tori = whos;
+			m_isSonoMama = false;
+			break;
+
+		case eAction_Yuko:
+			m_pSM->process_event(IpponboardSM_::Yuko(whos));
+			break;
+
+		case eAction_Wazaari:
+			m_pSM->process_event(IpponboardSM_::Wazaari(whos));
+			break;
+
+		case eAction_Ippon:
+			m_pSM->process_event(IpponboardSM_::Ippon(whos));
+			break;
+
+		case eAction_Shido:
+			m_pSM->process_event(IpponboardSM_::Shido(whos));
+			break;
+
+		case eAction_Hansokumake:
+			m_pSM->process_event(IpponboardSM_::Hansokumake(whos));
+			break;
+
+		case eAction_SetOsaekomi:
+			m_Tori = whos;
+			break;
+
+		case eAction_Reset:
+			m_pSM->process_event(IpponboardSM_::Reset());
+			break;
+
+		case eAction_ResetOsaeKomi:
+			m_pTimeHold[whos]->setHMS(0,0,0,0);
+			break;
+
+		default:
+			//Q_ASSERT(!"wrong action/action not handled!");
+			break;
+		}
+	}
+//	if( eState_SonoMama == m_State && action != eAction_SonoMama_Yoshi )
+//		return;
+//
+
+	m_State = EState(m_pSM->current_state()[0]);
+
+	UpdateViews_();
+}
+
+
+//=========================================================
+EFighter Controller::GetLead() const
+//=========================================================
+{
+	EFighter winner(eFighter_Nobody);
+
+	switch( m_State )
+	{
+		case eState_TimerRunning:
+		case eState_TimerStopped:
+		{
+			// determine who has the lead
+			if ( GetScore_(eFighter_Blue).Wazaari() > GetScore_(eFighter_White).Wazaari() )
+			{
+				winner = eFighter_Blue;
+			}
+			else if ( GetScore_(eFighter_Blue).Wazaari() < GetScore_(eFighter_White).Wazaari() )
+			{
+				winner = eFighter_White;
+			}
+			else  // GetScore_(eBlue).Wazaari() == GetScore_(eWhite).Wazaari()
+			{
+				if ( GetScore_(eFighter_Blue).Yuko() >
+					 GetScore_(eFighter_White).Yuko() )
+				{
+					winner = eFighter_Blue;
+				}
+				else if ( GetScore_(eFighter_Blue).Yuko() < GetScore_(eFighter_White).Yuko() )
+				{
+					winner = eFighter_White;
+				}
+				else  // GetScore_(eBlue).Yuko() == GetScore_(eWhite).Yuko()
+				{
+					if ( GetScore_(eFighter_Blue).Shido() < GetScore_(eFighter_White).Shido() &&
+						 GetScore_(eFighter_White).Shido() > 1 ) // no "koka"!
+						winner = eFighter_Blue;
+					else if ( GetScore_(eFighter_Blue).Shido() > GetScore_(eFighter_White).Shido() &&
+							  GetScore_(eFighter_Blue).Shido() > 1)
+						winner = eFighter_White;
+					else
+					{
+						// equal ==> hantai or golden score
+					}
+				}
+			}
+			break;
+		}
+
+		case eState_SonoMama:
+		case eState_Holding:
+			winner = m_Tori;
+			break;
+
+		default:
+			break;
+	}
+
+	return winner;
+}
+
+//=========================================================
+Ipponboard::EFighter Controller::GetLastHolder() const
+//=========================================================
+{
+	return m_Tori;
+}
+
+
+//=========================================================
+void Controller::Reset_()
+//=========================================================
+{
+	m_State = eState_TimerStopped;
+
+	Q_ASSERT(m_pTimeMain);
+	Q_ASSERT(m_pTimeHold[eFighter_Blue]);
+	Q_ASSERT(m_pTimeHold[eFighter_White]);
+
+	m_pTimerMain->stop();
+	m_pTimerHold->stop();
+
+	ResetTimerValue(eTimer_Main);
+	ResetTimerValue(eTimer_Hold_Blue);
+	ResetTimerValue(eTimer_Hold_White);
+
+	m_isSonoMama = false;
+
+	ClearMatches();
+	SetMatch( 0, 0, "-XX", tr("Blue"), "", tr("White"), "" );
+
+	UpdateViews_();
+}
+
+//=========================================================
+const QString Controller::GetTimeText( ETimer timer ) const
+//=========================================================
+{
+	QString ret;
+	switch(timer)
+	{
+	case eTimer_Main:
+		ret = m_pTimeMain->toString("m:ss");
+		ret = ret.isEmpty() ? "0:00" : ret;
+		break;
+
+	case eTimer_Hold_Blue:
+		ret = m_pTimeHold[eFighter_Blue]->toString("ss");
+		ret = ret.isEmpty() ? "00" : ret;
+		break;
+
+	case eTimer_Hold_White:
+		ret = m_pTimeHold[eFighter_White]->toString("ss");
+		ret = ret.isEmpty() ? "00" : ret;
+		break;
+
+	default:
+		assert(!"unhandled hold_timer value");
+		break;
+	}
+	return ret;
+}
+
+//=========================================================
+const QString Controller::GetFighterName( EFighter who ) const
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+
+	QString name = m_TournamentScores[m_currentTournament].at(m_currentMatch).fighters[who].name;
+
+	// shorten name
+	const int pos = name.indexOf(' ');
+	if( pos != -1 )
+	{
+		name = name.left(1) + ". " + name.mid(pos, name.length() - pos);
+	}
+	return name;
+}
+
+//=========================================================
+const QString Controller::GetFighterLastName( Ipponboard::EFighter who ) const
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+
+	QString name = m_TournamentScores[m_currentTournament].at(m_currentMatch).fighters[who].name;
+
+	// get last name
+	const int pos = name.indexOf(' ');
+	if( pos != -1 )
+	{
+		name = name.mid(pos + 1, name.length() - pos);
+	}
+	return name;
+}
+
+//=========================================================
+const QString Controller::GetFighterFirstName( Ipponboard::EFighter who ) const
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+
+	QString name = m_TournamentScores[m_currentTournament].
+				   at(m_currentMatch).fighters[who].name;
+
+	// get first name
+	const int pos = name.indexOf(' ');
+	if( pos != -1 )
+	{
+		name = name.left(pos);
+	}
+	else
+	{
+		name = QString();
+	}
+	return name;
+}
+
+//=========================================================
+const QString Controller::GetFighterClub( EFighter who ) const
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+
+	return m_TournamentScores[m_currentTournament].
+			at(m_currentMatch).fighters[who].club;
+}
+
+//=========================================================
+const QString& Controller::GetWeightClass() const
+//=========================================================
+{
+	return m_TournamentScores[m_currentTournament].at(m_currentMatch).weight;
+}
+
+//=========================================================
+const int Controller::GetTeamScore( Ipponboard::EFighter who ) const
+//=========================================================
+{
+	int score(0);
+	for( int i(0); i<eTournament_MatchCount; ++i )
+	{
+		if( m_TournamentScores[0].at(i).is_saved )
+			score += m_TournamentScores[0].at(i).HasWon(who);
+		if( m_TournamentScores[1].at(i).is_saved )
+			score += m_TournamentScores[1].at(i).HasWon(who);
+	}
+
+	return score;
+}
+
+//=========================================================
+void Controller::SetTimerValue( Ipponboard::ETimer timer, const QString& value )
+//=========================================================
+{
+	if( eState_TimerStopped == m_State ||
+		eState_SonoMama == m_State)
+	{
+		if( eTimer_Main == timer )
+		{
+			*m_pTimeMain = QTime::fromString(value, "m:ss");
+		}
+		else if( eTimer_Hold_Blue == timer )
+		{
+			m_pTimeHold[eFighter_Blue]->setHMS(0,0,value.toInt());
+		}
+		else if( eTimer_Hold_White == timer )
+		{
+			m_pTimeHold[eFighter_White]->setHMS(0,0,value.toInt());
+		}
+		UpdateViews_();
+	}
+}
+
+//=========================================================
+void Controller::ResetTimerValue( Ipponboard::ETimer timer )
+//=========================================================
+{
+	if( eTimer_Main == timer )
+	{
+		*m_pTimeMain = m_roundTime;
+	}
+	else if( eTimer_Hold_Blue == timer )
+	{
+		m_pTimeHold[eFighter_Blue]->setHMS(0,0,0,0);
+		// no one is holding if other clock is zero as well  //FIXME!
+		//if( 0 == m_pTimeHold[eFighter_White]->second() )
+		//	m_Tori = eFighter_Nobody;
+	}
+	else if( eTimer_Hold_White == timer )
+	{
+		m_pTimeHold[eFighter_White]->setHMS(0,0,0,0);
+		// no one is holding if other clock is zero as well  //FIXME!
+		//if( 0 == m_pTimeHold[eFighter_Blue]->second() )
+		//	m_Tori = eFighter_Nobody;
+	}
+	UpdateViews_();
+}
+
+//=========================================================
+void Controller::SetRoundTime( const QString& value )
+//=========================================================
+{
+	m_roundTime = QTime::fromString(value, "m:ss");
+	*m_pTimeMain = m_roundTime;
+
+	UpdateViews_();
+}
+
+//=========================================================
+int Ipponboard::Controller::GetRound() const
+//=========================================================
+{
+	return m_currentTournament * 10 + m_currentMatch + 1;
+}
+
+//=========================================================
+void Controller::Gong() const
+//=========================================================
+{
+	QSound::play(m_gongFile);
+}
+
+//=========================================================
+void Controller::RegisterView( IView* pView )
+//=========================================================
+{
+	m_Views.insert( pView );
+	pView->SetController( this );
+
+	// do not call UpdateViews here as views may not have been fully created
+}
+
+//=========================================================
+void Controller::StartTimer_( ETimer t )
+//=========================================================
+{
+	if( eTimer_Main == t )
+		m_pTimerMain->start(1000);
+	else
+		m_pTimerHold->start(1000);
+}
+
+//=========================================================
+void Controller::StopTimer_( ETimer t )
+//=========================================================
+{
+	if( eTimer_Main == t )
+	{
+		m_pTimerMain->stop();
+		CurrentMatch_().time_in_seconds = m_pTimeMain->secsTo(m_roundTime);
+	}
+	else
+	{
+		m_pTimerHold->stop();
+	}
+}
+
+//=========================================================
+void Controller::ResetMatch_()
+//=========================================================
+{
+	m_pTimerHold->stop();
+	m_pTimerMain->stop();
+	m_pTimeHold[eFighter_Blue]->setHMS(0,0,0,0);
+	m_pTimeHold[eFighter_White]->setHMS(0,0,0,0);
+	*m_pTimeMain = m_roundTime;
+
+	// just clear the score, not the names
+	GetScore_(eFighter_Blue) = Score();
+	GetScore_(eFighter_White) = Score();
+	Match& match = m_TournamentScores[m_currentTournament].at(m_currentMatch);
+	match.time_in_seconds = 0;
+	match.is_saved = false;
+
+	std::for_each( m_Views.begin(), m_Views.end(), std::mem_fun(&IView::Reset) );
+}
+
+//=========================================================
+void Controller::ResetTimer_( ETimer t )
+//=========================================================
+{
+	if( eTimer_Hold_Blue == t )
+	{
+		*m_pTimeHold[eFighter_Blue] = QTime(0,0,0,0);
+		// reset holder state only if there IS NO holder
+		if( m_pTimeHold[eFighter_White]->second() == 0 )
+			m_Tori = eFighter_Nobody;
+	}
+	if( eTimer_Hold_White == t )
+	{
+		*m_pTimeHold[eFighter_White] = QTime(0,0,0,0);
+		// reset holder state only if there IS NO holder
+		if( m_pTimeHold[eFighter_Blue]->second() == 0 )
+			m_Tori = eFighter_Nobody;
+	}
+	else if( eTimer_Holdi == t ) //FIXME!
+	{
+		*m_pTimeHold[eFighter_Blue] = QTime(0,0,0,0);
+		*m_pTimeHold[eFighter_White] = QTime(0,0,0,0);
+			m_Tori = eFighter_Nobody;
+	}
+	else
+	{
+		*m_pTimeMain = m_roundTime;
+	}
+
+	UpdateViews_();
+}
+
+//=========================================================
+Score& Controller::GetScore_( EFighter who )
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+	return m_TournamentScores[m_currentTournament].at(m_currentMatch).scores[who];
+}
+
+//=========================================================
+const Score& Controller::GetScore_( EFighter who ) const
+//=========================================================
+{
+	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
+	return m_TournamentScores[m_currentTournament].at(m_currentMatch).scores[who];
+}
+
+//=========================================================
+const int Controller::GetTime_( ETimer t ) const
+//=========================================================
+{
+	if( eTimer_Hold_Blue == t )
+		return -m_pTimeHold[eFighter_Blue]->secsTo(QTime(0,0,0,0));
+	else if( eTimer_Hold_White == t )
+		return -m_pTimeHold[eFighter_White]->secsTo(QTime(0,0,0,0));
+	else
+		return m_pTimeMain->secsTo(QTime(0,0,0,0));
+}
+
+//=========================================================
+bool Controller::IsSonoMama_() const
+//=========================================================
+{
+	return m_isSonoMama;
+}
+
+//=========================================================
+void Controller::SetCurrentMatch( unsigned int index )
+//=========================================================
+{
+	// move to Stopped state
+	// (will stop all timers and thus save the current match time)
+	m_pSM->process_event(IpponboardSM_::Finish());
+
+	// set prev match so saved
+	m_TournamentScores[m_currentTournament]
+		.at(m_currentMatch).is_saved = true;
+
+	// now set pointer to next match
+	m_currentMatch = index;
+	*m_pTimeMain = m_roundTime;
+	*m_pTimeMain = m_pTimeMain->addSecs(-CurrentMatch_().time_in_seconds);
+	*m_pTimeHold[eFighter_Blue] = QTime(0,0,0,0);
+	*m_pTimeHold[eFighter_White] = QTime(0,0,0,0);
+
+	// update state
+	m_State = EState(m_pSM->current_state()[0]);
+	assert( eState_TimerStopped == m_State );
+
+	UpdateViews_();
+}
+
+//=========================================================
+void Controller::ClearMatches()
+//=========================================================
+{
+	for(unsigned int i(0); i < m_TournamentScores[0].size(); ++i )
+	{
+		SetMatch(0, i, "", "", "", "", "");
+		SetMatch(1, i, "", "", "", "", "");
+		m_TournamentScores[0].at(i).time_in_seconds = 0;
+		m_TournamentScores[1].at(i).time_in_seconds = 0;
+	}
+	m_currentTournament = 0;
+	m_currentMatch = 0;
+
+	UpdateViews_();
+}
+
+
+//=========================================================
+void Controller::SetClub( Ipponboard::EFighter whos, const QString& clubName )
+//=========================================================
+{
+	Q_ASSERT( whos == Ipponboard::eFighter_Blue || whos == Ipponboard::eFighter_White );
+	for(unsigned int i(0); i < m_TournamentScores[0].size(); ++i )
+	{
+		m_TournamentScores[0].at(i).fighters[whos].club = clubName;
+		m_TournamentScores[1].at(i).fighters[whos].club = clubName;
+	}
+
+	UpdateViews_();
+}
+
+//=========================================================
+void Controller::SetMatch(
+		unsigned int tournament_index, unsigned int match_index,
+		const QString& weight,
+		const QString& first_player_name, const QString& first_player_club,
+		const QString& second_player_name, const QString& second_player_club,
+		int yuko1, int wazaari1, int ippon1, int shido1, int hansokumake1,
+		int yuko2, int wazaari2, int ippon2, int shido2, int hansokumake2 )
+//=========================================================
+{
+	Ipponboard::Match match;
+	match.weight = weight;
+
+	match.fighters[Ipponboard::eFighter_Blue].name = first_player_name;
+	match.fighters[Ipponboard::eFighter_Blue].club = first_player_club;
+	match.scores[Ipponboard::eFighter_Blue].Clear();
+	while( yuko1 != -1 && yuko1 > 0)
+	{
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Yuko);
+		--yuko1;
+	}
+	while( wazaari1 != -1 && wazaari1 > 0 )
+	{
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Wazaari);
+		--wazaari1;
+	}
+	if( ippon1 > 0 )
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Ippon);
+	while( shido1 != -1 && shido1 > 0 )
+	{
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Shido);
+		--shido1;
+	}
+	if( hansokumake1 > 0 )
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Hansokumake);
+
+	match.fighters[Ipponboard::eFighter_White].name = second_player_name;
+	match.fighters[Ipponboard::eFighter_White].club = second_player_club;
+	match.scores[Ipponboard::eFighter_White].Clear();
+	while( yuko2 != -1 && yuko2 > 0)
+	{
+		match.scores[Ipponboard::eFighter_White].Add(Ipponboard::ePoint_Yuko);
+		--yuko2;
+	}
+	while( wazaari2 != -1 && wazaari2 > 0 )
+	{
+		match.scores[Ipponboard::eFighter_White].Add(Ipponboard::ePoint_Wazaari);
+		--wazaari2;
+	}
+	if( ippon2 > 0 )
+		match.scores[Ipponboard::eFighter_White].Add(Ipponboard::ePoint_Ippon);
+	while( shido2 != -1 && shido2 > 0 )
+	{
+		match.scores[Ipponboard::eFighter_White].Add(Ipponboard::ePoint_Shido);
+		--shido2;
+	}
+	if( hansokumake2 > 0 )
+		match.scores[Ipponboard::eFighter_Blue].Add(Ipponboard::ePoint_Hansokumake);
+
+	match.time_in_seconds = 0;
+
+	m_TournamentScores[tournament_index].at(match_index) = match;
+
+	UpdateViews_();
+}
+
+//=========================================================
+const Ipponboard::Match& Controller::GetMatch(
+	unsigned int tournament_index,
+	unsigned int match_index ) const
+//=========================================================
+{
+	 return m_TournamentScores[tournament_index].at(match_index);
+}
+
+//=========================================================
+void Controller::SetFighterName( Ipponboard::EFighter whos, const QString& name )
+//=========================================================
+{
+	m_TournamentScores[m_currentTournament].
+			at(m_currentMatch).fighters[whos].name = name;
+	UpdateViews_();
+}
+
+//=========================================================
+TournamentModel* Controller::GetTournamentScoreModel( int which )
+//=========================================================
+{
+	if (1 == which )
+		return m_TournamentModelsPtrs[1];
+	return m_TournamentModelsPtrs[0];
+}
+
+//=========================================================
+void Controller::SetGongFile( const QString& s )
+//=========================================================
+{
+	m_gongFile = s;
+}
+
+//=========================================================
+const QString& Controller::GetGongFile() const
+//=========================================================
+{
+	return m_gongFile;
+}
+
+//=========================================================
+void Controller::UpdateTime_()
+//=========================================================
+{
+	*m_pTimeMain = m_pTimeMain->addSecs(-1);
+	const bool isTimeUp = QTime(0,0,0,0).secsTo(*m_pTimeMain) <= 0;
+
+	// correct time again
+	const int secsTo(QTime(0,0,0,0).secsTo(*m_pTimeMain));
+	if( secsTo < 0 || *m_pTimeMain > m_roundTime )
+		m_pTimeMain->setHMS(0,0,0,0);
+
+	if( eState_Holding == m_State )
+	{
+		if( isTimeUp )
+			// do stop timer, but do not process event
+			StopTimer_( eTimer_Main );
+	}
+	else if( eState_TimerRunning == m_State )
+	{
+		if( isTimeUp )
+		{
+			m_pSM->process_event(IpponboardSM_::TimeEndedEvent());
+			m_State = EState(m_pSM->current_state()[0]);
+			Gong();
+		}
+	}
+	// else (stopped or ended) --> do nothing
+
+	UpdateViews_();
+}
+
+//=========================================================
+void Controller::UpdateHoldTime_()
+//=========================================================
+{
+	if( eState_Holding != m_State ||
+		eFighter_Nobody == m_Tori )
+		return;
+
+	*m_pTimeHold[m_Tori] = m_pTimeHold[m_Tori]->addSecs(1);
+	const int secs = m_pTimeHold[m_Tori]->second();
+	if( 15 == secs || 20 == secs || 25 == secs )
+	{
+		m_pSM->process_event(IpponboardSM_::HoldTimeEvent( secs, m_Tori) );
+		m_State = EState(m_pSM->current_state()[0]);
+		if( eState_TimerStopped == m_State )
+			Gong();
+	}
+
+	UpdateViews_();
+}
+
+//=========================================================
+void Controller::UpdateViews_() const
+//=========================================================
+{
+	std::for_each( m_Views.begin(), m_Views.end(), std::mem_fun(&IView::UpdateView) );
+}
