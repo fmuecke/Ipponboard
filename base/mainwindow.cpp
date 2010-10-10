@@ -24,6 +24,8 @@
 #include <QSettings>
 #include <QTimer>
 #include <QSplashScreen>
+#include <QUrl>
+#include <QDesktopServices>
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -70,10 +72,6 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef TEAM_VIEW
 	m_pClubManager = new Ipponboard::ClubManager();
 #endif
-	QCoreApplication::setApplicationVersion("0.4");
-	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
-	QCoreApplication::setApplicationName("Ipponboard");
 
 	//
 	// setup view(s)
@@ -156,14 +154,19 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->comboBox_mat->addItem(mat + " 9");
 
 	// weight classes
-	m_pUi->comboBox_weight_class->addItem("MU14");
-	m_pUi->comboBox_weight_class->addItem("FU14");
-	m_pUi->comboBox_weight_class->addItem("MU17");
-	m_pUi->comboBox_weight_class->addItem("FU17");
-	m_pUi->comboBox_weight_class->addItem("MU20");
-	m_pUi->comboBox_weight_class->addItem("FU20");
-	m_pUi->comboBox_weight_class->addItem("M");
-	m_pUi->comboBox_weight_class->addItem("F");
+	m_weight_classes.push_back("MU14");
+	m_weight_classes.push_back("FU14");
+	m_weight_classes.push_back("MU16");
+	m_weight_classes.push_back("FU16");
+	m_weight_classes.push_back("MU17");
+	m_weight_classes.push_back("FU17");
+	m_weight_classes.push_back("MU19");
+	m_weight_classes.push_back("FU19");
+	m_weight_classes.push_back("MU20");
+	m_weight_classes.push_back("FU20");
+	m_weight_classes.push_back("M");
+	m_weight_classes.push_back("F");
+	m_pUi->comboBox_weight_class->addItems(m_weight_classes);
 
 	m_weight_mu14.push_back("-31 kg");
 	m_weight_mu14.push_back("-34 kg");
@@ -241,6 +244,44 @@ MainWindow::MainWindow(QWidget *parent)
 	m_weight_women.push_back("-70 kg");
 	m_weight_women.push_back("-78 kg");
 	m_weight_women.push_back("+78 kg");
+
+	m_weight_mu16.push_back("-40 kg");
+	m_weight_mu16.push_back("-43 kg");
+	m_weight_mu16.push_back("-46 kg");
+	m_weight_mu16.push_back("-50 kg");
+	m_weight_mu16.push_back("-55 kg");
+	m_weight_mu16.push_back("-60 kg");
+	m_weight_mu16.push_back("-66 kg");
+	m_weight_mu16.push_back("-73 kg");
+	m_weight_mu16.push_back("-81 kg");
+	m_weight_mu16.push_back("+81 kg");
+
+	m_weight_fu16.push_back("-40 kg");
+	m_weight_fu16.push_back("-44 kg");
+	m_weight_fu16.push_back("-48 kg");
+	m_weight_fu16.push_back("-52 kg");
+	m_weight_fu16.push_back("-57 kg");
+	m_weight_fu16.push_back("-63 kg");
+	m_weight_fu16.push_back("-70 kg");
+	m_weight_fu16.push_back("+70 kg");
+
+	m_weight_mu19.push_back("-55 kg");
+	m_weight_mu19.push_back("-60 kg");
+	m_weight_mu19.push_back("-66 kg");
+	m_weight_mu19.push_back("-73 kg");
+	m_weight_mu19.push_back("-81 kg");
+	m_weight_mu19.push_back("-90 kg");
+	m_weight_mu19.push_back("-100 kg");
+	m_weight_mu19.push_back("+100 kg");
+
+	m_weight_fu19.push_back("-44 kg");
+	m_weight_fu19.push_back("-48 kg");
+	m_weight_fu19.push_back("-52 kg");
+	m_weight_fu19.push_back("-57 kg");
+	m_weight_fu19.push_back("-63 kg");
+	m_weight_fu19.push_back("-70 kg");
+	m_weight_fu19.push_back("-78 kg");
+	m_weight_fu19.push_back("+78 kg");
 
 	// round times
 	m_pUi->comboBox_time->addItem("2:00");
@@ -1359,7 +1400,11 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 		else if( wc == "FU20" ||
 				 wc == "MU20" ||
 				 wc == "FU17" ||
-				 wc == "MU17" )
+				 wc == "MU17" ||
+				 wc == "MU16" ||
+				 wc == "FU16" ||
+				 wc == "MU19" ||
+				 wc == "FU19")
 			time = "2:00";
 		else // if( wc == "FU14" || wc == "MU14" )
 			time = "1:30";
@@ -1375,6 +1420,8 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 //=========================================================
 {
+	m_pController->SetWeightClass(s);
+
 	QString roundTime("0:00");
 	m_pUi->comboBox_weight->clear();
 	if( s == "MU14")
@@ -1387,6 +1434,16 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 		m_pUi->comboBox_weight->addItems(m_weight_fu14);
 		roundTime = "3:00";
 	}
+	else if( s == "MU16")
+	{
+		m_pUi->comboBox_weight->addItems(m_weight_mu16);
+		roundTime = "4:00";
+	}
+	else if( s == "FU16")
+	{
+		m_pUi->comboBox_weight->addItems(m_weight_fu16);
+		roundTime = "4:00";
+	}
 	else if( s == "MU17")
 	{
 		m_pUi->comboBox_weight->addItems(m_weight_mu17);
@@ -1395,6 +1452,16 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 	else if( s == "FU17")
 	{
 		m_pUi->comboBox_weight->addItems(m_weight_fu17);
+		roundTime = "4:00";
+	}
+	else if( s == "MU19")
+	{
+		m_pUi->comboBox_weight->addItems(m_weight_mu19);
+		roundTime = "4:00";
+	}
+	else if( s == "FU19")
+	{
+		m_pUi->comboBox_weight->addItems(m_weight_fu19);
 		roundTime = "4:00";
 	}
 	else if( s == "MU20")
@@ -1423,3 +1490,23 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 		m_pUi->comboBox_time->setCurrentIndex(index);
 }
 #endif //TEAM_VIEW else
+
+void MainWindow::on_actionVisit_Project_Homepage_triggered()
+{
+	QUrl url("http://ipponboard.origo.ethz.ch");
+	QDesktopServices::openUrl(url);
+}
+
+void MainWindow::on_actionOnline_Feedback_triggered()
+{
+	QUrl url("http://flo.mueckeimnetz.de/ipponboard/survay_en");
+	QDesktopServices::openUrl(url);
+}
+
+void MainWindow::on_actionContact_Author_triggered()
+{
+	QUrl url("mailto:dev@mueckeimnetz.de?"
+			 "subject=Ipponboard_v" + QCoreApplication::applicationVersion() +
+			 "&body=Please tell us what you want to know/suggest...");
+	QDesktopServices::openUrl(url);
+}

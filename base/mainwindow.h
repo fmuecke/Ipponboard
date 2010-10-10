@@ -102,7 +102,10 @@ private:
 #endif
 
 private slots:
-	void on_actionAbout_Ipponboard_triggered();
+	void on_actionContact_Author_triggered();
+ void on_actionOnline_Feedback_triggered();
+ void on_actionVisit_Project_Homepage_triggered();
+ void on_actionAbout_Ipponboard_triggered();
 	void on_actionTest_Gong_triggered();
 	void on_actionShow_SecondaryView_triggered();
 //	void on_actionSelect_Color_triggered();
@@ -173,6 +176,7 @@ private:
 	int m_buttonHansokumakeWhite;
 
 #ifndef TEAM_VIEW
+	QStringList m_weight_classes;
 	QStringList m_weight_mu14;
 	QStringList m_weight_fu14;
 	QStringList m_weight_mu17;
@@ -181,6 +185,11 @@ private:
 	QStringList m_weight_fu20;
 	QStringList m_weight_men;
 	QStringList m_weight_women;
+	QStringList m_weight_mu16;
+	QStringList m_weight_fu16;
+	QStringList m_weight_mu19;
+	QStringList m_weight_fu19;
+
 #endif
 };
 

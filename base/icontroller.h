@@ -33,13 +33,15 @@ public:
 	virtual const QString GetFighterLastName( Ipponboard::EFighter ) const = 0;
 	virtual const QString GetFighterFirstName( Ipponboard::EFighter ) const = 0;
 	virtual const QString GetFighterClub( Ipponboard::EFighter ) const = 0;
-	virtual const QString& GetWeightClass() const = 0;
+	virtual const QString& GetWeight() const = 0;
 	virtual const QString GetMessage() const = 0;
 	virtual const int GetTeamScore( Ipponboard::EFighter ) const = 0;
 	virtual void SetTimerValue( Ipponboard::ETimer timer, const QString& value ) = 0;
 	virtual void ResetTimerValue( Ipponboard::ETimer timer ) = 0;
 	virtual void SetRoundTime( const QString& value ) = 0;
 	virtual int GetRound() const = 0;
+	virtual void SetWeightClass(QString const& c) = 0;
+	virtual QString const& GetWeightClass() const = 0;
 };
 
 }

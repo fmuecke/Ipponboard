@@ -29,7 +29,7 @@
    <string>Ipponboard</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../base/ipponboard.qrc">
+   <iconset>
     <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
   </property>
   <property name="statusTip">
@@ -247,8 +247,11 @@
     <property name="title">
      <string>About</string>
     </property>
-    <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionAbout_Ipponboard"/>
+    <addaction name="separator"/>
+    <addaction name="actionVisit_Project_Homepage"/>
+    <addaction name="actionOnline_Feedback"/>
+    <addaction name="actionContact_Author"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -316,7 +319,7 @@
   </action>
   <action name="actionVisit_Project_Homepage">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Visit Project Homepage</string>
@@ -462,11 +465,19 @@
     <string>Drucken</string>
    </property>
   </action>
+  <action name="actionOnline_Feedback">
+   <property name="text">
+    <string>Provide Feedback (Online)</string>
+   </property>
+  </action>
+  <action name="actionContact_Author">
+   <property name="text">
+    <string>Contact Author</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../base/ipponboard.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>actionExit</sender>

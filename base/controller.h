@@ -58,13 +58,15 @@ public:
 	const QString GetFighterLastName( Ipponboard::EFighter ) const;
 	const QString GetFighterFirstName( Ipponboard::EFighter ) const;
 	const QString GetFighterClub( Ipponboard::EFighter who ) const;
-	const QString& GetWeightClass() const;
+	const QString& GetWeight() const;
 	const QString GetMessage() const;
 	const int GetTeamScore( Ipponboard::EFighter who ) const;
 	void SetTimerValue( Ipponboard::ETimer timer, const QString& value );
 	void ResetTimerValue( Ipponboard::ETimer timer );
 	void SetRoundTime( const QString& value );
-	virtual int GetRound() const;
+	int GetRound() const;
+	void SetWeightClass(QString const& c);
+	QString const& GetWeightClass() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 
 	void Gong() const;
 
@@ -153,6 +155,7 @@ private:
 	QString m_gongFile;
 	bool m_isSonoMama;
 	QTime m_roundTime;
+	QString m_weight_class;
 
 	// --- QAbstractItemModel ---
 	QString m_HeaderData[18];

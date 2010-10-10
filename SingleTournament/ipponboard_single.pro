@@ -14,14 +14,15 @@ SOURCES = ../base/clubmanager.cpp \
     ../base/controller.cpp \
     ../gamepad/gamepad.cpp \
     main.cpp \
-	../base/mainwindow.cpp \
+    ../base/mainwindow.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../base/score.cpp \
     ../base/settingsdlg.cpp \
     ../base/statemachine.cpp \
     ../base/tournamentmodel.cpp \
-    ../base/view.cpp
+    ../base/view.cpp \
+    ../widgets/splashscreen.cpp
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
@@ -31,7 +32,7 @@ HEADERS = ../base/pch.h \
     ../base/icontroller.h \
     ../base/icontrollercore.h \
     ../base/iview.h \
-	../base/mainwindow.h \
+    ../base/mainwindow.h \
     ../util/qstring_serialization.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
@@ -40,16 +41,18 @@ HEADERS = ../base/pch.h \
     ../base/statemachine.h \
     ../base/tournament.h \
     ../base/tournamentmodel.h \
-    ../base/view.h
+    ../base/view.h \
+    ../widgets/splashscreen.h
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
     ../base/settingsdlg.ui \
-	view_vertical_single.ui \
-	../base/view_horizontal.ui
+    view_vertical_single.ui \
+    ../base/view_horizontal.ui \
+    ../widgets/splashscreen.ui
 OTHER_FILES += 
 RESOURCES += ../base/ipponboard.qrc
 INCLUDEPATH += $$quote($$(BOOST))
 LIBPATH += $$quote($$(BOOST)/lib) \
-	$$quote($$(BOOST)/stage/lib)
+    $$quote($$(BOOST)/stage/lib)
 TRANSLATIONS = IpponboardS_en.ts \
-    IpponboardS_de.ts	
+    IpponboardS_de.ts

@@ -40,7 +40,7 @@ Controller::Controller()
 	, m_Tori(eFighter_Nobody)
 	, setPointsInOsaekomi(false)
 	, m_isSonoMama(false)
-	, m_roundTime(0,5,0,0)
+	, m_roundTime(0,4,0,0)
 //=========================================================
 {
 	m_pSM = new IpponboardSM();
@@ -386,7 +386,7 @@ const QString Controller::GetFighterClub( EFighter who ) const
 }
 
 //=========================================================
-const QString& Controller::GetWeightClass() const
+const QString& Controller::GetWeight() const
 //=========================================================
 {
 	return m_TournamentScores[m_currentTournament].at(m_currentMatch).weight;
@@ -465,6 +465,13 @@ int Ipponboard::Controller::GetRound() const
 //=========================================================
 {
 	return m_currentTournament * 10 + m_currentMatch + 1;
+}
+
+//=========================================================
+void Ipponboard::Controller::SetWeightClass(QString const& c)
+//=========================================================
+{
+	m_weight_class = c;
 }
 
 //=========================================================

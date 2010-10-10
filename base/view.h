@@ -59,7 +59,7 @@ public:
 	void SetTextColorWhite( const QColor& color, const QColor& bgColor );
 	void SetMainClockColor( const QColor& fgColor, const QColor& bgColor );
 	void SetMat( const QString& mat ) { m_mat = mat; }
-	void SetWeight( const QString& weight) { m_weight = weight; }
+	void SetWeight( const QString& weight) { m_weight = weight; } //TODO: move to controller !!
 
 
 protected:

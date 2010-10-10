@@ -187,10 +187,12 @@ void View::UpdateView()
 #ifdef TEAM_VIEW
 	ui->text_mat->SetText( tr("Fight ") +
 		QString::number(m_pController->GetRound()) );
-	ui->text_weight->SetText( m_pController->GetWeightClass() + " kg");
+	ui->text_weight->SetText(
+			//m_pController->GetWeightClass() + " " +
+			m_pController->GetWeight() + " kg");
 #else
 	ui->text_mat->SetText( m_mat.toUpper() );
-	ui->text_weight->SetText( m_weight.toUpper() );
+	ui->text_weight->SetText( m_pController->GetWeightClass() + " / " + m_weight.toUpper() );
 #endif
 	//
 	// fighter names

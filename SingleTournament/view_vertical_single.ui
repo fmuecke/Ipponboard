@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="cursor">
-   <cursorShape>CrossCursor</cursorShape>
+   <cursorShape>PointingHandCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>IpponBoard View</string>
