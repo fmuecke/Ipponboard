@@ -17,7 +17,7 @@ echo #define VERSIONINFO_HEADER_INCLUDED>>%FILENAME_NO_EXT%.tmp
 echo namespace VersionInfo>>%FILENAME_NO_EXT%.tmp
 echo {>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Revision = "$WCREV$";>>%FILENAME_NO_EXT%.tmp
-echo 	const char* const Date = "$WCDATE$";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const Date = "$WCNOW$";>>%FILENAME_NO_EXT%.tmp
 echo }>>%FILENAME_NO_EXT%.tmp
 echo #endif // VERSIONINFO_HEADER_INCLUDED>>%FILENAME_NO_EXT%.tmp
 

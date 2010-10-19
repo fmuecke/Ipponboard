@@ -1499,7 +1499,7 @@ void MainWindow::on_actionVisit_Project_Homepage_triggered()
 
 void MainWindow::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("http://flo.mueckeimnetz.de/ipponboard/survay_en");
+	QUrl url("http://flo.mueckeimnetz.de/ipponboard/survey_de");
 	QDesktopServices::openUrl(url);
 }
 

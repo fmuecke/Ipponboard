@@ -2,13 +2,17 @@
 # Project created by QtCreator 2009-12-22T21:25:43
 # -------------------------------------------------
 TARGET = Ipponboard
+
 TEMPLATE = app
+
 LANGUAGE = C++
+
 CONFIG += precompile_header
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
+
 SOURCES = ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
     ../base/controller.cpp \
@@ -23,6 +27,7 @@ SOURCES = ../base/clubmanager.cpp \
     ../base/tournamentmodel.cpp \
     ../base/view.cpp \
     ../widgets/splashscreen.cpp
+
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
@@ -43,16 +48,24 @@ HEADERS = ../base/pch.h \
     ../base/tournamentmodel.h \
     ../base/view.h \
     ../widgets/splashscreen.h
+
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
     ../base/settingsdlg.ui \
     view_vertical_single.ui \
     ../base/view_horizontal.ui \
     ../widgets/splashscreen.ui
+
 OTHER_FILES += 
+
 RESOURCES += ../base/ipponboard.qrc
+
 INCLUDEPATH += $$quote($$(BOOST))
+
 LIBPATH += $$quote($$(BOOST)/lib) \
     $$quote($$(BOOST)/stage/lib)
-TRANSLATIONS = IpponboardS_en.ts \
-    IpponboardS_de.ts
+
+TRANSLATIONS = ../i18n/Ipponboard_en.ts \
+    ../i18n/Ipponboard_de.ts
+
+win32:RC_FILE = ../base/ipponboard.rc

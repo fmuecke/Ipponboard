@@ -29,7 +29,7 @@
    <string>Ipponboard</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../base/ipponboard.qrc">
     <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
   </property>
   <property name="statusTip">
@@ -225,7 +225,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -406,7 +406,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Neu</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionSpeichern">
@@ -414,7 +414,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Speichern</string>
+    <string>Save</string>
    </property>
   </action>
   <action name="action_ffnen">
@@ -422,7 +422,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Öffnen</string>
+    <string>Open</string>
    </property>
   </action>
   <action name="actionVereine">
@@ -446,7 +446,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Liste importieren</string>
+    <string>Import List</string>
    </property>
   </action>
   <action name="actionListe_exportieren">
@@ -454,7 +454,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Liste exportieren</string>
+    <string>Export List</string>
    </property>
   </action>
   <action name="actionDrucken">
@@ -462,7 +462,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Drucken</string>
+    <string>Print</string>
    </property>
   </action>
   <action name="actionOnline_Feedback">
@@ -477,7 +477,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../base/ipponboard.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionExit</sender>
