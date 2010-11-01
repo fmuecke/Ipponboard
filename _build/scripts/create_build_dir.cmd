@@ -1,0 +1,1 @@
+MKDIR "%BUILD_DIR%"

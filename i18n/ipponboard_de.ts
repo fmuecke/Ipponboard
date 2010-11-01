@@ -537,10 +537,9 @@
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="31"/>
         <source>&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt und ist uneingeschränkt bis zum &lt;b&gt;31. März 2010&lt;/b&gt; lauffähig.&lt;/p&gt;&lt;p&gt;Sie darf in unmodifizierter Version unentgeltlich kopiert und verbreitet werden.&lt;/p&gt;&lt;p&gt;Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können.&lt;/p&gt;&lt;p&gt;Um uns detailliert weiterzuhelfen, bitten wir Sie denbeiligenden Fragebogen ausfüllen (&lt;em&gt;Menü&amp;rarr;Umfrage&lt;/em&gt;, dauert nicht lange!).&lt;/p&gt;&lt;p&gt;Die neueste Version gibt es aktuell immer im Netz unter:&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://flo.mueckeimnetz.de/ipponboard/&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;&lt;li&gt;(&lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;)&lt;/li&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</source>
         <translatorcomment>	</translatorcomment>
-        <translation>&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
+        <translation type="obsolete">&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
 und ist uneingeschränkt bis zum &lt;b&gt;31. März 2010&lt;/b&gt; lauffähig.&lt;/p&gt;
 &lt;p&gt;Sie darf in unmodifizierter Version unentgeltlich kopiert und verbreitet werden.&lt;/p&gt;
 &lt;p&gt;Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können.&lt;/p&gt;
@@ -553,20 +552,35 @@ und ist uneingeschränkt bis zum &lt;b&gt;31. März 2010&lt;/b&gt; lauffähig.&l
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="68"/>
-        <location filename="../SingleTournament/main.cpp" line="78"/>
+        <location filename="../SingleTournament/main.cpp" line="31"/>
+        <source>&lt;p&gt;This version is provided for testing purposes and can be used without any fee. It will stop working after &lt;b&gt;March 31st 2010&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;However, the unmodified version may be copied and distributed freely.&lt;/p&gt;&lt;p&gt;If you have improvements regardings the design (view, handling) or the controlling - please tell us! We would like to hear from you!&lt;/p&gt;&lt;p&gt;If you&apos;d like to help us improving the application please fill out the enclosed online survey (&lt;em&gt;Menu&amp;rarr;Survey&lt;/em&gt;) - it just takes a few secs!&lt;/p&gt;&lt;p&gt;The most recent version can be found on the following pages:&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://flo.mueckeimnetz.de/ipponboard/&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;em&gt;Thank you very much!&lt;/em&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
+und ist uneingeschränkt bis zum &lt;b&gt;31. März 2010&lt;/b&gt; lauffähig.&lt;/p&gt;
+&lt;p&gt;Sie darf in unmodifizierter Version unentgeltlich kopiert und verbreitet werden.&lt;/p&gt;
+&lt;p&gt;Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können.&lt;/p&gt;
+&lt;p&gt;Um uns detailliert weiterzuhelfen, bitten wir Sie den beiligenden Fragebogen ausfüllen (&lt;em&gt;Menü&amp;rarr;Umfrage&lt;/em&gt;, dauert nicht lange!).&lt;/p&gt;
+&lt;p&gt;Die neueste Version gibt es aktuell immer im Netz unter:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=\&quot;http://flo.mueckeimnetz.de/ipponboard/\&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=\&quot;http://ipponboard.origo.ethz.ch\&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/main.cpp" line="64"/>
+        <location filename="../SingleTournament/main.cpp" line="74"/>
         <source>Warning</source>
         <translation>Vorsicht</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="69"/>
+        <location filename="../SingleTournament/main.cpp" line="65"/>
         <source>This version is no longer valid!
 
 You need to visit the project webpage for an update.</source>
         <translation>Diese Version ist nicht mehr gültig! Bitte besuchen Sie die Projektseite um ein Update zu bekommen.</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="79"/>
+        <location filename="../SingleTournament/main.cpp" line="75"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project webpage - there should be a newer one available.</source>
@@ -684,7 +698,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
     <message>
         <location filename="../base/settingsdlg.ui" line="577"/>
         <source>Sound</source>
-        <translation>Klänge</translation>
+        <translation>Mattensignal</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.ui" line="592"/>

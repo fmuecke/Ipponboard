@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>684</width>
-    <height>373</height>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,15 +59,6 @@
          <attribute name="headerStretchLastSection">
           <bool>true</bool>
          </attribute>
-         <attribute name="headerDefaultSectionSize">
-          <number>110</number>
-         </attribute>
-         <attribute name="headerVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="headerStretchLastSection">
-          <bool>true</bool>
-         </attribute>
          <column>
           <property name="text">
            <string notr="true">1</string>
@@ -78,6 +69,16 @@
            <string notr="true">2</string>
           </property>
          </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>(C) Florian Mücke 2010 </string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -366,7 +367,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,1,0,1" columnstretch="0,0,0,0,0,0,0,0" rowminimumheight="0,1,0,1">
+        <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,1,0,1" columnstretch="0,0,0,0,0,0" rowminimumheight="0,1,0,1">
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
@@ -791,7 +792,7 @@
      <x>0</x>
      <y>0</y>
      <width>684</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

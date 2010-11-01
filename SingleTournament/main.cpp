@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	translator.load("Ipponboard_de");
 	a.installTranslator(&translator);
 
-	QCoreApplication::setApplicationVersion("0.4.2");
+	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
 	QCoreApplication::setApplicationName("Ipponboard");
