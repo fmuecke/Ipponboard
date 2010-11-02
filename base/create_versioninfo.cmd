@@ -3,7 +3,13 @@ REM --> CHANGE VERSION HERE:
 SET VER1=0
 SET VER2=4
 SET VER3=2
-SET VER4=0
+IF NOT EXIST buildnr (
+	SET VER4=0
+) ELSE (
+	SET /P VER4=<buildnr
+	SET /A VER4+=1 >nul
+)
+echo %VER4% >buildnr
 REM that's it. <--
 
 SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%

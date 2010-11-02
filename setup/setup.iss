@@ -29,10 +29,11 @@ AppPublisher=Florian Mücke
 AppPublisherURL=http://ipponboard.origo.ethz.ch/
 AppSupportURL=http://ipponboard.origo.ethz.ch/
 AppUpdatesURL=http://ipponboard.origo.ethz.ch/
+AppCopyright=Copyright (C) 2010 Florian Mücke
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=true
-OutputBaseFilename={#MyAppName} {#MySimpleAppVersion} setup
+OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
 ;OutputBaseFilename={#MyAppName} {#MyAppVersion} setup
 Compression=lzma/ultra
 SolidCompression=true
@@ -43,6 +44,7 @@ UninstallDisplayIcon={app}\Ipponboard.exe
 ;WizardImageFile=compiler:wizmodernimage-IS.bmp
 WizardImageFile=images\install_bg.bmp
 WizardSmallImageFile=compiler:wizmodernsmallimage-IS.bmp
+VersionInfoVersion={#MyAppVersion}
 
 [Languages]
 ;Name: "en"; MessagesFile: "compiler:Default.isl,compiler:MyMessages.isl"

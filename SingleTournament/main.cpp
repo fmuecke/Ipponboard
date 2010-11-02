@@ -9,14 +9,34 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	QTranslator translator;
-	translator.load("Ipponboard_de");
-	a.installTranslator(&translator);
-
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
 	QCoreApplication::setApplicationName("Ipponboard");
+
+	QLocale locale;
+	QString langStr = ( locale.language() == QLocale::German ) ?
+							QLatin1String("de") : QLatin1String("en");
+
+	if( langStr != QLatin1String("en") )
+	{
+		const QString& langPath =
+				QCoreApplication::applicationDirPath();// + QLatin1String("/lang");
+
+		QTranslator translator;
+		langStr = QCoreApplication::applicationName() + QLatin1String("_") + langStr;
+		if( translator.load(langStr, langPath) )
+		{
+			a.installTranslator(&translator);
+		}
+		else
+		{
+			QMessageBox::critical(nullptr,
+								  QCoreApplication::applicationName(),
+								  "Unable to read language file: " + langStr +
+								  "\nThe default language is being used.");
+		}
+	}
 
 	QString text = QString(
 		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd\">"
@@ -30,7 +50,7 @@ int main(int argc, char *argv[])
 
 	text += QCoreApplication::tr(
 		"<p>This version is provided for testing purposes and can be used without any fee. "
-		"It will stop working after <b>March 31st 2010</b>.</p>"
+		"It will stop working after <b>March 31st 2011</b>.</p>"
 		"<p>However, the unmodified version may be copied and distributed freely.</p>"
 		"<p>If you have improvements regardings the design (view, handling) or the controlling - please tell us! "
 		"We would like to hear from you!</p>"
@@ -51,13 +71,13 @@ int main(int argc, char *argv[])
 					  + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2010, 3, 31);
+	splashData.date = QDate(2011, 3, 31);
 	SplashScreen splash(splashData);
 
 	if( QDialog::Accepted != splash.exec() )
 	return 0;
 
-	const int days_left = splashData.date.daysTo(QDate::currentDate());
+	const int days_left = QDate::currentDate().daysTo(splashData.date);
 	if( days_left <= 0 )
 	{
 		QMessageBox::warning(0,
