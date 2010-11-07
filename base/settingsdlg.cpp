@@ -16,7 +16,7 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 {
 	ui->setupUi(this);
 
-	ui->text_text_sample->SetText("Ipponboard");
+	ui->text_text_sample->SetText("IPPONBOARD");
 	ui->text_color_blue->SetText(tr("Blue"));
 	ui->text_color_white->SetText(tr("White"));
 	ui->text_digit_sample->SetText("3:24");
@@ -508,4 +508,19 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_white_pressed()
 	col = QColorDialog::getColor( col, this );
 	if( col.isValid() )
 		ui->text_color_white->SetColor(ui->text_color_white->GetColor(),col);
+}
+
+void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
+{
+	QFont f = ui->text_text_sample->font();
+	f.setBold(checked);
+	ui->text_text_sample->SetFont(f);
+
+}
+
+void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
+{
+	QFont f = ui->text_text_sample->font();
+	f.setItalic(checked);
+	ui->text_text_sample->SetFont(f);
 }

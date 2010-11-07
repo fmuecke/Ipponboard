@@ -82,6 +82,9 @@ Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shell
 [Registry]
 Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey; Languages: en de
 Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey; Languages: en de
-Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "de"; Flags: uninsdeletekeyifempty; Languages: de
-Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "en"; Flags: uninsdeletekeyifempty; Languages: en
+;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "de"; Flags: uninsdeletekeyifempty; Languages: de
+;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "en"; Flags: uninsdeletekeyifempty; Languages: en
 
+[INI]
+Filename: {app}\Ipponbaord.ini; Section: Main; Key: Language; String: de; Flags: createkeyifdoesntexist; Tasks: ; Languages: de
+Filename: {app}\Ipponbaord.ini; Section: Main; Key: Language; String: en; Flags: createkeyifdoesntexist; Tasks: ; Languages: en

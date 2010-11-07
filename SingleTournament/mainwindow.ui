@@ -263,10 +263,21 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <widget class="QMenu" name="menuLanguages">
+     <property name="toolTip">
+      <string>Select program language</string>
+     </property>
+     <property name="title">
+      <string>Language</string>
+     </property>
+     <addaction name="actionLang_Deutsch"/>
+     <addaction name="actionLang_English"/>
+    </widget>
     <addaction name="separator"/>
     <addaction name="actionTest_Gong"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
+    <addaction name="menuLanguages"/>
    </widget>
    <widget class="QMenu" name="menuManage">
     <property name="enabled">
@@ -341,7 +352,7 @@
     <string>Show Secondary View</string>
    </property>
    <property name="toolTip">
-    <string>Show secondary view</string>
+    <string>Toggles secodary screen view</string>
    </property>
    <property name="shortcut">
     <string>F2</string>
@@ -430,7 +441,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Vereine</string>
+    <string>Clubs</string>
    </property>
   </action>
   <action name="actionListen">
@@ -438,7 +449,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Listen</string>
+    <string>Lists</string>
    </property>
   </action>
   <action name="actionListe_importieren">
@@ -473,6 +484,37 @@
   <action name="actionContact_Author">
    <property name="text">
     <string>Contact Author</string>
+   </property>
+  </action>
+  <action name="actionLang_English">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">English</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">English</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Choose English as program language</string>
+   </property>
+  </action>
+  <action name="actionLang_Deutsch">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Deutsch</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">Deutsch</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Deutsch als Programmsprache wählen</string>
    </property>
   </action>
  </widget>

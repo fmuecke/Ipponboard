@@ -27,54 +27,54 @@ namespace FMlib {
 typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 
 #ifdef TEAM_VIEW
-	const char* const str_ini_name = "IpponBoardT.ini";
+	static const char* const str_ini_name = "IpponBoardT.ini";
 #else
-	const char* const str_ini_name = "IpponBoard.ini";
+	static const char* const str_ini_name = "IpponBoard.ini";
 #endif
 
-const char* const str_golden_score = "Golden Score";
-const char* const str_tag_Main = "Main";
-const char* const str_tag_size = "size";
-const char* const str_tag_pos = "pos";
-const char* const str_tag_SecondScreen = "SecondScreen";
-const char* const str_tag_SecondScreenSize = "SecondScreenSize";
-const char* const str_tag_AutoSize = "AutoSize";
-const char* const str_tag_AlwaysShow = "AlwaysShow";
-const char* const str_tag_Fonts = "Fonts";
-const char* const str_tag_TextFont1 = "TextFont1";
-const char* const str_tag_DigitFont = "DigitFont";
-const char* const str_tag_Colors = "Colors";
-const char* const str_tag_InfoTextColor = "InfoTextColor";
-const char* const str_tag_InfoTextBgColor = "InfoTextBgColor";
-const char* const str_tag_TextColorBlue = "TextColorBlue";
-const char* const str_tag_TextBgColorBlue = "TextBgColorBlue";
-const char* const str_tag_TextColorWhite = "TextColorWhite";
-const char* const str_tag_TextBgColorWhite = "TextBgColorWhite";
-const char* const str_tag_MainClockColorRunning = "MainClockColorRunning";
-const char* const str_tag_MainClockColorStopped = "MainClockColorStopped";
-const char* const str_tag_Styles = "Styles";
-const char* const str_tag_BgStyle = "BackgroundStyle";
-const char* const str_tag_Input = "Input";
-const char* const str_tag_buttonHajimeMatte = "ButtonHajimeMatte";
-const char* const str_tag_buttonOsaekomiToketa = "ButtonOsaekomiToketa";
-const char* const str_tag_buttonNext = "ButtonNext";
-const char* const str_tag_buttonPrev = "ButtonPrev";
-const char* const str_tag_buttonPause = "ButtonPause";
-const char* const str_tag_buttonReset = "ButtonReset";
-const char* const str_tag_buttonReset2 = "ButtonReset2";
-const char* const str_tag_buttonResetHold = "ButtonResetHold";
-const char* const str_tag_buttonResetHold2 = "ButtonResetHold2";
-const char* const str_tag_buttonBlueHolding = "ButtonBlueHolding";
-const char* const str_tag_buttonWhiteHolding = "ButtonWhiteHolding";
-const char* const str_tag_buttonHansokumakeBlue = "ButtonHansokumakeBlue";
-const char* const str_tag_buttonHansokumakeWhite = "ButtonHansokumakeWhite";
-const char* const str_tag_invertX = "InvertX";
-const char* const str_tag_invertY = "InvertY";
-const char* const str_tag_invertR = "InvertR";
-const char* const str_tag_invertZ = "InvertZ";
-const char* const str_tag_Sounds = "Sounds";
-const char* const str_tag_sound_time_ends = "TimeEnds";
-
+static const char* const str_golden_score = "Golden Score";
+static const char* const str_tag_Main = "Main";
+static const char* const str_tag_size = "size";
+static const char* const str_tag_pos = "pos";
+static const char* const str_tag_SecondScreen = "SecondScreen";
+static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
+static const char* const str_tag_AutoSize = "AutoSize";
+static const char* const str_tag_AlwaysShow = "AlwaysShow";
+static const char* const str_tag_Language = "Language";
+static const char* const str_tag_Fonts = "Fonts";
+static const char* const str_tag_TextFont1 = "TextFont1";
+static const char* const str_tag_DigitFont = "DigitFont";
+static const char* const str_tag_Colors = "Colors";
+static const char* const str_tag_InfoTextColor = "InfoTextColor";
+static const char* const str_tag_InfoTextBgColor = "InfoTextBgColor";
+static const char* const str_tag_TextColorBlue = "TextColorBlue";
+static const char* const str_tag_TextBgColorBlue = "TextBgColorBlue";
+static const char* const str_tag_TextColorWhite = "TextColorWhite";
+static const char* const str_tag_TextBgColorWhite = "TextBgColorWhite";
+static const char* const str_tag_MainClockColorRunning = "MainClockColorRunning";
+static const char* const str_tag_MainClockColorStopped = "MainClockColorStopped";
+static const char* const str_tag_Styles = "Styles";
+static const char* const str_tag_BgStyle = "BackgroundStyle";
+static const char* const str_tag_Input = "Input";
+static const char* const str_tag_buttonHajimeMatte = "ButtonHajimeMatte";
+static const char* const str_tag_buttonOsaekomiToketa = "ButtonOsaekomiToketa";
+static const char* const str_tag_buttonNext = "ButtonNext";
+static const char* const str_tag_buttonPrev = "ButtonPrev";
+static const char* const str_tag_buttonPause = "ButtonPause";
+static const char* const str_tag_buttonReset = "ButtonReset";
+static const char* const str_tag_buttonReset2 = "ButtonReset2";
+static const char* const str_tag_buttonResetHold = "ButtonResetHold";
+static const char* const str_tag_buttonResetHold2 = "ButtonResetHold2";
+static const char* const str_tag_buttonBlueHolding = "ButtonBlueHolding";
+static const char* const str_tag_buttonWhiteHolding = "ButtonWhiteHolding";
+static const char* const str_tag_buttonHansokumakeBlue = "ButtonHansokumakeBlue";
+static const char* const str_tag_buttonHansokumakeWhite = "ButtonHansokumakeWhite";
+static const char* const str_tag_invertX = "InvertX";
+static const char* const str_tag_invertY = "InvertY";
+static const char* const str_tag_invertR = "InvertR";
+static const char* const str_tag_invertZ = "InvertZ";
+static const char* const str_tag_Sounds = "Sounds";
+static const char* const str_tag_sound_time_ends = "TimeEnds";
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
@@ -94,6 +94,7 @@ private:
 	void UpdateTextColorWhite_(const QColor& color, const QColor& bgColor);
 	void UpdateTextFont_(const QFont&);
 	void ShowHideView_() const;
+	void change_lang(bool beQuiet = false);
 #ifdef TEAM_VIEW
 	void UpdateMatchNumber_();
 	void UpdateViews_();
@@ -102,10 +103,12 @@ private:
 #endif
 
 private slots:
+	void on_actionLang_English_triggered(bool );
+	void on_actionLang_Deutsch_triggered(bool );
 	void on_actionContact_Author_triggered();
- void on_actionOnline_Feedback_triggered();
- void on_actionVisit_Project_Homepage_triggered();
- void on_actionAbout_Ipponboard_triggered();
+	void on_actionOnline_Feedback_triggered();
+	void on_actionVisit_Project_Homepage_triggered();
+	void on_actionAbout_Ipponboard_triggered();
 	void on_actionTest_Gong_triggered();
 	void on_actionShow_SecondaryView_triggered();
 //	void on_actionSelect_Color_triggered();
@@ -160,6 +163,7 @@ private:
 	bool m_bAlwaysShow;
 	bool m_bAutoSize;
 	QSize m_secondScreenSize;
+	QString m_Language;
 
 	int m_buttonHajimeMatte;
 	int m_buttonOsaekomiToketa;

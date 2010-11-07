@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 	, m_bAlwaysShow(true)
 	, m_bAutoSize(true)
 	, m_secondScreenSize()
+	, m_Language("en")
 	, m_buttonHajimeMatte(-1)
 	, m_buttonOsaekomiToketa(-1)
 	, m_buttonNext(-1)
@@ -137,6 +138,7 @@ MainWindow::MainWindow(QWidget *parent)
 		m_pUi->actionShow_SecondaryView->setChecked(true);
 		on_actionShow_SecondaryView_triggered();
 	}
+	change_lang(true);
 
 #ifdef TEAM_VIEW
 	m_pUi->dateEdit->setDate(QDate::currentDate());
@@ -168,120 +170,120 @@ MainWindow::MainWindow(QWidget *parent)
 	m_weight_classes.push_back("F");
 	m_pUi->comboBox_weight_class->addItems(m_weight_classes);
 
-	m_weight_mu14.push_back("-31 kg");
-	m_weight_mu14.push_back("-34 kg");
-	m_weight_mu14.push_back("-37 kg");
-	m_weight_mu14.push_back("-40 kg");
-	m_weight_mu14.push_back("-43 kg");
-	m_weight_mu14.push_back("-46 kg");
-	m_weight_mu14.push_back("-50 kg");
-	m_weight_mu14.push_back("-55 kg");
-	m_weight_mu14.push_back("-60 kg");
-	m_weight_mu14.push_back("+60 kg");
+	m_weight_mu14.push_back("-31");
+	m_weight_mu14.push_back("-34");
+	m_weight_mu14.push_back("-37");
+	m_weight_mu14.push_back("-40");
+	m_weight_mu14.push_back("-43");
+	m_weight_mu14.push_back("-46");
+	m_weight_mu14.push_back("-50");
+	m_weight_mu14.push_back("-55");
+	m_weight_mu14.push_back("-60");
+	m_weight_mu14.push_back("+60");
 
-	m_weight_fu14.push_back("-30 kg");
-	m_weight_fu14.push_back("-33 kg");
-	m_weight_fu14.push_back("-36 kg");
-	m_weight_fu14.push_back("-40 kg");
-	m_weight_fu14.push_back("-44 kg");
-	m_weight_fu14.push_back("-48 kg");
-	m_weight_fu14.push_back("-52 kg");
-	m_weight_fu14.push_back("-57 kg");
-	m_weight_fu14.push_back("-63 kg");
-	m_weight_fu14.push_back("+63 kg");
+	m_weight_fu14.push_back("-30");
+	m_weight_fu14.push_back("-33");
+	m_weight_fu14.push_back("-36");
+	m_weight_fu14.push_back("-40");
+	m_weight_fu14.push_back("-44");
+	m_weight_fu14.push_back("-48");
+	m_weight_fu14.push_back("-52");
+	m_weight_fu14.push_back("-57");
+	m_weight_fu14.push_back("-63");
+	m_weight_fu14.push_back("+63");
 
-	m_weight_mu17.push_back("-43 kg");
-	m_weight_mu17.push_back("-46 kg");
-	m_weight_mu17.push_back("-50 kg");
-	m_weight_mu17.push_back("-55 kg");
-	m_weight_mu17.push_back("-60 kg");
-	m_weight_mu17.push_back("-66 kg");
-	m_weight_mu17.push_back("-73 kg");
-	m_weight_mu17.push_back("-81 kg");
-	m_weight_mu17.push_back("-90 kg");
-	m_weight_mu17.push_back("+90 kg");
+	m_weight_mu17.push_back("-43");
+	m_weight_mu17.push_back("-46");
+	m_weight_mu17.push_back("-50");
+	m_weight_mu17.push_back("-55");
+	m_weight_mu17.push_back("-60");
+	m_weight_mu17.push_back("-66");
+	m_weight_mu17.push_back("-73");
+	m_weight_mu17.push_back("-81");
+	m_weight_mu17.push_back("-90");
+	m_weight_mu17.push_back("+90");
 
-	m_weight_fu17.push_back("-40 kg");
-	m_weight_fu17.push_back("-44 kg");
-	m_weight_fu17.push_back("-48 kg");
-	m_weight_fu17.push_back("-52 kg");
-	m_weight_fu17.push_back("-57 kg");
-	m_weight_fu17.push_back("-63 kg");
-	m_weight_fu17.push_back("-70 kg");
-	m_weight_fu17.push_back("-78 kg");
-	m_weight_fu17.push_back("+78 kg");
+	m_weight_fu17.push_back("-40");
+	m_weight_fu17.push_back("-44");
+	m_weight_fu17.push_back("-48");
+	m_weight_fu17.push_back("-52");
+	m_weight_fu17.push_back("-57");
+	m_weight_fu17.push_back("-63");
+	m_weight_fu17.push_back("-70");
+	m_weight_fu17.push_back("-78");
+	m_weight_fu17.push_back("+78");
 
-	m_weight_mu20.push_back("-55 kg");
-	m_weight_mu20.push_back("-60 kg");
-	m_weight_mu20.push_back("-66 kg");
-	m_weight_mu20.push_back("-73 kg");
-	m_weight_mu20.push_back("-81 kg");
-	m_weight_mu20.push_back("-90 kg");
-	m_weight_mu20.push_back("-100 kg");
-	m_weight_mu20.push_back("+100 kg");
+	m_weight_mu20.push_back("-55");
+	m_weight_mu20.push_back("-60");
+	m_weight_mu20.push_back("-66");
+	m_weight_mu20.push_back("-73");
+	m_weight_mu20.push_back("-81");
+	m_weight_mu20.push_back("-90");
+	m_weight_mu20.push_back("-100");
+	m_weight_mu20.push_back("+100");
 
-	m_weight_fu20.push_back("-44 kg");
-	m_weight_fu20.push_back("-48 kg");
-	m_weight_fu20.push_back("-52 kg");
-	m_weight_fu20.push_back("-57 kg");
-	m_weight_fu20.push_back("-63 kg");
-	m_weight_fu20.push_back("-70 kg");
-	m_weight_fu20.push_back("-78 kg");
-	m_weight_fu20.push_back("+78 kg");
+	m_weight_fu20.push_back("-44");
+	m_weight_fu20.push_back("-48");
+	m_weight_fu20.push_back("-52");
+	m_weight_fu20.push_back("-57");
+	m_weight_fu20.push_back("-63");
+	m_weight_fu20.push_back("-70");
+	m_weight_fu20.push_back("-78");
+	m_weight_fu20.push_back("+78");
 
-	m_weight_men.push_back("-60 kg");
-	m_weight_men.push_back("-66 kg");
-	m_weight_men.push_back("-73 kg");
-	m_weight_men.push_back("-81 kg");
-	m_weight_men.push_back("-90 kg");
-	m_weight_men.push_back("-100 kg");
-	m_weight_men.push_back("+100 kg");
+	m_weight_men.push_back("-60");
+	m_weight_men.push_back("-66");
+	m_weight_men.push_back("-73");
+	m_weight_men.push_back("-81");
+	m_weight_men.push_back("-90");
+	m_weight_men.push_back("-100");
+	m_weight_men.push_back("+100");
 
-	m_weight_women.push_back("-48 kg");
-	m_weight_women.push_back("-52 kg");
-	m_weight_women.push_back("-57 kg");
-	m_weight_women.push_back("-63 kg");
-	m_weight_women.push_back("-70 kg");
-	m_weight_women.push_back("-78 kg");
-	m_weight_women.push_back("+78 kg");
+	m_weight_women.push_back("-48");
+	m_weight_women.push_back("-52");
+	m_weight_women.push_back("-57");
+	m_weight_women.push_back("-63");
+	m_weight_women.push_back("-70");
+	m_weight_women.push_back("-78");
+	m_weight_women.push_back("+78");
 
-	m_weight_mu16.push_back("-40 kg");
-	m_weight_mu16.push_back("-43 kg");
-	m_weight_mu16.push_back("-46 kg");
-	m_weight_mu16.push_back("-50 kg");
-	m_weight_mu16.push_back("-55 kg");
-	m_weight_mu16.push_back("-60 kg");
-	m_weight_mu16.push_back("-66 kg");
-	m_weight_mu16.push_back("-73 kg");
-	m_weight_mu16.push_back("-81 kg");
-	m_weight_mu16.push_back("+81 kg");
+	m_weight_mu16.push_back("-40");
+	m_weight_mu16.push_back("-43");
+	m_weight_mu16.push_back("-46");
+	m_weight_mu16.push_back("-50");
+	m_weight_mu16.push_back("-55");
+	m_weight_mu16.push_back("-60");
+	m_weight_mu16.push_back("-66");
+	m_weight_mu16.push_back("-73");
+	m_weight_mu16.push_back("-81");
+	m_weight_mu16.push_back("+81");
 
-	m_weight_fu16.push_back("-40 kg");
-	m_weight_fu16.push_back("-44 kg");
-	m_weight_fu16.push_back("-48 kg");
-	m_weight_fu16.push_back("-52 kg");
-	m_weight_fu16.push_back("-57 kg");
-	m_weight_fu16.push_back("-63 kg");
-	m_weight_fu16.push_back("-70 kg");
-	m_weight_fu16.push_back("+70 kg");
+	m_weight_fu16.push_back("-40");
+	m_weight_fu16.push_back("-44");
+	m_weight_fu16.push_back("-48");
+	m_weight_fu16.push_back("-52");
+	m_weight_fu16.push_back("-57");
+	m_weight_fu16.push_back("-63");
+	m_weight_fu16.push_back("-70");
+	m_weight_fu16.push_back("+70");
 
-	m_weight_mu19.push_back("-55 kg");
-	m_weight_mu19.push_back("-60 kg");
-	m_weight_mu19.push_back("-66 kg");
-	m_weight_mu19.push_back("-73 kg");
-	m_weight_mu19.push_back("-81 kg");
-	m_weight_mu19.push_back("-90 kg");
-	m_weight_mu19.push_back("-100 kg");
-	m_weight_mu19.push_back("+100 kg");
+	m_weight_mu19.push_back("-55");
+	m_weight_mu19.push_back("-60");
+	m_weight_mu19.push_back("-66");
+	m_weight_mu19.push_back("-73");
+	m_weight_mu19.push_back("-81");
+	m_weight_mu19.push_back("-90");
+	m_weight_mu19.push_back("-100");
+	m_weight_mu19.push_back("+100");
 
-	m_weight_fu19.push_back("-44 kg");
-	m_weight_fu19.push_back("-48 kg");
-	m_weight_fu19.push_back("-52 kg");
-	m_weight_fu19.push_back("-57 kg");
-	m_weight_fu19.push_back("-63 kg");
-	m_weight_fu19.push_back("-70 kg");
-	m_weight_fu19.push_back("-78 kg");
-	m_weight_fu19.push_back("+78 kg");
+	m_weight_fu19.push_back("-44");
+	m_weight_fu19.push_back("-48");
+	m_weight_fu19.push_back("-52");
+	m_weight_fu19.push_back("-57");
+	m_weight_fu19.push_back("-63");
+	m_weight_fu19.push_back("-70");
+	m_weight_fu19.push_back("-78");
+	m_weight_fu19.push_back("+78");
 
 	// round times
 	m_pUi->comboBox_time->addItem("2:00");
@@ -375,6 +377,7 @@ void MainWindow::WriteSettings_()
 	settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
 	settings.setValue(str_tag_AutoSize, m_bAutoSize);
 	settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
+	settings.setValue(str_tag_Language, m_Language);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Fonts);
@@ -440,6 +443,7 @@ void MainWindow::ReadSettings_()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
+	m_Language = settings.value(str_tag_Language,"en").toString();
 	settings.endGroup();
 
 	// Fonts
@@ -1509,4 +1513,47 @@ void MainWindow::on_actionContact_Author_triggered()
 			 "subject=Ipponboard_v" + QCoreApplication::applicationVersion() +
 			 "&body=Please tell us what you want to know/suggest...");
 	QDesktopServices::openUrl(url);
+}
+
+void MainWindow::change_lang(bool beQuiet)
+{
+	// remove checks
+	QList<QAction*>::const_iterator iter =
+		m_pUi->menuLanguages->actions().begin();
+	while( iter != m_pUi->menuLanguages->actions().end() )
+	{
+			(*iter)->setChecked(false);
+		++iter;
+	}
+
+	// set check
+	if( "de" == m_Language )
+		m_pUi->actionLang_Deutsch->setChecked(true);
+	else if( "en" == m_Language )
+		m_pUi->actionLang_English->setChecked(true);
+
+	if( !beQuiet )
+	{
+		QMessageBox::information(this, QCoreApplication::applicationName(),
+			tr("Please restart the application so that the changes can take effect."));
+	}
+
+}
+
+void MainWindow::on_actionLang_Deutsch_triggered(bool val)
+{
+	if( val )
+	{
+		m_Language = "de";
+		change_lang();
+	}
+}
+
+void MainWindow::on_actionLang_English_triggered(bool val)
+{
+	if( val )
+	{
+		m_Language = "en";
+		change_lang();
+	}
 }

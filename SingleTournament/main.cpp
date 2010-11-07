@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include <QTranslator>
 #include <QMessageBox>
+#include <QSettings>
 #include "../base/mainwindow.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
@@ -14,17 +15,24 @@ int main(int argc, char *argv[])
 	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
 	QCoreApplication::setApplicationName("Ipponboard");
 
-	QLocale locale;
-	QString langStr = ( locale.language() == QLocale::German ) ?
-							QLatin1String("de") : QLatin1String("en");
+	// read language code
+	const QString ini(str_ini_name);
+	QSettings settings(ini, QSettings::IniFormat, &a);
+	settings.beginGroup(str_tag_Main);
+	QString langStr = settings.value(str_tag_Language,"en").toString();
+	settings.endGroup();
 
-	if( langStr != QLatin1String("en") )
+	//QLocale locale;
+	//QString langStr = ( locale.language() == QLocale::German ) ?
+	//						QString("de") : QString("en");
+
+	QTranslator translator;
+	if( langStr != QString("en") )
 	{
 		const QString& langPath =
-				QCoreApplication::applicationDirPath();// + QLatin1String("/lang");
+				QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
-		QTranslator translator;
-		langStr = QCoreApplication::applicationName() + QLatin1String("_") + langStr;
+		langStr = QCoreApplication::applicationName() + QString("_") + langStr;
 		if( translator.load(langStr, langPath) )
 		{
 			a.installTranslator(&translator);
@@ -96,6 +104,7 @@ int main(int argc, char *argv[])
 				"This version will stop to work in less than 30 days!\n\n"
 				"Please visit the project webpage - there should be a newer one available."));
 	}
+
 	MainWindow w;
 	w.show();
 

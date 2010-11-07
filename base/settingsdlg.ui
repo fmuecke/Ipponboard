@@ -293,8 +293,11 @@
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="toolTip">
+                 <string>Sets the foreground color</string>
+                </property>
                 <property name="text">
-                 <string>...(FG)</string>
+                 <string>FG...</string>
                 </property>
                 <property name="autoDefault">
                  <bool>false</bool>
@@ -303,7 +306,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="flat">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -324,11 +327,14 @@
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="toolTip">
+                 <string>Sets the background color</string>
+                </property>
                 <property name="text">
-                 <string>...(BG)</string>
+                 <string>BG...</string>
                 </property>
                 <property name="flat">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -371,14 +377,17 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Sets the foreground color</string>
+              </property>
               <property name="text">
-               <string>...(FG)</string>
+               <string>FG...</string>
               </property>
               <property name="autoDefault">
                <bool>false</bool>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -399,14 +408,17 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Sets the background color</string>
+              </property>
               <property name="text">
-               <string>...(BG)</string>
+               <string>BG...</string>
               </property>
               <property name="autoDefault">
                <bool>false</bool>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -438,14 +450,17 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Sets the foreground color</string>
+              </property>
               <property name="text">
-               <string>...(FG)</string>
+               <string>FG...</string>
               </property>
               <property name="autoDefault">
                <bool>false</bool>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -466,14 +481,17 @@
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Sets the background color</string>
+              </property>
               <property name="text">
-               <string>...(BG)</string>
+               <string>BG...</string>
               </property>
               <property name="autoDefault">
                <bool>false</bool>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -833,6 +851,9 @@
           </item>
           <item row="2" column="3">
            <widget class="QLabel" name="label_13">
+            <property name="toolTip">
+             <string>Both buttons need to be pressed at once</string>
+            </property>
             <property name="text">
              <string>(simultan)</string>
             </property>
@@ -850,6 +871,9 @@
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox_axes">
+         <property name="toolTip">
+          <string>Sometimes the axis direction of the gamepad is upside down. Check the respective boxes to correct that.</string>
+         </property>
          <property name="title">
           <string>Axes</string>
          </property>
@@ -932,6 +956,46 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>checkBox_open_secondary_view</tabstop>
+  <tabstop>comboBox_screen</tabstop>
+  <tabstop>checkBox_autosize_secondary_view</tabstop>
+  <tabstop>lineEdit_fixedsize_width</tabstop>
+  <tabstop>lineEdit_fixedsize_height</tabstop>
+  <tabstop>fontComboBox_text</tabstop>
+  <tabstop>checkBox_text_bold</tabstop>
+  <tabstop>checkBox_text_italic</tabstop>
+  <tabstop>toolButton_text_color</tabstop>
+  <tabstop>toolButton_text_background</tabstop>
+  <tabstop>toolButton_text_color_blue</tabstop>
+  <tabstop>toolButton_text_background_blue</tabstop>
+  <tabstop>toolButton_text_color_white</tabstop>
+  <tabstop>toolButton_text_background_white</tabstop>
+  <tabstop>fontComboBox_digit</tabstop>
+  <tabstop>checkBox_digits_bold</tabstop>
+  <tabstop>checkBox_digits_italic</tabstop>
+  <tabstop>comboBox_sound_time_ends</tabstop>
+  <tabstop>toolButton_play_gong</tabstop>
+  <tabstop>comboBox_next</tabstop>
+  <tabstop>comboBox_prev</tabstop>
+  <tabstop>comboBox_pause</tabstop>
+  <tabstop>comboBox_hajime_matte</tabstop>
+  <tabstop>comboBox_reset</tabstop>
+  <tabstop>comboBox_reset_2</tabstop>
+  <tabstop>comboBox_reset_hold</tabstop>
+  <tabstop>comboBox_reset_hold_2</tabstop>
+  <tabstop>comboBox_blue_holding</tabstop>
+  <tabstop>comboBox_white_holding</tabstop>
+  <tabstop>comboBox_hansokumake_blue</tabstop>
+  <tabstop>comboBox_hansokumake_white</tabstop>
+  <tabstop>checkBox_invert_x_axis</tabstop>
+  <tabstop>checkBox_invert_r_axis</tabstop>
+  <tabstop>checkBox_invert_y_axis</tabstop>
+  <tabstop>checkBox_invert_z_axis</tabstop>
+  <tabstop>buttonBox_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

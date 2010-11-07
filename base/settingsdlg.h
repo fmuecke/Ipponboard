@@ -97,6 +97,8 @@ private slots:
 
 
 private slots:
+	void on_checkBox_text_italic_toggled(bool checked);
+	void on_checkBox_text_bold_toggled(bool checked);
 	void on_toolButton_text_background_white_pressed();
 	void on_toolButton_text_color_white_pressed();
 	void on_toolButton_text_background_blue_pressed();

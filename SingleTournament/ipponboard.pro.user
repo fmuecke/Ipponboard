@@ -54,7 +54,7 @@
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.1" type="QVariantMap">
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
-     <value key="ProjectExplorer.ProcessStep.Command" type="QString">C:\dev\ipponboard\branches\0.4.0\base\create_versioninfo.cmd</value>
+     <value key="ProjectExplorer.ProcessStep.Command" type="QString">C:\dev\ipponboard\branch-0.4\base\create_versioninfo.cmd</value>
      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
      <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">C:\dev\ipponboard\branches\0.4.0\base</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Update Version Info</value>
@@ -88,8 +88,8 @@
     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qt in PATH Release</value>
     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.Qt4BuildConfiguration</value>
     <value key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration" type="int">0</value>
-    <value key="Qt4ProjectManager.Qt4BuildConfiguration.BuildDirectory" type="QString">C:/dev/ipponboard/branches/0.4.0/ipponboard-build-desktop</value>
-    <value key="Qt4ProjectManager.Qt4BuildConfiguration.QtVersionId" type="int">2</value>
+    <value key="Qt4ProjectManager.Qt4BuildConfiguration.BuildDirectory" type="QString">c:/dev/ipponboard/branch-0.4/SingleTournament/release</value>
+    <value key="Qt4ProjectManager.Qt4BuildConfiguration.QtVersionId" type="int">14</value>
     <value key="Qt4ProjectManager.Qt4BuildConfiguration.ToolChain" type="int">3</value>
     <value key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild" type="bool">false</value>
    </valuemap>
