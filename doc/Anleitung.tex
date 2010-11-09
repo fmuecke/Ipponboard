@@ -103,6 +103,13 @@
 %	BoldItalicFont=Vollkorn-BoldItalic.ttf]
 %{Vollkorn-Regular.ttf}
 
+\addto\captionsngerman{
+	%\renewcommand{\bibname}{Literatur} % Literaturverzeichnis wird zu Literatur
+	%\renewcommand{\listfigurename}{Bildverzeichnis}
+	\renewcommand{\figurename}{Abb.}%
+	\renewcommand{\figureautorefname}{Abb.} %f³r \autoref
+	\renewcommand{\tablename}{Tab.}%
+}
 
 \newcommand*{\IB}{\begingroup{\fontspec{Cuprum}\selectfont\textsc{Ipponboard}} \endgroup}
 \newcommand*{\IBVersion}{0.4.2}
@@ -150,7 +157,7 @@
 \renewcommand\thefootnote{\arabic{footnote}}
 \makeatother
 
-\title{{\IB} Anzeigesystem}
+\title{{\IB} Wettkampfanzeige}
 \subtitle{Version \IBVersion}
 %\author{Florian Mücke}
 \date{\today}
@@ -208,24 +215,24 @@ Verwendete Bibliotheken:
 
 Weitere Informationen findet ihr in der \texttt{Lizenz.txt}-Datei.
 
-\mybox{\textbf{Hinweis:} {\IB} darf frei auf beliebig vielen Rechnern innerhalb des Testzeitraums verwendet und das Programm in unveränderter Form auch unentgeltlich an dritte weitergeben werden.}
+\mybox{\textbf{Hinweis:} \IB darf frei auf beliebig vielen Rechnern innerhalb des Testzeitraums verwendet und das Programm in unveränderter Form unentgeltlich an dritte weitergeben werden.}
 }
 
 \newpage
 \section{(System-)Voraussetzungen}
-Um das \IB Anzeigesystem nutzen zu können gelten folgende Hard- und Softwareanforderungen:
+Um die \IB Wettkampfanzeige nutzen zu können gelten folgende Hard- und Softwareanforderungen:
 \begin{itemize}
 	\item Computer mit mind. Windows\texttrademark XP, der über einen zweiten Monitoranschluss verfügt (vorzugsweise ein Laptop)
-	\item Fernseher oder großen Computerbildschirm für die Anzeige
+	\item Fernseher oder großen Computerbildschirm für die sekundäre Anzeige
 	\item Verbindungskabel Computer $\leftrightarrow$ Zweitbildschirm
 	\item USB-Gamepad zur Steuerung der Anzeige (z.B.\,Saitek P380)
-	\item optional: Lautsprecher für das Mattensignal
+	\item optional: Lautsprecher für das Mattensignal (kann aber auch per Audiokabel über den Fernseher wiedergegeben werden)
 \end{itemize}
 
 \newpage
 \section{Kontakt}
 \paragraph{Eure Meinung zählt!}
-Wir finden zwar, dass das \IB Anzeigesystem schon ziemlich toll ist, trotzdem ist es sicher nicht fehlerlos und an der einen oder anderen Ecke bestimmt auch verbesserbar. \textit{Bitte helft mit \IB zu verbessern!}
+Wir finden zwar, dass das \IB Anzeigesystem schon ziemlich toll ist, trotzdem ist es sicher nicht fehlerlos und an der einen oder anderen Ecke bestimmt noch nicht perfekt. \textit{Bitte helft mit \IB zu verbessern!}
 
 \begin{itemize}
 	\item[$\Rightarrow$] bringt eure Ideen und Vorschläge ein
@@ -237,13 +244,13 @@ Wir haben speziell zu diesem Zweck ein Umfrage-Formular im Web bereitgestellt. D
 \begin{quote}
 	\url{http://flo.mueckeimnetz.de/ipponboard/survay_de/}
 \end{quote}
-{\parindent 0pt\textit{Bitte macht von diesen Möglichkeiten Gebrauch!}}
+{\parindent 0pt\textit{Bitte macht von dieser Möglichkeit Gebrauch!}}
 
 \paragraph{Aktuelle Version}
-Bitte nutzen Sie stets die aktuellste Version. Sobald es eine neuere Version gibt, wird diese im Internet bereitgestellt. Sie kann auf den Projektseiten heruntergeladen werden.
+Es ist ratsam stets die aktuellste Version zu verwenden. Sobald es eine neuere Version gibt, wird diese im Internet auf den Projektseiten zum Download bereitgestellt. Die neue Version beinhaltet i.d.R. Verbesserungen und Fehlerkorrekturen\footnote{Die genauen Änderungen zur jeweiligen Vorgängerversion sind auf der Projektseite im Internet aufgelistet.}. 
 
 \paragraph{Kontakt}
-Fragen oder Verbesserungsvorschläge für das \IB Anzeigesystem können an die folgenden Stellen gerichtet werden:
+Fragen oder Verbesserungsvorschläge die \IB Wettkampfanzeige betreffend können an die folgenden Stellen gerichtet werden:
 \begin{itemize}
 	\item deutsche Projektseite des Autors:\\\url{http://flo.mueckeimnetz.de/ipponboard}
 	\item englische Projektseite (Bugtracking, Download, News, ...):\\\url{http://ipponboard.origo.ethz.ch/}
@@ -256,39 +263,41 @@ Mein besonderer Dank gilt folgenden Leuten:
 \begin{itemize}
 	\item Heini Schäfer  für die Idee, den Ansporn, die Kritik und das Know-How
 	\item Meiner Frau Anja für ihre Geduld
-	\item Christophe Henry für MSM Bibliothek (jetzt: boost msm)
+	\item Christophe Henry für die Meta State Machine (MSM) Bibliothek (jetzt: \href{http://www.boost.org/doc/libs/release/libs/msm/index.html}{boost msm})
 	\item Nokia/Trolltech für die Qt Bibliothek
 	\item ETH Zürich für Origo subversion project hosting
 \end{itemize}
 
-sowie folgenden Vereinen für Vertrauen und Feedback:
+sowie folgenden Vereinen für ihr Vertrauen und ihr Feedback sowie deren Unterstützung:
 \begin{itemize}
 	\item TSV Königsbrunn
 	\item Post SV Telekom Augsburg
 	\item TSV Peiting
+	\item Judoclub Münchberg
+	\item Post SV Bamberg
 	\item \dots
 \end{itemize}
 
 
 
 \chapter{Programmbeschreibung}
-{\IB} ist ein fortschrittliches Anzeigesystem für die Kampfzeit und die Kampfpunkte, das speziell für den Judowettkampf entwickelt wurde. Bei der Entwicklung wird auf die folgenden Punkte besonderes Augenmerk gelegt:
+\IB ist ein fortschrittliches Kampfzeit- und Kampfpunkt-Anzeigesystem, das speziell für den Judowettkampf entwickelt wurde. Bei der Entwicklung wird auf die folgenden Punkte besonderes Augenmerk gelegt:
 \begin{itemize}
 	\item ausgezeichnete Lesbarkeit
 	\item einfache Bedienung
 	\item unkomplizierter Einsatz
 \end{itemize}
 
-Das Programm wird prinzipiell von einem PC (Laptop) aus bedient und mit Maus oder Gamepad gesteuert. {\IB} verwaltet zwei Anzeigen, eine externe für die Kämpfer~/~Betreuer~/~Publikum und eine für die Zeitnehmer. Die Anzeige der Zeitnehmer ist dabei gespiegelt, damit sie den Kämpfern besser zugeordnet werden kann.
+Das Programm wird prinzipiell von einem PC (Laptop) aus bedient und mit Gamepad oder Maus gesteuert. \IB nutzt zur Darstellung zwei Anzeigen, eine externe für die Kämpfer, Betreuer, Publikum und eine für die Zeitnehmer. Die Anzeige der Zeitnehmer ist dabei gespiegelt dargestellt, damit sie den Kämpfern besser zugeordnet werden kann.
 
 \section{Anzeige(n)}
 Die Anzeige besteht im Wesentlichen aus fünf Bereichen:
 \begin{itemize}
 	\item \textit{Kampfzeit}: Diese befindet sich am unteren Rand der Anzeige. Ist der Kampf unterbrochen wird die Kampfzeit \textit{rot} dargestellt, ansonsten \textit{gelb}.
-	\item \textit{Wertungen}: Die Wertungen sind auf der Seite des jeweiligen Kämpfers gruppiert und in der jeweiligen Farbkombination gehalten (Weiß auf Blau bzw. Schwarz auf Weiß). Die Strafen sind durch rote Punkte symbolisiert.
-	\item \textit{Haltegriffzeit}
+	\item \textit{Wertungen}: Die Wertungen sind auf der Seite des jeweiligen Kämpfers gruppiert und in der jeweiligen Farbkombination gehalten (\textit{Weiß auf Blau} bzw.\textit{ Schwarz auf Weiß}). Die Strafen sind durch \textit{rote Punkte} symbolisiert.
+	\item \textit{Haltegriffzeit}: Die noch zu haltende Zeit wird im oberen Bereich dargestellt und ist durch eine Sanduhr symbolisiert. Die Farben werden dabei dem Haltenden zugeordnet.
 	\item \textit{Kampfinformationen} (Mattennummer, aktuelle Gewichtsklasse)
-	\item \textit{Namen} der Kämpfer
+	\item \textit{Namen der Kämpfer} (können auch leer gelassen werden)
 \end{itemize}
 
 \subsection[Primäre Anzeige]{Primäre Anzeige}
@@ -320,7 +329,6 @@ Im Unterschied zur primären Anzeige werden auf der sekundären nur die für das
 
 Eine weitere Einschränkung der sekundären Anzeige ist, dass sie bewusst nicht auf Eingaben mit der Maus reagiert.
 Ob die zweite Anzeige beim Programmstart gleich angezeigt werden soll, oder auf welchem Bildschirm diese ausgegeben wird, lässt sich in den \textit{Programmeinstellungen} festlegen.
-
 Wie der Rechner für den Zweischirmbetrieb ("`Dual-View"') konfiguriert werden muss, kann im Anhang: \textit{Computer 
 für Zweischirmbetrieb vorbereiten} nachgelesen werden.
 
@@ -354,9 +362,9 @@ Neben den allgemeinen Optionen lassen sich im Einstellungsmenü auch die Knöpfe
 
 \chapter{Steuerung}
 
-{\IB} kann sowohl mit der Maus als auch mit dem Gamepad bedient werden\footnote{Die Steuerung über die Tastatur ist für spätere Versionen geplant.}. Damit das aktuell Kampfgeschehen möglichst unkompliziert und intuitiv wiedergegeben werden kann, lässt sich dieses vollständig mit einem der beiden Eingabegeräte
-steuern.
+{\IB} kann sowohl mit der Maus als auch mit dem Gamepad bedient werden\footnote{Die Steuerung über die Tastatur ist für spätere Versionen geplant.}. Damit das aktuell Kampfgeschehen möglichst unkompliziert und intuitiv wiedergegeben werden kann, lässt sich dieses vollständig mit einem der beiden Eingabegeräte steuern.
 
+\section{Gamepad-Steuerung}
 Die Steuerung über die Maus mag zunächst einfacher erscheinen, da dieses Eingabegerät für die meisten vertraut ist und man die Anzeige intuitiv via Klicks ansprechen kann.
 
 Unsere Erfahrungen haben jedoch gezeigt, dass mit dem Gamepad ein wesentlich entspannteres Bedienen als mit der Maus möglich ist. Daher möchten wir Ihnen die Steuerung mit dem Gamepad mit folgenden Gründen besonders ans Herz legen:
@@ -369,7 +377,7 @@ Unsere Erfahrungen haben jedoch gezeigt, dass mit dem Gamepad ein wesentlich ent
 
 	\item \textit{Volle Konzentration auf das Kampfgeschehen}
 	
-	Der Blick muss nicht ständig zwischen Anzeigetafel und Matte hin- und herwechseln. Punkte können direkt eingegeben werden und es muss nicht ständig der Mauszeiger gesucht und erst umständlich auf das Wertungssymbol geschoben werden. Ein Knopfdruck und ein gelegentlicher flüchtiger Kontrollblick reichen völlig aus.
+	Der Blick muss nicht ständig zwischen Anzeigetafel und Matte hin- und herwechseln. Punkte können direkt eingegeben werden und es muss nicht ständig der Mauszeiger gesucht und umständlich auf das Wertungssymbol geschoben werden. Ein Knopfdruck und ein gelegentlicher flüchtiger Kontrollblick reichen völlig aus.
 	
 	\item \textit{Entspannt zurücklehnen}
 	
@@ -381,7 +389,6 @@ Unsere Erfahrungen haben jedoch gezeigt, dass mit dem Gamepad ein wesentlich ent
 \end{enumerate}
 
 
-\section{Gamepad-Steuerung}
 \subsection{Aktionen}
 \paragraph{Punkte vergeben und zurücknehmen}
 {\begin{wrapfigure}{r}{0.3\textwidth}
@@ -414,10 +421,10 @@ Die Hauptzeit wird mittels der \emph{Nach-Unten}-Taste des Drehkreuzes des Gamep
 Die Haltegriffzeit wird in der Standardeinstellung durch Drücken der hinteren oberen Feuertaste (Knopf 7 und Knopf 8) gesetzt. Dabei ist die linke für den blauen und die rechte für den weißen Kämpfer. Durch nochmaliges Drücken der Haltegrifftaste wird der Haltegriff angehalten (Toketa). Wird die Taste des anderen Kämpfers gedrückt, wird die Zeit für diesen übernommen.
 
 \paragraph{Haltegriffzeit zurücksetzen}
-Die erste Version konnte die Zeit automatisch bei \emph{Hajime} oder erneutem \emph{Osaekomi} zurücksetzen. Da dies aber nicht unbedingt dem gewohnten Bedienverhalten einer Anzeige entspricht, wurde das Verhalten dahingehend geändert, dass die Haltegriffzeit nun manuell zurückgesetzt werden kann und muss. Dies erfolgt mit den hinteren unteren Feuertasten.
+Dies erfolgt mit den hinteren unteren Feuertasten. Dabei haben beide Tasten die selbe Funktion.\footnote{Die erste Version konnte die Zeit automatisch bei \emph{Hajime} oder erneutem \emph{Osaekomi} zurücksetzen. Da dies aber nicht dem gewohnten Bedienverhalten entspricht, wurde dies dahingehend geändert, dass die Haltegriffzeit nun manuell zurückgesetzt werden kann und muss.}
 
-\paragraph{ALLES zurücksetzen}
-Um alle Werte zurückzusetzen, müssen die dafür definierten Knöpfe \emph{gleichzeitig} gedrückt werden.
+\paragraph{Anzeige zurücksetzen}
+Um alle Werte zurückzusetzen, müssen die dafür definierten Knöpfe \emph{gleichzeitig} gedrückt werden (Knopf 1 + Knopf 4).
 
 \subsection{Tastenbelegung konfigurieren}
 \begin{figure}
@@ -433,8 +440,9 @@ Die aktuelle Belegung ist in Abbildung \ref{fig:Belegung} bildlich dargestellt.
 
 
 \section{Maus-Steuerung}
-Das Programm kann komplett mit der Maus gesteuert werden. Hierfür muss lediglich auf die jeweiligen Felder in der primären (eingebetteten) Anzeige oder auf die entsprechenden Knöpfe in der Oberfläche geklickt werden.
+Das Programm kann komplett mit der Maus gesteuert werden. Hierfür muss lediglich auf die jeweiligen Felder in der primären Anzeige oder auf die entsprechenden Knöpfe in der Oberfläche geklickt werden.
 
+\subsection{Aktionen}
 \paragraph{Punkte vergeben und zurücknehmen}
 Um Punkte zu vergeben bzw. diese wieder zurückzunehmen muss lediglich in das jeweilige Feld geklickt werden. Dabei gilt Folgendes:
 
@@ -444,13 +452,11 @@ Um Punkte zu vergeben bzw. diese wieder zurückzunehmen muss lediglich in das je
 \end{itemize}
 
 \paragraph{Zeit starten/stoppen (Hajime/Matte)}
-Die Kampfzeit kann mit Linksklick gestartet (gelb) und gestoppt (rot)werden.
+Die Kampfzeit kann mit Linksklick gestartet und gestoppt werden. Ist die Zeit angehalten ist sie \textit{rot}, läuft die Uhr dagegen ist sie \textit{gelb}.
 
 \paragraph{Haltegriffzeit starten/stoppen (Osaekomi / Toketa)}
-{Zum Starten der Haltezeit muss auf das "`00"'-Feld neben der Sanduhr geklickt werden. Der Haltegriff wird hierbei zunächst automatisch für Blau angezeigt. über das Kontextmenü dieses Feldes (Rechtsklick) kann der Haltegriff dann Weiß zugeordnet werden, falls nötig.}
-
+Zum Starten der Haltezeit muss auf das "`00"'-Feld neben der Sanduhr geklickt werden. Der Haltegriff wird hierbei zunächst automatisch für Blau angezeigt. über das Kontextmenü dieses Feldes (Rechtsklick) kann der Haltegriff dann Weiß zugeordnet werden, falls nötig.
 Erneutes Anklicken des Feldes mit links stoppt die Haltegriffzeit.
-
 Die Zeit wird jetzt so lange angezeigt, bis entweder erneut ein Haltegriff ausgelöst wird, oder die Hauptzeit nach Anhalten wieder läuft (=\emph{Hajime}).
 
 \section[Besonderheiten]{Besonderheiten}
@@ -459,15 +465,15 @@ Für \emph{Sono-mama} muss man während eines Haltegriffs Matte drücken. Die Ha
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=0.8\textwidth]{images/Ablaufdiagramm.jpg}
-	\caption{Ablaufdiagramm}
-	\label{fig:Ablaufdiagramm}
+	\caption{Zustandsdiagramm}
+	\label{fig:Zustandsdiagramm}
 \end{figure}
 
 %\clearpage
 \chapter{Anhang}
 \section[Computer für Zweischirmbetrieb vorbereiten]{Computer für Zweischirmbetrieb vorbereiten}
 \label{bkm:AnhangDualView}
-Beim Anschluss des zweiten Bildschirms mit dem Computer sind folgende Punkte unbedingt zu beachten:
+Beim der Konfiguration des zweiten Bildschirms am Computer sind folgende Punkte unbedingt zu beachten:
 \begin{itemize}
 	\item \textit{Desktop erweitern}
 	
@@ -475,7 +481,7 @@ Beim Anschluss des zweiten Bildschirms mit dem Computer sind folgende Punkte unb
 
 	\item \textit{Störungen abschalten}
 	
-	Bitte darauf achten, dass sich der Computer während der Benutzung nicht automatisch Schlafen legt (Standby) oder sich der Bildschirmschoner einschaltet. Dies kann bei neueren Computern erreicht werden, indem man diese in den Präsentationsmodus schaltet.
+	Bitte darauf achten, dass sich der Computer während der Benutzung nicht automatisch Schlafen legt (Standby) oder sich der Bildschirmschoner einschaltet. Dies kann bei neueren Computermodellen vermieden werden, indem man diese in den Präsentationsmodus schaltet.
 \end{itemize}
 
 \end{document}
