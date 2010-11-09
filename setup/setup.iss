@@ -86,5 +86,5 @@ Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Inst
 ;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "en"; Flags: uninsdeletekeyifempty; Languages: en
 
 [INI]
-Filename: {app}\Ipponbaord.ini; Section: Main; Key: Language; String: de; Flags: createkeyifdoesntexist; Tasks: ; Languages: de
-Filename: {app}\Ipponbaord.ini; Section: Main; Key: Language; String: en; Flags: createkeyifdoesntexist; Tasks: ; Languages: en
+Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Flags: createkeyifdoesntexist; Tasks: ; Languages: de
+Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Flags: createkeyifdoesntexist; Tasks: ; Languages: en
