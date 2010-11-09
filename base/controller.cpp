@@ -790,7 +790,9 @@ void Controller::UpdateHoldTime_()
 
 	*m_pTimeHold = m_pTimeHold->addSecs(1);
 	const int secs = m_pTimeHold->second();
-	if( 15 == secs || 20 == secs || 25 == secs )
+	if( eOsaekomiVal_Yuko == secs ||
+		eOsaekomiVal_Wazaari == secs ||
+		eOsaekomiVal_Ippon == secs )
 	{
 		m_pSM->process_event(IpponboardSM_::HoldTimeEvent( secs, m_Tori) );
 		m_State = EState(m_pSM->current_state()[0]);

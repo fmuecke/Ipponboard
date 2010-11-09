@@ -61,6 +61,8 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->image_hansokumake_blue->UpdateImage(":res/images/off.png");
 	ui->image_hansokumake_white->UpdateImage(":res/images/off.png");
 	ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
+	ui->dummy_blue->UpdateImage(":res/images/off_empty.png");
+	ui->dummy_white->UpdateImage(":res/images/off_empty.png");
 
 	QColor bgColor1 = GetColor_(blueBg);
 	QColor fgColor1 = GetColor_(blueFg);
@@ -331,6 +333,11 @@ void View::UpdateView()
 	ui->text_lastname_blue->SetText(text);
 	update();
 #endif
+
+	// Note: with update() the area is scheduled for a redraw
+	//       while repaint() does this immediately.
+	repaint();
+		// This is really important, or timer values are not redrawn!
 }
 
 //=========================================================
