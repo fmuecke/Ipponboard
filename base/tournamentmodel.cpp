@@ -321,7 +321,7 @@ std::pair<unsigned,unsigned> TournamentModel::GetTotalWins() const
 {
 	int wins1(0);
 	int wins2(0);
-	for(int i(0); i < Ipponboard::eTournament_MatchCount; ++i)
+	for(int i(0); i < Ipponboard::eTournament_FightCount; ++i)
 	{
 		wins1 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_Blue);
 		wins2 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_White);
@@ -335,7 +335,7 @@ std::pair<unsigned,unsigned> TournamentModel::GetTotalScore() const
 {
 	int score1(0);
 	int score2(0);
-	for(int i(0); i < Ipponboard::eTournament_MatchCount; ++i)
+	for(int i(0); i < Ipponboard::eTournament_FightCount; ++i)
 	{
 		score1 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_Blue);
 		score2 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_White);

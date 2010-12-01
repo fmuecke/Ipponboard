@@ -96,7 +96,7 @@ private:
 	void ShowHideView_() const;
 	void change_lang(bool beQuiet = false);
 #ifdef TEAM_VIEW
-	void UpdateMatchNumber_();
+	void UpdateFightNumber_();
 	void UpdateViews_();
 	void UpdateScoreScreen_();
 	void WriteScoreToHtml_();
