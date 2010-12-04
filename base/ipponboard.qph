@@ -60,4 +60,96 @@
     <source>(Neuer Eintrag)</source>
     <target></target>
 </phrase>
+<phrase>
+    <source>Add</source>
+    <target>Hinzufügen</target>
+</phrase>
+<phrase>
+    <source>Remove</source>
+    <target>Entfernen</target>
+</phrase>
+<phrase>
+    <source>Weight Classes</source>
+    <target>Gewichtsklassen</target>
+</phrase>
+<phrase>
+    <source>Up</source>
+    <target>Hoch</target>
+</phrase>
+<phrase>
+    <source>Down</source>
+    <target>Runter</target>
+</phrase>
+<phrase>
+    <source>Round Time</source>
+    <target>Rundenzeit</target>
+</phrase>
+<phrase>
+    <source>Round</source>
+    <target>Runde</target>
+</phrase>
+<phrase>
+    <source>Golden Score</source>
+    <target>Golden Score</target>
+</phrase>
+<phrase>
+    <source>Details</source>
+    <target>Details</target>
+</phrase>
+<phrase>
+    <source>Name</source>
+    <target>Name</target>
+</phrase>
+<phrase>
+    <source>City</source>
+    <target>Stadt</target>
+</phrase>
+<phrase>
+    <source>Address</source>
+    <target>Adresse</target>
+</phrase>
+<phrase>
+    <source>Update</source>
+    <target>Aktualisieren</target>
+</phrase>
+<phrase>
+    <source>Fight </source>
+    <target>Kampf </target>
+</phrase>
+<phrase>
+    <source>Fight </source>
+    <target>Kampf </target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target>Wert setzen</target>
+</phrase>
+<phrase>
+    <source>Ipponboard</source>
+    <target>Ipponboard</target>
+</phrase>
+<phrase>
+    <source>BREAK</source>
+    <target>PAUSE</target>
+</phrase>
+<phrase>
+    <source>START</source>
+    <target>START</target>
+</phrase>
+<phrase>
+    <source>FINISHED</source>
+    <target>FERTIG</target>
+</phrase>
+<phrase>
+    <source>Mat</source>
+    <target>Matte</target>
+</phrase>
+<phrase>
+    <source>Class</source>
+    <target>Klasse</target>
+</phrase>
+<phrase>
+    <source>Language</source>
+    <target>Sprache</target>
+</phrase>
 </QPH>

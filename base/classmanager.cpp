@@ -4,18 +4,17 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "../util/qstring_serialization.h"
 #include <boost/serialization/vector.hpp>
 #include <algorithm>
-
+#include <QMessageBox>
 
 using namespace Ipponboard;
 
-const char* const TournamentClassManager::str_fileName = "classes.xml";
-const char* const TournamentClassManager::str_defaultClass = "default";
+const char* const WeightClassManager::str_fileName = "classes.xml";
+const char* const WeightClassManager::str_defaultClass = "default";
 
 //---------------------------------------------------------
-TournamentClassManager::TournamentClassManager()
+WeightClassManager::WeightClassManager()
 	: m_Classes()
 //---------------------------------------------------------
 {
@@ -23,15 +22,15 @@ TournamentClassManager::TournamentClassManager()
 }
 
 //---------------------------------------------------------
-TournamentClassManager::~TournamentClassManager()
+WeightClassManager::~WeightClassManager()
 //---------------------------------------------------------
 {
 	SaveClasses_();
 }
 
 //---------------------------------------------------------
-bool TournamentClassManager::GetClass( int index,
-									   Ipponboard::TournamentClass& t ) const
+bool WeightClassManager::GetClass( int index,
+									   Ipponboard::WeightClass& t ) const
 //---------------------------------------------------------
 {
 	try
@@ -46,23 +45,24 @@ bool TournamentClassManager::GetClass( int index,
 }
 
 //---------------------------------------------------------
-bool TournamentClassManager::GetClass( QString const& name,
-									   Ipponboard::TournamentClass& c ) const
+bool WeightClassManager::GetClass( QString const& name,
+									   Ipponboard::WeightClass& c ) const
 //---------------------------------------------------------
 {
-	TournamentClassList::const_iterator iter =
+	WeightClassList::const_iterator iter =
 		std::find(m_Classes.begin(), m_Classes.end(), name );
-	if( iter == m_Classes.end() )
+
+	if( iter != m_Classes.end() )
 	{
-		return false;
+		c = *iter;
+		return true;
 	}
-	c = *iter;
-	return true;
+	return false;
 }
 
 
 //---------------------------------------------------------
-bool TournamentClassManager::HasClass( QString const& name ) const
+bool WeightClassManager::HasClass( QString const& name ) const
 //---------------------------------------------------------
 {
 	// We could use the new cpp0x lambda expression for that
@@ -71,13 +71,13 @@ bool TournamentClassManager::HasClass( QString const& name ) const
 	// return std::find_if( m_Classes.begin(), m_Classes.end(),
 	//		[name](TournamentClass t)->bool { return t.name == name; }
 
-	return std::find( m_Classes.begin(), m_Classes.end(),
-					  name) != m_Classes.end();
+	return std::find( m_Classes.begin(), m_Classes.end(), name )
+			!= m_Classes.end();
 }
 
 
 //---------------------------------------------------------
-void TournamentClassManager::AddClass( Ipponboard::TournamentClass const& t )
+void WeightClassManager::AddClass( Ipponboard::WeightClass const& t )
 //---------------------------------------------------------
 {
 	m_Classes.push_back(t);
@@ -85,23 +85,22 @@ void TournamentClassManager::AddClass( Ipponboard::TournamentClass const& t )
 
 
 //---------------------------------------------------------
-void TournamentClassManager::AddClass( QString const& name )
+void WeightClassManager::AddClass( QString const& name )
 //---------------------------------------------------------
 {
-	TournamentClass t = {0};
-	t.Init(name);
+	WeightClass t(name);
 	AddClass(t);
 }
 
 //---------------------------------------------------------
-void TournamentClassManager::UpdateClass( const Ipponboard::TournamentClass& t )
+void WeightClassManager::UpdateClass( const Ipponboard::WeightClass& t )
 //---------------------------------------------------------
 {
-	if( t.name.isEmpty() )
+	if( t.ToString().isEmpty() )
 		return;
 
-	TournamentClassList::iterator iter =
-		std::find(m_Classes.begin(), m_Classes.end(), t.name);
+	WeightClassList::iterator iter =
+		std::find(m_Classes.begin(), m_Classes.end(), t.ToString());
 
 	if( iter == m_Classes.end() )
 		Q_ASSERT(!"Critical: tournament class not in list!");
@@ -110,10 +109,10 @@ void TournamentClassManager::UpdateClass( const Ipponboard::TournamentClass& t )
 }
 
 //---------------------------------------------------------
-void TournamentClassManager::RemoveClass( QString const& name )
+void WeightClassManager::RemoveClass( QString const& name )
 //---------------------------------------------------------
 {
-	TournamentClassList::iterator iter =
+	WeightClassList::iterator iter =
 		std::find(m_Classes.begin(), m_Classes.end(), name);
 
 	if( iter == m_Classes.end() )
@@ -123,7 +122,7 @@ void TournamentClassManager::RemoveClass( QString const& name )
 }
 
 //---------------------------------------------------------
-void TournamentClassManager::LoadClasses_()
+void WeightClassManager::LoadClasses_()
 //---------------------------------------------------------
 {
 	// open the archive
@@ -155,7 +154,7 @@ void TournamentClassManager::LoadClasses_()
 }
 
 //---------------------------------------------------------
-void TournamentClassManager::SaveClasses_()
+void WeightClassManager::SaveClasses_()
 //---------------------------------------------------------
 {
 	// make an archive
@@ -168,14 +167,13 @@ void TournamentClassManager::SaveClasses_()
 	else
 	{
 		QMessageBox::critical(0, QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to save ") +
-					str_fileName + "!"));
+			QString(QObject::tr("Unable to save ") + str_fileName + "!"));
 	}
 	ofs.close();
 }
 
 //---------------------------------------------------------
-bool TournamentClassManager::ClassesFromString( std::string const& s )
+bool WeightClassManager::ClassesFromString( std::string const& s )
 //---------------------------------------------------------
 {
 	// open the archive
@@ -200,7 +198,7 @@ bool TournamentClassManager::ClassesFromString( std::string const& s )
 
 
 //---------------------------------------------------------
-std::string const TournamentClassManager::ClassesToString()
+std::string const WeightClassManager::ClassesToString()
 //---------------------------------------------------------
 {
 	// make an archive
@@ -218,129 +216,128 @@ std::string const TournamentClassManager::ClassesToString()
 }
 
 //--------------------------------------------------------
-void TournamentClassManager::LoadDefaultClasses_()
+void WeightClassManager::LoadDefaultClasses_()
 //--------------------------------------------------------
 {
 	m_Classes.clear();
 
-	TournamentClass t = {0};
-	t.Init(str_defaultClass);
-	t.weight_classes.push_back("-66 kg");
-	t.weight_classes.push_back("-73 kg");
-	t.weight_classes.push_back("-81 kg");
-	t.weight_classes.push_back("-90 kg");
-	t.weight_classes.push_back("-100 kg");
-	t.weight_classes.push_back("+100 kg");
-	t.round_time_in_seconds = 5*60;
-	t.golden_score_time_in_seconds = 3*60;
+	WeightClass t(str_defaultClass);
+	t.AddWeight("-66");
+	t.AddWeight("-73");
+	t.AddWeight("-81");
+	t.AddWeight("-90");
+	t.AddWeight("-100");
+	t.AddWeight("+100");
+	t.SetRoundTime(5*60);
+	t.SetGoldenScoreTime(3*60);
 	AddClass(t);
 
-	t.Init("MU14");
-	t.weight_classes.push_back("-31 kg");
-	t.weight_classes.push_back("-34 kg");
-	t.weight_classes.push_back("-37 kg");
-	t.weight_classes.push_back("-40 kg");
-	t.weight_classes.push_back("-43 kg");
-	t.weight_classes.push_back("-46 kg");
-	t.weight_classes.push_back("-50 kg");
-	t.weight_classes.push_back("-55 kg");
-	t.weight_classes.push_back("-60 kg");
-	t.weight_classes.push_back("+60 kg");
-	t.round_time_in_seconds = 3*60;
-	t.golden_score_time_in_seconds = 90;
+	t = WeightClass("MU14");
+	t.AddWeight("-31");
+	t.AddWeight("-34");
+	t.AddWeight("-37");
+	t.AddWeight("-40");
+	t.AddWeight("-43");
+	t.AddWeight("-46");
+	t.AddWeight("-50");
+	t.AddWeight("-55");
+	t.AddWeight("-60");
+	t.AddWeight("+60");
+	t.SetRoundTime(3*60);
+	t.SetGoldenScoreTime(90);
 	AddClass(t);
 
-	t.Init("FU14");
-	t.weight_classes.push_back("-30 kg");
-	t.weight_classes.push_back("-33 kg");
-	t.weight_classes.push_back("-36 kg");
-	t.weight_classes.push_back("-40 kg");
-	t.weight_classes.push_back("-44 kg");
-	t.weight_classes.push_back("-48 kg");
-	t.weight_classes.push_back("-52 kg");
-	t.weight_classes.push_back("-57 kg");
-	t.weight_classes.push_back("-63 kg");
-	t.weight_classes.push_back("+63 kg");
-	t.round_time_in_seconds = 3*60;
-	t.golden_score_time_in_seconds = 90;
+	t = WeightClass("FU14");
+	t.AddWeight("-30");
+	t.AddWeight("-33");
+	t.AddWeight("-36");
+	t.AddWeight("-40");
+	t.AddWeight("-44");
+	t.AddWeight("-48");
+	t.AddWeight("-52");
+	t.AddWeight("-57");
+	t.AddWeight("-63");
+	t.AddWeight("+63");
+	t.SetRoundTime(3*60);
+	t.SetGoldenScoreTime(90);
 	AddClass(t);
 
-	t.Init("MU17");
-	t.weight_classes.push_back("-43 kg");
-	t.weight_classes.push_back("-46 kg");
-	t.weight_classes.push_back("-50 kg");
-	t.weight_classes.push_back("-55 kg");
-	t.weight_classes.push_back("-60 kg");
-	t.weight_classes.push_back("-66 kg");
-	t.weight_classes.push_back("-73 kg");
-	t.weight_classes.push_back("-81 kg");
-	t.weight_classes.push_back("-90 kg");
-	t.weight_classes.push_back("+90 kg");
-	t.round_time_in_seconds = 4*60;
-	t.golden_score_time_in_seconds = 2*60;
+	t = WeightClass("MU17");
+	t.AddWeight("-43");
+	t.AddWeight("-46");
+	t.AddWeight("-50");
+	t.AddWeight("-55");
+	t.AddWeight("-60");
+	t.AddWeight("-66");
+	t.AddWeight("-73");
+	t.AddWeight("-81");
+	t.AddWeight("-90");
+	t.AddWeight("+90");
+	t.SetRoundTime(4*60);
+	t.SetGoldenScoreTime(2*60);
 	AddClass(t);
 
-	t.Init("FU17");
-	t.weight_classes.push_back("-40 kg");
-	t.weight_classes.push_back("-44 kg");
-	t.weight_classes.push_back("-48 kg");
-	t.weight_classes.push_back("-52 kg");
-	t.weight_classes.push_back("-57 kg");
-	t.weight_classes.push_back("-63 kg");
-	t.weight_classes.push_back("-70 kg");
-	t.weight_classes.push_back("-78 kg");
-	t.weight_classes.push_back("+78 kg");
-	t.round_time_in_seconds = 4*60;
-	t.golden_score_time_in_seconds = 2*60;
+	t = WeightClass("FU17");
+	t.AddWeight("-40");
+	t.AddWeight("-44");
+	t.AddWeight("-48");
+	t.AddWeight("-52");
+	t.AddWeight("-57");
+	t.AddWeight("-63");
+	t.AddWeight("-70");
+	t.AddWeight("-78");
+	t.AddWeight("+78");
+	t.SetRoundTime(4*60);
+	t.SetGoldenScoreTime(2*60);
 	AddClass(t);
 
-	t.Init("MU20");
-	t.weight_classes.push_back("-55 kg");
-	t.weight_classes.push_back("-60 kg");
-	t.weight_classes.push_back("-66 kg");
-	t.weight_classes.push_back("-73 kg");
-	t.weight_classes.push_back("-81 kg");
-	t.weight_classes.push_back("-90 kg");
-	t.weight_classes.push_back("-100 kg");
-	t.weight_classes.push_back("+100 kg");
-	t.round_time_in_seconds = 4*60;
-	t.golden_score_time_in_seconds = 2*60;
+	t = WeightClass("MU20");
+	t.AddWeight("-55");
+	t.AddWeight("-60");
+	t.AddWeight("-66");
+	t.AddWeight("-73");
+	t.AddWeight("-81");
+	t.AddWeight("-90");
+	t.AddWeight("-100");
+	t.AddWeight("+100");
+	t.SetRoundTime(4*60);
+	t.SetGoldenScoreTime(2*60);
 	AddClass(t);
 
-	t.Init("FU20");
-	t.weight_classes.push_back("-44 kg");
-	t.weight_classes.push_back("-48 kg");
-	t.weight_classes.push_back("-52 kg");
-	t.weight_classes.push_back("-57 kg");
-	t.weight_classes.push_back("-63 kg");
-	t.weight_classes.push_back("-70 kg");
-	t.weight_classes.push_back("-78 kg");
-	t.weight_classes.push_back("+78 kg");
-	t.round_time_in_seconds = 4*60;
-	t.golden_score_time_in_seconds = 2*60;
+	t = WeightClass("FU20");
+	t.AddWeight("-44");
+	t.AddWeight("-48");
+	t.AddWeight("-52");
+	t.AddWeight("-57");
+	t.AddWeight("-63");
+	t.AddWeight("-70");
+	t.AddWeight("-78");
+	t.AddWeight("+78");
+	t.SetRoundTime(4*60);
+	t.SetGoldenScoreTime(2*60);
 	AddClass(t);
 
-	t.Init("M");
-	t.weight_classes.push_back("-60 kg");
-	t.weight_classes.push_back("-66 kg");
-	t.weight_classes.push_back("-73 kg");
-	t.weight_classes.push_back("-81 kg");
-	t.weight_classes.push_back("-90 kg");
-	t.weight_classes.push_back("-100 kg");
-	t.weight_classes.push_back("+100 kg");
-	t.round_time_in_seconds = 5*60;
-	t.golden_score_time_in_seconds = 3*60;
+	t = WeightClass("M");
+	t.AddWeight("-60");
+	t.AddWeight("-66");
+	t.AddWeight("-73");
+	t.AddWeight("-81");
+	t.AddWeight("-90");
+	t.AddWeight("-100");
+	t.AddWeight("+100");
+	t.SetRoundTime(5*60);
+	t.SetGoldenScoreTime(3*60);
 	AddClass(t);
 
-	t.Init("F");
-	t.weight_classes.push_back("-48 kg");
-	t.weight_classes.push_back("-52 kg");
-	t.weight_classes.push_back("-57 kg");
-	t.weight_classes.push_back("-63 kg");
-	t.weight_classes.push_back("-70 kg");
-	t.weight_classes.push_back("-78 kg");
-	t.weight_classes.push_back("+78 kg");
-	t.round_time_in_seconds = 5*60;
-	t.golden_score_time_in_seconds = 3*60;
+	t = WeightClass("F");
+	t.AddWeight("-48");
+	t.AddWeight("-52");
+	t.AddWeight("-57");
+	t.AddWeight("-63");
+	t.AddWeight("-70");
+	t.AddWeight("-78");
+	t.AddWeight("+78");
+	t.SetRoundTime(5*60);
+	t.SetGoldenScoreTime(3*60);
 	AddClass(t);
 }

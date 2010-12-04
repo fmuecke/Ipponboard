@@ -91,7 +91,7 @@ bool IpponboardSM_::has_15s(HoldTimeEvent const& evt)
 }
 
 //---------------------------------------------------------
-bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
+bool IpponboardSM_::is_sonomama(OsaekomiToketa const& /*evt*/)
 //---------------------------------------------------------
 {
 	return m_pCore->IsSonoMama_();

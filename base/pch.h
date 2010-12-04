@@ -34,6 +34,8 @@
 # define BOOST_MPL_LIMIT_MAP_SIZE		50			// needed for msm
 # include <boost/msm/back/state_machine.hpp>
 # include <boost/msm/front/state_machine_def.hpp>
+# include <boost/archive/xml_iarchive.hpp>
+# include <boost/archive/xml_oarchive.hpp>
 
 
 //

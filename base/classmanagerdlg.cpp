@@ -3,19 +3,19 @@
 #include <QInputDialog>
 #include <QMessageBox>
 
+using namespace Ipponboard;
 
 //---------------------------------------------------------
 ClassManagerDlg::ClassManagerDlg(
-		Ipponboard::TournamentClassManager* mgr, QWidget *parent)
+		Ipponboard::WeightClassManager* mgr,
+		QWidget *parent )
 	: QDialog(parent)
 	, ui(new Ui::ClassManagerDlg)
 	, m_pClassMgr(mgr)
-	//, m_currentClass()
+	, m_currentClass(WeightClassManager::str_defaultClass)
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
-
-	m_currentClass.Init("default");
 
 	Q_ASSERT(m_pClassMgr);
 
@@ -31,7 +31,7 @@ ClassManagerDlg::ClassManagerDlg(
 		ui->comboBox_class->addItem(m_currentClass.ToString());
 	}
 
-	loadValues_(m_currentClass.name);
+	load_values(m_currentClass.ToString());
 }
 
 //---------------------------------------------------------
@@ -72,7 +72,7 @@ void ClassManagerDlg::on_pushButton_add_pressed()
 	{
 		QMessageBox::critical(this,
 			tr(""),
-			tr("This class already exists. Please modify your input") );
+			tr("This class already exists. Please modify your input.") );
 
 		name = QInputDialog::getText(this,
 				tr("Add new class"),
@@ -94,30 +94,27 @@ void ClassManagerDlg::on_pushButton_add_pressed()
 }
 
 //---------------------------------------------------------
-void ClassManagerDlg::loadValues_(QString const& name)
+void ClassManagerDlg::load_values(QString const& name)
 //---------------------------------------------------------
 {
 	if( !m_pClassMgr->GetClass(name, m_currentClass) )
 	{
-		m_currentClass.Init(name);
+		m_currentClass = Ipponboard::WeightClass(name);
 	}
 
-	const int index = ui->comboBox_class->findText(m_currentClass.name);
+	const int index = ui->comboBox_class->findText(m_currentClass.ToString());
 	ui->comboBox_class->setCurrentIndex(index);
 
 	// set weights
-	QListWidget* list(ui->listWidget_weights);
-	list->clear();
-	std::for_each( m_currentClass.weight_classes.begin(),
-				   m_currentClass.weight_classes.end(),
-				   [list](QString s)->void{ list->addItem(s); } );
+	ui->listWidget_weights->clear();
+	ui->listWidget_weights->addItems(m_currentClass.GetWeightList());
 
 	// set times
 	QTime time;
-	time = time.addSecs(m_currentClass.round_time_in_seconds);
+	time = time.addSecs(m_currentClass.GetRoundTime());
 	ui->timeEdit_round->setTime( time );
 	QTime gsTime;
-	gsTime = gsTime.addSecs(m_currentClass.golden_score_time_in_seconds);
+	gsTime = gsTime.addSecs(m_currentClass.GetGoldenScoreTime());
 	ui->timeEdit_goldenScore->setTime( gsTime );
 }
 
@@ -152,7 +149,7 @@ void ClassManagerDlg::on_pushButton_add_weight_pressed()
 		ui->listWidget_weights->addItem(weight);
 
 		// update data
-		m_currentClass.weight_classes.push_back(weight);
+		m_currentClass.AddWeight(weight.toStdString());
 	}
 }
 
@@ -175,14 +172,14 @@ void ClassManagerDlg::on_pushButton_remove_weight_pressed()
 void ClassManagerDlg::on_timeEdit_round_timeChanged(QTime time)
 //---------------------------------------------------------
 {
-	m_currentClass.round_time_in_seconds = -time.secsTo(QTime(0,0,0,0));
+	m_currentClass.SetRoundTime( -time.secsTo(QTime(0,0,0,0)) );
 }
 
 //---------------------------------------------------------
 void ClassManagerDlg::on_timeEdit_goldenScore_timeChanged(QTime time)
 //---------------------------------------------------------
 {
-	m_currentClass.golden_score_time_in_seconds = -time.secsTo(QTime(0,0,0,0));
+	m_currentClass.SetGoldenScoreTime( -time.secsTo(QTime(0,0,0,0)) );
 }
 
 //---------------------------------------------------------
@@ -193,7 +190,7 @@ void ClassManagerDlg::on_comboBox_class_currentIndexChanged(int index)
 	m_pClassMgr->UpdateClass(m_currentClass);
 
 	// load other class
-	loadValues_(ui->comboBox_class->itemText(index));
+	load_values(ui->comboBox_class->itemText(index));
 }
 
 //---------------------------------------------------------
@@ -211,8 +208,7 @@ void ClassManagerDlg::on_pushButton_up_pressed()
 		ui->listWidget_weights->setCurrentRow(index-1);
 
 		// update data
-		std::swap( m_currentClass.weight_classes.at(index),
-				   m_currentClass.weight_classes.at(index-1) );
+		m_currentClass.MoveWeightUp(index);
 	}
 }
 
@@ -222,7 +218,7 @@ void ClassManagerDlg::on_pushButton_down_pressed()
 {
 	const int index = ui->listWidget_weights->currentRow();
 
-	if( index < ui->listWidget_weights->count() - 1 )
+	if( index >= 0 && index < ui->listWidget_weights->count() - 1 )
 	{
 		QListWidgetItem* pItem =
 			ui->listWidget_weights->takeItem(index);
@@ -231,8 +227,7 @@ void ClassManagerDlg::on_pushButton_down_pressed()
 		ui->listWidget_weights->setCurrentRow(index+1);
 
 		// update data
-		std::swap( m_currentClass.weight_classes.at(index),
-				   m_currentClass.weight_classes.at(index+1) );
+		m_currentClass.MoveWeightUp(index+1);
 	}
 }
 
@@ -244,15 +239,15 @@ void ClassManagerDlg::on_pushButton_remove_pressed()
 	if( index >= 0 )
 	{
 		if(ui->comboBox_class->currentText() ==
-		   Ipponboard::TournamentClassManager::str_defaultClass )
+		   WeightClassManager::str_defaultClass )
 		{
-			QMessageBox::warning(this, tr("Remove Tournament Class"),
+			QMessageBox::warning(this, tr("Remove tournament class"),
 								 tr("The default class can not be removed!"));
 
 		}
 		else
 		{
-			m_currentClass.Init("");
+			m_currentClass = Ipponboard::WeightClass("");
 
 			m_pClassMgr->RemoveClass(ui->comboBox_class->currentText());
 

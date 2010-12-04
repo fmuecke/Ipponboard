@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>417</width>
-    <height>527</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -361,7 +361,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
-             <widget class="QPushButton" name="toolButton_text_color_blue">
+             <widget class="QToolButton" name="toolButton_text_color_blue">
               <property name="maximumSize">
                <size>
                 <width>50</width>
@@ -374,16 +374,10 @@
               <property name="text">
                <string>...(FG)</string>
               </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="toolButton_text_background_blue">
+             <widget class="QToolButton" name="toolButton_text_background_blue">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -401,12 +395,6 @@
               </property>
               <property name="text">
                <string>...(BG)</string>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -428,7 +416,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="toolButton_text_color_white">
+             <widget class="QToolButton" name="toolButton_text_color_white">
               <property name="maximumSize">
                <size>
                 <width>50</width>
@@ -441,16 +429,10 @@
               <property name="text">
                <string>...(FG)</string>
               </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="toolButton_text_background_white">
+             <widget class="QToolButton" name="toolButton_text_background_white">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -468,12 +450,6 @@
               </property>
               <property name="text">
                <string>...(BG)</string>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -594,7 +570,7 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
             <property name="topMargin">
              <number>0</number>
             </property>
@@ -629,15 +605,151 @@
           <string>Buttons</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_next">
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_hansokumake_blue">
             <property name="text">
-             <string>Next fight</string>
+             <string>Hansokumake blue</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QComboBox" name="comboBox_hansokumake_blue">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="label_hansokumake_white">
+            <property name="text">
+             <string>Hansokumake white</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QComboBox" name="comboBox_hansokumake_white">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_reset_2">
+            <property name="text">
+             <string>Reset hold blue</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_reset_hold">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Reset hold white</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QComboBox" name="comboBox_reset_hold_2">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_blue_holding">
+            <property name="text">
+             <string>Blue holding</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_blue_holding">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_white_holding">
+            <property name="text">
+             <string>White holding</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QComboBox" name="comboBox_white_holding">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_reset">
+            <property name="text">
+             <string>Reset all</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_reset">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="comboBox_reset_2">
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>(simultan)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_hajime_matte">
+            <property name="text">
+             <string>Hajime/Matte</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_next">
+           <widget class="QComboBox" name="comboBox_hajime_matte">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -650,33 +762,13 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLabel" name="label_prev">
-            <property name="text">
-             <string>Prev fight</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QComboBox" name="comboBox_prev">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
            <widget class="QLabel" name="label_pause">
             <property name="text">
              <string>Pause screen</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="0" column="3">
            <widget class="QComboBox" name="comboBox_pause">
             <property name="enabled">
              <bool>false</bool>
@@ -690,99 +782,14 @@
            </widget>
           </item>
           <item row="7" column="0">
-           <widget class="QLabel" name="label_hansokumake_blue">
+           <widget class="QLabel" name="label_next">
             <property name="text">
-             <string>Hansokumake blue</string>
+             <string>Next fight</string>
             </property>
            </widget>
           </item>
           <item row="7" column="1">
-           <widget class="QComboBox" name="comboBox_hansokumake_blue">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="2">
-           <widget class="QLabel" name="label_hansokumake_white">
-            <property name="text">
-             <string>Hansokumake white</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="3">
-           <widget class="QComboBox" name="comboBox_hansokumake_white">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="comboBox_blue_holding">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="3">
-           <widget class="QComboBox" name="comboBox_white_holding">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLabel" name="label_white_holding">
-            <property name="text">
-             <string>White holding</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_blue_holding">
-            <property name="text">
-             <string>Blue holding</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_reset">
-            <property name="text">
-             <string>Reset All</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QComboBox" name="comboBox_reset">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_hajime_matte">
-            <property name="text">
-             <string>Hajime/Matte</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QComboBox" name="comboBox_hajime_matte">
+           <widget class="QComboBox" name="comboBox_next">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -794,54 +801,23 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_reset_2">
+          <item row="7" column="2">
+           <widget class="QLabel" name="label_prev">
             <property name="text">
-             <string>Reset Hold Time</string>
+             <string>Prev fight</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="comboBox_reset_hold">
+          <item row="7" column="3">
+           <widget class="QComboBox" name="comboBox_prev">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
             </property>
             <property name="frame">
              <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QComboBox" name="comboBox_reset_hold_2">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QComboBox" name="comboBox_reset_2">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>(simultan)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>(alternatives)</string>
             </property>
            </widget>
           </item>

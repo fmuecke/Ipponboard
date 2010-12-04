@@ -2,6 +2,7 @@
 #define I_SCORE_CONTROLLER_INCLUDED
 
 #include <QString>
+#include <QTime>
 #include "enums.h"
 #include "score.h"
 
@@ -38,6 +39,7 @@ public:
 	virtual void SetTimerValue( Ipponboard::ETimer timer, const QString& value ) = 0;
 	virtual void ResetTimerValue( Ipponboard::ETimer timer ) = 0;
 	virtual void SetRoundTime( const QString& value ) = 0;
+	virtual void SetRoundTime( QTime const& time ) = 0;
 	virtual int GetRound() const = 0;
 };
 

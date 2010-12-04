@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../base/clubmanagerdlg.h"
+#include "../base/classmanagerdlg.h"
 #include "../base/view.h"
 #include "../base/controller.h"
 #include "../base/clubmanager.h"
+#include "../base/classmanager.h"
 #include "../base/versioninfo.h"
 #include "../base/tournamentmodel.h"
 #include "../widgets/scaledimage.h"
@@ -24,6 +26,7 @@
 #include <QSettings>
 #include <QTimer>
 #include <QSplashScreen>
+#include <functional>
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -32,14 +35,16 @@ using namespace Ipponboard;
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 	, m_pUi(new Ui::MainWindow)
-	, m_pPrimaryView(0)
-	, m_pSecondaryView(0)
-	, m_pController(0)
+	, m_pPrimaryView(nullptr)
+	, m_pSecondaryView(nullptr)
+	, m_pController(nullptr)
 #ifdef TEAM_VIEW
-	, m_pScoreScreen(0)
-	, m_pClubManager(0)
+	, m_pScoreScreen(nullptr)
+	, m_pClubManager(nullptr)
 	, fighters_home()
 	, fighters_guest()
+#else
+	, m_pClassManager(nullptr)
 #endif
 	, m_pGamePad(new Gamepad)
 	, m_secondScreenNo(0)
@@ -69,11 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pController = new Ipponboard::Controller();
 #ifdef TEAM_VIEW
 	m_pClubManager = new Ipponboard::ClubManager();
+#else
+	m_pClassManager = new WeightClassManager();
 #endif
-	QCoreApplication::setApplicationVersion("0.4");
-	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
-	QCoreApplication::setApplicationName("Ipponboard");
 
 	//
 	// setup view(s)
@@ -99,6 +102,8 @@ MainWindow::MainWindow(QWidget *parent)
 	// setup data
 	//
 	m_pController->ClearMatches();
+
+	updateLangCheckStates_();
 
 #ifdef TEAM_VIEW
 	for( int i = 0; i < m_pClubManager->ClubCount(); ++i )
@@ -155,104 +160,22 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->comboBox_mat->addItem(mat + " 8");
 	m_pUi->comboBox_mat->addItem(mat + " 9");
 
-	// weight classes
-	m_pUi->comboBox_weight_class->addItem("MU14");
-	m_pUi->comboBox_weight_class->addItem("FU14");
-	m_pUi->comboBox_weight_class->addItem("MU17");
-	m_pUi->comboBox_weight_class->addItem("FU17");
-	m_pUi->comboBox_weight_class->addItem("MU20");
-	m_pUi->comboBox_weight_class->addItem("FU20");
-	m_pUi->comboBox_weight_class->addItem("M");
-	m_pUi->comboBox_weight_class->addItem("F");
-
-	m_weight_mu14.push_back("-31 kg");
-	m_weight_mu14.push_back("-34 kg");
-	m_weight_mu14.push_back("-37 kg");
-	m_weight_mu14.push_back("-40 kg");
-	m_weight_mu14.push_back("-43 kg");
-	m_weight_mu14.push_back("-46 kg");
-	m_weight_mu14.push_back("-50 kg");
-	m_weight_mu14.push_back("-55 kg");
-	m_weight_mu14.push_back("-60 kg");
-	m_weight_mu14.push_back("+60 kg");
-
-	m_weight_fu14.push_back("-30 kg");
-	m_weight_fu14.push_back("-33 kg");
-	m_weight_fu14.push_back("-36 kg");
-	m_weight_fu14.push_back("-40 kg");
-	m_weight_fu14.push_back("-44 kg");
-	m_weight_fu14.push_back("-48 kg");
-	m_weight_fu14.push_back("-52 kg");
-	m_weight_fu14.push_back("-57 kg");
-	m_weight_fu14.push_back("-63 kg");
-	m_weight_fu14.push_back("+63 kg");
-
-	m_weight_mu17.push_back("-43 kg");
-	m_weight_mu17.push_back("-46 kg");
-	m_weight_mu17.push_back("-50 kg");
-	m_weight_mu17.push_back("-55 kg");
-	m_weight_mu17.push_back("-60 kg");
-	m_weight_mu17.push_back("-66 kg");
-	m_weight_mu17.push_back("-73 kg");
-	m_weight_mu17.push_back("-81 kg");
-	m_weight_mu17.push_back("-90 kg");
-	m_weight_mu17.push_back("+90 kg");
-
-	m_weight_fu17.push_back("-40 kg");
-	m_weight_fu17.push_back("-44 kg");
-	m_weight_fu17.push_back("-48 kg");
-	m_weight_fu17.push_back("-52 kg");
-	m_weight_fu17.push_back("-57 kg");
-	m_weight_fu17.push_back("-63 kg");
-	m_weight_fu17.push_back("-70 kg");
-	m_weight_fu17.push_back("-78 kg");
-	m_weight_fu17.push_back("+78 kg");
-
-	m_weight_mu20.push_back("-55 kg");
-	m_weight_mu20.push_back("-60 kg");
-	m_weight_mu20.push_back("-66 kg");
-	m_weight_mu20.push_back("-73 kg");
-	m_weight_mu20.push_back("-81 kg");
-	m_weight_mu20.push_back("-90 kg");
-	m_weight_mu20.push_back("-100 kg");
-	m_weight_mu20.push_back("+100 kg");
-
-	m_weight_fu20.push_back("-44 kg");
-	m_weight_fu20.push_back("-48 kg");
-	m_weight_fu20.push_back("-52 kg");
-	m_weight_fu20.push_back("-57 kg");
-	m_weight_fu20.push_back("-63 kg");
-	m_weight_fu20.push_back("-70 kg");
-	m_weight_fu20.push_back("-78 kg");
-	m_weight_fu20.push_back("+78 kg");
-
-	m_weight_men.push_back("-60 kg");
-	m_weight_men.push_back("-66 kg");
-	m_weight_men.push_back("-73 kg");
-	m_weight_men.push_back("-81 kg");
-	m_weight_men.push_back("-90 kg");
-	m_weight_men.push_back("-100 kg");
-	m_weight_men.push_back("+100 kg");
-
-	m_weight_women.push_back("-48 kg");
-	m_weight_women.push_back("-52 kg");
-	m_weight_women.push_back("-57 kg");
-	m_weight_women.push_back("-63 kg");
-	m_weight_women.push_back("-70 kg");
-	m_weight_women.push_back("-78 kg");
-	m_weight_women.push_back("+78 kg");
+	// init tournament classes (if there are none present)
+	for(int i(0); i<m_pClassManager->ClassCount(); ++i)
+	{
+		WeightClass t("");
+		m_pClassManager->GetClass(i, t);
+		m_pUi->comboBox_weight_class->addItem(t.ToString());
+	}
 
 	// round times
-	m_pUi->comboBox_time->addItem("2:00");
-	m_pUi->comboBox_time->addItem("3:00");
-	m_pUi->comboBox_time->addItem("4:00");
-	m_pUi->comboBox_time->addItem("5:00");
+	m_pUi->comboBox_time->addItem(str_normal_round_time);
 	m_pUi->comboBox_time->addItem(str_golden_score);
 
 
-	m_pUi->comboBox_weight_class->setCurrentIndex(0);
-	m_pUi->comboBox_weight_class->setCurrentIndex(1);
-	m_pUi->comboBox_weight_class->setCurrentIndex(0);
+	// trigger tournament class combobox update
+	on_comboBox_weight_class_currentIndexChanged(
+			m_pUi->comboBox_weight_class->currentText());
 
 	m_pUi->lineEdit_name_blue->setText(tr("Blue"));
 	m_pUi->lineEdit_name_white->setText(tr("White"));
@@ -282,6 +205,8 @@ MainWindow::~MainWindow()
 #ifdef TEAM_VIEW
 	delete m_pScoreScreen;
 	delete m_pClubManager;
+#else
+	delete m_pClassManager;
 #endif
 	delete m_pUi;
 }
@@ -588,6 +513,18 @@ void MainWindow::ShowHideView_() const
 	}
 }
 
+//=========================================================
+void MainWindow::UpdateViews_()
+//=========================================================
+{
+	m_pPrimaryView->UpdateView();
+	m_pSecondaryView->UpdateView();
+#ifdef TEAM_VIEW
+	UpdateScoreScreen_();
+#endif
+}
+
+
 #ifdef TEAM_VIEW
 //=========================================================
 void MainWindow::UpdateMatchNumber_()
@@ -595,14 +532,6 @@ void MainWindow::UpdateMatchNumber_()
 {
 	const int current = m_pController->GetCurrentMatchIndex() + 1;
 	m_pUi->label_fight->setText( QString::number(current) + " / 10" );
-}
-//=========================================================
-void MainWindow::UpdateViews_()
-//=========================================================
-{
-	m_pPrimaryView->UpdateView();
-	m_pSecondaryView->UpdateView();
-	UpdateScoreScreen_();
 }
 //=========================================================
 void MainWindow::UpdateScoreScreen_()
@@ -940,10 +869,10 @@ void MainWindow::EvaluateInput()
 		}
 		else
 		{
-			if( eFighter_Blue != m_pController->GetLastHolder() )
-				m_pController->DoAction( eAction_SetOsaekomi, eFighter_Blue );
-			else
-				// Toketa!
+//			if( eFighter_Blue != m_pController->GetLastHolder() )
+//				m_pController->DoAction( eAction_SetOsaekomi, eFighter_Blue );
+//			else
+//				// Toketa!
 				m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_Blue );
 		}
 	}
@@ -955,10 +884,10 @@ void MainWindow::EvaluateInput()
 		}
 		else
 		{
-			if( eFighter_White != m_pController->GetLastHolder() )
-				m_pController->DoAction( eAction_SetOsaekomi, eFighter_White );
-			else
-				// Toketa!
+//			if( eFighter_White != m_pController->GetLastHolder() )
+//				m_pController->DoAction( eAction_SetOsaekomi, eFighter_White );
+//			else
+//				// Toketa!
 				m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_White );
 		}
 	}
@@ -1079,6 +1008,7 @@ void MainWindow::EvaluateInput()
 			m_pController->DoAction( eAction_Shido, eFighter_White);
 		}
 	}
+	UpdateViews_();
 }
 
 #ifdef TEAM_VIEW
@@ -1315,6 +1245,36 @@ void MainWindow::on_actionExport_triggered()
 
 #else // TEAM_VIEW
 //=========================================================
+void MainWindow::on_actionManage_Classes_triggered()
+//=========================================================
+{
+	ClassManagerDlg dlg(m_pClassManager, this);
+	if( QDialog::Accepted == dlg.exec() )
+	{
+		QString currentClass =
+				m_pUi->comboBox_weight_class->currentText();
+
+		m_pUi->comboBox_weight_class->clear();
+		for(int i(0); i<m_pClassManager->ClassCount(); ++i)
+		{
+			WeightClass t("");
+			m_pClassManager->GetClass(i, t);
+			m_pUi->comboBox_weight_class->addItem(t.ToString());
+		}
+		int index = m_pUi->comboBox_weight_class->findText(currentClass);
+		if( -1 == index )
+		{
+			index = 0;
+			currentClass = m_pUi->comboBox_weight_class->itemText(index);
+		}
+
+		m_pUi->comboBox_weight_class->setCurrentIndex(index);
+		on_comboBox_weight_class_currentIndexChanged(currentClass);
+	}
+}
+
+
+//=========================================================
 void MainWindow::on_comboBox_mat_currentIndexChanged(const QString& s)
 //=========================================================
 {
@@ -1352,25 +1312,19 @@ void MainWindow::on_lineEdit_name_white_textChanged(const QString& s)
 void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 //=========================================================
 {
+	const QString name = m_pUi->comboBox_weight_class->currentText();
+	WeightClass t(name);
+	m_pClassManager->GetClass(name, t);
+
 	if( s == str_golden_score )
 	{
-		const QString wc = m_pUi->comboBox_weight_class->currentText();
-		QString time("0:00");
-		if( wc == "F" ||
-			wc == "M" )
-			time = "3:00";
-		else if( wc == "FU20" ||
-				 wc == "MU20" ||
-				 wc == "FU17" ||
-				 wc == "MU17" )
-			time = "2:00";
-		else // if( wc == "FU14" || wc == "MU14" )
-			time = "1:30";
-		m_pController->SetRoundTime(time);
+		m_pController->SetRoundTime(
+				QTime().addSecs(t.GetGoldenScoreTime()));
 	}
 	else
 	{
-		m_pController->SetRoundTime(s);
+		m_pController->SetRoundTime(
+				QTime().addSecs(t.GetRoundTime()));
 	}
 }
 
@@ -1378,51 +1332,59 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 //=========================================================
 {
-	QString roundTime("0:00");
-	m_pUi->comboBox_weight->clear();
-	if( s == "MU14")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu14);
-		roundTime = "3:00";
-	}
-	else if( s == "FU14")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu14);
-		roundTime = "3:00";
-	}
-	else if( s == "MU17")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu17);
-		roundTime = "4:00";
-	}
-	else if( s == "FU17")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu17);
-		roundTime = "4:00";
-	}
-	else if( s == "MU20")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu20);
-		roundTime = "4:00";
-	}
-	else if( s == "FU20")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu20);
-		roundTime = "4:00";
-	}
-	else if( s == "M")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_men);
-		roundTime = "5:00";
-	}
-	else //if( s == "F")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_women);
-		roundTime = "5:00";
-	}
+	WeightClass t(s);
+	m_pClassManager->GetClass(s, t);
 
-	int index = m_pUi->comboBox_time->findText(roundTime);
-	if( -1 != index )
-		m_pUi->comboBox_time->setCurrentIndex(index);
+	// add weights
+	m_pUi->comboBox_weight->clear();
+	m_pUi->comboBox_weight->addItems(t.GetWeightList());
+
+	// trigger rount time update
+	on_comboBox_time_currentIndexChanged(m_pUi->comboBox_time->currentText());
 }
 #endif //TEAM_VIEW else
+
+void MainWindow::changeLang_(QString const& langStr)
+{
+	// load translation file(s)
+	QSettings settings(//QSettings::NativeFormat,
+							 QSettings::UserScope,
+							 QCoreApplication::applicationName(),
+							 QCoreApplication::applicationName());
+	settings.setValue("Language", langStr);
+
+	QMessageBox::information(this, QCoreApplication::applicationName(),
+		tr("Please restart the application so that the changes can take effect."));
+
+	updateLangCheckStates_();
+}
+
+void MainWindow::updateLangCheckStates_() const
+{
+	// load translation file(s)
+	const QSettings settings(//QSettings::NativeFormat,
+							 QSettings::UserScope,
+							 QCoreApplication::applicationName(),
+							 QCoreApplication::applicationName());
+
+	if( settings.value("Language", "en").toString() == "de" )
+	{
+		m_pUi->actionDeutsch->setChecked(true);
+		m_pUi->actionEnglish->setChecked(false);
+	}
+	else
+	{
+		m_pUi->actionDeutsch->setChecked(false);
+		m_pUi->actionEnglish->setChecked(true);
+	}
+}
+
+void MainWindow::on_actionDeutsch_triggered()
+{
+	changeLang_("de");
+}
+
+void MainWindow::on_actionEnglish_triggered()
+{
+	changeLang_("en");
+}

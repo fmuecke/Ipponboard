@@ -6,8 +6,6 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
-
-
 // forwards
 namespace Ui {
 	class MainWindow;
@@ -18,6 +16,7 @@ namespace Ipponboard
 	class View;
 	class Controller;
 	class ClubManager;
+	class WeightClassManager;
 	class ScoreScreen;
 }
 
@@ -33,6 +32,7 @@ typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 #endif
 
 const char* const str_golden_score = "Golden Score";
+const char* const str_normal_round_time = "Normal";
 const char* const str_tag_Main = "Main";
 const char* const str_tag_size = "size";
 const char* const str_tag_pos = "pos";
@@ -94,15 +94,20 @@ private:
 	void UpdateTextColorWhite_(const QColor& color, const QColor& bgColor);
 	void UpdateTextFont_(const QFont&);
 	void ShowHideView_() const;
+	void UpdateViews_();
+	void changeLang_(QString const& langStr);
+	void updateLangCheckStates_() const;
+
 #ifdef TEAM_VIEW
 	void UpdateMatchNumber_();
-	void UpdateViews_();
 	void UpdateScoreScreen_();
 	void WriteScoreToHtml_();
 #endif
 
 private slots:
-	void on_actionAbout_Ipponboard_triggered();
+	void on_actionEnglish_triggered();
+ void on_actionDeutsch_triggered();
+ void on_actionAbout_Ipponboard_triggered();
 	void on_actionTest_Gong_triggered();
 	void on_actionShow_SecondaryView_triggered();
 //	void on_actionSelect_Color_triggered();
@@ -130,6 +135,7 @@ private slots:
 	void on_actionPrint_triggered();
 	void on_actionExport_triggered();
 #else
+	void on_actionManage_Classes_triggered();
 	void on_comboBox_mat_currentIndexChanged(const QString& );
 	void on_comboBox_weight_currentIndexChanged(const QString& );
 	void on_lineEdit_name_white_textChanged(const QString& );
@@ -149,6 +155,8 @@ private:
 	std::vector<QTableWidgetItem> fighters_home;
 	std::vector<QTableWidgetItem> fighters_guest;
 	QString m_htmlScore;
+#else
+	Ipponboard::WeightClassManager* m_pClassManager;
 #endif
 	PGamePad m_pGamePad;
 
@@ -171,17 +179,6 @@ private:
 	int m_buttonWhiteHolding;
 	int m_buttonHansokumakeBlue;
 	int m_buttonHansokumakeWhite;
-
-#ifndef TEAM_VIEW
-	QStringList m_weight_mu14;
-	QStringList m_weight_fu14;
-	QStringList m_weight_mu17;
-	QStringList m_weight_fu17;
-	QStringList m_weight_mu20;
-	QStringList m_weight_fu20;
-	QStringList m_weight_men;
-	QStringList m_weight_women;
-#endif
 };
 
 #endif // MAINWINDOW_H

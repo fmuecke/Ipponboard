@@ -6,7 +6,7 @@
 
 // forwards
 namespace Ui { class ClassManagerDlg; }
-//namespace Ipponboard { class TournamentClassManager; }
+//class WeightClassManager;
 class QListWidgetItem;
 
 class ClassManagerDlg : public QDialog
@@ -15,19 +15,21 @@ class ClassManagerDlg : public QDialog
 
 public:
 	explicit ClassManagerDlg(
-			Ipponboard::TournamentClassManager* mgr, QWidget* parent = 0 );
-	~ClassManagerDlg();
+			Ipponboard::WeightClassManager* mgr,
+			QWidget* parent = 0 );
+
+	virtual ~ClassManagerDlg();
 
 protected:
 	void changeEvent(QEvent *e);
 
 private:
-	void loadValues_(QString const& name);
+	void load_values(QString const& name);
 
 	Ui::ClassManagerDlg *ui;
-	Ipponboard::TournamentClassManager* m_pClassMgr;
+	Ipponboard::WeightClassManager* m_pClassMgr;
 	std::string m_originalClasses;
-	Ipponboard::TournamentClass m_currentClass;
+	Ipponboard::WeightClass m_currentClass;
 
 private slots:
 	void on_pushButton_down_pressed();

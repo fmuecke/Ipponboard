@@ -42,11 +42,19 @@ public:
 	struct Finish {};
 
 	struct Hajime_Matte	{ enum { type = eTimer_Main }; };
-	struct Osaekomi_Toketa { enum { type = eTimer_Holdi }; }; //FIXME!!
-	struct Osaekomi_Toketa_Blue : public Osaekomi_Toketa
-	{ enum { type = eTimer_Hold_Blue }; };
-	struct Osaekomi_Toketa_White : public Osaekomi_Toketa
-	{ enum { type = eTimer_Hold_White }; };
+	//struct Osaekomi_Toketa { enum { type = eTimer_Holdi }; }; //FIXME!!
+//	struct osaekomi_type_blue
+//	{ enum { type = eTimer_Hold_Blue }; };
+//	struct osaekomi_type_white
+//	{ enum { type = eTimer_Hold_White }; };
+
+	struct OsaekomiToketa
+	{
+		OsaekomiToketa( Ipponboard::ETimer t )
+			: timer(t) {}
+		Ipponboard::ETimer timer;
+	};
+
 
 	template<typename T>
 	struct PointEvent
@@ -141,9 +149,9 @@ public:
 		m_pCore->StopTimer_( ETimer(T::type) );
 	}
 	template<>
-	void stop_timer( Osaekomi_Toketa const& /*evt*/ )
+	void stop_timer( OsaekomiToketa const& evt )
 	{
-		m_pCore->StopTimer_( eTimer_Holdi ); //FIXME!
+		m_pCore->StopTimer_( evt.timer );
 	}
 	template<>
 	void stop_timer( TimeEndedEvent const& /*evt*/ )
@@ -171,15 +179,15 @@ public:
 		m_pCore->ResetTimer_( eTimer_Holdi ); //FIXME!
 	}
 	template<>
-	void start_timer( Osaekomi_Toketa const& /*evt*/ )
+	void start_timer( OsaekomiToketa const& evt )
 	{
 		//m_pCore->ResetTimer_( eTimer_Hold );
-		m_pCore->StartTimer_( eTimer_Holdi ); //FIXME!
+		m_pCore->StartTimer_( evt.timer );
 	}
-	void yoshi( Osaekomi_Toketa const& /*evt*/ )
+	void yoshi( OsaekomiToketa const& evt )
 	{
 		m_pCore->StartTimer_( eTimer_Main );
-		m_pCore->StartTimer_( eTimer_Holdi ); //FIXME!
+		m_pCore->StartTimer_( evt.timer );
 	}
 
 	template<class T>
@@ -291,7 +299,7 @@ public:
 	bool has_20s(HoldTimeEvent const& evt);
 	bool has_20s_and_wazaari(HoldTimeEvent const& evt);
 	bool has_15s(HoldTimeEvent const& evt);
-	bool is_sonomama(Osaekomi_Toketa const& evt);
+	bool is_sonomama(OsaekomiToketa const& evt);
 	bool has_enough_shido(Shido const& evt);
 	bool can_take_shido(Shido const& evt);
 
@@ -308,7 +316,7 @@ public:
 	a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
 	 _row < Stopped , Finish		, Stopped												>,
 	  //row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
-	a_row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
+	a_row < Stopped , OsaekomiToketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
 	a_row < Stopped , RevokeShidoHM	, Stopped	, &sm::add_point							>,
 	a_row < Stopped	, RevokeWazaari	, Stopped	, &sm::add_point							>,
 	a_row < Stopped	, RevokeYuko	, Stopped	, &sm::add_point							>,
@@ -326,7 +334,7 @@ public:
 	a_row < Running , Yuko			, Running	, &sm::add_point							>,
 	a_row < Running	, Reset			, Stopped	, &sm::reset								>,
 	a_row < Running , Finish		, Stopped	, &sm::stop_timer							>,
-	a_row < Running , Osaekomi_Toketa,Holding	, &sm::start_timer							>,
+	a_row < Running , OsaekomiToketa, Holding	, &sm::start_timer							>,
 	a_row < Running	, RevokeWazaari	, Running	, &sm::add_point							>,
 	a_row < Running	, RevokeYuko	, Running	, &sm::add_point							>,
 	a_row < Running , RevokeShidoHM	, Running	, &sm::add_point							>,	// just to correct values...
@@ -334,8 +342,8 @@ public:
 	  row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::has_enough_shido	>,	// just to correct values...
 	  row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
 	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	  row < Holding ,Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
-	  row < Holding ,Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
+	  row < Holding ,OsaekomiToketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
+	  row < Holding ,OsaekomiToketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
 	a_row < Holding ,Hajime_Matte	, Stopped	, &sm::stop_timer									>,
 	a_row < Holding ,Reset			, Stopped	, &sm::reset										>,
 	a_row < Holding ,Finish			, Stopped	, &sm::stop_timer									>,

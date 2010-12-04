@@ -63,5 +63,5 @@ INCLUDEPATH += $$quote($$(BOOST))
 LIBPATH += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
 
-TRANSLATIONS = ../base/ipponboard_en.ts \
-    ../base/ipponboard_de.ts
+TRANSLATIONS = ipponboard_en.ts \
+    ipponboard_de.ts

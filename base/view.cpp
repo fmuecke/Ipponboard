@@ -334,7 +334,7 @@ void View::UpdateView()
 	// Note: with update() the area is scheduled for a redraw
 	//       while repaint() does this immediately.
 	repaint();
-		// This is really important, or timer values are not redrawn!
+	// This is really important, or timer values are not redrawn!
 
 }
 
@@ -540,7 +540,7 @@ void View::mousePressEvent(QMouseEvent* event)
 
 				return;
 			}
-			whos = eFighter_Blue;  // will be switched later
+			whos = eFighter_Blue;  // will be switched later (for primary view)
 			action = eAction_OsaeKomi_Toketa;
 		}
 		else if ( child == ui->text_ippon_white )
@@ -1006,7 +1006,6 @@ void View::UpdateHoldClock_( const QColor& text,
 		}
 		break;
 	}
-
 
 //	pClockText->SetColor( text, bg );
 //

@@ -21,7 +21,10 @@ SOURCES = ../base/clubmanager.cpp \
     ../base/settingsdlg.cpp \
     ../base/statemachine.cpp \
     ../base/tournamentmodel.cpp \
-    ../base/view.cpp
+    ../base/view.cpp \
+    ../base/classmanagerdlg.cpp \
+    ../base/classmanager.cpp \
+    ../base/weightclass.cpp
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
@@ -40,16 +43,22 @@ HEADERS = ../base/pch.h \
     ../base/statemachine.h \
     ../base/tournament.h \
     ../base/tournamentmodel.h \
-    ../base/view.h
+    ../base/view.h \
+    ../base/classmanagerdlg.h \
+    ../base/classmanager.h \
+    ../base/classmanager.h \
+    ../base/weightclass.h
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
     ../base/settingsdlg.ui \
 	view_vertical_single.ui \
-	../base/view_horizontal.ui
+	../base/view_horizontal.ui \
+    ../base/classmanagerdlg.ui
 OTHER_FILES += 
 RESOURCES += ../base/ipponboard.qrc
 INCLUDEPATH += $$quote($$(BOOST))
 LIBPATH += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
-TRANSLATIONS = IpponboardS_en.ts \
-    IpponboardS_de.ts	
+TRANSLATIONS = Ipponboard_de.ts	
+
+win32:RC_FILE = ../base/ipponboard.rc

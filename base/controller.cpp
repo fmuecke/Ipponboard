@@ -154,11 +154,29 @@ void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
 			break;
 
 		case eAction_OsaeKomi_Toketa:
-			if( eFighter_Blue == whos )
-				m_pSM->process_event(IpponboardSM_::Osaekomi_Toketa_Blue()); //FIXME!
+			if( m_pTimerHold->isActive() && whos != m_Tori )
+			{
+				// switch holder
+				std::swap(m_pTimeHold[eFighter_Blue],
+						  m_pTimeHold[eFighter_White]);
+				m_Tori = whos;
+			}
 			else
-				m_pSM->process_event(IpponboardSM_::Osaekomi_Toketa_White()); //FIXME!
-			m_Tori = whos;
+			{
+				// clock is already running
+				assert( eFighter_Nobody != whos && "unhandled case");
+				m_Tori = whos;
+				if( eFighter_Blue == whos )
+				{
+					m_pSM->process_event(
+							IpponboardSM_::OsaekomiToketa(eTimer_Hold_Blue));
+				}
+				else
+				{
+					m_pSM->process_event(
+							IpponboardSM_::OsaekomiToketa(eTimer_Hold_White));
+				}
+			}
 			m_isSonoMama = false;
 			break;
 
@@ -472,11 +490,19 @@ void Controller::ResetTimerValue( Ipponboard::ETimer timer )
 void Controller::SetRoundTime( const QString& value )
 //=========================================================
 {
-	m_roundTime = QTime::fromString(value, "m:ss");
+	SetRoundTime(QTime::fromString(value, "m:ss"));
+}
+
+//=========================================================
+void Controller::SetRoundTime( QTime const& time )
+//=========================================================
+{
+	m_roundTime = time;
 	*m_pTimeMain = m_roundTime;
 
 	UpdateViews_();
 }
+
 
 //=========================================================
 int Ipponboard::Controller::GetRound() const
@@ -545,6 +571,8 @@ void Controller::ResetMatch_()
 	match.is_saved = false;
 
 	std::for_each( m_Views.begin(), m_Views.end(), std::mem_fun(&IView::Reset) );
+
+	UpdateViews_();
 }
 
 //=========================================================

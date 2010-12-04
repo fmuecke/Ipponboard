@@ -17,8 +17,8 @@ IDI_MAIN_ICON           ICON                    "images/ipponboard.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,4,0,0
- PRODUCTVERSION 0,4,0,0
+ FILEVERSION 0,5,0,0
+ PRODUCTVERSION 0,5,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -35,12 +35,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Florian Mücke"
             VALUE "FileDescription", "TODO: <File description>"
-            VALUE "FileVersion", "0.4.0.0"
+            VALUE "FileVersion", "0.5.0.0"
             VALUE "InternalName", "Ipponboard.exe"
             VALUE "LegalCopyright", "Copyright (C) 2010"
             VALUE "OriginalFilename", "Ipponboard.exe"
             VALUE "ProductName", "Ipponboard"
-            VALUE "ProductVersion", "0.4.0.0"
+            VALUE "ProductVersion", "0.5.0.0"
         END
     END
     BLOCK "VarFileInfo"
