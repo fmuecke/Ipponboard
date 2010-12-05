@@ -60,7 +60,7 @@ public:
 	void SetMainClockColor( const QColor& fgColor, const QColor& bgColor );
 	void SetMat( const QString& mat ) { m_mat = mat; }
 	void SetWeight( const QString& weight) { m_weight = weight; } //TODO: move to controller !!
-
+	void SetCategory( const QString& cat) { m_category = cat; } //TODO: move to controller !!
 
 protected:
 	//void changeEvent( QEvent* event );
@@ -115,6 +115,7 @@ private:
 	QColor m_MainClockColorStopped;
 	QString m_mat;
 	QString m_weight;
+	QString m_category;
 	bool m_drawIppon;
 	QTimer* m_pBlinkTimer;
 };

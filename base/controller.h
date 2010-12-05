@@ -67,7 +67,7 @@ public:
 	void SetRoundTime( const QTime& time );
 	int GetRound() const;
 	void SetWeightClass(QString const& c);
-	QString const& GetWeightClass() const { return m_weight_class; } //TODO: weight class should be part of tournament!
+	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 
 	void Gong() const;
 

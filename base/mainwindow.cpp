@@ -1342,6 +1342,11 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 
 	// trigger rount time update
 	on_comboBox_time_currentIndexChanged(m_pUi->comboBox_time->currentText());
+
+	m_pPrimaryView->SetCategory(s);
+	m_pSecondaryView->SetCategory(s);
+	m_pPrimaryView->UpdateView();
+	m_pSecondaryView->UpdateView();
 }
 #endif //TEAM_VIEW else
 

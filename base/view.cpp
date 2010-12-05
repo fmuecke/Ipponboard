@@ -46,6 +46,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, m_MainClockColorStopped(Qt::red)
 	, m_mat("")
 	, m_weight("")
+	, m_category("")
 	, m_drawIppon(false)
 	, m_pBlinkTimer(0)
 //=========================================================
@@ -194,7 +195,11 @@ void View::UpdateView()
 			m_pController->GetWeight() + " kg");
 #else
 	ui->text_mat->SetText( m_mat.toUpper() );
-	ui->text_weight->SetText( m_pController->GetWeightClass() + " / " + m_weight.toUpper() );
+	QString infoText(m_category);
+	if (!infoText.isEmpty())
+		infoText += " / ";
+	infoText += m_weight.toUpper();
+	ui->text_weight->SetText( infoText );
 #endif
 	//
 	// fighter names

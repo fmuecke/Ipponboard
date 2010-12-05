@@ -41,7 +41,7 @@ public:
 	virtual void SetRoundTime( const QString& value ) = 0;
 	virtual int GetRound() const = 0;
 	virtual void SetWeightClass(QString const& c) = 0;
-	virtual QString const& GetWeightClass() const = 0;
+	virtual QString const& GetCategoryName() const = 0;
 };
 
 }
