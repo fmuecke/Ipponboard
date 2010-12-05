@@ -45,7 +45,7 @@ public:
 private:
 	void LoadCategories_();
 	void SaveCategories_();
-	void LoadDefaultCategories_();
+	//void LoadDefaultCategories_();
 
 	FightCategoryList m_Categories;
 };

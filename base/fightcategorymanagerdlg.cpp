@@ -110,10 +110,7 @@ void FightCategoryManagerDlg::load_values()
 
 		QTreeWidgetItem* pItem =
 				new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
-		if( eColumn_Name == i )
-			pItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		else
-			pItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsEditable);
+		pItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsEditable);
 		ui->treeWidget_classes->addTopLevelItem(pItem);
 	}
 }
