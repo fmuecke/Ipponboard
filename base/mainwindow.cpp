@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
 	//
 	// setup data
 	//
-	m_pController->ClearMatches();
+	m_pController->ClearFights();
 
 	updateLangCheckStates_();
 
@@ -189,7 +189,7 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pTimer->start(75);
 
 #ifdef TEAM_VIEW
-	UpdateMatchNumber_();
+	UpdateFightNumber_();
 
 	m_pUi->button_pause->click();	// we start with pause!
 #endif
@@ -527,10 +527,10 @@ void MainWindow::UpdateViews_()
 
 #ifdef TEAM_VIEW
 //=========================================================
-void MainWindow::UpdateMatchNumber_()
+void MainWindow::UpdateFightNumber_()
 //=========================================================
 {
-	const int current = m_pController->GetCurrentMatchIndex() + 1;
+	const int current = m_pController->GetCurrentFightIndex() + 1;
 	m_pUi->label_fight->setText( QString::number(current) + " / 10" );
 }
 //=========================================================
@@ -591,35 +591,35 @@ void MainWindow::WriteScoreToHtml_()
 
 	// first round
 	QString rounds;
-	for(int i(0); i<Ipponboard::eTournament_MatchCount; ++i)
+	for(int i(0); i<Ipponboard::eTournament_FightCount; ++i)
 	{
-		const Match& match(m_pController->GetMatch(0, i));
+		const Fight& fight(m_pController->GetFight(0, i));
 
-		QString name_blue( match.fighters[eFighter_Blue].name );
-		QString name_white( match.fighters[eFighter_White].name );
-		const Score& score_blue( match.scores[eFighter_Blue] );
-		const Score& score_white( match.scores[eFighter_White] );
+		QString name_blue( fight.fighters[eFighter_Blue].name );
+		QString name_white( fight.fighters[eFighter_White].name );
+		const Score& score_blue( fight.scores[eFighter_Blue] );
+		const Score& score_white( fight.scores[eFighter_White] );
 
 		QString round("<tr>");
 		round.append("<td><center>" + QString::number(i+1) + "</center></td>"); // number
-		round.append("<td><center>" + match.weight + "</center></td>"); // weight
+		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
 		round.append("<td><center>" + name_blue + "</center></td>"); // name
 		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
 		round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + QString::number(match.HasWon(eFighter_Blue)) + "</center></td>"); // won
-		round.append("<td><center>" + QString::number(match.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
+		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
+		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
 		round.append("<td><center>" + name_white + "</center></td>"); // name
 		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
 		round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + QString::number(match.HasWon(eFighter_White)) + "</center></td>"); // won
-		round.append("<td><center>" + QString::number(match.ScorePoints(eFighter_White)) + "</center></td>"); // score
-		round.append("<td><center>" + match.GetRoundTimeText() + "</center></td>"); // time
+		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
+		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+		round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
 		round.append("</tr>\n");
 		rounds.append(round);
 	}
@@ -627,35 +627,35 @@ void MainWindow::WriteScoreToHtml_()
 
 	// second round
 	rounds.clear();
-	for(int i(0); i<Ipponboard::eTournament_MatchCount; ++i)
+	for(int i(0); i<Ipponboard::eTournament_FightCount; ++i)
 	{
-		const Match& match(m_pController->GetMatch(1, i));
+		const Fight& fight(m_pController->GetFight(1, i));
 
-		QString name_blue( match.fighters[eFighter_Blue].name );
-		QString name_white( match.fighters[eFighter_White].name );
-		const Score& score_blue( match.scores[eFighter_Blue] );
-		const Score& score_white( match.scores[eFighter_White] );
+		QString name_blue( fight.fighters[eFighter_Blue].name );
+		QString name_white( fight.fighters[eFighter_White].name );
+		const Score& score_blue( fight.scores[eFighter_Blue] );
+		const Score& score_white( fight.scores[eFighter_White] );
 
 		QString round("<tr>");
 		round.append("<td><center>" + QString::number(i+1) + "</center></td>"); // number
-		round.append("<td><center>" + match.weight + "</center></td>"); // weight
+		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
 		round.append("<td><center>" + name_blue + "</center></td>"); // name
 		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
 		round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + QString::number(match.HasWon(eFighter_Blue)) + "</center></td>"); // won
-		round.append("<td><center>" + QString::number(match.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
+		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
+		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
 		round.append("<td><center>" + name_white + "</center></td>"); // name
 		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
 		round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + QString::number(match.HasWon(eFighter_White)) + "</center></td>"); // won
-		round.append("<td><center>" + QString::number(match.ScorePoints(eFighter_White)) + "</center></td>"); // score
-		round.append("<td><center>" + match.GetRoundTimeText() + "</center></td>"); // time
+		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
+		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+		round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
 		round.append("</tr>\n");
 		rounds.append(round);
 	}
@@ -752,7 +752,7 @@ void MainWindow::on_actionReset_Scores_triggered()
 			tr("Reset Scores"),
 			tr("Really reset complete score table?"),
 			QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes )
-		m_pController->ClearMatches();
+		m_pController->ClearFights();
 }
 
 //=========================================================
@@ -832,7 +832,7 @@ void MainWindow::on_button_reset_clicked()
 //	QMessageBox::StandardButton answer =
 //		QMessageBox::question( this,
 //							   tr("Reset"),
-//							   tr("Really reset current match?"),
+//							   tr("Really reset current fight?"),
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
 		m_pController->DoAction(Ipponboard::eAction_Reset,
@@ -1031,29 +1031,29 @@ void MainWindow::on_actionManage_Clubs_triggered()
 void MainWindow::on_actionLoad_Demo_Data_triggered()
 //=========================================================
 {
-	m_pController->ClearMatches();																					//  Y  W  I  S  H  Y  W  I  S  H
-	m_pController->SetMatch( 0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
-	m_pController->SetMatch( 0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
-	m_pController->SetMatch( 0, 3, "+90", "Jürgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV Königsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
-	m_pController->SetMatch( 0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV Königsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
-	m_pController->SetMatch( 0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->ClearFights();																					//  Y  W  I  S  H  Y  W  I  S  H
+	m_pController->SetFight( 0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
+	m_pController->SetFight( 0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
+	m_pController->SetFight( 0, 3, "+90", "Jürgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV Königsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
+	m_pController->SetFight( 0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV Königsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
+	m_pController->SetFight( 0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 																												//  Y  W  I  S  H  Y  W  I  S  H
-	m_pController->SetMatch( 1, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian Kürten", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV Königsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 1, 3, "+90", "Jürgen Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
-	m_pController->SetMatch( 1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
-	m_pController->SetMatch( 1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV Königsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	m_pController->SetMatch( 1, 6, "-66", "Jörg Herzog", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	m_pController->SetMatch( 1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV Königsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
-	m_pController->SetMatch( 1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	m_pController->SetMatch( 1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetCurrentMatch(0);
+	m_pController->SetFight( 1, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian Kürten", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV Königsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 1, 3, "+90", "Jürgen Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
+	m_pController->SetFight( 1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
+	m_pController->SetFight( 1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV Königsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	m_pController->SetFight( 1, 6, "-66", "Jörg Herzog", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	m_pController->SetFight( 1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV Königsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
+	m_pController->SetFight( 1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	m_pController->SetFight( 1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetCurrentFight(0);
 }
 
 //=========================================================
@@ -1091,24 +1091,24 @@ void MainWindow::on_button_pause_clicked()
 void MainWindow::on_button_prev_clicked()
 //=========================================================
 {
-	if( 0 == m_pController->GetCurrentMatchIndex() )
+	if( 0 == m_pController->GetCurrentFightIndex() )
 		return;
 
-	m_pController->SetCurrentMatch( m_pController->GetCurrentMatchIndex() - 1 );
+	m_pController->SetCurrentFight( m_pController->GetCurrentFightIndex() - 1 );
 
-	UpdateMatchNumber_();
+	UpdateFightNumber_();
 }
 
 //=========================================================
 void MainWindow::on_button_next_clicked()
 //=========================================================
 {
-	if( m_pController->GetCurrentMatchIndex() == m_pController->GetMatchCount() - 1 )
-		m_pController->SetCurrentMatch( m_pController->GetCurrentMatchIndex() );
+	if( m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1 )
+		m_pController->SetCurrentFight( m_pController->GetCurrentFightIndex() );
 	else
-		m_pController->SetCurrentMatch( m_pController->GetCurrentMatchIndex() + 1 );
+		m_pController->SetCurrentFight( m_pController->GetCurrentFightIndex() + 1 );
 
-	UpdateMatchNumber_();
+	UpdateFightNumber_();
 }
 
 //=========================================================
@@ -1145,7 +1145,7 @@ void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
 		if( m_pUi->button_pause->isChecked() )
 			m_pUi->button_pause->click();
 
-		m_pController->SetCurrentMatch( 0 );
+		m_pController->SetCurrentFight( 0 );
 		m_pController->SetCurrentTournament(0);
 	}
 	else if( s == tr("BREAK") )
@@ -1159,7 +1159,7 @@ void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
 		if( m_pUi->button_pause->isChecked() )
 			m_pUi->button_pause->click();
 
-		m_pController->SetCurrentMatch( 0 );
+		m_pController->SetCurrentFight( 0 );
 		m_pController->SetCurrentTournament(1);
 	}
 	else if( s == tr("FINISHED") )
@@ -1167,8 +1167,8 @@ void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
 		// be sure that all pages are saved
 		for( int i = m_pController->GetCurrentTournamentIndex(); i<2; ++i )
 		{
-			while( eTournament_MatchCount >
-				m_pController->GetCurrentMatchIndex() + 1)
+			while( eTournament_FightCount >
+				m_pController->GetCurrentFightIndex() + 1)
 			{
 				m_pUi->button_next->click();
 			}
@@ -1179,7 +1179,7 @@ void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
 		return;
 	}
 
-	UpdateMatchNumber_();
+	UpdateFightNumber_();
 }
 
 //=========================================================

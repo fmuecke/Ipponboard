@@ -72,7 +72,7 @@ public:
 private:
 	void StartTimer_( ETimer t );
 	void StopTimer_( ETimer t );
-	void ResetMatch_();
+	void ResetFight_();
 	void ResetTimer_( ETimer );
 	Score& GetScore_( Ipponboard::EFighter who );
 	const Ipponboard::Score& GetScore_( Ipponboard::EFighter who ) const;
@@ -81,13 +81,13 @@ private:
 
 public:
 	// --- other functions ---
-	int GetMatchCount() const
+	int GetFightCount() const
 	{ return 10; }
 
-	void SetCurrentMatch( unsigned int index );
+	void SetCurrentFight( unsigned int index );
 
-	int GetCurrentMatchIndex() const
-		{ return m_currentMatch; }
+	int GetCurrentFightIndex() const
+		{ return m_currentFight; }
 
 	void SetCurrentTournament( unsigned int index )
 		{ m_currentTournament = index; UpdateViews_(); }
@@ -95,16 +95,16 @@ public:
 	int GetCurrentTournamentIndex() const
 		{ return m_currentTournament; }
 
-	void ClearMatches();
+	void ClearFights();
 	void SetClub( Ipponboard::EFighter whos, const QString& clubName );
-	void SetMatch( unsigned int tournament_index, unsigned int match_index,
+	void SetFight( unsigned int tournament_index, unsigned int fight_index,
 				   const QString& weight, const QString& first_player_name,
 				   const QString& first_player_club, const QString& second_player_name,
 				   const QString& second_player_club, int yuko1 = -1,
 				   int wazaari1 = -1, int ippon1 = -1, int shido1 = -1,
 				   int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1,
 				   int ippon2 = -1, int shido2 = -1, int hansokumake2 = -1 );
-	const Ipponboard::Match& GetMatch( unsigned int tournament_index, unsigned int match_index ) const;
+	const Ipponboard::Fight& GetFight( unsigned int tournament_index, unsigned int fight_index ) const;
 	void SetFighterName( Ipponboard::EFighter whos, const QString& name );
 
 	TournamentModel* GetTournamentScoreModel( int which = 0 );
@@ -131,12 +131,12 @@ private:
 //	}
 	void Reset_();
 
-	Ipponboard::Match& CurrentMatch_()
-	{ return m_TournamentScores[m_currentTournament].at(m_currentMatch); }
+	Ipponboard::Fight& CurrentFight_()
+	{ return m_TournamentScores[m_currentTournament].at(m_currentFight); }
 
 	Ipponboard::Tournament m_TournamentScores[2];
 	TournamentModel* m_TournamentModelsPtrs[2];
-	int m_currentMatch;
+	int m_currentFight;
 	int m_currentTournament;
 
 	Ipponboard::IpponboardSM* m_pSM;

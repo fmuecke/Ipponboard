@@ -10,7 +10,7 @@
 
 namespace Ipponboard
 {
-	enum { eTournament_MatchCount = 10 };
+	enum { eTournament_FightCount = 10 };
 	enum EScore
 	{
 		eScore_Ippon = 10,
@@ -27,9 +27,9 @@ namespace Ipponboard
 		QString club;
 	};
 
-	struct Match
+	struct Fight
 	{
-		Match() : weight("-"), time_in_seconds(0), is_saved(false)
+		Fight() : weight("-"), time_in_seconds(0), is_saved(false)
 		{
 		}
 
@@ -53,10 +53,10 @@ namespace Ipponboard
 		bool HasWon(EFighter who) const
 		{
 			const EFighter tori = who;
-            const EFighter uke = (tori == eFighter_Blue)?
-                                 eFighter_White : eFighter_Blue;
+			const EFighter uke = (tori == eFighter_Blue)?
+								 eFighter_White : eFighter_Blue;
 
-            if( scores[tori].Ippon() || scores[tori].IsAwaseteIppon() )
+			if( scores[tori].Ippon() || scores[tori].IsAwaseteIppon() )
 				return true;
 			if( scores[uke].Ippon() || scores[uke].IsAwaseteIppon() )
 				return false;
@@ -64,36 +64,36 @@ namespace Ipponboard
 				return true;
 			if( scores[tori].Wazaari() < scores[uke].Wazaari() )
 				return false;
-            if( scores[tori].Yuko() > scores[uke].Yuko() )
+			if( scores[tori].Yuko() > scores[uke].Yuko() )
 				return true;
 			return false;
 		}
 		int ScorePoints(EFighter who) const
 		{
-            if( HasWon(who) )
-            {
-                if( scores[who].Ippon() || scores[who].IsAwaseteIppon() )
-                    return eScore_Ippon;
-                if( scores[who].Wazaari() > 0)
-                    return eScore_Wazaari;
-                if( scores[who].Yuko() > 0 )
-                    return eScore_Yuko;
-                //TODO: Hantei!
-            }
-            else
-            {
-                const EFighter tori = who;
-                const EFighter uke = (tori == eFighter_Blue)?
-                                    eFighter_White : eFighter_Blue;
-                if ( !HasWon(uke) )
-                    return eScore_Hikewake;
+			if( HasWon(who) )
+			{
+				if( scores[who].Ippon() || scores[who].IsAwaseteIppon() )
+					return eScore_Ippon;
+				if( scores[who].Wazaari() > 0)
+					return eScore_Wazaari;
+				if( scores[who].Yuko() > 0 )
+					return eScore_Yuko;
+				//TODO: Hantei!
+			}
+			else
+			{
+				const EFighter tori = who;
+				const EFighter uke = (tori == eFighter_Blue)?
+									eFighter_White : eFighter_Blue;
+				if ( !HasWon(uke) )
+					return eScore_Hikewake;
 
-                return eScore_Lost;
-            }
+				return eScore_Lost;
+			}
 		}
 	};
 
-	typedef boost::array<Match, eTournament_MatchCount> Tournament;
+	typedef boost::array<Fight, eTournament_FightCount> Tournament;
 
 } // namespace Ipponboard
 
@@ -111,7 +111,7 @@ namespace serialization
 	}
 
 	template<class Archive>
-	void serialize(Archive& ar, Ipponboard::Match& m, const unsigned int /*version*/)
+	void serialize(Archive& ar, Ipponboard::Fight& m, const unsigned int /*version*/)
 	{
 		ar & BOOST_SERIALIZATION_NVP(m.score);
 		ar & BOOST_SERIALIZATION_NVP(m.fighters);

@@ -99,7 +99,7 @@ private:
 	void updateLangCheckStates_() const;
 
 #ifdef TEAM_VIEW
-	void UpdateMatchNumber_();
+	void UpdateFightNumber_();
 	void UpdateScoreScreen_();
 	void WriteScoreToHtml_();
 #endif
@@ -107,7 +107,7 @@ private:
 private slots:
 	void on_actionEnglish_triggered();
  void on_actionDeutsch_triggered();
- void on_actionAbout_Ipponboard_triggered();
+	void on_actionAbout_Ipponboard_triggered();
 	void on_actionTest_Gong_triggered();
 	void on_actionShow_SecondaryView_triggered();
 //	void on_actionSelect_Color_triggered();

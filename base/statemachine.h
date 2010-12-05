@@ -140,7 +140,7 @@ public:
 	//--------------------
 	void reset(Reset const& /*evt*/)
 	{
-		m_pCore->ResetMatch_();
+		m_pCore->ResetFight_();
 	}
 
 	template<class T>
@@ -161,7 +161,7 @@ public:
 	template<>
 	void stop_timer( Finish const& /*evt*/)
 	{
-		// Finish will be created if current match should be saved
+		// Finish will be created if current fight should be saved
 		// --> stop timers
 		m_pCore->StopTimer_( eTimer_Holdi ); //FIXME!
 		m_pCore->StopTimer_( eTimer_Main ); // will save main time
