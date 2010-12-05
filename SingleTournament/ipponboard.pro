@@ -10,55 +10,54 @@ CONFIG += precompile_header
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 SOURCES = ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
-    ../base/controller.cpp \
-    ../gamepad/gamepad.cpp \
-    main.cpp \
+	../base/clubmanagerdlg.cpp \
+	../base/controller.cpp \
+	../gamepad/gamepad.cpp \
+	main.cpp \
 	../base/mainwindow.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../base/score.cpp \
-    ../base/settingsdlg.cpp \
-    ../base/statemachine.cpp \
-    ../base/tournamentmodel.cpp \
-    ../base/view.cpp \
-    ../base/classmanagerdlg.cpp \
-    ../base/classmanager.cpp \
-    ../base/weightclass.cpp
+	../widgets/scaledimage.cpp \
+	../widgets/scaledtext.cpp \
+	../base/score.cpp \
+	../base/settingsdlg.cpp \
+	../base/statemachine.cpp \
+	../base/tournamentmodel.cpp \
+	../base/view.cpp \
+	../base/fightcategorymanagerdlg.cpp \
+	../base/fightcategorymanager.cpp \
+	../base/fightcategory.cpp
 HEADERS = ../base/pch.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
-    ../base/controller.h \
-    ../base/enums.h \
-    ../gamepad/gamepad.h \
-    ../base/icontroller.h \
-    ../base/icontrollercore.h \
-    ../base/iview.h \
+	../base/clubmanager.h \
+	../base/clubmanagerdlg.h \
+	../base/controller.h \
+	../base/enums.h \
+	../gamepad/gamepad.h \
+	../base/icontroller.h \
+	../base/icontrollercore.h \
+	../base/iview.h \
 	../base/mainwindow.h \
-    ../util/qstring_serialization.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-    ../base/score.h \
-    ../base/settingsdlg.h \
-    ../base/statemachine.h \
-    ../base/tournament.h \
-    ../base/tournamentmodel.h \
-    ../base/view.h \
-    ../base/classmanagerdlg.h \
-    ../base/classmanager.h \
-    ../base/classmanager.h \
-    ../base/weightclass.h
+	../util/qstring_serialization.h \
+	../widgets/scaledimage.h \
+	../widgets/scaledtext.h \
+	../base/score.h \
+	../base/settingsdlg.h \
+	../base/statemachine.h \
+	../base/tournament.h \
+	../base/tournamentmodel.h \
+	../base/view.h \
+	../base/fightcategorymanagerdlg.h \
+	../base/fightcategorymanager.h \
+	../base/fightcategory.h
 FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
-    ../base/settingsdlg.ui \
+	mainwindow.ui \
+	../base/settingsdlg.ui \
 	view_vertical_single.ui \
 	../base/view_horizontal.ui \
-    ../base/classmanagerdlg.ui
-OTHER_FILES += 
+	../base/fightcategorymanagerdlg.ui
+OTHER_FILES +=
 RESOURCES += ../base/ipponboard.qrc
 INCLUDEPATH += $$quote($$(BOOST))
 LIBPATH += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
-TRANSLATIONS = Ipponboard_de.ts	
+TRANSLATIONS = Ipponboard_de.ts
 
 win32:RC_FILE = ../base/ipponboard.rc

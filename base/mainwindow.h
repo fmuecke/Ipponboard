@@ -16,7 +16,7 @@ namespace Ipponboard
 	class View;
 	class Controller;
 	class ClubManager;
-	class WeightClassManager;
+	class FightCategoryMgr;
 	class ScoreScreen;
 }
 
@@ -156,7 +156,7 @@ private:
 	std::vector<QTableWidgetItem> fighters_guest;
 	QString m_htmlScore;
 #else
-	Ipponboard::WeightClassManager* m_pClassManager;
+	Ipponboard::FightCategoryMgr* m_pCategoryManager;
 #endif
 	PGamePad m_pGamePad;
 

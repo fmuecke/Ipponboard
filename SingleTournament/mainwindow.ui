@@ -314,6 +314,10 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/door-open-out.png</normaloff>:/res/icons/door-open-out.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
@@ -328,11 +332,19 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/home-medium.png</normaloff>:/res/icons/home-medium.png</iconset>
+   </property>
    <property name="text">
     <string>Visit Project Homepage</string>
    </property>
   </action>
   <action name="actionAbout_Ipponboard">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/information-frame.png</normaloff>:/res/icons/information-frame.png</iconset>
+   </property>
    <property name="text">
     <string>About Ipponboard</string>
    </property>
@@ -343,6 +355,10 @@
   <action name="actionShow_SecondaryView">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/slides.png</normaloff>:/res/icons/slides.png</iconset>
    </property>
    <property name="text">
     <string>Show Secondary View</string>
@@ -386,6 +402,10 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/speaker.png</normaloff>:/res/icons/speaker.png</iconset>
+   </property>
    <property name="text">
     <string>Test Gong</string>
    </property>
@@ -399,6 +419,10 @@
    </property>
   </action>
   <action name="actionPreferences">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/gear.png</normaloff>:/res/icons/gear.png</iconset>
+   </property>
    <property name="text">
     <string>Preferences</string>
    </property>
@@ -468,21 +492,33 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/printer.png</normaloff>:/res/icons/printer.png</iconset>
+   </property>
    <property name="text">
     <string>Drucken</string>
    </property>
   </action>
   <action name="actionManage_Classes">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/xfn-friend.png</normaloff>:/res/icons/xfn-friend.png</iconset>
+   </property>
    <property name="text">
-    <string>Tournament Classes</string>
+    <string>Fight Categories</string>
    </property>
    <property name="toolTip">
-    <string>Manage Tournament Classes</string>
+    <string>Manage Fight Categories</string>
    </property>
   </action>
   <action name="actionDeutsch">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/de.png</normaloff>:/res/icons/de.png</iconset>
    </property>
    <property name="text">
     <string notr="true">Deutsch</string>
@@ -500,6 +536,10 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/gb.png</normaloff>:/res/icons/gb.png</iconset>
    </property>
    <property name="text">
     <string notr="true">English</string>

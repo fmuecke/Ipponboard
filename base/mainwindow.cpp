@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../base/clubmanagerdlg.h"
-#include "../base/classmanagerdlg.h"
+#include "../base/fightcategorymanagerdlg.h"
 #include "../base/view.h"
 #include "../base/controller.h"
 #include "../base/clubmanager.h"
-#include "../base/classmanager.h"
+#include "../base/fightcategorymanager.h"
 #include "../base/versioninfo.h"
 #include "../base/tournamentmodel.h"
 #include "../widgets/scaledimage.h"
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
 	, fighters_home()
 	, fighters_guest()
 #else
-	, m_pClassManager(nullptr)
+	, m_pCategoryManager(nullptr)
 #endif
 	, m_pGamePad(new Gamepad)
 	, m_secondScreenNo(0)
@@ -75,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef TEAM_VIEW
 	m_pClubManager = new Ipponboard::ClubManager();
 #else
-	m_pClassManager = new WeightClassManager();
+	m_pCategoryManager = new FightCategoryMgr();
 #endif
 
 	//
@@ -161,10 +161,10 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->comboBox_mat->addItem(mat + " 9");
 
 	// init tournament classes (if there are none present)
-	for(int i(0); i<m_pClassManager->ClassCount(); ++i)
+	for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
 	{
-		WeightClass t("");
-		m_pClassManager->GetClass(i, t);
+		FightCategory t("");
+		m_pCategoryManager->GetCategory(i, t);
 		m_pUi->comboBox_weight_class->addItem(t.ToString());
 	}
 
@@ -206,7 +206,7 @@ MainWindow::~MainWindow()
 	delete m_pScoreScreen;
 	delete m_pClubManager;
 #else
-	delete m_pClassManager;
+	delete m_pCategoryManager;
 #endif
 	delete m_pUi;
 }
@@ -1248,17 +1248,17 @@ void MainWindow::on_actionExport_triggered()
 void MainWindow::on_actionManage_Classes_triggered()
 //=========================================================
 {
-	ClassManagerDlg dlg(m_pClassManager, this);
+	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 	if( QDialog::Accepted == dlg.exec() )
 	{
 		QString currentClass =
 				m_pUi->comboBox_weight_class->currentText();
 
 		m_pUi->comboBox_weight_class->clear();
-		for(int i(0); i<m_pClassManager->ClassCount(); ++i)
+		for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
 		{
-			WeightClass t("");
-			m_pClassManager->GetClass(i, t);
+			FightCategory t("");
+			m_pCategoryManager->GetCategory(i, t);
 			m_pUi->comboBox_weight_class->addItem(t.ToString());
 		}
 		int index = m_pUi->comboBox_weight_class->findText(currentClass);
@@ -1313,8 +1313,8 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	const QString name = m_pUi->comboBox_weight_class->currentText();
-	WeightClass t(name);
-	m_pClassManager->GetClass(name, t);
+	FightCategory t(name);
+	m_pCategoryManager->GetCategory(name, t);
 
 	if( s == str_golden_score )
 	{
@@ -1332,12 +1332,12 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 //=========================================================
 {
-	WeightClass t(s);
-	m_pClassManager->GetClass(s, t);
+	FightCategory t(s);
+	m_pCategoryManager->GetCategory(s, t);
 
 	// add weights
 	m_pUi->comboBox_weight->clear();
-	m_pUi->comboBox_weight->addItems(t.GetWeightList());
+	m_pUi->comboBox_weight->addItems(t.GetWeightsList());
 
 	// trigger rount time update
 	on_comboBox_time_currentIndexChanged(m_pUi->comboBox_time->currentText());
