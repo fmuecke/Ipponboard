@@ -282,13 +282,13 @@ void SettingsDlg::SetButtonReset2(int b)
 	ui->comboBox_reset_2->setCurrentIndex(index);
 }
 
-void SettingsDlg::SetButtonResetHold(int b)
+void SettingsDlg::SetButtonResetHoldBlue(int b)
 {
 	int index = ui->comboBox_reset_hold->findText(m_buttonTexts[b]);
 	ui->comboBox_reset_hold->setCurrentIndex(index);
 }
 
-void SettingsDlg::SetButtonResetHold2(int b)
+void SettingsDlg::SetButtonResetHoldWhite(int b)
 {
 	int index = ui->comboBox_reset_hold_2->findText(m_buttonTexts[b]);
 	ui->comboBox_reset_hold_2->setCurrentIndex(index);

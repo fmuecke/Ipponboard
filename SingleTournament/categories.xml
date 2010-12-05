@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="7">
+<m_Categories class_id="0" tracking_level="0" version="0">
+	<count>8</count>
+	<item_version>0</item_version>
+	<item class_id="1" tracking_level="0" version="0">
+		<name>M</name>
+		<round_time_secs>300</round_time_secs>
+		<golden_score_time_secs>180</golden_score_time_secs>
+		<weights>-60,-66,-73,-81,-90,-100,+100</weights>
+	</item>
+	<item>
+		<name>MU20</name>
+		<round_time_secs>240</round_time_secs>
+		<golden_score_time_secs>120</golden_score_time_secs>
+		<weights>-55,-60,-66,-73,-81,-90,-100,+100</weights>
+	</item>
+	<item>
+		<name>MU17</name>
+		<round_time_secs>240</round_time_secs>
+		<golden_score_time_secs>120</golden_score_time_secs>
+		<weights>-43,-46,-50,-55,-60,-66,-73,-81,-90,+90</weights>
+	</item>
+	<item>
+		<name>MU14</name>
+		<round_time_secs>180</round_time_secs>
+		<golden_score_time_secs>90</golden_score_time_secs>
+		<weights>-31,-34,-37,-40,-43,-46,-50,-55,-60,+60</weights>
+	</item>
+	<item>
+		<name>F</name>
+		<round_time_secs>300</round_time_secs>
+		<golden_score_time_secs>180</golden_score_time_secs>
+		<weights>-48,-52,-57,-63,-70,-78,+78</weights>
+	</item>
+	<item>
+		<name>FU20</name>
+		<round_time_secs>240</round_time_secs>
+		<golden_score_time_secs>120</golden_score_time_secs>
+		<weights>-44,-48,-52,-57,-63,-70,-78,+78</weights>
+	</item>
+	<item>
+		<name>FU17</name>
+		<round_time_secs>240</round_time_secs>
+		<golden_score_time_secs>120</golden_score_time_secs>
+		<weights>-40,-44,-48,-52,-57,-63,-70,-78,+78</weights>
+	</item>
+	<item>
+		<name>FU14</name>
+		<round_time_secs>180</round_time_secs>
+		<golden_score_time_secs>90</golden_score_time_secs>
+		<weights>-30,-33,-36,-40,-44,-48,-52,-57,-63,+63</weights>
+	</item>
+</m_Categories>
+</boost_serialization>
+

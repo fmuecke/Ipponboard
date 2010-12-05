@@ -454,7 +454,14 @@ void Controller::ResetTimerValue( Ipponboard::ETimer timer )
 void Controller::SetRoundTime( const QString& value )
 //=========================================================
 {
-	m_roundTime = QTime::fromString(value, "m:ss");
+	SetRoundTime(QTime::fromString(value, "m:ss"));
+}
+
+//=========================================================
+void Controller::SetRoundTime( QTime const& time )
+//=========================================================
+{
+	m_roundTime = time;
 	*m_pTimeMain = m_roundTime;
 
 	UpdateViews_();

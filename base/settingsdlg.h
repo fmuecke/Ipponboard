@@ -51,8 +51,8 @@ public:
 	void SetButtonPause(int b);
 	void SetButtonReset(int b);
 	void SetButtonReset2(int b);
-	void SetButtonResetHold(int b);
-	void SetButtonResetHold2(int b);
+	void SetButtonResetHoldBlue(int b);
+	void SetButtonResetHoldWhite(int b);
 	void SetButtonBlueHolding(int b);
 	void SetButtonWhiteHolding(int b);
 	void SetButtonHansokumakeBlue(int b);

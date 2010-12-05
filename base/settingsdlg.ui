@@ -627,6 +627,16 @@
               <property name="text">
                <string>Play</string>
               </property>
+              <property name="icon">
+               <iconset resource="ipponboard.qrc">
+                <normaloff>:/res/icons/control.png</normaloff>:/res/icons/control.png</iconset>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::NoArrow</enum>
+              </property>
              </widget>
             </item>
            </layout>
@@ -996,6 +1006,8 @@
   <tabstop>checkBox_invert_z_axis</tabstop>
   <tabstop>buttonBox_2</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="ipponboard.qrc"/>
+ </resources>
  <connections/>
 </ui>

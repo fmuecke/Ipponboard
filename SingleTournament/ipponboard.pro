@@ -14,10 +14,10 @@ CONFIG += precompile_header
 PRECOMPILED_HEADER = ../base/pch.h
 
 SOURCES = ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
-    ../base/controller.cpp \
-    ../gamepad/gamepad.cpp \
-    main.cpp \
+	../base/clubmanagerdlg.cpp \
+	../base/controller.cpp \
+	../gamepad/gamepad.cpp \
+	main.cpp \
     ../base/mainwindow.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
@@ -26,17 +26,20 @@ SOURCES = ../base/clubmanager.cpp \
     ../base/statemachine.cpp \
     ../base/tournamentmodel.cpp \
     ../base/view.cpp \
+	../base/fightcategorymanagerdlg.cpp \
+	../base/fightcategorymanager.cpp \
+	../base/fightcategory.cpp \
     ../widgets/splashscreen.cpp
 
 HEADERS = ../base/pch.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
-    ../base/controller.h \
-    ../base/enums.h \
-    ../gamepad/gamepad.h \
-    ../base/icontroller.h \
-    ../base/icontrollercore.h \
-    ../base/iview.h \
+	../base/clubmanager.h \
+	../base/clubmanagerdlg.h \
+	../base/controller.h \
+	../base/enums.h \
+	../gamepad/gamepad.h \
+	../base/icontroller.h \
+	../base/icontrollercore.h \
+	../base/iview.h \
     ../base/mainwindow.h \
     ../util/qstring_serialization.h \
     ../widgets/scaledimage.h \
@@ -47,13 +50,17 @@ HEADERS = ../base/pch.h \
     ../base/tournament.h \
     ../base/tournamentmodel.h \
     ../base/view.h \
+	../base/fightcategorymanagerdlg.h \
+	../base/fightcategorymanager.h \
+	../base/fightcategory.h \
     ../widgets/splashscreen.h
 
 FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
-    ../base/settingsdlg.ui \
+	mainwindow.ui \
+	../base/settingsdlg.ui \
     view_vertical_single.ui \
     ../base/view_horizontal.ui \
+	../base/fightcategorymanagerdlg.ui \
     ../widgets/splashscreen.ui
 
 OTHER_FILES += 

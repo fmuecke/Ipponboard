@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../base/clubmanagerdlg.h"
+#include "../base/fightcategorymanagerdlg.h"
 #include "../base/view.h"
 #include "../base/controller.h"
 #include "../base/clubmanager.h"
+#include "../base/fightcategorymanager.h"
 #include "../base/versioninfo.h"
 #include "../base/tournamentmodel.h"
 #include "../widgets/scaledimage.h"
@@ -24,6 +26,7 @@
 #include <QSettings>
 #include <QTimer>
 #include <QSplashScreen>
+#include <functional>
 #include <QUrl>
 #include <QDesktopServices>
 
@@ -34,14 +37,16 @@ using namespace Ipponboard;
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 	, m_pUi(new Ui::MainWindow)
-	, m_pPrimaryView(0)
-	, m_pSecondaryView(0)
-	, m_pController(0)
+	, m_pPrimaryView(nullptr)
+	, m_pSecondaryView(nullptr)
+	, m_pController(nullptr)
 #ifdef TEAM_VIEW
-	, m_pScoreScreen(0)
-	, m_pClubManager(0)
+	, m_pScoreScreen(nullptr)
+	, m_pClubManager(nullptr)
 	, fighters_home()
 	, fighters_guest()
+#else
+	, m_pCategoryManager(nullptr)
 #endif
 	, m_pGamePad(new Gamepad)
 	, m_secondScreenNo(0)
@@ -56,8 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
 	, m_buttonPause(-1)
 	, m_buttonReset(-1)
 	, m_buttonReset2(-1)
-	, m_buttonResetHold(-1)
-	, m_buttonResetHold2(-1)
+	, m_buttonResetHoldBlue(-1)
+	, m_buttonResetHoldWhite(-1)
 	, m_buttonBlueHolding(-1)
 	, m_buttonWhiteHolding(-1)
 	, m_buttonHansokumakeBlue(-1)
@@ -72,6 +77,8 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pController = new Ipponboard::Controller();
 #ifdef TEAM_VIEW
 	m_pClubManager = new Ipponboard::ClubManager();
+#else
+	m_pCategoryManager = new FightCategoryMgr();
 #endif
 
 	//
@@ -155,147 +162,22 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->comboBox_mat->addItem(mat + " 8");
 	m_pUi->comboBox_mat->addItem(mat + " 9");
 
-	// weight classes
-	m_weight_classes.push_back("MU14");
-	m_weight_classes.push_back("FU14");
-	m_weight_classes.push_back("MU16");
-	m_weight_classes.push_back("FU16");
-	m_weight_classes.push_back("MU17");
-	m_weight_classes.push_back("FU17");
-	m_weight_classes.push_back("MU19");
-	m_weight_classes.push_back("FU19");
-	m_weight_classes.push_back("MU20");
-	m_weight_classes.push_back("FU20");
-	m_weight_classes.push_back("M");
-	m_weight_classes.push_back("F");
-	m_pUi->comboBox_weight_class->addItems(m_weight_classes);
-
-	m_weight_mu14.push_back("-31");
-	m_weight_mu14.push_back("-34");
-	m_weight_mu14.push_back("-37");
-	m_weight_mu14.push_back("-40");
-	m_weight_mu14.push_back("-43");
-	m_weight_mu14.push_back("-46");
-	m_weight_mu14.push_back("-50");
-	m_weight_mu14.push_back("-55");
-	m_weight_mu14.push_back("-60");
-	m_weight_mu14.push_back("+60");
-
-	m_weight_fu14.push_back("-30");
-	m_weight_fu14.push_back("-33");
-	m_weight_fu14.push_back("-36");
-	m_weight_fu14.push_back("-40");
-	m_weight_fu14.push_back("-44");
-	m_weight_fu14.push_back("-48");
-	m_weight_fu14.push_back("-52");
-	m_weight_fu14.push_back("-57");
-	m_weight_fu14.push_back("-63");
-	m_weight_fu14.push_back("+63");
-
-	m_weight_mu17.push_back("-43");
-	m_weight_mu17.push_back("-46");
-	m_weight_mu17.push_back("-50");
-	m_weight_mu17.push_back("-55");
-	m_weight_mu17.push_back("-60");
-	m_weight_mu17.push_back("-66");
-	m_weight_mu17.push_back("-73");
-	m_weight_mu17.push_back("-81");
-	m_weight_mu17.push_back("-90");
-	m_weight_mu17.push_back("+90");
-
-	m_weight_fu17.push_back("-40");
-	m_weight_fu17.push_back("-44");
-	m_weight_fu17.push_back("-48");
-	m_weight_fu17.push_back("-52");
-	m_weight_fu17.push_back("-57");
-	m_weight_fu17.push_back("-63");
-	m_weight_fu17.push_back("-70");
-	m_weight_fu17.push_back("-78");
-	m_weight_fu17.push_back("+78");
-
-	m_weight_mu20.push_back("-55");
-	m_weight_mu20.push_back("-60");
-	m_weight_mu20.push_back("-66");
-	m_weight_mu20.push_back("-73");
-	m_weight_mu20.push_back("-81");
-	m_weight_mu20.push_back("-90");
-	m_weight_mu20.push_back("-100");
-	m_weight_mu20.push_back("+100");
-
-	m_weight_fu20.push_back("-44");
-	m_weight_fu20.push_back("-48");
-	m_weight_fu20.push_back("-52");
-	m_weight_fu20.push_back("-57");
-	m_weight_fu20.push_back("-63");
-	m_weight_fu20.push_back("-70");
-	m_weight_fu20.push_back("-78");
-	m_weight_fu20.push_back("+78");
-
-	m_weight_men.push_back("-60");
-	m_weight_men.push_back("-66");
-	m_weight_men.push_back("-73");
-	m_weight_men.push_back("-81");
-	m_weight_men.push_back("-90");
-	m_weight_men.push_back("-100");
-	m_weight_men.push_back("+100");
-
-	m_weight_women.push_back("-48");
-	m_weight_women.push_back("-52");
-	m_weight_women.push_back("-57");
-	m_weight_women.push_back("-63");
-	m_weight_women.push_back("-70");
-	m_weight_women.push_back("-78");
-	m_weight_women.push_back("+78");
-
-	m_weight_mu16.push_back("-40");
-	m_weight_mu16.push_back("-43");
-	m_weight_mu16.push_back("-46");
-	m_weight_mu16.push_back("-50");
-	m_weight_mu16.push_back("-55");
-	m_weight_mu16.push_back("-60");
-	m_weight_mu16.push_back("-66");
-	m_weight_mu16.push_back("-73");
-	m_weight_mu16.push_back("-81");
-	m_weight_mu16.push_back("+81");
-
-	m_weight_fu16.push_back("-40");
-	m_weight_fu16.push_back("-44");
-	m_weight_fu16.push_back("-48");
-	m_weight_fu16.push_back("-52");
-	m_weight_fu16.push_back("-57");
-	m_weight_fu16.push_back("-63");
-	m_weight_fu16.push_back("-70");
-	m_weight_fu16.push_back("+70");
-
-	m_weight_mu19.push_back("-55");
-	m_weight_mu19.push_back("-60");
-	m_weight_mu19.push_back("-66");
-	m_weight_mu19.push_back("-73");
-	m_weight_mu19.push_back("-81");
-	m_weight_mu19.push_back("-90");
-	m_weight_mu19.push_back("-100");
-	m_weight_mu19.push_back("+100");
-
-	m_weight_fu19.push_back("-44");
-	m_weight_fu19.push_back("-48");
-	m_weight_fu19.push_back("-52");
-	m_weight_fu19.push_back("-57");
-	m_weight_fu19.push_back("-63");
-	m_weight_fu19.push_back("-70");
-	m_weight_fu19.push_back("-78");
-	m_weight_fu19.push_back("+78");
+	// init tournament classes (if there are none present)
+	for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
+	{
+		FightCategory t("");
+		m_pCategoryManager->GetCategory(i, t);
+		m_pUi->comboBox_weight_class->addItem(t.ToString());
+	}
 
 	// round times
-	m_pUi->comboBox_time->addItem("2:00");
-	m_pUi->comboBox_time->addItem("3:00");
-	m_pUi->comboBox_time->addItem("4:00");
-	m_pUi->comboBox_time->addItem("5:00");
+	m_pUi->comboBox_time->addItem(str_normal_round_time);
 	m_pUi->comboBox_time->addItem(str_golden_score);
 
 
-	m_pUi->comboBox_weight_class->setCurrentIndex(0);
-	m_pUi->comboBox_weight_class->setCurrentIndex(1);
-	m_pUi->comboBox_weight_class->setCurrentIndex(0);
+	// trigger tournament class combobox update
+	on_comboBox_weight_class_currentIndexChanged(
+			m_pUi->comboBox_weight_class->currentText());
 
 	m_pUi->lineEdit_name_blue->setText(tr("Blue"));
 	m_pUi->lineEdit_name_white->setText(tr("White"));
@@ -325,6 +207,8 @@ MainWindow::~MainWindow()
 #ifdef TEAM_VIEW
 	delete m_pScoreScreen;
 	delete m_pClubManager;
+#else
+	delete m_pCategoryManager;
 #endif
 	delete m_pUi;
 }
@@ -409,8 +293,8 @@ void MainWindow::WriteSettings_()
 	settings.setValue( str_tag_buttonPause, m_buttonPause );
 	settings.setValue( str_tag_buttonReset, m_buttonReset );
 	settings.setValue( str_tag_buttonReset2, m_buttonReset2 );
-	settings.setValue( str_tag_buttonResetHold, m_buttonResetHold );
-	settings.setValue( str_tag_buttonResetHold2, m_buttonResetHold2 );
+	settings.setValue( str_tag_buttonResetHoldBlue, m_buttonResetHoldBlue );
+	settings.setValue( str_tag_buttonResetHoldWhite, m_buttonResetHoldWhite );
 	settings.setValue( str_tag_buttonBlueHolding, m_buttonBlueHolding );
 	settings.setValue( str_tag_buttonWhiteHolding, m_buttonWhiteHolding );
 	settings.setValue( str_tag_buttonHansokumakeBlue, m_buttonHansokumakeBlue );
@@ -524,9 +408,9 @@ void MainWindow::ReadSettings_()
 									Gamepad::eButton1 ).toInt();
 	m_buttonReset2 = settings.value( str_tag_buttonReset2,
 									Gamepad::eButton4 ).toInt();
-	m_buttonResetHold = settings.value( str_tag_buttonResetHold,
+	m_buttonResetHoldBlue = settings.value( str_tag_buttonResetHoldBlue,
 									Gamepad::eButton6 ).toInt();
-	m_buttonResetHold2 = settings.value( str_tag_buttonResetHold2,
+	m_buttonResetHoldWhite = settings.value( str_tag_buttonResetHoldWhite,
 									Gamepad::eButton8 ).toInt();
 	m_buttonBlueHolding = settings.value( str_tag_buttonBlueHolding,
 										  Gamepad::eButton5 ).toInt();
@@ -633,6 +517,18 @@ void MainWindow::ShowHideView_() const
 	}
 }
 
+//=========================================================
+void MainWindow::UpdateViews_()
+//=========================================================
+{
+	m_pPrimaryView->UpdateView();
+	m_pSecondaryView->UpdateView();
+#ifdef TEAM_VIEW
+	UpdateScoreScreen_();
+#endif
+}
+
+
 #ifdef TEAM_VIEW
 //=========================================================
 void MainWindow::UpdateFightNumber_()
@@ -640,14 +536,6 @@ void MainWindow::UpdateFightNumber_()
 {
 	const int current = m_pController->GetCurrentFightIndex() + 1;
 	m_pUi->label_fight->setText( QString::number(current) + " / 10" );
-}
-//=========================================================
-void MainWindow::UpdateViews_()
-//=========================================================
-{
-	m_pPrimaryView->UpdateView();
-	m_pSecondaryView->UpdateView();
-	UpdateScoreScreen_();
 }
 //=========================================================
 void MainWindow::UpdateScoreScreen_()
@@ -893,8 +781,8 @@ void MainWindow::on_actionPreferences_triggered()
 	dlg.SetButtonPause(m_buttonPause);
 	dlg.SetButtonReset(m_buttonReset);
 	dlg.SetButtonReset2(m_buttonReset2);
-	dlg.SetButtonResetHold(m_buttonResetHold);
-	dlg.SetButtonResetHold2(m_buttonResetHold2);
+	dlg.SetButtonResetHoldBlue(m_buttonResetHoldBlue);
+	dlg.SetButtonResetHoldWhite(m_buttonResetHoldWhite);
 	dlg.SetButtonBlueHolding(m_buttonBlueHolding);
 	dlg.SetButtonWhiteHolding(m_buttonWhiteHolding);
 	dlg.SetButtonHansokumakeBlue(m_buttonHansokumakeBlue);
@@ -924,8 +812,8 @@ void MainWindow::on_actionPreferences_triggered()
 		m_buttonPause = dlg.GetButtonPause();
 		m_buttonReset = dlg.GetButtonReset();
 		m_buttonReset2 = dlg.GetButtonReset2();
-		m_buttonResetHold = dlg.GetButtonResetHold();
-		m_buttonResetHold2 = dlg.GetButtonResetHold2();
+		m_buttonResetHoldBlue = dlg.GetButtonResetHold();
+		m_buttonResetHoldWhite = dlg.GetButtonResetHold2();
 		m_buttonBlueHolding = dlg.GetButtonBlueHolding();
 		m_buttonWhiteHolding = dlg.GetButtonWhiteHolding();
 		m_buttonHansokumakeBlue = dlg.GetButtonHansokumakeBlue();
@@ -969,8 +857,8 @@ void MainWindow::EvaluateInput()
 	{
 		m_pController->DoAction( eAction_Hajime_Matte, eFighter_Nobody );
 	}
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHold)) ||
-			 m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHold2)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHoldBlue)) ||
+			 m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHoldWhite)) )
 	{
 		m_pController->DoAction( eAction_ResetOsaeKomi, eFighter_Nobody );
 	}
@@ -1121,6 +1009,7 @@ void MainWindow::EvaluateInput()
 			m_pController->DoAction( eAction_Shido, eFighter_White);
 		}
 	}
+	UpdateViews_();
 }
 
 #ifdef TEAM_VIEW
@@ -1357,6 +1246,36 @@ void MainWindow::on_actionExport_triggered()
 
 #else // TEAM_VIEW
 //=========================================================
+void MainWindow::on_actionManage_Classes_triggered()
+//=========================================================
+{
+	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
+	if( QDialog::Accepted == dlg.exec() )
+	{
+		QString currentClass =
+				m_pUi->comboBox_weight_class->currentText();
+
+		m_pUi->comboBox_weight_class->clear();
+		for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
+		{
+			FightCategory t("");
+			m_pCategoryManager->GetCategory(i, t);
+			m_pUi->comboBox_weight_class->addItem(t.ToString());
+		}
+		int index = m_pUi->comboBox_weight_class->findText(currentClass);
+		if( -1 == index )
+		{
+			index = 0;
+			currentClass = m_pUi->comboBox_weight_class->itemText(index);
+		}
+
+		m_pUi->comboBox_weight_class->setCurrentIndex(index);
+		on_comboBox_weight_class_currentIndexChanged(currentClass);
+	}
+}
+
+
+//=========================================================
 void MainWindow::on_comboBox_mat_currentIndexChanged(const QString& s)
 //=========================================================
 {
@@ -1394,29 +1313,19 @@ void MainWindow::on_lineEdit_name_white_textChanged(const QString& s)
 void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 //=========================================================
 {
+	const QString name = m_pUi->comboBox_weight_class->currentText();
+	FightCategory t(name);
+	m_pCategoryManager->GetCategory(name, t);
+
 	if( s == str_golden_score )
 	{
-		const QString wc = m_pUi->comboBox_weight_class->currentText();
-		QString time("0:00");
-		if( wc == "F" ||
-			wc == "M" )
-			time = "3:00";
-		else if( wc == "FU20" ||
-				 wc == "MU20" ||
-				 wc == "FU17" ||
-				 wc == "MU17" ||
-				 wc == "MU16" ||
-				 wc == "FU16" ||
-				 wc == "MU19" ||
-				 wc == "FU19")
-			time = "2:00";
-		else // if( wc == "FU14" || wc == "MU14" )
-			time = "1:30";
-		m_pController->SetRoundTime(time);
+		m_pController->SetRoundTime(
+				QTime().addSecs(t.GetGoldenScoreTime()));
 	}
 	else
 	{
-		m_pController->SetRoundTime(s);
+		m_pController->SetRoundTime(
+				QTime().addSecs(t.GetRoundTime()));
 	}
 }
 
@@ -1424,74 +1333,15 @@ void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 //=========================================================
 {
-	m_pController->SetWeightClass(s);
+	FightCategory t(s);
+	m_pCategoryManager->GetCategory(s, t);
 
-	QString roundTime("0:00");
+	// add weights
 	m_pUi->comboBox_weight->clear();
-	if( s == "MU14")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu14);
-		roundTime = "3:00";
-	}
-	else if( s == "FU14")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu14);
-		roundTime = "3:00";
-	}
-	else if( s == "MU16")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu16);
-		roundTime = "4:00";
-	}
-	else if( s == "FU16")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu16);
-		roundTime = "4:00";
-	}
-	else if( s == "MU17")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu17);
-		roundTime = "4:00";
-	}
-	else if( s == "FU17")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu17);
-		roundTime = "4:00";
-	}
-	else if( s == "MU19")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu19);
-		roundTime = "4:00";
-	}
-	else if( s == "FU19")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu19);
-		roundTime = "4:00";
-	}
-	else if( s == "MU20")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_mu20);
-		roundTime = "4:00";
-	}
-	else if( s == "FU20")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_fu20);
-		roundTime = "4:00";
-	}
-	else if( s == "M")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_men);
-		roundTime = "5:00";
-	}
-	else //if( s == "F")
-	{
-		m_pUi->comboBox_weight->addItems(m_weight_women);
-		roundTime = "5:00";
-	}
+	m_pUi->comboBox_weight->addItems(t.GetWeightsList());
 
-	int index = m_pUi->comboBox_time->findText(roundTime);
-	if( -1 != index )
-		m_pUi->comboBox_time->setCurrentIndex(index);
+	// trigger rount time update
+	on_comboBox_time_currentIndexChanged(m_pUi->comboBox_time->currentText());
 }
 #endif //TEAM_VIEW else
 
