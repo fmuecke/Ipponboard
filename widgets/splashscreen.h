@@ -28,7 +28,8 @@ private:
 	Ui::SplashScreen *ui;
 
 private slots:
-	void on_pushButton_pressed();
+	void on_pushButton_Cancel_pressed();
+ void on_pushButton_pressed();
 };
 
 #endif // SPLASHSCREEN_H

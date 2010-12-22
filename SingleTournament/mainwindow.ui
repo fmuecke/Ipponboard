@@ -94,7 +94,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -104,43 +104,14 @@
       <property name="rightMargin">
        <number>5</number>
       </property>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="button_reset">
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Blue (first last)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_name_blue">
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="lineEdit_name_white">
         <property name="styleSheet">
          <string notr="true"/>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="1" column="1">
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
@@ -156,14 +127,62 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_name_white">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_white.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="lineEdit_name_blue">
         <property name="styleSheet">
          <string notr="true"/>
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
+      <item row="0" column="1">
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string>Blue (first, last)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="leftMargin">
          <number>0</number>
@@ -215,6 +234,19 @@
          <widget class="QComboBox" name="comboBox_weight"/>
         </item>
        </layout>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="button_reset">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Reset</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -322,7 +354,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/door-open-out.png</normaloff>:/res/icons/door-open-out.png</iconset>
+     <normaloff>:/res/icons/exit.png</normaloff>:/res/icons/exit.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -340,7 +372,7 @@
    </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/home-medium.png</normaloff>:/res/icons/home-medium.png</iconset>
+     <normaloff>:/res/icons/homepage.png</normaloff>:/res/icons/homepage.png</iconset>
    </property>
    <property name="text">
     <string>Visit Project Homepage</string>
@@ -349,7 +381,7 @@
   <action name="actionAbout_Ipponboard">
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/information-frame.png</normaloff>:/res/icons/information-frame.png</iconset>
+     <normaloff>:/res/icons/about.png</normaloff>:/res/icons/about.png</iconset>
    </property>
    <property name="text">
     <string>About Ipponboard</string>
@@ -364,7 +396,7 @@
    </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/slides.png</normaloff>:/res/icons/slides.png</iconset>
+     <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
    </property>
    <property name="text">
     <string>Show Secondary View</string>
@@ -410,7 +442,7 @@
    </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/speaker.png</normaloff>:/res/icons/speaker.png</iconset>
+     <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
    </property>
    <property name="text">
     <string>Test Gong</string>
@@ -426,8 +458,8 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/gear.png</normaloff>:/res/icons/gear.png</iconset>
+    <iconset>
+     <normaloff>../base/icons/settings.png</normaloff>../base/icons/settings.png</iconset>
    </property>
    <property name="text">
     <string>Preferences</string>
@@ -509,13 +541,17 @@
   <action name="actionManage_Classes">
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/xfn-friend.png</normaloff>:/res/icons/xfn-friend.png</iconset>
+     <normaloff>:/res/icons/category.png</normaloff>:/res/icons/category.png</iconset>
    </property>
    <property name="text">
     <string>Fight Categories</string>
    </property>
   </action>
   <action name="actionOnline_Feedback">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/feedback.png</normaloff>:/res/icons/feedback.png</iconset>
+   </property>
    <property name="text">
     <string>Provide Feedback (Online)</string>
    </property>
@@ -524,6 +560,10 @@
    </property>
   </action>
   <action name="actionContact_Author">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/mail.png</normaloff>:/res/icons/mail.png</iconset>
+   </property>
    <property name="text">
     <string>Contact Author</string>
    </property>
@@ -532,12 +572,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
      <normaloff>:/res/icons/gb.png</normaloff>:/res/icons/gb.png</iconset>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
    </property>
    <property name="text">
     <string notr="true">English</string>

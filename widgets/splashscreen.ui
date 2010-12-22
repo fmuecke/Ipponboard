@@ -178,39 +178,65 @@ p, li { white-space: pre-wrap; }
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+       <property name="spacing">
+        <number>7</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
        <property name="rightMargin">
         <number>5</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="focusPolicy">
           <enum>Qt::TabFocus</enum>
          </property>
+         <property name="toolTip">
+          <string>Accept the terms of usage</string>
+         </property>
          <property name="text">
           <string>I aggree</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../base/ipponboard.qrc">
+           <normaloff>:/res/icons/accept.png</normaloff>:/res/icons/accept.png</iconset>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
          </property>
          <property name="default">
           <bool>true</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_Cancel">
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="text">
+          <string>No, thanks!</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../base/ipponboard.qrc">
+           <normaloff>:/res/icons/deny.png</normaloff>:/res/icons/deny.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string notr="true"/>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
          </property>
          <property name="flat">
           <bool>false</bool>
@@ -225,6 +251,7 @@ p, li { white-space: pre-wrap; }
  </widget>
  <tabstops>
   <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_Cancel</tabstop>
   <tabstop>textEdit</tabstop>
  </tabstops>
  <resources>

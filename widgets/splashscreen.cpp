@@ -38,3 +38,8 @@ void SplashScreen::on_pushButton_pressed()
 {
 	accept();
 }
+
+void SplashScreen::on_pushButton_Cancel_pressed()
+{
+	reject();
+}

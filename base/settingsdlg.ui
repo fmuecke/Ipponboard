@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>417</width>
-    <height>527</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,6 +21,10 @@
   </property>
   <property name="windowTitle">
    <string>Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="ipponboard.qrc">
+    <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
@@ -629,7 +633,7 @@
               </property>
               <property name="icon">
                <iconset resource="ipponboard.qrc">
-                <normaloff>:/res/icons/control.png</normaloff>:/res/icons/control.png</iconset>
+                <normaloff>:/res/icons/play.png</normaloff>:/res/icons/play.png</iconset>
               </property>
               <property name="toolButtonStyle">
                <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -647,6 +651,10 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_input">
+      <attribute name="icon">
+       <iconset resource="ipponboard.qrc">
+        <normaloff>:/res/icons/controller.png</normaloff>:/res/icons/controller.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Input</string>
       </attribute>
