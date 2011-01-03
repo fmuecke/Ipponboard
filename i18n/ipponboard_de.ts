@@ -632,7 +632,7 @@
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="555"/>
         <source>Provide Feedback (Online)</source>
-        <translation>Feedback geben (Online)</translation>
+        <translation>Feedback (Online)</translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="558"/>
@@ -750,9 +750,8 @@ und ist uneingeschränkt bis zum &lt;b&gt;31. März 2011&lt;/b&gt; lauffähig.&l
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="59"/>
         <source>&lt;p&gt;This version is provided for testing purposes and can be used without any fee. It will stop working after &lt;b&gt;March 31st 2011&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;However, the unmodified version may be copied and distributed freely.&lt;/p&gt;&lt;p&gt;If you have improvements regardings the design (view, handling) or the controlling - please tell us! We would like to hear from you!&lt;/p&gt;&lt;p&gt;If you&apos;d like to help us improving the application please fill out the enclosed online survey (&lt;em&gt;Menu&amp;rarr;Survey&lt;/em&gt;) - it just takes a few secs!&lt;/p&gt;&lt;p&gt;The most recent version can be found on the following pages:&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://flo.mueckeimnetz.de/ipponboard/&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;em&gt;Thank you very much!&lt;/em&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
+        <translation type="obsolete">&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
 und ist uneingeschränkt bis zum &lt;b&gt;31. März 2011&lt;/b&gt; lauffähig.&lt;/p&gt;
 &lt;p&gt;Sie darf in unmodifizierter Version unentgeltlich kopiert und verbreitet werden.&lt;/p&gt;
 &lt;p&gt;Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können.&lt;/p&gt;
@@ -761,6 +760,21 @@ und ist uneingeschränkt bis zum &lt;b&gt;31. März 2011&lt;/b&gt; lauffähig.&l
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=\&quot;http://flo.mueckeimnetz.de/ipponboard/\&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=\&quot;http://ipponboard.origo.ethz.ch\&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/main.cpp" line="59"/>
+        <source>&lt;p&gt;This version is provided for testing purposes and can be used without any fee. It will stop working after the &lt;b&gt;30th of April 2011&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;However, the unmodified version may be copied and distributed freely.&lt;/p&gt;&lt;p&gt;If you have improvements regardings the design (view, handling) or the controlling - please tell us! We would like to hear from you!&lt;/p&gt;&lt;p&gt;If you&apos;d like to help us improving the application please fill out the enclosed online survey (&lt;em&gt;Menu&amp;rarr;Survey&lt;/em&gt;) - it just takes a few secs!&lt;/p&gt;&lt;p&gt;The most recent version can be found on the following pages:&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://flo.mueckeimnetz.de/ipponboard/&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;em&gt;Thank you very much!&lt;/em&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Diese Version wird im Rahmen einer Testphase zur Verfügung gestellt 
+und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&lt;/p&gt;
+&lt;p&gt;Sie darf in unmodifizierter Version unentgeltlich kopiert und verbreitet werden.&lt;/p&gt;
+&lt;p&gt;Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können.&lt;/p&gt;
+&lt;p&gt;Um uns detailliert weiterzuhelfen, bitten wir Sie den beiligenden Fragebogen ausfüllen (&lt;em&gt;Menü&amp;rarr;Über&amp;rarr;Feedback&lt;/em&gt;, dauert nicht lange!).&lt;/p&gt;
+&lt;p&gt;Die neueste Version gibt es aktuell immer im Netz unter:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=\&quot;http://flo.mueckeimnetz.de/ipponboard/\&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(&lt;a href=\&quot;http://ipponboard.origo.ethz.ch\&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;)&lt;/li&gt;&quot;
 &lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>

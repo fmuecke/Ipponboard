@@ -58,11 +58,11 @@ int main(int argc, char *argv[])
 
 	text += QCoreApplication::tr(
 		"<p>This version is provided for testing purposes and can be used without any fee. "
-		"It will stop working after <b>March 31st 2011</b>.</p>"
+		"It will stop working after the <b>30th of April 2011</b>.</p>"
 		"<p>However, the unmodified version may be copied and distributed freely.</p>"
 		"<p>If you have improvements regardings the design (view, handling) or the controlling - please tell us! "
 		"We would like to hear from you!</p>"
-		"<p>If you'd like to help us improving the application please fill out the enclosed online survey (<em>Menu&rarr;Survey</em>) - it just takes a few secs!</p>"
+		"<p>If you'd like to help us improving the application please fill out the enclosed online survey (<em>Menu&rarr;About&rarr;Feedback</em>) - it just takes a few secs!</p>"
 		"<p>The most recent version can be found on the following pages:"
 		"<ul>"
 		"<li><a href=\"http://flo.mueckeimnetz.de/ipponboard/\">http://flo.mueckeimnetz.de/ipponboard/</a></li>"
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 					  + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2011, 3, 31);
+	splashData.date = QDate(2011, 4, 30);
 	SplashScreen splash(splashData);
 
 	if( QDialog::Accepted != splash.exec() )
