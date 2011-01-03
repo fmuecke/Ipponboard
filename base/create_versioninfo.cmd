@@ -73,7 +73,7 @@ ECHO             VALUE "CompanyName", "Florian Mücke\0">>%RC_FILE%
 ECHO             VALUE "FileDescription", "TODO: ***File description***\0">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard.exe\0">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010 Florian Mücke\0">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-2011 Florian Mücke\0">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe\0">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard\0">>%RC_FILE%
 ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE%

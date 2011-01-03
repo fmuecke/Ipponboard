@@ -18,6 +18,11 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 {
 	ui->setupUi(this);
 
+	// NOTE: This is nasty workaround for the standard buttons not
+	// beeing translated (separate translator would be required)
+	ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Ok"));
+	ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
+
 	Q_ASSERT(m_pClassMgr);
 
 	m_originalClasses = m_pClassMgr->CategoriesToString();

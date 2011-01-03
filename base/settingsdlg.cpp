@@ -78,6 +78,11 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 	dir.setNameFilters(nameFilters);
 	QStringList sounds(	dir.entryList(QDir::Files) );
 	ui->comboBox_sound_time_ends->addItems(sounds);
+
+	// NOTE: This is nasty workaround for the standard buttons not
+	// beeing translated (separate translator would be required)
+	ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Ok"));
+	ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
 }
 
 SettingsDlg::~SettingsDlg()

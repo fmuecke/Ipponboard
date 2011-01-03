@@ -1091,10 +1091,6 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation>Ipponboard</translation>
     </message>
     <message utf8="true">
-        <source>(c) 2010 Florian Mücke</source>
-        <translation type="obsolete">(c) 2010 Florian Mücke</translation>
-    </message>
-    <message utf8="true">
         <location filename="../widgets/splashscreen.ui" line="165"/>
         <source>(c) 2010-2011 Florian Mücke</source>
         <translation>(c) 2010-2011 Florian Mücke</translation>
