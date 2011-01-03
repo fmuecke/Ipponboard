@@ -101,7 +101,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_up">
        <property name="toolTip">
-        <string>Add a new weight class</string>
+        <string>Move category up</string>
        </property>
        <property name="text">
         <string>Up</string>
@@ -115,7 +115,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_down">
        <property name="toolTip">
-        <string>Add a new weight class</string>
+        <string>Move category down</string>
        </property>
        <property name="text">
         <string>Down</string>
@@ -142,14 +142,14 @@
      <item>
       <widget class="QPushButton" name="pushButton_add">
        <property name="toolTip">
-        <string>Add a new weight class</string>
+        <string>Add a new category</string>
        </property>
        <property name="text">
         <string>Add</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
-         <normaloff>:/res/icons/plus.png</normaloff>:/res/icons/plus.png</iconset>
+         <normaloff>:/res/icons/add.png</normaloff>:/res/icons/add.png</iconset>
        </property>
       </widget>
      </item>

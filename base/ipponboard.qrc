@@ -27,13 +27,11 @@
         <file>icons/about.png</file>
         <file>icons/category.png</file>
         <file>icons/de.png</file>
-        <file>icons/exit.png</file>
         <file>icons/feedback.png</file>
         <file>icons/gb.png</file>
         <file>icons/homepage.png</file>
         <file>icons/mail.png</file>
         <file>icons/play.png</file>
-        <file>icons/plus.png</file>
         <file>icons/printer.png</file>
         <file>icons/secondary_view.png</file>
         <file>icons/settings.png</file>
@@ -46,5 +44,6 @@
         <file>icons/fighter_blue.png</file>
         <file>icons/fighter_white.png</file>
         <file>icons/deny.png</file>
+        <file>icons/add.png</file>
     </qresource>
 </RCC>

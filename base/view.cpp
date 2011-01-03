@@ -48,6 +48,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, m_weight("")
 	, m_category("")
 	, m_drawIppon(false)
+	, m_showInfoHeader(true)
 	, m_pBlinkTimer(0)
 //=========================================================
 {
@@ -201,6 +202,20 @@ void View::UpdateView()
 	infoText += m_weight.toUpper();
 	ui->text_weight->SetText( infoText );
 #endif
+
+	if( m_showInfoHeader )
+	{
+		ui->verticalLayout_main->setStretchFactor(ui->layout_info_top, 4);
+		ui->text_weight->setVisible(true);
+		ui->text_mat->setVisible(true);
+	}
+	else
+	{
+		ui->verticalLayout_main->setStretchFactor(ui->layout_info_top, 0);
+		ui->text_weight->setVisible(false);
+		ui->text_mat->setVisible(false);
+	}
+
 	//
 	// fighter names
 	//
@@ -449,6 +464,15 @@ void View::Reset()
 {
 	ui->text_hold_clock->SetColor(Qt::gray, Qt::black);
 	ui->image_sand_clock->SetBgColor(Qt::black);
+}
+
+//=========================================================
+void View::SetShowInfoHeader(bool show)
+//=========================================================
+{
+	m_showInfoHeader = show;
+
+	UpdateView();
 }
 
 //=========================================================

@@ -77,6 +77,9 @@
      </item>
      <item>
       <widget class="ScaledText" name="text_weight" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -85,7 +88,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>0</width>
          <height>40</height>
         </size>
        </property>

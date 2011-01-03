@@ -1,10 +1,6 @@
 <!DOCTYPE QPH>
 <QPH sourcelanguage="en_US" language="de_DE">
 <phrase>
-    <source>Open</source>
-    <target>Öffnen</target>
-</phrase>
-<phrase>
     <source>Exit</source>
     <target>Beenden</target>
 </phrase>
@@ -61,7 +57,59 @@
     <target></target>
 </phrase>
 <phrase>
-    <source>(c) 2010 Florian Mücke</source>
+    <source>(c) 2010-2011 Florian Mücke</source>
     <target></target>
+</phrase>
+<phrase>
+    <source>Leave Ipponboard</source>
+    <target>Ipponboard verlassen</target>
+</phrase>
+<phrase>
+    <source>Ok</source>
+    <target>Ok</target>
+</phrase>
+<phrase>
+    <source>Cancel</source>
+    <target>Abbrechen</target>
+</phrase>
+<phrase>
+    <source>Print</source>
+    <target>Drucken</target>
+</phrase>
+<phrase>
+    <source>Ipponboard</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Mat</source>
+    <target>Matte</target>
+</phrase>
+<phrase>
+    <source>Round Time</source>
+    <target>Rundenzeit</target>
+</phrase>
+<phrase>
+    <source>Weight</source>
+    <target>Gewicht</target>
+</phrase>
+<phrase>
+    <source>Language</source>
+    <target>Sprache</target>
+</phrase>
+<phrase>
+    <source>Select program language</source>
+    <target>Programmsprache festlegen</target>
+</phrase>
+<phrase>
+    <source>Visit Project Homepage</source>
+    <target>Projektseite besuchen</target>
+</phrase>
+<phrase>
+    <source>Controller</source>
+    <target>Steuerung</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>Einstellungen</target>
 </phrase>
 </QPH>

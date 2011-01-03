@@ -182,7 +182,7 @@ void FightCategoryMgr::LoadCategories_()
 		catch( std::exception& )
 		{
 			QMessageBox::critical(0, QString(QObject::tr("Error")),
-				QString(QObject::tr("Unable to parse ") + str_fileName + "!"));
+				QString(QObject::tr("Unable to parse %1!").arg(str_fileName)));
 
 			//LoadDefaultCategories_();
 		}
@@ -211,7 +211,7 @@ void FightCategoryMgr::SaveCategories_()
 	else
 	{
 		QMessageBox::critical(0, QString(QObject::tr("Error")),
-			QString(QObject::tr("Unable to save ") + str_fileName + "!"));
+			QString(QObject::tr("Unable to save %1!").arg(str_fileName)));
 	}
 	ofs.close();
 }

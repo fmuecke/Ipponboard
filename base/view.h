@@ -39,6 +39,7 @@ public:
 	void UpdateView();
 	void SetController( IController* pController );
 	void Reset();
+	void SetShowInfoHeader(bool show);
 
 	// others
 	void SetMessageText(Ipponboard::EFighter who, const QString& msg) const;
@@ -117,6 +118,7 @@ private:
 	QString m_weight;
 	QString m_category;
 	bool m_drawIppon;
+	bool m_showInfoHeader;
 	QTimer* m_pBlinkTimer;
 };
 

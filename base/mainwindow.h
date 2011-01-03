@@ -103,6 +103,7 @@ private:
 #endif
 
 private slots:
+	void on_action_Info_Header_triggered(bool checked);
 	void on_actionLang_English_triggered(bool );
 	void on_actionLang_Deutsch_triggered(bool );
 	void on_actionContact_Author_triggered();

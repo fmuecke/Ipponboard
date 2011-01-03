@@ -666,7 +666,7 @@ void MainWindow::WriteScoreToHtml_()
 	m_htmlScore.replace( "%SECOND_ROUND%", rounds );
 	const QString copyright = tr("List generated with Ipponboard v") +
 		QApplication::applicationVersion() +
-		", &copy; " + QApplication::organizationName() + ", 2010";
+		", &copy; " + QApplication::organizationName() + ", 2010-2011";
 
 	m_htmlScore.replace( "</body>", "<small><center>" + copyright + "</center></small></body>" );
 }
@@ -685,7 +685,7 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
 			"<p>Revision: %4</p>"
 			"<p>Author: Florian M&uuml;cke, <a href=\"http://flo.mueckeimnetz.de\">homepage</a></p>"
 			"<p>The %1 project is hosted at <a href=\"http://ipponboard.origo.ethz.ch\">http://ipponboard.origo.ethz.ch</a>.</p>"
-			"<p>&copy; Copyright 2010 Florian M&uuml;cke. All rights reserved.</p>"
+			"<p>&copy; Copyright 2010-2011 Florian M&uuml;cke. All rights reserved.</p>"
 			"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 			"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 			"PARTICULAR PURPOSE.<br/>"
@@ -1392,7 +1392,6 @@ void MainWindow::change_lang(bool beQuiet)
 		QMessageBox::information(this, QCoreApplication::applicationName(),
 			tr("Please restart the application so that the changes can take effect."));
 	}
-
 }
 
 void MainWindow::on_actionLang_Deutsch_triggered(bool val)
@@ -1411,4 +1410,10 @@ void MainWindow::on_actionLang_English_triggered(bool val)
 		m_Language = "en";
 		change_lang();
 	}
+}
+
+void MainWindow::on_action_Info_Header_triggered(bool val)
+{
+	m_pPrimaryView->SetShowInfoHeader(val);
+	m_pSecondaryView->SetShowInfoHeader(val);
 }

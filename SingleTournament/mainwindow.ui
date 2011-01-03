@@ -165,7 +165,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>Blue (first, last)</string>
+         <string>Blue (first last)</string>
         </property>
        </widget>
       </item>
@@ -243,6 +243,9 @@
           <bold>true</bold>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Reset all clocks and scores</string>
+        </property>
         <property name="text">
          <string>Reset</string>
         </property>
@@ -263,7 +266,7 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="actionNeu"/>
     <addaction name="action_ffnen"/>
@@ -278,7 +281,7 @@
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>About</string>
+     <string>&amp;About</string>
     </property>
     <addaction name="actionAbout_Ipponboard"/>
     <addaction name="separator"/>
@@ -288,13 +291,14 @@
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>View</string>
+     <string>&amp;View</string>
     </property>
     <addaction name="actionShow_SecondaryView"/>
+    <addaction name="action_Info_Header"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
-     <string>Settings</string>
+     <string>&amp;Settings</string>
     </property>
     <widget class="QMenu" name="menuLanguages">
      <property name="toolTip">
@@ -306,7 +310,6 @@
      <addaction name="actionLang_Deutsch"/>
      <addaction name="actionLang_English"/>
     </widget>
-    <addaction name="separator"/>
     <addaction name="actionTest_Gong"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
@@ -317,7 +320,7 @@
      <bool>true</bool>
     </property>
     <property name="title">
-     <string>Manage</string>
+     <string>&amp;Manage</string>
     </property>
     <addaction name="actionVereine"/>
     <addaction name="actionListen"/>
@@ -352,15 +355,11 @@
    </property>
   </action>
   <action name="actionExit">
-   <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/exit.png</normaloff>:/res/icons/exit.png</iconset>
-   </property>
    <property name="text">
     <string>Exit</string>
    </property>
    <property name="toolTip">
-    <string>End Ipponboard</string>
+    <string>Leave Ipponboard</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -399,7 +398,7 @@
      <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
    </property>
    <property name="text">
-    <string>Show Secondary View</string>
+    <string>Secondary View</string>
    </property>
    <property name="toolTip">
     <string>Toggles secodary screen view</string>
@@ -605,6 +604,20 @@
    </property>
    <property name="toolTip">
     <string notr="true">Deutsch als Programmsprache wählen</string>
+   </property>
+  </action>
+  <action name="action_Info_Header">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Info Header</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggles the info header (mat and category/weight class) on and off</string>
    </property>
   </action>
  </widget>
