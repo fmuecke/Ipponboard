@@ -326,6 +326,7 @@ void MainWindow::ReadSettings_()
 
 	// MainWindow
 	settings.beginGroup(str_tag_Main);
+	m_Language = settings.value(str_tag_Language,"en").toString();
 	//resize(settings.value(str_tag_size, size()).toSize());
 	move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
 	m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
@@ -333,7 +334,6 @@ void MainWindow::ReadSettings_()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
-	m_Language = settings.value(str_tag_Language,"en").toString();
 	settings.endGroup();
 
 	// Fonts

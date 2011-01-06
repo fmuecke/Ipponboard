@@ -43,9 +43,9 @@ public:
 	std::string const CategoriesToString();
 
 private:
-	void LoadCategories_();
-	void SaveCategories_();
-	//void LoadDefaultCategories_();
+	void load_categories();
+	void save_categories();
+	void load_default_categories();
 
 	FightCategoryList m_Categories;
 };
