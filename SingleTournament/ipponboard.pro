@@ -53,7 +53,8 @@ HEADERS = ../base/pch.h \
 	../base/fightcategorymanagerdlg.h \
 	../base/fightcategorymanager.h \
 	../base/fightcategory.h \
-    ../widgets/splashscreen.h
+    ../widgets/splashscreen.h \
+    ../util/helpers.h
 
 FORMS = ../base/clubmanagerdlg.ui \
 	mainwindow.ui \

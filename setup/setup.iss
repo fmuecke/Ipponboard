@@ -56,6 +56,8 @@ AlwaysUsePersonalGroup=true
 AppendDefaultGroupName=false
 AlwaysShowDirOnReadyPage=true
 AlwaysShowGroupOnReadyPage=true
+UninstallDisplayIcon={app}\Ipponboard.exe
+Uninstallable=not IsPortable
 
 [Languages]
 ;Name: "en"; MessagesFile: "compiler:Default.isl,compiler:MyMessages.isl"
@@ -83,14 +85,31 @@ de.InstallType_Normal=Normal
 en.InstallType_Normal=Normal
 de.InstallType_Portable=Portabel
 en.InstallType_Portable=Portable
-
+de.UninstallKeepSettings=Möchten Sie die Programmeinstellungen für eine spätere Installation aufheben?
+en.UninstallKeepSettings=Do you want to keep your settings for a later installation?
 
 [Tasks]
 Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: NOT IsPortable
 
 [Files]
-Source: "C:\dev\ipponboard\branch-0.4\_build\build_output\~tmp\*"; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: NOT IsPortable 
+Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite; Check: IsPortable; Permissions: users-full; 
+Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; 
+Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\ipponboard_de.qm; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\ipponboard_en.qm; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app}; 
+
+[Dirs]
+Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
+Name: {app}\sounds; 
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: {app}\Ipponboard.exe; WorkingDir: {app}; Check: NOT IsPortable
@@ -108,32 +127,21 @@ Filename: "{app}\Anleitung.pdf"; Description: {cm:ViewProgram,Anleitung}; Flags:
 Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
 
 [Registry]
-Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey; Languages: en de; Check: NOT IsPortable
-Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey; Languages: en de; Check: NOT IsPortable
+Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey; Check: NOT IsPortable
+Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey; Check: NOT IsPortable
 ;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "de"; Flags: uninsdeletekeyifempty; Languages: de
 ;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "en"; Flags: uninsdeletekeyifempty; Languages: en
 
 [INI]
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Flags: createkeyifdoesntexist; Tasks: ; Languages: de
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Flags: createkeyifdoesntexist; Tasks: ; Languages: en
+Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de; 
+Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en; 
+Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de; 
+Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en; 
 
 [Code]
 var
   UsagePage: TInputOptionWizardPage;
   
-{procedure SetCheckedState(const checkBox : TCheckBox; const check : boolean) ;
- var
-   onClickHandler : TNotifyEvent;
- begin
-   with checkBox do
-   begin
-     onClickHandler := OnClick;
-     OnClick := nil;
-     Checked := check;
-     OnClick := onClickHandler;
-   end;
- end;} 
-
 procedure InitializeWizard;
 begin
   { Create the pages }
@@ -160,6 +168,7 @@ function IsPortable(): Boolean;
 begin
   Result := UsagePage.SelectedValueIndex = 1;
 end;
+
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
@@ -191,4 +200,21 @@ begin
   S := S + NewLine + MemoGroupInfo + NewLine;
   S := S + NewLine + MemoTasksInfo + NewLine;
   Result := S;
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usUninstall:
+      begin
+        if (MsgBox(ExpandConstant('{cm:UninstallKeepSettings}'), mbConfirmation, mb_YesNo) = idNo) then
+        begin
+          DelTree(ExpandConstant('{commonappdata}\Ipponboard'),True,True,True);
+        end;
+      end;
+    usPostUninstall:
+      begin
+        // ...insert code to perform pre-uninstall tasks here...
+      end;
+  end;
 end;

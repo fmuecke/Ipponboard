@@ -1,6 +1,7 @@
 REM -- main programme files
 copy "%BASE_DIR%\SingleTournament\release\Ipponboard.exe" "%BUILD_DIR%">nul
-copy "%BASE_DIR%\SingleTournament\Ipponboard.ini" "%BUILD_DIR%">nul
+REM copy "%BASE_DIR%\SingleTournament\Ipponboard.ini" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\SingleTournament\categories.xml" "%BUILD_DIR%">nul
 
 REM -- language file
 copy "%BASE_DIR%\i18n\Ipponboard_de.qm" "%BUILD_DIR%">nul

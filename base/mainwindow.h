@@ -41,6 +41,7 @@ static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
 static const char* const str_tag_AutoSize = "AutoSize";
 static const char* const str_tag_AlwaysShow = "AlwaysShow";
 static const char* const str_tag_Language = "Language";
+static const char* const str_tag_Version = "Version";
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
 static const char* const str_tag_DigitFont = "DigitFont";

@@ -7,6 +7,7 @@
 #include <boost/serialization/vector.hpp>
 #include <algorithm>
 #include <QMessageBox>
+#include "../util/helpers.h"
 
 using namespace Ipponboard;
 
@@ -170,7 +171,11 @@ void FightCategoryMgr::LoadCategories_()
 //---------------------------------------------------------
 {
 	// open the archive
-	std::ifstream ifs(str_fileName);
+
+	const std::string filePath(
+			FMU::GetSettingsFilePath(str_fileName));
+
+	std::ifstream ifs(filePath);
 	if( ifs.good() )
 	{
 		try
@@ -181,8 +186,10 @@ void FightCategoryMgr::LoadCategories_()
 		}
 		catch( std::exception& )
 		{
-			QMessageBox::critical(0, QString(QObject::tr("Error")),
-				QString(QObject::tr("Unable to parse %1!").arg(str_fileName)));
+			QMessageBox::critical(0,
+				QString(QObject::tr("Error")),
+				QString(QObject::tr("Unable to parse %1!").arg(
+						QString::fromStdString(filePath))));
 
 			//LoadDefaultCategories_();
 		}
@@ -202,7 +209,11 @@ void FightCategoryMgr::SaveCategories_()
 //---------------------------------------------------------
 {
 	// make an archive
-	std::ofstream ofs(str_fileName);
+
+	const std::string filePath(
+			FMU::GetSettingsFilePath(str_fileName));
+
+	std::ofstream ofs(filePath);
 	if( ofs.good() )
 	{
 		boost::archive::xml_oarchive oa(ofs);
@@ -210,8 +221,10 @@ void FightCategoryMgr::SaveCategories_()
 	}
 	else
 	{
-		QMessageBox::critical(0, QString(QObject::tr("Error")),
-			QString(QObject::tr("Unable to save %1!").arg(str_fileName)));
+		QMessageBox::critical(0,
+			QString(QObject::tr("Error")),
+			QString(QObject::tr("Unable to save %1!").arg(
+					QString::fromStdString(filePath))));
 	}
 	ofs.close();
 }

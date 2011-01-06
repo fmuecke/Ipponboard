@@ -5,6 +5,7 @@
 #include "../base/mainwindow.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
+#include "../util/helpers.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,15 +17,13 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationName("Ipponboard");
 
 	// read language code
-	const QString ini(str_ini_name);
+	const QString ini(
+			QString::fromStdString(FMU::GetSettingsFilePath(str_ini_name)));
+
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
 	QString langStr = settings.value(str_tag_Language,"en").toString();
 	settings.endGroup();
-
-	//QLocale locale;
-	//QString langStr = ( locale.language() == QLocale::German ) ?
-	//						QString("de") : QString("en");
 
 	QTranslator translator;
 	if( langStr != QString("en") )

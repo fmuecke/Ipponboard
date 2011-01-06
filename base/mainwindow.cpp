@@ -16,6 +16,7 @@
 #endif
 #include "../gamepad/gamepad.h"
 #include "../base/settingsdlg.h"
+#include "../util/helpers.h"
 
 #include <QComboBox>
 #include <QMessageBox>
@@ -250,18 +251,21 @@ void MainWindow::closeEvent(QCloseEvent* event)
 void MainWindow::WriteSettings_()
 //=========================================================
 {
-	//QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
-	const QString ini(str_ini_name);
-	QSettings settings(ini, QSettings::IniFormat, this);
+	QString iniFile(
+			QString::fromStdString(
+					FMU::GetSettingsFilePath(str_ini_name)));
+
+	QSettings settings(iniFile, QSettings::IniFormat, this);
 
 	settings.beginGroup(str_tag_Main);
+	settings.setValue(str_tag_Version, VersionInfo::VersionStr);
+	settings.setValue(str_tag_Language, m_Language);
 	settings.setValue(str_tag_size, size());
 	settings.setValue(str_tag_pos, pos());
 	settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
 	settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
 	settings.setValue(str_tag_AutoSize, m_bAutoSize);
 	settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
-	settings.setValue(str_tag_Language, m_Language);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Fonts);
@@ -314,9 +318,11 @@ void MainWindow::WriteSettings_()
 void MainWindow::ReadSettings_()
 //=========================================================
 {
-	//QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
-	const QString ini(str_ini_name);
-	QSettings settings(ini, QSettings::IniFormat, this);
+	QString iniFile(
+			QString::fromStdString(
+					FMU::GetSettingsFilePath(str_ini_name)));
+
+	QSettings settings(iniFile, QSettings::IniFormat, this);
 
 	// MainWindow
 	settings.beginGroup(str_tag_Main);
