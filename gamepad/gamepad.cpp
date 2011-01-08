@@ -1,20 +1,72 @@
+///////////////////////////////////////////////////////////////////////////
+// Gamepad wrapper class
+// Copyright 2010-2011 by Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
+// $Id$
+///////////////////////////////////////////////////////////////////////////
 #include "gamepad.h"
 #include "math.h"
+#include "assert.h"
 
 #pragma comment(lib,"Winmm.lib")
 
 using namespace FMlib;
 
+const int Gamepad::button_code[] =
+{
+	JOY_BUTTON1,
+	JOY_BUTTON2,
+	JOY_BUTTON3,
+	JOY_BUTTON4,
+	JOY_BUTTON5,
+	JOY_BUTTON6,
+	JOY_BUTTON7,
+	JOY_BUTTON8,
+	JOY_BUTTON9,
+	JOY_BUTTON10,
+	JOY_BUTTON11,
+	JOY_BUTTON12,
+	JOY_BUTTON13,
+	JOY_BUTTON14,
+	JOY_BUTTON15,
+	JOY_BUTTON16,
+	JOY_BUTTON17,
+	JOY_BUTTON18,
+	JOY_BUTTON19,
+	JOY_BUTTON20,
+	JOY_BUTTON21,
+	JOY_BUTTON22,
+	JOY_BUTTON23,
+	JOY_BUTTON24,
+	JOY_BUTTON25,
+	JOY_BUTTON26,
+	JOY_BUTTON27,
+	JOY_BUTTON28,
+	JOY_BUTTON29,
+	JOY_BUTTON30,
+	JOY_BUTTON31,
+	JOY_BUTTON32,
+	0,		// eButton_pov_fwd
+	9000,	// eButton_pov_right
+	18000,	// eButton_pov_back
+	27000,	// eButton_pov_left
+	4500,	// ePov_right_fwd
+	13500,	// eButton_pov_right_back
+	22500,	// eButton_pov_left_back
+	31500	// eButton_pov_left_fwd
+};
+
+
 //---------------------------------------------------------
 Gamepad::Gamepad()
 	: m_currentId(0)
+	, m_invertedAxes()
 	//, m_caps
 	//, m_data
 	, m_state(eState_unknown)
 	, m_hwnd(NULL)
 //---------------------------------------------------------
 {
-	Reset_();
+	reset();
 	Init();
 }
 
@@ -52,54 +104,58 @@ bool Gamepad::IsInverted( EAxis axis ) const
 bool Gamepad::WasPressed( EButton b ) const
 //---------------------------------------------------------
 {
-	return (m_lastData.dwButtons & b) == 0 && (m_data.dwButtons & b) > 0;
+	if( b > eButton32 )
+	{
+		if( button_code[b] == m_data.dwPOV &&
+			m_data.dwPOV != m_lastData.dwPOV )
+			return true;
+		return false;
+	}
+	return (m_lastData.dwButtons & button_code[b]) == 0 &&
+		   (m_data.dwButtons & button_code[b]) > 0;
 }
 
 //---------------------------------------------------------
 bool Gamepad::WasReleased( EButton b ) const
 //---------------------------------------------------------
 {
-	return (m_lastData.dwButtons & b) > 0 && (m_data.dwButtons & b) == 0;
+	assert(b<=eButton32);
+
+	return (m_lastData.dwButtons & button_code[b]) > 0 &&
+		   (m_data.dwButtons & button_code[b]) == 0;
 }
 
 //---------------------------------------------------------
 bool Gamepad::IsPressed( EButton b ) const
 //---------------------------------------------------------
 {
-	return (m_data.dwButtons & b) > 0;
-}
+	assert(b<=eButton32);
 
-//---------------------------------------------------------
-bool Gamepad::WasPovPressed( EPOV direction ) const
-//---------------------------------------------------------
-{
-	if( direction == m_data.dwPOV && m_data.dwPOV != m_lastData.dwPOV )
-		return true;
-	return false;
+	return (m_data.dwButtons & button_code[b]) > 0;
 }
 
 //---------------------------------------------------------
 bool Gamepad::WasSectionEnteredXY(float min, float max) const
 //---------------------------------------------------------
 {
-	const int lastX = m_invertedAxes.test( eAxis_X )? 
+	const int lastX = m_invertedAxes.test( eAxis_X )?
 		eMax-m_lastData.dwXpos : m_lastData.dwXpos;
-	const int lastY = m_invertedAxes.test( eAxis_Y )? 
+	const int lastY = m_invertedAxes.test( eAxis_Y )?
 		eMax-m_lastData.dwYpos : m_lastData.dwYpos;
 
-	int curX = m_invertedAxes.test( eAxis_X )? 
+	int curX = m_invertedAxes.test( eAxis_X )?
 		eMax-m_data.dwXpos : m_data.dwXpos;
-	int curY = m_invertedAxes.test( eAxis_Y )? 
+	int curY = m_invertedAxes.test( eAxis_Y )?
 		eMax-m_data.dwYpos : m_data.dwYpos;
 
 	const float lastAlpha = GetAngle<float>(
 		lastX-eMid, lastY-eMid, 1.02f, eMid);
 
-	const float curAlpha = GetAngle<float>( 
+	const float curAlpha = GetAngle<float>(
 		curX-eMid, curY-eMid, 1.02f, eMid);
 
 	bool changed(false);
-	if( -1.0f == lastAlpha || -1.0f == curAlpha || 
+	if( -1.0f == lastAlpha || -1.0f == curAlpha ||
 		fabs(lastAlpha - curAlpha) > eTolerance)
 		changed = true;
 
@@ -112,24 +168,24 @@ bool Gamepad::WasSectionEnteredXY(float min, float max) const
 bool Gamepad::WasSectionEnteredRZ(float min, float max) const
 //---------------------------------------------------------
 {
-	const int lastR = m_invertedAxes.test( eAxis_R )? 
+	const int lastR = m_invertedAxes.test( eAxis_R )?
 		eMax-m_lastData.dwRpos : m_lastData.dwRpos;
-	const int lastZ = m_invertedAxes.test( eAxis_Z )? 
+	const int lastZ = m_invertedAxes.test( eAxis_Z )?
 		eMax-m_lastData.dwZpos : m_lastData.dwZpos;
 
-	int curR = m_invertedAxes.test( eAxis_R )? 
+	int curR = m_invertedAxes.test( eAxis_R )?
 		eMax-m_data.dwRpos : m_data.dwRpos;
-	int curZ = m_invertedAxes.test( eAxis_Z )? 
+	int curZ = m_invertedAxes.test( eAxis_Z )?
 		eMax-m_data.dwZpos : m_data.dwZpos;
 
 	const float lastAlpha = GetAngle<float>(
 		lastR-eMid, lastZ-eMid, 1.02f, eMid);
 
-	const float curAlpha = GetAngle<float>( 
+	const float curAlpha = GetAngle<float>(
 		curR-eMid, curZ-eMid, 1.02f, eMid);
 
 	bool changed(false);
-	if( -1.0f == lastAlpha || -1.0f == curAlpha || 
+	if( -1.0f == lastAlpha || -1.0f == curAlpha ||
 		fabs(lastAlpha - curAlpha) > eTolerance)
 		changed = true;
 
@@ -147,7 +203,7 @@ bool Gamepad::WasSectionLeft(float min, float max) const
 }
 
 //---------------------------------------------------------
-bool Gamepad::IsInSection( 
+bool Gamepad::IsInSection(
 	const float alpha, const float min, const float max) const
 //---------------------------------------------------------
 {
@@ -333,7 +389,7 @@ bool Gamepad::Release()
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void Gamepad::Reset_()
+void Gamepad::reset()
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
 	m_invertedAxes.reset();

@@ -4,7 +4,7 @@
 // Gamepad wrapper class
 // Copyright 2010-2011 by Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
 //
-// $Id:
+// $Id$:
 
 #include <bitset>
 #include <boost/utility.hpp>
@@ -21,38 +21,46 @@ class Gamepad : public boost::noncopyable
 public:
 	enum EButton
 	{
-		eButton1 = JOY_BUTTON1,
-		eButton2 = JOY_BUTTON2,
-		eButton3 = JOY_BUTTON3,
-		eButton4 = JOY_BUTTON4,
-		eButton5 = JOY_BUTTON5,
-		eButton6 = JOY_BUTTON6,
-		eButton7 = JOY_BUTTON7,
-		eButton8 = JOY_BUTTON8,
-		eButton9 = JOY_BUTTON9,
-		eButton10 = JOY_BUTTON10,
-		eButton11 = JOY_BUTTON11,
-		eButton12 = JOY_BUTTON12,
-		eButton13 = JOY_BUTTON13,
-		eButton14 = JOY_BUTTON14,
-		eButton15 = JOY_BUTTON15,
-		eButton16 = JOY_BUTTON16,
-		eButton17 = JOY_BUTTON17,
-		eButton18 = JOY_BUTTON18,
-		eButton19 = JOY_BUTTON19,
-		eButton20 = JOY_BUTTON20,
-		eButton21 = JOY_BUTTON21,
-		eButton22 = JOY_BUTTON22,
-		eButton23 = JOY_BUTTON23,
-		eButton24 = JOY_BUTTON24,
-		eButton25 = JOY_BUTTON25,
-		eButton26 = JOY_BUTTON26,
-		eButton27 = JOY_BUTTON27,
-		eButton28 = JOY_BUTTON28,
-		eButton29 = JOY_BUTTON29,
-		eButton30 = JOY_BUTTON30,
-		eButton31 = JOY_BUTTON31,
-		eButton32 = JOY_BUTTON32
+		eButton1 = 0,
+		eButton2,
+		eButton3,
+		eButton4,
+		eButton5,
+		eButton6,
+		eButton7,
+		eButton8,
+		eButton9,
+		eButton10,
+		eButton11,
+		eButton12,
+		eButton13,
+		eButton14,
+		eButton15,
+		eButton16,
+		eButton17,
+		eButton18,
+		eButton19,
+		eButton20,
+		eButton21,
+		eButton22,
+		eButton23,
+		eButton24,
+		eButton25,
+		eButton26,
+		eButton27,
+		eButton28,
+		eButton29,
+		eButton30,
+		eButton31,
+		eButton32,
+		eButton_pov_fwd,
+		eButton_pov_right,
+		eButton_pov_back,
+		eButton_pov_left,
+		eButton_pov_right_fwd,
+		eButton_pov_right_back,
+		eButton_pov_left_back,
+		eButton_pov_left_fwd
 	};
 
 	enum EState
@@ -79,18 +87,6 @@ public:
 		ePovType_no_pov = 0,
 		ePovType_discrete = JOYCAPS_POV4DIR,
 		ePovType_continuous = JOYCAPS_POVCTS
-	};
-
-	enum EPOV
-	{
-		ePov_up = 0,
-		ePov_right = 9000,
-		ePov_down = 18000,
-		ePov_left = 27000,
-		ePov_upper_right = 4500,
-		ePov_lower_right = 13500,
-		ePov_lower_left = 22500,
-		ePov_upper_left = 31500
 	};
 
 	enum EAxis
@@ -194,8 +190,6 @@ public:
 	bool WasReleased( EButton b ) const;
 	bool IsPressed( EButton b ) const;
 
-	bool WasPovPressed( EPOV direction ) const;
-
 	bool WasSectionEnteredXY(float min, float max) const;
 	bool WasSectionEnteredRZ(float min, float max) const;
 	bool WasSectionLeft(float min, float max) const;
@@ -231,7 +225,9 @@ public:
 	bool Release();
 
 private:
-	void Reset_();
+	void reset();
+
+	static const int button_code[];
 
 private:
 	unsigned int m_currentId;
