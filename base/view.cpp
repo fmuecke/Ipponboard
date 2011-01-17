@@ -81,9 +81,9 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_wazaari_desc1->SetColor(fgColor1);
 	ui->text_yuko_desc1->SetColor(fgColor1);
 	ui->text_shido_desc->SetColor(fgColor1);
-	ui->text_ippon_desc1->SetText("Ippon");
-	ui->text_wazaari_desc1->SetText("Waza-ari");
-	ui->text_yuko_desc1->SetText("Yuko");
+	ui->text_ippon_desc1->SetText("I");
+	ui->text_wazaari_desc1->SetText("W");
+	ui->text_yuko_desc1->SetText("Y");
 	ui->text_shido_desc->SetText("");
 #ifdef HORIZONTAL_VIEW
 	ui->text_ippon_desc2->setFont(descFont);
@@ -92,9 +92,9 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_ippon_desc2->SetColor(fgColor1, bgColor1);
 	ui->text_wazaari_desc2->SetColor(fgColor1, bgColor1);
 	ui->text_yuko_desc2->SetColor(fgColor1, bgColor1);
-	ui->text_ippon_desc2->SetText("Ippon");
-	ui->text_wazaari_desc2->SetText("Waza-ari");
-	ui->text_yuko_desc2->SetText("Yuko");
+	ui->text_ippon_desc2->SetText("I");
+	ui->text_wazaari_desc2->SetText("W");
+	ui->text_yuko_desc2->SetText("Y");
 	ui->text_ippon_desc1->SetColor(fgColor2, bgColor2);
 	ui->text_wazaari_desc1->SetColor(fgColor2, bgColor2);
 	ui->text_yuko_desc1->SetColor(fgColor2, bgColor2);
