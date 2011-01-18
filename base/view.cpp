@@ -519,7 +519,7 @@ void View::mousePressEvent(QMouseEvent* event)
 
 				return;
 			}
-			action = eAction_Hajime_Matte;
+			action = eAction_Hajime_Mate;
 		}
 		else if( child == ui->text_hold_clock )
 		{
