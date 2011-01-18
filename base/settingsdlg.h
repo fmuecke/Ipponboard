@@ -4,12 +4,16 @@
 #include <QDialog>
 #include <map>
 
+class QComboBox;
+
 namespace Ui {
 	class SettingsDlg;
 }
 
 namespace Ipponboard
 {
+
+struct ControlConfig;
 
 class SettingsDlg : public QDialog
  {
@@ -44,49 +48,15 @@ public:
 	const QColor GetDigitBgColor() const;
 	const QString GetGongFile() const;
 
-	void SetButtonHajimeMatte(int b);
-	void SetButtonOsaekomiToketa(int b);
-	void SetButtonNext(int b);
-	void SetButtonPrev(int b);
-	void SetButtonPause(int b);
-	void SetButtonReset(int b);
-	void SetButtonReset2(int b);
-	void SetButtonResetHoldBlue(int b);
-	void SetButtonResetHoldWhite(int b);
-	void SetButtonBlueHolding(int b);
-	void SetButtonWhiteHolding(int b);
-	void SetButtonHansokumakeBlue(int b);
-	void SetButtonHansokumakeWhite(int b);
-
-	int GetButtonHajimeMatte() const;
-	int GetButtonOsaekomiToketa() const;
-	int GetButtonNext() const;
-	int GetButtonPrev() const;
-	int GetButtonPause() const;
-	int GetButtonReset() const;
-	int GetButtonReset2() const;
-	int GetButtonResetHold() const;
-	int GetButtonResetHold2() const;
-	int GetButtonBlueHolding() const;
-	int GetButtonWhiteHolding() const;
-	int GetButtonHansokumakeBlue() const;
-	int GetButtonHansokumakeWhite() const;
-
-	void SetInvertedX(bool);
-	void SetInvertedY(bool);
-	void SetInvertedR(bool);
-	void SetInvertedZ(bool);
-
-	bool IsInvertedX() const;
-	bool IsInvertedY() const;
-	bool IsInvertedR() const;
-	bool IsInvertedZ() const;
+	void SetControlConfig(ControlConfig* pConfig);
+	void GetControlConfig(ControlConfig* pConfig);
 
 protected:
 	void changeEvent(QEvent *e);
 
 private:
-	int GetButtonFromText_(const QString& text) const;
+	int get_button_from_text(const QString& text) const;
+	void set_button_value(QComboBox* pCombo, int buttonId);
 
 private:
 	Ui::SettingsDlg *ui;

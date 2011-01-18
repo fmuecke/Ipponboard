@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>417</width>
-    <height>531</height>
+    <width>435</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,9 +36,13 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_general">
+      <attribute name="icon">
+       <iconset resource="ipponboard.qrc">
+        <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>General</string>
       </attribute>
@@ -648,31 +652,44 @@
          </layout>
         </widget>
        </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_input">
+     <widget class="QWidget" name="tab_gamepad">
       <attribute name="icon">
        <iconset resource="ipponboard.qrc">
         <normaloff>:/res/icons/controller.png</normaloff>:/res/icons/controller.png</iconset>
       </attribute>
       <attribute name="title">
-       <string>Input</string>
+       <string>Gamepad</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
+      <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,0,0,0,0,0,0">
+       <item row="1" column="0">
         <widget class="QGroupBox" name="groupBox_buttons">
          <property name="title">
-          <string>Buttons</string>
+          <string>General</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QLabel" name="label_next">
             <property name="text">
              <string>Next fight</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="1" column="1" colspan="2">
            <widget class="QComboBox" name="comboBox_next">
             <property name="enabled">
              <bool>false</bool>
@@ -685,34 +702,14 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_prev">
-            <property name="text">
-             <string>Prev fight</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QComboBox" name="comboBox_prev">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_pause">
             <property name="text">
              <string>Pause screen</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="3" column="1" colspan="2">
            <widget class="QComboBox" name="comboBox_pause">
             <property name="enabled">
              <bool>false</bool>
@@ -725,82 +722,15 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_hansokumake_blue">
-            <property name="text">
-             <string>Hansokumake blue</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QComboBox" name="comboBox_hansokumake_blue">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="2">
-           <widget class="QLabel" name="label_hansokumake_white">
-            <property name="text">
-             <string>Hansokumake white</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="3">
-           <widget class="QComboBox" name="comboBox_hansokumake_white">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="comboBox_blue_holding">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="3">
-           <widget class="QComboBox" name="comboBox_white_holding">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLabel" name="label_white_holding">
-            <property name="text">
-             <string>White holding</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_blue_holding">
-            <property name="text">
-             <string>Blue holding</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_reset">
             <property name="text">
-             <string>Reset All</string>
+             <string>Reset all
+(two buttons needed)</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="4" column="1">
            <widget class="QComboBox" name="comboBox_reset">
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -810,15 +740,15 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_hajime_matte">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_prev">
             <property name="text">
-             <string>Hajime/Matte</string>
+             <string>Prev fight</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="3">
-           <widget class="QComboBox" name="comboBox_hajime_matte">
+          <item row="2" column="1" colspan="2">
+           <widget class="QComboBox" name="comboBox_prev">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -830,15 +760,18 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_reset_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_hajime_mate">
             <property name="text">
-             <string>Reset Hold Time</string>
+             <string>Hajime/Mate</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="comboBox_reset_hold">
+          <item row="0" column="1" colspan="2">
+           <widget class="QComboBox" name="comboBox_hajime_mate">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
             </property>
@@ -847,17 +780,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
-           <widget class="QComboBox" name="comboBox_reset_hold_2">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
+          <item row="4" column="2">
            <widget class="QComboBox" name="comboBox_reset_2">
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -867,67 +790,10 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="label_13">
-            <property name="toolTip">
-             <string>Both buttons need to be pressed at once</string>
-            </property>
-            <property name="text">
-             <string>(simultan)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>(alternatives)</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_axes">
-         <property name="toolTip">
-          <string>Sometimes the axis direction of the gamepad is upside down. Check the respective boxes to correct that.</string>
-         </property>
-         <property name="title">
-          <string>Axes</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="checkBox_invert_x_axis">
-            <property name="text">
-             <string>Invert X axis</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QCheckBox" name="checkBox_invert_r_axis">
-            <property name="text">
-             <string>Invert R axis</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox_invert_y_axis">
-            <property name="text">
-             <string>Invert Y axis</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QCheckBox" name="checkBox_invert_z_axis">
-            <property name="text">
-             <string>Invert Z axis</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
+       <item row="5" column="0">
         <widget class="QDialogButtonBox" name="buttonBox_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -937,7 +803,202 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_blue">
+           <property name="title">
+            <string>Blue Fighter</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_blue_holding">
+              <property name="text">
+               <string>Osaekomi/Toketa</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_blue_holding">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_reset_hold_blue">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_blue_reset_hold_time">
+              <property name="text">
+               <string>Reset hold time</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_hansokumake_blue">
+              <property name="text">
+               <string>Hansokumake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox_hansokumake_blue">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Axes used for points: X/Y</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_y_axis">
+              <property name="text">
+               <string>Invert Y axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_x_axis">
+              <property name="text">
+               <string>Invert X axis</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_white">
+           <property name="title">
+            <string>White Fighter</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_white_holding">
+              <property name="text">
+               <string>Osaekomi/Toketa</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_white_holding">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_white_reset_hold_time">
+              <property name="text">
+               <string>Reset hold time</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_reset_hold_white">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_hansokumake_white">
+              <property name="text">
+               <string>Hansokumake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox_hansokumake_white">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_z_axis">
+              <property name="text">
+               <string>Invert Z axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_r_axis">
+              <property name="text">
+               <string>Invert R axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Axes used for points: Z/R</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -949,6 +1010,147 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_keys">
+      <attribute name="icon">
+       <iconset resource="ipponboard.qrc">
+        <normaloff>:/res/icons/keyboard.png</normaloff>:/res/icons/keyboard.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Keyboard</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QTableWidget" name="tableWidget_keys">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="showDropIndicator" stdset="0">
+          <bool>false</bool>
+         </property>
+         <property name="dragDropOverwriteMode">
+          <bool>false</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="showGrid">
+          <bool>true</bool>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::SolidLine</enum>
+         </property>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>120</number>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>20</number>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>15</number>
+         </attribute>
+         <attribute name="verticalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <row>
+          <property name="text">
+           <string>Hajime/Mate</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Next</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Prev</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Pause</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Reset all</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Osaekomi/Toketa (blue)</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Osaekomi/Toketa (white)</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Reset Hold (blue)</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Reset Hold Time (white)</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Hansokumake (blue)</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Hansokumake (white)</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>Modifier</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Key</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDialogButtonBox" name="buttonBox_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="standardButtons">
+          <set>QDialogButtonBox::RestoreDefaults</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -997,21 +1199,8 @@
   <tabstop>comboBox_sound_time_ends</tabstop>
   <tabstop>toolButton_play_gong</tabstop>
   <tabstop>comboBox_next</tabstop>
-  <tabstop>comboBox_prev</tabstop>
   <tabstop>comboBox_pause</tabstop>
-  <tabstop>comboBox_hajime_matte</tabstop>
   <tabstop>comboBox_reset</tabstop>
-  <tabstop>comboBox_reset_2</tabstop>
-  <tabstop>comboBox_reset_hold</tabstop>
-  <tabstop>comboBox_reset_hold_2</tabstop>
-  <tabstop>comboBox_blue_holding</tabstop>
-  <tabstop>comboBox_white_holding</tabstop>
-  <tabstop>comboBox_hansokumake_blue</tabstop>
-  <tabstop>comboBox_hansokumake_white</tabstop>
-  <tabstop>checkBox_invert_x_axis</tabstop>
-  <tabstop>checkBox_invert_r_axis</tabstop>
-  <tabstop>checkBox_invert_y_axis</tabstop>
-  <tabstop>checkBox_invert_z_axis</tabstop>
   <tabstop>buttonBox_2</tabstop>
  </tabstops>
  <resources>

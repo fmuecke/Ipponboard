@@ -29,7 +29,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_main" stretch="4,7,2,10,3,8">
+  <layout class="QVBoxLayout" name="verticalLayout_main" stretch="4,7,3,9,3,8">
    <property name="spacing">
     <number>0</number>
    </property>

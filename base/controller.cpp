@@ -144,12 +144,12 @@ void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
 	{
 		switch( action )
 		{
-		case eAction_Hajime_Matte:
+		case eAction_Hajime_Mate:
 			if( eState_Holding == m_State )
 				m_isSonoMama = true;
 			else
 				m_isSonoMama = false;
-			m_pSM->process_event(IpponboardSM_::Hajime_Matte());
+			m_pSM->process_event(IpponboardSM_::Hajime_Mate());
 			break;
 
 		case eAction_OsaeKomi_Toketa:

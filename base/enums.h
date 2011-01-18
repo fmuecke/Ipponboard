@@ -34,7 +34,7 @@ namespace Ipponboard
 	enum EAction
 	{
 		eAction_NONE,
-		eAction_Hajime_Matte,
+		eAction_Hajime_Mate,
 		eAction_OsaeKomi_Toketa,
 		eAction_SonoMama_Yoshi,
 		eAction_Yuko,

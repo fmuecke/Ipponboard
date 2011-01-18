@@ -7,6 +7,7 @@
 #include <QSound>
 #include <QColorDialog>
 #include "../gamepad/gamepad.h"
+#include "controlconfig.h"
 
 using namespace Ipponboard;
 
@@ -35,14 +36,14 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 	m_buttonTexts[FMlib::Gamepad::eButton11] = "button 11";
 	m_buttonTexts[FMlib::Gamepad::eButton12] = "button 12";
 	// ! Assure that pov values do not overlap with regular buttons! !
-	//m_buttonTexts[FMlib::Gamepad::ePov_up] = "POV U";
-	//m_buttonTexts[FMlib::Gamepad::ePov_right] = "POV R";
-	//m_buttonTexts[FMlib::Gamepad::ePov_down] = "POV D";
-	//m_buttonTexts[FMlib::Gamepad::ePov_left] = "POV L";
-	//m_buttonTexts[FMlib::Gamepad::ePov_upper_right] = "POV UR";
-	//m_buttonTexts[FMlib::Gamepad::ePov_lower_right] = "POV DR";
-	//m_buttonTexts[FMlib::Gamepad::ePov_lower_left] = "POV DL";
-	//m_buttonTexts[FMlib::Gamepad::ePov_upper_left] = "POV UL";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_fwd] = "POV fwd";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_back] = "POV back";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_left] = "POV left";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_right] = "POV right";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_right_fwd] = "POV right fwd";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_right_back] = "POV right back";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_left_back] = "POV left back";
+	m_buttonTexts[FMlib::Gamepad::eButton_pov_left_fwd] = "POV left fwd";
 
 	QStringList buttons;
 	ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
@@ -57,9 +58,9 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 	ui->comboBox_pause->addItems(buttons);
 	ui->comboBox_reset->addItems(buttons);
 	ui->comboBox_reset_2->addItems(buttons);
-	ui->comboBox_reset_hold->addItems(buttons);
-	ui->comboBox_reset_hold_2->addItems(buttons);
-	ui->comboBox_hajime_matte->addItem("POV down");
+	ui->comboBox_reset_hold_blue->addItems(buttons);
+	ui->comboBox_reset_hold_white->addItems(buttons);
+	ui->comboBox_hajime_mate->addItems(buttons);
 	ui->comboBox_blue_holding->addItems(buttons);
 	ui->comboBox_white_holding->addItems(buttons);
 	ui->comboBox_hansokumake_blue->addItems(buttons);
@@ -78,6 +79,77 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 	dir.setNameFilters(nameFilters);
 	QStringList sounds(	dir.entryList(QDir::Files) );
 	ui->comboBox_sound_time_ends->addItems(sounds);
+
+	// keyboard page
+	QStringList keyVals;
+	keyVals << "<none>";
+	keyVals << "ENTER";			// VK_RETURN
+	keyVals << "BACKSPACE";		// VK_BACK
+	keyVals << "SPACE";			// VK_SPACE
+	keyVals << "TAB";			// VK_TAB
+	keyVals << "INS";			// VK_INSERT
+	keyVals << "DEL";			// VK_DELETE
+	keyVals << "HOME";			// VK_HOME
+	keyVals << "END";			// VK_END
+	keyVals << "PAGE UP";		// VK_PRIOR
+	keyVals << "PAGE DOWN";		// VK_NEXT
+	keyVals << "PAUSE";			// VK_PAUSE
+	keyVals << "LEFT ARROW";	// VK_LEFT
+	keyVals << "UP ARROW";		// VK_UP
+	keyVals << "DOWN ARROW";	// VK_DOWN
+	keyVals << "RIGHT ARROW";	// VK_RIGHT
+	keyVals << "NUMPAD 0";		// VK_NUMPAD0	60	Numeric keypad 0 key
+	keyVals << "NUMPAD 1";		// VK_NUMPAD1	61	Numeric keypad 1 key
+	keyVals << "NUMPAD 2";		// VK_NUMPAD2	62	Numeric keypad 2 key
+	keyVals << "NUMPAD 3";		// VK_NUMPAD3	63	Numeric keypad 3 key
+	keyVals << "NUMPAD 4";		// VK_NUMPAD4	64	Numeric keypad 4 key
+	keyVals << "NUMPAD 5";		// VK_NUMPAD5	65	Numeric keypad 5 key
+	keyVals << "NUMPAD 6";		// VK_NUMPAD6	66	Numeric keypad 6 key
+	keyVals << "NUMPAD 7";		// VK_NUMPAD7	67	Numeric keypad 7 key
+	keyVals << "NUMPAD 8";		// VK_NUMPAD8	68	Numeric keypad 8 key
+	keyVals << "NUMPAD 9";		// VK_NUMPAD9	69	Numeric keypad 9 key
+	keyVals << "NUMPAD *";		// VK_MULTIPLY	6A	Multiply key
+	keyVals << "NUMPAD +";		// VK_ADD	6B	Add key
+	keyVals << "NUMPAD ENTER";		// VK_SEPARATOR	6C	Separator key
+	keyVals << "NUMPAD -";		// VK_SUBTRACT	6D	Subtract key
+	keyVals << "NUMPAD ,";		// VK_DECIMAL	6E	Decimal key
+	keyVals << "NUMPAD %";		// VK_DIVIDE	6F	Divide key
+	keyVals << "F1";
+	keyVals << "F2";
+	keyVals << "F3";
+	keyVals << "F4";
+	keyVals << "F5";
+	keyVals << "F6";
+	keyVals << "F7";
+	keyVals << "F8";
+	keyVals << "F9";
+	keyVals << "F10";
+	keyVals << "F11";
+	keyVals << "F12";
+	// (http://msdn.microsoft.com/en-us/library/ms927178.aspx)
+
+	QStringList modifierVals;
+	modifierVals << "<none>";
+	modifierVals << "Ctrl";
+	modifierVals << "Alt";
+	modifierVals << "Shift";
+	modifierVals << "Ctrl+Alt";
+	modifierVals << "Ctrl+Shift";
+	modifierVals << "Alt+Shift";
+	modifierVals << "Ctrl+Alt+Shift";
+
+	for(int i=0; i<ui->tableWidget_keys->rowCount(); ++i)
+	{
+		QComboBox* pCombo = new QComboBox();
+		pCombo->addItems(keyVals);
+		pCombo->setEditable(true);
+		ui->tableWidget_keys->setCellWidget( i, 1, pCombo );
+
+		pCombo = new QComboBox();
+		pCombo->addItems(modifierVals);
+		ui->tableWidget_keys->setCellWidget( i, 0, pCombo );
+	}
+	ui->tableWidget_keys->verticalHeader()->setVisible(true);
 
 	// NOTE: This is nasty workaround for the standard buttons not
 	// beeing translated (separate translator would be required)
@@ -245,182 +317,78 @@ void SettingsDlg::on_buttonBox_rejected()
 	reject();
 }
 
-void SettingsDlg::SetButtonHajimeMatte(int /*b*/)
+void SettingsDlg::SetControlConfig(ControlConfig* pConfig)
 {
-	//int index = ui->comboBox_hajime_matte->findText(m_buttonTexts[b]);
-	//ui->comboBox_hajime_matte->setCurrentIndex(index);
+	Q_ASSERT(pConfig);
+	if( pConfig )
+	{
+		set_button_value(ui->comboBox_hajime_mate, pConfig->button_hajime_mate);
+		set_button_value(ui->comboBox_reset, pConfig->button_reset);
+		set_button_value(ui->comboBox_reset_2, pConfig->button_reset_2);
+		set_button_value(ui->comboBox_next, pConfig->button_next);
+		set_button_value(ui->comboBox_prev, pConfig->button_prev);
+		set_button_value(ui->comboBox_pause, pConfig->button_pause);
+		set_button_value(ui->comboBox_blue_holding, pConfig->button_osaekomi_toketa_blue);
+		set_button_value(ui->comboBox_white_holding, pConfig->button_osaekomi_toketa_white);
+		set_button_value(ui->comboBox_reset_hold_blue, pConfig->button_reset_hold_blue);
+		set_button_value(ui->comboBox_reset_hold_white, pConfig->button_reset_hold_white);
+		set_button_value(ui->comboBox_hansokumake_blue, pConfig->button_hansokumake_blue);
+		set_button_value(ui->comboBox_hansokumake_white, pConfig->button_hansokumake_white);
+
+		ui->checkBox_invert_x_axis->setChecked(pConfig->axis_inverted_X);
+		ui->checkBox_invert_y_axis->setChecked(pConfig->axis_inverted_Y);
+		ui->checkBox_invert_r_axis->setChecked(pConfig->axis_inverted_R);
+		ui->checkBox_invert_z_axis->setChecked(pConfig->axis_inverted_Z);
+	}
 }
 
-void SettingsDlg::SetButtonOsaekomiToketa(int /*b*/)
+void SettingsDlg::GetControlConfig(ControlConfig* pConfig)
 {
-	//int index = ui->comboBox_osaekomi_toketa->findText(m_buttonTexts[b]);
-	//ui->comboBox_osaekomi_toketa->setCurrentIndex(index);
-}
+	Q_ASSERT(pConfig);
+	if( pConfig )
+	{
+		pConfig->button_hajime_mate =
+				get_button_from_text(ui->comboBox_hajime_mate->currentText());
 
-void SettingsDlg::SetButtonNext(int b)
-{
-	int index = ui->comboBox_next->findText(m_buttonTexts[b]);
-	ui->comboBox_next->setCurrentIndex(index);
-}
+		pConfig->button_reset =
+				get_button_from_text(ui->comboBox_reset->currentText());
 
-void SettingsDlg::SetButtonPrev(int b)
-{
-	int index = ui->comboBox_prev->findText(m_buttonTexts[b]);
-	ui->comboBox_prev->setCurrentIndex(index);
-}
+		pConfig->button_reset_2 =
+				get_button_from_text(ui->comboBox_reset_2->currentText());
 
-void SettingsDlg::SetButtonPause(int b)
-{
-	int index = ui->comboBox_pause->findText(m_buttonTexts[b]);
-	ui->comboBox_pause->setCurrentIndex(index);
-}
+		pConfig->button_next =
+				get_button_from_text(ui->comboBox_next->currentText());
 
-void SettingsDlg::SetButtonReset(int b)
-{
-	int index = ui->comboBox_reset->findText(m_buttonTexts[b]);
-	ui->comboBox_reset->setCurrentIndex(index);
-}
+		pConfig->button_prev =
+				get_button_from_text(ui->comboBox_prev->currentText());
 
-void SettingsDlg::SetButtonReset2(int b)
-{
-	int index = ui->comboBox_reset_2->findText(m_buttonTexts[b]);
-	ui->comboBox_reset_2->setCurrentIndex(index);
-}
+		pConfig->button_pause =
+				get_button_from_text(ui->comboBox_pause->currentText());
 
-void SettingsDlg::SetButtonResetHoldBlue(int b)
-{
-	int index = ui->comboBox_reset_hold->findText(m_buttonTexts[b]);
-	ui->comboBox_reset_hold->setCurrentIndex(index);
-}
+		pConfig->button_osaekomi_toketa_blue =
+				get_button_from_text(ui->comboBox_blue_holding->currentText());
 
-void SettingsDlg::SetButtonResetHoldWhite(int b)
-{
-	int index = ui->comboBox_reset_hold_2->findText(m_buttonTexts[b]);
-	ui->comboBox_reset_hold_2->setCurrentIndex(index);
-}
+		pConfig->button_osaekomi_toketa_white =
+				get_button_from_text(ui->comboBox_white_holding->currentText());
 
-void SettingsDlg::SetButtonBlueHolding(int b)
-{
-	int index = ui->comboBox_blue_holding->findText(m_buttonTexts[b]);
-	ui->comboBox_blue_holding->setCurrentIndex(index);
-}
+		pConfig->button_reset_hold_blue =
+				get_button_from_text(ui->comboBox_reset_hold_blue->currentText());
 
-void SettingsDlg::SetButtonWhiteHolding(int b)
-{
-	int index = ui->comboBox_white_holding->findText(m_buttonTexts[b]);
-	ui->comboBox_white_holding->setCurrentIndex(index);
-}
+		pConfig->button_reset_hold_white =
+				get_button_from_text(ui->comboBox_reset_hold_white->currentText());
 
-void SettingsDlg::SetButtonHansokumakeBlue(int b)
-{
-	int index = ui->comboBox_hansokumake_blue->findText(m_buttonTexts[b]);
-	ui->comboBox_hansokumake_blue->setCurrentIndex(index);
-}
+		pConfig->button_hansokumake_blue =
+				get_button_from_text(ui->comboBox_hansokumake_blue->currentText());
 
-void SettingsDlg::SetButtonHansokumakeWhite(int b)
-{
-	int index = ui->comboBox_hansokumake_white->findText(m_buttonTexts[b]);
-	ui->comboBox_hansokumake_white->setCurrentIndex(index);
-}
+		pConfig->button_hansokumake_white =
+				get_button_from_text(ui->comboBox_hansokumake_white->currentText());
 
-int SettingsDlg::GetButtonHajimeMatte() const
-{
-	return FMlib::Gamepad::ePov_down;//GetButtonFromText_(ui->comboBox_hajime_matte->currentText());
+		pConfig->axis_inverted_X = ui->checkBox_invert_x_axis->isChecked();
+		pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
+		pConfig->axis_inverted_R = ui->checkBox_invert_r_axis->isChecked();
+		pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
+	}
 }
-int SettingsDlg::GetButtonOsaekomiToketa() const
-{
-	return FMlib::Gamepad::ePov_up;//GetButtonFromText_(ui->comboBox_osaekomi_toketa->currentText());
-}
-
-int SettingsDlg::GetButtonNext() const
-{
-	return GetButtonFromText_(ui->comboBox_next->currentText());
-}
-
-int SettingsDlg::GetButtonPrev() const
-{
-	return GetButtonFromText_(ui->comboBox_prev->currentText());
-}
-
-int SettingsDlg::GetButtonPause() const
-{
-	return GetButtonFromText_(ui->comboBox_pause->currentText());
-}
-
-int SettingsDlg::GetButtonReset() const
-{
-	return GetButtonFromText_(ui->comboBox_reset->currentText());
-}
-
-int SettingsDlg::GetButtonReset2() const
-{
-	return GetButtonFromText_(ui->comboBox_reset_2->currentText());
-}
-
-int SettingsDlg::GetButtonResetHold() const
-{
-	return GetButtonFromText_(ui->comboBox_reset_hold->currentText());
-}
-
-int SettingsDlg::GetButtonResetHold2() const
-{
-	return GetButtonFromText_(ui->comboBox_reset_hold_2->currentText());
-}
-
-int SettingsDlg::GetButtonBlueHolding() const
-{
-	return GetButtonFromText_(ui->comboBox_blue_holding->currentText());
-}
-
-int SettingsDlg::GetButtonWhiteHolding() const
-{
-	return GetButtonFromText_(ui->comboBox_white_holding->currentText());
-}
-
-int SettingsDlg::GetButtonHansokumakeBlue() const
-{
-	return GetButtonFromText_(ui->comboBox_hansokumake_blue->currentText());
-}
-
-int SettingsDlg::GetButtonHansokumakeWhite() const
-{
-	return GetButtonFromText_(ui->comboBox_hansokumake_white->currentText());
-}
-
-void SettingsDlg::SetInvertedX(bool inverted)
-{
-	ui->checkBox_invert_x_axis->setChecked(inverted);
-}
-void SettingsDlg::SetInvertedY(bool inverted)
-{
-	ui->checkBox_invert_y_axis->setChecked(inverted);
-}
-void SettingsDlg::SetInvertedR(bool inverted)
-{
-	ui->checkBox_invert_r_axis->setChecked(inverted);
-}
-void SettingsDlg::SetInvertedZ(bool inverted)
-{
-	ui->checkBox_invert_z_axis->setChecked(inverted);
-}
-
-bool SettingsDlg::IsInvertedX() const
-{
-	return ui->checkBox_invert_x_axis->isChecked();
-}
-bool SettingsDlg::IsInvertedY() const
-{
-	return ui->checkBox_invert_y_axis->isChecked();
-}
-bool SettingsDlg::IsInvertedR() const
-{
-	return ui->checkBox_invert_r_axis->isChecked();
-}
-bool SettingsDlg::IsInvertedZ() const
-{
-	return ui->checkBox_invert_z_axis->isChecked();
-}
-
 
 
 //---------------------------------------------------------
@@ -435,21 +403,6 @@ void SettingsDlg::changeEvent(QEvent *e)
 	default:
 		break;
 	}
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int SettingsDlg::GetButtonFromText_(const QString& text) const
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-	ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
-	while( iter != m_buttonTexts.end() )
-	{
-		if( iter->second == text )
-			return iter->first;
-		++iter;
-	}
-	Q_ASSERT(!"element should be in list");
-	return -1;
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
@@ -528,4 +481,28 @@ void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
 	QFont f = ui->text_text_sample->font();
 	f.setItalic(checked);
 	ui->text_text_sample->SetFont(f);
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int SettingsDlg::get_button_from_text(const QString& text) const
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+	ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
+	while( iter != m_buttonTexts.end() )
+	{
+		if( iter->second == text )
+			return iter->first;
+		++iter;
+	}
+	Q_ASSERT(!"element should be in list");
+	return -1;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+	int index = pCombo->findText(m_buttonTexts[buttonId]);
+	pCombo->setCurrentIndex(index);
 }

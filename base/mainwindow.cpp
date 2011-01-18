@@ -15,6 +15,7 @@
   #include "../base/tournament.h"
 #endif
 #include "../gamepad/gamepad.h"
+#include "../base/controlconfig.h"
 #include "../base/settingsdlg.h"
 #include "../util/helpers.h"
 
@@ -55,19 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
 	, m_bAutoSize(true)
 	, m_secondScreenSize()
 	, m_Language("en")
-	, m_buttonHajimeMatte(-1)
-	, m_buttonOsaekomiToketa(-1)
-	, m_buttonNext(-1)
-	, m_buttonPrev(-1)
-	, m_buttonPause(-1)
-	, m_buttonReset(-1)
-	, m_buttonReset2(-1)
-	, m_buttonResetHoldBlue(-1)
-	, m_buttonResetHoldWhite(-1)
-	, m_buttonBlueHolding(-1)
-	, m_buttonWhiteHolding(-1)
-	, m_buttonHansokumakeBlue(-1)
-	, m_buttonHansokumakeWhite(-1)
+	, m_controlCfg()
 //=========================================================
 {
 	m_pUi->setupUi(this);
@@ -290,23 +279,22 @@ void MainWindow::WriteSettings_()
 	settings.endGroup();
 
 	settings.beginGroup( str_tag_Input );
-	settings.setValue( str_tag_buttonHajimeMatte, m_buttonHajimeMatte );
-	settings.setValue( str_tag_buttonOsaekomiToketa, m_buttonOsaekomiToketa );
-	settings.setValue( str_tag_buttonNext, m_buttonNext );
-	settings.setValue( str_tag_buttonPrev, m_buttonPrev );
-	settings.setValue( str_tag_buttonPause, m_buttonPause );
-	settings.setValue( str_tag_buttonReset, m_buttonReset );
-	settings.setValue( str_tag_buttonReset2, m_buttonReset2 );
-	settings.setValue( str_tag_buttonResetHoldBlue, m_buttonResetHoldBlue );
-	settings.setValue( str_tag_buttonResetHoldWhite, m_buttonResetHoldWhite );
-	settings.setValue( str_tag_buttonBlueHolding, m_buttonBlueHolding );
-	settings.setValue( str_tag_buttonWhiteHolding, m_buttonWhiteHolding );
-	settings.setValue( str_tag_buttonHansokumakeBlue, m_buttonHansokumakeBlue );
-	settings.setValue( str_tag_buttonHansokumakeWhite, m_buttonHansokumakeWhite );
-	settings.setValue( str_tag_invertX, m_pGamePad->IsInverted( FMlib::Gamepad::eAxis_X ) );
-	settings.setValue( str_tag_invertY, m_pGamePad->IsInverted( FMlib::Gamepad::eAxis_Y ) );
-	settings.setValue( str_tag_invertR, m_pGamePad->IsInverted( FMlib::Gamepad::eAxis_R ) );
-	settings.setValue( str_tag_invertZ, m_pGamePad->IsInverted( FMlib::Gamepad::eAxis_Z ) );
+	settings.setValue( str_tag_buttonHajimeMate, m_controlCfg.button_hajime_mate );
+	settings.setValue( str_tag_buttonNext, m_controlCfg.button_next );
+	settings.setValue( str_tag_buttonPrev, m_controlCfg.button_prev );
+	settings.setValue( str_tag_buttonPause, m_controlCfg.button_pause );
+	settings.setValue( str_tag_buttonReset, m_controlCfg.button_reset );
+	settings.setValue( str_tag_buttonReset2, m_controlCfg.button_reset_2 );
+	settings.setValue( str_tag_buttonResetHoldBlue, m_controlCfg.button_reset_hold_blue );
+	settings.setValue( str_tag_buttonResetHoldWhite, m_controlCfg.button_reset_hold_white );
+	settings.setValue( str_tag_buttonBlueHolding, m_controlCfg.button_osaekomi_toketa_blue );
+	settings.setValue( str_tag_buttonWhiteHolding, m_controlCfg.button_osaekomi_toketa_white );
+	settings.setValue( str_tag_buttonHansokumakeBlue, m_controlCfg.button_hansokumake_blue );
+	settings.setValue( str_tag_buttonHansokumakeWhite, m_controlCfg.button_hansokumake_white );
+	settings.setValue( str_tag_invertX, m_controlCfg.axis_inverted_X );
+	settings.setValue( str_tag_invertY, m_controlCfg.axis_inverted_Y );
+	settings.setValue( str_tag_invertR, m_controlCfg.axis_inverted_R );
+	settings.setValue( str_tag_invertZ, m_controlCfg.axis_inverted_Z );
 	settings.endGroup();
 
 	settings.beginGroup( str_tag_Sounds );
@@ -400,39 +388,53 @@ void MainWindow::ReadSettings_()
 	settings.endGroup();
 
 	settings.beginGroup( str_tag_Input );
-	m_buttonHajimeMatte = settings.value( str_tag_buttonHajimeMatte,
-										  Gamepad::ePov_down ).toInt();
-	m_buttonOsaekomiToketa = settings.value( str_tag_buttonOsaekomiToketa,
-											 Gamepad::ePov_up ).toInt();
-	m_buttonNext = settings.value( str_tag_buttonNext,
-								   Gamepad::eButton10 ).toInt();
-	m_buttonPrev = settings.value( str_tag_buttonPrev,
-								   Gamepad::eButton9 ).toInt();
-	m_buttonPause = settings.value( str_tag_buttonPause,
-									Gamepad::eButton2 ).toInt();
-	m_buttonReset = settings.value( str_tag_buttonReset,
-									Gamepad::eButton1 ).toInt();
-	m_buttonReset2 = settings.value( str_tag_buttonReset2,
-									Gamepad::eButton4 ).toInt();
-	m_buttonResetHoldBlue = settings.value( str_tag_buttonResetHoldBlue,
-									Gamepad::eButton6 ).toInt();
-	m_buttonResetHoldWhite = settings.value( str_tag_buttonResetHoldWhite,
-									Gamepad::eButton8 ).toInt();
-	m_buttonBlueHolding = settings.value( str_tag_buttonBlueHolding,
-										  Gamepad::eButton5 ).toInt();
-	m_buttonWhiteHolding = settings.value( str_tag_buttonWhiteHolding,
-										   Gamepad::eButton7 ).toInt();
-	m_buttonHansokumakeBlue = settings.value( str_tag_buttonHansokumakeBlue,
-											  Gamepad::eButton11 ).toInt();
-	m_buttonHansokumakeWhite = settings.value( str_tag_buttonHansokumakeWhite,
-											   Gamepad::eButton12 ).toInt();
 
-	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_X, settings.value( str_tag_invertX, false ).toBool());
-	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_Y, settings.value( str_tag_invertY, true ).toBool());
-	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_R, settings.value( str_tag_invertR, true ).toBool());
-	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_Z, settings.value( str_tag_invertZ, true ).toBool());
+	m_controlCfg.button_hajime_mate =
+			settings.value( str_tag_buttonHajimeMate, Gamepad::eButton_pov_back ).toInt();
+
+	m_controlCfg.button_next =
+			settings.value( str_tag_buttonNext, Gamepad::eButton10 ).toInt();
+
+	m_controlCfg.button_prev =
+			settings.value( str_tag_buttonPrev, Gamepad::eButton9 ).toInt();
+
+	m_controlCfg.button_pause =
+			settings.value( str_tag_buttonPause, Gamepad::eButton2 ).toInt();
+
+	m_controlCfg.button_reset =
+			settings.value( str_tag_buttonReset, Gamepad::eButton1 ).toInt();
+
+	m_controlCfg.button_reset_2 =
+			settings.value( str_tag_buttonReset2, Gamepad::eButton4 ).toInt();
+
+	m_controlCfg.button_reset_hold_blue =
+			settings.value( str_tag_buttonResetHoldBlue, Gamepad::eButton6 ).toInt();
+
+	m_controlCfg.button_reset_hold_white =
+			settings.value( str_tag_buttonResetHoldWhite, Gamepad::eButton8 ).toInt();
+
+	m_controlCfg.button_osaekomi_toketa_blue =
+			settings.value( str_tag_buttonBlueHolding, Gamepad::eButton5 ).toInt();
+
+	m_controlCfg.button_osaekomi_toketa_white =
+			settings.value( str_tag_buttonWhiteHolding, Gamepad::eButton7 ).toInt();
+
+	m_controlCfg.button_hansokumake_blue =
+			settings.value( str_tag_buttonHansokumakeBlue, Gamepad::eButton11 ).toInt();
+
+	m_controlCfg.button_hansokumake_white =
+			settings.value( str_tag_buttonHansokumakeWhite, Gamepad::eButton12 ).toInt();
+
+	m_controlCfg.axis_inverted_X = settings.value( str_tag_invertX, false ).toBool();
+	m_controlCfg.axis_inverted_Y = settings.value( str_tag_invertY, true ).toBool();
+	m_controlCfg.axis_inverted_R = settings.value( str_tag_invertR, true ).toBool();
+	m_controlCfg.axis_inverted_Z = settings.value( str_tag_invertZ, true ).toBool();
+	// apply settings to gamepad controller
+	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_X, m_controlCfg.axis_inverted_X );
+	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_Y, m_controlCfg.axis_inverted_Y );
+	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R );
+	m_pGamePad->SetInverted( FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z );
 	settings.endGroup();
-
 
 	settings.beginGroup( str_tag_Sounds );
 	m_pController->SetGongFile(settings.value( str_tag_sound_time_ends,
@@ -780,23 +782,8 @@ void MainWindow::on_actionPreferences_triggered()
 	dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
 						   m_secondScreenSize);
 
-	dlg.SetButtonHajimeMatte(m_buttonHajimeMatte);
-	dlg.SetButtonOsaekomiToketa(m_buttonOsaekomiToketa);
-	dlg.SetButtonNext(m_buttonNext);
-	dlg.SetButtonPrev(m_buttonPrev);
-	dlg.SetButtonPause(m_buttonPause);
-	dlg.SetButtonReset(m_buttonReset);
-	dlg.SetButtonReset2(m_buttonReset2);
-	dlg.SetButtonResetHoldBlue(m_buttonResetHoldBlue);
-	dlg.SetButtonResetHoldWhite(m_buttonResetHoldWhite);
-	dlg.SetButtonBlueHolding(m_buttonBlueHolding);
-	dlg.SetButtonWhiteHolding(m_buttonWhiteHolding);
-	dlg.SetButtonHansokumakeBlue(m_buttonHansokumakeBlue);
-	dlg.SetButtonHansokumakeWhite(m_buttonHansokumakeWhite);
-	dlg.SetInvertedX(m_pGamePad->IsInverted(FMlib::Gamepad::eAxis_X));
-	dlg.SetInvertedY(m_pGamePad->IsInverted(FMlib::Gamepad::eAxis_Y));
-	dlg.SetInvertedR(m_pGamePad->IsInverted(FMlib::Gamepad::eAxis_R));
-	dlg.SetInvertedZ(m_pGamePad->IsInverted(FMlib::Gamepad::eAxis_Z));
+	dlg.SetControlConfig(&m_controlCfg);
+
 	dlg.SetGongFile(m_pController->GetGongFile());
 
 	if( QDialog::Accepted == dlg.exec() )
@@ -811,23 +798,13 @@ void MainWindow::on_actionPreferences_triggered()
 		m_bAutoSize = dlg.IsAutoSize();
 		m_secondScreenSize = dlg.GetSize();
 
-		m_buttonHajimeMatte = dlg.GetButtonHajimeMatte();
-		m_buttonOsaekomiToketa = dlg.GetButtonOsaekomiToketa();
-		m_buttonNext = dlg.GetButtonNext();
-		m_buttonPrev = dlg.GetButtonPrev();
-		m_buttonPause = dlg.GetButtonPause();
-		m_buttonReset = dlg.GetButtonReset();
-		m_buttonReset2 = dlg.GetButtonReset2();
-		m_buttonResetHoldBlue = dlg.GetButtonResetHold();
-		m_buttonResetHoldWhite = dlg.GetButtonResetHold2();
-		m_buttonBlueHolding = dlg.GetButtonBlueHolding();
-		m_buttonWhiteHolding = dlg.GetButtonWhiteHolding();
-		m_buttonHansokumakeBlue = dlg.GetButtonHansokumakeBlue();
-		m_buttonHansokumakeWhite = dlg.GetButtonHansokumakeWhite();
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, dlg.IsInvertedX());
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, dlg.IsInvertedY());
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, dlg.IsInvertedR());
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, dlg.IsInvertedZ());
+		dlg.GetControlConfig(&m_controlCfg);
+		// apply settings to gamepad
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controlCfg.axis_inverted_X);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controlCfg.axis_inverted_Y);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z);
+
 		m_pController->SetGongFile(dlg.GetGongFile());
 
 		// save changes to file
@@ -859,16 +836,16 @@ void MainWindow::EvaluateInput()
 
 	m_pGamePad->ReadData();
 
-	if( m_pGamePad->WasPovPressed( Gamepad::ePov_down ) )
+	if( m_pGamePad->WasPressed( Gamepad::EButton(m_controlCfg.button_hajime_mate) ) )
 	{
-		m_pController->DoAction( eAction_Hajime_Matte, eFighter_Nobody );
+		m_pController->DoAction( eAction_Hajime_Mate, eFighter_Nobody );
 	}
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHoldBlue)) ||
-			 m_pGamePad->WasPressed(Gamepad::EButton(m_buttonResetHoldWhite)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_blue)) ||
+			 m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_white)) )
 	{
 		m_pController->DoAction( eAction_ResetOsaeKomi, eFighter_Nobody );
 	}
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonBlueHolding)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_blue)) )
 	{
 		if( eState_Holding != m_pController->GetCurrentState() )
 		{
@@ -883,7 +860,7 @@ void MainWindow::EvaluateInput()
 				m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_Blue );
 		}
 	}
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonWhiteHolding)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_white)) )
 	{
 		if( eState_Holding != m_pController->GetCurrentState() )
 		{
@@ -900,32 +877,32 @@ void MainWindow::EvaluateInput()
 	}
 	// reset
 	else if(
-		m_pGamePad->IsPressed(Gamepad::EButton(m_buttonReset)) &&
-		m_pGamePad->IsPressed(Gamepad::EButton(m_buttonReset2)) )
+		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset)) &&
+		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset_2)) )
 	{
 		m_pController->DoAction(eAction_Reset, eFighter_Nobody );
 	}
 	// back
 #ifdef TEAM_VIEW
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonPrev)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_prev)) )
 	{
 		on_button_prev_clicked();
 	}
 	// next
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonNext)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_next)) )
 	{
 		on_button_next_clicked();
 	}
 #endif
 	// hansokumake blue
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonHansokumakeBlue)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_blue)) )
 	{
 		const bool revoke(m_pController->GetScore(
 			eFighter_Blue, ePoint_Hansokumake) != 0);
 		m_pController->DoAction( eAction_Hansokumake, eFighter_Blue, revoke);
 	}
 	// hansokumake white
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_buttonHansokumakeWhite)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_white)) )
 	{
 		const bool revoke(m_pController->GetScore(
 			eFighter_White, ePoint_Hansokumake) != 0);

@@ -5,6 +5,7 @@
 #include <QTableWidgetItem>
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include "../base/controlconfig.h"
 
 // forwards
 namespace Ui {
@@ -57,7 +58,7 @@ static const char* const str_tag_MainClockColorStopped = "MainClockColorStopped"
 static const char* const str_tag_Styles = "Styles";
 static const char* const str_tag_BgStyle = "BackgroundStyle";
 static const char* const str_tag_Input = "Input";
-static const char* const str_tag_buttonHajimeMatte = "ButtonHajimeMatte";
+static const char* const str_tag_buttonHajimeMate = "ButtonHajimeMate";
 static const char* const str_tag_buttonOsaekomiToketa = "ButtonOsaekomiToketa";
 static const char* const str_tag_buttonNext = "ButtonNext";
 static const char* const str_tag_buttonPrev = "ButtonPrev";
@@ -170,19 +171,7 @@ private:
 	QSize m_secondScreenSize;
 	QString m_Language;
 
-	int m_buttonHajimeMatte;
-	int m_buttonOsaekomiToketa;
-	int m_buttonNext;
-	int m_buttonPrev;
-	int m_buttonPause;
-	int m_buttonReset;
-	int m_buttonReset2;
-	int m_buttonResetHoldBlue;
-	int m_buttonResetHoldWhite;
-	int m_buttonBlueHolding;
-	int m_buttonWhiteHolding;
-	int m_buttonHansokumakeBlue;
-	int m_buttonHansokumakeWhite;
+	Ipponboard::ControlConfig m_controlCfg;
 };
 
 #endif // MAINWINDOW_H

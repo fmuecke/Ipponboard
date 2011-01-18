@@ -45,5 +45,6 @@
         <file>icons/fighter_white.png</file>
         <file>icons/deny.png</file>
         <file>icons/add.png</file>
+        <file>icons/keyboard.png</file>
     </qresource>
 </RCC>

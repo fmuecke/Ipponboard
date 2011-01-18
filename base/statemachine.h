@@ -41,7 +41,7 @@ public:
 	struct Reset {};
 	struct Finish {};
 
-	struct Hajime_Matte	{ enum { type = eTimer_Main }; };
+	struct Hajime_Mate	{ enum { type = eTimer_Main }; };
 	struct Osaekomi_Toketa { enum { type = eTimer_Hold }; };
 
 	template<typename T>
@@ -161,7 +161,7 @@ public:
 //		m_pCore->StartTimer_( ETimer(T::type) );
 //	}
 	template<>
-	void start_timer(Hajime_Matte const& /*evt*/)
+	void start_timer(Hajime_Mate const& /*evt*/)
 	{
 		m_pCore->StartTimer_( eTimer_Main );
 		m_pCore->ResetTimer_( eTimer_Hold );
@@ -297,7 +297,7 @@ public:
 	struct transition_table : boost::mpl::vector<
 	//		Start		Event			Next	  Action				Guard
 	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	a_row < Stopped , Hajime_Matte	, Running	, &sm::start_timer							>,
+	a_row < Stopped , Hajime_Mate	, Running	, &sm::start_timer							>,
 	  row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
 	  row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
 	a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
@@ -314,7 +314,7 @@ public:
 	a_row < Stopped , Wazaari		, Stopped	, &sm::add_point							>,	// just to correct values...
 	a_row < Stopped , Yuko			, Stopped	, &sm::add_point							>,	// just to correct values...
 	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	a_row < Running , Hajime_Matte	, Stopped	, &sm::stop_timer					 		>,
+	a_row < Running , Hajime_Mate	, Stopped	, &sm::stop_timer					 		>,
 	a_row < Running , TimeEndedEvent, Stopped	, &sm::stop_timer							>,
 	a_row < Running , Ippon			, Stopped	, &sm::add_point							>,
 	a_row < Running , Wazaari		, Running	, &sm::add_point							>,
@@ -332,7 +332,7 @@ public:
 	//	  +---------+---------------+-----------+-------------------+-----------------------+
 	  row < Holding ,Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
 	  row < Holding ,Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
-	a_row < Holding ,Hajime_Matte	, Stopped	, &sm::stop_timer									>,
+	a_row < Holding ,Hajime_Mate	, Stopped	, &sm::stop_timer									>,
 	a_row < Holding ,Reset			, Stopped	, &sm::reset										>,
 	a_row < Holding ,Finish			, Stopped	, &sm::stop_timer									>,
 	a_row < Holding ,Hansokumake	, Stopped	, &sm::add_point									>,
