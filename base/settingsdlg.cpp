@@ -215,6 +215,15 @@ void SettingsDlg::SetDigitSettings( const QFont& font,
 	ui->checkBox_digits_italic->setChecked(font.italic());
 }
 
+void SettingsDlg::SetMatLabel( QString const& text )
+{
+	const int index = ui->comboBox_mat->findText(text);
+	if( -1 != index )
+		ui->comboBox_mat->setCurrentIndex(index);
+	else
+		ui->comboBox_mat->setEditText(text);
+}
+
 void SettingsDlg::SetGongFile( const QString& path )
 {
 	int pos = path.lastIndexOf('/',-1);
@@ -299,6 +308,11 @@ const QColor SettingsDlg::GetTextBgColorWhite() const
 const QColor SettingsDlg::GetDigitBgColor() const
 {
 	return ui->text_digit_sample->GetBgColor();
+}
+
+const QString SettingsDlg::GetMatLabel() const
+{
+	return ui->comboBox_mat->currentText();
 }
 
 const QString SettingsDlg::GetGongFile() const

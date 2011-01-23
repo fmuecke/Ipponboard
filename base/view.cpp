@@ -470,13 +470,6 @@ void View::mousePressEvent(QMouseEvent* event)
 				QMenu menu;
 				QAction* item(0);
 
-				item = menu.addAction(tr("Set Value"));
-				if( m_pController->GetCurrentState() != eState_SonoMama &&
-					m_pController->GetCurrentState() != eState_TimerStopped )
-					item->setEnabled(false);
-				else
-					connect( item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()) );
-
 				item = menu.addAction(tr("Reset"));
 				connect( item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue_()) );
 
@@ -617,44 +610,10 @@ void View::setOsaekomiWhite_()
 }
 
 //=========================================================
-void View::setOsaekomiTimerValue_()
-//=========================================================
-{
-	bool ok(false);
-	const int seconds = QInputDialog::getInt(
-		0,
-		tr("Set Value"),
-		tr("Set value to (ss):"),
-		0,	// value
-		0,	// min
-		59,	// max
-		1,	// step
-		&ok);
-	if( ok )
-		m_pController->SetTimerValue(eTimer_Hold, QString::number(seconds));
-}
-
-//=========================================================
 void View::resetOsaekomiTimerValue_()
 //=========================================================
 {
 	m_pController->ResetTimerValue(eTimer_Hold);
-}
-
-//=========================================================
-void View::setMainTimerValue_()
-//=========================================================
-{
-	bool ok(false);
-	const QString time = QInputDialog::getText(
-		0,
-		tr("Set Value"),
-		tr("Set value to (m:ss):"),
-		QLineEdit::Normal,
-		m_pController->GetTimeText(eTimer_Main),
-		&ok);
-	if( ok )
-		m_pController->SetTimerValue(eTimer_Main, time);
 }
 
 //=========================================================

@@ -30,6 +30,7 @@ public:
 	void SetTextColorsWhite(const QColor& color, const QColor& background);
 	void SetDigitSettings(const QFont& font, const QColor& color,
 						  const QColor& background);
+	void SetMatLabel(QString const& text);
 	void SetGongFile(const QString& path);
 
 	bool IsShowAlways() const;
@@ -46,6 +47,7 @@ public:
 	const QColor GetTextBgColorBlue() const;
 	const QColor GetTextBgColorWhite() const;
 	const QColor GetDigitBgColor() const;
+	const QString GetMatLabel() const;
 	const QString GetGongFile() const;
 
 	void SetControlConfig(ControlConfig* pConfig);

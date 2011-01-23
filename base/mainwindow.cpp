@@ -140,18 +140,6 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef TEAM_VIEW
 	m_pUi->dateEdit->setDate(QDate::currentDate());
 #else
-	// mat
-	const QString mat = tr("Mat");
-	m_pUi->comboBox_mat->addItem(mat + " 1");
-	m_pUi->comboBox_mat->addItem(mat + " 2");
-	m_pUi->comboBox_mat->addItem(mat + " 3");
-	m_pUi->comboBox_mat->addItem(mat + " 4");
-	m_pUi->comboBox_mat->addItem(mat + " 5");
-	m_pUi->comboBox_mat->addItem(mat + " 6");
-	m_pUi->comboBox_mat->addItem(mat + " 7");
-	m_pUi->comboBox_mat->addItem(mat + " 8");
-	m_pUi->comboBox_mat->addItem(mat + " 9");
-
 	// init tournament classes (if there are none present)
 	for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
 	{
@@ -202,7 +190,7 @@ MainWindow::~MainWindow()
 #endif
 	delete m_pUi;
 }
-	
+
 //=========================================================
 void MainWindow::changeEvent(QEvent *e)
 //=========================================================
@@ -255,6 +243,7 @@ void MainWindow::WriteSettings_()
 	settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
 	settings.setValue(str_tag_AutoSize, m_bAutoSize);
 	settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
+	settings.setValue(str_tag_MatLabel, m_MatLabel);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Fonts);
@@ -322,6 +311,9 @@ void MainWindow::ReadSettings_()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
+	m_MatLabel = settings.value(str_tag_MatLabel).toString();
+	m_pPrimaryView->SetMat(m_MatLabel);
+	m_pSecondaryView->SetMat(m_MatLabel);
 	settings.endGroup();
 
 	// Fonts
@@ -784,6 +776,7 @@ void MainWindow::on_actionPreferences_triggered()
 
 	dlg.SetControlConfig(&m_controlCfg);
 
+	dlg.SetMatLabel(m_MatLabel);
 	dlg.SetGongFile(m_pController->GetGongFile());
 
 	if( QDialog::Accepted == dlg.exec() )
@@ -805,10 +798,18 @@ void MainWindow::on_actionPreferences_triggered()
 		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R);
 		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z);
 
+		m_MatLabel = dlg.GetMatLabel();
+		m_pPrimaryView->SetMat(m_MatLabel);
+		m_pSecondaryView->SetMat(m_MatLabel);
+		//m_pPrimaryView->UpdateView();
+		//m_pSecondaryView->UpdateView();
+
 		m_pController->SetGongFile(dlg.GetGongFile());
 
 		// save changes to file
 		WriteSettings_();
+
+		UpdateViews_();
 	}
 }
 
@@ -1252,15 +1253,15 @@ void MainWindow::on_actionManage_Classes_triggered()
 }
 
 
-//=========================================================
-void MainWindow::on_comboBox_mat_currentIndexChanged(const QString& s)
-//=========================================================
-{
-	m_pPrimaryView->SetMat(s);
-	m_pSecondaryView->SetMat(s);
-	m_pPrimaryView->UpdateView();
-	m_pSecondaryView->UpdateView();
-}
+////=========================================================
+//void MainWindow::on_comboBox_mat_currentIndexChanged(const QString& s)
+////=========================================================
+//{
+//	m_pPrimaryView->SetMat(s);
+//	m_pSecondaryView->SetMat(s);
+//	m_pPrimaryView->UpdateView();
+//	m_pSecondaryView->UpdateView();
+//}
 
 //=========================================================
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
@@ -1393,4 +1394,38 @@ void MainWindow::on_action_Info_Header_triggered(bool val)
 {
 	m_pPrimaryView->SetShowInfoHeader(val);
 	m_pSecondaryView->SetShowInfoHeader(val);
+}
+
+void MainWindow::on_actionSet_Hold_Timer_triggered()
+{
+	bool ok(false);
+	const int seconds = QInputDialog::getInt(
+		0,
+		tr("Set Value"),
+		tr("Set value to (ss):"),
+		0,	// value
+		0,	// min
+		59,	// max
+		1,	// step
+		&ok);
+	if( ok )
+		m_pController->SetTimerValue(eTimer_Hold, QString::number(seconds));
+}
+
+void MainWindow::on_actionSet_Main_Timer_triggered()
+{
+//	if( m_pController->GetCurrentState() == eState_SonoMama ||
+//		m_pController->GetCurrentState() == eState_TimerStopped )
+	{
+		bool ok(false);
+		const QString time = QInputDialog::getText(
+			0,
+			tr("Set Value"),
+			tr("Set value to (m:ss):"),
+			QLineEdit::Normal,
+			m_pController->GetTimeText(eTimer_Main),
+			&ok);
+		if( ok )
+			m_pController->SetTimerValue(eTimer_Main, time);
+	}
 }

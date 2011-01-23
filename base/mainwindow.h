@@ -41,6 +41,7 @@ static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
 static const char* const str_tag_AutoSize = "AutoSize";
 static const char* const str_tag_AlwaysShow = "AlwaysShow";
+static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
 static const char* const str_tag_Fonts = "Fonts";
@@ -105,6 +106,8 @@ private:
 #endif
 
 private slots:
+	void on_actionSet_Main_Timer_triggered();
+	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);
 	void on_actionLang_English_triggered(bool );
 	void on_actionLang_Deutsch_triggered(bool );
@@ -140,7 +143,6 @@ private slots:
 	void on_actionExport_triggered();
 #else
 	void on_actionManage_Classes_triggered();
-	void on_comboBox_mat_currentIndexChanged(const QString& );
 	void on_comboBox_weight_currentIndexChanged(const QString& );
 	void on_lineEdit_name_white_textChanged(const QString& );
 	void on_lineEdit_name_blue_textChanged(const QString& );
@@ -161,6 +163,7 @@ private:
 	QString m_htmlScore;
 #else
 	Ipponboard::FightCategoryMgr* m_pCategoryManager;
+	QString m_MatLabel;
 #endif
 	PGamePad m_pGamePad;
 
