@@ -44,9 +44,11 @@ public:
 
 	// others
 	void SetMessageText(Ipponboard::EFighter who, const QString& msg) const;
-	const QFont& GetTextFont() const { return m_TextFont; }
+	const QFont& GetInfoHeaderFont() const { return m_InfoHeaderFont; }
+	const QFont& GetFighterNameFont() const { return m_FighterNameFont; }
 	const QFont& GetDigitFont() const { return m_DigitFont; }
-	void SetTextFont( const QFont& font );
+	void SetInfoHeaderFont( const QFont& font );
+	void SetFighterNameFont( const QFont& font );
 	void SetDigitFont( const QFont& font );
 	const QColor& GetTextColorBlue() const { return m_TextColorBlue; }
 	const QColor& GetTextBgColorBlue() const { return m_TextBgColorBlue; }
@@ -101,7 +103,8 @@ private:
 	Ui::ScoreViewVerticalSingle* ui;
 # endif
 #endif
-	QFont m_TextFont;
+	QFont m_InfoHeaderFont;
+	QFont m_FighterNameFont;
 	QFont m_DigitFont;
 	QColor m_TextColorBlue;
 	QColor m_TextBgColorBlue;

@@ -46,6 +46,7 @@ static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
+static const char* const str_tag_FighterNameFont = "FighterNameFont";
 static const char* const str_tag_DigitFont = "DigitFont";
 static const char* const str_tag_Colors = "Colors";
 static const char* const str_tag_InfoTextColor = "InfoTextColor";
@@ -95,7 +96,7 @@ private:
 	void UpdateInfoTextColor_(const QColor& color, const QColor& bgColor);
 	void UpdateTextColorBlue_(const QColor& color, const QColor& bgColor);
 	void UpdateTextColorWhite_(const QColor& color, const QColor& bgColor);
-	void UpdateTextFont_(const QFont&);
+	void update_fighter_name_font(const QFont&);
 	void ShowHideView_() const;
 	void UpdateViews_();
 	void change_lang(bool beQuiet = false);
@@ -167,7 +168,7 @@ private:
 #endif
 	PGamePad m_pGamePad;
 
-	QFont m_textFont;
+	QFont m_FighterNameFont;
 	int m_secondScreenNo;
 	bool m_bAlwaysShow;
 	bool m_bAutoSize;

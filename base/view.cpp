@@ -34,8 +34,9 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, ui(new Ui::ScoreViewVerticalSingle)
 # endif
 #endif
-	, m_TextFont("Calibri")
-	, m_DigitFont("Calibri")
+	, m_InfoHeaderFont("Calibri", 12, QFont::Bold, false)
+	, m_FighterNameFont("Calibri", 12, QFont::Bold, true)
+	, m_DigitFont("Calibri", 12, QFont::Bold, false)
 	, m_TextColorBlue(Qt::white)
 	, m_TextBgColorBlue(Qt::blue)
 	, m_TextColorWhite(Qt::black)
@@ -127,6 +128,10 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_firstname_blue->SetColor(fgColor1, bgColor1);
 	ui->text_lastname_white->SetColor(fgColor2, bgColor2);
 	ui->text_firstname_white->SetColor(fgColor2, bgColor2);
+	ui->text_lastname_blue->SetDigitSize(true);
+	ui->text_firstname_blue->SetDigitSize(true);
+	ui->text_lastname_white->SetDigitSize(true);
+	ui->text_firstname_white->SetDigitSize(true);
 	if( IsSecondary_() )
 	{
 		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc1, 0);
@@ -154,7 +159,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
 
-	SetTextFont( QFont("Calibri", 12, QFont::Bold, false ) );
+	SetInfoHeaderFont( QFont("Calibri", 12, QFont::Bold, false ) );
 	SetDigitFont( QFont("Arial", 12, QFont::Bold, false ) );
 	SetMainClockColor( Qt::yellow, Qt::red );
 
@@ -331,10 +336,20 @@ void View::SetController( IController* pController )
 }
 
 //=========================================================
-void View::SetTextFont( const QFont& font )
+void View::SetInfoHeaderFont( const QFont& font )
 //=========================================================
 {
-	m_TextFont = font;
+	m_InfoHeaderFont = font;
+
+	ui->text_weight->SetFont(font);
+	ui->text_mat->SetFont(font);
+}
+
+//=========================================================
+void View::SetFighterNameFont( const QFont& font )
+//=========================================================
+{
+	m_FighterNameFont = font;
 
 #ifdef HORIZONTAL_VIEW
 	ui->text_lastname_white->setAlignment(Qt::AlignLeft);
@@ -353,11 +368,8 @@ void View::SetTextFont( const QFont& font )
 	ui->text_firstname_white->SetFont(font);
 	ui->text_lastname_blue->SetFont(font);
 	ui->text_firstname_blue->SetFont(font);
-
-	ui->text_weight->SetFont(font);
-	ui->text_mat->SetFont(font);
-
 }
+
 //=========================================================
 void View::SetDigitFont( const QFont& font )
 //=========================================================

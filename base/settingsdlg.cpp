@@ -18,8 +18,8 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 	ui->setupUi(this);
 
 	ui->text_text_sample->SetText("IPPONBOARD");
-	ui->text_color_blue->SetText(tr("Blue"));
-	ui->text_color_white->SetText(tr("White"));
+	ui->text_color_blue->SetText(tr("BLUE"));
+	ui->text_color_white->SetText(tr("WHITE"));
 	ui->text_digit_sample->SetText("3:24");
 
 	// build button text map
@@ -185,14 +185,23 @@ void SettingsDlg::SetScreensSettings( bool showAlways,
 	}
 }
 
-void SettingsDlg::SetTextSettings( const QFont& font,
+void SettingsDlg::SetInfoHeaderSettings( const QFont& font,
 								   const QColor& color,
 								   const QColor& background )
 {
-	ui->fontComboBox_text->setCurrentFont(font);
+	ui->fontComboBox_infoHeader->setCurrentFont(font);
 	ui->text_text_sample->SetFontAndColor(font, color, background);
 	ui->checkBox_text_bold->setChecked(font.bold());
 	ui->checkBox_text_italic->setChecked(font.italic());
+}
+
+void SettingsDlg::SetFighterNameFont( const QFont& font )
+{
+	ui->fontComboBox_fighters->setCurrentFont(font);
+	ui->checkBox_fighters_bold->setChecked(font.bold());
+	ui->checkBox_fighters_italic->setChecked(font.italic());
+	ui->text_color_blue->SetFont(font);
+	ui->text_color_white->SetFont(font);
 }
 
 void SettingsDlg::SetTextColorsBlue( const QColor& color, const QColor& background )
@@ -261,13 +270,22 @@ QSize SettingsDlg::GetSize() const
 	return s;
 }
 
-const QFont SettingsDlg::GetTextFont() const
+const QFont SettingsDlg::GetInfoHeaderFont() const
 {
-	QFont f = ui->fontComboBox_text->currentFont();
+	QFont f = ui->fontComboBox_infoHeader->currentFont();
 	f.setBold(ui->checkBox_text_bold->isChecked());
 	f.setItalic(ui->checkBox_text_italic->isChecked());
 	return f;
 }
+
+const QFont SettingsDlg::GetFighterNameFont() const
+{
+	QFont f = ui->fontComboBox_fighters->currentFont();
+	f.setBold(ui->checkBox_fighters_bold->isChecked());
+	f.setItalic(ui->checkBox_fighters_italic->isChecked());
+	return f;
+}
+
 const QFont SettingsDlg::GetDigitFont() const
 {
 	return ui->fontComboBox_digit->currentFont();
@@ -426,12 +444,21 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 	QSound::play( path );
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_text_currentFontChanged(
+void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(
 		QFont f)
 {
 	f.setBold(ui->checkBox_text_bold->isChecked());
 	f.setItalic(ui->checkBox_text_italic->isChecked());
 	ui->text_text_sample->SetFont(f);
+}
+
+void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(
+		QFont f)
+{
+	f.setBold(ui->checkBox_fighters_bold->isChecked());
+	f.setItalic(ui->checkBox_fighters_italic->isChecked());
+	ui->text_color_blue->SetFont(f);
+	ui->text_color_white->SetFont(f);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_pressed()

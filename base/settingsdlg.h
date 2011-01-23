@@ -24,8 +24,9 @@ public:
 
 	void SetScreensSettings(bool showAlways, int screen, bool autosize,
 							const QSize& dimensions);
-	void SetTextSettings(const QFont& font, const QColor& color,
+	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
 						 const QColor& background);
+	void SetFighterNameFont( const QFont& font );
 	void SetTextColorsBlue(const QColor& color, const QColor& background);
 	void SetTextColorsWhite(const QColor& color, const QColor& background);
 	void SetDigitSettings(const QFont& font, const QColor& color,
@@ -37,7 +38,8 @@ public:
 	int GetSelectedScreen() const;
 	bool IsAutoSize() const;
 	QSize GetSize() const;
-	const QFont GetTextFont() const;
+	const QFont GetInfoHeaderFont() const;
+	const QFont GetFighterNameFont() const;
 	const QFont GetDigitFont() const;
 	const QColor GetInfoTextColor() const;
 	const QColor GetTextColorBlue() const;
@@ -77,7 +79,8 @@ private slots:
 	void on_toolButton_text_color_blue_pressed();
 	void on_toolButton_text_background_pressed();	//TODO: somehow the buttons stay pressed...
 	void on_toolButton_text_color_pressed();		//TODO: somehow the buttons stay pressed...
-	void on_fontComboBox_text_currentFontChanged(QFont f);
+	void on_fontComboBox_infoHeader_currentFontChanged(QFont f);
+	void on_fontComboBox_fighters_currentFontChanged(QFont f);
 	void on_toolButton_play_gong_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();

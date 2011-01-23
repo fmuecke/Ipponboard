@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 	, m_pCategoryManager(nullptr)
 #endif
 	, m_pGamePad(new Gamepad)
+	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
 	, m_bAlwaysShow(true)
 	, m_bAutoSize(true)
@@ -247,7 +248,8 @@ void MainWindow::WriteSettings_()
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Fonts);
-	settings.setValue(str_tag_TextFont1, m_textFont.toString() );
+	settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString() );
+	settings.setValue(str_tag_FighterNameFont, m_FighterNameFont.toString() );
 	settings.setValue(str_tag_DigitFont, m_pPrimaryView->GetDigitFont().toString() );
 	settings.endGroup();
 
@@ -301,7 +303,9 @@ void MainWindow::ReadSettings_()
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 
+	//
 	// MainWindow
+	//
 	settings.beginGroup(str_tag_Main);
 	m_Language = settings.value(str_tag_Language,"en").toString();
 	//resize(settings.value(str_tag_size, size()).toSize());
@@ -316,11 +320,19 @@ void MainWindow::ReadSettings_()
 	m_pSecondaryView->SetMat(m_MatLabel);
 	settings.endGroup();
 
+	//
 	// Fonts
+	//
 	settings.beginGroup(str_tag_Fonts);
-	QFont font = m_pPrimaryView->GetTextFont();
+	QFont font = m_pPrimaryView->GetInfoHeaderFont();
 	font.fromString( settings.value(str_tag_TextFont1, font.toString()).toString() );
-	UpdateTextFont_(font);
+	m_pPrimaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
+	m_pSecondaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
+
+	font = m_pPrimaryView->GetFighterNameFont();
+		font.fromString( settings.value(str_tag_FighterNameFont, font.toString()).toString() );
+	update_fighter_name_font(font);
+
 	font = m_pPrimaryView->GetDigitFont();
 	font.fromString( settings.value(str_tag_DigitFont, font.toString()).toString() );
 	m_pPrimaryView->SetDigitFont(font);
@@ -475,17 +487,16 @@ void MainWindow::UpdateTextColorWhite_(const QColor& color, const QColor& bgColo
 #endif
 }
 
-//=========================================================
-void MainWindow::UpdateTextFont_(const QFont & font)
-//=========================================================
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void MainWindow::update_fighter_name_font(const QFont & font)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-	m_textFont = font;
-	m_pPrimaryView->SetTextFont(font);
-	m_pSecondaryView->SetTextFont(font);
+	m_FighterNameFont = font;
+	m_pPrimaryView->SetFighterNameFont(font);
+	m_pSecondaryView->SetFighterNameFont(font);
 #ifdef TEAM_VIEW
 	m_pScoreScreen->SetTextFont(font);
 #endif
-
 }
 
 //=========================================================
@@ -764,9 +775,10 @@ void MainWindow::on_actionPreferences_triggered()
 //=========================================================
 {
 	SettingsDlg dlg(this);
-	dlg.SetTextSettings( m_textFont,
+	dlg.SetInfoHeaderSettings( m_pPrimaryView->GetInfoHeaderFont(),
 						 m_pPrimaryView->GetInfoTextColor(),
 						 m_pPrimaryView->GetInfoTextBgColor() );
+	dlg.SetFighterNameFont( m_FighterNameFont );
 	dlg.SetTextColorsBlue( m_pPrimaryView->GetTextColorBlue(),
 						   m_pPrimaryView->GetTextBgColorBlue() );
 	dlg.SetTextColorsWhite( m_pPrimaryView->GetTextColorWhite(),
@@ -781,7 +793,9 @@ void MainWindow::on_actionPreferences_triggered()
 
 	if( QDialog::Accepted == dlg.exec() )
 	{
-		UpdateTextFont_(dlg.GetTextFont());
+		m_pPrimaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
+		m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
+		update_fighter_name_font(dlg.GetFighterNameFont());
 		UpdateInfoTextColor_(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
 		UpdateTextColorBlue_(dlg.GetTextColorBlue(), dlg.GetTextBgColorBlue());
 		UpdateTextColorWhite_(dlg.GetTextColorWhite(), dlg.GetTextBgColorWhite());
