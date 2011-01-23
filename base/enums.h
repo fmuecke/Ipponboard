@@ -50,10 +50,17 @@ namespace Ipponboard
 	enum EState
 	{
 		eState_UNDEFINED = -1,
-		eState_TimerStopped,
+		eState_TimerStopped = 0,
 		eState_TimerRunning,
 		eState_Holding,
 		eState_SonoMama,
+	};
+
+	enum EHoldState
+	{
+		eHoldState_off = 0,
+		eHoldState_on,
+		eHoldState_pause
 	};
 
 	enum ETimer

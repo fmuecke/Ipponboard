@@ -6,6 +6,7 @@
 
 #include "icontroller.h"
 #include "iview.h"
+#include "enums.h"
 
 // forwards
 #ifdef HORIZONTAL_VIEW
@@ -85,9 +86,7 @@ private:
 	void UpdateShido_( Ipponboard::EFighter ) const;
 	void UpdateHansokumake_( Ipponboard::EFighter ) const;
 	void UpdateTeamScore_() const;
-	void UpdateHoldClock_(const QColor& text,
-						  const QColor& bg,
-						  const QString& value) const;
+	void update_hold_clock(const EFighter holder, EHoldState state) const;
 	Ipponboard::EFighter GVF_(const Ipponboard::EFighter f) const; // GetViewFighter
 	bool IsSecondary_() const;
 	const QColor& GetColor_(const ColorType t) const;

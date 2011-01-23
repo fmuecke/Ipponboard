@@ -20,4 +20,4 @@ RESOURCES += res.qrc
 
 INCLUDEPATH += $$(BOOST)
 
-LIBPATH += $$(BOOST)/lib
+QMAKE_LIBDIR += $$(BOOST)/lib

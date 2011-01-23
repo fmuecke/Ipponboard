@@ -202,7 +202,7 @@ MainWindow::~MainWindow()
 #endif
 	delete m_pUi;
 }
-
+	
 //=========================================================
 void MainWindow::changeEvent(QEvent *e)
 //=========================================================
@@ -847,32 +847,26 @@ void MainWindow::EvaluateInput()
 	}
 	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_blue)) )
 	{
-		if( eState_Holding != m_pController->GetCurrentState() )
+		if( eState_Holding == m_pController->GetCurrentState() &&
+			eFighter_Blue != m_pController->GetLead() )
 		{
-			m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_Blue );
+			m_pController->DoAction( eAction_SetOsaekomi, eFighter_Blue );
 		}
 		else
 		{
-			if( eFighter_Blue != m_pController->GetLead() )
-				m_pController->DoAction( eAction_SetOsaekomi, eFighter_Blue );
-			else
-				// Toketa!
-				m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_Blue );
+			m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_Blue );
 		}
 	}
 	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_white)) )
 	{
-		if( eState_Holding != m_pController->GetCurrentState() )
+		if( eState_Holding == m_pController->GetCurrentState() &&
+			eFighter_White != m_pController->GetLead() )
 		{
-			m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_White );
+			m_pController->DoAction( eAction_SetOsaekomi, eFighter_White );
 		}
 		else
 		{
-			if( eFighter_White != m_pController->GetLead() )
-				m_pController->DoAction( eAction_SetOsaekomi, eFighter_White );
-			else
-				// Toketa!
-				m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_White );
+			m_pController->DoAction( eAction_OsaeKomi_Toketa, eFighter_White );
 		}
 	}
 	// reset

@@ -108,8 +108,8 @@ static bool IsPortable()
 #else
 	// TODO: handle other platforms (when needed)
 	#error "not implemented yet"
-	return false;
 #endif
+	return false;
 }
 
 static const std::string GetSettingsFilePath(const char* fileName)

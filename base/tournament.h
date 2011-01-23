@@ -87,9 +87,8 @@ namespace Ipponboard
 									eFighter_White : eFighter_Blue;
 				if ( !HasWon(uke) )
 					return eScore_Hikewake;
-
-				return eScore_Lost;
 			}
+			return eScore_Lost;
 		}
 	};
 

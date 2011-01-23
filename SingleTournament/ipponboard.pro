@@ -71,7 +71,7 @@ RESOURCES += ../base/ipponboard.qrc
 
 INCLUDEPATH += $$quote($$(BOOST))
 
-LIBPATH += $$quote($$(BOOST)/lib) \
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
     $$quote($$(BOOST)/stage/lib)
 
 TRANSLATIONS = ../i18n/Ipponboard_en.ts \

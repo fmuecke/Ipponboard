@@ -92,10 +92,10 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: NOT IsPortable
 
 [Files]
-Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: NOT IsPortable 
 Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; 
-Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite; Check: IsPortable; Permissions: users-full; 
 Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; 
+;Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: NOT IsPortable 
+;Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite; Check: IsPortable; Permissions: users-full; 
 Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 

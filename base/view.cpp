@@ -72,7 +72,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	QColor fgColor2 = GetColor_(whiteFg);
 
 	// set point descriptions
-	const QFont descFont("Calibri", 12, QFont::Normal, false);
+	const QFont descFont("Calibri", 12, QFont::Bold, false);
 
 	ui->text_ippon_desc1->setFont(descFont);
 	ui->text_wazaari_desc1->setFont(descFont);
@@ -109,7 +109,8 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_yuko_blue->SetDigitSize(true);
 	ui->text_yuko_white->SetDigitSize(true);
 	ui->text_main_clock->SetDigitSize(true);
-	ui->text_hold_clock->SetDigitSize(true);
+	ui->text_hold_clock_blue->SetDigitSize(true);
+	ui->text_hold_clock_white->SetDigitSize(true);
 #ifdef TEAM_VIEW
 	ui->text_score_team_blue->SetDigitSize(true);
 	ui->text_score_team_white->SetDigitSize(true);
@@ -254,63 +255,25 @@ void View::UpdateView()
 	case eState_TimerRunning:
 		{
 			ui->text_main_clock->SetColor( m_MainClockColorRunning );
-			if ( eFighter_Blue == holder )
-			{
-				UpdateHoldClock_( Qt::lightGray, m_TextBgColorBlue,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
-			else if( eFighter_White == holder )
-			{
-				UpdateHoldClock_( Qt::darkGray, m_TextBgColorWhite,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
+			if( "00" == m_pController->GetTimeText(eTimer_Hold) )
+				update_hold_clock( holder, eHoldState_off );
 			else
-			{
-				UpdateHoldClock_( Qt::lightGray, Qt::black,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
+				update_hold_clock( holder, eHoldState_pause );
 		}
 		break;
 
 	case eState_TimerStopped:
 		{
 			ui->text_main_clock->SetColor( m_MainClockColorStopped );
-			if ( eFighter_Blue == holder )
-			{
-				UpdateHoldClock_( Qt::lightGray, m_TextBgColorBlue,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
-			else if( eFighter_White == holder )
-			{
-				UpdateHoldClock_( Qt::darkGray, m_TextBgColorWhite,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
-			else
-			{
-				UpdateHoldClock_( Qt::lightGray, Qt::black,
-								m_pController->GetTimeText( eTimer_Hold ) );
-			}
+			update_hold_clock( holder, eHoldState_pause );
 		}
 		break;
 
 	case eState_Holding:
 		{
 			ui->text_main_clock->SetColor( m_MainClockColorRunning );
-			if ( eFighter_Blue == holder )
-			{
-				UpdateHoldClock_( m_TextColorBlue, m_TextBgColorBlue,
-								  m_pController->GetTimeText( eTimer_Hold ) );
-			}
-			else if ( eFighter_White == holder )
-			{
-				UpdateHoldClock_( m_TextColorWhite, m_TextBgColorWhite,
-								  m_pController->GetTimeText( eTimer_Hold ) );
-			}
-			else
-			{
-				UpdateHoldClock_( Qt::gray, Qt::black,
-								  m_pController->GetTimeText( eTimer_Hold ) );
-			}
+			update_hold_clock( holder, eHoldState_on );
+
 			#ifdef HORIZONTAL_VIEW
 				ui->layout_info->setStretchFactor(ui->layout_name_blue, 3);
 				ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
@@ -408,7 +371,8 @@ void View::SetDigitFont( const QFont& font )
 	ui->text_ippon_white->SetFont(font);
 	ui->text_wazaari_white->SetFont(font);
 	ui->text_yuko_white->SetFont(font);
-	ui->text_hold_clock->SetFont(font);
+	ui->text_hold_clock_blue->SetFont(font);
+	ui->text_hold_clock_white->SetFont(font);
 #ifdef TEAM_VIEW
 	ui->text_score_team_blue->SetFont(font);
 	ui->text_score_team_white->SetFont(font);
@@ -462,7 +426,8 @@ void View::SetMainClockColor( const QColor& running, const QColor& stopped )
 void View::Reset()
 //=========================================================
 {
-	ui->text_hold_clock->SetColor(Qt::gray, Qt::black);
+	ui->text_hold_clock_blue->SetColor(Qt::gray, Qt::black);
+	ui->text_hold_clock_white->SetColor(Qt::gray, Qt::black);
 	ui->image_sand_clock->SetBgColor(Qt::black);
 }
 
@@ -521,37 +486,45 @@ void View::mousePressEvent(QMouseEvent* event)
 			}
 			action = eAction_Hajime_Mate;
 		}
-		else if( child == ui->text_hold_clock )
+		else if( child == ui->text_hold_clock_blue )
 		{
 			if( doRevoke )  // right click!
 			{
-				QMenu menu;
-				QAction* item(0);
-				item = menu.addAction(QIcon(":/res/images/choose_blue_16.png"), tr("Blue is holding"));
-				connect( item, SIGNAL(triggered()), this, SLOT(setOsaekomiBlue_()) );
-				item = menu.addAction(QIcon(":/res/images/choose_white_16.png"),tr("White is holding"));
-				connect( item, SIGNAL(triggered()), this, SLOT(setOsaekomiWhite_()) );
-				menu.addSeparator();
-				//item = menu.addAction( tr("Continue holding") );
-				//connect( item, SIGNAL(triggered()), this, SLOT(yoshi_()) );
-
-				item = menu.addAction(tr("Set Value"));
-//				if( m_pController->GetCurrentState() != eState_SonoMama &&
-//					m_pController->GetCurrentState() != eState_TimerStopped )
-//					item->setEnabled(false);
-//				else
-					connect( item, SIGNAL(triggered()), this, SLOT(setOsaekomiTimerValue_()) );
-
-				item = menu.addAction(tr("Reset"));
-				connect( item, SIGNAL(triggered()), this, SLOT(resetOsaekomiTimerValue_()) );
-
-				menu.exec(QCursor::pos());
-
+				resetOsaekomiTimerValue_();
 				return;
 			}
-			//if( eState_TimerRunning_Osaekomi == m_pController->GetCurrentState() )
-			whos = eFighter_Blue; // initially set osaekomi for blue
-			action = eAction_OsaeKomi_Toketa;
+
+			whos = eFighter_Blue;
+
+			if( eState_Holding == m_pController->GetCurrentState() &&
+				GVF_(eFighter_Blue) != m_pController->GetLead() )
+			{
+				action = eAction_SetOsaekomi;
+			}
+			else
+			{
+				action = eAction_OsaeKomi_Toketa;
+			}
+		}
+		else if ( child == ui->text_hold_clock_white )
+		{
+			if( doRevoke )  // right click!
+			{
+				resetOsaekomiTimerValue_();
+				return;
+			}
+
+			whos = eFighter_White;
+
+			if( eState_Holding == m_pController->GetCurrentState() &&
+				GVF_(eFighter_White) != m_pController->GetLead() )
+			{
+				action = eAction_SetOsaekomi;
+			}
+			else
+			{
+				action = eAction_OsaeKomi_Toketa;
+			}
 		}
 		else if ( child == ui->text_ippon_white )
 		{
@@ -940,23 +913,59 @@ void View::UpdateTeamScore_() const
 }
 
 //=========================================================
-void View::UpdateHoldClock_( const QColor& text,
-							 const QColor& bg,
-							 const QString& value ) const
+void View::update_hold_clock( EFighter holder, EHoldState state ) const
 //=========================================================
 {
-	ui->text_hold_clock->SetColor( text, bg );
-	ui->image_sand_clock->SetBgColor( bg );
+	const QString value(m_pController->GetTimeText( eTimer_Hold ));
+	const EFighter blue = GVF_(eFighter_Blue);
+	const EFighter white = GVF_(eFighter_White);
 
-	if( value == "00" &&
-		eState_Holding != m_pController->GetCurrentState() )
+	struct ColorPair
 	{
-		// hide score on secondary view
-		ui->text_hold_clock->SetColor( Qt::gray, Qt::black );
-		ui->image_sand_clock->SetBgColor( Qt::black );
+		ColorPair( QColor f = Qt::lightGray,
+				   QColor b = Qt::black )
+			: fg(f), bg(b)
+		{}
+
+		QColor fg;
+		QColor bg;
+	};
+
+	ColorPair hold_clock_colors[3][2];
+	hold_clock_colors[eHoldState_on][eFighter_Blue] = ColorPair(m_TextColorBlue, m_TextBgColorBlue);
+	hold_clock_colors[eHoldState_on][eFighter_White] = ColorPair(m_TextColorWhite, m_TextBgColorWhite);
+	hold_clock_colors[eHoldState_off][eFighter_Blue] = ColorPair(Qt::gray, Qt::black);
+	hold_clock_colors[eHoldState_off][eFighter_White] = ColorPair(Qt::gray, Qt::black);
+	hold_clock_colors[eHoldState_pause][eFighter_Blue] = ColorPair(Qt::lightGray, m_TextBgColorBlue);
+	hold_clock_colors[eHoldState_pause][eFighter_White] = ColorPair(Qt::darkGray, m_TextBgColorWhite);
+
+	ScaledText* pClocks[2] =
+	{
+		ui->text_hold_clock_blue,
+		ui->text_hold_clock_white
+	};
+
+	// reset drawing first
+	pClocks[blue]->SetColor(
+		hold_clock_colors[eHoldState_off][eFighter_Blue].fg,
+		hold_clock_colors[eHoldState_off][eFighter_Blue].bg );
+
+	pClocks[white]->SetColor(
+		hold_clock_colors[eHoldState_off][eFighter_White].fg,
+		hold_clock_colors[eHoldState_off][eFighter_White].bg );
+
+	pClocks[blue]->SetText( "00" );
+	pClocks[white]->SetText( "00" );
+	ui->image_sand_clock->SetBgColor( Qt::black );
+
+	// no one holding?
+	if( (eFighter_White != holder && eFighter_Blue != holder) ||
+		(eHoldState_off == state && "00" == value) )
+	{
 		if( IsSecondary_() )
 		{
-			ui->text_hold_clock->SetText( "" );
+			pClocks[eFighter_Blue]->SetText( "" );
+			pClocks[eFighter_White]->SetText( "" );
 			ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
 		#ifdef HORIZONTAL_VIEW
 			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
@@ -966,23 +975,65 @@ void View::UpdateHoldClock_( const QColor& text,
 			ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
 		#endif
 		}
-		else
-		{
-			ui->text_hold_clock->SetText( value );
-		}
+		return;
+	}
+
+	// set spectial hold states
+	if( eHoldState_on == state )
+	{
+		pClocks[GVF_(holder)]->SetColor(
+			hold_clock_colors[eHoldState_on][holder].fg,
+			hold_clock_colors[eHoldState_on][holder].bg );
+
+		pClocks[GVF_(holder)]->SetText( value );
+
+		ui->image_sand_clock->SetBgColor(
+				hold_clock_colors[eHoldState_on][holder].bg );
+	}
+	else if( eHoldState_pause == state )
+	{
+		pClocks[GVF_(holder)]->SetColor(
+			hold_clock_colors[eHoldState_pause][holder].fg,
+			hold_clock_colors[eHoldState_pause][holder].bg );
+
+		pClocks[GVF_(holder)]->SetText( value );
+
+		ui->image_sand_clock->SetBgColor(
+				hold_clock_colors[eHoldState_on][holder].bg );
 	}
 	else
 	{
-		ui->text_hold_clock->SetText( value );
+		Q_ASSERT(!"unknown state");
+		return;
+	}
+
+	// on secondary screen only holder is shown
+	if( IsSecondary_() )
+	{
 		ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
-	#ifdef HORIZONTAL_VIEW
-		//ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
-		//ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
-	#else
-		//ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
-		//ui->layout_info->setStretchFactor(ui->layout_osaekomi, 1);
-		//ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
-	#endif
+//#ifdef HORIZONTAL_VIEW
+//		ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
+//#else
+//		ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 1);
+//		ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
+//#endif
+
+		if( eFighter_Blue == holder )
+		{
+			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_blue, 7);
+			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_white, 0);
+		}
+		else if( eFighter_White == holder )
+		{
+			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_blue, 0);
+			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_white, 7);
+		}
+		else
+		{
+			Q_ASSERT(FALSE);
+		}
 	}
 }
 
