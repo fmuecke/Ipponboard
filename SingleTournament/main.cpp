@@ -2,6 +2,7 @@
 #include <QTranslator>
 #include <QMessageBox>
 #include <QSettings>
+#include <QFile>
 #include "../base/mainwindow.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
-	QString langStr = settings.value(str_tag_Language,"en").toString();
+	const QString langStr = settings.value(str_tag_Language,"en").toString();
 	settings.endGroup();
 
 	QTranslator translator;
@@ -31,8 +32,9 @@ int main(int argc, char *argv[])
 		const QString& langPath =
 				QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
-		langStr = QCoreApplication::applicationName() + QString("_") + langStr;
-		if( translator.load(langStr, langPath) )
+		const QString langFile =
+			QCoreApplication::applicationName() + QString("_") + langStr;
+		if( translator.load(langFile, langPath) )
 		{
 			a.installTranslator(&translator);
 		}
@@ -40,36 +42,17 @@ int main(int argc, char *argv[])
 		{
 			QMessageBox::critical(nullptr,
 								  QCoreApplication::applicationName(),
-								  "Unable to read language file: " + langStr +
+								  "Unable to read language file: " + langFile +
 								  "\nThe default language is being used.");
 		}
 	}
 
-	QString text = QString(
-		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd\">"
-		"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">"
-		"p, li { white-space: pre-wrap; }"
-		"</style></head>"
-		"<body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\" bgcolor=\"#f7f7de\">"
-		"<h2><span style=\"font-family:Cuprum,Helvetica,Arial;color:#336699\">%1</span><small> v%2</small></h2>"
-		).arg( QCoreApplication::applicationName(),
-			   QCoreApplication::applicationVersion() );
 
-	text += QCoreApplication::tr(
-		"<p>This version is provided for testing purposes and can be used without any fee. "
-		"It will stop working after the <b>30th of April 2011</b>.</p>"
-		"<p>However, the unmodified version may be copied and distributed freely.</p>"
-		"<p>If you have improvements regardings the design (view, handling) or the controlling - please tell us! "
-		"We would like to hear from you!</p>"
-		"<p>If you'd like to help us improving the application please fill out the enclosed online survey (<em>Menu&rarr;About&rarr;Feedback</em>) - it just takes a few secs!</p>"
-		"<p>The most recent version can be found on the following pages:"
-		"<ul>"
-		"<li><a href=\"http://flo.mueckeimnetz.de/ipponboard/\">http://flo.mueckeimnetz.de/ipponboard/</a></li>"
-		"<li><a href=\"http://ipponboard.origo.ethz.ch\">http://ipponboard.origo.ethz.ch</a></li>"
-		"</p>"
-		"<p><br/><em>Thank you very much!</em></p>" );
-
-	text += "</body></html>";
+	QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
+	f.open(QIODevice::ReadOnly | QIODevice::Text);
+	const QByteArray data = f.readAll();
+	f.close();
+	const QString text = QTextCodec::codecForHtml(data)->toUnicode(data);
 
 	SplashScreen::data splashData;
 	splashData.text = text;
@@ -78,7 +61,7 @@ int main(int argc, char *argv[])
 					  + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2011, 4, 30);
+	splashData.date = QDate(2011, 6, 30);
 	SplashScreen splash(splashData);
 
 	if( QDialog::Accepted != splash.exec() )

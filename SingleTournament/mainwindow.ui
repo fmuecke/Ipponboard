@@ -349,7 +349,6 @@
      <addaction name="actionLang_Deutsch"/>
      <addaction name="actionLang_English"/>
     </widget>
-    <addaction name="actionTest_Gong"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
@@ -371,7 +370,9 @@
     <addaction name="actionVereine"/>
     <addaction name="actionListen"/>
     <addaction name="actionManage_Classes"/>
+    <addaction name="separator"/>
     <addaction name="menuTimers"/>
+    <addaction name="actionTest_Gong"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuView"/>
@@ -491,7 +492,10 @@
      <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
    </property>
    <property name="text">
-    <string>Plays the signal sound file</string>
+    <string>Play Mat Signal</string>
+   </property>
+   <property name="toolTip">
+    <string>Plays the mat signal sound file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -725,8 +729,8 @@
      <y>581</y>
     </hint>
     <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

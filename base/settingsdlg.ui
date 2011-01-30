@@ -35,6 +35,9 @@
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -70,7 +73,7 @@
             <item row="0" column="0">
              <widget class="QCheckBox" name="checkBox_open_secondary_view">
               <property name="text">
-               <string>Always display view</string>
+               <string>Display on start</string>
               </property>
              </widget>
             </item>
@@ -234,7 +237,7 @@
          <property name="checkable">
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0">
+         <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1,0">
           <item row="0" column="0">
            <widget class="QLabel" name="label_mat_number">
             <property name="text">
@@ -392,7 +395,7 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="2">
+          <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="spacing">
              <number>0</number>
@@ -1117,6 +1120,9 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_keys">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <attribute name="icon">
        <iconset resource="ipponboard.qrc">
         <normaloff>:/res/icons/keyboard.png</normaloff>:/res/icons/keyboard.png</iconset>

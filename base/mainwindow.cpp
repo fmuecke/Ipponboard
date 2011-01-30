@@ -315,7 +315,9 @@ void MainWindow::ReadSettings_()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
-	m_MatLabel = settings.value(str_tag_MatLabel).toString();
+	m_MatLabel = settings.value(str_tag_MatLabel, 
+		"    " + QCoreApplication::applicationName() + "    " // + QCoreApplication::applicationVersion()
+								).toString();
 	m_pPrimaryView->SetMat(m_MatLabel);
 	m_pSecondaryView->SetMat(m_MatLabel);
 	settings.endGroup();

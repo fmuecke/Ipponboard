@@ -41,11 +41,11 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, m_TextBgColorBlue(Qt::blue)
 	, m_TextColorWhite(Qt::black)
 	, m_TextBgColorWhite(Qt::white)
-	, m_InfoTextColor(Qt::darkBlue)
-	, m_InfoTextBgColor(Qt::lightGray)
+	, m_InfoTextColor(QColor(255,255,96)) //Qt::darkBlue
+	, m_InfoTextBgColor(Qt::black) //Qt::lightGray
 	, m_MainClockColorRunning(Qt::yellow)
 	, m_MainClockColorStopped(Qt::red)
-	, m_mat("")
+	, m_mat(QCoreApplication::applicationName() + " v"QCoreApplication::applicationVersion())
 	, m_weight("")
 	, m_category("")
 	, m_drawIppon(false)
@@ -201,7 +201,7 @@ void View::UpdateView()
 			//m_pController->GetWeightClass() + " " +
 			m_pController->GetWeight() + " kg");
 #else
-	ui->text_mat->SetText( m_mat.toUpper() );
+	ui->text_mat->SetText( m_mat );
 	QString infoText(m_category);
 	if (!infoText.isEmpty())
 		infoText += " / ";

@@ -17,6 +17,9 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+	// TODO: enable keyboard tab
+	ui->tabWidget->removeTab(ui->tabWidget->count()-1);
+
 	ui->text_text_sample->SetText("IPPONBOARD");
 	ui->text_color_blue->SetText(tr("BLUE"));
 	ui->text_color_white->SetText(tr("WHITE"));

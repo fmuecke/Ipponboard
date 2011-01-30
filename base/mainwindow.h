@@ -27,9 +27,9 @@ namespace FMlib {
 typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 
 #ifdef TEAM_VIEW
-	static const char* const str_ini_name = "IpponBoardT.ini";
+	static const char* const str_ini_name = "IpponboardT.ini";
 #else
-	static const char* const str_ini_name = "IpponBoard.ini";
+	static const char* const str_ini_name = "Ipponboard.ini";
 #endif
 
 static const char* const str_golden_score = "Golden Score";

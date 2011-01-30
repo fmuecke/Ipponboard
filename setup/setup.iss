@@ -61,8 +61,8 @@ Uninstallable=not IsPortable
 
 [Languages]
 ;Name: "en"; MessagesFile: "compiler:Default.isl,compiler:MyMessages.isl"
-Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License-Default.rtf"
-Name: "de"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: "License-German.rtf"
+Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License_en.rtf"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: "License_de.rtf"
 
 [CustomMessages]
 de.ViewProgram=%1 öffnen
