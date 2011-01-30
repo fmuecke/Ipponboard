@@ -2,7 +2,7 @@
 #define GAME_PAD_HEADER_INCLUDED
 
 // Gamepad wrapper class
-// Copyright 2010-2011 by Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
+// (c) 2010 Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
 //
 // $Id$:
 

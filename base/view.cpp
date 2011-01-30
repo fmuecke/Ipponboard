@@ -45,7 +45,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, m_InfoTextBgColor(Qt::black) //Qt::lightGray
 	, m_MainClockColorRunning(Qt::yellow)
 	, m_MainClockColorStopped(Qt::red)
-	, m_mat(QCoreApplication::applicationName() + " v"QCoreApplication::applicationVersion())
+	, m_mat(QCoreApplication::applicationName() + " v" + QCoreApplication::applicationVersion())
 	, m_weight("")
 	, m_category("")
 	, m_drawIppon(false)

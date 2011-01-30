@@ -315,7 +315,7 @@ void MainWindow::ReadSettings_()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
-	m_MatLabel = settings.value(str_tag_MatLabel, 
+	m_MatLabel = settings.value(str_tag_MatLabel,
 		"    " + QCoreApplication::applicationName() + "    " // + QCoreApplication::applicationVersion()
 								).toString();
 	m_pPrimaryView->SetMat(m_MatLabel);
@@ -679,7 +679,7 @@ void MainWindow::WriteScoreToHtml_()
 	m_htmlScore.replace( "%SECOND_ROUND%", rounds );
 	const QString copyright = tr("List generated with Ipponboard v") +
 		QApplication::applicationVersion() +
-		", &copy; " + QApplication::organizationName() + ", 2010-2011";
+		", &copy; " + QApplication::organizationName() + ", 2010";
 
 	m_htmlScore.replace( "</body>", "<small><center>" + copyright + "</center></small></body>" );
 }
@@ -698,7 +698,7 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
 			"<p>Revision: %4</p>"
 			"<p>Author: Florian M&uuml;cke, <a href=\"http://flo.mueckeimnetz.de\">homepage</a></p>"
 			"<p>The %1 project is hosted at <a href=\"http://ipponboard.origo.ethz.ch\">http://ipponboard.origo.ethz.ch</a>.</p>"
-			"<p>&copy; Copyright 2010-2011 Florian M&uuml;cke. All rights reserved.</p>"
+			"<p>&copy; 2010 Florian M&uuml;cke. All rights reserved.</p>"
 			"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 			"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 			"PARTICULAR PURPOSE.<br/>"
