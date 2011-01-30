@@ -210,22 +210,22 @@
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="20"/>
-        <source>Blue</source>
+        <location filename="../base/settingsdlg.cpp" line="24"/>
+        <source>BLUE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="21"/>
-        <source>White</source>
+        <location filename="../base/settingsdlg.cpp" line="25"/>
+        <source>WHITE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="84"/>
+        <location filename="../base/settingsdlg.cpp" line="159"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="85"/>
+        <location filename="../base/settingsdlg.cpp" line="160"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -233,42 +233,13 @@
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/view.cpp" line="192"/>
+        <location filename="../base/view.cpp" line="198"/>
         <source>Fight </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/view.cpp" line="508"/>
-        <location filename="../base/view.cpp" line="538"/>
-        <location filename="../base/view.cpp" line="653"/>
-        <location filename="../base/view.cpp" line="678"/>
-        <source>Set Value</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/view.cpp" line="515"/>
-        <location filename="../base/view.cpp" line="545"/>
+        <location filename="../base/view.cpp" line="485"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/view.cpp" line="530"/>
-        <source>Blue is holding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/view.cpp" line="532"/>
-        <source>White is holding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/view.cpp" line="654"/>
-        <source>Set value to (ss):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/view.cpp" line="679"/>
-        <source>Set value to (m:ss):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -280,368 +251,418 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1137"/>
+        <location filename="../base/mainwindow.cpp" line="1134"/>
         <source>START</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1144"/>
+        <location filename="../base/mainwindow.cpp" line="1141"/>
         <source>1st</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1152"/>
+        <location filename="../base/mainwindow.cpp" line="1149"/>
         <source>BREAK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1158"/>
+        <location filename="../base/mainwindow.cpp" line="1155"/>
         <source>2nd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1166"/>
+        <location filename="../base/mainwindow.cpp" line="1163"/>
         <source>FINISHED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="250"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="259"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="126"/>
-        <source>White (first last)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="199"/>
-        <location filename="../base/mainwindow.cpp" line="154"/>
-        <source>Mat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="209"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="273"/>
         <source>Class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="219"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="266"/>
         <source>Round Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="229"/>
-        <source>Weight</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="305"/>
-        <source>Select program language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="308"/>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="340"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="493"/>
-        <source>Open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="343"/>
-        <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="351"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="485"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="354"/>
-        <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="359"/>
-        <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="365"/>
-        <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="377"/>
-        <source>Visit Project Homepage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="386"/>
-        <source>About Ipponboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="389"/>
-        <source>F1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="269"/>
-        <source>&amp;File</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="126"/>
+        <source>White Fighter (first last)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="168"/>
-        <source>Blue (first last)</source>
+        <source>Blue Fighter (first last)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="247"/>
-        <source>Reset all clocks and scores</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="204"/>
+        <source>Weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="284"/>
-        <source>&amp;About</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="211"/>
+        <source>Plays the signal sound file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="294"/>
-        <source>&amp;View</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="214"/>
+        <source>Signal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="301"/>
-        <source>&amp;Settings</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="225"/>
+        <source>Choose between normal and &quot;golden score&quot; round time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="323"/>
-        <source>&amp;Manage</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="344"/>
+        <source>Select program language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="362"/>
-        <source>Leave Ipponboard</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="347"/>
+        <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="401"/>
-        <source>Secondary View</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="365"/>
+        <source>Timers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="404"/>
-        <source>Toggles secodary screen view</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="388"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="544"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="391"/>
+        <source>Ctrl+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="399"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="536"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="402"/>
+        <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="407"/>
-        <source>F2</source>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="412"/>
-        <source>Select Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="417"/>
-        <source>Select Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="422"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="501"/>
-        <source>Clubs</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="413"/>
+        <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="425"/>
-        <source>Manage Clubs</source>
+        <source>Visit Project Homepage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="430"/>
-        <location filename="../base/mainwindow.cpp" line="756"/>
-        <source>Reset Scores</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="434"/>
+        <source>About Ipponboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="435"/>
-        <source>Change Background</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="437"/>
+        <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="447"/>
-        <source>Test Gong</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="676"/>
+        <source>Set Hold Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="450"/>
-        <source>Ctrl+G</source>
+        <location filename="../SingleTournament/mainwindow.ui" line="679"/>
+        <source>Set the hold timer to a certain value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="684"/>
+        <source>Set Main Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="687"/>
+        <source>Set the main timer to a certain value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="308"/>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="256"/>
+        <source>Reset all clocks and scores</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="323"/>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="333"/>
+        <source>&amp;View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="340"/>
+        <source>&amp;Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="361"/>
+        <source>&amp;Manage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="410"/>
+        <source>Leave Ipponboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="449"/>
+        <source>Secondary View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="452"/>
+        <source>Toggles secodary screen view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="455"/>
+        <source>F2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="460"/>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="465"/>
+        <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="470"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="552"/>
+        <source>Clubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="473"/>
+        <source>Manage Clubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="478"/>
+        <location filename="../base/mainwindow.cpp" line="769"/>
+        <source>Reset Scores</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="483"/>
+        <source>Change Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="495"/>
+        <source>Play Mat Signal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="498"/>
+        <source>Plays the mat signal sound file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="501"/>
+        <source>Ctrl+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="506"/>
         <source>Controller</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="464"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="515"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="469"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="520"/>
         <source>Load Demo Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="477"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="528"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="509"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="560"/>
         <source>Lists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="517"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="568"/>
         <source>Import List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="525"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="576"/>
         <source>Export List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="537"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="588"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="546"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="597"/>
         <source>Fight Categories</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="555"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="606"/>
         <source>Provide Feedback (Online)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="558"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="609"/>
         <source>Manage Fight Categories</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="567"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="618"/>
         <source>Contact Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="617"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="668"/>
         <source>&amp;Info Header</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="620"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="671"/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="182"/>
+        <location filename="../base/mainwindow.cpp" line="161"/>
         <source>Blue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="183"/>
+        <location filename="../base/mainwindow.cpp" line="162"/>
         <source>White</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="562"/>
+        <location filename="../base/mainwindow.cpp" line="575"/>
         <source>File open error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="563"/>
+        <location filename="../base/mainwindow.cpp" line="576"/>
         <source>Datei kann nicht geöffnet werden: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="667"/>
+        <location filename="../base/mainwindow.cpp" line="680"/>
         <source>List generated with Ipponboard v</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="682"/>
+        <location filename="../base/mainwindow.cpp" line="695"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="683"/>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 was entirely written in advanced C++ using the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://flo.mueckeimnetz.de&quot;&gt;homepage&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The %1 project is hosted at &lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; Copyright 2010-2011 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
+        <location filename="../base/mainwindow.cpp" line="696"/>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 was entirely written in advanced C++ using the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://flo.mueckeimnetz.de&quot;&gt;homepage&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The %1 project is hosted at &lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2010 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="757"/>
+        <location filename="../base/mainwindow.cpp" line="770"/>
         <source>Really reset complete score table?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1212"/>
+        <location filename="../base/mainwindow.cpp" line="1209"/>
         <source>Export file to...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1213"/>
+        <location filename="../base/mainwindow.cpp" line="1210"/>
         <source>ScoreList_</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1214"/>
+        <location filename="../base/mainwindow.cpp" line="1211"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1393"/>
+        <location filename="../base/mainwindow.cpp" line="1390"/>
         <source>Please restart the application so that the changes can take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1423"/>
+        <location filename="../base/mainwindow.cpp" line="1442"/>
+        <source>Set Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1424"/>
+        <source>Set value to (ss):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1443"/>
+        <source>Set value to (m:ss):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="59"/>
-        <source>&lt;p&gt;This version is provided for testing purposes and can be used without any fee. It will stop working after the &lt;b&gt;30th of April 2011&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;However, the unmodified version may be copied and distributed freely.&lt;/p&gt;&lt;p&gt;If you have improvements regardings the design (view, handling) or the controlling - please tell us! We would like to hear from you!&lt;/p&gt;&lt;p&gt;If you&apos;d like to help us improving the application please fill out the enclosed online survey (&lt;em&gt;Menu&amp;rarr;Survey&lt;/em&gt;) - it just takes a few secs!&lt;/p&gt;&lt;p&gt;The most recent version can be found on the following pages:&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://flo.mueckeimnetz.de/ipponboard/&quot;&gt;http://flo.mueckeimnetz.de/ipponboard/&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://ipponboard.origo.ethz.ch&quot;&gt;http://ipponboard.origo.ethz.ch&lt;/a&gt;&lt;/li&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;em&gt;Thank you very much!&lt;/em&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SingleTournament/main.cpp" line="92"/>
-        <location filename="../SingleTournament/main.cpp" line="102"/>
+        <location filename="../SingleTournament/main.cpp" line="74"/>
+        <location filename="../SingleTournament/main.cpp" line="84"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="93"/>
+        <location filename="../SingleTournament/main.cpp" line="75"/>
         <source>This version is no longer valid!
 
 You need to visit the project webpage for an update.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="103"/>
+        <location filename="../SingleTournament/main.cpp" line="85"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project webpage - there should be a newer one available.</source>
@@ -651,18 +672,12 @@ Please visit the project webpage - there should be a newer one available.</sourc
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/fightcategorymanager.cpp" line="184"/>
-        <location filename="../base/fightcategorymanager.cpp" line="213"/>
+        <location filename="../base/fightcategorymanager.cpp" line="225"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/fightcategorymanager.cpp" line="185"/>
-        <source>Unable to parse %1!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/fightcategorymanager.cpp" line="214"/>
+        <location filename="../base/fightcategorymanager.cpp" line="226"/>
         <source>Unable to save %1!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -691,218 +706,320 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="43"/>
+        <location filename="../base/settingsdlg.ui" line="50"/>
+        <location filename="../base/settingsdlg.ui" line="788"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="49"/>
+        <location filename="../base/settingsdlg.ui" line="56"/>
         <source>Secondary View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="69"/>
-        <source>Always display view</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="84"/>
+        <location filename="../base/settingsdlg.ui" line="91"/>
         <source>Use screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="109"/>
+        <location filename="../base/settingsdlg.ui" line="116"/>
         <source>Determine size automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="139"/>
+        <location filename="../base/settingsdlg.ui" line="146"/>
         <source>width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="180"/>
+        <location filename="../base/settingsdlg.ui" line="187"/>
         <source>height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="228"/>
-        <source>Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="257"/>
-        <location filename="../base/settingsdlg.ui" line="542"/>
-        <source>Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="301"/>
-        <location filename="../base/settingsdlg.ui" line="385"/>
-        <location filename="../base/settingsdlg.ui" line="458"/>
+        <location filename="../base/settingsdlg.ui" line="418"/>
+        <location filename="../base/settingsdlg.ui" line="579"/>
+        <location filename="../base/settingsdlg.ui" line="668"/>
         <source>Sets the foreground color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="304"/>
-        <location filename="../base/settingsdlg.ui" line="388"/>
-        <location filename="../base/settingsdlg.ui" line="461"/>
+        <location filename="../base/settingsdlg.ui" line="421"/>
+        <location filename="../base/settingsdlg.ui" line="582"/>
+        <location filename="../base/settingsdlg.ui" line="671"/>
         <source>FG...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="335"/>
-        <location filename="../base/settingsdlg.ui" line="416"/>
-        <location filename="../base/settingsdlg.ui" line="489"/>
+        <location filename="../base/settingsdlg.ui" line="452"/>
+        <location filename="../base/settingsdlg.ui" line="610"/>
+        <location filename="../base/settingsdlg.ui" line="699"/>
         <source>Sets the background color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="338"/>
-        <location filename="../base/settingsdlg.ui" line="419"/>
-        <location filename="../base/settingsdlg.ui" line="492"/>
+        <location filename="../base/settingsdlg.ui" line="455"/>
+        <location filename="../base/settingsdlg.ui" line="613"/>
+        <location filename="../base/settingsdlg.ui" line="702"/>
         <source>BG...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="513"/>
-        <source>Digits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="599"/>
-        <source>Sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="614"/>
-        <source>Time Ends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="632"/>
+        <location filename="../base/settingsdlg.ui" line="264"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="659"/>
-        <source>Input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="665"/>
-        <source>Buttons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="799"/>
-        <source>Reset All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="816"/>
-        <source>Hajime/Matte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="671"/>
+        <location filename="../base/settingsdlg.ui" line="794"/>
         <source>Next fight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="278"/>
-        <location filename="../base/settingsdlg.ui" line="562"/>
+        <location filename="../base/settingsdlg.ui" line="372"/>
+        <location filename="../base/settingsdlg.ui" line="517"/>
+        <location filename="../base/settingsdlg.ui" line="745"/>
         <source>bold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../base/settingsdlg.ui" line="76"/>
+        <source>Display on start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="235"/>
+        <source>Mat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="244"/>
+        <source>Mat Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="254"/>
+        <source>Mat Signal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../base/settingsdlg.ui" line="285"/>
-        <location filename="../base/settingsdlg.ui" line="569"/>
+        <source>Mat 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="290"/>
+        <source>Mat 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="295"/>
+        <source>Mat 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="300"/>
+        <source>Mat 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="305"/>
+        <source>Mat 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="310"/>
+        <source>Mat 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="315"/>
+        <source>Mat 7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="320"/>
+        <source>Mat 8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="325"/>
+        <source>Mat 9</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="330"/>
+        <source>Mat 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="344"/>
+        <source>Info Header (fonts &amp;&amp; colors)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="379"/>
+        <location filename="../base/settingsdlg.ui" line="524"/>
+        <location filename="../base/settingsdlg.ui" line="752"/>
         <source>italic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="358"/>
-        <source>Colors</source>
+        <location filename="../base/settingsdlg.ui" line="1085"/>
+        <source>Axes used for points: Z/R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="691"/>
+        <location filename="../base/settingsdlg.ui" line="1131"/>
+        <source>Keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1194"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1199"/>
+        <source>Prev</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1204"/>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1209"/>
+        <source>Reset all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1214"/>
+        <source>Osaekomi/Toketa (blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1219"/>
+        <source>Osaekomi/Toketa (white)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1224"/>
+        <source>Reset Hold (blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1229"/>
+        <source>Reset Hold Time (white)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1234"/>
+        <source>Hansokumake (blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1239"/>
+        <source>Hansokumake (white)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1244"/>
+        <source>Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1249"/>
+        <source>Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="852"/>
         <source>Prev fight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="711"/>
+        <location filename="../base/settingsdlg.ui" line="814"/>
         <source>Pause screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="731"/>
-        <source>Hansokumake blue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="748"/>
-        <source>Hansokumake white</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="785"/>
-        <source>White holding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="792"/>
-        <source>Blue holding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="836"/>
-        <source>Reset Hold Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="873"/>
-        <source>Both buttons need to be pressed at once</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="876"/>
-        <source>(simultan)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="883"/>
-        <source>(alternatives)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="893"/>
-        <source>Sometimes the axis direction of the gamepad is upside down. Check the respective boxes to correct that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="896"/>
-        <source>Axes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../base/settingsdlg.ui" line="902"/>
+        <location filename="../base/settingsdlg.ui" line="1004"/>
         <source>Invert X axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="909"/>
+        <location filename="../base/settingsdlg.ui" line="1078"/>
         <source>Invert R axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="916"/>
+        <location filename="../base/settingsdlg.ui" line="997"/>
         <source>Invert Y axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="923"/>
+        <location filename="../base/settingsdlg.ui" line="486"/>
+        <source>Digits (fonts &amp;&amp; colors)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="549"/>
+        <source>Fighters (fonts &amp;&amp; colors)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="782"/>
+        <source>Gamepad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="834"/>
+        <source>Reset all
+(two buttons needed)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="872"/>
+        <location filename="../base/settingsdlg.ui" line="1189"/>
+        <source>Hajime/Mate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="920"/>
+        <source>Blue Fighter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="926"/>
+        <location filename="../base/settingsdlg.ui" line="1020"/>
+        <source>Osaekomi/Toketa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="953"/>
+        <location filename="../base/settingsdlg.ui" line="1037"/>
+        <source>Reset hold time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="960"/>
+        <location filename="../base/settingsdlg.ui" line="1054"/>
+        <source>Hansokumake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="977"/>
+        <source>Axes used for points: X/Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1014"/>
+        <source>White Fighter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1071"/>
         <source>Invert Z axis</source>
         <translation type="unfinished"></translation>
     </message>
@@ -921,7 +1038,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
     </message>
     <message utf8="true">
         <location filename="../widgets/splashscreen.ui" line="165"/>
-        <source>(c) 2010-2011 Florian Mücke</source>
+        <source>(c) 2010 Florian Mücke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
