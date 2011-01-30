@@ -531,6 +531,7 @@ void Controller::ResetFight_()
 	m_pTimerMain->stop();
 	m_pTimeHold->setHMS(0,0,0,0);
 	*m_pTimeMain = m_roundTime;
+	m_Tori = eFighter_Nobody;
 
 	// just clear the score, not the names
 	GetScore_(eFighter_Blue) = Score();
