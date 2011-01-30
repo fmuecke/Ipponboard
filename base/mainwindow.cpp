@@ -898,11 +898,15 @@ void MainWindow::EvaluateInput()
 	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_prev)) )
 	{
 		on_button_prev_clicked();
+		// TODO: check: is UpdateViews_(); necessary here?
+		// --> handle update views outside of this function
 	}
 	// next
 	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_next)) )
 	{
 		on_button_next_clicked();
+		// TODO: check: is UpdateViews_(); necessary here?
+		// --> handle update views outside of this function
 	}
 #endif
 	// hansokumake blue
@@ -1003,7 +1007,6 @@ void MainWindow::EvaluateInput()
 			m_pController->DoAction( eAction_Shido, eFighter_White);
 		}
 	}
-	UpdateViews_();
 }
 
 #ifdef TEAM_VIEW
