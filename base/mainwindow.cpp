@@ -98,14 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pController->ClearFights();
 
 #ifdef TEAM_VIEW
-	for( int i = 0; i < m_pClubManager->ClubCount(); ++i )
-	{
-		Ipponboard::Club club;
-		m_pClubManager->GetClub(i, club);
-		QIcon icon(club.logoFile);
-		m_pUi->comboBox_club_home->addItem(icon, club.ToString());
-		m_pUi->comboBox_club_guest->addItem(icon, club.ToString());
-	}
+	update_club_views();
 
 	m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0));
 	m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1));
@@ -122,8 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	int index = m_pUi->comboBox_club_home->findText("TSV Königsbrunn");
 	m_pUi->comboBox_club_home->setCurrentIndex(index);
-	index = m_pUi->comboBox_club_guest->findText("TG Landshut");
-	m_pUi->comboBox_club_guest->setCurrentIndex(index);
+	m_pUi->comboBox_club_guest->setCurrentIndex(index+1);
 	//m_pUi->tableView_tournament_list1->setSpan(2,2,1,2);
 #endif
 
@@ -172,7 +164,7 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef TEAM_VIEW
 	UpdateFightNumber_();
 
-	m_pUi->button_pause->click();	// we start with pause!
+	//m_pUi->button_pause->click();	// we start with pause!
 #endif
 }
 
@@ -544,6 +536,23 @@ void MainWindow::UpdateViews_()
 
 #ifdef TEAM_VIEW
 //=========================================================
+void MainWindow::update_club_views()
+//=========================================================
+{
+	m_pUi->comboBox_club_home->clear();
+	m_pUi->comboBox_club_guest->clear();
+
+	for( int i = 0; i < m_pClubManager->ClubCount(); ++i )
+	{
+		Ipponboard::Club club;
+		m_pClubManager->GetClub(i, club);
+		QIcon icon(club.logoFile);
+		m_pUi->comboBox_club_home->addItem(icon, club.name);
+		m_pUi->comboBox_club_guest->addItem(icon, club.name);
+	}
+}
+
+//=========================================================
 void MainWindow::UpdateFightNumber_()
 //=========================================================
 {
@@ -789,7 +798,6 @@ void MainWindow::on_actionPreferences_triggered()
 						   m_secondScreenSize);
 
 	dlg.SetControlConfig(&m_controlCfg);
-
 	dlg.SetMatLabel(m_MatLabel);
 	dlg.SetGongFile(m_pController->GetGongFile());
 
@@ -814,12 +822,12 @@ void MainWindow::on_actionPreferences_triggered()
 		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R);
 		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z);
 
+
 		m_MatLabel = dlg.GetMatLabel();
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
 		//m_pPrimaryView->UpdateView();
 		//m_pSecondaryView->UpdateView();
-
 		m_pController->SetGongFile(dlg.GetGongFile());
 
 		// save changes to file
@@ -1023,6 +1031,8 @@ void MainWindow::on_actionManage_Clubs_triggered()
 {
 	ClubManagerDlg dlg(m_pClubManager, this);
 	dlg.exec();
+
+	update_club_views();
 }
 
 //=========================================================

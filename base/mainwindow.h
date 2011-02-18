@@ -101,6 +101,7 @@ private:
 	void UpdateViews_();
 	void change_lang(bool beQuiet = false);
 #ifdef TEAM_VIEW
+	void update_club_views();
 	void UpdateFightNumber_();
 	void UpdateScoreScreen_();
 	void WriteScoreToHtml_();
@@ -164,8 +165,8 @@ private:
 	QString m_htmlScore;
 #else
 	Ipponboard::FightCategoryMgr* m_pCategoryManager;
-	QString m_MatLabel;
 #endif
+	QString m_MatLabel;
 	PGamePad m_pGamePad;
 
 	QFont m_FighterNameFont;

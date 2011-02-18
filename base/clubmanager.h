@@ -13,10 +13,17 @@ namespace Ipponboard
 {
 	struct Club
 	{
+		Club::Club()
+			: name("")
+			, logoFile("")
+		{}
+
+		Club::Club(QString const& id, QString const& logo)
+			: name(id)
+			, logoFile(logo)
+		{}
+
 		QString name;
-		QString city;
-		QString homepage;
-		QString address;
 		QString logoFile;
 
 		QString ToString() const { return name; }
@@ -30,9 +37,6 @@ template<class Archive>
 void serialize(Archive& ar, Ipponboard::Club& c, const unsigned int /*version*/)
 {
 	ar & BOOST_SERIALIZATION_NVP(c.name);
-	ar & BOOST_SERIALIZATION_NVP(c.city);
-	ar & BOOST_SERIALIZATION_NVP(c.homepage);
-	ar & BOOST_SERIALIZATION_NVP(c.address);
 	ar & BOOST_SERIALIZATION_NVP(c.logoFile);
 }
 

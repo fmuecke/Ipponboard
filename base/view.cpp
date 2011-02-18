@@ -194,18 +194,17 @@ void View::UpdateView()
 	//
 	// weight class
 	//
-#ifdef TEAM_VIEW
-	ui->text_mat->SetText( tr("Fight ") +
-		QString::number(m_pController->GetRound()) );
-	ui->text_weight->SetText(
-			//m_pController->GetWeightClass() + " " +
-			m_pController->GetWeight() + " kg");
-#else
 	ui->text_mat->SetText( m_mat );
+#ifdef TEAM_VIEW
+	QString infoText(tr("Fight ").toUpper());
+	infoText += QString::number(m_pController->GetRound());
+	infoText += ": " + m_pController->GetWeight();
+	ui->text_weight->SetText( infoText );
+#else
 	QString infoText(m_category);
 	if (!infoText.isEmpty())
 		infoText += " / ";
-	infoText += m_weight.toUpper();
+	infoText += m_weight;//.toUpper();
 	ui->text_weight->SetText( infoText );
 #endif
 

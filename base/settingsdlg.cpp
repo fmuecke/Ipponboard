@@ -17,6 +17,12 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+#ifdef TEAM_VIEW
+	ui->comboBox_next->setEnabled(true);
+	ui->comboBox_prev->setEnabled(true);
+	ui->comboBox_pause->setEnabled(true);
+#endif
+
 	// TODO: enable keyboard tab
 	ui->tabWidget->removeTab(ui->tabWidget->count()-1);
 

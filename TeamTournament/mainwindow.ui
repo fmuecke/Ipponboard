@@ -849,9 +849,6 @@
      <addaction name="actionLang_Deutsch"/>
      <addaction name="actionLang_English"/>
     </widget>
-    <addaction name="actionSelect_Font"/>
-    <addaction name="actionSelect_Color"/>
-    <addaction name="actionChange_Background"/>
     <addaction name="separator"/>
     <addaction name="actionTest_Gong"/>
     <addaction name="actionPreferences"/>
@@ -1002,7 +999,7 @@
     <string>Export</string>
    </property>
   </action>
-<action name="actionOnline_Feedback">
+  <action name="actionOnline_Feedback">
    <property name="text">
     <string>Provide Feedback (Online)</string>
    </property>

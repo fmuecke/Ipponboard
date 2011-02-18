@@ -80,6 +80,10 @@ void ClubManager::LoadClubs_()
 //---------------------------------------------------------
 {
 	// open the archive
+
+	//m_Clubs.push_back(Club("TSV Königsbrunn", "..\\base\\emblems\\koenigsbrunn.png"));
+	//m_Clubs.push_back(Club("TV Lenggries", "..\\base\\emblems\\tv_lenggries.png"));
+
 	std::ifstream ifs("clubs.xml");
 	if( ifs.good() )
 	{

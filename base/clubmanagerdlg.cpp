@@ -26,19 +26,12 @@ ClubManagerDlg::ClubManagerDlg( ClubManager* mgr, QWidget *parent )
 		{
 			Ipponboard::Club club;
 			m_pClubMgr->GetClub(i, club);
-
-			QIcon icon( club.logoFile );
-			if( icon.isNull() /*icon.availableSizes().empty()*/ )
-			{
-				icon.addFile( ":/res/emblems/default.png" );
-			}
-			QListWidgetItem *item = new QListWidgetItem(
-					icon, club.ToString(), ui->listWidget_clubs );
-			item->setTextAlignment( Qt::AlignHCenter );
-			item->setFlags( Qt::ItemIsSelectable | Qt::ItemIsEnabled );
+			ui->comboBox_club->addItem(club.name);
 		}
-		ui->listWidget_clubs->setCurrentRow(0); //SelectClub_(0);
+		ui->comboBox_club->setCurrentIndex(0); //SelectClub_(0);
 	}
+
+	update_ui();
 }
 
 //---------------------------------------------------------
@@ -63,7 +56,7 @@ void ClubManagerDlg::changeEvent(QEvent *e)
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::SelectClub_( int index )
+void ClubManagerDlg::select_club( int index )
 //---------------------------------------------------------
 {
 	m_SelectedClub = index;
@@ -74,69 +67,64 @@ void ClubManagerDlg::SelectClub_( int index )
 		if( m_pClubMgr->GetClub(index, club) )
 		{
 			ui->lineEdit_name->setText(club.name);
-			ui->lineEdit_city->setText(club.city);
-			ui->lineEdit_homepage->setText(club.homepage);
-			ui->plainTextEdit_address->setPlainText(club.address);
+			ui->lineEdit_logoFile->setText(club.logoFile);
+			ui->scaledImage_logo->UpdateImage(club.logoFile);
 		}
 	}
 
-	UpdateButtonsAndText_();
+	update_ui();
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::UpdateButtonsAndText_()
+void ClubManagerDlg::update_ui()
 //---------------------------------------------------------
 {
-	if( 0 == m_pClubMgr->ClubCount() )
+	const QString fileName = ui->lineEdit_logoFile->text();
+	QPalette palette( ui->lineEdit_logoFile->palette() );
+	if( QFile::exists(fileName) )
 	{
-		ui->pushButton_remove->setEnabled(false);
-		ui->pushButton_update->setEnabled(false);
-		ui->pushButton_selectLogo->setEnabled(false);
-
-		ui->lineEdit_name->clear();
-		ui->lineEdit_city->clear();
-		ui->lineEdit_homepage->clear();
-		ui->plainTextEdit_address->clear();
-		ui->lineEdit_name->setEnabled(false);
-		ui->lineEdit_city->setEnabled(false);
-		ui->lineEdit_homepage->setEnabled(false);
-		ui->plainTextEdit_address->setEnabled(false);
+		palette.setColor( QPalette::Text, Qt::black );
+		ui->scaledImage_logo->UpdateImage(fileName);
 	}
 	else
 	{
-		ui->lineEdit_name->setEnabled(true);
-		ui->lineEdit_city->setEnabled(true);
-		ui->lineEdit_homepage->setEnabled(true);
-		ui->plainTextEdit_address->setEnabled(true);
-
-		ui->pushButton_remove->setEnabled(true);
-		ui->pushButton_update->setEnabled(true);
-		ui->pushButton_selectLogo->setEnabled(true);
+		palette.setColor( QPalette::Text, Qt::red );
+		ui->scaledImage_logo->UpdateImage(":/res/emblems/default.png");
 	}
-	//ui->listWidget_clubs->setWrapping(true);
+
+	ui->lineEdit_logoFile->setPalette(palette);
+//	if( 0 == m_pClubMgr->ClubCount() )
+//	{
+//		ui->pushButton_remove->setEnabled(false);
+//		ui->pushButton_update->setEnabled(false);
+//		ui->lineEdit_name->clear();
+//		ui->lineEdit_name->setEnabled(false);
+//	}
+//	else
+//	{
+//		ui->lineEdit_name->setEnabled(true);
+//		ui->pushButton_remove->setEnabled(true);
+//		ui->pushButton_update->setEnabled(true);
+//	}
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::on_pushButton_add_released()
+void ClubManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
 	// add empty club
-	Ipponboard::Club club;
-	club.name = "--> new <--";
+	Ipponboard::Club club("--> new <--", ":/res/emblems/default.png");
 	m_pClubMgr->AddClub(club);
+	ui->comboBox_club->addItem(club.name);
+	int index = ui->comboBox_club->findText(club.name);
+	ui->comboBox_club->setCurrentIndex(index);
 
-	QListWidgetItem *item = new QListWidgetItem(ui->listWidget_clubs);
-	item->setIcon(QIcon(":/res/emblems/default.png"));
-	item->setText(club.ToString());
-	item->setTextAlignment(Qt::AlignHCenter);
-	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-	ui->listWidget_clubs->setCurrentItem(item);
+	m_SelectedClub = index;
 	//UpdateButtonsAndText_();
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::on_pushButton_update_released()
+void ClubManagerDlg::on_pushButton_save_pressed()
 //---------------------------------------------------------
 {
 	if( m_SelectedClub < 0)
@@ -144,46 +132,54 @@ void ClubManagerDlg::on_pushButton_update_released()
 
 	Ipponboard::Club club;
 	club.name = ui->lineEdit_name->text();
-	club.city = ui->lineEdit_city->text();
-	club.homepage = ui->lineEdit_homepage->text();
-	club.address = ui->plainTextEdit_address->toPlainText();
+	club.logoFile = ui->lineEdit_logoFile->text();
+
 	// save club
 	m_pClubMgr->UpdateClub(m_SelectedClub, club);
+
 	// update club view in list
-	ui->listWidget_clubs->item(m_SelectedClub)->setText(club.ToString());
+	ui->comboBox_club->setItemText(m_SelectedClub, club.name);
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::on_pushButton_remove_released()
+void ClubManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
 	if( m_SelectedClub < 0)
 		return;
 
-	// takeItem changes current row to row+1 or row-1 (if last item in list is removed) !!
-	// --> save row index
-	const int currentRow = m_SelectedClub;
-	QListWidgetItem* item = ui->listWidget_clubs->takeItem(currentRow);
-	delete item;
-	m_pClubMgr->RemoveClub( currentRow );
+	ui->comboBox_club->removeItem( m_SelectedClub );
+	m_pClubMgr->RemoveClub( m_SelectedClub );
+
 	if( m_pClubMgr->ClubCount() > 0 )
 	{
-		if( m_pClubMgr->ClubCount() == currentRow )
+		if( m_pClubMgr->ClubCount() == m_SelectedClub )
 		{
 			// was last element in list
-			ui->listWidget_clubs->setCurrentRow(currentRow - 1);
+			ui->comboBox_club->setCurrentIndex(m_SelectedClub - 1);
 		}
 		else
 		{
-			ui->listWidget_clubs->setCurrentRow(currentRow);
+			ui->comboBox_club->setCurrentIndex(m_SelectedClub);
 		}
 	}
 	//UpdateButtonsAndText_();
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::on_pushButton_selectLogo_released()
+void ClubManagerDlg::on_comboBox_club_currentIndexChanged(int index)
 //---------------------------------------------------------
+{
+	select_club(index);
+	update_ui();
+}
+
+void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& fileName)
+{
+	update_ui();
+}
+
+void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 {
 	if( m_SelectedClub < 0)
 		return;
@@ -208,20 +204,8 @@ void ClubManagerDlg::on_pushButton_selectLogo_released()
 		}
 		else
 		{
-			//TODO: implement own function for logo update
-			Ipponboard::Club club;
-			m_pClubMgr->GetClub(m_SelectedClub, club);
-			club.logoFile = fileName;  //TODO: save logo path relative to working dir!
-			m_pClubMgr->UpdateClub(m_SelectedClub, club);
-			ui->listWidget_clubs->item(m_SelectedClub)->setIcon(icon);
+			ui->lineEdit_logoFile->setText(fileName);
+			ui->scaledImage_logo->UpdateImage(fileName);
 		}
 	}
-
-}
-
-//---------------------------------------------------------
-void ClubManagerDlg::on_listWidget_clubs_currentRowChanged(int row)
-//---------------------------------------------------------
-{
-	SelectClub_(row);
 }
