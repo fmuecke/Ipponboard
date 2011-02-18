@@ -922,6 +922,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
+   </property>
    <property name="text">
     <string>Show Secondary View</string>
    </property>
@@ -964,6 +968,10 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
+   </property>
    <property name="text">
     <string>Test Gong</string>
    </property>
@@ -977,6 +985,10 @@
    </property>
   </action>
   <action name="actionPreferences">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
+   </property>
    <property name="text">
     <string>Preferences</string>
    </property>
@@ -990,13 +1002,24 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/printer.png</normaloff>:/res/icons/printer.png</iconset>
+   </property>
    <property name="text">
     <string>Print</string>
    </property>
   </action>
   <action name="actionExport">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/pdf.png</normaloff>:/res/icons/pdf.png</iconset>
+   </property>
    <property name="text">
-    <string>Export</string>
+    <string>Results as PDF</string>
+   </property>
+   <property name="iconText">
+    <string>Results as PDF</string>
    </property>
   </action>
   <action name="actionOnline_Feedback">
@@ -1016,6 +1039,10 @@
    <property name="checked">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/gb.png</normaloff>:/res/icons/gb.png</iconset>
+   </property>
    <property name="text">
     <string notr="true">English</string>
    </property>
@@ -1029,6 +1056,10 @@
   <action name="actionLang_Deutsch">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/de.png</normaloff>:/res/icons/de.png</iconset>
    </property>
    <property name="text">
     <string notr="true">Deutsch</string>

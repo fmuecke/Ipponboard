@@ -37,6 +37,7 @@ copy %SOURCE%\status_online.png %DEST%\fighter_blue.png
 copy %SOURCE%\status_offline.png %DEST%\fighter_white.png
 REM copy %SOURCE%\exclamation.png %DEST%\reset.png
 copy DUMMY.png %DEST%\keyboard.png
+copy page_white_acrobat.png %DEST%\pdf.png
 GOTO THE_END
 
 
@@ -66,6 +67,7 @@ copy %SOURCE%\media\joystick.png %DEST%\controller.png
 copy %SOURCE%\tag-label.png %DEST%\fighter_blue.png
 copy %SOURCE%\tag.png %DEST%\fighter_white.png
 copy %SOURCE%\keyboard.png %DEST%\keyboard.png
+copy %SOURCE%\document\document-pdf.png %DEST%\pdf.png
 GOTO THE_END
 
 :LABEL_FREE_APP_ICONS
@@ -91,6 +93,7 @@ copy %SOURCE%\Application.png %DEST%\controller.png
 copy "%SOURCE%\Blue tag.png" %DEST%\fighter_blue.png
 copy "%SOURCE%\Black tag.png" %DEST%\fighter_white.png
 copy DUMMY.png %DEST%\keyboard.png
+copy DUMMY.png %DEST%\pdf.png
 GOTO THE_END
 
 :LABEL_DIAGONA
@@ -116,6 +119,7 @@ copy %SOURCE%\041.png %DEST%\controller.png
 copy %SOURCE%\006.png %DEST%\fighter_blue.png
 copy %SOURCE%\005.png %DEST%\fighter_white.png
 copy DUMMY.png %DEST%\keyboard.png
+copy DUMMY.png %DEST%\pdf.png
 GOTO THE_END
 
 
@@ -143,6 +147,7 @@ copy %SOURCE%\.png %DEST%\controller.png
 copy %SOURCE%\.png %DEST%\fighter_blue.png
 copy %SOURCE%\.png %DEST%\fighter_white.png
 copy DUMMY.png %DEST%\keyboard.png
+copy DUMMY.png %DEST%\pdf.png
 GOTO THE_END
 
 :THE_END
