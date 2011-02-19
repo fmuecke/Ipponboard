@@ -754,6 +754,28 @@ void Controller::SetWeights(QStringList const& weights)
 }
 
 //=========================================================
+void Controller::CopyAndSwitchGuestFighters()
+//=========================================================
+{
+	for(unsigned i(0); i<9; ++i)
+	{
+		m_TournamentScores[1].at(i).fighters[eFighter_Blue] =
+			m_TournamentScores[0].at(i).fighters[eFighter_Blue];
+
+		m_TournamentScores[1].at(i+1).fighters[eFighter_Blue] =
+			m_TournamentScores[0].at(i+1).fighters[eFighter_Blue];
+
+		m_TournamentScores[1].at(i+1).fighters[eFighter_White] =
+			m_TournamentScores[0].at(i).fighters[eFighter_White];
+
+		m_TournamentScores[1].at(i).fighters[eFighter_White] =
+			m_TournamentScores[0].at(i+1).fighters[eFighter_White];
+
+		++i;
+	}
+}
+
+//=========================================================
 TournamentModel* Controller::GetTournamentScoreModel( int which )
 //=========================================================
 {

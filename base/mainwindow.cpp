@@ -1484,3 +1484,8 @@ void MainWindow::on_pushButton_weights_pressed()
 		}
 	}
 }
+
+void MainWindow::on_pushButton_copySwitched_pressed()
+{
+	m_pController->CopyAndSwitchGuestFighters();
+}

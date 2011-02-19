@@ -108,7 +108,8 @@ private:
 #endif
 
 private slots:
-	void on_pushButton_weights_pressed();
+	void on_pushButton_copySwitched_pressed();
+ void on_pushButton_weights_pressed();
  void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);

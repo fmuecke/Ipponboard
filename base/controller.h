@@ -111,6 +111,7 @@ public:
 	void SetFighterName( Ipponboard::EFighter whos, const QString& name );
 
 	void SetWeights(QStringList const& weights);
+	void CopyAndSwitchGuestFighters();
 	TournamentModel* GetTournamentScoreModel( int which = 0 );
 
 	void SetGongFile( const QString& );
