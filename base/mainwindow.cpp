@@ -1458,3 +1458,29 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
 			m_pController->SetTimerValue(eTimer_Main, time);
 	}
 }
+
+void MainWindow::on_pushButton_weights_pressed()
+{
+	bool ok(false);
+	const QString weights = QInputDialog::getText(
+		0,
+		tr("Set Weights"),
+		tr("Set weights (separated by ';'):"),
+		QLineEdit::Normal,
+		m_pUi->lineEdit_weights->text(),
+		&ok);
+	if( ok )
+	{
+		if( 4 != weights.count(';') )
+		{
+			QMessageBox::critical(this, "Wrong values",
+				"You need to specify 5 weight classes separated by ';'!" );
+			on_pushButton_weights_pressed();
+		}
+		else
+		{
+			m_pUi->lineEdit_weights->setText(weights);
+			m_pController->SetWeights(weights.split(';'));
+		}
+	}
+}

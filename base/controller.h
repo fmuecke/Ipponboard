@@ -110,6 +110,7 @@ public:
 	const Ipponboard::Fight& GetFight( unsigned int tournament_index, unsigned int fight_index ) const;
 	void SetFighterName( Ipponboard::EFighter whos, const QString& name );
 
+	void SetWeights(QStringList const& weights);
 	TournamentModel* GetTournamentScoreModel( int which = 0 );
 
 	void SetGongFile( const QString& );

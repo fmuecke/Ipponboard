@@ -735,6 +735,25 @@ void Controller::SetFighterName( Ipponboard::EFighter whos, const QString& name 
 }
 
 //=========================================================
+void Controller::SetWeights(QStringList const& weights)
+//=========================================================
+{
+	for(unsigned i(0); i<10; ++i)
+	{
+		m_TournamentScores[0].at(i).weight = weights.at(i/2);
+		m_TournamentScores[0].at(i+1).weight = weights.at(i/2);
+		++i;
+	}
+
+	for(unsigned i(0); i<10; ++i)
+	{
+		m_TournamentScores[1].at(i).weight = weights.at(i/2);
+		m_TournamentScores[1].at(i+1).weight = weights.at(i/2);
+		++i;
+	}
+}
+
+//=========================================================
 TournamentModel* Controller::GetTournamentScoreModel( int which )
 //=========================================================
 {
