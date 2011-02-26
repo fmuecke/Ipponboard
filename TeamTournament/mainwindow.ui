@@ -888,6 +888,7 @@
      <string>View</string>
     </property>
     <addaction name="actionShow_SecondaryView"/>
+    <addaction name="action_Info_Header"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -904,7 +905,6 @@
      <addaction name="actionLang_English"/>
     </widget>
     <addaction name="separator"/>
-    <addaction name="actionTest_Gong"/>
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
     <addaction name="separator"/>
@@ -914,7 +914,16 @@
     <property name="title">
      <string>Manage</string>
     </property>
+    <widget class="QMenu" name="menuTimers">
+     <property name="title">
+      <string>Timers</string>
+     </property>
+     <addaction name="actionSet_Hold_Timer"/>
+     <addaction name="actionSet_Main_Timer"/>
+    </widget>
     <addaction name="actionManage_Clubs"/>
+    <addaction name="menuTimers"/>
+    <addaction name="actionTest_Gong"/>
     <addaction name="actionReset_Scores"/>
    </widget>
    <addaction name="menu"/>
@@ -960,11 +969,19 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/homepage.png</normaloff>:/res/icons/homepage.png</iconset>
+   </property>
    <property name="text">
     <string>Visit Project Homepage</string>
    </property>
   </action>
   <action name="actionAbout_Ipponboard">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/about.png</normaloff>:/res/icons/about.png</iconset>
+   </property>
    <property name="text">
     <string>About Ipponboard</string>
    </property>
@@ -1027,7 +1044,13 @@
      <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
    </property>
    <property name="text">
-    <string>Test Gong</string>
+    <string>Play Mat Signal</string>
+   </property>
+   <property name="iconText">
+    <string>Play Mat Signal</string>
+   </property>
+   <property name="toolTip">
+    <string>Plays the mat signal sound file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -1077,11 +1100,19 @@
    </property>
   </action>
   <action name="actionOnline_Feedback">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/feedback.png</normaloff>:/res/icons/feedback.png</iconset>
+   </property>
    <property name="text">
     <string>Provide Feedback (Online)</string>
    </property>
   </action>
   <action name="actionContact_Author">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/mail.png</normaloff>:/res/icons/mail.png</iconset>
+   </property>
    <property name="text">
     <string>Contact Author</string>
    </property>
@@ -1123,6 +1154,36 @@
    </property>
    <property name="toolTip">
     <string notr="true">Deutsch als Programmsprache wählen</string>
+   </property>
+  </action>
+  <action name="actionSet_Hold_Timer">
+   <property name="text">
+    <string>Set Hold Timer</string>
+   </property>
+   <property name="toolTip">
+    <string>Set the hold timer to a certain value</string>
+   </property>
+  </action>
+  <action name="actionSet_Main_Timer">
+   <property name="text">
+    <string>Set Main Timer</string>
+   </property>
+   <property name="toolTip">
+    <string>Set the main timer to a certain value</string>
+   </property>
+  </action>
+  <action name="action_Info_Header">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Info Header</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggles the info header (mat and category/weight class) on and off</string>
    </property>
   </action>
  </widget>

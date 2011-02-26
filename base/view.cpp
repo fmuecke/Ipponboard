@@ -67,10 +67,10 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->dummy_blue->UpdateImage(":res/images/off_empty.png");
 	ui->dummy_white->UpdateImage(":res/images/off_empty.png");
 
-	QColor bgColor1 = GetColor_(blueBg);
-	QColor fgColor1 = GetColor_(blueFg);
-	QColor bgColor2 = GetColor_(whiteBg);
-	QColor fgColor2 = GetColor_(whiteFg);
+	QColor bgColor1 = get_color(blueBg);
+	QColor fgColor1 = get_color(blueFg);
+	QColor bgColor2 = get_color(whiteBg);
+	QColor fgColor2 = get_color(whiteFg);
 
 	// set point descriptions
 	const QFont descFont("Calibri", 12, QFont::Bold, false);
@@ -132,7 +132,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_firstname_blue->SetDigitSize(true);
 	ui->text_lastname_white->SetDigitSize(true);
 	ui->text_firstname_white->SetDigitSize(true);
-	if( IsSecondary_() )
+	if( is_secondary() )
 	{
 		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc1, 0);
 		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc2, 0);
@@ -189,7 +189,7 @@ void View::UpdateView()
 {
 	Q_ASSERT(m_pController && "Controller not set!");
 
-	UpdateColors_();
+	update_colors();
 
 	//
 	// weight class
@@ -234,20 +234,20 @@ void View::UpdateView()
 			m_pController->GetFighterFirstName(GVF_(eFighter_White)).toUpper() );
 
 	// blue score
-	UpdateIppon_(eFighter_Blue);
-	UpdateWazaari_(eFighter_Blue);
-	UpdateYuko_(eFighter_Blue);
-	UpdateShido_(eFighter_Blue);
-	UpdateHansokumake_(eFighter_Blue);
+	update_ippon(eFighter_Blue);
+	update_wazaari(eFighter_Blue);
+	update_yuko(eFighter_Blue);
+	update_shido(eFighter_Blue);
+	update_hansokumake(eFighter_Blue);
 
 	// white score
-	UpdateIppon_(eFighter_White);
-	UpdateWazaari_(eFighter_White);
-	UpdateYuko_(eFighter_White);
-	UpdateShido_(eFighter_White);
-	UpdateHansokumake_(eFighter_White);
+	update_ippon(eFighter_White);
+	update_wazaari(eFighter_White);
+	update_yuko(eFighter_White);
+	update_shido(eFighter_White);
+	update_hansokumake(eFighter_White);
 
-	UpdateTeamScore_();
+	update_team_score();
 
 	//
 	// timers
@@ -409,7 +409,7 @@ void View::SetTextColorBlue( const QColor& color, const QColor& bgColor )
 	m_TextColorBlue = color;
 	m_TextBgColorBlue = bgColor;
 
-	UpdateColors_();
+	update_colors();
 }
 
 //=========================================================
@@ -419,7 +419,7 @@ void View::SetTextColorWhite( const QColor& color, const QColor& bgColor )
 	m_TextColorWhite = color;
 	m_TextBgColorWhite = bgColor;
 
-	UpdateColors_();
+	update_colors();
 }
 
 
@@ -639,15 +639,15 @@ void View::blink_()
 //=========================================================
 {
 	m_drawIppon = !m_drawIppon;
-	if( IsSecondary_() )
+	if( is_secondary() )
 	{
-		UpdateIppon_(eFighter_Blue);
-		UpdateIppon_(eFighter_White);
+		update_ippon(eFighter_Blue);
+		update_ippon(eFighter_White);
 	}
 }
 
 //=========================================================
-void View::UpdateIppon_( Ipponboard::EFighter who ) const
+void View::update_ippon( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledText* digit_ippon(ui->text_ippon_blue);
@@ -674,7 +674,7 @@ void View::UpdateIppon_( Ipponboard::EFighter who ) const
 		if( !m_pBlinkTimer->isActive() )
 			m_pBlinkTimer->start(750);
 
-		if( IsSecondary_() )
+		if( is_secondary() )
 		{
 			if( m_drawIppon )
 			{
@@ -700,7 +700,7 @@ void View::UpdateIppon_( Ipponboard::EFighter who ) const
 		digit_ippon->SetBlinking(true);
 
 #endif
-		digit_ippon->SetText( "IPPON", !IsSecondary_() );
+		digit_ippon->SetText( "IPPON", !is_secondary() );
 	}
 	else
 	{
@@ -709,7 +709,7 @@ void View::UpdateIppon_( Ipponboard::EFighter who ) const
 			m_pBlinkTimer->stop();
 
 		digit_ippon->SetBlinking(false);
-		if( !IsSecondary_() )
+		if( !is_secondary() )
 		{
 #ifdef HORIZONTAL_VIEW
 			ui->layout_score->setStretchFactor(digit_ippon, 2);
@@ -735,7 +735,7 @@ void View::UpdateIppon_( Ipponboard::EFighter who ) const
 }
 
 //=========================================================
-void View::UpdateWazaari_( Ipponboard::EFighter who ) const
+void View::update_wazaari( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledText* digit(ui->text_wazaari_blue);
@@ -748,7 +748,7 @@ void View::UpdateWazaari_( Ipponboard::EFighter who ) const
 }
 
 //=========================================================
-void View::UpdateYuko_( Ipponboard::EFighter who ) const
+void View::update_yuko( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledText* digit(ui->text_yuko_blue);
@@ -760,7 +760,7 @@ void View::UpdateYuko_( Ipponboard::EFighter who ) const
 }
 
 //=========================================================
-void View::UpdateShido_( Ipponboard::EFighter who ) const
+void View::update_shido( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledImage* pImage1(0);
@@ -817,7 +817,7 @@ void View::UpdateShido_( Ipponboard::EFighter who ) const
 }
 
 //=========================================================
-void View::UpdateHansokumake_( Ipponboard::EFighter who ) const
+void View::update_hansokumake( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledImage* pImage(ui->image_hansokumake_blue);
@@ -835,7 +835,7 @@ void View::UpdateHansokumake_( Ipponboard::EFighter who ) const
 	if( score_hansokumake > 0 || score_shido == 4 )
 	{
 		pImage->UpdateImage(":res/images/on_hansokumake.png");
-		if( IsSecondary_() )
+		if( is_secondary() )
 		{
 //			pLayout->setStretchFactor(pImage, 3);
 //			pLayout->setStretchFactor(pShidoLayout, 3);
@@ -857,7 +857,7 @@ void View::UpdateHansokumake_( Ipponboard::EFighter who ) const
 }
 
 //=========================================================
-void View::UpdateTeamScore_() const
+void View::update_team_score() const
 //=========================================================
 {
 	EFighter tori = eFighter_Blue;
@@ -932,7 +932,7 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 	if( (eFighter_White != holder && eFighter_Blue != holder) ||
 		(eHoldState_off == state && "00" == value) )
 	{
-		if( IsSecondary_() )
+		if( is_secondary() )
 		{
 			pClocks[eFighter_Blue]->SetText( "" );
 			pClocks[eFighter_White]->SetText( "" );
@@ -978,7 +978,7 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 	}
 
 	// on secondary screen only holder is shown
-	if( IsSecondary_() )
+	if( is_secondary() )
 	{
 		ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
 //#ifdef HORIZONTAL_VIEW
@@ -1012,7 +1012,7 @@ Ipponboard::EFighter View::GVF_(const Ipponboard::EFighter f) const
 //=========================================================
 {
 #ifdef HORIZONTAL_VIEW
-	if( !IsSecondary_() )
+	if( !is_secondary() )
 	{
 		return (f==eFighter_Blue)? eFighter_White : eFighter_Blue;
 	}
@@ -1021,14 +1021,14 @@ Ipponboard::EFighter View::GVF_(const Ipponboard::EFighter f) const
 }
 
 //=========================================================
-bool View::IsSecondary_() const
+bool View::is_secondary() const
 //=========================================================
 {
 	return eTypeSecondary == m_Type;
 }
 
 //=========================================================
-const QColor& View::GetColor_(const ColorType t) const
+const QColor& View::get_color(const ColorType t) const
 //=========================================================
 {
 #ifdef HORIZONTAL_VIEW
@@ -1055,36 +1055,36 @@ const QColor& View::GetColor_(const ColorType t) const
 }
 
 //=========================================================
-void View::UpdateColors_()
+void View::update_colors()
 //=========================================================
 {
-	ui->text_score_team_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->dummy_blue->SetBgColor(GetColor_(blueBg));
-	ui->image_hansokumake_blue->SetBgColor(GetColor_(blueBg));
-	ui->image_shido3_blue->SetBgColor(GetColor_(blueBg));
-	ui->image_shido2_blue->SetBgColor(GetColor_(blueBg));
-	ui->image_shido1_blue->SetBgColor(GetColor_(blueBg));
-	ui->text_yuko_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_wazaari_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_ippon_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_ippon_desc2->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_wazaari_desc2->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_yuko_desc2->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_lastname_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
-	ui->text_firstname_blue->SetColor(GetColor_(blueFg), GetColor_(blueBg));
+	ui->text_score_team_blue->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->dummy_blue->SetBgColor(get_color(blueBg));
+	ui->image_hansokumake_blue->SetBgColor(get_color(blueBg));
+	ui->image_shido3_blue->SetBgColor(get_color(blueBg));
+	ui->image_shido2_blue->SetBgColor(get_color(blueBg));
+	ui->image_shido1_blue->SetBgColor(get_color(blueBg));
+	ui->text_yuko_blue->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_wazaari_blue->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_ippon_blue->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_ippon_desc2->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_wazaari_desc2->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_yuko_desc2->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_lastname_blue->SetColor(get_color(blueFg), get_color(blueBg));
+	ui->text_firstname_blue->SetColor(get_color(blueFg), get_color(blueBg));
 
-	ui->text_score_team_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->dummy_white->SetBgColor(GetColor_(whiteBg));
-	ui->image_hansokumake_white->SetBgColor(GetColor_(whiteBg));
-	ui->image_shido3_white->SetBgColor(GetColor_(whiteBg));
-	ui->image_shido2_white->SetBgColor(GetColor_(whiteBg));
-	ui->image_shido1_white->SetBgColor(GetColor_(whiteBg));
-	ui->text_yuko_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_wazaari_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_ippon_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_ippon_desc1->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_wazaari_desc1->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_yuko_desc1->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_lastname_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
-	ui->text_firstname_white->SetColor(GetColor_(whiteFg), GetColor_(whiteBg));
+	ui->text_score_team_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->dummy_white->SetBgColor(get_color(whiteBg));
+	ui->image_hansokumake_white->SetBgColor(get_color(whiteBg));
+	ui->image_shido3_white->SetBgColor(get_color(whiteBg));
+	ui->image_shido2_white->SetBgColor(get_color(whiteBg));
+	ui->image_shido1_white->SetBgColor(get_color(whiteBg));
+	ui->text_yuko_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_wazaari_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_ippon_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_ippon_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_wazaari_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_yuko_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_lastname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+	ui->text_firstname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
 }

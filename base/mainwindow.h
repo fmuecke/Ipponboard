@@ -91,14 +91,14 @@ protected:
 	void closeEvent( QCloseEvent *event );
 
 private:
-	void WriteSettings_();
-	void ReadSettings_();
-	void UpdateInfoTextColor_(const QColor& color, const QColor& bgColor);
-	void UpdateTextColorBlue_(const QColor& color, const QColor& bgColor);
-	void UpdateTextColorWhite_(const QColor& color, const QColor& bgColor);
+	void write_settings();
+	void read_settings();
+	void update_info_text_color(const QColor& color, const QColor& bgColor);
+	void update_text_color_blue(const QColor& color, const QColor& bgColor);
+	void update_text_color_white(const QColor& color, const QColor& bgColor);
 	void update_fighter_name_font(const QFont&);
-	void ShowHideView_() const;
-	void UpdateViews_();
+	void show_hide_view() const;
+	void update_views();
 	void change_lang(bool beQuiet = false);
 #ifdef TEAM_VIEW
 	void update_club_views();
@@ -108,9 +108,11 @@ private:
 #endif
 
 private slots:
+#ifdef TEAM_VIEW
 	void on_pushButton_copySwitched_pressed();
- void on_pushButton_weights_pressed();
- void on_actionSet_Main_Timer_triggered();
+	void on_pushButton_weights_pressed();
+#endif
+	void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);
 	void on_actionLang_English_triggered(bool );
@@ -121,8 +123,6 @@ private slots:
 	void on_actionAbout_Ipponboard_triggered();
 	void on_actionTest_Gong_triggered();
 	void on_actionShow_SecondaryView_triggered();
-//	void on_actionSelect_Color_triggered();
-//	void on_actionChange_Background_triggered();
 	void on_actionReset_Scores_triggered();
 	void on_actionPreferences_triggered();
 	void on_button_reset_clicked();

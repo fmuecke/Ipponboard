@@ -122,7 +122,7 @@ MainWindow::MainWindow(QWidget *parent)
 	//
 	// load stored settings
 	//
-	ReadSettings_();
+	read_settings();
 	if( m_bAlwaysShow )
 	{
 		m_pUi->actionShow_SecondaryView->setChecked(true);
@@ -202,7 +202,7 @@ void MainWindow::changeEvent(QEvent *e)
 void MainWindow::closeEvent(QCloseEvent* event)
 //=========================================================
 {
-	WriteSettings_();
+	write_settings();
 
 #ifdef TEAM_VIEW
 	if( m_pScoreScreen )
@@ -218,7 +218,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 }
 
 //=========================================================
-void MainWindow::WriteSettings_()
+void MainWindow::write_settings()
 //=========================================================
 {
 	QString iniFile(
@@ -286,7 +286,7 @@ void MainWindow::WriteSettings_()
 }
 
 //=========================================================
-void MainWindow::ReadSettings_()
+void MainWindow::read_settings()
 //=========================================================
 {
 	QString iniFile(
@@ -344,7 +344,7 @@ void MainWindow::ReadSettings_()
 		fgColor = settings.value(str_tag_InfoTextColor).value<QColor>();
 	if( settings.contains(str_tag_InfoTextBgColor) )
 		bgColor = settings.value(str_tag_InfoTextBgColor).value<QColor>();
-	UpdateInfoTextColor_(fgColor, bgColor);
+	update_info_text_color(fgColor, bgColor);
 
 	fgColor = m_pSecondaryView->GetTextColorBlue();
 	bgColor = m_pSecondaryView->GetTextBgColorBlue();
@@ -352,7 +352,7 @@ void MainWindow::ReadSettings_()
 		fgColor = settings.value(str_tag_TextColorBlue).value<QColor>();
 	if( settings.contains(str_tag_TextBgColorBlue) )
 		bgColor = settings.value(str_tag_TextBgColorBlue).value<QColor>();
-	UpdateTextColorBlue_(fgColor, bgColor);
+	update_text_color_blue(fgColor, bgColor);
 
 	fgColor = m_pPrimaryView->GetTextColorWhite();
 	bgColor = m_pSecondaryView->GetTextBgColorWhite();
@@ -360,7 +360,7 @@ void MainWindow::ReadSettings_()
 		fgColor = settings.value(str_tag_TextColorWhite).value<QColor>();
 	if( settings.contains(str_tag_TextBgColorWhite) )
 		bgColor = settings.value(str_tag_TextBgColorWhite).value<QColor>();
-	UpdateTextColorWhite_(fgColor, bgColor);
+	update_text_color_white(fgColor, bgColor);
 
 	fgColor = m_pPrimaryView->GetMainClockColor1();
 	bgColor = m_pPrimaryView->GetMainClockColor2();
@@ -448,7 +448,7 @@ void MainWindow::ReadSettings_()
 }
 
 //=========================================================
-void MainWindow::UpdateInfoTextColor_(const QColor& color, const QColor& bgColor)
+void MainWindow::update_info_text_color(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetInfoTextColor(color, bgColor);
@@ -460,7 +460,7 @@ void MainWindow::UpdateInfoTextColor_(const QColor& color, const QColor& bgColor
 }
 
 //=========================================================
-void MainWindow::UpdateTextColorBlue_(const QColor& color, const QColor& bgColor)
+void MainWindow::update_text_color_blue(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetTextColorBlue(color, bgColor);
@@ -471,7 +471,7 @@ void MainWindow::UpdateTextColorBlue_(const QColor& color, const QColor& bgColor
 }
 
 //=========================================================
-void MainWindow::UpdateTextColorWhite_(const QColor& color, const QColor& bgColor)
+void MainWindow::update_text_color_white(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetTextColorWhite(color, bgColor);
@@ -494,7 +494,7 @@ void MainWindow::update_fighter_name_font(const QFont & font)
 }
 
 //=========================================================
-void MainWindow::ShowHideView_() const
+void MainWindow::show_hide_view() const
 //=========================================================
 {
 	if( m_pSecondaryView->isHidden() )
@@ -523,7 +523,7 @@ void MainWindow::ShowHideView_() const
 }
 
 //=========================================================
-void MainWindow::UpdateViews_()
+void MainWindow::update_views()
 //=========================================================
 {
 	m_pPrimaryView->UpdateView();
@@ -731,7 +731,7 @@ void MainWindow::on_actionTest_Gong_triggered()
 void MainWindow::on_actionShow_SecondaryView_triggered()
 //=========================================================
 {
-	ShowHideView_();
+	show_hide_view();
 }
 
 
@@ -806,9 +806,9 @@ void MainWindow::on_actionPreferences_triggered()
 		m_pPrimaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
 		m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
 		update_fighter_name_font(dlg.GetFighterNameFont());
-		UpdateInfoTextColor_(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
-		UpdateTextColorBlue_(dlg.GetTextColorBlue(), dlg.GetTextBgColorBlue());
-		UpdateTextColorWhite_(dlg.GetTextColorWhite(), dlg.GetTextBgColorWhite());
+		update_info_text_color(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
+		update_text_color_blue(dlg.GetTextColorBlue(), dlg.GetTextBgColorBlue());
+		update_text_color_white(dlg.GetTextColorWhite(), dlg.GetTextBgColorWhite());
 
 		m_bAlwaysShow = dlg.IsShowAlways();
 		m_secondScreenNo = dlg.GetSelectedScreen();
@@ -831,9 +831,9 @@ void MainWindow::on_actionPreferences_triggered()
 		m_pController->SetGongFile(dlg.GetGongFile());
 
 		// save changes to file
-		WriteSettings_();
+		write_settings();
 
-		UpdateViews_();
+		update_views();
 	}
 }
 
@@ -1281,17 +1281,6 @@ void MainWindow::on_actionManage_Classes_triggered()
 	}
 }
 
-
-////=========================================================
-//void MainWindow::on_comboBox_mat_currentIndexChanged(const QString& s)
-////=========================================================
-//{
-//	m_pPrimaryView->SetMat(s);
-//	m_pSecondaryView->SetMat(s);
-//	m_pPrimaryView->UpdateView();
-//	m_pSecondaryView->UpdateView();
-//}
-
 //=========================================================
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 //=========================================================
@@ -1459,6 +1448,7 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
 	}
 }
 
+#ifdef TEAM_VIEW
 void MainWindow::on_pushButton_weights_pressed()
 {
 	bool ok(false);
@@ -1489,3 +1479,4 @@ void MainWindow::on_pushButton_copySwitched_pressed()
 {
 	m_pController->CopyAndSwitchGuestFighters();
 }
+#endif

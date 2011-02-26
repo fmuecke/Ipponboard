@@ -5,7 +5,7 @@ using namespace Ipponboard;
 
 QStringList FightCategory::GetWeightsList() const
 {
-	return QString::fromStdString(weights).split(',');
+	return QString::fromStdString(weights).split(';');
 }
 
 const QString FightCategory::GetRoundTimeStr() const

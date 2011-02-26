@@ -80,17 +80,17 @@ private slots:
 	void blink_();
 
 private:
-	void UpdateIppon_( Ipponboard::EFighter ) const;
-	void UpdateWazaari_( Ipponboard::EFighter ) const;
-	void UpdateYuko_( Ipponboard::EFighter ) const;
-	void UpdateShido_( Ipponboard::EFighter ) const;
-	void UpdateHansokumake_( Ipponboard::EFighter ) const;
-	void UpdateTeamScore_() const;
+	void update_ippon( Ipponboard::EFighter ) const;
+	void update_wazaari( Ipponboard::EFighter ) const;
+	void update_yuko( Ipponboard::EFighter ) const;
+	void update_shido( Ipponboard::EFighter ) const;
+	void update_hansokumake( Ipponboard::EFighter ) const;
+	void update_team_score() const;
 	void update_hold_clock(const EFighter holder, EHoldState state) const;
 	Ipponboard::EFighter GVF_(const Ipponboard::EFighter f) const; // GetViewFighter
-	bool IsSecondary_() const;
-	const QColor& GetColor_(const ColorType t) const;
-	void View::UpdateColors_();
+	bool is_secondary() const;
+	const QColor& get_color(const ColorType t) const;
+	void update_colors();
 
 	EType m_Type;
 	IController* m_pController;

@@ -128,31 +128,31 @@ public:
 	//--------------------
 	void reset(Reset const& /*evt*/)
 	{
-		m_pCore->ResetFight_();
+		m_pCore->reset_fight();
 	}
 
 	template<class T>
 	void stop_timer(T const& /*evt*/)
 	{
-		m_pCore->StopTimer_( ETimer(T::type) );
+		m_pCore->stop_timer( ETimer(T::type) );
 	}
 	template<>
 	void stop_timer( Osaekomi_Toketa const& /*evt*/ )
 	{
-		m_pCore->StopTimer_( eTimer_Hold );
+		m_pCore->stop_timer( eTimer_Hold );
 	}
 	template<>
 	void stop_timer( TimeEndedEvent const& /*evt*/ )
 	{
-		m_pCore->StopTimer_( eTimer_Main );
+		m_pCore->stop_timer( eTimer_Main );
 	}
 	template<>
 	void stop_timer( Finish const& /*evt*/)
 	{
 		// Finish will be created if current fight should be saved
 		// --> stop timers
-		m_pCore->StopTimer_( eTimer_Hold );
-		m_pCore->StopTimer_( eTimer_Main ); // will save main time
+		m_pCore->stop_timer( eTimer_Hold );
+		m_pCore->stop_timer( eTimer_Main ); // will save main time
 	}
 
 	template<class T>
@@ -163,19 +163,19 @@ public:
 	template<>
 	void start_timer(Hajime_Mate const& /*evt*/)
 	{
-		m_pCore->StartTimer_( eTimer_Main );
-		m_pCore->ResetTimer_( eTimer_Hold );
+		m_pCore->start_timer( eTimer_Main );
+		m_pCore->reset_timer( eTimer_Hold );
 	}
 	template<>
 	void start_timer( Osaekomi_Toketa const& /*evt*/ )
 	{
 		//m_pCore->ResetTimer_( eTimer_Hold );
-		m_pCore->StartTimer_( eTimer_Hold );
+		m_pCore->start_timer( eTimer_Hold );
 	}
 	void yoshi( Osaekomi_Toketa const& /*evt*/ )
 	{
-		m_pCore->StartTimer_( eTimer_Main );
-		m_pCore->StartTimer_( eTimer_Hold );
+		m_pCore->start_timer( eTimer_Main );
+		m_pCore->start_timer( eTimer_Hold );
 	}
 
 	template<class T>
@@ -191,8 +191,8 @@ public:
 	void add_point(PointEvent<ippon_type> const& evt)
 	{
 		Score_(evt.tori).Add(ePoint_Ippon);
-		m_pCore->StopTimer_(eTimer_Main);
-		m_pCore->StopTimer_(eTimer_Hold);
+		m_pCore->stop_timer(eTimer_Main);
+		m_pCore->stop_timer(eTimer_Hold);
 	}
 
 
@@ -253,8 +253,8 @@ public:
 		Score_(uke).Add(ePoint_Ippon);
 		Score_(evt.tori).Add(ePoint_Hansokumake);
 
-		m_pCore->StopTimer_(eTimer_Main);
-		m_pCore->StopTimer_(eTimer_Hold);
+		m_pCore->stop_timer(eTimer_Main);
+		m_pCore->stop_timer(eTimer_Hold);
 	}
 
 	void add_point(HoldTimeEvent const& evt);
@@ -263,8 +263,8 @@ public:
 	void add_point_stop_timer(T const& evt)
 	{
 		add_point(evt);
-		m_pCore->StopTimer_( eTimer_Hold );
-		m_pCore->StopTimer_( eTimer_Main );
+		m_pCore->stop_timer( eTimer_Hold );
+		m_pCore->stop_timer( eTimer_Main );
 	}
 
 	//------------------
@@ -273,12 +273,12 @@ public:
 	template<class T>
 	bool time_is_left(T const& /*evt*/)
 	{
-		return 0 != m_pCore->GetTime_(eTimer_Main);
+		return 0 != m_pCore->get_time(eTimer_Main);
 	}
 	template<class T>
 	bool time_is_up(T const& /*evt*/)
 	{
-		return 0 == m_pCore->GetTime_(eTimer_Main);
+		return 0 == m_pCore->get_time(eTimer_Main);
 	}
 	bool has_wazaari(Wazaari const& evt);
 	bool has_2wazaari(RevokeWazaari const& evt);
@@ -360,9 +360,9 @@ public:
 
 private:
 	inline Score& Score_(EFighter who)
-		{ return m_pCore->GetScore_(who); }
+		{ return m_pCore->get_score(who); }
 	inline const Score& Score_(EFighter who) const
-		{ return m_pCore->GetScore_(who); }
+		{ return m_pCore->get_score(who); }
 
 	IControllerCore* m_pCore;
 };

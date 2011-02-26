@@ -73,14 +73,14 @@ public:
 
 	// --- IControllerCore ---
 private:
-	void StartTimer_( ETimer t );
-	void StopTimer_( ETimer t );
-	void ResetFight_();
-	void ResetTimer_( ETimer );
-	Score& GetScore_( Ipponboard::EFighter who );
-	const Ipponboard::Score& GetScore_( Ipponboard::EFighter who ) const;
-	const int GetTime_( ETimer ) const;
-	bool IsSonoMama_() const;
+	void start_timer( ETimer t );
+	void stop_timer( ETimer t );
+	void reset_fight();
+	void reset_timer( ETimer );
+	Score& get_score( Ipponboard::EFighter who );
+	const Score& get_score( Ipponboard::EFighter who ) const;
+	const int get_time( ETimer ) const;
+	bool is_sonomama() const;
 
 public:
 	// --- other functions ---
@@ -93,7 +93,7 @@ public:
 		{ return m_currentFight; }
 
 	void SetCurrentTournament( unsigned int index )
-		{ m_currentTournament = index; UpdateViews_(); }
+		{ m_currentTournament = index; update_views(); }
 
 	int GetCurrentTournamentIndex() const
 		{ return m_currentTournament; }
@@ -119,8 +119,8 @@ public:
 
 
 private slots:
-	void UpdateTime_();
-	void UpdateHoldTime_();
+	void update_main_time();
+	void update_hold_time();
 
 private:
 //	void AddPoint_( Ipponboard::EFighter whos, Ipponboard::EPoint point );
@@ -128,15 +128,15 @@ private:
 //	void StartStopTimer_( Ipponboard::ETimer timer );
 //	void UpdatePointsFromHoldTimer_();
 //	void CorrectState_();
-	void UpdateViews_() const;
+	void update_views() const;
 //	bool IsTimeLeft_() const
 //	{
 //		return  *m_pTimeMain > QTime(0,0,1) &&
 //				*m_pTimeMain < QTime(23,0,0);
 //	}
-	void Reset_();
+	void reset();
 
-	Ipponboard::Fight& CurrentFight_()
+	Ipponboard::Fight& current_fight()
 	{ return m_TournamentScores[m_currentTournament].at(m_currentFight); }
 
 	Ipponboard::Tournament m_TournamentScores[2];

@@ -260,7 +260,7 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 	}
 	else if( column == eColumn_Weights )
 	{
-		QRegExp regex("([-+]{0,1}[0-9]{1,3}[,])*[-+]{0,1}[0-9]{1,3}");
+		QRegExp regex("([-+]{0,1}[0-9]{1,3}[;])*[-+]{0,1}[0-9]{1,3}");
 		matches = regex.exactMatch(pItem->text(eColumn_Weights));
 	}
 
