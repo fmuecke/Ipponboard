@@ -252,8 +252,8 @@ void MainWindow::write_settings()
 	settings.setValue(str_tag_TextBgColorBlue, m_pPrimaryView->GetTextBgColorBlue());
 	settings.setValue(str_tag_TextColorWhite, m_pPrimaryView->GetTextColorWhite());
 	settings.setValue(str_tag_TextBgColorWhite, m_pPrimaryView->GetTextBgColorWhite());
-	settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
-	settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
+	//settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
+	//settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
 	settings.endGroup();
 
 	// Styles
@@ -362,14 +362,14 @@ void MainWindow::read_settings()
 		bgColor = settings.value(str_tag_TextBgColorWhite).value<QColor>();
 	update_text_color_white(fgColor, bgColor);
 
-	fgColor = m_pPrimaryView->GetMainClockColor1();
-	bgColor = m_pPrimaryView->GetMainClockColor2();
-	if( settings.contains(str_tag_MainClockColorRunning) )
-		fgColor = settings.value(str_tag_MainClockColorRunning).value<QColor>();
-	if( settings.contains(str_tag_MainClockColorStopped) )
-		bgColor = settings.value(str_tag_MainClockColorStopped).value<QColor>();
-	m_pPrimaryView->SetMainClockColor(fgColor, bgColor);
-	m_pSecondaryView->SetMainClockColor(fgColor, bgColor);
+	//fgColor = m_pPrimaryView->GetMainClockColor1();
+	//bgColor = m_pPrimaryView->GetMainClockColor2();
+	//if( settings.contains(str_tag_MainClockColorRunning) )
+	//	fgColor = settings.value(str_tag_MainClockColorRunning).value<QColor>();
+	//if( settings.contains(str_tag_MainClockColorStopped) )
+	//	bgColor = settings.value(str_tag_MainClockColorStopped).value<QColor>();
+	//m_pPrimaryView->SetMainClockColor(fgColor, bgColor);
+	//m_pSecondaryView->SetMainClockColor(fgColor, bgColor);
 	settings.endGroup();
 
 	// Styles
@@ -1022,7 +1022,7 @@ void MainWindow::EvaluateInput()
 void MainWindow::on_tabWidget_currentChanged(int /*index*/)
 //=========================================================
 {
-	UpdateViews_();
+	update_views();
 }
 
 //=========================================================
@@ -1368,20 +1368,9 @@ void MainWindow::on_actionContact_Author_triggered()
 
 void MainWindow::change_lang(bool beQuiet)
 {
-	// remove checks
-	QList<QAction*>::const_iterator iter =
-		m_pUi->menuLanguages->actions().begin();
-	while( iter != m_pUi->menuLanguages->actions().end() )
-	{
-			(*iter)->setChecked(false);
-		++iter;
-	}
-
-	// set check
-	if( "de" == m_Language )
-		m_pUi->actionLang_Deutsch->setChecked(true);
-	else if( "en" == m_Language )
-		m_pUi->actionLang_English->setChecked(true);
+	// set checks
+	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+	m_pUi->actionLang_English->setChecked("en" == m_Language);
 
 	if( !beQuiet )
 	{
