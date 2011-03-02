@@ -103,18 +103,11 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->dummy_white->SetBgColor(bgColor2);
 #endif
 
-	ui->text_ippon_blue->SetDigitSize(true);
-	ui->text_ippon_white->SetDigitSize(true);
-	ui->text_wazaari_blue->SetDigitSize(true);
-	ui->text_wazaari_white->SetDigitSize(true);
-	ui->text_yuko_blue->SetDigitSize(true);
-	ui->text_yuko_white->SetDigitSize(true);
-	ui->text_main_clock->SetDigitSize(true);
-	ui->text_hold_clock_blue->SetDigitSize(true);
-	ui->text_hold_clock_white->SetDigitSize(true);
 #ifdef TEAM_VIEW
-	ui->text_score_team_blue->SetDigitSize(true);
-	ui->text_score_team_white->SetDigitSize(true);
+	ui->text_score_team_blue_label->SetColor( Qt::gray, Qt::black);
+	ui->text_score_team_white_label->SetColor( Qt::gray, Qt::black);
+	ui->text_score_team_blue->SetColor( Qt::gray, Qt::black);
+	ui->text_score_team_white->SetColor( Qt::gray, Qt::black);
 #endif
 
 	ui->text_ippon_blue->SetColor(fgColor1, bgColor1);
@@ -128,10 +121,6 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_firstname_blue->SetColor(fgColor1, bgColor1);
 	ui->text_lastname_white->SetColor(fgColor2, bgColor2);
 	ui->text_firstname_white->SetColor(fgColor2, bgColor2);
-	ui->text_lastname_blue->SetDigitSize(true);
-	ui->text_firstname_blue->SetDigitSize(true);
-	ui->text_lastname_white->SetDigitSize(true);
-	ui->text_firstname_white->SetDigitSize(true);
 	if( is_secondary() )
 	{
 		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc1, 0);
@@ -161,15 +150,12 @@ View::View( IController* pController, EType type, QWidget *parent )
 
 	SetInfoHeaderFont( QFont("Calibri", 12, QFont::Bold, false ) );
 	SetDigitFont( QFont("Arial", 12, QFont::Bold, false ) );
-	SetMainClockColor( Qt::yellow, Qt::red );
 
 	// register view to receive updates
 	m_pController->RegisterView(this);
 
 	ui->text_mat->SetColor( m_InfoTextColor, m_InfoTextBgColor );
 	ui->text_weight->SetColor( m_InfoTextColor, m_InfoTextBgColor );
-	ui->text_mat->SetDigitSize(true);
-	ui->text_weight->SetDigitSize(true);
 
 	m_pBlinkTimer = new QTimer(this);
 	connect( m_pBlinkTimer, SIGNAL(timeout()), this, SLOT(blink_()) );
@@ -194,18 +180,18 @@ void View::UpdateView()
 	//
 	// weight class
 	//
-	ui->text_mat->SetText( m_mat );
+	ui->text_mat->SetText( m_mat, ScaledText::eSize_normal );
 #ifdef TEAM_VIEW
-	QString infoText(tr("Fight ").toUpper());
+	QString infoText/*(tr("Fight ").toUpper())*/;
 	infoText += QString::number(m_pController->GetRound());
-	infoText += ": " + m_pController->GetWeight();
-	ui->text_weight->SetText( infoText );
+	infoText += ": " + m_pController->GetWeight() + "kg";
+	ui->text_weight->SetText( infoText, ScaledText::eSize_normal );
 #else
 	QString infoText(m_category);
 	if (!infoText.isEmpty())
 		infoText += " / ";
 	infoText += m_weight;//.toUpper();
-	ui->text_weight->SetText( infoText );
+	ui->text_weight->SetText( infoText + "kg", ScaledText::eSize_full );
 #endif
 
 	if( m_showInfoHeader )
@@ -225,13 +211,17 @@ void View::UpdateView()
 	// fighter names
 	//
 	ui->text_lastname_blue->SetText(
-			m_pController->GetFighterLastName(GVF_(eFighter_Blue)).toUpper() );
+			m_pController->GetFighterLastName(GVF_(eFighter_Blue)),
+			ScaledText::eSize_uppercase );
 	ui->text_lastname_white->SetText(
-			m_pController->GetFighterLastName(GVF_(eFighter_White)).toUpper() );
+			m_pController->GetFighterLastName(GVF_(eFighter_White)),
+			ScaledText::eSize_uppercase );
 	ui->text_firstname_blue->SetText(
-			m_pController->GetFighterFirstName(GVF_(eFighter_Blue)).toUpper() );
+			m_pController->GetFighterFirstName(GVF_(eFighter_Blue)),
+			ScaledText::eSize_uppercase );
 	ui->text_firstname_white->SetText(
-			m_pController->GetFighterFirstName(GVF_(eFighter_White)).toUpper() );
+			m_pController->GetFighterFirstName(GVF_(eFighter_White)),
+			ScaledText::eSize_uppercase );
 
 	// blue score
 	update_ippon(eFighter_Blue);
@@ -252,7 +242,10 @@ void View::UpdateView()
 	//
 	// timers
 	//
-	ui->text_main_clock->SetText( m_pController->GetTimeText( eTimer_Main ) );
+	ui->text_main_clock->SetText(
+			m_pController->GetTimeText( eTimer_Main ),
+			ScaledText::eSize_full );
+
 	const EFighter holder( m_pController->GetLastHolder() );
 	switch(m_pController->GetCurrentState())
 	{
@@ -301,25 +294,25 @@ void View::UpdateView()
 	//	// something to do here?
 	//}
 
-#ifdef _DEBUG
-	QString text;
-	switch(m_pController->GetCurrentState())
-	{
-		case eState_Holding:
-			text = "HOLDING";
-			break;
-		case eState_TimerRunning:
-			text = "RUNNING";
-			break;
-		case eState_TimerStopped:
-			text = "STOPPED";
-			break;
-		default:
-			text="OTHER";
-	}
-	ui->text_lastname_blue->SetText(text);
-	update();
-#endif
+//#ifdef _DEBUG
+//	QString text;
+//	switch(m_pController->GetCurrentState())
+//	{
+//		case eState_Holding:
+//			text = "HOLDING";
+//			break;
+//		case eState_TimerRunning:
+//			text = "RUNNING";
+//			break;
+//		case eState_TimerStopped:
+//			text = "STOPPED";
+//			break;
+//		default:
+//			text="OTHER";
+//	}
+//	ui->text_lastname_blue->SetText(text);
+//	update();
+//#endif
 
 	// Note: with update() the area is scheduled for a redraw
 	//       while repaint() does this immediately.
@@ -342,6 +335,11 @@ void View::SetInfoHeaderFont( const QFont& font )
 
 	ui->text_weight->SetFont(font);
 	ui->text_mat->SetFont(font);
+
+#ifdef TEAM_VIEW
+	ui->text_score_team_blue_label->SetFont(font);
+	ui->text_score_team_white_label->SetFont(font);
+#endif
 }
 
 //=========================================================
@@ -700,7 +698,8 @@ void View::update_ippon( Ipponboard::EFighter who ) const
 		digit_ippon->SetBlinking(true);
 
 #endif
-		digit_ippon->SetText( "IPPON", !is_secondary() );
+		digit_ippon->SetText( "IPPON", ScaledText::eSize_full,
+							  !is_secondary() );
 	}
 	else
 	{
@@ -718,7 +717,7 @@ void View::update_ippon( Ipponboard::EFighter who ) const
 #else
 			ui->verticalLayout_main->setStretchFactor(digit_ippon, 3);
 #endif
-			digit_ippon->SetText( "-" );
+			digit_ippon->SetText( "-", ScaledText::eSize_full );
 		}
 		else
 		{
@@ -744,7 +743,7 @@ void View::update_wazaari( Ipponboard::EFighter who ) const
 
 	const int score = m_pController->GetScore( GVF_(who), ePoint_Wazaari );
 	//digit->setDigitCount( score > 9 ? 2 : 1 );
-	digit->SetText( QString::number(score) );
+	digit->SetText( QString::number(score), ScaledText::eSize_full );
 }
 
 //=========================================================
@@ -756,7 +755,7 @@ void View::update_yuko( Ipponboard::EFighter who ) const
 		digit = ui->text_yuko_white;
 
 	const int score = m_pController->GetScore( GVF_(who), ePoint_Yuko );
-	digit->SetText( QString::number(score) );
+	digit->SetText( QString::number(score), ScaledText::eSize_full );
 }
 
 //=========================================================
@@ -870,12 +869,19 @@ void View::update_team_score() const
 	}
 
 #ifdef TEAM_VIEW
+	ui->text_score_team_blue_label->SetText(
+			tr("Home")/*, ScaledText::eSize_full*/ );
+
+	ui->text_score_team_white_label->SetText(
+			tr("Guest")/*, ScaledText::eSize_uppercase*/ );
+
 	ui->text_score_team_blue->SetText(
-			QString::number(m_pController->GetTeamScore(tori))
-	);
+			QString::number(m_pController->GetTeamScore(eFighter_Blue)),
+			ScaledText::eSize_full);
+
 	ui->text_score_team_white->SetText(
-			QString::number(m_pController->GetTeamScore(uke))
-	);
+			QString::number(m_pController->GetTeamScore(eFighter_White)),
+			ScaledText::eSize_full );
 #else
 	ui->text_score_team_blue->SetText("");
 	ui->text_score_team_white->SetText("");
@@ -924,8 +930,8 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 		hold_clock_colors[eHoldState_off][eFighter_White].fg,
 		hold_clock_colors[eHoldState_off][eFighter_White].bg );
 
-	pClocks[blue]->SetText( "00" );
-	pClocks[white]->SetText( "00" );
+	pClocks[blue]->SetText( "00", ScaledText::eSize_full );
+	pClocks[white]->SetText( "00", ScaledText::eSize_full );
 	ui->image_sand_clock->SetBgColor( Qt::black );
 
 	// no one holding?
@@ -955,7 +961,7 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 			hold_clock_colors[eHoldState_on][holder].fg,
 			hold_clock_colors[eHoldState_on][holder].bg );
 
-		pClocks[GVF_(holder)]->SetText( value );
+		pClocks[GVF_(holder)]->SetText( value, ScaledText::eSize_full );
 
 		ui->image_sand_clock->SetBgColor(
 				hold_clock_colors[eHoldState_on][holder].bg );
@@ -966,7 +972,7 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 			hold_clock_colors[eHoldState_pause][holder].fg,
 			hold_clock_colors[eHoldState_pause][holder].bg );
 
-		pClocks[GVF_(holder)]->SetText( value );
+		pClocks[GVF_(holder)]->SetText( value, ScaledText::eSize_full );
 
 		ui->image_sand_clock->SetBgColor(
 				hold_clock_colors[eHoldState_on][holder].bg );
@@ -1058,6 +1064,7 @@ const QColor& View::get_color(const ColorType t) const
 void View::update_colors()
 //=========================================================
 {
+	ui->text_score_team_blue_label->SetColor(get_color(blueFg), get_color(blueBg));
 	ui->text_score_team_blue->SetColor(get_color(blueFg), get_color(blueBg));
 	ui->dummy_blue->SetBgColor(get_color(blueBg));
 	ui->image_hansokumake_blue->SetBgColor(get_color(blueBg));
@@ -1073,6 +1080,7 @@ void View::update_colors()
 	ui->text_lastname_blue->SetColor(get_color(blueFg), get_color(blueBg));
 	ui->text_firstname_blue->SetColor(get_color(blueFg), get_color(blueBg));
 
+	ui->text_score_team_white_label->SetColor(get_color(whiteFg), get_color(whiteBg));
 	ui->text_score_team_white->SetColor(get_color(whiteFg), get_color(whiteBg));
 	ui->dummy_white->SetBgColor(get_color(whiteBg));
 	ui->image_hansokumake_white->SetBgColor(get_color(whiteBg));
