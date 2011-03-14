@@ -148,22 +148,8 @@ void ClubManagerDlg::on_pushButton_remove_pressed()
 	if( m_SelectedClub < 0)
 		return;
 
-	ui->comboBox_club->removeItem( m_SelectedClub );
 	m_pClubMgr->RemoveClub( m_SelectedClub );
-
-	if( m_pClubMgr->ClubCount() > 0 )
-	{
-		if( m_pClubMgr->ClubCount() == m_SelectedClub )
-		{
-			// was last element in list
-			ui->comboBox_club->setCurrentIndex(m_SelectedClub - 1);
-		}
-		else
-		{
-			ui->comboBox_club->setCurrentIndex(m_SelectedClub);
-		}
-	}
-	//UpdateButtonsAndText_();
+	ui->comboBox_club->removeItem( m_SelectedClub );
 }
 
 //---------------------------------------------------------
