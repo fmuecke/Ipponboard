@@ -167,13 +167,6 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="6">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Weights</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="2">
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -213,6 +206,23 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="1" column="6">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Weights</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="6">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Mode</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="7">
+           <widget class="QComboBox" name="comboBox_mode"/>
           </item>
          </layout>
         </item>
@@ -913,6 +923,7 @@
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
     <addaction name="separator"/>
+    <addaction name="actionSet_Round_Time"/>
     <addaction name="actionLoad_Demo_Data"/>
    </widget>
    <widget class="QMenu" name="menuManage">
@@ -1012,16 +1023,6 @@
     <string>F2</string>
    </property>
   </action>
-  <action name="actionSelect_Font">
-   <property name="text">
-    <string>Select Font</string>
-   </property>
-  </action>
-  <action name="actionSelect_Color">
-   <property name="text">
-    <string>Select Color</string>
-   </property>
-  </action>
   <action name="actionManage_Clubs">
    <property name="text">
     <string>Clubs</string>
@@ -1033,11 +1034,6 @@
   <action name="actionReset_Scores">
    <property name="text">
     <string>Reset Scores</string>
-   </property>
-  </action>
-  <action name="actionChange_Background">
-   <property name="text">
-    <string>Change Background</string>
    </property>
   </action>
   <action name="actionTest_Gong">
@@ -1189,6 +1185,14 @@
    </property>
    <property name="toolTip">
     <string>Toggles the info header (mat and category/weight class) on and off</string>
+   </property>
+  </action>
+  <action name="actionSet_Round_Time">
+   <property name="text">
+    <string>Set Round Time</string>
+   </property>
+   <property name="toolTip">
+    <string>Set round time for all fights</string>
    </property>
   </action>
  </widget>

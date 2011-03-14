@@ -28,6 +28,8 @@ typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 
 #ifdef TEAM_VIEW
 	static const char* const str_ini_name = "IpponboardT.ini";
+	static const char* const str_mode_bundesliga = "Bundesliga";
+	static const char* const str_mode_bayernliga = "Bayern-/Landesliga";
 #else
 	static const char* const str_ini_name = "Ipponboard.ini";
 #endif
@@ -109,6 +111,7 @@ private:
 
 private slots:
 #ifdef TEAM_VIEW
+	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
 	void on_pushButton_weights_pressed();
 #endif

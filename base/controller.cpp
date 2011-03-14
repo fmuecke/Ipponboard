@@ -468,6 +468,13 @@ void Controller::SetRoundTime( QTime const& time )
 }
 
 //=========================================================
+QString Controller::GetRoundTime() const
+//=========================================================
+{
+	return m_roundTime.toString("m:ss");
+}
+
+//=========================================================
 int Ipponboard::Controller::GetRound() const
 //=========================================================
 {

@@ -64,6 +64,7 @@ public:
 	void SetTimerValue( Ipponboard::ETimer timer, const QString& value );
 	void ResetTimerValue( Ipponboard::ETimer timer );
 	void SetRoundTime( const QString& value );
+	QString GetRoundTime() const;
 	void SetRoundTime( const QTime& time );
 	int GetRound() const;
 	void SetWeightClass(QString const& c);
