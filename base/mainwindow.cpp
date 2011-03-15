@@ -590,7 +590,7 @@ void MainWindow::UpdateScoreScreen_()
 void MainWindow::WriteScoreToHtml_()
 //=========================================================
 {
-	QFile file("list_output.html");
+	QFile file("templates\\list_output.html");
 	if( !file.open(QFile::ReadOnly) )
 	{
 		QMessageBox::critical( this, tr("File open error"),
@@ -698,10 +698,10 @@ void MainWindow::WriteScoreToHtml_()
 		rounds.append(round);
 	}
 	m_htmlScore.replace( "%SECOND_ROUND%", rounds );
+
 	const QString copyright = tr("List generated with Ipponboard v") +
 		QApplication::applicationVersion() +
 		", &copy; " + QApplication::organizationName() + ", 2010";
-
 	m_htmlScore.replace( "</body>", "<small><center>" + copyright + "</center></small></body>" );
 }
 #endif
