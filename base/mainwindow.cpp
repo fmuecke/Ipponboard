@@ -1172,7 +1172,7 @@ void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
 		m_pController->SetCurrentFight( 0 );
 		m_pController->SetCurrentTournament(0);
 	}
-	else if( s == tr("BREAK") )
+	else if( s == tr("PAUSE") )
 	{
 		if( !m_pUi->button_pause->isChecked() )
 			m_pUi->button_pause->click();

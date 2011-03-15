@@ -869,18 +869,29 @@ void View::update_team_score() const
 	}
 
 #ifdef TEAM_VIEW
-	ui->text_score_team_blue_label->SetText(
-			tr("Home")/*, ScaledText::eSize_full*/ );
+	if( is_secondary() )
+	{
+		ui->text_score_team_blue_label->SetText(
+				tr("Home")/*, ScaledText::eSize_full*/ );
 
-	ui->text_score_team_white_label->SetText(
-			tr("Guest")/*, ScaledText::eSize_uppercase*/ );
+		ui->text_score_team_white_label->SetText(
+				tr("Guest")/*, ScaledText::eSize_uppercase*/ );
+	}
+	else
+	{
+		ui->text_score_team_white_label->SetText(
+				tr("Home")/*, ScaledText::eSize_full*/ );
 
+		ui->text_score_team_blue_label->SetText(
+				tr("Guest")/*, ScaledText::eSize_uppercase*/ );
+
+	}
 	ui->text_score_team_blue->SetText(
-			QString::number(m_pController->GetTeamScore(eFighter_Blue)),
+			QString::number(m_pController->GetTeamScore(GVF_(eFighter_Blue))),
 			ScaledText::eSize_full);
 
 	ui->text_score_team_white->SetText(
-			QString::number(m_pController->GetTeamScore(eFighter_White)),
+			QString::number(m_pController->GetTeamScore(GVF_(eFighter_White))),
 			ScaledText::eSize_full );
 #else
 	ui->text_score_team_blue->SetText("");

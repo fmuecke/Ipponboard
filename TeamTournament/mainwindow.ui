@@ -274,7 +274,7 @@
            <enum>QAbstractItemView::SingleSelection</enum>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
+           <enum>QAbstractItemView::SelectItems</enum>
           </property>
           <property name="showGrid">
            <bool>true</bool>
@@ -469,7 +469,7 @@
            <enum>QAbstractItemView::SingleSelection</enum>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
+           <enum>QAbstractItemView::SelectItems</enum>
           </property>
           <property name="showGrid">
            <bool>true</bool>
@@ -789,7 +789,7 @@
               </item>
               <item>
                <property name="text">
-                <string>BREAK</string>
+                <string>PAUSE</string>
                </property>
               </item>
               <item>
@@ -876,7 +876,7 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
@@ -924,6 +924,7 @@
     <addaction name="menuLanguages"/>
     <addaction name="separator"/>
     <addaction name="actionSet_Round_Time"/>
+    <addaction name="separator"/>
     <addaction name="actionLoad_Demo_Data"/>
    </widget>
    <widget class="QMenu" name="menuManage">
@@ -942,7 +943,7 @@
     <addaction name="actionTest_Gong"/>
     <addaction name="actionReset_Scores"/>
    </widget>
-   <addaction name="menu"/>
+   <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuManage"/>
    <addaction name="menuSettings"/>

@@ -63,5 +63,7 @@ INCLUDEPATH += $$quote($$(BOOST))
 QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
 
-TRANSLATIONS = ../base/ipponboard_en.ts \
-	../base/ipponboard_de.ts
+TRANSLATIONS = ../i18n/ipponboard_en.ts \
+	../i18n/ipponboard_de.ts
+
+win32:RC_FILE = ../base/ipponboard.rc

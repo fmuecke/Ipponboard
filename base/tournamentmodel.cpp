@@ -154,8 +154,11 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 					std::pair<unsigned,unsigned> score = GetTotalScore();
 					if( m_pIntermediateModel )
 					{
-						std::pair<unsigned,unsigned> intermediate_wins = m_pIntermediateModel->GetTotalWins();
-						std::pair<unsigned,unsigned> intermediate_score = m_pIntermediateModel->GetTotalScore();
+						std::pair<unsigned,unsigned> intermediate_wins =
+								m_pIntermediateModel->GetTotalWins();
+						std::pair<unsigned,unsigned> intermediate_score =
+								m_pIntermediateModel->GetTotalScore();
+
 						wins.first += intermediate_wins.first;
 						wins.second += intermediate_wins.second;
 						score.first += intermediate_score.first;
@@ -177,6 +180,16 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 		{
 			if (index.column() < sizeof(m_HeaderSizes) && index.column() > 0)
 				return QSize(m_HeaderSizes[index.column()], 20);
+			break;
+		}
+
+	case Qt::TextAlignmentRole:
+		{
+			if( eCol_name1 != index.column() &&
+				eCol_name2 != index.column() )
+			{
+				return Qt::AlignCenter;
+			}
 			break;
 		}
 
@@ -300,6 +313,7 @@ bool TournamentModel::setData( const QModelIndex& index,
 
 	if (result)
 		emit dataChanged(index, index);
+
 	return result;
 }
 
