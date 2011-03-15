@@ -132,10 +132,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 #ifdef TEAM_VIEW
 	m_pUi->dateEdit->setDate(QDate::currentDate());
-	m_pUi->comboBox_mode->addItem(str_mode_bundesliga);
-	m_pUi->comboBox_mode->addItem(str_mode_bayernliga);
-	const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_bundesliga);
-	m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	//m_pUi->comboBox_mode->addItem(str_mode_bundesliga);
+	//m_pUi->comboBox_mode->addItem(str_mode_bayernliga);
+	//const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_bundesliga);
+	//m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	m_pUi->comboBox_mode->hide();
+	m_pUi->label_mode->hide();
+
+	update_weights("-66;-73;-81;-90;+90");
 #else
 	// init tournament classes (if there are none present)
 	for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
@@ -158,10 +162,10 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->lineEdit_name_white->setText(tr("White"));
 
 #endif
+
 	//
 	// init gamepad
 	//
-
 	QTimer* m_pTimer = new QTimer;
 	connect( m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()) );
 	m_pTimer->start(75);
@@ -1463,10 +1467,15 @@ void MainWindow::on_pushButton_weights_pressed()
 		}
 		else
 		{
-			m_pUi->lineEdit_weights->setText(weights);
-			m_pController->SetWeights(weights.split(';'));
+			update_weights(weights);
 		}
 	}
+}
+
+void MainWindow::update_weights(QString weightString)
+{
+	m_pUi->lineEdit_weights->setText(weightString);
+	m_pController->SetWeights(weightString.split(';'));
 }
 
 void MainWindow::on_pushButton_copySwitched_pressed()
@@ -1487,5 +1496,18 @@ void MainWindow::on_actionSet_Round_Time_triggered()
 
 	if( ok )
 		m_pController->SetRoundTime(time);
+}
+void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
+{
+	if( s == str_mode_bundesliga )
+	{
+		m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+		m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+	}
+	else	// str_mode_bayernliga
+	{
+		m_pController->GetTournamentScoreModel(0)->SetNumRows(10);
+		m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
+	}
 }
 #endif

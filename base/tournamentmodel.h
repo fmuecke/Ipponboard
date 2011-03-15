@@ -36,6 +36,11 @@ public:
 	explicit TournamentModel( Ipponboard::Tournament* pTournament, QObject* parent = 0 );
 	virtual ~TournamentModel();
 
+	void SetNumRows(int rows)
+	{
+		m_nRows = rows;
+	}
+
 	QModelIndex index( int row, int column, const QModelIndex& parent ) const;
 	QModelIndex parent( const QModelIndex& child ) const;
 	int rowCount( const QModelIndex& parent ) const;
@@ -63,7 +68,7 @@ private slots:
 private:
 	Ipponboard::Tournament* m_pTournament;
 	TournamentModel* m_pIntermediateModel;
-	static const int m_nRows = 10;
+	int m_nRows;
 	QString m_HeaderData[eCol_MAX];
 	int m_HeaderSizes[eCol_MAX];
 	QLineEdit* m_pEditWins;

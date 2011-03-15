@@ -111,6 +111,7 @@ private:
 
 private slots:
 #ifdef TEAM_VIEW
+	void on_comboBox_mode_currentIndexChanged(QString );
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
 	void on_pushButton_weights_pressed();
@@ -163,6 +164,7 @@ private:
 	Ipponboard::View* m_pSecondaryView;
 	Ipponboard::Controller* m_pController;
 #ifdef TEAM_VIEW
+	void update_weights(QString weightString);
 	Ipponboard::ScoreScreen* m_pScoreScreen;
 	Ipponboard::ClubManager* m_pClubManager;
 	std::vector<QTableWidgetItem> fighters_home;

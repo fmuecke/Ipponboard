@@ -8,6 +8,9 @@ TournamentModel::TournamentModel( Ipponboard::Tournament* pTournament, QObject* 
 	: QAbstractItemModel(parent)
 	, m_pTournament(pTournament)
 	, m_pIntermediateModel(0)
+	, m_nRows(10)
+	//, m_HeaderData()
+	//, m_HeaderSizes()
 	, m_pEditWins(0)
 	, m_pEditScore(0)
 {
