@@ -117,6 +117,9 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pUi->comboBox_club_home->setCurrentIndex(index);
 	m_pUi->comboBox_club_guest->setCurrentIndex(index+1);
 	//m_pUi->tableView_tournament_list1->setSpan(2,2,1,2);
+
+	m_pUi->tableView_tournament_list1->selectRow(0);
+	m_pUi->tableView_tournament_list2->selectRow(0);
 #endif
 
 	//
@@ -315,7 +318,7 @@ void MainWindow::read_settings()
 	m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
-	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, false).toBool();
+	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, true).toBool();
 	m_MatLabel = settings.value(str_tag_MatLabel,
 		"    " + QCoreApplication::applicationName() + "    " // + QCoreApplication::applicationVersion()
 								).toString();
@@ -1048,7 +1051,8 @@ void MainWindow::on_actionManage_Clubs_triggered()
 void MainWindow::on_actionLoad_Demo_Data_triggered()
 //=========================================================
 {
-	m_pController->ClearFights();																					//  Y  W  I  S  H  Y  W  I  S  H
+	m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
+	update_weights("-90;+90;-73;-66;-81");
 	m_pController->SetFight( 0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 	m_pController->SetFight( 0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
 	m_pController->SetFight( 0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
@@ -1071,6 +1075,9 @@ void MainWindow::on_actionLoad_Demo_Data_triggered()
 	m_pController->SetFight( 1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 	m_pController->SetFight( 1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
 	//m_pController->SetCurrentFight(0);
+
+	m_pUi->tableView_tournament_list1->viewport()->update();
+	m_pUi->tableView_tournament_list2->viewport()->update();
 }
 
 //=========================================================

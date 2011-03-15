@@ -8,7 +8,7 @@ TournamentModel::TournamentModel( Ipponboard::Tournament* pTournament, QObject* 
 	: QAbstractItemModel(parent)
 	, m_pTournament(pTournament)
 	, m_pIntermediateModel(0)
-	, m_nRows(10)
+	, m_nRows(Ipponboard::eTournament_FightCount)
 	//, m_HeaderData()
 	//, m_HeaderSizes()
 	, m_pEditWins(0)
@@ -60,10 +60,13 @@ TournamentModel::~TournamentModel()
 }
 
 //=========================================================
-QModelIndex TournamentModel::index( int row, int column, const QModelIndex& /*parent*/ ) const
+QModelIndex TournamentModel::index( int row,
+									int column,
+									const QModelIndex& /*parent*/ ) const
 //=========================================================
 {
-	if (row < m_nRows && row >= 0 && column < eCol_MAX && column >= 0)
+	if (row < m_nRows && row >= 0 &&
+		column < eCol_MAX && column >= 0)
 	{
 		return createIndex(row, column, 0); //TODO: 3rd param is ptr to item
 	}
@@ -184,7 +187,9 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 }
 
 //=========================================================
-QVariant TournamentModel::headerData( int section, Qt::Orientation orientation, int role ) const
+QVariant TournamentModel::headerData(
+	int section,
+	Qt::Orientation orientation, int role ) const
 //=========================================================
 {
 	if (role == Qt::DisplayRole)
@@ -204,11 +209,17 @@ QVariant TournamentModel::headerData( int section, Qt::Orientation orientation, 
 }
 
 //=========================================================
-bool TournamentModel::setData( const QModelIndex& index, const QVariant& value, int role )
+bool TournamentModel::setData( const QModelIndex& index,
+							   const QVariant& value,
+							   int role )
 //=========================================================
 {
-	if( !index.isValid() || (flags(index) & Qt::ItemIsEditable) == 0 || role != Qt::EditRole )
+	if( !index.isValid() ||
+		(flags(index) & Qt::ItemIsEditable) == 0 ||
+		role != Qt::EditRole )
+	{
 		return false;
+	}
 
 	bool result(false);
 	if (index.row() < 10 && index.column() >= 0 && index.column() < eCol_MAX)
@@ -269,7 +280,7 @@ bool TournamentModel::setData( const QModelIndex& index, const QVariant& value, 
 			//m_pTournament->at(row).Won(Ipponboard::eFighter_White);
 			break;
 		case eCol_score2:
-			//m_pTournament->at(row).Score(Ipponboard::eFighter_White);
+			//m_pTournament->at(row).scores[Ipponboard::eFighter_White].Add(...);
 			break;
 		case eCol_time:
 			{
@@ -315,6 +326,7 @@ QSize TournamentModel::span( const QModelIndex& index ) const
 {
 	if( index.column() == 2 && index.row() == 5 )
 		return QSize(1,2);
+
 	return QSize();
 }
 

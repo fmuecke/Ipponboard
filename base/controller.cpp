@@ -733,7 +733,8 @@ const Ipponboard::Fight& Controller::GetFight(
 }
 
 //=========================================================
-void Controller::SetFighterName( Ipponboard::EFighter whos, const QString& name )
+void Controller::SetFighterName( Ipponboard::EFighter whos,
+								 const QString& name )
 //=========================================================
 {
 	m_TournamentScores[m_currentTournament].

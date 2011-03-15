@@ -17,7 +17,6 @@
 // forwards
 class QTimer;
 class QSound;
-//class QAbstractItemModel;
 //class TournamentModel;
 
 
@@ -160,11 +159,6 @@ private:
 	bool m_isSonoMama;
 	QTime m_roundTime;
 	QString m_weight_class;
-
-	// --- QAbstractItemModel ---
-	QString m_HeaderData[18];
-	int m_Rows;
-	int m_Columns;
 };
 
 } // namespace Ipponboard
