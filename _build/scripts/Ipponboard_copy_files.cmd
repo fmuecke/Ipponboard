@@ -1,8 +1,3 @@
-REM -- main programme files
-copy "%BASE_DIR%\SingleTournament\release\Ipponboard.exe" "%BUILD_DIR%">nul
-REM copy "%BASE_DIR%\SingleTournament\Ipponboard.ini" "%BUILD_DIR%">nul
-REM copy "%BASE_DIR%\SingleTournament\categories.xml" "%BUILD_DIR%">nul
-
 REM -- language file
 copy "%BASE_DIR%\i18n\Ipponboard_de.qm" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\i18n\Ipponboard_en.qm" "%BUILD_DIR%">nul
@@ -38,3 +33,16 @@ copy "%BASE_DIR%\..\3rdParty\msvc100\plain\msvcr100.dll" "%BUILD_DIR%">nul
 REM -- Documentation files
 copy "%BASE_DIR%\doc\Anleitung.pdf" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\doc\manual.pdf" "%BUILD_DIR%">nul
+
+REM -- copy base files to Team Edition folder
+xcopy /S "%BUILD_DIR%\*.*" "%BUILD_DIR_TEAM%"
+MKDIR "%BUILD_DIR_TEAM%\templates">nul
+copy "%BASE_DIR%\TeamTournament\templates\*.html" "%BUILD_DIR_TEAM%\templates">nul
+copy "%BASE_DIR%\TeamTournament\templates\*.png" "%BUILD_DIR_TEAM%\templates">nul
+MKDIR "%BUILD_DIR_TEAM%\clubs">nul
+copy "%BASE_DIR%\base\emblems\*.png" "%BUILD_DIR_TEAM%\clubs">nul
+copy "%BASE_DIR%\base\clubs.xml" "%BUILD_DIR_TEAM%\clubs">nul
+
+REM -- main programme files
+copy "%BASE_DIR%\SingleTournament\release\Ipponboard.exe" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\TeamTournament\release\Ipponboard_team.exe" "%BUILD_DIR_TEAM%">nul

@@ -51,6 +51,7 @@ class ClubManager
 	//Q_OBJECT
 public:
 	typedef std::vector<Ipponboard::Club> ClubList;
+	static const char* const str_filename_club_definitions;
 
 	ClubManager();
 	virtual ~ClubManager();

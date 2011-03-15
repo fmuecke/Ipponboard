@@ -9,6 +9,7 @@
 
 
 using namespace Ipponboard;
+const char* const ClubManager::str_filename_club_definitions = "clubs\\clubs.xml";
 
 //---------------------------------------------------------
 ClubManager::ClubManager()
@@ -84,7 +85,7 @@ void ClubManager::LoadClubs_()
 	//m_Clubs.push_back(Club("TSV Königsbrunn", "..\\base\\emblems\\koenigsbrunn.png"));
 	//m_Clubs.push_back(Club("TV Lenggries", "..\\base\\emblems\\tv_lenggries.png"));
 
-	std::ifstream ifs("clubs.xml");
+	std::ifstream ifs(str_filename_club_definitions);
 	if( ifs.good() )
 	{
 		try
@@ -95,7 +96,9 @@ void ClubManager::LoadClubs_()
 		}
 		catch( std::exception& )
 		{
-			QMessageBox::critical(0, QString("Error"), QString("Unable to parse clubs.xml!"));
+			QMessageBox::critical(0, QString("Error"),
+				QString("Unable to parse %1 !").arg(
+					str_filename_club_definitions));
 		}
 	}
 	ifs.close();
@@ -106,7 +109,7 @@ void ClubManager::SaveClubs_()
 //---------------------------------------------------------
 {
 	// make an archive
-	std::ofstream ofs("clubs.xml");
+	std::ofstream ofs(str_filename_club_definitions);
 	if( ofs.good() )
 	{
 		boost::archive::xml_oarchive oa(ofs);
@@ -114,7 +117,9 @@ void ClubManager::SaveClubs_()
 	}
 	else
 	{
-		QMessageBox::critical(0, QString("Error"), QString("Unable to save clubs.xml!"));
+		QMessageBox::critical(0, QString("Error"),
+			QString("Unable to save %1!").arg(
+				str_filename_club_definitions));
 	}
 	ofs.close();
 }

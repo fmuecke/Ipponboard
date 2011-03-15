@@ -89,7 +89,7 @@ void ClubManagerDlg::update_ui()
 	else
 	{
 		palette.setColor( QPalette::Text, Qt::red );
-		ui->scaledImage_logo->UpdateImage(":/res/emblems/default.png");
+		ui->scaledImage_logo->UpdateImage("clubs\\default.png");
 	}
 
 	ui->lineEdit_logoFile->setPalette(palette);
@@ -113,7 +113,7 @@ void ClubManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
 	// add empty club
-	Ipponboard::Club club("--> new <--", ":/res/emblems/default.png");
+	Ipponboard::Club club("--> new <--", "clubs\\default.png");
 	m_pClubMgr->AddClub(club);
 	ui->comboBox_club->addItem(club.name);
 	int index = ui->comboBox_club->findText(club.name);
@@ -174,7 +174,7 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 	QString selectedFilter;
 	QString fileName = QFileDialog::getOpenFileName(this,
 		tr("Select Club Emblem"),
-		"",
+		ui->lineEdit_logoFile->text(),
 		tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
 		&selectedFilter,
 		options);

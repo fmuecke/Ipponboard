@@ -8,153 +8,72 @@
 		<c.name class_id="2" tracking_level="0" version="0">
 			<value>TSV Königsbrunn</value>
 		</c.name>
-		<c.city>
-			<value>Stadt</value>
-		</c.city>
-		<c.homepage>
-			<value>http://koenigsbrunn-judo.de</value>
-		</c.homepage>
-		<c.address>
-			<value>123456</value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/koenigsbrunn.png</value>
+			<value>clubs/koenigsbrunn.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>Kodokan München</value>
 		</c.name>
-		<c.city>
-			<value>München</value>
-		</c.city>
-		<c.homepage>
-			<value>http://www.kodokan-muenchen.de</value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/kodokan_muenchen.png</value>
+			<value>clubs/kodokan_muenchen.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>TSV Mainburg</value>
 		</c.name>
-		<c.city>
-			<value>Mainburg</value>
-		</c.city>
-		<c.homepage>
-			<value>http://www.judo-mainburg.de</value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/mainburg.png</value>
+			<value>clubs/mainburg.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>Bushido Amberg</value>
 		</c.name>
-		<c.city>
-			<value>Amberg</value>
-		</c.city>
-		<c.homepage>
-			<value>http://www.bushidoamberg.de</value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/bushido_amberg.png</value>
+			<value>clubs/bushido_amberg.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>TSV Peiting</value>
 		</c.name>
-		<c.city>
-			<value></value>
-		</c.city>
-		<c.homepage>
-			<value></value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/tsv_peiting.png</value>
+			<value>clubs/tsv_peiting.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>SF Harteck München</value>
 		</c.name>
-		<c.city>
-			<value></value>
-		</c.city>
-		<c.homepage>
-			<value></value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/sf_harteck.png</value>
+			<value>clubs/sf_harteck.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>TG Landshut</value>
 		</c.name>
-		<c.city>
-			<value></value>
-		</c.city>
-		<c.homepage>
-			<value></value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/default.png</value>
+			<value>clubs/default.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
 			<value>TSV Lohr</value>
 		</c.name>
-		<c.city>
-			<value>Lohr am Main</value>
-		</c.city>
-		<c.homepage>
-			<value></value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value>:res/emblems/lohr.png</value>
+			<value>clubs/lohr.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
-			<value>--&gt; new &lt;--</value>
+			<value>DJK Ingolstadt</value>
 		</c.name>
-		<c.city>
-			<value></value>
-		</c.city>
-		<c.homepage>
-			<value></value>
-		</c.homepage>
-		<c.address>
-			<value></value>
-		</c.address>
 		<c.logoFile>
-			<value></value>
+			<value>clubs/djk_ingolstadt.png</value>
 		</c.logoFile>
 	</item>
 </m_Clubs>
