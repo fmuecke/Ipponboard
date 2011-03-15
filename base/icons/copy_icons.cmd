@@ -68,6 +68,7 @@ copy %SOURCE%\tag-label.png %DEST%\fighter_blue.png
 copy %SOURCE%\tag.png %DEST%\fighter_white.png
 copy %SOURCE%\keyboard.png %DEST%\keyboard.png
 copy %SOURCE%\document\document-pdf.png %DEST%\pdf.png
+copy %SOURCE%\application\application-list.png %DEST%\list.png
 GOTO THE_END
 
 :LABEL_FREE_APP_ICONS

@@ -36,6 +36,7 @@
         <file>icons/add.png</file>
         <file>icons/keyboard.png</file>
         <file>icons/pdf.png</file>
+        <file>icons/list.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>text/License_de.html</file>
