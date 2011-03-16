@@ -15,7 +15,7 @@ TournamentModel::TournamentModel( Ipponboard::Tournament* pTournament, QObject* 
 	, m_pEditScore(0)
 {
 	m_HeaderData[eCol_weight]		= tr("Weight");
-	m_HeaderData[eCol_name1]		= "Firstname Lastname";
+	m_HeaderData[eCol_name1]		= tr("Firstname Lastname");
 	m_HeaderData[eCol_yuko1]		= "Y";
 	m_HeaderData[eCol_wazaari1]		= "W";
 	m_HeaderData[eCol_ippon1]		= "I";
@@ -23,7 +23,7 @@ TournamentModel::TournamentModel( Ipponboard::Tournament* pTournament, QObject* 
 	m_HeaderData[eCol_hansokumake1]	= "H";
 	m_HeaderData[eCol_won1]			= tr("Won");
 	m_HeaderData[eCol_score1]		= tr("Score");
-	m_HeaderData[eCol_name2]		= "Firstname Lastname";
+	m_HeaderData[eCol_name2]		= tr("Firstname Lastname");
 	m_HeaderData[eCol_yuko2]		= "Y";
 	m_HeaderData[eCol_wazaari2]		= "W";
 	m_HeaderData[eCol_ippon2]		= "I";

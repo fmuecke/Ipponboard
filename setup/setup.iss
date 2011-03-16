@@ -101,7 +101,7 @@ Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignore
 Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\ipponboard_de.qm; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\ipponboard_en.qm; DestDir: {app}; 
+;Source: ..\_build\build_output\~tmp\ipponboard_en.qm; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; 

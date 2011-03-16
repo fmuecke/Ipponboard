@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
-	QCoreApplication::setApplicationName("Ipponboard");
+	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
 
 	// read language code
 	const QString ini(
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 				QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
 		const QString langFile =
-			QCoreApplication::applicationName() + QString("_") + langStr;
+			QString("ipponboard_") + langStr;
 		if( translator.load(langFile, langPath) )
 		{
 			a.installTranslator(&translator);
@@ -88,6 +88,8 @@ int main(int argc, char *argv[])
 	}
 
 	MainWindow w;
+	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
+					 QCoreApplication::applicationVersion());
 	w.show();
 
 	return a.exec();

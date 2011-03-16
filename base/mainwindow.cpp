@@ -319,9 +319,7 @@ void MainWindow::read_settings()
 										QSize(1024,768)).toSize();
 	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
 	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, true).toBool();
-	m_MatLabel = settings.value(str_tag_MatLabel,
-		"    " + QCoreApplication::applicationName() + "    " // + QCoreApplication::applicationVersion()
-								).toString();
+	m_MatLabel = settings.value(str_tag_MatLabel,"    Ipponboard    ").toString();
 	m_pPrimaryView->SetMat(m_MatLabel);
 	m_pSecondaryView->SetMat(m_MatLabel);
 	settings.endGroup();
@@ -1464,7 +1462,6 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
 		m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
 	}
 }
-#endif
 
 void MainWindow::on_button_current_round_clicked(bool checked)
 {
@@ -1483,3 +1480,6 @@ void MainWindow::on_button_current_round_clicked(bool checked)
 
 	UpdateFightNumber_();
 }
+#endif
+
+

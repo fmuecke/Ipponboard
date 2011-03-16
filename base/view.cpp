@@ -895,6 +895,8 @@ void View::update_team_score() const
 			QString::number(m_pController->GetTeamScore(GVF_(eFighter_White))),
 			ScaledText::eSize_full );
 #else
+	ui->text_score_team_blue_label->SetText("");
+	ui->text_score_team_white_label->SetText("");
 	ui->text_score_team_blue->SetText("");
 	ui->text_score_team_white->SetText("");
 #endif
