@@ -111,6 +111,7 @@ private:
 
 private slots:
 #ifdef TEAM_VIEW
+	void on_button_current_round_clicked(bool checked);
 	void on_comboBox_mode_currentIndexChanged(QString );
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
@@ -146,7 +147,6 @@ private slots:
 	void on_button_next_clicked();
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
-	void on_comboBox_round_currentIndexChanged(const QString& s);
 	void on_actionPrint_triggered();
 	void on_actionExport_triggered();
 #else

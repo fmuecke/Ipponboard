@@ -15,7 +15,11 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
-	QCoreApplication::setApplicationName("Ipponboard");
+#ifdef TEAM_VIEW
+	QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
+#else
+	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
+#endif
 
 	// read language code
 	const QString ini(
@@ -88,6 +92,8 @@ int main(int argc, char *argv[])
 //	}
 
 	MainWindow w;
+	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
+					 QCoreApplication::applicationVersion());
 	w.show();
 
 	return a.exec();

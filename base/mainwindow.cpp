@@ -1154,59 +1154,6 @@ void MainWindow::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_round_currentIndexChanged(const QString& s)
-//=========================================================
-{
-	if( s == tr("START") )
-	{
-		if( !m_pUi->button_pause->isChecked() )
-			m_pUi->button_pause->click();
-		//on_button_pause_clicked();
-		return;
-	}
-	else if( s == tr("1st") )
-	{
-		if( m_pUi->button_pause->isChecked() )
-			m_pUi->button_pause->click();
-
-		m_pController->SetCurrentFight( 0 );
-		m_pController->SetCurrentTournament(0);
-	}
-	else if( s == tr("PAUSE") )
-	{
-		if( !m_pUi->button_pause->isChecked() )
-			m_pUi->button_pause->click();
-		return;
-	}
-	else if( s == tr("2nd") )
-	{
-		if( m_pUi->button_pause->isChecked() )
-			m_pUi->button_pause->click();
-
-		m_pController->SetCurrentFight( 0 );
-		m_pController->SetCurrentTournament(1);
-	}
-	else if( s == tr("FINISHED") )
-	{
-		// be sure that all pages are saved
-		for( int i = m_pController->GetCurrentTournamentIndex(); i<2; ++i )
-		{
-			while( eTournament_FightCount >
-				m_pController->GetCurrentFightIndex() + 1)
-			{
-				m_pUi->button_next->click();
-			}
-		}
-
-		if( !m_pUi->button_pause->isChecked() )
-			m_pUi->button_pause->click();
-		return;
-	}
-
-	UpdateFightNumber_();
-}
-
-//=========================================================
 void MainWindow::on_actionPrint_triggered()
 //=========================================================
 {
@@ -1518,3 +1465,21 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
 	}
 }
 #endif
+
+void MainWindow::on_button_current_round_clicked(bool checked)
+{
+	m_pController->SetCurrentFight( 0 );
+
+	if( checked )
+	{
+		m_pUi->button_current_round->setText(tr("2nd Round"));
+		m_pController->SetCurrentTournament(1);
+	}
+	else
+	{
+		m_pUi->button_current_round->setText(tr("1st Round"));
+		m_pController->SetCurrentTournament(0);
+	}
+
+	UpdateFightNumber_();
+}

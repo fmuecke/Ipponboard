@@ -653,7 +653,7 @@
        <attribute name="title">
         <string>Score Control</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="10,0,1">
+       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="10,0,0">
         <item>
          <widget class="QFrame" name="frame_primary_view">
           <property name="styleSheet">
@@ -683,178 +683,17 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,1">
-          <property name="spacing">
+         <layout class="QGridLayout" name="gridLayout_2" columnstretch="2,2,1,1,2,2">
+          <property name="verticalSpacing">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
            <number>0</number>
           </property>
-          <property name="leftMargin">
+          <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,1,1">
-            <property name="verticalSpacing">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item row="1" column="2">
-             <layout class="QHBoxLayout" name="layoutTabView" stretch="0,0,0,0">
-              <item>
-               <widget class="QPushButton" name="button_prev">
-                <property name="text">
-                 <string>&lt;&lt;</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="font">
-                 <font>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Fight</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_fight">
-                <property name="font">
-                 <font>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>1/10</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_next">
-                <property name="text">
-                 <string notr="true">&gt;&gt;</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="button_pause">
-              <property name="text">
-               <string>Pause</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QComboBox" name="comboBox_round">
-              <property name="minimumSize">
-               <size>
-                <width>70</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="frame">
-               <bool>true</bool>
-              </property>
-              <item>
-               <property name="text">
-                <string>START</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>1st</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>PAUSE</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>2nd</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>FINISHED</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <italic>false</italic>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Current Round</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="1">
-             <spacer name="horizontalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
+          <item row="0" column="5" rowspan="2">
            <widget class="QPushButton" name="button_reset">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -864,6 +703,106 @@
             </property>
             <property name="text">
              <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="2">
+           <layout class="QHBoxLayout" name="layoutTabView" stretch="0">
+            <item>
+             <widget class="QPushButton" name="button_prev">
+              <property name="text">
+               <string>&lt;&lt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="4">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="3">
+           <widget class="QPushButton" name="button_next">
+            <property name="text">
+             <string notr="true">&gt;&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Fight</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_fight">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>1/10</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="button_pause">
+            <property name="text">
+             <string>Show Result Screen</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="button_current_round">
+            <property name="text">
+             <string>1st Round</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -1207,6 +1146,25 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>comboBox_club_home</tabstop>
+  <tabstop>comboBox_club_guest</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>lineEdit_location</tabstop>
+  <tabstop>comboBox_mode</tabstop>
+  <tabstop>lineEdit_weights</tabstop>
+  <tabstop>pushButton_weights</tabstop>
+  <tabstop>tableView_tournament_list1</tabstop>
+  <tabstop>pushButton_copySwitched</tabstop>
+  <tabstop>lineEdit_wins_intermediate</tabstop>
+  <tabstop>lineEdit_score_intermediate</tabstop>
+  <tabstop>tableView_tournament_list2</tabstop>
+  <tabstop>lineEdit_wins</tabstop>
+  <tabstop>lineEdit_score</tabstop>
+  <tabstop>button_reset</tabstop>
+  <tabstop>button_pause</tabstop>
+  <tabstop>button_current_round</tabstop>
+  <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
  </tabstops>
  <resources>

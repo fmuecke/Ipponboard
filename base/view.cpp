@@ -45,7 +45,8 @@ View::View( IController* pController, EType type, QWidget *parent )
 	, m_InfoTextBgColor(Qt::black) //Qt::lightGray
 	, m_MainClockColorRunning(Qt::yellow)
 	, m_MainClockColorStopped(Qt::red)
-	, m_mat(QCoreApplication::applicationName() + " v" + QCoreApplication::applicationVersion())
+	, m_mat(QCoreApplication::applicationName() + " v" +
+			QCoreApplication::applicationVersion())
 	, m_weight("")
 	, m_category("")
 	, m_drawIppon(false)
@@ -183,8 +184,8 @@ void View::UpdateView()
 	ui->text_mat->SetText( m_mat, ScaledText::eSize_normal );
 #ifdef TEAM_VIEW
 	QString infoText/*(tr("Fight ").toUpper())*/;
-	infoText += QString::number(m_pController->GetRound());
-	infoText += ": " + m_pController->GetWeight() + "kg";
+	//infoText += QString::number(m_pController->GetRound()) + ": ";
+	infoText += m_pController->GetWeight() + "kg";
 	ui->text_weight->SetText( infoText, ScaledText::eSize_normal );
 #else
 	QString infoText(m_category);
