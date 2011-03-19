@@ -20,9 +20,9 @@
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
-     <value key="ProjectExplorer.ProcessStep.Command" type="QString">C:\dev\ipponboard\branch-0.4\base\create_versioninfo.cmd</value>
+     <value key="ProjectExplorer.ProcessStep.Command" type="QString">..\base\create_versioninfo.cmd</value>
      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
-     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">C:\dev\ipponboard\branches\0.4.0\base</value>
+     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">..\base</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Update Version Info</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
     </valuemap>
@@ -40,7 +40,7 @@
     </valuemap>
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.3" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
-     <value key="ProjectExplorer.ProcessStep.Command" type="QString">C:\dev\ipponboard\branch-0.4\SingleTournament\copy_lang.cmd</value>
+     <value key="ProjectExplorer.ProcessStep.Command" type="QString">copy_lang.cmd</value>
      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
      <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">$BUILDDIR</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Copy language files</value>
@@ -70,9 +70,9 @@
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.1" type="QVariantMap">
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
-     <value key="ProjectExplorer.ProcessStep.Command" type="QString">C:\dev\ipponboard\branch-0.4\base\create_versioninfo.cmd</value>
+     <value key="ProjectExplorer.ProcessStep.Command" type="QString">..\base\create_versioninfo.cmd</value>
      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
-     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">C:\dev\ipponboard\branches\0.4.0\base</value>
+     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">..\base</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Custom Process Step</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
     </valuemap>
