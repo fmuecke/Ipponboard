@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="7">
+<m_Clubs class_id="0" tracking_level="0" version="0">
+	<count>8</count>
+	<item_version>0</item_version>
+	<item class_id="1" tracking_level="0" version="0">
+		<c.name class_id="2" tracking_level="0" version="0">
+			<value>JC Leipzig</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_leipzig.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Rüsselsheim</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_ruesselsheim.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Wiesbaden</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_wiesbaden.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>JV Ippon Rodewisch</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jv_rodewisch.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV Abensberg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tsv_abensberg.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>KSV Esslingen</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/ksv_esslingen.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Ettlingen</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_ettlingen.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV Großhadern</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tsv_grosshadern.png</value>
+		</c.logoFile>
+	</item>
+</m_Clubs>
+</boost_serialization>
+
