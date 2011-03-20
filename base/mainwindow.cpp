@@ -111,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
 	m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
 			m_pController->GetTournamentScoreModel(0));
 
-	int index = m_pUi->comboBox_club_home->findText("TSV Königsbrunn");
+	int index = m_pUi->comboBox_club_home->findText("TSV Großhadern");
 	m_pUi->comboBox_club_home->setCurrentIndex(index);
 	m_pUi->comboBox_club_guest->setCurrentIndex(index+1);
 	//m_pUi->tableView_tournament_list1->setSpan(2,2,1,2);
@@ -718,7 +718,7 @@ void MainWindow::WriteScoreToHtml_()
 		const Score& score_white( fight.scores[eFighter_White] );
 
 		QString round("<tr>");
-		round.append("<td><center>" + QString::number(i+1) + "</center></td>"); // number
+		round.append("<td><center>" + QString::number(i+1+m_pController->GetFightCount()) + "</center></td>"); // number
 		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
 		round.append("<td><center>" + name_blue + "</center></td>"); // name
 		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y

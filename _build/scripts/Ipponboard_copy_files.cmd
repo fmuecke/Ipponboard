@@ -35,7 +35,7 @@ copy "%BASE_DIR%\doc\Anleitung.pdf" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\doc\manual.pdf" "%BUILD_DIR%">nul
 
 REM -- copy base files to Team Edition folder
-xcopy /S "%BUILD_DIR%\*.*" "%BUILD_DIR_TEAM%"
+xcopy /S "%BUILD_DIR%\*.*" "%BUILD_DIR_TEAM%">nul
 MKDIR "%BUILD_DIR_TEAM%\templates">nul
 xcopy "%BASE_DIR%\TeamTournament\templates\*.*" "%BUILD_DIR_TEAM%\templates">nul
 MKDIR "%BUILD_DIR_TEAM%\clubs">nul
