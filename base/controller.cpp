@@ -50,6 +50,10 @@ Controller::Controller()
 	m_pTimeMain = new QTime();
 	m_pTimeHold = new QTime();
 
+	// TODO: add a way to re-assign a new size (a.k.a. switch list mode)!
+	m_TournamentScores[0].assign(10, Tournament::value_type());
+	m_TournamentScores[1].assign(10, Tournament::value_type());
+
 	m_TournamentModelsPtrs[0] = new TournamentModel(&m_TournamentScores[0]);
 	m_TournamentModelsPtrs[1] = new TournamentModel(&m_TournamentScores[1]);
 
@@ -325,7 +329,8 @@ const QString Controller::GetFighterName( EFighter who ) const
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
 
-	QString name = m_TournamentScores[m_currentTournament].at(m_currentFight).fighters[who].name;
+	QString name = m_TournamentScores[m_currentTournament].
+				   at(m_currentFight).fighters[who].name;
 
 	// shorten name
 	const int pos = name.indexOf(' ');
@@ -342,7 +347,8 @@ const QString Controller::GetFighterLastName( Ipponboard::EFighter who ) const
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
 
-	QString name = m_TournamentScores[m_currentTournament].at(m_currentFight).fighters[who].name;
+	QString name = m_TournamentScores[m_currentTournament].
+				   at(m_currentFight).fighters[who].name;
 
 	// get last name
 	const int pos = name.indexOf(' ');
@@ -404,7 +410,7 @@ const int Controller::GetTeamScore( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	int score(0);
-	for( int i(0); i<eTournament_FightCount; ++i )
+	for( int i(0); i<GetFightCount(); ++i )
 	{
 		if( m_TournamentScores[0].at(i).is_saved )
 			score += m_TournamentScores[0].at(i).HasWon(who);
@@ -475,10 +481,17 @@ QString Controller::GetRoundTime() const
 }
 
 //=========================================================
+int Controller::GetRoundTimeSecs() const
+//=========================================================
+{
+	return QTime(0,0,0,0).secsTo(m_roundTime);
+}
+
+//=========================================================
 int Ipponboard::Controller::GetRound() const
 //=========================================================
 {
-	return m_currentTournament * 10 + m_currentFight + 1;
+	return m_currentTournament * GetFightCount() + m_currentFight + 1;
 }
 
 //=========================================================
@@ -746,14 +759,14 @@ void Controller::SetFighterName( Ipponboard::EFighter whos,
 void Controller::SetWeights(QStringList const& weights)
 //=========================================================
 {
-	for(unsigned i(0); i<10; ++i)
+	for(unsigned i(0); i<GetFightCount(); ++i)
 	{
 		m_TournamentScores[0].at(i).weight = weights.at(i/2);
 		m_TournamentScores[0].at(i+1).weight = weights.at(i/2);
 		++i;
 	}
 
-	for(unsigned i(0); i<10; ++i)
+	for(unsigned i(0); i<GetFightCount(); ++i)
 	{
 		m_TournamentScores[1].at(i).weight = weights.at(i/2);
 		m_TournamentScores[1].at(i+1).weight = weights.at(i/2);

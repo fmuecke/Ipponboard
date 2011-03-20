@@ -28,7 +28,10 @@ typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 
 #ifdef TEAM_VIEW
 	static const char* const str_ini_name = "IpponboardT.ini";
-	static const char* const str_mode_bundesliga = "Bundesliga";
+	static const char* const str_mode_1te_bundesliga_nord = "1. Bundesliga - Gruppe Nord";
+	static const char* const str_mode_1te_bundesliga_sued = "1. Bundesliga - Gruppe Süd";
+	static const char* const str_mode_2te_bundesliga_nord = "2. Bundesliga - Gruppe Nord";
+	static const char* const str_mode_2te_bundesliga_sued = "2. Bundesliga - Gruppe Süd";
 	static const char* const str_mode_bayernliga = "Bayern-/Landesliga";
 #else
 	static const char* const str_ini_name = "Ipponboard.ini";
@@ -115,7 +118,7 @@ private slots:
 	void on_comboBox_mode_currentIndexChanged(QString );
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
-	void on_pushButton_weights_pressed();
+	void on_toolButton_weights_pressed();
 #endif
 	void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
@@ -167,8 +170,6 @@ private:
 	void update_weights(QString weightString);
 	Ipponboard::ScoreScreen* m_pScoreScreen;
 	Ipponboard::ClubManager* m_pClubManager;
-	std::vector<QTableWidgetItem> fighters_home;
-	std::vector<QTableWidgetItem> fighters_guest;
 	QString m_htmlScore;
 #else
 	Ipponboard::FightCategoryMgr* m_pCategoryManager;

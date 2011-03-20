@@ -89,7 +89,8 @@ int main(int argc, char *argv[])
 
 	MainWindow w;
 	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-					 QCoreApplication::applicationVersion());
+					 QCoreApplication::applicationVersion() +
+					 " ***Spezialversion TSV Grosshadern***");
 	w.show();
 
 	return a.exec();

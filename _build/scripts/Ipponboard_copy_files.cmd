@@ -37,11 +37,9 @@ copy "%BASE_DIR%\doc\manual.pdf" "%BUILD_DIR%">nul
 REM -- copy base files to Team Edition folder
 xcopy /S "%BUILD_DIR%\*.*" "%BUILD_DIR_TEAM%"
 MKDIR "%BUILD_DIR_TEAM%\templates">nul
-copy "%BASE_DIR%\TeamTournament\templates\*.html" "%BUILD_DIR_TEAM%\templates">nul
-copy "%BASE_DIR%\TeamTournament\templates\*.png" "%BUILD_DIR_TEAM%\templates">nul
+xcopy "%BASE_DIR%\TeamTournament\templates\*.*" "%BUILD_DIR_TEAM%\templates">nul
 MKDIR "%BUILD_DIR_TEAM%\clubs">nul
-copy "%BASE_DIR%\base\emblems\*.png" "%BUILD_DIR_TEAM%\clubs">nul
-copy "%BASE_DIR%\base\clubs.xml" "%BUILD_DIR_TEAM%\clubs">nul
+xcopy /S "%BASE_DIR%\TeamTournament\clubs\*.*" "%BUILD_DIR_TEAM%\clubs">nul
 
 REM -- main programme files
 copy "%BASE_DIR%\SingleTournament\release\Ipponboard.exe" "%BUILD_DIR%">nul

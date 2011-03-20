@@ -37,7 +37,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="layout_info_top" stretch="1,1">
+    <layout class="QHBoxLayout" name="layout_info_top" stretch="3,1">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -886,7 +886,6 @@
          <property name="styleSheet">
           <string notr="true">background-color: white;</string>
          </property>
-         <zorder>text_score_team_white_label</zorder>
         </widget>
        </item>
       </layout>
