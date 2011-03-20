@@ -4,12 +4,13 @@
 #include <QString>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
-#include <vector>
+#include <boost/array.hpp>
 
 #include "score.h"
 
 namespace Ipponboard
 {
+	enum { eTournament_FightCount = 10 };
 	enum EScore
 	{
 		eScore_Ippon = 10,
@@ -38,23 +39,11 @@ namespace Ipponboard
 		int time_in_seconds;
 		bool is_saved;
 
-		const QString GetRoundTimeRemainingText() const
+		const QString GetRoundTimeText() const
 		{
 			// get time display
 			const int minutes = time_in_seconds / 60;
 			const int seconds = time_in_seconds - minutes*60;
-			QString ret = QString::number(minutes) + ":";
-			if (seconds < 10)	// append leading zero?
-				ret += "0";
-			return  ret + QString::number(seconds);
-		}
-
-		const QString GetRoundTimeUsedText(int max_time_in_seconds) const
-		{
-			// get time display
-			const int time_used = max_time_in_seconds - time_in_seconds;
-			const int minutes = time_used / 60;
-			const int seconds = time_used - minutes*60;
 			QString ret = QString::number(minutes) + ":";
 			if (seconds < 10)	// append leading zero?
 				ret += "0";
@@ -103,7 +92,7 @@ namespace Ipponboard
 		}
 	};
 
-	typedef std::vector<Fight> Tournament;
+	typedef boost::array<Fight, eTournament_FightCount> Tournament;
 
 } // namespace Ipponboard
 

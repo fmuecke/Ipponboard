@@ -8,7 +8,7 @@ TournamentModel::TournamentModel( Ipponboard::Tournament* pTournament, QObject* 
 	: QAbstractItemModel(parent)
 	, m_pTournament(pTournament)
 	, m_pIntermediateModel(0)
-	, m_nRows(pTournament->size())
+	, m_nRows(Ipponboard::eTournament_FightCount)
 	//, m_HeaderData()
 	//, m_HeaderSizes()
 	, m_pEditWins(0)
@@ -107,9 +107,7 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 	{
 	case Qt::EditRole:
 	case Qt::DisplayRole:
-		if (index.row() < m_nRows &&
-			index.column() >= 0 &&
-			index.column() <= 17)
+		if (index.row() < 10 && index.column() >= 0 && index.column() <= 17)
 		{
 			const int row = index.row();
 			switch(index.column())
@@ -170,7 +168,7 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 					m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
 					// get time display
-					return  m_pTournament->at(row).GetRoundTimeRemainingText();
+					return  m_pTournament->at(row).GetRoundTimeText();
 				}
 			default:
 				break;
@@ -237,9 +235,7 @@ bool TournamentModel::setData( const QModelIndex& index,
 	}
 
 	bool result(false);
-	if (index.row() <m_nRows &&
-		index.column() >= 0 &&
-		index.column() < eCol_MAX)
+	if (index.row() < 10 && index.column() >= 0 && index.column() < eCol_MAX)
 	{
 		const int row = index.row();
 		switch(index.column())
@@ -354,7 +350,7 @@ std::pair<unsigned,unsigned> TournamentModel::GetTotalWins() const
 {
 	int wins1(0);
 	int wins2(0);
-	for(int i(0); i < m_nRows; ++i)
+	for(int i(0); i < Ipponboard::eTournament_FightCount; ++i)
 	{
 		wins1 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_Blue);
 		wins2 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_White);
@@ -368,7 +364,7 @@ std::pair<unsigned,unsigned> TournamentModel::GetTotalScore() const
 {
 	int score1(0);
 	int score2(0);
-	for(int i(0); i < m_nRows; ++i)
+	for(int i(0); i < Ipponboard::eTournament_FightCount; ++i)
 	{
 		score1 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_Blue);
 		score2 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_White);

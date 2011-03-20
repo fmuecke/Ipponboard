@@ -38,12 +38,8 @@ public:
 
 	void SetNumRows(int rows)
 	{
-
-		beginResetModel();
 		m_nRows = rows;
-		endResetModel();
 	}
-	int GetNumRows() const { return m_nRows; }
 
 	QModelIndex index( int row, int column, const QModelIndex& parent ) const;
 	QModelIndex parent( const QModelIndex& child ) const;

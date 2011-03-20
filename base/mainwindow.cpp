@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef TEAM_VIEW
 	, m_pScoreScreen(nullptr)
 	, m_pClubManager(nullptr)
+	, fighters_home()
+	, fighters_guest()
 #else
 	, m_pCategoryManager(nullptr)
 #endif
@@ -133,23 +135,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 #ifdef TEAM_VIEW
 	m_pUi->dateEdit->setDate(QDate::currentDate());
-	m_pUi->comboBox_mode->addItem(str_mode_1te_bundesliga_nord);
-	m_pUi->comboBox_mode->addItem(str_mode_1te_bundesliga_sued);
-	m_pUi->comboBox_mode->addItem(str_mode_2te_bundesliga_nord);
-	m_pUi->comboBox_mode->addItem(str_mode_2te_bundesliga_sued);
+	//m_pUi->comboBox_mode->addItem(str_mode_bundesliga);
 	//m_pUi->comboBox_mode->addItem(str_mode_bayernliga);
-	const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_1te_bundesliga_sued);
-	m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	//const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_bundesliga);
+	//m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	m_pUi->comboBox_mode->hide();
+	m_pUi->label_mode->hide();
 
-	// TEMP: hide weight cotrol
-	m_pUi->label_weight->hide();
-	m_pUi->lineEdit_weights->hide();
-	m_pUi->toolButton_weights->hide();
-	m_pUi->gridLayout_main->removeItem(m_pUi->horizontalSpacer_4);
-	delete m_pUi->horizontalSpacer_4;
-
-	//update_weights("-66;-73;-81;-90;+90");
-
+	update_weights("-66;-73;-81;-90;+90");
 #else
 	// init tournament classes (if there are none present)
 	for(int i(0); i<m_pCategoryManager->CategoryCount(); ++i)
@@ -574,9 +567,7 @@ void MainWindow::UpdateFightNumber_()
 //=========================================================
 {
 	const int current = m_pController->GetCurrentFightIndex() + 1;
-	m_pUi->label_fight->setText(
-		QString::number(current) + " / " +
-		QString::number(m_pController->GetFightCount()) );
+	m_pUi->label_fight->setText( QString::number(current) + " / 10" );
 }
 //=========================================================
 void MainWindow::UpdateScoreScreen_()
@@ -597,7 +588,7 @@ void MainWindow::UpdateScoreScreen_()
 void MainWindow::WriteScoreToHtml_()
 //=========================================================
 {
-	QFile file("templates\\list_output_bundesliga.html");
+	QFile file("templates\\list_output.html");
 	if( !file.open(QFile::ReadOnly) )
 	{
 		QMessageBox::critical( this, tr("File open error"),
@@ -609,68 +600,34 @@ void MainWindow::WriteScoreToHtml_()
 	m_htmlScore = ts.readAll();
 	file.close();
 
-	if( str_mode_1te_bundesliga_nord == m_pUi->comboBox_mode->currentText() ||
-		str_mode_1te_bundesliga_sued == m_pUi->comboBox_mode->currentText() )
-	{
-		m_htmlScore.replace( "%LEAGUE_NO%", "1" );
-	}
-	else
-	{
-		m_htmlScore.replace( "%LEAGUE_NO%", "2" );
-	}
-	if( str_mode_1te_bundesliga_nord == m_pUi->comboBox_mode->currentText() ||
-		str_mode_2te_bundesliga_nord == m_pUi->comboBox_mode->currentText() )
-	{
-		m_htmlScore.replace( "%GROUP%", "Nord" );
-	}
-	else
-	{
-		m_htmlScore.replace( "%GROUP%", "Süd" );
-	}
-	m_htmlScore.replace( "%HOST%", m_pUi->comboBox_club_host->currentText() );
 	m_htmlScore.replace( "%DATE%", m_pUi->dateEdit->text() );
 	m_htmlScore.replace( "%LOCATION%", m_pUi->lineEdit_location->text() );
 	m_htmlScore.replace( "%HOME%", m_pUi->comboBox_club_home->currentText() );
 	m_htmlScore.replace( "%GUEST%", m_pUi->comboBox_club_guest->currentText() );
 
 	// intermediate score
-	const std::pair<unsigned,unsigned> wins1st =
+	std::pair<unsigned,unsigned> wins =
 		m_pController->GetTournamentScoreModel(0)->GetTotalWins();
-	m_htmlScore.replace( "%WINS_HOME%", QString::number(wins1st.first) );
-	m_htmlScore.replace( "%WINS_GUEST%", QString::number(wins1st.second) );
-	const std::pair<unsigned,unsigned> score1st =
+	m_htmlScore.replace( "%WINS_HOME%", QString::number(wins.first) );
+	m_htmlScore.replace( "%WINS_GUEST%", QString::number(wins.second) );
+	std::pair<unsigned,unsigned> score =
 		m_pController->GetTournamentScoreModel(0)->GetTotalScore();
-	m_htmlScore.replace( "%SCORE_HOME%", QString::number(score1st.first) );
-	m_htmlScore.replace( "%SCORE_GUEST%", QString::number(score1st.second) );
+	m_htmlScore.replace( "%SCORE_HOME%", QString::number(score.first) );
+	m_htmlScore.replace( "%SCORE_GUEST%", QString::number(score.second) );
 
 	// final score
-	const std::pair<unsigned,unsigned> wins2nd =
+	std::pair<unsigned,unsigned> wins2 =
 		m_pController->GetTournamentScoreModel(1)->GetTotalWins();
-	const std::pair<unsigned,unsigned> totalWins =
-			std::make_pair(wins1st.first + wins2nd.first,
-						   wins1st.second + wins2nd.second);
-	m_htmlScore.replace( "%TOTAL_WINS_HOME%", QString::number(totalWins.first) );
-	m_htmlScore.replace( "%TOTAL_WINS_GUEST%", QString::number(totalWins.second) );
-	const std::pair<unsigned,unsigned> score2nd =
+	m_htmlScore.replace( "%TOTAL_WINS_HOME%", QString::number(wins.first + wins2.first) );
+	m_htmlScore.replace( "%TOTAL_WINS_GUEST%", QString::number(wins.second + wins2.second) );
+	std::pair<unsigned,unsigned> score2 =
 		m_pController->GetTournamentScoreModel(1)->GetTotalScore();
-	const std::pair<unsigned,unsigned> totalScore =
-			std::make_pair(score1st.first + score2nd.first,
-						   score1st.second + score2nd.second);
-	m_htmlScore.replace( "%TOTAL_SCORE_HOME%", QString::number(totalScore.first) );
-	m_htmlScore.replace( "%TOTAL_SCORE_GUEST%", QString::number(totalScore.second) );
-
-
-	QString winner = tr("tie");
-	if( totalWins.first > totalWins.second )
-		winner = m_pUi->comboBox_club_home->currentText();
-	else if( totalWins.first < totalWins.second )
-		winner = m_pUi->comboBox_club_guest->currentText();
-
-	m_htmlScore.replace( "%WINNER%", winner );
+	m_htmlScore.replace( "%TOTAL_SCORE_HOME%", QString::number(score.first + score2.first) );
+	m_htmlScore.replace( "%TOTAL_SCORE_GUEST%", QString::number(score.second + score2.second) );
 
 	// first round
 	QString rounds;
-	for(int i(0); i<m_pController->GetFightCount(); ++i)
+	for(int i(0); i<Ipponboard::eTournament_FightCount; ++i)
 	{
 		const Fight& fight(m_pController->GetFight(0, i));
 
@@ -698,9 +655,7 @@ void MainWindow::WriteScoreToHtml_()
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
 		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
-		round.append("<td><center>" + fight.GetRoundTimeUsedText(
-				m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
-		round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+		round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
 		round.append("</tr>\n");
 		rounds.append(round);
 	}
@@ -708,7 +663,7 @@ void MainWindow::WriteScoreToHtml_()
 
 	// second round
 	rounds.clear();
-	for(int i(0); i<m_pController->GetFightCount(); ++i)
+	for(int i(0); i<Ipponboard::eTournament_FightCount; ++i)
 	{
 		const Fight& fight(m_pController->GetFight(1, i));
 
@@ -736,9 +691,7 @@ void MainWindow::WriteScoreToHtml_()
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
 		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
-		round.append("<td><center>" + fight.GetRoundTimeUsedText(
-				m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
-		round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+		round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
 		round.append("</tr>\n");
 		rounds.append(round);
 	}
@@ -836,11 +789,6 @@ void MainWindow::on_actionReset_Scores_triggered()
 			tr("Really reset complete score table?"),
 			QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes )
 		m_pController->ClearFights();
-
-#ifdef TEAM_VIEW
-	UpdateFightNumber_();
-#endif
-
 }
 
 //=========================================================
@@ -1451,7 +1399,7 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
 }
 
 #ifdef TEAM_VIEW
-void MainWindow::on_toolButton_weights_pressed()
+void MainWindow::on_pushButton_weights_pressed()
 {
 	bool ok(false);
 	const QString weights = QInputDialog::getText(
@@ -1467,7 +1415,7 @@ void MainWindow::on_toolButton_weights_pressed()
 		{
 			QMessageBox::critical(this, "Wrong values",
 				"You need to specify 5 weight classes separated by ';'!" );
-			on_toolButton_weights_pressed();
+			on_pushButton_weights_pressed();
 		}
 		else
 		{
@@ -1503,10 +1451,7 @@ void MainWindow::on_actionSet_Round_Time_triggered()
 }
 void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
 {
-	if( s == str_mode_1te_bundesliga_nord ||
-		s == str_mode_1te_bundesliga_sued ||
-		s == str_mode_2te_bundesliga_nord ||
-		s == str_mode_2te_bundesliga_sued )
+	if( s == str_mode_bundesliga )
 	{
 		m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
 		m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
@@ -1516,13 +1461,6 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
 		m_pController->GetTournamentScoreModel(0)->SetNumRows(10);
 		m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
 	}
-
-	// set mode text as mat label
-	m_pPrimaryView->SetMat(s);
-	m_pSecondaryView->SetMat(s);
-
-	m_pPrimaryView->UpdateView();
-	m_pSecondaryView->UpdateView();
 }
 
 void MainWindow::on_button_current_round_clicked(bool checked)

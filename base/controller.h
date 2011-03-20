@@ -64,7 +64,6 @@ public:
 	void ResetTimerValue( Ipponboard::ETimer timer );
 	void SetRoundTime( const QString& value );
 	QString GetRoundTime() const;
-	int GetRoundTimeSecs() const;
 	void SetRoundTime( const QTime& time );
 	int GetRound() const;
 	void SetWeightClass(QString const& c);
@@ -86,10 +85,7 @@ private:
 public:
 	// --- other functions ---
 	int GetFightCount() const
-	{
-		Q_ASSERT(m_TournamentModelsPtrs[0]);
-		return m_TournamentModelsPtrs[0]->GetNumRows();
-	}
+	{ return 10; }
 
 	void SetCurrentFight( unsigned int index );
 
