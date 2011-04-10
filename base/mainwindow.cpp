@@ -640,17 +640,17 @@ void MainWindow::WriteScoreToHtml_()
 		round.append("<td><center>" + QString::number(i+1) + "</center></td>"); // number
 		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
 		round.append("<td><center>" + name_blue + "</center></td>"); // name
-		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
+		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
+		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
 		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
 		round.append("<td><center>" + name_white + "</center></td>"); // name
-		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
+		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
+		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
@@ -676,17 +676,17 @@ void MainWindow::WriteScoreToHtml_()
 		round.append("<td><center>" + QString::number(i+1) + "</center></td>"); // number
 		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
 		round.append("<td><center>" + name_blue + "</center></td>"); // name
-		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
+		round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
+		round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
 		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
 		round.append("<td><center>" + name_white + "</center></td>"); // name
-		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
+		round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
+		round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won

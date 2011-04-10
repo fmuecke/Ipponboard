@@ -58,33 +58,44 @@ namespace Ipponboard
 
 			if( scores[tori].Ippon() || scores[tori].IsAwaseteIppon() )
 				return true;
+
 			if( scores[uke].Ippon() || scores[uke].IsAwaseteIppon() )
 				return false;
+
 			if( scores[tori].Wazaari() > scores[uke].Wazaari() )
 				return true;
+
 			if( scores[tori].Wazaari() < scores[uke].Wazaari() )
 				return false;
+
 			if( scores[tori].Yuko() > scores[uke].Yuko() )
 				return true;
+
 			return false;
 		}
+
 		int ScorePoints(EFighter who) const
 		{
-			if( HasWon(who) )
+			const EFighter tori = who;
+			const EFighter uke = (tori == eFighter_Blue)?
+								eFighter_White : eFighter_Blue;
+			if( HasWon(tori) )
 			{
-				if( scores[who].Ippon() || scores[who].IsAwaseteIppon() )
+				if( scores[tori].Ippon() || scores[tori].IsAwaseteIppon() )
 					return eScore_Ippon;
-				if( scores[who].Wazaari() > 0)
+
+				// Only the fight deciding point is taken into account!
+				if( scores[tori].Wazaari() > 0 &&
+					scores[tori].Wazaari() > scores[uke].Wazaari() )
 					return eScore_Wazaari;
-				if( scores[who].Yuko() > 0 )
+
+				if( scores[tori].Yuko() > 0 )
 					return eScore_Yuko;
+
 				//TODO: Hantei!
 			}
 			else
 			{
-				const EFighter tori = who;
-				const EFighter uke = (tori == eFighter_Blue)?
-									eFighter_White : eFighter_Blue;
 				if ( !HasWon(uke) )
 					return eScore_Hikewake;
 			}
