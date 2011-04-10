@@ -588,7 +588,7 @@ void MainWindow::UpdateScoreScreen_()
 void MainWindow::WriteScoreToHtml_()
 //=========================================================
 {
-	QFile file("templates\\list_output.html");
+	QFile file("templates\\list_output_bay.html");
 	if( !file.open(QFile::ReadOnly) )
 	{
 		QMessageBox::critical( this, tr("File open error"),
