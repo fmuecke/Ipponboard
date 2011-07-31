@@ -1,7 +1,7 @@
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
 
-SplashScreen::SplashScreen(data const& data, QWidget *parent) :
+SplashScreen::SplashScreen(Data const& data, QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::SplashScreen)
 {

@@ -11,14 +11,14 @@ namespace Ui {
 class SplashScreen : public QDialog {
 	Q_OBJECT
 public:
-	struct data
+	struct Data
 	{
 		QDate date;
 		QString text;
 		QString info;
 	};
 
-	SplashScreen(data const& data, QWidget *parent = 0);
+	SplashScreen(Data const& data, QWidget *parent = 0);
 	~SplashScreen();
 
 protected:

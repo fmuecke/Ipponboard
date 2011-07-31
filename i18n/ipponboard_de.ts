@@ -91,96 +91,121 @@
 <context>
     <name>FightCategoryManagerDlg</name>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="14"/>
         <source>Manage Fight Categories</source>
-        <translation type="obsolete">Kategorien verwalten</translation>
+        <translation>Kategorien verwalten</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="55"/>
         <source>Category</source>
-        <translation type="obsolete">Kategorie</translation>
+        <translation>Kategorie</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="58"/>
         <source>The name of the category</source>
-        <translation type="obsolete">Der Name der Kategorie (Altersklasse)</translation>
+        <translation>Der Name der Kategorie (Altersklasse)</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="63"/>
         <source>Time</source>
-        <translation type="obsolete">Zeit</translation>
+        <translation>Zeit</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="66"/>
         <source>Round Time</source>
-        <translation type="obsolete">Rundenzeit</translation>
+        <translation>Rundenzeit</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="74"/>
         <source>GS</source>
-        <translation type="obsolete">GS</translation>
+        <translation>GS</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="77"/>
         <source>Golden Score Time</source>
-        <translation type="obsolete">Golden-Score Zeit</translation>
+        <translation>Golden-Score Zeit</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="85"/>
         <source>Weights</source>
-        <translation type="obsolete">Gewichtsklassen</translation>
+        <translation>Gewichtsklassen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="88"/>
         <source>The weight classes (comma separated)</source>
-        <translation type="obsolete">Die Gewichtsklassen (getrennt durch Kommas)</translation>
+        <translation>Die Gewichtsklassen (getrennt durch Kommas)</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="104"/>
         <source>Move category up</source>
-        <translation type="obsolete">Kategorie nach oben verschieben</translation>
+        <translation>Kategorie nach oben verschieben</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="107"/>
         <source>Up</source>
-        <translation type="obsolete">Hoch</translation>
+        <translation>Hoch</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="118"/>
         <source>Move category down</source>
-        <translation type="obsolete">Kategorie nach unten verschieben</translation>
+        <translation>Kategorie nach unten verschieben</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="121"/>
         <source>Down</source>
-        <translation type="obsolete">Runter</translation>
+        <translation>Runter</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="145"/>
         <source>Add a new category</source>
-        <translation type="obsolete">Neue Kategorie hinzufügen</translation>
+        <translation>Neue Kategorie hinzufügen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="148"/>
         <source>Add</source>
-        <translation type="obsolete">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="159"/>
         <source>Remove the currently selected weight class</source>
-        <translation type="obsolete">Entfernt die gerade ausgewählte Kategorie</translation>
+        <translation>Entfernt die gerade ausgewählte Kategorie</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.ui" line="162"/>
         <source>Remove</source>
-        <translation type="obsolete">Entfernen</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="23"/>
         <source>Ok</source>
-        <translation type="obsolete">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="24"/>
         <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="61"/>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="74"/>
         <source>Add new category</source>
-        <translation type="obsolete">Neue Kategorie hinzufügen</translation>
+        <translation>Neue Kategorie hinzufügen</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="62"/>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="75"/>
         <source>Enter the name of the new category</source>
-        <translation type="obsolete">Geben Sie den Namen der neuen Kategorie ein</translation>
+        <translation>Geben Sie den Namen der neuen Kategorie ein</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="71"/>
         <source>This category already exists. Please choose an other name.</source>
-        <translation type="obsolete">Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
+        <translation>Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanagerdlg.cpp" line="240"/>
         <source>This name is already taken!</source>
-        <translation type="obsolete">Dieser Name ist bereits vergeben!</translation>
+        <translation>Dieser Name ist bereits vergeben!</translation>
     </message>
 </context>
 <context>
@@ -214,7 +239,7 @@
     <message>
         <location filename="../base/settingsdlg.cpp" line="31"/>
         <source>WHITE</source>
-        <translation type="unfinished">WEISS</translation>
+        <translation>WEISS</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.cpp" line="165"/>
@@ -286,114 +311,79 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="35"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="30"/>
         <source>Ipponboard</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="87"/>
         <source>Score Table</source>
-        <translation>Punktetabelle</translation>
+        <translation type="obsolete">Punktetabelle</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="98"/>
         <source>Home</source>
-        <translation>Heim</translation>
+        <translation type="obsolete">Heim</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="105"/>
         <source>Guest</source>
-        <translation>Gast</translation>
+        <translation type="obsolete">Gast</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="112"/>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation type="obsolete">Datum</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="152"/>
-        <source>-10;-20;-33;+30</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="168"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="190"/>
         <source>Location</source>
-        <translation>Ort</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../TeamTournament/mainwindow.ui" line="197"/>
-        <source>Königsbrunn</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ort</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="217"/>
         <source>Weights</source>
-        <translation>Gewichtsklassen</translation>
+        <translation type="obsolete">Gewichtsklassen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="224"/>
         <source>Mode</source>
-        <translation>Modus</translation>
+        <translation type="obsolete">Modus</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="317"/>
         <source>Copy &amp;&amp; switch guest</source>
-        <translation>Kopieren (und Gäste tauschen)</translation>
+        <translation type="obsolete">Kopieren (und Gäste tauschen)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="337"/>
         <source>Score after 1st Round:</source>
-        <translation>Zwischenstand nach erster Runde:</translation>
+        <translation type="obsolete">Zwischenstand nach erster Runde:</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="378"/>
-        <location filename="../TeamTournament/mainwindow.ui" line="584"/>
         <source>(Wins)</source>
-        <translation>(Siege)</translation>
+        <translation type="obsolete">(Siege)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="422"/>
-        <location filename="../TeamTournament/mainwindow.ui" line="640"/>
         <source>(Sub Score)</source>
-        <translation>(Unterbw.)</translation>
+        <translation type="obsolete">(Unterbw.)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="531"/>
         <source>Final Score:</source>
-        <translation>Endstand:</translation>
+        <translation type="obsolete">Endstand:</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="654"/>
         <source>Score Control</source>
-        <translation>Anzeige</translation>
+        <translation type="obsolete">Anzeige</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="727"/>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="762"/>
         <source>Fight</source>
-        <translation>Kampf</translation>
+        <translation type="obsolete">Kampf</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="779"/>
-        <source>1/10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="789"/>
         <source>Show Result Screen</source>
-        <translation>Ergebnisbildschirm</translation>
+        <translation type="obsolete">Ergebnisbildschirm</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="799"/>
         <location filename="../base/mainwindow.cpp" line="1477"/>
         <source>1st Round</source>
         <translation>1. Runde</translation>
@@ -407,20 +397,16 @@
         <translation type="obsolete">Aktuelle Runde</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1045"/>
-        <location filename="../TeamTournament/mainwindow.ui" line="1048"/>
         <source>Results as PDF</source>
-        <translation>Ergebnis als PDF</translation>
+        <translation type="obsolete">Ergebnis als PDF</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1140"/>
         <source>Set Round Time</source>
-        <translation>Rundenzeit setzen</translation>
+        <translation type="obsolete">Rundenzeit setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1143"/>
         <source>Set round time for all fights</source>
-        <translation>Rundenzeit für alle Kämpfe setzen</translation>
+        <translation type="obsolete">Rundenzeit für alle Kämpfe setzen</translation>
     </message>
     <message>
         <source>Prev Fight</source>
@@ -431,7 +417,7 @@
         <translation type="obsolete">Nächster</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="705"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="259"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -448,117 +434,117 @@
         <translation type="obsolete">Matte</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="273"/>
         <source>Class</source>
-        <translation type="obsolete">Klasse</translation>
+        <translation>Klasse</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="266"/>
         <source>Round Time</source>
-        <translation type="obsolete">Rundenzeit</translation>
+        <translation>Rundenzeit</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="126"/>
         <source>White Fighter (first last)</source>
-        <translation type="obsolete">Kämpfer Weiß (Vorname Nachname)</translation>
+        <translation>Kämpfer Weiß (Vorname Nachname)</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="168"/>
         <source>Blue Fighter (first last)</source>
-        <translation type="obsolete">Kämpfer Blau (Vorname Nachname)</translation>
+        <translation>Kämpfer Blau (Vorname Nachname)</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="204"/>
         <source>Weight</source>
-        <translation type="obsolete">Gewicht</translation>
+        <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="828"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="obsolete">Datei</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="840"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation type="obsolete">Über</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="850"/>
         <source>View</source>
-        <translation>Anzeige</translation>
+        <translation type="obsolete">Anzeige</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="857"/>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation type="obsolete">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="861"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="344"/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="864"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="347"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="879"/>
         <source>Manage</source>
-        <translation>Verwaltung</translation>
+        <translation type="obsolete">Verwaltung</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="904"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="388"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="544"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="907"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="391"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="915"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="399"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="536"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="918"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="402"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="923"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="407"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="926"/>
         <source>End Ipponboard</source>
-        <translation>Ipponboard beenden</translation>
+        <translation type="obsolete">Ipponboard beenden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="929"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="413"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="941"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="425"/>
         <source>Visit Project Homepage</source>
         <translation>Projektseite besuchen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="950"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="434"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="953"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="437"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="965"/>
         <source>Show Secondary View</source>
-        <translation>Zweite Anzeige anzeigen</translation>
+        <translation type="obsolete">Zweite Anzeige anzeigen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="968"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="452"/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die Sekundäre Anzeige an/aus</translation>
     </message>
@@ -567,113 +553,129 @@
         <translation type="obsolete">Zweite Anzeige anzeigen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="211"/>
         <source>Plays the signal sound file</source>
-        <translation type="obsolete">Spielt das Mattensignal ab</translation>
+        <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="214"/>
         <source>Signal</source>
-        <translation type="obsolete">Signal</translation>
+        <translation>Signal</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="225"/>
         <source>Choose between normal and &quot;golden score&quot; round time</source>
-        <translation type="obsolete">Wählt zwischen normaler und &quot;Golden Score&quot; Rundenzeit</translation>
+        <translation>Wählt zwischen normaler und &quot;Golden Score&quot; Rundenzeit</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="256"/>
         <source>Reset all clocks and scores</source>
-        <translation type="obsolete">Alle Uhren und Punkte zurücksetzen</translation>
+        <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="308"/>
         <source>&amp;File</source>
-        <translation type="obsolete">&amp;Datei</translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="323"/>
         <source>&amp;About</source>
-        <translation type="obsolete">Ü&amp;ber</translation>
+        <translation>Ü&amp;ber</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="333"/>
         <source>&amp;View</source>
-        <translation type="obsolete">&amp;Anzeige</translation>
+        <translation>&amp;Anzeige</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="340"/>
         <source>&amp;Settings</source>
-        <translation type="obsolete">&amp;Einstellungen</translation>
+        <translation>&amp;Einstellungen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="361"/>
         <source>&amp;Manage</source>
-        <translation type="obsolete">&amp;Verwaltung</translation>
+        <translation>&amp;Verwaltung</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="883"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="365"/>
         <source>Timers</source>
         <translation>Zeitnehmer</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="410"/>
         <source>Leave Ipponboard</source>
-        <translation type="obsolete">Ipponboard verlassen</translation>
+        <translation>Ipponboard verlassen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="449"/>
         <source>Secondary View</source>
-        <translation type="obsolete">Zweite Anzeige</translation>
+        <translation>Zweite Anzeige</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="971"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="455"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="460"/>
         <source>Select Font</source>
-        <translation type="obsolete">Schriftart ändern</translation>
+        <translation>Schriftart ändern</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="465"/>
         <source>Select Color</source>
-        <translation type="obsolete">Farbe ändern</translation>
+        <translation>Farbe ändern</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="976"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="470"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="552"/>
         <source>Clubs</source>
         <translation>Vereine</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="979"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="473"/>
         <source>Manage Clubs</source>
         <translation>Vereinsverwaltung</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="984"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="478"/>
         <location filename="../base/mainwindow.cpp" line="788"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="483"/>
         <source>Change Background</source>
-        <translation type="obsolete">Hintergrund ändern</translation>
+        <translation>Hintergrund ändern</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="996"/>
-        <location filename="../TeamTournament/mainwindow.ui" line="999"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="495"/>
         <source>Play Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1002"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="498"/>
         <source>Plays the mat signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="676"/>
         <source>Set Hold Time</source>
-        <translation type="obsolete">Haltegriffzeit setzen</translation>
+        <translation>Haltegriffzeit setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1113"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="679"/>
         <source>Set the hold timer to a certain value</source>
         <translation>Um die Haltegriffzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="684"/>
         <source>Set Main Time</source>
-        <translation type="obsolete">Kampfzeit setzen</translation>
+        <translation>Kampfzeit setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1121"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="687"/>
         <source>Set the main timer to a certain value</source>
         <translation>Um die Kampfzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
@@ -682,81 +684,85 @@
         <translation type="obsolete">Gong Testen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1005"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="501"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1010"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="506"/>
         <source>Controller</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1019"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="515"/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1024"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="520"/>
         <source>Load Demo Data</source>
         <translation>Beispielwerte laden</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="528"/>
         <source>New</source>
-        <translation type="obsolete">Neu</translation>
+        <translation>Neu</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="560"/>
         <source>Lists</source>
-        <translation type="obsolete">Listen</translation>
+        <translation>Listen</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="568"/>
         <source>Import List</source>
-        <translation type="obsolete">Liste importieren</translation>
+        <translation>Liste importieren</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="576"/>
         <source>Export List</source>
-        <translation type="obsolete">Liste exportieren</translation>
+        <translation>Liste exportieren</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="597"/>
         <source>Fight Categories</source>
-        <translation type="obsolete">Kategorien</translation>
+        <translation>Kategorien</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1057"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="606"/>
         <source>Provide Feedback (Online)</source>
         <translation>Feedback (Online)</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="609"/>
         <source>Manage Fight Categories</source>
-        <translation type="obsolete">Kategorien verwalten</translation>
+        <translation>Kategorien verwalten</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1066"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="618"/>
         <source>Contact Author</source>
         <translation>Autor kontaktieren</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1110"/>
         <source>Set Hold Timer</source>
-        <translation>Haltegriffzeit setzen</translation>
+        <translation type="obsolete">Haltegriffzeit setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1118"/>
         <source>Set Main Timer</source>
-        <translation>Kampfzeit setzen</translation>
+        <translation type="obsolete">Kampfzeit setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1132"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="668"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1135"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="671"/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/mainwindow.ui" line="1036"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="588"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
@@ -926,8 +932,28 @@ und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&l
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../SingleTournament/main.cpp" line="74"/>
+        <location filename="../SingleTournament/main.cpp" line="84"/>
         <source>Warning</source>
-        <translation type="obsolete">Vorsicht</translation>
+        <translation>Vorsicht</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/main.cpp" line="75"/>
+        <source>This version is no longer valid!
+
+You need to visit the project homepage for an update.</source>
+        <translation>Diese Version ist nicht länger gültig.
+
+Bitte besuchen Sie die Programmhomepage für ein Update!</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/main.cpp" line="85"/>
+        <source>This version will stop to work in less than 30 days!
+
+Please visit the project homepage - there should be a newer version available.</source>
+        <translation>Diese Version wird in weniger als 30 Tagen ablaufen.
+
+Bitte besuchen Sie die Projekthomepage - dort sollte sich eine neuere Version finden!</translation>
     </message>
     <message>
         <source>This version is no longer valid!
@@ -945,24 +971,25 @@ Please visit the project webpage - there should be a newer one available.</sourc
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../base/fightcategorymanager.cpp" line="225"/>
         <source>Error</source>
-        <translation type="obsolete">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <source>Unable to parse %1!</source>
         <translation type="obsolete">Kann %1 nicht parsen!</translation>
     </message>
     <message>
+        <location filename="../base/fightcategorymanager.cpp" line="226"/>
         <source>Unable to save %1!</source>
-        <translation type="obsolete">Kann %1 nicht speichern!</translation>
+        <translation>Kann %1 nicht speichern!</translation>
     </message>
 </context>
 <context>
     <name>ScoreScreen</name>
     <message>
-        <location filename="../TeamTournament/scorescreen.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Mannschaftswertung</translation>
+        <translation type="obsolete">Mannschaftswertung</translation>
     </message>
 </context>
 <context>
@@ -983,16 +1010,16 @@ Please visit the project webpage - there should be a newer one available.</sourc
 <context>
     <name>ScoreViewVerticalSingle</name>
     <message>
+        <location filename="../SingleTournament/view_vertical_single.ui" line="17"/>
         <source>IpponBoard View</source>
-        <translation type="obsolete">Anzeigetafel</translation>
+        <translation>Anzeigetafel</translation>
     </message>
 </context>
 <context>
     <name>ScoreViewVerticalTeam</name>
     <message>
-        <location filename="../TeamTournament/view_vertical_team.ui" line="17"/>
         <source>IpponBoard View</source>
-        <translation>Anzeigetafel</translation>
+        <translation type="obsolete">Anzeigetafel</translation>
     </message>
 </context>
 <context>
@@ -1421,32 +1448,38 @@ Please visit the project webpage - there should be a newer one available.</sourc
 <context>
     <name>SplashScreen</name>
     <message>
+        <location filename="../widgets/splashscreen.ui" line="17"/>
         <source>License Information</source>
-        <translation type="obsolete">Lizenzinformation</translation>
+        <translation>Lizenzinformation</translation>
     </message>
     <message>
+        <location filename="../widgets/splashscreen.ui" line="146"/>
         <source>Ipponboard</source>
-        <translation type="obsolete">Ipponboard</translation>
+        <translation>Ipponboard</translation>
     </message>
     <message utf8="true">
         <source>(c) 2010-2011 Florian Mücke</source>
         <translation type="obsolete">(c) 2010-2011 Florian Mücke</translation>
     </message>
     <message utf8="true">
+        <location filename="../widgets/splashscreen.ui" line="165"/>
         <source>(c) 2010 Florian Mücke</source>
-        <translation type="obsolete">(c) 2010 Florian Mücke</translation>
+        <translation>(c) 2010 Florian Mücke</translation>
     </message>
     <message>
+        <location filename="../widgets/splashscreen.ui" line="200"/>
         <source>Accept the terms of usage</source>
-        <translation type="obsolete">Nutzungsbedingungen akzeptieren</translation>
+        <translation>Nutzungsbedingungen akzeptieren</translation>
     </message>
     <message>
+        <location filename="../widgets/splashscreen.ui" line="203"/>
         <source>I aggree</source>
-        <translation type="obsolete">Ich stimme zu</translation>
+        <translation>Ich stimme zu</translation>
     </message>
     <message>
+        <location filename="../widgets/splashscreen.ui" line="226"/>
         <source>No, thanks!</source>
-        <translation type="obsolete">Nein, danke!</translation>
+        <translation>Nein, danke!</translation>
     </message>
 </context>
 <context>

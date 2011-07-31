@@ -54,14 +54,13 @@ int main(int argc, char *argv[])
 	f.close();
 	const QString text = QTextCodec::codecForHtml(data)->toUnicode(data);
 
-	SplashScreen::data splashData;
+	SplashScreen::Data splashData;
 	splashData.text = text;
 	splashData.info = QCoreApplication::applicationName()
-					  + " v"
-					  + QCoreApplication::applicationVersion()
+					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2011, 6, 30);
+	splashData.date = QDate(2011, 12, 31);
 	SplashScreen splash(splashData);
 
 	if( QDialog::Accepted != splash.exec() )
@@ -74,7 +73,7 @@ int main(int argc, char *argv[])
 			QCoreApplication::tr("Warning"),
 			QCoreApplication::tr(
 				"This version is no longer valid!\n\n"
-				"You need to visit the project webpage for an update."));
+				"You need to visit the project homepage for an update."));
 
 		return 0;
 	}
@@ -84,7 +83,7 @@ int main(int argc, char *argv[])
 			QCoreApplication::tr("Warning"),
 			QCoreApplication::tr(
 				"This version will stop to work in less than 30 days!\n\n"
-				"Please visit the project webpage - there should be a newer one available."));
+				"Please visit the project homepage - there should be a newer version available."));
 	}
 
 	MainWindow w;
