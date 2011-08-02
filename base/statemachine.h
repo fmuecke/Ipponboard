@@ -163,13 +163,13 @@ public:
 	template<>
 	void start_timer(Hajime_Mate const& /*evt*/)
 	{
-		m_pCore->start_timer( eTimer_Main );
 		m_pCore->reset_timer( eTimer_Hold );
+		m_pCore->start_timer( eTimer_Main );
 	}
 	template<>
 	void start_timer( Osaekomi_Toketa const& /*evt*/ )
 	{
-		//m_pCore->ResetTimer_( eTimer_Hold );
+		//m_pCore->reset_timer( eTimer_Hold );
 		m_pCore->start_timer( eTimer_Hold );
 	}
 	void yoshi( Osaekomi_Toketa const& /*evt*/ )

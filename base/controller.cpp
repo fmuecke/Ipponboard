@@ -305,7 +305,7 @@ void Controller::reset()
 void Controller::reset_timer_value( Ipponboard::ETimer timer )
 //=========================================================
 {
-	// Note: 
+	// Note:
 	//  just reset values - nothing more, nothing less
 
 	if( eTimer_Main == timer )
@@ -561,18 +561,14 @@ void Controller::reset_fight()
 void Controller::reset_timer( ETimer t )
 //=========================================================
 {
+	// called by statemachine
+
 	if( eTimer_Hold == t )
 	{
-		//m_pTimerHold->stop();
-		*m_pTimeHold = QTime();
 		m_Tori = eFighter_Nobody;
 	}
-	else
-	{
-		//m_pTimerMain->stop();
-		*m_pTimeMain = m_roundTime;
-	}
 
+	reset_timer_value(t);
 	update_views();
 }
 
