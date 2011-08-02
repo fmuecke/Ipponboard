@@ -61,14 +61,14 @@ void ClubManager::AddClub( const Ipponboard::Club& club )
 }
 
 //---------------------------------------------------------
-void ClubManager::UpdateClub( int index, const Ipponboard::Club& club )
+void ClubManager::UpdateClub( unsigned int index, const Ipponboard::Club& club )
 //---------------------------------------------------------
 {
 	m_Clubs.at(index) = club;
 }
 
 //---------------------------------------------------------
-void ClubManager::RemoveClub( int index )
+void ClubManager::RemoveClub( unsigned int index )
 //---------------------------------------------------------
 {
 	Q_ASSERT(index<m_Clubs.size() && index >= 0);

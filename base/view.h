@@ -74,7 +74,6 @@ protected:
 private slots:
 	void setOsaekomiBlue_();
 	void setOsaekomiWhite_();
-	void resetOsaekomiTimerValue_();
 	//void yoshi_();
 	void resetMainTimerValue_();
 	void blink_();

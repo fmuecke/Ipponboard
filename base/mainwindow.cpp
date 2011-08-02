@@ -857,7 +857,7 @@ void MainWindow::on_button_reset_clicked()
 //							   tr("Really reset current fight?"),
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
-		m_pController->DoAction(Ipponboard::eAction_Reset,
+		m_pController->DoAction(Ipponboard::eAction_ResetAll,
 								Ipponboard::eFighter_Nobody,
 								false);
 }
@@ -875,10 +875,13 @@ void MainWindow::EvaluateInput()
 	{
 		m_pController->DoAction( eAction_Hajime_Mate, eFighter_Nobody );
 	}
-	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_blue)) ||
-			 m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_white)) )
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_blue)) )
 	{
-		m_pController->DoAction( eAction_ResetOsaeKomi, eFighter_Nobody );
+		m_pController->DoAction( eAction_ResetOsaeKomi, eFighter_Blue, true );
+	}
+	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_white)) )
+	{
+		m_pController->DoAction( eAction_ResetOsaeKomi, eFighter_White, true );
 	}
 	else if( m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_blue)) )
 	{
@@ -909,7 +912,7 @@ void MainWindow::EvaluateInput()
 		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset)) &&
 		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset_2)) )
 	{
-		m_pController->DoAction(eAction_Reset, eFighter_Nobody );
+		m_pController->DoAction(eAction_ResetAll, eFighter_Nobody );
 	}
 	// back
 #ifdef TEAM_VIEW

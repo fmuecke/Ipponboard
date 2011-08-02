@@ -61,8 +61,8 @@ public:
 
 	// overwrites an existing club!
 	void AddClub( const Ipponboard::Club& club );
-	void UpdateClub( int index, const Ipponboard::Club& club );
-	void RemoveClub( int index );
+	void UpdateClub( unsigned int index, const Ipponboard::Club& club );
+	void RemoveClub( unsigned int index );
 	int ClubCount() const { return m_Clubs.size(); }
 
 private:

@@ -493,40 +493,42 @@ void View::mousePressEvent(QMouseEvent* event)
 		{
 			if( doRevoke )  // right click!
 			{
-				resetOsaekomiTimerValue_();
-				return;
-			}
-
-			whos = eFighter_Blue;
-
-			if( eState_Holding == m_pController->GetCurrentState() &&
-				GVF_(eFighter_Blue) != m_pController->GetLead() )
-			{
-				action = eAction_SetOsaekomi;
+				action = eAction_ResetOsaeKomi;
 			}
 			else
 			{
-				action = eAction_OsaeKomi_Toketa;
+				whos = eFighter_Blue;
+
+				if( eState_Holding == m_pController->GetCurrentState() &&
+					GVF_(eFighter_Blue) != m_pController->GetLead() )
+				{
+					action = eAction_SetOsaekomi;
+				}
+				else
+				{
+					action = eAction_OsaeKomi_Toketa;
+				}
 			}
 		}
 		else if ( child == ui->text_hold_clock_white )
 		{
 			if( doRevoke )  // right click!
 			{
-				resetOsaekomiTimerValue_();
-				return;
-			}
-
-			whos = eFighter_White;
-
-			if( eState_Holding == m_pController->GetCurrentState() &&
-				GVF_(eFighter_White) != m_pController->GetLead() )
-			{
-				action = eAction_SetOsaekomi;
+				action = eAction_ResetOsaeKomi;
 			}
 			else
 			{
-				action = eAction_OsaeKomi_Toketa;
+				whos = eFighter_White;
+
+				if( eState_Holding == m_pController->GetCurrentState() &&
+					GVF_(eFighter_White) != m_pController->GetLead() )
+				{
+					action = eAction_SetOsaekomi;
+				}
+				else
+				{
+					action = eAction_OsaeKomi_Toketa;
+				}
 			}
 		}
 		else if ( child == ui->text_ippon_white )
@@ -620,17 +622,10 @@ void View::setOsaekomiWhite_()
 }
 
 //=========================================================
-void View::resetOsaekomiTimerValue_()
-//=========================================================
-{
-	m_pController->ResetTimerValue(eTimer_Hold);
-}
-
-//=========================================================
 void View::resetMainTimerValue_()
 //=========================================================
 {
-	m_pController->ResetTimerValue(eTimer_Main);
+	m_pController->DoAction( eAction_ResetMainTimer, eFighter_Nobody, true/*doRevoke*/ );
 }
 
 //=========================================================

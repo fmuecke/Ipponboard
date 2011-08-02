@@ -136,6 +136,14 @@ void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
 			m_pSM->process_event(IpponboardSM_::RevokeShidoHM(whos));
 			break;
 
+		case eAction_ResetOsaeKomi:
+			reset_timer_value( eTimer_Hold );
+			break;
+
+		case eAction_ResetMainTimer:
+			reset_timer_value( eTimer_Main );
+			break;
+
 		default:
 			return;
 		}
@@ -182,12 +190,8 @@ void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
 			m_Tori = whos;
 			break;
 
-		case eAction_Reset:
+		case eAction_ResetAll:
 			m_pSM->process_event(IpponboardSM_::Reset());
-			break;
-
-		case eAction_ResetOsaeKomi:
-			m_pTimeHold->setHMS(0,0,0,0);
 			break;
 
 		default:
@@ -283,10 +287,11 @@ void Controller::reset()
 	Q_ASSERT(m_pTimeHold);
 
 	m_pTimerMain->stop();
-	m_pTimerHold->stop();
+	reset_timer_value( eTimer_Main );
 
-	ResetTimerValue(eTimer_Main);
-	ResetTimerValue(eTimer_Hold);
+	m_pTimerHold->stop();
+	reset_timer_value( eTimer_Hold );
+	m_Tori = eFighter_Nobody;
 
 	m_isSonoMama = false;
 
@@ -295,6 +300,24 @@ void Controller::reset()
 
 	update_views();
 }
+
+//=========================================================
+void Controller::reset_timer_value( Ipponboard::ETimer timer )
+//=========================================================
+{
+	// Note: 
+	//  just reset values - nothing more, nothing less
+
+	if( eTimer_Main == timer )
+	{
+		*m_pTimeMain = m_roundTime;
+	}
+	else if( eTimer_Hold == timer )
+	{
+		m_pTimeHold->setHMS(0,0,0,0);
+	}
+}
+
 
 //=========================================================
 const QString Controller::GetTimeText( ETimer timer ) const
@@ -435,22 +458,6 @@ void Controller::SetTimerValue( Ipponboard::ETimer timer, const QString& value )
 }
 
 //=========================================================
-void Controller::ResetTimerValue( Ipponboard::ETimer timer )
-//=========================================================
-{
-	if( eTimer_Main == timer )
-	{
-		*m_pTimeMain = m_roundTime;
-	}
-	else if( eTimer_Hold == timer )
-	{
-		m_pTimeHold->setHMS(0,0,0,0);
-		m_Tori = eFighter_Nobody;
-	}
-	update_views();
-}
-
-//=========================================================
 void Controller::SetRoundTime( const QString& value )
 //=========================================================
 {
@@ -556,11 +563,13 @@ void Controller::reset_timer( ETimer t )
 {
 	if( eTimer_Hold == t )
 	{
+		//m_pTimerHold->stop();
 		*m_pTimeHold = QTime();
 		m_Tori = eFighter_Nobody;
 	}
 	else
 	{
+		//m_pTimerMain->stop();
 		*m_pTimeMain = m_roundTime;
 	}
 
@@ -864,5 +873,6 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	std::for_each( m_Views.begin(), m_Views.end(), std::mem_fun(&IView::UpdateView) );
+	std::for_each( m_Views.begin(), m_Views.end(),
+				   std::mem_fun(&IView::UpdateView) );
 }

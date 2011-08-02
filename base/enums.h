@@ -43,8 +43,9 @@ namespace Ipponboard
 		eAction_Shido,
 		eAction_Hansokumake,
 		eAction_SetOsaekomi,
-		eAction_Reset,
-		eAction_ResetOsaeKomi
+		eAction_ResetAll,
+		eAction_ResetOsaeKomi,
+		eAction_ResetMainTimer
 	};
 
 	enum EState

@@ -61,7 +61,6 @@ public:
 	const QString GetMessage() const;
 	const int GetTeamScore( Ipponboard::EFighter who ) const;
 	void SetTimerValue( Ipponboard::ETimer timer, const QString& value );
-	void ResetTimerValue( Ipponboard::ETimer timer );
 	void SetRoundTime( const QString& value );
 	QString GetRoundTime() const;
 	void SetRoundTime( const QTime& time );
@@ -135,6 +134,8 @@ private:
 //				*m_pTimeMain < QTime(23,0,0);
 //	}
 	void reset();
+	void reset_timer_value( Ipponboard::ETimer timer );
+
 
 	Ipponboard::Fight& current_fight()
 	{ return m_TournamentScores[m_currentTournament].at(m_currentFight); }
