@@ -7,6 +7,11 @@
 #	pragma comment(lib,"Shell32.lib")
 #endif
 
+// c++0x workaround
+#if _MSC_VER < 1600
+#define nullptr NULL
+#endif
+
 #include <string>
 #define BOOST_FILESYSTEM_VERSION 2
 #include <boost/filesystem.hpp>

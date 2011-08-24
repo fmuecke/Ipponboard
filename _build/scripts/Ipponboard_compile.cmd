@@ -4,7 +4,7 @@ cd "%BASE_DIR%\SingleTournament"
 start /WAIT jom release
 IF errorlevel 1 (
 	echo %0: -- failed!
-	goto exit /b 1
+	exit /b 1
 )
 
 cd "%BASE_DIR%\TeamTournament"
@@ -12,5 +12,5 @@ cd "%BASE_DIR%\TeamTournament"
 start /WAIT jom release
 IF errorlevel 1 (
 	echo %0: -- failed!
-	goto exit /b 1
+	exit /b 1
 )

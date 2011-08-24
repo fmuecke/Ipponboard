@@ -175,7 +175,7 @@ void FightCategoryMgr::load_categories()
 	const std::string filePath(
 			FMU::GetSettingsFilePath(str_fileName));
 
-	std::ifstream ifs(filePath);
+	std::ifstream ifs(filePath.c_str());
 	if( ifs.good() )
 	{
 		try
@@ -213,7 +213,7 @@ void FightCategoryMgr::save_categories()
 	const std::string filePath(
 			FMU::GetSettingsFilePath(str_fileName));
 
-	std::ofstream ofs(filePath);
+	std::ofstream ofs(filePath.c_str());
 	if( ofs.good() )
 	{
 		boost::archive::xml_oarchive oa(ofs);

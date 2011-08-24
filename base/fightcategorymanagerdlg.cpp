@@ -1,5 +1,6 @@
 #include "fightcategorymanagerdlg.h"
 #include "ui_fightcategorymanagerdlg.h"
+#include "..\util\helpers.h"
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QRegExp>
