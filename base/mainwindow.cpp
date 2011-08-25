@@ -152,11 +152,6 @@ MainWindow::MainWindow(QWidget *parent)
 		m_pUi->comboBox_weight_class->addItem(t.ToString());
 	}
 
-	// round times
-	m_pUi->comboBox_time->addItem(str_normal_round_time);
-	m_pUi->comboBox_time->addItem(str_golden_score);
-
-
 	// trigger tournament class combobox update
 	on_comboBox_weight_class_currentIndexChanged(
 			m_pUi->comboBox_weight_class->currentText());
@@ -1270,14 +1265,18 @@ void MainWindow::on_lineEdit_name_white_textChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_time_currentIndexChanged(const QString& s)
+void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 //=========================================================
 {
 	const QString name = m_pUi->comboBox_weight_class->currentText();
 	FightCategory t(name);
 	m_pCategoryManager->GetCategory(name, t);
 
-	if( s == str_golden_score )
+	m_pController->SetGoldenScore(checked);
+		//> Set this before setting the time.
+		//> Setting time will then update the views.
+
+	if( checked )
 	{
 		m_pController->SetRoundTime(
 				QTime().addSecs(t.GetGoldenScoreTime()));
@@ -1300,8 +1299,8 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 	m_pUi->comboBox_weight->clear();
 	m_pUi->comboBox_weight->addItems(t.GetWeightsList());
 
-	// trigger rount time update
-	on_comboBox_time_currentIndexChanged(m_pUi->comboBox_time->currentText());
+	// trigger round time update
+	on_checkBox_golden_score_clicked(m_pUi->checkBox_golden_score->checkState());
 
 	m_pPrimaryView->SetCategory(s);
 	m_pSecondaryView->SetCategory(s);

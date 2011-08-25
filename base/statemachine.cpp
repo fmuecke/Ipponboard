@@ -8,16 +8,16 @@ using namespace Ipponboard;
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if( 15 == evt.secs )
+	if( eOsaekomiVal_Yuko == evt.secs )
 	{
 		Score_(evt.tori).Add(ePoint_Yuko);
 	}
-	else if( 20 == evt.secs )
+	else if( eOsaekomiVal_Wazaari == evt.secs )
 	{
 		Score_(evt.tori).Remove(ePoint_Yuko);
 		Score_(evt.tori).Add(ePoint_Wazaari);
 	}
-	else if( 25 == evt.secs )
+	else if( eOsaekomiVal_Ippon == evt.secs )
 	{
 		Score_(evt.tori).Remove(ePoint_Wazaari);
 		Score_(evt.tori).Add(ePoint_Ippon);
@@ -58,7 +58,7 @@ bool IpponboardSM_::has_no_wazaari(Wazaari const& evt)
 bool IpponboardSM_::has_25s(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if( 25 == evt.secs )
+	if( eOsaekomiVal_Ippon == evt.secs )
 		return true;
 	return false;
 }
@@ -67,7 +67,7 @@ bool IpponboardSM_::has_25s(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_20s(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if( 20 == evt.secs )
+	if( eOsaekomiVal_Wazaari == evt.secs )
 		return true;
 	return false;
 }
@@ -76,8 +76,21 @@ bool IpponboardSM_::has_20s(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_20s_and_wazaari(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if( 20 == evt.secs && 0 != Score_(evt.tori).Wazaari() != 0 )
+	if( eOsaekomiVal_Wazaari == evt.secs &&
+		0 != Score_(evt.tori).Wazaari() )
 		return true;
+
+	return false;
+}
+
+//---------------------------------------------------------
+bool IpponboardSM_::has_20s_and_gs(HoldTimeEvent const& evt)
+//---------------------------------------------------------
+{
+	if( eOsaekomiVal_Wazaari == evt.secs &&
+		0 != m_pCore->is_golden_score() )
+		return true;
+
 	return false;
 }
 
@@ -85,8 +98,20 @@ bool IpponboardSM_::has_20s_and_wazaari(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_15s(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if( 15 == evt.secs )
+	if( eOsaekomiVal_Yuko == evt.secs )
 		return true;
+
+	return false;
+}
+
+//---------------------------------------------------------
+bool IpponboardSM_::has_15s_and_gs(HoldTimeEvent const& evt)
+//---------------------------------------------------------
+{
+	if( eOsaekomiVal_Yuko == evt.secs &&
+		0 != m_pCore->is_golden_score() )
+		return true;
+
 	return false;
 }
 
@@ -106,7 +131,8 @@ bool IpponboardSM_::has_enough_shido(Shido const& evt)
 	{
 		return true;
 	}
-	if( Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1 )
+	if( Score_(evt.tori).Shido() == 2 &&
+		Score_(uke).Wazaari() == 1 )
 	{
 		return true;
 	}
@@ -119,5 +145,3 @@ bool IpponboardSM_::can_take_shido(Shido const& evt)
 {
 	return !has_enough_shido(evt);
 }
-
-

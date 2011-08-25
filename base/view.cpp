@@ -67,6 +67,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
 	ui->dummy_blue->UpdateImage(":res/images/off_empty.png");
 	ui->dummy_white->UpdateImage(":res/images/off_empty.png");
+	ui->image_golden_score->UpdateImage(":res/images/sand_clock.png");
 
 	QColor bgColor1 = get_color(blueBg);
 	QColor fgColor1 = get_color(blueFg);
@@ -176,6 +177,8 @@ void View::UpdateView()
 {
 	Q_ASSERT(m_pController && "Controller not set!");
 
+	show_golden_score(m_pController->IsGoldenScore());
+
 	update_colors();
 
 	//
@@ -192,7 +195,7 @@ void View::UpdateView()
 	if (!infoText.isEmpty())
 		infoText += " / ";
 	infoText += m_weight;//.toUpper();
-	ui->text_weight->SetText( infoText + "kg", ScaledText::eSize_full );
+	ui->text_weight->SetText( infoText + "KG", ScaledText::eSize_full );
 #endif
 
 	if( m_showInfoHeader )
@@ -294,6 +297,7 @@ void View::UpdateView()
 	//{
 	//	// something to do here?
 	//}
+
 
 //#ifdef _DEBUG
 //	QString text;
@@ -1104,4 +1108,16 @@ void View::update_colors()
 	ui->text_yuko_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
 	ui->text_lastname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
 	ui->text_firstname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+}
+
+//=========================================================
+void View::show_golden_score(bool show)
+//=========================================================
+{
+	ScaledImage* pWidgetGS(ui->image_golden_score);
+
+	if( show )
+		ui->horizontalLayout_bottom->setStretchFactor(pWidgetGS, 1);
+	else
+		ui->horizontalLayout_bottom->setStretchFactor(pWidgetGS, 0);
 }

@@ -154,7 +154,7 @@ private slots:
 	void on_comboBox_weight_currentIndexChanged(const QString& );
 	void on_lineEdit_name_white_textChanged(const QString& );
 	void on_lineEdit_name_blue_textChanged(const QString& );
-	void on_comboBox_time_currentIndexChanged(const QString& );
+	void on_checkBox_golden_score_clicked(bool checked);
 	void on_comboBox_weight_class_currentIndexChanged(const QString& );
 #endif
 

@@ -286,7 +286,9 @@ public:
 	bool has_25s(HoldTimeEvent const& evt);
 	bool has_20s(HoldTimeEvent const& evt);
 	bool has_20s_and_wazaari(HoldTimeEvent const& evt);
+	bool has_20s_and_gs(HoldTimeEvent const& evt);
 	bool has_15s(HoldTimeEvent const& evt);
+	bool has_15s_and_gs(HoldTimeEvent const& evt);
 	bool is_sonomama(Osaekomi_Toketa const& evt);
 	bool has_enough_shido(Shido const& evt);
 	bool can_take_shido(Shido const& evt);
@@ -343,8 +345,12 @@ public:
 	a_row < Holding ,RevokeWazaari	, Holding	, &sm::add_point									>,	// just to correct values...
 	a_row < Holding ,RevokeYuko		, Holding	, &sm::add_point									>,	// just to correct values...
 	a_row < Holding ,RevokeShidoHM	, Holding	, &sm::add_point									>,	// just to correct values...
+	//
+	// Note: Transitions are processed bottom up!
 	  row < Holding ,HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_15s			>,
+	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_15s_and_gs   >,
 	  row < Holding ,HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_20s			>,
+	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_gs   >,
 	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_wazaari>,
 	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_25s			>
   //	  +---------+---------------+-----------+-------------------+----------------------+

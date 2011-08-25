@@ -26,6 +26,7 @@ private:
 	virtual const Score& get_score( Ipponboard::EFighter who ) const = 0;
 	virtual const int get_time( ETimer ) const = 0;
 	virtual bool is_sonomama() const = 0;
+	virtual bool is_golden_score() const = 0;
 };
 
 }

@@ -67,6 +67,8 @@ public:
 	int GetRound() const;
 	void SetWeightClass(QString const& c);
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
+	void SetGoldenScore(bool isGS);
+	bool IsGoldenScore() const { return is_golden_score(); }
 
 	void Gong() const;
 
@@ -80,6 +82,7 @@ private:
 	const Score& get_score( Ipponboard::EFighter who ) const;
 	const int get_time( ETimer ) const;
 	bool is_sonomama() const;
+	bool is_golden_score() const;
 
 public:
 	// --- other functions ---
@@ -158,6 +161,7 @@ private:
 	bool setPointsInOsaekomi;
 	QString m_gongFile;
 	bool m_isSonoMama;
+	bool m_isGoldenScore;
 	QTime m_roundTime;
 	QString m_weight_class;
 };

@@ -29,6 +29,26 @@ public:
 	bool IsAwaseteIppon() const;
 	void Clear();
 
+	bool operator<(const Score& rhs) const
+	{
+		if( _points[ePoint_Hansokumake] < rhs._points[ePoint_Hansokumake] )
+			return true;
+
+		if( _points[ePoint_Ippon] < rhs._points[ePoint_Ippon] )
+			return true;
+
+		if( _points[ePoint_Wazaari] < rhs._points[ePoint_Wazaari] )
+			return true;
+
+		if( _points[ePoint_Yuko] < rhs._points[ePoint_Yuko] )
+			return true;
+
+		// Note: shidos are not compared as they result in
+		// concrete points
+		//
+		return false;
+	}
+
 private:
 	int _points[ePoint_MAX];
 };

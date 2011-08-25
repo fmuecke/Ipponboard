@@ -114,14 +114,18 @@ namespace serialization
 {
 
 	template<class Archive>
-	void serialize(Archive& ar, Ipponboard::Fighter& f, const unsigned int /*version*/)
+	void serialize(Archive& ar,
+				   Ipponboard::Fighter& f,
+				   const unsigned int /*version*/)
 	{
 		ar & BOOST_SERIALIZATION_NVP(c.name);
 		ar & BOOST_SERIALIZATION_NVP(c.club);
 	}
 
 	template<class Archive>
-	void serialize(Archive& ar, Ipponboard::Fight& m, const unsigned int /*version*/)
+	void serialize(Archive& ar,
+				   Ipponboard::Fight& m,
+				   const unsigned int /*version*/)
 	{
 		ar & BOOST_SERIALIZATION_NVP(m.score);
 		ar & BOOST_SERIALIZATION_NVP(m.fighters);
@@ -130,7 +134,9 @@ namespace serialization
 	}
 
 	template<class Archive>
-	void serialize(Archive& ar, Ipponboard::Score& s, const unsigned int /*version*/)
+	void serialize(Archive& ar,
+				   Ipponboard::Score& s,
+				   const unsigned int /*version*/)
 	{
 		ar & BOOST_SERIALIZATION_NVP(s._ippon);
 		ar & BOOST_SERIALIZATION_NVP(s._wazaari);

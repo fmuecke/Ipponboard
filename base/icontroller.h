@@ -15,13 +15,6 @@ class IView;
 class IController
 {
 public:
-	enum EOsaekomiVals
-	{
-		eOsaekomiVal_Yuko = 15,
-		eOsaekomiVal_Wazaari = 20,
-		eOsaekomiVal_Ippon = 25
-	};
-
 	virtual void RegisterView( IView* pView ) = 0;
 	virtual int GetScore( Ipponboard::EFighter whos, Ipponboard::EPoint point ) const = 0;
 	virtual void DoAction( Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter_Blue, bool doRevoke = false ) = 0;
@@ -41,6 +34,8 @@ public:
 	virtual int GetRound() const = 0;
 	virtual void SetWeightClass(QString const& c) = 0;
 	virtual QString const& GetCategoryName() const = 0;
+	virtual void SetGoldenScore(bool isGS) = 0;
+	virtual bool IsGoldenScore() const = 0;
 };
 
 }

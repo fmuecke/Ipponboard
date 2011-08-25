@@ -40,6 +40,7 @@ Controller::Controller()
 	, m_Tori(eFighter_Nobody)
 	, setPointsInOsaekomi(false)
 	, m_isSonoMama(false)
+	, m_isGoldenScore(false)
 	, m_roundTime(0,5,0,0)
 //=========================================================
 {
@@ -203,6 +204,20 @@ void Controller::DoAction( EAction action, EFighter whos, bool doRevoke )
 //		return;
 //
 
+	//
+	// handle golden score
+	// TODO: use state machine!
+	if( m_isGoldenScore
+		&& eState_TimerStopped != EState(m_pSM->current_state()[0]) )
+	{
+		if( get_score(eFighter_Blue) < get_score(eFighter_White) ||
+			get_score(eFighter_White) < get_score(eFighter_Blue) )
+		{
+			m_pSM->process_event(IpponboardSM_::Hajime_Mate());
+		}
+	}
+	
+	// set current state
 	m_State = EState(m_pSM->current_state()[0]);
 
 	update_views();
@@ -294,6 +309,7 @@ void Controller::reset()
 	m_Tori = eFighter_Nobody;
 
 	m_isSonoMama = false;
+	m_isGoldenScore = false;
 
 	ClearFights();
 	SetFight( 0, 0, "-XX", tr("Blue"), "", tr("White"), "" );
@@ -348,7 +364,8 @@ const QString Controller::GetFighterName( EFighter who ) const
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
 
-	QString name = m_TournamentScores[m_currentTournament].at(m_currentFight).fighters[who].name;
+	QString name = m_TournamentScores[m_currentTournament]
+				   .at(m_currentFight).fighters[who].name;
 
 	// shorten name
 	const int pos = name.indexOf(' ');
@@ -365,7 +382,8 @@ const QString Controller::GetFighterLastName( Ipponboard::EFighter who ) const
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
 
-	QString name = m_TournamentScores[m_currentTournament].at(m_currentFight).fighters[who].name;
+	QString name = m_TournamentScores[m_currentTournament]
+				   .at(m_currentFight).fighters[who].name;
 
 	// get last name
 	const int pos = name.indexOf(' ');
@@ -412,7 +430,8 @@ const QString Controller::GetFighterClub( EFighter who ) const
 const QString& Controller::GetWeight() const
 //=========================================================
 {
-	return m_TournamentScores[m_currentTournament].at(m_currentFight).weight;
+	return m_TournamentScores[m_currentTournament]
+			.at(m_currentFight).weight;
 }
 
 //=========================================================
@@ -482,17 +501,24 @@ QString Controller::GetRoundTime() const
 }
 
 //=========================================================
-int Ipponboard::Controller::GetRound() const
+int Controller::GetRound() const
 //=========================================================
 {
 	return m_currentTournament * 10 + m_currentFight + 1;
 }
 
 //=========================================================
-void Ipponboard::Controller::SetWeightClass(QString const& c)
+void Controller::SetWeightClass(QString const& c)
 //=========================================================
 {
 	m_weight_class = c;
+}
+
+//=========================================================
+void Controller::SetGoldenScore(bool isGS)
+//=========================================================
+{
+	m_isGoldenScore = isGS;
 }
 
 //=========================================================
@@ -577,7 +603,9 @@ Score& Controller::get_score( EFighter who )
 //=========================================================
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
-	return m_TournamentScores[m_currentTournament].at(m_currentFight).scores[who];
+
+	return m_TournamentScores[m_currentTournament]
+			.at(m_currentFight).scores[who];
 }
 
 //=========================================================
@@ -585,7 +613,9 @@ const Score& Controller::get_score( EFighter who ) const
 //=========================================================
 {
 	Q_ASSERT( who == eFighter_Blue || who == eFighter_White );
-	return m_TournamentScores[m_currentTournament].at(m_currentFight).scores[who];
+
+	return m_TournamentScores[m_currentTournament]
+			.at(m_currentFight).scores[who];
 }
 
 //=========================================================
@@ -603,6 +633,13 @@ bool Controller::is_sonomama() const
 //=========================================================
 {
 	return m_isSonoMama;
+}
+
+//=========================================================
+bool Controller::is_golden_score() const
+//=========================================================
+{
+	return m_isGoldenScore;
 }
 
 //=========================================================
@@ -625,7 +662,7 @@ void Controller::SetCurrentFight( unsigned int index )
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);
-	assert( eState_TimerStopped == m_State );
+	Q_ASSERT( eState_TimerStopped == m_State );
 
 	update_views();
 }
@@ -652,7 +689,9 @@ void Controller::ClearFights()
 void Controller::SetClub( Ipponboard::EFighter whos, const QString& clubName )
 //=========================================================
 {
-	Q_ASSERT( whos == Ipponboard::eFighter_Blue || whos == Ipponboard::eFighter_White );
+	Q_ASSERT( whos == Ipponboard::eFighter_Blue ||
+			  whos == Ipponboard::eFighter_White );
+
 	for(unsigned int i(0); i < m_TournamentScores[0].size(); ++i )
 	{
 		m_TournamentScores[0].at(i).fighters[whos].club = clubName;

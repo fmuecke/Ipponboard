@@ -90,6 +90,7 @@ private:
 	bool is_secondary() const;
 	const QColor& get_color(const ColorType t) const;
 	void update_colors();
+	void show_golden_score(bool show);
 
 	EType m_Type;
 	IController* m_pController;

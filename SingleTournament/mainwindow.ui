@@ -94,7 +94,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,1,0,0,5,1,0,0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0,0,0,0,0,0,0,0">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -182,8 +182,28 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
-       <spacer name="horizontalSpacer_2">
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_weight"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Weight</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Class</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_weight_class"/>
+      </item>
+      <item row="0" column="2">
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -195,15 +215,18 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_weight"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Weight</string>
+      <item row="1" column="6">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="1" column="7">
        <widget class="QPushButton" name="pushButton_Signal">
@@ -219,10 +242,13 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="8">
-       <widget class="QComboBox" name="comboBox_time">
-        <property name="toolTip">
-         <string>Choose between normal and &quot;golden score&quot; round time</string>
+      <item row="0" column="7" colspan="2">
+       <widget class="QCheckBox" name="checkBox_golden_score">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Golden Score round time</string>
         </property>
        </widget>
       </item>
@@ -259,36 +285,6 @@
          <string>Reset</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="7">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Round Time</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Class</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox_weight_class"/>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
@@ -694,9 +690,6 @@
   <tabstop>comboBox_weight</tabstop>
   <tabstop>lineEdit_name_blue</tabstop>
   <tabstop>lineEdit_name_white</tabstop>
-  <tabstop>comboBox_time</tabstop>
-  <tabstop>pushButton_Signal</tabstop>
-  <tabstop>button_reset</tabstop>
  </tabstops>
  <resources>
   <include location="../base/ipponboard.qrc"/>
