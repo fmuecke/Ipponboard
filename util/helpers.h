@@ -16,7 +16,7 @@
 #define BOOST_FILESYSTEM_VERSION 2
 #include <boost/filesystem.hpp>
 
-namespace FMU
+namespace fmu
 {
 
 enum EShellFolderType
@@ -107,9 +107,9 @@ static bool IsPortable()
 	unsigned ret = ::GetModuleFileNameA( NULL, buf, MAX_PATH );
 	if( ret != 0 )
 	{
-		const std::string comp("-portable.exe");
+		const std::string compStr("-portable.exe");
 		std::string s(buf);
-		return 0 == s.compare(s.size()-comp.size(), comp.size(), comp);
+		return 0 == s.compare(s.size()-compStr.size(), compStr.size(), compStr);
 	}
 #else
 	// TODO: handle other platforms (when needed)

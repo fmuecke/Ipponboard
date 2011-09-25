@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
 	// read language code
 	const QString ini(
-			QString::fromStdString(FMU::GetSettingsFilePath(str_ini_name)));
+			QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);

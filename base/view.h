@@ -9,15 +9,7 @@
 #include "enums.h"
 
 // forwards
-#ifdef HORIZONTAL_VIEW
 namespace Ui { class ScoreViewHorizontal; }
-#else
-# ifdef TEAM_VIEW
-namespace Ui { class ScoreViewVerticalTeam; }
-# else
-namespace Ui { class ScoreViewVerticalSingle; }
-# endif
-#endif
 
 class ScaledImage;
 
@@ -94,15 +86,8 @@ private:
 
 	EType m_Type;
 	IController* m_pController;
-#ifdef HORIZONTAL_VIEW
 	Ui::ScoreViewHorizontal* ui;
-#else
-# ifdef TEAM_VIEW
-	Ui::ScoreViewVerticalTeam* ui;
-# else
-	Ui::ScoreViewVerticalSingle* ui;
-# endif
-#endif
+
 	QFont m_InfoHeaderFont;
 	QFont m_FighterNameFont;
 	QFont m_DigitFont;

@@ -173,7 +173,7 @@ void FightCategoryMgr::load_categories()
 	// open the archive
 
 	const std::string filePath(
-			FMU::GetSettingsFilePath(str_fileName));
+			fmu::GetSettingsFilePath(str_fileName));
 
 	std::ifstream ifs(filePath.c_str());
 	if( ifs.good() )
@@ -211,7 +211,7 @@ void FightCategoryMgr::save_categories()
 	// make an archive
 
 	const std::string filePath(
-			FMU::GetSettingsFilePath(str_fileName));
+			fmu::GetSettingsFilePath(str_fileName));
 
 	std::ofstream ofs(filePath.c_str());
 	if( ofs.good() )

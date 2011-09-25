@@ -69,6 +69,15 @@ namespace Ipponboard
 		eTimer_Main = 0,
 		eTimer_Hold,
 	};
+
+	enum EOsaekomiVal
+	{
+		eOsaekomiVal_Yuko = 15,
+		eOsaekomiVal_Wazaari = 20,
+		eOsaekomiVal_Ippon = 25
+	};
+
+
 }
 
 #endif // ENUMS_HEADER_INCLUDED

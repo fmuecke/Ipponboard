@@ -21,7 +21,7 @@
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.0" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
      <value key="ProjectExplorer.ProcessStep.Command" type="QString">..\base\create_versioninfo.cmd</value>
-     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
+     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">false</value>
      <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">..\base</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Update Version Info</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
@@ -41,8 +41,8 @@
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStep.3" type="QVariantMap">
      <valuelist key="ProjectExplorer.ProcessStep.Arguments" type="QVariantList"/>
      <value key="ProjectExplorer.ProcessStep.Command" type="QString">copy_lang.cmd</value>
-     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
-     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">$BUILDDIR</value>
+     <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">false</value>
+     <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">%{BUILDDIR}</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Copy language files</value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
     </valuemap>

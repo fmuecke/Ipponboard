@@ -1,6 +1,7 @@
 #include "controller.h"
 #include "iview.h"
 #include "score.h"
+#include "enums.h"
 #include "tournamentmodel.h"
 
 #include <QTimer>

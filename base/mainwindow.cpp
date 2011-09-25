@@ -230,7 +230,7 @@ void MainWindow::write_settings()
 {
 	QString iniFile(
 			QString::fromStdString(
-					FMU::GetSettingsFilePath(str_ini_name)));
+					fmu::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 
@@ -298,7 +298,7 @@ void MainWindow::read_settings()
 {
 	QString iniFile(
 			QString::fromStdString(
-					FMU::GetSettingsFilePath(str_ini_name)));
+					fmu::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 

@@ -1,15 +1,7 @@
-#define HORIZONTAL_VIEW
 
 #include "view.h"
-#ifdef HORIZONTAL_VIEW
-# include "ui_view_horizontal.h"
-#else
-# ifdef TEAM_VIEW
-#  include "ui_view_vertical_team.h"
-# else
-#  include "ui_view_vertical_single.h"
-# endif
-#endif
+#include "ui_view_horizontal.h"
+
 #include <QPainter>
 #include <QMessageBox>
 #include <QTimer>
@@ -25,15 +17,7 @@ View::View( IController* pController, EType type, QWidget *parent )
 	: QWidget(parent)
 	, m_Type(type)
 	, m_pController(pController)
-#ifdef HORIZONTAL_VIEW
 	, ui(new Ui::ScoreViewHorizontal)
-#else
-# ifdef TEAM_VIEW
-	, ui(new Ui::ScoreViewVerticalTeam)
-# else
-	, ui(new Ui::ScoreViewVerticalSingle)
-# endif
-#endif
 	, m_InfoHeaderFont("Calibri", 12, QFont::Bold, false)
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, true)
 	, m_DigitFont("Calibri", 12, QFont::Bold, false)
@@ -88,7 +72,6 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_wazaari_desc1->SetText("W");
 	ui->text_yuko_desc1->SetText("Y");
 	ui->text_shido_desc->SetText("");
-#ifdef HORIZONTAL_VIEW
 	ui->text_ippon_desc2->setFont(descFont);
 	ui->text_wazaari_desc2->setFont(descFont);
 	ui->text_yuko_desc2->setFont(descFont);
@@ -103,7 +86,6 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->text_yuko_desc1->SetColor(fgColor2, bgColor2);
 	ui->dummy_blue->SetBgColor(bgColor1);
 	ui->dummy_white->SetBgColor(bgColor2);
-#endif
 
 #ifdef TEAM_VIEW
 	ui->text_score_team_blue_label->SetColor( Qt::gray, Qt::black);
@@ -136,7 +118,6 @@ View::View( IController* pController, EType type, QWidget *parent )
 		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc2, 1);
 	}
 
-//#ifndef HORIZONTAL_VIEW
 	ui->image_shido1_blue->SetBgColor(bgColor1);
 	ui->image_shido2_blue->SetBgColor(bgColor1);
 	ui->image_shido3_blue->SetBgColor(bgColor1);
@@ -145,7 +126,6 @@ View::View( IController* pController, EType type, QWidget *parent )
 	ui->image_shido2_white->SetBgColor(bgColor2);
 	ui->image_shido3_white->SetBgColor(bgColor2);
 	ui->image_hansokumake_white->SetBgColor(bgColor2);
-//#endif
 
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
@@ -275,15 +255,9 @@ void View::UpdateView()
 			ui->text_main_clock->SetColor( m_MainClockColorRunning );
 			update_hold_clock( holder, eHoldState_on );
 
-			#ifdef HORIZONTAL_VIEW
 				ui->layout_info->setStretchFactor(ui->layout_name_blue, 3);
 				ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
 				ui->layout_info->setStretchFactor(ui->layout_name_white, 3);
-			#else
-				ui->layout_info->setStretchFactor(ui->layout_name_blue, 2);
-				ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
-				ui->layout_info->setStretchFactor(ui->layout_name_white, 2);
-			#endif
 		}
 		break;
 
@@ -353,18 +327,10 @@ void View::SetFighterNameFont( const QFont& font )
 {
 	m_FighterNameFont = font;
 
-#ifdef HORIZONTAL_VIEW
 	ui->text_lastname_white->setAlignment(Qt::AlignLeft);
 	ui->text_firstname_white->setAlignment(Qt::AlignLeft);
 	ui->text_lastname_blue->setAlignment(Qt::AlignRight);
 	ui->text_firstname_blue->setAlignment(Qt::AlignRight);
-#else
-	//ui->text_lastname_white->setAlignment(Qt::AlignRight);
-	//ui->text_firstname_white->setAlignment(Qt::AlignRight);
-	ui->text_hold_clock->setAlignment(Qt::AlignLeft);
-	//ui->text_weight->setAlignment(Qt::AlignLeft);
-	//ui->text_weight_kg->setAlignment(Qt::AlignLeft);
-#endif
 
 	ui->text_lastname_white->SetFont(font);
 	ui->text_firstname_white->SetFont(font);
@@ -649,25 +615,20 @@ void View::update_ippon( Ipponboard::EFighter who ) const
 //=========================================================
 {
 	ScaledText* digit_ippon(ui->text_ippon_blue);
-#ifdef HORIZONTAL_VIEW
 	QVBoxLayout* digit_wazaari(ui->layout_wazaari_blue);
 	QVBoxLayout* digit_yuko(ui->layout_yuko_blue);
 	EFighter uke(eFighter_White);
-#endif
 	if( eFighter_White == who )
 	{
 		digit_ippon = ui->text_ippon_white;
-#ifdef HORIZONTAL_VIEW
 		digit_wazaari = ui->layout_wazaari_white;
 		digit_yuko = ui->layout_yuko_white;
 		uke = eFighter_Blue;
-#endif
 	}
 
 	const int score = m_pController->GetScore( GVF_(who), ePoint_Ippon );
 	if( score != 0 )
 	{
-#ifdef HORIZONTAL_VIEW
 		Q_ASSERT(m_pBlinkTimer);
 		if( !m_pBlinkTimer->isActive() )
 			m_pBlinkTimer->start(750);
@@ -693,11 +654,6 @@ void View::update_ippon( Ipponboard::EFighter who ) const
 			ui->layout_score->setStretchFactor(digit_wazaari,2);
 			ui->layout_score->setStretchFactor(digit_yuko,2);
 		}
-#else
-		ui->verticalLayout_main->setStretchFactor(digit_ippon, 8);
-		digit_ippon->SetBlinking(true);
-
-#endif
 		digit_ippon->SetText( "IPPON", ScaledText::eSize_full,
 							  !is_secondary() );
 	}
@@ -710,24 +666,16 @@ void View::update_ippon( Ipponboard::EFighter who ) const
 		digit_ippon->SetBlinking(false);
 		if( !is_secondary() )
 		{
-#ifdef HORIZONTAL_VIEW
 			ui->layout_score->setStretchFactor(digit_ippon, 2);
 			ui->layout_score->setStretchFactor(digit_wazaari,2);
 			ui->layout_score->setStretchFactor(digit_yuko,2);
-#else
-			ui->verticalLayout_main->setStretchFactor(digit_ippon, 3);
-#endif
 			digit_ippon->SetText( "-", ScaledText::eSize_full );
 		}
 		else
 		{
-#ifdef HORIZONTAL_VIEW
 			ui->layout_score->setStretchFactor(digit_ippon, 0);
 			ui->layout_score->setStretchFactor(digit_wazaari,3);
 			ui->layout_score->setStretchFactor(digit_yuko,3);
-#else
-			ui->verticalLayout_main->setStretchFactor(digit_ippon, 0);
-#endif
 			digit_ippon->SetText( "" );
 		}
 	}
@@ -956,13 +904,7 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 			pClocks[eFighter_Blue]->SetText( "" );
 			pClocks[eFighter_White]->SetText( "" );
 			ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
-		#ifdef HORIZONTAL_VIEW
 			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
-		#else
-			ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
-			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 1);
-			ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
-		#endif
 		}
 		return;
 	}
@@ -1000,14 +942,8 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 	if( is_secondary() )
 	{
 		ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
-//#ifdef HORIZONTAL_VIEW
 //		ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
 //		ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
-//#else
-//		ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
-//		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 1);
-//		ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
-//#endif
 
 		if( eFighter_Blue == holder )
 		{
@@ -1030,12 +966,11 @@ void View::update_hold_clock( EFighter holder, EHoldState state ) const
 Ipponboard::EFighter View::GVF_(const Ipponboard::EFighter f) const
 //=========================================================
 {
-#ifdef HORIZONTAL_VIEW
 	if( !is_secondary() )
 	{
 		return (f==eFighter_Blue)? eFighter_White : eFighter_Blue;
 	}
-#endif
+
 	return f;
 }
 
@@ -1050,11 +985,7 @@ bool View::is_secondary() const
 const QColor& View::get_color(const ColorType t) const
 //=========================================================
 {
-#ifdef HORIZONTAL_VIEW
 	const bool doSwap(eTypePrimary == m_Type);
-#else
-	const bool doSwap(false);
-#endif
 
 	switch(t)
 	{

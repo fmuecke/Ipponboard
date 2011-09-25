@@ -1,5 +1,5 @@
-#ifndef SCORE_H
-#define SCORE_H
+#ifndef SCORE_H_INCLUDED
+#define SCORE_H_INCLUDED
 
 #include "enums.h"
 namespace Ipponboard
@@ -54,4 +54,4 @@ private:
 };
 
 } // namespace ipponboard
-#endif // SCORE_H
+#endif // SCORE_H_INCLUDED
