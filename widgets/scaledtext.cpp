@@ -1,6 +1,13 @@
-#include <QtGui>
-
+// Copyright 2009-2011 Florian Muecke. All rights reserved.
+// http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
+// $Id$
 #include "scaledtext.h"
+#include <QtGui>
+#include <algorithm>
 
 ScaledText::ScaledText( QWidget* pParent )
 	: QWidget(pParent)
@@ -166,25 +173,25 @@ void ScaledText::paintEvent( QPaintEvent* event )
 				}
 			}
 
-			const qreal zoom = std::min<qreal>(width()/w, height()/h);
+			const qreal zoom = std::min<qreal>( width()/w, height()/h );
 
 			if( m_rotate )
-				painter.rotate(-60.0);
+				painter.rotate( -60.0 );
 
 			QPointF center = rect.center();
 			if( Qt::AlignLeft == m_Alignment )
 			{
-				center.setX(width()/2.0/zoom);
+				center.setX( width() / 2.0 / zoom );
 			}
 			else if( Qt::AlignRight == m_Alignment )
 			{
-				center.setX(-width()/2.0/zoom + center.x()*2);
+				center.setX( -width() / 2.0 / zoom + center.x() * 2 );
 			}
 
-			center.setY(center.y() + adjust_y);
+			center.setY( center.y() + adjust_y );
 
-			painter.scale(zoom, zoom);
-			line.draw(&painter, -center);
+			painter.scale( zoom, zoom );
+			line.draw( &painter, -center );
 		}
 	}
 	painter.restore();

@@ -1,9 +1,16 @@
+// Copyright 2009-2011 Florian Muecke. All rights reserved.
+// http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
+// $Id$
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
 
-SplashScreen::SplashScreen(Data const& data, QWidget *parent) :
-	QDialog(parent),
-	ui(new Ui::SplashScreen)
+SplashScreen::SplashScreen(Data const& data, QWidget *parent)
+	: QDialog(parent)
+	, ui(new Ui::SplashScreen)
 {
 	ui->setupUi(this);
 
@@ -25,12 +32,15 @@ SplashScreen::~SplashScreen()
 void SplashScreen::changeEvent(QEvent *e)
 {
 	QWidget::changeEvent(e);
-	switch (e->type()) {
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
-	default:
-		break;
+
+	switch (e->type())
+	{
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+
+		default:
+			break;
 	}
 }
 

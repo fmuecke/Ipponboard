@@ -1,15 +1,25 @@
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
+// Copyright 2009-2011 Florian Muecke. All rights reserved.
+// http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
+// $Id$
 
 #include <QDialog>
 #include <QDate>
 
-namespace Ui {
+namespace Ui
+{
 	class SplashScreen;
 }
 
-class SplashScreen : public QDialog {
+class SplashScreen : public QDialog
+{
 	Q_OBJECT
+
 public:
 	struct Data
 	{
@@ -18,7 +28,7 @@ public:
 		QString info;
 	};
 
-	SplashScreen(Data const& data, QWidget *parent = 0);
+	SplashScreen(Data const& data, QWidget* parent = 0);
 	~SplashScreen();
 
 protected:
@@ -29,7 +39,7 @@ private:
 
 private slots:
 	void on_pushButton_Cancel_pressed();
- void on_pushButton_pressed();
+	void on_pushButton_pressed();
 };
 
 #endif // SPLASHSCREEN_H

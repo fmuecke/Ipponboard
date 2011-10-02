@@ -1,5 +1,12 @@
 #ifndef SCALEDIMAGE_H
 #define SCALEDIMAGE_H
+// Copyright 2009-2011 Florian Muecke. All rights reserved.
+// http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
+// $Id$
 
 #include <QtGui/QWidget>
 #include <QImage>
@@ -10,12 +17,12 @@ class ScaledImage : public QWidget
 	Q_OBJECT
 
 public:
-	ScaledImage(QWidget *parent = 0);
+	explicit ScaledImage(QWidget *parent = 0);
 
-	void UpdateImage( const QString& fileName );
-	void SetBgColor( const QColor& color );
-	void paintEvent(QPaintEvent*);
-	void resizeEvent(QResizeEvent*);
+	void UpdateImage(const QString& fileName);
+	void SetBgColor(const QColor& color);
+	void paintEvent(QPaintEvent* pEvent);
+	void resizeEvent(QResizeEvent* pEvent);
 
 private: //Data
 	QImage m_Image;
