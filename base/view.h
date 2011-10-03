@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef BASE__VIEW_H_
+#define BASE__VIEW_H_
 
 #include <QWidget>
 #include <QMouseEvent>
@@ -108,4 +108,4 @@ private:
 };
 
 } // namespace Ipponboard
-#endif // VIEW_H
+#endif	// BASE__VIEW_H_

@@ -1,5 +1,5 @@
-#ifndef CONTROLCONFIG_H
-#define CONTROLCONFIG_H
+#ifndef BASE__CONTROLCONFIG_H_
+#define BASE__CONTROLCONFIG_H_
 
 namespace Ipponboard
 {
@@ -71,4 +71,4 @@ struct ControlConfig
 
 } // namespace ipponboard
 
-#endif // CONTROLCONFIG_H
+#endif	// BASE__CONTROLCONFIG_H_

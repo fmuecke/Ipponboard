@@ -1,5 +1,5 @@
-#ifndef SCALED_TEXT_HEADER_INCLUDED
-#define SCALED_TEXT_HEADER_INCLUDED
+#ifndef WIDGETS__SCALEDTEXT_H_
+#define WIDGETS__SCALEDTEXT_H_
 // Copyright 2009-2011 Florian Muecke. All rights reserved.
 // http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
 //
@@ -80,4 +80,4 @@ private:
 };
 
 
-#endif // SCALED_TEXT_HEADER_INCLUDED
+#endif	// WIDGETS__SCALEDTEXT_H_

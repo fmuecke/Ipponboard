@@ -1,5 +1,5 @@
-#ifndef HELPERS_H
-#define HELPERS_H
+#ifndef UTIL__HELPERS_H_
+#define UTIL__HELPERS_H_
 
 #ifdef _WIN32
 #	include <Windows.h>
@@ -137,5 +137,4 @@ static const std::string GetSettingsFilePath(const char* fileName)
 
 } // namespace
 
-#endif // HELPERS_H
-
+#endif	// UTIL__HELPERS_H_

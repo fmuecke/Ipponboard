@@ -1,5 +1,5 @@
-#ifndef I_SCORE_VIEW_INCLUDED
-#define I_SCORE_VIEW_INCLUDED
+#ifndef BASE__IVIEW_H_
+#define BASE__IVIEW_H_
 
 #include <QString>
 #include "enums.h"
@@ -18,4 +18,4 @@ public:
 };
 
 }
-#endif // I_SCORE_VIEW_INCLUDED
+#endif	// BASE__IVIEW_H_

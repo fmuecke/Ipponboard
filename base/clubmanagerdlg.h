@@ -1,5 +1,5 @@
-#ifndef CLUBMANAGERDLG_H
-#define CLUBMANAGERDLG_H
+#ifndef BASE__CLUBMANAGERDLG_H_
+#define BASE__CLUBMANAGERDLG_H_
 
 #include <QDialog>
 
@@ -35,4 +35,4 @@ private slots:
 	void on_pushButton_add_pressed();
 };
 
-#endif // CLUBMANAGERDLG_H
+#endif	// BASE__CLUBMANAGERDLG_H_

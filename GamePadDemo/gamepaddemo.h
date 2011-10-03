@@ -1,5 +1,5 @@
-#ifndef GAMEPADDEMO_H
-#define GAMEPADDEMO_H
+#ifndef GAMEPADDEMO__GAMEPADDEMO_H_
+#define GAMEPADDEMO__GAMEPADDEMO_H_
 
 #include <QMainWindow>
 #include <QLabel>
@@ -36,4 +36,4 @@ private:
 	PGamepad m_pGamepad;
 };
 
-#endif // GAMEPADDEMO_H
+#endif	// GAMEPADDEMO__GAMEPADDEMO_H_

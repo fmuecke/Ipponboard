@@ -1,5 +1,5 @@
-#ifndef STATEMACHINE_H
-#define STATEMACHINE_H
+#ifndef BASE__STATEMACHINE_H_
+#define BASE__STATEMACHINE_H_
 
 #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 #define BOOST_MPL_LIMIT_VECTOR_SIZE	50
@@ -377,4 +377,4 @@ typedef msm::back::state_machine<IpponboardSM_> IpponboardSM;
 
 } // namespace Ipponboard
 
-#endif // STATEMACHINE_H
+#endif	// BASE__STATEMACHINE_H_

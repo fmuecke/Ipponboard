@@ -1,5 +1,5 @@
-#ifndef IPPONBOARD_PRECOMPILED_HEADER_INCLUDED
-#define IPPONBOARD_PRECOMPILED_HEADER_INCLUDED
+#ifndef BASE__PCH_H_
+#define BASE__PCH_H_
 
 /* Add C includes here */
 
@@ -87,4 +87,4 @@
 
 #endif // __cplusplus
 
-#endif //IPPONBOARD_PRECOMPILED_HEADER_INCLUDED
+#endif	// BASE__PCH_H_

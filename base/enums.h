@@ -1,5 +1,5 @@
-#ifndef ENUMS_HEADER_INCLUDED
-#define ENUMS_HEADER_INCLUDED
+#ifndef BASE__ENUMS_H_
+#define BASE__ENUMS_H_
 
 //
 // definitions
@@ -80,4 +80,4 @@ namespace Ipponboard
 
 }
 
-#endif // ENUMS_HEADER_INCLUDED
+#endif	// BASE__ENUMS_H_

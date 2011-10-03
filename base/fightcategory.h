@@ -1,5 +1,5 @@
-#ifndef FIGHT_CATEGORY_H
-#define FIGHT_CATEGORY_H
+#ifndef BASE__FIGHTCATEGORY_H_
+#define BASE__FIGHTCATEGORY_H_
 
 #include <QString>
 #include <QStringList>
@@ -85,4 +85,4 @@ typedef std::vector<FightCategory> FightCategoryList;
 
 BOOST_CLASS_VERSION(Ipponboard::FightCategory, 1);
 
-#endif // FIGHT_CATEGORY_H
+#endif	// BASE__FIGHTCATEGORY_H_

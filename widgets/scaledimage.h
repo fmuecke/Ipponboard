@@ -1,5 +1,5 @@
-#ifndef SCALEDIMAGE_H
-#define SCALEDIMAGE_H
+#ifndef WIDGETS__SCALEDIMAGE_H_
+#define WIDGETS__SCALEDIMAGE_H_
 // Copyright 2009-2011 Florian Muecke. All rights reserved.
 // http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
 //
@@ -30,4 +30,4 @@ private: //Data
 	QColor m_BGColor;
 };
 
-#endif
+#endif	// WIDGETS__SCALEDIMAGE_H_

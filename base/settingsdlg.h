@@ -1,5 +1,5 @@
-#ifndef SETTINGSDLG_HEADER_INCLUDED
-#define SETTINGSDLG_HEADER_INCLUDED
+#ifndef BASE__SETTINGSDLG_H_
+#define BASE__SETTINGSDLG_H_
 
 #include <QDialog>
 #include <map>
@@ -87,4 +87,4 @@ private slots:
 };
 
 } // namespace Ipponboard
-#endif // SETTINGSDLG_HEADER_INCLUDED
+#endif	// BASE__SETTINGSDLG_H_

@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef BASE__MAINWINDOW_H_
+#define BASE__MAINWINDOW_H_
 
 #include <QMainWindow>
 #include <QTableWidgetItem>
@@ -186,4 +186,4 @@ private:
 	Ipponboard::ControlConfig m_controlCfg;
 };
 
-#endif // MAINWINDOW_H
+#endif	// BASE__MAINWINDOW_H_

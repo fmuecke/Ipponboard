@@ -1,5 +1,5 @@
-#ifndef QSTRING_SERIALIZATION_H
-#define QSTRING_SERIALIZATION_H
+#ifndef UTIL__QSTRING_SERIALIZATION_H_
+#define UTIL__QSTRING_SERIALIZATION_H_
 
 #include <QString>
 #include <string>
@@ -37,4 +37,4 @@ inline void serialize( Archive& ar, QString& s, const unsigned int file_version 
 } // namespace serialization
 } // namespace boost
 
-#endif // QSTRING_SERIALIZATION_H
+#endif	// UTIL__QSTRING_SERIALIZATION_H_

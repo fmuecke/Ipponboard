@@ -1,5 +1,5 @@
-#ifndef GAME_PAD_HEADER_INCLUDED
-#define GAME_PAD_HEADER_INCLUDED
+#ifndef GAMEPAD__GAMEPAD_H_
+#define GAMEPAD__GAMEPAD_H_
 
 // Gamepad wrapper class
 // (c) 2010 Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
@@ -242,4 +242,4 @@ private:
 
 } //namespace FMlib
 
-#endif //GAME_PAD_HEADER_INCLUDED
+#endif	// GAMEPAD__GAMEPAD_H_

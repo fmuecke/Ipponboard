@@ -1,5 +1,5 @@
-#ifndef SPLASHSCREEN_H
-#define SPLASHSCREEN_H
+#ifndef WIDGETS__SPLASHSCREEN_H_
+#define WIDGETS__SPLASHSCREEN_H_
 // Copyright 2009-2011 Florian Muecke. All rights reserved.
 // http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
 //
@@ -42,4 +42,4 @@ private slots:
 	void on_pushButton_pressed();
 };
 
-#endif // SPLASHSCREEN_H
+#endif	// WIDGETS__SPLASHSCREEN_H_

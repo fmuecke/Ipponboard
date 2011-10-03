@@ -1,5 +1,5 @@
-#ifndef CLUBMANAGER_H
-#define CLUBMANAGER_H
+#ifndef BASE__CLUBMANAGER_H_
+#define BASE__CLUBMANAGER_H_
 
 #include <QString>
 #include <vector>
@@ -74,4 +74,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif // CLUBMANAGER_H
+#endif	// BASE__CLUBMANAGER_H_

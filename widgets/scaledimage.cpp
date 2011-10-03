@@ -50,7 +50,7 @@ void ScaledImage::paintEvent(QPaintEvent* event)
 
 void ScaledImage::resizeEvent( QResizeEvent* pEvent )
 {
-	m_Size = event->size();
+	m_Size = pEvent->size();
 
 	// Call base class impl
 	QWidget::resizeEvent( pEvent );

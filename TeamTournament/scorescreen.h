@@ -1,5 +1,5 @@
-#ifndef SCORESCREEN_H
-#define SCORESCREEN_H
+#ifndef TEAMTOURNAMENT__SCORESCREEN_H_
+#define TEAMTOURNAMENT__SCORESCREEN_H_
 
 #include <QWidget>
 
@@ -36,4 +36,4 @@ private:
 };
 
 } // namespace Ipponboard
-#endif // SCORESCREEN_H
+#endif	// TEAMTOURNAMENT__SCORESCREEN_H_

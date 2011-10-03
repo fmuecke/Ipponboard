@@ -1,5 +1,5 @@
-#ifndef I_SCORE_CONTROLLER_CORE_INCLUDED
-#define I_SCORE_CONTROLLER_CORE_INCLUDED
+#ifndef BASE__ICONTROLLERCORE_H_
+#define BASE__ICONTROLLERCORE_H_
 
 #include <QString>
 #include "enums.h"
@@ -30,4 +30,4 @@ private:
 };
 
 }
-#endif // I_SCORE_CONTROLLER_INCLUDED
+#endif	// BASE__ICONTROLLERCORE_H_

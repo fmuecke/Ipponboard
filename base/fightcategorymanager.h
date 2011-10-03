@@ -1,5 +1,5 @@
-#ifndef CATEGORY_MANAGER_H_INCLUDED
-#define CATEGORY_MANAGER_H_INCLUDED
+#ifndef BASE__FIGHTCATEGORYMANAGER_H_
+#define BASE__FIGHTCATEGORYMANAGER_H_
 
 #include <QString>
 #include <QTime>
@@ -52,4 +52,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif // CATEGORY_MANAGER_H_INCLUDED
+#endif	// BASE__FIGHTCATEGORYMANAGER_H_

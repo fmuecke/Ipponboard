@@ -1,5 +1,5 @@
-#ifndef TOURNAMENT_H
-#define TOURNAMENT_H
+#ifndef BASE__TOURNAMENT_H_
+#define BASE__TOURNAMENT_H_
 
 #include <QString>
 #include <boost/archive/xml_iarchive.hpp>
@@ -150,4 +150,4 @@ namespace serialization
 } // namespace boost
 
 
-#endif // TOURNAMENT_H
+#endif	// BASE__TOURNAMENT_H_

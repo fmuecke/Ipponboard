@@ -1,5 +1,5 @@
-#ifndef TOURNAMENTMODEL_H
-#define TOURNAMENTMODEL_H
+#ifndef BASE__TOURNAMENTMODEL_H_
+#define BASE__TOURNAMENTMODEL_H_
 
 #include <QAbstractItemModel>
 #include <QLineEdit>
@@ -76,4 +76,4 @@ private:
 };
 
 
-#endif // TOURNAMENTMODEL_H
+#endif	// BASE__TOURNAMENTMODEL_H_

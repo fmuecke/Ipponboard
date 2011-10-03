@@ -1,5 +1,5 @@
-#ifndef SCORE_CONTROLLER_H
-#define SCORE_CONTROLLER_H
+#ifndef BASE__CONTROLLER_H_
+#define BASE__CONTROLLER_H_
 
 #include <QObject>
 #include <QTime>
@@ -168,4 +168,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif // SCORE_CONTROLLER_H
+#endif	// BASE__CONTROLLER_H_

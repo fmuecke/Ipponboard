@@ -1,5 +1,5 @@
-#ifndef FIGHTCATEGORYMANAGERDLG_H
-#define FIGHTCATEGORYMANAGERDLG_H
+#ifndef BASE__FIGHTCATEGORYMANAGERDLG_H_
+#define BASE__FIGHTCATEGORYMANAGERDLG_H_
 
 #include <QDialog>
 #include <QTreeWidgetItem>
@@ -43,4 +43,4 @@ private slots:
 	void on_pushButton_add_pressed();
 };
 
-#endif // FIGHTCATEGORYMANAGERDLG_H
+#endif	// BASE__FIGHTCATEGORYMANAGERDLG_H_
