@@ -80,4 +80,4 @@ private:
 };
 
 
-#endif	// WIDGETS__SCALEDTEXT_H_
+#endif  // WIDGETS__SCALEDTEXT_H_

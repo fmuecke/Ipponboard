@@ -18,4 +18,4 @@ public:
 };
 
 }
-#endif	// BASE__IVIEW_H_
+#endif  // BASE__IVIEW_H_

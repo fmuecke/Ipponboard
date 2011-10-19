@@ -137,4 +137,4 @@ static const std::string GetSettingsFilePath(const char* fileName)
 
 } // namespace
 
-#endif	// UTIL__HELPERS_H_
+#endif  // UTIL__HELPERS_H_

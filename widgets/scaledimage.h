@@ -30,4 +30,4 @@ private: //Data
 	QColor m_BGColor;
 };
 
-#endif	// WIDGETS__SCALEDIMAGE_H_
+#endif  // WIDGETS__SCALEDIMAGE_H_

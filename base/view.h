@@ -108,4 +108,4 @@ private:
 };
 
 } // namespace Ipponboard
-#endif	// BASE__VIEW_H_
+#endif  // BASE__VIEW_H_

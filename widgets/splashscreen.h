@@ -42,4 +42,4 @@ private slots:
 	void on_pushButton_pressed();
 };
 
-#endif	// WIDGETS__SPLASHSCREEN_H_
+#endif  // WIDGETS__SPLASHSCREEN_H_

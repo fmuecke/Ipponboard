@@ -80,4 +80,4 @@ namespace Ipponboard
 
 }
 
-#endif	// BASE__ENUMS_H_
+#endif  // BASE__ENUMS_H_

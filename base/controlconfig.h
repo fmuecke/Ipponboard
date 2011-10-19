@@ -71,4 +71,4 @@ struct ControlConfig
 
 } // namespace ipponboard
 
-#endif	// BASE__CONTROLCONFIG_H_
+#endif  // BASE__CONTROLCONFIG_H_

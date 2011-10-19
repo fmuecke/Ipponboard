@@ -186,4 +186,4 @@ private:
 	Ipponboard::ControlConfig m_controlCfg;
 };
 
-#endif	// BASE__MAINWINDOW_H_
+#endif  // BASE__MAINWINDOW_H_

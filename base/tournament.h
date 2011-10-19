@@ -150,4 +150,4 @@ namespace serialization
 } // namespace boost
 
 
-#endif	// BASE__TOURNAMENT_H_
+#endif  // BASE__TOURNAMENT_H_

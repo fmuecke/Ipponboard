@@ -30,4 +30,4 @@ private:
 };
 
 }
-#endif	// BASE__ICONTROLLERCORE_H_
+#endif  // BASE__ICONTROLLERCORE_H_

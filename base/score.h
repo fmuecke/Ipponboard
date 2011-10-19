@@ -54,4 +54,4 @@ private:
 };
 
 } // namespace ipponboard
-#endif	// BASE__SCORE_H_
+#endif  // BASE__SCORE_H_

@@ -242,4 +242,4 @@ private:
 
 } //namespace FMlib
 
-#endif	// GAMEPAD__GAMEPAD_H_
+#endif  // GAMEPAD__GAMEPAD_H_

@@ -52,4 +52,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif	// BASE__FIGHTCATEGORYMANAGER_H_
+#endif  // BASE__FIGHTCATEGORYMANAGER_H_

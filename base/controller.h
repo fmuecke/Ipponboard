@@ -168,4 +168,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif	// BASE__CONTROLLER_H_
+#endif  // BASE__CONTROLLER_H_

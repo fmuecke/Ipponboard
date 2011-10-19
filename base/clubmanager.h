@@ -74,4 +74,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif	// BASE__CLUBMANAGER_H_
+#endif  // BASE__CLUBMANAGER_H_

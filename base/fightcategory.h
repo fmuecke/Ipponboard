@@ -85,4 +85,4 @@ typedef std::vector<FightCategory> FightCategoryList;
 
 BOOST_CLASS_VERSION(Ipponboard::FightCategory, 1);
 
-#endif	// BASE__FIGHTCATEGORY_H_
+#endif  // BASE__FIGHTCATEGORY_H_

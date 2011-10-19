@@ -35,4 +35,4 @@ private slots:
 	void on_pushButton_add_pressed();
 };
 
-#endif	// BASE__CLUBMANAGERDLG_H_
+#endif  // BASE__CLUBMANAGERDLG_H_

@@ -87,4 +87,4 @@ private slots:
 };
 
 } // namespace Ipponboard
-#endif	// BASE__SETTINGSDLG_H_
+#endif  // BASE__SETTINGSDLG_H_

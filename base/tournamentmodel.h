@@ -76,4 +76,4 @@ private:
 };
 
 
-#endif	// BASE__TOURNAMENTMODEL_H_
+#endif  // BASE__TOURNAMENTMODEL_H_

@@ -37,4 +37,4 @@ inline void serialize( Archive& ar, QString& s, const unsigned int file_version 
 } // namespace serialization
 } // namespace boost
 
-#endif	// UTIL__QSTRING_SERIALIZATION_H_
+#endif  // UTIL__QSTRING_SERIALIZATION_H_

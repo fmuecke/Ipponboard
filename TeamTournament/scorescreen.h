@@ -36,4 +36,4 @@ private:
 };
 
 } // namespace Ipponboard
-#endif	// TEAMTOURNAMENT__SCORESCREEN_H_
+#endif  // TEAMTOURNAMENT__SCORESCREEN_H_

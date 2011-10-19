@@ -36,4 +36,4 @@ private:
 	PGamepad m_pGamepad;
 };
 
-#endif	// GAMEPADDEMO__GAMEPADDEMO_H_
+#endif  // GAMEPADDEMO__GAMEPADDEMO_H_

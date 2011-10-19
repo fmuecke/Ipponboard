@@ -43,4 +43,4 @@ private slots:
 	void on_pushButton_add_pressed();
 };
 
-#endif	// BASE__FIGHTCATEGORYMANAGERDLG_H_
+#endif  // BASE__FIGHTCATEGORYMANAGERDLG_H_

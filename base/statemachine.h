@@ -377,4 +377,4 @@ typedef msm::back::state_machine<IpponboardSM_> IpponboardSM;
 
 } // namespace Ipponboard
 
-#endif	// BASE__STATEMACHINE_H_
+#endif  // BASE__STATEMACHINE_H_

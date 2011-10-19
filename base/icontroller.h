@@ -39,4 +39,4 @@ public:
 };
 
 }
-#endif	// BASE__ICONTROLLER_H_
+#endif  // BASE__ICONTROLLER_H_
