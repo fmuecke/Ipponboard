@@ -6,7 +6,7 @@
 
 using namespace FMlib;
 
-GamepadDemo::GamepadDemo(QWidget *parent)
+GamepadDemo::GamepadDemo(QWidget* parent)
 	: QMainWindow(parent)
 	, ui(new Ui::GamepadDemo)
 	, m_pSBarText(0)
@@ -31,9 +31,9 @@ GamepadDemo::GamepadDemo(QWidget *parent)
 	ui->image_button_11->UpdateImage(":images/off.png");
 	ui->image_button_12->UpdateImage(":images/off.png");
 	QTimer* m_pTimer = new QTimer;
-	connect( m_pTimer, SIGNAL(timeout()), this, SLOT(GetData()) );
+	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GetData()));
 
-	if( Gamepad::eState_ok != m_pGamepad->GetState() )
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
 	{
 		m_pSBarText->setText("no controller found");
 		ui->groupBox_caps->setEnabled(false);
@@ -41,8 +41,8 @@ GamepadDemo::GamepadDemo(QWidget *parent)
 		return;
 	}
 
-	m_pGamepad->SetInverted( Gamepad::eAxis_Y );
-	m_pGamepad->SetInverted( Gamepad::eAxis_Z );
+	m_pGamepad->SetInverted(Gamepad::eAxis_Y);
+	m_pGamepad->SetInverted(Gamepad::eAxis_Z);
 
 	UpdateCapabilities();
 
@@ -54,13 +54,16 @@ GamepadDemo::~GamepadDemo()
 	delete ui;
 }
 
-void GamepadDemo::changeEvent(QEvent *e)
+void GamepadDemo::changeEvent(QEvent* e)
 {
 	QMainWindow::changeEvent(e);
-	switch (e->type()) {
+
+	switch (e->type())
+	{
 	case QEvent::LanguageChange:
 		ui->retranslateUi(this);
 		break;
+
 	default:
 		break;
 	}
@@ -68,10 +71,11 @@ void GamepadDemo::changeEvent(QEvent *e)
 
 void GamepadDemo::UpdateCapabilities()
 {
-	if( Gamepad::eState_ok != m_pGamepad->GetState() )
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
 	{
 		m_pSBarText->setText("unable to retrieve gamepad capabilities");
 	}
+
 	ui->treeWidget->clear();
 	QStringList vals;
 
@@ -120,63 +124,93 @@ void GamepadDemo::UpdateCapabilities()
 
 	vals.clear();
 	vals.append("Range of Z axis");
-	if( m_pGamepad->HasAxisZ() )
+
+	if (m_pGamepad->HasAxisZ())
+	{
 		vals.append(QString::number(m_pGamepad->GetRangeZ().first) + ".." +
 					QString::number(m_pGamepad->GetRangeZ().second));
+	}
 	else
+	{
 		vals.append("not supported");
+	}
+
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
 	vals.append("Range of rudder axis");
-	if( m_pGamepad->HasAxisR() )
+
+	if (m_pGamepad->HasAxisR())
+	{
 		vals.append(QString::number(m_pGamepad->GetRangeR().first) + ".." +
 					QString::number(m_pGamepad->GetRangeR().second));
+	}
 	else
+	{
 		vals.append("not supported");
+	}
+
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
 	vals.append("Range of U axis");
-	if( m_pGamepad->HasAxisU() )
+
+	if (m_pGamepad->HasAxisU())
+	{
 		vals.append(QString::number(m_pGamepad->GetRangeU().first) + ".." +
 					QString::number(m_pGamepad->GetRangeU().second));
+	}
 	else
+	{
 		vals.append("not supported");
+	}
+
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
 	vals.append("Range of V axis");
-	if( m_pGamepad->HasAxisV() )
+
+	if (m_pGamepad->HasAxisV())
+	{
 		vals.append(QString::number(m_pGamepad->GetRangeV().first) + ".." +
 					QString::number(m_pGamepad->GetRangeV().second));
+	}
 	else
+	{
 		vals.append("not supported");
+	}
+
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 
 	vals.clear();
 	vals.append("Point-of-view");
 	Gamepad::EPovType povType(m_pGamepad->GetPovType());
-	if( Gamepad::ePovType_no_pov != povType )
+
+	if (Gamepad::ePovType_no_pov != povType)
 	{
-		if( Gamepad::ePovType_discrete == povType )
+		if (Gamepad::ePovType_discrete == povType)
 			vals.append("discrete");
-		else if ( Gamepad::ePovType_continuous == povType )
+		else if (Gamepad::ePovType_continuous == povType)
 			vals.append("continuous");
 		else
 			vals.append("unknown");
 	}
 	else
+	{
 		vals.append("not supported");
+	}
+
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 }
 
 void GamepadDemo::GetData()
 {
 	m_pGamepad->ReadData();
-	if( Gamepad::eState_ok != m_pGamepad->GetState() )
+
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
 		return;
+
 	m_pSBarText->setText("controller found");
 
 	ui->horizontalSlider_z->setEnabled(m_pGamepad->HasAxisZ());
@@ -204,10 +238,10 @@ void GamepadDemo::GetData()
 	ui->lineEdit_pov->setText(QString::number(m_pGamepad->GetPOV()));
 
 	ui->lineEdit_degrees_1->setText(
-			QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + "°");
+		QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + "°");
 
 	ui->lineEdit_degrees_2->setText(
-			QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + "°");
+		QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + "°");
 
 	UpdateButtonState(Gamepad::eButton1);
 	UpdateButtonState(Gamepad::eButton2);
@@ -225,53 +259,67 @@ void GamepadDemo::GetData()
 	//cout << "buttons: " << joyInfo.wButtons << "\n" << endl;
 }
 
-void GamepadDemo::UpdateButtonState( unsigned button ) const
+void GamepadDemo::UpdateButtonState(unsigned button) const
 {
 	ScaledImage* pImage(0);
-	switch(button)
+
+	switch (button)
 	{
 	case Gamepad::eButton1:
 		pImage = ui->image_button_1;
 		break;
+
 	case Gamepad::eButton2:
 		pImage = ui->image_button_2;
 		break;
+
 	case Gamepad::eButton3:
 		pImage = ui->image_button_3;
 		break;
+
 	case Gamepad::eButton4:
 		pImage = ui->image_button_4;
 		break;
+
 	case Gamepad::eButton5:
 		pImage = ui->image_button_5;
 		break;
+
 	case Gamepad::eButton6:
 		pImage = ui->image_button_6;
 		break;
+
 	case Gamepad::eButton7:
 		pImage = ui->image_button_7;
 		break;
+
 	case Gamepad::eButton8:
 		pImage = ui->image_button_8;
 		break;
+
 	case Gamepad::eButton9:
 		pImage = ui->image_button_9;
 		break;
+
 	case Gamepad::eButton10:
 		pImage = ui->image_button_10;
 		break;
+
 	case Gamepad::eButton11:
 		pImage = ui->image_button_11;
 		break;
+
 	case Gamepad::eButton12:
 		pImage = ui->image_button_12;
 		break;
+
 	default:
 		break;
 	}
-	if(pImage)
+
+	if (pImage)
 	{
-		if(m_pGamepad->IsPressed(Gamepad::EButton(button)))
+		if (m_pGamepad->IsPressed(Gamepad::EButton(button)))
 			pImage->UpdateImage(":images/on.png");
 		else
 			pImage->UpdateImage(":images/off.png");
