@@ -15,7 +15,8 @@ template<class Archive>
 inline void save( Archive& ar, const QString& s, const unsigned int /*version*/ )
 {
 	using boost::serialization::make_nvp;
-	ar << make_nvp("value", s.toStdString());
+	std::string str = s.toStdString();
+	ar << make_nvp("value", str);
 }
 
 template<class Archive>

@@ -178,8 +178,11 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 
 	case Qt::SizeHintRole:
 		{
-			if (index.column() < sizeof(m_HeaderSizes) && index.column() > 0)
+			if (index.column() < static_cast<int>(sizeof(m_HeaderSizes)) &&
+				index.column() > 0)
+			{
 				return QSize(m_HeaderSizes[index.column()], 20);
+			}
 			break;
 		}
 
@@ -202,7 +205,7 @@ QVariant TournamentModel::data( const QModelIndex& index, int role ) const
 //=========================================================
 QVariant TournamentModel::headerData(
 	int section,
-	Qt::Orientation orientation, int role ) const
+	Qt::Orientation orientation, unsigned int role ) const
 //=========================================================
 {
 	if (role == Qt::DisplayRole)
@@ -224,7 +227,7 @@ QVariant TournamentModel::headerData(
 //=========================================================
 bool TournamentModel::setData( const QModelIndex& index,
 							   const QVariant& value,
-							   int role )
+							   unsigned int role )
 //=========================================================
 {
 	if( !index.isValid() ||

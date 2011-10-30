@@ -4,7 +4,9 @@
 #ifdef _WIN32
 #	include <Windows.h>
 #	include <Shlobj.h>
-#	pragma comment(lib,"Shell32.lib")
+//#	pragma comment(lib,"Shell32.lib")
+#else
+#	error "not implemented"
 #endif
 
 // c++0x workaround
@@ -83,17 +85,17 @@ enum EShellFolderType
 
 static const std::string GetShellFolder(EShellFolderType what)
 {
-	std::string ret;
-#ifdef _WIN32
-	char folder[MAX_PATH+1] = {0};
-	if( S_OK == ::SHGetFolderPathA(0, what, 0, SHGFP_TYPE_CURRENT, folder ) )
-		ret.assign(folder);
-#else
+#ifndef _WIN32
 	// TODO: handle other platforms (when needed)
 	#error "not implemented yet"
 #endif
+	std::string ret;
+	char folder[MAX_PATH+1] = {0};
+	if( S_OK == ::SHGetFolderPathA( 0, what, 0, /*SHGFP_TYPE_CURRENT*/0, folder ) )
+		ret.assign(folder);
 	return ret;
 }
+
 static const std::string GetCommonAppData()
 {
 	return GetShellFolder(eShellFolderType_COMMON_APPDATA);

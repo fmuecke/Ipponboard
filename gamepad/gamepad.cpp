@@ -7,11 +7,11 @@
 #include "math.h"
 #include "assert.h"
 
-#pragma comment(lib,"Winmm.lib")
+//#pragma comment(lib,"Winmm.lib")
 
 using namespace FMlib;
 
-const int Gamepad::button_code[] =
+const unsigned int Gamepad::button_code[] =
 {
 	JOY_BUTTON1,
 	JOY_BUTTON2,

@@ -76,8 +76,6 @@ namespace Ipponboard
 		eOsaekomiVal_Wazaari = 20,
 		eOsaekomiVal_Ippon = 25
 	};
-
-
 }
 
 #endif  // BASE__ENUMS_H_

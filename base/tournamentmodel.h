@@ -46,8 +46,8 @@ public:
 	int rowCount( const QModelIndex& parent ) const;
 	int columnCount( const QModelIndex& parent ) const;
 	QVariant data( const QModelIndex& index, int role ) const;
-	QVariant headerData( int section, Qt::Orientation orientation, int role ) const;
-	bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+	QVariant headerData( int section, Qt::Orientation orientation, unsigned int role ) const;
+	bool setData( const QModelIndex& index, const QVariant& value, unsigned int role = Qt::EditRole );
 	Qt::ItemFlags flags( const QModelIndex& index ) const;
 	QSize span( const QModelIndex& index ) const;
 

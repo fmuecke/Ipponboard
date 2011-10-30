@@ -13,12 +13,12 @@ namespace Ipponboard
 {
 	struct Club
 	{
-		Club::Club()
+		Club()
 			: name("")
 			, logoFile("")
 		{}
 
-		Club::Club(QString const& id, QString const& logo)
+		Club(QString const& id, QString const& logo)
 			: name(id)
 			, logoFile(logo)
 		{}

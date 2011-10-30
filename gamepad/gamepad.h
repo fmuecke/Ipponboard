@@ -227,7 +227,7 @@ public:
 private:
 	void reset();
 
-	static const int button_code[];
+	static const unsigned int button_code[];
 
 private:
 	unsigned int m_currentId;

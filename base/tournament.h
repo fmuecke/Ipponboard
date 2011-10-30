@@ -112,14 +112,13 @@ namespace boost
 {
 namespace serialization
 {
-
 	template<class Archive>
 	void serialize(Archive& ar,
 				   Ipponboard::Fighter& f,
 				   const unsigned int /*version*/)
 	{
-		ar & BOOST_SERIALIZATION_NVP(c.name);
-		ar & BOOST_SERIALIZATION_NVP(c.club);
+		ar & BOOST_SERIALIZATION_NVP(f.name);
+		ar & BOOST_SERIALIZATION_NVP(f.club);
 	}
 
 	template<class Archive>
@@ -127,7 +126,7 @@ namespace serialization
 				   Ipponboard::Fight& m,
 				   const unsigned int /*version*/)
 	{
-		ar & BOOST_SERIALIZATION_NVP(m.score);
+		ar & BOOST_SERIALIZATION_NVP(m.scores);
 		ar & BOOST_SERIALIZATION_NVP(m.fighters);
 		ar & BOOST_SERIALIZATION_NVP(m.weight);
 		ar & BOOST_SERIALIZATION_NVP(m.time_in_seconds);
@@ -138,12 +137,7 @@ namespace serialization
 				   Ipponboard::Score& s,
 				   const unsigned int /*version*/)
 	{
-		ar & BOOST_SERIALIZATION_NVP(s._ippon);
-		ar & BOOST_SERIALIZATION_NVP(s._wazaari);
-		ar & BOOST_SERIALIZATION_NVP(s._yuko);
-		ar & BOOST_SERIALIZATION_NVP(s._shido);
-		ar & BOOST_SERIALIZATION_NVP(s._hansokumake);
-		ar & BOOST_SERIALIZATION_NVP(s._isAwaseteIppon);
+		ar & BOOST_SERIALIZATION_NVP(s._points);
 	}
 
 } // namespace serialization
