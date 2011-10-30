@@ -7,7 +7,7 @@
 using namespace Ipponboard;
 
 //---------------------------------------------------------
-ClubManagerDlg::ClubManagerDlg( ClubManager* mgr, QWidget *parent )
+ClubManagerDlg::ClubManagerDlg(ClubManager* mgr, QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::ClubManagerDlg)
 	, m_pClubMgr(mgr)
@@ -19,15 +19,16 @@ ClubManagerDlg::ClubManagerDlg( ClubManager* mgr, QWidget *parent )
 	Q_ASSERT(m_pClubMgr);
 
 	// load club data
-	if( m_pClubMgr->ClubCount() > 0 )
+	if (m_pClubMgr->ClubCount() > 0)
 	{
 		// add clubs
-		for( int i = 0; i != m_pClubMgr->ClubCount(); ++i )
+		for (int i = 0; i != m_pClubMgr->ClubCount(); ++i)
 		{
 			Ipponboard::Club club;
 			m_pClubMgr->GetClub(i, club);
 			ui->comboBox_club->addItem(club.name);
 		}
+
 		ui->comboBox_club->setCurrentIndex(0); //SelectClub_(0);
 	}
 
@@ -42,29 +43,33 @@ ClubManagerDlg::~ClubManagerDlg()
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::changeEvent(QEvent *e)
+void ClubManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
 	QDialog::changeEvent(e);
-	switch (e->type()) {
+
+	switch (e->type())
+	{
 	case QEvent::LanguageChange:
 		ui->retranslateUi(this);
 		break;
+
 	default:
 		break;
 	}
 }
 
 //---------------------------------------------------------
-void ClubManagerDlg::select_club( int index )
+void ClubManagerDlg::select_club(int index)
 //---------------------------------------------------------
 {
 	m_SelectedClub = index;
 
-	if( m_SelectedClub != -1 )
+	if (m_SelectedClub != -1)
 	{
 		Ipponboard::Club club;
-		if( m_pClubMgr->GetClub(index, club) )
+
+		if (m_pClubMgr->GetClub(index, club))
 		{
 			ui->lineEdit_name->setText(club.name);
 			ui->lineEdit_logoFile->setText(club.logoFile);
@@ -80,15 +85,16 @@ void ClubManagerDlg::update_ui()
 //---------------------------------------------------------
 {
 	const QString fileName = ui->lineEdit_logoFile->text();
-	QPalette palette( ui->lineEdit_logoFile->palette() );
-	if( QFile::exists(fileName) )
+	QPalette palette(ui->lineEdit_logoFile->palette());
+
+	if (QFile::exists(fileName))
 	{
-		palette.setColor( QPalette::Text, Qt::black );
+		palette.setColor(QPalette::Text, Qt::black);
 		ui->scaledImage_logo->UpdateImage(fileName);
 	}
 	else
 	{
-		palette.setColor( QPalette::Text, Qt::red );
+		palette.setColor(QPalette::Text, Qt::red);
 		ui->scaledImage_logo->UpdateImage("clubs\\default.png");
 	}
 
@@ -127,7 +133,7 @@ void ClubManagerDlg::on_pushButton_add_pressed()
 void ClubManagerDlg::on_pushButton_save_pressed()
 //---------------------------------------------------------
 {
-	if( m_SelectedClub < 0)
+	if (m_SelectedClub < 0)
 		return;
 
 	Ipponboard::Club club;
@@ -145,11 +151,11 @@ void ClubManagerDlg::on_pushButton_save_pressed()
 void ClubManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-	if( m_SelectedClub < 0)
+	if (m_SelectedClub < 0)
 		return;
 
-	m_pClubMgr->RemoveClub( m_SelectedClub );
-	ui->comboBox_club->removeItem( m_SelectedClub );
+	m_pClubMgr->RemoveClub(m_SelectedClub);
+	ui->comboBox_club->removeItem(m_SelectedClub);
 }
 
 //---------------------------------------------------------
@@ -167,22 +173,23 @@ void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& fileName)
 
 void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 {
-	if( m_SelectedClub < 0)
+	if (m_SelectedClub < 0)
 		return;
 
 	QFileDialog::Options options;
 	QString selectedFilter;
 	QString fileName = QFileDialog::getOpenFileName(this,
-		tr("Select Club Emblem"),
-		ui->lineEdit_logoFile->text(),
-		tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
-		&selectedFilter,
-		options);
+					   tr("Select Club Emblem"),
+					   ui->lineEdit_logoFile->text(),
+					   tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
+					   &selectedFilter,
+					   options);
 
 	if (!fileName.isEmpty())
 	{
 		QIcon icon(fileName);
-		if(icon.availableSizes().empty())
+
+		if (icon.availableSizes().empty())
 		{
 			QMessageBox::critical(this,
 								  tr("Unsupported Image Type"),
