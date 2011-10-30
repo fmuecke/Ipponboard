@@ -8,7 +8,7 @@
 #include "../base/versioninfo.h"
 #include "../util/helpers.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
@@ -19,22 +19,24 @@ int main(int argc, char *argv[])
 
 	// read language code
 	const QString ini(
-			QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
+		QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
-	const QString langStr = settings.value(str_tag_Language,"en").toString();
+	const QString langStr = settings.value(str_tag_Language, "en").toString();
 	settings.endGroup();
 
 	QTranslator translator;
-	if( langStr != QString("en") )
+
+	if (langStr != QString("en"))
 	{
 		const QString& langPath =
-				QCoreApplication::applicationDirPath();// + Qtring("/lang");
+			QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
 		const QString langFile =
 			QString("ipponboard_") + langStr;
-		if( translator.load(langFile, langPath) )
+
+		if (translator.load(langFile, langPath))
 		{
 			a.installTranslator(&translator);
 		}
@@ -63,27 +65,29 @@ int main(int argc, char *argv[])
 	splashData.date = QDate(2011, 12, 31);
 	SplashScreen splash(splashData);
 
-	if( QDialog::Accepted != splash.exec() )
-	return 0;
+	if (QDialog::Accepted != splash.exec())
+		return 0;
 
 	const int days_left = QDate::currentDate().daysTo(splashData.date);
-	if( days_left <= 0 )
+
+	if (days_left <= 0)
 	{
 		QMessageBox::warning(0,
-			QCoreApplication::tr("Warning"),
-			QCoreApplication::tr(
-				"This version is no longer valid!\n\n"
-				"You need to visit the project homepage for an update."));
+							 QCoreApplication::tr("Warning"),
+							 QCoreApplication::tr(
+								 "This version is no longer valid!\n\n"
+								 "You need to visit the project homepage for an update."));
 
 		return 0;
 	}
-	if( days_left < 30 )
+
+	if (days_left < 30)
 	{
 		QMessageBox::warning(0,
-			QCoreApplication::tr("Warning"),
-			QCoreApplication::tr(
-				"This version will stop to work in less than 30 days!\n\n"
-				"Please visit the project homepage - there should be a newer version available."));
+							 QCoreApplication::tr("Warning"),
+							 QCoreApplication::tr(
+								 "This version will stop to work in less than 30 days!\n\n"
+								 "Please visit the project homepage - there should be a newer version available."));
 	}
 
 	MainWindow w;

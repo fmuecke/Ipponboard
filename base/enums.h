@@ -6,76 +6,76 @@
 //
 namespace Ipponboard
 {
-	enum EPoint
-	{
-		ePoint_NONE,
-		ePoint_Yuko,
-		ePoint_Wazaari,
-		ePoint_Ippon,
-		ePoint_Shido,
-		ePoint_Hansokumake,
-		ePoint_MAX
-	};
+enum EPoint
+{
+	ePoint_NONE,
+	ePoint_Yuko,
+	ePoint_Wazaari,
+	ePoint_Ippon,
+	ePoint_Shido,
+	ePoint_Hansokumake,
+	ePoint_MAX
+};
 
-	enum EFighter
-	{
-		eFighter_Nobody = -1,
-		eFighter_Blue = 0,
-		eFighter_White = 1,
-		eFighter_MAX
-	};
+enum EFighter
+{
+	eFighter_Nobody = -1,
+	eFighter_Blue = 0,
+	eFighter_White = 1,
+	eFighter_MAX
+};
 
-	static EFighter GetUkeFromTori( EFighter tori )
-	{
-		return (tori==eFighter_Blue)? eFighter_White : eFighter_Blue;
-	}
+static EFighter GetUkeFromTori(EFighter tori)
+{
+	return (tori == eFighter_Blue) ? eFighter_White : eFighter_Blue;
+}
 
 
-	enum EAction
-	{
-		eAction_NONE,
-		eAction_Hajime_Mate,
-		eAction_OsaeKomi_Toketa,
-		eAction_SonoMama_Yoshi,
-		eAction_Yuko,
-		eAction_Wazaari,
-		eAction_Ippon,
-		eAction_Shido,
-		eAction_Hansokumake,
-		eAction_SetOsaekomi,
-		eAction_ResetAll,
-		eAction_ResetOsaeKomi,
-		eAction_ResetMainTimer
-	};
+enum EAction
+{
+	eAction_NONE,
+	eAction_Hajime_Mate,
+	eAction_OsaeKomi_Toketa,
+	eAction_SonoMama_Yoshi,
+	eAction_Yuko,
+	eAction_Wazaari,
+	eAction_Ippon,
+	eAction_Shido,
+	eAction_Hansokumake,
+	eAction_SetOsaekomi,
+	eAction_ResetAll,
+	eAction_ResetOsaeKomi,
+	eAction_ResetMainTimer
+};
 
-	enum EState
-	{
-		eState_UNDEFINED = -1,
-		eState_TimerStopped = 0,
-		eState_TimerRunning,
-		eState_Holding,
-		eState_SonoMama,
-	};
+enum EState
+{
+	eState_UNDEFINED = -1,
+	eState_TimerStopped = 0,
+	eState_TimerRunning,
+	eState_Holding,
+	eState_SonoMama,
+};
 
-	enum EHoldState
-	{
-		eHoldState_off = 0,
-		eHoldState_on,
-		eHoldState_pause
-	};
+enum EHoldState
+{
+	eHoldState_off = 0,
+	eHoldState_on,
+	eHoldState_pause
+};
 
-	enum ETimer
-	{
-		eTimer_Main = 0,
-		eTimer_Hold,
-	};
+enum ETimer
+{
+	eTimer_Main = 0,
+	eTimer_Hold,
+};
 
-	enum EOsaekomiVal
-	{
-		eOsaekomiVal_Yuko = 15,
-		eOsaekomiVal_Wazaari = 20,
-		eOsaekomiVal_Ippon = 25
-	};
+enum EOsaekomiVal
+{
+	eOsaekomiVal_Yuko = 15,
+	eOsaekomiVal_Wazaari = 20,
+	eOsaekomiVal_Ippon = 25
+};
 }
 
 #endif  // BASE__ENUMS_H_

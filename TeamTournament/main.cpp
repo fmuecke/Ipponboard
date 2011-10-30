@@ -8,7 +8,7 @@
 #include "../base/versioninfo.h"
 #include "../util/helpers.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
@@ -19,24 +19,26 @@ int main(int argc, char *argv[])
 
 	// read language code
 	const QString ini(
-			QString::fromStdString(FMU::GetSettingsFilePath(str_ini_name)));
+		QString::fromStdString(FMU::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
-	const QString langStr = settings.value(str_tag_Language,"en").toString();
+	const QString langStr = settings.value(str_tag_Language, "en").toString();
 	settings.endGroup();
 
 	QTranslator translator;
-	if( langStr != QString("en") )
+
+	if (langStr != QString("en"))
 	{
 		const QString& langPath =
-				QCoreApplication::applicationDirPath();// + Qtring("/lang");
+			QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
 		const QString langFile =
 			QString("ipponboard_") + langStr;
-		if( translator.load(langFile, langPath) )
+
+		if (translator.load(langFile, langPath))
 		{
-	a.installTranslator(&translator);
+			a.installTranslator(&translator);
 		}
 		else
 		{
