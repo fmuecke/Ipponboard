@@ -1,2 +1,2 @@
 @echo off
-astyle --options=astyle.cfg *.cpp *.h
+astyle --options=astyle.cfg --recursive *.cpp *.h

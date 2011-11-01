@@ -8,7 +8,8 @@
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 
-namespace Ipponboard{
+namespace Ipponboard
+{
 
 class FightCategory
 {
@@ -20,7 +21,7 @@ public:
 	FightCategory()
 	{}
 
-	explicit FightCategory( QString const& new_name )
+	explicit FightCategory(QString const& new_name)
 		: name(new_name.toStdString())
 		, round_time_secs(0)
 		, golden_score_time_secs(0)
@@ -28,11 +29,11 @@ public:
 	{
 	}
 
-	inline bool operator==( std::string const& n ) const
+	inline bool operator==(std::string const& n) const
 	{
 		return name == n;
 	}
-	inline bool operator==( QString const& n ) const
+	inline bool operator==(QString const& n) const
 	{
 		return name == n.toStdString();
 	}
@@ -63,12 +64,12 @@ private:
 		// 0: first initial shot
 		// 1: weights are now separated by semicolons (instead of commas)
 
-		ar & BOOST_SERIALIZATION_NVP(name);
-		ar & BOOST_SERIALIZATION_NVP(round_time_secs);
-		ar & BOOST_SERIALIZATION_NVP(golden_score_time_secs);
-		ar & BOOST_SERIALIZATION_NVP(weights);
+		ar& BOOST_SERIALIZATION_NVP(name);
+		ar& BOOST_SERIALIZATION_NVP(round_time_secs);
+		ar& BOOST_SERIALIZATION_NVP(golden_score_time_secs);
+		ar& BOOST_SERIALIZATION_NVP(weights);
 
-		if( version < 1)
+		if (version < 1)
 			std::replace(weights.begin(), weights.end(), ',', ';');
 	}
 

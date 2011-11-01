@@ -14,7 +14,8 @@
 // forwards
 class QListWidgetItem;
 
-namespace Ipponboard {
+namespace Ipponboard
+{
 
 class FightCategoryMgr
 {
@@ -25,21 +26,21 @@ public:
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
 
-	bool GetCategory( int index, FightCategory& t ) const;
-	bool GetCategory( QString const& name, FightCategory& t ) const;
+	bool GetCategory(int index, FightCategory& t) const;
+	bool GetCategory(QString const& name, FightCategory& t) const;
 
-	bool HasCategory( QString const& name ) const;
-	void AddCategory( FightCategory const& t );
-	void AddCategory( QString const& name );
-	void UpdateCategory( FightCategory const& t );
-	void UpdateCategory( QString const& oldName, FightCategory const& t );
-	void RenameCategory( QString const& oldName, QString const& newName );
-	void RemoveCategory( QString const& name );
-	void MoveCategoryUp( QString const& name );
-	void MoveCategoryDown( QString const& name );
+	bool HasCategory(QString const& name) const;
+	void AddCategory(FightCategory const& t);
+	void AddCategory(QString const& name);
+	void UpdateCategory(FightCategory const& t);
+	void UpdateCategory(QString const& oldName, FightCategory const& t);
+	void RenameCategory(QString const& oldName, QString const& newName);
+	void RemoveCategory(QString const& name);
+	void MoveCategoryUp(QString const& name);
+	void MoveCategoryDown(QString const& name);
 	int CategoryCount() const { return m_Categories.size(); }
 
-	bool CategoriesFromString( std::string const& s );
+	bool CategoriesFromString(std::string const& s);
 	std::string const CategoriesToString();
 
 private:

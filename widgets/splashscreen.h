@@ -13,7 +13,7 @@
 
 namespace Ui
 {
-	class SplashScreen;
+class SplashScreen;
 }
 
 class SplashScreen : public QDialog
@@ -32,10 +32,10 @@ public:
 	~SplashScreen();
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent* e);
 
 private:
-	Ui::SplashScreen *ui;
+	Ui::SplashScreen* ui;
 
 private slots:
 	void on_pushButton_Cancel_pressed();

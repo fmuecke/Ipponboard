@@ -87,12 +87,14 @@ static const std::string GetShellFolder(EShellFolderType what)
 {
 #ifndef _WIN32
 	// TODO: handle other platforms (when needed)
-	#error "not implemented yet"
+#error "not implemented yet"
 #endif
 	std::string ret;
-	char folder[MAX_PATH+1] = {0};
-	if( S_OK == ::SHGetFolderPathA( 0, what, 0, /*SHGFP_TYPE_CURRENT*/0, folder ) )
+	char folder[MAX_PATH + 1] = {0};
+
+	if (S_OK == ::SHGetFolderPathA(0, what, 0, /*SHGFP_TYPE_CURRENT*/0, folder))
 		ret.assign(folder);
+
 	return ret;
 }
 
@@ -106,16 +108,18 @@ static bool IsPortable()
 	// NOTE: one could also use QCoreApplication::applicationFilePath()
 #ifdef _WIN32
 	char buf[MAX_PATH] = {0};
-	unsigned ret = ::GetModuleFileNameA( NULL, buf, MAX_PATH );
-	if( ret != 0 )
+	unsigned ret = ::GetModuleFileNameA(NULL, buf, MAX_PATH);
+
+	if (ret != 0)
 	{
 		const std::string compStr("-portable.exe");
 		std::string s(buf);
-		return 0 == s.compare(s.size()-compStr.size(), compStr.size(), compStr);
+		return 0 == s.compare(s.size() - compStr.size(), compStr.size(), compStr);
 	}
+
 #else
 	// TODO: handle other platforms (when needed)
-	#error "not implemented yet"
+#error "not implemented yet"
 #endif
 	return false;
 }
@@ -126,13 +130,16 @@ static const std::string GetSettingsFilePath(const char* fileName)
 	// (2) use file in common app data
 	// (3) create file or error
 	std::string filePath(fileName);
-	if( !IsPortable() )
+
+	if (!IsPortable())
 	{
-		filePath.assign(GetCommonAppData()+"\\Ipponboard\\");
+		filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
 		filePath.append(fileName);
-		if( !boost::filesystem::exists(filePath) )
+
+		if (!boost::filesystem::exists(filePath))
 			filePath.assign(fileName);
 	}
+
 	return filePath;
 }
 

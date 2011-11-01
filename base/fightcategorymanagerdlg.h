@@ -16,19 +16,19 @@ class FightCategoryManagerDlg : public QDialog
 
 public:
 	explicit FightCategoryManagerDlg(
-			Ipponboard::FightCategoryMgr* mgr,
-			QWidget* parent = 0 );
+		Ipponboard::FightCategoryMgr* mgr,
+		QWidget* parent = 0);
 
 	virtual ~FightCategoryManagerDlg();
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent* e);
 
 private:
-	enum { eColumn_Name=0, eColumn_Time, eColumn_GS, eColumn_Weights };
+	enum { eColumn_Name = 0, eColumn_Time, eColumn_GS, eColumn_Weights };
 	void load_values();
 
-	Ui::FightCategoryManagerDlg *ui;
+	Ui::FightCategoryManagerDlg* ui;
 	Ipponboard::FightCategoryMgr* m_pClassMgr;
 	std::string m_originalClasses;
 	//Ipponboard::WeightClass m_currentClass;

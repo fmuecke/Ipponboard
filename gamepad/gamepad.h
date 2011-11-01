@@ -12,7 +12,8 @@
 #include <Windows.h>
 #include <Mmsystem.h>
 
-namespace FMlib {
+namespace FMlib
+{
 
 typedef std::pair<unsigned, unsigned> unsignedPair;
 
@@ -173,22 +174,23 @@ public:
 	}
 	inline EPovType GetPovType() const
 	{
-		if( 0 == (m_caps.wCaps & JOYCAPS_HASPOV) )
+		if (0 == (m_caps.wCaps & JOYCAPS_HASPOV))
 			return ePovType_no_pov;
-		if( 0 != (m_caps.wCaps & JOYCAPS_POVCTS) )
+
+		if (0 != (m_caps.wCaps & JOYCAPS_POVCTS))
 			return ePovType_continuous;
-		else if( 0 != (m_caps.wCaps & JOYCAPS_POV4DIR) )
+		else if (0 != (m_caps.wCaps & JOYCAPS_POV4DIR))
 			return ePovType_discrete;
 		else
 			return ePovType_unknown;
 	}
 
-	void SetInverted( EAxis axis, bool val = true );
-	bool IsInverted( EAxis axis) const;
+	void SetInverted(EAxis axis, bool val = true);
+	bool IsInverted(EAxis axis) const;
 
-	bool WasPressed( EButton b ) const;
-	bool WasReleased( EButton b ) const;
-	bool IsPressed( EButton b ) const;
+	bool WasPressed(EButton b) const;
+	bool WasReleased(EButton b) const;
+	bool IsPressed(EButton b) const;
 
 	bool WasSectionEnteredXY(float min, float max) const;
 	bool WasSectionEnteredRZ(float min, float max) const;
@@ -196,7 +198,7 @@ public:
 	bool IsInSection(const float alpha, const float min, const float max) const;
 
 	template<class T>
-	T GetAngle( int x, int y, float factor = 0.0f, int max = 0 ) const;
+	T GetAngle(int x, int y, float factor = 0.0f, int max = 0) const;
 	float GetAngleXY() const;
 	float GetAngleRZ() const;
 
@@ -218,10 +220,10 @@ public:
 
 	///	Sets the movement threshold for the current controller.
 	/// @return true if value has been successfully set
-	bool SetThreshold( unsigned threshold ) const;
+	bool SetThreshold(unsigned threshold) const;
 
-	bool Capture( HWND hwnd, unsigned int period = 125,
-				  EUpdateAction when = update_on_change );
+	bool Capture(HWND hwnd, unsigned int period = 125,
+				 EUpdateAction when = update_on_change);
 	bool Release();
 
 private:

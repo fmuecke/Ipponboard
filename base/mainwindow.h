@@ -8,30 +8,32 @@
 #include "../base/controlconfig.h"
 
 // forwards
-namespace Ui {
-	class MainWindow;
-	class Frame_Clubs;
+namespace Ui
+{
+class MainWindow;
+class Frame_Clubs;
 }
 namespace Ipponboard
 {
-	class View;
-	class Controller;
-	class ClubManager;
-	class FightCategoryMgr;
-	class ScoreScreen;
+class View;
+class Controller;
+class ClubManager;
+class FightCategoryMgr;
+class ScoreScreen;
 }
 
-namespace FMlib {
-	class Gamepad;
+namespace FMlib
+{
+class Gamepad;
 }
 typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
 
 #ifdef TEAM_VIEW
-	static const char* const str_ini_name = "IpponboardT.ini";
-	static const char* const str_mode_bundesliga = "Bundesliga";
-	static const char* const str_mode_bayernliga = "Bayern-/Landesliga";
+static const char* const str_ini_name = "IpponboardT.ini";
+static const char* const str_mode_bundesliga = "Bundesliga";
+static const char* const str_mode_bayernliga = "Bayern-/Landesliga";
 #else
-	static const char* const str_ini_name = "Ipponboard.ini";
+static const char* const str_ini_name = "Ipponboard.ini";
 #endif
 
 static const char* const str_golden_score = "Golden Score";
@@ -82,15 +84,16 @@ static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
 	Q_OBJECT
 public:
-	explicit MainWindow( QWidget *parent = 0 );
+	explicit MainWindow(QWidget* parent = 0);
 	virtual ~MainWindow();
 
 protected:
-	void changeEvent( QEvent *e );
-	void closeEvent( QCloseEvent *event );
+	void changeEvent(QEvent* e);
+	void closeEvent(QCloseEvent* event);
 
 private:
 	void write_settings();
@@ -112,7 +115,7 @@ private:
 private slots:
 #ifdef TEAM_VIEW
 	void on_button_current_round_clicked(bool checked);
-	void on_comboBox_mode_currentIndexChanged(QString );
+	void on_comboBox_mode_currentIndexChanged(QString);
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
 	void on_pushButton_weights_pressed();
@@ -120,8 +123,8 @@ private slots:
 	void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);
-	void on_actionLang_English_triggered(bool );
-	void on_actionLang_Deutsch_triggered(bool );
+	void on_actionLang_English_triggered(bool);
+	void on_actionLang_Deutsch_triggered(bool);
 	void on_actionContact_Author_triggered();
 	void on_actionOnline_Feedback_triggered();
 	void on_actionVisit_Project_Homepage_triggered();
@@ -134,7 +137,7 @@ private slots:
 	void EvaluateInput();
 
 #ifdef TEAM_VIEW
-	void Print(QPrinter *p)
+	void Print(QPrinter* p)
 	{
 		QTextEdit e(m_htmlScore, this);
 		e.document()->print(p);
@@ -151,11 +154,11 @@ private slots:
 	void on_actionExport_triggered();
 #else
 	void on_actionManage_Classes_triggered();
-	void on_comboBox_weight_currentIndexChanged(const QString& );
-	void on_lineEdit_name_white_textChanged(const QString& );
-	void on_lineEdit_name_blue_textChanged(const QString& );
+	void on_comboBox_weight_currentIndexChanged(const QString&);
+	void on_lineEdit_name_white_textChanged(const QString&);
+	void on_lineEdit_name_blue_textChanged(const QString&);
 	void on_checkBox_golden_score_clicked(bool checked);
-	void on_comboBox_weight_class_currentIndexChanged(const QString& );
+	void on_comboBox_weight_class_currentIndexChanged(const QString&);
 #endif
 
 private:

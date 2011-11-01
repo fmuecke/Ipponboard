@@ -7,7 +7,7 @@
 
 class TournamentModel : public QAbstractItemModel
 {
-Q_OBJECT
+	Q_OBJECT
 public:
 
 	enum EColumns
@@ -33,7 +33,7 @@ public:
 		eCol_MAX
 	};
 
-	explicit TournamentModel( Ipponboard::Tournament* pTournament, QObject* parent = 0 );
+	explicit TournamentModel(Ipponboard::Tournament* pTournament, QObject* parent = 0);
 	virtual ~TournamentModel();
 
 	void SetNumRows(int rows)
@@ -41,15 +41,15 @@ public:
 		m_nRows = rows;
 	}
 
-	QModelIndex index( int row, int column, const QModelIndex& parent ) const;
-	QModelIndex parent( const QModelIndex& child ) const;
-	int rowCount( const QModelIndex& parent ) const;
-	int columnCount( const QModelIndex& parent ) const;
-	QVariant data( const QModelIndex& index, int role ) const;
-	QVariant headerData( int section, Qt::Orientation orientation, unsigned int role ) const;
-	bool setData( const QModelIndex& index, const QVariant& value, unsigned int role = Qt::EditRole );
-	Qt::ItemFlags flags( const QModelIndex& index ) const;
-	QSize span( const QModelIndex& index ) const;
+	QModelIndex index(int row, int column, const QModelIndex& parent) const;
+	QModelIndex parent(const QModelIndex& child) const;
+	int rowCount(const QModelIndex& parent) const;
+	int columnCount(const QModelIndex& parent) const;
+	QVariant data(const QModelIndex& index, int role) const;
+	QVariant headerData(int section, Qt::Orientation orientation, unsigned int role) const;
+	bool setData(const QModelIndex& index, const QVariant& value, unsigned int role = Qt::EditRole);
+	Qt::ItemFlags flags(const QModelIndex& index) const;
+	QSize span(const QModelIndex& index) const;
 
 	void SetExternalDisplays(QLineEdit* pEditWins, QLineEdit* pEditScore)
 	{
@@ -57,10 +57,10 @@ public:
 		m_pEditScore = pEditScore;
 	}
 	void SetIntermediateModel(TournamentModel* pModel)
-		{ m_pIntermediateModel = pModel; }
+	{ m_pIntermediateModel = pModel; }
 
-	std::pair<unsigned,unsigned> GetTotalWins() const;
-	std::pair<unsigned,unsigned> GetTotalScore() const;
+	std::pair<unsigned, unsigned> GetTotalWins() const;
+	std::pair<unsigned, unsigned> GetTotalScore() const;
 
 
 private slots:

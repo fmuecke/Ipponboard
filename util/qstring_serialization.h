@@ -7,12 +7,14 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/serialization/string.hpp>
 
-namespace boost {
-namespace serialization {
+namespace boost
+{
+namespace serialization
+{
 
 
 template<class Archive>
-inline void save( Archive& ar, const QString& s, const unsigned int /*version*/ )
+inline void save(Archive& ar, const QString& s, const unsigned int /*version*/)
 {
 	using boost::serialization::make_nvp;
 	std::string str = s.toStdString();
@@ -20,7 +22,7 @@ inline void save( Archive& ar, const QString& s, const unsigned int /*version*/ 
 }
 
 template<class Archive>
-inline void load( Archive& ar, QString& s, const unsigned int /*version*/ )
+inline void load(Archive& ar, QString& s, const unsigned int /*version*/)
 {
 	using boost::serialization::make_nvp;
 
@@ -30,7 +32,7 @@ inline void load( Archive& ar, QString& s, const unsigned int /*version*/ )
 }
 
 template<class Archive>
-inline void serialize( Archive& ar, QString& s, const unsigned int file_version )
+inline void serialize(Archive& ar, QString& s, const unsigned int file_version)
 {
 	boost::serialization::split_free(ar, s, file_version);
 }

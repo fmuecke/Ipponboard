@@ -6,6 +6,7 @@ TEMPLATE = app
 LANGUAGE = C++
 CONFIG += precompile_header
 DEFINES += TEAM_VIEW
+DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
@@ -60,6 +61,7 @@ RESOURCES += ../base/ipponboard.qrc
 
 INCLUDEPATH += $$quote($$(BOOST))
 
+QMAKE_LIBS += -lshell32
 QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
 

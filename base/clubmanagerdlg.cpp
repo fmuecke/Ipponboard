@@ -166,7 +166,7 @@ void ClubManagerDlg::on_comboBox_club_currentIndexChanged(int index)
 	update_ui();
 }
 
-void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& fileName)
+void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& /*fileName*/)
 {
 	update_ui();
 }

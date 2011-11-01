@@ -29,10 +29,10 @@ static char const* const timer_type_names[] = { "main", "hold", "all" };
 class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
 {
 public:
-	IpponboardSM_( IControllerCore* core ) : m_pCore(core) {}
+	IpponboardSM_(IControllerCore* core) : m_pCore(core) {}
 	IpponboardSM_() : m_pCore(0) {}
 
-	void SetCore( IControllerCore* core ) { m_pCore = core; }
+	void SetCore(IControllerCore* core) { m_pCore = core; }
 	virtual ~IpponboardSM_() {}
 
 	//
@@ -47,7 +47,7 @@ public:
 	template<typename T>
 	struct PointEvent
 	{
-		PointEvent( Ipponboard::EFighter f )
+		PointEvent(Ipponboard::EFighter f)
 			: tori(f) {}
 		Ipponboard::EFighter tori;
 	};
@@ -90,7 +90,12 @@ public:
 		Ipponboard::EFighter tori;
 	};
 	struct hold_timer_type
-	{ enum { type = Ipponboard::eTimer_Hold }; };
+	{
+		enum
+		{
+			type = Ipponboard::eTimer_Hold
+		};
+	};
 	typedef TimeEvent<hold_timer_type> HoldTimeEvent;
 
 	struct TimeEndedEvent {};
@@ -126,146 +131,49 @@ public:
 	//--------------------
 	// transition actions
 	//--------------------
-	void reset(Reset const& /*evt*/)
-	{
-		m_pCore->reset_fight();
-	}
+	void reset(Reset const& /*evt*/);
 
-	template<class T>
+	void stop_timer(Osaekomi_Toketa const& /*evt*/);
+	void stop_timer(TimeEndedEvent const& /*evt*/);
+	void stop_timer(Hajime_Mate const& /*evt*/);
+	void stop_timer(Finish const& /*evt*/);
+	template<typename T>
 	void stop_timer(T const& /*evt*/)
 	{
-		m_pCore->stop_timer( ETimer(T::type) );
-	}
-	template<>
-	void stop_timer( Osaekomi_Toketa const& /*evt*/ )
-	{
-		m_pCore->stop_timer( eTimer_Hold );
-	}
-	template<>
-	void stop_timer( TimeEndedEvent const& /*evt*/ )
-	{
-		m_pCore->stop_timer( eTimer_Main );
-	}
-	template<>
-	void stop_timer( Finish const& /*evt*/)
-	{
-		// Finish will be created if current fight should be saved
-		// --> stop timers
-		m_pCore->stop_timer( eTimer_Hold );
-		m_pCore->stop_timer( eTimer_Main ); // will save main time
+		m_pCore->stop_timer(ETimer(T::type));
 	}
 
-	template<class T>
-	void start_timer(T const& /*evt*/);
-//	{
-//		m_pCore->StartTimer_( ETimer(T::type) );
-//	}
-	template<>
-	void start_timer(Hajime_Mate const& /*evt*/)
-	{
-		m_pCore->reset_timer( eTimer_Hold );
-		m_pCore->start_timer( eTimer_Main );
-	}
-	template<>
-	void start_timer( Osaekomi_Toketa const& /*evt*/ )
-	{
-		//m_pCore->reset_timer( eTimer_Hold );
-		m_pCore->start_timer( eTimer_Hold );
-	}
-	void yoshi( Osaekomi_Toketa const& /*evt*/ )
-	{
-		m_pCore->start_timer( eTimer_Main );
-		m_pCore->start_timer( eTimer_Hold );
-	}
-
-	template<class T>
+	void add_point(Ippon const& evt);
+	void add_point(Shido const& evt);
+	void add_point(PointEvent<revoke_shido_hm_type> const& evt);
+	void add_point(Hansokumake const& evt);
+	void add_point(HoldTimeEvent const& evt);
+	template<typename T>
 	void add_point(PointEvent<T> const& evt)
 	{
-		if( T::revoke )
+		if (T::revoke)
 			Score_(evt.tori).Remove(EPoint(T::type));
 		else
 			Score_(evt.tori).Add(EPoint(T::type));
 	}
-
-	template<>
-	void add_point(PointEvent<ippon_type> const& evt)
-	{
-		Score_(evt.tori).Add(ePoint_Ippon);
-		m_pCore->stop_timer(eTimer_Main);
-		m_pCore->stop_timer(eTimer_Hold);
-	}
-
-
-	template<>
-	void add_point(PointEvent<shido_type> const& evt)
-	{
-		EFighter uke = GetUkeFromTori(evt.tori);
-		if( 3 == Score_(evt.tori).Shido() )
-		{
-			Score_(uke).Remove(ePoint_Wazaari);
-			Score_(uke).Add(ePoint_Ippon);
-		}
-		else if( 2 == Score_(evt.tori).Shido() )
-		{
-			Score_(uke).Remove(ePoint_Yuko);
-			Score_(uke).Add(ePoint_Wazaari);
-		}
-		else if( 1 == Score_(evt.tori).Shido() )
-		{
-			Score_(uke).Add(ePoint_Yuko);
-		}
-		Score_(evt.tori).Add(ePoint_Shido);
-	}
-
-	template<>
-	void add_point(PointEvent<revoke_shido_hm_type> const& evt)
-	{
-		EFighter uke = GetUkeFromTori(evt.tori);
-		if( Score_(evt.tori).Hansokumake() )
-		{
-			Score_(uke).Remove(ePoint_Ippon);
-			Score_(evt.tori).Remove(ePoint_Hansokumake);
-		}
-		else
-		{
-			if( 4 == Score_(evt.tori).Shido() )
-			{
-				Score_(uke).Remove(ePoint_Ippon);
-				Score_(uke).Add(ePoint_Wazaari);
-			}
-			else if( 3 == Score_(evt.tori).Shido() )
-			{
-				Score_(uke).Remove(ePoint_Wazaari);
-				Score_(uke).Add(ePoint_Yuko);
-			}
-			else if( 2 == Score_(evt.tori).Shido() )
-			{
-				Score_(uke).Remove(ePoint_Yuko);
-			}
-			Score_(evt.tori).Remove(ePoint_Shido);
-		}
-	}
-
-	template<>
-	void add_point(PointEvent<hansokumake_type> const& evt)
-	{
-		EFighter uke = GetUkeFromTori(evt.tori);
-		Score_(uke).Add(ePoint_Ippon);
-		Score_(evt.tori).Add(ePoint_Hansokumake);
-
-		m_pCore->stop_timer(eTimer_Main);
-		m_pCore->stop_timer(eTimer_Hold);
-	}
-
-	void add_point(HoldTimeEvent const& evt);
-
-	template <class T>
+	template <typename T>
 	void add_point_stop_timer(T const& evt)
 	{
 		add_point(evt);
-		m_pCore->stop_timer( eTimer_Hold );
-		m_pCore->stop_timer( eTimer_Main );
+		m_pCore->stop_timer(eTimer_Hold);
+		m_pCore->stop_timer(eTimer_Main);
 	}
+
+	void start_timer(Hajime_Mate const& /*evt*/);
+	void start_timer(Osaekomi_Toketa const& /*evt*/);
+	//template<typename T>
+	//void start_timer(T const& /*evt*/);
+	//not used currently...
+	//{
+	//	m_pCore->StartTimer_( ETimer(T::type) );
+	//}
+
+	void yoshi(Osaekomi_Toketa const& /*evt*/);
 
 	//------------------
 	// guard conditions
@@ -275,11 +183,13 @@ public:
 	{
 		return 0 != m_pCore->get_time(eTimer_Main);
 	}
+
 	template<class T>
 	bool time_is_up(T const& /*evt*/)
 	{
 		return 0 == m_pCore->get_time(eTimer_Main);
 	}
+
 	bool has_wazaari(Wazaari const& evt);
 	bool has_2wazaari(RevokeWazaari const& evt);
 	bool has_no_wazaari(Wazaari const& evt);
@@ -296,79 +206,79 @@ public:
 	typedef Ipponboard::IpponboardSM_ sm; // makes transition table cleaner
 
 	// Transition table for board
-	struct transition_table : boost::mpl::vector<
-	//		Start		Event			Next	  Action				Guard
-	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	a_row < Stopped , Hajime_Mate	, Running	, &sm::start_timer							>,
-	  row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
-	  row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
-	a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
-	a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
-	 _row < Stopped , Finish		, Stopped												>,
-	  //row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
-	a_row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
-	a_row < Stopped , RevokeShidoHM	, Stopped	, &sm::add_point							>,
-	a_row < Stopped	, RevokeWazaari	, Stopped	, &sm::add_point							>,
-	a_row < Stopped	, RevokeYuko	, Stopped	, &sm::add_point							>,
-	a_row < Stopped , Ippon			, Stopped	, &sm::add_point							>,	// just to correct values...
-	a_row < Stopped , RevokeIppon	, Stopped	, &sm::add_point							>,	// just to correct values...
-	  row < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::has_wazaari		>,	// just to correct values...
-	a_row < Stopped , Wazaari		, Stopped	, &sm::add_point							>,	// just to correct values...
-	a_row < Stopped , Yuko			, Stopped	, &sm::add_point							>,	// just to correct values...
-	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	a_row < Running , Hajime_Mate	, Stopped	, &sm::stop_timer					 		>,
-	a_row < Running , TimeEndedEvent, Stopped	, &sm::stop_timer							>,
-	a_row < Running , Ippon			, Stopped	, &sm::add_point							>,
-	a_row < Running , Wazaari		, Running	, &sm::add_point							>,
-	  row < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::has_wazaari		>,
-	a_row < Running , Yuko			, Running	, &sm::add_point							>,
-	a_row < Running	, Reset			, Stopped	, &sm::reset								>,
-	a_row < Running , Finish		, Stopped	, &sm::stop_timer							>,
-	a_row < Running , Osaekomi_Toketa,Holding	, &sm::start_timer							>,
-	a_row < Running	, RevokeWazaari	, Running	, &sm::add_point							>,
-	a_row < Running	, RevokeYuko	, Running	, &sm::add_point							>,
-	a_row < Running , RevokeShidoHM	, Running	, &sm::add_point							>,	// just to correct values...
-	a_row < Running , Hansokumake	, Stopped	, &sm::add_point							>,	// just to correct values...
-	  row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::has_enough_shido	>,	// just to correct values...
-	  row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
-	//	  +---------+---------------+-----------+-------------------+-----------------------+
-	  row < Holding ,Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
-	  row < Holding ,Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
-	a_row < Holding ,Hajime_Mate	, Stopped	, &sm::stop_timer									>,
-	a_row < Holding ,Reset			, Stopped	, &sm::reset										>,
-	a_row < Holding ,Finish			, Stopped	, &sm::stop_timer									>,
-	a_row < Holding ,Hansokumake	, Stopped	, &sm::add_point									>,
-	a_row < Holding ,Ippon			, Stopped	, &sm::add_point									>,
-	a_row < Holding ,Wazaari		, Holding	, &sm::add_point									>,	// just to correct values...
-	a_row < Holding ,Yuko			, Holding	, &sm::add_point									>,	// just to correct values...
-	a_row < Holding ,Shido			, Holding	, &sm::add_point									>,	// just to correct values...
-	a_row < Holding ,RevokeWazaari	, Holding	, &sm::add_point									>,	// just to correct values...
-	a_row < Holding ,RevokeYuko		, Holding	, &sm::add_point									>,	// just to correct values...
-	a_row < Holding ,RevokeShidoHM	, Holding	, &sm::add_point									>,	// just to correct values...
-	//
-	// Note: Transitions are processed bottom up!
-	  row < Holding ,HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_15s			>,
-	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_15s_and_gs   >,
-	  row < Holding ,HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_20s			>,
-	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_gs   >,
-	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_wazaari>,
-	  row < Holding ,HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_25s			>
-  //	  +---------+---------------+-----------+-------------------+----------------------+
-	> {};
+	struct transition_table : boost::mpl::vector <
+			//		Start		Event			Next	  Action				Guard
+			//	  +---------+---------------+-----------+-------------------+-----------------------+
+			a_row < Stopped , Hajime_Mate	, Running	, &sm::start_timer							>,
+			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
+			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
+			a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
+			a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
+			_row < Stopped , Finish		, Stopped												>,
+			//row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
+			a_row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
+			a_row < Stopped , RevokeShidoHM	, Stopped	, &sm::add_point							>,
+			a_row < Stopped	, RevokeWazaari	, Stopped	, &sm::add_point							>,
+			a_row < Stopped	, RevokeYuko	, Stopped	, &sm::add_point							>,
+			a_row < Stopped , Ippon			, Stopped	, &sm::add_point							>,	// just to correct values...
+			a_row < Stopped , RevokeIppon	, Stopped	, &sm::add_point							>,	// just to correct values...
+			row < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::has_wazaari		>,	// just to correct values...
+			a_row < Stopped , Wazaari		, Stopped	, &sm::add_point							>,	// just to correct values...
+			a_row < Stopped , Yuko			, Stopped	, &sm::add_point							>,	// just to correct values...
+			//	  +---------+---------------+-----------+-------------------+-----------------------+
+			a_row < Running , Hajime_Mate	, Stopped	, &sm::stop_timer					 		>,
+			a_row < Running , TimeEndedEvent, Stopped	, &sm::stop_timer							>,
+			a_row < Running , Ippon			, Stopped	, &sm::add_point							>,
+			a_row < Running , Wazaari		, Running	, &sm::add_point							>,
+			row < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::has_wazaari		>,
+			a_row < Running , Yuko			, Running	, &sm::add_point							>,
+			a_row < Running	, Reset			, Stopped	, &sm::reset								>,
+			a_row < Running , Finish		, Stopped	, &sm::stop_timer							>,
+			a_row < Running , Osaekomi_Toketa, Holding	, &sm::start_timer							>,
+			a_row < Running	, RevokeWazaari	, Running	, &sm::add_point							>,
+			a_row < Running	, RevokeYuko	, Running	, &sm::add_point							>,
+			a_row < Running , RevokeShidoHM	, Running	, &sm::add_point							>,	// just to correct values...
+			a_row < Running , Hansokumake	, Stopped	, &sm::add_point							>,	// just to correct values...
+			row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::has_enough_shido	>,	// just to correct values...
+			row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
+			//	  +---------+---------------+-----------+-------------------+-----------------------+
+			row < Holding , Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
+			row < Holding , Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
+			a_row < Holding , Hajime_Mate	, Stopped	, &sm::stop_timer									>,
+			a_row < Holding , Reset			, Stopped	, &sm::reset										>,
+			a_row < Holding , Finish			, Stopped	, &sm::stop_timer									>,
+			a_row < Holding , Hansokumake	, Stopped	, &sm::add_point									>,
+			a_row < Holding , Ippon			, Stopped	, &sm::add_point									>,
+			a_row < Holding , Wazaari		, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , Yuko			, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , Shido			, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , RevokeWazaari	, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , RevokeYuko		, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , RevokeShidoHM	, Holding	, &sm::add_point									>,	// just to correct values...
+			//
+			// Note: Transitions are processed bottom up!
+			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_15s			>,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_15s_and_gs   >,
+			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_20s			>,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_gs   >,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_wazaari>,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_25s			>
+			//	  +---------+---------------+-----------+-------------------+----------------------+
+			> {};
 	// Replaces the default no-transition response.
-	template <class FSM, class Event>
+	template <typename FSM, typename Event>
 	void no_transition(Event const&, FSM&, int /*state*/)
 	{
-//		e;
-//		std::cout << "no transition from state " << state
-//			<< " on event " << typeid(e).name() << std::endl;
+		//		e;
+		//		std::cout << "no transition from state " << state
+		//			<< " on event " << typeid(e).name() << std::endl;
 	}
 
 private:
 	inline Score& Score_(EFighter who)
-		{ return m_pCore->get_score(who); }
+	{ return m_pCore->get_score(who); }
 	inline const Score& Score_(EFighter who) const
-		{ return m_pCore->get_score(who); }
+	{ return m_pCore->get_score(who); }
 
 	IControllerCore* m_pCore;
 };

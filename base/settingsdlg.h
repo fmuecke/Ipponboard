@@ -6,8 +6,9 @@
 
 class QComboBox;
 
-namespace Ui {
-	class SettingsDlg;
+namespace Ui
+{
+class SettingsDlg;
 }
 
 namespace Ipponboard
@@ -16,7 +17,7 @@ namespace Ipponboard
 struct ControlConfig;
 
 class SettingsDlg : public QDialog
- {
+{
 	Q_OBJECT
 public:
 	SettingsDlg(QWidget* parent = 0);
@@ -25,8 +26,8 @@ public:
 	void SetScreensSettings(bool showAlways, int screen, bool autosize,
 							const QSize& dimensions);
 	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
-						 const QColor& background);
-	void SetFighterNameFont( const QFont& font );
+							   const QColor& background);
+	void SetFighterNameFont(const QFont& font);
 	void SetTextColorsBlue(const QColor& color, const QColor& background);
 	void SetTextColorsWhite(const QColor& color, const QColor& background);
 	void SetDigitSettings(const QFont& font, const QColor& color,
@@ -56,14 +57,14 @@ public:
 	void GetControlConfig(ControlConfig* pConfig);
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent* e);
 
 private:
 	int get_button_from_text(const QString& text) const;
 	void set_button_value(QComboBox* pCombo, int buttonId);
 
 private:
-	Ui::SettingsDlg *ui;
+	Ui::SettingsDlg* ui;
 	typedef std::map<int, QString> ButtonTextMap;
 	ButtonTextMap m_buttonTexts;
 

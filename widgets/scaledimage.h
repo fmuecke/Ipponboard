@@ -17,7 +17,7 @@ class ScaledImage : public QWidget
 	Q_OBJECT
 
 public:
-	explicit ScaledImage(QWidget *parent = 0);
+	explicit ScaledImage(QWidget* parent = 0);
 
 	void UpdateImage(const QString& fileName);
 	void SetBgColor(const QColor& color);

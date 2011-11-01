@@ -15,9 +15,9 @@ public:
 		Clear();
 	}
 
-	void Add( Ipponboard::EPoint point );
-	void Remove( Ipponboard::EPoint point );
-	int Get( Ipponboard::EPoint point ) const;
+	void Add(Ipponboard::EPoint point);
+	void Remove(Ipponboard::EPoint point);
+	int Get(Ipponboard::EPoint point) const;
 
 	// convenience functions
 	bool Ippon() const { return _points[ePoint_Ippon] != 0; }
@@ -31,16 +31,16 @@ public:
 
 	bool operator<(const Score& rhs) const
 	{
-		if( _points[ePoint_Hansokumake] < rhs._points[ePoint_Hansokumake] )
+		if (_points[ePoint_Hansokumake] < rhs._points[ePoint_Hansokumake])
 			return true;
 
-		if( _points[ePoint_Ippon] < rhs._points[ePoint_Ippon] )
+		if (_points[ePoint_Ippon] < rhs._points[ePoint_Ippon])
 			return true;
 
-		if( _points[ePoint_Wazaari] < rhs._points[ePoint_Wazaari] )
+		if (_points[ePoint_Wazaari] < rhs._points[ePoint_Wazaari])
 			return true;
 
-		if( _points[ePoint_Yuko] < rhs._points[ePoint_Yuko] )
+		if (_points[ePoint_Yuko] < rhs._points[ePoint_Yuko])
 			return true;
 
 		// Note: shidos are not compared as they result in

@@ -8,7 +8,7 @@
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
 
-SplashScreen::SplashScreen(Data const& data, QWidget *parent)
+SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::SplashScreen)
 {
@@ -29,18 +29,18 @@ SplashScreen::~SplashScreen()
 	delete ui;
 }
 
-void SplashScreen::changeEvent(QEvent *e)
+void SplashScreen::changeEvent(QEvent* e)
 {
 	QWidget::changeEvent(e);
 
 	switch (e->type())
 	{
-		case QEvent::LanguageChange:
-			ui->retranslateUi(this);
-			break;
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-		default:
-			break;
+	default:
+		break;
 	}
 }
 

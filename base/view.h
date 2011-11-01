@@ -23,14 +23,14 @@ public:
 
 	enum EType { eTypePrimary, eTypeSecondary };
 	enum ColorType { blueFg, blueBg, whiteFg, whiteBg };
-	explicit View( IController* pController,
-				   EType type,
-				   QWidget *parent = 0 );
+	explicit View(IController* pController,
+				  EType type,
+				  QWidget* parent = 0);
 	virtual ~View();
 
 	// --- IScoreView ---
 	void UpdateView();
-	void SetController( IController* pController );
+	void SetController(IController* pController);
 	void Reset();
 	void SetShowInfoHeader(bool show);
 
@@ -39,9 +39,9 @@ public:
 	const QFont& GetInfoHeaderFont() const { return m_InfoHeaderFont; }
 	const QFont& GetFighterNameFont() const { return m_FighterNameFont; }
 	const QFont& GetDigitFont() const { return m_DigitFont; }
-	void SetInfoHeaderFont( const QFont& font );
-	void SetFighterNameFont( const QFont& font );
-	void SetDigitFont( const QFont& font );
+	void SetInfoHeaderFont(const QFont& font);
+	void SetFighterNameFont(const QFont& font);
+	void SetDigitFont(const QFont& font);
 	const QColor& GetTextColorBlue() const { return m_TextColorBlue; }
 	const QColor& GetTextBgColorBlue() const { return m_TextBgColorBlue; }
 	const QColor& GetTextColorWhite() const { return m_TextColorWhite; }
@@ -50,18 +50,18 @@ public:
 	const QColor& GetInfoTextBgColor() const { return m_InfoTextBgColor; }
 	const QColor& GetMainClockColor1() const { return m_MainClockColorRunning; }
 	const QColor& GetMainClockColor2() const { return m_MainClockColorStopped; }
-	void SetInfoTextColor( const QColor& color, const QColor& bgColor );
-	void SetTextColorBlue( const QColor& color, const QColor& bgColor );
-	void SetTextColorWhite( const QColor& color, const QColor& bgColor );
-	void SetMainClockColor( const QColor& fgColor, const QColor& bgColor );
-	void SetMat( const QString& mat ) { m_mat = mat; }
-	void SetWeight( const QString& weight) { m_weight = weight; } //TODO: move to controller !!
-	void SetCategory( const QString& cat) { m_category = cat; } //TODO: move to controller !!
+	void SetInfoTextColor(const QColor& color, const QColor& bgColor);
+	void SetTextColorBlue(const QColor& color, const QColor& bgColor);
+	void SetTextColorWhite(const QColor& color, const QColor& bgColor);
+	void SetMainClockColor(const QColor& fgColor, const QColor& bgColor);
+	void SetMat(const QString& mat) { m_mat = mat; }
+	void SetWeight(const QString& weight) { m_weight = weight; }  //TODO: move to controller !!
+	void SetCategory(const QString& cat) { m_category = cat; }  //TODO: move to controller !!
 
 protected:
 	//void changeEvent( QEvent* event );
-	void paintEvent( QPaintEvent* event );
-	void mousePressEvent( QMouseEvent* event );
+	void paintEvent(QPaintEvent* event);
+	void mousePressEvent(QMouseEvent* event);
 
 private slots:
 	void setOsaekomiBlue_();
@@ -71,11 +71,11 @@ private slots:
 	void blink_();
 
 private:
-	void update_ippon( Ipponboard::EFighter ) const;
-	void update_wazaari( Ipponboard::EFighter ) const;
-	void update_yuko( Ipponboard::EFighter ) const;
-	void update_shido( Ipponboard::EFighter ) const;
-	void update_hansokumake( Ipponboard::EFighter ) const;
+	void update_ippon(Ipponboard::EFighter) const;
+	void update_wazaari(Ipponboard::EFighter) const;
+	void update_yuko(Ipponboard::EFighter) const;
+	void update_shido(Ipponboard::EFighter) const;
+	void update_hansokumake(Ipponboard::EFighter) const;
 	void update_team_score() const;
 	void update_hold_clock(const EFighter holder, EHoldState state) const;
 	Ipponboard::EFighter GVF_(const Ipponboard::EFighter f) const; // GetViewFighter

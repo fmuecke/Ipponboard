@@ -9,7 +9,7 @@
 #include <QtGui>
 #include <algorithm>
 
-ScaledText::ScaledText( QWidget* pParent )
+ScaledText::ScaledText(QWidget* pParent)
 	: QWidget(pParent)
 	, m_Text()
 	, m_TextColor(Qt::color1)  // normal foreground
@@ -22,16 +22,16 @@ ScaledText::ScaledText( QWidget* pParent )
 	, m_isVisible(true)
 	, m_rotate(false)
 {
-	SetText( "ScaledText" );
+	SetText("ScaledText");
 }
 
-void ScaledText::SetText( const QString& text,
-						  ETextSize size,
-						  bool rotate )
+void ScaledText::SetText(const QString& text,
+						 ETextSize size,
+						 bool rotate)
 {
 	set_size(size);
 
-	if( eSize_uppercase == m_textSize )
+	if (eSize_uppercase == m_textSize)
 		m_Text = text.toUpper();
 	else
 		m_Text = text;
@@ -51,22 +51,22 @@ void ScaledText::SetText( const QString& text,
 	update();
 }
 
-void ScaledText::SetFont( const QFont &font )
+void ScaledText::SetFont(const QFont& font)
 {
 	this->setFont(font);
 	Redraw();
 }
 
-void ScaledText::SetFontAndColor( const QFont& font, const QColor& textColor,
-					  const QColor& bgColor )
+void ScaledText::SetFontAndColor(const QFont& font, const QColor& textColor,
+								 const QColor& bgColor)
 {
 	this->setFont(font);
-	SetColor( textColor, bgColor );
+	SetColor(textColor, bgColor);
 	Redraw();
 }
 
 
-void ScaledText::SetColor( const QColor& textColor, const QColor& bgColor )
+void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 {
 	m_TextColor = textColor;
 	m_BGColor = bgColor;
@@ -74,7 +74,7 @@ void ScaledText::SetColor( const QColor& textColor, const QColor& bgColor )
 	update();
 }
 
-void ScaledText::SetColor( const QColor& textColor)
+void ScaledText::SetColor(const QColor& textColor)
 {
 	m_TextColor = textColor;
 
@@ -91,7 +91,7 @@ const QColor& ScaledText::GetBgColor() const
 	return m_BGColor;
 }
 
-void ScaledText::set_size( ETextSize size )
+void ScaledText::set_size(ETextSize size)
 {
 	Q_ASSERT(size < eSize_MAX && size >= 0);
 	m_textSize = size;
@@ -102,19 +102,20 @@ ScaledText::ETextSize ScaledText::GetSize() const
 	return m_textSize;
 }
 
-void ScaledText::SetBlinking( bool blink, int delay )
+void ScaledText::SetBlinking(bool blink, int delay)
 {
-	if( blink && -1 != m_timerId && delay == m_timerDelay )
+	if (blink && -1 != m_timerId && delay == m_timerDelay)
 		return;
 
 	// kill old timer
-	if( -1 != m_timerId )
+	if (-1 != m_timerId)
 		killTimer(m_timerId);
+
 	m_timerId = -1;
 	m_timerDelay = delay;
 	m_isVisible = true;
 
-	if( blink )
+	if (blink)
 		m_timerId = startTimer(delay);
 }
 
@@ -128,20 +129,21 @@ void ScaledText::Redraw()
 	update();
 }
 
-void ScaledText::paintEvent( QPaintEvent* event )
+void ScaledText::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
 	painter.save();
 
 	// erase background
-	painter.fillRect( event->rect(), QBrush(m_BGColor) );
+	painter.fillRect(event->rect(), QBrush(m_BGColor));
 
-	if( m_isVisible )
+	if (m_isVisible)
 	{
-		painter.setRenderHint( QPainter::TextAntialiasing );
+		painter.setRenderHint(QPainter::TextAntialiasing);
+
 		if (0 != m_pLayout)
 		{
-			painter.setPen( m_TextColor );
+			painter.setPen(m_TextColor);
 
 			// move coordinate system to the center
 			painter.translate(width() / 2.0, height() / 2.0);
@@ -150,22 +152,23 @@ void ScaledText::paintEvent( QPaintEvent* event )
 			line.setLeadingIncluded(false);
 
 			const QRectF rect = line.naturalTextRect();
-			Q_ASSERT( rect == m_pLayout->boundingRect() );
+			Q_ASSERT(rect == m_pLayout->boundingRect());
 
 			qreal w = m_rotate ? rect.height() : rect.width();
 			qreal h = m_rotate ? rect.width() : rect.height();
 
 			qreal adjust_y(0);
-			if( !m_rotate )
+
+			if (!m_rotate)
 			{
-				if( eSize_full == m_textSize )
+				if (eSize_full == m_textSize)
 				{
-					h -= line.descent()*2 + 0.5;
+					h -= line.descent() * 2 + 0.5;
 				}
-				else if ( eSize_uppercase == m_textSize )
+				else if (eSize_uppercase == m_textSize)
 				{
 					h -= line.descent() + 2;
-					adjust_y = -line.descent()/2.5;
+					adjust_y = -line.descent() / 2.5;
 				}
 				else
 				{
@@ -173,32 +176,34 @@ void ScaledText::paintEvent( QPaintEvent* event )
 				}
 			}
 
-			const qreal zoom = std::min<qreal>( width()/w, height()/h );
+			const qreal zoom = std::min<qreal>(width() / w, height() / h);
 
-			if( m_rotate )
-				painter.rotate( -60.0 );
+			if (m_rotate)
+				painter.rotate(-60.0);
 
 			QPointF center = rect.center();
-			if( Qt::AlignLeft == m_Alignment )
+
+			if (Qt::AlignLeft == m_Alignment)
 			{
-				center.setX( width() / 2.0 / zoom );
+				center.setX(width() / 2.0 / zoom);
 			}
-			else if( Qt::AlignRight == m_Alignment )
+			else if (Qt::AlignRight == m_Alignment)
 			{
-				center.setX( -width() / 2.0 / zoom + center.x() * 2 );
+				center.setX(-width() / 2.0 / zoom + center.x() * 2);
 			}
 
-			center.setY( center.y() + adjust_y );
+			center.setY(center.y() + adjust_y);
 
-			painter.scale( zoom, zoom );
-			line.draw( &painter, -center );
+			painter.scale(zoom, zoom);
+			line.draw(&painter, -center);
 		}
 	}
+
 	painter.restore();
 	painter.end();
 }
 
-void ScaledText::timerEvent( QTimerEvent* /*event*/ )
+void ScaledText::timerEvent(QTimerEvent* /*event*/)
 {
 	m_isVisible = !m_isVisible;
 
