@@ -584,9 +584,14 @@ void MainWindow::update_club_views()
 void MainWindow::UpdateFightNumber_()
 //=========================================================
 {
-	const int current = m_pController->GetCurrentFightIndex() + 1;
-	m_pUi->label_fight->setText(QString::number(current) + " / 10");
+	const int currentFight = m_pController->GetCurrentFightIndex() + 1;
+
+	m_pUi->label_fight->setText(
+			QString("%1 / %2")
+			.arg(QString::number(currentFight))
+			.arg(QString::number(10)));	//FIXME: fix number of fights
 }
+
 //=========================================================
 void MainWindow::UpdateScoreScreen_()
 //=========================================================
@@ -1116,6 +1121,7 @@ void MainWindow::on_button_pause_clicked()
 	if (m_pScoreScreen->isVisible())
 	{
 		m_pScoreScreen->hide();
+		m_pUi->button_pause->setText(tr("Off"));
 	}
 	else
 	{
@@ -1139,6 +1145,7 @@ void MainWindow::on_button_pause_clicked()
 			m_pScoreScreen->resize(m_secondScreenSize);
 			m_pScoreScreen->show();
 		}
+		m_pUi->button_pause->setText(tr("On"));
 	}
 }
 
@@ -1458,7 +1465,8 @@ void MainWindow::on_pushButton_weights_pressed()
 
 	if (ok)
 	{
-		if (4 != weights.count(';'))
+		if (4 != weights.count(';') &&
+			9 != weights.count(';'))
 		{
 			QMessageBox::critical(this, "Wrong values",
 								  "You need to specify 5 weight classes separated by ';'!");
@@ -1516,12 +1524,12 @@ void MainWindow::on_button_current_round_clicked(bool checked)
 
 	if (checked)
 	{
-		m_pUi->button_current_round->setText(tr("2nd Round"));
+		//m_pUi->button_current_round->setText(tr("2nd Round"));
 		m_pController->SetCurrentTournament(1);
 	}
 	else
 	{
-		m_pUi->button_current_round->setText(tr("1st Round"));
+		//m_pUi->button_current_round->setText(tr("Round"));
 		m_pController->SetCurrentTournament(0);
 	}
 

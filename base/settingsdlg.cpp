@@ -231,10 +231,10 @@ void SettingsDlg::SetDigitSettings(const QFont& font,
 								   const QColor& color,
 								   const QColor& background)
 {
-	ui->fontComboBox_digit->setCurrentFont(font);
+	//ui->fontComboBox_digit->setCurrentFont(font);
 	ui->text_digit_sample->SetFontAndColor(font, color, background);
-	ui->checkBox_digits_bold->setChecked(font.bold());
-	ui->checkBox_digits_italic->setChecked(font.italic());
+	//ui->checkBox_digits_bold->setChecked(font.bold());
+	//ui->checkBox_digits_italic->setChecked(font.italic());
 }
 
 void SettingsDlg::SetMatLabel(QString const& text)
@@ -302,10 +302,10 @@ const QFont SettingsDlg::GetFighterNameFont() const
 	return f;
 }
 
-const QFont SettingsDlg::GetDigitFont() const
-{
-	return ui->fontComboBox_digit->currentFont();
-}
+//const QFont SettingsDlg::GetDigitFont() const
+//{
+//	return ui->fontComboBox_digit->currentFont();
+//}
 
 const QColor SettingsDlg::GetInfoTextColor() const
 {

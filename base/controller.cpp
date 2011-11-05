@@ -819,18 +819,30 @@ void Controller::SetFighterName(Ipponboard::EFighter whos,
 void Controller::SetWeights(QStringList const& weights)
 //=========================================================
 {
-	for (unsigned i(0); i < 10; ++i)
+	if (weights.count() == 10)
 	{
-		m_TournamentScores[0].at(i).weight = weights.at(i / 2);
-		m_TournamentScores[0].at(i + 1).weight = weights.at(i / 2);
-		++i;
+		for (unsigned i(0); i < 10; ++i)
+		{
+			m_TournamentScores[0].at(i).weight = weights.at(i);
+			m_TournamentScores[1].at(i).weight = weights.at(i);
+		}
 	}
-
-	for (unsigned i(0); i < 10; ++i)
+	else
 	{
-		m_TournamentScores[1].at(i).weight = weights.at(i / 2);
-		m_TournamentScores[1].at(i + 1).weight = weights.at(i / 2);
-		++i;
+		// duplicate each entry
+		for (unsigned i(0); i < 10; ++i)
+		{
+			m_TournamentScores[0].at(i).weight = weights.at(i / 2);
+			m_TournamentScores[0].at(i + 1).weight = weights.at(i / 2);
+			++i;
+		}
+
+		for (unsigned i(0); i < 10; ++i)
+		{
+			m_TournamentScores[1].at(i).weight = weights.at(i / 2);
+			m_TournamentScores[1].at(i + 1).weight = weights.at(i / 2);
+			++i;
+		}
 	}
 }
 

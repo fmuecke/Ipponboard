@@ -62,6 +62,7 @@ RESOURCES += ../base/ipponboard.qrc
 INCLUDEPATH += $$quote($$(BOOST))
 
 QMAKE_LIBS += -lshell32
+QMAKE_LIBS += -lWinmm
 QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
 	$$quote($$(BOOST)/stage/lib)
 

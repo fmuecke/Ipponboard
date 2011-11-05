@@ -32,8 +32,8 @@ TournamentModel::TournamentModel(Ipponboard::Tournament* pTournament, QObject* p
 	m_HeaderData[eCol_won2]			= tr("Won");
 	m_HeaderData[eCol_score2]		= tr("Score");
 	m_HeaderData[eCol_time]			= tr("Time");
-	m_HeaderSizes[eCol_weight]		= 40;
-	m_HeaderSizes[eCol_name1]		= 115;
+	m_HeaderSizes[eCol_weight]		= 45;
+	m_HeaderSizes[eCol_name1]		= 140;
 	m_HeaderSizes[eCol_yuko1]		= 20;
 	m_HeaderSizes[eCol_wazaari1]	= 20;
 	m_HeaderSizes[eCol_ippon1]		= 20;
@@ -41,7 +41,7 @@ TournamentModel::TournamentModel(Ipponboard::Tournament* pTournament, QObject* p
 	m_HeaderSizes[eCol_hansokumake1] = 20;
 	m_HeaderSizes[eCol_won1]		= 30;
 	m_HeaderSizes[eCol_score1]		= 40;
-	m_HeaderSizes[eCol_name2]		= 115;
+	m_HeaderSizes[eCol_name2]		= 140;
 	m_HeaderSizes[eCol_yuko2]		= 20;
 	m_HeaderSizes[eCol_wazaari2]	= 20;
 	m_HeaderSizes[eCol_ippon2]		= 20;
@@ -231,7 +231,8 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 //=========================================================
 QVariant TournamentModel::headerData(
 	int section,
-	Qt::Orientation orientation, unsigned int role) const
+	Qt::Orientation orientation,
+	int role) const
 //=========================================================
 {
 	if (role == Qt::DisplayRole)
@@ -255,7 +256,7 @@ QVariant TournamentModel::headerData(
 //=========================================================
 bool TournamentModel::setData(const QModelIndex& index,
 							  const QVariant& value,
-							  unsigned int role)
+							  int role)
 //=========================================================
 {
 	if (!index.isValid() ||
@@ -267,7 +268,9 @@ bool TournamentModel::setData(const QModelIndex& index,
 
 	bool result(false);
 
-	if (index.row() < 10 && index.column() >= 0 && index.column() < eCol_MAX)
+	if (index.row() < 10 &&
+			index.column() >= 0 &&
+			index.column() < eCol_MAX)
 	{
 		const int row = index.row();
 

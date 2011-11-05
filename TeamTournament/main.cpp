@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	// read language code
 	const QString ini(
-		QString::fromStdString(FMU::GetSettingsFilePath(str_ini_name)));
+		QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
@@ -92,6 +92,12 @@ int main(int argc, char* argv[])
 	MainWindow w;
 	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
 					 QCoreApplication::applicationVersion());
+
+	//w.setWindowTitle(QCoreApplication::applicationName() + " v" +
+	//				 QCoreApplication::applicationVersion() +
+					 //" ***Spezialversion DJK ITSV Grosshadern***");
+	//				 " ***Spezialversion DJK Ingolstadt***");
+
 	w.show();
 
 	return a.exec();

@@ -75,9 +75,11 @@ DEFINES += _WIN32
 
 QMAKE_LIBS += -lshell32
 QMAKE_LIBS += -lWinmm
-QMAKE_LIBS += -lboost_serialization
-QMAKE_LIBS += -lboost_system
-QMAKE_LIBS += -lboost_filesystem
+
+#QMAKE_LIBS += -lboost_serialization
+#QMAKE_LIBS += -lboost_system
+#QMAKE_LIBS += -lboost_filesystem
+
 QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
     $$quote($$(BOOST)/stage/lib)
 

@@ -41,7 +41,7 @@ public:
 	QSize GetSize() const;
 	const QFont GetInfoHeaderFont() const;
 	const QFont GetFighterNameFont() const;
-	const QFont GetDigitFont() const;
+	//const QFont GetDigitFont() const;
 	const QColor GetInfoTextColor() const;
 	const QColor GetTextColorBlue() const;
 	const QColor GetTextColorWhite() const;

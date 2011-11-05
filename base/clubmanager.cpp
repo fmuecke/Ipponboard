@@ -100,9 +100,16 @@ void ClubManager::LoadClubs_()
 		catch (std::exception&)
 		{
 			QMessageBox::critical(0, QString("Error"),
-								  QString("Unable to parse %1 !").arg(
+								  QString("Unable to parse %1!").arg(
 									  str_filename_club_definitions));
 		}
+	}
+	else
+	{
+		QMessageBox::critical(0, QString("Error"),
+							  QString("Unable to open %1!").arg(
+								  str_filename_club_definitions));
+
 	}
 
 	ifs.close();

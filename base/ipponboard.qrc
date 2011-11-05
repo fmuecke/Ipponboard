@@ -37,6 +37,13 @@
         <file>icons/keyboard.png</file>
         <file>icons/pdf.png</file>
         <file>icons/list.png</file>
+        <file>images/on_green.png</file>
+        <file>images/one_blue.png</file>
+        <file>images/two_blue.png</file>
+        <file>icons/left.png</file>
+        <file>icons/right.png</file>
+        <file>icons/color_bg.png</file>
+        <file>icons/color_fg.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>text/License_de.html</file>
