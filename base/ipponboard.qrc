@@ -44,6 +44,8 @@
         <file>icons/right.png</file>
         <file>icons/color_bg.png</file>
         <file>icons/color_fg.png</file>
+        <file>icons/copy_cells.png</file>
+        <file>icons/paste.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>text/License_de.html</file>

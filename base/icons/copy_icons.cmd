@@ -42,7 +42,7 @@ GOTO THE_END
 
 
 :LABEL_FUGUE
-SET SOURCE=..\..\..\3rdparty\icons\fugue-icons-3.0\icons
+SET SOURCE=..\..\..\3rdparty\icons\fugue\icons
 copy %SOURCE%\symbols\plus.png %DEST%\add.png
 copy %SOURCE%\symbols\cross.png %DEST%\delete.png
 copy DUMMY.png %DEST%\exit.png
@@ -69,6 +69,16 @@ copy %SOURCE%\tag.png %DEST%\fighter_white.png
 copy %SOURCE%\keyboard.png %DEST%\keyboard.png
 copy %SOURCE%\document\document-pdf.png %DEST%\pdf.png
 copy %SOURCE%\application\application-list.png %DEST%\list.png
+copy %SOURCE%\arrows\arrow.png %DEST%\right.png
+copy %SOURCE%\arrows\arrow-180.png %DEST%\left.png
+copy %SOURCE%\edit\edit-color.png %DEST%\color_fg.png
+copy %SOURCE%\imaging\paint-can-color.png %DEST%\color_bg.png
+REM copy %SOURCE%\imaging\paint-can-color.png %DEST%\color_bg.png
+copy %SOURCE%\layout\tables.png %DEST%\copy_cells.png
+copy %SOURCE%\clipboard-paste.png %DEST%\paste.png
+
+
+
 GOTO THE_END
 
 :LABEL_FREE_APP_ICONS
