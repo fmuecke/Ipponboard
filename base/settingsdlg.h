@@ -72,6 +72,9 @@ private slots:
 
 
 private slots:
+	void on_comboBox_mat_editTextChanged(QString );
+	void on_checkBox_fighters_italic_toggled(bool checked);
+	void on_checkBox_fighters_bold_toggled(bool checked);
 	void on_checkBox_text_italic_toggled(bool checked);
 	void on_checkBox_text_bold_toggled(bool checked);
 	void on_toolButton_text_background_white_pressed();

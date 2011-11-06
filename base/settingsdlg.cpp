@@ -26,7 +26,7 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
 	// TODO: enable keyboard tab
 	ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
-	ui->text_text_sample->SetText("IPPONBOARD");
+	ui->text_text_sample->SetText("  Ipponboard  ");
 	ui->text_color_blue->SetText(tr("BLUE"));
 	ui->text_color_white->SetText(tr("WHITE"));
 	ui->text_digit_sample->SetText("3:24");
@@ -245,6 +245,8 @@ void SettingsDlg::SetMatLabel(QString const& text)
 		ui->comboBox_mat->setCurrentIndex(index);
 	else
 		ui->comboBox_mat->setEditText(text);
+
+	ui->text_text_sample->SetText(text);
 }
 
 void SettingsDlg::SetGongFile(const QString& path)
@@ -551,6 +553,26 @@ void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
 	ui->text_text_sample->SetFont(f);
 }
 
+void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
+{
+	QFont f = ui->text_color_blue->font();
+	f.setBold(checked);
+	ui->text_color_blue->SetFont(f);
+	ui->text_color_white->SetFont(f);
+}
+
+void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
+{
+	QFont f = ui->text_color_blue->font();
+	f.setItalic(checked);
+	ui->text_color_blue->SetFont(f);
+	ui->text_color_white->SetFont(f);
+}
+
+void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)
+{
+	ui->text_text_sample->SetText(text);
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int SettingsDlg::get_button_from_text(const QString& text) const

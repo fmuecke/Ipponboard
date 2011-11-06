@@ -66,6 +66,7 @@ protected:
 
 private:
 	void set_size(ETextSize size);
+	void update_text_metrics();
 
 	QString m_Text;
 	QColor m_TextColor;

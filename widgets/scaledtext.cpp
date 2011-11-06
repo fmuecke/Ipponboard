@@ -38,31 +38,24 @@ void ScaledText::SetText(const QString& text,
 
 	m_rotate = rotate;
 
-	const QFont& currentFont = this->font();
+	update_text_metrics();
 
-	delete m_pLayout;
-	m_pLayout = new QTextLayout(m_Text, currentFont);
-	m_pLayout->setTextOption(QTextOption(m_Alignment));
-	m_pLayout->setCacheEnabled(true);
-	m_pLayout->beginLayout();
-	m_pLayout->createLine();
-	m_pLayout->endLayout();
-
-	update();
+	Redraw();
 }
 
 void ScaledText::SetFont(const QFont& font)
 {
 	this->setFont(font);
+	update_text_metrics();
+
 	Redraw();
 }
 
 void ScaledText::SetFontAndColor(const QFont& font, const QColor& textColor,
 								 const QColor& bgColor)
 {
-	this->setFont(font);
+	SetFont(font);
 	SetColor(textColor, bgColor);
-	Redraw();
 }
 
 
@@ -71,14 +64,12 @@ void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 	m_TextColor = textColor;
 	m_BGColor = bgColor;
 
-	update();
+	Redraw();
 }
 
 void ScaledText::SetColor(const QColor& textColor)
 {
-	m_TextColor = textColor;
-
-	update();
+	SetColor(textColor, m_BGColor);
 }
 
 const QColor& ScaledText::GetColor() const
@@ -207,5 +198,20 @@ void ScaledText::timerEvent(QTimerEvent* /*event*/)
 {
 	m_isVisible = !m_isVisible;
 
-	update();
+	Redraw();
+}
+
+void ScaledText::update_text_metrics()
+{
+	const QFont& currentFont = this->font();
+
+	delete m_pLayout;
+	m_pLayout = new QTextLayout(m_Text, currentFont);
+	m_pLayout->setTextOption(QTextOption(m_Alignment));
+	m_pLayout->setCacheEnabled(true);
+	m_pLayout->beginLayout();
+	m_pLayout->createLine();
+	m_pLayout->endLayout();
+
+	Redraw();
 }
