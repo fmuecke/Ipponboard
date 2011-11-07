@@ -143,6 +143,7 @@ void Controller::DoAction(EAction action, EFighter whos, bool doRevoke)
 
 		case eAction_ResetOsaeKomi:
 			reset_timer_value(eTimer_Hold);
+			m_Tori = eFighter_Nobody;
 			break;
 
 		case eAction_ResetMainTimer:

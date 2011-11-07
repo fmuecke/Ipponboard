@@ -66,6 +66,9 @@
     </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="tabPosition">
        <enum>QTabWidget::North</enum>
       </property>
@@ -73,12 +76,15 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="tab_score_table">
+       <property name="toolTip">
+        <string>Score table tab (Ctrl+1)</string>
+       </property>
        <attribute name="icon">
         <iconset resource="../base/ipponboard.qrc">
          <normaloff>:/res/icons/list.png</normaloff>:/res/icons/list.png</iconset>
@@ -646,6 +652,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_view">
+       <property name="toolTip">
+        <string>Score view (Ctrl+2)</string>
+       </property>
        <attribute name="icon">
         <iconset resource="../base/ipponboard.qrc">
          <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
@@ -704,6 +713,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="toolTip">
              <string>Reset current scores and timers (Ctrl + Backspace)</string>
             </property>
@@ -719,6 +731,9 @@
             </property>
             <item>
              <widget class="QPushButton" name="button_prev">
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
               <property name="toolTip">
                <string>Re-load previous fight data (Note: the current data will be saved)</string>
               </property>
@@ -739,6 +754,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="button_next">
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
               <property name="toolTip">
                <string>Continue with next fight (current data will be saved)</string>
               </property>
@@ -834,6 +852,9 @@
           </item>
           <item row="1" column="1">
            <widget class="QPushButton" name="button_pause">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="toolTip">
              <string>Show result screen (F4)</string>
             </property>
@@ -900,6 +921,9 @@
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="button_current_round">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="toolTip">
              <string>Switch current round</string>
             </property>
@@ -973,6 +997,9 @@
     </property>
     <addaction name="actionShow_SecondaryView"/>
     <addaction name="action_Info_Header"/>
+    <addaction name="separator"/>
+    <addaction name="actionScore_Screen"/>
+    <addaction name="actionScore_Control"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -1263,6 +1290,36 @@
    </property>
    <property name="toolTip">
     <string>Set round time for all fights</string>
+   </property>
+  </action>
+  <action name="actionScore_Screen">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/list.png</normaloff>:/res/icons/list.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch to Score Table</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionScore_Control">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Swith to Score Control</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
  </widget>

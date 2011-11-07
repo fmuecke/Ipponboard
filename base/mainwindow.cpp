@@ -242,15 +242,15 @@ void MainWindow::closeEvent(QCloseEvent* event)
 void MainWindow::keyPressEvent(QKeyEvent* event)
 //=========================================================
 {
+	const bool isCtrlPressed =
+			fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
+
+	const bool isAltPressed =
+			fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
+
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
 	{
-		const bool isCtrlPressed =
-				fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
-
-		const bool isAltPressed =
-				fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
-
 		switch (event->key())
 		{
 		case Qt::Key_Space:
@@ -266,42 +266,43 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			}
 			break;
 
-//		case Qt::Key_Left:
-//			if (isCtrlPressed && isAltPressed)
-//			{
-//				m_pUi->button_prev->click();
-//				qDebug() << "Button [ Prev ] was triggered by keyboard";
-//			}
-//			else
-//			{
-//				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-//										Ipponboard::eFighter_Blue);
-//				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
-//			}
-//			break;
+		case Qt::Key_Left:
+			if (isCtrlPressed && isAltPressed)
+			{
+				m_pUi->button_prev->click();
+				qDebug() << "Button [ Prev ] was triggered by keyboard";
+			}
+			else
+			{
+				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+										Ipponboard::eFighter_Blue);
+				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
+			}
+			break;
 
-//		case Qt::Key_Right:
-//			if (isCtrlPressed && isAltPressed)
-//			{
-//				m_pUi->button_next->click();
-//				qDebug() << "Button [ Next ] was triggered by keyboard";
-//			}
-//			else
-//			{
-//				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-//										Ipponboard::eFighter_White);
-//				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
-//			}
-//			break;
+		case Qt::Key_Right:
+			if (isCtrlPressed && isAltPressed)
+			{
+				m_pUi->button_next->click();
+				qDebug() << "Button [ Next ] was triggered by keyboard";
+			}
+			else
+			{
+				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+										Ipponboard::eFighter_White);
+				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
+			}
+			break;
 
-//		case Qt::Key_Down:
-//			if (isCtrlPressed)
-//			{
-//				m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-//										Ipponboard::eFighter_Nobody);
-//				qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
-//			}
-//			break;
+		case Qt::Key_Down:
+			//if (isCtrlPressed)
+			{
+				m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
+										Ipponboard::eFighter_Nobody,
+										true);
+				qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
+			}
+			break;
 
 		case Qt::Key_F4:
 			m_pUi->button_pause->click();
@@ -380,11 +381,19 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 					 << "] was triggered by keyboard";
 			break;
 
+		default:
+			QMainWindow::keyPressEvent(event);
+			break;
 		}
 	}
 	else
 	{
-		QMainWindow::keyPressEvent(event);
+		switch (event->key())
+		{
+		default:
+			QMainWindow::keyPressEvent(event);
+			break;
+		}
 	}
 }
 
@@ -1692,3 +1701,13 @@ void MainWindow::on_button_current_round_clicked(bool checked)
 #endif
 
 
+
+void MainWindow::on_actionScore_Screen_triggered()
+{
+	m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_score_table);
+}
+
+void MainWindow::on_actionScore_Control_triggered()
+{
+	m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_view);
+}
