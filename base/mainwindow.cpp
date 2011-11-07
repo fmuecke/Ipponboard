@@ -239,6 +239,156 @@ void MainWindow::closeEvent(QCloseEvent* event)
 }
 
 //=========================================================
+void MainWindow::keyPressEvent(QKeyEvent* event)
+//=========================================================
+{
+	//FIXME: copy and paste handling should be part of the table class!
+	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
+	{
+		const bool isCtrlPressed =
+				fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
+
+		const bool isAltPressed =
+				fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
+
+		switch (event->key())
+		{
+		case Qt::Key_Space:
+			m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighter_Nobody);
+			qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
+			break;
+
+		case Qt::Key_Backspace:
+			if (isCtrlPressed)
+			{
+				m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighter_Nobody);
+				qDebug() << "Action [ Reset ] was triggered by keyboard";
+			}
+			break;
+
+//		case Qt::Key_Left:
+//			if (isCtrlPressed && isAltPressed)
+//			{
+//				m_pUi->button_prev->click();
+//				qDebug() << "Button [ Prev ] was triggered by keyboard";
+//			}
+//			else
+//			{
+//				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+//										Ipponboard::eFighter_Blue);
+//				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
+//			}
+//			break;
+
+//		case Qt::Key_Right:
+//			if (isCtrlPressed && isAltPressed)
+//			{
+//				m_pUi->button_next->click();
+//				qDebug() << "Button [ Next ] was triggered by keyboard";
+//			}
+//			else
+//			{
+//				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+//										Ipponboard::eFighter_White);
+//				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
+//			}
+//			break;
+
+//		case Qt::Key_Down:
+//			if (isCtrlPressed)
+//			{
+//				m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
+//										Ipponboard::eFighter_Nobody);
+//				qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
+//			}
+//			break;
+
+		case Qt::Key_F4:
+			m_pUi->button_pause->click();
+			qDebug() << "Button [ ResultScreen ] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F5:
+			m_pController->DoAction(Ipponboard::eAction_Ippon,
+									Ipponboard::eFighter_Blue,
+									isCtrlPressed);
+			qDebug() << "Action [ Ippon for blue, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F6:
+			m_pController->DoAction(Ipponboard::eAction_Wazaari,
+									Ipponboard::eFighter_Blue,
+									isCtrlPressed);
+			qDebug() << "Action [ Wazaari for blue, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F7:
+			m_pController->DoAction(Ipponboard::eAction_Yuko,
+									Ipponboard::eFighter_Blue,
+									isCtrlPressed);
+			qDebug() << "Action [ Yuko for blue, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F8:
+			m_pController->DoAction(Ipponboard::eAction_Shido,
+									Ipponboard::eFighter_Blue,
+									isCtrlPressed);
+			qDebug() << "Action [ Shido for blue, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F9:
+			m_pController->DoAction(Ipponboard::eAction_Ippon,
+									Ipponboard::eFighter_White,
+									isCtrlPressed);
+			qDebug() << "Action [ Ippon for white, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F10:
+			m_pController->DoAction(Ipponboard::eAction_Wazaari,
+									Ipponboard::eFighter_White,
+									isCtrlPressed);
+			qDebug() << "Action [ Wazaari for white, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F11:
+			m_pController->DoAction(Ipponboard::eAction_Yuko,
+									Ipponboard::eFighter_White,
+									isCtrlPressed);
+			qDebug() << "Action [ Yuko for white, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		case Qt::Key_F12:
+			m_pController->DoAction(Ipponboard::eAction_Shido,
+									Ipponboard::eFighter_White,
+									isCtrlPressed);
+			qDebug() << "Action [ Shido for white, revoke="
+					 << isCtrlPressed
+					 << "] was triggered by keyboard";
+			break;
+
+		}
+	}
+	else
+	{
+		QMainWindow::keyPressEvent(event);
+	}
+}
+
+//=========================================================
 void MainWindow::write_settings()
 //=========================================================
 {

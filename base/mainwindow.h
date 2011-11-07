@@ -94,6 +94,7 @@ public:
 protected:
 	void changeEvent(QEvent* e);
 	void closeEvent(QCloseEvent* event);
+	void keyPressEvent(QKeyEvent* event);
 
 private:
 	void write_settings();
@@ -114,6 +115,7 @@ private:
 
 private slots:
 #ifdef TEAM_VIEW
+	void on_button_pause_clicked();
 	void on_button_current_round_clicked(bool checked);
 	void on_comboBox_mode_currentIndexChanged(QString);
 	void on_actionSet_Round_Time_triggered();
@@ -145,7 +147,6 @@ private slots:
 	void on_tabWidget_currentChanged(int index);
 	void on_actionManage_Clubs_triggered();
 	void on_actionLoad_Demo_Data_triggered();
-	void on_button_pause_clicked();
 	void on_button_prev_clicked();
 	void on_button_next_clicked();
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);

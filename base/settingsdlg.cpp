@@ -23,8 +23,8 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
 	ui->comboBox_pause->setEnabled(true);
 #endif
 
-	// TODO: enable keyboard tab
-	ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
+	//TODO: remove comment
+	//ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
 	ui->text_text_sample->SetText("  Ipponboard  ");
 	ui->text_color_blue->SetText(tr("BLUE"));
@@ -149,19 +149,20 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
 	modifierVals << "Alt+Shift";
 	modifierVals << "Ctrl+Alt+Shift";
 
-	for (int i = 0; i < ui->tableWidget_keys->rowCount(); ++i)
-	{
-		QComboBox* pCombo = new QComboBox();
-		pCombo->addItems(keyVals);
-		pCombo->setEditable(true);
-		ui->tableWidget_keys->setCellWidget(i, 1, pCombo);
+	//FIXME: enable this when keyboard acces is customizable
+	//for (int i = 0; i < ui->tableWidget_keys->rowCount(); ++i)
+	//{
+	//	QComboBox* pCombo = new QComboBox();
+	//	pCombo->addItems(keyVals);
+	//	pCombo->setEditable(true);
+	//	ui->tableWidget_keys->setCellWidget(i, 1, pCombo);
+	//
+	//	pCombo = new QComboBox();
+	//	pCombo->addItems(modifierVals);
+	//	ui->tableWidget_keys->setCellWidget(i, 0, pCombo);
+	//}
 
-		pCombo = new QComboBox();
-		pCombo->addItems(modifierVals);
-		ui->tableWidget_keys->setCellWidget(i, 0, pCombo);
-	}
-
-	ui->tableWidget_keys->verticalHeader()->setVisible(true);
+	//ui->tableWidget_keys->verticalHeader()->setVisible(true);
 
 	// NOTE: This is nasty workaround for the standard buttons not
 	// beeing translated (separate translator would be required)

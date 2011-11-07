@@ -73,7 +73,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -704,6 +704,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>Reset current scores and timers (Ctrl + Backspace)</string>
+            </property>
             <property name="text">
              <string>Reset</string>
             </property>
@@ -716,6 +719,9 @@
             </property>
             <item>
              <widget class="QPushButton" name="button_prev">
+              <property name="toolTip">
+               <string>Re-load previous fight data (Note: the current data will be saved)</string>
+              </property>
               <property name="text">
                <string>Previous</string>
               </property>
@@ -733,6 +739,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="button_next">
+              <property name="toolTip">
+               <string>Continue with next fight (current data will be saved)</string>
+              </property>
               <property name="text">
                <string notr="true">Next</string>
               </property>
@@ -826,7 +835,7 @@
           <item row="1" column="1">
            <widget class="QPushButton" name="button_pause">
             <property name="toolTip">
-             <string>Show Result Screen</string>
+             <string>Show result screen (F4)</string>
             </property>
             <property name="text">
              <string>Off</string>
@@ -843,6 +852,9 @@
               <width>24</width>
               <height>24</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string notr="true"/>
             </property>
             <property name="checkable">
              <bool>true</bool>

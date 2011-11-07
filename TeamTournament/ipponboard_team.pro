@@ -46,7 +46,8 @@ HEADERS = ../base/pch.h \
 	../util/qstring_serialization.h \
 	../widgets/scaledimage.h \
 	../widgets/scaledtext.h \
-	scorescreen.h
+	scorescreen.h \
+    ../util/helpers.h
 
 FORMS = ../base/clubmanagerdlg.ui \
 	mainwindow.ui \
