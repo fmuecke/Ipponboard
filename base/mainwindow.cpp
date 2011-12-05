@@ -245,11 +245,13 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 	const bool isCtrlPressed =
 			fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
 
+#ifdef TEAM_VIEW
 	const bool isAltPressed =
 			fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
 
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
+#endif
 	{
 		switch (event->key())
 		{
@@ -267,12 +269,14 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 
 		case Qt::Key_Left:
+#ifdef TEAM_VIEW
 			if (isCtrlPressed && isAltPressed)
 			{
 				m_pUi->button_prev->click();
 				qDebug() << "Button [ Prev ] was triggered by keyboard";
 			}
 			else
+#endif
 			{
 				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
 										Ipponboard::eFighter_Blue);
@@ -281,12 +285,14 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 
 		case Qt::Key_Right:
+#ifdef TEAM_VIEW
 			if (isCtrlPressed && isAltPressed)
 			{
 				m_pUi->button_next->click();
 				qDebug() << "Button [ Next ] was triggered by keyboard";
 			}
 			else
+#endif
 			{
 				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
 										Ipponboard::eFighter_White);
@@ -305,8 +311,10 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 
 		case Qt::Key_F4:
+#ifdef TEAM_VIEW
 			m_pUi->button_pause->click();
 			qDebug() << "Button [ ResultScreen ] was triggered by keyboard";
+#endif
 			break;
 
 		case Qt::Key_F5:
@@ -386,6 +394,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 		}
 	}
+#ifdef TEAM_VIEW
 	else
 	{
 		switch (event->key())
@@ -395,6 +404,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 		}
 	}
+#endif
 }
 
 //=========================================================
@@ -891,7 +901,7 @@ void MainWindow::WriteScoreToHtml_()
 
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
-							  ", &copy; " + QApplication::organizationName() + ", 2010";
+							  ", &copy; " + QApplication::organizationName() + ", 2010-2012";
 	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 #endif
@@ -907,9 +917,8 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
 		tr("<h3>%1 v%2</h3>"
 		   "<p>%1 was entirely written in advanced C++ using the Qt toolkit %3.</p>"
 		   "<p>Revision: %4</p>"
-		   "<p>Author: Florian M&uuml;cke, <a href=\"http://flo.mueckeimnetz.de\">homepage</a></p>"
-		   "<p>The %1 project is hosted at <a href=\"http://ipponboard.origo.ethz.ch\">http://ipponboard.origo.ethz.ch</a>.</p>"
-		   "<p>&copy; 2010 Florian M&uuml;cke. All rights reserved.</p>"
+		   "<p>Author: Florian M&uuml;cke, <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
+		   "<p>&copy; 2010-2012 Florian M&uuml;cke. All rights reserved.</p>"
 		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 		   "PARTICULAR PURPOSE.<br/>"
@@ -1698,9 +1707,6 @@ void MainWindow::on_button_current_round_clicked(bool checked)
 
 	UpdateFightNumber_();
 }
-#endif
-
-
 
 void MainWindow::on_actionScore_Screen_triggered()
 {
@@ -1711,3 +1717,4 @@ void MainWindow::on_actionScore_Control_triggered()
 {
 	m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_view);
 }
+#endif

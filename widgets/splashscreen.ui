@@ -162,7 +162,7 @@ p, li { white-space: pre-wrap; }
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>(c) 2010 Florian Mücke</string>
+          <string>(c) 2010-2012 Florian Mücke</string>
          </property>
          <property name="textFormat">
           <enum>Qt::PlainText</enum>

@@ -1,5 +1,5 @@
-// Copyright 2009-2011 Florian Muecke. All rights reserved.
-// http://ipponboard.origo.ethz.ch (dev at mueckeimnetz dot de)
+// Copyright 2010-2012 Florian Muecke. All rights reserved.
+// http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!

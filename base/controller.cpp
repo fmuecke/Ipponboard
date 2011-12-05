@@ -143,7 +143,6 @@ void Controller::DoAction(EAction action, EFighter whos, bool doRevoke)
 
 		case eAction_ResetOsaeKomi:
 			reset_timer_value(eTimer_Hold);
-			m_Tori = eFighter_Nobody;
 			break;
 
 		case eAction_ResetMainTimer:
@@ -339,6 +338,9 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 	else if (eTimer_Hold == timer)
 	{
 		m_pTimeHold->setHMS(0, 0, 0, 0);
+
+		if (!m_pTimerHold->isActive())
+			m_Tori = eFighter_Nobody;
 	}
 }
 
@@ -571,14 +573,12 @@ void Controller::start_timer(ETimer t)
 void Controller::stop_timer(ETimer t)
 //=========================================================
 {
+	m_pTimerHold->stop();
+
 	if (eTimer_Main == t)
 	{
 		m_pTimerMain->stop();
 		current_fight().time_in_seconds = m_pTimeMain->secsTo(m_roundTime);
-	}
-	else
-	{
-		m_pTimerHold->stop();
 	}
 }
 
@@ -607,11 +607,6 @@ void Controller::reset_timer(ETimer t)
 //=========================================================
 {
 	// called by statemachine
-
-	if (eTimer_Hold == t)
-	{
-		m_Tori = eFighter_Nobody;
-	}
 
 	reset_timer_value(t);
 	update_views();
@@ -906,13 +901,7 @@ void Controller::update_main_time()
 	if (secsTo < 0 || *m_pTimeMain > m_roundTime)
 		m_pTimeMain->setHMS(0, 0, 0, 0);
 
-	if (eState_Holding == m_State)
-	{
-		if (isTimeUp)
-			// do stop timer, but do not process event
-			stop_timer(eTimer_Main);
-	}
-	else if (eState_TimerRunning == m_State)
+	if (eState_TimerRunning == m_State)
 	{
 		if (isTimeUp)
 		{

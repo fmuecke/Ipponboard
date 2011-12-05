@@ -53,6 +53,9 @@ View::View(IController* pController, EType type, QWidget* parent)
 	ui->dummy_white->UpdateImage(":res/images/off_empty.png");
 	ui->image_golden_score->UpdateImage(":res/images/sand_clock.png");
 
+	ui->text_hold_clock_blue->SetText("00", ScaledText::eSize_full);
+	ui->text_hold_clock_white->SetText("00", ScaledText::eSize_full);
+
 	QColor bgColor1 = get_color(blueBg);
 	QColor fgColor1 = get_color(blueFg);
 	QColor bgColor2 = get_color(whiteBg);
@@ -235,16 +238,17 @@ void View::UpdateView()
 
 	const EFighter holder(m_pController->GetLastHolder());
 
+	if (eFighter_Nobody == holder && is_secondary())
+	{
+		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
+	}
+
 	switch (m_pController->GetCurrentState())
 	{
 	case eState_TimerRunning:
 		{
 			ui->text_main_clock->SetColor(m_MainClockColorRunning);
-
-			if ("00" == m_pController->GetTimeText(eTimer_Hold))
-				update_hold_clock(holder, eHoldState_off);
-			else
-				update_hold_clock(holder, eHoldState_pause);
+			update_hold_clock(holder, eHoldState_pause);
 		}
 		break;
 
@@ -260,9 +264,12 @@ void View::UpdateView()
 			ui->text_main_clock->SetColor(m_MainClockColorRunning);
 			update_hold_clock(holder, eHoldState_on);
 
-			ui->layout_info->setStretchFactor(ui->layout_name_blue, 3);
-			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
-			ui->layout_info->setStretchFactor(ui->layout_name_white, 3);
+			if (is_secondary())
+			{
+				ui->layout_info->setStretchFactor(ui->layout_name_blue, 3);
+				ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
+				ui->layout_info->setStretchFactor(ui->layout_name_white, 3);
+			}
 		}
 		break;
 
@@ -540,10 +547,10 @@ void View::mousePressEvent(QMouseEvent* event)
 			whos = eFighter_Blue;
 			action = eAction_Yuko;
 		}
-		else
-		{
-			Q_ASSERT(!"action not defined for pointer!");
-		}
+		//else
+		//{
+		//	Q_ASSERT(!"action not defined for pointer!");
+		//}
 	}
 	else
 	{
@@ -576,10 +583,10 @@ void View::mousePressEvent(QMouseEvent* event)
 			whos = eFighter_Blue;
 			action = eAction_Hansokumake;
 		}
-		else
-		{
-			Q_ASSERT(!"action not defined for pointer!");
-		}
+		//else
+		//{
+		//	Q_ASSERT(!"action not defined for pointer!");
+		//}
 	}
 
 	whos = GVF_(whos); // get correct fighter for display
@@ -922,17 +929,14 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 	ui->image_sand_clock->SetBgColor(Qt::black);
 
 	// no one holding?
-	if ((eFighter_White != holder && eFighter_Blue != holder) ||
-			(eHoldState_off == state && "00" == value))
+	if (eFighter_Nobody == holder)
 	{
 		if (is_secondary())
 		{
-			pClocks[eFighter_Blue]->SetText("");
-			pClocks[eFighter_White]->SetText("");
+			pClocks[eFighter_Blue]->SetText("", ScaledText::eSize_full);
+			pClocks[eFighter_White]->SetText("", ScaledText::eSize_full);
 			ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
-			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
 		}
-
 		return;
 	}
 

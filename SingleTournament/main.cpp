@@ -4,9 +4,17 @@
 #include <QSettings>
 #include <QFile>
 #include "../base/mainwindow.h"
+#include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
 #include "../util/helpers.h"
+
+
+int DelayUser()
+{
+	Countdown dlg(25);
+	return dlg.exec();
+}
 
 int main(int argc, char* argv[])
 {
@@ -62,23 +70,27 @@ int main(int argc, char* argv[])
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2011, 12, 31);
+	splashData.date = QDate(2012, 6, 30);
 	SplashScreen splash(splashData);
 
 	if (QDialog::Accepted != splash.exec())
+		return 0;
+
+	if (QDialog::Accepted != DelayUser())
 		return 0;
 
 	const int days_left = QDate::currentDate().daysTo(splashData.date);
 
 	if (days_left <= 0)
 	{
-		QMessageBox::warning(0,
+		QMessageBox::critical(0,
 							 QCoreApplication::tr("Warning"),
 							 QCoreApplication::tr(
 								 "This version is no longer valid!\n\n"
-								 "You need to visit the project homepage for an update."));
+								 "You need to visit the project homepage for a (free) update."));
 
-		return 0;
+		if (QDialog::Accepted != DelayUser())
+			return 0;
 	}
 
 	if (days_left < 30)

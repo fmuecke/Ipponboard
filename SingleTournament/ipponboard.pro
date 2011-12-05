@@ -29,7 +29,8 @@ SOURCES = ../base/clubmanager.cpp \
 	../base/fightcategorymanagerdlg.cpp \
 	../base/fightcategorymanager.cpp \
 	../base/fightcategory.cpp \
-    ../widgets/splashscreen.cpp
+    ../widgets/splashscreen.cpp \
+    ../widgets/countdown.cpp
 
 HEADERS = ../base/pch.h \
 	../base/clubmanager.h \
@@ -55,7 +56,8 @@ HEADERS = ../base/pch.h \
 	../base/fightcategory.h \
     ../widgets/splashscreen.h \
     ../util/helpers.h \
-    ../base/controlconfig.h
+    ../base/controlconfig.h \
+    ../widgets/countdown.h
 
 FORMS = ../base/clubmanagerdlg.ui \
 	mainwindow.ui \
@@ -63,7 +65,8 @@ FORMS = ../base/clubmanagerdlg.ui \
     view_vertical_single.ui \
     ../base/view_horizontal.ui \
 	../base/fightcategorymanagerdlg.ui \
-    ../widgets/splashscreen.ui
+    ../widgets/splashscreen.ui \
+    ../widgets/countdown.ui
 
 OTHER_FILES += 
 

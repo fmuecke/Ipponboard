@@ -67,6 +67,9 @@
     </property>
     <item>
      <widget class="QFrame" name="frame_primary_view">
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(0, 0, 0);</string>
       </property>
@@ -94,7 +97,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0,0,0,0,0">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -106,6 +109,9 @@
       </property>
       <item row="1" column="5">
        <widget class="QLineEdit" name="lineEdit_name_white">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -142,6 +148,9 @@
       </item>
       <item row="0" column="5">
        <widget class="QLineEdit" name="lineEdit_name_blue">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -183,7 +192,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_weight"/>
+       <widget class="QComboBox" name="comboBox_weight">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
@@ -200,7 +213,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox_weight_class"/>
+       <widget class="QComboBox" name="comboBox_weight_class">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+       </widget>
       </item>
       <item row="0" column="2">
        <spacer name="horizontalSpacer">
@@ -230,6 +247,9 @@
       </item>
       <item row="1" column="7">
        <widget class="QPushButton" name="pushButton_Signal">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="toolTip">
          <string>Plays the signal sound file</string>
         </property>
@@ -244,6 +264,9 @@
       </item>
       <item row="0" column="7" colspan="2">
        <widget class="QCheckBox" name="checkBox_golden_score">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
@@ -277,6 +300,9 @@
           <weight>75</weight>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="toolTip">
          <string>Reset all clocks and scores</string>

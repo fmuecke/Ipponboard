@@ -17,7 +17,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2011 Florian Mücke"
+#define MyAppCopyright "2010-2012 Florian Mücke"
 #define MyAppAuthor "Florian Mücke"
 
 [Setup]
