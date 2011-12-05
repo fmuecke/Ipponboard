@@ -42,7 +42,7 @@ void Countdown::changeEvent(QEvent* e)
 	}
 }
 
-void Countdown::timerEvent(QTimerEvent *event)
+void Countdown::timerEvent(QTimerEvent* event)
 {
 	if (event->timerId() == timer.timerId())
 	{

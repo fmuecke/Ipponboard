@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 
 	//w.setWindowTitle(QCoreApplication::applicationName() + " v" +
 	//				 QCoreApplication::applicationVersion() +
-					 //" ***Spezialversion DJK ITSV Grosshadern***");
+	//" ***Spezialversion DJK ITSV Grosshadern***");
 	//				 " ***Spezialversion DJK Ingolstadt***");
 
 	w.show();

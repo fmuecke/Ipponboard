@@ -547,6 +547,7 @@ void View::mousePressEvent(QMouseEvent* event)
 			whos = eFighter_Blue;
 			action = eAction_Yuko;
 		}
+
 		//else
 		//{
 		//	Q_ASSERT(!"action not defined for pointer!");
@@ -583,6 +584,7 @@ void View::mousePressEvent(QMouseEvent* event)
 			whos = eFighter_Blue;
 			action = eAction_Hansokumake;
 		}
+
 		//else
 		//{
 		//	Q_ASSERT(!"action not defined for pointer!");
@@ -937,6 +939,7 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 			pClocks[eFighter_White]->SetText("", ScaledText::eSize_full);
 			ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
 		}
+
 		return;
 	}
 

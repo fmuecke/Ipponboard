@@ -243,11 +243,11 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 //=========================================================
 {
 	const bool isCtrlPressed =
-			fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
+		fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
 
 #ifdef TEAM_VIEW
 	const bool isAltPressed =
-			fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
+		fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
 
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
@@ -266,6 +266,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 				m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighter_Nobody);
 				qDebug() << "Action [ Reset ] was triggered by keyboard";
 			}
+
 			break;
 
 		case Qt::Key_Left:
@@ -282,6 +283,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 										Ipponboard::eFighter_Blue);
 				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
 			}
+
 			break;
 
 		case Qt::Key_Right:
@@ -298,6 +300,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 										Ipponboard::eFighter_White);
 				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
 			}
+
 			break;
 
 		case Qt::Key_Down:
@@ -394,6 +397,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 		}
 	}
+
 #ifdef TEAM_VIEW
 	else
 	{
@@ -404,6 +408,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			break;
 		}
 	}
+
 #endif
 }
 
@@ -760,9 +765,9 @@ void MainWindow::UpdateFightNumber_()
 	const int currentFight = m_pController->GetCurrentFightIndex() + 1;
 
 	m_pUi->label_fight->setText(
-			QString("%1 / %2")
-			.arg(QString::number(currentFight))
-			.arg(QString::number(10)));	//FIXME: fix number of fights
+		QString("%1 / %2")
+		.arg(QString::number(currentFight))
+		.arg(QString::number(10)));	//FIXME: fix number of fights
 }
 
 //=========================================================
@@ -1317,6 +1322,7 @@ void MainWindow::on_button_pause_clicked()
 			m_pScoreScreen->resize(m_secondScreenSize);
 			m_pScoreScreen->show();
 		}
+
 		m_pUi->button_pause->setText(tr("On"));
 	}
 }
@@ -1638,7 +1644,7 @@ void MainWindow::on_pushButton_weights_pressed()
 	if (ok)
 	{
 		if (4 != weights.count(';') &&
-			9 != weights.count(';'))
+				9 != weights.count(';'))
 		{
 			QMessageBox::critical(this, "Wrong values",
 								  "You need to specify 5 weight classes separated by ';'!");

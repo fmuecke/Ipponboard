@@ -84,10 +84,10 @@ int main(int argc, char* argv[])
 	if (days_left <= 0)
 	{
 		QMessageBox::critical(0,
-							 QCoreApplication::tr("Warning"),
-							 QCoreApplication::tr(
-								 "This version is no longer valid!\n\n"
-								 "You need to visit the project homepage for a (free) update."));
+							  QCoreApplication::tr("Warning"),
+							  QCoreApplication::tr(
+								  "This version is no longer valid!\n\n"
+								  "You need to visit the project homepage for a (free) update."));
 
 		if (QDialog::Accepted != DelayUser())
 			return 0;

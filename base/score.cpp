@@ -15,10 +15,10 @@ void Score::Add(EPoint point)
 	if (_points[ePoint_Wazaari] > 2)
 		_points[ePoint_Wazaari] = 2;
 
-	if (_points[ePoint_Shido] > 4) 
+	if (_points[ePoint_Shido] > 4)
 		_points[ePoint_Shido] = 4;
 
-	if (_points[ePoint_Hansokumake] > 1) 
+	if (_points[ePoint_Hansokumake] > 1)
 		_points[ePoint_Hansokumake] = 1;
 }
 

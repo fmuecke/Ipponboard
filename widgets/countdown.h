@@ -26,7 +26,7 @@ public:
 
 protected:
 	void changeEvent(QEvent* e);
-	void timerEvent(QTimerEvent * e);
+	void timerEvent(QTimerEvent* e);
 
 private:
 	Ui::Countdown* ui;

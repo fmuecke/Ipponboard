@@ -116,8 +116,8 @@ private:
 private slots:
 #ifdef TEAM_VIEW
 	void on_actionScore_Control_triggered();
- void on_actionScore_Screen_triggered();
- void on_button_pause_clicked();
+	void on_actionScore_Screen_triggered();
+	void on_button_pause_clicked();
 	void on_button_current_round_clicked(bool checked);
 	void on_comboBox_mode_currentIndexChanged(QString);
 	void on_actionSet_Round_Time_triggered();
