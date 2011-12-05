@@ -21,3 +21,4 @@ RESOURCES += res.qrc
 INCLUDEPATH += $$(BOOST)
 
 QMAKE_LIBDIR += $$(BOOST)/lib
+QMAKE_LIBS += -lWinmm

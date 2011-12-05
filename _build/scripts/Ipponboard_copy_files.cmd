@@ -25,10 +25,10 @@ REM -- GamePadDemo
 copy "%BASE_DIR%\GamepadDemo\release\GamepadDemo.exe" "%BUILD_DIR%">nul
 
 REM -- 3rdParty library files
-copy "%BASE_DIR%\..\3rdParty\qt-4.7.1\QtCore4.dll" "%BUILD_DIR%">nul
-copy "%BASE_DIR%\..\3rdParty\qt-4.7.1\QtGui4.dll" "%BUILD_DIR%">nul
-copy "%BASE_DIR%\..\3rdParty\msvc100\plain\msvcp100.dll" "%BUILD_DIR%">nul
-copy "%BASE_DIR%\..\3rdParty\msvc100\plain\msvcr100.dll" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\..\3rdParty\Qt-4.7.1-vc100\QtCore4.dll" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\..\3rdParty\Qt-4.7.1-vc100\QtGui4.dll" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\..\3rdParty\msvc100\msvcp100.dll" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\..\3rdParty\msvc100\msvcr100.dll" "%BUILD_DIR%">nul
 
 REM -- Documentation files
 copy "%BASE_DIR%\doc\Anleitung.pdf" "%BUILD_DIR%">nul
