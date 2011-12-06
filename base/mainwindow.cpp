@@ -279,8 +279,17 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			else
 #endif
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::eFighter_Blue);
+				if (eState_Holding == m_pController->GetCurrentState() &&
+						Ipponboard::eFighter_Blue != m_pController->GetLead())
+				{
+					m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
+											Ipponboard::eFighter_Blue);
+				}
+				else
+				{
+					m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+											Ipponboard::eFighter_Blue);
+				}
 				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
 			}
 
@@ -296,8 +305,17 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 			else
 #endif
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::eFighter_White);
+				if (eState_Holding == m_pController->GetCurrentState() &&
+					Ipponboard::eFighter_White != m_pController->GetLead())
+				{
+					m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
+											Ipponboard::eFighter_White);
+				}
+				else
+				{
+					m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
+											Ipponboard::eFighter_White);
+				}
 				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
 			}
 
@@ -1156,7 +1174,7 @@ void MainWindow::EvaluateInput()
 	else
 	{
 		// TODO: don't calc this every time...
-		float sections[8][2] = {0};
+		float sections[8][2] = {{0}};
 		float angle = 360.0f;
 		float deadSpace = 2.0f;
 		float angle_adjustment = 5.0f;

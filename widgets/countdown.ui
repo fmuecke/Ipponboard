@@ -51,7 +51,7 @@
   <customwidget>
    <class>ScaledText</class>
    <extends>QWidget</extends>
-   <header>scaledtext.h</header>
+   <header>../Widgets/scaledtext.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

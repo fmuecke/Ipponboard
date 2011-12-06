@@ -21,7 +21,7 @@ class Countdown : public QDialog
 	Q_OBJECT
 
 public:
-	explicit Countdown(int secs, QWidget* parent = nullptr);
+	explicit Countdown(int secs, QWidget* parent = 0);
 	virtual ~Countdown();
 
 protected:
