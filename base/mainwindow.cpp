@@ -290,6 +290,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 					m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
 											Ipponboard::eFighter_Blue);
 				}
+
 				qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
 			}
 
@@ -306,7 +307,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 #endif
 			{
 				if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::eFighter_White != m_pController->GetLead())
+						Ipponboard::eFighter_White != m_pController->GetLead())
 				{
 					m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
 											Ipponboard::eFighter_White);
@@ -316,6 +317,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 					m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
 											Ipponboard::eFighter_White);
 				}
+
 				qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
 			}
 
