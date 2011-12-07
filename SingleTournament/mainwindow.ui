@@ -382,18 +382,12 @@
     <property name="title">
      <string>&amp;Manage</string>
     </property>
-    <widget class="QMenu" name="menuTimers">
-     <property name="title">
-      <string>Timers</string>
-     </property>
-     <addaction name="actionSet_Hold_Timer"/>
-     <addaction name="actionSet_Main_Timer"/>
-    </widget>
     <addaction name="actionVereine"/>
     <addaction name="actionListen"/>
     <addaction name="actionManage_Classes"/>
     <addaction name="separator"/>
-    <addaction name="menuTimers"/>
+    <addaction name="actionSet_Hold_Timer"/>
+    <addaction name="actionSet_Main_Timer"/>
     <addaction name="actionTest_Gong"/>
    </widget>
    <addaction name="menu"/>

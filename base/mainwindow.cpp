@@ -1556,7 +1556,7 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 
 void MainWindow::on_actionVisit_Project_Homepage_triggered()
 {
-	QUrl url("http://ipponboard.origo.ethz.ch");
+	QUrl url("http://www.ipponboard.info");
 	QDesktopServices::openUrl(url);
 }
 

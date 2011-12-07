@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.origo.ethz.ch");
+	QCoreApplication::setOrganizationDomain("ipponboard.info");
 	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
 
 	// read language code
