@@ -4,9 +4,8 @@
 TARGET = Ipponboard_team
 TEMPLATE = app
 LANGUAGE = C++
-CONFIG += precompile_header
-DEFINES += TEAM_VIEW
-DEFINES += _WIN32
+CONFIG += windows precompile_header
+DEFINES += _WIN32 TEAM_VIEW
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)

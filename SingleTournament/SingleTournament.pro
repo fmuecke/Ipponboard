@@ -7,7 +7,7 @@ TEMPLATE = app
 
 LANGUAGE = C++
 
-CONFIG += precompile_header
+CONFIG += windows precompile_header
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)

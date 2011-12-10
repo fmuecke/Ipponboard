@@ -8,17 +8,21 @@ TEMPLATE = app
 SOURCES += main.cpp \
     gamepaddemo.cpp \
     ../widgets/scaledimage.cpp \
-    ../gamepad/gamepad.cpp
+    #../gamepad/gamepad.cpp
 
 HEADERS += gamepaddemo.h \
     ../widgets/scaledimage.h \
-    ../gamepad/gamepad.h
+    #../gamepad/gamepad.h
 
 FORMS += gamepaddemo.ui
 
 RESOURCES += res.qrc
 
-INCLUDEPATH += $$(BOOST)
+INCLUDEPATH += $$(BOOST) \
+	../gamepad
 
-QMAKE_LIBDIR += $$(BOOST)/lib
-QMAKE_LIBS += -lWinmm
+QMAKE_LIBDIR += $$(BOOST)/lib \
+	../gamepad
+	
+QMAKE_LIBS += -lWinmm \
+	-lgamepad
