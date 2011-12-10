@@ -34,6 +34,9 @@ REM -- Documentation files
 copy "%BASE_DIR%\doc\Anleitung.pdf" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\doc\manual.pdf" "%BUILD_DIR%">nul
 
+REM -- Basic Edition files
+copy "%BASE_DIR%\base\categories.xml" "%BUILD_DIR%">nul
+
 REM -- copy base files to Team Edition folder
 xcopy /S "%BUILD_DIR%\*.*" "%BUILD_DIR_TEAM%"
 MKDIR "%BUILD_DIR_TEAM%\templates">nul

@@ -16,7 +16,7 @@ PRECOMPILED_HEADER = ../base/pch.h
 SOURCES = ../base/clubmanager.cpp \
 	../base/clubmanagerdlg.cpp \
 	../base/controller.cpp \
-	../gamepad/gamepad.cpp \
+	#../gamepad/gamepad.cpp \
 	main.cpp \
     ../base/mainwindow.cpp \
     ../widgets/scaledimage.cpp \
@@ -37,7 +37,7 @@ HEADERS = ../base/pch.h \
 	../base/clubmanagerdlg.h \
 	../base/controller.h \
 	../base/enums.h \
-	../gamepad/gamepad.h \
+	#../gamepad/gamepad.h \
 	../base/icontroller.h \
 	../base/icontrollercore.h \
 	../base/iview.h \
@@ -72,19 +72,23 @@ OTHER_FILES +=
 
 RESOURCES += ../base/ipponboard.qrc
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST)) \
+	../gamepad
 
 DEFINES += _WIN32
 
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
+    $$quote($$(BOOST)/stage/lib) \
+	../gamepad
+
 QMAKE_LIBS += -lshell32
 QMAKE_LIBS += -lWinmm
+QMAKE_LIBS += -lgamepad
 
 #QMAKE_LIBS += -lboost_serialization
 #QMAKE_LIBS += -lboost_system
 #QMAKE_LIBS += -lboost_filesystem
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib)
 
 TRANSLATIONS = ../i18n/Ipponboard_en.ts \
     ../i18n/Ipponboard_de.ts

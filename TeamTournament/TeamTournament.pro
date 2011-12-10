@@ -21,7 +21,6 @@ SOURCES = ../base/clubmanager.cpp \
 	../base/statemachine.cpp \
 	../base/tournamentmodel.cpp \
 	../base/view.cpp \
-	../gamepad/gamepad.cpp \
 	../widgets/scaledimage.cpp \
 	../widgets/scaledtext.cpp \
 	main.cpp \
@@ -42,7 +41,6 @@ HEADERS = ../base/pch.h \
 	../base/tournament.h \
 	../base/tournamentmodel.h \
 	../base/view.h \
-	../gamepad/gamepad.h \
 	../util/qstring_serialization.h \
 	../widgets/scaledimage.h \
 	../widgets/scaledtext.h \
@@ -60,12 +58,16 @@ OTHER_FILES +=
 
 RESOURCES += ../base/ipponboard.qrc
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST)) \
+	../gamepad
+
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
+	$$quote($$(BOOST)/stage/lib) \
+	../gamepad
 
 QMAKE_LIBS += -lshell32
-QMAKE_LIBS += -lWinmm
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-	$$quote($$(BOOST)/stage/lib)
+	-lWinmm
+	-l..\gamepad
 
 TRANSLATIONS = ../i18n/ipponboard_en.ts \
 	../i18n/ipponboard_de.ts
