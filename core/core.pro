@@ -13,7 +13,7 @@ INCLUDEPATH += $$quote($$(BOOST))
 QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
     $$quote($$(BOOST)/stage/lib)
 
-CONFIG(release)
+CONFIG(release, release|debug)
 {
     TARGET = core
     #OBJECTS_DIR = Release/.obj
@@ -22,7 +22,7 @@ CONFIG(release)
     #UI_DIR = Release/.ui
 }
 
-CONFIG(debug)
+CONFIG(debug, release|debug)
 {
     TARGET = core_d
 	#OBJECTS_DIR = Debug/.obj
