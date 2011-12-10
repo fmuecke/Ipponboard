@@ -1,68 +1,85 @@
-# -------------------------------------------------
-# Project created by QtCreator 2009-12-22T21:25:43
-# -------------------------------------------------
-TARGET = Ipponboard
-
 TEMPLATE = app
-
 LANGUAGE = C++
-
 CONFIG += windows precompile_header
+DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 
-SOURCES = ../base/clubmanager.cpp \
+INCLUDEPATH += $$quote($$(BOOST))
+
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
+    $$quote($$(BOOST)/stage/lib) \
+	../lib
+
+CONFIG(release, release|debug) {
+    TARGET = Ipponboard
+	QMAKE_LIBS += -lshell32 -lWinmm -lgamepad -lcore
+}
+
+CONFIG(debug, release|debug) {
+    TARGET = Ipponboard_d
+	QMAKE_LIBS += -lshell32 -lWinmm -lgamepad_d -lcore_d
+}
+
+CONFIG(__GNUC__) {
+	QMAKE_CXXFLAGS += -std=c++0x
+	QMAKE_LIBS += -lboost_serialization
+	QMAKE_LIBS += -lboost_system
+	QMAKE_LIBS += -lboost_filesystem
+}
+
+SOURCES = 	main.cpp \
+	../base/clubmanager.cpp \
 	../base/clubmanagerdlg.cpp \
-	../base/controller.cpp \
-	#../gamepad/gamepad.cpp \
-	main.cpp \
     ../base/mainwindow.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../base/score.cpp \
     ../base/settingsdlg.cpp \
-    ../base/statemachine.cpp \
-    ../base/tournamentmodel.cpp \
     ../base/view.cpp \
 	../base/fightcategorymanagerdlg.cpp \
 	../base/fightcategorymanager.cpp \
-	../base/fightcategory.cpp \
+    ../widgets/scaledimage.cpp \
+    ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp
+    ../widgets/countdown.cpp \
+	#../base/controller.cpp \
+	#../gamepad/gamepad.cpp \
+    #../base/score.cpp \
+    #../base/statemachine.cpp \
+    #../base/tournamentmodel.cpp \
+	#../base/fightcategory.cpp
 
 HEADERS = ../base/pch.h \
 	../base/clubmanager.h \
 	../base/clubmanagerdlg.h \
-	../base/controller.h \
-	../base/enums.h \
-	#../gamepad/gamepad.h \
-	../base/icontroller.h \
-	../base/icontrollercore.h \
-	../base/iview.h \
+    ../base/controlconfig.h \
     ../base/mainwindow.h \
-    ../util/qstring_serialization.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-    ../base/score.h \
     ../base/settingsdlg.h \
-    ../base/statemachine.h \
-    ../base/tournament.h \
-    ../base/tournamentmodel.h \
     ../base/view.h \
 	../base/fightcategorymanagerdlg.h \
 	../base/fightcategorymanager.h \
-	../base/fightcategory.h \
     ../widgets/splashscreen.h \
+    ../widgets/scaledimage.h \
+    ../widgets/scaledtext.h \
+    ../widgets/countdown.h \
     ../util/helpers.h \
-    ../base/controlconfig.h \
-    ../widgets/countdown.h
+    ../util/qstring_serialization.h \
+	#../base/controller.h \
+	#../base/enums.h \
+	#../gamepad/gamepad.h \
+	#../base/icontroller.h \
+	#../base/icontrollercore.h \
+	#../base/iview.h \
+    #../base/score.h \
+    #../base/statemachine.h \
+    #../base/tournament.h \
+    #../base/tournamentmodel.h \
+	#../base/fightcategory.h
 
 FORMS = ../base/clubmanagerdlg.ui \
 	mainwindow.ui \
-	../base/settingsdlg.ui \
     view_vertical_single.ui \
+	../base/settingsdlg.ui \
     ../base/view_horizontal.ui \
 	../base/fightcategorymanagerdlg.ui \
     ../widgets/splashscreen.ui \
@@ -71,24 +88,6 @@ FORMS = ../base/clubmanagerdlg.ui \
 OTHER_FILES += 
 
 RESOURCES += ../base/ipponboard.qrc
-
-INCLUDEPATH += $$quote($$(BOOST)) \
-	../gamepad
-
-DEFINES += _WIN32
-
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib) \
-	../gamepad
-
-QMAKE_LIBS += -lshell32
-QMAKE_LIBS += -lWinmm
-QMAKE_LIBS += -lgamepad
-
-#QMAKE_LIBS += -lboost_serialization
-#QMAKE_LIBS += -lboost_system
-#QMAKE_LIBS += -lboost_filesystem
-
 
 TRANSLATIONS = ../i18n/Ipponboard_en.ts \
     ../i18n/Ipponboard_de.ts
