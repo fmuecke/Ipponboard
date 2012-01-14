@@ -39,6 +39,10 @@ ClubManagerDlg::ClubManagerDlg(ClubManager* mgr, QWidget* parent)
 ClubManagerDlg::~ClubManagerDlg()
 //---------------------------------------------------------
 {
+	// we need to resort the clubs because there might be
+	// new ones
+	m_pClubMgr->SortClubs();
+
 	delete ui;
 }
 
@@ -166,12 +170,16 @@ void ClubManagerDlg::on_comboBox_club_currentIndexChanged(int index)
 	update_ui();
 }
 
+//---------------------------------------------------------
 void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& /*fileName*/)
+//---------------------------------------------------------
 {
 	update_ui();
 }
 
+//---------------------------------------------------------
 void ClubManagerDlg::on_pushButton_browseLogo_pressed()
+//---------------------------------------------------------
 {
 	if (m_SelectedClub < 0)
 		return;

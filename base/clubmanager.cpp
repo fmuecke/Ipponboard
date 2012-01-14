@@ -17,6 +17,7 @@ ClubManager::ClubManager()
 //---------------------------------------------------------
 {
 	LoadClubs_();
+	SortClubs();
 }
 
 //---------------------------------------------------------
@@ -76,6 +77,13 @@ void ClubManager::RemoveClub(unsigned int index)
 	Q_ASSERT(index < m_Clubs.size() && index >= 0);
 
 	m_Clubs.erase(m_Clubs.begin() + index);
+}
+
+//---------------------------------------------------------
+void ClubManager::SortClubs()
+//---------------------------------------------------------
+{
+	std::sort(m_Clubs.begin(), m_Clubs.end());
 }
 
 //---------------------------------------------------------

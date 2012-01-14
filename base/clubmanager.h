@@ -26,7 +26,12 @@ struct Club
 	QString name;
 	QString logoFile;
 
-	QString ToString() const { return name; }
+	inline bool operator<(const Club& rhs) const
+	{
+		return this->ToString() < rhs.ToString();
+	}
+
+	inline QString ToString() const { return name; }
 };
 }
 
@@ -65,6 +70,7 @@ public:
 	void AddClub(const Ipponboard::Club& club);
 	void UpdateClub(unsigned int index, const Ipponboard::Club& club);
 	void RemoveClub(unsigned int index);
+	void SortClubs();
 	int ClubCount() const { return m_Clubs.size(); }
 
 private:
