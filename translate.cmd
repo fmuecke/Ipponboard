@@ -1,4 +1,8 @@
 @echo off
+echo Please use the translation scripts for the separate projects.
+pause
+exit 0 
+
 lupdate Ipponboard.pro
 pause
 linguist i18n\Ipponboard_de.ts

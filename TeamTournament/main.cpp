@@ -10,44 +10,44 @@
 
 int main(int argc, char* argv[])
 {
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.info");
-	QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
+    QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
+    QCoreApplication::setOrganizationName("Florian Mücke");
+    QCoreApplication::setOrganizationDomain("ipponboard.info");
+    QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
 
-	// read language code
-	const QString ini(
-		QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
+    // read language code
+    const QString ini(
+        QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
 
-	QSettings settings(ini, QSettings::IniFormat, &a);
-	settings.beginGroup(str_tag_Main);
-	const QString langStr = settings.value(str_tag_Language, "en").toString();
-	settings.endGroup();
+    QSettings settings(ini, QSettings::IniFormat, &a);
+    settings.beginGroup(str_tag_Main);
+    const QString langStr = settings.value(str_tag_Language, "en").toString();
+    settings.endGroup();
 
-	QTranslator translator;
+    QTranslator translator;
 
-	if (langStr != QString("en"))
-	{
-		const QString& langPath =
-			QCoreApplication::applicationDirPath();// + Qtring("/lang");
+    if (langStr != QString("en"))
+    {
+        const QString& langPath =
+            QCoreApplication::applicationDirPath();// + Qtring("/lang");
 
-		const QString langFile =
-			QString("ipponboard_") + langStr;
+        const QString langFile =
+            QString("lang/ipponboard_team_") + langStr;
 
-		if (translator.load(langFile, langPath))
-		{
-			a.installTranslator(&translator);
-		}
-		else
-		{
-			QMessageBox::critical(nullptr,
-								  QCoreApplication::applicationName(),
-								  "Unable to read language file: " + langFile +
-								  "\nThe default language is being used.");
-		}
-	}
+        if (translator.load(langFile, langPath))
+        {
+            a.installTranslator(&translator);
+        }
+        else
+        {
+            QMessageBox::critical(nullptr,
+                                  QCoreApplication::applicationName(),
+                                  "Unable to read language file: " + langFile +
+                                  "\nThe default language is being used.");
+        }
+    }
 
 
 //	QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
@@ -89,16 +89,16 @@ int main(int argc, char* argv[])
 //				"Please visit the project webpage - there should be a newer one available."));
 //	}
 
-	MainWindow w;
-	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-					 QCoreApplication::applicationVersion());
+    MainWindow w;
+    w.setWindowTitle(QCoreApplication::applicationName() + " v" +
+                     QCoreApplication::applicationVersion());
 
-	//w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-	//				 QCoreApplication::applicationVersion() +
-	//" ***Spezialversion DJK ITSV Grosshadern***");
-	//				 " ***Spezialversion DJK Ingolstadt***");
+    //w.setWindowTitle(QCoreApplication::applicationName() + " v" +
+    //				 QCoreApplication::applicationVersion() +
+    //" ***Spezialversion DJK ITSV Grosshadern***");
+    //				 " ***Spezialversion DJK Ingolstadt***");
 
-	w.show();
+    w.show();
 
-	return a.exec();
+    return a.exec();
 }
