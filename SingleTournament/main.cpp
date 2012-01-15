@@ -26,12 +26,18 @@ int main(int argc, char* argv[])
     QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
 
     // read language code
-    const QString ini(
-        QString::fromStdString(fmu::GetSettingsFilePath(str_ini_name)));
+    QString langStr = QLocale::system().name();
+    langStr.truncate(langStr.lastIndexOf('_'));
 
+    const QString ini(QString::fromStdString(
+                          fmu::GetSettingsFilePath(str_ini_name)));
     QSettings settings(ini, QSettings::IniFormat, &a);
+
     settings.beginGroup(str_tag_Main);
-    const QString langStr = settings.value(str_tag_Language, "en").toString();
+
+    if (settings.contains(str_tag_Language))
+        langStr = settings.value(str_tag_Language).toString();
+
     settings.endGroup();
 
     QTranslator translator;
@@ -39,10 +45,10 @@ int main(int argc, char* argv[])
     if (langStr != QString("en"))
     {
         const QString& langPath =
-            QCoreApplication::applicationDirPath();// + Qtring("/lang");
+            QCoreApplication::applicationDirPath() + QString("/lang");
 
         const QString langFile =
-            QString("lang/ipponboard_") + langStr;
+            QString("ipponboard_") + langStr;
 
         if (translator.load(langFile, langPath))
         {
@@ -56,7 +62,6 @@ int main(int argc, char* argv[])
                                   "\nThe default language is being used.");
         }
     }
-
 
     QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
     f.open(QIODevice::ReadOnly | QIODevice::Text);
