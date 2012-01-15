@@ -1,19 +1,19 @@
 @echo off
 REM --> CHANGE VERSION HERE:
-SET VER1=0
-SET VER2=9
-SET VER3=9
-IF NOT EXIST buildnr (
+SET VER1=1
+SET VER2=0
+SET VER3=0
+IF NOT EXIST ..\base\.buildnr (
 	SET VER4=0
 ) ELSE (
-	SET /P VER4=<buildnr
+	SET /P VER4=<..\base\.buildnr
 	SET /A VER4+=1 >nul
 )
-echo %VER4% >buildnr
+echo %VER4% >..\base\.buildnr
 REM that's it. <--
 
 SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
-SET FILENAME_NO_EXT=versioninfo
+SET FILENAME_NO_EXT=..\base\versioninfo
 subwcrev>nul
 if %errorlevel%==1 goto do_it
 echo Subversion not found!
@@ -38,13 +38,13 @@ echo #endif  // BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 
 echo -^> generating version info header
 REM generate header file
-subwcrev .\ versioninfo.tmp versioninfo.h>nul
-del versioninfo.tmp
+subwcrev ..\ %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
+del %FILENAME_NO_EXT%.tmp
 
 REM --
 REM -- Update RC file
 REM --
-SET RC_FILE=Ipponboard.rc
+SET RC_FILE=..\base\Ipponboard.rc
 ECHO //>%RC_FILE%
 ECHO // FILE IS GENERATED - DO NOT CHANGE!!>>%RC_FILE%
 ECHO //>>%RC_FILE%
