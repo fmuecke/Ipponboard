@@ -1,28 +1,24 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-02-19T22:00:18
 # -------------------------------------------------
-TARGET = GamepadDemo
-
 TEMPLATE = app
+TARGET = GamepadDemo
+DESTDIR = ../bin
 
-SOURCES += main.cpp \
-    gamepaddemo.cpp \
-    ../widgets/scaledimage.cpp \
-    #../gamepad/gamepad.cpp
+build_pass:CONFIG(release, debug|release) {
+	QMAKE_LIBS += -lWinmm -lgamepad
+}
 
-HEADERS += gamepaddemo.h \
-    ../widgets/scaledimage.h \
-    #../gamepad/gamepad.h
+build_pass:CONFIG(debug, debug|release) {
+    TARGET = $$join(TARGET,,,_d)
+	QMAKE_LIBS += -lWinmm -lgamepad_d
+} 
 
-FORMS += gamepaddemo.ui
-
+SOURCES += main.cpp gamepaddemo.cpp ../widgets/scaledimage.cpp
+HEADERS += gamepaddemo.h ../widgets/scaledimage.h
+FORMS   += gamepaddemo.ui
 RESOURCES += res.qrc
 
-INCLUDEPATH += $$(BOOST) \
-	../gamepad
+INCLUDEPATH += $$(BOOST) ../gamepad
 
-QMAKE_LIBDIR += $$(BOOST)/lib \
-	../gamepad
-	
-QMAKE_LIBS += -lWinmm \
-	-lgamepad
+QMAKE_LIBDIR += $$(BOOST)/lib ../lib
