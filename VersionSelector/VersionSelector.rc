@@ -1,0 +1,36 @@
+//
+// FILE IS GENERATED - DO NOT CHANGE!!
+//
+#include <winver.h>
+#pragma code_page(1252)
+IDI_MAIN_ICON	ICON	"../base/images/ipponboard.ico"
+/////////////////////////////////////////////////////////////////////////////
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 0,9,9,10 
+PRODUCTVERSION 0,9,9,10 
+FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+FILEFLAGS 0x1L
+#else
+FILEFLAGS 0x0L
+#endif
+FILEOS 0x40004L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040704b0"
+        BEGIN
+            VALUE "CompanyName", "Florian Mücke\0"
+            VALUE "FileDescription", "TODO: ***File description***\0"
+            VALUE "FileVersion", "1.1.1.0\0"
+            VALUE "InternalName", "VersionSelector.exe\0"
+            VALUE "LegalCopyright", "Copyright (C) 2012 Florian Mücke\0"
+            VALUE "OriginalFilename", "Ipponboard.exe\0"
+            VALUE "ProductName", "Ipponboard Version Selector\0"
+            VALUE "ProductVersion", "1.0.0.0\0"
+        END
+    END
+END
+/////////////////////////////////////////////////////////////////////////////
