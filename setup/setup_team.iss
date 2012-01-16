@@ -3,12 +3,13 @@
 
 #include "defines.def"
 
-#define MyAppVersion GetFileVersion('..\_build\build_output\~tmp\Ipponboard.exe')
+#define MyAppVersion GetFileVersion('..\_build\build_output\~tmp_TE\Ipponboard_team.exe')
 ;#define MyAppVersion GetEnv("IPPONBOARD_VERSION")
 #if len(MyAppVersion) < 1
   #pragma warning "IPPONBOARD_VERSION not defined"
   #define MyAppVersion "0.0.0.0"
 #endif
+
 #define MySimpleAppVersion SimpleVersion(MyAppVersion)
 
 #pragma message "*** Version info ***
@@ -23,10 +24,10 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppID={{1E604DB1-15D5-43E9-9FEE-B3A5C8387449}
+AppID={{1CE3EDF1-161E-414B-ACFA-1FA01B6686A7}
 AppName={#MyAppName}
 AppVersion={#MySimpleAppVersion}
-AppVerName={#MyAppName} {#MySimpleAppVersion}
+AppVerName={#MyAppName} Team Edition {#MySimpleAppVersion}
 AppPublisher={#MyAppAuthor}
 AppPublisherURL=http://www.ipponboard.info/
 AppSupportURL=http://www.ipponboard.info/
@@ -37,7 +38,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=no
 AllowNoIcons=false
 ;OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
-OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
+OutputBaseFilename={#MyAppName}-TE-{#MyAppVersion}-setup
 Compression=lzma2/Ultra
 SolidCompression=true
 InternalCompressLevel=Ultra
@@ -55,7 +56,7 @@ AlwaysUsePersonalGroup=true
 AppendDefaultGroupName=false
 AlwaysShowDirOnReadyPage=true
 AlwaysShowGroupOnReadyPage=true
-UninstallDisplayIcon={app}\Ipponboard.exe
+UninstallDisplayIcon={app}\Ipponboard_team.exe
 Uninstallable=not IsPortable
 
 [Languages]
@@ -91,38 +92,51 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: NOT IsPortable
 
 [Files]
-Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; 
-Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; 
-;Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: NOT IsPortable 
-Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite; Check: IsPortable; Permissions: users-full; 
-Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app};
-Source: ..\_build\build_output\~tmp\lang\core_de.qm; DestDir: {app}\lang\; 
-Source: ..\_build\build_output\~tmp\lang\Ipponboard_de.qm; DestDir: {app}\lang\; 
-Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp_TE\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp_TE\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; 
+Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard_team-portable.exe; 
+Source: ..\_build\build_output\~tmp_TE\VersionSelector.exe; DestDir: {app}; Check: "NOT IsPortable";
+;Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: "NOT IsPortable"; Permissions: authusers-full; 
+Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {app}; Flags: ignoreversion promptifolder; Permissions: users-full;  
+Source: ..\_build\build_output\~tmp_TE\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
+;Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {app}\clubs\; Flags: ignoreversion promptifolder; Check: IsPortable; 
+Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder; 
+Source: ..\_build\build_output\~tmp_TE\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp_TE\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp_TE\GamepadDemo.exe; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp_TE\lang\core_de.qm; DestDir: {app}\lang\; 
+Source: ..\_build\build_output\~tmp_TE\lang\Ipponboard_de.qm; DestDir: {app}\lang\; 
+Source: ..\_build\build_output\~tmp_TE\lang\Ipponboard_team_de.qm; DestDir: {app}\lang\; 
+Source: ..\_build\build_output\~tmp_TE\lang\VersionSelector_de.qm; DestDir: {app}\lang\; 
+Source: ..\_build\build_output\~tmp_TE\msvcp100.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp_TE\msvcr100.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp_TE\QtCore4.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp_TE\QtGui4.dll; DestDir: {app}; 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
-Name: {app}\lang;
 Name: {app}\sounds; 
+Name: {app}\lang;
+Name: {app}\clubs; Permissions: users-full;
+Name: {app}\templates; Permissions: users-full;
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: {app}\Ipponboard.exe; WorkingDir: {app}; Check: NOT IsPortable
+Name: "{group}\{#MyAppName}"; Filename: {app}\VersionSelector.exe; WorkingDir: {app}; Check: NOT IsPortable
 Name: "{group}\Anleitung"; Filename: {app}\Anleitung.pdf; WorkingDir: {app}; Check: NOT IsPortable
 Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: http://www.ipponboard.info/; Check: NOT IsPortable
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: {uninstallexe}; Check: NOT IsPortable
 Name: "{group}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de; Check: NOT IsPortable
 Name: "{group}\Online-Survey (Feedback)"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_en/"; Languages: en; Check: NOT IsPortable
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; Tasks: desktopicon; IconFilename: {app}\Ipponboard.exe; WorkingDir: {app}; Check: NOT IsPortable
+;Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; Tasks: desktopicon; IconFilename: {app}\Ipponboard.exe; WorkingDir: {app}; Check: NOT IsPortable
+Name: "{commondesktop}\{#MyAppName}"; Filename: {app}\VersionSelector.exe; Tasks: desktopicon; IconFilename: {app}\VersionSelector.exe; WorkingDir: {app}; Check: NOT IsPortable
+
 
 [Run]
-Filename: "{app}\Ipponboard.exe"; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent unchecked; WorkingDir: {app}; Check: NOT IsPortable
+Filename: {app}\VersionSelector.exe; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent unchecked; WorkingDir: {app}; Check: "NOT IsPortable"; 
+
 Filename: "{app}\Anleitung.pdf"; Description: {cm:ViewProgram,Anleitung}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: de; Check: NOT IsPortable
 Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
 
@@ -134,9 +148,13 @@ Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Inst
 
 [INI]
 Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de; 
+Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de;
 Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en; 
-Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de; 
+Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en;
+Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de;
+Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de; 
 Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en; 
+Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en;
 
 [Code]
 var
@@ -223,3 +241,4 @@ function GetFileVersion(filename : String): String;
 begin
     GetVersionNumbersString(filename, Result);
 end;
+
