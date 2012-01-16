@@ -3,19 +3,19 @@
 
 #include "defines.def"
 
-;#define MyAppVersion GetFileVersion(AddBackslash(SourcePath) + "MyApplication.exe")
-#define MyAppVersion GetEnv("IPPONBOARD_VERSION")
+#define MyAppVersion GetFileVersion('..\_build\build_output\~tmp\Ipponboard.exe')
+;#define MyAppVersion GetEnv("IPPONBOARD_VERSION")
 #if len(MyAppVersion) < 1
   #pragma warning "IPPONBOARD_VERSION not defined"
   #define MyAppVersion "0.0.0.0"
 #endif
-
 #define MySimpleAppVersion SimpleVersion(MyAppVersion)
 
 #pragma message "*** Version info ***
 #pragma message "Detailed version info: " + MyAppVersion
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
+#pragma message 
 #define MyAppName "Ipponboard"
 #define MyAppCopyright "2010-2012 Florian Mücke"
 #define MyAppAuthor "Florian Mücke"
@@ -29,17 +29,17 @@ AppName={#MyAppName}
 AppVersion={#MySimpleAppVersion}
 AppVerName={#MyAppName} {#MySimpleAppVersion}
 AppPublisher={#MyAppAuthor}
-AppPublisherURL=http://ipponboard.origo.ethz.ch/
-AppSupportURL=http://ipponboard.origo.ethz.ch/
-AppUpdatesURL=http://ipponboard.origo.ethz.ch/
+AppPublisherURL=http://www.ipponboard.info/
+AppSupportURL=http://www.ipponboard.info/
+AppUpdatesURL=http://www.ipponboard.info/
 AppCopyright=Copyright (C) {#MyAppCopyright}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=no
 AllowNoIcons=false
-OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
-;OutputBaseFilename={#MyAppName} {#MyAppVersion} setup
-Compression=lzma2/Max
+;OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
+OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
+Compression=lzma2/Ultra
 SolidCompression=true
 InternalCompressLevel=Ultra
 MinVersion=,5.01.2600sp1
@@ -57,7 +57,7 @@ AppendDefaultGroupName=false
 AlwaysShowDirOnReadyPage=true
 AlwaysShowGroupOnReadyPage=true
 UninstallDisplayIcon={app}\Ipponboard.exe
-Uninstallable=not IsPortable
+Uninstallable=false
 
 [Languages]
 ;Name: "en"; MessagesFile: "compiler:Default.isl,compiler:MyMessages.isl"
@@ -99,9 +99,9 @@ Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPor
 Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\ipponboard_de.qm; DestDir: {app}; 
-;Source: ..\_build\build_output\~tmp\ipponboard_en.qm; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app};
+Source: ..\_build\build_output\~tmp\lang\core_de.qm; DestDir: {app}\lang\; 
+Source: ..\_build\build_output\~tmp\lang\Ipponboard_de.qm; DestDir: {app}\lang\; 
 Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; 
 Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; 
@@ -109,13 +109,14 @@ Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app};
 
 [Dirs]
 Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
+Name: {app}\lang;
 Name: {app}\sounds; 
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: {app}\Ipponboard.exe; WorkingDir: {app}; Check: NOT IsPortable
 Name: "{group}\Anleitung"; Filename: {app}\Anleitung.pdf; WorkingDir: {app}; Check: NOT IsPortable
 Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
-Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: http://ipponboard.origo.ethz.ch/; Check: NOT IsPortable
+Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: http://www.ipponboard.info/; Check: NOT IsPortable
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: {uninstallexe}; Check: NOT IsPortable
 Name: "{group}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de; Check: NOT IsPortable
 Name: "{group}\Online-Survey (Feedback)"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_en/"; Languages: en; Check: NOT IsPortable
@@ -217,4 +218,9 @@ begin
         // ...insert code to perform pre-uninstall tasks here...
       end;
   end;
+end;
+
+function GetFileVersion(filename : String): String;
+begin
+    GetVersionNumbersString(filename, Result);
 end;
