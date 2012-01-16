@@ -29,18 +29,18 @@
         <translation>Startet Ipponboard im Mannschafts-Modus. Dieser beinhaltet unter anderm auch eine vollständige Listenführung.</translation>
     </message>
     <message>
-        <location filename="../VersionSelector/maindlg.cpp" line="60"/>
-        <location filename="../VersionSelector/maindlg.cpp" line="67"/>
+        <location filename="../VersionSelector/maindlg.cpp" line="64"/>
+        <location filename="../VersionSelector/maindlg.cpp" line="71"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../VersionSelector/maindlg.cpp" line="61"/>
+        <location filename="../VersionSelector/maindlg.cpp" line="65"/>
         <source>%1 could not be started!</source>
         <translation>%1 konnte nicht gestartet werden!</translation>
     </message>
     <message>
-        <location filename="../VersionSelector/maindlg.cpp" line="68"/>
+        <location filename="../VersionSelector/maindlg.cpp" line="72"/>
         <source>%1 could not be found!</source>
         <translation>%1 wurde nicht gefunden!</translation>
     </message>
