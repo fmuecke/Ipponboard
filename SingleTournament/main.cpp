@@ -16,6 +16,14 @@ int DelayUser()
     return dlg.exec();
 }
 
+void LangNotFound(const QString& fileName)
+{
+    QMessageBox::critical(nullptr,
+                          QCoreApplication::applicationName(),
+                          "Unable to read language file: " + fileName +
+                          "\nThe default language is being used.");
+}
+
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
@@ -40,27 +48,22 @@ int main(int argc, char* argv[])
 
     settings.endGroup();
 
-    QTranslator translator;
-
-    if (langStr != QString("en"))
+    QTranslator translator;  // Note: this object needs to stay.
+    QTranslator coreTranslator; // Note: this object needs to stay.
+    if (langStr == QString("de"))
     {
         const QString& langPath =
             QCoreApplication::applicationDirPath() + QString("/lang");
 
-        const QString langFile =
-            QString("ipponboard_") + langStr;
-
-        if (translator.load(langFile, langPath))
-        {
+        if (translator.load("Ipponboard_de", langPath))
             a.installTranslator(&translator);
-        }
         else
-        {
-            QMessageBox::critical(nullptr,
-                                  QCoreApplication::applicationName(),
-                                  "Unable to read language file: " + langFile +
-                                  "\nThe default language is being used.");
-        }
+            LangNotFound("Ipponboard_de");
+
+        if (coreTranslator.load("core_de", langPath))
+            a.installTranslator(&coreTranslator);
+        else
+            LangNotFound("core_de");
     }
 
     QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");

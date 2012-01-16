@@ -9,7 +9,7 @@
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 
-#include "fightcategory.h"
+#include "../core/fightcategory.h"
 
 // forwards
 class QListWidgetItem;

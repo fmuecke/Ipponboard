@@ -7,7 +7,7 @@
 #include <QSound>
 #include <QColorDialog>
 #include "../gamepad/gamepad.h"
-#include "controlconfig.h"
+#include "../core/controlconfig.h"
 
 using namespace Ipponboard;
 

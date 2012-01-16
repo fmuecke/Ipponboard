@@ -36,24 +36,27 @@ CONFIG(__GNUC__) {
 
 
 HEADERS = ../base/pch.h \
-    ../base/controller.h \
-    ../base/enums.h \
-    ../base/icontroller.h \
-    ../base/icontrollercore.h \
-    ../base/iview.h \
-    ../base/score.h \
-    ../base/statemachine.h \
-    ../base/tournament.h \
-    ../base/fightcategory.h \
-    ../base/tournamentmodel.h \
-    ../base/controlconfig.h \
     ../util/helpers.h \
-    ../util/qstring_serialization.h
+    ../util/qstring_serialization.h \
+    controlconfig.h \
+    controller.h \
+    enums.h \
+    fightcategory.h \
+    icontroller.h \
+    icontrollercore.h \
+    iview.h \
+    score.h \
+    statemachine.h \
+    tournament.h \
+    tournamentmodel.h
 
-SOURCES = ../base/controller.cpp \
-    ../base/score.cpp \
-    ../base/statemachine.cpp \
-    ../base/tournamentmodel.cpp \
-    ../base/fightcategory.cpp
+SOURCES = controller.cpp \
+    fightcategory.cpp \
+    score.cpp \
+    statemachine.cpp \
+    tournamentmodel.cpp
+    
 
 #OTHER_FILES +=
+
+TRANSLATIONS = ../i18n/core_de.ts

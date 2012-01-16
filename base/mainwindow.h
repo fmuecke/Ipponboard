@@ -5,7 +5,7 @@
 #include <QTableWidgetItem>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "../base/controlconfig.h"
+#include "../core/controlconfig.h"
 
 // forwards
 namespace Ui
