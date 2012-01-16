@@ -813,7 +813,11 @@ void MainWindow::UpdateScoreScreen_()
 void MainWindow::WriteScoreToHtml_()
 //=========================================================
 {
-    QFile file("templates\\list_output_bay.html");
+    const QString filePath(
+                fmu::GetSettingsFilePath(
+                    "templates\\list_output_bay.html").c_str());
+
+    QFile file(filePath);
 
     if (!file.open(QFile::ReadOnly))
     {

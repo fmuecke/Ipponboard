@@ -79,6 +79,8 @@ GOTO :EOF
 	if errorlevel 1 pause
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup.iss"
 	if errorlevel 1 pause
+	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup_team.iss"
+	if errorlevel 1 pause
 	if errorlevel 0 dir /ON "%BASE_DIR%\_build\build_output"
 	if not "%1"=="internal" pause
 GOTO :EOF

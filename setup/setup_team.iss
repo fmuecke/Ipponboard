@@ -97,12 +97,13 @@ Source: ..\_build\build_output\~tmp_TE\Ipponboard.exe; DestDir: {app}; Check: Is
 Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: "NOT IsPortable"; 
 Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard_team-portable.exe; 
 Source: ..\_build\build_output\~tmp_TE\VersionSelector.exe; DestDir: {app}; Check: "NOT IsPortable";
-;Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: "NOT IsPortable"; Permissions: authusers-full; 
-Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {app}; Flags: ignoreversion promptifolder; Permissions: users-full;  
-Source: ..\_build\build_output\~tmp_TE\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
-;Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {commonappdata}\Ipponboard\clubs; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
+Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {commonappdata}\Ipponboard\templates\; Flags: ignoreversion promptifolder; Check: "NOT IsPortable";
+Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: "NOT IsPortable"; Permissions: authusers-full; 
 Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {app}\clubs\; Flags: ignoreversion promptifolder; Check: IsPortable; 
-Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder; 
+Source: ..\_build\build_output\~tmp_TE\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
+Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder;  Check: IsPortable;
+Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {app}; Flags: ignoreversion promptifolder; Check: IsPortable; Permissions: users-full;  
 Source: ..\_build\build_output\~tmp_TE\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp_TE\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
 Source: ..\_build\build_output\~tmp_TE\GamepadDemo.exe; DestDir: {app}; 
@@ -116,11 +117,11 @@ Source: ..\_build\build_output\~tmp_TE\QtCore4.dll; DestDir: {app};
 Source: ..\_build\build_output\~tmp_TE\QtGui4.dll; DestDir: {app}; 
 
 [Dirs]
-;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
+Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
 Name: {app}\sounds; 
 Name: {app}\lang;
-Name: {app}\clubs; Permissions: users-full;
-Name: {app}\templates; Permissions: users-full;
+Name: {app}\clubs; Permissions: users-full; Check: IsPortable
+Name: {app}\templates; Permissions: users-full; Check: IsPortable
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: {app}\VersionSelector.exe; WorkingDir: {app}; Check: NOT IsPortable
