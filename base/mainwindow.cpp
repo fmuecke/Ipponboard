@@ -31,6 +31,7 @@
 #include <functional>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QMenu>
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -141,14 +142,37 @@ MainWindow::MainWindow(QWidget* parent)
 
 #ifdef TEAM_VIEW
     m_pUi->dateEdit->setDate(QDate::currentDate());
-    //m_pUi->comboBox_mode->addItem(str_mode_bundesliga);
-    //m_pUi->comboBox_mode->addItem(str_mode_bayernliga);
-    //const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_bundesliga);
-    //m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
-    m_pUi->comboBox_mode->hide();
-    m_pUi->label_mode->hide();
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
+    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
+//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
 
-    update_weights("-66;-73;-81;-90;+90");
+    const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_1te_bundesliga_sued_m);
+    m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+
+    // TEMP: hide weight cotrol
+//	m_pUi->label_weight->hide();
+//	m_pUi->lineEdit_weights->hide();
+//	m_pUi->toolButton_weights->hide();
+//	m_pUi->gridLayout_main->removeItem(m_pUi->horizontalSpacer_4);
+//	delete m_pUi->horizontalSpacer_4;
+
+    //update_weights("-66;-73;-81;-90;+90"); 
+    //FIXME: check why this has not been in branch
 #else
 
     // init tournament classes (if there are none present)
@@ -419,8 +443,50 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     }
 
 #ifdef TEAM_VIEW
+    else if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_score_table)
+    {
+        if (event->matches(QKeySequence::Copy))
+        {
+            if (QApplication::focusWidget() == m_pUi->tableView_tournament_list1)
+            {
+                slot_copy_cell_content_list1();
+            }
+            else if (QApplication::focusWidget() == m_pUi->tableView_tournament_list2)
+            {
+                slot_copy_cell_content_list2();
+            }
+        }
+        else if (event->matches(QKeySequence::Paste))
+        {
+            if (QApplication::focusWidget() == m_pUi->tableView_tournament_list1)
+            {
+                slot_paste_cell_content_list1();
+            }
+            else if (QApplication::focusWidget() == m_pUi->tableView_tournament_list2)
+            {
+                slot_paste_cell_content_list2();
+            }
+        }
+        else if (event->matches(QKeySequence::Delete))
+        {
+            if (QApplication::focusWidget() == m_pUi->tableView_tournament_list1)
+            {
+                slot_clear_cell_content_list1();
+            }
+            else if (QApplication::focusWidget() == m_pUi->tableView_tournament_list2)
+            {
+                slot_clear_cell_content_list2();
+            }
+        }
+        else
+        {
+            QMainWindow::keyPressEvent(event);
+        }
+    }
     else
     {
+        //TODO: handle view keys
+        //FIXME: handling should be part of the view class!
         switch (event->key())
         {
         default:
@@ -791,7 +857,7 @@ void MainWindow::UpdateFightNumber_()
     m_pUi->label_fight->setText(
         QString("%1 / %2")
         .arg(QString::number(currentFight))
-        .arg(QString::number(10)));	//FIXME: fix number of fights
+        .arg(QString::number(m_pController->GetFightCount())));
 }
 
 //=========================================================
@@ -822,7 +888,7 @@ void MainWindow::WriteScoreToHtml_()
     if (!file.open(QFile::ReadOnly))
     {
         QMessageBox::critical(this, tr("File open error"),
-                              tr("Datei kann nicht geöffnet werden: ") + file.fileName());
+                              tr("File could not be opened: ") + file.fileName());
         return;
     }
 
@@ -831,35 +897,54 @@ void MainWindow::WriteScoreToHtml_()
     m_htmlScore = ts.readAll();
     file.close();
 
+    QString titleText = get_full_mode_title(m_pUi->comboBox_mode->currentText());
+    m_htmlScore.replace("%TITLE%", titleText);
+
+    m_htmlScore.replace("%HOST%", m_pUi->comboBox_club_host->currentText());
     m_htmlScore.replace("%DATE%", m_pUi->dateEdit->text());
     m_htmlScore.replace("%LOCATION%", m_pUi->lineEdit_location->text());
     m_htmlScore.replace("%HOME%", m_pUi->comboBox_club_home->currentText());
     m_htmlScore.replace("%GUEST%", m_pUi->comboBox_club_guest->currentText());
 
     // intermediate score
-    std::pair<unsigned, unsigned> wins =
+    const std::pair<unsigned,unsigned> wins1st =
         m_pController->GetTournamentScoreModel(0)->GetTotalWins();
-    m_htmlScore.replace("%WINS_HOME%", QString::number(wins.first));
-    m_htmlScore.replace("%WINS_GUEST%", QString::number(wins.second));
-    std::pair<unsigned, unsigned> score =
+    m_htmlScore.replace("%WINS_HOME%", QString::number(wins1st.first));
+    m_htmlScore.replace("%WINS_GUEST%", QString::number(wins1st.second));
+    const std::pair<unsigned,unsigned> score1st =
         m_pController->GetTournamentScoreModel(0)->GetTotalScore();
-    m_htmlScore.replace("%SCORE_HOME%", QString::number(score.first));
-    m_htmlScore.replace("%SCORE_GUEST%", QString::number(score.second));
+    m_htmlScore.replace("%SCORE_HOME%", QString::number(score1st.first));
+    m_htmlScore.replace("%SCORE_GUEST%", QString::number(score1st.second));
 
     // final score
-    std::pair<unsigned, unsigned> wins2 =
+    const std::pair<unsigned,unsigned> wins2nd =
         m_pController->GetTournamentScoreModel(1)->GetTotalWins();
-    m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(wins.first + wins2.first));
-    m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(wins.second + wins2.second));
-    std::pair<unsigned, unsigned> score2 =
+    const std::pair<unsigned,unsigned> totalWins =
+            std::make_pair(wins1st.first + wins2nd.first,
+                           wins1st.second + wins2nd.second);
+    m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
+    m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
+    const std::pair<unsigned,unsigned> score2nd =
         m_pController->GetTournamentScoreModel(1)->GetTotalScore();
-    m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(score.first + score2.first));
-    m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(score.second + score2.second));
+    const std::pair<unsigned,unsigned> totalScore =
+            std::make_pair(score1st.first + score2nd.first,
+                           score1st.second + score2nd.second);
+    m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
+    m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
+
+
+    QString winner = tr("tie");
+    if( totalWins.first > totalWins.second )
+        winner = m_pUi->comboBox_club_home->currentText();
+    else if( totalWins.first < totalWins.second )
+        winner = m_pUi->comboBox_club_guest->currentText();
+
+    m_htmlScore.replace( "%WINNER%", winner );
 
     // first round
     QString rounds;
 
-    for (int i(0); i < Ipponboard::eTournament_FightCount; ++i)
+    for (int i(0); i < m_pController->GetFightCount(); ++i)
     {
         const Fight& fight(m_pController->GetFight(0, i));
 
@@ -887,7 +972,9 @@ void MainWindow::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
-        round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeUsedText(
+                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -897,7 +984,7 @@ void MainWindow::WriteScoreToHtml_()
     // second round
     rounds.clear();
 
-    for (int i(0); i < Ipponboard::eTournament_FightCount; ++i)
+    for (int i(0); i < m_pController->GetFightCount(); ++i)
     {
         const Fight& fight(m_pController->GetFight(1, i));
 
@@ -907,7 +994,7 @@ void MainWindow::WriteScoreToHtml_()
         const Score& score_white(fight.scores[eFighter_White]);
 
         QString round("<tr>");
-        round.append("<td><center>" + QString::number(i + 1) + "</center></td>"); // number
+        round.append("<td><center>" + QString::number(i + 1 + m_pController->GetFightCount()) + "</center></td>"); // number
         round.append("<td><center>" + fight.weight + "</center></td>"); // weight
         round.append("<td><center>" + name_blue + "</center></td>"); // name
         round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
@@ -925,7 +1012,9 @@ void MainWindow::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
-        round.append("<td><center>" + fight.GetRoundTimeText() + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeUsedText(
+                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -1023,6 +1112,11 @@ void MainWindow::on_actionReset_Scores_triggered()
                 tr("Really reset complete score table?"),
                 QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
         m_pController->ClearFights();
+
+#ifdef TEAM_VIEW
+    UpdateFightNumber_();
+#endif
+
 }
 
 //=========================================================
@@ -1658,25 +1752,26 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
 }
 
 #ifdef TEAM_VIEW
-void MainWindow::on_pushButton_weights_pressed()
+void MainWindow::on_toolButton_weights_pressed()
 {
     bool ok(false);
     const QString weights = QInputDialog::getText(
-                                0,
+                                this,
                                 tr("Set Weights"),
                                 tr("Set weights (separated by ';'):"),
                                 QLineEdit::Normal,
-                                m_pUi->lineEdit_weights->text(),
+                                m_weights,
                                 &ok);
 
     if (ok)
     {
-        if (4 != weights.count(';') &&
-                9 != weights.count(';'))
+        if (m_pController->GetFightCount()/2-1 != weights.count(';')
+            && m_pController->GetFightCount()-1 != weights.count(';'))
         {
             QMessageBox::critical(this, "Wrong values",
-                                  "You need to specify 5 weight classes separated by ';'!");
-            on_pushButton_weights_pressed();
+                                  tr("You need to specify %1 weight classes separated by ';'!")
+                                  .arg(QString::number(m_pController->GetFightCount())));
+            on_toolButton_weights_pressed();
         }
         else
         {
@@ -1687,7 +1782,7 @@ void MainWindow::on_pushButton_weights_pressed()
 
 void MainWindow::update_weights(QString weightString)
 {
-    m_pUi->lineEdit_weights->setText(weightString);
+    m_weights = weightString;
     m_pController->SetWeights(weightString.split(';'));
 }
 
@@ -1710,21 +1805,62 @@ void MainWindow::on_actionSet_Round_Time_triggered()
     if (ok)
         m_pController->SetRoundTime(time);
 }
+
+//-------------------------------------------------------------------------
 void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
+//-------------------------------------------------------------------------
 {
-    if (s == str_mode_bundesliga)
+    if( s == str_mode_1te_bundesliga_nord_m ||
+        s == str_mode_1te_bundesliga_sued_m ||
+        s == str_mode_2te_bundesliga_nord_m ||
+        s == str_mode_2te_bundesliga_sued_m )
     {
         m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
         m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-60;-66;-73;-81;-90;-100;+100");
     }
-    else	// str_mode_bayernliga
+    else if( s == str_mode_mm_u17_m )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("4:00");
+        update_weights("-46;-50;-55;-60;-66;-73;+73");
+    }
+    else if( s == str_mode_mm_u17_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("4:00");
+        update_weights("-44;-48;-52;-57;-63;-70;+70");
+    }
+    else if( s == str_mode_bayernliga_nord_m ||
+             s == str_mode_bayernliga_sued_m ||
+             s == str_mode_landesliga_nord_m ||
+             s == str_mode_landesliga_sued_m )
     {
         m_pController->GetTournamentScoreModel(0)->SetNumRows(10);
         m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-66;-73;-81;-90;+90");
     }
+    else
+    {
+        Q_ASSERT("mode not handled (yet)");
+    }
+
+    // set mode text as mat label
+    m_MatLabel = s;
+    m_pPrimaryView->SetMat(s);
+    m_pSecondaryView->SetMat(s);
+
+    m_pPrimaryView->UpdateView();
+    m_pSecondaryView->UpdateView();
 }
 
+//-------------------------------------------------------------------------
 void MainWindow::on_button_current_round_clicked(bool checked)
+//-------------------------------------------------------------------------
 {
     m_pController->SetCurrentFight(0);
 
@@ -1751,4 +1887,348 @@ void MainWindow::on_actionScore_Control_triggered()
 {
     m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_view);
 }
+
+//-------------------------------------------------------------------------
+void MainWindow::on_tableView_customContextMenuRequested(QTableView* pTableView,
+                                                         QPoint const& pos,
+                                                         const char* copySlot,
+                                                         const char* pasteSlot,
+                                                         const char* clearSlot)
+//-------------------------------------------------------------------------
+{
+    QMenu menu;
+    QModelIndex index = pTableView->indexAt(pos);
+    index = index.sibling(index.row(), 0);
+
+    QModelIndexList selection =
+        pTableView->selectionModel()->selectedIndexes();
+
+    if (selection.empty())
+    {
+        Q_ASSERT(!"empty selection");
+        return;
+    }
+
+    // Do not allow copy if different columns are selected
+    bool copyAllowed(true);
+    if (selection.size() > 1)
+    {
+        for (int i(0); i < selection.size() - 1; ++i)
+        {
+            if (selection[i].column() != selection[i+1].column())
+            {
+                copyAllowed = false;
+                break;
+            }
+        }
+    }
+
+    // Paste is only allowed for the name cells
+    // and if the clipboard is not empty
+    const bool pasteAllowed = (selection[0].column() == TournamentModel::eCol_name1
+                              || selection[0].column() == TournamentModel::eCol_name2)
+                              && !QApplication::clipboard()->text().isEmpty();
+
+    const bool clearAllowed = copyAllowed;
+
+    if (index.isValid())
+    {
+        QIcon copyIcon(":/res/icons/copy_cells.png");
+        QIcon pasteIcon(":/res/icons/paste.png");
+        QIcon clearIcon(":/res/icons/clear_cells.png");
+        QAction* pAction = nullptr;
+        pAction = menu.addAction(copyIcon, tr("Copy"), this, copySlot, QKeySequence::Copy);
+        pAction->setDisabled(!copyAllowed);
+
+        pAction = menu.addAction(pasteIcon, tr("Paste"), this, pasteSlot, QKeySequence::Paste);
+        pAction->setDisabled(!pasteAllowed);
+
+        pAction = menu.addAction(clearIcon, tr("Clear"), this, clearSlot, QKeySequence::Delete);
+        pAction->setDisabled(!clearAllowed);
+
+        menu.exec(QCursor::pos());
+    }
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos)
+//-------------------------------------------------------------------------
+{
+    on_tableView_customContextMenuRequested(
+            m_pUi->tableView_tournament_list1,
+            pos,
+            SLOT(slot_copy_cell_content_list1()),
+            SLOT(slot_paste_cell_content_list1()),
+            SLOT(slot_clear_cell_content_list1()));
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos)
+//-------------------------------------------------------------------------
+{
+    on_tableView_customContextMenuRequested(
+            m_pUi->tableView_tournament_list2,
+            pos,
+            SLOT(slot_copy_cell_content_list2()),
+            SLOT(slot_paste_cell_content_list2()),
+            SLOT(slot_clear_cell_content_list2()));
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::copy_cell_content(QTableView* pTableView)
+//-------------------------------------------------------------------------
+{
+    QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
+    std::sort(selection.begin(), selection.end());
+
+    // Copy is only allowed for single column selection
+    for (int i(0); i < selection.size() - 1; ++i)
+    {
+        if (selection[i].column() != selection[i+1].column())
+        {
+            QApplication::clipboard()->clear();
+            return;
+        }
+    }
+
+    QString selectedText;
+    Q_FOREACH(QModelIndex index, selection)
+    {
+        QVariant data =
+            pTableView->model()->data(index, Qt::DisplayRole);
+
+        selectedText += data.toString() + '\n';
+    }
+    if (!selectedText.isEmpty())
+    {
+        selectedText.truncate(selectedText.lastIndexOf('\n'));  // remove last '\n'
+        QApplication::clipboard()->setText(selectedText);
+    }
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::paste_cell_content(QTableView* pTableView)
+//-------------------------------------------------------------------------
+{
+    if (QApplication::clipboard()->text().isEmpty())
+    {
+        QMessageBox::warning(this, QApplication::applicationName(),
+                              tr("There is nothing to paste!"));
+        return;
+    }
+    QStringList data = QApplication::clipboard()->text().split('\n');
+
+    QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
+    if (selection.empty())
+    {
+        QMessageBox::critical(this, QApplication::applicationName(),
+                              tr("Can not paste into an empty selection!"));
+        return;
+    }
+    std::sort(selection.begin(), selection.end());
+
+    if (data.size() < selection.size())
+    {
+        QMessageBox::critical(this, QApplication::applicationName(),
+                              tr("There is too few data for the selection in the clipboard!"));
+        return;
+    }
+
+
+    if (data.size() > selection.size())
+    {
+        // extend selection to maximum possible
+        QModelIndex index = selection.back();
+        const int nRows = pTableView->model()->rowCount();
+        while (index.row() < nRows &&
+               index.isValid() &&
+               data.size() > selection.size())
+        {
+            index = pTableView->model()->index(
+                    index.row() + 1, index.column());
+            selection.push_back(index);
+            pTableView->selectionModel()->select(index, QItemSelectionModel::Select);
+        }
+
+        if (data.size() < selection.size())
+        {
+            QMessageBox::warning(this, QApplication::applicationName(),
+                tr("There is more data available in the clipboard as could be pasted!"));
+        }
+    }
+
+    int dataIndex(0);
+    Q_FOREACH(QModelIndex index, selection)
+    {
+        if (index.column() == TournamentModel::eCol_name1 ||
+                index.column() == TournamentModel::eCol_name2)
+        {
+            pTableView->model()->setData(
+                    index, data[dataIndex], Qt::EditRole);
+            ++dataIndex;
+        }
+    }
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::clear_cell_content(QTableView* pTableView)
+//-------------------------------------------------------------------------
+{
+    QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
+    std::sort(selection.begin(), selection.end());
+
+    // Clear is only allowed for single column selection
+    for (int i(0); i < selection.size() - 1; ++i)
+    {
+        if (selection[i].column() != selection[i+1].column())
+        {
+            QApplication::clipboard()->clear();
+            return;
+        }
+    }
+
+    Q_FOREACH(QModelIndex index, selection)
+    {
+        pTableView->model()->setData(
+                index, "", Qt::EditRole);
+    }
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_copy_cell_content_list1()
+//-------------------------------------------------------------------------
+{
+    copy_cell_content(m_pUi->tableView_tournament_list1);
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_copy_cell_content_list2()
+//-------------------------------------------------------------------------
+{
+    copy_cell_content(m_pUi->tableView_tournament_list2);
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_paste_cell_content_list1()
+//-------------------------------------------------------------------------
+{
+    paste_cell_content(m_pUi->tableView_tournament_list1);
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_paste_cell_content_list2()
+//-------------------------------------------------------------------------
+{
+    paste_cell_content(m_pUi->tableView_tournament_list2);
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_clear_cell_content_list1()
+//-------------------------------------------------------------------------
+{
+    clear_cell_content(m_pUi->tableView_tournament_list1);
+}
+
+//-------------------------------------------------------------------------
+void MainWindow::slot_clear_cell_content_list2()
+//-------------------------------------------------------------------------
+{
+    clear_cell_content(m_pUi->tableView_tournament_list2);
+}
+//-------------------------------------------------------------------------
+QString MainWindow::get_template_file(QString const& mode)
+//-------------------------------------------------------------------------
+{
+    if (str_mode_1te_bundesliga_nord_m == mode ||
+        str_mode_1te_bundesliga_sued_m == mode ||
+        str_mode_1te_bundesliga_nord_f == mode ||
+        str_mode_1te_bundesliga_sued_f == mode ||
+        str_mode_2te_bundesliga_nord_m == mode ||
+        str_mode_2te_bundesliga_sued_m == mode ||
+        str_mode_2te_bundesliga_nord_f == mode ||
+        str_mode_2te_bundesliga_sued_f == mode)
+    {
+        return "templates\\list_output_bundesliga.html";
+    }
+
+    if (str_mode_bayernliga_nord_m == mode ||
+        str_mode_bayernliga_sued_m == mode ||
+        str_mode_landesliga_nord_m == mode ||
+        str_mode_landesliga_sued_m == mode ||
+        str_mode_bayernliga_nord_f == mode ||
+        str_mode_bayernliga_sued_f == mode ||
+        str_mode_landesliga_nord_f == mode ||
+        str_mode_landesliga_sued_f == mode)
+    {
+        return "templates\\list_output_bay.html";
+    }
+
+    if (str_mode_mm_u17_m == mode ||
+        str_mode_mm_u17_f == mode)
+    {
+        return "templates\\list_output_mm.html";
+    }
+
+    return "";
+}
+
+//-------------------------------------------------------------------------
+QString MainWindow::get_full_mode_title(QString const& mode)
+//-------------------------------------------------------------------------
+{
+    QString year(QDate::currentDate().year());
+
+    // Bundesliga Männer
+    if (str_mode_1te_bundesliga_nord_m == mode)
+        return QString("1. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
+    if (str_mode_1te_bundesliga_sued_m == mode)
+        return QString("1. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
+    if (str_mode_2te_bundesliga_nord_m == mode)
+        return QString("2. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
+    if (str_mode_2te_bundesliga_sued_m == mode)
+        return QString("2. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
+
+    // Bundesliga Frauen
+    if (str_mode_1te_bundesliga_nord_f == mode)
+        return QString("1. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
+    if (str_mode_1te_bundesliga_sued_f == mode)
+        return QString("1. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
+    if (str_mode_2te_bundesliga_nord_f == mode)
+        return QString("2. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
+    if (str_mode_2te_bundesliga_sued_f == mode)
+        return QString("2. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
+
+    // Bayernliga Männer
+    if (str_mode_bayernliga_nord_m == mode)
+        return QString("Judo Bayernliga Männer %1 - Gruppe Nord").arg(year);
+    if (str_mode_bayernliga_sued_m == mode)
+        return QString("Judo Bayernliga Männer %1 - Gruppe Süd").arg(year);
+
+    // Bayernliga Frauen
+    if (str_mode_bayernliga_nord_f == mode)
+        return QString("Judo Bayernliga Frauen %1 - Gruppe Nord").arg(year);
+    if (str_mode_bayernliga_sued_f == mode)
+        return QString("Judo Bayernliga Frauen %1 - Gruppe Süd").arg(year);
+
+    // Landesliga Männer
+    if (str_mode_landesliga_nord_m == mode)
+        return QString("Judo Landesliga Männer %1 - Gruppe Nord").arg(year);
+    if (str_mode_landesliga_sued_m == mode)
+        return QString("Judo Landesliga Männer %1 - Gruppe Süd").arg(year);
+
+    // Landesliga Frauen
+    if (str_mode_landesliga_nord_f == mode)
+        return QString("Judo Landesliga Frauen %1 - Gruppe Nord").arg(year);
+    if (str_mode_landesliga_sued_f == mode)
+        return QString("Judo Landesliga Frauen %1 - Gruppe Süd").arg(year);
+
+    // Mannschafts-Meisterschaften
+    if (str_mode_mm_u17_m == mode)
+        return QString("Deutsche Judo Vereins-Mannschafts-Meisterschaft MU17");
+    if (str_mode_mm_u17_f == mode)
+        return QString("Deutsche Judo Vereins-Mannschafts-Meisterschaft FU17");
+
+    return tr("Ipponboard fight list");
+}
 #endif
+

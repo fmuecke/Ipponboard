@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>810</width>
-    <height>660</height>
+    <height>680</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,13 +22,13 @@
   <property name="minimumSize">
    <size>
     <width>810</width>
-    <height>660</height>
+    <height>680</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>810</width>
-    <height>660</height>
+    <height>680</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -70,13 +70,13 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::North</enum>
+       <enum>QTabWidget::West</enum>
       </property>
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -94,21 +94,120 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <layout class="QGridLayout" name="gridLayout" columnstretch="0,2,1,0,2,1,0,2">
+         <layout class="QGridLayout" name="gridLayout_main" columnstretch="0,1,0,0,1,0,1">
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item row="0" column="0">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <item row="3" column="0">
            <widget class="QLabel" name="label_home">
             <property name="text">
              <string>Home</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_club_home">
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
            <widget class="QLabel" name="label_guest">
             <property name="text">
              <string>Guest</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QComboBox" name="comboBox_club_guest">
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="7">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="5">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_club_host">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>TSV München Großhadern</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../base/ipponboard.qrc">
+               <normaloff>:/leagues/emblems/tsv_grosshadern.png</normaloff>:/leagues/emblems/tsv_grosshadern.png</iconset>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_host">
+            <property name="text">
+             <string>Host</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="comboBox_mode">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_mode">
+            <property name="text">
+             <string>Mode</string>
             </property>
            </widget>
           </item>
@@ -119,11 +218,22 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_club_home"/>
+          <item row="1" column="4" colspan="3">
+           <widget class="QLineEdit" name="lineEdit_location">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Heiglhofstrasse 25, 81377 München</string>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="comboBox_club_guest"/>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_location">
+            <property name="text">
+             <string>Location</string>
+            </property>
+           </widget>
           </item>
           <item row="0" column="4">
            <widget class="QDateEdit" name="dateEdit">
@@ -150,89 +260,12 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="7">
-           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_weights">
-              <property name="text">
-               <string>-10;-20;-33;+30</string>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_weights">
-              <property name="maximumSize">
-               <size>
-                <width>25</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string notr="true">...</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="2">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLabel" name="label_location">
-            <property name="text">
-             <string>Location</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLineEdit" name="lineEdit_location">
-            <property name="text">
-             <string>Königsbrunn</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="5">
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="6">
-           <widget class="QLabel" name="label_9">
+          <item row="3" column="6">
+           <widget class="QToolButton" name="toolButton_weights">
             <property name="text">
              <string>Weights</string>
             </property>
            </widget>
-          </item>
-          <item row="0" column="6">
-           <widget class="QLabel" name="label_mode">
-            <property name="text">
-             <string>Mode</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="7">
-           <widget class="QComboBox" name="comboBox_mode"/>
           </item>
          </layout>
         </item>
@@ -247,8 +280,11 @@
           <property name="minimumSize">
            <size>
             <width>714</width>
-            <height>223</height>
+            <height>180</height>
            </size>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
           </property>
           <property name="frameShape">
            <enum>QFrame::Box</enum>
@@ -277,14 +313,14 @@
           <property name="dragDropMode">
            <enum>QAbstractItemView::NoDragDrop</enum>
           </property>
+          <property name="defaultDropAction">
+           <enum>Qt::IgnoreAction</enum>
+          </property>
           <property name="alternatingRowColors">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectItems</enum>
+           <enum>QAbstractItemView::ExtendedSelection</enum>
           </property>
           <property name="showGrid">
            <bool>true</bool>
@@ -304,11 +340,17 @@
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>16</number>
           </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
           <attribute name="verticalHeaderDefaultSectionSize">
            <number>20</number>
           </attribute>
           <attribute name="verticalHeaderMinimumSectionSize">
            <number>20</number>
+          </attribute>
+          <attribute name="verticalHeaderStretchLastSection">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -319,6 +361,9 @@
           </property>
           <item>
            <widget class="QPushButton" name="pushButton_copySwitched">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Copy &amp;&amp; switch guest</string>
             </property>
@@ -442,8 +487,11 @@
           <property name="minimumSize">
            <size>
             <width>714</width>
-            <height>223</height>
+            <height>180</height>
            </size>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
           </property>
           <property name="frameShape">
            <enum>QFrame::Box</enum>
@@ -473,10 +521,10 @@
            <enum>QAbstractItemView::NoDragDrop</enum>
           </property>
           <property name="alternatingRowColors">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
+           <enum>QAbstractItemView::ExtendedSelection</enum>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectItems</enum>
@@ -499,11 +547,17 @@
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>16</number>
           </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
           <attribute name="verticalHeaderDefaultSectionSize">
            <number>20</number>
           </attribute>
           <attribute name="verticalHeaderMinimumSectionSize">
            <number>20</number>
+          </attribute>
+          <attribute name="verticalHeaderStretchLastSection">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -936,7 +990,7 @@
             <property name="icon">
              <iconset resource="../base/ipponboard.qrc">
               <normaloff>:/res/images/one_blue.png</normaloff>
-              <normalon>:/res/images/two_blue.png</normalon>:/res/images/one_blue.png</iconset>
+              <normalon>:/res/images/two_green.png</normalon>:/res/images/one_blue.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -1034,6 +1088,7 @@
      <addaction name="actionSet_Hold_Timer"/>
      <addaction name="actionSet_Main_Timer"/>
     </widget>
+    <addaction name="actionLeagues"/>
     <addaction name="actionManage_Clubs"/>
     <addaction name="menuTimers"/>
     <addaction name="actionTest_Gong"/>
@@ -1322,17 +1377,18 @@
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
+  <action name="actionLeagues">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Leagues</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>comboBox_club_home</tabstop>
-  <tabstop>comboBox_club_guest</tabstop>
-  <tabstop>dateEdit</tabstop>
-  <tabstop>lineEdit_location</tabstop>
-  <tabstop>comboBox_mode</tabstop>
-  <tabstop>lineEdit_weights</tabstop>
-  <tabstop>pushButton_weights</tabstop>
   <tabstop>tableView_tournament_list1</tabstop>
   <tabstop>pushButton_copySwitched</tabstop>
   <tabstop>lineEdit_wins_intermediate</tabstop>

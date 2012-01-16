@@ -37,7 +37,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="layout_info_top" stretch="1,1">
+    <layout class="QHBoxLayout" name="layout_info_top" stretch="3,2">
      <property name="spacing">
       <number>0</number>
      </property>

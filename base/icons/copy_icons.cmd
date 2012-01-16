@@ -76,6 +76,7 @@ copy %SOURCE%\imaging\paint-can-color.png %DEST%\color_bg.png
 REM copy %SOURCE%\imaging\paint-can-color.png %DEST%\color_bg.png
 copy %SOURCE%\layout\tables.png %DEST%\copy_cells.png
 copy %SOURCE%\clipboard-paste.png %DEST%\paste.png
+copy %SOURCE%\layout\table-delete.png %DEST%\clear_cells.png
 
 
 

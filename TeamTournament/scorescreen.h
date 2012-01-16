@@ -15,7 +15,7 @@ class ScoreScreen : public QWidget
 {
 	Q_OBJECT
 public:
-	ScoreScreen(QWidget* parent = 0);
+	explicit ScoreScreen(QWidget* parent = 0);
 	~ScoreScreen();
 
 	void SetClubs(const QString& blue, const QString& white);

@@ -4,7 +4,7 @@
 #include <QString>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
-#include <boost/array.hpp>
+#include <vector>
 
 #include "score.h"
 
@@ -39,7 +39,7 @@ struct Fight
 	int time_in_seconds;
 	bool is_saved;
 
-	const QString GetRoundTimeText() const
+	const QString GetRoundTimeRemainingText() const
 	{
 		// get time display
 		const int minutes = time_in_seconds / 60;
@@ -49,6 +49,18 @@ struct Fight
 		if (seconds < 10)	// append leading zero?
 			ret += "0";
 
+		return  ret + QString::number(seconds);
+	}
+
+	const QString GetRoundTimeUsedText(int max_time_in_seconds) const
+	{
+		// get time display
+		const int time_used = max_time_in_seconds - time_in_seconds;
+		const int minutes = time_used / 60;
+		const int seconds = time_used - minutes * 60;
+		QString ret = QString::number(minutes) + ":";
+		if (seconds < 10)	// append leading zero?
+			ret += "0";
 		return  ret + QString::number(seconds);
 	}
 
@@ -107,6 +119,7 @@ struct Fight
 	}
 };
 
+//FIXME:typedef std::vector<Fight> Tournament;
 typedef boost::array<Fight, eTournament_FightCount> Tournament;
 
 } // namespace Ipponboard

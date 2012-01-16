@@ -6,10 +6,26 @@
 	<item_version>0</item_version>
 	<item class_id="1" tracking_level="0" version="0">
 		<c.name class_id="2" tracking_level="0" version="0">
-			<value>+neuer Club</value>
+			<value>TSV Königsbrunn</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\default.png</value>
+			<value>clubs/koenigsbrunn.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>Kodokan München</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/kodokan_muenchen.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV Mainburg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/mainburg.png</value>
 		</c.logoFile>
 	</item>
 	<item>
@@ -22,18 +38,42 @@
 	</item>
 	<item>
 		<c.name>
-			<value>DJK Ingolstadt</value>
+			<value>TSV Peiting</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs/djk_ingolstadt.png</value>
+			<value>clubs/tsv_peiting.png</value>
 		</c.logoFile>
 	</item>
 	<item>
 		<c.name>
-			<value>JC Ettlingen</value>
+			<value>SF Harteck München</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs/jc_ettlingen.png</value>
+			<value>clubs/sf_harteck.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>TG Landshut</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/default.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV Lohr</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/lohr.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>DJK Ingolstadt</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/djk_ingolstadt.png</value>
 		</c.logoFile>
 	</item>
 	<item>
@@ -62,34 +102,10 @@
 	</item>
 	<item>
 		<c.name>
-			<value>KSV Esslingen</value>
+			<value>JV Ippon Rodewisch</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs/ksv_esslingen.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>Kodokan München</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/kodokan_muenchen.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>SF Harteck München</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/sf_harteck.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>TG Landshut</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/default.png</value>
+			<value>clubs/jv_rodewisch.png</value>
 		</c.logoFile>
 	</item>
 	<item>
@@ -102,42 +118,26 @@
 	</item>
 	<item>
 		<c.name>
+			<value>KSV Esslingen</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/ksv_esslingen.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Ettlingen</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_ettlingen.png</value>
+		</c.logoFile>
+	</item>
+	<item>
+		<c.name>
 			<value>TSV Großhadern</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/tsv_grosshadern.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>TSV Königsbrunn</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/koenigsbrunn.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>TSV Lohr</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/lohr.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>TSV Mainburg</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/mainburg.png</value>
-		</c.logoFile>
-	</item>
-	<item>
-		<c.name>
-			<value>TSV Peiting</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/tsv_peiting.png</value>
 		</c.logoFile>
 	</item>
 </m_Clubs>

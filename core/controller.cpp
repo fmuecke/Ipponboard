@@ -529,6 +529,13 @@ int Controller::GetRound() const
 }
 
 //=========================================================
+int Controller::GetRoundTimeSecs() const
+//=========================================================
+{
+	return QTime(0, 0, 0, 0).secsTo(m_roundTime);
+}
+
+//=========================================================
 void Controller::SetWeightClass(QString const& c)
 //=========================================================
 {
@@ -815,9 +822,9 @@ void Controller::SetFighterName(Ipponboard::EFighter whos,
 void Controller::SetWeights(QStringList const& weights)
 //=========================================================
 {
-	if (weights.count() == 10)
+	if (weights.count() == GetFightCount())
 	{
-		for (unsigned i(0); i < 10; ++i)
+		for (int i(0); i < GetFightCount(); ++i)
 		{
 			m_TournamentScores[0].at(i).weight = weights.at(i);
 			m_TournamentScores[1].at(i).weight = weights.at(i);
@@ -826,14 +833,14 @@ void Controller::SetWeights(QStringList const& weights)
 	else
 	{
 		// duplicate each entry
-		for (unsigned i(0); i < 10; ++i)
+		for (int i(0); i < GetFightCount(); ++i)
 		{
 			m_TournamentScores[0].at(i).weight = weights.at(i / 2);
 			m_TournamentScores[0].at(i + 1).weight = weights.at(i / 2);
 			++i;
 		}
 
-		for (unsigned i(0); i < 10; ++i)
+		for (int i(0); i < GetFightCount(); ++i)
 		{
 			m_TournamentScores[1].at(i).weight = weights.at(i / 2);
 			m_TournamentScores[1].at(i + 1).weight = weights.at(i / 2);

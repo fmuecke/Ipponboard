@@ -1,11 +1,11 @@
 #ifndef BASE__TOURNAMENTMODEL_H_
 #define BASE__TOURNAMENTMODEL_H_
 
-#include <QAbstractItemModel>
+#include <QAbstractTableModel>
 #include <QLineEdit>
 #include "tournament.h"
 
-class TournamentModel : public QAbstractItemModel
+class TournamentModel : public QAbstractTableModel
 {
 	Q_OBJECT
 public:
@@ -38,17 +38,21 @@ public:
 
 	void SetNumRows(int rows)
 	{
-		m_nRows = rows;
-	}
 
-	QModelIndex index(int row, int column, const QModelIndex& parent) const;
-	QModelIndex parent(const QModelIndex& child) const;
+		beginResetModel();
+		m_nRows = rows;
+		endResetModel();
+	}
+	int GetNumRows() const { return m_nRows; }
+
+	/* QAbstractTableModel (required) */
 	int rowCount(const QModelIndex& parent) const;
 	int columnCount(const QModelIndex& parent) const;
 	QVariant data(const QModelIndex& index, int role) const;
 	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 	bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 	Qt::ItemFlags flags(const QModelIndex& index) const;
+	/* QAbstractTableModel (optional) */
 	QSize span(const QModelIndex& index) const;
 
 	void SetExternalDisplays(QLineEdit* pEditWins, QLineEdit* pEditScore)
