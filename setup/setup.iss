@@ -91,20 +91,20 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked; Check: NOT IsPortable
 
 [Files]
-Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; 
-Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; 
+Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: "NOT IsPortable"; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\Ipponboard.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard-portable.exe; Flags: IgnoreVersion replacesameversion; 
 ;Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: NOT IsPortable 
-Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite; Check: IsPortable; Permissions: users-full; 
-Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion; 
-Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app};
-Source: ..\_build\build_output\~tmp\lang\core_de.qm; DestDir: {app}\lang\; 
-Source: ..\_build\build_output\~tmp\lang\Ipponboard_de.qm; DestDir: {app}\lang\; 
-Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; 
-Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app}; 
+Source: ..\_build\build_output\~tmp\categories.xml; DestDir: {app}; Flags: ignoreversion confirmoverwrite replacesameversion; Check: IsPortable; Permissions: users-full; 
+Source: ..\_build\build_output\~tmp\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion replacesameversion; 
+Source: ..\_build\build_output\~tmp\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion replacesameversion; 
+Source: ..\_build\build_output\~tmp\manual.pdf; DestDir: {app}; Flags: ignoreversion replacesameversion; 
+Source: ..\_build\build_output\~tmp\GamepadDemo.exe; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\lang\core_de.qm; DestDir: {app}\lang\; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\lang\Ipponboard_de.qm; DestDir: {app}\lang\; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
+Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
@@ -223,3 +223,4 @@ function GetFileVersion(filename : String): String;
 begin
     GetVersionNumbersString(filename, Result);
 end;
+

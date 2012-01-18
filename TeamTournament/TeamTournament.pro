@@ -74,7 +74,7 @@ RESOURCES += ../base/ipponboard.qrc
 
 TRANSLATIONS = ../i18n/ipponboard_team_de.ts
 
-win32:RC_FILE = ../base/ipponboard.rc
+win32:RC_FILE = ../base/Ipponboard_team.rc
 
 # remove unneccessary output files
 QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp

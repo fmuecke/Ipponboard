@@ -36,7 +36,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../base/ipponboard.qrc">
-    <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+    <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
   </property>
   <property name="statusTip">
    <string notr="true"/>
@@ -711,7 +711,7 @@
        </property>
        <attribute name="icon">
         <iconset resource="../base/ipponboard.qrc">
-         <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+         <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Score Control</string>
@@ -1365,7 +1365,7 @@
   <action name="actionScore_Control">
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+     <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
    </property>
    <property name="text">
     <string>Swith to Score Control</string>
