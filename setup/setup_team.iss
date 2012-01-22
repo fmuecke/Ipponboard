@@ -98,12 +98,12 @@ Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:
 Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: "NOT IsPortable"; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\Ipponboard_team.exe; DestDir: {app}; Check: IsPortable; DestName: Ipponboard_team-portable.exe; Flags: IgnoreVersion promptifolder; 
 ;Source: ..\_build\build_output\~tmp_TE\VersionSelector.exe; DestDir: {app}; Check: "NOT IsPortable";
-Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {commonappdata}\Ipponboard\clubs; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
-Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {commonappdata}\Ipponboard\templates\; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
+;Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {commonappdata}\Ipponboard\clubs; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
+;Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {commonappdata}\Ipponboard\templates\; Flags: ignoreversion promptifolder; Check: "NOT IsPortable"; 
 ;Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {commonappdata}\Ipponboard; Flags: ignoreversion confirmoverwrite uninsneveruninstall; Check: "NOT IsPortable"; Permissions: authusers-full; 
-Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {app}\clubs\; Flags: ignoreversion promptifolder; Check: IsPortable; 
+Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {app}\clubs\; Flags: ignoreversion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion promptifolder; 
-Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder; Check: IsPortable; 
+Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder;  
 ;Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {app}; Flags: ignoreversion promptifolder; Check: IsPortable; Permissions: users-full;  
 ;Source: ..\_build\build_output\~tmp_TE\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
 ;Source: ..\_build\build_output\~tmp_TE\manual.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
@@ -118,11 +118,14 @@ Source: ..\_build\build_output\~tmp_TE\QtCore4.dll; DestDir: {app}; Flags: Ignor
 Source: ..\_build\build_output\~tmp_TE\QtGui4.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 
 [Dirs]
-Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
+;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 
+Name: {app}; Permissions: users-full;
 Name: {app}\sounds; 
 Name: {app}\lang;
-Name: {app}\clubs; Permissions: users-full; Check: IsPortable
-Name: {app}\templates; Permissions: users-full; Check: IsPortable
+;Name: {app}\clubs; Permissions: users-full; Check: IsPortable
+;Name: {app}\templates; Permissions: users-full; Check: IsPortable
+Name: {app}\clubs; Permissions: users-full;
+Name: {app}\templates; Permissions: users-full;
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: {app}\Ipponboard_team.exe; WorkingDir: {app}; Check: NOT IsPortable
@@ -148,14 +151,14 @@ Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Inst
 ;Root: HKCU; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "Language"; ValueData: "en"; Flags: uninsdeletekeyifempty; Languages: en
 
 [INI]
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de; 
-Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de;
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en; 
-Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en;
-Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de;
-Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de; 
-Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en; 
-Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en;
+;Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: IsPortable; Languages: de; 
+Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: de; Languages: de;
+;Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: IsPortable; Languages: en; 
+Filename: {app}\IpponboardT.ini; Section: Main; Key: Language; String: en; Languages: en;
+;Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de;
+;Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: de; Check: "NOT IsPortable"; Languages: de; 
+;Filename: {commonappdata}\Ipponboard\Ipponboard.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en; 
+;Filename: {commonappdata}\Ipponboard\IpponboardT.ini; Section: Main; Key: Language; String: en; Check: "NOT IsPortable"; Languages: en;
 
 [Code]
 var
