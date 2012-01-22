@@ -1,8 +1,8 @@
 @echo off
 :: --> CHANGE VERSION HERE:
-SET VER1=0
-SET VER2=9
-SET VER3=99
+SET VER1=1
+SET VER2=0
+SET VER3=0
 IF NOT EXIST ..\base\.buildnr (
 	SET VER4=0
 ) ELSE (
