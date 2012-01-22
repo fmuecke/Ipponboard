@@ -51,7 +51,7 @@ VersionInfoProductName={#MyAppName}
 VersionInfoProductVersion={#MyAppVersion}
 VersionInfoCopyright={#MyAppCopyright}
 VersionInfoCompany={#MyAppAuthor}
-AlwaysUsePersonalGroup=true
+AlwaysUsePersonalGroup=false
 AppendDefaultGroupName=false
 AlwaysShowDirOnReadyPage=true
 AlwaysShowGroupOnReadyPage=true
@@ -209,10 +209,11 @@ begin
   case CurUninstallStep of
     usUninstall:
       begin
-        if (MsgBox(ExpandConstant('{cm:UninstallKeepSettings}'), mbConfirmation, mb_YesNo) = idNo) then
-        begin
+        ;if (MsgBox(ExpandConstant('{cm:UninstallKeepSettings}'), mbConfirmation, mb_YesNo) = idNo) then
+        ;begin
           DelTree(ExpandConstant('{commonappdata}\Ipponboard'),True,True,True);
-        end;
+          DelTree(ExpandConstant('{app}'),True,True,True);
+        ;end;
       end;
     usPostUninstall:
       begin
