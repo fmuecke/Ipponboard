@@ -4,9 +4,17 @@
 #include <QSettings>
 #include <QFile>
 #include "../base/mainwindow.h"
+#include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
+
+
+int DelayUser()
+{
+    Countdown dlg(25);
+    return dlg.exec();
+}
 
 void LangNotFound(const QString& fileName)
 {
@@ -58,44 +66,49 @@ int main(int argc, char* argv[])
     }
 
 
-//	QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
-//	f.open(QIODevice::ReadOnly | QIODevice::Text);
-//	const QByteArray data = f.readAll();
-//	f.close();
-//	const QString text = QTextCodec::codecForHtml(data)->toUnicode(data);
+    //QFile f(langStr == "de" ? ":/text/text/License_team_de.html" : ":/text/text/License_team_en.html");
+    QFile f(":/text/text/License_team_de.html");
+    f.open(QIODevice::ReadOnly | QIODevice::Text);
+    const QByteArray data = f.readAll();
+    f.close();
+    const QString text = QTextCodec::codecForHtml(data)->toUnicode(data);
 
-//	SplashScreen::data splashData;
-//	splashData.text = text;
-//	splashData.info = QCoreApplication::applicationName()
-//					  + " v"
-//					  + QCoreApplication::applicationVersion()
-//					  + "\n"
-//					  + "Build: " + VersionInfo::Date;
-//	splashData.date = QDate(2011, 6, 30);
-//	SplashScreen splash(splashData);
+    SplashScreen::Data splashData;
+    splashData.text = text;
+    splashData.info = QCoreApplication::applicationName()
+                      + " v" + QCoreApplication::applicationVersion()
+                      + "\n"
+                      + "Build: " + VersionInfo::Date;
+    splashData.date = QDate(2012, 12, 31);
+    SplashScreen splash(splashData);
+    splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
+    splash.resize(480, 400);
 
-//	if( QDialog::Accepted != splash.exec() )
-//	return 0;
+    if (QDialog::Accepted != splash.exec())
+    return 0;
 
-//	const int days_left = QDate::currentDate().daysTo(splashData.date);
-//	if( days_left <= 0 )
-//	{
-//		QMessageBox::warning(0,
-//			QCoreApplication::tr("Warning"),
-//			QCoreApplication::tr(
-//				"This version is no longer valid!\n\n"
-//				"You need to visit the project webpage for an update."));
+    const int days_left = QDate::currentDate().daysTo(splashData.date);
 
-//		return 0;
-//	}
-//	if( days_left < 30 )
-//	{
-//		QMessageBox::warning(0,
-//			QCoreApplication::tr("Warning"),
-//			QCoreApplication::tr(
-//				"This version will stop to work in less than 30 days!\n\n"
-//				"Please visit the project webpage - there should be a newer one available."));
-//	}
+    if (days_left <= 0)
+    {
+        QMessageBox::critical(0,
+                              QCoreApplication::tr("Warning"),
+                              QCoreApplication::tr(
+                                  "This version is no longer valid!\n\n"
+                                  "You need to visit the project homepage for a (free) update."));
+
+        if (QDialog::Accepted != DelayUser())
+            return 0;
+    }
+
+    if (days_left < 30)
+    {
+        QMessageBox::warning(0,
+                             QCoreApplication::tr("Warning"),
+                             QCoreApplication::tr(
+                                 "This version will stop to work in less than 30 days!\n\n"
+                                 "Please visit the project homepage - there should be a newer version available."));
+    }
 
     MainWindow w;
     w.setWindowTitle(QCoreApplication::applicationName() + " v" +

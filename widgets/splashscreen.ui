@@ -108,7 +108,7 @@ p, li { white-space: pre-wrap; }
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="widget" native="true">
+      <widget class="QWidget" name="widget_image" native="true">
        <property name="minimumSize">
         <size>
          <width>60</width>

@@ -66,10 +66,10 @@ HEADERS = ../base/pch.h \
     ../base/view.h \
     ../base/fightcategorymanagerdlg.h \
     ../base/fightcategorymanager.h \
+    ../widgets/countdown.h \
     ../widgets/splashscreen.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../widgets/countdown.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     #../base/controller.h \

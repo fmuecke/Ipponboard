@@ -52,6 +52,7 @@
     <qresource prefix="/text">
         <file>text/License_de.html</file>
         <file>text/License_en.html</file>
+        <file>text/License_team_de.html</file>
     </qresource>
     <qresource prefix="/leagues">
         <file>emblems/tsv_grosshadern.png</file>

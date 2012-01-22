@@ -42,8 +42,10 @@ CONFIG(__GNUC__) {
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
+    ../widgets/countdown.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
+    ../widgets/splashscreen.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../base/mainwindow.h \
@@ -56,17 +58,20 @@ SOURCES = ../base/clubmanager.cpp \
     ../base/mainwindow.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \
+    ../widgets/countdown.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
+    ../widgets/splashscreen.cpp \
     main.cpp \
     scorescreen.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
     scorescreen.ui \
-    #view_vertical_team.ui \
     ../base/settingsdlg.ui \
-    ../base/view_horizontal.ui
+    ../base/view_horizontal.ui \
+    ../widgets/splashscreen.ui \
+    ../widgets/countdown.ui
 
 OTHER_FILES +=
 

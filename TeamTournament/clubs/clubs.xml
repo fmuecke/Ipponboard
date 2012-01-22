@@ -12,7 +12,7 @@
 			<value>clubs/bushido_amberg.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Amberg</value>
 		</c.address>
 	</item>
 	<item>
@@ -23,7 +23,7 @@
 			<value>clubs/djk_ingolstadt.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Ingolstadt</value>
 		</c.address>
 	</item>
 	<item>
@@ -34,7 +34,7 @@
 			<value>clubs/jc_ettlingen.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Ettlingen</value>
 		</c.address>
 	</item>
 	<item>
@@ -45,7 +45,7 @@
 			<value>clubs/jc_leipzig.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Leipzig</value>
 		</c.address>
 	</item>
 	<item>
@@ -56,7 +56,7 @@
 			<value>clubs/jc_ruesselsheim.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Rüsselsheim</value>
 		</c.address>
 	</item>
 	<item>
@@ -67,7 +67,7 @@
 			<value>clubs/jc_wiesbaden.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Wiesbaden</value>
 		</c.address>
 	</item>
 	<item>
@@ -78,7 +78,7 @@
 			<value>clubs/jv_rodewisch.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Rodewisch</value>
 		</c.address>
 	</item>
 	<item>
@@ -89,7 +89,7 @@
 			<value>clubs/ksv_esslingen.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Esslingen</value>
 		</c.address>
 	</item>
 	<item>
@@ -100,7 +100,7 @@
 			<value>clubs/kodokan_muenchen.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>München</value>
 		</c.address>
 	</item>
 	<item>
@@ -111,7 +111,7 @@
 			<value>clubs/sf_harteck.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>München</value>
 		</c.address>
 	</item>
 	<item>
@@ -122,7 +122,7 @@
 			<value>clubs/default.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Landshut</value>
 		</c.address>
 	</item>
 	<item>
@@ -133,7 +133,7 @@
 			<value>clubs/tsv_abensberg.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Abensberg</value>
 		</c.address>
 	</item>
 	<item>
@@ -166,7 +166,7 @@
 			<value>clubs/lohr.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Lohr am Main</value>
 		</c.address>
 	</item>
 	<item>
@@ -177,7 +177,7 @@
 			<value>clubs/mainburg.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Mainburg</value>
 		</c.address>
 	</item>
 	<item>
@@ -188,7 +188,7 @@
 			<value>clubs/tsv_peiting.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Peiting</value>
 		</c.address>
 	</item>
 </m_Clubs>

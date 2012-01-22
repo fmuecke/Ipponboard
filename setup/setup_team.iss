@@ -61,8 +61,9 @@ Uninstallable=not IsPortable
 
 [Languages]
 ;Name: "en"; MessagesFile: "compiler:Default.isl,compiler:MyMessages.isl"
-Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License_en.rtf"
-Name: "de"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: "License_de.rtf"
+;Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License_en.rtf"
+Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License_team_de.rtf"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: "License_team_de.rtf"
 
 [CustomMessages]
 de.ViewProgram=%1 öffnen
@@ -104,8 +105,8 @@ Source: ..\_build\build_output\~tmp_TE\clubs\*.*; DestDir: {app}\clubs\; Flags: 
 Source: ..\_build\build_output\~tmp_TE\sounds\*.*; DestDir: {app}\sounds\; Flags: ignoreversion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\templates\*.*; DestDir: {app}\templates\; Flags: ignoreversion promptifolder; Check: IsPortable; 
 ;Source: ..\_build\build_output\~tmp_TE\categories.xml; DestDir: {app}; Flags: ignoreversion promptifolder; Check: IsPortable; Permissions: users-full;  
-Source: ..\_build\build_output\~tmp_TE\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
-Source: ..\_build\build_output\~tmp_TE\manual.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
+;Source: ..\_build\build_output\~tmp_TE\Anleitung.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
+;Source: ..\_build\build_output\~tmp_TE\manual.pdf; DestDir: {app}; Flags: ignoreversion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\GamepadDemo.exe; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\lang\core_de.qm; DestDir: {app}\lang\; Flags: IgnoreVersion promptifolder; 
 ;Source: ..\_build\build_output\~tmp_TE\lang\Ipponboard_de.qm; DestDir: {app}\lang\; 
@@ -125,8 +126,8 @@ Name: {app}\templates; Permissions: users-full; Check: IsPortable
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: {app}\Ipponboard_team.exe; WorkingDir: {app}; Check: NOT IsPortable
-Name: "{group}\Anleitung"; Filename: {app}\Anleitung.pdf; WorkingDir: {app}; Check: NOT IsPortable
-Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
+;Name: "{group}\Anleitung"; Filename: {app}\Anleitung.pdf; WorkingDir: {app}; Check: NOT IsPortable
+;Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: http://www.ipponboard.info/; Check: NOT IsPortable
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: {uninstallexe}; Check: NOT IsPortable
 Name: "{group}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de; Check: NOT IsPortable
@@ -137,9 +138,8 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: {app}\Ipponboard_team.exe; Tasks
 
 [Run]
 Filename: {app}\Ipponboard_team.exe; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent unchecked; WorkingDir: {app}; Check: "NOT IsPortable"; 
-
-Filename: "{app}\Anleitung.pdf"; Description: {cm:ViewProgram,Anleitung}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: de; Check: NOT IsPortable
-Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
+;Filename: "{app}\Anleitung.pdf"; Description: {cm:ViewProgram,Anleitung}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: de; Check: NOT IsPortable
+;Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: en; Check: NOT IsPortable
 
 [Registry]
 Root: HKLM; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey; Check: NOT IsPortable
