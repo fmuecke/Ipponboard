@@ -41,7 +41,7 @@ GOTO the_end
 
 :make_clean
 	echo --[make clean]--
-	del /Q "%BASE_DIR%\base\.buildnr"
+	rem del /Q "%BASE_DIR%\base\.buildnr"
 	rd /Q /S "%BASE_DIR%\bin"
 	rd /Q /S "%BASE_DIR%\lib"
 	qmake -recursive
