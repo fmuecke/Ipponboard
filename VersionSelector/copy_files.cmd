@@ -5,6 +5,7 @@ SET THIRDPARTY=..\..\3rdParty
 
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
+lrelease -compress -silent ..\i18n\VersionSelector_de.ts -qm ..\i18n\VersionSelector_de.qm
 copy /Y "..\i18n\VersionSelector_de.qm" "%DEST%\lang">nul
 
 REM -- binaries

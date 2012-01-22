@@ -362,7 +362,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_copySwitched">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
              <string>Copy &amp;&amp; switch guest</string>

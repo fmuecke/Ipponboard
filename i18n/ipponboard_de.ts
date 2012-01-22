@@ -269,19 +269,19 @@
         <translation type="obsolete">Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/view.cpp" line="468"/>
+        <location filename="../base/view.cpp" line="470"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../base/view.cpp" line="857"/>
-        <location filename="../base/view.cpp" line="865"/>
+        <location filename="../base/view.cpp" line="859"/>
+        <location filename="../base/view.cpp" line="867"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
     <message>
-        <location filename="../base/view.cpp" line="860"/>
-        <location filename="../base/view.cpp" line="868"/>
+        <location filename="../base/view.cpp" line="862"/>
+        <location filename="../base/view.cpp" line="870"/>
         <source>Guest</source>
         <translation>Gast</translation>
     </message>
@@ -323,7 +323,7 @@
     </message>
     <message>
         <source>Score table tab (Ctrl+1)</source>
-        <translation type="obsolete">Reiter Punktetabelle (Strg+1)</translation>
+        <translation type="obsolete">Reiter Punktetabelle (Ctrl+1)</translation>
     </message>
     <message>
         <source>Score Table</source>
@@ -472,11 +472,11 @@
     </message>
     <message>
         <source>Score view (Ctrl+2)</source>
-        <translation type="obsolete">Punkteanzeige (Strg+2)</translation>
+        <translation type="obsolete">Punkteanzeige (Ctrl+2)</translation>
     </message>
     <message>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
-        <translation type="obsolete">Setzt den aktuellen Punktestand und alle Uhren zurück (Strg + Backspace)</translation>
+        <translation type="obsolete">Setzt den aktuellen Punktestand und alle Uhren zurück (Ctrl + Backspace)</translation>
     </message>
     <message>
         <source>Re-load previous fight data (Note: the current data will be saved)</source>
@@ -495,7 +495,7 @@
         <translation type="obsolete">Zwischenstand anzeigen (F4)</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1321"/>
+        <location filename="../base/mainwindow.cpp" line="1423"/>
         <source>Off</source>
         <translation>aus</translation>
     </message>
@@ -607,7 +607,7 @@
     </message>
     <message>
         <source>Ctrl+1</source>
-        <translation type="obsolete">Strg+1</translation>
+        <translation type="obsolete">Ctrl+1</translation>
     </message>
     <message>
         <source>Swith to Score Control</source>
@@ -615,7 +615,7 @@
     </message>
     <message>
         <source>Ctrl+2</source>
-        <translation type="obsolete">Strgl+2</translation>
+        <translation type="obsolete">Ctrll+2</translation>
     </message>
     <message>
         <source>Show secondary view</source>
@@ -712,7 +712,7 @@
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="494"/>
-        <location filename="../base/mainwindow.cpp" line="1014"/>
+        <location filename="../base/mainwindow.cpp" line="1111"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
@@ -758,7 +758,7 @@
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="517"/>
         <source>Ctrl+G</source>
-        <translation>Strg+G</translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../SingleTournament/mainwindow.ui" line="522"/>
@@ -843,92 +843,146 @@
         <translation type="obsolete">Exportieren</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="166"/>
+        <location filename="../base/mainwindow.cpp" line="190"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="167"/>
+        <location filename="../base/mainwindow.cpp" line="191"/>
         <source>White</source>
         <translation>Weiß</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="816"/>
+        <location filename="../base/mainwindow.cpp" line="890"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="817"/>
         <source>Datei kann nicht geöffnet werden: </source>
+        <translation type="obsolete">Datei kann nicht geöffnet werden: </translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="891"/>
+        <source>File could not be opened: </source>
         <translation>Datei kann nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="927"/>
+        <location filename="../base/mainwindow.cpp" line="936"/>
+        <source>tie</source>
+        <translation>Unentschieden</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1024"/>
         <source>List generated with Ipponboard v</source>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="941"/>
+        <location filename="../base/mainwindow.cpp" line="1038"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="942"/>
+        <location filename="../base/mainwindow.cpp" line="1039"/>
         <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 was entirely written in advanced C++ using the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2012 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1346"/>
+        <location filename="../base/mainwindow.cpp" line="1448"/>
         <source>On</source>
         <translation>an</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1418"/>
+        <location filename="../base/mainwindow.cpp" line="1520"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1419"/>
+        <location filename="../base/mainwindow.cpp" line="1521"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1420"/>
+        <location filename="../base/mainwindow.cpp" line="1522"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1588"/>
+        <location filename="../base/mainwindow.cpp" line="1690"/>
         <source>Please restart the application so that the changes can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1621"/>
-        <location filename="../base/mainwindow.cpp" line="1641"/>
-        <location filename="../base/mainwindow.cpp" line="1696"/>
+        <location filename="../base/mainwindow.cpp" line="1723"/>
+        <location filename="../base/mainwindow.cpp" line="1743"/>
+        <location filename="../base/mainwindow.cpp" line="1799"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1622"/>
+        <location filename="../base/mainwindow.cpp" line="1724"/>
         <source>Set value to (ss):</source>
         <translation>Setzte Wert auf (ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1642"/>
-        <location filename="../base/mainwindow.cpp" line="1697"/>
+        <location filename="../base/mainwindow.cpp" line="1744"/>
+        <location filename="../base/mainwindow.cpp" line="1800"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1658"/>
+        <location filename="../base/mainwindow.cpp" line="1760"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1659"/>
+        <location filename="../base/mainwindow.cpp" line="1761"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
         <translation>Setze die Gewichtsklassen (getrennt durch &apos;;&apos;):</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1772"/>
+        <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1940"/>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1943"/>
+        <source>Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1946"/>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2016"/>
+        <source>There is nothing to paste!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2025"/>
+        <source>Can not paste into an empty selection!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2033"/>
+        <source>There is too few data for the selection in the clipboard!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2056"/>
+        <source>There is more data available in the clipboard as could be pasted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2231"/>
+        <source>Ipponboard fight list</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2nd Round</source>
@@ -943,7 +997,7 @@
         <translation type="obsolete">Stylesheet</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1015"/>
+        <location filename="../base/mainwindow.cpp" line="1112"/>
         <source>Really reset complete score table?</source>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
@@ -1008,13 +1062,13 @@ und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&l
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="84"/>
-        <location filename="../SingleTournament/main.cpp" line="96"/>
+        <location filename="../SingleTournament/main.cpp" line="92"/>
+        <location filename="../SingleTournament/main.cpp" line="104"/>
         <source>Warning</source>
         <translation>Vorsicht</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="85"/>
+        <location filename="../SingleTournament/main.cpp" line="93"/>
         <source>This version is no longer valid!
 
 You need to visit the project homepage for a (free) update.</source>
@@ -1030,7 +1084,7 @@ You need to visit the project homepage for an update.</source>
 Bitte besuchen Sie die Programmhomepage für ein Update!</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="97"/>
+        <location filename="../SingleTournament/main.cpp" line="105"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project homepage - there should be a newer version available.</source>
@@ -1544,7 +1598,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <location filename="../base/settingsdlg.ui" line="1267"/>
         <location filename="../base/settingsdlg.ui" line="1277"/>
         <source>Ctrl + Alt</source>
-        <translation>Strg + Alt</translation>
+        <translation>Ctrl + Alt</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.ui" line="1272"/>
@@ -1567,7 +1621,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <location filename="../base/settingsdlg.ui" line="1292"/>
         <location filename="../base/settingsdlg.ui" line="1312"/>
         <source>Ctrl</source>
-        <translation>Strg</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.ui" line="1297"/>
@@ -1589,7 +1643,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <location filename="../base/settingsdlg.ui" line="1382"/>
         <location filename="../base/settingsdlg.ui" line="1392"/>
         <source>Ctrl (for revoke)</source>
-        <translation>Strg (zum Zurücknehmen)</translation>
+        <translation>Ctrl (zum Zurücknehmen)</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.ui" line="1327"/>
