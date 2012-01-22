@@ -7,7 +7,7 @@
 #include <boost/serialization/vector.hpp>
 #include <algorithm>
 #include <QMessageBox>
-#include "../util/helpers.h"
+#include "../util/path_helpers.h"
 
 using namespace Ipponboard;
 

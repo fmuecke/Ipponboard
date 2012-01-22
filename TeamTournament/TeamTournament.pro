@@ -44,7 +44,7 @@ HEADERS = ../base/pch.h \
     ../base/clubmanagerdlg.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../util/helpers.h \
+    ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../base/mainwindow.h \
     ../base/settingsdlg.h \

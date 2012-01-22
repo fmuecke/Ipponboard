@@ -171,7 +171,7 @@
           <item row="1" column="1">
            <widget class="QComboBox" name="comboBox_club_host">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="iconSize">
              <size>
@@ -179,15 +179,6 @@
               <height>16</height>
              </size>
             </property>
-            <item>
-             <property name="text">
-              <string>TSV München Großhadern</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../base/ipponboard.qrc">
-               <normaloff>:/leagues/emblems/tsv_grosshadern.png</normaloff>:/leagues/emblems/tsv_grosshadern.png</iconset>
-             </property>
-            </item>
            </widget>
           </item>
           <item row="1" column="0">
@@ -221,10 +212,10 @@
           <item row="1" column="4" colspan="3">
            <widget class="QLineEdit" name="lineEdit_location">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
-             <string>Heiglhofstrasse 25, 81377 München</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -1399,6 +1390,7 @@
   <tabstop>button_reset</tabstop>
  </tabstops>
  <resources>
+  <include location="../base/ipponboard.qrc"/>
   <include location="../base/ipponboard.qrc"/>
  </resources>
  <connections>

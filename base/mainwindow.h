@@ -64,6 +64,10 @@ static const char* const str_tag_AlwaysShow = "AlwaysShow";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
+#ifdef TEAM_VIEW
+static const char* const str_tag_Mode = "Mode";
+static const char* const str_tag_Host = "Host";
+#endif
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
 static const char* const str_tag_FighterNameFont = "FighterNameFont";
@@ -137,7 +141,6 @@ private slots:
     void on_actionScore_Screen_triggered();
     void on_button_pause_clicked();
     void on_button_current_round_clicked(bool checked);
-    void on_comboBox_mode_currentIndexChanged(QString);
     void on_actionSet_Round_Time_triggered();
     void on_pushButton_copySwitched_pressed();
     void on_toolButton_weights_pressed();
@@ -157,6 +160,8 @@ private slots:
     void on_actionLoad_Demo_Data_triggered();
     void on_button_prev_clicked();
     void on_button_next_clicked();
+    void on_comboBox_mode_currentIndexChanged(const QString& s);
+    void on_comboBox_club_host_currentIndexChanged(const QString& s);
     void on_comboBox_club_home_currentIndexChanged(const QString& s);
     void on_comboBox_club_guest_currentIndexChanged(const QString& s);
     void on_actionPrint_triggered();
@@ -208,6 +213,8 @@ private:
     std::vector<QTableWidgetItem> fighters_home;
     std::vector<QTableWidgetItem> fighters_guest;
     QString m_htmlScore;
+    QString m_mode;
+    QString m_host;
 #else
     Ipponboard::FightCategoryMgr* m_pCategoryManager;
 #endif

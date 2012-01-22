@@ -36,7 +36,7 @@ CONFIG(__GNUC__) {
 
 
 HEADERS = ../base/pch.h \
-    ../util/helpers.h \
+    ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     controlconfig.h \
     controller.h \

@@ -17,8 +17,8 @@
 #include "../gamepad/gamepad.h"
 #include "../core/controlconfig.h"
 #include "../base/settingsdlg.h"
-#include "../util/helpers.h"
-
+#include "../util/path_helpers.h"
+#include "../util/helpers.hpp"
 #include <QComboBox>
 #include <QMessageBox>
 #include <QDesktopWidget>
@@ -48,9 +48,13 @@ MainWindow::MainWindow(QWidget* parent)
     , m_pClubManager(nullptr)
     , fighters_home()
     , fighters_guest()
+    , m_htmlScore()
+    , m_mode()
+    , m_host()
 #else
     , m_pCategoryManager(nullptr)
 #endif
+    , m_MatLabel()
     , m_pGamePad(new Gamepad)
     , m_FighterNameFont("Calibri", 12, QFont::Bold, false)
     , m_secondScreenNo(0)
@@ -58,6 +62,7 @@ MainWindow::MainWindow(QWidget* parent)
     , m_bAutoSize(true)
     , m_secondScreenSize()
     , m_Language("en")
+    , m_weights()
     , m_controlCfg()
 //=========================================================
 {
@@ -101,45 +106,6 @@ MainWindow::MainWindow(QWidget* parent)
     // setup data
     //
     m_pController->ClearFights();
-
-#ifdef TEAM_VIEW
-    update_club_views();
-
-    m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0));
-    m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1));
-    m_pUi->tableView_tournament_list1->resizeColumnsToContents();
-    m_pUi->tableView_tournament_list2->resizeColumnsToContents();
-    m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
-        m_pUi->lineEdit_wins_intermediate,
-        m_pUi->lineEdit_score_intermediate);
-    m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(
-        m_pUi->lineEdit_wins,
-        m_pUi->lineEdit_score);
-    m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
-        m_pController->GetTournamentScoreModel(0));
-
-    int index = m_pUi->comboBox_club_home->findText("TSV Königsbrunn");
-    m_pUi->comboBox_club_home->setCurrentIndex(index);
-    m_pUi->comboBox_club_guest->setCurrentIndex(index + 1);
-    //m_pUi->tableView_tournament_list1->setSpan(2,2,1,2);
-
-    m_pUi->tableView_tournament_list1->selectRow(0);
-    m_pUi->tableView_tournament_list2->selectRow(0);
-#endif
-
-    //
-    // load stored settings
-    //
-    read_settings();
-
-    if (m_bAlwaysShow)
-    {
-        m_pUi->actionShow_SecondaryView->setChecked(true);
-        on_actionShow_SecondaryView_triggered();
-    }
-
-    change_lang(true);
-
 #ifdef TEAM_VIEW
     m_pUi->dateEdit->setDate(QDate::currentDate());
     m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_m);
@@ -160,8 +126,45 @@ MainWindow::MainWindow(QWidget* parent)
 //	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
 //	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
     m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
+#endif
 
-    const int modeIndex = m_pUi->comboBox_mode->findText(str_mode_1te_bundesliga_sued_m);
+    //
+    // load stored settings
+    //
+    read_settings();
+
+    if (m_bAlwaysShow)
+    {
+        m_pUi->actionShow_SecondaryView->setChecked(true);
+        on_actionShow_SecondaryView_triggered();
+    }
+
+    change_lang(true);
+
+#ifdef TEAM_VIEW
+    m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0));
+    m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1));
+    m_pUi->tableView_tournament_list1->resizeColumnsToContents();
+    m_pUi->tableView_tournament_list2->resizeColumnsToContents();
+    m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
+        m_pUi->lineEdit_wins_intermediate,
+        m_pUi->lineEdit_score_intermediate);
+    m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(
+        m_pUi->lineEdit_wins,
+        m_pUi->lineEdit_score);
+    m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
+        m_pController->GetTournamentScoreModel(0));
+
+    update_club_views();
+
+    //m_pUi->comboBox_club_guest->setCurrentIndex(0);
+
+    m_pUi->tableView_tournament_list1->selectRow(0);
+    m_pUi->tableView_tournament_list2->selectRow(0);
+
+    int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
+    if (-1 == modeIndex)
+        modeIndex =  0;
     m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
     // TEMP: hide weight cotrol
@@ -171,7 +174,7 @@ MainWindow::MainWindow(QWidget* parent)
 //	m_pUi->gridLayout_main->removeItem(m_pUi->horizontalSpacer_4);
 //	delete m_pUi->horizontalSpacer_4;
 
-    //update_weights("-66;-73;-81;-90;+90"); 
+    //update_weights("-66;-73;-81;-90;+90");
     //FIXME: check why this has not been in branch
 #else
 
@@ -518,6 +521,10 @@ void MainWindow::write_settings()
     settings.setValue(str_tag_AutoSize, m_bAutoSize);
     settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
     settings.setValue(str_tag_MatLabel, m_MatLabel);
+#ifdef TEAM_VIEW
+    settings.setValue(str_tag_Mode, m_mode);
+    settings.setValue(str_tag_Host, m_host);
+#endif
     settings.endGroup();
 
     settings.beginGroup(str_tag_Fonts);
@@ -595,6 +602,10 @@ void MainWindow::read_settings()
     m_MatLabel = settings.value(str_tag_MatLabel, "  Ipponboard  ").toString(); // value is also in settings dialog!
     m_pPrimaryView->SetMat(m_MatLabel);
     m_pSecondaryView->SetMat(m_MatLabel);
+#ifdef TEAM_VIEW
+    m_mode = settings.value(str_tag_Mode, "").toString();
+    m_host = settings.value(str_tag_Host, "").toString();
+#endif
     settings.endGroup();
 
     //
@@ -835,6 +846,9 @@ void MainWindow::update_views()
 void MainWindow::update_club_views()
 //=========================================================
 {
+    QString oldHost = m_host;
+
+    m_pUi->comboBox_club_host->clear();
     m_pUi->comboBox_club_home->clear();
     m_pUi->comboBox_club_guest->clear();
 
@@ -843,9 +857,22 @@ void MainWindow::update_club_views()
         Ipponboard::Club club;
         m_pClubManager->GetClub(i, club);
         QIcon icon(club.logoFile);
+        m_pUi->comboBox_club_host->addItem(icon, club.name);
         m_pUi->comboBox_club_home->addItem(icon, club.name);
         m_pUi->comboBox_club_guest->addItem(icon, club.name);
     }
+
+    m_host = oldHost;
+
+    int index = m_pUi->comboBox_club_host->findText(m_host);
+    if (-1 == index)
+        index =  0;
+
+    m_pUi->comboBox_club_host->setCurrentIndex(index);
+    m_pUi->comboBox_club_home->setCurrentIndex(index);
+
+    // set location from host
+    m_pUi->lineEdit_location->setText(m_pClubManager->GetAddress(m_host));
 }
 
 //=========================================================
@@ -1376,8 +1403,6 @@ void MainWindow::on_actionManage_Clubs_triggered()
 {
     ClubManagerDlg dlg(m_pClubManager, this);
     dlg.exec();
-
-    update_club_views();
 }
 
 //=========================================================
@@ -1471,6 +1496,70 @@ void MainWindow::on_button_next_clicked()
         m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
 
     UpdateFightNumber_();
+}
+
+//=========================================================
+void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
+//=========================================================
+{
+    m_mode = s;
+
+    if( s == str_mode_1te_bundesliga_nord_m ||
+        s == str_mode_1te_bundesliga_sued_m ||
+        s == str_mode_2te_bundesliga_nord_m ||
+        s == str_mode_2te_bundesliga_sued_m )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-60;-66;-73;-81;-90;-100;+100");
+    }
+    else if( s == str_mode_mm_u17_m )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("4:00");
+        update_weights("-46;-50;-55;-60;-66;-73;+73");
+    }
+    else if( s == str_mode_mm_u17_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("4:00");
+        update_weights("-44;-48;-52;-57;-63;-70;+70");
+    }
+    else if( s == str_mode_bayernliga_nord_m ||
+             s == str_mode_bayernliga_sued_m ||
+             s == str_mode_landesliga_nord_m ||
+             s == str_mode_landesliga_sued_m )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(10);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-66;-73;-81;-90;+90");
+    }
+    else
+    {
+        Q_ASSERT("mode not handled (yet)");
+    }
+
+    // set mode text as mat label
+    m_MatLabel = s;
+    m_pPrimaryView->SetMat(s);
+    m_pSecondaryView->SetMat(s);
+
+    m_pPrimaryView->UpdateView();
+    m_pSecondaryView->UpdateView();
+}
+
+//=========================================================
+void MainWindow::on_comboBox_club_host_currentIndexChanged(const QString& s)
+//=========================================================
+{
+    m_host = s;
+
+    // set location from host
+    m_pUi->lineEdit_location->setText(m_pClubManager->GetAddress(m_host));
 }
 
 //=========================================================
@@ -1804,58 +1893,6 @@ void MainWindow::on_actionSet_Round_Time_triggered()
 
     if (ok)
         m_pController->SetRoundTime(time);
-}
-
-//-------------------------------------------------------------------------
-void MainWindow::on_comboBox_mode_currentIndexChanged(QString s)
-//-------------------------------------------------------------------------
-{
-    if( s == str_mode_1te_bundesliga_nord_m ||
-        s == str_mode_1te_bundesliga_sued_m ||
-        s == str_mode_2te_bundesliga_nord_m ||
-        s == str_mode_2te_bundesliga_sued_m )
-    {
-        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
-        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
-        m_pController->SetRoundTime("5:00");
-        update_weights("-60;-66;-73;-81;-90;-100;+100");
-    }
-    else if( s == str_mode_mm_u17_m )
-    {
-        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
-        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
-        m_pController->SetRoundTime("4:00");
-        update_weights("-46;-50;-55;-60;-66;-73;+73");
-    }
-    else if( s == str_mode_mm_u17_f )
-    {
-        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
-        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
-        m_pController->SetRoundTime("4:00");
-        update_weights("-44;-48;-52;-57;-63;-70;+70");
-    }
-    else if( s == str_mode_bayernliga_nord_m ||
-             s == str_mode_bayernliga_sued_m ||
-             s == str_mode_landesliga_nord_m ||
-             s == str_mode_landesliga_sued_m )
-    {
-        m_pController->GetTournamentScoreModel(0)->SetNumRows(10);
-        m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
-        m_pController->SetRoundTime("5:00");
-        update_weights("-66;-73;-81;-90;+90");
-    }
-    else
-    {
-        Q_ASSERT("mode not handled (yet)");
-    }
-
-    // set mode text as mat label
-    m_MatLabel = s;
-    m_pPrimaryView->SetMat(s);
-    m_pSecondaryView->SetMat(s);
-
-    m_pPrimaryView->UpdateView();
-    m_pSecondaryView->UpdateView();
 }
 
 //-------------------------------------------------------------------------

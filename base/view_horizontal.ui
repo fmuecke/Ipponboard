@@ -1014,6 +1014,7 @@
  </customwidgets>
  <resources>
   <include location="ipponboard.qrc"/>
+  <include location="ipponboard.qrc"/>
  </resources>
  <connections/>
 </ui>

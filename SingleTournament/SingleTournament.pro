@@ -70,7 +70,7 @@ HEADERS = ../base/pch.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
     ../widgets/countdown.h \
-    ../util/helpers.h \
+    ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     #../base/controller.h \
     #../base/enums.h \

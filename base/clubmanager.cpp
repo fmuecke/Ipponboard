@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "../util/qstring_serialization.h"
-#include "../util/helpers.h"
+#include "../util/path_helpers.h"
 #include <boost/serialization/vector.hpp>
 #include <algorithm>
 
@@ -52,6 +52,19 @@ const QString ClubManager::GetLogo(const QString& clubName) const
     {
         if (clubName == m_Clubs.at(i).name)
             return m_Clubs.at(i).logoFile;
+    }
+
+    return QString();
+}
+
+//---------------------------------------------------------
+const QString ClubManager::GetAddress(const QString& clubName) const
+//---------------------------------------------------------
+{
+    for (unsigned i(0); i < m_Clubs.size(); ++i)
+    {
+        if (clubName == m_Clubs.at(i).name)
+            return m_Clubs.at(i).address;
     }
 
     return QString();

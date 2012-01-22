@@ -7,7 +7,7 @@
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
-#include "../util/helpers.h"
+#include "../util/path_helpers.h"
 
 
 int DelayUser()

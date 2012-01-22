@@ -6,7 +6,7 @@
 #include "../base/mainwindow.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
-#include "../util/helpers.h"
+#include "../util/path_helpers.h"
 
 void LangNotFound(const QString& fileName)
 {
