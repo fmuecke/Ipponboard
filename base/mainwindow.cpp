@@ -1761,7 +1761,7 @@ void MainWindow::on_actionOnline_Feedback_triggered()
 
 void MainWindow::on_actionContact_Author_triggered()
 {
-    QUrl url("mailto:dev@mueckeimnetz.de?"
+    QUrl url("mailto:ipponboardinfo@googlemail.com?"
              "subject=Ipponboard_v" + QCoreApplication::applicationVersion() +
              "&body=Please tell us what you want to know/suggest...");
     QDesktopServices::openUrl(url);
