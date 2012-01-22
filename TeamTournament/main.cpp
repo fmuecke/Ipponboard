@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
     splashData.date = QDate(2012, 12, 31);
     SplashScreen splash(splashData);
     splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
-    splash.resize(480, 400);
+    splash.resize(480, 410);
 
     if (QDialog::Accepted != splash.exec())
     return 0;
@@ -100,8 +100,7 @@ int main(int argc, char* argv[])
         if (QDialog::Accepted != DelayUser())
             return 0;
     }
-
-    if (days_left < 30)
+    else if (days_left < 30)
     {
         QMessageBox::warning(0,
                              QCoreApplication::tr("Warning"),

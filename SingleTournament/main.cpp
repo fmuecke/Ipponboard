@@ -97,8 +97,7 @@ int main(int argc, char* argv[])
         if (QDialog::Accepted != DelayUser())
             return 0;
     }
-
-    if (days_left < 30)
+	else if (days_left < 30)
     {
         QMessageBox::warning(0,
                              QCoreApplication::tr("Warning"),
