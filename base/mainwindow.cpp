@@ -906,9 +906,10 @@ void MainWindow::UpdateScoreScreen_()
 void MainWindow::WriteScoreToHtml_()
 //=========================================================
 {
+    QString modeText = get_full_mode_title(m_pUi->comboBox_mode->currentText());
+    QString templateFile = get_template_file(m_pUi->comboBox_mode->currentText());
     const QString filePath(
-                fmu::GetSettingsFilePath(
-                    "templates\\list_output_bay.html").c_str());
+                fmu::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 
     QFile file(filePath);
 
@@ -924,8 +925,7 @@ void MainWindow::WriteScoreToHtml_()
     m_htmlScore = ts.readAll();
     file.close();
 
-    QString titleText = get_full_mode_title(m_pUi->comboBox_mode->currentText());
-    m_htmlScore.replace("%TITLE%", titleText);
+    m_htmlScore.replace("%TITLE%", modeText);
 
     m_htmlScore.replace("%HOST%", m_pUi->comboBox_club_host->currentText());
     m_htmlScore.replace("%DATE%", m_pUi->dateEdit->text());
@@ -2213,7 +2213,7 @@ QString MainWindow::get_template_file(QString const& mode)
 QString MainWindow::get_full_mode_title(QString const& mode)
 //-------------------------------------------------------------------------
 {
-    QString year(QDate::currentDate().year());
+    QString year(QString::number(QDate::currentDate().year()));
 
     // Bundesliga Männer
     if (str_mode_1te_bundesliga_nord_m == mode)
