@@ -1,4 +1,4 @@
-SET BASE_DIR=c:\dev\ipponboard\trunk
+SET BASE_DIR=c:\dev\bitbucket\ipponboard
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 

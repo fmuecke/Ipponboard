@@ -17,8 +17,20 @@ SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
 IF "%VS100COMNTOOLS%"=="" (
   CALL "%VS90COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+  SET QMAKESPEC=win32-msvc2008
 ) ELSE (
   CALL "%VS100COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+  SET QMAKESPEC=win32-msvc2010
+)
+
+IF NOT EXIST "%BOOST%\boost" (
+	ECHO Can't find boost. Please set "BOOST" to boost path.
+	GOTO :EOF
+)
+
+IF NOT EXIST "%QTDIR%\qmake.exe" (
+	ECHO Can't find qmake.exe. Please specify "QTDIR".
+	GOTO :EOF
 )
 
 echo;
@@ -46,7 +58,7 @@ GOTO the_end
 	rd /Q /S "%BASE_DIR%\lib"
 	qmake -recursive
 	if errorlevel 1 pause
-	jom clean
+	jom /S /L clean>nul
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
 GOTO :EOF
@@ -62,7 +74,7 @@ GOTO :EOF
 	echo --[build incremental]--
 	qmake -recursive
 	if errorlevel 1 pause
-	jom release
+	jom /L /S release
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
 GOTO :EOF
