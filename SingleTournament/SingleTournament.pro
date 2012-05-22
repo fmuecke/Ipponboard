@@ -56,6 +56,7 @@ SOURCES = main.cpp \
     #../base/statemachine.cpp \
     #../base/tournamentmodel.cpp \
     #../base/fightcategory.cpp
+    ../core/fighter.cpp
 
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
@@ -83,6 +84,7 @@ HEADERS = ../base/pch.h \
     #../base/tournament.h \
     #../base/tournamentmodel.h \
     #../base/fightcategory.h
+    ../core/fighter.h
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
