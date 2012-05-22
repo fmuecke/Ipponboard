@@ -1065,7 +1065,7 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
         tr("About %1").arg(QCoreApplication::applicationName()),
         tr("<h3>%1 v%2</h3>"
            "<p>%1 is written in C++ <br/>using <a href=\"http://boost.org\">boost</a> and the Qt toolkit %3.</p>"
-           "<p>Revision: %4</p>"
+           "<p>Build: %4, Revision: %5</p>"
            "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
            "<p>&copy; 2010-2012 Florian M&uuml;cke. All rights reserved.</p>"
            "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
@@ -1075,10 +1075,8 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
           ).arg(QCoreApplication::applicationName(),
                 QCoreApplication::applicationVersion(),
                 QLatin1String(QT_VERSION_STR),
-                VersionInfo::Revision
-                //QLatin1String(__DATE__),
-                //QLatin1String(__TIME__)
-               ));
+                VersionInfo::Date,
+                VersionInfo::Revision));
 }
 
 //=========================================================
@@ -1695,6 +1693,8 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_name_blue_currentIndexChanged(const QString& s)
 //=========================================================
 {
+    update_fighters(s);
+
     m_pController->SetFighterName(eFighter_Blue, s);
 }
 
@@ -1702,6 +1702,8 @@ void MainWindow::on_comboBox_name_blue_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_name_white_currentIndexChanged(const QString& s)
 //=========================================================
 {
+    update_fighters(s);
+
     m_pController->SetFighterName(eFighter_White, s);
 }
 
@@ -2358,7 +2360,7 @@ void MainWindow::on_actionExportList_triggered()
 
     fileDlg.setAcceptMode(QFileDialog::AcceptSave);
 
-    const QString currentDate = QDateTime::currentDateTime().toString("yyyy-MM-dd;hh.mm");
+    const QString currentDate = QDate::currentDate().toString("yyyy-MM-dd");
     fileDlg.selectFile(QString("IpponboardFighters_%1.csv").arg(currentDate));
 
     if (QDialog::Accepted == fileDlg.exec()
@@ -2389,6 +2391,44 @@ void MainWindow::on_actionExportList_triggered()
         }
     }
 }
+
+void MainWindow::update_fighters(const QString& s)
+{
+    if (s.isEmpty())
+        return;
+
+    QString firstName = s;
+    QString lastName;
+
+    int pos = s.indexOf(' ');
+    if (pos < s.size())
+    {
+        firstName = s.left(pos);
+        lastName = s.mid(pos+1);
+    }
+    const QString weight = m_pUi->comboBox_weight->currentText();
+    const QString club; // TODO: later
+
+    Ipponboard::Fighter fNew(firstName, lastName, weight, club);
+
+    // Does fighter already exit in list?
+    bool found(false);
+    Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
+    {
+        if (f.m_firstName == fNew.m_firstName &&
+                f.m_lastName == fNew.m_lastName)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        m_fighters.push_back(fNew);
+    }
+}
+
 #endif
 
 

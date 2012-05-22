@@ -137,6 +137,7 @@ private:
     void WriteScoreToHtml_();
 #else
     void update_fighter_name_completer(const QString& weight);
+    void update_fighters(const QString& s);
 #endif
 
 private slots:
