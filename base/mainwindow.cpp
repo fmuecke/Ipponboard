@@ -19,19 +19,22 @@
 #include "../base/settingsdlg.h"
 #include "../util/path_helpers.h"
 #include "../util/helpers.hpp"
-#include <QComboBox>
-#include <QMessageBox>
-#include <QDesktopWidget>
-#include <QFontDialog>
 #include <QColorDialog>
-#include <QInputDialog>
-#include <QSettings>
-#include <QTimer>
-#include <QSplashScreen>
-#include <functional>
-#include <QUrl>
+#include <QComboBox>
+#include <QCompleter>
 #include <QDesktopServices>
+#include <QDesktopWidget>
+#include <QDir>
+#include <QFileDialog>
+#include <QFontDialog>
+#include <QInputDialog>
 #include <QMenu>
+#include <QMessageBox>
+#include <QSettings>
+#include <QSplashScreen>
+#include <QTimer>
+#include <QUrl>
+#include <functional>
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -189,9 +192,6 @@ MainWindow::MainWindow(QWidget* parent)
     // trigger tournament class combobox update
     on_comboBox_weight_class_currentIndexChanged(
         m_pUi->comboBox_weight_class->currentText());
-
-    m_pUi->lineEdit_name_blue->setText(tr("Blue"));
-    m_pUi->lineEdit_name_white->setText(tr("White"));
 
 #endif
 
@@ -1064,13 +1064,14 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
         this,
         tr("About %1").arg(QCoreApplication::applicationName()),
         tr("<h3>%1 v%2</h3>"
-           "<p>%1 was entirely written in advanced C++ using the Qt toolkit %3.</p>"
+           "<p>%1 is written in C++ <br/>using <a href=\"http://boost.org\">boost</a> and the Qt toolkit %3.</p>"
            "<p>Revision: %4</p>"
-           "<p>Author: Florian M&uuml;cke, <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
+           "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
            "<p>&copy; 2010-2012 Florian M&uuml;cke. All rights reserved.</p>"
+           "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
            "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
-           "PARTICULAR PURPOSE.<br/>"
+           "PARTICULAR PURPOSE.</p>"
           ).arg(QCoreApplication::applicationName(),
                 QCoreApplication::applicationVersion(),
                 QLatin1String(QT_VERSION_STR),
@@ -1682,6 +1683,8 @@ void MainWindow::on_actionManage_Classes_triggered()
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 //=========================================================
 {
+    update_fighter_name_completer(s);
+
     m_pPrimaryView->SetWeight(s);
     m_pSecondaryView->SetWeight(s);
     m_pPrimaryView->UpdateView();
@@ -1689,14 +1692,14 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_blue_textChanged(const QString& s)
+void MainWindow::on_comboBox_name_blue_currentIndexChanged(const QString& s)
 //=========================================================
 {
     m_pController->SetFighterName(eFighter_Blue, s);
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_white_textChanged(const QString& s)
+void MainWindow::on_comboBox_name_white_currentIndexChanged(const QString& s)
 //=========================================================
 {
     m_pController->SetFighterName(eFighter_White, s);
@@ -2267,5 +2270,125 @@ QString MainWindow::get_full_mode_title(QString const& mode)
 
     return tr("Ipponboard fight list");
 }
+#else
+void MainWindow::update_fighter_name_completer(const QString& weight)
+{
+    // filter fighters for suitable
+    m_CurrentFighterNames.clear();
+
+    Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
+    {
+        if(f.m_weightClass == weight || f.m_weightClass.isEmpty())
+        {
+            const QString fullName =
+                    QString("%1 %2").arg(f.m_firstName, f.m_lastName);
+            m_CurrentFighterNames.push_back(fullName);
+        }
+    }
+
+    m_CurrentFighterNames.sort();
+
+    m_pUi->comboBox_name_blue->clear();
+    m_pUi->comboBox_name_blue->addItems(m_CurrentFighterNames);
+    m_pUi->comboBox_name_white->clear();
+    m_pUi->comboBox_name_white->addItems(m_CurrentFighterNames);
+}
+
+void MainWindow::on_actionImportList_triggered()
+{
+    QFileDialog fileDlg(
+                    this,
+                    tr("Select CSV file with fighters"),
+                    QCoreApplication::applicationFilePath(),
+                    tr("CSV files (*.csv)"));
+
+    if (QDialog::Accepted == fileDlg.exec()
+                && !fileDlg.selectedFiles().empty())
+    {
+        QFile file(fileDlg.selectedFiles()[0]);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QTextStream in(&file);
+            QString line = in.readLine();
+
+            // skip first line ("@FIRSTNAME;@LASTNAME;@WEIGHT;@CLUB\n";)
+            if (!line.isNull())
+                line = in.readLine();
+
+            std::vector<Ipponboard::Fighter> fighters;
+            while (!line.isNull())
+            {
+                QStringList splitted = line.split(';');
+                // firstname, lastname, weight, club
+                if (splitted.size() < 4 )
+                {
+                    QMessageBox::critical(
+                                this,
+                                QCoreApplication::applicationName(),
+                                tr("Invalid file format, must be: firstname;lastname;weight;club."));
+                    break;
+                }
+                fighters.push_back(Ipponboard::Fighter(splitted[0].trimmed(),
+                                                       splitted[1].trimmed(),
+                                                       splitted[2].trimmed(),
+                                                       splitted[3].trimmed()));
+                line = in.readLine();
+            }
+            m_fighters.swap(fighters);
+            file.close();
+
+            QMessageBox::information(
+                        this,
+                        QCoreApplication::applicationName(),
+                        tr("Successfully loaded %1 fighters.").arg(QString::number(m_fighters.size())));
+
+
+            update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
+        }
+    }
+}
+
+void MainWindow::on_actionExportList_triggered()
+{
+    QFileDialog fileDlg(
+                    this,
+                    tr("Select CSV file to store fighter information"),
+                    QCoreApplication::applicationFilePath(),
+                    tr("CSV files (*.csv)"));
+
+    fileDlg.setAcceptMode(QFileDialog::AcceptSave);
+
+    const QString currentDate = QDateTime::currentDateTime().toString("yyyy-MM-dd;hh.mm");
+    fileDlg.selectFile(QString("IpponboardFighters_%1.csv").arg(currentDate));
+
+    if (QDialog::Accepted == fileDlg.exec()
+                && !fileDlg.selectedFiles().empty())
+    {
+        QFile file(fileDlg.selectedFiles()[0]);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text))
+        {
+            QTextStream out(&file);
+
+            // write header
+            out << "@FIRSTNAME;@LASTNAME;@WEIGHT;@CLUB\n";
+            Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
+            {
+                out << f.m_firstName << ";"
+                    << f.m_lastName << ";"
+                    << f.m_weightClass << ";"
+                    << f.m_club << "\n";
+
+                out.flush();
+            }
+            file.close();
+
+            QMessageBox::information(
+                        this,
+                        QCoreApplication::applicationName(),
+                        tr("Successfully exported %1 fighters.").arg(QString::number(m_fighters.size())));
+        }
+    }
+}
 #endif
+
 

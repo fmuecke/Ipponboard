@@ -107,16 +107,6 @@
       <property name="rightMargin">
        <number>5</number>
       </property>
-      <item row="1" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_white">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="4">
        <widget class="QLabel" name="label_2">
         <property name="font">
@@ -129,7 +119,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>White Fighter (first last)</string>
+         <string>Name (first last)</string>
         </property>
        </widget>
       </item>
@@ -143,16 +133,6 @@
         </property>
         <property name="pixmap">
          <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_white.png</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_blue">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -174,7 +154,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>Blue Fighter (first last)</string>
+         <string>Name (first last)</string>
         </property>
        </widget>
       </item>
@@ -312,6 +292,68 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="5">
+       <widget class="QComboBox" name="comboBox_name_white">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAlphabetically</enum>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="comboBox_name_blue">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAlphabetically</enum>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -333,8 +375,8 @@
     <addaction name="action_ffnen"/>
     <addaction name="actionSpeichern"/>
     <addaction name="separator"/>
-    <addaction name="actionListe_importieren"/>
-    <addaction name="actionListe_exportieren"/>
+    <addaction name="actionImportList"/>
+    <addaction name="actionExportList"/>
     <addaction name="separator"/>
     <addaction name="actionDrucken"/>
     <addaction name="separator"/>
@@ -576,20 +618,34 @@
     <string>Lists</string>
    </property>
   </action>
-  <action name="actionListe_importieren">
+  <action name="actionImportList">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
    </property>
    <property name="text">
-    <string>Import List</string>
+    <string>Import Fighters</string>
+   </property>
+   <property name="toolTip">
+    <string>Import fighters from CSV file</string>
    </property>
   </action>
-  <action name="actionListe_exportieren">
+  <action name="actionExportList">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/export_list.png</normaloff>:/res/icons/export_list.png</iconset>
    </property>
    <property name="text">
-    <string>Export List</string>
+    <string>Export Fighters</string>
+   </property>
+   <property name="toolTip">
+    <string>Export fighters to CSV file</string>
    </property>
   </action>
   <action name="actionDrucken">
@@ -708,8 +764,6 @@
  <tabstops>
   <tabstop>comboBox_weight_class</tabstop>
   <tabstop>comboBox_weight</tabstop>
-  <tabstop>lineEdit_name_blue</tabstop>
-  <tabstop>lineEdit_name_white</tabstop>
  </tabstops>
  <resources>
   <include location="../base/ipponboard.qrc"/>

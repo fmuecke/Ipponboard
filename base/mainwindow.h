@@ -7,6 +7,10 @@
 #include <boost/shared_ptr.hpp>
 #include "../core/controlconfig.h"
 
+#ifndef TEAM_VIEW
+#include "../core/fighter.h"
+#endif
+
 // forwards
 namespace Ui
 {
@@ -131,6 +135,8 @@ private:
     void UpdateFightNumber_();
     void UpdateScoreScreen_();
     void WriteScoreToHtml_();
+#else
+    void update_fighter_name_completer(const QString& weight);
 #endif
 
 private slots:
@@ -169,10 +175,12 @@ private slots:
 #else
     void on_actionManage_Classes_triggered();
     void on_comboBox_weight_currentIndexChanged(const QString&);
-    void on_lineEdit_name_white_textChanged(const QString&);
-    void on_lineEdit_name_blue_textChanged(const QString&);
+    void on_comboBox_name_white_currentIndexChanged(const QString&);
+    void on_comboBox_name_blue_currentIndexChanged(const QString&);
     void on_checkBox_golden_score_clicked(bool checked);
     void on_comboBox_weight_class_currentIndexChanged(const QString&);
+    void on_actionImportList_triggered();
+    void on_actionExportList_triggered();
 #endif
     void on_actionSet_Main_Timer_triggered();
     void on_actionSet_Hold_Timer_triggered();
@@ -217,6 +225,8 @@ private:
     QString m_host;
 #else
     Ipponboard::FightCategoryMgr* m_pCategoryManager;
+    std::vector<Ipponboard::Fighter> m_fighters;
+    QStringList m_CurrentFighterNames;
 #endif
     QString m_MatLabel;
     PGamePad m_pGamePad;
