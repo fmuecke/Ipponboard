@@ -21,7 +21,7 @@ enum EScore
 	eScore_Lost = 0
 };
 
-struct Fighter
+struct SimpleFighter
 {
 	QString name;
 	QString club;
@@ -34,7 +34,7 @@ struct Fight
 	}
 
 	Score scores[2];
-	Fighter fighters[2];
+    SimpleFighter fighters[2];
 	QString weight;
 	int time_in_seconds;
 	bool is_saved;
@@ -131,7 +131,7 @@ namespace serialization
 {
 template<class Archive>
 void serialize(Archive& ar,
-			   Ipponboard::Fighter& f,
+               Ipponboard::SimpleFighter& f,
 			   const unsigned int /*version*/)
 {
 	ar& BOOST_SERIALIZATION_NVP(f.name);
