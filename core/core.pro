@@ -48,13 +48,15 @@ HEADERS = ../base/pch.h \
     score.h \
     statemachine.h \
     tournament.h \
-    tournamentmodel.h
+    tournamentmodel.h \
+	fighter.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \
     score.cpp \
     statemachine.cpp \
-    tournamentmodel.cpp
+    tournamentmodel.cpp \
+	fighter.cpp
     
 
 #OTHER_FILES +=
