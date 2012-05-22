@@ -40,7 +40,7 @@
         <file>icons/list.png</file>
         <file>images/on_green.png</file>
         <file>images/one_blue.png</file>
-		<file>images/two_green.png</file>
+        <file>images/two_green.png</file>
         <file>icons/left.png</file>
         <file>icons/right.png</file>
         <file>icons/color_bg.png</file>
@@ -48,6 +48,8 @@
         <file>icons/copy_cells.png</file>
         <file>icons/paste.png</file>
         <file>icons/clear_cells.png</file>
+        <file>icons/import_list.png</file>
+        <file>icons/export_list.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>text/License_de.html</file>
