@@ -47,8 +47,9 @@
         <translation type="obsolete">Homepage</translation>
     </message>
     <message>
+        <location filename="../base/clubmanagerdlg.ui" line="181"/>
         <source>Address</source>
-        <translation type="obsolete">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <source>Add New</source>
@@ -68,22 +69,22 @@
         <translation type="obsolete">Logo Ändern</translation>
     </message>
     <message>
-        <location filename="../base/clubmanagerdlg.cpp" line="190"/>
+        <location filename="../base/clubmanagerdlg.cpp" line="192"/>
         <source>Select Club Emblem</source>
         <translation>Vereinslogo auswählen</translation>
     </message>
     <message>
-        <location filename="../base/clubmanagerdlg.cpp" line="192"/>
+        <location filename="../base/clubmanagerdlg.cpp" line="194"/>
         <source>PNG files (*.png);;Image files (*.png *.xpm *.jpg)</source>
         <translation>PNG Dateien (*.png);;Bilddateien (*.png *.xpm *.jpg)</translation>
     </message>
     <message>
-        <location filename="../base/clubmanagerdlg.cpp" line="203"/>
+        <location filename="../base/clubmanagerdlg.cpp" line="205"/>
         <source>Unsupported Image Type</source>
         <translation>Bildtyp nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../base/clubmanagerdlg.cpp" line="204"/>
+        <location filename="../base/clubmanagerdlg.cpp" line="206"/>
         <source>The specified image could not be loaded!</source>
         <translation>Das angegebene Bild konnte nicht geladen werden!</translation>
     </message>
@@ -430,7 +431,7 @@
         <translation type="obsolete">Nächster</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="311"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="291"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -447,7 +448,7 @@
         <translation type="obsolete">Matte</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="211"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="191"/>
         <source>Class</source>
         <translation>Klasse</translation>
     </message>
@@ -456,17 +457,15 @@
         <translation type="obsolete">Rundenzeit</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="132"/>
         <source>White Fighter (first last)</source>
-        <translation>Kämpfer Weiß (Vorname Nachname)</translation>
+        <translation type="obsolete">Kämpfer Weiß (Vorname Nachname)</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="177"/>
         <source>Blue Fighter (first last)</source>
-        <translation>Kämpfer Blau (Vorname Nachname)</translation>
+        <translation type="obsolete">Kämpfer Blau (Vorname Nachname)</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="204"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="184"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
@@ -495,7 +494,7 @@
         <translation type="obsolete">Zwischenstand anzeigen (F4)</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1423"/>
+        <location filename="../base/mainwindow.cpp" line="1447"/>
         <source>Off</source>
         <translation>aus</translation>
     </message>
@@ -528,12 +527,12 @@
         <translation type="obsolete">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="366"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="408"/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="369"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="411"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
@@ -542,29 +541,29 @@
         <translation type="obsolete">Verwaltung</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="404"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="560"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="446"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="602"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="407"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="449"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="415"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="552"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="457"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="594"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="418"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="460"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="423"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="465"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
@@ -573,22 +572,22 @@
         <translation type="obsolete">Ipponboard beenden</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="429"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="471"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="441"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="483"/>
         <source>Visit Project Homepage</source>
         <translation>Projektseite besuchen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="450"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="492"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="453"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="495"/>
         <source>F1</source>
         <translation></translation>
     </message>
@@ -597,7 +596,7 @@
         <translation type="obsolete">Zweite Anzeige anzeigen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="468"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="510"/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die Sekundäre Anzeige an/aus</translation>
     </message>
@@ -622,12 +621,12 @@
         <translation type="obsolete">Zweite Anzeige anzeigen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="254"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="234"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="257"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="237"/>
         <source>Signal</source>
         <translation>Signal</translation>
     </message>
@@ -636,37 +635,37 @@
         <translation type="obsolete">Wählt zwischen normaler und &quot;Golden Score&quot; Rundenzeit</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="274"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="254"/>
         <source>Golden Score round time</source>
         <translation>Golden Score</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="308"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="288"/>
         <source>Reset all clocks and scores</source>
         <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="330"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="372"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="345"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="387"/>
         <source>&amp;About</source>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="355"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="397"/>
         <source>&amp;View</source>
         <translation>&amp;Anzeige</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="362"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="404"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="383"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="425"/>
         <source>&amp;Manage</source>
         <translation>&amp;Verwaltung</translation>
     </message>
@@ -675,79 +674,105 @@
         <translation type="obsolete">Zeitnehmer</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="426"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="122"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="157"/>
+        <source>Name (first last)</source>
+        <translation>Name (Vornam Nachname)</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="468"/>
         <source>Leave Ipponboard</source>
         <translation>Ipponboard verlassen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="465"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="507"/>
         <source>Secondary View</source>
         <translation>Zweite Anzeige</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="471"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="513"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="476"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="518"/>
         <source>Select Font</source>
         <translation>Schriftart wählen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="481"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="523"/>
         <source>Select Color</source>
         <translation>Farbe wählen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="486"/>
-        <location filename="../SingleTournament/mainwindow.ui" line="568"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="528"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="610"/>
         <source>Clubs</source>
         <translation>Vereine</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="489"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="531"/>
         <source>Manage Clubs</source>
         <translation>Vereinsverwaltung</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="494"/>
-        <location filename="../base/mainwindow.cpp" line="1111"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="536"/>
+        <location filename="../base/mainwindow.cpp" line="1137"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="499"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="541"/>
         <source>Change Background</source>
         <translation>Hintergrund ändern</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="511"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="553"/>
         <source>Play Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="514"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="556"/>
         <source>Plays the mat signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="692"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="630"/>
+        <source>Import Fighters</source>
+        <translation>Kämpfer importieren</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="633"/>
+        <source>Import fighters from CSV file</source>
+        <translation>Kämpferdaten aus Wiegeliste im CSV-Format importieren</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="645"/>
+        <source>Export Fighters</source>
+        <translation>Kämpfer exportieren</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="648"/>
+        <source>Export fighters to CSV file</source>
+        <translation>Kämpfer in Liste im CSV-Format exportieren</translation>
+    </message>
+    <message>
+        <location filename="../SingleTournament/mainwindow.ui" line="748"/>
         <source>Set Hold Time</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="695"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="751"/>
         <source>Set the hold timer to a certain value</source>
         <translation>Um die Haltegriffzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="700"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="756"/>
         <source>Set Main Time</source>
         <translation>Kampfzeit setzen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="703"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="759"/>
         <source>Set the main timer to a certain value</source>
         <translation>Um die Kampfzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
@@ -756,62 +781,60 @@
         <translation type="obsolete">Gong Testen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="517"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="559"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="522"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="564"/>
         <source>Controller</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="531"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="573"/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="536"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="578"/>
         <source>Load Demo Data</source>
         <translation>Beispielwerte laden</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="544"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="586"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="576"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="618"/>
         <source>Lists</source>
         <translation>Listen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="584"/>
         <source>Import List</source>
-        <translation>Liste importieren</translation>
+        <translation type="obsolete">Liste importieren</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="592"/>
         <source>Export List</source>
-        <translation>Liste exportieren</translation>
+        <translation type="obsolete">Liste exportieren</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="613"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="669"/>
         <source>Fight Categories</source>
         <translation>Kategorien</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="622"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="678"/>
         <source>Provide Feedback (Online)</source>
         <translation>Feedback (Online)</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="625"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="681"/>
         <source>Manage Fight Categories</source>
         <translation>Kategorien verwalten</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="634"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="690"/>
         <source>Contact Author</source>
         <translation>Autor kontaktieren</translation>
     </message>
@@ -824,17 +847,17 @@
         <translation type="obsolete">Kampfzeit setzen</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="684"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="740"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="687"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="743"/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/mainwindow.ui" line="604"/>
+        <location filename="../SingleTournament/mainwindow.ui" line="660"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
@@ -843,17 +866,15 @@
         <translation type="obsolete">Exportieren</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="190"/>
         <source>Blue</source>
-        <translation>Blau</translation>
+        <translation type="obsolete">Blau</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="191"/>
         <source>White</source>
-        <translation>Weiß</translation>
+        <translation type="obsolete">Weiß</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="890"/>
+        <location filename="../base/mainwindow.cpp" line="918"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -862,127 +883,158 @@
         <translation type="obsolete">Datei kann nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="891"/>
+        <location filename="../base/mainwindow.cpp" line="919"/>
         <source>File could not be opened: </source>
         <translation>Datei kann nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="936"/>
+        <location filename="../base/mainwindow.cpp" line="963"/>
         <source>tie</source>
         <translation>Unentschieden</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1024"/>
+        <location filename="../base/mainwindow.cpp" line="1051"/>
         <source>List generated with Ipponboard v</source>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1038"/>
+        <location filename="../base/mainwindow.cpp" line="1065"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1039"/>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 was entirely written in advanced C++ using the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2012 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
+        <location filename="../base/mainwindow.cpp" line="1066"/>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 is written in C++ &lt;br/&gt;using &lt;a href=&quot;http://boost.org&quot;&gt;boost&lt;/a&gt; and the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Build: %4, Revision: %5&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2012 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1448"/>
+        <location filename="../base/mainwindow.cpp" line="1472"/>
         <source>On</source>
         <translation>an</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1520"/>
+        <location filename="../base/mainwindow.cpp" line="1608"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1521"/>
+        <location filename="../base/mainwindow.cpp" line="1609"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1522"/>
+        <location filename="../base/mainwindow.cpp" line="1610"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1690"/>
+        <location filename="../base/mainwindow.cpp" line="1784"/>
         <source>Please restart the application so that the changes can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1723"/>
-        <location filename="../base/mainwindow.cpp" line="1743"/>
-        <location filename="../base/mainwindow.cpp" line="1799"/>
+        <location filename="../base/mainwindow.cpp" line="1817"/>
+        <location filename="../base/mainwindow.cpp" line="1837"/>
+        <location filename="../base/mainwindow.cpp" line="1893"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1724"/>
+        <location filename="../base/mainwindow.cpp" line="1818"/>
         <source>Set value to (ss):</source>
         <translation>Setzte Wert auf (ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1744"/>
-        <location filename="../base/mainwindow.cpp" line="1800"/>
+        <location filename="../base/mainwindow.cpp" line="1838"/>
+        <location filename="../base/mainwindow.cpp" line="1894"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1760"/>
+        <location filename="../base/mainwindow.cpp" line="1854"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1761"/>
+        <location filename="../base/mainwindow.cpp" line="1855"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
         <translation>Setze die Gewichtsklassen (getrennt durch &apos;;&apos;):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1772"/>
+        <location filename="../base/mainwindow.cpp" line="1866"/>
         <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie müssen %1 Geewichtsklassen getrennt durch &apos;;&apos; eingeben!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1940"/>
+        <location filename="../base/mainwindow.cpp" line="1982"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1943"/>
+        <location filename="../base/mainwindow.cpp" line="1985"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1946"/>
+        <location filename="../base/mainwindow.cpp" line="1988"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2016"/>
+        <location filename="../base/mainwindow.cpp" line="2058"/>
         <source>There is nothing to paste!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2025"/>
+        <location filename="../base/mainwindow.cpp" line="2067"/>
         <source>Can not paste into an empty selection!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2033"/>
+        <location filename="../base/mainwindow.cpp" line="2075"/>
         <source>There is too few data for the selection in the clipboard!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2056"/>
+        <location filename="../base/mainwindow.cpp" line="2098"/>
         <source>There is more data available in the clipboard as could be pasted!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2231"/>
+        <location filename="../base/mainwindow.cpp" line="2273"/>
         <source>Ipponboard fight list</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2303"/>
+        <source>Select CSV file with fighters</source>
+        <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2305"/>
+        <location filename="../base/mainwindow.cpp" line="2359"/>
+        <source>CSV files (*.csv)</source>
+        <translation>CSV Dateien (*.csv)</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2330"/>
+        <source>Invalid file format, must be: firstname;lastname;weight;club.</source>
+        <translation>Das Dateiformat ist nicht &apos;firstname;lastname;weight;club&apos;.</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2345"/>
+        <source>Successfully loaded %1 fighters.</source>
+        <translation>Es wurden %1 Kämpfer eingelesen.</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2357"/>
+        <source>Select CSV file to store fighter information</source>
+        <translation>CSV-Datei angeben, in der die Kämpferdaten gespeichert werden sollen</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="2390"/>
+        <source>Successfully exported %1 fighters.</source>
+        <translation>Es  wurden %1 Kämpfer exportiert.</translation>
     </message>
     <message>
         <source>2nd Round</source>
@@ -997,7 +1049,7 @@
         <translation type="obsolete">Stylesheet</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1112"/>
+        <location filename="../base/mainwindow.cpp" line="1138"/>
         <source>Really reset complete score table?</source>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
@@ -1063,7 +1115,7 @@ und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&l
     </message>
     <message>
         <location filename="../SingleTournament/main.cpp" line="92"/>
-        <location filename="../SingleTournament/main.cpp" line="104"/>
+        <location filename="../SingleTournament/main.cpp" line="103"/>
         <source>Warning</source>
         <translation>Vorsicht</translation>
     </message>
@@ -1084,13 +1136,13 @@ You need to visit the project homepage for an update.</source>
 Bitte besuchen Sie die Programmhomepage für ein Update!</translation>
     </message>
     <message>
-        <location filename="../SingleTournament/main.cpp" line="105"/>
+        <location filename="../SingleTournament/main.cpp" line="104"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project homepage - there should be a newer version available.</source>
         <translation>Diese Version wird in weniger als 30 Tagen ablaufen.
 
-Bitte laden Sie von der Projekthomepage eine neuere Version herunter!</translation>
+Bitte laden Sie von der Projekthomepage eine neuere Version herunter.</translation>
     </message>
     <message>
         <source>This version is no longer valid!
