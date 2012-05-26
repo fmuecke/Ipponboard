@@ -89,16 +89,17 @@ bool IpponboardSM_::has_20s_and_wazaari(HoldTimeEvent const& evt)
 	return false;
 }
 
-//---------------------------------------------------------
-bool IpponboardSM_::has_20s_and_gs(HoldTimeEvent const& evt)
-//---------------------------------------------------------
-{
-	if (eOsaekomiVal_Wazaari == evt.secs &&
-			0 != m_pCore->is_golden_score())
-		return true;
+//not IJF conform:
+////---------------------------------------------------------
+//bool IpponboardSM_::has_20s_and_gs(HoldTimeEvent const& evt)
+////---------------------------------------------------------
+//{
+//	if (eOsaekomiVal_Wazaari == evt.secs &&
+//			0 != m_pCore->is_golden_score())
+//		return true;
 
-	return false;
-}
+//	return false;
+//}
 
 //---------------------------------------------------------
 bool IpponboardSM_::has_15s(HoldTimeEvent const& evt)
@@ -110,16 +111,17 @@ bool IpponboardSM_::has_15s(HoldTimeEvent const& evt)
 	return false;
 }
 
-//---------------------------------------------------------
-bool IpponboardSM_::has_15s_and_gs(HoldTimeEvent const& evt)
-//---------------------------------------------------------
-{
-	if (eOsaekomiVal_Yuko == evt.secs &&
-			0 != m_pCore->is_golden_score())
-		return true;
+//not IJF conform:
+////---------------------------------------------------------
+//bool IpponboardSM_::has_15s_and_gs(HoldTimeEvent const& evt)
+////---------------------------------------------------------
+//{
+//	if (eOsaekomiVal_Yuko == evt.secs &&
+//			0 != m_pCore->is_golden_score())
+//		return true;
 
-	return false;
-}
+//	return false;
+//}
 
 //---------------------------------------------------------
 bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)

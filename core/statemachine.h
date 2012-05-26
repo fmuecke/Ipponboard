@@ -200,9 +200,9 @@ public:
 	bool has_25s(HoldTimeEvent const& evt);
 	bool has_20s(HoldTimeEvent const& evt);
 	bool has_20s_and_wazaari(HoldTimeEvent const& evt);
-	bool has_20s_and_gs(HoldTimeEvent const& evt);
+    //not IJF conform: bool has_20s_and_gs(HoldTimeEvent const& evt);
 	bool has_15s(HoldTimeEvent const& evt);
-	bool has_15s_and_gs(HoldTimeEvent const& evt);
+    //not IJF conform: bool has_15s_and_gs(HoldTimeEvent const& evt);
 	bool is_sonomama(Osaekomi_Toketa const& evt);
 	bool has_enough_shido(Shido const& evt);
 	bool can_take_shido(Shido const& evt);
@@ -214,11 +214,11 @@ public:
 			//		Start		Event			Next	  Action				Guard
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
 			a_row < Stopped , Hajime_Mate	, Running	, &sm::start_timer							>,
-			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
-			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
+            row   < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
+            row   < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
 			a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
 			a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
-			_row < Stopped , Finish		, Stopped												>,
+            _row  < Stopped , Finish		, Stopped												>,
 			//row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
 			a_row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
 			a_row < Stopped , RevokeShidoHM	, Stopped	, &sm::add_point							>,
@@ -226,7 +226,7 @@ public:
 			a_row < Stopped	, RevokeYuko	, Stopped	, &sm::add_point							>,
 			a_row < Stopped , Ippon			, Stopped	, &sm::add_point							>,	// just to correct values...
 			a_row < Stopped , RevokeIppon	, Stopped	, &sm::add_point							>,	// just to correct values...
-			row < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::has_wazaari		>,	// just to correct values...
+            row   < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::has_wazaari		>,	// just to correct values...
 			a_row < Stopped , Wazaari		, Stopped	, &sm::add_point							>,	// just to correct values...
 			a_row < Stopped , Yuko			, Stopped	, &sm::add_point							>,	// just to correct values...
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
@@ -234,7 +234,7 @@ public:
 			a_row < Running , TimeEndedEvent, Stopped	, &sm::stop_timer							>,
 			a_row < Running , Ippon			, Stopped	, &sm::add_point							>,
 			a_row < Running , Wazaari		, Running	, &sm::add_point							>,
-			row < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::has_wazaari		>,
+            row   < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::has_wazaari >,
 			a_row < Running , Yuko			, Running	, &sm::add_point							>,
 			a_row < Running	, Reset			, Stopped	, &sm::reset								>,
 			a_row < Running , Finish		, Stopped	, &sm::stop_timer							>,
@@ -243,28 +243,28 @@ public:
 			a_row < Running	, RevokeYuko	, Running	, &sm::add_point							>,
 			a_row < Running , RevokeShidoHM	, Running	, &sm::add_point							>,	// just to correct values...
 			a_row < Running , Hansokumake	, Stopped	, &sm::add_point							>,	// just to correct values...
-			row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::has_enough_shido	>,	// just to correct values...
-			row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
+            row   < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::has_enough_shido	>,	// just to correct values...
+            row   < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
-			row < Holding , Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
-			row < Holding , Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
+            row   < Holding , Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
+            row   < Holding , Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
 			a_row < Holding , Hajime_Mate	, Stopped	, &sm::stop_timer									>,
 			a_row < Holding , Reset			, Stopped	, &sm::reset										>,
-			a_row < Holding , Finish			, Stopped	, &sm::stop_timer									>,
+            a_row < Holding , Finish    	, Stopped	, &sm::stop_timer									>,
 			a_row < Holding , Hansokumake	, Stopped	, &sm::add_point									>,
 			a_row < Holding , Ippon			, Stopped	, &sm::add_point									>,
 			a_row < Holding , Wazaari		, Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , Yuko			, Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , Shido			, Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , RevokeWazaari	, Holding	, &sm::add_point									>,	// just to correct values...
-			a_row < Holding , RevokeYuko		, Holding	, &sm::add_point									>,	// just to correct values...
+            a_row < Holding , RevokeYuko    , Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , RevokeShidoHM	, Holding	, &sm::add_point									>,	// just to correct values...
 			//
 			// Note: Transitions are processed bottom up!
 			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_15s			>,
-			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_15s_and_gs   >,
+            //not IJF conform: row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_15s_and_gs   >,
 			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_20s			>,
-			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_gs   >,
+            //not IJF conform: row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_gs   >,
 			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_20s_and_wazaari>,
 			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_25s			>
 			//	  +---------+---------------+-----------+-------------------+----------------------+
