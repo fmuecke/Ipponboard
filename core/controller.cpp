@@ -218,10 +218,15 @@ void Controller::DoAction(EAction action, EFighter whos, bool doRevoke)
     if (m_isGoldenScore
             && eState_TimerStopped != EState(m_pSM->current_state()[0]))
     {
-        if (get_score(eFighter1) < get_score(eFighter2) ||
-                get_score(eFighter2) < get_score(eFighter1))
+        // Note: In golden score the hold should not end after the first
+        //       scored point!
+        if (eState_Holding != EState(m_pSM->current_state()[0]))
         {
-            m_pSM->process_event(IpponboardSM_::Hajime_Mate());
+            if (get_score(eFighter1) < get_score(eFighter2) ||
+                get_score(eFighter2) < get_score(eFighter1))
+            {
+                m_pSM->process_event(IpponboardSM_::Hajime_Mate());
+            }
         }
     }
 

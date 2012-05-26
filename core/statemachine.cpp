@@ -121,23 +121,6 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 }
 
 //---------------------------------------------------------
-bool IpponboardSM_::has_WazaariTimeInGoldenScore(HoldTimeEvent const& evt)
-//---------------------------------------------------------
-{
-    if (0 != m_pCore->is_golden_score())
-    {
-        auto checkVal =
-                m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-                eOsaekomiVal2013_Wazaari :
-                eOsaekomiVal_Wazaari;
-
-        return checkVal == evt.secs;
-    }
-
-	return false;
-}
-
-//---------------------------------------------------------
 bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
@@ -147,23 +130,6 @@ bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
             eOsaekomiVal_Yuko;
 
     return checkVal == evt.secs;
-}
-
-//---------------------------------------------------------
-bool IpponboardSM_::has_YukoTimeInGoldenScore(HoldTimeEvent const& evt)
-//---------------------------------------------------------
-{
-    if (0 != m_pCore->is_golden_score())
-    {
-        auto checkVal =
-                m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-                eOsaekomiVal2013_Yuko :
-                eOsaekomiVal_Yuko;
-
-        return checkVal == evt.secs;
-    }
-
-    return false;
 }
 
 //---------------------------------------------------------

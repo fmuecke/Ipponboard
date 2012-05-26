@@ -196,9 +196,7 @@ public:
 	bool has_IpponTime(HoldTimeEvent const& evt);
 	bool has_WazaariTime(HoldTimeEvent const& evt);
 	bool has_AwaseteTime(HoldTimeEvent const& evt);
-    bool has_WazaariTimeInGoldenScore(HoldTimeEvent const& evt);
 	bool has_YukoTime(HoldTimeEvent const& evt);
-    bool has_YukoTimeInGoldenScore(HoldTimeEvent const& evt);
 	bool is_sonomama(Osaekomi_Toketa const& evt);
 	bool has_enough_shido(Shido const& evt);
 	bool can_take_shido(Shido const& evt);
@@ -258,9 +256,7 @@ public:
 			//
 			// Note: Transitions are processed bottom up!
 			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_YukoTime			>,
-            row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_YukoTimeInGoldenScore   >,
 			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_WazaariTime			>,
-            row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_WazaariTimeInGoldenScore   >,
 			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_AwaseteTime>,
 			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_IpponTime			>
 			//	  +---------+---------------+-----------+-------------------+----------------------+
