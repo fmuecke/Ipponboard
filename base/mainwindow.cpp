@@ -2411,7 +2411,7 @@ void MainWindow::update_fighters(const QString& s)
 
     Ipponboard::Fighter fNew(firstName, lastName, weight, club);
 
-    // Does fighter already exit in list?
+    // Does fighter already exist in list?
     bool found(false);
     Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
     {
