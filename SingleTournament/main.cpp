@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
                       + " v" + QCoreApplication::applicationVersion()
                       + "\n"
                       + "Build: " + VersionInfo::Date;
-    splashData.date = QDate(2012, 6, 30);
+    splashData.date = QDate(2012, 7, 30);
     SplashScreen splash(splashData);
 
     if (QDialog::Accepted != splash.exec())
