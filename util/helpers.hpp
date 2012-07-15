@@ -5,10 +5,13 @@ namespace fmu
 {
 
 template<typename T, int size>
-int ArrayLength(T(&)[size]){return size;}
+inline int ArrayLength(T(&)[size])
+{
+    return size;
+}
 
-template<typename T1, typename T2>
-bool IsOptionSet(T1 data, T2 option)
+template<typename T>
+inline bool IsOptionSet(T data, T option)
 {
     return (data & option) == option;
 }

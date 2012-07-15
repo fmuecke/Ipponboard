@@ -23,6 +23,9 @@
 namespace fmu
 {
 
+namespace
+{
+
 enum EShellFolderType
 {
     // http://msdn.microsoft.com/en-us/library/bb762494(v=vs.85).aspx
@@ -85,7 +88,7 @@ enum EShellFolderType
                                       //eShellFolderType_WINDOWS
 };
 
-static const std::string GetShellFolder(EShellFolderType what)
+const std::string GetShellFolder(EShellFolderType what)
 {
 #ifndef _WIN32
     // TODO: handle other platforms (when needed)
@@ -100,12 +103,12 @@ static const std::string GetShellFolder(EShellFolderType what)
     return ret;
 }
 
-static const std::string GetCommonAppData()
+const std::string GetCommonAppData()
 {
     return GetShellFolder(eShellFolderType_COMMON_APPDATA);
 }
 
-static bool IsPortable()
+bool IsPortable()
 {
     // NOTE: one could also use QCoreApplication::applicationFilePath()
 #ifdef _WIN32
@@ -126,7 +129,7 @@ static bool IsPortable()
     return false;
 }
 
-static const std::string GetSettingsFilePath(const char* fileName)
+const std::string GetSettingsFilePath(const char* fileName)
 {
     // (1) if portable, return fileName directly
     // (2) use file in common app data
@@ -138,7 +141,7 @@ static const std::string GetSettingsFilePath(const char* fileName)
         filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
         filePath.append(fileName);
 #if 0
-        // Unfortunately this did not link anymore with vc2010/QQt4.8.2/boost 1.50
+        // Unfortunately this did not link anymore with vc2010/Qt4.8.2/boost 1.50
 		if (!boost::filesystem::exists(filePath))
 #else
 		// so we need to go plain Win32
@@ -158,7 +161,7 @@ static const std::string GetSettingsFilePath(const char* fileName)
     return filePath;
 }
 
-
-} // namespace
+} // anonymous namespace
+} // namespace fmu
 
 #endif  // UTIL__PATH_HELPERS_H_
