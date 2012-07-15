@@ -25,7 +25,7 @@ enum EFighter
 	eFighter_MAX
 };
 
-static EFighter GetUkeFromTori(EFighter tori)
+inline EFighter GetUkeFromTori(EFighter tori)
 {
 	return (tori == eFighter_Blue) ? eFighter_White : eFighter_Blue;
 }
