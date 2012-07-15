@@ -18,8 +18,12 @@ copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 REM -- binaries
-copy /Y "%THIRDPARTY%\Qt\4.7.4-vc100\*.dll" "%DEST%">nul
-copy /Y "%THIRDPARTY%\msvc100\*.dll" "%DEST%">nul
+IF "%QMAKESPEC%"=="win32-g++" (
+	copy /Y "%THIRDPARTY%\Qt\4.8.2-mingw\*.dll" "%DEST%">nul
+) ELSE (
+	copy /Y "%THIRDPARTY%\Qt\4.7.4-vc100\*.dll" "%DEST%">nul
+	copy /Y "%THIRDPARTY%\msvc100\*.dll" "%DEST%">nul
+)
 
 REM -- doc
 rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
