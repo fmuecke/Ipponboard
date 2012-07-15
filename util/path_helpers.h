@@ -14,9 +14,11 @@
 #define nullptr NULL
 #endif
 
-#include <string>
-#define BOOST_FILESYSTEM_VERSION 3
+#if 0
 #include <boost/filesystem.hpp>
+#endif
+
+#include <string>
 
 namespace fmu
 {
@@ -135,9 +137,22 @@ static const std::string GetSettingsFilePath(const char* fileName)
     {
         filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
         filePath.append(fileName);
-
-        if (!boost::filesystem::exists(filePath))
+#if 0
+        // Unfortunately this did not link anymore with vc2010/QQt4.8.2/boost 1.50
+		if (!boost::filesystem::exists(filePath))
+#else
+		// so we need to go plain Win32
+#	ifndef _WIN32
+		// TODO: handle other platforms (when needed)
+#	error "not implemented yet"
+#	endif
+		const DWORD dwAttrib = ::GetFileAttributesA(filePath.c_str());
+		if (dwAttrib == INVALID_FILE_ATTRIBUTES ||
+         (dwAttrib & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY)
+#endif
+		{
             filePath.assign(fileName);
+		}
     }
 
     return filePath;
