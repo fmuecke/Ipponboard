@@ -202,7 +202,7 @@ bool Gamepad::WasSectionEnteredRZ(float min, float max) const
 
 
 //---------------------------------------------------------
-bool Gamepad::WasSectionLeft(float min, float max) const
+bool Gamepad::WasSectionLeft(float /*min*/, float /*max*/) const
 //---------------------------------------------------------
 {
 	return false;
