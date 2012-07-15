@@ -18,7 +18,7 @@
 #include "../core/controlconfig.h"
 #include "../base/settingsdlg.h"
 #include "../util/path_helpers.h"
-#include "../util/helpers.hpp"
+//#include "../util/helpers.hpp"
 #include <QColorDialog>
 #include <QComboBox>
 #include <QCompleter>
@@ -269,12 +269,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
 void MainWindow::keyPressEvent(QKeyEvent* event)
 //=========================================================
 {
-    const bool isCtrlPressed =
-        fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
+    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 
 #ifdef TEAM_VIEW
-    const bool isAltPressed =
-        fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
+    const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
 
     //FIXME: copy and paste handling should be part of the table class!
     if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
@@ -490,12 +488,12 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     {
         //TODO: handle view keys
         //FIXME: handling should be part of the view class!
-        switch (event->key())
-        {
-        default:
+        //switch (event->key())
+        //{
+        //default:
             QMainWindow::keyPressEvent(event);
-            break;
-        }
+        //    break;
+        //}
     }
 
 #endif

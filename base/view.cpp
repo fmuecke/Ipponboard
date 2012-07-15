@@ -842,14 +842,15 @@ void View::update_hansokumake(Ipponboard::EFighter who) const
 void View::update_team_score() const
 //=========================================================
 {
-    EFighter tori(eFighter_Blue);
-    EFighter uke(eFighter_White);
+    //unused code...
+    //EFighter tori(eFighter_Blue);
+    //EFighter uke(eFighter_White);
 
-    if (m_Type == eTypePrimary)
-    {
-        uke = eFighter_Blue;
-        tori = eFighter_White;
-    }
+    //if (m_Type == eTypePrimary)
+    //{
+    //    uke = eFighter_Blue;
+    //    tori = eFighter_White;
+    //}
 
 #ifdef TEAM_VIEW
 
