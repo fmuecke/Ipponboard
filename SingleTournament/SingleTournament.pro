@@ -13,29 +13,32 @@ DEFINES += _WIN32
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib) \
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
 DESTDIR = ../bin
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad -lcore
+    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
 }
 
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad_d -lcore_d
+    QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
 }
 
-CONFIG(__GNUC__) {
+
+# Auto select compiler 
+win32-g++: COMPILER = mingw 
+contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++0x
-    QMAKE_LIBS += -lboost_serialization
-    QMAKE_LIBS += -lboost_system
-    QMAKE_LIBS += -lboost_filesystem
+	#QMAKE_CXXFLAGS += -std=c++11
+	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
+	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
+	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
 }
 
 SOURCES = main.cpp \

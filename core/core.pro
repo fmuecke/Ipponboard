@@ -7,10 +7,9 @@ DEFINES += _WIN32
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib)
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib)
 
 DESTDIR = ../lib
 

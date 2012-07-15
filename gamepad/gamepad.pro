@@ -5,14 +5,10 @@ CONFIG += staticlib
 Release:TARGET = gamepad
 Debug:TARGET = gamepad_d
 
-CONFIG(__GNUC__) {
-	QMAKE_CXXFLAGS += -std=c++0x
-}
-
 SOURCES = gamepad.cpp
 HEADERS = gamepad.h
 
-INCLUDEPATH += $$(BOOST)
+INCLUDEPATH += $$(BOOST_DIR)
 
-QMAKE_LIBDIR += $$(BOOST)/lib
-QMAKE_LIBS += -lWinmm
+QMAKE_LIBDIR += $$(BOOST_DIR)/stage/lib
+QMAKE_LIBS += -lwinmm
