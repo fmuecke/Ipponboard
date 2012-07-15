@@ -33,12 +33,20 @@ CONFIG(debug, release|debug) {
 
 # Auto select compiler 
 win32-g++: COMPILER = mingw 
+win32-msvc2010: COMPILER = msvc
+
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++0x
 	#QMAKE_CXXFLAGS += -std=c++11
 	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
+}
+
+contains(COMPILER, msvc) {
+#	QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
+#	QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
+	QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
 }
 
 SOURCES = main.cpp \

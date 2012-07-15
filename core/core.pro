@@ -29,7 +29,8 @@ build_pass:CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,_d)
 }
 
-CONFIG(__GNUC__) {
+win32-g++: COMPILER = mingw
+contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++0x
 }
 
