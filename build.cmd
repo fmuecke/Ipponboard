@@ -124,6 +124,7 @@ GOTO :EOF
 GOTO :EOF
 
 :do_compile
+	echo;
 	echo -- compiling %1
 	pushd %1
 	jom /L /S /F Makefile.Release
