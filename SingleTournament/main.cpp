@@ -84,27 +84,27 @@ int main(int argc, char* argv[])
     if (QDialog::Accepted != splash.exec())
         return 0;
 
-    const int days_left = QDate::currentDate().daysTo(splashData.date);
+    //const int days_left = QDate::currentDate().daysTo(splashData.date);
 
-    if (days_left <= 0)
-    {
-        QMessageBox::critical(0,
-                              QCoreApplication::tr("Warning"),
-                              QCoreApplication::tr(
-                                  "This version is no longer valid!\n\n"
-                                  "You need to visit the project homepage for a (free) update."));
-
-        if (QDialog::Accepted != DelayUser())
-            return 0;
-    }
-	else if (days_left < 30)
-    {
-        QMessageBox::warning(0,
-                             QCoreApplication::tr("Warning"),
-                             QCoreApplication::tr(
-                                 "This version will stop to work in less than 30 days!\n\n"
-                                 "Please visit the project homepage - there should be a newer version available."));
-    }
+    //if (days_left <= 0)
+    //{
+    //    QMessageBox::critical(0,
+    //                          QCoreApplication::tr("Warning"),
+    //                          QCoreApplication::tr(
+    //                              "This version is no longer valid!\n\n"
+    //                              "You need to visit the project homepage for a (free) update."));
+	//
+    //    if (QDialog::Accepted != DelayUser())
+    //        return 0;
+    //}
+	//else if (days_left < 30)
+    //{
+    //    QMessageBox::warning(0,
+    //                         QCoreApplication::tr("Warning"),
+    //                         QCoreApplication::tr(
+    //                             "This version will stop to work in less than 30 days!\n\n"
+    //                             "Please visit the project homepage - there should be a newer version available."));
+    //}
 
     MainWindow w;
     w.setWindowTitle(QCoreApplication::applicationName() + " v" +
