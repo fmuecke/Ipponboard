@@ -12,15 +12,22 @@ IF NOT EXIST ..\base\.buildnr (
 echo %VER4% >..\base\.buildnr
 :: that's it. <--
 
+hg parents --template {rev} > ..\base\.revision
+SET /P REV=<..\base\.revision
+
+hg parents --template {date^|localdate^|isodate} > ..\base\.date
+SET /P REV_DATE=<..\base\.date
+
 SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
 SET FILENAME_NO_EXT=..\base\versioninfo
-subwcrev>nul
-if %errorlevel%==1 goto do_it
-echo Subversion not found!
-goto :EOF
+
+rem subwcrev>nul
+rem if %errorlevel%==1 goto do_it
+rem echo Subversion not found!
+rem goto :EOF
 
 :do_it
-echo -^> writing version info template
+echo -^> writing version info template: v=%IPPONBOARD_VERSION%
 :: write template
 echo //>%FILENAME_NO_EXT%.tmp
 echo // THIS FILE IS GENERATED - DO NOT MODIFY!>>%FILENAME_NO_EXT%.tmp
@@ -29,8 +36,8 @@ echo #ifndef BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 echo #define BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 echo namespace VersionInfo>>%FILENAME_NO_EXT%.tmp
 echo {>>%FILENAME_NO_EXT%.tmp
-echo 	const char* const Revision = "$WCREV$";>>%FILENAME_NO_EXT%.tmp
-echo 	const char* const Date = "$WCNOW$";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const Revision = "%REV%";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const Date = "%REV_DATE%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStrFull = "%VER1%.%VER2%.%VER3%.%VER4%";>>%FILENAME_NO_EXT%.tmp
 echo }>>%FILENAME_NO_EXT%.tmp
@@ -38,8 +45,8 @@ echo #endif  // BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 
 echo -^> generating version info header
 :: generate header file
-subwcrev ..\ %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
-del %FILENAME_NO_EXT%.tmp
+del %FILENAME_NO_EXT%.h>nul
+move %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
 
 :: --
 :: Update RC file
