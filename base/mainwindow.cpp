@@ -269,12 +269,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
 void MainWindow::keyPressEvent(QKeyEvent* event)
 //=========================================================
 {
-    const bool isCtrlPressed =
-        fmu::IsOptionSet(event->modifiers(), Qt::ControlModifier);
+    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 
 #ifdef TEAM_VIEW
-    const bool isAltPressed =
-        fmu::IsOptionSet(event->modifiers(), Qt::AltModifier);
+    const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
 
     //FIXME: copy and paste handling should be part of the table class!
     if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
