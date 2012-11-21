@@ -9,23 +9,25 @@
 #define FIGHTER_H
 
 #include <QString>
+
 namespace Ipponboard
 {
 
-class Fighter
+struct Fighter
 {
 public:
-    Fighter(QString const& firstname,
-            QString const& lastname,
-            QString const& weightclass,
+    Fighter(QString const& firstName,
+            QString const& lastName,
+            QString const& weightClass,
             QString const& club);
 
-    QString m_firstName;
-    QString m_lastName;
-    QString m_weightClass;
-    QString m_club;
+    QString first_name;
+    QString last_name;
+    QString weight_class;
+    QString club;
     //QString nation;
 };
-}
+
+}  // namespace Ipponboard
 
 #endif // FIGHTER_H

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Florian Mücke</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
@@ -1020,6 +1021,7 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionImport_Fighters"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
     <addaction name="actionExport"/>
@@ -1374,6 +1376,15 @@
    </property>
    <property name="text">
     <string>Leagues</string>
+   </property>
+  </action>
+  <action name="actionImport_Fighters">
+   <property name="icon">
+    <iconset resource="../base/ipponboard.qrc">
+     <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Fighters</string>
    </property>
   </action>
  </widget>

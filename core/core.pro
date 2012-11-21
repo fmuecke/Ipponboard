@@ -49,16 +49,17 @@ HEADERS = ../base/pch.h \
     statemachine.h \
     tournament.h \
     tournamentmodel.h \
-	fighter.h
+	fighter.h \
+	DataSerializer.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \
     score.cpp \
     statemachine.cpp \
     tournamentmodel.cpp \
-	fighter.cpp
+	fighter.cpp \
+	DataSerializer.cpp
     
-
 #OTHER_FILES +=
 
 TRANSLATIONS = ../i18n/core_de.ts

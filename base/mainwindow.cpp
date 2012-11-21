@@ -41,7 +41,7 @@ using namespace Ipponboard;
 
 //=========================================================
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
+    : MainWindowBase(parent)
     , m_pUi(new Ui::MainWindow)
     , m_pPrimaryView(nullptr)
     , m_pSecondaryView(nullptr)
@@ -49,8 +49,6 @@ MainWindow::MainWindow(QWidget* parent)
 #ifdef TEAM_VIEW
     , m_pScoreScreen(nullptr)
     , m_pClubManager(nullptr)
-    , fighters_home()
-    , fighters_guest()
     , m_htmlScore()
     , m_mode()
     , m_host()
@@ -74,27 +72,32 @@ MainWindow::MainWindow(QWidget* parent)
     //
     // setup controller
     //
-    m_pController = new Ipponboard::Controller();
+    m_pController.reset(new Ipponboard::Controller());
 #ifdef TEAM_VIEW
-    m_pClubManager = new Ipponboard::ClubManager();
+    m_pClubManager.reset(new Ipponboard::ClubManager());
 #else
-    m_pCategoryManager = new FightCategoryMgr();
+    m_pCategoryManager.reset(new FightCategoryMgr());
 #endif
 
     //
     // setup view(s)
     //
-    m_pPrimaryView = new Ipponboard::View(
-        m_pController,
-        Ipponboard::View::eTypePrimary);
+    m_pPrimaryView.reset(
+                new Ipponboard::View(
+                    m_pController->GetIController(), Ipponboard::View::eTypePrimary));
 
-    m_pUi->verticalLayout_3->insertWidget(0, m_pPrimaryView, 0);
-    m_pSecondaryView = new Ipponboard::View(
-        m_pController,
-        Ipponboard::View::eTypeSecondary);
+    QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+    if (widget)
+    {
+        m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+    }
+
+    m_pSecondaryView.reset(
+                new Ipponboard::View(
+                    m_pController->GetIController(), Ipponboard::View::eTypeSecondary));
 
 #ifdef TEAM_VIEW
-    m_pScoreScreen = new Ipponboard::ScoreScreen();
+    m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
 #endif
 
     // set default background
@@ -213,16 +216,6 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 //=========================================================
 {
-    delete m_pSecondaryView;
-    delete m_pPrimaryView;
-    delete m_pController;
-#ifdef TEAM_VIEW
-    delete m_pScoreScreen;
-    delete m_pClubManager;
-#else
-    delete m_pCategoryManager;
-#endif
-    delete m_pUi;
 }
 
 //=========================================================
@@ -2270,6 +2263,7 @@ QString MainWindow::get_full_mode_title(QString const& mode)
 
     return tr("Ipponboard fight list");
 }
+
 #else
 void MainWindow::update_fighter_name_completer(const QString& weight)
 {
@@ -2278,10 +2272,11 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
     Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
     {
-        if(f.m_weightClass == weight || f.m_weightClass.isEmpty())
+        if(f.weight_class == weight || f.weight_class.isEmpty())
         {
             const QString fullName =
-                    QString("%1 %2").arg(f.m_firstName, f.m_lastName);
+                    QString("%1 %2").arg(f.first_name, f.last_name);
+
             m_CurrentFighterNames.push_back(fullName);
         }
     }
@@ -2296,56 +2291,11 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
 void MainWindow::on_actionImportList_triggered()
 {
-    QFileDialog fileDlg(
-                    this,
-                    tr("Select CSV file with fighters"),
-                    QCoreApplication::applicationFilePath(),
-                    tr("CSV files (*.csv)"));
+    m_fighters.clear();
+    MainWindowBase::on_actionImport_Fighters_triggered();
 
-    if (QDialog::Accepted == fileDlg.exec()
-                && !fileDlg.selectedFiles().empty())
-    {
-        QFile file(fileDlg.selectedFiles()[0]);
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
-            QTextStream in(&file);
-            QString line = in.readLine();
-
-            // skip first line ("@FIRSTNAME;@LASTNAME;@WEIGHT;@CLUB\n";)
-            if (!line.isNull())
-                line = in.readLine();
-
-            std::vector<Ipponboard::Fighter> fighters;
-            while (!line.isNull())
-            {
-                QStringList splitted = line.split(';');
-                // firstname, lastname, weight, club
-                if (splitted.size() < 4 )
-                {
-                    QMessageBox::critical(
-                                this,
-                                QCoreApplication::applicationName(),
-                                tr("Invalid file format, must be: firstname;lastname;weight;club."));
-                    break;
-                }
-                fighters.push_back(Ipponboard::Fighter(splitted[0].trimmed(),
-                                                       splitted[1].trimmed(),
-                                                       splitted[2].trimmed(),
-                                                       splitted[3].trimmed()));
-                line = in.readLine();
-            }
-            m_fighters.swap(fighters);
-            file.close();
-
-            QMessageBox::information(
-                        this,
-                        QCoreApplication::applicationName(),
-                        tr("Successfully loaded %1 fighters.").arg(QString::number(m_fighters.size())));
-
-
-            update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
-        }
-    }
+    if (!m_fighters.empty())
+        update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
 }
 
 void MainWindow::on_actionExportList_triggered()
@@ -2373,10 +2323,10 @@ void MainWindow::on_actionExportList_triggered()
             out << "@FIRSTNAME;@LASTNAME;@WEIGHT;@CLUB\n";
             Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
             {
-                out << f.m_firstName << ";"
-                    << f.m_lastName << ";"
-                    << f.m_weightClass << ";"
-                    << f.m_club << "\n";
+                out << f.first_name << ";"
+                    << f.last_name << ";"
+                    << f.weight_class << ";"
+                    << f.club << "\n";
 
                 out.flush();
             }
@@ -2413,8 +2363,8 @@ void MainWindow::update_fighters(const QString& s)
     bool found(false);
     Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
     {
-        if (f.m_firstName == fNew.m_firstName &&
-                f.m_lastName == fNew.m_lastName)
+        if (f.first_name == fNew.first_name &&
+                f.last_name == fNew.last_name)
         {
             found = true;
             break;

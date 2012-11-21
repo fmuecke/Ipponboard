@@ -73,6 +73,9 @@ public:
 
 	void Gong() const;
 
+    const IController* GetIController() const { return this; }
+    IController* GetIController() { return this; }
+
 	// --- IControllerCore ---
 private:
 	void start_timer(ETimer t);

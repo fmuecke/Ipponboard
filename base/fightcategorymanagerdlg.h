@@ -1,9 +1,10 @@
 #ifndef BASE__FIGHTCATEGORYMANAGERDLG_H_
 #define BASE__FIGHTCATEGORYMANAGERDLG_H_
 
+#include "fightcategorymanager.h"
+
 #include <QDialog>
 #include <QTreeWidgetItem>
-#include "fightcategorymanager.h"
 
 // forwards
 namespace Ui { class FightCategoryManagerDlg; }
@@ -16,8 +17,8 @@ class FightCategoryManagerDlg : public QDialog
 
 public:
 	explicit FightCategoryManagerDlg(
-		Ipponboard::FightCategoryMgr* mgr,
-		QWidget* parent = 0);
+        Ipponboard::FightCategoryMgr::Ptr pMgr,
+        QWidget* parent = nullptr);
 
 	virtual ~FightCategoryManagerDlg();
 
@@ -29,7 +30,7 @@ private:
 	void load_values();
 
 	Ui::FightCategoryManagerDlg* ui;
-	Ipponboard::FightCategoryMgr* m_pClassMgr;
+    Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
 	std::string m_originalClasses;
 	//Ipponboard::WeightClass m_currentClass;
 

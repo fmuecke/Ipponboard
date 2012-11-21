@@ -7,10 +7,11 @@
 using namespace Ipponboard;
 
 //---------------------------------------------------------
-ClubManagerDlg::ClubManagerDlg(ClubManager* mgr, QWidget* parent)
+ClubManagerDlg::ClubManagerDlg(
+        std::tr1::shared_ptr<ClubManager> pMgr, QWidget* parent)
     : QDialog(parent)
     , ui(new Ui::ClubManagerDlg)
-    , m_pClubMgr(mgr)
+    , m_pClubMgr(pMgr)
     , m_SelectedClub(-1)
 //---------------------------------------------------------
 {
