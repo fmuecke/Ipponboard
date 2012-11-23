@@ -1,14 +1,14 @@
-#include <QtGui/QApplication>
-#include <QTranslator>
-#include <QMessageBox>
-#include <QSettings>
-#include <QFile>
-#include "../base/mainwindow.h"
+#include "MainWindow.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
 
+#include <QtGui/QApplication>
+#include <QTranslator>
+#include <QMessageBox>
+#include <QSettings>
+#include <QFile>
 
 int DelayUser()
 {
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
     langStr.truncate(langStr.lastIndexOf('_'));
 
     const QString ini(QString::fromStdString(
-                          fmu::GetSettingsFilePath(mainWnd.GetConfigFileName())));
+                          fmu::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
     QSettings settings(ini, QSettings::IniFormat, &a);
 
     settings.beginGroup(str_tag_Main);

@@ -40,33 +40,33 @@ contains(COMPILER, mingw) {
 	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
 }
 
-HEADERS = ../base/pch.h \
+HEADERS = MainWindowTeam.h \
+    scorescreen.h \
+	../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
+    ../base/mainwindowbase.h \
+    ../base/settingsdlg.h \
+    ../base/view.h \
+    ../util/path_helpers.h \
+    ../util/qstring_serialization.h \
     ../widgets/countdown.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../widgets/splashscreen.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
-    ../base/mainwindow.h \
-    ../base/settingsdlg.h \
-    ../base/view.h \
-    scorescreen.h \
-    ../base/mainwindowbase.h
+    ../widgets/splashscreen.h
 
-SOURCES = ../base/clubmanager.cpp \
+SOURCES = main.cpp \
+    scorescreen.cpp \
+    MainWindowTeam.cpp \
+	../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
-    ../base/mainwindow.cpp \
+    ../base/mainwindowbase.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \
     ../widgets/countdown.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
-    main.cpp \
-    scorescreen.cpp \
-    ../base/mainwindowbase.cpp
+    ../widgets/splashscreen.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \

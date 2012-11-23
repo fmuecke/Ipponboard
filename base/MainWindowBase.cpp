@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindowbase.h"
 #include "ui_mainwindow.h"
 
 #include "view.h"
@@ -68,12 +68,17 @@ void MainWindowBase::Init()
         on_actionShow_SecondaryView_triggered();
     }
 
-    change_lang(true); // TODO: do this in base (and make method private)
+    change_lang(true);
 
     // Init gamepad
     QTimer* m_pTimer = new QTimer;
     connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
     m_pTimer->start(75);
+}
+
+QString MainWindowBase::GetConfigFileName() const
+{
+	return QString("Ipponboard%1.ini").arg(EditionNameShort()); 
 }
 
 void MainWindowBase::changeEvent(QEvent* e)
@@ -251,16 +256,13 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 void MainWindowBase::on_actionImport_Fighters_triggered()
 {
-    QFileDialog fileDlg(
-                    this,
+	const QString fileName = QFileDialog::getOpenFileName(this, 
                     tr("Select CSV file with fighters"),
                     QCoreApplication::applicationFilePath(),
-                    tr("CSV files (*.csv);;Text files (*.txt)"));
+                    tr("CSV files (*.csv);;Text files (*.txt)"), nullptr, QFileDialog::ReadOnly);
 
-    if (QDialog::Accepted == fileDlg.exec()
-                && !fileDlg.selectedFiles().empty())
-    {
-        const QString fileName = fileDlg.selectedFiles()[0];
+	if (!fileName.isEmpty())
+	{
         std::vector<Ipponboard::Fighter> fighters;
         auto retVal = DataSerializer::ReadFighters(fileName, fighters);
 
@@ -364,7 +366,7 @@ void MainWindowBase::write_settings()
 {
     QString iniFile(
         QString::fromStdString(
-            fmu::GetSettingsFilePath(GetConfigFileName())));
+		fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
     QSettings settings(iniFile, QSettings::IniFormat, this);
 
@@ -433,7 +435,7 @@ void MainWindowBase::read_settings()
 {
     QString iniFile(
         QString::fromStdString(
-            fmu::GetSettingsFilePath(GetConfigFileName())));
+            fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
     QSettings settings(iniFile, QSettings::IniFormat, this);
 

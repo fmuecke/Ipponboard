@@ -50,58 +50,40 @@ contains(COMPILER, msvc) {
 }
 
 SOURCES = main.cpp \
+    mainwindow.cpp \
     ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
-    ../base/mainwindow.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \
     ../base/fightcategorymanagerdlg.cpp \
     ../base/fightcategorymanager.cpp \
+    ../base/MainWindowBase.cpp \
+    ../core/fighter.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp \
-    #../base/controller.cpp \
-    #../gamepad/gamepad.cpp \
-    #../base/score.cpp \
-    #../base/statemachine.cpp \
-    #../base/tournamentmodel.cpp \
-    #../base/fightcategory.cpp
-    ../core/fighter.cpp \
-    ../base/MainWindowBase.cpp
+    ../widgets/countdown.cpp
 
 HEADERS = ../base/pch.h \
+    mainwindow.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
-    #../base/controlconfig.h \
-    ../base/mainwindow.h \
+    ../base/MainWindowBase.h \
     ../base/settingsdlg.h \
     ../base/view.h \
     ../base/fightcategorymanagerdlg.h \
     ../base/fightcategorymanager.h \
+    ../core/fighter.h \
+    ../util/path_helpers.h \
+    ../util/qstring_serialization.h \
     ../widgets/countdown.h \
     ../widgets/splashscreen.h \
     ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
-    #../base/controller.h \
-    #../base/enums.h \
-    #../gamepad/gamepad.h \
-    #../base/icontroller.h \
-    #../base/icontrollercore.h \
-    #../base/iview.h \
-    #../base/score.h \
-    #../base/statemachine.h \
-    #../base/tournament.h \
-    #../base/tournamentmodel.h \
-    #../base/fightcategory.h
-    ../core/fighter.h \
-    ../base/MainWindowBase.h
+    ../widgets/scaledtext.h
 
-FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
+FORMS = mainwindow.ui \
     view_vertical_single.ui \
+	../base/clubmanagerdlg.ui \
     ../base/settingsdlg.ui \
     ../base/view_horizontal.ui \
     ../base/fightcategorymanagerdlg.ui \

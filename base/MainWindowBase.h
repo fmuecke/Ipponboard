@@ -84,8 +84,11 @@ public:
     explicit MainWindowBase(QWidget* parent = nullptr);
     virtual ~MainWindowBase();
 
-	virtual const char* GetConfigFileName() const = 0;
 	virtual void Init();
+
+	QString GetConfigFileName() const;
+	virtual const char* EditionName() const = 0;
+	virtual const char* EditionNameShort() const = 0;
 
 protected:
     virtual void changeEvent(QEvent*) override;
@@ -103,11 +106,9 @@ protected:
 private:
 	virtual void write_specific_settings(QSettings& settings);
 	virtual void read_specific_settings(QSettings& settings);
-
+    void change_lang(bool beQuiet = false);
     void show_hide_view() const;
 
-protected:
-    void change_lang(bool beQuiet = false);
 
 protected slots:
     void on_actionSet_Main_Timer_triggered();
@@ -119,7 +120,6 @@ protected slots:
     void on_actionPreferences_triggered();
     void on_button_reset_clicked();
     void EvaluateInput();
-    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
     void on_actionLang_English_triggered(bool);
     void on_actionLang_Deutsch_triggered(bool);
     void on_actionContact_Author_triggered();
@@ -129,7 +129,9 @@ protected slots:
     void on_actionImport_Fighters_triggered();
 
 protected:
-    boost::shared_ptr<Ui::MainWindow> m_pUi;
+    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+
+	boost::shared_ptr<Ui::MainWindow> m_pUi;
     boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
     boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
     boost::shared_ptr<Ipponboard::Controller> m_pController;

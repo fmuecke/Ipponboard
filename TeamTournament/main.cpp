@@ -1,14 +1,14 @@
-#include <QtGui/QApplication>
-#include <QTranslator>
-#include <QMessageBox>
-#include <QSettings>
-#include <QFile>
-#include "../base/mainwindow.h"
+#include "MainWindowTeam.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
 
+#include <QtGui/QApplication>
+#include <QTranslator>
+#include <QMessageBox>
+#include <QSettings>
+#include <QFile>
 
 int DelayUser()
 {
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     QCoreApplication::setOrganizationDomain("ipponboard.info");
     QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
 
-    MainWindow mainWnd;
+    MainWindowTeam mainWnd;
     mainWnd.setWindowTitle(
                 QCoreApplication::applicationName() + " v" +
                 QCoreApplication::applicationVersion());
@@ -42,8 +42,11 @@ int main(int argc, char* argv[])
     QString langStr = QLocale::system().name();
     langStr.truncate(langStr.lastIndexOf('_'));
 
-    const QString ini(QString::fromStdString(
-                          fmu::GetSettingsFilePath(mainWnd.GetConfigFileName())));
+    const QString ini(
+		QString::fromStdString(
+			fmu::GetSettingsFilePath(
+				mainWnd.GetConfigFileName().toAscii())));
+
     QSettings settings(ini, QSettings::IniFormat, &a);
     settings.beginGroup(str_tag_Main);
 
