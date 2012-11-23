@@ -14,7 +14,7 @@ class SettingsDlg;
 namespace Ipponboard
 {
 
-struct ControlConfig;
+struct ControllerConfig;
 
 class SettingsDlg : public QDialog
 {
@@ -53,8 +53,8 @@ public:
 	const QString GetMatLabel() const;
 	const QString GetGongFile() const;
 
-	void SetControlConfig(ControlConfig* pConfig);
-	void GetControlConfig(ControlConfig* pConfig);
+    void SetControllerConfig(const ControllerConfig* pConfig);
+    void GetControllerConfig(ControllerConfig* pConfig);
 
 protected:
 	void changeEvent(QEvent* e);

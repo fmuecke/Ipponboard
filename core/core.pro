@@ -38,7 +38,6 @@ contains(COMPILER, mingw) {
 HEADERS = ../base/pch.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    controlconfig.h \
     controller.h \
     enums.h \
     fightcategory.h \
@@ -48,9 +47,10 @@ HEADERS = ../base/pch.h \
     score.h \
     statemachine.h \
     tournament.h \
-    tournamentmodel.h \
 	fighter.h \
-	DataSerializer.h
+    tournamentmodel.h \
+    DataSerializer.h \
+    ControllerConfig.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \

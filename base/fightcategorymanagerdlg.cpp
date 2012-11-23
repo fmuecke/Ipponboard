@@ -36,7 +36,6 @@ FightCategoryManagerDlg::~FightCategoryManagerDlg()
 //---------------------------------------------------------
 {
 	delete ui;
-	m_pClassMgr = nullptr;
 }
 
 //---------------------------------------------------------

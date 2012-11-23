@@ -1,16 +1,16 @@
 #ifndef BASE__FIGHTCATEGORYMANAGER_H_
 #define BASE__FIGHTCATEGORYMANAGER_H_
 
+#include "../core/fightcategory.h"
+
 #include <QString>
 #include <QTime>
 #include <QStringList>
 #include <vector>
 #include <string>
-#include <memory>
+#include <boost/shared_ptr.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
-
-#include "../core/fightcategory.h"
 
 // forwards
 class QListWidgetItem;
@@ -27,7 +27,7 @@ public:
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
 
-    typedef std::tr1::shared_ptr<FightCategoryMgr> Ptr;
+    typedef boost::shared_ptr<FightCategoryMgr> Ptr;
 
 	bool GetCategory(int index, FightCategory& t) const;
 	bool GetCategory(QString const& name, FightCategory& t) const;

@@ -2,41 +2,11 @@
 #define BASE__MAINWINDOW_H_
 
 #include "mainwindowbase.h"
-
 #ifndef TEAM_VIEW
 #include "../core/fighter.h"
 #endif
 
-#include <memory>
-
-#ifdef TEAM_VIEW
-static const char* const str_ini_name = "IpponboardT.ini";
-static const char* const str_mode_1te_bundesliga_nord_m = "1. Bundesliga Nord (Männer)";
-static const char* const str_mode_1te_bundesliga_sued_m = "1. Bundesliga Süd (Männer)";
-static const char* const str_mode_2te_bundesliga_nord_m = "2. Bundesliga Nord (Männer)";
-static const char* const str_mode_2te_bundesliga_sued_m = "2. Bundesliga Süd (Männer)";
-static const char* const str_mode_1te_bundesliga_nord_f = "1. Bundesliga Nord (Frauen)";
-static const char* const str_mode_1te_bundesliga_sued_f = "1. Bundesliga Süd (Frauen)";
-static const char* const str_mode_2te_bundesliga_nord_f = "2. Bundesliga Nord (Frauen)";
-static const char* const str_mode_2te_bundesliga_sued_f = "2. Bundesliga Süd (Frauen)";
-static const char* const str_mode_bayernliga_nord_m = "Bayernliga Nord (M)";
-static const char* const str_mode_bayernliga_sued_m = "Bayernliga Süd (M)";
-static const char* const str_mode_bayernliga_nord_f = "Bayernliga Nord (F)";
-static const char* const str_mode_bayernliga_sued_f = "Bayernliga Süd (F)";
-static const char* const str_mode_landesliga_nord_m = "Landesliga Nord (M)";
-static const char* const str_mode_landesliga_sued_m = "Landesliga Süd (M)";
-static const char* const str_mode_landesliga_nord_f = "Landesliga Nord (F)";
-static const char* const str_mode_landesliga_sued_f = "Landesliga Süd (F)";
-static const char* const str_mode_mm_u17_m = "Deutsche VMM MU17";
-static const char* const str_mode_mm_u17_f = "Deutsche VMM FU17";
-#else
-static const char* const str_ini_name = "Ipponboard.ini";
-#endif
-
-#ifdef TEAM_VIEW
-static const char* const str_tag_Mode = "Mode";
-static const char* const str_tag_Host = "Host";
-#endif
+#include <boost/shared_ptr.hpp>
 
 class MainWindow : public MainWindowBase
 {
@@ -45,26 +15,27 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     virtual ~MainWindow();
 
+    virtual const char* GetConfigFileName() const override;
+	virtual void Init() sealed;
+
 protected:
-    virtual void changeEvent(QEvent* e) override;
+    //virtual void changeEvent(QEvent* e) override;
     virtual void closeEvent(QCloseEvent* event) override;
     virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
-    void write_settings();
-    void read_settings();
-    void update_info_text_color(const QColor& color, const QColor& bgColor);
-    void update_text_color_blue(const QColor& color, const QColor& bgColor);
-    void update_text_color_white(const QColor& color, const QColor& bgColor);
-    void update_fighter_name_font(const QFont&);
-    void show_hide_view() const;
-    void update_views();
-    void change_lang(bool beQuiet = false);
+	void update_info_text_color(const QColor& color, const QColor& bgColor) override;
+    void update_text_color_blue(const QColor& color, const QColor& bgColor) override;
+    void update_text_color_white(const QColor& color, const QColor& bgColor) override;
+    virtual void update_fighter_name_font(const QFont&) override;
+    virtual void update_views() override;
 #ifdef TEAM_VIEW
     void update_club_views();
     void UpdateFightNumber_();
-    void UpdateScoreScreen_();
+    void update_score_screen();
     void WriteScoreToHtml_();
+    virtual void write_specific_settings(QSettings& settings) sealed;
+    virtual void read_specific_settings(QSettings& settings) sealed;
 #else
     void update_fighter_name_completer(const QString& weight);
     void update_fighters(const QString& s);
@@ -113,27 +84,10 @@ private slots:
     void on_actionImportList_triggered();
     void on_actionExportList_triggered();
 #endif
-    void on_actionSet_Main_Timer_triggered();
-    void on_actionSet_Hold_Timer_triggered();
-    void on_action_Info_Header_triggered(bool checked);
-    void on_actionLang_English_triggered(bool);
-    void on_actionLang_Deutsch_triggered(bool);
-    void on_actionContact_Author_triggered();
-    void on_actionOnline_Feedback_triggered();
-    void on_actionVisit_Project_Homepage_triggered();
-    void on_actionAbout_Ipponboard_triggered();
-    void on_actionTest_Gong_triggered();
-    void on_actionShow_SecondaryView_triggered();
     void on_actionReset_Scores_triggered();
-    void on_actionPreferences_triggered();
-    void on_button_reset_clicked();
-    void EvaluateInput();
+    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 private:
-    std::unique_ptr<Ui::MainWindow> m_pUi;
-    std::unique_ptr<Ipponboard::View> m_pPrimaryView;
-    std::unique_ptr<Ipponboard::View> m_pSecondaryView;
-    std::unique_ptr<Ipponboard::Controller> m_pController;
 #ifdef TEAM_VIEW
     void update_weights(QString weightString);
     void on_tableView_customContextMenuRequested(QTableView* pTableView,
@@ -147,29 +101,17 @@ private:
     static QString get_template_file(QString const& mode);
     static QString get_full_mode_title(QString const& mode);
 
-    std::unique_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
-    std::tr1::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
+    boost::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
+    boost::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
 //    std::vector<QTableWidgetItem> fighters_home;
 //    std::vector<QTableWidgetItem> fighters_guest;
     QString m_htmlScore;
     QString m_mode;
     QString m_host;
 #else
-    std::tr1::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
+    boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
     QStringList m_CurrentFighterNames;
 #endif
-    QString m_MatLabel;
-    PGamePad m_pGamePad;
-
-    QFont m_FighterNameFont;
-    int m_secondScreenNo;
-    bool m_bAlwaysShow;
-    bool m_bAutoSize;
-    QSize m_secondScreenSize;
-    QString m_Language;
-    QString m_weights;
-
-    Ipponboard::ControlConfig m_controlCfg;
 };
 
 #endif  // BASE__MAINWINDOW_H_

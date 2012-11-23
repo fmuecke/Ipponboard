@@ -105,6 +105,17 @@
 	</item>
 	<item>
 		<c.name>
+			<value>Post SV Bamberg 1928 e.V.</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/post_sv_bamberg_1928.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>Abteilungsleiter: Paul Greiner (96135 Stegaurach)</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>SF Harteck München</value>
 		</c.name>
 		<c.logoFile>
@@ -178,17 +189,6 @@
 		</c.logoFile>
 		<c.address>
 			<value>Mainburg</value>
-		</c.address>
-	</item>
-	<item>
-		<c.name>
-			<value>Post SV Bamberg 1928 e.V.</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/post_sv_bamberg_1928.png</value>
-		</c.logoFile>
-		<c.address>
-			<value>Abteilungsleiter: Paul Greiner (96135 Stegaurach)</value>
 		</c.address>
 	</item>
 	<item>

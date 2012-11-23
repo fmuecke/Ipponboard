@@ -7,7 +7,7 @@
 #include <QSound>
 #include <QColorDialog>
 #include "../gamepad/gamepad.h"
-#include "../core/controlconfig.h"
+#include "../core/ControllerConfig.h"
 
 using namespace Ipponboard;
 
@@ -368,7 +368,7 @@ void SettingsDlg::on_buttonBox_rejected()
     reject();
 }
 
-void SettingsDlg::SetControlConfig(ControlConfig* pConfig)
+void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 {
     Q_ASSERT(pConfig);
 
@@ -394,7 +394,7 @@ void SettingsDlg::SetControlConfig(ControlConfig* pConfig)
     }
 }
 
-void SettingsDlg::GetControlConfig(ControlConfig* pConfig)
+void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 {
     Q_ASSERT(pConfig);
 

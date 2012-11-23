@@ -3,12 +3,13 @@
 #include "clubmanager.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <boost/shared_ptr.hpp>
 
 using namespace Ipponboard;
 
 //---------------------------------------------------------
 ClubManagerDlg::ClubManagerDlg(
-        std::tr1::shared_ptr<ClubManager> pMgr, QWidget* parent)
+        boost::shared_ptr<ClubManager> pMgr, QWidget* parent)
     : QDialog(parent)
     , ui(new Ui::ClubManagerDlg)
     , m_pClubMgr(pMgr)

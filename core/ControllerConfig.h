@@ -1,12 +1,12 @@
-#ifndef BASE__CONTROLCONFIG_H_
-#define BASE__CONTROLCONFIG_H_
+#ifndef BASE__CONTROLLERCONFIG_H_
+#define BASE__CONTROLLERCONFIG_H_
 
 namespace Ipponboard
 {
 
-struct ControlConfig
+struct ControllerConfig
 {
-	ControlConfig()
+    ControllerConfig()
 		: button_hajime_mate(-1)
 		, button_reset(-1)
 		, button_reset_2(-1)
@@ -71,4 +71,4 @@ struct ControlConfig
 
 } // namespace ipponboard
 
-#endif  // BASE__CONTROLCONFIG_H_
+#endif  // BASE__CONTROLLERCONFIG_H_

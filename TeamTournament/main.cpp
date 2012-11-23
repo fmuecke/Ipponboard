@@ -33,12 +33,17 @@ int main(int argc, char* argv[])
     QCoreApplication::setOrganizationDomain("ipponboard.info");
     QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
 
+    MainWindow mainWnd;
+    mainWnd.setWindowTitle(
+                QCoreApplication::applicationName() + " v" +
+                QCoreApplication::applicationVersion());
+
     // read language code
     QString langStr = QLocale::system().name();
     langStr.truncate(langStr.lastIndexOf('_'));
 
     const QString ini(QString::fromStdString(
-                          fmu::GetSettingsFilePath(str_ini_name)));
+                          fmu::GetSettingsFilePath(mainWnd.GetConfigFileName())));
     QSettings settings(ini, QSettings::IniFormat, &a);
     settings.beginGroup(str_tag_Main);
 
@@ -109,16 +114,13 @@ int main(int argc, char* argv[])
                                  "Please visit the project homepage - there should be a newer version available."));
     }
 
-    MainWindow w;
-    w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-                     QCoreApplication::applicationVersion());
-
     //w.setWindowTitle(QCoreApplication::applicationName() + " v" +
     //				 QCoreApplication::applicationVersion() +
     //" ***Spezialversion DJK ITSV Grosshadern***");
     //				 " ***Spezialversion DJK Ingolstadt***");
 
-    w.show();
+    mainWnd.Init();
+	mainWnd.show();
 
     return a.exec();
 }
