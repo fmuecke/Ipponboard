@@ -126,7 +126,7 @@ protected slots:
     void on_actionOnline_Feedback_triggered();
     void on_actionVisit_Project_Homepage_triggered();
     void on_actionAbout_Ipponboard_triggered();
-    void on_actionImport_Fighters_triggered();
+    virtual void on_actionImport_Fighters_triggered();
 
 protected:
     virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }

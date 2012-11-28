@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h" //TODO: may be obsolete
+#include "ui_mainwindow.h"
 
 #include "../base/fightcategorymanager.h"
 #include "../base/fightcategorymanagerdlg.h"
@@ -187,7 +187,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
     m_pUi->comboBox_name_white->addItems(m_CurrentFighterNames);
 }
 
-void MainWindow::on_actionImportList_triggered()
+void MainWindow::on_actionImport_Fighters_triggered()
 {
     m_fighters.clear();
     MainWindowBase::on_actionImport_Fighters_triggered();

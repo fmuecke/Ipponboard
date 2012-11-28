@@ -31,8 +31,11 @@ private:
 	/* specific private methods */
 	void update_fighter_name_completer(const QString& weight);
     void update_fighters(const QString& s);
+    
+	/* base class slot overrides */
+	virtual void on_actionImport_Fighters_triggered() override;
 
-private slots:
+protected slots:
     //virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 	/* specific private slots */
@@ -42,7 +45,6 @@ private slots:
     void on_comboBox_name_blue_currentIndexChanged(const QString&);
     void on_checkBox_golden_score_clicked(bool checked);
     void on_comboBox_weight_class_currentIndexChanged(const QString&);
-    void on_actionImportList_triggered();
     void on_actionExportList_triggered();
 
 private:

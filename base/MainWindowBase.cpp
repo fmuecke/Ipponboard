@@ -256,9 +256,9 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 void MainWindowBase::on_actionImport_Fighters_triggered()
 {
-	const QString fileName = QFileDialog::getOpenFileName(this, 
+    const QString fileName = QFileDialog::getOpenFileName(this,
                     tr("Select CSV file with fighters"),
-                    QCoreApplication::applicationFilePath(),
+                    QCoreApplication::applicationDirPath(),
                     tr("CSV files (*.csv);;Text files (*.txt)"), nullptr, QFileDialog::ReadOnly);
 
 	if (!fileName.isEmpty())
@@ -944,11 +944,11 @@ void MainWindowBase::on_actionSet_Main_Timer_triggered()
 
 void MainWindowBase::write_specific_settings(QSettings&)
 {
-	qDebug() << "not implemented";
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 
 void MainWindowBase::read_specific_settings(QSettings&)
 {
-	qDebug() << "not implemented";
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 

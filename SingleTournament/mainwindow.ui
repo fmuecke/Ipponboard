@@ -375,7 +375,7 @@
     <addaction name="action_ffnen"/>
     <addaction name="actionSpeichern"/>
     <addaction name="separator"/>
-    <addaction name="actionImportList"/>
+    <addaction name="actionImport_Fighters"/>
     <addaction name="actionExportList"/>
     <addaction name="separator"/>
     <addaction name="actionDrucken"/>
@@ -618,7 +618,7 @@
     <string>Lists</string>
    </property>
   </action>
-  <action name="actionImportList">
+  <action name="actionImport_Fighters">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -766,6 +766,7 @@
   <tabstop>comboBox_weight</tabstop>
  </tabstops>
  <resources>
+  <include location="../base/ipponboard.qrc"/>
   <include location="../base/ipponboard.qrc"/>
  </resources>
  <connections>
