@@ -289,32 +289,31 @@ bool TournamentModel::setData(const QModelIndex& index,
             break;
 
         case eCol_yuko1:
-            //m_pTournament->at(row).scores[0].Yuko();
-            //result = true;
+			m_pTournament->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+            result = true;
             break;
 
         case eCol_wazaari1:
-            //QString::number(m_pTournament->at(row).scores[0].Wazaari());
+			m_pTournament->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+            result = true;
             break;
 
         case eCol_ippon1:
-            //m_pTournament->at(row).scores[0].Ippon() ? "1" : "0";
+   			m_pTournament->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+            result = true;
             break;
 
         case eCol_hansokumake1:
-            //m_pTournament->at(row).scores[0].Hansokumake() ? "1" : "0";
+            m_pTournament->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
             break;
 
         case eCol_shido1:
-            //QString::number(m_pTournament->at(row).scores[0].Shido());
+            m_pTournament->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
             break;
 
         case eCol_won1:
-            //m_pTournament->at(row).Won(Ipponboard::eFighter1);
-            break;
-
         case eCol_score1:
-            //m_pTournament->at(row).Score(Ipponboard::eFighter1);
+            // disabled!
             break;
 
         case eCol_name2:
@@ -323,31 +322,33 @@ bool TournamentModel::setData(const QModelIndex& index,
             break;
 
         case eCol_yuko2:
-            //QString::number(m_pTournament->at(row).scores[1].Yuko());
+            m_pTournament->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+			result = true;
             break;
 
         case eCol_wazaari2:
-            //QString::number(m_pTournament->at(row).scores[1].Wazaari());
+			m_pTournament->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+			result = true;
             break;
 
         case eCol_ippon2:
-            //m_pTournament->at(row).scores[1].Ippon() ? "1" : "0";
+            m_pTournament->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+			result = true;
             break;
 
         case eCol_hansokumake2:
-            //m_pTournament->at(row).scores[1].Hansokumake() ? "1" : "0";
+            m_pTournament->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
+			result = true;
             break;
 
         case eCol_shido2:
-            //QString::number(m_pTournament->at(row).scores[1].Shido());
+            m_pTournament->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
+			result = true;
             break;
 
         case eCol_won2:
-            //m_pTournament->at(row).Won(Ipponboard::eFighter2);
-            break;
-
         case eCol_score2:
-            //m_pTournament->at(row).scores[Ipponboard::eFighter2].Add(...);
+            // disabled!
             break;
 
         case eCol_time:

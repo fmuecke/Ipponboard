@@ -17,7 +17,7 @@ public:
 
 	void Add(Ipponboard::EPoint point);
 	void Remove(Ipponboard::EPoint point);
-	int Get(Ipponboard::EPoint point) const;
+	void OverwriteValue(Ipponboard::EPoint point, int value);
 
 	// convenience functions
 	bool Ippon() const { return _points[ePoint_Ippon] != 0; }
@@ -50,6 +50,8 @@ public:
 	}
 
 private:
+	void correct_points();
+
 	int _points[ePoint_MAX];
 };
 
