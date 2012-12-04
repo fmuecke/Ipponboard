@@ -492,7 +492,14 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
     {
         if (eTimer_Main == timer)
         {
-            *m_pTimeMain = QTime::fromString(value, "m:ss");
+            QTime newTime = QTime::fromString(value, "m:ss");
+
+            // don't allow invalid times like "-1:22"
+            if (newTime.isValid())
+            {
+                *m_pTimeMain = newTime;
+            }
+
         }
         else if (eTimer_Hold == timer)
         {
