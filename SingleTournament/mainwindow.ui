@@ -71,7 +71,7 @@
        <enum>Qt::StrongFocus</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -745,7 +745,7 @@
   </action>
   <action name="actionSet_Hold_Timer">
    <property name="text">
-    <string>Set Hold Time</string>
+    <string>Set Hold Timer</string>
    </property>
    <property name="toolTip">
     <string>Set the hold timer to a certain value</string>
@@ -753,7 +753,7 @@
   </action>
   <action name="actionSet_Main_Timer">
    <property name="text">
-    <string>Set Main Time</string>
+    <string>Set Main Timer</string>
    </property>
    <property name="toolTip">
     <string>Set the main timer to a certain value</string>

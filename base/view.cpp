@@ -249,21 +249,21 @@ void View::UpdateView()
     {
     case eState_TimerRunning:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorRunning);
+            ui->text_main_clock->SetColor(m_MainClockColorRunning, Qt::black);
             update_hold_clock(holder, eHoldState_pause);
         }
         break;
 
     case eState_TimerStopped:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorStopped);
+            ui->text_main_clock->SetColor(m_MainClockColorStopped, Qt::black);
             update_hold_clock(holder, eHoldState_pause);
         }
         break;
 
     case eState_Holding:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorRunning);
+            ui->text_main_clock->SetColor(m_MainClockColorRunning, Qt::black);
             update_hold_clock(holder, eHoldState_on);
 
             if (is_secondary())
@@ -467,8 +467,11 @@ void View::mousePressEvent(QMouseEvent* event)
                 QMenu menu;
                 QAction* item(0);
 
+                item = menu.addAction(tr("Set time"));
+                connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()));
+
                 item = menu.addAction(tr("Reset"));
-                connect(item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue_()));
+                connect(item, SIGNAL(triggered()), this->parentWidget(), SLOT(resetMainTimerValue_()));
 
                 menu.exec(QCursor::pos());
 
@@ -616,6 +619,31 @@ void View::resetMainTimerValue_()
 //=========================================================
 {
     m_pController->DoAction(eAction_ResetMainTimer, eFighter_Nobody, true/*doRevoke*/);
+}
+
+//=========================================================
+void View::setMainTimerValue_()
+//=========================================================
+{
+    // Note: this is implemented in the MainWindowBase as well!
+
+    //if( m_pController->GetCurrentState() == eState_SonoMama ||
+    //  m_pController->GetCurrentState() == eState_TimerStopped )
+    {
+        bool ok(false);
+        const QString time = QInputDialog::getText(
+                                 this,
+                                 tr("Set Value"),
+                                 tr("Set value to (m:ss):"),
+                                 QLineEdit::Normal,
+                                 m_pController->GetTimeText(eTimer_Main),
+                                 &ok);
+
+        if (ok)
+        {
+            m_pController->SetTimerValue(eTimer_Main, time);
+        }
+    }
 }
 
 //=========================================================

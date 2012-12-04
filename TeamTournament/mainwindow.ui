@@ -77,7 +77,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -712,7 +712,7 @@
         <item>
          <widget class="QFrame" name="frame_primary_view">
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(106, 104, 100, 255));</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>

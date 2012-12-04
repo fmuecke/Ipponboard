@@ -29,7 +29,6 @@ MainWindowBase::MainWindowBase(QWidget* parent)
     , m_secondScreenSize()
     , m_weights()
     , m_controllerCfg()
-    , m_defaultStyle("background-color:black; color:white")
 {
 }
 
@@ -51,10 +50,6 @@ void MainWindowBase::Init()
 
     m_pSecondaryView.reset(
 		new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypeSecondary));
-
-    // default background
-    m_pUi->frame_primary_view->setStyleSheet(m_defaultStyle);
-    m_pSecondaryView->setStyleSheet(m_defaultStyle);
 
     // clear data
     m_pController->ClearFights();
@@ -535,8 +530,8 @@ void MainWindowBase::read_settings()
     if (settings.contains(str_tag_BgStyle))
     {
         const QString styleSheet = settings.value(str_tag_BgStyle).toString();
-        m_pUi->frame_primary_view->setStyleSheet(styleSheet);
-        m_pSecondaryView->setStyleSheet(styleSheet);
+        //m_pUi->frame_primary_view->setStyleSheet(styleSheet);
+        //m_pSecondaryView->setStyleSheet(styleSheet);
     }
     settings.endGroup();
 
@@ -924,6 +919,8 @@ void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 
 void MainWindowBase::on_actionSet_Main_Timer_triggered()
 {
+    // Note: this is implemented in the view as well!
+
 //	if( m_pController->GetCurrentState() == eState_SonoMama ||
 //		m_pController->GetCurrentState() == eState_TimerStopped )
     {
@@ -937,7 +934,9 @@ void MainWindowBase::on_actionSet_Main_Timer_triggered()
                                  &ok);
 
         if (ok)
+        {
             m_pController->SetTimerValue(eTimer_Main, time);
+        }
     }
 }
 

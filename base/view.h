@@ -68,6 +68,7 @@ private slots:
 	void setOsaekomiWhite_();
 	//void yoshi_();
 	void resetMainTimerValue_();
+    void setMainTimerValue_();
 	void blink_();
 
 private:

@@ -153,7 +153,6 @@ private:
     //Ipponboard::Controller* m_pController;
     
     PGamePad m_pGamePad;
-    QString m_defaultStyle;
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_
