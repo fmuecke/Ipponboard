@@ -471,7 +471,7 @@ void View::mousePressEvent(QMouseEvent* event)
                 connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()));
 
                 item = menu.addAction(tr("Reset"));
-                connect(item, SIGNAL(triggered()), this->parentWidget(), SLOT(resetMainTimerValue_()));
+                connect(item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue_()));
 
                 menu.exec(QCursor::pos());
 
