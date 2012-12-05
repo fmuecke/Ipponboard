@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Categories class_id="0" tracking_level="0" version="0">
-	<count>12</count>
+	<count>8</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<name>M</name>
@@ -11,34 +11,22 @@
 		<weights>-60;-66;-73;-81;-90;-100;+100</weights>
 	</item>
 	<item>
-		<name>MU20</name>
+		<name>MU21</name>
 		<round_time_secs>240</round_time_secs>
 		<golden_score_time_secs>120</golden_score_time_secs>
 		<weights>-55;-60;-66;-73;-81;-90;-100;+100</weights>
 	</item>
 	<item>
-		<name>MU19</name>
-		<round_time_secs>240</round_time_secs>
-		<golden_score_time_secs>120</golden_score_time_secs>
-		<weights>-55;-60;-66;-73;-81;-90;-100;+100</weights>
-	</item>
-	<item>
-		<name>MU17</name>
+		<name>MU18</name>
 		<round_time_secs>240</round_time_secs>
 		<golden_score_time_secs>120</golden_score_time_secs>
 		<weights>-43;-46;-50;-55;-60;-66;-73;-81;-90;+90</weights>
 	</item>
 	<item>
-		<name>MU16</name>
-		<round_time_secs>240</round_time_secs>
-		<golden_score_time_secs>120</golden_score_time_secs>
-		<weights>-40;-43;-46;-50;-55;-60;-66;-73;-81;+81</weights>
-	</item>
-	<item>
-		<name>MU14</name>
+		<name>MU15</name>
 		<round_time_secs>180</round_time_secs>
 		<golden_score_time_secs>90</golden_score_time_secs>
-		<weights>-31;-34;-37;-40;-43;-46;-50;-55;-60;+60</weights>
+		<weights>-34;-37;-40;-43;-46;-50;-55;-60;-66;+66</weights>
 	</item>
 	<item>
 		<name>F</name>
@@ -47,34 +35,22 @@
 		<weights>-48;-52;-57;-63;-70;-78;+78</weights>
 	</item>
 	<item>
-		<name>FU20</name>
+		<name>FU21</name>
 		<round_time_secs>240</round_time_secs>
 		<golden_score_time_secs>120</golden_score_time_secs>
 		<weights>-44;-48;-52;-57;-63;-70;-78;+78</weights>
 	</item>
 	<item>
-		<name>FU19</name>
-		<round_time_secs>240</round_time_secs>
-		<golden_score_time_secs>120</golden_score_time_secs>
-		<weights>-44;-48;-52;-57;-63;-70;-78;+78</weights>
-	</item>
-	<item>
-		<name>FU17</name>
+		<name>FU18</name>
 		<round_time_secs>240</round_time_secs>
 		<golden_score_time_secs>120</golden_score_time_secs>
 		<weights>-40;-44;-48;-52;-57;-63;-70;-78;+78</weights>
 	</item>
 	<item>
-		<name>FU16</name>
-		<round_time_secs>240</round_time_secs>
-		<golden_score_time_secs>120</golden_score_time_secs>
-		<weights>-40;-44;-48;-52;-57;-63;-70;+70</weights>
-	</item>
-	<item>
-		<name>FU14</name>
+		<name>FU15</name>
 		<round_time_secs>180</round_time_secs>
 		<golden_score_time_secs>90</golden_score_time_secs>
-		<weights>-30;-33;-36;-40;-44;-48;-52;-57;-63;+63</weights>
+		<weights>-33;-36;-40;-44;-48;-52;-57;-63;+63</weights>
 	</item>
 </m_Categories>
 </boost_serialization>
