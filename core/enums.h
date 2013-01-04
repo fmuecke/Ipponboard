@@ -70,11 +70,13 @@ enum ETimer
 	eTimer_Hold,
 };
 
+
+// compliant to 2013 IJF rules
 enum EOsaekomiVal
 {
-	eOsaekomiVal_Yuko = 15,
-	eOsaekomiVal_Wazaari = 20,
-	eOsaekomiVal_Ippon = 25
+	eOsaekomiVal_Yuko = 10,
+	eOsaekomiVal_Wazaari = 15,
+	eOsaekomiVal_Ippon = 20
 };
 }
 
