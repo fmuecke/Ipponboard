@@ -17,7 +17,7 @@ class IController
 public:
 	virtual void RegisterView(IView* pView) = 0;
 	virtual int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const = 0;
-	virtual void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter_Blue, bool doRevoke = false) = 0;
+	virtual void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false) = 0;
 	virtual Ipponboard::EState GetCurrentState() const	= 0;
 	virtual Ipponboard::EFighter GetLead() const = 0;
 	virtual Ipponboard::EFighter GetLastHolder() const = 0;

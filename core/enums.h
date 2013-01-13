@@ -19,15 +19,15 @@ enum EPoint
 
 enum EFighter
 {
-	eFighter_Nobody = -1,
-	eFighter_Blue = 0,
-	eFighter_White = 1,
-	eFighter_MAX
+    eFighterNobody = -1,
+    eFighter1 = 0,
+    eFighter2 = 1,
+    eFighter_MAX
 };
 
 static EFighter GetUkeFromTori(EFighter tori)
 {
-	return (tori == eFighter_Blue) ? eFighter_White : eFighter_Blue;
+	return (tori == eFighter1) ? eFighter2 : eFighter1;
 }
 
 

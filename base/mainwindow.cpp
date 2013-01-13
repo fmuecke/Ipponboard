@@ -95,7 +95,7 @@ MainWindow::MainWindow(QWidget* parent)
 #endif
 
     // set default background
-    QString styleSheet("background-color:black; color:white");
+    QString styleSheet("background-color:black; color:second");
     m_pUi->frame_primary_view->setStyleSheet(styleSheet);
     m_pSecondaryView->setStyleSheet(styleSheet);
 #ifdef TEAM_VIEW
@@ -190,8 +190,8 @@ MainWindow::MainWindow(QWidget* parent)
     on_comboBox_weight_class_currentIndexChanged(
         m_pUi->comboBox_weight_class->currentText());
 
-    m_pUi->lineEdit_name_blue->setText(tr("Blue"));
-    m_pUi->lineEdit_name_white->setText(tr("White"));
+    m_pUi->lineEdit_name_first->setText(tr("First"));
+    m_pUi->lineEdit_name_second->setText(tr("Second"));
 
 #endif
 
@@ -281,14 +281,14 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
         switch (event->key())
         {
         case Qt::Key_Space:
-            m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighter_Nobody);
+            m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighterNobody);
             qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
             break;
 
         case Qt::Key_Backspace:
             if (isCtrlPressed)
             {
-                m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighter_Nobody);
+                m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighterNobody);
                 qDebug() << "Action [ Reset ] was triggered by keyboard";
             }
 
@@ -305,18 +305,18 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 #endif
             {
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                        Ipponboard::eFighter_Blue != m_pController->GetLead())
+                        Ipponboard::eFighter1 != m_pController->GetLead())
                 {
                     m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-                                            Ipponboard::eFighter_Blue);
+                                            Ipponboard::eFighter1);
                 }
                 else
                 {
                     m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-                                            Ipponboard::eFighter_Blue);
+                                            Ipponboard::eFighter1);
                 }
 
-                qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
+                qDebug() << "Action [ Osaekomi/Toketa for first ] was triggered by keyboard";
             }
 
             break;
@@ -332,18 +332,18 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 #endif
             {
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                        Ipponboard::eFighter_White != m_pController->GetLead())
+                        Ipponboard::eFighter2 != m_pController->GetLead())
                 {
                     m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-                                            Ipponboard::eFighter_White);
+                                            Ipponboard::eFighter2);
                 }
                 else
                 {
                     m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-                                            Ipponboard::eFighter_White);
+                                            Ipponboard::eFighter2);
                 }
 
-                qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
+                qDebug() << "Action [ Osaekomi/Toketa for second ] was triggered by keyboard";
             }
 
             break;
@@ -352,7 +352,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
             //if (isCtrlPressed)
             {
                 m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-                                        Ipponboard::eFighter_Nobody,
+                                        Ipponboard::eFighterNobody,
                                         true);
                 qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
             }
@@ -367,72 +367,72 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 
         case Qt::Key_F5:
             m_pController->DoAction(Ipponboard::eAction_Ippon,
-                                    Ipponboard::eFighter_Blue,
+                                    Ipponboard::eFighter1,
                                     isCtrlPressed);
-            qDebug() << "Action [ Ippon for blue, revoke="
+            qDebug() << "Action [ Ippon for first, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F6:
             m_pController->DoAction(Ipponboard::eAction_Wazaari,
-                                    Ipponboard::eFighter_Blue,
+                                    Ipponboard::eFighter1,
                                     isCtrlPressed);
-            qDebug() << "Action [ Wazaari for blue, revoke="
+            qDebug() << "Action [ Wazaari for first, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F7:
             m_pController->DoAction(Ipponboard::eAction_Yuko,
-                                    Ipponboard::eFighter_Blue,
+                                    Ipponboard::eFighter1,
                                     isCtrlPressed);
-            qDebug() << "Action [ Yuko for blue, revoke="
+            qDebug() << "Action [ Yuko for first, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F8:
             m_pController->DoAction(Ipponboard::eAction_Shido,
-                                    Ipponboard::eFighter_Blue,
+                                    Ipponboard::eFighter1,
                                     isCtrlPressed);
-            qDebug() << "Action [ Shido for blue, revoke="
+            qDebug() << "Action [ Shido for first, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F9:
             m_pController->DoAction(Ipponboard::eAction_Ippon,
-                                    Ipponboard::eFighter_White,
+                                    Ipponboard::eFighter2,
                                     isCtrlPressed);
-            qDebug() << "Action [ Ippon for white, revoke="
+            qDebug() << "Action [ Ippon for second, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F10:
             m_pController->DoAction(Ipponboard::eAction_Wazaari,
-                                    Ipponboard::eFighter_White,
+                                    Ipponboard::eFighter2,
                                     isCtrlPressed);
-            qDebug() << "Action [ Wazaari for white, revoke="
+            qDebug() << "Action [ Wazaari for second, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F11:
             m_pController->DoAction(Ipponboard::eAction_Yuko,
-                                    Ipponboard::eFighter_White,
+                                    Ipponboard::eFighter2,
                                     isCtrlPressed);
-            qDebug() << "Action [ Yuko for white, revoke="
+            qDebug() << "Action [ Yuko for second, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
 
         case Qt::Key_F12:
             m_pController->DoAction(Ipponboard::eAction_Shido,
-                                    Ipponboard::eFighter_White,
+                                    Ipponboard::eFighter2,
                                     isCtrlPressed);
-            qDebug() << "Action [ Shido for white, revoke="
+            qDebug() << "Action [ Shido for second, revoke="
                      << isCtrlPressed
                      << "] was triggered by keyboard";
             break;
@@ -534,10 +534,10 @@ void MainWindow::write_settings()
     settings.beginGroup(str_tag_Colors);
     settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
     settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
-    settings.setValue(str_tag_TextColorBlue, m_pPrimaryView->GetTextColorBlue());
-    settings.setValue(str_tag_TextBgColorBlue, m_pPrimaryView->GetTextBgColorBlue());
-    settings.setValue(str_tag_TextColorWhite, m_pPrimaryView->GetTextColorWhite());
-    settings.setValue(str_tag_TextBgColorWhite, m_pPrimaryView->GetTextBgColorWhite());
+    settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
+    settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
+    settings.setValue(str_tag_TextColorSecond, m_pPrimaryView->GetTextColorSecond());
+    settings.setValue(str_tag_TextBgColorSecond, m_pPrimaryView->GetTextBgColorSecond());
     //settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
     //settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
     settings.endGroup();
@@ -554,12 +554,12 @@ void MainWindow::write_settings()
     settings.setValue(str_tag_buttonPause, m_controlCfg.button_pause);
     settings.setValue(str_tag_buttonReset, m_controlCfg.button_reset);
     settings.setValue(str_tag_buttonReset2, m_controlCfg.button_reset_2);
-    settings.setValue(str_tag_buttonResetHoldBlue, m_controlCfg.button_reset_hold_blue);
-    settings.setValue(str_tag_buttonResetHoldWhite, m_controlCfg.button_reset_hold_white);
-    settings.setValue(str_tag_buttonBlueHolding, m_controlCfg.button_osaekomi_toketa_blue);
-    settings.setValue(str_tag_buttonWhiteHolding, m_controlCfg.button_osaekomi_toketa_white);
-    settings.setValue(str_tag_buttonHansokumakeBlue, m_controlCfg.button_hansokumake_blue);
-    settings.setValue(str_tag_buttonHansokumakeWhite, m_controlCfg.button_hansokumake_white);
+    settings.setValue(str_tag_buttonResetHoldFirst, m_controlCfg.button_reset_hold_first);
+    settings.setValue(str_tag_buttonResetHoldSecond, m_controlCfg.button_reset_hold_second);
+    settings.setValue(str_tag_buttonFirstHolding, m_controlCfg.button_osaekomi_toketa_first);
+    settings.setValue(str_tag_buttonSecondHolding, m_controlCfg.button_osaekomi_toketa_second);
+    settings.setValue(str_tag_buttonHansokumakeFirst, m_controlCfg.button_hansokumake_first);
+    settings.setValue(str_tag_buttonHansokumakeSecond, m_controlCfg.button_hansokumake_second);
     settings.setValue(str_tag_invertX, m_controlCfg.axis_inverted_X);
     settings.setValue(str_tag_invertY, m_controlCfg.axis_inverted_Y);
     settings.setValue(str_tag_invertR, m_controlCfg.axis_inverted_R);
@@ -641,27 +641,27 @@ void MainWindow::read_settings()
 
     update_info_text_color(fgColor, bgColor);
 
-    fgColor = m_pSecondaryView->GetTextColorBlue();
-    bgColor = m_pSecondaryView->GetTextBgColorBlue();
+    fgColor = m_pSecondaryView->GetTextColorFirst();
+    bgColor = m_pSecondaryView->GetTextBgColorFirst();
 
-    if (settings.contains(str_tag_TextColorBlue))
-        fgColor = settings.value(str_tag_TextColorBlue).value<QColor>();
+    if (settings.contains(str_tag_TextColorFirst))
+        fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
 
-    if (settings.contains(str_tag_TextBgColorBlue))
-        bgColor = settings.value(str_tag_TextBgColorBlue).value<QColor>();
+    if (settings.contains(str_tag_TextBgColorFirst))
+        bgColor = settings.value(str_tag_TextBgColorFirst).value<QColor>();
 
-    update_text_color_blue(fgColor, bgColor);
+    update_text_color_first(fgColor, bgColor);
 
-    fgColor = m_pPrimaryView->GetTextColorWhite();
-    bgColor = m_pSecondaryView->GetTextBgColorWhite();
+    fgColor = m_pPrimaryView->GetTextColorSecond();
+    bgColor = m_pSecondaryView->GetTextBgColorSecond();
 
-    if (settings.contains(str_tag_TextColorWhite))
-        fgColor = settings.value(str_tag_TextColorWhite).value<QColor>();
+    if (settings.contains(str_tag_TextColorSecond))
+        fgColor = settings.value(str_tag_TextColorSecond).value<QColor>();
 
-    if (settings.contains(str_tag_TextBgColorWhite))
-        bgColor = settings.value(str_tag_TextBgColorWhite).value<QColor>();
+    if (settings.contains(str_tag_TextBgColorSecond))
+        bgColor = settings.value(str_tag_TextBgColorSecond).value<QColor>();
 
-    update_text_color_white(fgColor, bgColor);
+    update_text_color_second(fgColor, bgColor);
 
     //fgColor = m_pPrimaryView->GetMainClockColor1();
     //bgColor = m_pPrimaryView->GetMainClockColor2();
@@ -708,23 +708,23 @@ void MainWindow::read_settings()
     m_controlCfg.button_reset_2 =
         settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
 
-    m_controlCfg.button_reset_hold_blue =
-        settings.value(str_tag_buttonResetHoldBlue, Gamepad::eButton6).toInt();
+    m_controlCfg.button_reset_hold_first =
+        settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
 
-    m_controlCfg.button_reset_hold_white =
-        settings.value(str_tag_buttonResetHoldWhite, Gamepad::eButton8).toInt();
+    m_controlCfg.button_reset_hold_second =
+        settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
 
-    m_controlCfg.button_osaekomi_toketa_blue =
-        settings.value(str_tag_buttonBlueHolding, Gamepad::eButton5).toInt();
+    m_controlCfg.button_osaekomi_toketa_first =
+        settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
 
-    m_controlCfg.button_osaekomi_toketa_white =
-        settings.value(str_tag_buttonWhiteHolding, Gamepad::eButton7).toInt();
+    m_controlCfg.button_osaekomi_toketa_second =
+        settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
 
-    m_controlCfg.button_hansokumake_blue =
-        settings.value(str_tag_buttonHansokumakeBlue, Gamepad::eButton11).toInt();
+    m_controlCfg.button_hansokumake_first =
+        settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
 
-    m_controlCfg.button_hansokumake_white =
-        settings.value(str_tag_buttonHansokumakeWhite, Gamepad::eButton12).toInt();
+    m_controlCfg.button_hansokumake_second =
+        settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
 
     m_controlCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
     m_controlCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
@@ -763,24 +763,24 @@ void MainWindow::update_info_text_color(const QColor& color, const QColor& bgCol
 }
 
 //=========================================================
-void MainWindow::update_text_color_blue(const QColor& color, const QColor& bgColor)
+void MainWindow::update_text_color_first(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-    m_pPrimaryView->SetTextColorBlue(color, bgColor);
-    m_pSecondaryView->SetTextColorBlue(color, bgColor);
+    m_pPrimaryView->SetTextColorFirst(color, bgColor);
+    m_pSecondaryView->SetTextColorFirst(color, bgColor);
 #ifdef TEAM_VIEW
-    m_pScoreScreen->SetTextColorBlue(color, bgColor);
+    m_pScoreScreen->SetTextColorFirst(color, bgColor);
 #endif
 }
 
 //=========================================================
-void MainWindow::update_text_color_white(const QColor& color, const QColor& bgColor)
+void MainWindow::update_text_color_second(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-    m_pPrimaryView->SetTextColorWhite(color, bgColor);
-    m_pSecondaryView->SetTextColorWhite(color, bgColor);
+    m_pPrimaryView->SetTextColorSecond(color, bgColor);
+    m_pSecondaryView->SetTextColorSecond(color, bgColor);
 #ifdef TEAM_VIEW
-    m_pScoreScreen->SetTextColorWhite(color, bgColor);
+    m_pScoreScreen->SetTextColorSecond(color, bgColor);
 #endif
 }
 
@@ -895,9 +895,9 @@ void MainWindow::UpdateScoreScreen_()
     const QString logo_home = m_pClubManager->GetLogo(home);
     const QString logo_guest = m_pClubManager->GetLogo(guest);
     m_pScoreScreen->SetLogos(logo_home, logo_guest);
-    const int score_blue = m_pController->GetTeamScore(Ipponboard::eFighter_Blue);
-    const int score_white = m_pController->GetTeamScore(Ipponboard::eFighter_White);
-    m_pScoreScreen->SetScore(score_blue, score_white);
+    const int score_first = m_pController->GetTeamScore(Ipponboard::eFighter1);
+    const int score_second = m_pController->GetTeamScore(Ipponboard::eFighter2);
+    m_pScoreScreen->SetScore(score_first, score_second);
 }
 
 //=========================================================
@@ -973,30 +973,30 @@ void MainWindow::WriteScoreToHtml_()
     {
         const Fight& fight(m_pController->GetFight(0, i));
 
-        QString name_blue(fight.fighters[eFighter_Blue].name);
-        QString name_white(fight.fighters[eFighter_White].name);
-        const Score& score_blue(fight.scores[eFighter_Blue]);
-        const Score& score_white(fight.scores[eFighter_White]);
+        QString name_first(fight.fighters[eFighter1].name);
+        QString name_second(fight.fighters[eFighter2].name);
+        const Score& score_first(fight.scores[eFighter1]);
+        const Score& score_second(fight.scores[eFighter2]);
 
         QString round("<tr>");
         round.append("<td><center>" + QString::number(i + 1) + "</center></td>"); // number
         round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-        round.append("<td><center>" + name_blue + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
-        round.append("<td><center>" + name_white + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+        round.append("<td><center>" + name_first + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_first.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_first.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_first.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_first.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_first.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter1)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+        round.append("<td><center>" + name_second + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_second.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_second.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_second.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_second.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
         round.append("<td><center>" + fight.GetRoundTimeUsedText(
                 m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
@@ -1013,30 +1013,30 @@ void MainWindow::WriteScoreToHtml_()
     {
         const Fight& fight(m_pController->GetFight(1, i));
 
-        QString name_blue(fight.fighters[eFighter_Blue].name);
-        QString name_white(fight.fighters[eFighter_White].name);
-        const Score& score_blue(fight.scores[eFighter_Blue]);
-        const Score& score_white(fight.scores[eFighter_White]);
+        QString name_first(fight.fighters[eFighter1].name);
+        QString name_second(fight.fighters[eFighter2].name);
+        const Score& score_first(fight.scores[eFighter1]);
+        const Score& score_second(fight.scores[eFighter2]);
 
         QString round("<tr>");
         round.append("<td><center>" + QString::number(i + 1 + m_pController->GetFightCount()) + "</center></td>"); // number
         round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-        round.append("<td><center>" + name_blue + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
-        round.append("<td><center>" + name_white + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+        round.append("<td><center>" + name_first + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_first.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_first.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_first.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_first.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_first.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter1)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+        round.append("<td><center>" + name_second + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_second.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_second.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_second.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_second.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
         round.append("<td><center>" + fight.GetRoundTimeUsedText(
                 m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
@@ -1153,10 +1153,10 @@ void MainWindow::on_actionPreferences_triggered()
                               m_pPrimaryView->GetInfoTextColor(),
                               m_pPrimaryView->GetInfoTextBgColor());
     dlg.SetFighterNameFont(m_FighterNameFont);
-    dlg.SetTextColorsBlue(m_pPrimaryView->GetTextColorBlue(),
-                          m_pPrimaryView->GetTextBgColorBlue());
-    dlg.SetTextColorsWhite(m_pPrimaryView->GetTextColorWhite(),
-                           m_pPrimaryView->GetTextBgColorWhite());
+    dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(),
+                          m_pPrimaryView->GetTextBgColorFirst());
+    dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
+                           m_pPrimaryView->GetTextBgColorSecond());
     dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
                            m_secondScreenSize);
 
@@ -1170,8 +1170,8 @@ void MainWindow::on_actionPreferences_triggered()
         m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
         update_fighter_name_font(dlg.GetFighterNameFont());
         update_info_text_color(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
-        update_text_color_blue(dlg.GetTextColorBlue(), dlg.GetTextBgColorBlue());
-        update_text_color_white(dlg.GetTextColorWhite(), dlg.GetTextBgColorWhite());
+        update_text_color_first(dlg.GetTextColorFirst(), dlg.GetTextBgColorFirst());
+        update_text_color_second(dlg.GetTextColorSecond(), dlg.GetTextBgColorSecond());
 
         m_bAlwaysShow = dlg.IsShowAlways();
         m_secondScreenNo = dlg.GetSelectedScreen();
@@ -1211,7 +1211,7 @@ void MainWindow::on_button_reset_clicked()
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
     m_pController->DoAction(Ipponboard::eAction_ResetAll,
-                            Ipponboard::eFighter_Nobody,
+                            Ipponboard::eFighterNobody,
                             false);
 }
 
@@ -1226,38 +1226,38 @@ void MainWindow::EvaluateInput()
 
     if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hajime_mate)))
     {
-        m_pController->DoAction(eAction_Hajime_Mate, eFighter_Nobody);
+        m_pController->DoAction(eAction_Hajime_Mate, eFighterNobody);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_blue)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_first)))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter_Blue, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter1, true);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_white)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_second)))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter_White, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter2, true);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_blue)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_first)))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-                eFighter_Blue != m_pController->GetLead())
+                eFighter1 != m_pController->GetLead())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, eFighter_Blue);
+            m_pController->DoAction(eAction_SetOsaekomi, eFighter1);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter_Blue);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter1);
         }
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_white)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_second)))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-                eFighter_White != m_pController->GetLead())
+                eFighter2 != m_pController->GetLead())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, eFighter_White);
+            m_pController->DoAction(eAction_SetOsaekomi, eFighter2);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter_White);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter2);
         }
     }
     // reset
@@ -1265,7 +1265,7 @@ void MainWindow::EvaluateInput()
         m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset)) &&
         m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset_2)))
     {
-        m_pController->DoAction(eAction_ResetAll, eFighter_Nobody);
+        m_pController->DoAction(eAction_ResetAll, eFighterNobody);
     }
 
     // back
@@ -1285,19 +1285,19 @@ void MainWindow::EvaluateInput()
     }
 
 #endif
-    // hansokumake blue
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_blue)))
+    // hansokumake first
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_first)))
     {
         const bool revoke(m_pController->GetScore(
-                              eFighter_Blue, ePoint_Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, eFighter_Blue, revoke);
+                              eFighter1, ePoint_Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, eFighter1, revoke);
     }
-    // hansokumake white
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_white)))
+    // hansokumake second
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_second)))
     {
         const bool revoke(m_pController->GetScore(
-                              eFighter_White, ePoint_Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, eFighter_White, revoke);
+                              eFighter2, ePoint_Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, eFighter2, revoke);
 
     }
     else
@@ -1320,69 +1320,69 @@ void MainWindow::EvaluateInput()
 
         if (m_pGamePad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_Blue);
+            m_pController->DoAction(eAction_Ippon, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_Blue);
+            m_pController->DoAction(eAction_Wazaari, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_Blue);
+            m_pController->DoAction(eAction_Yuko, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Shido, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Ippon, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Wazaari, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Yuko, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_Blue);
+            m_pController->DoAction(eAction_Shido, eFighter1);
         }
 
-        // evaluate white actions
+        // evaluate second actions
         else if (m_pGamePad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_White);
+            m_pController->DoAction(eAction_Ippon, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_White);
+            m_pController->DoAction(eAction_Wazaari, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_White);
+            m_pController->DoAction(eAction_Yuko, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_White, true);
+            m_pController->DoAction(eAction_Shido, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_White, true);
+            m_pController->DoAction(eAction_Ippon, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_White, true);
+            m_pController->DoAction(eAction_Wazaari, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_White, true);
+            m_pController->DoAction(eAction_Yuko, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_White);
+            m_pController->DoAction(eAction_Shido, eFighter2);
         }
     }
 }
@@ -1564,7 +1564,7 @@ void MainWindow::on_comboBox_club_host_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_club_home_currentIndexChanged(const QString& s)
 //=========================================================
 {
-    m_pController->SetClub(Ipponboard::eFighter_Blue, s);
+    m_pController->SetClub(Ipponboard::eFighter1, s);
     //UpdateViews_(); --> already done by controller
     UpdateScoreScreen_();
 }
@@ -1573,7 +1573,7 @@ void MainWindow::on_comboBox_club_home_currentIndexChanged(const QString& s)
 void MainWindow::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 //=========================================================
 {
-    m_pController->SetClub(Ipponboard::eFighter_White, s);
+    m_pController->SetClub(Ipponboard::eFighter2, s);
     //UpdateViews_(); --> already done by controller
     UpdateScoreScreen_();
 }
@@ -1687,17 +1687,17 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_blue_textChanged(const QString& s)
+void MainWindow::on_lineEdit_name_first_textChanged(const QString& s)
 //=========================================================
 {
-    m_pController->SetFighterName(eFighter_Blue, s);
+    m_pController->SetFighterName(eFighter1, s);
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_white_textChanged(const QString& s)
+void MainWindow::on_lineEdit_name_second_textChanged(const QString& s)
 //=========================================================
 {
-    m_pController->SetFighterName(eFighter_White, s);
+    m_pController->SetFighterName(eFighter2, s);
 }
 
 //=========================================================

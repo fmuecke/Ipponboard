@@ -27,8 +27,8 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
     //ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
     ui->text_text_sample->SetText("  Ipponboard  ");
-    ui->text_color_blue->SetText(tr("BLUE"));
-    ui->text_color_white->SetText(tr("WHITE"));
+    ui->text_color_first->SetText(tr("FIRST FIGHTER"));
+    ui->text_color_second->SetText(tr("SECOND FIGHTER"));
     ui->text_digit_sample->SetText("3:24");
 
     // build button text map
@@ -68,13 +68,13 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
     ui->comboBox_pause->addItems(buttons);
     ui->comboBox_reset->addItems(buttons);
     ui->comboBox_reset_2->addItems(buttons);
-    ui->comboBox_reset_hold_blue->addItems(buttons);
-    ui->comboBox_reset_hold_white->addItems(buttons);
+    ui->comboBox_reset_hold_first->addItems(buttons);
+    ui->comboBox_reset_hold_second->addItems(buttons);
     ui->comboBox_hajime_mate->addItems(buttons);
-    ui->comboBox_blue_holding->addItems(buttons);
-    ui->comboBox_white_holding->addItems(buttons);
-    ui->comboBox_hansokumake_blue->addItems(buttons);
-    ui->comboBox_hansokumake_white->addItems(buttons);
+    ui->comboBox_first_holding->addItems(buttons);
+    ui->comboBox_second_holding->addItems(buttons);
+    ui->comboBox_hansokumake_first->addItems(buttons);
+    ui->comboBox_hansokumake_second->addItems(buttons);
 
     // num screens
     int screens = QApplication::desktop()->numScreens();
@@ -214,18 +214,18 @@ void SettingsDlg::SetFighterNameFont(const QFont& font)
     ui->fontComboBox_fighters->setCurrentFont(font);
     ui->checkBox_fighters_bold->setChecked(font.bold());
     ui->checkBox_fighters_italic->setChecked(font.italic());
-    ui->text_color_blue->SetFont(font);
-    ui->text_color_white->SetFont(font);
+    ui->text_color_first->SetFont(font);
+    ui->text_color_second->SetFont(font);
 }
 
-void SettingsDlg::SetTextColorsBlue(const QColor& color, const QColor& background)
+void SettingsDlg::SetTextColorsFirst(const QColor& color, const QColor& background)
 {
-    ui->text_color_blue->SetColor(color, background);
+    ui->text_color_first->SetColor(color, background);
 }
 
-void SettingsDlg::SetTextColorsWhite(const QColor& color, const QColor& background)
+void SettingsDlg::SetTextColorsSecond(const QColor& color, const QColor& background)
 {
-    ui->text_color_white->SetColor(color, background);
+    ui->text_color_second->SetColor(color, background);
 }
 
 void SettingsDlg::SetDigitSettings(const QFont& font,
@@ -315,14 +315,14 @@ const QColor SettingsDlg::GetInfoTextColor() const
     return ui->text_text_sample->GetColor();
 }
 
-const QColor SettingsDlg::GetTextColorBlue() const
+const QColor SettingsDlg::GetTextColorFirst() const
 {
-    return ui->text_color_blue->GetColor();
+    return ui->text_color_first->GetColor();
 }
 
-const QColor SettingsDlg::GetTextColorWhite() const
+const QColor SettingsDlg::GetTextColorSecond() const
 {
-    return ui->text_color_white->GetColor();
+    return ui->text_color_second->GetColor();
 }
 
 const QColor SettingsDlg::GetDigitColor() const
@@ -334,13 +334,13 @@ const QColor SettingsDlg::GetInfoTextBgColor() const
 {
     return ui->text_text_sample->GetBgColor();
 }
-const QColor SettingsDlg::GetTextBgColorBlue() const
+const QColor SettingsDlg::GetTextBgColorFirst() const
 {
-    return ui->text_color_blue->GetBgColor();
+    return ui->text_color_first->GetBgColor();
 }
-const QColor SettingsDlg::GetTextBgColorWhite() const
+const QColor SettingsDlg::GetTextBgColorSecond() const
 {
-    return ui->text_color_white->GetBgColor();
+    return ui->text_color_second->GetBgColor();
 }
 const QColor SettingsDlg::GetDigitBgColor() const
 {
@@ -380,12 +380,12 @@ void SettingsDlg::SetControlConfig(ControlConfig* pConfig)
         set_button_value(ui->comboBox_next, pConfig->button_next);
         set_button_value(ui->comboBox_prev, pConfig->button_prev);
         set_button_value(ui->comboBox_pause, pConfig->button_pause);
-        set_button_value(ui->comboBox_blue_holding, pConfig->button_osaekomi_toketa_blue);
-        set_button_value(ui->comboBox_white_holding, pConfig->button_osaekomi_toketa_white);
-        set_button_value(ui->comboBox_reset_hold_blue, pConfig->button_reset_hold_blue);
-        set_button_value(ui->comboBox_reset_hold_white, pConfig->button_reset_hold_white);
-        set_button_value(ui->comboBox_hansokumake_blue, pConfig->button_hansokumake_blue);
-        set_button_value(ui->comboBox_hansokumake_white, pConfig->button_hansokumake_white);
+        set_button_value(ui->comboBox_first_holding, pConfig->button_osaekomi_toketa_first);
+        set_button_value(ui->comboBox_second_holding, pConfig->button_osaekomi_toketa_second);
+        set_button_value(ui->comboBox_reset_hold_first, pConfig->button_reset_hold_first);
+        set_button_value(ui->comboBox_reset_hold_second, pConfig->button_reset_hold_second);
+        set_button_value(ui->comboBox_hansokumake_first, pConfig->button_hansokumake_first);
+        set_button_value(ui->comboBox_hansokumake_second, pConfig->button_hansokumake_second);
 
         ui->checkBox_invert_x_axis->setChecked(pConfig->axis_inverted_X);
         ui->checkBox_invert_y_axis->setChecked(pConfig->axis_inverted_Y);
@@ -418,23 +418,23 @@ void SettingsDlg::GetControlConfig(ControlConfig* pConfig)
         pConfig->button_pause =
             get_button_from_text(ui->comboBox_pause->currentText());
 
-        pConfig->button_osaekomi_toketa_blue =
-            get_button_from_text(ui->comboBox_blue_holding->currentText());
+        pConfig->button_osaekomi_toketa_first =
+            get_button_from_text(ui->comboBox_first_holding->currentText());
 
-        pConfig->button_osaekomi_toketa_white =
-            get_button_from_text(ui->comboBox_white_holding->currentText());
+        pConfig->button_osaekomi_toketa_second =
+            get_button_from_text(ui->comboBox_second_holding->currentText());
 
-        pConfig->button_reset_hold_blue =
-            get_button_from_text(ui->comboBox_reset_hold_blue->currentText());
+        pConfig->button_reset_hold_first =
+            get_button_from_text(ui->comboBox_reset_hold_first->currentText());
 
-        pConfig->button_reset_hold_white =
-            get_button_from_text(ui->comboBox_reset_hold_white->currentText());
+        pConfig->button_reset_hold_second =
+            get_button_from_text(ui->comboBox_reset_hold_second->currentText());
 
-        pConfig->button_hansokumake_blue =
-            get_button_from_text(ui->comboBox_hansokumake_blue->currentText());
+        pConfig->button_hansokumake_first =
+            get_button_from_text(ui->comboBox_hansokumake_first->currentText());
 
-        pConfig->button_hansokumake_white =
-            get_button_from_text(ui->comboBox_hansokumake_white->currentText());
+        pConfig->button_hansokumake_second =
+            get_button_from_text(ui->comboBox_hansokumake_second->currentText());
 
         pConfig->axis_inverted_X = ui->checkBox_invert_x_axis->isChecked();
         pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
@@ -481,8 +481,8 @@ void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(
 {
     f.setBold(ui->checkBox_fighters_bold->isChecked());
     f.setItalic(ui->checkBox_fighters_italic->isChecked());
-    ui->text_color_blue->SetFont(f);
-    ui->text_color_white->SetFont(f);
+    ui->text_color_first->SetFont(f);
+    ui->text_color_second->SetFont(f);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_pressed()
@@ -503,40 +503,40 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_pressed()
         ui->text_text_sample->SetColor(ui->text_text_sample->GetColor(), col);
 }
 
-void Ipponboard::SettingsDlg::on_toolButton_text_color_blue_pressed()
+void Ipponboard::SettingsDlg::on_toolButton_text_color_first_pressed()
 {
-    QColor col(ui->text_color_blue->GetColor());
+    QColor col(ui->text_color_first->GetColor());
     col = QColorDialog::getColor(col, this);
 
     if (col.isValid())
-        ui->text_color_blue->SetColor(col);
+        ui->text_color_first->SetColor(col);
 }
 
-void Ipponboard::SettingsDlg::on_toolButton_text_background_blue_pressed()
+void Ipponboard::SettingsDlg::on_toolButton_text_background_first_pressed()
 {
-    QColor col(ui->text_color_blue->GetBgColor());
+    QColor col(ui->text_color_first->GetBgColor());
     col = QColorDialog::getColor(col, this);
 
     if (col.isValid())
-        ui->text_color_blue->SetColor(ui->text_color_blue->GetColor(), col);
+        ui->text_color_first->SetColor(ui->text_color_first->GetColor(), col);
 }
 
-void Ipponboard::SettingsDlg::on_toolButton_text_color_white_pressed()
+void Ipponboard::SettingsDlg::on_toolButton_text_color_second_pressed()
 {
-    QColor col(ui->text_color_white->GetColor());
+    QColor col(ui->text_color_second->GetColor());
     col = QColorDialog::getColor(col, this);
 
     if (col.isValid())
-        ui->text_color_white->SetColor(col);
+        ui->text_color_second->SetColor(col);
 }
 
-void Ipponboard::SettingsDlg::on_toolButton_text_background_white_pressed()
+void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
 {
-    QColor col(ui->text_color_white->GetBgColor());
+    QColor col(ui->text_color_second->GetBgColor());
     col = QColorDialog::getColor(col, this);
 
     if (col.isValid())
-        ui->text_color_white->SetColor(ui->text_color_white->GetColor(), col);
+        ui->text_color_second->SetColor(ui->text_color_second->GetColor(), col);
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
@@ -556,18 +556,18 @@ void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
 
 void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
 {
-    QFont f = ui->text_color_blue->font();
+    QFont f = ui->text_color_first->font();
     f.setBold(checked);
-    ui->text_color_blue->SetFont(f);
-    ui->text_color_white->SetFont(f);
+    ui->text_color_first->SetFont(f);
+    ui->text_color_second->SetFont(f);
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
 {
-    QFont f = ui->text_color_blue->font();
+    QFont f = ui->text_color_first->font();
     f.setItalic(checked);
-    ui->text_color_blue->SetFont(f);
-    ui->text_color_white->SetFont(f);
+    ui->text_color_first->SetFont(f);
+    ui->text_color_second->SetFont(f);
 }
 
 void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)

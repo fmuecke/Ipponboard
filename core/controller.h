@@ -48,7 +48,7 @@ public:
 	// --- IController ---
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
-	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter_Blue, bool doRevoke = false);
+	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
 	Ipponboard::EFighter GetLead() const;
 	Ipponboard::EFighter GetLastHolder() const;

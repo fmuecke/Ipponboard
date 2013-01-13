@@ -138,10 +138,10 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
                 return QString::number(m_pTournament->at(row).scores[0].Shido());
 
             case eCol_won1:
-                return QString::number(m_pTournament->at(row).HasWon(Ipponboard::eFighter_Blue));
+                return QString::number(m_pTournament->at(row).HasWon(Ipponboard::eFighter1));
 
             case eCol_score1:
-                return m_pTournament->at(row).ScorePoints(Ipponboard::eFighter_Blue);
+                return m_pTournament->at(row).ScorePoints(Ipponboard::eFighter1);
 
             case eCol_name2:
                 return m_pTournament->at(row).fighters[1].name;
@@ -162,10 +162,10 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
                 return QString::number(m_pTournament->at(row).scores[1].Shido());
 
             case eCol_won2:
-                return QString::number(m_pTournament->at(row).HasWon(Ipponboard::eFighter_White));
+                return QString::number(m_pTournament->at(row).HasWon(Ipponboard::eFighter2));
 
             case eCol_score2:
-                return m_pTournament->at(row).ScorePoints(Ipponboard::eFighter_White);
+                return m_pTournament->at(row).ScorePoints(Ipponboard::eFighter2);
 
             case eCol_time:
                 {
@@ -310,11 +310,11 @@ bool TournamentModel::setData(const QModelIndex& index,
             break;
 
         case eCol_won1:
-            //m_pTournament->at(row).Won(Ipponboard::eFighter_Blue);
+            //m_pTournament->at(row).Won(Ipponboard::eFighter1);
             break;
 
         case eCol_score1:
-            //m_pTournament->at(row).Score(Ipponboard::eFighter_Blue);
+            //m_pTournament->at(row).Score(Ipponboard::eFighter1);
             break;
 
         case eCol_name2:
@@ -343,11 +343,11 @@ bool TournamentModel::setData(const QModelIndex& index,
             break;
 
         case eCol_won2:
-            //m_pTournament->at(row).Won(Ipponboard::eFighter_White);
+            //m_pTournament->at(row).Won(Ipponboard::eFighter2);
             break;
 
         case eCol_score2:
-            //m_pTournament->at(row).scores[Ipponboard::eFighter_White].Add(...);
+            //m_pTournament->at(row).scores[Ipponboard::eFighter2].Add(...);
             break;
 
         case eCol_time:
@@ -421,8 +421,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalWins() const
 
     for (int i(0); i < m_nRows; ++i)
     {
-        wins1 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_Blue);
-        wins2 += m_pTournament->at(i).HasWon(Ipponboard::eFighter_White);
+        wins1 += m_pTournament->at(i).HasWon(Ipponboard::eFighter1);
+        wins2 += m_pTournament->at(i).HasWon(Ipponboard::eFighter2);
     }
 
     return std::make_pair(wins1, wins2);
@@ -437,8 +437,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 
     for (int i(0); i < m_nRows; ++i)
     {
-        score1 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_Blue);
-        score2 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter_White);
+        score1 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter1);
+        score2 += m_pTournament->at(i).ScorePoints(Ipponboard::eFighter2);
     }
 
     return std::make_pair(score1, score2);

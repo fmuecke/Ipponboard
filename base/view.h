@@ -22,7 +22,7 @@ class View : public QWidget, public IView
 public:
 
 	enum EType { eTypePrimary, eTypeSecondary };
-	enum ColorType { blueFg, blueBg, whiteFg, whiteBg };
+	enum ColorType { firstFg, firstBg, secondFg, secondBg };
 	explicit View(IController* pController,
 				  EType type,
 				  QWidget* parent = 0);
@@ -42,17 +42,17 @@ public:
 	void SetInfoHeaderFont(const QFont& font);
 	void SetFighterNameFont(const QFont& font);
 	void SetDigitFont(const QFont& font);
-	const QColor& GetTextColorBlue() const { return m_TextColorBlue; }
-	const QColor& GetTextBgColorBlue() const { return m_TextBgColorBlue; }
-	const QColor& GetTextColorWhite() const { return m_TextColorWhite; }
-	const QColor& GetTextBgColorWhite() const { return m_TextBgColorWhite; }
+	const QColor& GetTextColorFirst() const { return m_TextColorFirst; }
+	const QColor& GetTextBgColorFirst() const { return m_TextBgColorFirst; }
+	const QColor& GetTextColorSecond() const { return m_TextColorSecond; }
+	const QColor& GetTextBgColorSecond() const { return m_TextBgColorSecond; }
 	const QColor& GetInfoTextColor() const { return m_InfoTextColor; }
 	const QColor& GetInfoTextBgColor() const { return m_InfoTextBgColor; }
 	const QColor& GetMainClockColor1() const { return m_MainClockColorRunning; }
 	const QColor& GetMainClockColor2() const { return m_MainClockColorStopped; }
 	void SetInfoTextColor(const QColor& color, const QColor& bgColor);
-	void SetTextColorBlue(const QColor& color, const QColor& bgColor);
-	void SetTextColorWhite(const QColor& color, const QColor& bgColor);
+	void SetTextColorFirst(const QColor& color, const QColor& bgColor);
+	void SetTextColorSecond(const QColor& color, const QColor& bgColor);
 	void SetMainClockColor(const QColor& fgColor, const QColor& bgColor);
 	void SetMat(const QString& mat) { m_mat = mat; }
 	void SetWeight(const QString& weight) { m_weight = weight; }  //TODO: move to controller !!
@@ -64,8 +64,8 @@ protected:
 	void mousePressEvent(QMouseEvent* event);
 
 private slots:
-	void setOsaekomiBlue_();
-	void setOsaekomiWhite_();
+	void setOsaekomiFirst_();
+	void setOsaekomiSecond_();
 	//void yoshi_();
 	void resetMainTimerValue_();
 	void blink_();
@@ -91,10 +91,10 @@ private:
 	QFont m_InfoHeaderFont;
 	QFont m_FighterNameFont;
 	QFont m_DigitFont;
-	QColor m_TextColorBlue;
-	QColor m_TextBgColorBlue;
-	QColor m_TextColorWhite;
-	QColor m_TextBgColorWhite;
+	QColor m_TextColorFirst;
+	QColor m_TextBgColorFirst;
+	QColor m_TextColorSecond;
+	QColor m_TextBgColorSecond;
 	QColor m_InfoTextColor;
 	QColor m_InfoTextBgColor;
 	QColor m_MainClockColorRunning;

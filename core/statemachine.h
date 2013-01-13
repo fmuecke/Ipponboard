@@ -23,7 +23,7 @@ class Controller;
 
 static char const* const state_names[] = { "Stopped", "Running", "Ended", "Holding" };
 static char const* const point_type_names[] = { "Ippon", "Wazaari", "Yuko", "Shido", "Hansokumake" };
-static char const* const fighter_type_names[] = { "blue", "white" };
+static char const* const fighter_type_names[] = { "first", "second" };
 static char const* const timer_type_names[] = { "main", "hold", "all" };
 
 class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>

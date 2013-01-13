@@ -28,8 +28,8 @@ public:
 	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
 							   const QColor& background);
 	void SetFighterNameFont(const QFont& font);
-	void SetTextColorsBlue(const QColor& color, const QColor& background);
-	void SetTextColorsWhite(const QColor& color, const QColor& background);
+	void SetTextColorsFirst(const QColor& color, const QColor& background);
+	void SetTextColorsSecond(const QColor& color, const QColor& background);
 	void SetDigitSettings(const QFont& font, const QColor& color,
 						  const QColor& background);
 	void SetMatLabel(QString const& text);
@@ -43,12 +43,12 @@ public:
 	const QFont GetFighterNameFont() const;
 	//const QFont GetDigitFont() const;
 	const QColor GetInfoTextColor() const;
-	const QColor GetTextColorBlue() const;
-	const QColor GetTextColorWhite() const;
+	const QColor GetTextColorFirst() const;
+	const QColor GetTextColorSecond() const;
 	const QColor GetDigitColor() const;
 	const QColor GetInfoTextBgColor() const;
-	const QColor GetTextBgColorBlue() const;
-	const QColor GetTextBgColorWhite() const;
+	const QColor GetTextBgColorFirst() const;
+	const QColor GetTextBgColorSecond() const;
 	const QColor GetDigitBgColor() const;
 	const QString GetMatLabel() const;
 	const QString GetGongFile() const;
@@ -77,10 +77,10 @@ private slots:
 	void on_checkBox_fighters_bold_toggled(bool checked);
 	void on_checkBox_text_italic_toggled(bool checked);
 	void on_checkBox_text_bold_toggled(bool checked);
-	void on_toolButton_text_background_white_pressed();
-	void on_toolButton_text_color_white_pressed();
-	void on_toolButton_text_background_blue_pressed();
-	void on_toolButton_text_color_blue_pressed();
+	void on_toolButton_text_background_second_pressed();
+	void on_toolButton_text_color_second_pressed();
+	void on_toolButton_text_background_first_pressed();
+	void on_toolButton_text_color_first_pressed();
 	void on_toolButton_text_background_pressed();	//TODO: somehow the buttons stay pressed...
 	void on_toolButton_text_color_pressed();		//TODO: somehow the buttons stay pressed...
 	void on_fontComboBox_infoHeader_currentFontChanged(QFont f);

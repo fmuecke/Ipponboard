@@ -13,12 +13,12 @@ struct ControlConfig
 		, button_next(-1)
 		, button_prev(-1)
 		, button_pause(-1)
-		, button_osaekomi_toketa_blue(-1)
-		, button_osaekomi_toketa_white(-1)
-		, button_reset_hold_blue(-1)
-		, button_reset_hold_white(-1)
-		, button_hansokumake_blue(-1)
-		, button_hansokumake_white(-1)
+		, button_osaekomi_toketa_first(-1)
+		, button_osaekomi_toketa_second(-1)
+		, button_reset_hold_first(-1)
+		, button_reset_hold_second(-1)
+		, button_hansokumake_first(-1)
+		, button_hansokumake_second(-1)
 		, axis_inverted_X(false)
 		, axis_inverted_Y(false)
 		, axis_inverted_R(false)
@@ -29,12 +29,12 @@ struct ControlConfig
 		, key_next(-1)
 		, key_prev(-1)
 		, key_pause(-1)
-		, key_osaekomi_toketa_blue(-1)
-		, key_osaekomi_toketa_white(-1)
-		, key_reset_hold_blue(-1)
-		, key_reset_hold_white(-1)
-		, key_hansokumake_blue(-1)
-		, key_hansokumake_white(-1)
+		, key_osaekomi_toketa_first(-1)
+		, key_osaekomi_toketa_second(-1)
+		, key_reset_hold_first(-1)
+		, key_reset_hold_second(-1)
+		, key_hansokumake_first(-1)
+		, key_hansokumake_second(-1)
 	{}
 
 	int button_hajime_mate;
@@ -43,12 +43,12 @@ struct ControlConfig
 	int button_next;
 	int button_prev;
 	int button_pause;
-	int button_osaekomi_toketa_blue;
-	int button_osaekomi_toketa_white;
-	int button_reset_hold_blue;
-	int button_reset_hold_white;
-	int button_hansokumake_blue;
-	int button_hansokumake_white;
+	int button_osaekomi_toketa_first;
+	int button_osaekomi_toketa_second;
+	int button_reset_hold_first;
+	int button_reset_hold_second;
+	int button_hansokumake_first;
+	int button_hansokumake_second;
 
 	bool axis_inverted_X;
 	bool axis_inverted_Y;
@@ -61,12 +61,12 @@ struct ControlConfig
 	int key_next;
 	int key_prev;
 	int key_pause;
-	int key_osaekomi_toketa_blue;
-	int key_osaekomi_toketa_white;
-	int key_reset_hold_blue;
-	int key_reset_hold_white;
-	int key_hansokumake_blue;
-	int key_hansokumake_white;
+	int key_osaekomi_toketa_first;
+	int key_osaekomi_toketa_second;
+	int key_reset_hold_first;
+	int key_reset_hold_second;
+	int key_hansokumake_first;
+	int key_hansokumake_second;
 };
 
 } // namespace ipponboard

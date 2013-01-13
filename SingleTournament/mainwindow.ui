@@ -108,7 +108,7 @@
        <number>5</number>
       </property>
       <item row="1" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_white">
+       <widget class="QLineEdit" name="lineEdit_name_second">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -129,25 +129,12 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>White Fighter (first last)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string notr="true"/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::PlainText</enum>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_white.png</pixmap>
+         <string>Second Fighter (first last)</string>
         </property>
        </widget>
       </item>
       <item row="0" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_blue">
+       <widget class="QLineEdit" name="lineEdit_name_first">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -174,20 +161,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>Blue Fighter (first last)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string notr="true"/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::PlainText</enum>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
+         <string>First Fighter (first last)</string>
         </property>
        </widget>
       </item>
@@ -309,6 +283,32 @@
         </property>
         <property name="text">
          <string>Reset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_white.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
         </property>
        </widget>
       </item>
@@ -708,10 +708,11 @@
  <tabstops>
   <tabstop>comboBox_weight_class</tabstop>
   <tabstop>comboBox_weight</tabstop>
-  <tabstop>lineEdit_name_blue</tabstop>
-  <tabstop>lineEdit_name_white</tabstop>
+  <tabstop>lineEdit_name_first</tabstop>
+  <tabstop>lineEdit_name_second</tabstop>
  </tabstops>
  <resources>
+  <include location="../base/ipponboard.qrc"/>
   <include location="../base/ipponboard.qrc"/>
  </resources>
  <connections>

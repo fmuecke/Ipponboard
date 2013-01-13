@@ -37,7 +37,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="ScaledText" name="text_ippon_blue" native="true">
+    <widget class="ScaledText" name="text_ippon_first" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="layout_name_blue" stretch="3,2">
+        <layout class="QVBoxLayout" name="layout_name_first" stretch="3,2">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -101,7 +101,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="ScaledText" name="text_fighter_blue" native="true">
+          <widget class="ScaledText" name="text_fighter_first" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -120,7 +120,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledText" name="text_club_blue" native="true">
+          <widget class="ScaledText" name="text_club_first" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -195,7 +195,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="layout_name_white" stretch="3,2">
+        <layout class="QVBoxLayout" name="layout_name_second" stretch="3,2">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -206,7 +206,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="ScaledText" name="text_fighter_white" native="true">
+          <widget class="ScaledText" name="text_fighter_second" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -228,7 +228,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledText" name="text_club_white" native="true">
+          <widget class="ScaledText" name="text_club_second" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -262,7 +262,7 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_score_blue" stretch="10,10,3,3">
+        <layout class="QHBoxLayout" name="horizontalLayout_score_first" stretch="10,10,3,3">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -270,7 +270,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="ScaledText" name="text_wazaari_blue" native="true">
+          <widget class="ScaledText" name="text_wazaari_first" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>5</horstretch>
@@ -295,7 +295,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledText" name="text_yuko_blue" native="true">
+          <widget class="ScaledText" name="text_yuko_first" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>5</horstretch>
@@ -320,7 +320,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledImage" name="image_hansokumake_blue" native="true">
+          <widget class="ScaledImage" name="image_hansokumake_first" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -336,7 +336,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_shido_blue" stretch="1,1,1">
+          <layout class="QVBoxLayout" name="verticalLayout_shido_first" stretch="1,1,1">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -350,7 +350,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="ScaledImage" name="image_shido3_blue" native="true">
+            <widget class="ScaledImage" name="image_shido3_first" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -366,7 +366,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScaledImage" name="image_shido2_blue" native="true">
+            <widget class="ScaledImage" name="image_shido2_first" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -382,7 +382,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScaledImage" name="image_shido1_blue" native="true">
+            <widget class="ScaledImage" name="image_shido1_first" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -466,7 +466,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_score_white" stretch="10,10,3,3">
+        <layout class="QHBoxLayout" name="horizontalLayout_score_second" stretch="10,10,3,3">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -480,7 +480,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="ScaledText" name="text_wazaari_white" native="true">
+          <widget class="ScaledText" name="text_wazaari_second" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>5</horstretch>
@@ -505,7 +505,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledText" name="text_yuko_white" native="true">
+          <widget class="ScaledText" name="text_yuko_second" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>5</horstretch>
@@ -530,7 +530,7 @@
           </widget>
          </item>
          <item>
-          <widget class="ScaledImage" name="image_hansokumake_white" native="true">
+          <widget class="ScaledImage" name="image_hansokumake_second" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -546,7 +546,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_shido_white" stretch="1,1,1">
+          <layout class="QVBoxLayout" name="verticalLayout_shido_second" stretch="1,1,1">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -557,7 +557,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="ScaledImage" name="image_shido3_white" native="true">
+            <widget class="ScaledImage" name="image_shido3_second" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -573,7 +573,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScaledImage" name="image_shido2_white" native="true">
+            <widget class="ScaledImage" name="image_shido2_second" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -592,7 +592,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScaledImage" name="image_shido1_white" native="true">
+            <widget class="ScaledImage" name="image_shido1_second" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -616,7 +616,7 @@
     </layout>
    </item>
    <item>
-    <widget class="ScaledText" name="text_ippon_white" native="true">
+    <widget class="ScaledText" name="text_ippon_second" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>

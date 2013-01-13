@@ -504,7 +504,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="toolButton_text_color_blue">
+             <widget class="QPushButton" name="toolButton_text_color_first">
               <property name="maximumSize">
                <size>
                 <width>50</width>
@@ -533,7 +533,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="toolButton_text_background_blue">
+             <widget class="QPushButton" name="toolButton_text_background_first">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -597,7 +597,7 @@
            </layout>
           </item>
           <item row="3" column="0" rowspan="2">
-           <widget class="ScaledText" name="text_color_blue" native="true">
+           <widget class="ScaledText" name="text_color_first" native="true">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -610,7 +610,7 @@
            </widget>
           </item>
           <item row="5" column="0" rowspan="2">
-           <widget class="ScaledText" name="text_color_white" native="true">
+           <widget class="ScaledText" name="text_color_second" native="true">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -625,7 +625,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="toolButton_text_color_white">
+             <widget class="QPushButton" name="toolButton_text_color_second">
               <property name="maximumSize">
                <size>
                 <width>50</width>
@@ -654,7 +654,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="toolButton_text_background_white">
+             <widget class="QPushButton" name="toolButton_text_background_second">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -892,20 +892,20 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBox_blue">
+          <widget class="QGroupBox" name="groupBox_first">
            <property name="title">
-            <string>Blue Fighter</string>
+            <string>First Fighter</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="0" column="0">
-             <widget class="QLabel" name="label_blue_holding">
+             <widget class="QLabel" name="label_first_holding">
               <property name="text">
                <string>Osaekomi/Toketa</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_blue_holding">
+             <widget class="QComboBox" name="comboBox_first_holding">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -915,7 +915,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QComboBox" name="comboBox_reset_hold_blue">
+             <widget class="QComboBox" name="comboBox_reset_hold_first">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -925,21 +925,21 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_blue_reset_hold_time">
+             <widget class="QLabel" name="label_first_reset_hold_time">
               <property name="text">
                <string>Reset hold time</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_hansokumake_blue">
+             <widget class="QLabel" name="label_hansokumake_first">
               <property name="text">
                <string>Hansokumake</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QComboBox" name="comboBox_hansokumake_blue">
+             <widget class="QComboBox" name="comboBox_hansokumake_first">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -986,20 +986,20 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_white">
+          <widget class="QGroupBox" name="groupBox_second">
            <property name="title">
-            <string>White Fighter</string>
+            <string>Second Fighter</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
-             <widget class="QLabel" name="label_white_holding">
+             <widget class="QLabel" name="label_second_holding">
               <property name="text">
                <string>Osaekomi/Toketa</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_white_holding">
+             <widget class="QComboBox" name="comboBox_second_holding">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -1009,14 +1009,14 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_white_reset_hold_time">
+             <widget class="QLabel" name="label_second_reset_hold_time">
               <property name="text">
                <string>Reset hold time</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QComboBox" name="comboBox_reset_hold_white">
+             <widget class="QComboBox" name="comboBox_reset_hold_second">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -1026,14 +1026,14 @@
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_hansokumake_white">
+             <widget class="QLabel" name="label_hansokumake_second">
               <property name="text">
                <string>Hansokumake</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QComboBox" name="comboBox_hansokumake_white">
+             <widget class="QComboBox" name="comboBox_hansokumake_second">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
@@ -1464,25 +1464,25 @@
   <tabstop>toolButton_text_background</tabstop>
   <tabstop>checkBox_fighters_bold</tabstop>
   <tabstop>checkBox_fighters_italic</tabstop>
-  <tabstop>toolButton_text_color_blue</tabstop>
-  <tabstop>toolButton_text_background_blue</tabstop>
-  <tabstop>toolButton_text_color_white</tabstop>
-  <tabstop>toolButton_text_background_white</tabstop>
+  <tabstop>toolButton_text_color_first</tabstop>
+  <tabstop>toolButton_text_background_first</tabstop>
+  <tabstop>toolButton_text_color_second</tabstop>
+  <tabstop>toolButton_text_background_second</tabstop>
   <tabstop>comboBox_reset</tabstop>
   <tabstop>buttonBox_2</tabstop>
   <tabstop>comboBox_prev</tabstop>
   <tabstop>comboBox_hajime_mate</tabstop>
   <tabstop>comboBox_reset_2</tabstop>
-  <tabstop>comboBox_blue_holding</tabstop>
+  <tabstop>comboBox_first_holding</tabstop>
   <tabstop>comboBox_next</tabstop>
   <tabstop>comboBox_pause</tabstop>
-  <tabstop>comboBox_reset_hold_blue</tabstop>
-  <tabstop>comboBox_hansokumake_blue</tabstop>
+  <tabstop>comboBox_reset_hold_first</tabstop>
+  <tabstop>comboBox_hansokumake_first</tabstop>
   <tabstop>checkBox_invert_y_axis</tabstop>
   <tabstop>checkBox_invert_x_axis</tabstop>
-  <tabstop>comboBox_white_holding</tabstop>
-  <tabstop>comboBox_reset_hold_white</tabstop>
-  <tabstop>comboBox_hansokumake_white</tabstop>
+  <tabstop>comboBox_second_holding</tabstop>
+  <tabstop>comboBox_reset_hold_second</tabstop>
+  <tabstop>comboBox_hansokumake_second</tabstop>
   <tabstop>checkBox_invert_z_axis</tabstop>
   <tabstop>checkBox_invert_r_axis</tabstop>
   <tabstop>tableWidget_keys</tabstop>
