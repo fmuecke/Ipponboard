@@ -607,3 +607,12 @@ void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
     int index = pCombo->findText(m_buttonTexts[buttonId]);
     pCombo->setCurrentIndex(index);
 }
+
+void Ipponboard::SettingsDlg::on_checkBox_autosize_secondary_view_toggled(bool checked)
+{
+    ui->lineEdit_fixedsize_width->setEnabled(!checked);
+    ui->lineEdit_fixedsize_height->setEnabled(!checked);
+    ui->label_screen_width->setEnabled(!checked);
+    ui->label_screen_height->setEnabled(!checked);
+}
+

@@ -69,15 +69,12 @@ private:
 	ButtonTextMap m_buttonTexts;
 
 private slots:
-
-
-private slots:
-	void on_comboBox_mat_editTextChanged(QString);
-	void on_checkBox_fighters_italic_toggled(bool checked);
-	void on_checkBox_fighters_bold_toggled(bool checked);
-	void on_checkBox_text_italic_toggled(bool checked);
-	void on_checkBox_text_bold_toggled(bool checked);
-	void on_toolButton_text_background_second_pressed();
+    void on_comboBox_mat_editTextChanged(QString);
+    void on_checkBox_fighters_italic_toggled(bool checked);
+    void on_checkBox_fighters_bold_toggled(bool checked);
+    void on_checkBox_text_italic_toggled(bool checked);
+    void on_checkBox_text_bold_toggled(bool checked);
+    void on_toolButton_text_background_second_pressed();
 	void on_toolButton_text_color_second_pressed();
 	void on_toolButton_text_background_first_pressed();
 	void on_toolButton_text_color_first_pressed();
@@ -88,6 +85,7 @@ private slots:
 	void on_toolButton_play_gong_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();
+    void on_checkBox_autosize_secondary_view_toggled(bool checked);
 };
 
 } // namespace Ipponboard

@@ -132,7 +132,7 @@
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QLabel" name="label_screen_width">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -173,7 +173,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label">
+               <widget class="QLabel" name="label_screen_height">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -1489,6 +1489,7 @@
   <tabstop>buttonBox_3</tabstop>
  </tabstops>
  <resources>
+  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>
