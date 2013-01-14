@@ -81,7 +81,14 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
 
     for (int i(1); i <= screens; ++i)
     {
-        ui->comboBox_screen->addItem(QString::number(i));
+        QRect res = QApplication::desktop()->screenGeometry(i-1);
+
+        ui->comboBox_screen->addItem(
+                    QString("%1 (%2x%3)").arg(
+                    QString::number(i),
+                    QString::number(res.width()),
+                    QString::number(res.height())
+                    ));
     }
 
     QDir dir(QDir::currentPath() + "/sounds");
