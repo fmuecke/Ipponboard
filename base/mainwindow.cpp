@@ -600,7 +600,7 @@ void MainWindow::read_settings()
                                         QSize(1024, 768)).toSize();
     m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
     m_bAlwaysShow = settings.value(str_tag_AlwaysShow, true).toBool();
-    m_MatLabel = settings.value(str_tag_MatLabel, "  Ipponboard  ").toString(); // value is also in settings dialog!
+    m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
     m_pPrimaryView->SetMat(m_MatLabel);
     m_pSecondaryView->SetMat(m_MatLabel);
 
