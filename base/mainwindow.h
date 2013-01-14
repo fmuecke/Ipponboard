@@ -64,6 +64,8 @@ static const char* const str_tag_AlwaysShow = "AlwaysShow";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
+static const char* const str_tag_AutoIncrementPoints = "AutoIncrementPoints";
+static const char* const str_tag_Use2013Rules = "Use2013Rules";
 #ifdef TEAM_VIEW
 static const char* const str_tag_Mode = "Mode";
 static const char* const str_tag_Host = "Host";

@@ -36,6 +36,7 @@ public:
 	virtual QString const& GetCategoryName() const = 0;
 	virtual void SetGoldenScore(bool isGS) = 0;
 	virtual bool IsGoldenScore() const = 0;
+    virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
 };
 
 }

@@ -8,22 +8,25 @@ using namespace Ipponboard;
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if (eOsaekomiVal_Yuko == evt.secs)
-	{
-		Score_(evt.tori).Add(ePoint_Yuko);
-	}
+    if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
+    {
+        if (eOsaekomiVal_Yuko == evt.secs)
+        {
+            Score_(evt.tori).Add(ePoint_Yuko);
+        }
 
-	else if (eOsaekomiVal_Wazaari == evt.secs)
-	{
-		Score_(evt.tori).Remove(ePoint_Yuko);
-		Score_(evt.tori).Add(ePoint_Wazaari);
-	}
+        else if (eOsaekomiVal_Wazaari == evt.secs)
+        {
+            Score_(evt.tori).Remove(ePoint_Yuko);
+            Score_(evt.tori).Add(ePoint_Wazaari);
+        }
 
-	else if (eOsaekomiVal_Ippon == evt.secs)
-	{
-		Score_(evt.tori).Remove(ePoint_Wazaari);
-		Score_(evt.tori).Add(ePoint_Ippon);
-	}
+        else if (eOsaekomiVal_Ippon == evt.secs)
+        {
+            Score_(evt.tori).Remove(ePoint_Wazaari);
+            Score_(evt.tori).Add(ePoint_Ippon);
+        }
+    }
 }
 
 
@@ -164,10 +167,12 @@ void IpponboardSM_::stop_timer(Osaekomi_Toketa const& /*evt*/)
 {
 	m_pCore->stop_timer(eTimer_Hold);
 }
+
 void IpponboardSM_::stop_timer(TimeEndedEvent const& /*evt*/)
 {
 	m_pCore->stop_timer(eTimer_Main);
 }
+
 void IpponboardSM_::stop_timer(Finish const& /*evt*/)
 {
 	// Finish will be created if current fight should be saved
@@ -185,6 +190,7 @@ void IpponboardSM_::start_timer(Hajime_Mate const& /*evt*/)
 	m_pCore->reset_timer(eTimer_Hold);
 	m_pCore->start_timer(eTimer_Main);
 }
+
 void IpponboardSM_::start_timer(Osaekomi_Toketa const& /*evt*/)
 {
 	//m_pCore->reset_timer( eTimer_Hold );
@@ -197,61 +203,67 @@ void IpponboardSM_::add_point(PointEvent<ippon_type> const& evt)
 	m_pCore->stop_timer(eTimer_Main);
 	m_pCore->stop_timer(eTimer_Hold);
 }
+
 void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 {
-	EFighter uke = GetUkeFromTori(evt.tori);
+    if (m_pCore->is_option(eOption_AutoIncrementPoints))
+    {
+        EFighter uke = GetUkeFromTori(evt.tori);
 
-	if (3 == Score_(evt.tori).Shido())
-	{
-		Score_(uke).Remove(ePoint_Wazaari);
-		Score_(uke).Add(ePoint_Ippon);
-	}
+        if (3 == Score_(evt.tori).Shido())
+        {
+            Score_(uke).Remove(ePoint_Wazaari);
+            Score_(uke).Add(ePoint_Ippon);
+        }
 
-	else if (2 == Score_(evt.tori).Shido())
-	{
-		Score_(uke).Remove(ePoint_Yuko);
-		Score_(uke).Add(ePoint_Wazaari);
-	}
+        else if (2 == Score_(evt.tori).Shido())
+        {
+            Score_(uke).Remove(ePoint_Yuko);
+            Score_(uke).Add(ePoint_Wazaari);
+        }
 
-	else if (1 == Score_(evt.tori).Shido())
-	{
-		Score_(uke).Add(ePoint_Yuko);
-	}
+        else if (1 == Score_(evt.tori).Shido())
+        {
+            Score_(uke).Add(ePoint_Yuko);
+        }
+    }
 
 	Score_(evt.tori).Add(ePoint_Shido);
 }
+
 void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 {
-	EFighter uke = GetUkeFromTori(evt.tori);
+    EFighter uke = GetUkeFromTori(evt.tori);
 
-	if (Score_(evt.tori).Hansokumake())
-	{
-		Score_(uke).Remove(ePoint_Ippon);
-		Score_(evt.tori).Remove(ePoint_Hansokumake);
+    if (Score_(evt.tori).Hansokumake())
+    {
+        Score_(uke).Remove(ePoint_Ippon);
+        Score_(evt.tori).Remove(ePoint_Hansokumake);
+    }
+    else
+    {
+        if (m_pCore->is_option(eOption_AutoIncrementPoints))
+        {
+            if (4 == Score_(evt.tori).Shido())
+            {
+                Score_(uke).Remove(ePoint_Ippon);
+                Score_(uke).Add(ePoint_Wazaari);
+            }
+            else if (3 == Score_(evt.tori).Shido())
+            {
+                Score_(uke).Remove(ePoint_Wazaari);
+                Score_(uke).Add(ePoint_Yuko);
+            }
+            else if (2 == Score_(evt.tori).Shido())
+            {
+                Score_(uke).Remove(ePoint_Yuko);
+            }
+        }
 	}
 
-	else
-	{
-		if (4 == Score_(evt.tori).Shido())
-		{
-			Score_(uke).Remove(ePoint_Ippon);
-			Score_(uke).Add(ePoint_Wazaari);
-		}
-
-		else if (3 == Score_(evt.tori).Shido())
-		{
-			Score_(uke).Remove(ePoint_Wazaari);
-			Score_(uke).Add(ePoint_Yuko);
-		}
-
-		else if (2 == Score_(evt.tori).Shido())
-		{
-			Score_(uke).Remove(ePoint_Yuko);
-		}
-
-		Score_(evt.tori).Remove(ePoint_Shido);
-	}
+    Score_(evt.tori).Remove(ePoint_Shido);
 }
+
 void IpponboardSM_::add_point(PointEvent<hansokumake_type> const& evt)
 {
 	EFighter uke = GetUkeFromTori(evt.tori);

@@ -54,7 +54,7 @@ enum EState
 	eState_TimerStopped = 0,
 	eState_TimerRunning,
 	eState_Holding,
-	eState_SonoMama,
+    eState_SonoMama
 };
 
 enum EHoldState
@@ -67,7 +67,7 @@ enum EHoldState
 enum ETimer
 {
 	eTimer_Main = 0,
-	eTimer_Hold,
+    eTimer_Hold
 };
 
 enum EOsaekomiVal
@@ -76,6 +76,14 @@ enum EOsaekomiVal
 	eOsaekomiVal_Wazaari = 20,
 	eOsaekomiVal_Ippon = 25
 };
+
+enum EOption
+{
+    eOption_AutoIncrementPoints = 0,
+    eOption_Use2013Rules = 1,
+    eOption_MAX
+};
+
 }
 
 #endif  // BASE__ENUMS_H_

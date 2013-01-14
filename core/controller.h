@@ -6,6 +6,7 @@
 #include <utility>
 #include <set>
 #include <vector>
+#include <bitset>
 
 #include "score.h"
 #include "tournament.h"
@@ -70,6 +71,8 @@ public:
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
+    void SetOption(Ipponboard::EOption option, bool isSet);
+    bool GetOption(Ipponboard::EOption option) const;
 
 	void Gong() const;
 
@@ -84,6 +87,7 @@ private:
 	const int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
+    bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
 
 public:
 	// --- other functions ---
@@ -168,6 +172,7 @@ private:
 	bool m_isGoldenScore;
 	QTime m_roundTime;
 	QString m_weight_class;
+    std::bitset<eOption_MAX> m_options;
 };
 
 } // namespace Ipponboard

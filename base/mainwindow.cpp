@@ -519,6 +519,9 @@ void MainWindow::write_settings()
     settings.setValue(str_tag_AutoSize, m_bAutoSize);
     settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
     settings.setValue(str_tag_MatLabel, m_MatLabel);
+    settings.setValue(str_tag_AutoIncrementPoints, m_pController->GetOption(eOption_AutoIncrementPoints));
+    settings.setValue(str_tag_Use2013Rules, m_pController->GetOption(eOption_Use2013Rules));
+
 #ifdef TEAM_VIEW
     settings.setValue(str_tag_Mode, m_mode);
     settings.setValue(str_tag_Host, m_host);
@@ -600,6 +603,14 @@ void MainWindow::read_settings()
     m_MatLabel = settings.value(str_tag_MatLabel, "  Ipponboard  ").toString(); // value is also in settings dialog!
     m_pPrimaryView->SetMat(m_MatLabel);
     m_pSecondaryView->SetMat(m_MatLabel);
+
+    // rules
+    m_pController->SetOption(eOption_AutoIncrementPoints,
+                             settings.value(str_tag_AutoIncrementPoints, true).toBool());
+
+    m_pController->SetOption(eOption_Use2013Rules,
+                             settings.value(str_tag_Use2013Rules, false).toBool());
+
 #ifdef TEAM_VIEW
     m_mode = settings.value(str_tag_Mode, "").toString();
     m_host = settings.value(str_tag_Host, "").toString();
@@ -1160,6 +1171,9 @@ void MainWindow::on_actionPreferences_triggered()
     dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
                            m_secondScreenSize);
 
+    dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
+                 m_pController->GetOption(eOption_Use2013Rules));
+
     dlg.SetControlConfig(&m_controlCfg);
     dlg.SetMatLabel(m_MatLabel);
     dlg.SetGongFile(m_pController->GetGongFile());
@@ -1177,6 +1191,10 @@ void MainWindow::on_actionPreferences_triggered()
         m_secondScreenNo = dlg.GetSelectedScreen();
         m_bAutoSize = dlg.IsAutoSize();
         m_secondScreenSize = dlg.GetSize();
+
+        // rules
+        m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
+        m_pController->SetOption(eOption_Use2013Rules, dlg.IsUse2013Rules());
 
         dlg.GetControlConfig(&m_controlCfg);
         // apply settings to gamepad

@@ -44,6 +44,7 @@ Controller::Controller()
     , m_isSonoMama(false)
     , m_isGoldenScore(false)
     , m_roundTime(0, 5, 0, 0)
+    , m_options(0)
 //=========================================================
 {
     m_pSM = new IpponboardSM();
@@ -548,6 +549,20 @@ void Controller::SetGoldenScore(bool isGS)
 //=========================================================
 {
     m_isGoldenScore = isGS;
+}
+
+//=========================================================
+void Controller::SetOption(EOption option, bool isSet)
+//=========================================================
+{
+    m_options.set(option, isSet);
+}
+
+//=========================================================
+bool Controller::GetOption(EOption option) const
+//=========================================================
+{
+    return m_options.test(option);
 }
 
 //=========================================================

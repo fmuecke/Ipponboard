@@ -30,28 +30,27 @@ public:
 	void SetFighterNameFont(const QFont& font);
 	void SetTextColorsFirst(const QColor& color, const QColor& background);
 	void SetTextColorsSecond(const QColor& color, const QColor& background);
-	void SetDigitSettings(const QFont& font, const QColor& color,
-						  const QColor& background);
 	void SetMatLabel(QString const& text);
 	void SetGongFile(const QString& path);
 
-	bool IsShowAlways() const;
+    void SetRules(bool autoIncrement, bool use2013RuleSet);
+
+    bool IsShowAlways() const;
 	int GetSelectedScreen() const;
 	bool IsAutoSize() const;
 	QSize GetSize() const;
 	const QFont GetInfoHeaderFont() const;
 	const QFont GetFighterNameFont() const;
-	//const QFont GetDigitFont() const;
 	const QColor GetInfoTextColor() const;
 	const QColor GetTextColorFirst() const;
 	const QColor GetTextColorSecond() const;
-	const QColor GetDigitColor() const;
 	const QColor GetInfoTextBgColor() const;
 	const QColor GetTextBgColorFirst() const;
 	const QColor GetTextBgColorSecond() const;
-	const QColor GetDigitBgColor() const;
 	const QString GetMatLabel() const;
 	const QString GetGongFile() const;
+    const bool IsAutoIncrementRule() const;
+    const bool IsUse2013Rules() const;
 
 	void SetControlConfig(ControlConfig* pConfig);
 	void GetControlConfig(ControlConfig* pConfig);

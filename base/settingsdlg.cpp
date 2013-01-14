@@ -29,7 +29,6 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
     ui->text_text_sample->SetText("  Ipponboard  ");
     ui->text_color_first->SetText(tr("FIRST FIGHTER"));
     ui->text_color_second->SetText(tr("SECOND FIGHTER"));
-    ui->text_digit_sample->SetText("3:24");
 
     // build button text map
     m_buttonTexts[FMlib::Gamepad::eButton1] = "button 1";
@@ -235,16 +234,6 @@ void SettingsDlg::SetTextColorsSecond(const QColor& color, const QColor& backgro
     ui->text_color_second->SetColor(color, background);
 }
 
-void SettingsDlg::SetDigitSettings(const QFont& font,
-                                   const QColor& color,
-                                   const QColor& background)
-{
-    //ui->fontComboBox_digit->setCurrentFont(font);
-    ui->text_digit_sample->SetFontAndColor(font, color, background);
-    //ui->checkBox_digits_bold->setChecked(font.bold());
-    //ui->checkBox_digits_italic->setChecked(font.italic());
-}
-
 void SettingsDlg::SetMatLabel(QString const& text)
 {
     const int index = ui->comboBox_mat->findText(text);
@@ -271,6 +260,12 @@ void SettingsDlg::SetGongFile(const QString& path)
 
     if (-1 != index)
         ui->comboBox_sound_time_ends->setCurrentIndex(index);
+}
+
+void SettingsDlg::SetRules(bool autoIncrement, bool use2013RuleSet)
+{
+    ui->checkBox_increment_points->setChecked(autoIncrement);
+    ui->checkBox_rules_2013->setChecked(use2013RuleSet);
 }
 
 bool SettingsDlg::IsShowAlways() const
@@ -312,11 +307,6 @@ const QFont SettingsDlg::GetFighterNameFont() const
     return f;
 }
 
-//const QFont SettingsDlg::GetDigitFont() const
-//{
-//	return ui->fontComboBox_digit->currentFont();
-//}
-
 const QColor SettingsDlg::GetInfoTextColor() const
 {
     return ui->text_text_sample->GetColor();
@@ -332,11 +322,6 @@ const QColor SettingsDlg::GetTextColorSecond() const
     return ui->text_color_second->GetColor();
 }
 
-const QColor SettingsDlg::GetDigitColor() const
-{
-    return ui->text_digit_sample->GetColor();
-}
-
 const QColor SettingsDlg::GetInfoTextBgColor() const
 {
     return ui->text_text_sample->GetBgColor();
@@ -349,10 +334,6 @@ const QColor SettingsDlg::GetTextBgColorSecond() const
 {
     return ui->text_color_second->GetBgColor();
 }
-const QColor SettingsDlg::GetDigitBgColor() const
-{
-    return ui->text_digit_sample->GetBgColor();
-}
 
 const QString SettingsDlg::GetMatLabel() const
 {
@@ -363,6 +344,16 @@ const QString SettingsDlg::GetGongFile() const
 {
     QString path = QDir::currentPath() + "/sounds/";
     return path + ui->comboBox_sound_time_ends->currentText();
+}
+
+const bool SettingsDlg::IsAutoIncrementRule() const
+{
+    return ui->checkBox_increment_points->isChecked();
+}
+
+const bool SettingsDlg::IsUse2013Rules() const
+{
+    return ui->checkBox_rules_2013->isChecked();
 }
 
 void SettingsDlg::on_buttonBox_accepted()
