@@ -74,7 +74,12 @@ enum EOsaekomiVal
 {
 	eOsaekomiVal_Yuko = 15,
 	eOsaekomiVal_Wazaari = 20,
-	eOsaekomiVal_Ippon = 25
+    eOsaekomiVal_Ippon = 25,
+
+    // new values for 2013 rules
+    eOsaekomiVal2013_Yuko = 10,
+    eOsaekomiVal2013_Wazaari = 15,
+    eOsaekomiVal2013_Ippon = 20
 };
 
 enum EOption

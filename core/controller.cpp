@@ -273,7 +273,7 @@ EFighter Controller::GetLead() const
                         winner = eFighter2;
                     else
                     {
-                        // equal ==> hantai or golden score
+                        // equal ==> golden score in single tournament (Hantai is no more)
                     }
                 }
             }
@@ -488,7 +488,14 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
     {
         if (eTimer_Main == timer)
         {
-            *m_pTimeMain = QTime::fromString(value, "m:ss");
+            QTime newTime = QTime::fromString(value, "m:ss");
+
+            // don't allow invalid times like "-1:22"
+            if (newTime.isValid())
+            {
+                *m_pTimeMain = newTime;
+            }
+
         }
         else if (eTimer_Hold == timer)
         {
@@ -875,7 +882,7 @@ void Controller::SetWeights(QStringList const& weights)
 void Controller::CopyAndSwitchGuestFighters()
 //=========================================================
 {
-    for (unsigned i(0); i < GetFightCount()-1; ++i)
+    for (int i(0); i < GetFightCount()-1; ++i)
     {
         m_TournamentScores[1].at(i).fighters[eFighter1] =
             m_TournamentScores[0].at(i).fighters[eFighter1];
@@ -957,9 +964,13 @@ void Controller::update_hold_time()
     *m_pTimeHold = m_pTimeHold->addSecs(1);
     const int secs = m_pTimeHold->second();
 
-    if (eOsaekomiVal_Yuko == secs ||
-            eOsaekomiVal_Wazaari == secs ||
-            eOsaekomiVal_Ippon == secs)
+    if ((is_option(eOption_Use2013Rules)
+         && (eOsaekomiVal2013_Yuko == secs
+             || eOsaekomiVal2013_Wazaari == secs
+             || eOsaekomiVal2013_Ippon == secs))
+        || (eOsaekomiVal_Yuko == secs
+            || eOsaekomiVal_Wazaari == secs
+            || eOsaekomiVal_Ippon == secs))
     {
         m_pSM->process_event(IpponboardSM_::HoldTimeEvent(secs, m_Tori));
         m_State = EState(m_pSM->current_state()[0]);
