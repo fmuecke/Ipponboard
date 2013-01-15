@@ -1,7 +1,7 @@
 REM call "%VS100COMNTOOLS%..\..\vc\vcvarsall.bat" x86 >nul
 cd "%BASE_DIR%\SingleTournament"
 "%QTDIR%\qmake.exe" > nul 
-start /WAIT jom release
+jom /L /S release
 IF errorlevel 1 (
 	echo %0: -- failed!
 	exit /b 1
@@ -9,7 +9,7 @@ IF errorlevel 1 (
 
 cd "%BASE_DIR%\TeamTournament"
 "%QTDIR%\qmake.exe" > nul 
-start /WAIT jom release
+jom /L /S release
 IF errorlevel 1 (
 	echo %0: -- failed!
 	exit /b 1
