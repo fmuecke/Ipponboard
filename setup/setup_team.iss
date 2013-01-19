@@ -17,7 +17,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard Team Edition"
-#define MyAppCopyright "2010-2012 Florian Mücke"
+#define MyAppCopyright "2010-2013 Florian Mücke"
 #define MyAppAuthor "Florian Mücke"
 
 [Setup]
@@ -38,7 +38,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=no
 AllowNoIcons=false
 ;OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
-OutputBaseFilename={#MyAppName}-TE-{#MyAppVersion}-setup
+OutputBaseFilename=Ipponboard-TE-{#MyAppVersion}-setup
 Compression=lzma2/Ultra
 SolidCompression=true
 InternalCompressLevel=Ultra
