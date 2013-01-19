@@ -51,7 +51,7 @@ View::View(IController* pController, EType type, QWidget* parent)
     ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
     ui->dummy_first->UpdateImage(":res/images/off_empty.png");
     ui->dummy_second->UpdateImage(":res/images/off_empty.png");
-    ui->image_golden_score->UpdateImage(":res/images/sand_clock.png");
+    ui->image_golden_score->UpdateImage(":res/images/golden_score.png");
 
     ui->text_hold_clock_first->SetText("00", ScaledText::eSize_full);
     ui->text_hold_clock_second->SetText("00", ScaledText::eSize_full);
