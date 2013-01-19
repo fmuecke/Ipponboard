@@ -1732,8 +1732,15 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
     if (checked)
     {
-        m_pController->SetRoundTime(
-            QTime().addSecs(t.GetGoldenScoreTime()));
+        if (m_pController->GetOption(Ipponboard::eOption_Use2013Rules))
+        {
+            m_pController->SetRoundTime(QTime());
+        }
+        else
+        {
+            m_pController->SetRoundTime(
+                QTime().addSecs(t.GetGoldenScoreTime()));
+        }
     }
     else
     {
