@@ -2,7 +2,7 @@
 // $Id$
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2010-2012 Florian Muecke - (ipponboardinfo at googlemail dot com)
+// Copyright (c) 2010-2013 Florian Muecke - (ipponboardinfo at googlemail dot com)
 // All rights reserved.  Web: http://www.ipponboard.info
 //
 // This file is part of the Ipponboard project.

@@ -1062,7 +1062,7 @@ void MainWindow::WriteScoreToHtml_()
 
     const QString copyright = tr("List generated with Ipponboard v") +
                               QApplication::applicationVersion() +
-                              ", &copy; " + QApplication::organizationName() + ", 2010-2012";
+                              ", &copy; " + QApplication::organizationName() + ", 2010-2013";
     m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 #endif
@@ -1076,10 +1076,10 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
         this,
         tr("About %1").arg(QCoreApplication::applicationName()),
         tr("<h3>%1 v%2</h3>"
-           "<p>%1 was entirely written in advanced C++ using the Qt toolkit %3.</p>"
+           //"<p>%1 was entirely written in advanced C++ using the Qt toolkit %3.</p>"
            "<p>Revision: %4</p>"
            "<p>Author: Florian M&uuml;cke, <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-           "<p>&copy; 2010-2012 Florian M&uuml;cke. All rights reserved.</p>"
+           "<p>&copy; 2010-2013 Florian M&uuml;cke. All rights reserved.</p>"
            "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
            "PARTICULAR PURPOSE.<br/>"

@@ -1,8 +1,8 @@
 @echo off
 :: --> CHANGE VERSION HERE:
 SET VER1=1
-SET VER2=0
-SET VER3=1
+SET VER2=2
+SET VER3=0
 IF NOT EXIST ..\base\.buildnr (
 	SET VER4=0
 ) ELSE (
@@ -109,8 +109,8 @@ ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE2%
 ECHO             VALUE "InternalName", "Ipponboard.exe\0">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard_team.exe\0">>%RC_FILE2%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-2012 Florian Mücke\0">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-2012 Florian Mücke\0">>%RC_FILE2%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke\0">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke\0">>%RC_FILE2%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe\0">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard_team.exe\0">>%RC_FILE2%
 ECHO             VALUE "ProductName", "Ipponboard\0">>%RC_FILE%
