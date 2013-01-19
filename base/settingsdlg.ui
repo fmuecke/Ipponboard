@@ -728,7 +728,7 @@
              <bool>true</bool>
             </property>
             <property name="toolTip">
-             <string>Will use the rules that are valid till 2013</string>
+             <string>Use the new IJF rules of 2013</string>
             </property>
             <property name="text">
              <string>Use 2013 IJF rules</string>

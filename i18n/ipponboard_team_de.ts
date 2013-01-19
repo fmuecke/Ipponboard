@@ -214,22 +214,30 @@
         <translation type="obsolete">Weiß</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="30"/>
         <source>BLUE</source>
-        <translation>BLAU</translation>
+        <translation type="obsolete">BLAU</translation>
+    </message>
+    <message>
+        <source>WHITE</source>
+        <translation type="obsolete">WEISS</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.cpp" line="30"/>
+        <source>FIRST FIGHTER</source>
+        <translation>ERSTER KÄMPFER</translation>
     </message>
     <message>
         <location filename="../base/settingsdlg.cpp" line="31"/>
-        <source>WHITE</source>
-        <translation>WEISS</translation>
+        <source>SECOND FIGHTER</source>
+        <translation>ZWEITER KÄMPFER</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="169"/>
+        <location filename="../base/settingsdlg.cpp" line="175"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.cpp" line="170"/>
+        <location filename="../base/settingsdlg.cpp" line="176"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -505,7 +513,7 @@
     </message>
     <message>
         <location filename="../TeamTournament/mainwindow.ui" line="907"/>
-        <location filename="../base/mainwindow.cpp" line="1448"/>
+        <location filename="../base/mainwindow.cpp" line="1468"/>
         <source>Off</source>
         <translation>aus</translation>
     </message>
@@ -726,7 +734,7 @@
     </message>
     <message>
         <location filename="../TeamTournament/mainwindow.ui" line="1179"/>
-        <location filename="../base/mainwindow.cpp" line="1138"/>
+        <location filename="../base/mainwindow.cpp" line="1150"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
@@ -851,17 +859,15 @@
         <translation type="obsolete">Exportieren</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="193"/>
         <source>Blue</source>
-        <translation>Blau</translation>
+        <translation type="obsolete">Blau</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="194"/>
         <source>White</source>
-        <translation>Weiß</translation>
+        <translation type="obsolete">Weiß</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="917"/>
+        <location filename="../base/mainwindow.cpp" line="930"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -870,125 +876,135 @@
         <translation type="obsolete">Datei kann nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="918"/>
+        <location filename="../base/mainwindow.cpp" line="931"/>
         <source>File could not be opened: </source>
         <translation>Datei konnte nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="963"/>
+        <location filename="../base/mainwindow.cpp" line="975"/>
         <source>tie</source>
         <translation>Unentschieden</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1051"/>
+        <location filename="../base/mainwindow.cpp" line="1063"/>
         <source>List generated with Ipponboard v</source>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1065"/>
+        <location filename="../base/mainwindow.cpp" line="1077"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1066"/>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;%1 was entirely written in advanced C++ using the Qt toolkit %3.&lt;/p&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2013 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
+        <location filename="../base/mainwindow.cpp" line="193"/>
+        <source>First</source>
+        <translation>Erster</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="194"/>
+        <source>Second</source>
+        <translation>Zweiter</translation>
+    </message>
+    <message>
+        <location filename="../base/mainwindow.cpp" line="1078"/>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Revision: %4&lt;/p&gt;&lt;p&gt;Author: Florian M&amp;uuml;cke, &lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2013 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;br/&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1473"/>
+        <location filename="../base/mainwindow.cpp" line="1493"/>
         <source>On</source>
         <translation>an</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1609"/>
+        <location filename="../base/mainwindow.cpp" line="1649"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1610"/>
+        <location filename="../base/mainwindow.cpp" line="1650"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1611"/>
+        <location filename="../base/mainwindow.cpp" line="1651"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1779"/>
+        <location filename="../base/mainwindow.cpp" line="1826"/>
         <source>Please restart the application so that the changes can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1812"/>
-        <location filename="../base/mainwindow.cpp" line="1832"/>
-        <location filename="../base/mainwindow.cpp" line="1888"/>
+        <location filename="../base/mainwindow.cpp" line="1859"/>
+        <location filename="../base/mainwindow.cpp" line="1879"/>
+        <location filename="../base/mainwindow.cpp" line="1952"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1813"/>
+        <location filename="../base/mainwindow.cpp" line="1860"/>
         <source>Set value to (ss):</source>
         <translation>Setzte Wert auf (ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1833"/>
-        <location filename="../base/mainwindow.cpp" line="1889"/>
+        <location filename="../base/mainwindow.cpp" line="1880"/>
+        <location filename="../base/mainwindow.cpp" line="1953"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1849"/>
+        <location filename="../base/mainwindow.cpp" line="1913"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1850"/>
+        <location filename="../base/mainwindow.cpp" line="1914"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
         <translation>Setze die Gewichtsklassen (getrennt durch &apos;;&apos;):</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1861"/>
+        <location filename="../base/mainwindow.cpp" line="1925"/>
         <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
         <translation>Sie müssen die %1 Klassen getrennt durch &apos;;&apos; angeben!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1977"/>
+        <location filename="../base/mainwindow.cpp" line="2041"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1980"/>
+        <location filename="../base/mainwindow.cpp" line="2044"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1983"/>
+        <location filename="../base/mainwindow.cpp" line="2047"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2053"/>
+        <location filename="../base/mainwindow.cpp" line="2117"/>
         <source>There is nothing to paste!</source>
         <translation>Es gibt nichts zum Einfügen!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2062"/>
+        <location filename="../base/mainwindow.cpp" line="2126"/>
         <source>Can not paste into an empty selection!</source>
         <translation>In eine leere Auswahl kann nicht eingefügt werden!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2070"/>
+        <location filename="../base/mainwindow.cpp" line="2134"/>
         <source>There is too few data for the selection in the clipboard!</source>
         <translation>Zum Einfügen gibt es nicht genügend Daten in der Zwischenablage!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2093"/>
+        <location filename="../base/mainwindow.cpp" line="2157"/>
         <source>There is more data available in the clipboard as could be pasted!</source>
         <translation>Die Zwischenablage entählt mehr Daten als eingefügt werden können!</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="2268"/>
+        <location filename="../base/mainwindow.cpp" line="2332"/>
         <source>Ipponboard fight list</source>
         <translation>Ipponboard Wettkampfliste</translation>
     </message>
@@ -1005,7 +1021,7 @@
         <translation type="obsolete">Stylesheet</translation>
     </message>
     <message>
-        <location filename="../base/mainwindow.cpp" line="1139"/>
+        <location filename="../base/mainwindow.cpp" line="1151"/>
         <source>Really reset complete score table?</source>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
@@ -1071,7 +1087,7 @@ und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&l
     </message>
     <message>
         <location filename="../TeamTournament/main.cpp" line="95"/>
-        <location filename="../TeamTournament/main.cpp" line="107"/>
+        <location filename="../TeamTournament/main.cpp" line="106"/>
         <source>Warning</source>
         <translation>Vorsicht</translation>
     </message>
@@ -1092,7 +1108,7 @@ You need to visit the project homepage for an update.</source>
 Bitte besuchen Sie die Programmhomepage für ein Update!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/main.cpp" line="108"/>
+        <location filename="../TeamTournament/main.cpp" line="107"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project homepage - there should be a newer version available.</source>
@@ -1174,7 +1190,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
     </message>
     <message>
         <location filename="../base/settingsdlg.ui" line="50"/>
-        <location filename="../base/settingsdlg.ui" line="765"/>
+        <location filename="../base/settingsdlg.ui" line="755"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
@@ -1216,21 +1232,21 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Schrift</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="447"/>
-        <location filename="../base/settingsdlg.ui" line="586"/>
+        <location filename="../base/settingsdlg.ui" line="451"/>
+        <location filename="../base/settingsdlg.ui" line="646"/>
         <source>bold</source>
         <translation>fett</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="454"/>
-        <location filename="../base/settingsdlg.ui" line="593"/>
+        <location filename="../base/settingsdlg.ui" line="458"/>
+        <location filename="../base/settingsdlg.ui" line="653"/>
         <source>italic</source>
         <translation>kursiv</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="379"/>
-        <location filename="../base/settingsdlg.ui" line="518"/>
-        <location filename="../base/settingsdlg.ui" line="639"/>
+        <location filename="../base/settingsdlg.ui" line="383"/>
+        <location filename="../base/settingsdlg.ui" line="481"/>
+        <location filename="../base/settingsdlg.ui" line="578"/>
         <source>Sets the foreground color</source>
         <translation>Setzt die Vordergrundfarbe</translation>
     </message>
@@ -1239,9 +1255,9 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">VG...</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="417"/>
-        <location filename="../base/settingsdlg.ui" line="553"/>
-        <location filename="../base/settingsdlg.ui" line="674"/>
+        <location filename="../base/settingsdlg.ui" line="418"/>
+        <location filename="../base/settingsdlg.ui" line="516"/>
+        <location filename="../base/settingsdlg.ui" line="616"/>
         <source>Sets the background color</source>
         <translation>Setzt die Hintergrundfarbe</translation>
     </message>
@@ -1270,7 +1286,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Zeit Ende</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="326"/>
+        <location filename="../base/settingsdlg.ui" line="328"/>
         <source>Play</source>
         <translation>Abspielen</translation>
     </message>
@@ -1287,7 +1303,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Reset (ALLES)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="771"/>
+        <location filename="../base/settingsdlg.ui" line="761"/>
         <source>Next fight</source>
         <translation>Nächster Kampf</translation>
     </message>
@@ -1300,12 +1316,12 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">...(HG)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="829"/>
+        <location filename="../base/settingsdlg.ui" line="819"/>
         <source>Prev fight</source>
         <translation>Vorheriger Kampf</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="791"/>
+        <location filename="../base/settingsdlg.ui" line="781"/>
         <source>Pause screen</source>
         <translation>Pause-Bildschirm</translation>
     </message>
@@ -1330,7 +1346,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Blau hält</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1207"/>
+        <location filename="../base/settingsdlg.ui" line="1197"/>
         <source>Reset Hold Time</source>
         <translation>Haltegriff-Reset</translation>
     </message>
@@ -1355,17 +1371,17 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Axen</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="981"/>
+        <location filename="../base/settingsdlg.ui" line="971"/>
         <source>Invert X axis</source>
         <translation>X-Achse invertieren</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1055"/>
+        <location filename="../base/settingsdlg.ui" line="1045"/>
         <source>Invert R axis</source>
         <translation>R-Achse invertieren</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="974"/>
+        <location filename="../base/settingsdlg.ui" line="964"/>
         <source>Invert Y axis</source>
         <translation>Y-Achse invertieren</translation>
     </message>
@@ -1388,52 +1404,52 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Mattensignal</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="273"/>
+        <location filename="../base/settingsdlg.ui" line="270"/>
         <source>Mat 1</source>
         <translation>Matte 1</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="278"/>
+        <location filename="../base/settingsdlg.ui" line="275"/>
         <source>Mat 2</source>
         <translation>Matte 2</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="283"/>
+        <location filename="../base/settingsdlg.ui" line="280"/>
         <source>Mat 3</source>
         <translation>Matte 3</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="288"/>
+        <location filename="../base/settingsdlg.ui" line="285"/>
         <source>Mat 4</source>
         <translation>Matte 4</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="293"/>
+        <location filename="../base/settingsdlg.ui" line="290"/>
         <source>Mat 5</source>
         <translation>Matte 5</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="298"/>
+        <location filename="../base/settingsdlg.ui" line="295"/>
         <source>Mat 6</source>
         <translation>Matte 6</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="303"/>
+        <location filename="../base/settingsdlg.ui" line="300"/>
         <source>Mat 7</source>
         <translation>Matte 7</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="308"/>
+        <location filename="../base/settingsdlg.ui" line="305"/>
         <source>Mat 8</source>
         <translation>Matte 8</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="313"/>
+        <location filename="../base/settingsdlg.ui" line="310"/>
         <source>Mat 9</source>
         <translation>Matte 9</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="318"/>
+        <location filename="../base/settingsdlg.ui" line="315"/>
         <source>Mat 10</source>
         <translation>Matte 10</translation>
     </message>
@@ -1450,196 +1466,228 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Kämpfer (Farben und Schrift)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="244"/>
+        <location filename="../base/settingsdlg.ui" line="254"/>
         <source>Label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="254"/>
+        <location filename="../base/settingsdlg.ui" line="247"/>
         <source>Signal</source>
         <translation>Signal</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="349"/>
+        <location filename="../base/settingsdlg.ui" line="353"/>
         <source>Fonts &amp;&amp; Colors</source>
         <translation>Schriften und Farben</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="487"/>
         <source>The digit settings can not be changed.</source>
-        <translation>Zifferneigenschaften sind nicht änderbar.</translation>
+        <translation type="obsolete">Zifferneigenschaften sind nicht änderbar.</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="728"/>
         <source>The digit settings can not be changed!</source>
-        <translation>Die Einstellungen für die Ziffern können nicht geändert werden!</translation>
+        <translation type="obsolete">Die Einstellungen für die Ziffern können nicht geändert werden!</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="759"/>
+        <location filename="../base/settingsdlg.ui" line="749"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="811"/>
+        <location filename="../base/settingsdlg.ui" line="801"/>
         <source>Reset all
 (two buttons needed)</source>
         <translation>Alles zurücksetzen
 (benötigt zwei Knöpfe)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="849"/>
-        <location filename="../base/settingsdlg.ui" line="1172"/>
+        <location filename="../base/settingsdlg.ui" line="839"/>
+        <location filename="../base/settingsdlg.ui" line="1162"/>
         <source>Hajime/Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="897"/>
         <source>Blue Fighter</source>
-        <translation>Kämpfer Blau</translation>
+        <translation type="obsolete">Kämpfer Blau</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="903"/>
-        <location filename="../base/settingsdlg.ui" line="997"/>
+        <location filename="../base/settingsdlg.ui" line="893"/>
+        <location filename="../base/settingsdlg.ui" line="987"/>
         <source>Osaekomi/Toketa</source>
         <translation>Osaekomi/Toketa</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="930"/>
-        <location filename="../base/settingsdlg.ui" line="1014"/>
+        <location filename="../base/settingsdlg.ui" line="920"/>
+        <location filename="../base/settingsdlg.ui" line="1004"/>
         <source>Reset hold time</source>
         <translation>Haltezeit-Reset</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="937"/>
-        <location filename="../base/settingsdlg.ui" line="1031"/>
+        <location filename="../base/settingsdlg.ui" line="927"/>
+        <location filename="../base/settingsdlg.ui" line="1021"/>
         <source>Hansokumake</source>
         <translation>Hansokumake</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="954"/>
+        <location filename="../base/settingsdlg.ui" line="944"/>
         <source>Axes used for points: X/Y</source>
         <translation>Achsen für die Wertungen: X/Y</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="991"/>
         <source>White Fighter</source>
-        <translation>Kämpfer Weiß</translation>
+        <translation type="obsolete">Kämpfer Weiß</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1048"/>
+        <location filename="../base/settingsdlg.ui" line="712"/>
+        <source>Rules</source>
+        <translation>Regelwerk</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="718"/>
+        <source>Automatically add points for osaekomi and penalties</source>
+        <translation>Wertungen für Osaekomi-Zeiten und Strafen automatisch vergeben</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="721"/>
+        <source>Auto increment points</source>
+        <translation>Wertungen automatisch erhöhen</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="731"/>
+        <source>Use the new IJF rules of 2013</source>
+        <translation>Die neuen IJF-Wettkampfregeln von 2013 verwenden</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="734"/>
+        <source>Use 2013 IJF rules</source>
+        <translation>IJF Regeln von 2013 verwenden</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="887"/>
+        <source>First Fighter</source>
+        <translation>Erster Kämpfer</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="981"/>
+        <source>Second Fighter</source>
+        <translation>Zweiter Kämpfer</translation>
+    </message>
+    <message>
+        <location filename="../base/settingsdlg.ui" line="1038"/>
         <source>Invert Z axis</source>
         <translation>Z-Achse invertieren</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1062"/>
+        <location filename="../base/settingsdlg.ui" line="1052"/>
         <source>Axes used for points: Z/R</source>
         <translation>Achsen für die Wertungen: Z/R</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1108"/>
+        <location filename="../base/settingsdlg.ui" line="1098"/>
         <source>Keyboard</source>
         <translation>Tastatur</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1177"/>
+        <location filename="../base/settingsdlg.ui" line="1167"/>
         <source>Next</source>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1182"/>
+        <location filename="../base/settingsdlg.ui" line="1172"/>
         <source>Prev</source>
         <translation>Vorheriger</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1187"/>
+        <location filename="../base/settingsdlg.ui" line="1177"/>
         <source>Result Screen</source>
         <translation>Zwischenstand-Anzeige</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1212"/>
+        <location filename="../base/settingsdlg.ui" line="1202"/>
         <source>+/- Ippon (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1217"/>
+        <location filename="../base/settingsdlg.ui" line="1207"/>
         <source>+/- Wazaari (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1222"/>
+        <location filename="../base/settingsdlg.ui" line="1212"/>
         <source>+/- Yuko (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1227"/>
+        <location filename="../base/settingsdlg.ui" line="1217"/>
         <source>+/- Shido (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1232"/>
+        <location filename="../base/settingsdlg.ui" line="1222"/>
         <source>+/- Ippon (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1237"/>
+        <location filename="../base/settingsdlg.ui" line="1227"/>
         <source>+/- Wazaari (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1242"/>
+        <location filename="../base/settingsdlg.ui" line="1232"/>
         <source>+/- Yuko (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1247"/>
+        <location filename="../base/settingsdlg.ui" line="1237"/>
         <source>+/- Shido (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1262"/>
+        <location filename="../base/settingsdlg.ui" line="1252"/>
         <source>Space</source>
         <translation>Leertaste</translation>
     </message>
     <message>
+        <location filename="../base/settingsdlg.ui" line="1257"/>
         <location filename="../base/settingsdlg.ui" line="1267"/>
-        <location filename="../base/settingsdlg.ui" line="1277"/>
         <source>Ctrl + Alt</source>
         <translation>Ctrl + Alt</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1272"/>
-        <location filename="../base/settingsdlg.ui" line="1307"/>
+        <location filename="../base/settingsdlg.ui" line="1262"/>
+        <location filename="../base/settingsdlg.ui" line="1297"/>
         <source>Right</source>
         <translation>Rechts</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1282"/>
-        <location filename="../base/settingsdlg.ui" line="1302"/>
+        <location filename="../base/settingsdlg.ui" line="1272"/>
+        <location filename="../base/settingsdlg.ui" line="1292"/>
         <source>Left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1287"/>
+        <location filename="../base/settingsdlg.ui" line="1277"/>
         <source>F4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1292"/>
-        <location filename="../base/settingsdlg.ui" line="1312"/>
+        <location filename="../base/settingsdlg.ui" line="1282"/>
+        <location filename="../base/settingsdlg.ui" line="1302"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1297"/>
+        <location filename="../base/settingsdlg.ui" line="1287"/>
         <source>Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1317"/>
+        <location filename="../base/settingsdlg.ui" line="1307"/>
         <source>Down</source>
         <translation>Runter</translation>
     </message>
     <message>
+        <location filename="../base/settingsdlg.ui" line="1312"/>
         <location filename="../base/settingsdlg.ui" line="1322"/>
         <location filename="../base/settingsdlg.ui" line="1332"/>
         <location filename="../base/settingsdlg.ui" line="1342"/>
@@ -1647,47 +1695,46 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <location filename="../base/settingsdlg.ui" line="1362"/>
         <location filename="../base/settingsdlg.ui" line="1372"/>
         <location filename="../base/settingsdlg.ui" line="1382"/>
-        <location filename="../base/settingsdlg.ui" line="1392"/>
         <source>Ctrl (for revoke)</source>
         <translation>Ctrl (zum Zurücknehmen)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1327"/>
+        <location filename="../base/settingsdlg.ui" line="1317"/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1337"/>
+        <location filename="../base/settingsdlg.ui" line="1327"/>
         <source>F6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1347"/>
+        <location filename="../base/settingsdlg.ui" line="1337"/>
         <source>F7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1357"/>
+        <location filename="../base/settingsdlg.ui" line="1347"/>
         <source>F8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1367"/>
+        <location filename="../base/settingsdlg.ui" line="1357"/>
         <source>F9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1377"/>
+        <location filename="../base/settingsdlg.ui" line="1367"/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1387"/>
+        <location filename="../base/settingsdlg.ui" line="1377"/>
         <source>F11</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1408"/>
+        <location filename="../base/settingsdlg.ui" line="1398"/>
         <source>The keyboard shortcuts can not be changed in this version (yet).</source>
         <translation>Die Tasten können in der aktuellen Version (noch) nicht geändet werden.</translation>
     </message>
@@ -1696,17 +1743,17 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Pause</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1192"/>
+        <location filename="../base/settingsdlg.ui" line="1182"/>
         <source>Reset all</source>
         <translation>Reset (ALLES)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1197"/>
+        <location filename="../base/settingsdlg.ui" line="1187"/>
         <source>Osaekomi/Toketa (blue)</source>
         <translation>Osaekomi/Toketa (Blau)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1202"/>
+        <location filename="../base/settingsdlg.ui" line="1192"/>
         <source>Osaekomi/Toketa (white)</source>
         <translation>Osaekomi/Toketa (Weiß)</translation>
     </message>
@@ -1727,12 +1774,12 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Hansokumake (Weiß)</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1252"/>
+        <location filename="../base/settingsdlg.ui" line="1242"/>
         <source>Modifier</source>
         <translation>Modifizierer</translation>
     </message>
     <message>
-        <location filename="../base/settingsdlg.ui" line="1257"/>
+        <location filename="../base/settingsdlg.ui" line="1247"/>
         <source>Key</source>
         <translation>Taste</translation>
     </message>
