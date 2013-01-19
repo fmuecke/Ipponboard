@@ -935,26 +935,35 @@ const QString& Controller::GetGongFile() const
 void Controller::update_main_time()
 //=========================================================
 {
-    *m_pTimeMain = m_pTimeMain->addSecs(-1);
-    const bool isTimeUp = QTime(0, 0, 0, 0).secsTo(*m_pTimeMain) <= 0;
-
-    // correct time again
-    const int secsTo(QTime(0, 0, 0, 0).secsTo(*m_pTimeMain));
-
-    if (secsTo < 0 || *m_pTimeMain > m_roundTime)
-        m_pTimeMain->setHMS(0, 0, 0, 0);
-
-    if (eState_TimerRunning == m_State)
+    if (is_option(Ipponboard::eOption_Use2013Rules)
+            && is_golden_score())
     {
-        if (isTimeUp)
-        {
-            m_pSM->process_event(IpponboardSM_::TimeEndedEvent());
-            m_State = EState(m_pSM->current_state()[0]);
-            Gong();
-        }
+        *m_pTimeMain = m_pTimeMain->addSecs(1);
     }
+    else
+    {
+        *m_pTimeMain = m_pTimeMain->addSecs(-1);
 
-    // else (stopped or ended) --> do nothing
+        const bool isTimeUp = QTime(0, 0, 0, 0).secsTo(*m_pTimeMain) <= 0;
+
+        // correct time again
+        const int secsTo(QTime(0, 0, 0, 0).secsTo(*m_pTimeMain));
+
+        if (secsTo < 0 || *m_pTimeMain > m_roundTime)
+            m_pTimeMain->setHMS(0, 0, 0, 0);
+
+        if (eState_TimerRunning == m_State)
+        {
+            if (isTimeUp)
+            {
+                m_pSM->process_event(IpponboardSM_::TimeEndedEvent());
+                m_State = EState(m_pSM->current_state()[0]);
+                Gong();
+            }
+        }
+
+        // else (stopped or ended) --> do nothing
+    }
 
     update_views();
 }

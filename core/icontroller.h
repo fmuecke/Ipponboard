@@ -37,6 +37,7 @@ public:
 	virtual void SetGoldenScore(bool isGS) = 0;
 	virtual bool IsGoldenScore() const = 0;
     virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
+    virtual bool GetOption(Ipponboard::EOption option) const = 0;
 };
 
 }
