@@ -117,14 +117,14 @@ MainWindow::MainWindow(QWidget* parent)
     m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
     m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
     m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
     m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
 #endif
 
@@ -1534,6 +1534,16 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
         m_pController->SetRoundTime("5:00");
         update_weights("-60;-66;-73;-81;-90;-100;+100");
     }
+    else if( s == str_mode_1te_bundesliga_nord_f ||
+        s == str_mode_1te_bundesliga_sued_f ||
+        s == str_mode_2te_bundesliga_nord_f ||
+        s == str_mode_2te_bundesliga_sued_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-48;-52;-57;-63;-70;-78;+78");
+    }
     else if( s == str_mode_mm_u17_m )
     {
         m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
@@ -1557,6 +1567,16 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
         m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
         m_pController->SetRoundTime("5:00");
         update_weights("-66;-73;-81;-90;+90");
+    }
+    else if( s == str_mode_bayernliga_nord_f ||
+             s == str_mode_bayernliga_sued_f ||
+             s == str_mode_landesliga_nord_f ||
+             s == str_mode_landesliga_sued_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-48;-52;-57;-63;-70;-78;+78");
     }
     else
     {
