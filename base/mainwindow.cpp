@@ -202,6 +202,8 @@ MainWindow::MainWindow(QWidget* parent)
     connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
     m_pTimer->start(75);
 
+    update_statebar();
+
 #ifdef TEAM_VIEW
     UpdateFightNumber_();
 
@@ -610,6 +612,7 @@ void MainWindow::read_settings()
 
     m_pController->SetOption(eOption_Use2013Rules,
                              settings.value(str_tag_Use2013Rules, false).toBool());
+    update_statebar();
 
 #ifdef TEAM_VIEW
     m_mode = settings.value(str_tag_Mode, "").toString();
@@ -1214,6 +1217,7 @@ void MainWindow::on_actionPreferences_triggered()
         // save changes to file
         write_settings();
 
+        update_statebar();
         update_views();
     }
 }
@@ -1863,6 +1867,23 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
     }
 }
 
+void MainWindow::update_statebar()
+{
+//    if (Gamepad::eState_ok != m_pGamePad->GetState())
+//    {
+//        m_pUi->label_controller_state->setText(tr("No controller detected!"));
+//    }
+//    else
+//    {
+//        QString controllerName = QString::fromWCharArray(m_pGamePad->GetProductName());
+//        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
+//    }
+#ifndef TEAM_VIEW
+    m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
+    m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+#endif
+}
+
 #ifdef TEAM_VIEW
 void MainWindow::on_toolButton_weights_pressed()
 {
@@ -2292,3 +2313,13 @@ QString MainWindow::get_full_mode_title(QString const& mode)
 }
 #endif
 
+
+void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
+{
+    m_pController->SetOption(eOption_Use2013Rules, checked);
+}
+
+void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
+{
+    m_pController->SetOption(eOption_AutoIncrementPoints, checked);
+}

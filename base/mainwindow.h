@@ -192,7 +192,12 @@ private slots:
     void on_button_reset_clicked();
     void EvaluateInput();
 
+    void on_checkBox_use2013rules_toggled(bool checked);
+
+    void on_checkBox_autoIncrement_toggled(bool checked);
+
 private:
+    void update_statebar();
     Ui::MainWindow* m_pUi;
     Ipponboard::View* m_pPrimaryView;
     Ipponboard::View* m_pSecondaryView;

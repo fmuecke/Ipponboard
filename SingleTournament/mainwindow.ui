@@ -52,18 +52,12 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0">
-    <property name="leftMargin">
+   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0,0,0">
+    <property name="spacing">
      <number>0</number>
     </property>
-    <property name="topMargin">
+    <property name="margin">
      <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>5</number>
     </property>
     <item>
      <widget class="QFrame" name="frame_primary_view">
@@ -97,7 +91,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -107,8 +101,78 @@
       <property name="rightMargin">
        <number>5</number>
       </property>
-      <item row="1" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_second">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Options">
+        <property name="text">
+         <string>Options</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_autoIncrement">
+        <property name="toolTip">
+         <string>Automatically set resulting points from osaekomi or penalties</string>
+        </property>
+        <property name="text">
+         <string>Auto set points</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_use2013rules">
+        <property name="toolTip">
+         <string>Use the new 2013 IJF rule set</string>
+        </property>
+        <property name="text">
+         <string>Use 2013 rules</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+      <property name="margin">
+       <number>5</number>
+      </property>
+      <item row="0" column="5">
+       <widget class="QLineEdit" name="lineEdit_name_first">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -117,24 +181,15 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="4">
-       <widget class="QLabel" name="label_2">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Second Fighter (first last)</string>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_weight_class">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
-       <widget class="QLineEdit" name="lineEdit_name_first">
+      <item row="1" column="5">
+       <widget class="QLineEdit" name="lineEdit_name_second">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -165,10 +220,19 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_weight">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
+      <item row="1" column="4">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Second Fighter (first last)</string>
         </property>
        </widget>
       </item>
@@ -186,13 +250,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox_weight_class">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -205,6 +262,26 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="7" colspan="2">
+       <widget class="QCheckBox" name="checkBox_golden_score">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Golden Score round time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_weight">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+       </widget>
       </item>
       <item row="1" column="6">
        <spacer name="horizontalSpacer_2">
@@ -219,33 +296,16 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="7">
-       <widget class="QPushButton" name="pushButton_Signal">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Plays the signal sound file</string>
-        </property>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Signal</string>
+         <string notr="true"/>
         </property>
-        <property name="icon">
-         <iconset resource="../base/ipponboard.qrc">
-          <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="7" colspan="2">
-       <widget class="QCheckBox" name="checkBox_golden_score">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>Golden Score round time</string>
+        <property name="pixmap">
+         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
         </property>
        </widget>
       </item>
@@ -286,6 +346,23 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="7">
+       <widget class="QPushButton" name="pushButton_Signal">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Plays the signal sound file</string>
+        </property>
+        <property name="text">
+         <string>Signal</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../base/ipponboard.qrc">
+          <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="3">
        <widget class="QLabel" name="label_8">
         <property name="text">
@@ -296,19 +373,6 @@
         </property>
         <property name="pixmap">
          <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_white.png</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string notr="true"/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::PlainText</enum>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../base/ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
         </property>
        </widget>
       </item>
