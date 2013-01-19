@@ -21,6 +21,7 @@ IF "%VS100COMNTOOLS%"=="" (
   CALL "%VS100COMNTOOLS%..\..\vc\vcvarsall.bat" x86
 )
 
+cls
 echo;
 echo Select build mode:
 echo   (1) make clean
