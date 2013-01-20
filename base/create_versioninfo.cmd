@@ -12,7 +12,7 @@ IF NOT EXIST ..\base\.buildnr (
 echo %VER4% >..\base\.buildnr
 :: that's it. <--
 
-hg parents --template {rev} > ..\base\.revision
+hg parents --template "{rev}:{node|short}" > ..\base\.revision
 SET /P REV=<..\base\.revision
 
 hg parents --template {date^|localdate^|isodate} > ..\base\.date
