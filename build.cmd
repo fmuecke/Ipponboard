@@ -41,18 +41,20 @@ if %errorlevel%==1 goto make_clean
 GOTO the_end
 
 :make_clean
+	echo;
 	echo --[make clean]--
 	rem del /Q "%BASE_DIR%\base\.buildnr"
 	rd /Q /S "%BASE_DIR%\bin"
 	rd /Q /S "%BASE_DIR%\lib"
 	qmake -recursive
 	if errorlevel 1 pause
-	jom clean
+	jom /S /L clean>nul
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
 GOTO :EOF
 
 :build_clean
+	echo;
 	echo --[build clean]--
 	CALL :make_clean internal
 	CALL :build_incremental internal
@@ -60,15 +62,23 @@ GOTO :EOF
 GOTO :EOF
 
 :build_incremental
+	echo;
 	echo --[build incremental]--
 	qmake -recursive
 	if errorlevel 1 pause
-	jom release
-	if errorlevel 1 pause
+	::jom /L /S /F Makefile release
+	::if errorlevel 1 pause
+	CALL :do_compile core
+	CALL :do_compile gamepad
+	CALL :do_compile SingleTournament
+	CALL :do_compile TeamTournament
+	::CALL :do_compile VersionSelector
+	CALL :do_compile GamePadDemo
 	if not "%1"=="internal" pause
 GOTO :EOF
 
 :build_setup
+	echo;
 	echo --[setup only]--
 	if not exist "%INNO_DIR%\iscc.exe" (
 		echo Error: iscc.exe not found or INNO_DIR not defined!
@@ -87,11 +97,21 @@ GOTO :EOF
 GOTO :EOF
 
 :build_all
+	echo;
 	echo --[build all]--
 	CALL :make_clean internal
 	CALL :build_clean internal
 	CALL :build_setup internal
 	if not "%1"=="internal" pause
+GOTO :EOF
+
+:do_compile
+	echo;
+	echo -- compiling %1
+	pushd %1
+	jom /L /S /F Makefile.Release
+	if errorlevel 1 pause
+	popd
 GOTO :EOF
 
 :the_end

@@ -5,6 +5,10 @@
 #define BOOST_MPL_LIMIT_VECTOR_SIZE	50
 #define BOOST_MPL_LIMIT_MAP_SIZE	50
 
+// workaround for following error:
+//   boost/type_traits/detail/has_binary_operator.hp(50): Parse error at "BOOST_JOIN"
+#ifndef Q_MOC_RUN  
+
 #include <iostream>
 #include <string>
 #include <boost/msm/back/state_machine.hpp>
@@ -282,5 +286,7 @@ private:
 typedef msm::back::state_machine<IpponboardSM_> IpponboardSM;
 
 } // namespace Ipponboard
+
+#endif  // Q_MOC_RUN
 
 #endif  // BASE__STATEMACHINE_H_
