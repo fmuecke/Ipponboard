@@ -1076,16 +1076,14 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
         this,
         tr("About %1").arg(QCoreApplication::applicationName()),
         tr("<h3>%1 v%2</h3>"
-           //"<p>%1 was entirely written in advanced C++ using the Qt toolkit %3.</p>"
-           "<p>Revision: %4</p>"
-           "<p>Author: Florian M&uuml;cke, <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
+           "<p>Revision: %3</p>"
+           "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
            "<p>&copy; 2010-2013 Florian M&uuml;cke. All rights reserved.</p>"
            "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
            "PARTICULAR PURPOSE.<br/>"
           ).arg(QCoreApplication::applicationName(),
                 QCoreApplication::applicationVersion(),
-                QLatin1String(QT_VERSION_STR),
                 VersionInfo::Revision
                 //QLatin1String(__DATE__),
                 //QLatin1String(__TIME__)
