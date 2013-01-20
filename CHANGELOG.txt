@@ -6,8 +6,10 @@ Version 1.2
 - (new): automatic setting of points within Osaekomi or due to penalties can be turned off in the program settings (issue #14)
 - (new): default weight classes match new DJB specification (issue #16)
 - (new): support for women leagues (issue #7)
+- (new): Windows 8 support
 - (mod): replaced the hourglass in Golden Score mode with a golden text
 - (mod): team edition: the score values can be edited in table (fixes issue #10)
+- (mod): the detected screen dimensions are shown in the settings dialog
 - (fix): IJF conformity: changed initial sides (blue is now on the left side, white on the right) (fixes issue #17)
 - (fix): Hold is not aborted in golden score after scoring first yuko (issue #2)
 - (fix): checkbox for automatically detecting screen size did not enable dimension input fields for manual setting when unchecked
