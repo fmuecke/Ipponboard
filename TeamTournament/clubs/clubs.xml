@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>17</count>
+	<count>18</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -105,6 +105,17 @@
 	</item>
 	<item>
 		<c.name>
+			<value>Post SV Bamberg 1928 e.V.</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/post_sv_bamberg_1928.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>Abteilungsleiter: Paul Greiner (96135 Stegaurach)</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>SF Harteck München</value>
 		</c.name>
 		<c.logoFile>
@@ -149,7 +160,7 @@
 	</item>
 	<item>
 		<c.name>
-			<value>TSV Königsbrunn</value>
+			<value>TSV Königsbrunn e.V.</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/koenigsbrunn.png</value>
