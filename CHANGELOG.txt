@@ -1,0 +1,51 @@
+Version 1.2
+- (new): implemented new IJF rules of 2013
+    - Penalties(1): Shidos do not give points to the other fighter (except forth Shido = Hasokumake). At the end of the fight, if scoring is equal, the one with less Shido wins. (issue #18)
+	- Osaekomi: 10 seconds for Yuko, 15 seconds for Waza-ari, and 20 seconds for Ippon (issue #20)
+	- No time limit for Golden Score (Hantai is cancelled) (issue #19)
+- (new): automatic setting of points within Osaekomi or due to penalties can be turned off in the program settings (issue #14)
+- (new): default weight classes match new DJB specification (issue #16)
+- (new): support for women leagues (issue #7)
+- (mod): replaced the hourglass in Golden Score mode with a golden text
+- (mod): team edition: the score values can be edited in table (fixes issue #10)
+- (fix): IJF conformity: changed initial sides (blue is now on the left side, white on the right) (fixes issue #17)
+- (fix): Hold is not aborted in golden score after scoring first yuko (issue #2)
+- (fix): checkbox for automatically detecting screen size did not enable dimension input fields for manual setting when unchecked
+- (fix): don't allow invalid times like "-1:22" to be set for main timer
+
+Version 1.0.1
+- removed time limitation
+
+Version 1.0
+- (new): optimized GUI
+- (new): separate osaekomi controls for each fighter (this greatly improves mouse handling!)
+- (new): separate font configuration for the fighter names
+- (new): separate mat signal button
+- (new): the mat label can now be configured freely
+- (mod): changed some text labels
+- (mod): improved readability: score labels are bigger now
+- (mod): redesigned settings dialog (main settings and gamepad controls)
+- (mod): reordered control elements on main window
+- (fix): some internal glitches
+- (fix): reduced average cpu load from 10% to less than 1%
+- (fix): the hold color was not properly reset after a reset
+- (fix): fixed some portable installation issues
+
+Until 2011-01-03:
+- (new): fight categories are now fully editable (allowing adding/removing/(mod):ifying/renaming)
+- (new): information header (mat number, category, weight class) can now be switched on and off
+- (new): the setup now provides a clean portable installation type
+- (new): program icons: now using Fugue’s incredible and splendid icon set to freshen up the GUI
+- (fix): some minor code fixes
+
+Until 2010-10-11:
+- (new): The splashscreen button is now focused by default
+- (new): The program language can now be set in the main menu (available: English and German)
+- (new): Added some explaining tooltips to the settings dialog
+- (mod): The weight extension “kg” is not shown anymore
+- (mod): Output file name now has no spaces anymore
+- (fix): Sometimes the UI got stuck
+- (fix): Some minor textual corrections in the German manual
+- (fix): The text preview now instantly responds to font style changes (bold, italic)
+- (fix): End year of the trial period is 2011 not 2010…
+- (fix): Corrected version information in setup file
