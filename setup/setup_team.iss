@@ -116,6 +116,7 @@ Source: ..\_build\build_output\~tmp_TE\msvcp100.dll; DestDir: {app}; Flags: Igno
 Source: ..\_build\build_output\~tmp_TE\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\QtCore4.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\QtGui4.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
+Source: ..\CHANGELOG.txt; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 

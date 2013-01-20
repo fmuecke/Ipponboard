@@ -40,3 +40,5 @@ REM if not exist "%DEST%\Ipponboard_team.exe" (
 	REM pause
 	REM exit 1
 REM )
+
+copy /Y "..\CHANGELOG.txt" "%DEST%">nul
