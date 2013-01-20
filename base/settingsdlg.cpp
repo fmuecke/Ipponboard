@@ -21,6 +21,16 @@ SettingsDlg::SettingsDlg(QWidget* parent) :
     ui->comboBox_next->setEnabled(true);
     ui->comboBox_prev->setEnabled(true);
     ui->comboBox_pause->setEnabled(true);
+
+    ui->label_home->setEnabled(true);
+    ui->label_guest->setEnabled(true);
+    ui->lineEdit_labelHome->setEnabled(true);
+    ui->lineEdit_labelGuest->setEnabled(true);
+#else
+    ui->label_home->setEnabled(false);
+    ui->label_guest->setEnabled(false);
+    ui->lineEdit_labelHome->setEnabled(false);
+    ui->lineEdit_labelGuest->setEnabled(false);
 #endif
 
     //TODO: remove comment
@@ -234,16 +244,23 @@ void SettingsDlg::SetTextColorsSecond(const QColor& color, const QColor& backgro
     ui->text_color_second->SetColor(color, background);
 }
 
-void SettingsDlg::SetMatLabel(QString const& text)
+void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString const& guest)
 {
-    const int index = ui->comboBox_mat->findText(text);
+    const int index = ui->comboBox_mat->findText(mat);
 
     if (-1 != index)
+    {
         ui->comboBox_mat->setCurrentIndex(index);
+    }
     else
-        ui->comboBox_mat->setEditText(text);
+    {
+        ui->comboBox_mat->setEditText(mat);
+    }
 
-    ui->text_text_sample->SetText(text);
+    ui->text_text_sample->SetText(mat);
+
+    ui->lineEdit_labelHome->setText(home);
+    ui->lineEdit_labelGuest->setText(guest);
 }
 
 void SettingsDlg::SetGongFile(const QString& path)
@@ -338,6 +355,16 @@ const QColor SettingsDlg::GetTextBgColorSecond() const
 const QString SettingsDlg::GetMatLabel() const
 {
     return ui->comboBox_mat->currentText();
+}
+
+const QString SettingsDlg::GetHomeLabel() const
+{
+    return ui->lineEdit_labelHome->text();
+}
+
+const QString SettingsDlg::GetGuestLabel() const
+{
+    return ui->lineEdit_labelGuest->text();
 }
 
 const QString SettingsDlg::GetGongFile() const

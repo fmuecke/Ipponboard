@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>537</height>
+    <width>459</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -237,25 +237,49 @@
          <property name="checkable">
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="0,1">
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_text_gong">
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0" columnstretch="0,0">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_home">
+            <property name="toolTip">
+             <string>The text that is shown above the score for the &quot;home&quot; side</string>
             </property>
             <property name="text">
-             <string>Signal</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_mat_number">
-            <property name="text">
-             <string>Label</string>
+             <string>Home Label</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QComboBox" name="comboBox_sound_time_ends"/>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_play_gong">
+              <property name="text">
+               <string>Play</string>
+              </property>
+              <property name="icon">
+               <iconset resource="ipponboard.qrc">
+                <normaloff>:/res/icons/play.png</normaloff>:/res/icons/play.png</iconset>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::NoArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_mat_number">
+            <property name="text">
+             <string>Mat Label</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
            <widget class="QComboBox" name="comboBox_mat">
             <property name="editable">
              <bool>true</bool>
@@ -317,29 +341,38 @@
             </item>
            </widget>
           </item>
-          <item row="1" column="1">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item row="2" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0,1">
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
             <item>
-             <widget class="QComboBox" name="comboBox_sound_time_ends"/>
+             <widget class="QLineEdit" name="lineEdit_labelHome"/>
             </item>
             <item>
-             <widget class="QToolButton" name="toolButton_play_gong">
+             <widget class="QLabel" name="label_guest">
+              <property name="toolTip">
+               <string>The text that is shown above the score for the &quot;guest&quot; side</string>
+              </property>
               <property name="text">
-               <string>Play</string>
-              </property>
-              <property name="icon">
-               <iconset resource="ipponboard.qrc">
-                <normaloff>:/res/icons/play.png</normaloff>:/res/icons/play.png</iconset>
-              </property>
-              <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextBesideIcon</enum>
-              </property>
-              <property name="arrowType">
-               <enum>Qt::NoArrow</enum>
+               <string>Guest Label</string>
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_labelGuest"/>
+            </item>
            </layout>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_text_gong">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="text">
+             <string>Mat Signal</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -553,7 +586,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>40</height>
+              <height>20</height>
              </size>
             </property>
            </spacer>
@@ -711,7 +744,7 @@
          <property name="title">
           <string>Rules</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
           <item>
            <widget class="QCheckBox" name="checkBox_increment_points">
             <property name="toolTip">

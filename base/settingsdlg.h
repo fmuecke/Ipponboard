@@ -30,7 +30,7 @@ public:
 	void SetFighterNameFont(const QFont& font);
 	void SetTextColorsFirst(const QColor& color, const QColor& background);
 	void SetTextColorsSecond(const QColor& color, const QColor& background);
-	void SetMatLabel(QString const& text);
+    void SetLabels(QString const& mat, QString const& home, QString const& guest);
 	void SetGongFile(const QString& path);
 
     void SetRules(bool autoIncrement, bool use2013RuleSet);
@@ -48,6 +48,8 @@ public:
 	const QColor GetTextBgColorFirst() const;
 	const QColor GetTextBgColorSecond() const;
 	const QString GetMatLabel() const;
+    const QString GetHomeLabel() const;
+    const QString GetGuestLabel() const;
 	const QString GetGongFile() const;
     const bool IsAutoIncrementRule() const;
     const bool IsUse2013Rules() const;

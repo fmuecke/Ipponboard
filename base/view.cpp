@@ -855,20 +855,13 @@ void View::update_team_score() const
 
     if (is_secondary())
     {
-        ui->text_score_team_first_label->SetText(
-            tr("Home")/*, ScaledText::eSize_full*/);
-
-        ui->text_score_team_second_label->SetText(
-            tr("Guest")/*, ScaledText::eSize_uppercase*/);
+        ui->text_score_team_first_label->SetText(m_pController->GetHomeLabel());
+        ui->text_score_team_second_label->SetText(m_pController->GetGuestLabel());
     }
     else
     {
-        ui->text_score_team_second_label->SetText(
-            tr("Home")/*, ScaledText::eSize_full*/);
-
-        ui->text_score_team_first_label->SetText(
-            tr("Guest")/*, ScaledText::eSize_uppercase*/);
-
+        ui->text_score_team_second_label->SetText(m_pController->GetHomeLabel());
+        ui->text_score_team_first_label->SetText(m_pController->GetGuestLabel());
     }
 
     ui->text_score_team_first->SetText(

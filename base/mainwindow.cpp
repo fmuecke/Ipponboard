@@ -521,6 +521,8 @@ void MainWindow::write_settings()
     settings.setValue(str_tag_AutoSize, m_bAutoSize);
     settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
     settings.setValue(str_tag_MatLabel, m_MatLabel);
+    settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
+    settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
     settings.setValue(str_tag_AutoIncrementPoints, m_pController->GetOption(eOption_AutoIncrementPoints));
     settings.setValue(str_tag_Use2013Rules, m_pController->GetOption(eOption_Use2013Rules));
 
@@ -605,6 +607,10 @@ void MainWindow::read_settings()
     m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
     m_pPrimaryView->SetMat(m_MatLabel);
     m_pSecondaryView->SetMat(m_MatLabel);
+
+    m_pController->SetLabels(
+        settings.value(str_tag_LabelHome, tr("Home")).toString(),
+        settings.value(str_tag_LabelGuest, tr("Guest")).toString());
 
     // rules
     m_pController->SetOption(eOption_AutoIncrementPoints,
@@ -1164,11 +1170,15 @@ void MainWindow::on_actionPreferences_triggered()
     dlg.SetInfoHeaderSettings(m_pPrimaryView->GetInfoHeaderFont(),
                               m_pPrimaryView->GetInfoTextColor(),
                               m_pPrimaryView->GetInfoTextBgColor());
+
     dlg.SetFighterNameFont(m_FighterNameFont);
+
     dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(),
                           m_pPrimaryView->GetTextBgColorFirst());
+
     dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
                            m_pPrimaryView->GetTextBgColorSecond());
+
     dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
                            m_secondScreenSize);
 
@@ -1176,7 +1186,11 @@ void MainWindow::on_actionPreferences_triggered()
                  m_pController->GetOption(eOption_Use2013Rules));
 
     dlg.SetControlConfig(&m_controlCfg);
-    dlg.SetMatLabel(m_MatLabel);
+
+    dlg.SetLabels(m_MatLabel,
+                  m_pController->GetHomeLabel(),
+                  m_pController->GetGuestLabel());
+
     dlg.SetGongFile(m_pController->GetGongFile());
 
     if (QDialog::Accepted == dlg.exec())
@@ -1206,6 +1220,8 @@ void MainWindow::on_actionPreferences_triggered()
 
 
         m_MatLabel = dlg.GetMatLabel();
+        m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
+
         m_pPrimaryView->SetMat(m_MatLabel);
         m_pSecondaryView->SetMat(m_MatLabel);
         //m_pPrimaryView->UpdateView();

@@ -73,6 +73,9 @@ public:
 	bool IsGoldenScore() const { return is_golden_score(); }
     void SetOption(Ipponboard::EOption option, bool isSet);
     bool GetOption(Ipponboard::EOption option) const;
+    QString GetHomeLabel() const { return m_labelHome; }
+    QString GetGuestLabel() const { return m_labelGuest; }
+    void SetLabels(QString const& home, QString const& guest);
 
 	void Gong() const;
 
@@ -173,6 +176,8 @@ private:
 	QTime m_roundTime;
 	QString m_weight_class;
     std::bitset<eOption_MAX> m_options;
+    QString m_labelHome;
+    QString m_labelGuest;
 };
 
 } // namespace Ipponboard

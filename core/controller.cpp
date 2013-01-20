@@ -45,6 +45,8 @@ Controller::Controller()
     , m_isGoldenScore(false)
     , m_roundTime(0, 5, 0, 0)
     , m_options(0)
+    , m_labelHome("HOME")
+    , m_labelGuest("GUEST")
 //=========================================================
 {
     m_pSM = new IpponboardSM();
@@ -575,6 +577,14 @@ bool Controller::GetOption(EOption option) const
 //=========================================================
 {
     return m_options.test(option);
+}
+
+//=========================================================
+void Controller::SetLabels(const QString &home, const QString &guest)
+//=========================================================
+{
+    m_labelHome = home;
+    m_labelGuest = guest;
 }
 
 //=========================================================

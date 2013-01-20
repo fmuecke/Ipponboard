@@ -5,10 +5,11 @@ Version 1.2
 	- No time limit for Golden Score (Hantai is cancelled) (issue #19)
 - (new): automatic setting of points within Osaekomi or due to penalties can be turned off in the program settings (issue #14)
 - (new): default weight classes match new DJB specification (issue #16)
-- (new): support for women leagues (issue #7)
+- (new): support for women leagues (issue #7, team edition only)
+- (new): made labels for "home" and "guest" editable in settings page (team edition only)
 - (new): Windows 8 support
-- (mod): replaced the hourglass in Golden Score mode with a golden text
-- (mod): team edition: the score values can be edited in table (fixes issue #10)
+- (mod): replaced the hourglass in Golden Score mode with a golden text (basic edition only)
+- (mod): the score values can be edited in table (fixes issue #10, team edition only)
 - (mod): the detected screen dimensions are shown in the settings dialog
 - (fix): IJF conformity: changed initial sides (blue is now on the left side, white on the right) (fixes issue #17)
 - (fix): Hold is not aborted in golden score after scoring first yuko (issue #2)
