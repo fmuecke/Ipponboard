@@ -35,7 +35,6 @@
    </item>
    <item>
     <widget class="ScaledText" name="club_first" native="true">
-     <zorder>horizontalLayoutWidget</zorder>
     </widget>
    </item>
    <item>
