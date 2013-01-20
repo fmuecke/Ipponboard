@@ -28,7 +28,7 @@ echo   (1) make clean
 echo   (2) clean build
 echo   (3) incremental build
 echo   (4) setup only
-echo   (9) everything
+echo   (9) build all
 echo   (q) quit
 choice /C 12349q /N
 :: value "0" is reserved!
@@ -55,7 +55,7 @@ GOTO :EOF
 
 :build_clean
 	echo;
-	echo --[build clean]--
+	echo --[clean build]--
 	CALL :make_clean internal
 	CALL :build_incremental internal
 	if not "%1"=="internal" pause
@@ -99,7 +99,6 @@ GOTO :EOF
 :build_all
 	echo;
 	echo --[build all]--
-	CALL :make_clean internal
 	CALL :build_clean internal
 	CALL :build_setup internal
 	if not "%1"=="internal" pause
