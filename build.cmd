@@ -28,7 +28,7 @@ echo   (1) make clean
 echo   (2) clean build
 echo   (3) incremental build
 echo   (4) setup only
-echo   (9) build all
+echo   (9) everything
 echo   (q) quit
 choice /C 12349q /N
 :: value "0" is reserved!
@@ -48,6 +48,7 @@ GOTO the_end
 	rd /Q /S "%BASE_DIR%\lib"
 	qmake -recursive
 	if errorlevel 1 pause
+
 	jom /S /L clean>nul
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
@@ -55,7 +56,7 @@ GOTO :EOF
 
 :build_clean
 	echo;
-	echo --[clean build]--
+	echo --[build clean]--
 	CALL :make_clean internal
 	CALL :build_incremental internal
 	if not "%1"=="internal" pause
