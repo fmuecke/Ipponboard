@@ -20,11 +20,12 @@ protected:
     //virtual void changeEvent(QEvent* e) override;
     //virtual void closeEvent(QCloseEvent* event) override;
     //virtual void keyPressEvent(QKeyEvent* event) override;
+    virtual void update_statebar() override;
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
-    //void update_text_color_blue(const QColor& color, const QColor& bgColor) override;
-    //void update_text_color_white(const QColor& color, const QColor& bgColor) override;
+    //void update_text_color_first(const QColor& color, const QColor& bgColor) override;
+    //void update_text_color_second(const QColor& color, const QColor& bgColor) override;
     //virtual void update_fighter_name_font(const QFont&) override;
     //virtual void update_views() override;
 
@@ -41,12 +42,16 @@ protected slots:
 	/* specific private slots */
 	void on_actionManage_Classes_triggered();
     void on_comboBox_weight_currentIndexChanged(const QString&);
-    void on_comboBox_name_white_currentIndexChanged(const QString&);
-    void on_comboBox_name_blue_currentIndexChanged(const QString&);
+    void on_comboBox_name_second_currentIndexChanged(const QString&);
+    void on_comboBox_name_first_currentIndexChanged(const QString&);
     void on_checkBox_golden_score_clicked(bool checked);
     void on_comboBox_weight_class_currentIndexChanged(const QString&);
     void on_actionExportList_triggered();
 
+private slots:
+    void on_checkBox_use2013rules_toggled(bool checked);
+    void on_checkBox_autoIncrement_toggled(bool checked);
+	
 private:
     /* member */
 	boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;

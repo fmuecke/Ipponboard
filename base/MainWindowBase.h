@@ -39,8 +39,12 @@ static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
 static const char* const str_tag_AutoSize = "AutoSize";
 static const char* const str_tag_AlwaysShow = "AlwaysShow";
 static const char* const str_tag_MatLabel = "MatLabel";
+static const char* const str_tag_LabelHome = "LabelHome";
+static const char* const str_tag_LabelGuest = "LabelGuest";
 static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
+static const char* const str_tag_AutoIncrementPoints = "AutoIncrementPoints";
+static const char* const str_tag_Use2013Rules = "Use2013Rules";
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
 static const char* const str_tag_FighterNameFont = "FighterNameFont";
@@ -48,10 +52,10 @@ static const char* const str_tag_DigitFont = "DigitFont";
 static const char* const str_tag_Colors = "Colors";
 static const char* const str_tag_InfoTextColor = "InfoTextColor";
 static const char* const str_tag_InfoTextBgColor = "InfoTextBgColor";
-static const char* const str_tag_TextColorBlue = "TextColorBlue";
-static const char* const str_tag_TextBgColorBlue = "TextBgColorBlue";
-static const char* const str_tag_TextColorWhite = "TextColorWhite";
-static const char* const str_tag_TextBgColorWhite = "TextBgColorWhite";
+static const char* const str_tag_TextColorFirst = "TextColorFirst";
+static const char* const str_tag_TextBgColorFirst = "TextBgColorFirst";
+static const char* const str_tag_TextColorSecond = "TextColorSecond";
+static const char* const str_tag_TextBgColorSecond = "TextBgColorSecond";
 static const char* const str_tag_MainClockColorRunning = "MainClockColorRunning";
 static const char* const str_tag_MainClockColorStopped = "MainClockColorStopped";
 static const char* const str_tag_Styles = "Styles";
@@ -64,12 +68,12 @@ static const char* const str_tag_buttonPrev = "ButtonPrev";
 static const char* const str_tag_buttonPause = "ButtonPause";
 static const char* const str_tag_buttonReset = "ButtonReset";
 static const char* const str_tag_buttonReset2 = "ButtonReset2";
-static const char* const str_tag_buttonResetHoldBlue = "ButtonResetHoldBlue";
-static const char* const str_tag_buttonResetHoldWhite = "ButtonResetHoldWhite";
-static const char* const str_tag_buttonBlueHolding = "ButtonBlueHolding";
-static const char* const str_tag_buttonWhiteHolding = "ButtonWhiteHolding";
-static const char* const str_tag_buttonHansokumakeBlue = "ButtonHansokumakeBlue";
-static const char* const str_tag_buttonHansokumakeWhite = "ButtonHansokumakeWhite";
+static const char* const str_tag_buttonResetHoldFirst = "ButtonResetHoldFirst";
+static const char* const str_tag_buttonResetHoldSecond = "ButtonResetHoldSecond";
+static const char* const str_tag_buttonFirstHolding = "ButtonFirstHolding";
+static const char* const str_tag_buttonSecondHolding = "ButtonSecondHolding";
+static const char* const str_tag_buttonHansokumakeFirst = "ButtonHansokumakeFirst";
+static const char* const str_tag_buttonHansokumakeSecond = "ButtonHansokumakeSecond";
 static const char* const str_tag_invertX = "InvertX";
 static const char* const str_tag_invertY = "InvertY";
 static const char* const str_tag_invertR = "InvertR";
@@ -98,9 +102,10 @@ protected:
     void write_settings();
     void read_settings();
     virtual void update_views();
+    virtual void update_statebar();
     virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
-    virtual void update_text_color_blue(const QColor& color, const QColor& bgColor);
-    virtual void update_text_color_white(const QColor& color, const QColor& bgColor);
+    virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
+    virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
     virtual void update_fighter_name_font(const QFont&);
 
 private:
@@ -108,7 +113,6 @@ private:
 	virtual void read_specific_settings(QSettings& settings);
     void change_lang(bool beQuiet = false);
     void show_hide_view() const;
-
 
 protected slots:
     void on_actionSet_Main_Timer_triggered();

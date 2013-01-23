@@ -4,43 +4,51 @@
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../base/controller.cpp" line="322"/>
         <source>Blue</source>
-        <translation>Blau</translation>
+        <translation type="obsolete">Blau</translation>
     </message>
     <message>
-        <location filename="../base/controller.cpp" line="322"/>
         <source>White</source>
-        <translation>Weiß</translation>
+        <translation type="obsolete">Weiß</translation>
+    </message>
+    <message>
+        <location filename="../core/controller.cpp" line="329"/>
+        <source>First</source>
+        <translation>Erster</translation>
+    </message>
+    <message>
+        <location filename="../core/controller.cpp" line="329"/>
+        <source>Second</source>
+        <translation>Zweiter</translation>
     </message>
 </context>
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../base/tournamentmodel.cpp" line="17"/>
+        <location filename="../core/tournamentmodel.cpp" line="17"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="../base/tournamentmodel.cpp" line="18"/>
-        <location filename="../base/tournamentmodel.cpp" line="26"/>
+        <location filename="../core/tournamentmodel.cpp" line="18"/>
+        <location filename="../core/tournamentmodel.cpp" line="26"/>
         <source>Firstname Lastname</source>
         <translation>Vorname Nachname</translation>
     </message>
     <message>
-        <location filename="../base/tournamentmodel.cpp" line="24"/>
-        <location filename="../base/tournamentmodel.cpp" line="32"/>
+        <location filename="../core/tournamentmodel.cpp" line="24"/>
+        <location filename="../core/tournamentmodel.cpp" line="32"/>
         <source>Won</source>
         <translation>Sieg</translation>
     </message>
     <message>
-        <location filename="../base/tournamentmodel.cpp" line="25"/>
-        <location filename="../base/tournamentmodel.cpp" line="33"/>
+        <location filename="../core/tournamentmodel.cpp" line="25"/>
+        <location filename="../core/tournamentmodel.cpp" line="33"/>
         <source>Score</source>
         <translation>UB</translation>
     </message>
     <message>
-        <location filename="../base/tournamentmodel.cpp" line="34"/>
+        <location filename="../core/tournamentmodel.cpp" line="34"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>

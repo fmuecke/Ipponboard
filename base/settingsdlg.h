@@ -28,30 +28,31 @@ public:
 	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
 							   const QColor& background);
 	void SetFighterNameFont(const QFont& font);
-	void SetTextColorsBlue(const QColor& color, const QColor& background);
-	void SetTextColorsWhite(const QColor& color, const QColor& background);
-	void SetDigitSettings(const QFont& font, const QColor& color,
-						  const QColor& background);
-	void SetMatLabel(QString const& text);
+	void SetTextColorsFirst(const QColor& color, const QColor& background);
+	void SetTextColorsSecond(const QColor& color, const QColor& background);
+    void SetLabels(QString const& mat, QString const& home, QString const& guest);
 	void SetGongFile(const QString& path);
 
-	bool IsShowAlways() const;
+    void SetRules(bool autoIncrement, bool use2013RuleSet);
+
+    bool IsShowAlways() const;
 	int GetSelectedScreen() const;
 	bool IsAutoSize() const;
 	QSize GetSize() const;
 	const QFont GetInfoHeaderFont() const;
 	const QFont GetFighterNameFont() const;
-	//const QFont GetDigitFont() const;
 	const QColor GetInfoTextColor() const;
-	const QColor GetTextColorBlue() const;
-	const QColor GetTextColorWhite() const;
-	const QColor GetDigitColor() const;
+	const QColor GetTextColorFirst() const;
+	const QColor GetTextColorSecond() const;
 	const QColor GetInfoTextBgColor() const;
-	const QColor GetTextBgColorBlue() const;
-	const QColor GetTextBgColorWhite() const;
-	const QColor GetDigitBgColor() const;
+	const QColor GetTextBgColorFirst() const;
+	const QColor GetTextBgColorSecond() const;
 	const QString GetMatLabel() const;
+    const QString GetHomeLabel() const;
+    const QString GetGuestLabel() const;
 	const QString GetGongFile() const;
+    const bool IsAutoIncrementRule() const;
+    const bool IsUse2013Rules() const;
 
     void SetControllerConfig(const ControllerConfig* pConfig);
     void GetControllerConfig(ControllerConfig* pConfig);
@@ -69,18 +70,15 @@ private:
 	ButtonTextMap m_buttonTexts;
 
 private slots:
-
-
-private slots:
-	void on_comboBox_mat_editTextChanged(QString);
-	void on_checkBox_fighters_italic_toggled(bool checked);
-	void on_checkBox_fighters_bold_toggled(bool checked);
-	void on_checkBox_text_italic_toggled(bool checked);
-	void on_checkBox_text_bold_toggled(bool checked);
-	void on_toolButton_text_background_white_pressed();
-	void on_toolButton_text_color_white_pressed();
-	void on_toolButton_text_background_blue_pressed();
-	void on_toolButton_text_color_blue_pressed();
+    void on_comboBox_mat_editTextChanged(QString);
+    void on_checkBox_fighters_italic_toggled(bool checked);
+    void on_checkBox_fighters_bold_toggled(bool checked);
+    void on_checkBox_text_italic_toggled(bool checked);
+    void on_checkBox_text_bold_toggled(bool checked);
+    void on_toolButton_text_background_second_pressed();
+	void on_toolButton_text_color_second_pressed();
+	void on_toolButton_text_background_first_pressed();
+	void on_toolButton_text_color_first_pressed();
 	void on_toolButton_text_background_pressed();	//TODO: somehow the buttons stay pressed...
 	void on_toolButton_text_color_pressed();		//TODO: somehow the buttons stay pressed...
 	void on_fontComboBox_infoHeader_currentFontChanged(QFont f);
@@ -88,6 +86,7 @@ private slots:
 	void on_toolButton_play_gong_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();
+    void on_checkBox_autosize_secondary_view_toggled(bool checked);
 };
 
 } // namespace Ipponboard

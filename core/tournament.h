@@ -67,8 +67,8 @@ struct Fight
 	bool HasWon(EFighter who) const
 	{
 		const EFighter tori = who;
-		const EFighter uke = (tori == eFighter_Blue) ?
-							 eFighter_White : eFighter_Blue;
+		const EFighter uke = (tori == eFighter1) ?
+							 eFighter2 : eFighter1;
 
 		if (scores[tori].Ippon() || scores[tori].IsAwaseteIppon())
 			return true;
@@ -91,8 +91,8 @@ struct Fight
 	int ScorePoints(EFighter who) const
 	{
 		const EFighter tori = who;
-		const EFighter uke = (tori == eFighter_Blue) ?
-							 eFighter_White : eFighter_Blue;
+		const EFighter uke = (tori == eFighter1) ?
+							 eFighter2 : eFighter1;
 
 		if (HasWon(tori))
 		{

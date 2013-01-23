@@ -18,14 +18,14 @@ public:
 	explicit ScoreScreen(QWidget* parent = 0);
 	~ScoreScreen();
 
-	void SetClubs(const QString& blue, const QString& white);
-	void SetLogos(const QString& fileNameBlue, const QString& fileNameWhite);
-	void SetScore(int scoreBlue, int scoreWhite);
+	void SetClubs(const QString& first, const QString& second);
+	void SetLogos(const QString& fileNameFirst, const QString& fileNameSecond);
+	void SetScore(int scoreFirst, int scoreSecond);
 	void SetTextFont(const QFont& font);
 	void SetDigitFont(const QFont& font);
 
-	void SetTextColorBlue(const QColor& color, const QColor& bgColor);
-	void SetTextColorWhite(const QColor& color, const QColor& bgColor);
+	void SetTextColorFirst(const QColor& color, const QColor& bgColor);
+	void SetTextColorSecond(const QColor& color, const QColor& bgColor);
 
 
 protected:

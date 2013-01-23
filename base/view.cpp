@@ -21,11 +21,11 @@ View::View(IController* pController, EType type, QWidget* parent)
     , m_InfoHeaderFont("Calibri", 12, QFont::Bold, false)
     , m_FighterNameFont("Calibri", 12, QFont::Bold, true)
     , m_DigitFont("Calibri", 12, QFont::Bold, false)
-    , m_TextColorBlue(Qt::white)
-    , m_TextBgColorBlue(Qt::blue)
-    , m_TextColorWhite(Qt::black)
-    , m_TextBgColorWhite(Qt::white)
-    , m_InfoTextColor(QColor(255, 255, 96)) //Qt::darkBlue
+    , m_TextColorFirst(Qt::black)
+    , m_TextBgColorFirst(Qt::white)
+    , m_TextColorSecond(Qt::white)
+    , m_TextBgColorSecond(Qt::blue)
+    , m_InfoTextColor(QColor(255, 255, 96)) //Qt::darkFirst
     , m_InfoTextBgColor(Qt::black) //Qt::lightGray
     , m_MainClockColorRunning(Qt::yellow)
     , m_MainClockColorStopped(Qt::red)
@@ -40,26 +40,26 @@ View::View(IController* pController, EType type, QWidget* parent)
 {
     // init widgets
     ui->setupUi(this);
-    ui->image_shido1_white->UpdateImage(":res/images/off.png");
-    ui->image_shido2_white->UpdateImage(":res/images/off.png");
-    ui->image_shido3_white->UpdateImage(":res/images/off.png");
-    ui->image_shido1_blue->UpdateImage(":res/images/off.png");
-    ui->image_shido2_blue->UpdateImage(":res/images/off.png");
-    ui->image_shido3_blue->UpdateImage(":res/images/off.png");
-    ui->image_hansokumake_blue->UpdateImage(":res/images/off.png");
-    ui->image_hansokumake_white->UpdateImage(":res/images/off.png");
+    ui->image_shido1_second->UpdateImage(":res/images/off.png");
+    ui->image_shido2_second->UpdateImage(":res/images/off.png");
+    ui->image_shido3_second->UpdateImage(":res/images/off.png");
+    ui->image_shido1_first->UpdateImage(":res/images/off.png");
+    ui->image_shido2_first->UpdateImage(":res/images/off.png");
+    ui->image_shido3_first->UpdateImage(":res/images/off.png");
+    ui->image_hansokumake_first->UpdateImage(":res/images/off.png");
+    ui->image_hansokumake_second->UpdateImage(":res/images/off.png");
     ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
-    ui->dummy_blue->UpdateImage(":res/images/off_empty.png");
-    ui->dummy_white->UpdateImage(":res/images/off_empty.png");
-    ui->image_golden_score->UpdateImage(":res/images/sand_clock.png");
+    ui->dummy_first->UpdateImage(":res/images/off_empty.png");
+    ui->dummy_second->UpdateImage(":res/images/off_empty.png");
+    ui->image_golden_score->UpdateImage(":res/images/golden_score.png");
 
-    ui->text_hold_clock_blue->SetText("00", ScaledText::eSize_full);
-    ui->text_hold_clock_white->SetText("00", ScaledText::eSize_full);
+    ui->text_hold_clock_first->SetText("00", ScaledText::eSize_full);
+    ui->text_hold_clock_second->SetText("00", ScaledText::eSize_full);
 
-    QColor bgColor1 = get_color(blueBg);
-    QColor fgColor1 = get_color(blueFg);
-    QColor bgColor2 = get_color(whiteBg);
-    QColor fgColor2 = get_color(whiteFg);
+    QColor bgColor1 = get_color(firstBg);
+    QColor fgColor1 = get_color(firstFg);
+    QColor bgColor2 = get_color(secondBg);
+    QColor fgColor2 = get_color(secondFg);
 
     // set point descriptions
     const QFont descFont("Calibri", 12, QFont::Bold, false);
@@ -87,29 +87,29 @@ View::View(IController* pController, EType type, QWidget* parent)
     ui->text_ippon_desc1->SetColor(fgColor2, bgColor2);
     ui->text_wazaari_desc1->SetColor(fgColor2, bgColor2);
     ui->text_yuko_desc1->SetColor(fgColor2, bgColor2);
-    ui->dummy_blue->SetBgColor(bgColor1);
-    ui->dummy_white->SetBgColor(bgColor2);
+    ui->dummy_first->SetBgColor(bgColor1);
+    ui->dummy_second->SetBgColor(bgColor2);
 
 #ifdef TEAM_VIEW
-    ui->text_score_team_blue_label->SetColor(Qt::gray, Qt::black);
-    ui->text_score_team_white_label->SetColor(Qt::gray, Qt::black);
-    ui->text_score_team_blue->SetColor(Qt::gray, Qt::black);
-    ui->text_score_team_white->SetColor(Qt::gray, Qt::black);
+    ui->text_score_team_first_label->SetColor(Qt::gray, Qt::black);
+    ui->text_score_team_second_label->SetColor(Qt::gray, Qt::black);
+    ui->text_score_team_first->SetColor(Qt::gray, Qt::black);
+    ui->text_score_team_second->SetColor(Qt::gray, Qt::black);
     ui->layout_info_top->setStretchFactor(ui->text_mat, 3);
     ui->layout_info_top->setStretchFactor(ui->text_weight, 1);
 #endif
 
-    ui->text_ippon_blue->SetColor(fgColor1, bgColor1);
-    ui->text_wazaari_blue->SetColor(fgColor1, bgColor1);
-    ui->text_yuko_blue->SetColor(fgColor1, bgColor1);
-    ui->text_ippon_white->SetColor(fgColor2, bgColor2);
-    ui->text_wazaari_white->SetColor(fgColor2, bgColor2);
-    ui->text_yuko_white->SetColor(fgColor2, bgColor2);
+    ui->text_ippon_first->SetColor(fgColor1, bgColor1);
+    ui->text_wazaari_first->SetColor(fgColor1, bgColor1);
+    ui->text_yuko_first->SetColor(fgColor1, bgColor1);
+    ui->text_ippon_second->SetColor(fgColor2, bgColor2);
+    ui->text_wazaari_second->SetColor(fgColor2, bgColor2);
+    ui->text_yuko_second->SetColor(fgColor2, bgColor2);
 
-    ui->text_lastname_blue->SetColor(fgColor1, bgColor1);
-    ui->text_firstname_blue->SetColor(fgColor1, bgColor1);
-    ui->text_lastname_white->SetColor(fgColor2, bgColor2);
-    ui->text_firstname_white->SetColor(fgColor2, bgColor2);
+    ui->text_lastname_first->SetColor(fgColor1, bgColor1);
+    ui->text_firstname_first->SetColor(fgColor1, bgColor1);
+    ui->text_lastname_second->SetColor(fgColor2, bgColor2);
+    ui->text_firstname_second->SetColor(fgColor2, bgColor2);
 
     if (is_secondary())
     {
@@ -124,14 +124,14 @@ View::View(IController* pController, EType type, QWidget* parent)
         ui->layout_point_names->setStretchFactor(ui->text_ippon_desc2, 1);
     }
 
-    ui->image_shido1_blue->SetBgColor(bgColor1);
-    ui->image_shido2_blue->SetBgColor(bgColor1);
-    ui->image_shido3_blue->SetBgColor(bgColor1);
-    ui->image_hansokumake_blue->SetBgColor(bgColor1);
-    ui->image_shido1_white->SetBgColor(bgColor2);
-    ui->image_shido2_white->SetBgColor(bgColor2);
-    ui->image_shido3_white->SetBgColor(bgColor2);
-    ui->image_hansokumake_white->SetBgColor(bgColor2);
+    ui->image_shido1_first->SetBgColor(bgColor1);
+    ui->image_shido2_first->SetBgColor(bgColor1);
+    ui->image_shido3_first->SetBgColor(bgColor1);
+    ui->image_hansokumake_first->SetBgColor(bgColor1);
+    ui->image_shido1_second->SetBgColor(bgColor2);
+    ui->image_shido2_second->SetBgColor(bgColor2);
+    ui->image_shido3_second->SetBgColor(bgColor2);
+    ui->image_hansokumake_second->SetBgColor(bgColor2);
 
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
@@ -202,32 +202,32 @@ void View::UpdateView()
     //
     // fighter names
     //
-    ui->text_lastname_blue->SetText(
-        m_pController->GetFighterLastName(GVF_(eFighter_Blue)),
+    ui->text_lastname_first->SetText(
+        m_pController->GetFighterLastName(GVF_(eFighter1)),
         ScaledText::eSize_uppercase);
-    ui->text_lastname_white->SetText(
-        m_pController->GetFighterLastName(GVF_(eFighter_White)),
+    ui->text_lastname_second->SetText(
+        m_pController->GetFighterLastName(GVF_(eFighter2)),
         ScaledText::eSize_uppercase);
-    ui->text_firstname_blue->SetText(
-        m_pController->GetFighterFirstName(GVF_(eFighter_Blue)),
+    ui->text_firstname_first->SetText(
+        m_pController->GetFighterFirstName(GVF_(eFighter1)),
         ScaledText::eSize_uppercase);
-    ui->text_firstname_white->SetText(
-        m_pController->GetFighterFirstName(GVF_(eFighter_White)),
+    ui->text_firstname_second->SetText(
+        m_pController->GetFighterFirstName(GVF_(eFighter2)),
         ScaledText::eSize_uppercase);
 
-    // blue score
-    update_ippon(eFighter_Blue);
-    update_wazaari(eFighter_Blue);
-    update_yuko(eFighter_Blue);
-    update_shido(eFighter_Blue);
-    update_hansokumake(eFighter_Blue);
+    // first score
+    update_ippon(eFighter1);
+    update_wazaari(eFighter1);
+    update_yuko(eFighter1);
+    update_shido(eFighter1);
+    update_hansokumake(eFighter1);
 
-    // white score
-    update_ippon(eFighter_White);
-    update_wazaari(eFighter_White);
-    update_yuko(eFighter_White);
-    update_shido(eFighter_White);
-    update_hansokumake(eFighter_White);
+    // second score
+    update_ippon(eFighter2);
+    update_wazaari(eFighter2);
+    update_yuko(eFighter2);
+    update_shido(eFighter2);
+    update_hansokumake(eFighter2);
 
     update_team_score();
 
@@ -240,7 +240,7 @@ void View::UpdateView()
 
     const EFighter holder(m_pController->GetLastHolder());
 
-    if (eFighter_Nobody == holder && is_secondary())
+    if (eFighterNobody == holder && is_secondary())
     {
         ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
     }
@@ -249,28 +249,28 @@ void View::UpdateView()
     {
     case eState_TimerRunning:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorRunning, Qt::black);
+            ui->text_main_clock->SetColor(m_MainClockColorRunning);
             update_hold_clock(holder, eHoldState_pause);
         }
         break;
 
     case eState_TimerStopped:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorStopped, Qt::black);
+            ui->text_main_clock->SetColor(m_MainClockColorStopped);
             update_hold_clock(holder, eHoldState_pause);
         }
         break;
 
     case eState_Holding:
         {
-            ui->text_main_clock->SetColor(m_MainClockColorRunning, Qt::black);
+            ui->text_main_clock->SetColor(m_MainClockColorRunning);
             update_hold_clock(holder, eHoldState_on);
 
             if (is_secondary())
             {
-                ui->layout_info->setStretchFactor(ui->layout_name_blue, 3);
+                ui->layout_info->setStretchFactor(ui->layout_name_first, 3);
                 ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
-                ui->layout_info->setStretchFactor(ui->layout_name_white, 3);
+                ui->layout_info->setStretchFactor(ui->layout_name_second, 3);
             }
         }
         break;
@@ -303,7 +303,7 @@ void View::UpdateView()
 //		default:
 //			text="OTHER";
 //	}
-//	ui->text_lastname_blue->SetText(text);
+//	ui->text_lastname_first->SetText(text);
 //	update();
 //#endif
 
@@ -330,8 +330,8 @@ void View::SetInfoHeaderFont(const QFont& font)
     ui->text_mat->SetFont(font);
 
 #ifdef TEAM_VIEW
-    ui->text_score_team_blue_label->SetFont(font);
-    ui->text_score_team_white_label->SetFont(font);
+    ui->text_score_team_first_label->SetFont(font);
+    ui->text_score_team_second_label->SetFont(font);
 #endif
 }
 
@@ -341,15 +341,15 @@ void View::SetFighterNameFont(const QFont& font)
 {
     m_FighterNameFont = font;
 
-    ui->text_lastname_white->setAlignment(Qt::AlignLeft);
-    ui->text_firstname_white->setAlignment(Qt::AlignLeft);
-    ui->text_lastname_blue->setAlignment(Qt::AlignRight);
-    ui->text_firstname_blue->setAlignment(Qt::AlignRight);
+    ui->text_lastname_second->setAlignment(Qt::AlignLeft);
+    ui->text_firstname_second->setAlignment(Qt::AlignLeft);
+    ui->text_lastname_first->setAlignment(Qt::AlignRight);
+    ui->text_firstname_first->setAlignment(Qt::AlignRight);
 
-    ui->text_lastname_white->SetFont(font);
-    ui->text_firstname_white->SetFont(font);
-    ui->text_lastname_blue->SetFont(font);
-    ui->text_firstname_blue->SetFont(font);
+    ui->text_lastname_second->SetFont(font);
+    ui->text_firstname_second->SetFont(font);
+    ui->text_lastname_first->SetFont(font);
+    ui->text_firstname_first->SetFont(font);
 }
 
 //=========================================================
@@ -359,17 +359,17 @@ void View::SetDigitFont(const QFont& font)
     m_DigitFont = font;
 
     ui->text_main_clock->SetFont(font);
-    ui->text_ippon_blue->SetFont(font);
-    ui->text_wazaari_blue->SetFont(font);
-    ui->text_yuko_blue->SetFont(font);
-    ui->text_ippon_white->SetFont(font);
-    ui->text_wazaari_white->SetFont(font);
-    ui->text_yuko_white->SetFont(font);
-    ui->text_hold_clock_blue->SetFont(font);
-    ui->text_hold_clock_white->SetFont(font);
+    ui->text_ippon_first->SetFont(font);
+    ui->text_wazaari_first->SetFont(font);
+    ui->text_yuko_first->SetFont(font);
+    ui->text_ippon_second->SetFont(font);
+    ui->text_wazaari_second->SetFont(font);
+    ui->text_yuko_second->SetFont(font);
+    ui->text_hold_clock_first->SetFont(font);
+    ui->text_hold_clock_second->SetFont(font);
 #ifdef TEAM_VIEW
-    ui->text_score_team_blue->SetFont(font);
-    ui->text_score_team_white->SetFont(font);
+    ui->text_score_team_first->SetFont(font);
+    ui->text_score_team_second->SetFont(font);
 #endif
 }
 
@@ -386,21 +386,21 @@ void View::SetInfoTextColor(const QColor& color, const QColor& bgColor)
 
 
 //=========================================================
-void View::SetTextColorBlue(const QColor& color, const QColor& bgColor)
+void View::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-    m_TextColorBlue = color;
-    m_TextBgColorBlue = bgColor;
+    m_TextColorFirst = color;
+    m_TextBgColorFirst = bgColor;
 
     update_colors();
 }
 
 //=========================================================
-void View::SetTextColorWhite(const QColor& color, const QColor& bgColor)
+void View::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-    m_TextColorWhite = color;
-    m_TextBgColorWhite = bgColor;
+    m_TextColorSecond = color;
+    m_TextBgColorSecond = bgColor;
 
     update_colors();
 }
@@ -420,8 +420,8 @@ void View::SetMainClockColor(const QColor& running, const QColor& stopped)
 void View::Reset()
 //=========================================================
 {
-    ui->text_hold_clock_blue->SetColor(Qt::gray, Qt::black);
-    ui->text_hold_clock_white->SetColor(Qt::gray, Qt::black);
+    ui->text_hold_clock_first->SetColor(Qt::gray, Qt::black);
+    ui->text_hold_clock_second->SetColor(Qt::gray, Qt::black);
     ui->image_sand_clock->SetBgColor(Qt::black);
 }
 
@@ -447,7 +447,7 @@ void View::mousePressEvent(QMouseEvent* event)
 {
     Q_ASSERT(m_pController && "IBController not set!");
 
-    EFighter whos(eFighter_Nobody);
+    EFighter whos(eFighterNobody);
     EAction action(eAction_NONE);
     const bool doRevoke = event->button() & Qt::RightButton;
 
@@ -480,7 +480,7 @@ void View::mousePressEvent(QMouseEvent* event)
 
             action = eAction_Hajime_Mate;
         }
-        else if (child == ui->text_hold_clock_blue)
+        else if (child == ui->text_hold_clock_first)
         {
             if (doRevoke)   // right click!
             {
@@ -488,10 +488,10 @@ void View::mousePressEvent(QMouseEvent* event)
             }
             else
             {
-                whos = eFighter_Blue;
+                whos = eFighter1;
 
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                        GVF_(eFighter_Blue) != m_pController->GetLead())
+                        GVF_(eFighter1) != m_pController->GetLead())
                 {
                     action = eAction_SetOsaekomi;
                 }
@@ -501,7 +501,7 @@ void View::mousePressEvent(QMouseEvent* event)
                 }
             }
         }
-        else if (child == ui->text_hold_clock_white)
+        else if (child == ui->text_hold_clock_second)
         {
             if (doRevoke)   // right click!
             {
@@ -509,10 +509,10 @@ void View::mousePressEvent(QMouseEvent* event)
             }
             else
             {
-                whos = eFighter_White;
+                whos = eFighter2;
 
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                        GVF_(eFighter_White) != m_pController->GetLead())
+                        GVF_(eFighter2) != m_pController->GetLead())
                 {
                     action = eAction_SetOsaekomi;
                 }
@@ -522,34 +522,34 @@ void View::mousePressEvent(QMouseEvent* event)
                 }
             }
         }
-        else if (child == ui->text_ippon_white)
+        else if (child == ui->text_ippon_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Ippon;
         }
-        else if (child == ui->text_ippon_blue)
+        else if (child == ui->text_ippon_first)
         {
-            whos = eFighter_Blue;
+            whos = eFighter1;
             action = eAction_Ippon;
         }
-        else if (child == ui->text_wazaari_white)
+        else if (child == ui->text_wazaari_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Wazaari;
         }
-        else if (child == ui->text_wazaari_blue)
+        else if (child == ui->text_wazaari_first)
         {
-            whos = eFighter_Blue;
+            whos = eFighter1;
             action = eAction_Wazaari;
         }
-        else if (child == ui->text_yuko_white)
+        else if (child == ui->text_yuko_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Yuko;
         }
-        else if (child == ui->text_yuko_blue)
+        else if (child == ui->text_yuko_first)
         {
-            whos = eFighter_Blue;
+            whos = eFighter1;
             action = eAction_Yuko;
         }
 
@@ -560,33 +560,33 @@ void View::mousePressEvent(QMouseEvent* event)
     }
     else
     {
-        if (child == ui->image_shido1_white)
+        if (child == ui->image_shido1_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Shido;
         }
-        else if (child == ui->image_shido3_white ||
-                 child == ui->image_shido2_white ||
-                 child == ui->image_shido1_white)
+        else if (child == ui->image_shido3_second ||
+                 child == ui->image_shido2_second ||
+                 child == ui->image_shido1_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Shido;
         }
-        else if (child == ui->image_shido3_blue ||
-                 child == ui->image_shido2_blue ||
-                 child == ui->image_shido1_blue)
+        else if (child == ui->image_shido3_first ||
+                 child == ui->image_shido2_first ||
+                 child == ui->image_shido1_first)
         {
-            whos = eFighter_Blue;
+            whos = eFighter1;
             action = eAction_Shido;
         }
-        else if (child == ui->image_hansokumake_white)
+        else if (child == ui->image_hansokumake_second)
         {
-            whos = eFighter_White;
+            whos = eFighter2;
             action = eAction_Hansokumake;
         }
-        else if (child == ui->image_hansokumake_blue)
+        else if (child == ui->image_hansokumake_first)
         {
-            whos = eFighter_Blue;
+            whos = eFighter1;
             action = eAction_Hansokumake;
         }
 
@@ -601,24 +601,24 @@ void View::mousePressEvent(QMouseEvent* event)
 }
 
 //=========================================================
-void View::setOsaekomiBlue_()
+void View::setOsaekomiFirst_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_SetOsaekomi, eFighter_Blue, false/*doRevoke*/);
+    m_pController->DoAction(eAction_SetOsaekomi, eFighter1, false/*doRevoke*/);
 }
 
 //=========================================================
-void View::setOsaekomiWhite_()
+void View::setOsaekomiSecond_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_SetOsaekomi, eFighter_White, false/*doRevoke*/);
+    m_pController->DoAction(eAction_SetOsaekomi, eFighter2, false/*doRevoke*/);
 }
 
 //=========================================================
 void View::resetMainTimerValue_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_ResetMainTimer, eFighter_Nobody, true/*doRevoke*/);
+    m_pController->DoAction(eAction_ResetMainTimer, eFighterNobody, true/*doRevoke*/);
 }
 
 //=========================================================
@@ -654,8 +654,8 @@ void View::blink_()
 
     if (is_secondary())
     {
-        update_ippon(eFighter_Blue);
-        update_ippon(eFighter_White);
+        update_ippon(eFighter1);
+        update_ippon(eFighter2);
     }
 }
 
@@ -663,17 +663,17 @@ void View::blink_()
 void View::update_ippon(Ipponboard::EFighter who) const
 //=========================================================
 {
-    ScaledText* digit_ippon(ui->text_ippon_blue);
-    QVBoxLayout* digit_wazaari(ui->layout_wazaari_blue);
-    QVBoxLayout* digit_yuko(ui->layout_yuko_blue);
-    EFighter uke(eFighter_White);
+    ScaledText* digit_ippon(ui->text_ippon_first);
+    QVBoxLayout* digit_wazaari(ui->layout_wazaari_first);
+    QVBoxLayout* digit_yuko(ui->layout_yuko_first);
+    EFighter uke(eFighter2);
 
-    if (eFighter_White == who)
+    if (eFighter2 == who)
     {
-        digit_ippon = ui->text_ippon_white;
-        digit_wazaari = ui->layout_wazaari_white;
-        digit_yuko = ui->layout_yuko_white;
-        uke = eFighter_Blue;
+        digit_ippon = ui->text_ippon_second;
+        digit_wazaari = ui->layout_wazaari_second;
+        digit_yuko = ui->layout_yuko_second;
+        uke = eFighter1;
     }
 
     const int score = m_pController->GetScore(GVF_(who), ePoint_Ippon);
@@ -740,10 +740,10 @@ void View::update_ippon(Ipponboard::EFighter who) const
 void View::update_wazaari(Ipponboard::EFighter who) const
 //=========================================================
 {
-    ScaledText* digit(ui->text_wazaari_blue);
+    ScaledText* digit(ui->text_wazaari_first);
 
-    if (eFighter_White == who)
-        digit = ui->text_wazaari_white;
+    if (eFighter2 == who)
+        digit = ui->text_wazaari_second;
 
     const int score = m_pController->GetScore(GVF_(who), ePoint_Wazaari);
     //digit->setDigitCount( score > 9 ? 2 : 1 );
@@ -754,10 +754,10 @@ void View::update_wazaari(Ipponboard::EFighter who) const
 void View::update_yuko(Ipponboard::EFighter who) const
 //=========================================================
 {
-    ScaledText* digit(ui->text_yuko_blue);
+    ScaledText* digit(ui->text_yuko_first);
 
-    if (eFighter_White == who)
-        digit = ui->text_yuko_white;
+    if (eFighter2 == who)
+        digit = ui->text_yuko_second;
 
     const int score = m_pController->GetScore(GVF_(who), ePoint_Yuko);
     digit->SetText(QString::number(score), ScaledText::eSize_full);
@@ -771,17 +771,17 @@ void View::update_shido(Ipponboard::EFighter who) const
     ScaledImage* pImage2(0);
     ScaledImage* pImage3(0);
 
-    if (eFighter_Blue == who)
+    if (eFighter1 == who)
     {
-        pImage1 = ui->image_shido1_blue;
-        pImage2 = ui->image_shido2_blue;
-        pImage3 = ui->image_shido3_blue;
+        pImage1 = ui->image_shido1_first;
+        pImage2 = ui->image_shido2_first;
+        pImage3 = ui->image_shido3_first;
     }
     else
     {
-        pImage1 = ui->image_shido1_white;
-        pImage2 = ui->image_shido2_white;
-        pImage3 = ui->image_shido3_white;
+        pImage1 = ui->image_shido1_second;
+        pImage2 = ui->image_shido2_second;
+        pImage3 = ui->image_shido3_second;
     }
 
     const int score = m_pController->GetScore(GVF_(who), ePoint_Shido);
@@ -827,15 +827,15 @@ void View::update_shido(Ipponboard::EFighter who) const
 void View::update_hansokumake(Ipponboard::EFighter who) const
 //=========================================================
 {
-    ScaledImage* pImage(ui->image_hansokumake_blue);
+    ScaledImage* pImage(ui->image_hansokumake_first);
 
-//	QHBoxLayout* pLayout(ui->horizontalLayout_score_blue);
-//	QVBoxLayout* pShidoLayout(ui->verticalLayout_shido_blue);
-    if (eFighter_White == who)
+//	QHBoxLayout* pLayout(ui->horizontalLayout_score_first);
+//	QVBoxLayout* pShidoLayout(ui->verticalLayout_shido_first);
+    if (eFighter2 == who)
     {
-        pImage = ui->image_hansokumake_white;
-//		pLayout = ui->horizontalLayout_score_white;
-//		pShidoLayout = ui->verticalLayout_shido_white;
+        pImage = ui->image_hansokumake_second;
+//		pLayout = ui->horizontalLayout_score_second;
+//		pShidoLayout = ui->verticalLayout_shido_second;
     }
 
     const int score_hansokumake = m_pController->GetScore(GVF_(who), ePoint_Hansokumake);
@@ -871,47 +871,40 @@ void View::update_team_score() const
 //=========================================================
 {
     //unused code...
-    //EFighter tori(eFighter_Blue);
-    //EFighter uke(eFighter_White);
-
+    //EFighter tori(eFighter1);
+    //EFighter uke(eFighter2);
+    //
     //if (m_Type == eTypePrimary)
     //{
-    //    uke = eFighter_Blue;
-    //    tori = eFighter_White;
+    //    uke = eFighter1;
+    //    tori = eFighter2;
     //}
 
 #ifdef TEAM_VIEW
 
     if (is_secondary())
     {
-        ui->text_score_team_blue_label->SetText(
-            tr("Home")/*, ScaledText::eSize_full*/);
-
-        ui->text_score_team_white_label->SetText(
-            tr("Guest")/*, ScaledText::eSize_uppercase*/);
+        ui->text_score_team_first_label->SetText(m_pController->GetHomeLabel());
+        ui->text_score_team_second_label->SetText(m_pController->GetGuestLabel());
     }
     else
     {
-        ui->text_score_team_white_label->SetText(
-            tr("Home")/*, ScaledText::eSize_full*/);
-
-        ui->text_score_team_blue_label->SetText(
-            tr("Guest")/*, ScaledText::eSize_uppercase*/);
-
+        ui->text_score_team_second_label->SetText(m_pController->GetHomeLabel());
+        ui->text_score_team_first_label->SetText(m_pController->GetGuestLabel());
     }
 
-    ui->text_score_team_blue->SetText(
-        QString::number(m_pController->GetTeamScore(GVF_(eFighter_Blue))),
+    ui->text_score_team_first->SetText(
+        QString::number(m_pController->GetTeamScore(GVF_(eFighter1))),
         ScaledText::eSize_full);
 
-    ui->text_score_team_white->SetText(
-        QString::number(m_pController->GetTeamScore(GVF_(eFighter_White))),
+    ui->text_score_team_second->SetText(
+        QString::number(m_pController->GetTeamScore(GVF_(eFighter2))),
         ScaledText::eSize_full);
 #else
-    ui->text_score_team_blue_label->SetText("");
-    ui->text_score_team_white_label->SetText("");
-    ui->text_score_team_blue->SetText("");
-    ui->text_score_team_white->SetText("");
+    ui->text_score_team_first_label->SetText("");
+    ui->text_score_team_second_label->SetText("");
+    ui->text_score_team_first->SetText("");
+    ui->text_score_team_second->SetText("");
 #endif
 }
 
@@ -920,8 +913,8 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 //=========================================================
 {
     const QString value(m_pController->GetTimeText(eTimer_Hold));
-    const EFighter blue = GVF_(eFighter_Blue);
-    const EFighter white = GVF_(eFighter_White);
+    const EFighter first = GVF_(eFighter1);
+    const EFighter second = GVF_(eFighter2);
 
     struct ColorPair
     {
@@ -935,39 +928,39 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
     };
 
     ColorPair hold_clock_colors[3][2];
-    hold_clock_colors[eHoldState_on][eFighter_Blue] = ColorPair(m_TextColorBlue, m_TextBgColorBlue);
-    hold_clock_colors[eHoldState_on][eFighter_White] = ColorPair(m_TextColorWhite, m_TextBgColorWhite);
-    hold_clock_colors[eHoldState_off][eFighter_Blue] = ColorPair(Qt::gray, Qt::black);
-    hold_clock_colors[eHoldState_off][eFighter_White] = ColorPair(Qt::gray, Qt::black);
-    hold_clock_colors[eHoldState_pause][eFighter_Blue] = ColorPair(Qt::lightGray, m_TextBgColorBlue);
-    hold_clock_colors[eHoldState_pause][eFighter_White] = ColorPair(Qt::darkGray, m_TextBgColorWhite);
+    hold_clock_colors[eHoldState_on][eFighter1] = ColorPair(m_TextColorFirst, m_TextBgColorFirst);
+    hold_clock_colors[eHoldState_on][eFighter2] = ColorPair(m_TextColorSecond, m_TextBgColorSecond);
+    hold_clock_colors[eHoldState_off][eFighter1] = ColorPair(Qt::gray, Qt::black);
+    hold_clock_colors[eHoldState_off][eFighter2] = ColorPair(Qt::gray, Qt::black);
+    hold_clock_colors[eHoldState_pause][eFighter1] = ColorPair(Qt::lightGray, m_TextBgColorFirst);
+    hold_clock_colors[eHoldState_pause][eFighter2] = ColorPair(Qt::darkGray, m_TextBgColorSecond);
 
     ScaledText* pClocks[2] =
     {
-        ui->text_hold_clock_blue,
-        ui->text_hold_clock_white
+        ui->text_hold_clock_first,
+        ui->text_hold_clock_second
     };
 
     // reset drawing first
-    pClocks[blue]->SetColor(
-        hold_clock_colors[eHoldState_off][eFighter_Blue].fg,
-        hold_clock_colors[eHoldState_off][eFighter_Blue].bg);
+    pClocks[first]->SetColor(
+        hold_clock_colors[eHoldState_off][eFighter1].fg,
+        hold_clock_colors[eHoldState_off][eFighter1].bg);
 
-    pClocks[white]->SetColor(
-        hold_clock_colors[eHoldState_off][eFighter_White].fg,
-        hold_clock_colors[eHoldState_off][eFighter_White].bg);
+    pClocks[second]->SetColor(
+        hold_clock_colors[eHoldState_off][eFighter2].fg,
+        hold_clock_colors[eHoldState_off][eFighter2].bg);
 
-    pClocks[blue]->SetText("00", ScaledText::eSize_full);
-    pClocks[white]->SetText("00", ScaledText::eSize_full);
+    pClocks[first]->SetText("00", ScaledText::eSize_full);
+    pClocks[second]->SetText("00", ScaledText::eSize_full);
     ui->image_sand_clock->SetBgColor(Qt::black);
 
     // no one holding?
-    if (eFighter_Nobody == holder)
+    if (eFighterNobody == holder)
     {
         if (is_secondary())
         {
-            pClocks[eFighter_Blue]->SetText("", ScaledText::eSize_full);
-            pClocks[eFighter_White]->SetText("", ScaledText::eSize_full);
+            pClocks[eFighter1]->SetText("", ScaledText::eSize_full);
+            pClocks[eFighter2]->SetText("", ScaledText::eSize_full);
             ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
         }
 
@@ -1007,18 +1000,18 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
     if (is_secondary())
     {
         ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
-//		ui->layout_info->setStretchFactor(ui->layout_name_blue, 4);
-//		ui->layout_info->setStretchFactor(ui->layout_name_white, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_name_first, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_name_second, 4);
 
-        if (eFighter_Blue == holder)
+        if (eFighter1 == holder)
         {
-            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_blue, 7);
-            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_white, 0);
+            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 7);
+            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 0);
         }
-        else if (eFighter_White == holder)
+        else if (eFighter2 == holder)
         {
-            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_blue, 0);
-            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_white, 7);
+            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 0);
+            ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 7);
         }
         else
         {
@@ -1033,7 +1026,7 @@ Ipponboard::EFighter View::GVF_(const Ipponboard::EFighter f) const
 {
     if (!is_secondary())
     {
-        return (f == eFighter_Blue) ? eFighter_White : eFighter_Blue;
+        return (f == eFighter1) ? eFighter2 : eFighter1;
     }
 
     return f;
@@ -1054,60 +1047,60 @@ const QColor& View::get_color(const ColorType t) const
 
     switch (t)
     {
-    case blueFg:
-        return doSwap ? m_TextColorWhite : m_TextColorBlue;
+    case firstFg:
+        return doSwap ? m_TextColorSecond : m_TextColorFirst;
 
-    case blueBg:
-        return doSwap ? m_TextBgColorWhite : m_TextBgColorBlue;
+    case firstBg:
+        return doSwap ? m_TextBgColorSecond : m_TextBgColorFirst;
 
-    case whiteFg:
-        return doSwap ? m_TextColorBlue : m_TextColorWhite;
+    case secondFg:
+        return doSwap ? m_TextColorFirst : m_TextColorSecond;
 
-    case whiteBg:
-        return doSwap ? m_TextBgColorBlue : m_TextBgColorWhite;
+    case secondBg:
+        return doSwap ? m_TextBgColorFirst : m_TextBgColorSecond;
 
     default:
         assert(!"unhandled switch case!");
     }
 
-    return m_TextBgColorBlue; // just for debug purpose...
+    return m_TextBgColorFirst; // just for debug purpose...
 }
 
 //=========================================================
 void View::update_colors()
 //=========================================================
 {
-    ui->text_score_team_blue_label->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_score_team_blue->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->dummy_blue->SetBgColor(get_color(blueBg));
-    ui->image_hansokumake_blue->SetBgColor(get_color(blueBg));
-    ui->image_shido3_blue->SetBgColor(get_color(blueBg));
-    ui->image_shido2_blue->SetBgColor(get_color(blueBg));
-    ui->image_shido1_blue->SetBgColor(get_color(blueBg));
-    ui->text_yuko_blue->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_wazaari_blue->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_ippon_blue->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_ippon_desc2->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_wazaari_desc2->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_yuko_desc2->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_lastname_blue->SetColor(get_color(blueFg), get_color(blueBg));
-    ui->text_firstname_blue->SetColor(get_color(blueFg), get_color(blueBg));
+    ui->text_score_team_first_label->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_score_team_first->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->dummy_first->SetBgColor(get_color(firstBg));
+    ui->image_hansokumake_first->SetBgColor(get_color(firstBg));
+    ui->image_shido3_first->SetBgColor(get_color(firstBg));
+    ui->image_shido2_first->SetBgColor(get_color(firstBg));
+    ui->image_shido1_first->SetBgColor(get_color(firstBg));
+    ui->text_yuko_first->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_wazaari_first->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_ippon_first->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_ippon_desc2->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_wazaari_desc2->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_yuko_desc2->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_lastname_first->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_firstname_first->SetColor(get_color(firstFg), get_color(firstBg));
 
-    ui->text_score_team_white_label->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_score_team_white->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->dummy_white->SetBgColor(get_color(whiteBg));
-    ui->image_hansokumake_white->SetBgColor(get_color(whiteBg));
-    ui->image_shido3_white->SetBgColor(get_color(whiteBg));
-    ui->image_shido2_white->SetBgColor(get_color(whiteBg));
-    ui->image_shido1_white->SetBgColor(get_color(whiteBg));
-    ui->text_yuko_white->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_wazaari_white->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_ippon_white->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_ippon_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_wazaari_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_yuko_desc1->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_lastname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
-    ui->text_firstname_white->SetColor(get_color(whiteFg), get_color(whiteBg));
+    ui->text_score_team_second_label->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_score_team_second->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->dummy_second->SetBgColor(get_color(secondBg));
+    ui->image_hansokumake_second->SetBgColor(get_color(secondBg));
+    ui->image_shido3_second->SetBgColor(get_color(secondBg));
+    ui->image_shido2_second->SetBgColor(get_color(secondBg));
+    ui->image_shido1_second->SetBgColor(get_color(secondBg));
+    ui->text_yuko_second->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_wazaari_second->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_ippon_second->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_ippon_desc1->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_wazaari_desc1->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_yuko_desc1->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_lastname_second->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_firstname_second->SetColor(get_color(secondFg), get_color(secondBg));
 }
 
 //=========================================================

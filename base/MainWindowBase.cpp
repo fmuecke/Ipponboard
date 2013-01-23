@@ -51,6 +51,12 @@ void MainWindowBase::Init()
     m_pSecondaryView.reset(
 		new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypeSecondary));
 
+    // set default background
+	QString styleSheet("background-color:black; color:white");
+
+    m_pUi->frame_primary_view->setStyleSheet(styleSheet);
+    m_pSecondaryView->setStyleSheet(styleSheet);
+		
     // clear data
     m_pController->ClearFights();
 
@@ -69,6 +75,8 @@ void MainWindowBase::Init()
     QTimer* m_pTimer = new QTimer;
     connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
     m_pTimer->start(75);
+	
+	update_statebar();
 }
 
 QString MainWindowBase::GetConfigFileName() const
@@ -110,14 +118,14 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     switch (event->key())
     {
     case Qt::Key_Space:
-        m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighter_Nobody);
+        m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighterNobody);
         qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
         break;
 
     case Qt::Key_Backspace:
         if (isCtrlPressed)
         {
-            m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighter_Nobody);
+            m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighterNobody);
             qDebug() << "Action [ Reset ] was triggered by keyboard";
         }
 
@@ -126,18 +134,18 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Left:
         {
             if (eState_Holding == m_pController->GetCurrentState() &&
-                    Ipponboard::eFighter_Blue != m_pController->GetLead())
+                    Ipponboard::eFighter1 != m_pController->GetLead())
             {
                 m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-                                        Ipponboard::eFighter_Blue);
+                                        Ipponboard::eFighter1);
             }
             else
             {
                 m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-                                        Ipponboard::eFighter_Blue);
+                                        Ipponboard::eFighter1);
             }
 
-            qDebug() << "Action [ Osaekomi/Toketa for blue ] was triggered by keyboard";
+            qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
         }
 
         break;
@@ -145,18 +153,18 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Right:
         {
             if (eState_Holding == m_pController->GetCurrentState() &&
-                    Ipponboard::eFighter_White != m_pController->GetLead())
+                    Ipponboard::eFighter2 != m_pController->GetLead())
             {
                 m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-                                        Ipponboard::eFighter_White);
+                                        Ipponboard::eFighter2);
             }
             else
             {
                 m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-                                        Ipponboard::eFighter_White);
+                                        Ipponboard::eFighter2);
             }
 
-            qDebug() << "Action [ Osaekomi/Toketa for white ] was triggered by keyboard";
+            qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
         }
 
         break;
@@ -165,7 +173,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
         //if (isCtrlPressed)
         {
             m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-                                    Ipponboard::eFighter_Nobody,
+                                    Ipponboard::eFighterNobody,
                                     true);
             qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
         }
@@ -173,72 +181,72 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
     case Qt::Key_F5:
         m_pController->DoAction(Ipponboard::eAction_Ippon,
-                                Ipponboard::eFighter_Blue,
+                                Ipponboard::eFighter1,
                                 isCtrlPressed);
-        qDebug() << "Action [ Ippon for blue, revoke="
+        qDebug() << "Action [ Ippon for fighter1, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F6:
         m_pController->DoAction(Ipponboard::eAction_Wazaari,
-                                Ipponboard::eFighter_Blue,
+                                Ipponboard::eFighter1,
                                 isCtrlPressed);
-        qDebug() << "Action [ Wazaari for blue, revoke="
+        qDebug() << "Action [ Wazaari for fighter1, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F7:
         m_pController->DoAction(Ipponboard::eAction_Yuko,
-                                Ipponboard::eFighter_Blue,
+                                Ipponboard::eFighter1,
                                 isCtrlPressed);
-        qDebug() << "Action [ Yuko for blue, revoke="
+        qDebug() << "Action [ Yuko for fighter1, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F8:
         m_pController->DoAction(Ipponboard::eAction_Shido,
-                                Ipponboard::eFighter_Blue,
+                                Ipponboard::eFighter1,
                                 isCtrlPressed);
-        qDebug() << "Action [ Shido for blue, revoke="
+        qDebug() << "Action [ Shido for fighter1, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F9:
         m_pController->DoAction(Ipponboard::eAction_Ippon,
-                                Ipponboard::eFighter_White,
+                                Ipponboard::eFighter2,
                                 isCtrlPressed);
-        qDebug() << "Action [ Ippon for white, revoke="
+        qDebug() << "Action [ Ippon for fighter2, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F10:
         m_pController->DoAction(Ipponboard::eAction_Wazaari,
-                                Ipponboard::eFighter_White,
+                                Ipponboard::eFighter2,
                                 isCtrlPressed);
-        qDebug() << "Action [ Wazaari for white, revoke="
+        qDebug() << "Action [ Wazaari for fighter2, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F11:
         m_pController->DoAction(Ipponboard::eAction_Yuko,
-                                Ipponboard::eFighter_White,
+                                Ipponboard::eFighter2,
                                 isCtrlPressed);
-        qDebug() << "Action [ Yuko for white, revoke="
+        qDebug() << "Action [ Yuko for fighter2, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F12:
         m_pController->DoAction(Ipponboard::eAction_Shido,
-                                Ipponboard::eFighter_White,
+                                Ipponboard::eFighter2,
                                 isCtrlPressed);
-        qDebug() << "Action [ Shido for white, revoke="
+        qDebug() << "Action [ Shido for fighter2, revoke="
                  << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
@@ -290,17 +298,15 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
         this,
         tr("About %1").arg(QCoreApplication::applicationName()),
         tr("<h3>%1 v%2</h3>"
-           "<p>%1 is written in C++ <br/>using <a href=\"http://boost.org\">boost</a> and the Qt toolkit %3.</p>"
-           "<p>Build: %4, Revision: %5</p>"
+           "<p>Build: %3, Revision: %4</p>"
            "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-           "<p>&copy; 2010-2012 Florian M&uuml;cke. All rights reserved.</p>"
+           "<p>&copy; 2010-2013 Florian M&uuml;cke. All rights reserved.</p>"
            "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
            "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
            "PARTICULAR PURPOSE.</p>"
           ).arg(QCoreApplication::applicationName(),
                 QCoreApplication::applicationVersion(),
-                QLatin1String(QT_VERSION_STR),
                 VersionInfo::Date,
                 VersionInfo::Revision));
 }
@@ -375,6 +381,8 @@ void MainWindowBase::write_settings()
     settings.setValue(str_tag_AutoSize, m_bAutoSize);
     settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
     settings.setValue(str_tag_MatLabel, m_MatLabel);
+    settings.setValue(str_tag_AutoIncrementPoints, m_pController->GetOption(eOption_AutoIncrementPoints));
+    settings.setValue(str_tag_Use2013Rules, m_pController->GetOption(eOption_Use2013Rules));
     settings.endGroup();
 
     // write the edition specific settings
@@ -389,10 +397,10 @@ void MainWindowBase::write_settings()
     settings.beginGroup(str_tag_Colors);
     settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
     settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
-    settings.setValue(str_tag_TextColorBlue, m_pPrimaryView->GetTextColorBlue());
-    settings.setValue(str_tag_TextBgColorBlue, m_pPrimaryView->GetTextBgColorBlue());
-    settings.setValue(str_tag_TextColorWhite, m_pPrimaryView->GetTextColorWhite());
-    settings.setValue(str_tag_TextBgColorWhite, m_pPrimaryView->GetTextBgColorWhite());
+    settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
+    settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
+    settings.setValue(str_tag_TextColorSecond, m_pPrimaryView->GetTextColorSecond());
+    settings.setValue(str_tag_TextBgColorSecond, m_pPrimaryView->GetTextBgColorSecond());
     //settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
     //settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
     settings.endGroup();
@@ -409,12 +417,12 @@ void MainWindowBase::write_settings()
     settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
     settings.setValue(str_tag_buttonReset, m_controllerCfg.button_reset);
     settings.setValue(str_tag_buttonReset2, m_controllerCfg.button_reset_2);
-    settings.setValue(str_tag_buttonResetHoldBlue, m_controllerCfg.button_reset_hold_blue);
-    settings.setValue(str_tag_buttonResetHoldWhite, m_controllerCfg.button_reset_hold_white);
-    settings.setValue(str_tag_buttonBlueHolding, m_controllerCfg.button_osaekomi_toketa_blue);
-    settings.setValue(str_tag_buttonWhiteHolding, m_controllerCfg.button_osaekomi_toketa_white);
-    settings.setValue(str_tag_buttonHansokumakeBlue, m_controllerCfg.button_hansokumake_blue);
-    settings.setValue(str_tag_buttonHansokumakeWhite, m_controllerCfg.button_hansokumake_white);
+    settings.setValue(str_tag_buttonResetHoldFirst, m_controllerCfg.button_reset_hold_first);
+    settings.setValue(str_tag_buttonResetHoldSecond, m_controllerCfg.button_reset_hold_second);
+    settings.setValue(str_tag_buttonFirstHolding, m_controllerCfg.button_osaekomi_toketa_first);
+    settings.setValue(str_tag_buttonSecondHolding, m_controllerCfg.button_osaekomi_toketa_second);
+    settings.setValue(str_tag_buttonHansokumakeFirst, m_controllerCfg.button_hansokumake_first);
+    settings.setValue(str_tag_buttonHansokumakeSecond, m_controllerCfg.button_hansokumake_second);
     settings.setValue(str_tag_invertX, m_controllerCfg.axis_inverted_X);
     settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
     settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
@@ -450,9 +458,18 @@ void MainWindowBase::read_settings()
                                         QSize(1024, 768)).toSize();
     m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
     m_bAlwaysShow = settings.value(str_tag_AlwaysShow, true).toBool();
-    m_MatLabel = settings.value(str_tag_MatLabel, "  Ipponboard  ").toString(); // value is also in settings dialog!
+    m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
     m_pPrimaryView->SetMat(m_MatLabel);
     m_pSecondaryView->SetMat(m_MatLabel);
+	
+    // rules
+    m_pController->SetOption(eOption_AutoIncrementPoints,
+                             settings.value(str_tag_AutoIncrementPoints, true).toBool());
+
+    m_pController->SetOption(eOption_Use2013Rules,
+                             settings.value(str_tag_Use2013Rules, false).toBool());
+    update_statebar();	
+	
     settings.endGroup();
 
     // read edition specific settings
@@ -493,27 +510,27 @@ void MainWindowBase::read_settings()
 
     update_info_text_color(fgColor, bgColor);
 
-    fgColor = m_pSecondaryView->GetTextColorBlue();
-    bgColor = m_pSecondaryView->GetTextBgColorBlue();
+    fgColor = m_pSecondaryView->GetTextColorFirst();
+    bgColor = m_pSecondaryView->GetTextBgColorFirst();
 
-    if (settings.contains(str_tag_TextColorBlue))
-        fgColor = settings.value(str_tag_TextColorBlue).value<QColor>();
+    if (settings.contains(str_tag_TextColorFirst))
+        fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
 
-    if (settings.contains(str_tag_TextBgColorBlue))
-        bgColor = settings.value(str_tag_TextBgColorBlue).value<QColor>();
+    if (settings.contains(str_tag_TextBgColorFirst))
+        bgColor = settings.value(str_tag_TextBgColorFirst).value<QColor>();
 
-    update_text_color_blue(fgColor, bgColor);
+    update_text_color_first(fgColor, bgColor);
 
-    fgColor = m_pPrimaryView->GetTextColorWhite();
-    bgColor = m_pSecondaryView->GetTextBgColorWhite();
+    fgColor = m_pPrimaryView->GetTextColorSecond();
+    bgColor = m_pSecondaryView->GetTextBgColorSecond();
 
-    if (settings.contains(str_tag_TextColorWhite))
-        fgColor = settings.value(str_tag_TextColorWhite).value<QColor>();
+    if (settings.contains(str_tag_TextColorSecond))
+        fgColor = settings.value(str_tag_TextColorSecond).value<QColor>();
 
-    if (settings.contains(str_tag_TextBgColorWhite))
-        bgColor = settings.value(str_tag_TextBgColorWhite).value<QColor>();
+    if (settings.contains(str_tag_TextBgColorSecond))
+        bgColor = settings.value(str_tag_TextBgColorSecond).value<QColor>();
 
-    update_text_color_white(fgColor, bgColor);
+    update_text_color_second(fgColor, bgColor);
 
     //fgColor = m_pPrimaryView->GetMainClockColor1();
     //bgColor = m_pPrimaryView->GetMainClockColor2();
@@ -530,8 +547,8 @@ void MainWindowBase::read_settings()
     if (settings.contains(str_tag_BgStyle))
     {
         const QString styleSheet = settings.value(str_tag_BgStyle).toString();
-        //m_pUi->frame_primary_view->setStyleSheet(styleSheet);
-        //m_pSecondaryView->setStyleSheet(styleSheet);
+        m_pUi->frame_primary_view->setStyleSheet(styleSheet);
+        m_pSecondaryView->setStyleSheet(styleSheet);
     }
     settings.endGroup();
 
@@ -555,23 +572,23 @@ void MainWindowBase::read_settings()
     m_controllerCfg.button_reset_2 =
         settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
 
-    m_controllerCfg.button_reset_hold_blue =
-        settings.value(str_tag_buttonResetHoldBlue, Gamepad::eButton6).toInt();
+    m_controllerCfg.button_reset_hold_first =
+        settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
 
-    m_controllerCfg.button_reset_hold_white =
-        settings.value(str_tag_buttonResetHoldWhite, Gamepad::eButton8).toInt();
+    m_controllerCfg.button_reset_hold_second =
+        settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
 
-    m_controllerCfg.button_osaekomi_toketa_blue =
-        settings.value(str_tag_buttonBlueHolding, Gamepad::eButton5).toInt();
+    m_controllerCfg.button_osaekomi_toketa_first =
+        settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
 
-    m_controllerCfg.button_osaekomi_toketa_white =
-        settings.value(str_tag_buttonWhiteHolding, Gamepad::eButton7).toInt();
+    m_controllerCfg.button_osaekomi_toketa_second =
+        settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
 
-    m_controllerCfg.button_hansokumake_blue =
-        settings.value(str_tag_buttonHansokumakeBlue, Gamepad::eButton11).toInt();
+    m_controllerCfg.button_hansokumake_first =
+        settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
 
-    m_controllerCfg.button_hansokumake_white =
-        settings.value(str_tag_buttonHansokumakeWhite, Gamepad::eButton12).toInt();
+    m_controllerCfg.button_hansokumake_second =
+        settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
 
     m_controllerCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
     m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
@@ -618,17 +635,24 @@ void MainWindowBase::on_actionPreferences_triggered()
 
     dlg.SetFighterNameFont(m_FighterNameFont);
 
-    dlg.SetTextColorsBlue(m_pPrimaryView->GetTextColorBlue(),
-                          m_pPrimaryView->GetTextBgColorBlue());
+    dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(),
+                          m_pPrimaryView->GetTextBgColorFirst());
 
-    dlg.SetTextColorsWhite(m_pPrimaryView->GetTextColorWhite(),
-                           m_pPrimaryView->GetTextBgColorWhite());
+    dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
+                           m_pPrimaryView->GetTextBgColorSecond());
 
     dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
                            m_secondScreenSize);
 
+    dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
+                 m_pController->GetOption(eOption_Use2013Rules));
+
     dlg.SetControllerConfig(&m_controllerCfg);
-    dlg.SetMatLabel(m_MatLabel);
+
+    dlg.SetLabels(m_MatLabel,
+                  m_pController->GetHomeLabel(),
+                  m_pController->GetGuestLabel());
+
     dlg.SetGongFile(m_pController->GetGongFile());
 
     if (QDialog::Accepted == dlg.exec())
@@ -637,13 +661,17 @@ void MainWindowBase::on_actionPreferences_triggered()
         m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
         update_fighter_name_font(dlg.GetFighterNameFont());
         update_info_text_color(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
-        update_text_color_blue(dlg.GetTextColorBlue(), dlg.GetTextBgColorBlue());
-        update_text_color_white(dlg.GetTextColorWhite(), dlg.GetTextBgColorWhite());
+        update_text_color_first(dlg.GetTextColorFirst(), dlg.GetTextBgColorFirst());
+        update_text_color_second(dlg.GetTextColorSecond(), dlg.GetTextBgColorSecond());
 
         m_bAlwaysShow = dlg.IsShowAlways();
         m_secondScreenNo = dlg.GetSelectedScreen();
         m_bAutoSize = dlg.IsAutoSize();
         m_secondScreenSize = dlg.GetSize();
+
+        // rules
+        m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
+        m_pController->SetOption(eOption_Use2013Rules, dlg.IsUse2013Rules());
 
         dlg.GetControllerConfig(&m_controllerCfg);
         // apply settings to gamepad
@@ -652,8 +680,9 @@ void MainWindowBase::on_actionPreferences_triggered()
         m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
         m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 
-
         m_MatLabel = dlg.GetMatLabel();
+        m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
+
         m_pPrimaryView->SetMat(m_MatLabel);
         m_pSecondaryView->SetMat(m_MatLabel);
         //m_pPrimaryView->UpdateView();
@@ -663,10 +692,10 @@ void MainWindowBase::on_actionPreferences_triggered()
         // save changes to file
         write_settings();
 
+		update_statebar();
         update_views();
     }
 }
-
 
 void MainWindowBase::show_hide_view() const
 {
@@ -709,38 +738,38 @@ void MainWindowBase::EvaluateInput()
 
     if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
     {
-        m_pController->DoAction(eAction_Hajime_Mate, eFighter_Nobody);
+        m_pController->DoAction(eAction_Hajime_Mate, eFighterNobody);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_blue)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter_Blue, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter1, true);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_white)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_second)))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter_White, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, eFighter2, true);
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_blue)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-                eFighter_Blue != m_pController->GetLead())
+                eFighter1 != m_pController->GetLead())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, eFighter_Blue);
+            m_pController->DoAction(eAction_SetOsaekomi, eFighter1);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter_Blue);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter1);
         }
     }
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_white)))
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-                eFighter_White != m_pController->GetLead())
+                eFighter2 != m_pController->GetLead())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, eFighter_White);
+            m_pController->DoAction(eAction_SetOsaekomi, eFighter2);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter_White);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter2);
         }
     }
     // reset
@@ -748,22 +777,22 @@ void MainWindowBase::EvaluateInput()
         m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
         m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
     {
-        m_pController->DoAction(eAction_ResetAll, eFighter_Nobody);
+        m_pController->DoAction(eAction_ResetAll, eFighterNobody);
     }
 
-    // hansokumake blue
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_blue)))
+    // hansokumake fighter1
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
     {
         const bool revoke(m_pController->GetScore(
-                              eFighter_Blue, ePoint_Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, eFighter_Blue, revoke);
+                              eFighter1, ePoint_Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, eFighter1, revoke);
     }
-    // hansokumake white
-    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_white)))
+    // hansokumake fighter2
+    else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
     {
         const bool revoke(m_pController->GetScore(
-                              eFighter_White, ePoint_Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, eFighter_White, revoke);
+                              eFighter2, ePoint_Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, eFighter2, revoke);
 
     }
     else
@@ -786,69 +815,69 @@ void MainWindowBase::EvaluateInput()
 
         if (m_pGamePad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_Blue);
+            m_pController->DoAction(eAction_Ippon, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_Blue);
+            m_pController->DoAction(eAction_Wazaari, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_Blue);
+            m_pController->DoAction(eAction_Yuko, eFighter1);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Shido, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Ippon, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Wazaari, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_Blue, true);
+            m_pController->DoAction(eAction_Yuko, eFighter1, true);
         }
         else if (m_pGamePad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_Blue);
+            m_pController->DoAction(eAction_Shido, eFighter1);
         }
 
-        // evaluate white actions
+        // evaluate fighter2 actions
         else if (m_pGamePad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_White);
+            m_pController->DoAction(eAction_Ippon, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_White);
+            m_pController->DoAction(eAction_Wazaari, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_White);
+            m_pController->DoAction(eAction_Yuko, eFighter2);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_White, true);
+            m_pController->DoAction(eAction_Shido, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
         {
-            m_pController->DoAction(eAction_Ippon, eFighter_White, true);
+            m_pController->DoAction(eAction_Ippon, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
         {
-            m_pController->DoAction(eAction_Wazaari, eFighter_White, true);
+            m_pController->DoAction(eAction_Wazaari, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
         {
-            m_pController->DoAction(eAction_Yuko, eFighter_White, true);
+            m_pController->DoAction(eAction_Yuko, eFighter2, true);
         }
         else if (m_pGamePad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
         {
-            m_pController->DoAction(eAction_Shido, eFighter_White);
+            m_pController->DoAction(eAction_Shido, eFighter2);
         }
     }
 }
@@ -859,16 +888,16 @@ void MainWindowBase::update_info_text_color(const QColor& color, const QColor& b
     m_pSecondaryView->SetInfoTextColor(color, bgColor);
 }
 
-void MainWindowBase::update_text_color_blue(const QColor& color, const QColor& bgColor)
+void MainWindowBase::update_text_color_first(const QColor& color, const QColor& bgColor)
 {
-    m_pPrimaryView->SetTextColorBlue(color, bgColor);
-    m_pSecondaryView->SetTextColorBlue(color, bgColor);
+    m_pPrimaryView->SetTextColorFirst(color, bgColor);
+    m_pSecondaryView->SetTextColorFirst(color, bgColor);
 }
 
-void MainWindowBase::update_text_color_white(const QColor& color, const QColor& bgColor)
+void MainWindowBase::update_text_color_second(const QColor& color, const QColor& bgColor)
 {
-    m_pPrimaryView->SetTextColorWhite(color, bgColor);
-    m_pSecondaryView->SetTextColorWhite(color, bgColor);
+    m_pPrimaryView->SetTextColorSecond(color, bgColor);
+    m_pSecondaryView->SetTextColorSecond(color, bgColor);
 }
 
 void MainWindowBase::update_fighter_name_font(const QFont& font)
@@ -877,7 +906,6 @@ void MainWindowBase::update_fighter_name_font(const QFont& font)
     m_pPrimaryView->SetFighterNameFont(font);
     m_pSecondaryView->SetFighterNameFont(font);
 }
-
 
 void MainWindowBase::on_button_reset_clicked()
 {
@@ -888,7 +916,7 @@ void MainWindowBase::on_button_reset_clicked()
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
     m_pController->DoAction(Ipponboard::eAction_ResetAll,
-                            Ipponboard::eFighter_Nobody,
+                            Ipponboard::eFighterNobody,
                             false);
 }
 
@@ -940,6 +968,10 @@ void MainWindowBase::on_actionSet_Main_Timer_triggered()
     }
 }
 
+void MainWindowBase::update_statebar()
+{
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
+}
 
 void MainWindowBase::write_specific_settings(QSettings&)
 {
@@ -950,4 +982,3 @@ void MainWindowBase::read_specific_settings(QSettings&)
 {
     qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
-

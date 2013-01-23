@@ -16,7 +16,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2012 Florian Mücke"
+#define MyAppCopyright "2010-2013 Florian Mücke"
 #define MyAppAuthor "Florian Mücke"
 
 [Setup]
@@ -41,7 +41,7 @@ OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
 Compression=lzma2/Ultra
 SolidCompression=true
 InternalCompressLevel=Ultra
-MinVersion=,5.01.2600sp1
+MinVersion=5.01.2600sp3
 ShowLanguageDialog=yes
 ;WizardImageFile=compiler:wizmodernimage-IS.bmp
 WizardImageFile=images\install_bg.bmp
@@ -106,6 +106,7 @@ Source: ..\_build\build_output\~tmp\msvcp100.dll; DestDir: {app}; Flags: IgnoreV
 Source: ..\_build\build_output\~tmp\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 Source: ..\_build\build_output\~tmp\QtCore4.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 Source: ..\_build\build_output\~tmp\QtGui4.dll; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
+Source: ..\CHANGELOG.txt; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 

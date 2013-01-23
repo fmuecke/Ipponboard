@@ -52,18 +52,12 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0">
-    <property name="leftMargin">
+   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0,0,0">
+    <property name="spacing">
      <number>0</number>
     </property>
-    <property name="topMargin">
+    <property name="margin">
      <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>5</number>
     </property>
     <item>
      <widget class="QFrame" name="frame_primary_view">
@@ -71,7 +65,7 @@
        <enum>Qt::StrongFocus</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -97,7 +91,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -105,6 +99,76 @@
        <number>0</number>
       </property>
       <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Options">
+        <property name="text">
+         <string>Options</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_autoIncrement">
+        <property name="toolTip">
+         <string>Automatically set resulting points from osaekomi or penalties</string>
+        </property>
+        <property name="text">
+         <string>Auto set points</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_use2013rules">
+        <property name="toolTip">
+         <string>Use the new 2013 IJF rule set</string>
+        </property>
+        <property name="text">
+         <string>Use 2013 rules</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0,0,0,0,0,0,0,0">
+      <property name="margin">
        <number>5</number>
       </property>
       <item row="1" column="4">
@@ -119,7 +183,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>Name (first last)</string>
+         <string>First Fighter (first last)</string>
         </property>
        </widget>
       </item>
@@ -154,7 +218,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>Name (first last)</string>
+         <string>Second Fighter (first last)</string>
         </property>
        </widget>
       </item>
@@ -293,7 +357,7 @@
        </widget>
       </item>
       <item row="1" column="5">
-       <widget class="QComboBox" name="comboBox_name_white">
+       <widget class="QComboBox" name="comboBox_name_second">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -324,7 +388,7 @@
        </widget>
       </item>
       <item row="0" column="5">
-       <widget class="QComboBox" name="comboBox_name_blue">
+       <widget class="QComboBox" name="comboBox_name_first">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -764,6 +828,8 @@
  <tabstops>
   <tabstop>comboBox_weight_class</tabstop>
   <tabstop>comboBox_weight</tabstop>
+  <tabstop>comboBox_name_first</tabstop>
+  <tabstop>comboBox_name_second</tabstop>
  </tabstops>
  <resources>
   <include location="../base/ipponboard.qrc"/>

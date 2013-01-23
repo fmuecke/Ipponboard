@@ -6,6 +6,7 @@
 #include <utility>
 #include <set>
 #include <vector>
+#include <bitset>
 
 #include "score.h"
 #include "tournament.h"
@@ -48,7 +49,7 @@ public:
 	// --- IController ---
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
-	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter_Blue, bool doRevoke = false);
+	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
 	Ipponboard::EFighter GetLead() const;
 	Ipponboard::EFighter GetLastHolder() const;
@@ -70,6 +71,11 @@ public:
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
+    void SetOption(Ipponboard::EOption option, bool isSet);
+    bool GetOption(Ipponboard::EOption option) const;
+    QString GetHomeLabel() const { return m_labelHome; }
+    QString GetGuestLabel() const { return m_labelGuest; }
+    void SetLabels(QString const& home, QString const& guest);
 
 	void Gong() const;
 
@@ -87,6 +93,7 @@ private:
 	const int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
+    bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
 
 public:
 	// --- other functions ---
@@ -171,6 +178,9 @@ private:
 	bool m_isGoldenScore;
 	QTime m_roundTime;
 	QString m_weight_class;
+    std::bitset<eOption_MAX> m_options;
+    QString m_labelHome;
+    QString m_labelGuest;
 };
 
 } // namespace Ipponboard

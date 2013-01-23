@@ -17,7 +17,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard Team Edition"
-#define MyAppCopyright "2010-2012 Florian Mücke"
+#define MyAppCopyright "2010-2013 Florian Mücke"
 #define MyAppAuthor "Florian Mücke"
 
 [Setup]
@@ -38,11 +38,11 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=no
 AllowNoIcons=false
 ;OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
-OutputBaseFilename={#MyAppName}-TE-{#MyAppVersion}-setup
+OutputBaseFilename=Ipponboard-TE-{#MyAppVersion}-setup
 Compression=lzma2/Ultra
 SolidCompression=true
 InternalCompressLevel=Ultra
-MinVersion=,5.01.2600sp1
+MinVersion=5.01.2600sp3
 ShowLanguageDialog=yes
 ;WizardImageFile=compiler:wizmodernimage-IS.bmp
 WizardImageFile=images\install_bg_team.bmp
@@ -116,6 +116,7 @@ Source: ..\_build\build_output\~tmp_TE\msvcp100.dll; DestDir: {app}; Flags: Igno
 Source: ..\_build\build_output\~tmp_TE\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\QtCore4.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
 Source: ..\_build\build_output\~tmp_TE\QtGui4.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder; 
+Source: ..\CHANGELOG.txt; DestDir: {app}; Flags: IgnoreVersion replacesameversion; 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full; Check: "NOT IsPortable" 

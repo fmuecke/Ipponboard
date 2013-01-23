@@ -19,15 +19,15 @@ enum EPoint
 
 enum EFighter
 {
-	eFighter_Nobody = -1,
-	eFighter_Blue = 0,
-	eFighter_White = 1,
-	eFighter_MAX
+    eFighterNobody = -1,
+    eFighter1 = 0,
+    eFighter2 = 1,
+    eFighter_MAX
 };
 
 inline EFighter GetUkeFromTori(EFighter tori)
 {
-	return (tori == eFighter_Blue) ? eFighter_White : eFighter_Blue;
+	return (tori == eFighter1) ? eFighter2 : eFighter1;
 }
 
 
@@ -54,7 +54,7 @@ enum EState
 	eState_TimerStopped = 0,
 	eState_TimerRunning,
 	eState_Holding,
-	eState_SonoMama,
+    eState_SonoMama
 };
 
 enum EHoldState
@@ -67,17 +67,28 @@ enum EHoldState
 enum ETimer
 {
 	eTimer_Main = 0,
-	eTimer_Hold,
+    eTimer_Hold
 };
 
-
-// compliant to 2013 IJF rules
 enum EOsaekomiVal
 {
-	eOsaekomiVal_Yuko = 10,
-	eOsaekomiVal_Wazaari = 15,
-	eOsaekomiVal_Ippon = 20
+	eOsaekomiVal_Yuko = 15,
+	eOsaekomiVal_Wazaari = 20,
+    eOsaekomiVal_Ippon = 25,
+
+    // new values for 2013 IJF rules
+    eOsaekomiVal2013_Yuko = 10,
+    eOsaekomiVal2013_Wazaari = 15,
+    eOsaekomiVal2013_Ippon = 20
 };
+
+enum EOption
+{
+    eOption_AutoIncrementPoints = 0,
+    eOption_Use2013Rules = 1,
+    eOption_MAX
+};
+
 }
 
 #endif  // BASE__ENUMS_H_

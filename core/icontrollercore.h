@@ -27,6 +27,7 @@ private:
 	virtual const int get_time(ETimer) const = 0;
 	virtual bool is_sonomama() const = 0;
 	virtual bool is_golden_score() const = 0;
+    virtual bool is_option(Ipponboard::EOption option) const = 0;
 };
 
 }

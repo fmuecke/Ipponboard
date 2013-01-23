@@ -98,14 +98,14 @@ void MainWindowTeam::Init()
     m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
     m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
     m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
-//	m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
+    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
     m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
 
     m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0));
@@ -255,20 +255,27 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
     }
 }
 
-
 void MainWindowTeam::write_specific_settings(QSettings &settings)
 {
     settings.beginGroup(EditionName());
     settings.setValue(StrTags::mode, m_mode);
     settings.setValue(StrTags::host, m_host);
+    settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
+    settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
     settings.endGroup();
 }
 
 void MainWindowTeam::read_specific_settings(QSettings &settings)
 {
     settings.beginGroup(EditionName());
-    m_mode = settings.value(StrTags::mode, "").toString();
-    m_host = settings.value(StrTags::host, "").toString();
+    {
+        m_mode = settings.value(StrTags::mode, "").toString();
+        m_host = settings.value(StrTags::host, "").toString();
+
+        m_pController->SetLabels(
+            settings.value(str_tag_LabelHome, tr("Home")).toString(),
+            settings.value(str_tag_LabelGuest, tr("Guest")).toString());
+    }
     settings.endGroup();
 
     settings.beginGroup(str_tag_Styles);
@@ -286,16 +293,16 @@ void MainWindowTeam::update_info_text_color(const QColor& color, const QColor& b
     //m_pScoreScreen->SetInfoTextColor(color, bgColor);
 }
 
-void MainWindowTeam::update_text_color_blue(const QColor& color, const QColor& bgColor)
+void MainWindowTeam::update_text_color_first(const QColor& color, const QColor& bgColor)
 {
-    MainWindowBase::update_text_color_blue(color, bgColor);
-    m_pScoreScreen->SetTextColorBlue(color, bgColor);
+    MainWindowBase::update_text_color_first(color, bgColor);
+    m_pScoreScreen->SetTextColorFirst(color, bgColor);
 }
 
-void MainWindowTeam::update_text_color_white(const QColor& color, const QColor& bgColor)
+void MainWindowTeam::update_text_color_second(const QColor& color, const QColor& bgColor)
 {
-    MainWindowBase::update_text_color_white(color, bgColor);
-    m_pScoreScreen->SetTextColorWhite(color, bgColor);
+    MainWindowBase::update_text_color_second(color, bgColor);
+    m_pScoreScreen->SetTextColorSecond(color, bgColor);
 }
 
 void MainWindowTeam::update_fighter_name_font(const QFont& font)
@@ -359,9 +366,9 @@ void MainWindowTeam::update_score_screen()
     const QString logo_home = m_pClubManager->GetLogo(home);
     const QString logo_guest = m_pClubManager->GetLogo(guest);
     m_pScoreScreen->SetLogos(logo_home, logo_guest);
-    const int score_blue = m_pController->GetTeamScore(Ipponboard::eFighter_Blue);
-    const int score_white = m_pController->GetTeamScore(Ipponboard::eFighter_White);
-    m_pScoreScreen->SetScore(score_blue, score_white);
+    const int score_first = m_pController->GetTeamScore(Ipponboard::eFighter1);
+    const int score_second = m_pController->GetTeamScore(Ipponboard::eFighter2);
+    m_pScoreScreen->SetScore(score_first, score_second);
 
     m_pScoreScreen->update();
 }
@@ -437,30 +444,30 @@ void MainWindowTeam::WriteScoreToHtml_()
     {
         const Fight& fight(m_pController->GetFight(0, i));
 
-        QString name_blue(fight.fighters[eFighter_Blue].name);
-        QString name_white(fight.fighters[eFighter_White].name);
-        const Score& score_blue(fight.scores[eFighter_Blue]);
-        const Score& score_white(fight.scores[eFighter_White]);
+        QString name_first(fight.fighters[eFighter1].name);
+        QString name_second(fight.fighters[eFighter2].name);
+        const Score& score_first(fight.scores[eFighter1]);
+        const Score& score_second(fight.scores[eFighter2]);
 
         QString round("<tr>");
         round.append("<td><center>" + QString::number(i + 1) + "</center></td>"); // number
         round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-        round.append("<td><center>" + name_blue + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
-        round.append("<td><center>" + name_white + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+        round.append("<td><center>" + name_first + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_first.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_first.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_first.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_first.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_first.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter1)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+        round.append("<td><center>" + name_second + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_second.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_second.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_second.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_second.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
         round.append("<td><center>" + fight.GetRoundTimeUsedText(
                 m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
@@ -477,30 +484,30 @@ void MainWindowTeam::WriteScoreToHtml_()
     {
         const Fight& fight(m_pController->GetFight(1, i));
 
-        QString name_blue(fight.fighters[eFighter_Blue].name);
-        QString name_white(fight.fighters[eFighter_White].name);
-        const Score& score_blue(fight.scores[eFighter_Blue]);
-        const Score& score_white(fight.scores[eFighter_White]);
+        QString name_first(fight.fighters[eFighter1].name);
+        QString name_second(fight.fighters[eFighter2].name);
+        const Score& score_first(fight.scores[eFighter1]);
+        const Score& score_second(fight.scores[eFighter2]);
 
         QString round("<tr>");
         round.append("<td><center>" + QString::number(i + 1 + m_pController->GetFightCount()) + "</center></td>"); // number
         round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-        round.append("<td><center>" + name_blue + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_blue.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_blue.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_blue.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_blue.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_blue.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_Blue)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_Blue)) + "</center></td>"); // score
-        round.append("<td><center>" + name_white + "</center></td>"); // name
-        round.append("<td><center>" + QString::number(score_white.Ippon()) + "</center></td>"); // I
-        round.append("<td><center>" + QString::number(score_white.Wazaari()) + "</center></td>"); // W
-        round.append("<td><center>" + QString::number(score_white.Yuko()) + "</center></td>"); // Y
-        round.append("<td><center>" + QString::number(score_white.Shido()) + "</center></td>"); // S
-        round.append("<td><center>" + QString::number(score_white.Hansokumake()) + "</center></td>"); // H
-        round.append("<td><center>" + QString::number(fight.HasWon(eFighter_White)) + "</center></td>"); // won
-        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter_White)) + "</center></td>"); // score
+        round.append("<td><center>" + name_first + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_first.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_first.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_first.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_first.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_first.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter1)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+        round.append("<td><center>" + name_second + "</center></td>"); // name
+        round.append("<td><center>" + QString::number(score_second.Ippon()) + "</center></td>"); // I
+        round.append("<td><center>" + QString::number(score_second.Wazaari()) + "</center></td>"); // W
+        round.append("<td><center>" + QString::number(score_second.Yuko()) + "</center></td>"); // Y
+        round.append("<td><center>" + QString::number(score_second.Shido()) + "</center></td>"); // S
+        round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
+        round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
+        round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
         round.append("<td><center>" + fight.GetRoundTimeUsedText(
                 m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
@@ -512,7 +519,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 
     const QString copyright = tr("List generated with Ipponboard v") +
                               QApplication::applicationVersion() +
-                              ", &copy; " + QApplication::organizationName() + ", 2010-2012";
+                              ", &copy; " + QApplication::organizationName() + ", 2010-2013";
     m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 
@@ -660,6 +667,16 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
         m_pController->SetRoundTime("5:00");
         update_weights("-60;-66;-73;-81;-90;-100;+100");
     }
+    else if( s == str_mode_1te_bundesliga_nord_f ||
+          s == str_mode_1te_bundesliga_sued_f ||
+          s == str_mode_2te_bundesliga_nord_f ||
+          s == str_mode_2te_bundesliga_sued_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-48;-52;-57;-63;-70;-78;+78");
+    }
     else if( s == str_mode_mm_u17_m )
     {
         m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
@@ -683,6 +700,16 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
         m_pController->GetTournamentScoreModel(1)->SetNumRows(10);
         m_pController->SetRoundTime("5:00");
         update_weights("-66;-73;-81;-90;+90");
+    }
+    else if( s == str_mode_bayernliga_nord_f ||
+             s == str_mode_bayernliga_sued_f ||
+             s == str_mode_landesliga_nord_f ||
+             s == str_mode_landesliga_sued_f )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(7);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(7);
+        m_pController->SetRoundTime("5:00");
+        update_weights("-48;-52;-57;-63;-70;-78;+78");
     }
     else
     {
@@ -708,14 +735,14 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
 
 void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 {
-    m_pController->SetClub(Ipponboard::eFighter_Blue, s);
+    m_pController->SetClub(Ipponboard::eFighter1, s);
     //UpdateViews_(); --> already done by controller
     update_score_screen();
 }
 
 void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 {
-    m_pController->SetClub(Ipponboard::eFighter_White, s);
+    m_pController->SetClub(Ipponboard::eFighter2, s);
     //UpdateViews_(); --> already done by controller
     update_score_screen();
 }

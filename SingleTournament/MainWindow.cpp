@@ -109,18 +109,18 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
     m_pSecondaryView->UpdateView();
 }
 
-void MainWindow::on_comboBox_name_blue_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
 {
     update_fighters(s);
 
-    m_pController->SetFighterName(eFighter_Blue, s);
+    m_pController->SetFighterName(eFighter1, s);
 }
 
-void MainWindow::on_comboBox_name_white_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
 {
     update_fighters(s);
 
-    m_pController->SetFighterName(eFighter_White, s);
+    m_pController->SetFighterName(eFighter2, s);
 }
 
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)
@@ -134,15 +134,22 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
     //> Setting time will then update the views.
 
     if (checked)
-    {
-        m_pController->SetRoundTime(
-            QTime().addSecs(t.GetGoldenScoreTime()));
-    }
-    else
-    {
-        m_pController->SetRoundTime(
-            QTime().addSecs(t.GetRoundTime()));
-    }
+     {
+         if (m_pController->GetOption(Ipponboard::eOption_Use2013Rules))
+         {
+             m_pController->SetRoundTime(QTime());
+         }
+         else
+         {
+             m_pController->SetRoundTime(
+                 QTime().addSecs(t.GetGoldenScoreTime()));
+         }
+     }
+     else
+     {
+         m_pController->SetRoundTime(
+             QTime().addSecs(t.GetRoundTime()));
+     }
 }
 
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
@@ -181,10 +188,10 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
     m_CurrentFighterNames.sort();
 
-    m_pUi->comboBox_name_blue->clear();
-    m_pUi->comboBox_name_blue->addItems(m_CurrentFighterNames);
-    m_pUi->comboBox_name_white->clear();
-    m_pUi->comboBox_name_white->addItems(m_CurrentFighterNames);
+    m_pUi->comboBox_name_first->clear();
+    m_pUi->comboBox_name_first->addItems(m_CurrentFighterNames);
+    m_pUi->comboBox_name_second->clear();
+    m_pUi->comboBox_name_second->addItems(m_CurrentFighterNames);
 }
 
 void MainWindow::on_actionImport_Fighters_triggered()
@@ -273,5 +280,29 @@ void MainWindow::update_fighters(const QString& s)
     }
 }
 
+void MainWindow::update_statebar()
+{
+	MainWindowBase::update_statebar();
 
+//    if (Gamepad::eState_ok != m_pGamePad->GetState())
+//    {
+//        m_pUi->label_controller_state->setText(tr("No controller detected!"));
+//    }
+//    else
+//    {
+//        QString controllerName = QString::fromWCharArray(m_pGamePad->GetProductName());
+//        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
+//    }
+    m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
+    m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+}
 
+void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
+{
+    m_pController->SetOption(eOption_Use2013Rules, checked);
+}
+
+void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
+{
+    m_pController->SetOption(eOption_AutoIncrementPoints, checked);
+}

@@ -108,7 +108,7 @@ public:
 	/// reads capabilities
 	EState Init();
 
-	inline const TCHAR* GetProductName() const
+    inline const wchar_t* GetProductName() const
 	{
 		return m_caps.szPname;
 	}
@@ -234,7 +234,7 @@ private:
 private:
 	unsigned int m_currentId;
 	std::bitset<eAxis_MAX> m_invertedAxes;
-	JOYCAPS m_caps;
+    JOYCAPSW m_caps;
 	JOYINFOEX m_data;
 	JOYINFOEX m_lastData;
 	EState m_state;

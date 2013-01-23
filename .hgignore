@@ -5,7 +5,10 @@ GamePadDemo/Makefile.Release
 Makefile
 SingleTournament/Makefile.Debug
 SingleTournament/Makefile.Release
+SingleTournament/*.pdb
 _build/build_output/*
+*.bak
+*.orig
 base/.buildnr
 base/.date
 base/.revision
