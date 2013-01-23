@@ -1,7 +1,7 @@
 ::---------------------------------------------------------
 :: Ipponboard build script
 ::
-:: Copyright 2010-2012 Florian Muecke. All rights reserved.
+:: Copyright 2010-2013 Florian Muecke. All rights reserved.
 :: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 ::
 :: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -10,7 +10,7 @@
 :: $Id$
 ::---------------------------------------------------------
 @echo off
-::SETLOCAL
+SETLOCAL
 SET BASE_DIR=%CD%
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
@@ -39,6 +39,8 @@ IF NOT EXIST "%QTDIR%\qmake.exe" (
 	GOTO :EOF
 )
 
+cls
+
 echo;
 echo Select build mode:
 echo   (1) make clean
@@ -65,7 +67,7 @@ GOTO the_end
 	rd /Q /S "%BASE_DIR%\lib"
 	qmake -recursive
 	if errorlevel 1 pause
-	jom /S /L clean>nul
+
 	jom /S /L clean>nul
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
@@ -117,7 +119,6 @@ GOTO :EOF
 :build_all
 	echo;
 	echo --[build all]--
-	CALL :make_clean internal
 	CALL :build_clean internal
 	CALL :build_setup internal
 	if not "%1"=="internal" pause
