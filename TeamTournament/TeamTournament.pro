@@ -14,56 +14,56 @@ DEFINES += _WIN32 TEAM_VIEW
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER  = ../base/pch.h
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib) \
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
 DESTDIR = ../bin
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard_team
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad -lcore
+    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lwinmm
 }
 
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_team_d
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad_d -lcore_d
+    QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lwinmm 
 }
 
-CONFIG(__GNUC__) {
-    QMAKE_CXXFLAGS += -std=c++0x
-    QMAKE_LIBS += -lboost_serialization
-    QMAKE_LIBS += -lboost_system
-    QMAKE_LIBS += -lboost_filesystem
+win32-g++: COMPILER = mingw
+contains(COMPILER, mingw) {
+    QMAKE_CXXFLAGS += -std=c++11
+    QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
+	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
+	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
 }
 
-HEADERS = ../base/pch.h \
+HEADERS = scorescreen.h \
+	../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
-    ../widgets/countdown.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-    ../widgets/splashscreen.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
     ../base/mainwindow.h \
     ../base/settingsdlg.h \
     ../base/view.h \
-    scorescreen.h
+    ../util/path_helpers.h \
+    ../util/qstring_serialization.h \
+    ../widgets/countdown.h \
+    ../widgets/scaledimage.h \
+    ../widgets/scaledtext.h \
+    ../widgets/splashscreen.h
 
-SOURCES = ../base/clubmanager.cpp \
+SOURCES = main.cpp \
+    scorescreen.cpp \
+    MainWindow.cpp \
+	../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
-    ../base/mainwindow.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \
     ../widgets/countdown.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
-    main.cpp \
-    scorescreen.cpp
+    ../widgets/splashscreen.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
