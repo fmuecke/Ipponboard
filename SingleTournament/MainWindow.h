@@ -11,10 +11,10 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     virtual ~MainWindow();
 
-	virtual void Init() sealed;
+	virtual void Init() final;
 
-	virtual const char* EditionName() const sealed			{ return "Basic Edition"; }
-	virtual const char* EditionNameShort() const sealed		{ return "Basic"; }
+	virtual const char* EditionName() const final			{ return "Basic Edition"; }
+	virtual const char* EditionNameShort() const final		{ return "Basic"; }
 
 protected:
     //virtual void changeEvent(QEvent* e) override;

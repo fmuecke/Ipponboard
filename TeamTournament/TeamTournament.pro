@@ -33,8 +33,7 @@ CONFIG(debug, release|debug) {
 
 win32-g++: COMPILER = mingw
 contains(COMPILER, mingw) {
-    #QMAKE_CXXFLAGS += -std=c++11
-	QMAKE_CXXFLAGS += -std=c++0x
+    QMAKE_CXXFLAGS += -std=c++11
     QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50

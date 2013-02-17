@@ -13,10 +13,10 @@ public:
     explicit MainWindowTeam(QWidget* parent = nullptr);
 	virtual ~MainWindowTeam() {}
 
-	virtual void Init() sealed;
+	virtual void Init() final;
 
-	virtual const char* EditionName() const sealed		{ return "Team Edition"; }
-	virtual const char* EditionNameShort() const sealed	{ return "Team"; }
+	virtual const char* EditionName() const final		{ return "Team Edition"; }
+	virtual const char* EditionNameShort() const final	{ return "Team"; }
 
 protected:
     //virtual void changeEvent(QEvent* e) override;
@@ -35,8 +35,8 @@ private:
     void UpdateFightNumber_();
     void update_score_screen();
     void WriteScoreToHtml_();
-    virtual void write_specific_settings(QSettings& settings) sealed;
-    virtual void read_specific_settings(QSettings& settings) sealed;
+    virtual void write_specific_settings(QSettings& settings) final;
+    virtual void read_specific_settings(QSettings& settings) final;
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);
 
