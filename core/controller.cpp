@@ -355,7 +355,7 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 
 
 //=========================================================
-const QString Controller::GetTimeText(ETimer timer) const
+QString Controller::GetTimeText(ETimer timer) const
 //=========================================================
 {
     QString ret;
@@ -380,7 +380,7 @@ const QString Controller::GetTimeText(ETimer timer) const
 }
 
 //=========================================================
-const QString Controller::GetFighterName(EFighter who) const
+QString Controller::GetFighterName(EFighter who) const
 //=========================================================
 {
     Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -400,7 +400,7 @@ const QString Controller::GetFighterName(EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
+QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
 //=========================================================
 {
     Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -420,7 +420,7 @@ const QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
+QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
 //=========================================================
 {
     Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -444,7 +444,7 @@ const QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterClub(EFighter who) const
+QString Controller::GetFighterClub(EFighter who) const
 //=========================================================
 {
     Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -454,7 +454,7 @@ const QString Controller::GetFighterClub(EFighter who) const
 }
 
 //=========================================================
-const QString& Controller::GetWeight() const
+QString const& Controller::GetWeight() const
 //=========================================================
 {
     return m_TournamentScores[m_currentTournament]
@@ -462,14 +462,14 @@ const QString& Controller::GetWeight() const
 }
 
 //=========================================================
-const QString Controller::GetMessage() const
+QString Controller::GetMessage() const
 //=========================================================
 {
     return m_Message;
 }
 
 //=========================================================
-const int Controller::GetTeamScore(Ipponboard::EFighter who) const
+int Controller::GetTeamScore(Ipponboard::EFighter who) const
 //=========================================================
 {
     int score(0);
@@ -668,7 +668,7 @@ Score& Controller::get_score(EFighter who)
 }
 
 //=========================================================
-const Score& Controller::get_score(EFighter who) const
+Score const& Controller::get_score(EFighter who) const
 //=========================================================
 {
     Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -678,7 +678,7 @@ const Score& Controller::get_score(EFighter who) const
 }
 
 //=========================================================
-const int Controller::get_time(ETimer t) const
+int Controller::get_time(ETimer t) const
 //=========================================================
 {
     if (eTimer_Hold == t)
@@ -838,7 +838,7 @@ void Controller::SetFight(
 }
 
 //=========================================================
-const Ipponboard::Fight& Controller::GetFight(
+Ipponboard::Fight const& Controller::GetFight(
     unsigned int tournament_index,
     unsigned int fight_index) const
 //=========================================================
@@ -935,7 +935,7 @@ void Controller::SetGongFile(const QString& s)
 }
 
 //=========================================================
-const QString& Controller::GetGongFile() const
+QString const& Controller::GetGongFile() const
 //=========================================================
 {
     return m_gongFile;

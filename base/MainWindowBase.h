@@ -141,14 +141,14 @@ protected:
     boost::shared_ptr<Ipponboard::Controller> m_pController;
     std::vector<Ipponboard::Fighter> m_fighters;
     QString m_Language;
+    QString m_MatLabel;
+    QString m_weights;
     QFont m_FighterNameFont;
     int m_secondScreenNo;
     QSize m_secondScreenSize;
     bool m_bAutoSize;
     bool m_bAlwaysShow;
     Ipponboard::ControllerConfig m_controllerCfg;
-    QString m_MatLabel;
-    QString m_weights;
 
 private:
     //Ui::MainWindow* m_pUi;

@@ -308,7 +308,7 @@ QSize SettingsDlg::GetSize() const
     return s;
 }
 
-const QFont SettingsDlg::GetInfoHeaderFont() const
+QFont SettingsDlg::GetInfoHeaderFont() const
 {
     QFont f = ui->fontComboBox_infoHeader->currentFont();
     f.setBold(ui->checkBox_text_bold->isChecked());
@@ -316,7 +316,7 @@ const QFont SettingsDlg::GetInfoHeaderFont() const
     return f;
 }
 
-const QFont SettingsDlg::GetFighterNameFont() const
+QFont SettingsDlg::GetFighterNameFont() const
 {
     QFont f = ui->fontComboBox_fighters->currentFont();
     f.setBold(ui->checkBox_fighters_bold->isChecked());
@@ -324,61 +324,61 @@ const QFont SettingsDlg::GetFighterNameFont() const
     return f;
 }
 
-const QColor SettingsDlg::GetInfoTextColor() const
+QColor SettingsDlg::GetInfoTextColor() const
 {
     return ui->text_text_sample->GetColor();
 }
 
-const QColor SettingsDlg::GetTextColorFirst() const
+QColor SettingsDlg::GetTextColorFirst() const
 {
     return ui->text_color_first->GetColor();
 }
 
-const QColor SettingsDlg::GetTextColorSecond() const
+QColor SettingsDlg::GetTextColorSecond() const
 {
     return ui->text_color_second->GetColor();
 }
 
-const QColor SettingsDlg::GetInfoTextBgColor() const
+QColor SettingsDlg::GetInfoTextBgColor() const
 {
     return ui->text_text_sample->GetBgColor();
 }
-const QColor SettingsDlg::GetTextBgColorFirst() const
+QColor SettingsDlg::GetTextBgColorFirst() const
 {
     return ui->text_color_first->GetBgColor();
 }
-const QColor SettingsDlg::GetTextBgColorSecond() const
+QColor SettingsDlg::GetTextBgColorSecond() const
 {
     return ui->text_color_second->GetBgColor();
 }
 
-const QString SettingsDlg::GetMatLabel() const
+QString SettingsDlg::GetMatLabel() const
 {
     return ui->comboBox_mat->currentText();
 }
 
-const QString SettingsDlg::GetHomeLabel() const
+QString SettingsDlg::GetHomeLabel() const
 {
     return ui->lineEdit_labelHome->text();
 }
 
-const QString SettingsDlg::GetGuestLabel() const
+QString SettingsDlg::GetGuestLabel() const
 {
     return ui->lineEdit_labelGuest->text();
 }
 
-const QString SettingsDlg::GetGongFile() const
+QString SettingsDlg::GetGongFile() const
 {
     QString path = QDir::currentPath() + "/sounds/";
     return path + ui->comboBox_sound_time_ends->currentText();
 }
 
-const bool SettingsDlg::IsAutoIncrementRule() const
+bool SettingsDlg::IsAutoIncrementRule() const
 {
     return ui->checkBox_increment_points->isChecked();
 }
 
-const bool SettingsDlg::IsUse2013Rules() const
+bool SettingsDlg::IsUse2013Rules() const
 {
     return ui->checkBox_rules_2013->isChecked();
 }

@@ -8,11 +8,11 @@ QStringList FightCategory::GetWeightsList() const
 	return QString::fromStdString(weights).split(';');
 }
 
-const QString FightCategory::GetRoundTimeStr() const
+QString FightCategory::GetRoundTimeStr() const
 {
 	return QTime().addSecs(round_time_secs).toString("m:ss");
 }
-const QString FightCategory::GetGoldenScoreTimeStr() const
+QString FightCategory::GetGoldenScoreTimeStr() const
 {
 	return QTime().addSecs(golden_score_time_secs).toString("m:ss");
 }

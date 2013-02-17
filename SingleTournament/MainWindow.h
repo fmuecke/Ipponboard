@@ -13,7 +13,7 @@ public:
 
 	virtual void Init() final;
 
-	virtual const char* EditionName() const final			{ return "Basic Edition"; }
+	virtual const char* EditionName() const final		{ return "Basic Edition"; }
 	virtual const char* EditionNameShort() const final		{ return "Basic"; }
 
 protected:

@@ -38,14 +38,14 @@ public:
 		return name == n.toStdString();
 	}
 
-	const QString ToString() const { return QString::fromStdString(name); }
-	const void Rename(QString const& newName) { name.assign(newName.toStdString()); }
+	QString ToString() const { return QString::fromStdString(name); }
+	void Rename(QString const& newName) { name.assign(newName.toStdString()); }
 
 	int GetRoundTime() const { return round_time_secs; }
 	int GetGoldenScoreTime() const { return golden_score_time_secs; }
-	const QString GetRoundTimeStr() const;
-	const QString GetGoldenScoreTimeStr() const;
-	const QString GetWeights() const { return QString::fromStdString(weights); }
+	QString GetRoundTimeStr() const;
+	QString GetGoldenScoreTimeStr() const;
+	QString GetWeights() const { return QString::fromStdString(weights); }
 	void SetRoundTime(int secs) { round_time_secs = secs; }
 	void SetRoundTime(QString const& str);
 	void SetGoldenScoreTime(int secs) { golden_score_time_secs = secs; }

@@ -53,14 +53,14 @@ public:
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
 	Ipponboard::EFighter GetLead() const;
 	Ipponboard::EFighter GetLastHolder() const;
-	const QString GetTimeText(Ipponboard::ETimer timer) const;
-	const QString GetFighterName(Ipponboard::EFighter who) const;
-	const QString GetFighterLastName(Ipponboard::EFighter) const;
-	const QString GetFighterFirstName(Ipponboard::EFighter) const;
-	const QString GetFighterClub(Ipponboard::EFighter who) const;
-	const QString& GetWeight() const;
-	const QString GetMessage() const;
-	const int GetTeamScore(Ipponboard::EFighter who) const;
+	QString GetTimeText(Ipponboard::ETimer timer) const;
+	QString GetFighterName(Ipponboard::EFighter who) const;
+	QString GetFighterLastName(Ipponboard::EFighter) const;
+	QString GetFighterFirstName(Ipponboard::EFighter) const;
+	QString GetFighterClub(Ipponboard::EFighter who) const;
+	QString const& GetWeight() const;
+	QString GetMessage() const;
+	int GetTeamScore(Ipponboard::EFighter who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
 	void SetRoundTime(const QString& value);
 	QString GetRoundTime() const;
@@ -79,7 +79,7 @@ public:
 
 	void Gong() const;
 
-    const IController* GetIController() const { return this; }
+    IController const* GetIController() const { return this; }
     IController* GetIController() { return this; }
 
 	// --- IControllerCore ---
@@ -88,9 +88,9 @@ private:
 	void stop_timer(ETimer t);
 	void reset_fight();
 	void reset_timer(ETimer);
-	Score& get_score(Ipponboard::EFighter who);
-	const Score& get_score(Ipponboard::EFighter who) const;
-	const int get_time(ETimer) const;
+	Score& get_score(Ipponboard::EFighter who) final;
+	Score const& get_score(Ipponboard::EFighter who) const final;
+	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
     bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
@@ -123,7 +123,7 @@ public:
 				  int wazaari1 = -1, int ippon1 = -1, int shido1 = -1,
 				  int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1,
 				  int ippon2 = -1, int shido2 = -1, int hansokumake2 = -1);
-	const Ipponboard::Fight& GetFight(unsigned int tournament_index, unsigned int fight_index) const;
+	Ipponboard::Fight const& GetFight(unsigned int tournament_index, unsigned int fight_index) const;
 	void SetFighterName(Ipponboard::EFighter whos, const QString& name);
 
 	void SetWeights(QStringList const& weights);
@@ -131,7 +131,7 @@ public:
 	TournamentModel* GetTournamentScoreModel(int which = 0);
 
 	void SetGongFile(const QString&);
-	const QString& GetGongFile() const;
+	QString const& GetGongFile() const;
 
 
 private slots:

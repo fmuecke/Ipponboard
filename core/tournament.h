@@ -39,7 +39,7 @@ struct Fight
 	int time_in_seconds;
 	bool is_saved;
 
-	const QString GetRoundTimeRemainingText() const
+	QString GetRoundTimeRemainingText() const
 	{
 		// get time display
 		const int minutes = time_in_seconds / 60;
@@ -52,7 +52,7 @@ struct Fight
 		return  ret + QString::number(seconds);
 	}
 
-	const QString GetRoundTimeUsedText(int max_time_in_seconds) const
+	QString GetRoundTimeUsedText(int max_time_in_seconds) const
 	{
 		// get time display
 		const int time_used = max_time_in_seconds - time_in_seconds;

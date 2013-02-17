@@ -44,7 +44,7 @@ public:
 	int CategoryCount() const { return m_Categories.size(); }
 
 	bool CategoriesFromString(std::string const& s);
-	std::string const CategoriesToString();
+	std::string CategoriesToString();
 
 private:
 	void load_categories();
