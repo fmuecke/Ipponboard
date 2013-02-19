@@ -14,6 +14,7 @@
 #include "icontrollercore.h"
 #include "tournamentmodel.h"
 #include "statemachine.h"
+#include "../util/helpers.hpp"
 
 // forwards
 class QTimer;

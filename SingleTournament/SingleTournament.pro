@@ -36,7 +36,7 @@ win32-g++: COMPILER = mingw
 win32-msvc2010: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-	QMAKE_CXXFLAGS += -std=c++11
+	QMAKE_CXXFLAGS += -std=c++0x
 	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
 	#QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
