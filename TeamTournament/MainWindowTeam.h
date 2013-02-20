@@ -80,8 +80,6 @@ private slots:
     //void on_comboBox_name_first_currentIndexChanged(const QString&);
     //void on_checkBox_golden_score_clicked(bool checked);
     //void on_comboBox_weight_class_currentIndexChanged(const QString&);
-    //void on_actionImportList_triggered();
-    //void on_actionExportList_triggered();
 
 	void on_actionReset_Scores_triggered();
     virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;

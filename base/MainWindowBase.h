@@ -1,7 +1,9 @@
 #ifndef BASE__MAINWINDOW_BASE_H_
 #define BASE__MAINWINDOW_BASE_H_
 
+#include "FighterManager.h"
 #include "../core/ControllerConfig.h"
+#include "../util/helpers.hpp"
 
 #include <QMainWindow>
 #include <vector>
@@ -130,7 +132,7 @@ protected slots:
     void on_actionOnline_Feedback_triggered();
     void on_actionVisit_Project_Homepage_triggered();
     void on_actionAbout_Ipponboard_triggered();
-    virtual void on_actionImport_Fighters_triggered();
+    virtual void on_actionManageFighters_triggered() {}
 
 protected:
     virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
@@ -139,7 +141,7 @@ protected:
     boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
     boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
     boost::shared_ptr<Ipponboard::Controller> m_pController;
-    std::vector<Ipponboard::Fighter> m_fighters;
+    Ipponboard::FighterManager m_fighterManager;
     QString m_Language;
     QString m_MatLabel;
     QString m_weights;

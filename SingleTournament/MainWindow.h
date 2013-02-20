@@ -1,3 +1,9 @@
+// Copyright 2010-2013 Florian Muecke. All rights reserved.
+// http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
 #ifndef BASIC_EDITION_MAINWINDOW_H_
 #define BASIC_EDITION_MAINWINDOW_H_
 
@@ -34,19 +40,18 @@ private:
     void update_fighters(const QString& s);
     
 	/* base class slot overrides */
-	virtual void on_actionImport_Fighters_triggered() override;
+	virtual void on_actionManageFighters_triggered() override;
 
 protected slots:
     //virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 	/* specific private slots */
-	void on_actionManage_Classes_triggered();
+	void on_actionManageClasses_triggered(); //TODO: rename to categories
     void on_comboBox_weight_currentIndexChanged(const QString&);
     void on_comboBox_name_second_currentIndexChanged(const QString&);
     void on_comboBox_name_first_currentIndexChanged(const QString&);
     void on_checkBox_golden_score_clicked(bool checked);
     void on_comboBox_weight_class_currentIndexChanged(const QString&);
-    void on_actionExportList_triggered();
 
 private slots:
     void on_checkBox_use2013rules_toggled(bool checked);

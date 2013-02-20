@@ -41,9 +41,10 @@ contains(COMPILER, mingw) {
 
 HEADERS = MainWindowTeam.h \
     scorescreen.h \
-	../base/pch.h \
+    ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
+    ../base/FighterManager.h \
     ../base/mainwindowbase.h \
     ../base/settingsdlg.h \
     ../base/view.h \
@@ -57,8 +58,9 @@ HEADERS = MainWindowTeam.h \
 SOURCES = main.cpp \
     scorescreen.cpp \
     MainWindowTeam.cpp \
-	../base/clubmanager.cpp \
+    ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
+    ../base/FighterManager.cpp \
     ../base/mainwindowbase.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \

@@ -1,8 +1,15 @@
+// Copyright 2010-2013 Florian Muecke. All rights reserved.
+// http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
+//
+// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
+// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
+//
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "../base/fightcategorymanager.h"
 #include "../base/fightcategorymanagerdlg.h"
+#include "../base/fightermanagerdlg.h"
 #include "../base/view.h"
 #include "../base/versioninfo.h"
 #include "../core/controller.h"
@@ -68,7 +75,7 @@ void MainWindow::Init()
     on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
 }
 
-void MainWindow::on_actionManage_Classes_triggered()
+void MainWindow::on_actionManageClasses_triggered()
 {
     FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 
@@ -97,6 +104,14 @@ void MainWindow::on_actionManage_Classes_triggered()
         m_pUi->comboBox_weight_class->setCurrentIndex(index);
         on_comboBox_weight_class_currentIndexChanged(currentClass);
     }
+}
+
+void MainWindow::on_actionManageFighters_triggered()
+{
+    MainWindowBase::on_actionManageFighters_triggered();
+
+    FighterManagerDlg dlg(m_fighterManager, this);
+    dlg.exec();
 }
 
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
@@ -175,7 +190,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
     // filter fighters for suitable
     m_CurrentFighterNames.clear();
 
-    Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
+    Q_FOREACH(const Ipponboard::Fighter& f, m_fighterManager.m_fighters)
     {
         if(f.weight_class == weight || f.weight_class.isEmpty())
         {
@@ -194,55 +209,6 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
     m_pUi->comboBox_name_second->addItems(m_CurrentFighterNames);
 }
 
-void MainWindow::on_actionImport_Fighters_triggered()
-{
-    m_fighters.clear();
-    MainWindowBase::on_actionImport_Fighters_triggered();
-
-    if (!m_fighters.empty())
-        update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
-}
-
-void MainWindow::on_actionExportList_triggered()
-{
-    const QString currentDate = QDate::currentDate().toString("yyyy-MM-dd");
-
-	QString fileName = QString("%1\\IpponboardFighters_%2.csv")
-		.arg(QCoreApplication::applicationFilePath(), currentDate);
-		
-	fileName = QFileDialog::getSaveFileName(this, 
-                    tr("Select CSV file to store fighter information"),
-                    fileName,
-                    tr("CSV files (*.csv);;Text files (*.txt)"));
-
-	if (!fileName.isEmpty())
-    {
-        QFile file(fileName);
-        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text))
-        {
-            QTextStream out(&file);
-
-            // write header
-            out << "@FIRSTNAME;@LASTNAME;@WEIGHT;@CLUB\n";
-            Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
-            {
-                out << f.first_name << ";"
-                    << f.last_name << ";"
-                    << f.weight_class << ";"
-                    << f.club << "\n";
-
-                out.flush();
-            }
-            file.close();
-
-            QMessageBox::information(
-                        this,
-                        QCoreApplication::applicationName(),
-                        tr("Successfully exported %1 fighters.").arg(QString::number(m_fighters.size())));
-        }
-    }
-}
-
 void MainWindow::update_fighters(const QString& s)
 {
     if (s.isEmpty())
@@ -259,12 +225,13 @@ void MainWindow::update_fighters(const QString& s)
     }
     const QString weight = m_pUi->comboBox_weight->currentText();
     const QString club; // TODO: later
+    const QString category = m_pUi->comboBox_weight_class->currentText();
 
-    Ipponboard::Fighter fNew(firstName, lastName, weight, club);
+    Ipponboard::Fighter fNew(firstName, lastName, club, weight, category);
 
     // Does fighter already exist in list?
     bool found(false);
-    Q_FOREACH(const Ipponboard::Fighter& f, m_fighters)
+    Q_FOREACH(const Ipponboard::Fighter& f, m_fighterManager.m_fighters)
     {
         if (f.first_name == fNew.first_name &&
                 f.last_name == fNew.last_name)
@@ -276,7 +243,7 @@ void MainWindow::update_fighters(const QString& s)
 
     if (!found)
     {
-        m_fighters.push_back(fNew);
+        m_fighterManager.m_fighters.push_back(fNew);
     }
 }
 

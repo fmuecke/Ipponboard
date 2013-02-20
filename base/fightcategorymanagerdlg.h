@@ -30,7 +30,7 @@ private:
 	void load_values();
 
 	Ui::FightCategoryManagerDlg* ui;
-    Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
+	Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
 	std::string m_originalClasses;
 	//Ipponboard::WeightClass m_currentClass;
 

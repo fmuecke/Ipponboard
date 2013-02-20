@@ -11,11 +11,13 @@ using namespace Ipponboard;
 
 Fighter::Fighter(QString const& firstName,
                  QString const& lastName,
-                 QString const& weightClass,
-                 QString const& club)
+                 QString const& club,
+                 QString const& weight,
+                 QString const& category)
     : first_name(firstName)
     , last_name(lastName)
-    , weight_class(weightClass)
     , club(club)
+    , weight_class(weight)
+    , category(category)
 {
 }

@@ -34,7 +34,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
    <item>
-    <widget class="QTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tab_extended">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -1447,6 +1447,30 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Extended</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="toolTip">
+          <string>Format specifier for fighter import and export</string>
+         </property>
+         <property name="text">
+          <string>Fighter import/export format</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_dataExchangeFormat">
+         <property name="text">
+          <string>club;firstname;lastname;weight</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
@@ -1470,7 +1494,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
+  <tabstop>tab_extended</tabstop>
   <tabstop>buttonBox</tabstop>
   <tabstop>checkBox_open_secondary_view</tabstop>
   <tabstop>comboBox_screen</tabstop>

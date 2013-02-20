@@ -435,12 +435,6 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionNeu"/>
-    <addaction name="action_ffnen"/>
-    <addaction name="actionSpeichern"/>
-    <addaction name="separator"/>
-    <addaction name="actionImport_Fighters"/>
-    <addaction name="actionExportList"/>
     <addaction name="separator"/>
     <addaction name="actionDrucken"/>
     <addaction name="separator"/>
@@ -489,8 +483,8 @@
      <string>&amp;Manage</string>
     </property>
     <addaction name="actionVereine"/>
-    <addaction name="actionListen"/>
-    <addaction name="actionManage_Classes"/>
+    <addaction name="actionManageFighters"/>
+    <addaction name="actionManageClasses"/>
     <addaction name="separator"/>
     <addaction name="actionSet_Hold_Timer"/>
     <addaction name="actionSet_Main_Timer"/>
@@ -642,30 +636,6 @@
     <string>Load Demo Data</string>
    </property>
   </action>
-  <action name="actionNeu">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>New</string>
-   </property>
-  </action>
-  <action name="actionSpeichern">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </action>
-  <action name="action_ffnen">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </action>
   <action name="actionVereine">
    <property name="enabled">
     <bool>false</bool>
@@ -674,42 +644,15 @@
     <string>Clubs</string>
    </property>
   </action>
-  <action name="actionListen">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Lists</string>
-   </property>
-  </action>
-  <action name="actionImport_Fighters">
+  <action name="actionManageFighters">
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
-   </property>
    <property name="text">
-    <string>Import Fighters</string>
+    <string>Fighters</string>
    </property>
    <property name="toolTip">
-    <string>Import fighters from CSV file</string>
-   </property>
-  </action>
-  <action name="actionExportList">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/export_list.png</normaloff>:/res/icons/export_list.png</iconset>
-   </property>
-   <property name="text">
-    <string>Export Fighters</string>
-   </property>
-   <property name="toolTip">
-    <string>Export fighters to CSV file</string>
+    <string>Manage fighters</string>
    </property>
   </action>
   <action name="actionDrucken">
@@ -724,13 +667,16 @@
     <string>Print</string>
    </property>
   </action>
-  <action name="actionManage_Classes">
+  <action name="actionManageClasses">
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
      <normaloff>:/res/icons/category.png</normaloff>:/res/icons/category.png</iconset>
    </property>
    <property name="text">
     <string>Fight Categories</string>
+   </property>
+   <property name="toolTip">
+    <string>Manage fight categories</string>
    </property>
   </action>
   <action name="actionOnline_Feedback">

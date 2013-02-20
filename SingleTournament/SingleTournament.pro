@@ -61,7 +61,9 @@ SOURCES = main.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp
+    ../widgets/countdown.cpp \
+    ../base/FighterManager.cpp \
+    ../base/FighterManagerDlg.cpp
 
 HEADERS = ../base/pch.h \
     mainwindow.h \
@@ -78,7 +80,10 @@ HEADERS = ../base/pch.h \
     ../widgets/countdown.h \
     ../widgets/splashscreen.h \
     ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h
+    ../widgets/scaledtext.h \
+    ../base/FighterManager.h \
+    ../util/SimpleCsvFile.hpp \
+    ../base/FighterManagerDlg.h
 
 FORMS = mainwindow.ui \
     view_vertical_single.ui \
@@ -87,7 +92,8 @@ FORMS = mainwindow.ui \
     ../base/view_horizontal.ui \
     ../base/fightcategorymanagerdlg.ui \
     ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui
+    ../widgets/countdown.ui \
+    ../base/FighterManagerDlg.ui
 
 #OTHER_FILES +=
 

@@ -48,9 +48,8 @@ HEADERS = ../base/pch.h \
     score.h \
     statemachine.h \
     tournament.h \
-	fighter.h \
+    fighter.h \
     tournamentmodel.h \
-    DataSerializer.h \
     ControllerConfig.h
 
 SOURCES = controller.cpp \
@@ -58,8 +57,7 @@ SOURCES = controller.cpp \
     score.cpp \
     statemachine.cpp \
     tournamentmodel.cpp \
-	fighter.cpp \
-	DataSerializer.cpp
+    fighter.cpp
     
 #OTHER_FILES +=
 
