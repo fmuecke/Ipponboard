@@ -16,6 +16,8 @@
 #include <QRegExp>
 #include <QPlainTextEdit>
 
+#include <boost/foreach.hpp>
+
 //using namespace Ipponboard;
 
 //---------------------------------------------------------
@@ -69,7 +71,7 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 {
     bool ok(false);
     QString dlgTitle = tr("Add new fighter");
-    QString dlgMsg = tr("Enter \"first name/last name/club/weight/category\" of the new fighter");
+    QString dlgMsg = tr("Enter \"first name;last name;club;weight;category\" of the new fighter");
 
     QString data = QInputDialog::getText(this,
                                          dlgTitle,
@@ -77,7 +79,7 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 										 QLineEdit::Normal,
 										 QString(),
                                          &ok);
-    auto dataParts = data.split('/');
+    auto dataParts = data.split(';');
 
     while (ok && dataParts.size() != 5)
 	{
@@ -98,11 +100,12 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 	{
         Ipponboard::Fighter fighter(
                 dataParts[0],  // first
-                dataParts[1],  // last
-                dataParts[2],  // weight
-                dataParts[3],  // category
-                dataParts[4]); // club
-        m_manager.m_fighters.push_back(fighter);
+                dataParts[1]);  // last
+        fighter.club = dataParts[2];
+        fighter.weight = dataParts[3];
+        fighter.category = dataParts[4];
+
+        m_manager.m_fighters.insert(fighter);
 
 		QStringList contents;
         contents.append(dataParts[0]);
@@ -110,6 +113,7 @@ void FighterManagerDlg::on_pushButton_add_pressed()
         contents.append(dataParts[2]);
         contents.append(dataParts[3]);
         contents.append(dataParts[4]);
+
         QTreeWidgetItem* pItem =
 			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 		pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
@@ -130,7 +134,7 @@ void FighterManagerDlg::populate_view()
         contents.append(f.first_name);
         contents.append(f.last_name);
         contents.append(f.club);
-        contents.append(f.weight_class);
+        contents.append(f.weight);
         contents.append(f.category);
 
         QTreeWidgetItem* pItem =
@@ -222,25 +226,24 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 void FighterManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-    QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
+    auto selectedItems = ui->treeWidget_fighters->selectedItems();
 
-	if (pItem)
-	{
+    //QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
+
+    //if (pItem)
+    BOOST_FOREACH(QTreeWidgetItem* pItem, selectedItems)
+    {
         Ipponboard::Fighter currentFighter(
                     pItem->text(eColumn_firstName),
-                    pItem->text(eColumn_lastName),
-                    pItem->text(eColumn_club),
-                    pItem->text(eColumn_weight),
-                    pItem->text(eColumn_category));
+                    pItem->text(eColumn_lastName));
+        currentFighter.club = pItem->text(eColumn_club);
+        currentFighter.weight = pItem->text(eColumn_weight);
+        currentFighter.category = pItem->text(eColumn_category);
 
         ui->treeWidget_fighters->takeTopLevelItem(
             ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
-        //TODO: move inside manager
-        m_manager.m_fighters.erase(std::find(
-            begin(m_manager.m_fighters),
-            end(m_manager.m_fighters),
-            currentFighter));
+        m_manager.RemoveFighter(currentFighter);
 
 		delete pItem;
 	}
@@ -251,91 +254,70 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 	QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
-    bool matches(false);
+    if (pItem)
+    {
+        QString firstName = pItem->text(eColumn_firstName);
+        QString lastName = pItem->text(eColumn_lastName);
+        QString club = pItem->text(eColumn_club);
+        QString weight = pItem->text(eColumn_weight);
+        QString category = pItem->text(eColumn_category);
 
-    /*FightCategory cat(pItem->text(eColumn_Name));
-	cat.SetRoundTime(pItem->text(eColumn_Time));
-	cat.SetGoldenScoreTime(pItem->text(eColumn_GS));
-	cat.SetWeights(pItem->text(eColumn_Weights));
+        Ipponboard::Fighter changedFighter(firstName, lastName);
+        changedFighter.club = club;
+        changedFighter.weight = weight;
+        changedFighter.category = category;
 
-	if (eColumn_Name == column)
-	{
-		// get original data
-		FightCategory old;
+        qDebug("enum value: %i", column);
 
-        for (int i(0); i < ui->treeWidget_fighters->topLevelItemCount(); ++i)
-		{
-			const QTreeWidgetItem* pCheckItem =
-                ui->treeWidget_fighters->topLevelItem(i);
+        switch (column)
+        {
+            case eColumn_firstName:
+                firstName = m_tmpData;
+                break;
+            case eColumn_lastName:
+                lastName = m_tmpData;
+                break;
+            case eColumn_club:
+                club = m_tmpData;
+                break;
+            case eColumn_weight:
+                weight = m_tmpData;
+                break;
+            case eColumn_category:
+                category = m_tmpData;
+                break;
+            default:
+                qDebug("ERROR: invalid enum value: %i", column);
+                break;
+        }
 
-			if (pCheckItem == pItem)
-			{
-				m_pClassMgr->GetCategory(i, old);
+        Ipponboard::Fighter originalFighter(firstName, lastName);
+        originalFighter.club = club;
+        originalFighter.weight = weight;
+        originalFighter.category = category;
 
-                // Resetting the name to the old one (below) will trigger
-				// itemChanged!
-				if (old.ToString() == cat.ToString())
-					return;
+        if (!m_manager.RemoveFighter(originalFighter))
+        {
+            qDebug("error: original fighter not found!");
+        }
 
-				break;
-			}
-		}
+        if (!m_manager.AddFighter(changedFighter))
+        {
+            ui->treeWidget_fighters->takeTopLevelItem(
+                ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
-		// check if we do have more than one class with that name
-        for (int i(0); i < ui->treeWidget_fighters->topLevelItemCount(); ++i)
-		{
-			const QTreeWidgetItem* pCheckItem =
-                ui->treeWidget_fighters->topLevelItem(i);
+            // due to duplicate entry
+            qDebug("removed changed entry due to duplicate: %s %s",
+                   changedFighter.first_name.toAscii().data(),
+                   changedFighter.last_name.toAscii().data());
+        }
+    }
+}
 
-			if (pCheckItem != pItem &&
-					pCheckItem->text(eColumn_Name) == pItem->text(eColumn_Name))
-			{
-				QMessageBox::critical(
-					this,
-					QCoreApplication::applicationName(),
-					tr("This name is already taken!"));
-
-				// set previous text
-				pItem->setText(eColumn_Name, old.ToString());
-
-				return;
-			}
-		}
-
-        m_pClassMgr->RenameCategory(old.ToString(), cat.ToString());
-		return;
-	}
-	else if (eColumn_Time == column)
-	{
-		QRegExp regex("[1-6]{0,1}[0-9][:][0-5][0-9]");
-		matches = regex.exactMatch(pItem->text(column));
-	}
-	else if (eColumn_GS == column)
-	{
-		QRegExp regex("[1-6]{0,1}[0-9][:][0-5][0-9]");
-		matches = regex.exactMatch(pItem->text(column));
-	}
-	else if (column == eColumn_Weights)
-	{
-		QRegExp regex("([-+]{0,1}[0-9]{1,3}[;])*[-+]{0,1}[0-9]{1,3}");
-		matches = regex.exactMatch(pItem->text(eColumn_Weights));
-	}
-
-	QBrush brush(pItem->foreground(column));
-
-	if (matches)
-	{
-		brush.setColor(Qt::black);
-		m_pClassMgr->UpdateCategory(cat);
-	}
-	else
-	{
-		brush.setColor(Qt::red);
-	}
-
-	pItem->setForeground(column, brush);
-	
-	*/
+void FighterManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem *item, int column)
+{
+    m_tmpData = item->text(column);
+    qDebug("data: %s", m_tmpData.toLatin1().data());
 }
 
 void FighterManagerDlg::on_pushButton_settings_pressed()

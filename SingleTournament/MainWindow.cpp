@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow()
 {
+    save_fighters();
 }
 
 void MainWindow::Init()
@@ -62,6 +63,8 @@ void MainWindow::Init()
     m_pCategoryManager.reset(new FightCategoryMgr());
 
 	MainWindowBase::Init();
+
+    load_fighters();
 
     // init tournament classes (if there are none present)
     for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
@@ -192,7 +195,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
     Q_FOREACH(const Ipponboard::Fighter& f, m_fighterManager.m_fighters)
     {
-        if(f.weight_class == weight || f.weight_class.isEmpty())
+        if(f.weight == weight || f.weight.isEmpty())
         {
             const QString fullName =
                     QString("%1 %2").arg(f.first_name, f.last_name);
@@ -227,9 +230,13 @@ void MainWindow::update_fighters(const QString& s)
     const QString club; // TODO: later
     const QString category = m_pUi->comboBox_weight_class->currentText();
 
-    Ipponboard::Fighter fNew(firstName, lastName, club, weight, category);
+    Ipponboard::Fighter fNew(firstName, lastName);
+    fNew.club = club;
+    fNew.weight = weight;
+    fNew.category = category;
 
     // Does fighter already exist in list?
+	//FIXME: use find to check for existence!
     bool found(false);
     Q_FOREACH(const Ipponboard::Fighter& f, m_fighterManager.m_fighters)
     {
@@ -243,7 +250,7 @@ void MainWindow::update_fighters(const QString& s)
 
     if (!found)
     {
-        m_fighterManager.m_fighters.push_back(fNew);
+        m_fighterManager.m_fighters.insert(fNew);
     }
 }
 
@@ -262,6 +269,38 @@ void MainWindow::update_statebar()
 //    }
     m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
     m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+}
+
+void MainWindow::load_fighters()
+{
+    QString csvFile(
+        QString::fromStdString(
+            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+
+    QString errorMsg;
+    if (!m_fighterManager.ImportFighters(csvFile, errorMsg))
+    {
+        QMessageBox::critical(
+                    this,
+                    QCoreApplication::applicationName(),
+                    errorMsg);
+    }
+}
+
+void MainWindow::save_fighters()
+{
+    QString csvFile(
+        QString::fromStdString(
+            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+    QString errorMsg;
+
+    if (!m_fighterManager.ExportFighters(csvFile, errorMsg))
+    {
+        QMessageBox::critical(
+                    this,
+                    QCoreApplication::applicationName(),
+                    errorMsg);
+    }
 }
 
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)

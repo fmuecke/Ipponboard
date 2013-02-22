@@ -36,6 +36,8 @@ private:
     //virtual void update_views() override;
 
 	/* specific private methods */
+    void load_fighters();
+    void save_fighters();
 	void update_fighter_name_completer(const QString& weight);
     void update_fighters(const QString& s);
     

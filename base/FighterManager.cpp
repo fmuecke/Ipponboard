@@ -156,11 +156,15 @@ bool FighterManager::ImportFighters(QString const& fileName, QString &errorMsg)
         QString weight = -1 != weightPos ? line[weightPos] : weight;
         QString category = -1 != categoryPos ? line[categoryPos] : category;
 
-        Ipponboard::Fighter fighter(firstName, lastName, club, weight, category);
-        m_fighters.push_back(fighter);
+        Ipponboard::Fighter fighter(firstName, lastName);
+        fighter.club = club;
+        fighter.weight = weight;
+        fighter.category = category;
+
+        m_fighters.insert(fighter);
     }
 
-    errorMsg = QObject::tr("Successfully imported %1 fighters.").arg(QString::number(m_fighters.size()-oldCount));
+    errorMsg = QObject::tr("Imported %1 new fighters.").arg(QString::number(m_fighters.size()-oldCount));
 
     return true;
 }
@@ -219,7 +223,7 @@ bool FighterManager::ExportFighters(QString const& fileName, QString& errorMsg)
             }
             else if (i == weightPos)
             {
-                line.append(f.weight_class);
+                line.append(f.weight);
             }
             else if (i == categoryPos)
             {
@@ -239,6 +243,26 @@ bool FighterManager::ExportFighters(QString const& fileName, QString& errorMsg)
         return false;
     }
 
-    errorMsg = QObject::tr("Successfully exported %1 fighters.").arg(QString::number(m_fighters.size()));
+    errorMsg = QObject::tr("Successfully exported %1 fighters.")
+		.arg(QString::number(m_fighters.size()));
+		
+    return true;
+}
+
+bool FighterManager::AddFighter(Fighter f)
+{
+    return m_fighters.insert(f).second;
+}
+
+bool FighterManager::RemoveFighter(Fighter f)
+{
+    auto iter = std::find(begin(m_fighters), end(m_fighters), f);
+    if (iter == end(m_fighters))
+    {
+        return false;
+    }
+
+    m_fighters.erase(iter);
+
     return true;
 }

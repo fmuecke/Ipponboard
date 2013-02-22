@@ -12,6 +12,7 @@
 #include <QString>
 #include <boost/noncopyable.hpp>
 #include <array>
+#include <set>
 
 namespace Ipponboard
 {
@@ -40,8 +41,11 @@ public:
     bool ImportFighters(QString const& fileName, QString& errorMsg);
     bool ExportFighters(QString const& fileName, QString& errorMsg);
 
+    bool AddFighter(Ipponboard::Fighter f);
+    bool RemoveFighter(Ipponboard::Fighter f);
+
 //private:
-    std::vector<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
+    std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
 
 private:
     QString m_exportFormat;

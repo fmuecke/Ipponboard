@@ -90,6 +90,11 @@ QString MainWindowBase::GetConfigFileName() const
 	return QString("Ipponboard%1.ini").arg(EditionNameShort()); 
 }
 
+QString MainWindowBase::GetFighterFileName() const
+{
+    return QString("Fighters%1.csv").arg(EditionNameShort());
+}
+
 void MainWindowBase::changeEvent(QEvent* e)
 {
     QMainWindow::changeEvent(e);

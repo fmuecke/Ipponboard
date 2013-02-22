@@ -93,6 +93,7 @@ public:
 	virtual void Init();
 
 	QString GetConfigFileName() const;
+    QString GetFighterFileName() const;
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
 
