@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>19</count>
+	<count>20</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -50,17 +50,6 @@
 	</item>
 	<item>
 		<c.name>
-			<value>JC Rüsselsheim</value>
-		</c.name>
-		<c.logoFile>
-			<value>clubs/jc_ruesselsheim.png</value>
-		</c.logoFile>
-		<c.address>
-			<value>Rüsselsheim</value>
-		</c.address>
-	</item>
-	<item>
-		<c.name>
 			<value>JC Münchberg</value>
 		</c.name>
 		<c.logoFile>
@@ -68,6 +57,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>95213 Münchberg</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Rüsselsheim</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_ruesselsheim.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>Rüsselsheim</value>
 		</c.address>
 	</item>
 	<item>
@@ -127,6 +127,17 @@
 	</item>
 	<item>
 		<c.name>
+			<value>Post-SV München</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/psv_muenchen.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>München</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>SF Harteck München</value>
 		</c.name>
 		<c.logoFile>
@@ -160,7 +171,7 @@
 	</item>
 	<item>
 		<c.name>
-			<value>TSV Großhadern</value>
+			<value>TSV GroßŸhadern</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/tsv_grosshadern.png</value>
@@ -171,13 +182,13 @@
 	</item>
 	<item>
 		<c.name>
-			<value>TSV Königsbrunn e.V.</value>
+			<value>TSV Königsbrunn</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/koenigsbrunn.png</value>
 		</c.logoFile>
 		<c.address>
-			<value>Fuggerstraße 38, 86343 Königsbrunn</value>
+			<value>FuggerstraßŸe 38, 86343 Königsbrunn</value>
 		</c.address>
 	</item>
 	<item>
