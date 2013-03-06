@@ -6,10 +6,10 @@
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
-			<value>1. SC Gröbenzell</value>
+			<value>1. JC Gröbenzell</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\sc_groebenzell.png</value>
+			<value>clubs\jc_groebenzell.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
