@@ -2,10 +2,21 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>20</count>
+	<count>21</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
+			<value>1. SC Gröbenzell</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs\sc_groebenzell.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>Bushido Amberg</value>
 		</c.name>
 		<c.logoFile>
