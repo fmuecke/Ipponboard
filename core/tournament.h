@@ -10,7 +10,7 @@
 
 namespace Ipponboard
 {
-enum { eTournament_FightCount = 10 };
+enum { eTournament_FightCount = 14 };
 enum EScore
 {
 	eScore_Ippon = 10,
@@ -112,7 +112,24 @@ struct Fight
 		else
 		{
 			if (!HasWon(uke))
+			{
 				return eScore_Hikewake;
+			}
+			else
+			{
+#define JUGENDLIGA 1
+#ifdef JUGENDLIGA
+				// Special rule for Jugendliga
+				if (scores[tori].Wazaari() > scores[uke].Wazaari())
+				{
+					return eScore_Wazaari;
+				}
+				else if(scores[tori].Yuko() > scores[uke].Yuko())
+				{
+					return eScore_Yuko;
+				}
+#endif			
+			}
 		}
 
 		return eScore_Lost;

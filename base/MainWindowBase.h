@@ -17,7 +17,7 @@ class Frame_Clubs;
 }
 namespace Ipponboard
 {
-struct Fighter;
+class Fighter;
 class View;
 class Controller;
 class ClubManager;

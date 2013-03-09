@@ -44,7 +44,10 @@ MainWindowBase::~MainWindowBase()
 
 void MainWindowBase::Init()
 {
-	// Setup views
+    setWindowFlags(Qt::Window);
+    setWindowState(Qt::WindowMaximized);
+
+    // Setup views
     m_pPrimaryView.reset(
         new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypePrimary));
 

@@ -541,7 +541,7 @@ QString Controller::GetRoundTime() const
 int Controller::GetRound() const
 //=========================================================
 {
-    return m_currentTournament * 10 + m_currentFight + 1;
+    return m_currentTournament * eTournament_FightCount + m_currentFight + 1;
 }
 
 //=========================================================
@@ -710,11 +710,23 @@ void Controller::SetCurrentFight(unsigned int index)
     m_pSM->process_event(IpponboardSM_::Finish());
 
     // set prev fight so saved
-    m_TournamentScores[m_currentTournament]
-    .at(m_currentFight).is_saved = true;
+    current_fight().is_saved = true;
 
     // now set pointer to next fight
     m_currentFight = index;
+    if (current_fight().weight.startsWith("U12"))
+    {
+        m_roundTime = QTime(0, 2, 0, 0);
+    }
+    else if (current_fight().weight.startsWith("U15"))
+    {
+        m_roundTime = QTime(0, 3, 0, 0);
+    }
+    else if (current_fight().weight.startsWith("U18"))
+    {
+        m_roundTime = QTime(0, 4, 0, 0);
+    }
+
     *m_pTimeMain = m_roundTime;
     *m_pTimeMain = m_pTimeMain->addSecs(-current_fight().time_in_seconds);
     *m_pTimeHold = QTime();

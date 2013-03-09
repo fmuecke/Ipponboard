@@ -40,25 +40,26 @@ namespace StrTags
 	static const char* const host = "Host";
 }
 
-static const char* const str_mode_1te_bundesliga_nord_m = "1. Bundesliga Nord (Männer)";
-static const char* const str_mode_1te_bundesliga_sued_m = "1. Bundesliga Süd (Männer)";
-static const char* const str_mode_2te_bundesliga_nord_m = "2. Bundesliga Nord (Männer)";
-static const char* const str_mode_2te_bundesliga_sued_m = "2. Bundesliga Süd (Männer)";
-static const char* const str_mode_1te_bundesliga_nord_f = "1. Bundesliga Nord (Frauen)";
-static const char* const str_mode_1te_bundesliga_sued_f = "1. Bundesliga Süd (Frauen)";
-static const char* const str_mode_2te_bundesliga_nord_f = "2. Bundesliga Nord (Frauen)";
-static const char* const str_mode_2te_bundesliga_sued_f = "2. Bundesliga Süd (Frauen)";
-static const char* const str_mode_bayernliga_nord_m = "Bayernliga Nord (M)";
-static const char* const str_mode_bayernliga_sued_m = "Bayernliga Süd (M)";
-static const char* const str_mode_bayernliga_nord_f = "Bayernliga Nord (F)";
-static const char* const str_mode_bayernliga_sued_f = "Bayernliga Süd (F)";
-static const char* const str_mode_landesliga_nord_m = "Landesliga Nord (M)";
-static const char* const str_mode_landesliga_sued_m = "Landesliga Süd (M)";
-static const char* const str_mode_landesliga_nord_f = "Landesliga Nord (F)";
-static const char* const str_mode_landesliga_sued_f = "Landesliga Süd (F)";
-static const char* const str_mode_mm_u17_m = "Deutsche VMM MU17";
-static const char* const str_mode_mm_u17_f = "Deutsche VMM FU17";
-
+static const QString str_mode_jugendliga_m = QString::fromUtf8("Jugendliga mÃ¤nnlich");
+static const QString str_mode_jugendliga_f = QString::fromUtf8("Jugendliga weiblich");
+static const QString str_mode_1te_bundesliga_nord_m = QString::fromUtf8("1. Bundesliga Nord (MÃ¤nner)");
+static const QString str_mode_1te_bundesliga_sued_m = QString::fromUtf8("1. Bundesliga SÃ¼d (MÃ¤nner)");
+static const QString str_mode_2te_bundesliga_nord_m = QString::fromUtf8("2. Bundesliga Nord (MÃ¤nner)");
+static const QString str_mode_2te_bundesliga_sued_m = QString::fromUtf8("2. Bundesliga SÃ¼d (MÃ¤nner)");
+static const QString str_mode_1te_bundesliga_nord_f = QString::fromUtf8("1. Bundesliga Nord (Frauen)");
+static const QString str_mode_1te_bundesliga_sued_f = QString::fromUtf8("1. Bundesliga SÃ¼d (Frauen)");
+static const QString str_mode_2te_bundesliga_nord_f = QString::fromUtf8("2. Bundesliga Nord (Frauen)");
+static const QString str_mode_2te_bundesliga_sued_f = QString::fromUtf8("2. Bundesliga SÃ¼d (Frauen)");
+static const QString str_mode_bayernliga_nord_m = QString::fromUtf8("Bayernliga Nord (M)");
+static const QString str_mode_bayernliga_sued_m = QString::fromUtf8("Bayernliga SÃ¼d (M)");
+static const QString str_mode_bayernliga_nord_f = QString::fromUtf8("Bayernliga Nord (F)");
+static const QString str_mode_bayernliga_sued_f = QString::fromUtf8("Bayernliga SÃ¼d (F)");
+static const QString str_mode_landesliga_nord_m = QString::fromUtf8("Landesliga Nord (M)");
+static const QString str_mode_landesliga_sued_m = QString::fromUtf8("Landesliga SÃ¼d (M)");
+static const QString str_mode_landesliga_nord_f = QString::fromUtf8("Landesliga Nord (F)");
+static const QString str_mode_landesliga_sued_f = QString::fromUtf8("Landesliga SÃ¼d (F)");
+static const QString str_mode_mm_u17_m = QString::fromUtf8("Deutsche VMM MU17");
+static const QString str_mode_mm_u17_f = QString::fromUtf8("Deutsche VMM FU17");
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -89,29 +90,34 @@ void MainWindowTeam::Init()
     // setup data
     //
     m_pUi->dateEdit->setDate(QDate::currentDate());
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
+//    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
+    m_pUi->comboBox_mode->addItem(str_mode_jugendliga_m);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
+//    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
+//    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
+    m_pUi->comboBox_mode->addItem(str_mode_jugendliga_f);
 
+
+    //TODO: add/remove lists depending on the tournament mode
     m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0));
     m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1));
     m_pUi->tableView_tournament_list1->resizeColumnsToContents();
     m_pUi->tableView_tournament_list2->resizeColumnsToContents();
+
     m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
         m_pUi->lineEdit_wins_intermediate,
         m_pUi->lineEdit_score_intermediate);
@@ -468,8 +474,34 @@ void MainWindowTeam::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
-        round.append("<td><center>" + fight.GetRoundTimeUsedText(
-                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+
+        QString roundTime;
+        if (m_pUi->comboBox_mode->currentText() == str_mode_jugendliga_m ||
+            m_pUi->comboBox_mode->currentText() == str_mode_jugendliga_f)
+        {
+            int roundTimeSecs = m_pController->GetRoundTimeSecs();
+            if (fight.weight.startsWith("U12"))
+            {
+                roundTimeSecs = 2*60;
+            }
+            else if (fight.weight.startsWith("U15"))
+            {
+                roundTimeSecs = 3*60;
+            }
+            else if (fight.weight.startsWith("U18"))
+            {
+                roundTimeSecs = 4*60;
+            }
+
+            roundTime = fight.GetRoundTimeUsedText(
+                        roundTimeSecs);
+        }
+        else
+        {
+            roundTime = fight.GetRoundTimeUsedText(
+                            m_pController->GetRoundTimeSecs());
+        }
+        round.append("<td><center>" + roundTime + "</center></td>"); // time
         round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
         round.append("</tr>\n");
         rounds.append(round);
@@ -572,27 +604,27 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
 {
     m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
     update_weights("-90;+90;-73;-66;-81");
-    m_pController->SetFight(0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
-    m_pController->SetFight(0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
-    m_pController->SetFight(0, 3, "+90", "Jürgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV Königsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
-    m_pController->SetFight(0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV Königsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
-    m_pController->SetFight(0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
-    m_pController->SetFight(0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(0, 0, "-90", "Sebastian HÃ¶lzl", "TG Landshut", "Oliver Sach", "TSV KÃ¶nigsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(0, 1, "-90", "Stefan GrÃ¼nert", "TG Landshut", "Marc SchÃ¤fer", "TSV KÃ¶nigsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
+    m_pController->SetFight(0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel NussbÃ¤cher", "TSV KÃ¶nigsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
+    m_pController->SetFight(0, 3, "+90", "JÃ¼rgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV KÃ¶nigsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV KÃ¶nigsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
+    m_pController->SetFight(0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael KÃ¶nig", "TSV KÃ¶nigsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV KÃ¶nigsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV KÃ¶nigsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
+    m_pController->SetFight(0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV KÃ¶nigsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
+    m_pController->SetFight(0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV KÃ¶nigsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
     //  Y  W  I  S  H  Y  W  I  S  H
-    m_pController->SetFight(1, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian Kürten", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV Königsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(1, 3, "+90", "Jürgen Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
-    m_pController->SetFight(1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
-    m_pController->SetFight(1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV Königsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    m_pController->SetFight(1, 6, "-66", "Jörg Herzog", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-    m_pController->SetFight(1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV Königsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
-    m_pController->SetFight(1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-    m_pController->SetFight(1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(1, 0, "-90", "Sebastian HÃ¶lzl", "TG Landshut", "Marc SchÃ¤fer", "TSV KÃ¶nigsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian KÃ¼rten", "TSV KÃ¶nigsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV KÃ¶nigsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(1, 3, "+90", "JÃ¼rgen Neumaier", "TG Landshut", "Daniel NussbÃ¤cher", "TSV KÃ¶nigsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
+    m_pController->SetFight(1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael KÃ¶nig", "TSV KÃ¶nigsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
+    m_pController->SetFight(1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV KÃ¶nigsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    m_pController->SetFight(1, 6, "-66", "JÃ¶rg Herzog", "TG Landshut", "Thomas Schaller", "TSV KÃ¶nigsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+    m_pController->SetFight(1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV KÃ¶nigsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
+    m_pController->SetFight(1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV KÃ¶nigsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+    m_pController->SetFight(1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV KÃ¶nigsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
     //m_pController->SetCurrentFight(0);
 
     m_pUi->tableView_tournament_list1->viewport()->update();
@@ -691,6 +723,20 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
         m_pController->SetRoundTime("4:00");
         update_weights("-44;-48;-52;-57;-63;-70;+70");
     }
+    else if( s == str_mode_jugendliga_m )
+    {
+        m_pController->GetTournamentScoreModel(0)->SetNumRows(14);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(0);
+		update_weights("U12 -28;U12 -32;U12 -36;U12 -40;U12 -44;U15 -37;U15 -43;U15 -50;U15 -60;U15 +60;U18 -50;U18 -60;U18 -73;U18 +73");
+        m_pController->SetRoundTime("2:00");
+    }
+    else if( s == str_mode_jugendliga_f )
+    {
+		m_pController->GetTournamentScoreModel(0)->SetNumRows(12);
+        m_pController->GetTournamentScoreModel(1)->SetNumRows(0);
+        update_weights("U12 -24;U12 -28;U12 -32;U12 -36;U12 -40;U15 -40;U15 -46;U15 -52;U15 -57;U15 +57;U18 -52;U18 +52");
+        m_pController->SetRoundTime("2:00");
+    }
     else if( s == str_mode_bayernliga_nord_m ||
              s == str_mode_bayernliga_sued_m ||
              s == str_mode_landesliga_nord_m ||
@@ -714,6 +760,28 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
     else
     {
         Q_ASSERT("mode not handled (yet)");
+    }
+
+    if (m_pController->GetTournamentScoreModel(1)->GetNumRows() == 0)
+    {
+        m_pUi->label_intermediate_result->setText(m_pUi->label_final_score->text()); //TODO: make this better!
+        m_pUi->tableView_tournament_list2->hide();
+        m_pUi->pushButton_copySwitched->hide();
+        m_pUi->label_final_score->hide();
+        m_pUi->label_final_wins->hide();
+        m_pUi->label_final_sub_score->hide();
+        m_pUi->lineEdit_score->hide();
+        m_pUi->lineEdit_wins->hide();
+    }
+    else
+    {
+        m_pUi->tableView_tournament_list2->show();
+        m_pUi->pushButton_copySwitched->show();
+        m_pUi->label_final_score->show();
+        m_pUi->label_final_wins->show();
+        m_pUi->label_final_sub_score->show();
+        m_pUi->lineEdit_score->show();
+        m_pUi->lineEdit_wins->show();
     }
 
     // set mode text as mat label
@@ -1151,6 +1219,11 @@ QString MainWindowTeam::get_template_file(QString const& mode)
         return "templates\\list_output_mm.html";
     }
 
+    if (str_mode_jugendliga_m == mode ||
+        str_mode_jugendliga_f == mode)
+    {
+        return "templates\\list_output_jugendliga.html";
+    }
     return "";
 }
 
@@ -1159,55 +1232,59 @@ QString MainWindowTeam::get_full_mode_title(QString const& mode)
 {
     QString year(QString::number(QDate::currentDate().year()));
 
-    // Bundesliga Männer
+    // Bundesliga MÃ¤nner
     if (str_mode_1te_bundesliga_nord_m == mode)
-        return QString("1. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
+        return QString("1. Judo Bundesliga MÃ¤nner %1 - Gruppe Nord").arg(year);
     if (str_mode_1te_bundesliga_sued_m == mode)
-        return QString("1. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
+        return QString("1. Judo Bundesliga MÃ¤nner %1 - Gruppe SÃ¼d").arg(year);
     if (str_mode_2te_bundesliga_nord_m == mode)
-        return QString("2. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
+        return QString("2. Judo Bundesliga MÃ¤nner %1 - Gruppe Nord").arg(year);
     if (str_mode_2te_bundesliga_sued_m == mode)
-        return QString("2. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
+        return QString("2. Judo Bundesliga MÃ¤nner %1 - Gruppe SÃ¼d").arg(year);
 
     // Bundesliga Frauen
     if (str_mode_1te_bundesliga_nord_f == mode)
         return QString("1. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
     if (str_mode_1te_bundesliga_sued_f == mode)
-        return QString("1. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
+        return QString("1. Judo Bundesliga Frauen %1 - Gruppe SÃ¼d").arg(year);
     if (str_mode_2te_bundesliga_nord_f == mode)
         return QString("2. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
     if (str_mode_2te_bundesliga_sued_f == mode)
-        return QString("2. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
+        return QString("2. Judo Bundesliga Frauen %1 - Gruppe SÃ¼d").arg(year);
 
-    // Bayernliga Männer
+    // Bayernliga MÃ¤nner
     if (str_mode_bayernliga_nord_m == mode)
-        return QString("Judo Bayernliga Männer %1 - Gruppe Nord").arg(year);
+        return QString("Judo Bayernliga MÃ¤nner %1 - Gruppe Nord").arg(year);
     if (str_mode_bayernliga_sued_m == mode)
-        return QString("Judo Bayernliga Männer %1 - Gruppe Süd").arg(year);
+        return QString("Judo Bayernliga MÃ¤nner %1 - Gruppe SÃ¼d").arg(year);
 
     // Bayernliga Frauen
     if (str_mode_bayernliga_nord_f == mode)
         return QString("Judo Bayernliga Frauen %1 - Gruppe Nord").arg(year);
     if (str_mode_bayernliga_sued_f == mode)
-        return QString("Judo Bayernliga Frauen %1 - Gruppe Süd").arg(year);
+        return QString("Judo Bayernliga Frauen %1 - Gruppe SÃ¼d").arg(year);
 
-    // Landesliga Männer
+    // Landesliga MÃ¤nner
     if (str_mode_landesliga_nord_m == mode)
-        return QString("Judo Landesliga Männer %1 - Gruppe Nord").arg(year);
+        return QString("Judo Landesliga MÃ¤nner %1 - Gruppe Nord").arg(year);
     if (str_mode_landesliga_sued_m == mode)
-        return QString("Judo Landesliga Männer %1 - Gruppe Süd").arg(year);
+        return QString("Judo Landesliga MÃ¤nner %1 - Gruppe SÃ¼d").arg(year);
 
     // Landesliga Frauen
     if (str_mode_landesliga_nord_f == mode)
         return QString("Judo Landesliga Frauen %1 - Gruppe Nord").arg(year);
     if (str_mode_landesliga_sued_f == mode)
-        return QString("Judo Landesliga Frauen %1 - Gruppe Süd").arg(year);
+        return QString("Judo Landesliga Frauen %1 - Gruppe SÃ¼d").arg(year);
 
     // Mannschafts-Meisterschaften
     if (str_mode_mm_u17_m == mode)
         return QString("Deutsche Judo Vereins-Mannschafts-Meisterschaft MU17");
     if (str_mode_mm_u17_f == mode)
         return QString("Deutsche Judo Vereins-Mannschafts-Meisterschaft FU17");
+	if (str_mode_jugendliga_m == mode)
+		return str_mode_jugendliga_m;
+	if (str_mode_jugendliga_f == mode)
+		return str_mode_jugendliga_f;
 
     return tr("Ipponboard fight list");
 }

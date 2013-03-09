@@ -98,6 +98,7 @@ private:
 
 public:
 	// --- other functions ---
+	//FIXME: encapsulate fight counts and tournament data and tournament models
 	int GetFightCount() const
 	{
 		Q_ASSERT(m_TournamentModelsPtrs[0]);
