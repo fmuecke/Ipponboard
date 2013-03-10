@@ -27,16 +27,30 @@ FighterManagerDlg::FighterManagerDlg(
     : QDialog(parent)
     , ui(new Ui::FighterManagerDlg)
     , m_manager(manager)
+    , m_filter()
+    , m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
 //---------------------------------------------------------
 {
     ui->setupUi(this);
 
+    // hide settings buton
+    //TODO: improove!
+    ui->pushButton_settings->hide();
+
+    // set columns
+    auto headerItem = ui->treeWidget_fighters->headerItem();
+    headerItem->setText(eColumn_club, tr("Club/Team"));
+    headerItem->setText(eColumn_category, tr("Category"));
+    headerItem->setText(eColumn_weight, tr("Weight"));
+    headerItem->setText(eColumn_firstName, tr("First Name"));
+    headerItem->setText(eColumn_lastName, tr("Last Name"));
+
     // adjust column widths
+    ui->treeWidget_fighters->setColumnWidth(eColumn_club, 150);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
     ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
     ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_club, 150);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_category, 50);
 
     populate_view();
 }
@@ -46,6 +60,19 @@ FighterManagerDlg::~FighterManagerDlg()
 //---------------------------------------------------------
 {
     delete ui;
+}
+
+//---------------------------------------------------------
+void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QString& value)
+//---------------------------------------------------------
+{
+    if (column >=0 && column < eColumn_MAX)
+    {
+        m_filter = std::make_pair(column, value);
+        ui->treeWidget_fighters->hideColumn(m_filter.first);
+
+        populate_view();
+    }
 }
 
 //---------------------------------------------------------
@@ -107,12 +134,13 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
         m_manager.m_fighters.insert(fighter);
 
-		QStringList contents;
-        contents.append(dataParts[0]);
-        contents.append(dataParts[1]);
-        contents.append(dataParts[2]);
-        contents.append(dataParts[3]);
-        contents.append(dataParts[4]);
+        QStringList contents;
+        for (int i=0; i < eColumn_MAX; ++i) contents.append("");
+        contents[eColumn_club] = fighter.club;
+        contents[eColumn_category] = fighter.category;
+        contents[eColumn_weight] = fighter.weight;
+        contents[eColumn_firstName] = fighter.first_name;
+        contents[eColumn_lastName] = fighter.last_name;
 
         QTreeWidgetItem* pItem =
 			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
@@ -127,20 +155,74 @@ void FighterManagerDlg::populate_view()
 {
     ui->treeWidget_fighters->clear();
 
+    const bool hasFilter = !m_filter.second.isEmpty();
+
+    if (hasFilter)
+    {
+        const QString filterInfo = QString("%0: %1").arg(
+              ui->treeWidget_fighters->headerItem()->text(m_filter.first),
+              m_filter.second);
+
+        ui->label_filterinfo->setText(filterInfo);
+        ui->label_filterinfo->show();
+    }
+    else
+    {
+        ui->label_filterinfo->hide();
+    }
+
     std::for_each(begin(m_manager.m_fighters), end(m_manager.m_fighters),
                   [&](Ipponboard::Fighter const& f)
     {
-        QStringList contents;
-        contents.append(f.first_name);
-        contents.append(f.last_name);
-        contents.append(f.club);
-        contents.append(f.weight);
-        contents.append(f.category);
+        bool skipItem = true;
+        if (hasFilter)
+        {
+            switch (m_filter.first)
+            {
+            case eColumn_firstName:
+                if (m_filter.second == f.first_name)
+                    skipItem = false;
+                break;
+            case eColumn_lastName:
+                if (m_filter.second == f.last_name)
+                    skipItem = false;
+                break;
+            case eColumn_club:
+                if (m_filter.second == f.club)
+                    skipItem = false;
+                break;
+            case eColumn_weight:
+                if (m_filter.second == f.weight)
+                    skipItem = false;
+                break;
+            case eColumn_category:
+                if (m_filter.second == f.category)
+                    skipItem = false;
+                break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            skipItem = false;
+        }
 
-        QTreeWidgetItem* pItem =
-            new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
-        pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-        ui->treeWidget_fighters->addTopLevelItem(pItem);
+        if (!skipItem)
+        {
+            QStringList contents;
+            for (int i=0; i < eColumn_MAX; ++i) contents.append("");
+            contents[eColumn_club] = f.club;
+            contents[eColumn_category] = f.category;
+            contents[eColumn_weight] = f.weight;
+            contents[eColumn_firstName] = f.first_name;
+            contents[eColumn_lastName] = f.last_name;
+
+            QTreeWidgetItem* pItem =
+                new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+            pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
+            ui->treeWidget_fighters->addTopLevelItem(pItem);
+        }
     });
 }
 
@@ -155,8 +237,11 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 
     if (!fileName.isEmpty())
     {
+        //TODO: make this right
+        on_pushButton_settings_pressed();
+
         QString errorMsg;
-        if (m_manager.ImportFighters(fileName, errorMsg))
+        if (m_manager.ImportFighters(fileName, m_formatStr, errorMsg))
         {
             QMessageBox::information(
                         this,
@@ -175,22 +260,6 @@ void FighterManagerDlg::on_pushButton_import_pressed()
     }
 
     populate_view();
-
-    /*const int index = ui->treeWidget_fighters->indexOfTopLevelItem(
-                          ui->treeWidget_fighters->currentItem());
-
-	if (index > 0)
-	{
-		QTreeWidgetItem* pItem =
-            ui->treeWidget_fighters->takeTopLevelItem(index);
-
-        ui->treeWidget_fighters->insertTopLevelItem(index - 1, pItem);
-        ui->treeWidget_fighters->setCurrentItem(pItem);
-
-		// update data
-		m_pClassMgr->MoveCategoryUp(pItem->text(eColumn_Name));
-	}
-	*/
 }
 
 //---------------------------------------------------------
@@ -204,8 +273,11 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 
     if (!fileName.isEmpty())
     {
+        //TODO: make this right
+        on_pushButton_settings_pressed();
+
         QString errorMsg;
-        if (m_manager.ExportFighters(fileName, errorMsg))
+        if (m_manager.ExportFighters(fileName, m_formatStr, errorMsg))
         {
             QMessageBox::information(
                         this,
@@ -332,7 +404,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
                                          dlgTitle,
                                          dlgMsg,
                                          QLineEdit::Normal,
-                                         m_manager.GetExportFormat(),
+                                         m_formatStr,
                                          &ok);
 
     QString separator;
@@ -368,6 +440,6 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 
     if (ok && isValidSeparator)
     {
-        m_manager.SetExportFormat(data);
+        m_formatStr = data;
     }
 }

@@ -13,7 +13,7 @@
 namespace Ipponboard
 {
 
-struct Fighter
+class Fighter
 {
 public:
     Fighter(QString const& firstName,

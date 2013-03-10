@@ -44,7 +44,9 @@ MainWindowBase::~MainWindowBase()
 
 void MainWindowBase::Init()
 {
-	// Setup views
+    load_fighters();
+
+    // Setup views
     m_pPrimaryView.reset(
         new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypePrimary));
 
@@ -113,6 +115,7 @@ void MainWindowBase::changeEvent(QEvent* e)
 void MainWindowBase::closeEvent(QCloseEvent* event)
 {
     write_settings();
+    save_fighters();
 
     if (m_pSecondaryView)
     {
@@ -584,6 +587,38 @@ void MainWindowBase::read_settings()
 
     // update views
     update_views();
+}
+
+void MainWindowBase::load_fighters()
+{
+    QString csvFile(
+        QString::fromStdString(
+            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+
+    QString errorMsg;
+    if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+    {
+        QMessageBox::critical(
+                    this,
+                    QCoreApplication::applicationName(),
+                    errorMsg);
+    }
+}
+
+void MainWindowBase::save_fighters()
+{
+    QString csvFile(
+        QString::fromStdString(
+            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+    QString errorMsg;
+
+    if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(),errorMsg))
+    {
+        QMessageBox::critical(
+                    this,
+                    QCoreApplication::applicationName(),
+                    errorMsg);
+    }
 }
 
 void MainWindowBase::update_views()

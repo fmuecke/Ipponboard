@@ -2,8 +2,10 @@
 #include "ui_mainwindow.h" //TODO: may be obsolete
 
 #include "scorescreen.h"
+#include "../base/ComboboxDelegate.h"
 #include "../base/clubmanager.h"
 #include "../base/clubmanagerdlg.h"
+#include "../base/FighterManagerDlg.h"
 //#include "../base/fightcategorymanager.h"
 //#include "../base/fightcategorymanagerdlg.h"
 #include "../base/view.h"
@@ -71,6 +73,8 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
     , m_htmlScore()
     , m_mode()
     , m_host()
+    , m_FighterNamesHome()
+    , m_FighterNamesGuest()
 {
 	m_pUi->setupUi(this);
 }
@@ -112,12 +116,15 @@ void MainWindowTeam::Init()
     m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1));
     m_pUi->tableView_tournament_list1->resizeColumnsToContents();
     m_pUi->tableView_tournament_list2->resizeColumnsToContents();
+
     m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
         m_pUi->lineEdit_wins_intermediate,
         m_pUi->lineEdit_score_intermediate);
+
     m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(
         m_pUi->lineEdit_wins,
         m_pUi->lineEdit_score);
+
     m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
         m_pController->GetTournamentScoreModel(0));
 
@@ -127,6 +134,23 @@ void MainWindowTeam::Init()
 
     m_pUi->tableView_tournament_list1->selectRow(0);
     m_pUi->tableView_tournament_list2->selectRow(0);
+
+    // set fighter comboboxes
+    m_FighterNamesHome.push_back("Florian Mücke");
+    m_FighterNamesHome.push_back("Wolfgang Schmied");
+    m_FighterNamesHome.push_back("Tino Rupp");
+    auto cbxFightersHome = new ComboBoxDelegate(this);
+    cbxFightersHome->SetItems(m_FighterNamesHome);
+
+    m_FighterNamesGuest.push_back("Hans Dampf");
+    m_FighterNamesGuest.push_back("Hans Wurst");
+    m_FighterNamesGuest.push_back("Hans Im Glück");
+    auto cbxFightersGuest = new ComboBoxDelegate(this);
+    cbxFightersGuest->SetItems(m_FighterNamesGuest);
+    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 
     int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
     if (-1 == modeIndex)
@@ -285,6 +309,14 @@ void MainWindowTeam::read_specific_settings(QSettings &settings)
         m_pScoreScreen->setStyleSheet(styleSheet);
     }
     settings.endGroup();
+}
+
+void MainWindowTeam::on_actionManageFighters_triggered()
+{
+    MainWindowBase::on_actionManageFighters_triggered();
+
+    FighterManagerDlg dlg(m_fighterManager, this);
+    dlg.exec();
 }
 
 void MainWindowTeam::update_info_text_color(const QColor& color, const QColor& bgColor)
@@ -468,9 +500,8 @@ void MainWindowTeam::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
-        round.append("<td><center>" + fight.GetRoundTimeUsedText(
-                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
-        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetTime(m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetTimeRemaining() + "</center></td>"); // time
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -508,9 +539,8 @@ void MainWindowTeam::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
-        round.append("<td><center>" + fight.GetRoundTimeUsedText(
-                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
-        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetTime(m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetTimeRemaining() + "</center></td>"); // time
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -736,6 +766,15 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
 void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::eFighter1, s);
+
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
+        (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
+
+    if (pCbx)
+    {
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+    }
+
     //UpdateViews_(); --> already done by controller
     update_score_screen();
 }
@@ -743,6 +782,15 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::eFighter2, s);
+
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
+        (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
+
+    if (pCbx)
+    {
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+    }
+
     //UpdateViews_(); --> already done by controller
     update_score_screen();
 }
@@ -833,6 +881,24 @@ void MainWindowTeam::on_toolButton_weights_pressed()
             update_weights(weights);
         }
     }
+}
+
+void MainWindowTeam::on_toolButton_team_home_pressed()
+{
+    MainWindowBase::on_actionManageFighters_triggered();
+
+    FighterManagerDlg dlg(m_fighterManager, this);
+    dlg.SetFilter(FighterManagerDlg::eColumn_club, m_pUi->comboBox_club_home->currentText());
+    dlg.exec();
+}
+
+void MainWindowTeam::on_toolButton_team_guest_pressed()
+{
+    MainWindowBase::on_actionManageFighters_triggered();
+
+    FighterManagerDlg dlg(m_fighterManager, this);
+    dlg.SetFilter(FighterManagerDlg::eColumn_club, m_pUi->comboBox_club_guest->currentText());
+    dlg.exec();
 }
 
 void MainWindowTeam::update_weights(QString weightString)

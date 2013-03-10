@@ -9,6 +9,7 @@
 
 #include "../base/mainwindowbase.h"
 #include <boost/shared_ptr.hpp>
+#include "../util/helpers.hpp"
 
 class MainWindow : public MainWindowBase
 {
@@ -20,7 +21,7 @@ public:
 	virtual void Init() final;
 
 	virtual const char* EditionName() const final		{ return "Basic Edition"; }
-	virtual const char* EditionNameShort() const final		{ return "Basic"; }
+    virtual const char* EditionNameShort() const final	{ return "Basic"; }
 
 protected:
     //virtual void changeEvent(QEvent* e) override;
@@ -36,8 +37,6 @@ private:
     //virtual void update_views() override;
 
 	/* specific private methods */
-    void load_fighters();
-    void save_fighters();
 	void update_fighter_name_completer(const QString& weight);
     void update_fighters(const QString& s);
     

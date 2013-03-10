@@ -50,13 +50,13 @@ TournamentModel::TournamentModel(Ipponboard::Tournament* pTournament, QObject* p
     m_HeaderSizes[eCol_won2]		= 30;
     m_HeaderSizes[eCol_score2]		= 40;
     m_HeaderSizes[eCol_time]		= 50;
+    //m_HeaderSizes[eCol_time_remaining]		= 50;
 }
 
 //=========================================================
 TournamentModel::~TournamentModel()
 //=========================================================
 {
-
 }
 
 //=========================================================
@@ -191,7 +191,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
                     m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
                     // get time display
-                    return  m_pTournament->at(row).GetRoundTimeRemainingText();
+                    return  m_pTournament->at(row).GetTimeRemaining();
                 }
 
             default:

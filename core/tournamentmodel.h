@@ -30,6 +30,7 @@ public:
         eCol_won2,
         eCol_score2,
         eCol_time,
+        //eCol_time_remaining,
         eCol_MAX
     };
 

@@ -51,3 +51,6 @@ VersionSelector/release/*
 VersionSelector/Makefile.Release
 VersionSelector/Makefile.Debug
 VersionSelector/debug/*
+GamePadDemo/ui_gamepaddemo.h
+ui*.h
+*.pro.user

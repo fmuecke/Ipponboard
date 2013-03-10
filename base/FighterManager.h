@@ -9,10 +9,12 @@
 
 #include "../core/fighter.h"
 
-#include <QString>
 #include <boost/noncopyable.hpp>
 #include <array>
 #include <set>
+
+class QString;
+class QStringList;
 
 namespace Ipponboard
 {
@@ -35,20 +37,19 @@ public:
     static bool IsFormatSatisfying(QString const& formatStr);
     static bool DetermineSeparator(QString const& str, QString& sep);
 
-    QString GetExportFormat() const { return m_exportFormat; }
-    void SetExportFormat(QString const& formatStr) { m_exportFormat = formatStr; }
+    static QString DefaultExportFormat();
 
-    bool ImportFighters(QString const& fileName, QString& errorMsg);
-    bool ExportFighters(QString const& fileName, QString& errorMsg);
+    bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+    bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
     bool AddFighter(Ipponboard::Fighter f);
     bool RemoveFighter(Ipponboard::Fighter f);
+    QStringList GetClubFighterNames(QString const& filter) const;
 
 //private:
     std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
-
 private:
-    QString m_exportFormat;
+
 };
 
 }  // namespace Ipponboard

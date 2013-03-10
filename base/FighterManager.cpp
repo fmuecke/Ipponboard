@@ -8,9 +8,9 @@
 #include "../util/SimpleCsvFile.hpp"
 
 #include <QObject>  // needed for tr()
+#include <QStringList>
 #include <boost/foreach.hpp>
 #include <algorithm>
-
 
 using namespace Ipponboard;
 
@@ -29,19 +29,27 @@ const std::array<char const * const, 5> FighterManager::Specifiers =
     str_CATEGORY
 };
 
-FighterManager::FighterManager()
-    : m_fighters()
-    , m_exportFormat()
+QString FighterManager::DefaultExportFormat()
 {
+    QString ret;
+
     BOOST_FOREACH(char const * const s, Specifiers)
     {
-        if (!m_exportFormat.isEmpty())
+        if (!ret.isEmpty())
         {
-            m_exportFormat.append(';');
+            ret.append(';');
         }
 
-        m_exportFormat.append(s);
+        ret.append(s);
     }
+
+    return ret;
+}
+
+
+FighterManager::FighterManager()
+    : m_fighters()
+{
 }
 
 QString FighterManager::GetSpecifiererDescription()
@@ -113,19 +121,23 @@ bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString&
     return true;
 }
 
-bool FighterManager::ImportFighters(QString const& fileName, QString &errorMsg)
+bool FighterManager::ImportFighters(
+        QString const& fileName,
+        QString const& formatStr,
+        QString &errorMsg)
 {
     errorMsg.clear();
 
     QString sep;
-    if (!DetermineSeparator(GetExportFormat(), sep))
+    if (!DetermineSeparator(formatStr, sep))
     {
-        errorMsg = QObject::tr("Format specifier hat invalid separator: %1").arg(GetExportFormat());
+        errorMsg = QObject::tr("Format specifier hat invalid separator: %1")
+                .arg(formatStr);
         return false;
     }
 
     // determine tag positions
-    const QStringList tags = GetExportFormat().split(sep);
+    const QStringList tags = formatStr.split(sep);
     const int firstNamePos = tags.indexOf(str_FIRSTNAME);
     const int lastNamePos = tags.indexOf(str_LASTNAME);
     const int clubPos = tags.indexOf(str_CLUB);
@@ -134,9 +146,9 @@ bool FighterManager::ImportFighters(QString const& fileName, QString &errorMsg)
 
     if (-1 == firstNamePos || -1 == lastNamePos)
     {
-        errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1").arg(GetExportFormat());
+        errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1")
+                .arg(formatStr);
         return false;
-
     }
 
     std::vector<QStringList> data;
@@ -169,29 +181,32 @@ bool FighterManager::ImportFighters(QString const& fileName, QString &errorMsg)
     return true;
 }
 
-bool FighterManager::ExportFighters(QString const& fileName, QString& errorMsg)
+bool FighterManager::ExportFighters(
+        QString const& fileName,
+        QString const& formatStr,
+        QString& errorMsg)
 {
     errorMsg.clear();
 
     QString sep;
-    if (!DetermineSeparator(GetExportFormat(), sep))
+    if (!DetermineSeparator(formatStr, sep))
     {
         errorMsg = QObject::tr("Format specifier hat invalid separator: %1")
-                .arg(GetExportFormat());
+                .arg(formatStr);
 
         return false;
     }
 
-    if (!IsFormatSatisfying(GetExportFormat()))
+    if (!IsFormatSatisfying(formatStr))
     {
         errorMsg = QObject::tr("Format specifier does not meet criteria: %1")
-                .arg(GetExportFormat());
+                .arg(formatStr);
 
         return false;
     }
 
     // determine tag positions
-    const QStringList tags = GetExportFormat().split(sep);
+    const QStringList tags = formatStr.split(sep);
     const int firstNamePos = tags.indexOf(str_FIRSTNAME);
     const int lastNamePos = tags.indexOf(str_LASTNAME);
     const int clubPos = tags.indexOf(str_CLUB);
@@ -265,4 +280,19 @@ bool FighterManager::RemoveFighter(Fighter f)
     m_fighters.erase(iter);
 
     return true;
+}
+
+QStringList FighterManager::GetClubFighterNames(const QString& club) const
+{
+    QStringList ret;
+    std::for_each(begin(m_fighters), end(m_fighters),
+             [&](Ipponboard::Fighter const& f)
+    {
+        if (f.club == club)
+        {
+            ret.append(QString("%1 %2").arg(f.first_name, f.last_name));
+        }
+    });
+
+    return ret;
 }

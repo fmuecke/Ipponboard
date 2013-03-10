@@ -57,13 +57,12 @@ SOURCES = main.cpp \
     ../base/fightcategorymanagerdlg.cpp \
     ../base/fightcategorymanager.cpp \
     ../base/MainWindowBase.cpp \
-    ../core/fighter.cpp \
+    ../base/FighterManager.cpp \
+    ../base/FighterManagerDlg.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp \
-    ../base/FighterManager.cpp \
-    ../base/FighterManagerDlg.cpp
+    ../widgets/countdown.cpp
 
 HEADERS = ../base/pch.h \
     mainwindow.h \
@@ -74,26 +73,25 @@ HEADERS = ../base/pch.h \
     ../base/view.h \
     ../base/fightcategorymanagerdlg.h \
     ../base/fightcategorymanager.h \
-    ../core/fighter.h \
+    ../base/FighterManager.h \
+    ../base/FighterManagerDlg.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/countdown.h \
     ../widgets/splashscreen.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../base/FighterManager.h \
-    ../util/SimpleCsvFile.hpp \
-    ../base/FighterManagerDlg.h
+    ../util/SimpleCsvFile.hpp 
 
 FORMS = mainwindow.ui \
     view_vertical_single.ui \
-	../base/clubmanagerdlg.ui \
+    ../base/clubmanagerdlg.ui \
     ../base/settingsdlg.ui \
-    ../base/view_horizontal.ui \
     ../base/fightcategorymanagerdlg.ui \
+    ../base/FighterManagerDlg.ui \
+    ../base/view_horizontal.ui \
     ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui \
-    ../base/FighterManagerDlg.ui
+    ../widgets/countdown.ui
 
 #OTHER_FILES +=
 

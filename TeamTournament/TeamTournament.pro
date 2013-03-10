@@ -44,7 +44,9 @@ HEADERS = MainWindowTeam.h \
     ../base/pch.h \
     ../base/clubmanager.h \
     ../base/clubmanagerdlg.h \
+    ../base/ComboBoxDelegate.h \
     ../base/FighterManager.h \
+    ../base/FighterManagerDlg.h \
     ../base/mainwindowbase.h \
     ../base/settingsdlg.h \
     ../base/view.h \
@@ -61,18 +63,21 @@ SOURCES = main.cpp \
     ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
     ../base/FighterManager.cpp \
+    ../base/FighterManagerDlg.cpp \
     ../base/mainwindowbase.cpp \
     ../base/settingsdlg.cpp \
     ../base/view.cpp \
     ../widgets/countdown.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp
+    ../widgets/splashscreen.cpp \
+    ../base/ComboBoxDelegate.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
     scorescreen.ui \
     ../base/settingsdlg.ui \
+    ../base/FighterManagerDlg.ui \
     ../base/view_horizontal.ui \
     ../widgets/splashscreen.ui \
     ../widgets/countdown.ui

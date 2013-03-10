@@ -23,7 +23,14 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
+   <item>
+    <widget class="QLabel" name="label_filterinfo">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QTreeWidget" name="treeWidget_fighters">
      <property name="mouseTracking">
@@ -61,45 +68,7 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Firstname</string>
-      </property>
-      <property name="toolTip">
-       <string>Round Time</string>
-      </property>
-      <property name="textAlignment">
-       <set>AlignLeft|AlignVCenter</set>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Lastname</string>
-      </property>
-      <property name="toolTip">
-       <string>Golden Score Time</string>
-      </property>
-      <property name="statusTip">
-       <string/>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Club/Team</string>
-      </property>
-      <property name="toolTip">
-       <string>The name of the club or team</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Weight</string>
-      </property>
-      <property name="toolTip">
-       <string>The weight classes (comma separated)</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Class</string>
+       <string notr="true">1</string>
       </property>
      </column>
     </widget>
@@ -145,6 +114,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_settings">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="toolTip">
         <string>Settings for import/export</string>
        </property>

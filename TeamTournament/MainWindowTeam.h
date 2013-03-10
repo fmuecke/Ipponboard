@@ -3,6 +3,7 @@
 
 #include "../base/mainwindowbase.h"
 #include "../core/fighter.h"
+#include "../util/helpers.hpp"
 
 #include <boost/shared_ptr.hpp>
 
@@ -40,6 +41,8 @@ private:
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);
 
+    /* base class slot overrides */
+    virtual void on_actionManageFighters_triggered() override;
 
 private slots:
     void on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos);
@@ -51,6 +54,8 @@ private slots:
     void on_actionSet_Round_Time_triggered();
     void on_pushButton_copySwitched_pressed();
     void on_toolButton_weights_pressed();
+    void on_toolButton_team_home_pressed();
+    void on_toolButton_team_guest_pressed();
     void slot_copy_cell_content_list1();
     void slot_copy_cell_content_list2();
     void slot_paste_cell_content_list1();
@@ -104,7 +109,8 @@ private:
     QString m_host;
 
 	//boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
-    //QStringList m_CurrentFighterNames;
+    QStringList m_FighterNamesHome;
+    QStringList m_FighterNamesGuest;
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_

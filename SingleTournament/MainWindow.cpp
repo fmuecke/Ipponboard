@@ -55,7 +55,6 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow()
 {
-    save_fighters();
 }
 
 void MainWindow::Init()
@@ -63,8 +62,6 @@ void MainWindow::Init()
     m_pCategoryManager.reset(new FightCategoryMgr());
 
 	MainWindowBase::Init();
-
-    load_fighters();
 
     // init tournament classes (if there are none present)
     for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
@@ -235,23 +232,7 @@ void MainWindow::update_fighters(const QString& s)
     fNew.weight = weight;
     fNew.category = category;
 
-    // Does fighter already exist in list?
-	//FIXME: use find to check for existence!
-    bool found(false);
-    Q_FOREACH(const Ipponboard::Fighter& f, m_fighterManager.m_fighters)
-    {
-        if (f.first_name == fNew.first_name &&
-                f.last_name == fNew.last_name)
-        {
-            found = true;
-            break;
-        }
-    }
-
-    if (!found)
-    {
-        m_fighterManager.m_fighters.insert(fNew);
-    }
+    m_fighterManager.AddFighter(fNew); // only adds fighter if new
 }
 
 void MainWindow::update_statebar()
@@ -269,38 +250,6 @@ void MainWindow::update_statebar()
 //    }
     m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
     m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
-}
-
-void MainWindow::load_fighters()
-{
-    QString csvFile(
-        QString::fromStdString(
-            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
-
-    QString errorMsg;
-    if (!m_fighterManager.ImportFighters(csvFile, errorMsg))
-    {
-        QMessageBox::critical(
-                    this,
-                    QCoreApplication::applicationName(),
-                    errorMsg);
-    }
-}
-
-void MainWindow::save_fighters()
-{
-    QString csvFile(
-        QString::fromStdString(
-            fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
-    QString errorMsg;
-
-    if (!m_fighterManager.ExportFighters(csvFile, errorMsg))
-    {
-        QMessageBox::critical(
-                    this,
-                    QCoreApplication::applicationName(),
-                    errorMsg);
-    }
 }
 
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
