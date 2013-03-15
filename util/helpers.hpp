@@ -5,7 +5,7 @@
 #if defined(__GNUG__) && __GNUC_MINOR__ < 7
 #define final 
 #define override 
-#else defined(_MSC_VER) && _MSC_VER <= 1600
+#elif defined(_MSC_VER) && _MSC_VER <= 1600
 #define final sealed
 #endif
 
