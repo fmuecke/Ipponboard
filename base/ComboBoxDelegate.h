@@ -1,4 +1,4 @@
-// Copyright 2010-2013 Florian Muecke. All rights reserved.
+﻿// Copyright 2010-2013 Florian Muecke. All rights reserved.
 // http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -7,6 +7,8 @@
 
 #ifndef __BASE_COMBOBOXDELEGATE_H
 #define __BASE_COMBOBOXDELEGATE_H
+
+#include "../util/helpers.hpp"
 
 #include <QItemDelegate>
 #include <QStringList>
@@ -19,21 +21,21 @@ class ComboBoxDelegate : public QItemDelegate
 public:
     ComboBoxDelegate(QObject *parent);
 
-    QWidget* createEditor(
+    virtual QWidget* createEditor(
             QWidget *parent,
             const QStyleOptionViewItem &/* option */,
             const QModelIndex &/* index */) const override;
 
-    void setEditorData(
+    virtual void setEditorData(
             QWidget *editor,
-            const QModelIndex &index) const  override;
+            const QModelIndex &index) const override;
 
-    void setModelData(
+    virtual void setModelData(
             QWidget* editor,
             QAbstractItemModel* model,
             const QModelIndex& index) const override;
 
-    void updateEditorGeometry(
+    virtual void updateEditorGeometry(
             QWidget* editor,
             const QStyleOptionViewItem& option,
             const QModelIndex&/* index */) const override;

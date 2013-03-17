@@ -50,7 +50,8 @@ HEADERS = ../base/pch.h \
     tournament.h \
     fighter.h \
     tournamentmodel.h \
-    ControllerConfig.h
+    ControllerConfig.h \
+    Fight.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \

@@ -34,7 +34,7 @@ public:
         eCol_MAX
     };
 
-    explicit TournamentModel(Ipponboard::Tournament* pTournament, QObject* parent = 0);
+    explicit TournamentModel(Ipponboard::PTournamentRound pTournament, QObject* parent = 0);
     virtual ~TournamentModel();
 
     void SetNumRows(int rows)
@@ -69,11 +69,10 @@ public:
     std::pair<unsigned, unsigned> GetTotalWins() const;
     std::pair<unsigned, unsigned> GetTotalScore() const;
 
-
 private slots:
 
 private:
-    Ipponboard::Tournament* m_pTournament;
+    Ipponboard::PTournamentRound m_pTournamentRound;
     TournamentModel* m_pIntermediateModel;
     int m_nRows;
     QString m_HeaderData[eCol_MAX];
@@ -82,5 +81,6 @@ private:
     QLineEdit* m_pEditScore;
 };
 
+typedef std::shared_ptr<TournamentModel> PTournamentModel;
 
 #endif  // BASE__TOURNAMENTMODEL_H_

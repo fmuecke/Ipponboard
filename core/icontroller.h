@@ -30,8 +30,8 @@ public:
 	virtual QString GetMessage() const = 0;
 	virtual int GetTeamScore(Ipponboard::EFighter) const = 0;
 	virtual void SetTimerValue(Ipponboard::ETimer timer, const QString& value) = 0;
-	virtual void SetRoundTime(const QString& value) = 0;
-	virtual int GetRound() const = 0;
+	virtual void SetFightTime(const QString& value) = 0;
+    //FIXME: virtual int GetRound() const = 0;
 	virtual void SetWeightClass(QString const& c) = 0;
 	virtual QString const& GetCategoryName() const = 0;
 	virtual void SetGoldenScore(bool isGS) = 0;
