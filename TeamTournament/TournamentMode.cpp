@@ -64,7 +64,6 @@ bool TournamentMode::ReadModes(
 
         TournamentMode tm;
         tm.name = group;
-
         tm.title = config.value(TournamentMode::str_Title).toString();
         tm.subTitle = config.value(TournamentMode::str_SubTitle).toString();
         tm.weights = config.value(TournamentMode::str_Weights).toString();
@@ -125,6 +124,17 @@ bool TournamentMode::ReadModes(
         if (!tm.fightTimeOverrides.isEmpty())
         {
             // TODO parse and validate...
+        }
+
+        // plausibility checks
+        auto nWeights = tm.weights.split(';').count();
+        nWeights = tm.weightsAreDoubled ? nWeights*2 : nWeights;
+        if (nWeights != tm.nFightsPerRound)
+        {
+            errorMsg = QString("Number of weights (%1) does not match number of fights (%2) for [%3]")
+                    .arg(QString::number(nWeights), QString::number(tm.nFightsPerRound), group);
+
+            return false;
         }
 
         config.endGroup();

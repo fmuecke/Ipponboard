@@ -42,9 +42,9 @@ public: // nothing to encapsulate here
     QString weights;
     QString listTemplate;
     QString fightTimeOverrides;
-    unsigned int nRounds;
-    unsigned int nFightsPerRound;
-    unsigned int fightTimeInSeconds;
+    int nRounds;
+    int nFightsPerRound;
+    int fightTimeInSeconds;
     bool weightsAreDoubled;
 };
 
