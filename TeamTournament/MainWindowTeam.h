@@ -1,4 +1,4 @@
-#ifndef TEAM_EDITION_MAINWINDOW_H_
+﻿#ifndef TEAM_EDITION_MAINWINDOW_H_
 #define TEAM_EDITION_MAINWINDOW_H_
 
 #include "../base/mainwindowbase.h"
@@ -6,6 +6,8 @@
 #include "../util/helpers.hpp"
 
 #include <boost/shared_ptr.hpp>
+
+#include "TournamentMode.h"
 
 class MainWindowTeam : public MainWindowBase
 {
@@ -18,6 +20,11 @@ public:
 
 	virtual const char* EditionName() const final		{ return "Team Edition"; }
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
+
+    void SetModes(std::vector<TournamentMode>& modes)
+    {
+        m_modes.swap(modes);
+    }
 
 protected:
     //virtual void changeEvent(QEvent* e) override;
@@ -90,7 +97,7 @@ private slots:
     virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 private:
-    void update_weights(QString weightString);
+    void update_weights(QString const& weightString);
     void on_tableView_customContextMenuRequested(QTableView* pTableView,
                                                  QPoint const& pos,
                                                  const char* copySlot,
@@ -99,8 +106,8 @@ private:
     void copy_cell_content(QTableView* pTableView);
     void paste_cell_content(QTableView* pTableView);
     void clear_cell_content(QTableView* pTableView);
-    static QString get_template_file(QString const& mode);
-    static QString get_full_mode_title(QString const& mode);
+    QString get_template_file(QString const& mode) const;
+    QString get_full_mode_title(QString const& mode) const;
 
     boost::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
     boost::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
@@ -111,6 +118,7 @@ private:
 	//boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
     QStringList m_FighterNamesHome;
     QStringList m_FighterNamesGuest;
+    std::vector<TournamentMode> m_modes;
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_

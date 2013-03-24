@@ -29,6 +29,9 @@ REM -- doc
 rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
 rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
+REM -- tournament modes
+copy /y TournamentModes.ini %DEST%>nul
+
 REM -- clubs
 if not exist "%DEST%\clubs" mkdir "%DEST%\clubs">nul
 copy /Y "clubs\clubs.xml" "%DEST%\clubs">nul

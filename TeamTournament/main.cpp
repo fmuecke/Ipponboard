@@ -1,4 +1,5 @@
-#include "MainWindowTeam.h"
+﻿#include "MainWindowTeam.h"
+#include "TournamentMode.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
     QApplication a(argc, argv);
 
     QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-    QCoreApplication::setOrganizationName("Florian M�cke");
+    QCoreApplication::setOrganizationName("Florian Mücke");
     QCoreApplication::setOrganizationDomain("ipponboard.info");
     QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
 
@@ -45,7 +46,7 @@ int main(int argc, char* argv[])
     const QString ini(
 		QString::fromStdString(
 			fmu::GetSettingsFilePath(
-				mainWnd.GetConfigFileName().toAscii())));
+                mainWnd.GetConfigFileName().toAscii())));
 
     QSettings settings(ini, QSettings::IniFormat, &a);
     settings.beginGroup(str_tag_Main);
@@ -73,6 +74,20 @@ int main(int argc, char* argv[])
             LangNotFound("core_de");
     }
 
+    //
+    // load tournament modes
+    //
+    QString errMsg;
+    std::vector<TournamentMode> modes;
+    if (!TournamentMode::ReadModes("TournamentModes.ini", modes, errMsg))
+    {
+        QMessageBox::critical(0,
+                              QCoreApplication::tr("Error reading configuration"),
+                              errMsg);
+
+        return 0;
+    }
+    mainWnd.SetModes(modes);
 
     //QFile f(langStr == "de" ? ":/text/text/License_team_de.html" : ":/text/text/License_team_en.html");
     QFile f(":/text/text/License_team_de.html");

@@ -55,7 +55,8 @@ HEADERS = MainWindowTeam.h \
     ../widgets/countdown.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../widgets/splashscreen.h
+    ../widgets/splashscreen.h \
+    TournamentMode.h
 
 SOURCES = main.cpp \
     scorescreen.cpp \
@@ -71,7 +72,8 @@ SOURCES = main.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../base/ComboBoxDelegate.cpp
+    ../base/ComboBoxDelegate.cpp \
+    TournamentMode.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \

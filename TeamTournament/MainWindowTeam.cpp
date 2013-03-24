@@ -42,25 +42,6 @@ namespace StrTags
 	static const char* const host = "Host";
 }
 
-static const QString str_mode_1te_bundesliga_nord_m = QString::fromUtf8("1. Bundesliga Nord (Männer)");
-static const QString str_mode_1te_bundesliga_sued_m = QString::fromUtf8("1. Bundesliga Süd (Männer)");
-static const QString str_mode_2te_bundesliga_nord_m = QString::fromUtf8("2. Bundesliga Nord (Männer)");
-static const QString str_mode_2te_bundesliga_sued_m = QString::fromUtf8("2. Bundesliga Süd (Männer)");
-static const QString str_mode_1te_bundesliga_nord_f = QString::fromUtf8("1. Bundesliga Nord (Frauen)");
-static const QString str_mode_1te_bundesliga_sued_f = QString::fromUtf8("1. Bundesliga Süd (Frauen)");
-static const QString str_mode_2te_bundesliga_nord_f = QString::fromUtf8("2. Bundesliga Nord (Frauen)");
-static const QString str_mode_2te_bundesliga_sued_f = QString::fromUtf8("2. Bundesliga Süd (Frauen)");
-static const QString str_mode_bayernliga_nord_m = QString::fromUtf8("Bayernliga Nord (M)");
-static const QString str_mode_bayernliga_sued_m = QString::fromUtf8("Bayernliga Süd (M)");
-static const QString str_mode_bayernliga_nord_f = QString::fromUtf8("Bayernliga Nord (F)");
-static const QString str_mode_bayernliga_sued_f = QString::fromUtf8("Bayernliga Süd (F)");
-static const QString str_mode_landesliga_nord_m = QString::fromUtf8("Landesliga Nord (M)");
-static const QString str_mode_landesliga_sued_m = QString::fromUtf8("Landesliga Süd (M)");
-static const QString str_mode_landesliga_nord_f = QString::fromUtf8("Landesliga Nord (F)");
-static const QString str_mode_landesliga_sued_f = QString::fromUtf8("Landesliga Süd (F)");
-static const QString str_mode_mm_u17_m = QString::fromUtf8("Deutsche VMM MU17");
-static const QString str_mode_mm_u17_f = QString::fromUtf8("Deutsche VMM FU17");
-
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -75,6 +56,7 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
     , m_host()
     , m_FighterNamesHome()
     , m_FighterNamesGuest()
+    , m_modes()
 {
     m_pController->InitTournament(2,10);
     m_pUi->setupUi(this);
@@ -90,29 +72,17 @@ void MainWindowTeam::Init()
     // set default background
     m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
+    // load modes
+    std::for_each(begin(m_modes), end(m_modes),
+                  [&](TournamentMode const& mode)
+        {
+            m_pUi->comboBox_mode->addItem(mode.FullTitle());
+        });
+
     //
     // setup data
     //
     m_pUi->dateEdit->setDate(QDate::currentDate());
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_m);
-    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_m);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_1te_bundesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/djb-logo.png"), str_mode_2te_bundesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_bayernliga_sued_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_nord_f);
-    m_pUi->comboBox_mode->addItem(QIcon(":leagues/emblems/bjv-logo.png"), str_mode_landesliga_sued_f);
-    m_pUi->comboBox_mode->addItem(str_mode_mm_u17_f);
-
     update_club_views();
 
     //m_pUi->comboBox_club_guest->setCurrentIndex(0);
@@ -136,7 +106,7 @@ void MainWindowTeam::Init()
 
     int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
     if (-1 == modeIndex)
-        modeIndex =  0;
+        modeIndex = 0;
     m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
     // TEMP: hide weight cotrol
@@ -669,57 +639,22 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 {
     m_mode = s;
 
-    if( s == str_mode_1te_bundesliga_nord_m ||
-        s == str_mode_1te_bundesliga_sued_m ||
-        s == str_mode_2te_bundesliga_nord_m ||
-        s == str_mode_2te_bundesliga_sued_m )
+    // TODO: use binary seach as the container is sorted
+    auto iter = std::find_if(begin(m_modes), end(m_modes),
+                             [&](TournamentMode const& tm)
+        {
+            return tm.FullTitle() == s;
+        });
+
+    if (iter != end(m_modes))
     {
-        m_pController->InitTournament(2, 7);
-        m_pController->SetFightTime("5:00");
-        update_weights("-60;-66;-73;-81;-90;-100;+100");
-    }
-    else if( s == str_mode_1te_bundesliga_nord_f ||
-          s == str_mode_1te_bundesliga_sued_f ||
-          s == str_mode_2te_bundesliga_nord_f ||
-          s == str_mode_2te_bundesliga_sued_f )
-    {
-        m_pController->InitTournament(2, 7);
-        m_pController->SetFightTime("5:00");
-        update_weights("-48;-52;-57;-63;-70;-78;+78");
-    }
-    else if( s == str_mode_mm_u17_m )
-    {
-        m_pController->InitTournament(2, 7);
-        m_pController->SetFightTime("4:00");
-        update_weights("-46;-50;-55;-60;-66;-73;+73");
-    }
-    else if( s == str_mode_mm_u17_f )
-    {
-        m_pController->InitTournament(2, 7);
-        m_pController->SetFightTime("4:00");
-        update_weights("-44;-48;-52;-57;-63;-70;+70");
-    }
-    else if( s == str_mode_bayernliga_nord_m ||
-             s == str_mode_bayernliga_sued_m ||
-             s == str_mode_landesliga_nord_m ||
-             s == str_mode_landesliga_sued_m )
-    {
-        m_pController->InitTournament(2, 10);
-        m_pController->SetFightTime("5:00");
-        update_weights("-66;-73;-81;-90;+90");
-    }
-    else if( s == str_mode_bayernliga_nord_f ||
-             s == str_mode_bayernliga_sued_f ||
-             s == str_mode_landesliga_nord_f ||
-             s == str_mode_landesliga_sued_f )
-    {
-        m_pController->InitTournament(2, 7);
-        m_pController->SetFightTime("5:00");
-        update_weights("-48;-52;-57;-63;-70;-78;+78");
+        m_pController->InitTournament(iter->nRounds, iter->nFightsPerRound);
+        m_pController->SetFightTime(QTime(0, 0, iter->fightTimeInSeconds));
+        update_weights(iter->weights);
     }
     else
     {
-        Q_ASSERT("mode not handled (yet)");
+        Q_ASSERT("invalid mode");
     }
 
     // update table views
@@ -1180,96 +1115,47 @@ void MainWindowTeam::slot_clear_cell_content_list2()
     clear_cell_content(m_pUi->tableView_tournament_list2);
 }
 
-QString MainWindowTeam::get_template_file(QString const& mode)
+QString MainWindowTeam::get_template_file(QString const& mode) const
 {
-    if (str_mode_1te_bundesliga_nord_m == mode ||
-        str_mode_1te_bundesliga_sued_m == mode ||
-        str_mode_1te_bundesliga_nord_f == mode ||
-        str_mode_1te_bundesliga_sued_f == mode ||
-        str_mode_2te_bundesliga_nord_m == mode ||
-        str_mode_2te_bundesliga_sued_m == mode ||
-        str_mode_2te_bundesliga_nord_f == mode ||
-        str_mode_2te_bundesliga_sued_f == mode)
+    // TODO: use binary seach as the container is sorted
+    auto iter = std::find_if(begin(m_modes), end(m_modes),
+        [&](TournamentMode const& tm)
     {
-        return "templates\\list_output_bundesliga.html";
+        return tm.FullTitle() == mode;
+    });
+
+    if (iter != end(m_modes))
+    {
+        return iter->listTemplate;
     }
 
-    if (str_mode_bayernliga_nord_m == mode ||
-        str_mode_bayernliga_sued_m == mode ||
-        str_mode_landesliga_nord_m == mode ||
-        str_mode_landesliga_sued_m == mode ||
-        str_mode_bayernliga_nord_f == mode ||
-        str_mode_bayernliga_sued_f == mode ||
-        str_mode_landesliga_nord_f == mode ||
-        str_mode_landesliga_sued_f == mode)
-    {
-        return "templates\\list_output_bay.html";
-    }
-
-    if (str_mode_mm_u17_m == mode ||
-        str_mode_mm_u17_f == mode)
-    {
-        return "templates\\list_output_mm.html";
-    }
-
-    return "";
+    return QString();
 }
 
 
-QString MainWindowTeam::get_full_mode_title(QString const& mode)
+QString MainWindowTeam::get_full_mode_title(QString const& mode) const
 {
     QString year(QString::number(QDate::currentDate().year()));
 
-    // Bundesliga Männer
-    if (str_mode_1te_bundesliga_nord_m == mode)
-        return QString::fromUtf8("1. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
-    if (str_mode_1te_bundesliga_sued_m == mode)
-        return QString::fromUtf8("1. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
-    if (str_mode_2te_bundesliga_nord_m == mode)
-        return QString::fromUtf8("2. Judo Bundesliga Männer %1 - Gruppe Nord").arg(year);
-    if (str_mode_2te_bundesliga_sued_m == mode)
-        return QString::fromUtf8("2. Judo Bundesliga Männer %1 - Gruppe Süd").arg(year);
+    // TODO: use binary seach as the container is sorted
+    auto iter = std::find_if(begin(m_modes), end(m_modes),
+        [&](TournamentMode const& tm)
+    {
+        return tm.FullTitle() == mode;
+    });
 
-    // Bundesliga Frauen
-    if (str_mode_1te_bundesliga_nord_f == mode)
-        return QString::fromUtf8("1. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
-    if (str_mode_1te_bundesliga_sued_f == mode)
-        return QString::fromUtf8("1. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
-    if (str_mode_2te_bundesliga_nord_f == mode)
-        return QString::fromUtf8("2. Judo Bundesliga Frauen %1 - Gruppe Nord").arg(year);
-    if (str_mode_2te_bundesliga_sued_f == mode)
-        return QString::fromUtf8("2. Judo Bundesliga Frauen %1 - Gruppe Süd").arg(year);
+    if (iter != end(m_modes))
+    {
+        if (iter->subTitle.isEmpty())
+        {
+            return QString("%1 %2").arg(iter->title, year);
+        }
+        else
+        {
+            return QString("%1 %2 - %3").arg(iter->title, year, iter->subTitle);
+        }
+    }
 
-    // Bayernliga Männer
-    if (str_mode_bayernliga_nord_m == mode)
-        return QString::fromUtf8("Judo Bayernliga Männer %1 - Gruppe Nord").arg(year);
-    if (str_mode_bayernliga_sued_m == mode)
-        return QString::fromUtf8("Judo Bayernliga Männer %1 - Gruppe Süd").arg(year);
-
-    // Bayernliga Frauen
-    if (str_mode_bayernliga_nord_f == mode)
-        return QString::fromUtf8("Judo Bayernliga Frauen %1 - Gruppe Nord").arg(year);
-    if (str_mode_bayernliga_sued_f == mode)
-        return QString::fromUtf8("Judo Bayernliga Frauen %1 - Gruppe Süd").arg(year);
-
-    // Landesliga Männer
-    if (str_mode_landesliga_nord_m == mode)
-        return QString::fromUtf8("Judo Landesliga Männer %1 - Gruppe Nord").arg(year);
-    if (str_mode_landesliga_sued_m == mode)
-        return QString::fromUtf8("Judo Landesliga Männer %1 - Gruppe Süd").arg(year);
-
-    // Landesliga Frauen
-    if (str_mode_landesliga_nord_f == mode)
-        return QString::fromUtf8("Judo Landesliga Frauen %1 - Gruppe Nord").arg(year);
-    if (str_mode_landesliga_sued_f == mode)
-        return QString::fromUtf8("Judo Landesliga Frauen %1 - Gruppe Süd").arg(year);
-
-    // Mannschafts-Meisterschaften
-    if (str_mode_mm_u17_m == mode)
-        return QString::fromUtf8("Deutsche Judo Vereins-Mannschafts-Meisterschaft MU17");
-    if (str_mode_mm_u17_f == mode)
-        return QString::fromUtf8("Deutsche Judo Vereins-Mannschafts-Meisterschaft FU17");
-
-    return tr("Ipponboard fight list");
+    return tr("Ipponboard fight list %1").arg(year);
 }
 
