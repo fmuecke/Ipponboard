@@ -831,7 +831,7 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
     dlg.exec();
 }
 
-void MainWindowTeam::update_weights(QString weightString)
+void MainWindowTeam::update_weights(QString const& weightString)
 {
     m_weights = weightString;
     m_pController->SetWeights(weightString.split(';'));
