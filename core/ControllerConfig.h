@@ -6,7 +6,7 @@ namespace Ipponboard
 
 struct ControllerConfig
 {
-    ControllerConfig()
+	ControllerConfig()
 		: button_hajime_mate(-1)
 		, button_reset(-1)
 		, button_reset_2(-1)

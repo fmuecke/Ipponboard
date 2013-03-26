@@ -10,11 +10,11 @@ using namespace Ipponboard;
 
 //---------------------------------------------------------
 FightCategoryManagerDlg::FightCategoryManagerDlg(
-    Ipponboard::FightCategoryMgr::Ptr pMgr,
+	Ipponboard::FightCategoryMgr::Ptr pMgr,
 	QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::FightCategoryManagerDlg)
-    , m_pClassMgr(pMgr)
+	, m_pClassMgr(pMgr)
 //---------------------------------------------------------
 {
 	ui->setupUi(this);

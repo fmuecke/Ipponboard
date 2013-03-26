@@ -49,8 +49,8 @@ public:
 	virtual ~Controller();
 
 	// --- IController ---
-    void InitTournament(int rounds, int fightsPerRound);
-    void RegisterView(IView* pView);
+	void InitTournament(int rounds, int fightsPerRound);
+	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
 	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
@@ -65,25 +65,25 @@ public:
 	QString GetMessage() const;
 	int GetTeamScore(Ipponboard::EFighter who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
-    void SetFightTime(const QString& value);
-    QString GetFightTime() const;
-    int GetFightTimeSecs() const;
-    void SetFightTime(const QTime& time);
-    //FIXME: int GetRound() const;
+	void SetFightTime(const QString& value);
+	QString GetFightTime() const;
+	int GetFightTimeSecs() const;
+	void SetFightTime(const QTime& time);
+	//FIXME: int GetRound() const;
 	void SetWeightClass(QString const& c);
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
-    void SetOption(Ipponboard::EOption option, bool isSet);
-    bool GetOption(Ipponboard::EOption option) const;
-    QString GetHomeLabel() const { return m_labelHome; }
-    QString GetGuestLabel() const { return m_labelGuest; }
-    void SetLabels(QString const& home, QString const& guest);
+	void SetOption(Ipponboard::EOption option, bool isSet);
+	bool GetOption(Ipponboard::EOption option) const;
+	QString GetHomeLabel() const { return m_labelHome; }
+	QString GetGuestLabel() const { return m_labelGuest; }
+	void SetLabels(QString const& home, QString const& guest);
 
 	void Gong() const;
 
-    IController const* GetIController() const { return this; }
-    IController* GetIController() { return this; }
+	IController const* GetIController() const { return this; }
+	IController* GetIController() { return this; }
 
 	// --- IControllerCore ---
 private:
@@ -96,29 +96,29 @@ private:
 	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
-    bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
+	bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
 
 public:
 	// --- other functions ---
-    int GetFightCount() const
+	int GetFightCount() const
 	{
-        return static_cast<int>(m_Tournament.at(0)->size());
+		return static_cast<int>(m_Tournament.at(0)->size());
 	}
 
-    int GetRoundCount() const
-    {
-        return static_cast<int>(m_Tournament.size());
-    }
+	int GetRoundCount() const
+	{
+		return static_cast<int>(m_Tournament.size());
+	}
 
-    void SetCurrentFight(unsigned int index);
+	void SetCurrentFight(unsigned int index);
 
 	int GetCurrentFightIndex() const
 	{ return m_currentFight; }
 
-    void SetCurrentRound(unsigned int index);
+	void SetCurrentRound(unsigned int index);
 
 	int GetCurrentTournamentIndex() const
-    { return m_currentRound; }
+	{ return m_currentRound; }
 
 	void ClearFights();
 	void SetClub(Ipponboard::EFighter whos, const QString& clubName);
@@ -134,7 +134,7 @@ public:
 
 	void SetWeights(QStringList const& weights);
 	void CopyAndSwitchGuestFighters();
-    PTournamentModel GetTournamentScoreModel(int which = 0);
+	PTournamentModel GetTournamentScoreModel(int which = 0);
 
 	void SetGongFile(const QString&);
 	QString const& GetGongFile() const;
@@ -160,12 +160,12 @@ private:
 	void reset_timer_value(Ipponboard::ETimer timer);
 
 	Ipponboard::Fight& current_fight()
-    { return m_Tournament.at(m_currentRound)->at(m_currentFight); }
+	{ return m_Tournament.at(m_currentRound)->at(m_currentFight); }
 
-    Ipponboard::Tournament m_Tournament;
-    std::vector<std::shared_ptr<TournamentModel> > m_TournamentModels;
-    int m_currentRound;
-    int m_currentFight;
+	Ipponboard::Tournament m_Tournament;
+	std::vector<std::shared_ptr<TournamentModel> > m_TournamentModels;
+	int m_currentRound;
+	int m_currentFight;
 
 	Ipponboard::IpponboardSM* m_pSM;
 	Ipponboard::EState m_State;
@@ -183,9 +183,9 @@ private:
 	bool m_isGoldenScore;
 	QTime m_fightTime;
 	QString m_weight_class;
-    std::bitset<eOption_MAX> m_options;
-    QString m_labelHome;
-    QString m_labelGuest;
+	std::bitset<eOption_MAX> m_options;
+	QString m_labelHome;
+	QString m_labelGuest;
 };
 
 } // namespace Ipponboard

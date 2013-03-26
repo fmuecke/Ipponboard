@@ -30,12 +30,12 @@ public:
 	void SetFighterNameFont(const QFont& font);
 	void SetTextColorsFirst(const QColor& color, const QColor& background);
 	void SetTextColorsSecond(const QColor& color, const QColor& background);
-    void SetLabels(QString const& mat, QString const& home, QString const& guest);
+	void SetLabels(QString const& mat, QString const& home, QString const& guest);
 	void SetGongFile(const QString& path);
 
-    void SetRules(bool autoIncrement, bool use2013RuleSet);
+	void SetRules(bool autoIncrement, bool use2013RuleSet);
 
-    bool IsShowAlways() const;
+	bool IsShowAlways() const;
 	int GetSelectedScreen() const;
 	bool IsAutoSize() const;
 	QSize GetSize() const;
@@ -48,14 +48,14 @@ public:
 	QColor GetTextBgColorFirst() const;
 	QColor GetTextBgColorSecond() const;
 	QString GetMatLabel() const;
-    QString GetHomeLabel() const;
-    QString GetGuestLabel() const;
+	QString GetHomeLabel() const;
+	QString GetGuestLabel() const;
 	QString GetGongFile() const;
-    bool IsAutoIncrementRule() const;
-    bool IsUse2013Rules() const;
+	bool IsAutoIncrementRule() const;
+	bool IsUse2013Rules() const;
 
-    void SetControllerConfig(const ControllerConfig* pConfig);
-    void GetControllerConfig(ControllerConfig* pConfig);
+	void SetControllerConfig(const ControllerConfig* pConfig);
+	void GetControllerConfig(ControllerConfig* pConfig);
 
 protected:
 	void changeEvent(QEvent* e);
@@ -70,12 +70,12 @@ private:
 	ButtonTextMap m_buttonTexts;
 
 private slots:
-    void on_comboBox_mat_editTextChanged(QString);
-    void on_checkBox_fighters_italic_toggled(bool checked);
-    void on_checkBox_fighters_bold_toggled(bool checked);
-    void on_checkBox_text_italic_toggled(bool checked);
-    void on_checkBox_text_bold_toggled(bool checked);
-    void on_toolButton_text_background_second_pressed();
+	void on_comboBox_mat_editTextChanged(QString);
+	void on_checkBox_fighters_italic_toggled(bool checked);
+	void on_checkBox_fighters_bold_toggled(bool checked);
+	void on_checkBox_text_italic_toggled(bool checked);
+	void on_checkBox_text_bold_toggled(bool checked);
+	void on_toolButton_text_background_second_pressed();
 	void on_toolButton_text_color_second_pressed();
 	void on_toolButton_text_background_first_pressed();
 	void on_toolButton_text_color_first_pressed();
@@ -86,7 +86,7 @@ private slots:
 	void on_toolButton_play_gong_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();
-    void on_checkBox_autosize_secondary_view_toggled(bool checked);
+	void on_checkBox_autosize_secondary_view_toggled(bool checked);
 };
 
 } // namespace Ipponboard

@@ -22,32 +22,32 @@ namespace Ipponboard
 class FighterManager : public boost::noncopyable
 {
 public:
-    FighterManager();
+	FighterManager();
 
-    static char const * const str_FIRSTNAME;
-    static char const * const str_LASTNAME;
-    static char const * const str_CLUB;
-    static char const * const str_WEIGHT;
-    static char const * const str_CATEGORY;
+	static char const* const str_FIRSTNAME;
+	static char const* const str_LASTNAME;
+	static char const* const str_CLUB;
+	static char const* const str_WEIGHT;
+	static char const* const str_CATEGORY;
 
-    static const std::array<char const * const, 5> Specifiers;
+	static const std::array<char const* const, 5> Specifiers;
 
-    static QString GetSpecifiererDescription();
-    //static bool IsValidSpecifier(QString const& str);
-    static bool IsFormatSatisfying(QString const& formatStr);
-    static bool DetermineSeparator(QString const& str, QString& sep);
+	static QString GetSpecifiererDescription();
+	//static bool IsValidSpecifier(QString const& str);
+	static bool IsFormatSatisfying(QString const& formatStr);
+	static bool DetermineSeparator(QString const& str, QString& sep);
 
-    static QString DefaultExportFormat();
+	static QString DefaultExportFormat();
 
-    bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
-    bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+	bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+	bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
-    bool AddFighter(Ipponboard::Fighter f);
-    bool RemoveFighter(Ipponboard::Fighter f);
-    QStringList GetClubFighterNames(QString const& filter) const;
+	bool AddFighter(Ipponboard::Fighter f);
+	bool RemoveFighter(Ipponboard::Fighter f);
+	QStringList GetClubFighterNames(QString const& filter) const;
 
 //private:
-    std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
+	std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
 private:
 
 };

@@ -27,7 +27,7 @@ public:
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
 
-    typedef boost::shared_ptr<FightCategoryMgr> Ptr;
+	typedef boost::shared_ptr<FightCategoryMgr> Ptr;
 
 	bool GetCategory(int index, FightCategory& t) const;
 	bool GetCategory(QString const& name, FightCategory& t) const;

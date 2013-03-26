@@ -9,53 +9,53 @@
 #include "ui_splashscreen.h"
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
-    : QDialog(parent)
-    , ui(new Ui::SplashScreen)
+	: QDialog(parent)
+	, ui(new Ui::SplashScreen)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
 //	const int days_left = data.date.daysTo(QDate::currentDate());
 //	ui->label_valid->setText(
 //			"- " + QString::number( days_left ) +
 //			" " + tr("days left") + " -");
 
-    ui->textEdit->setHtml(data.text);
-    ui->label_info->setText(data.info);
-    setWindowFlags(Qt::Window);
+	ui->textEdit->setHtml(data.text);
+	ui->label_info->setText(data.info);
+	setWindowFlags(Qt::Window);
 }
 
 SplashScreen::~SplashScreen()
 {
-    delete ui;
+	delete ui;
 }
 
 void SplashScreen::SetImageStyleSheet(QString const& text)
 {
-    //"image: url(:/res/images/logo.png);"
-    ui->widget_image->setStyleSheet(text);
+	//"image: url(:/res/images/logo.png);"
+	ui->widget_image->setStyleSheet(text);
 }
 
 void SplashScreen::changeEvent(QEvent* e)
 {
-    QWidget::changeEvent(e);
+	QWidget::changeEvent(e);
 
-    switch (e->type())
-    {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
+	switch (e->type())
+	{
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-    default:
-        break;
-    }
+	default:
+		break;
+	}
 }
 
 void SplashScreen::on_pushButton_pressed()
 {
-    accept();
+	accept();
 }
 
 void SplashScreen::on_pushButton_Cancel_pressed()
 {
-    reject();
+	reject();
 }

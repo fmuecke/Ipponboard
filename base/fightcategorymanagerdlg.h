@@ -17,8 +17,8 @@ class FightCategoryManagerDlg : public QDialog
 
 public:
 	explicit FightCategoryManagerDlg(
-        Ipponboard::FightCategoryMgr::Ptr pMgr,
-        QWidget* parent = nullptr);
+		Ipponboard::FightCategoryMgr::Ptr pMgr,
+		QWidget* parent = nullptr);
 
 	virtual ~FightCategoryManagerDlg();
 

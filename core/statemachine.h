@@ -7,7 +7,7 @@
 
 // workaround for following error:
 //   boost/type_traits/detail/has_binary_operator.hp(50): Parse error at "BOOST_JOIN"
-#ifndef Q_MOC_RUN  
+#ifndef Q_MOC_RUN
 
 #include <iostream>
 #include <string>

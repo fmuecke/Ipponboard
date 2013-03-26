@@ -8,43 +8,43 @@ using namespace Ipponboard;
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
-    {
-        if (m_pCore->is_option(Ipponboard::eOption_Use2013Rules))
-        {
-            if (eOsaekomiVal2013_Yuko == evt.secs)
-            {
-                Score_(evt.tori).Add(ePoint_Yuko);
-            }
-            else if (eOsaekomiVal2013_Wazaari == evt.secs)
-            {
-                Score_(evt.tori).Remove(ePoint_Yuko);
-                Score_(evt.tori).Add(ePoint_Wazaari);
-            }
-            else if (eOsaekomiVal2013_Ippon == evt.secs)
-            {
-                Score_(evt.tori).Remove(ePoint_Wazaari);
-                Score_(evt.tori).Add(ePoint_Ippon);
-            }
-        }
-        else
-        {
-            if (eOsaekomiVal_Yuko == evt.secs)
-            {
-                Score_(evt.tori).Add(ePoint_Yuko);
-            }
-            else if (eOsaekomiVal_Wazaari == evt.secs)
-            {
-                Score_(evt.tori).Remove(ePoint_Yuko);
-                Score_(evt.tori).Add(ePoint_Wazaari);
-            }
-            else if (eOsaekomiVal_Ippon == evt.secs)
-            {
-                Score_(evt.tori).Remove(ePoint_Wazaari);
-                Score_(evt.tori).Add(ePoint_Ippon);
-            }
-        }
-    }
+	if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
+	{
+		if (m_pCore->is_option(Ipponboard::eOption_Use2013Rules))
+		{
+			if (eOsaekomiVal2013_Yuko == evt.secs)
+			{
+				Score_(evt.tori).Add(ePoint_Yuko);
+			}
+			else if (eOsaekomiVal2013_Wazaari == evt.secs)
+			{
+				Score_(evt.tori).Remove(ePoint_Yuko);
+				Score_(evt.tori).Add(ePoint_Wazaari);
+			}
+			else if (eOsaekomiVal2013_Ippon == evt.secs)
+			{
+				Score_(evt.tori).Remove(ePoint_Wazaari);
+				Score_(evt.tori).Add(ePoint_Ippon);
+			}
+		}
+		else
+		{
+			if (eOsaekomiVal_Yuko == evt.secs)
+			{
+				Score_(evt.tori).Add(ePoint_Yuko);
+			}
+			else if (eOsaekomiVal_Wazaari == evt.secs)
+			{
+				Score_(evt.tori).Remove(ePoint_Yuko);
+				Score_(evt.tori).Add(ePoint_Wazaari);
+			}
+			else if (eOsaekomiVal_Ippon == evt.secs)
+			{
+				Score_(evt.tori).Remove(ePoint_Wazaari);
+				Score_(evt.tori).Add(ePoint_Ippon);
+			}
+		}
+	}
 }
 
 
@@ -83,39 +83,39 @@ bool IpponboardSM_::has_no_wazaari(Wazaari const& evt)
 bool IpponboardSM_::has_IpponTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    auto checkVal =
-            m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-            eOsaekomiVal2013_Ippon :
-            eOsaekomiVal_Ippon;
+	auto checkVal =
+		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
+		eOsaekomiVal2013_Ippon :
+		eOsaekomiVal_Ippon;
 
-    return checkVal == evt.secs;
+	return checkVal == evt.secs;
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::has_WazaariTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    auto checkVal =
-            m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-            eOsaekomiVal2013_Wazaari :
-            eOsaekomiVal_Wazaari;
+	auto checkVal =
+		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
+		eOsaekomiVal2013_Wazaari :
+		eOsaekomiVal_Wazaari;
 
-    return checkVal == evt.secs;
+	return checkVal == evt.secs;
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    if (0 != Score_(evt.tori).Wazaari())
-    {
-        auto checkVal =
-                m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-                eOsaekomiVal2013_Wazaari :
-                eOsaekomiVal_Wazaari;
+	if (0 != Score_(evt.tori).Wazaari())
+	{
+		auto checkVal =
+			m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
+			eOsaekomiVal2013_Wazaari :
+			eOsaekomiVal_Wazaari;
 
-        return checkVal == evt.secs;
-    }
+		return checkVal == evt.secs;
+	}
 
 	return false;
 }
@@ -124,12 +124,12 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    auto checkVal =
-            m_pCore->is_option(Ipponboard::eOption_Use2013Rules)?
-            eOsaekomiVal2013_Yuko :
-            eOsaekomiVal_Yuko;
+	auto checkVal =
+		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
+		eOsaekomiVal2013_Yuko :
+		eOsaekomiVal_Yuko;
 
-    return checkVal == evt.secs;
+	return checkVal == evt.secs;
 }
 
 //---------------------------------------------------------
@@ -143,24 +143,24 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 bool IpponboardSM_::has_enough_shido(Shido const& evt)
 //---------------------------------------------------------
 {
-	
+
 
 	if (Score_(evt.tori).Shido() == 3)
 	{
 		return true;
 	}
 
-    // Note: new 2013 IJF rule: no points for first three shido
-    if (!m_pCore->is_option(eOption_Use2013Rules))
-    {
-        EFighter uke = GetUkeFromTori(evt.tori);        
+	// Note: new 2013 IJF rule: no points for first three shido
+	if (!m_pCore->is_option(eOption_Use2013Rules))
+	{
+		EFighter uke = GetUkeFromTori(evt.tori);
 
-        if (Score_(evt.tori).Shido() == 2 &&
-                Score_(uke).Wazaari() == 1)
-        {
-            return true;
-        }
-    }
+		if (Score_(evt.tori).Shido() == 2 &&
+				Score_(uke).Wazaari() == 1)
+		{
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -220,80 +220,80 @@ void IpponboardSM_::add_point(PointEvent<ippon_type> const& evt)
 
 void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 {
-    if (m_pCore->is_option(eOption_AutoIncrementPoints))
-    {
-        EFighter uke = GetUkeFromTori(evt.tori);
+	if (m_pCore->is_option(eOption_AutoIncrementPoints))
+	{
+		EFighter uke = GetUkeFromTori(evt.tori);
 
-        if (m_pCore->is_option(eOption_Use2013Rules))
-        {
-            if (3 == Score_(evt.tori).Shido())
-            {
-                Score_(uke).Add(ePoint_Ippon);
-            }
-        }
-        else
-        {
-            if (3 == Score_(evt.tori).Shido())
-            {
-                Score_(uke).Remove(ePoint_Wazaari);
-                Score_(uke).Add(ePoint_Ippon);
-            }
-            else if (2 == Score_(evt.tori).Shido())
-            {
-                Score_(uke).Remove(ePoint_Yuko);
-                Score_(uke).Add(ePoint_Wazaari);
-            }
-            else if (1 == Score_(evt.tori).Shido())
-            {
-                Score_(uke).Add(ePoint_Yuko);
-            }
-        }
-    }
+		if (m_pCore->is_option(eOption_Use2013Rules))
+		{
+			if (3 == Score_(evt.tori).Shido())
+			{
+				Score_(uke).Add(ePoint_Ippon);
+			}
+		}
+		else
+		{
+			if (3 == Score_(evt.tori).Shido())
+			{
+				Score_(uke).Remove(ePoint_Wazaari);
+				Score_(uke).Add(ePoint_Ippon);
+			}
+			else if (2 == Score_(evt.tori).Shido())
+			{
+				Score_(uke).Remove(ePoint_Yuko);
+				Score_(uke).Add(ePoint_Wazaari);
+			}
+			else if (1 == Score_(evt.tori).Shido())
+			{
+				Score_(uke).Add(ePoint_Yuko);
+			}
+		}
+	}
 
-    Score_(evt.tori).Add(ePoint_Shido);
+	Score_(evt.tori).Add(ePoint_Shido);
 }
 
 void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 {
-    EFighter uke = GetUkeFromTori(evt.tori);
+	EFighter uke = GetUkeFromTori(evt.tori);
 
-    if (Score_(evt.tori).Hansokumake())
-    {
-        Score_(uke).Remove(ePoint_Ippon);
-        Score_(evt.tori).Remove(ePoint_Hansokumake);
-    }
-    else
-    {
-        if (m_pCore->is_option(eOption_AutoIncrementPoints))
-        {
-            if (m_pCore->is_option(eOption_Use2013Rules))
-            {
-                if (4 == Score_(evt.tori).Shido())
-                {
-                    Score_(uke).Remove(ePoint_Ippon);
-                }
-            }
-            else
-            {
-                if (4 == Score_(evt.tori).Shido())
-                {
-                    Score_(uke).Remove(ePoint_Ippon);
-                    Score_(uke).Add(ePoint_Wazaari);
-                }
-                else if (3 == Score_(evt.tori).Shido())
-                {
-                    Score_(uke).Remove(ePoint_Wazaari);
-                    Score_(uke).Add(ePoint_Yuko);
-                }
-                else if (2 == Score_(evt.tori).Shido())
-                {
-                    Score_(uke).Remove(ePoint_Yuko);
-                }
-            }
-        }
+	if (Score_(evt.tori).Hansokumake())
+	{
+		Score_(uke).Remove(ePoint_Ippon);
+		Score_(evt.tori).Remove(ePoint_Hansokumake);
+	}
+	else
+	{
+		if (m_pCore->is_option(eOption_AutoIncrementPoints))
+		{
+			if (m_pCore->is_option(eOption_Use2013Rules))
+			{
+				if (4 == Score_(evt.tori).Shido())
+				{
+					Score_(uke).Remove(ePoint_Ippon);
+				}
+			}
+			else
+			{
+				if (4 == Score_(evt.tori).Shido())
+				{
+					Score_(uke).Remove(ePoint_Ippon);
+					Score_(uke).Add(ePoint_Wazaari);
+				}
+				else if (3 == Score_(evt.tori).Shido())
+				{
+					Score_(uke).Remove(ePoint_Wazaari);
+					Score_(uke).Add(ePoint_Yuko);
+				}
+				else if (2 == Score_(evt.tori).Shido())
+				{
+					Score_(uke).Remove(ePoint_Yuko);
+				}
+			}
+		}
 
-        Score_(evt.tori).Remove(ePoint_Shido);
-    }
+		Score_(evt.tori).Remove(ePoint_Shido);
+	}
 }
 
 void IpponboardSM_::add_point(PointEvent<hansokumake_type> const& evt)

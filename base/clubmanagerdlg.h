@@ -13,9 +13,9 @@ class ClubManagerDlg : public QDialog
 {
 	Q_OBJECT
 public:
-    ClubManagerDlg(
-            boost::shared_ptr<Ipponboard::ClubManager> pMgr,
-            QWidget* parent = nullptr);
+	ClubManagerDlg(
+		boost::shared_ptr<Ipponboard::ClubManager> pMgr,
+		QWidget* parent = nullptr);
 	~ClubManagerDlg();
 
 protected:
@@ -25,8 +25,8 @@ private:
 	void select_club(int index);
 	void update_ui();
 
-    Ui::ClubManagerDlg* ui;
-    boost::shared_ptr<Ipponboard::ClubManager> m_pClubMgr;
+	Ui::ClubManagerDlg* ui;
+	boost::shared_ptr<Ipponboard::ClubManager> m_pClubMgr;
 	int m_SelectedClub;
 
 private slots:

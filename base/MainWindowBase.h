@@ -85,83 +85,83 @@ static const char* const str_tag_sound_time_ends = "TimeEnds";
 
 class MainWindowBase : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit MainWindowBase(QWidget* parent = nullptr);
-    virtual ~MainWindowBase();
+	explicit MainWindowBase(QWidget* parent = nullptr);
+	virtual ~MainWindowBase();
 
 	virtual void Init();
 
 	QString GetConfigFileName() const;
-    QString GetFighterFileName() const;
+	QString GetFighterFileName() const;
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
 
 protected:
-    virtual void changeEvent(QEvent*) override;
-    virtual void closeEvent(QCloseEvent*) override;
-    virtual void keyPressEvent(QKeyEvent*) override;
+	virtual void changeEvent(QEvent*) override;
+	virtual void closeEvent(QCloseEvent*) override;
+	virtual void keyPressEvent(QKeyEvent*) override;
 
-    void write_settings();
-    void read_settings();
-    void load_fighters();
-    void save_fighters();
-    virtual void update_views();
-    virtual void update_statebar();
-    virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
-    virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
-    virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
-    virtual void update_fighter_name_font(const QFont&);
+	void write_settings();
+	void read_settings();
+	void load_fighters();
+	void save_fighters();
+	virtual void update_views();
+	virtual void update_statebar();
+	virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
+	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
+	virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
+	virtual void update_fighter_name_font(const QFont&);
 
 private:
 	virtual void write_specific_settings(QSettings& settings);
 	virtual void read_specific_settings(QSettings& settings);
-    void change_lang(bool beQuiet = false);
-    void show_hide_view() const;
+	void change_lang(bool beQuiet = false);
+	void show_hide_view() const;
 
 protected slots:
-    void on_actionSet_Main_Timer_triggered();
-    void on_actionSet_Hold_Timer_triggered();
-    void on_action_Info_Header_triggered(bool checked);
-    void on_actionTest_Gong_triggered();
-    void on_actionShow_SecondaryView_triggered();
-    //void on_actionReset_Scores_triggered();
-    void on_actionPreferences_triggered();
-    void on_button_reset_clicked();
-    void EvaluateInput();
-    void on_actionLang_English_triggered(bool);
-    void on_actionLang_Deutsch_triggered(bool);
-    void on_actionContact_Author_triggered();
-    void on_actionOnline_Feedback_triggered();
-    void on_actionVisit_Project_Homepage_triggered();
-    void on_actionAbout_Ipponboard_triggered();
-    virtual void on_actionManageFighters_triggered() {}
+	void on_actionSet_Main_Timer_triggered();
+	void on_actionSet_Hold_Timer_triggered();
+	void on_action_Info_Header_triggered(bool checked);
+	void on_actionTest_Gong_triggered();
+	void on_actionShow_SecondaryView_triggered();
+	//void on_actionReset_Scores_triggered();
+	void on_actionPreferences_triggered();
+	void on_button_reset_clicked();
+	void EvaluateInput();
+	void on_actionLang_English_triggered(bool);
+	void on_actionLang_Deutsch_triggered(bool);
+	void on_actionContact_Author_triggered();
+	void on_actionOnline_Feedback_triggered();
+	void on_actionVisit_Project_Homepage_triggered();
+	void on_actionAbout_Ipponboard_triggered();
+	virtual void on_actionManageFighters_triggered() {}
 
 protected:
-    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
 
 	boost::shared_ptr<Ui::MainWindow> m_pUi;
-    boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
-    boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
-    boost::shared_ptr<Ipponboard::Controller> m_pController;
-    Ipponboard::FighterManager m_fighterManager;
-    QString m_Language;
-    QString m_MatLabel;
-    QString m_weights;
-    QFont m_FighterNameFont;
-    int m_secondScreenNo;
-    QSize m_secondScreenSize;
-    bool m_bAutoSize;
-    bool m_bAlwaysShow;
-    Ipponboard::ControllerConfig m_controllerCfg;
+	boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
+	boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
+	boost::shared_ptr<Ipponboard::Controller> m_pController;
+	Ipponboard::FighterManager m_fighterManager;
+	QString m_Language;
+	QString m_MatLabel;
+	QString m_weights;
+	QFont m_FighterNameFont;
+	int m_secondScreenNo;
+	QSize m_secondScreenSize;
+	bool m_bAutoSize;
+	bool m_bAlwaysShow;
+	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
-    //Ui::MainWindow* m_pUi;
-    //Ipponboard::View* m_pPrimaryView;
-    //Ipponboard::View* m_pSecondaryView;
-    //Ipponboard::Controller* m_pController;
-    
-    PGamePad m_pGamePad;
+	//Ui::MainWindow* m_pUi;
+	//Ipponboard::View* m_pPrimaryView;
+	//Ipponboard::View* m_pSecondaryView;
+	//Ipponboard::Controller* m_pController;
+
+	PGamePad m_pGamePad;
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_
