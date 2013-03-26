@@ -44,6 +44,9 @@ MainWindowBase::~MainWindowBase()
 
 void MainWindowBase::Init()
 {
+    setWindowFlags(Qt::Window);
+    setWindowState(Qt::WindowMaximized);
+    
     load_fighters();
 
     // Setup views

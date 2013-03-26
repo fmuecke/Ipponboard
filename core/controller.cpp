@@ -738,6 +738,22 @@ void Controller::SetCurrentFight(unsigned int index)
     // now set pointer to next fight
     m_currentFight = index;
     *m_pTimeMain = m_fightTime;
+// FIXME: check fight override times
+/*
+  if (current_fight().weight.startsWith("U12"))
+    {
+        m_roundTime = QTime(0, 2, 0, 0);
+    }
+    else if (current_fight().weight.startsWith("U15"))
+    {
+        m_roundTime = QTime(0, 3, 0, 0);
+    }
+    else if (current_fight().weight.startsWith("U18"))
+    {
+        m_roundTime = QTime(0, 4, 0, 0);
+    }
+*/
+
     *m_pTimeMain = m_pTimeMain->addSecs(-current_fight().time_in_seconds);
     *m_pTimeHold = QTime();
 
@@ -746,6 +762,17 @@ void Controller::SetCurrentFight(unsigned int index)
     Q_ASSERT(eState_TimerStopped == m_State);
 
     update_views();
+}
+
+//=========================================================
+void Controller::SetCurrentRound(unsigned int index)
+//=========================================================
+{
+    if (index < static_cast<unsigned int>(GetRoundCount()))
+    {
+        m_currentRound = index;
+        update_views();
+    }
 }
 
 //=========================================================

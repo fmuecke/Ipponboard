@@ -452,8 +452,42 @@ void MainWindowTeam::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
+
+
+        // FIXME
         round.append("<td><center>" + fight.GetTime(m_pController->GetFightTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetTimeRemaining() + "</center></td>"); // time
+        /*
+   QString roundTime;
+
+        if (m_pUi->comboBox_mode->currentText() == str_mode_jugendliga_m ||
+            m_pUi->comboBox_mode->currentText() == str_mode_jugendliga_f)
+        {
+            int roundTimeSecs = m_pController->GetRoundTimeSecs();
+            if (fight.weight.startsWith("U12"))
+            {
+                roundTimeSecs = 2*60;
+            }
+            else if (fight.weight.startsWith("U15"))
+            {
+                roundTimeSecs = 3*60;
+            }
+            else if (fight.weight.startsWith("U18"))
+            {
+                roundTimeSecs = 4*60;
+            }
+
+            roundTime = fight.GetRoundTimeUsedText(
+                        roundTimeSecs);
+        }
+        else
+        {
+            roundTime = fight.GetRoundTimeUsedText(
+                            m_pController->GetRoundTimeSecs());
+        }
+        round.append("<td><center>" + roundTime + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+*/
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -491,8 +525,14 @@ void MainWindowTeam::WriteScoreToHtml_()
         round.append("<td><center>" + QString::number(score_second.Hansokumake()) + "</center></td>"); // H
         round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
         round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
+// FIXME
         round.append("<td><center>" + fight.GetTime(m_pController->GetFightTimeSecs()) + "</center></td>"); // time
         round.append("<td><center>" + fight.GetTimeRemaining() + "</center></td>"); // time
+/*
+        round.append("<td><center>" + fight.GetRoundTimeUsedText(
+                m_pController->GetRoundTimeSecs()) + "</center></td>"); // time
+        round.append("<td><center>" + fight.GetRoundTimeRemainingText() + "</center></td>"); // time
+*/
         round.append("</tr>\n");
         rounds.append(round);
     }
@@ -659,22 +699,50 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 
     // update table views
     m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0).get());
-    m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1).get());
     m_pUi->tableView_tournament_list1->resizeColumnsToContents();
-    m_pUi->tableView_tournament_list2->resizeColumnsToContents();
 
     m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
         m_pUi->lineEdit_wins_intermediate,
         m_pUi->lineEdit_score_intermediate);
 
-    m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(
-        m_pUi->lineEdit_wins,
-        m_pUi->lineEdit_score);
-
-    m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
-                m_pController->GetTournamentScoreModel(0).get());
     m_pUi->tableView_tournament_list1->selectRow(0);
-    m_pUi->tableView_tournament_list2->selectRow(0);
+
+    m_pUi->button_current_round->setChecked(false);
+
+    if (m_pController->GetRoundCount() == 1)
+    {
+        m_pUi->label_intermediate_result->setText(m_pUi->label_final_score->text()); //TODO: make this better!
+        m_pUi->tableView_tournament_list2->hide();
+        m_pUi->pushButton_copySwitched->hide();
+        m_pUi->label_final_score->hide();
+        m_pUi->label_final_wins->hide();
+        m_pUi->label_final_sub_score->hide();
+        m_pUi->lineEdit_score->hide();
+        m_pUi->lineEdit_wins->hide();
+        m_pUi->button_current_round->setEnabled(false);
+    }
+    else
+    {
+        m_pUi->tableView_tournament_list2->setModel(m_pController->GetTournamentScoreModel(1).get());
+        m_pUi->tableView_tournament_list2->resizeColumnsToContents();
+        m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(
+            m_pUi->lineEdit_wins,
+            m_pUi->lineEdit_score);
+
+        m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
+                m_pController->GetTournamentScoreModel(0).get());
+
+        m_pUi->tableView_tournament_list2->selectRow(0);
+
+        m_pUi->tableView_tournament_list2->show();
+        m_pUi->pushButton_copySwitched->show();
+        m_pUi->label_final_score->show();
+        m_pUi->label_final_wins->show();
+        m_pUi->label_final_sub_score->show();
+        m_pUi->lineEdit_score->show();
+        m_pUi->lineEdit_wins->show();
+        m_pUi->button_current_round->setEnabled(true);
+    }
 
     // set mode text as mat label
     m_MatLabel = s;
@@ -867,13 +935,11 @@ void MainWindowTeam::on_button_current_round_clicked(bool checked)
 
     if (checked)
     {
-        //m_pUi->button_current_round->setText(tr("2nd Round"));
-        m_pController->SetCurrentTournament(1);
+        m_pController->SetCurrentRound(1);
     }
     else
     {
-        //m_pUi->button_current_round->setText(tr("Round"));
-        m_pController->SetCurrentTournament(0);
+        m_pController->SetCurrentRound(0);
     }
 
     UpdateFightNumber_();

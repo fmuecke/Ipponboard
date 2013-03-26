@@ -115,8 +115,7 @@ public:
 	int GetCurrentFightIndex() const
 	{ return m_currentFight; }
 
-	void SetCurrentTournament(unsigned int index)
-    { m_currentRound = index; update_views(); }
+    void SetCurrentRound(unsigned int index);
 
 	int GetCurrentTournamentIndex() const
     { return m_currentRound; }

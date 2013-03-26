@@ -1,4 +1,4 @@
-#include "tournamentmodel.h"
+﻿#include "tournamentmodel.h"
 #include "enums.h"
 #include <QSize>
 
@@ -32,25 +32,27 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
     m_HeaderData[eCol_won2]			= tr("Won");
     m_HeaderData[eCol_score2]		= tr("Score");
     m_HeaderData[eCol_time]			= tr("Time");
-    m_HeaderSizes[eCol_weight]		= 45;
-    m_HeaderSizes[eCol_name1]		= 140;
+    m_HeaderData[eCol_time_remaining] = tr("Remaining");
+
+    m_HeaderSizes[eCol_weight]		= 50;
+    m_HeaderSizes[eCol_name1]		= 180;
     m_HeaderSizes[eCol_yuko1]		= 20;
     m_HeaderSizes[eCol_wazaari1]	= 20;
     m_HeaderSizes[eCol_ippon1]		= 20;
     m_HeaderSizes[eCol_shido1]		= 20;
     m_HeaderSizes[eCol_hansokumake1] = 20;
-    m_HeaderSizes[eCol_won1]		= 30;
+    m_HeaderSizes[eCol_won1]		= 40;
     m_HeaderSizes[eCol_score1]		= 40;
-    m_HeaderSizes[eCol_name2]		= 140;
+    m_HeaderSizes[eCol_name2]		= 180;
     m_HeaderSizes[eCol_yuko2]		= 20;
     m_HeaderSizes[eCol_wazaari2]	= 20;
     m_HeaderSizes[eCol_ippon2]		= 20;
     m_HeaderSizes[eCol_shido2]		= 20;
     m_HeaderSizes[eCol_hansokumake2] = 20;
-    m_HeaderSizes[eCol_won2]		= 30;
+    m_HeaderSizes[eCol_won2]		= 40;
     m_HeaderSizes[eCol_score2]		= 40;
     m_HeaderSizes[eCol_time]		= 50;
-    //m_HeaderSizes[eCol_time_remaining]		= 50;
+    m_HeaderSizes[eCol_time_remaining] = 50;
 }
 
 //=========================================================

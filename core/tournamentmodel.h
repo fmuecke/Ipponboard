@@ -1,4 +1,4 @@
-#ifndef BASE__TOURNAMENTMODEL_H_
+﻿#ifndef BASE__TOURNAMENTMODEL_H_
 #define BASE__TOURNAMENTMODEL_H_
 
 #include <QAbstractTableModel>
@@ -30,7 +30,7 @@ public:
         eCol_won2,
         eCol_score2,
         eCol_time,
-        //eCol_time_remaining,
+        eCol_time_remaining,
         eCol_MAX
     };
 
