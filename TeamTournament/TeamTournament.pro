@@ -37,6 +37,17 @@ contains(COMPILER, mingw) {
     QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
+
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += copy_files.cmd
+}
+
+contains(COMPILER, msvc) {
+	# remove unneccessary output files
+	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += && copy_files.cmd
 }
 
 HEADERS = MainWindowTeam.h \
@@ -87,14 +98,6 @@ FORMS = ../base/clubmanagerdlg.ui \
 OTHER_FILES +=
 
 RESOURCES += ../base/ipponboard.qrc
-
 TRANSLATIONS = ../i18n/ipponboard_team_de.ts
 
 win32:RC_FILE = ../base/Ipponboard_team.rc
-
-# remove unneccessary output files
-QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp
-QMAKE_POST_LINK += && del /Q ..\\bin\\$${TARGET}.lib
-
-# copy all needed files to destdir
-QMAKE_POST_LINK += && copy_files.cmd

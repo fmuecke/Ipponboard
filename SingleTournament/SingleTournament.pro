@@ -30,7 +30,6 @@ CONFIG(debug, release|debug) {
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
 }
 
-
 # Auto select compiler 
 win32-g++: COMPILER = mingw 
 win32-msvc2010: COMPILER = msvc
@@ -40,12 +39,21 @@ contains(COMPILER, mingw) {
 	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
 	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
 	#QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
+
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += copy_files.cmd
 }
 
 contains(COMPILER, msvc) {
 	#QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
 	#QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
 	#QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
+
+	# remove unneccessary output files
+	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += && copy_files.cmd
 }
 
 SOURCES = main.cpp \
@@ -94,16 +102,7 @@ FORMS = mainwindow.ui \
     ../widgets/countdown.ui
 
 #OTHER_FILES +=
-
 RESOURCES += ../base/ipponboard.qrc
-
 TRANSLATIONS = ../i18n/Ipponboard_de.ts
 
 win32:RC_FILE = ../base/ipponboard.rc
-
-# remove unneccessary output files
-QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp
-QMAKE_POST_LINK += && del /Q ..\\bin\\$${TARGET}.lib
-
-# copy all needed files to destdir
-QMAKE_POST_LINK += && copy_files.cmd
