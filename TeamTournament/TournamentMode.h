@@ -9,9 +9,15 @@
 #define TOURNAMENTMODE_H
 
 #include <QString>
+#include <vector>
+
+class QSettings;
+class TestTournamentMode;
 
 class TournamentMode
 {
+    friend class TestTournamentMode;
+
 public:
 	TournamentMode();
 
@@ -22,7 +28,6 @@ public:
 	static QString const& str_Template;
 	static QString const& str_FightTimeOverrides;
 	static QString const& str_Rounds;
-	static QString const& str_FightsPerRound;
 	static QString const& str_FightTimeInSeconds;
 	static QString const& str_WeightsAreDoubled;
 
@@ -34,6 +39,13 @@ public:
 	bool operator< (TournamentMode const& other) const;
 
 	QString FullTitle() const;
+    int FightsPerRound() const;
+
+private:
+    static bool parse_current_group(
+        QSettings const& config,
+        TournamentMode& tm,
+        QString& errorMsg);
 
 public: // nothing to encapsulate here
 	QString name;
@@ -43,7 +55,6 @@ public: // nothing to encapsulate here
 	QString listTemplate;
 	QString fightTimeOverrides;
 	int nRounds;
-	int nFightsPerRound;
 	int fightTimeInSeconds;
 	bool weightsAreDoubled;
 };

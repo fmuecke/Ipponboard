@@ -696,7 +696,7 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 
 	if (iter != end(m_modes))
 	{
-		m_pController->InitTournament(iter->nRounds, iter->nFightsPerRound);
+        m_pController->InitTournament(iter->nRounds, iter->FightsPerRound());
 		m_pController->SetFightTime(QTime(0, 0, iter->fightTimeInSeconds));
 		update_weights(iter->weights);
 	}

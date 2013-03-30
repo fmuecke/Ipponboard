@@ -18,7 +18,6 @@ QString const& TournamentMode::str_Weights("Weights");
 QString const& TournamentMode::str_Template("Template");
 QString const& TournamentMode::str_FightTimeOverrides("FightTimeOverrides");
 QString const& TournamentMode::str_Rounds("Rounds");
-QString const& TournamentMode::str_FightsPerRound("FightsPerRound");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
 
@@ -30,7 +29,6 @@ TournamentMode::TournamentMode()
 	, listTemplate()
 	, fightTimeOverrides()
 	, nRounds(0)
-	, nFightsPerRound(0)
 	, fightTimeInSeconds(0)
 	, weightsAreDoubled(false)
 {
@@ -45,102 +43,35 @@ bool TournamentMode::ReadModes(
 	errorMsg.clear();
 
 	QFile file(filename);
-
 	if (!file.exists())
 	{
 		errorMsg = QString("%1 not found!").arg(filename);
-
 		return false;
 	}
-
-	QString err = "Empty key [%1] in section [%2] in file [%3]";
 
 	QSettings config(filename, QSettings::IniFormat, nullptr);
 	QStringList groups = config.childGroups();
 
+    if (groups.isEmpty())
+    {
+        errorMsg = QString("%1 does not contain any mode definitions!").arg(filename);
+        return false;
+    }
+
 	std::vector<TournamentMode> _modes;
 	Q_FOREACH(QString const & group, groups)
 	{
-		config.beginGroup(group);
+        TournamentMode tm;
 
-		TournamentMode tm;
-		tm.name = group;
-		tm.title = config.value(TournamentMode::str_Title).toString();
-		tm.subTitle = config.value(TournamentMode::str_SubTitle).toString();
-		tm.weights = config.value(TournamentMode::str_Weights).toString();
-		tm.listTemplate = config.value(TournamentMode::str_Template).toString();
-		tm.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
-		tm.nFightsPerRound = config.value(TournamentMode::str_FightsPerRound).toUInt();
-		tm.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
-		tm.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
-		tm.fightTimeOverrides = config.value(TournamentMode::str_FightTimeOverrides).toString();
+        config.beginGroup(group);
+        bool readSuccess = parse_current_group(config, tm, errorMsg);
+        config.endGroup();
 
-		if (tm.weights.isEmpty())
-		{
-			errorMsg = err.arg(TournamentMode::str_Weights, group, filename);
-			return false;
-		}
-
-		if (tm.listTemplate.isEmpty())
-		{
-			errorMsg = err.arg(TournamentMode::str_Template, group, filename);
-			return false;
-		}
-		else
-		{
-			QFile listTemplate(tm.listTemplate);
-
-			if (!listTemplate.exists())
-			{
-				errorMsg = QString("The list template for [%2] is not valid: \"%1\"")
-						   .arg(tm.listTemplate, group);
-
-				return false;
-			}
-		}
-
-		if (tm.nRounds == 0)
-		{
-			errorMsg = err.arg(TournamentMode::str_Rounds, group, filename);
-			return false;
-		}
-
-		if (tm.nFightsPerRound == 0)
-		{
-			errorMsg = err.arg(TournamentMode::str_FightsPerRound, group, filename);
-			return false;
-		}
-
-		if (tm.fightTimeInSeconds == 0)
-		{
-			errorMsg = err.arg(TournamentMode::str_FightTimeInSeconds, group, filename);
-			return false;
-		}
-
-		if (tm.title.isEmpty())
-		{
-			errorMsg = err.arg(TournamentMode::str_Title, group, filename);
-			return false;
-		}
-
-		if (!tm.fightTimeOverrides.isEmpty())
-		{
-			// TODO parse and validate...
-		}
-
-		// plausibility checks
-		auto nWeights = tm.weights.split(';').count();
-		nWeights = tm.weightsAreDoubled ? nWeights * 2 : nWeights;
-
-		if (nWeights != tm.nFightsPerRound)
-		{
-			errorMsg = QString("Number of weights (%1) does not match number of fights (%2) for [%3]")
-					   .arg(QString::number(nWeights), QString::number(tm.nFightsPerRound), group);
-
-			return false;
-		}
-
-		config.endGroup();
+        if (!readSuccess)
+        {
+            errorMsg = QString("Error parsing file %1. %2").arg(errorMsg);
+            return false;
+        }
 
 		_modes.push_back(tm);
 	}
@@ -161,5 +92,78 @@ QString TournamentMode::FullTitle() const
 {
 	return subTitle.isEmpty() ?
 		   title :
-		   QString("%1 - %2").arg(title, subTitle);
+                QString("%1 - %2").arg(title, subTitle);
+}
+
+int TournamentMode::FightsPerRound() const
+{
+    const auto nWeights = weights.split(';').count();
+    return weightsAreDoubled ? nWeights * 2 : nWeights;
+}
+
+bool TournamentMode::parse_current_group(
+        QSettings const& config,
+        TournamentMode& tm,
+        QString& errorMsg)
+{
+    const QString err = "The key [%1] in section [%2] is empty";
+
+    tm.name = config.group();
+    tm.title = config.value(TournamentMode::str_Title).toString();
+    tm.subTitle = config.value(TournamentMode::str_SubTitle).toString();
+    tm.weights = config.value(TournamentMode::str_Weights).toString();
+    tm.listTemplate = config.value(TournamentMode::str_Template).toString();
+    tm.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
+    tm.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
+    tm.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
+    tm.fightTimeOverrides = config.value(TournamentMode::str_FightTimeOverrides).toString();
+
+    if (tm.weights.isEmpty())
+    {
+        errorMsg = err.arg(TournamentMode::str_Weights, config.group());
+        return false;
+    }
+
+    if (tm.listTemplate.isEmpty())
+    {
+        errorMsg = err.arg(TournamentMode::str_Template, config.group());
+        return false;
+    }
+    else
+    {
+        QFile listTemplate(tm.listTemplate);
+
+        if (!listTemplate.exists())
+        {
+            errorMsg = QString("The list template for [%2] is not valid: \"%1\"")
+                       .arg(tm.listTemplate, config.group());
+
+            return false;
+        }
+    }
+
+    if (tm.nRounds == 0)
+    {
+        errorMsg = err.arg(TournamentMode::str_Rounds, config.group());
+        return false;
+    }
+
+    if (tm.fightTimeInSeconds == 0)
+    {
+        errorMsg = err.arg(TournamentMode::str_FightTimeInSeconds, config.group());
+        return false;
+    }
+
+    if (tm.title.isEmpty())
+    {
+        errorMsg = err.arg(TournamentMode::str_Title, config.group());
+        return false;
+    }
+
+    if (!tm.fightTimeOverrides.isEmpty())
+    {
+        // TODO parse and validate...
+    }
+
+    return true;
 }
