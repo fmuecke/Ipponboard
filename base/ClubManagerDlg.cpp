@@ -1,6 +1,6 @@
-#include "clubmanagerdlg.h"
-#include "ui_clubmanagerdlg.h"
-#include "clubmanager.h"
+#include "ClubManagerDlg.h"
+#include "ui_ClubManagerDlg.h"
+#include "ClubManager.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <boost/shared_ptr.hpp>

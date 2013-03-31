@@ -1,4 +1,4 @@
-#include "fightcategorymanager.h"
+#include "FightCategoryManager.h"
 #include <QObject>
 
 #include <iostream>

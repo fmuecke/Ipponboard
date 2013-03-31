@@ -27,7 +27,7 @@ rem echo Subversion not found!
 rem goto :EOF
 
 :do_it
-echo -^> writing version info template: v=%IPPONBOARD_VERSION%
+echo -^> Writing version info template: v=%IPPONBOARD_VERSION%
 :: write template
 echo //>%FILENAME_NO_EXT%.tmp
 echo // THIS FILE IS GENERATED - DO NOT MODIFY!>>%FILENAME_NO_EXT%.tmp
@@ -43,7 +43,7 @@ echo 	const char* const VersionStrFull = "%VER1%.%VER2%.%VER3%.%VER4%";>>%FILENA
 echo }>>%FILENAME_NO_EXT%.tmp
 echo #endif  // BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 
-echo -^> generating version info header
+echo -^> Generating version info header
 :: generate header file
 del %FILENAME_NO_EXT%.h>nul
 move %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul

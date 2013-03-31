@@ -7,9 +7,9 @@
 #ifndef BASIC_EDITION_MAINWINDOW_H_
 #define BASIC_EDITION_MAINWINDOW_H_
 
-#include "../base/mainwindowbase.h"
-#include <boost/shared_ptr.hpp>
+#include "../base/MainWindowBase.h"
 #include "../util/helpers.hpp"
+#include <boost/shared_ptr.hpp>
 
 class MainWindow : public MainWindowBase
 {

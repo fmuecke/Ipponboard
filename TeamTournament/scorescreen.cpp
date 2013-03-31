@@ -1,5 +1,5 @@
-#include "scorescreen.h"
-#include "ui_scorescreen.h"
+#include "ScoreScreen.h"
+#include "ui_ScoreScreen.h"
 
 using namespace Ipponboard;
 

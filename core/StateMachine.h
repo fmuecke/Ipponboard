@@ -14,9 +14,9 @@
 #include <boost/msm/back/state_machine.hpp>
 #include <boost/msm/front/state_machine_def.hpp>
 
-#include "enums.h"
-#include "score.h"
-#include "icontrollercore.h"
+#include "Enums.h"
+#include "Score.h"
+#include "iControllerCore.h"
 
 namespace msm = boost::msm;
 

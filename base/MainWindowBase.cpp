@@ -4,14 +4,14 @@
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
-#include "mainwindowbase.h"
-#include "ui_mainwindow.h"
+#include "MainWindowBase.h"
+#include "ui_MainWindow.h"
 
-#include "view.h"
-#include "../core/controller.h"
-#include "../core/fighter.h"
+#include "View.h"
+#include "../core/Controller.h"
+#include "../core/Fighter.h"
 #include "../base/versioninfo.h"
-#include "../base/settingsdlg.h"
+#include "../base/SettingsDlg.h"
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
 

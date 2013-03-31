@@ -2,7 +2,7 @@
 #define BASE__IVIEW_H_
 
 #include <QString>
-#include "enums.h"
+#include "Enums.h"
 
 namespace Ipponboard
 {

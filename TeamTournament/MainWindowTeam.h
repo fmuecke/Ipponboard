@@ -1,13 +1,13 @@
 ﻿#ifndef TEAM_EDITION_MAINWINDOW_H_
 #define TEAM_EDITION_MAINWINDOW_H_
 
-#include "../base/mainwindowbase.h"
-#include "../core/fighter.h"
+#include "../base/MainWindowBase.h"
+#include "../core/Fighter.h"
+#include "../core/TournamentMode.h"
 #include "../util/helpers.hpp"
 
 #include <boost/shared_ptr.hpp>
 
-#include "../core/TournamentMode.h"
 
 class MainWindowTeam : public MainWindowBase
 {

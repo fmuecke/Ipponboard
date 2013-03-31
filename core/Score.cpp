@@ -1,4 +1,4 @@
-#include "score.h"
+#include "Score.h"
 
 using namespace Ipponboard;
 

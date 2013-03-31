@@ -1,9 +1,10 @@
 ﻿#ifndef BASE__TOURNAMENTMODEL_H_
 #define BASE__TOURNAMENTMODEL_H_
 
+#include "Tournament.h"
+
 #include <QAbstractTableModel>
 #include <QLineEdit>
-#include "tournament.h"
 
 class TournamentModel : public QAbstractTableModel
 {

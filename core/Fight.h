@@ -8,8 +8,8 @@
 #ifndef __CORE_FIGHT_H
 #define __CORE_FIGHT_H
 
-#include "score.h"
-#include "enums.h"
+#include "Score.h"
+#include "Enums.h"
 
 #include "QString"
 

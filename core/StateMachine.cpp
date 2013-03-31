@@ -1,5 +1,6 @@
-#include "statemachine.h"
-#include "controller.h"
+#include "StateMachine.h"
+#include "Controller.h"
+
 #include <QTimer>
 
 using namespace Ipponboard;

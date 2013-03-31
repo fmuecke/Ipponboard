@@ -1,5 +1,4 @@
-
-#include "view.h"
+#include "View.h"
 #include "ui_view_horizontal.h"
 
 #include <QPainter>

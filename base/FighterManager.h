@@ -7,7 +7,7 @@
 #ifndef _BASE_FIGHTERMANAGER_H
 #define _BASE_FIGHTERMANAGER_H
 
-#include "../core/fighter.h"
+#include "../core/Fighter.h"
 
 #include <boost/noncopyable.hpp>
 #include <array>

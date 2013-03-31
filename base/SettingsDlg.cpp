@@ -1,13 +1,14 @@
-#include "settingsdlg.h"
-#include "ui_settingsdlg.h"
+#include "SettingsDlg.h"
+#include "ui_SettingsDlg.h"
+#include "../gamepad/gamepad.h"
+#include "../core/ControllerConfig.h"
+
 #include <QStringList>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
 #include <QSound>
 #include <QColorDialog>
-#include "../gamepad/gamepad.h"
-#include "../core/ControllerConfig.h"
 
 using namespace Ipponboard;
 

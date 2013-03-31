@@ -5,7 +5,7 @@
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
 
-#include "fighter.h"
+#include "Fighter.h"
 
 using namespace Ipponboard;
 

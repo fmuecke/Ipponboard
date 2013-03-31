@@ -1,7 +1,7 @@
 #ifndef BASE__FIGHTCATEGORYMANAGERDLG_H_
 #define BASE__FIGHTCATEGORYMANAGERDLG_H_
 
-#include "fightcategorymanager.h"
+#include "FightCategoryManager.h"
 
 #include <QDialog>
 #include <QTreeWidgetItem>

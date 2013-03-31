@@ -1,4 +1,4 @@
-#include "clubmanager.h"
+#include "ClubManager.h"
 #include <QMessageBox>
 
 #include <iostream>

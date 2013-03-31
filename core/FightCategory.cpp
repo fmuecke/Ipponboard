@@ -1,4 +1,4 @@
-#include "fightcategory.h"
+#include "FightCategory.h"
 #include <QTime>
 
 using namespace Ipponboard;

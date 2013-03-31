@@ -1,7 +1,7 @@
 #ifndef BASE__FIGHTCATEGORYMANAGER_H_
 #define BASE__FIGHTCATEGORYMANAGER_H_
 
-#include "../core/fightcategory.h"
+#include "../core/FightCategory.h"
 
 #include <QString>
 #include <QTime>

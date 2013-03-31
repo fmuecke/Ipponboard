@@ -4,9 +4,9 @@
 #include <QWidget>
 #include <QMouseEvent>
 
-#include "../core/icontroller.h"
-#include "../core/iview.h"
-#include "../core/enums.h"
+#include "../core/iController.h"
+#include "../core/iView.h"
+#include "../core/Enums.h"
 
 // forwards
 namespace Ui { class ScoreViewHorizontal; }

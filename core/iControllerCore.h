@@ -2,8 +2,8 @@
 #define BASE__ICONTROLLERCORE_H_
 
 #include <QString>
-#include "enums.h"
-#include "score.h"
+#include "Enums.h"
+#include "Score.h"
 
 
 namespace Ipponboard

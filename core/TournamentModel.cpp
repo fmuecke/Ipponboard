@@ -1,5 +1,5 @@
-﻿#include "tournamentmodel.h"
-#include "enums.h"
+﻿#include "TournamentModel.h"
+#include "Enums.h"
 #include "../util/helpers.hpp"
 
 #include <QSize>

@@ -4,22 +4,22 @@
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "MainWindow.h"
+#include "ui_MainWindow.h"
 
-#include "../base/fightcategorymanager.h"
-#include "../base/fightcategorymanagerdlg.h"
-#include "../base/fightermanagerdlg.h"
-#include "../base/view.h"
+#include "../base/FightCategoryManager.h"
+#include "../base/FightCategoryManagerDlg.h"
+#include "../base/FighterManagerDlg.h"
+#include "../base/View.h"
 #include "../base/versioninfo.h"
-#include "../core/controller.h"
+#include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
-#include "../core/fighter.h"
-#include "../core/tournamentmodel.h"
+#include "../core/Fighter.h"
+#include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
-#include "../widgets/scaledimage.h"
-#include "../widgets/scaledtext.h"
+#include "../widgets/ScaledImage.h"
+#include "../widgets/ScaledText.h"
 
 #include <QColorDialog>
 #include <QComboBox>

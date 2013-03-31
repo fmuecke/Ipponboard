@@ -1,7 +1,8 @@
 #ifndef BASE__SCORE_H_
 #define BASE__SCORE_H_
 
-#include "enums.h"
+#include "Enums.h"
+
 namespace Ipponboard
 {
 

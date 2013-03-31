@@ -1,5 +1,5 @@
-#include "fightcategorymanagerdlg.h"
-#include "ui_fightcategorymanagerdlg.h"
+#include "FightCategoryManagerDlg.h"
+#include "ui_FightCategoryManagerDlg.h"
 #include "..\util\path_helpers.h"
 #include <QInputDialog>
 #include <QMessageBox>

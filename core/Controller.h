@@ -1,13 +1,13 @@
 ﻿#ifndef BASE__CONTROLLER_H_
 #define BASE__CONTROLLER_H_
 
-#include "score.h"
-#include "tournament.h"
-#include "icontroller.h"
-#include "icontrollercore.h"
+#include "Score.h"
+#include "Tournament.h"
+#include "iController.h"
+#include "iControllerCore.h"
 #include "TournamentMode.h"
-#include "tournamentmodel.h"
-#include "statemachine.h"
+#include "TournamentModel.h"
+#include "StateMachine.h"
 #include "../util/helpers.hpp"
 
 #include <QObject>

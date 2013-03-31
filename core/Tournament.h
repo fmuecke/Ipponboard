@@ -1,7 +1,7 @@
 #ifndef BASE__TOURNAMENT_H_
 #define BASE__TOURNAMENT_H_
 
-#include "score.h"
+#include "Score.h"
 #include "Fight.h"
 
 #include <QString>

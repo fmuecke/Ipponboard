@@ -1,7 +1,7 @@
 ﻿#include "MainWindowTeam.h"
 #include "../core/TournamentMode.h"
-#include "../widgets/countdown.h"
-#include "../widgets/splashscreen.h"
+#include "../widgets/Countdown.h"
+#include "../widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
 

@@ -1,9 +1,10 @@
-﻿#include "controller.h"
-#include "iview.h"
-#include "score.h"
-#include "enums.h"
-#include "tournamentmodel.h"
+﻿#include "Controller.h"
+#include "iView.h"
+#include "Score.h"
+#include "Enums.h"
 #include "TournamentMode.h"
+#include "TournamentModel.h"
+#include "StateMachine.h"
 
 #include <QTimer>
 #include <QSound>
@@ -11,7 +12,6 @@
 #include <QMessageBox>
 #include <algorithm>
 #include <functional>
-#include "statemachine.h"
 #include <boost/foreach.hpp>
 
 using namespace Ipponboard;
