@@ -6,6 +6,7 @@ SUBDIRS += \
 	SingleTournament \
 	TeamTournament \
 	#VersionSelector \
-	GamePadDemo
+        GamePadDemo \
+        test
 SingleTournament.depends = core gamepad
 TeamTournament.depends = core gamepad
