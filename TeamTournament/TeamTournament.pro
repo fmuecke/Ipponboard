@@ -31,7 +31,10 @@ CONFIG(debug, release|debug) {
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lwinmm 
 }
 
+# Auto select compiler
 win32-g++: COMPILER = mingw
+win32-msvc2010: COMPILER = msvc
+
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++0x
     QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
@@ -42,12 +45,13 @@ contains(COMPILER, mingw) {
 	QMAKE_POST_LINK += copy_files.cmd
 }
 
+
 contains(COMPILER, msvc) {
-	# remove unneccessary output files
+        # remove unneccessary output files
 	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
 
 	# copy all needed files to destdir
-	QMAKE_POST_LINK += && copy_files.cmd
+        QMAKE_POST_LINK += & copy_files.cmd
 }
 
 HEADERS = MainWindowTeam.h \
@@ -66,8 +70,7 @@ HEADERS = MainWindowTeam.h \
     ../widgets/countdown.h \
     ../widgets/scaledimage.h \
     ../widgets/scaledtext.h \
-    ../widgets/splashscreen.h \
-    TournamentMode.h
+	../widgets/splashscreen.h
 
 SOURCES = main.cpp \
     scorescreen.cpp \
@@ -83,8 +86,7 @@ SOURCES = main.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../base/ComboBoxDelegate.cpp \
-    TournamentMode.cpp
+	../base/ComboBoxDelegate.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
     mainwindow.ui \
@@ -95,7 +97,8 @@ FORMS = ../base/clubmanagerdlg.ui \
     ../widgets/splashscreen.ui \
     ../widgets/countdown.ui
 
-OTHER_FILES +=
+OTHER_FILES += \
+    TournamentModes.ini
 
 RESOURCES += ../base/ipponboard.qrc
 TRANSLATIONS = ../i18n/ipponboard_team_de.ts

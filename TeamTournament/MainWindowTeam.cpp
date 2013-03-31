@@ -58,7 +58,6 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 	, m_FighterNamesGuest()
 	, m_modes()
 {
-	m_pController->InitTournament(2, 10);
 	m_pUi->setupUi(this);
 }
 
@@ -676,9 +675,13 @@ void MainWindowTeam::on_button_prev_clicked()
 void MainWindowTeam::on_button_next_clicked()
 {
 	if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
+    {
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex());
+    }
 	else
+    {
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
+    }
 
 	UpdateFightNumber_();
 }
@@ -696,9 +699,8 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 
 	if (iter != end(m_modes))
 	{
-        m_pController->InitTournament(iter->nRounds, iter->FightsPerRound());
-		m_pController->SetFightTime(QTime(0, 0, iter->fightTimeInSeconds));
-		update_weights(iter->weights);
+        m_pController->InitTournament(*iter);
+        update_weights(iter->weights); // TODO: don't set weights twice
 	}
 	else
 	{

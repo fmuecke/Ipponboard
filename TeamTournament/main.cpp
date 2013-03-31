@@ -1,5 +1,5 @@
 ﻿#include "MainWindowTeam.h"
-#include "TournamentMode.h"
+#include "../core/TournamentMode.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"
 #include "../base/versioninfo.h"
@@ -79,9 +79,9 @@ int main(int argc, char* argv[])
 	// load tournament modes
 	//
 	QString errMsg;
-	std::vector<TournamentMode> modes;
+    std::vector<Ipponboard::TournamentMode> modes;
 
-	if (!TournamentMode::ReadModes("TournamentModes.ini", modes, errMsg))
+    if (!Ipponboard::TournamentMode::ReadModes("TournamentModes.ini", modes, errMsg))
 	{
 		QMessageBox::critical(0,
 							  QCoreApplication::tr("Error reading configuration"),

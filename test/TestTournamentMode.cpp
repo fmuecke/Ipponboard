@@ -1,7 +1,9 @@
-#include "../TeamTournament/TournamentMode.h"
+#include "../core/TournamentMode.h"
 
 #include <QtTest/QtTest>
 #include <iostream>
+
+using namespace Ipponboard;
 
 class TestTournamentMode : public QObject
 {
@@ -22,7 +24,9 @@ bool TestTournamentMode::parse_group(QSettings& config, QString const& group, QS
 	bool readSuccess = TournamentMode::parse_current_group(config, tm, errorMsg);
 	if (!readSuccess)
 	{
-		std::cout << "--> " << errorMsg.toStdString() << std::endl;
+#ifdef _DEBUG
+        std::cout << "--> " << errorMsg.toStdString() << std::endl;
+#endif
 	}
 	
 	config.endGroup();
@@ -50,6 +54,12 @@ void TestTournamentMode::Test_parse_current_group()
 	QVERIFY(parse_group(config, "basic", errorMsg));
 	QVERIFY(parse_group(config, "with_weights_doubled", errorMsg));
 	QVERIFY(parse_group(config, "with_time_overrides", errorMsg));
+    QVERIFY(!parse_group(config, "template_not_found", errorMsg));
+    QVERIFY(!parse_group(config, "no_title", errorMsg));
+    QVERIFY(!parse_group(config, "no_weights", errorMsg));
+    QVERIFY(!parse_group(config, "no_rounds", errorMsg));
+    QVERIFY(!parse_group(config, "no_template", errorMsg));
+    QVERIFY(!parse_group(config, "no_fight_time", errorMsg));
 
     //QCOMPARE(str.toUpper(), QString("HELLO"));
 }

@@ -5,6 +5,7 @@
 #include "tournament.h"
 #include "icontroller.h"
 #include "icontrollercore.h"
+#include "TournamentMode.h"
 #include "tournamentmodel.h"
 #include "statemachine.h"
 #include "../util/helpers.hpp"
@@ -49,7 +50,7 @@ public:
 	virtual ~Controller();
 
 	// --- IController ---
-	void InitTournament(int rounds, int fightsPerRound);
+    void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
 	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
@@ -162,6 +163,7 @@ private:
 	Ipponboard::Fight& current_fight()
 	{ return m_Tournament.at(m_currentRound)->at(m_currentFight); }
 
+    Ipponboard::TournamentMode m_mode;
 	Ipponboard::Tournament m_Tournament;
 	std::vector<std::shared_ptr<TournamentModel> > m_TournamentModels;
 	int m_currentRound;

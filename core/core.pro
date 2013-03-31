@@ -49,14 +49,16 @@ HEADERS = ../base/pch.h \
     statemachine.h \
     tournament.h \
     fighter.h \
-    tournamentmodel.h \
-    ControllerConfig.h \
-    Fight.h
+	TournamentMode.h \
+	tournamentmodel.h \
+	ControllerConfig.h \
+	Fight.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \
     score.cpp \
     statemachine.cpp \
+	TournamentMode.cpp \
     tournamentmodel.cpp \
     fighter.cpp
     

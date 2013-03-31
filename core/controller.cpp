@@ -3,6 +3,7 @@
 #include "score.h"
 #include "enums.h"
 #include "tournamentmodel.h"
+#include "TournamentMode.h"
 
 #include <QTimer>
 #include <QSound>
@@ -29,7 +30,8 @@ const char* const Controller::msg_Winner = "Winner";
 
 //=========================================================
 Controller::Controller()
-	: m_Tournament()
+    : m_mode()
+    , m_Tournament()
 	, m_TournamentModels()
 	, m_currentRound(0)
 	, m_currentFight(0)
@@ -43,14 +45,12 @@ Controller::Controller()
 	, setPointsInOsaekomi(false)
 	, m_isSonoMama(false)
 	, m_isGoldenScore(false)
-	, m_fightTime(0, 5, 0, 0)
+    , m_fightTime(0, 0, 0, 0)
 	, m_options(0)
 	, m_labelHome("HOME")
 	, m_labelGuest("GUEST")
 //=========================================================
 {
-	InitTournament(1, 1);
-
 	m_pSM = new IpponboardSM();
 	m_pSM->SetCore(this);
 	m_pTimerMain = new QTimer(this);
@@ -58,11 +58,14 @@ Controller::Controller()
 	m_pTimeMain = new QTime();
 	m_pTimeHold = new QTime();
 
+    InitTournament(m_mode);
+
 	reset();
 	m_pSM->start();
 
 	connect(m_pTimerMain, SIGNAL(timeout()), this, SLOT(update_main_time()));
 	connect(m_pTimerHold, SIGNAL(timeout()), this, SLOT(update_hold_time()));
+
 }
 
 //=========================================================
@@ -76,17 +79,19 @@ Controller::~Controller()
 }
 
 //=========================================================
-void Controller::InitTournament(int nRounds, int fightsPerRound)
+void Controller::InitTournament(TournamentMode const& mode)
 //=========================================================
 {
 	m_TournamentModels.clear();
 	m_Tournament.clear();
+	
+	m_mode = mode;
 
-	for (int round = 0; round < nRounds; ++round)
+    for (int round = 0; round < m_mode.nRounds; ++round)
 	{
 		PTournamentRound pRound(new TournamentRound());
 
-		for (int fight = 0; fight < fightsPerRound; ++fight)
+        for (int fight = 0; fight < m_mode.FightsPerRound(); ++fight)
 		{
 			pRound->push_back(Fight());
 		}
@@ -94,10 +99,16 @@ void Controller::InitTournament(int nRounds, int fightsPerRound)
 		m_Tournament.push_back(pRound);
 
 		PTournamentModel pModel(new TournamentModel(pRound));
-		pModel->SetNumRows(fightsPerRound);
+        pModel->SetNumRows(m_mode.FightsPerRound());
 
-		m_TournamentModels.push_back(pModel);
+        m_TournamentModels.push_back(pModel);
 	}
+
+	m_currentRound = 0;
+	m_currentFight = 0;
+	
+	// set time and update views
+	SetFightTime(QTime().addSecs(m_mode.GetFightTime(current_fight().weight))); 
 }
 
 //=========================================================
@@ -706,9 +717,13 @@ int Controller::get_time(ETimer t) const
 //=========================================================
 {
 	if (eTimer_Hold == t)
+    {
 		return -m_pTimeHold->secsTo(QTime(0, 0, 0, 0));
+    }
 	else
+    {
 		return m_pTimeMain->secsTo(QTime(0, 0, 0, 0));
+    }
 }
 
 //=========================================================
@@ -738,25 +753,9 @@ void Controller::SetCurrentFight(unsigned int index)
 
 	// now set pointer to next fight
 	m_currentFight = index;
-	*m_pTimeMain = m_fightTime;
-// FIXME: check fight override times
-	/*
-	  if (current_fight().weight.startsWith("U12"))
-	    {
-	        m_roundTime = QTime(0, 2, 0, 0);
-	    }
-	    else if (current_fight().weight.startsWith("U15"))
-	    {
-	        m_roundTime = QTime(0, 3, 0, 0);
-	    }
-	    else if (current_fight().weight.startsWith("U18"))
-	    {
-	        m_roundTime = QTime(0, 4, 0, 0);
-	    }
-	*/
-
-	*m_pTimeMain = m_pTimeMain->addSecs(-current_fight().time_in_seconds);
 	*m_pTimeHold = QTime();
+    m_fightTime = QTime().addSecs(m_mode.GetFightTime(current_fight().weight));
+    *m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);

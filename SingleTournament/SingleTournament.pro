@@ -53,7 +53,7 @@ contains(COMPILER, msvc) {
 	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
 
 	# copy all needed files to destdir
-	QMAKE_POST_LINK += && copy_files.cmd
+        QMAKE_POST_LINK += & copy_files.cmd
 }
 
 SOURCES = main.cpp \

@@ -7,7 +7,7 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "TournamentMode.h"
+#include "../core/TournamentMode.h"
 
 class MainWindowTeam : public MainWindowBase
 {
@@ -21,7 +21,7 @@ public:
 	virtual const char* EditionName() const final		{ return "Team Edition"; }
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
 
-	void SetModes(std::vector<TournamentMode>& modes)
+    void SetModes(std::vector<Ipponboard::TournamentMode>& modes)
 	{
 		m_modes.swap(modes);
 	}
@@ -118,7 +118,7 @@ private:
 	//boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
-	std::vector<TournamentMode> m_modes;
+    std::vector<Ipponboard::TournamentMode> m_modes;
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_
