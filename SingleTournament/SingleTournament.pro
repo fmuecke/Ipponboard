@@ -56,50 +56,50 @@ contains(COMPILER, msvc) {
         QMAKE_POST_LINK += & copy_files.cmd
 }
 
-SOURCES = main.cpp \
-    mainwindow.cpp \
-    ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
-    ../base/settingsdlg.cpp \
-    ../base/view.cpp \
-    ../base/fightcategorymanagerdlg.cpp \
-    ../base/fightcategorymanager.cpp \
+SOURCES = Main.cpp \
+    MainWindow.cpp \
+    ../base/ClubManager.cpp \
+    ../base/ClubManagerDlg.cpp \
+    ../base/SettingsDlg.cpp \
+    ../base/View.cpp \
+    ../base/FightCategoryManagerDlg.cpp \
+    ../base/FightCategoryManager.cpp \
     ../base/MainWindowBase.cpp \
     ../base/FighterManager.cpp \
     ../base/FighterManagerDlg.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp
+    ../widgets/ScaledImage.cpp \
+    ../widgets/ScaledText.cpp \
+    ../widgets/SplashScreen.cpp \
+    ../widgets/Countdown.cpp
 
 HEADERS = ../base/pch.h \
-    mainwindow.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
+    MainWIndow.h \
+    ../base/ClubManager.h \
+    ../base/ClubManagerDlg.h \
     ../base/MainWindowBase.h \
-    ../base/settingsdlg.h \
-    ../base/view.h \
-    ../base/fightcategorymanagerdlg.h \
-    ../base/fightcategorymanager.h \
+    ../base/SettingsDlg.h \
+    ../base/View.h \
+    ../base/FightCategoryManagerDlg.h \
+    ../base/FightCategoryManager.h \
     ../base/FighterManager.h \
     ../base/FighterManagerDlg.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    ../widgets/countdown.h \
-    ../widgets/splashscreen.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
+    ../widgets/Countdown.h \
+    ../widgets/SplashScreen.h \
+    ../widgets/ScaledImage.h \
+    ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp 
 
-FORMS = mainwindow.ui \
+FORMS = MainWindow.ui \
     view_vertical_single.ui \
-    ../base/clubmanagerdlg.ui \
-    ../base/settingsdlg.ui \
-    ../base/fightcategorymanagerdlg.ui \
+    ../base/ClubManagerDlg.ui \
+    ../base/SettingsDlg.ui \
+    ../base/FightCategoryManagerDlg.ui \
     ../base/FighterManagerDlg.ui \
     ../base/view_horizontal.ui \
-    ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui
+    ../widgets/SplashScreen.ui \
+    ../widgets/Countdown.ui
 
 #OTHER_FILES +=
 RESOURCES += ../base/ipponboard.qrc

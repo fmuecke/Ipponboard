@@ -68,7 +68,7 @@ GOTO the_end
 	qmake -recursive
 	if errorlevel 1 pause
 
-	jom /S /L clean>nul
+	jom /S /L clean>nul 
 	if errorlevel 1 pause
 	if not "%1"=="internal" pause
 GOTO :EOF
@@ -126,7 +126,7 @@ GOTO :EOF
 
 :do_compile
 	echo;
-	echo -- compiling %1
+	echo -- Compiling %1
 	pushd %1
 	jom /L /S /F Makefile.Release
 	if errorlevel 1 pause

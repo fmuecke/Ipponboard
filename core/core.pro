@@ -39,28 +39,28 @@ contains(COMPILER, mingw) {
 HEADERS = ../base/pch.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    controller.h \
-    enums.h \
-    fightcategory.h \
-    icontroller.h \
-    icontrollercore.h \
-    iview.h \
-    score.h \
-    statemachine.h \
-    tournament.h \
-    fighter.h \
+    Controller.h \
+    Enums.h \
+    FightCategory.h \
+    iController.h \
+    iControllerCore.h \
+    iView.h \
+    Score.h \
+    StateMachine.h \
+    Tournament.h \
+    Fighter.h \
 	TournamentMode.h \
-	tournamentmodel.h \
+	TournamentModel.h \
 	ControllerConfig.h \
 	Fight.h
 
-SOURCES = controller.cpp \
-    fightcategory.cpp \
-    score.cpp \
-    statemachine.cpp \
+SOURCES = Controller.cpp \
+    FightCategory.cpp \
+    Score.cpp \
+    StateMachine.cpp \
 	TournamentMode.cpp \
-    tournamentmodel.cpp \
-    fighter.cpp
+    TournamentModel.cpp \
+    Fighter.cpp
     
 #OTHER_FILES +=
 

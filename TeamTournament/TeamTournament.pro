@@ -55,47 +55,47 @@ contains(COMPILER, msvc) {
 }
 
 HEADERS = MainWindowTeam.h \
-    scorescreen.h \
+    ScoreScreen.h \
     ../base/pch.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
+    ../base/ClubManager.h \
+    ../base/ClubManagerdlg.h \
     ../base/ComboBoxDelegate.h \
     ../base/FighterManager.h \
     ../base/FighterManagerDlg.h \
-    ../base/mainwindowbase.h \
-    ../base/settingsdlg.h \
+    ../base/MainWindowBase.h \
+    ../base/SettingsDlg.h \
     ../base/view.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    ../widgets/countdown.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-	../widgets/splashscreen.h
+    ../widgets/Countdown.h \
+    ../widgets/ScaledImage.h \
+    ../widgets/ScaledText.h \
+	../widgets/SplashScreen.h
 
 SOURCES = main.cpp \
-    scorescreen.cpp \
+    ScoreScreen.cpp \
     MainWindowTeam.cpp \
-    ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
+    ../base/ClubManager.cpp \
+    ../base/ClubManagerdlg.cpp \
     ../base/FighterManager.cpp \
     ../base/FighterManagerDlg.cpp \
-    ../base/mainwindowbase.cpp \
-    ../base/settingsdlg.cpp \
+    ../base/MainWindowBase.cpp \
+    ../base/SettingsDlg.cpp \
     ../base/view.cpp \
-    ../widgets/countdown.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
+    ../widgets/Countdown.cpp \
+    ../widgets/ScaledImage.cpp \
+    ../widgets/ScaledText.cpp \
+    ../widgets/SplashScreen.cpp \
 	../base/ComboBoxDelegate.cpp
 
-FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
-    scorescreen.ui \
-    ../base/settingsdlg.ui \
+FORMS = ../base/ClubManagerDlg.ui \
+    MainWindow.ui \
+    ScoreScreen.ui \
+    ../base/SettingsDlg.ui \
     ../base/FighterManagerDlg.ui \
     ../base/view_horizontal.ui \
-    ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui
+    ../widgets/SplashScreen.ui \
+    ../widgets/Countdown.ui
 
 OTHER_FILES += \
     TournamentModes.ini
