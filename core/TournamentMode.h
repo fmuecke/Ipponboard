@@ -9,6 +9,7 @@
 #define TOURNAMENTMODE_H
 
 #include <QString>
+#include <QStringList>
 #include <vector>
 
 class QSettings;
@@ -29,9 +30,9 @@ public:
 	static QString const& str_SubTitle;
 	static QString const& str_Weights;
 	static QString const& str_Template;
-	static QString const& str_FightTimeOverrides;
 	static QString const& str_Rounds;
 	static QString const& str_FightTimeInSeconds;
+	static QString const& str_FightTimeOverrides;
 	static QString const& str_WeightsAreDoubled;
 
 	static bool ReadModes(
@@ -50,6 +51,8 @@ private:
         QSettings const& config,
         TournamentMode& tm,
         QString& errorMsg);
+
+	static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 
 public: // nothing to encapsulate here
 	QString name;
