@@ -18,8 +18,8 @@
 #include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
-#include "../widgets/ScaledImage.h"
-#include "../widgets/ScaledText.h"
+#include "../Widgets/ScaledImage.h"
+#include "../Widgets/ScaledText.h"
 
 #include <QColorDialog>
 #include <QComboBox>
