@@ -34,7 +34,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_bAutoSize(true)
 	, m_bAlwaysShow(true)
 	, m_controllerCfg()
-	, m_pGamePad(new Gamepad)
+	, m_pGamepad(new Gamepad)
 {
 }
 
@@ -580,10 +580,10 @@ void MainWindowBase::read_settings()
 	m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
 	m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
 	// apply settings to gamepad controller
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
+	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
+	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
+	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
@@ -693,10 +693,10 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 
 		m_MatLabel = dlg.GetMatLabel();
 		m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
@@ -746,27 +746,27 @@ void MainWindowBase::show_hide_view() const
 
 void MainWindowBase::EvaluateInput()
 {
-	if (Gamepad::eState_ok != m_pGamePad->GetState())
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
 		return;
 
-	m_pGamePad->ReadData();
+	m_pGamepad->ReadData();
 
-	if (EvaluateSpecificInput(m_pGamePad.get()))
+	if (EvaluateSpecificInput(m_pGamepad.get()))
 		return;
 
-	if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
+	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
 		m_pController->DoAction(eAction_Hajime_Mate, eFighterNobody);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
 		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter1, true);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_second)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_second)))
 	{
 		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter2, true);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
 				eFighter1 != m_pController->GetLead())
@@ -778,7 +778,7 @@ void MainWindowBase::EvaluateInput()
 			m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter1);
 		}
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
 				eFighter2 != m_pController->GetLead())
@@ -792,21 +792,21 @@ void MainWindowBase::EvaluateInput()
 	}
 	// reset
 	else if (
-		m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
-		m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
+		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
+		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
 		m_pController->DoAction(eAction_ResetAll, eFighterNobody);
 	}
 
 	// hansokumake fighter1
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
 	{
 		const bool revoke(m_pController->GetScore(
 							  eFighter1, ePoint_Hansokumake) != 0);
 		m_pController->DoAction(eAction_Hansokumake, eFighter1, revoke);
 	}
 	// hansokumake fighter2
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
+	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
 	{
 		const bool revoke(m_pController->GetScore(
 							  eFighter2, ePoint_Hansokumake) != 0);
@@ -831,69 +831,69 @@ void MainWindowBase::EvaluateInput()
 			angle = sections[i][1];
 		}
 
-		if (m_pGamePad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
+		if (m_pGamepad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
 		{
 			m_pController->DoAction(eAction_Ippon, eFighter1);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
 		{
 			m_pController->DoAction(eAction_Wazaari, eFighter1);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
 		{
 			m_pController->DoAction(eAction_Yuko, eFighter1);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
 		{
 			m_pController->DoAction(eAction_Shido, eFighter1, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
 		{
 			m_pController->DoAction(eAction_Ippon, eFighter1, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
 		{
 			m_pController->DoAction(eAction_Wazaari, eFighter1, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
 		{
 			m_pController->DoAction(eAction_Yuko, eFighter1, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
+		else if (m_pGamepad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
 		{
 			m_pController->DoAction(eAction_Shido, eFighter1);
 		}
 
 		// evaluate fighter2 actions
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
 		{
 			m_pController->DoAction(eAction_Ippon, eFighter2);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
 		{
 			m_pController->DoAction(eAction_Wazaari, eFighter2);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
 		{
 			m_pController->DoAction(eAction_Yuko, eFighter2);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
 		{
 			m_pController->DoAction(eAction_Shido, eFighter2, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
 		{
 			m_pController->DoAction(eAction_Ippon, eFighter2, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
 		{
 			m_pController->DoAction(eAction_Wazaari, eFighter2, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
 		{
 			m_pController->DoAction(eAction_Yuko, eFighter2, true);
 		}
-		else if (m_pGamePad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
+		else if (m_pGamepad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
 		{
 			m_pController->DoAction(eAction_Shido, eFighter2);
 		}
