@@ -1,4 +1,4 @@
-#include "gamepaddemo.h"
+#include "GamepadDemo.h"
 #include "ui_gamepaddemo.h"
 #include <QTimer>
 

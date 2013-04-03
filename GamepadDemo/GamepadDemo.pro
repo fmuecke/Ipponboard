@@ -14,9 +14,9 @@ build_pass:CONFIG(debug, debug|release) {
 	QMAKE_LIBS += -lgamepad_d -lwinmm
 } 
 
-SOURCES += main.cpp gamepaddemo.cpp ../widgets/scaledimage.cpp
-HEADERS += gamepaddemo.h ../widgets/scaledimage.h
-FORMS   += gamepaddemo.ui
+SOURCES += Main.cpp GamepadDemo.cpp ../Widgets/ScaledImage.cpp
+HEADERS += GamepadDemo.h ../Widgets/ScaledImage.h
+FORMS   += GamepadDemo.ui
 RESOURCES += res.qrc
 
 INCLUDEPATH += $$(BOOST_DIR) ../gamepad
