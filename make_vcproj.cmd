@@ -25,4 +25,8 @@ cd TeamTournament
 qmake -tp vc
 cd ..
 
+cd Test
+qmake -tp vc
+cd ..
+
 qmake -tp vc
