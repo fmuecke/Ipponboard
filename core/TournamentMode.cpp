@@ -107,7 +107,7 @@ int TournamentMode::FightsPerRound() const
     return weightsAreDoubled ? nWeights * 2 : nWeights;
 }
 
-int TournamentMode::GetFightTime(const QString& weight) const
+int TournamentMode::GetFightDuration(const QString& weight) const
 {
     for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
     {

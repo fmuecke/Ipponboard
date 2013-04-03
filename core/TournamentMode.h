@@ -44,7 +44,7 @@ public:
 
 	QString FullTitle() const;
     int FightsPerRound() const;
-    int GetFightTime(QString const& weight) const;
+    int GetFightDuration(QString const& weight) const;
 
 private:
     static bool parse_current_group(
@@ -62,7 +62,7 @@ public: // nothing to encapsulate here
 	QString listTemplate;
     std::vector< std::pair<QString, int> > fightTimeOverrides;
 	int nRounds;
-	int fightTimeInSeconds;
+	int fightTimeInSeconds; // TODO: rename to duration!
 	bool weightsAreDoubled;
 
 };
