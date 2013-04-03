@@ -93,7 +93,7 @@ GOTO :EOF
 	CALL :do_compile SingleTournament
 	CALL :do_compile TeamTournament
 	::CALL :do_compile VersionSelector
-	CALL :do_compile GamePadDemo
+	CALL :do_compile GamepadDemo
 	if not "%1"=="internal" pause
 GOTO :EOF
 

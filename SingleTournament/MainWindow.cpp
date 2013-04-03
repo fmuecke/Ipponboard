@@ -241,13 +241,13 @@ void MainWindow::update_statebar()
 {
 	MainWindowBase::update_statebar();
 
-//    if (Gamepad::eState_ok != m_pGamePad->GetState())
+//    if (Gamepad::eState_ok != m_pGamepad->GetState())
 //    {
 //        m_pUi->label_controller_state->setText(tr("No controller detected!"));
 //    }
 //    else
 //    {
-//        QString controllerName = QString::fromWCharArray(m_pGamePad->GetProductName());
+//        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
 	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));

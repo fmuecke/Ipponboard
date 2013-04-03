@@ -1,7 +1,7 @@
 syntax: glob
-GamePadDemo/Makefile
-GamePadDemo/Makefile.Debug
-GamePadDemo/Makefile.Release
+GamepadDemo/Makefile
+GamepadDemo/Makefile.Debug
+GamepadDemo/Makefile.Release
 Makefile
 SingleTournament/Makefile.Debug
 SingleTournament/Makefile.Release
@@ -40,7 +40,7 @@ gamepad/release/*
 gamepad/debug/*
 gamepad/Makefile.Release
 gamepad/Makefile.Debug
-GamePadDemo/release/*
+GamepadDemo/release/*
 SingleTournament/debug/*
 SingleTournament/release/*
 TeamTournament/release/*
@@ -51,6 +51,6 @@ VersionSelector/release/*
 VersionSelector/Makefile.Release
 VersionSelector/Makefile.Debug
 VersionSelector/debug/*
-GamePadDemo/ui_gamepaddemo.h
+GamepadDemo/ui_gamepaddemo.h
 ui*.h
 *.pro.user

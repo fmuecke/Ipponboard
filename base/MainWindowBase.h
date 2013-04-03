@@ -29,7 +29,7 @@ namespace FMlib
 {
 class Gamepad;
 }
-typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
+typedef boost::shared_ptr<FMlib::Gamepad> PGamepad;
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -161,7 +161,7 @@ private:
 	//Ipponboard::View* m_pSecondaryView;
 	//Ipponboard::Controller* m_pController;
 
-	PGamePad m_pGamePad;
+	PGamepad m_pGamepad;
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_

@@ -25,7 +25,7 @@ copy "%BASE_DIR%\bin\sounds\siren2.wav" "%BUILD_DIR%\sounds">nul
 copy "%BASE_DIR%\bin\sounds\tada.wav" "%BUILD_DIR%\sounds">nul
 copy "%BASE_DIR%\bin\sounds\windgong.wav" "%BUILD_DIR%\sounds">nul
 
-:: GamePadDemo
+:: GamepadDemo
 copy "%BASE_DIR%\bin\GamepadDemo.exe" "%BUILD_DIR%">nul
 
 :: 3rdParty library files
