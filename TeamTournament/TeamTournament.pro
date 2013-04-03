@@ -64,7 +64,7 @@ HEADERS = MainWindowTeam.h \
     ../base/FighterManagerDlg.h \
     ../base/MainWindowBase.h \
     ../base/SettingsDlg.h \
-    ../base/view.h \
+    ../base/View.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
@@ -72,7 +72,7 @@ HEADERS = MainWindowTeam.h \
     ../widgets/ScaledText.h \
 	../widgets/SplashScreen.h
 
-SOURCES = main.cpp \
+SOURCES = Main.cpp \
     ScoreScreen.cpp \
     MainWindowTeam.cpp \
     ../base/ClubManager.cpp \
@@ -81,7 +81,7 @@ SOURCES = main.cpp \
     ../base/FighterManagerDlg.cpp \
     ../base/MainWindowBase.cpp \
     ../base/SettingsDlg.cpp \
-    ../base/view.cpp \
+    ../base/View.cpp \
     ../widgets/Countdown.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \

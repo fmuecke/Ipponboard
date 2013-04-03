@@ -460,7 +460,6 @@ void MainWindowTeam::WriteScoreToHtml_()
 		round.append("<td><center>" + QString::number(fight.HasWon(eFighter2)) + "</center></td>"); // won
 		round.append("<td><center>" + QString::number(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
 
-
 		// FIXME
 		round.append("<td><center>" + fight.GetTime(m_pController->GetFightTimeSecs()) + "</center></td>"); // time
 		round.append("<td><center>" + fight.GetTimeRemaining() + "</center></td>"); // time
