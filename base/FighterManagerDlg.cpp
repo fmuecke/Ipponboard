@@ -1,4 +1,4 @@
-// Copyright 2010-2013 Florian Muecke. All rights reserved.
+﻿// Copyright 2010-2013 Florian Muecke. All rights reserved.
 // http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -97,8 +97,23 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
 	bool ok(false);
-	QString dlgTitle = tr("Add new fighter");
-	QString dlgMsg = tr("Enter \"first name;last name;club;weight;category\" of the new fighter");
+
+    const QChar splitter(';');
+    QString dlgTitle = tr("Add new fighter");
+    QString dlgMsg = tr("Use the following format to specify the new fighter.\n"\
+                        "Use '%1' as separator. "\
+                        "Categories should be one of these: M, F, FU21 etc.\n\nFormat: ").arg(splitter);
+
+    bool hasFilter = false;
+    if (m_filter.first == eColumn_club)
+    {
+        dlgMsg.append("first name;last name;weight;category");
+        hasFilter = true;
+    }
+    else
+    {
+        dlgMsg.append("first name;last name;club;weight;category");
+    }
 
 	QString data = QInputDialog::getText(this,
 										 dlgTitle,
@@ -106,9 +121,9 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 										 QLineEdit::Normal,
 										 QString(),
 										 &ok);
-	auto dataParts = data.split(';');
+    auto dataParts = data.split(splitter);
 
-	while (ok && dataParts.size() != 5)
+    while (ok && !(hasFilter ? dataParts.size() == 4 : dataParts.size() == 5))
 	{
 		QMessageBox::critical(this,
 							  tr(""),
@@ -120,7 +135,7 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 									 QLineEdit::Normal,
 									 data,
 									 &ok);
-		dataParts = data.split('/');
+        dataParts = data.split(splitter);
 	}
 
 	if (ok)
@@ -128,9 +143,9 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 		Ipponboard::Fighter fighter(
 			dataParts[0],  // first
 			dataParts[1]);  // last
-		fighter.club = dataParts[2];
-		fighter.weight = dataParts[3];
-		fighter.category = dataParts[4];
+        fighter.club = hasFilter ? m_filter.second : dataParts[2];
+        fighter.weight = dataParts[hasFilter? 2 : 3];
+        fighter.category = dataParts[hasFilter? 3 : 4];
 
 		m_manager.m_fighters.insert(fighter);
 

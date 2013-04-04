@@ -87,7 +87,7 @@
         <string>Move fighter up</string>
        </property>
        <property name="text">
-        <string>Import</string>
+        <string>&amp;Import</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -104,7 +104,7 @@
         <string>Move fighter down</string>
        </property>
        <property name="text">
-        <string>Export</string>
+        <string>E&amp;xport</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -157,7 +157,7 @@
         <string>Add a new fighter</string>
        </property>
        <property name="text">
-        <string>Add</string>
+        <string>&amp;Add</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -177,7 +177,7 @@
         <string>Remove the currently selected weight class</string>
        </property>
        <property name="text">
-        <string>Remove</string>
+        <string>&amp;Remove</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -193,7 +193,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>
