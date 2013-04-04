@@ -30,8 +30,8 @@ public:
 		eCol_hansokumake2,
 		eCol_won2,
 		eCol_score2,
-		eCol_time,
 		eCol_time_remaining,
+		eCol_time,
 		eCol_MAX
 	};
 
@@ -73,6 +73,8 @@ public:
 private slots:
 
 private:
+	static QString display_string(bool isFightSaved, int number);
+
 	Ipponboard::PTournamentRound m_pTournamentRound;
 	TournamentModel* m_pIntermediateModel;
 	int m_nRows;

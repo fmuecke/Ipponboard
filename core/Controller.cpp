@@ -86,14 +86,23 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_Tournament.clear();
 	
 	m_mode = mode;
+	QStringList actualWeights = m_mode.weights.split(';');
 
     for (int round = 0; round < m_mode.nRounds; ++round)
 	{
 		PTournamentRound pRound(new TournamentRound());
 
-        for (int fight = 0; fight < m_mode.FightsPerRound(); ++fight)
+        for (int fightNo = 0; fightNo < m_mode.FightsPerRound(); ++fightNo)
 		{
-			pRound->push_back(Fight());
+			QString weight = m_mode.weightsAreDoubled ? 
+				actualWeights[fightNo/2] :
+				actualWeights[fightNo];
+
+			Fight fight;
+			fight.weight = weight;
+			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
+
+			pRound->emplace_back(fight);
 		}
 
 		m_Tournament.push_back(pRound);
@@ -108,7 +117,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_currentFight = 0;
 	
 	// set time and update views
-	SetFightTime(QTime().addSecs(m_mode.GetFightTime(current_fight().weight))); 
+	SetFightTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
 }
 
 //=========================================================
@@ -566,7 +575,7 @@ void Controller::SetFightTime(QTime const& time)
 }
 
 //=========================================================
-QString Controller::GetFightTime() const
+QString Controller::GetFightTimeString() const
 //=========================================================
 {
 	return m_fightTime.toString("m:ss");
@@ -580,10 +589,10 @@ QString Controller::GetFightTime() const
 //}
 
 //=========================================================
-int Controller::GetFightTimeSecs() const
+int Controller::GetFightDuration(QString const& weight) const
 //=========================================================
 {
-	return QTime(0, 0, 0, 0).secsTo(m_fightTime);
+	return m_mode.GetFightDuration(weight);
 }
 
 //=========================================================
@@ -754,7 +763,7 @@ void Controller::SetCurrentFight(unsigned int index)
 	// now set pointer to next fight
 	m_currentFight = index;
 	*m_pTimeHold = QTime();
-    m_fightTime = QTime().addSecs(m_mode.GetFightTime(current_fight().weight));
+    m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
     *m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
 
 	// update state
@@ -825,6 +834,7 @@ void Controller::SetFight(
 {
 	Ipponboard::Fight fight;
 	fight.weight = weight;
+	// TODO: set fight.max_time_in_seconds
 
 	fight.fighters[Ipponboard::eFighter1].name = first_player_name;
 	fight.fighters[Ipponboard::eFighter1].club = first_player_club;
@@ -919,7 +929,9 @@ void Controller::SetWeights(QStringList const& weights)
 		{
 			for (int fight(0); fight < GetFightCount(); ++fight)
 			{
-				m_Tournament.at(round)->at(fight).weight = weights.at(fight);
+				Fight& f = m_Tournament.at(round)->at(fight);
+				f.weight = weights.at(fight);
+				f.max_time_in_seconds = m_mode.GetFightDuration(f.weight);
 			}
 		}
 	}
@@ -930,8 +942,14 @@ void Controller::SetWeights(QStringList const& weights)
 		{
 			for (int fight(0); fight < GetFightCount() - 1; ++fight)
 			{
-				m_Tournament.at(round)->at(fight).weight = weights.at(fight / 2);
-				m_Tournament.at(round)->at(fight + 1).weight = weights.at(fight / 2);
+				Fight& f1 = m_Tournament.at(round)->at(fight);
+				f1.weight = weights.at(fight / 2);
+				f1.max_time_in_seconds = m_mode.GetFightDuration(f1.weight);
+				
+				Fight& f2 = m_Tournament.at(round)->at(fight + 1);
+				f2.weight = weights.at(fight / 2);
+				f2.max_time_in_seconds = m_mode.GetFightDuration(f2.weight);
+
 				++fight;
 			}
 		}

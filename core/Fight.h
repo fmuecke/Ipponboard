@@ -39,7 +39,11 @@ private:
 	};
 
 public:
-	Fight() : weight("-"), time_in_seconds(0), is_saved(false)
+	Fight() 
+		: weight("-")
+		, time_in_seconds(0)
+		, max_time_in_seconds(0)
+		, is_saved(false)
 	{
 	}
 
@@ -47,9 +51,10 @@ public:
 	SimpleFighter fighters[2];
 	QString weight;
 	int time_in_seconds;
+	int max_time_in_seconds;
 	bool is_saved;
 
-	QString GetTimeRemaining() const
+	QString GetTimeFaught() const
 	{
 		// get time display
 		const int minutes = time_in_seconds / 60;
@@ -62,12 +67,12 @@ public:
 		return  ret + QString::number(seconds);
 	}
 
-	QString GetTime(int max_time_in_seconds) const
+	QString GetTimeRemaining() const
 	{
 		// get time display
-		const int time_used = max_time_in_seconds - time_in_seconds;
-		const int minutes = time_used / 60;
-		const int seconds = time_used - minutes * 60;
+		const int time_remaining = max_time_in_seconds - time_in_seconds;
+		const int minutes = time_remaining / 60;
+		const int seconds = time_remaining - minutes * 60;
 		QString ret = QString::number(minutes) + ":";
 
 		if (seconds < 10)	// append leading zero?

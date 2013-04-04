@@ -33,8 +33,10 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	m_HeaderData[eCol_hansokumake2] = "H";
 	m_HeaderData[eCol_won2]			= tr("Won");
 	m_HeaderData[eCol_score2]		= tr("Score");
-	m_HeaderData[eCol_time]			= tr("Time");
-	m_HeaderData[eCol_time_remaining] = tr("Remaining");
+	m_HeaderData[eCol_time_remaining] = tr("Remaining"); // ⌚⌛ 
+	m_HeaderData[eCol_time]			= tr("Time");  // "\u23F1" "⌚⌛,
+
+	// Judo: 柔道 \uE69F94 \uE98193
 
 	m_HeaderSizes[eCol_weight]		= 50;
 	m_HeaderSizes[eCol_name1]		= 180;
@@ -53,8 +55,8 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	m_HeaderSizes[eCol_hansokumake2] = 20;
 	m_HeaderSizes[eCol_won2]		= 40;
 	m_HeaderSizes[eCol_score2]		= 40;
-	m_HeaderSizes[eCol_time]		= 50;
 	m_HeaderSizes[eCol_time_remaining] = 50;
+	m_HeaderSizes[eCol_time]		= 50;
 }
 
 //=========================================================
@@ -114,62 +116,70 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 	case Qt::DisplayRole:
 		if (index.row() < m_nRows &&
 				index.column() >= 0 &&
-				index.column() <= 17)
+				index.column() < eCol_MAX)
 		{
 			const int row = index.row();
+
+			const Ipponboard::Fight& fight = m_pTournamentRound->at(row);
 
 			switch (index.column())
 			{
 			case eCol_weight:
-				return m_pTournamentRound->at(row).weight;
+				return fight.weight;
 
 			case eCol_name1:
-				return m_pTournamentRound->at(row).fighters[0].name;
+				return fight.fighters[0].name;
 
 			case eCol_yuko1:
-				return QString::number(m_pTournamentRound->at(row).scores[0].Yuko());
+				return display_string(fight.is_saved, fight.scores[0].Yuko());
 
 			case eCol_wazaari1:
-				return QString::number(m_pTournamentRound->at(row).scores[0].Wazaari());
+				return display_string(fight.is_saved, fight.scores[0].Wazaari());
 
 			case eCol_ippon1:
-				return m_pTournamentRound->at(row).scores[0].Ippon() ? "1" : "0";
+				return fight.scores[0].Ippon() ? "1" : "";
 
 			case eCol_hansokumake1:
-				return m_pTournamentRound->at(row).scores[0].Hansokumake() ? "1" : "0";
+				return fight.scores[0].Hansokumake() ? "1" : "";
 
 			case eCol_shido1:
-				return QString::number(m_pTournamentRound->at(row).scores[0].Shido());
+				return display_string(fight.is_saved, fight.scores[0].Shido());
 
 			case eCol_won1:
-				return QString::number(m_pTournamentRound->at(row).HasWon(Ipponboard::eFighter1));
+				return display_string(fight.is_saved, fight.HasWon(Ipponboard::eFighter1));
 
 			case eCol_score1:
-				return m_pTournamentRound->at(row).ScorePoints(Ipponboard::eFighter1);
+				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::eFighter1));
 
 			case eCol_name2:
-				return m_pTournamentRound->at(row).fighters[1].name;
+				return fight.fighters[1].name;
 
 			case eCol_yuko2:
-				return QString::number(m_pTournamentRound->at(row).scores[1].Yuko());
+				return display_string(fight.is_saved, fight.scores[1].Yuko());
 
 			case eCol_wazaari2:
-				return QString::number(m_pTournamentRound->at(row).scores[1].Wazaari());
+				return display_string(fight.is_saved, fight.scores[1].Wazaari());
 
 			case eCol_ippon2:
-				return m_pTournamentRound->at(row).scores[1].Ippon() ? "1" : "0";
+				return fight.scores[1].Ippon() ? "1" : "";
 
 			case eCol_hansokumake2:
-				return m_pTournamentRound->at(row).scores[1].Hansokumake() ? "1" : "0";
+				return fight.scores[1].Hansokumake() ? "1" : "";
 
 			case eCol_shido2:
-				return QString::number(m_pTournamentRound->at(row).scores[1].Shido());
+				return display_string(fight.is_saved, fight.scores[1].Shido());
 
 			case eCol_won2:
-				return QString::number(m_pTournamentRound->at(row).HasWon(Ipponboard::eFighter2));
+				return display_string(fight.is_saved, fight.HasWon(Ipponboard::eFighter2));
 
 			case eCol_score2:
-				return m_pTournamentRound->at(row).ScorePoints(Ipponboard::eFighter2);
+				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::eFighter2));
+
+			case eCol_time_remaining:
+				{
+					// get time display
+					return fight.GetTimeRemaining();
+				}
 
 			case eCol_time:
 				{
@@ -194,15 +204,21 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 					m_pEditWins->setText(QString::number(wins.first) + " : " + QString::number(wins.second));
 					m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
-					// get time display
-					return  m_pTournamentRound->at(row).GetTimeRemaining();
+ 					// get time display
+					QString ret = fight.GetTimeFaught();
+					if (ret == QString("0:00") && !fight.is_saved)
+					{
+						return QString();
+					}
+
+					return ret;
 				}
 
 			default:
 				break;
 			}
 
-			return "0";
+			return QString();
 		}
 
 	case Qt::SizeHintRole:
@@ -280,39 +296,41 @@ bool TournamentModel::setData(const QModelIndex& index,
 	{
 		const int row = index.row();
 
+		Ipponboard::Fight& fight = m_pTournamentRound->at(row);
+
 		switch (index.column())
 		{
 		case eCol_weight:
-			m_pTournamentRound->at(row).weight = value.toString();
+			fight.weight = value.toString();
 			result = true;
 			break;
 
 		case eCol_name1:
-			m_pTournamentRound->at(row).fighters[0].name = value.toString();
+			fight.fighters[0].name = value.toString();
 			result = true;
 			break;
 
 		case eCol_yuko1:
-			m_pTournamentRound->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari1:
-			m_pTournamentRound->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon1:
-			m_pTournamentRound->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake1:
-			m_pTournamentRound->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
 			break;
 
 		case eCol_shido1:
-			m_pTournamentRound->at(row).scores[0].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
 			break;
 
 		case eCol_won1:
@@ -321,32 +339,32 @@ bool TournamentModel::setData(const QModelIndex& index,
 			break;
 
 		case eCol_name2:
-			m_pTournamentRound->at(row).fighters[1].name = value.toString();
+			fight.fighters[1].name = value.toString();
 			result = true;
 			break;
 
 		case eCol_yuko2:
-			m_pTournamentRound->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari2:
-			m_pTournamentRound->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon2:
-			m_pTournamentRound->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake2:
-			m_pTournamentRound->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
 			result = true;
 			break;
 
 		case eCol_shido2:
-			m_pTournamentRound->at(row).scores[1].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
 			result = true;
 			break;
 
@@ -354,6 +372,21 @@ bool TournamentModel::setData(const QModelIndex& index,
 		case eCol_score2:
 			// disabled!
 			break;
+
+		case eCol_time_remaining:
+			{
+				const QString s(value.toString());
+
+				if (s.at(1) == ':')
+				{
+					int seconds = s.left(1).toUInt() * 60;
+					seconds += s.right(s.length() - 2).toUInt();
+					fight.time_in_seconds = 
+						fight.max_time_in_seconds - seconds;
+
+					result = true;
+				}
+			}
 
 		case eCol_time:
 			{
@@ -363,7 +396,8 @@ bool TournamentModel::setData(const QModelIndex& index,
 				{
 					int seconds = s.left(1).toUInt() * 60;
 					seconds += s.right(s.length() - 2).toUInt();
-					m_pTournamentRound->at(row).time_in_seconds = seconds;
+					fight.time_in_seconds = seconds;
+
 					result = true;
 				}
 			}
@@ -447,4 +481,14 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 	}
 
 	return std::make_pair(score1, score2);
+}
+
+QString TournamentModel::display_string(bool isFightSaved, int number)
+{
+	if (isFightSaved || number != 0)
+	{
+		return QString::number(number);
+	}
+
+	return QString();
 }

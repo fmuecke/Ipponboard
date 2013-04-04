@@ -67,8 +67,8 @@ public:
 	int GetTeamScore(Ipponboard::EFighter who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
 	void SetFightTime(const QString& value);
-	QString GetFightTime() const;
-	int GetFightTimeSecs() const;
+	QString GetFightTimeString() const;
+	int GetFightDuration(QString const& weight) const;
 	void SetFightTime(const QTime& time);
 	//FIXME: int GetRound() const;
 	void SetWeightClass(QString const& c);

@@ -1,6 +1,5 @@
+#include "GamepadDemo.h"
 #include <QtGui/QApplication>
-#include "gamepaddemo.h"
-
 
 int main(int argc, char* argv[])
 {

@@ -107,7 +107,7 @@ int TournamentMode::FightsPerRound() const
     return weightsAreDoubled ? nWeights * 2 : nWeights;
 }
 
-int TournamentMode::GetFightTime(const QString& weight) const
+int TournamentMode::GetFightDuration(const QString& weight) const
 {
     for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
     {
@@ -125,7 +125,13 @@ bool TournamentMode::parse_current_group(
         TournamentMode& tm,
         QString& errorMsg)
 {
-    const QString err = "The key [%1] in section [%2] is empty";
+	if (!verify_child_keys(config.childKeys(), errorMsg))
+	{
+		errorMsg = QString("Error in section [%1]: %2").arg(config.group(), errorMsg);
+		return false;
+	}
+
+	const QString err = "The key [%1] in section [%2] is empty";
     const QString errInvalid = "The key [%1] in section [%2] is invalid";
 
     tm.name = config.group();
@@ -204,4 +210,51 @@ bool TournamentMode::parse_current_group(
     }
 
     return true;
+}
+
+bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& errorMsg)
+{
+	QStringList mandatoryKeys;
+	mandatoryKeys 
+		<< str_Title
+		<< str_Weights
+		<< str_Template
+		<< str_Rounds
+		<< str_FightTimeInSeconds;
+
+	QStringList optionalKeys;
+	optionalKeys 
+		<< str_SubTitle
+		<< str_FightTimeOverrides
+		<< str_WeightsAreDoubled;
+		 
+	Q_FOREACH(QString const& key, childKeys)
+	{
+		// check manadatory keys
+		auto pos = std::find(mandatoryKeys.begin(), mandatoryKeys.end(), key);
+		if (pos != mandatoryKeys.end())
+		{
+			mandatoryKeys.erase(pos);
+			continue;
+		}
+
+		// check optional keys
+		pos = std::find(optionalKeys.begin(), optionalKeys.end(), key);
+		if (pos != optionalKeys.end())
+		{
+			optionalKeys.erase(pos);
+			continue;
+		}
+
+		errorMsg = QString("Key [%1] is not recognized.").arg(key);
+		return false;
+	}
+
+	if (!mandatoryKeys.empty())
+	{
+		errorMsg = QString("Mandatory key [%1] is not set.").arg(mandatoryKeys[0]);
+		return false;
+	}
+
+	return true;
 }

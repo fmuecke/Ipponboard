@@ -9,6 +9,7 @@
 #define TOURNAMENTMODE_H
 
 #include <QString>
+#include <QStringList>
 #include <vector>
 
 class QSettings;
@@ -29,9 +30,9 @@ public:
 	static QString const& str_SubTitle;
 	static QString const& str_Weights;
 	static QString const& str_Template;
-	static QString const& str_FightTimeOverrides;
 	static QString const& str_Rounds;
 	static QString const& str_FightTimeInSeconds;
+	static QString const& str_FightTimeOverrides;
 	static QString const& str_WeightsAreDoubled;
 
 	static bool ReadModes(
@@ -43,13 +44,15 @@ public:
 
 	QString FullTitle() const;
     int FightsPerRound() const;
-    int GetFightTime(QString const& weight) const;
+    int GetFightDuration(QString const& weight) const;
 
 private:
     static bool parse_current_group(
         QSettings const& config,
         TournamentMode& tm,
         QString& errorMsg);
+
+	static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 
 public: // nothing to encapsulate here
 	QString name;
@@ -59,7 +62,7 @@ public: // nothing to encapsulate here
 	QString listTemplate;
     std::vector< std::pair<QString, int> > fightTimeOverrides;
 	int nRounds;
-	int fightTimeInSeconds;
+	int fightTimeInSeconds; // TODO: rename to duration!
 	bool weightsAreDoubled;
 
 };

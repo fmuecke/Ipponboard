@@ -137,13 +137,13 @@
   <customwidget>
    <class>ScaledImage</class>
    <extends>QWidget</extends>
-   <header>../widgets/scaledimage.h</header>
+   <header>../Widgets/ScaledImage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>ScaledText</class>
    <extends>QWidget</extends>
-   <header>../widgets/scaledtext.h</header>
+   <header>../Widgets/ScaledText.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

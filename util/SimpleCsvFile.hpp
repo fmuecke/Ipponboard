@@ -89,15 +89,17 @@ public:
 
         if (data.empty())
         {
-            errorMsg = QObject::tr("Error writing to file %1:\nno data to write").arg(fileName);
-            return false;
+        //    errorMsg = QObject::tr("Error writing to file %1:\nno data to write").arg(fileName);
+        //    return false;
         }
-
-        QTextStream outStream(&file);
-        Q_FOREACH(QString const& line, data)
-        {
-            outStream << line << endl;
-        }
+		else
+		{
+			QTextStream outStream(&file);
+			Q_FOREACH(QString const& line, data)
+			{
+				outStream << line << endl;
+			}
+		}
 
         return true;
     }
