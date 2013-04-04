@@ -87,15 +87,15 @@ void MainWindowTeam::Init()
 	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
 	// set fighter comboboxes
-	m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-	m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-	m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
 	auto cbxFightersHome = new ComboBoxDelegate(this);
 	cbxFightersHome->SetItems(m_FighterNamesHome);
 
-	m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
-	m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
-	m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
 	auto cbxFightersGuest = new ComboBoxDelegate(this);
 	cbxFightersGuest->SetItems(m_FighterNamesGuest);
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
@@ -876,19 +876,37 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 void MainWindowTeam::on_toolButton_team_home_pressed()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
+    const QString club = m_pUi->comboBox_club_home->currentText();
 
 	FighterManagerDlg dlg(m_fighterManager, this);
-	dlg.SetFilter(FighterManagerDlg::eColumn_club, m_pUi->comboBox_club_home->currentText());
+    dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
+
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
+                m_pUi->tableView_tournament_list1->
+                    itemDelegateForColumn(TournamentModel::eCol_name1));
+    if (pCbx)
+    {
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
+    }
 }
 
 void MainWindowTeam::on_toolButton_team_guest_pressed()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
+    const QString club = m_pUi->comboBox_club_guest->currentText();
 
 	FighterManagerDlg dlg(m_fighterManager, this);
-	dlg.SetFilter(FighterManagerDlg::eColumn_club, m_pUi->comboBox_club_guest->currentText());
+    dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
+
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
+                m_pUi->tableView_tournament_list2->
+                    itemDelegateForColumn(TournamentModel::eCol_name2));
+    if (pCbx)
+    {
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
+    }
 }
 
 void MainWindowTeam::update_weights(QString const& weightString)
