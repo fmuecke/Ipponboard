@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>23</count>
+	<count>24</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -255,6 +255,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Peiting</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TV Lenggries</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tv_lenggries.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
 		</c.address>
 	</item>
 </m_Clubs>
