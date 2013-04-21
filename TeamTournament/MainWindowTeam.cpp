@@ -106,7 +106,9 @@ void MainWindowTeam::Init()
 	int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
 
 	if (-1 == modeIndex)
+    {
 		modeIndex = 0;
+    }
 
 	m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
@@ -121,6 +123,7 @@ void MainWindowTeam::Init()
 	//FIXME: check why this has not been in branch
 
 	UpdateFightNumber_();
+    UpdateButtonText_();
 
 	//m_pUi->button_pause->click();	// we start with pause!
 }
@@ -302,8 +305,11 @@ void MainWindowTeam::update_fighter_name_font(const QFont& font)
 
 void MainWindowTeam::update_views()
 {
-	MainWindowBase::update_views();
-	update_score_screen();
+    MainWindowBase::update_views();
+    update_score_screen(); // TODO: should be an IView!
+
+    UpdateFightNumber_();
+    UpdateButtonText_();
 }
 
 void MainWindowTeam::update_club_views()
@@ -329,7 +335,9 @@ void MainWindowTeam::update_club_views()
 	int index = m_pUi->comboBox_club_host->findText(m_host);
 
 	if (-1 == index)
-		index =  0;
+    {
+        index = 0;
+    }
 
 	m_pUi->comboBox_club_host->setCurrentIndex(index);
 	m_pUi->comboBox_club_home->setCurrentIndex(index);
@@ -342,10 +350,50 @@ void MainWindowTeam::UpdateFightNumber_()
 {
 	const int currentFight = m_pController->GetCurrentFightIndex() + 1;
 
-	m_pUi->label_fight->setText(
-		QString("%1 / %2")
+    const bool isSaved = m_pController->GetFight(
+                m_pController->GetCurrentTournamentIndex(),
+                m_pController->GetCurrentFightIndex()).is_saved;
+
+    QString formatStr("%1 / %2");
+
+    if (isSaved)
+    {
+        formatStr.append(tr(" (saved)"));
+    }
+
+    m_pUi->label_fight->setText(
+        formatStr
 		.arg(QString::number(currentFight))
 		.arg(QString::number(m_pController->GetFightCount())));
+}
+
+void MainWindowTeam::UpdateButtonText_()
+{
+    const bool isSaved = m_pController->GetFight(
+                m_pController->GetCurrentTournamentIndex(),
+                m_pController->GetCurrentFightIndex()).is_saved;
+
+    const bool isLastFight = m_pController->GetCurrentFightIndex() ==
+            m_pController->GetFightCount() - 1;
+
+    QString textSave = tr("Save");
+    QString textNext = tr("Next");
+
+    m_pUi->button_next->setEnabled(true);
+
+    if (isLastFight)
+    {
+        m_pUi->button_next->setText(textSave);
+
+        if (isSaved)
+        {
+            m_pUi->button_next->setEnabled(false);
+        }
+    }
+    else
+    {
+        m_pUi->button_next->setText(textNext);
+    }
 }
 
 void MainWindowTeam::update_score_screen()
@@ -524,6 +572,7 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 		m_pController->ClearFights();
 
 	UpdateFightNumber_();
+    UpdateButtonText_();
 }
 
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
@@ -652,6 +701,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 
 	UpdateFightNumber_();
+    UpdateButtonText_();
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -669,6 +719,7 @@ void MainWindowTeam::on_button_next_clicked()
     m_pController->DoAction(eAction_ResetOsaeKomi, eFighterNobody, true /*doRevoke*/);
 
     UpdateFightNumber_();
+    UpdateButtonText_();
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
@@ -941,7 +992,6 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 	}
 }
 
-
 void MainWindowTeam::on_button_current_round_clicked(bool checked)
 {
 	if (checked)
@@ -955,6 +1005,7 @@ void MainWindowTeam::on_button_current_round_clicked(bool checked)
 
     m_pController->SetCurrentFight(0);
     UpdateFightNumber_();
+    UpdateButtonText_();
 }
 
 void MainWindowTeam::on_actionScore_Screen_triggered()
@@ -1028,7 +1079,6 @@ void MainWindowTeam::on_tableView_customContextMenuRequested(
 		menu.exec(QCursor::pos());
 	}
 }
-
 
 void MainWindowTeam::on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos)
 {
@@ -1109,7 +1159,6 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 							  tr("There is too few data for the selection in the clipboard!"));
 		return;
 	}
-
 
 	if (data.size() > selection.size())
 	{
@@ -1216,7 +1265,6 @@ QString MainWindowTeam::get_template_file(QString const& mode) const
 	return QString();
 }
 
-
 QString MainWindowTeam::get_full_mode_title(QString const& mode) const
 {
 	QString year(QString::number(QDate::currentDate().year()));
@@ -1242,4 +1290,3 @@ QString MainWindowTeam::get_full_mode_title(QString const& mode) const
 
 	return tr("Ipponboard fight list %1").arg(year);
 }
-

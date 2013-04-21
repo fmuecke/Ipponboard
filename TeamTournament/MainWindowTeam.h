@@ -41,6 +41,7 @@ private:
 	// specific methods
 	void update_club_views();
 	void UpdateFightNumber_();
+    void UpdateButtonText_();
 	void update_score_screen();
 	void WriteScoreToHtml_();
 	virtual void write_specific_settings(QSettings& settings) final;
