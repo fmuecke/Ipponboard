@@ -942,8 +942,6 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 void MainWindowTeam::on_button_current_round_clicked(bool checked)
 
 {
-	m_pController->SetCurrentFight(0);
-
 	if (checked)
 	{
 		m_pController->SetCurrentRound(1);
@@ -953,7 +951,8 @@ void MainWindowTeam::on_button_current_round_clicked(bool checked)
 		m_pController->SetCurrentRound(0);
 	}
 
-	UpdateFightNumber_();
+    m_pController->SetCurrentFight(0);
+    UpdateFightNumber_();
 }
 
 void MainWindowTeam::on_actionScore_Screen_triggered()
