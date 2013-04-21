@@ -1,4 +1,4 @@
-#ifndef BASE__VIEW_H_
+﻿#ifndef BASE__VIEW_H_
 #define BASE__VIEW_H_
 
 #include <QWidget>
@@ -30,8 +30,7 @@ public:
 
 	// --- IScoreView ---
 	void UpdateView();
-	void SetController(IController* pController);
-	void Reset();
+    void Reset();
 	void SetShowInfoHeader(bool show);
 
 	// others

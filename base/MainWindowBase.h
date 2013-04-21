@@ -1,6 +1,7 @@
-#ifndef BASE__MAINWINDOW_BASE_H_
+﻿#ifndef BASE__MAINWINDOW_BASE_H_
 #define BASE__MAINWINDOW_BASE_H_
 
+#include "../core/iView.h"
 #include "FighterManager.h"
 #include "../core/ControllerConfig.h"
 #include "../util/helpers.hpp"
@@ -83,7 +84,7 @@ static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 
-class MainWindowBase : public QMainWindow
+class MainWindowBase : public QMainWindow, public Ipponboard::IView
 {
 	Q_OBJECT
 public:
@@ -96,6 +97,11 @@ public:
 	QString GetFighterFileName() const;
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
+
+    /* IView */
+    virtual void UpdateView();
+    virtual void Reset() {}
+    virtual void SetShowInfoHeader(bool show) {}
 
 protected:
 	virtual void changeEvent(QEvent*) override;

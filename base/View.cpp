@@ -1,4 +1,4 @@
-#include "View.h"
+﻿#include "View.h"
 #include "ui_view_horizontal.h"
 
 #include <QPainter>
@@ -137,9 +137,6 @@ View::View(IController* pController, EType type, QWidget* parent)
 
 	SetInfoHeaderFont(QFont("Calibri", 12, QFont::Bold, false));
 	SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
-
-	// register view to receive updates
-	m_pController->RegisterView(this);
 
 	ui->text_mat->SetColor(m_InfoTextColor, m_InfoTextBgColor);
 	ui->text_weight->SetColor(m_InfoTextColor, m_InfoTextBgColor);
@@ -310,13 +307,6 @@ void View::UpdateView()
 	//       while repaint() does this immediately.
 	repaint();
 	// This is really important, or timer values are not redrawn!
-}
-
-//=========================================================
-void View::SetController(IController* pController)
-//=========================================================
-{
-	m_pController = pController;
 }
 
 //=========================================================

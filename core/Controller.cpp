@@ -642,9 +642,8 @@ void Controller::RegisterView(IView* pView)
 //=========================================================
 {
 	m_Views.insert(pView);
-	pView->SetController(this);
 
-	// do not call UpdateViews here as views may not have been fully created
+    // do not call UpdateViews here as views may not have been fully created
 }
 
 //=========================================================
@@ -652,9 +651,13 @@ void Controller::start_timer(ETimer t)
 //=========================================================
 {
 	if (eTimer_Main == t)
+    {
 		m_pTimerMain->start(1000);
+    }
 	else
+    {
 		m_pTimerHold->start(1000);
+    }
 }
 
 //=========================================================
@@ -687,7 +690,7 @@ void Controller::reset_fight()
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
 
-	std::for_each(m_Views.begin(), m_Views.end(), std::mem_fun(&IView::Reset));
+    update_views();
 }
 
 //=========================================================

@@ -1,4 +1,4 @@
-// Copyright 2010-2013 Florian Muecke. All rights reserved.
+﻿// Copyright 2010-2013 Florian Muecke. All rights reserved.
 // http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -89,6 +89,10 @@ void MainWindowBase::Init()
 	m_pTimer->start(75);
 
 	update_statebar();
+
+    m_pController->RegisterView(m_pPrimaryView.get());
+    m_pController->RegisterView(m_pSecondaryView.get());
+    m_pController->RegisterView(this);
 }
 
 QString MainWindowBase::GetConfigFileName() const
@@ -98,7 +102,12 @@ QString MainWindowBase::GetConfigFileName() const
 
 QString MainWindowBase::GetFighterFileName() const
 {
-	return QString("Fighters%1.csv").arg(EditionNameShort());
+    return QString("Fighters%1.csv").arg(EditionNameShort());
+}
+
+void MainWindowBase::UpdateView()
+{
+    update_views();
 }
 
 void MainWindowBase::changeEvent(QEvent* e)
@@ -630,13 +639,13 @@ void MainWindowBase::save_fighters()
 
 void MainWindowBase::update_views()
 {
-	m_pPrimaryView->UpdateView();
-	m_pSecondaryView->UpdateView();
+    //m_pPrimaryView->UpdateView();
+    //m_pSecondaryView->UpdateView();
 }
 
 void MainWindowBase::on_actionTest_Gong_triggered()
 {
-	m_pController->Gong();
+    m_pController->Gong();
 }
 
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
