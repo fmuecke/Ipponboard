@@ -395,7 +395,6 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 	}
 }
 
-
 //=========================================================
 QString Controller::GetTimeText(ETimer timer) const
 //=========================================================
