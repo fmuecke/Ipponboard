@@ -656,7 +656,7 @@ void MainWindowTeam::on_button_prev_clicked()
 
 void MainWindowTeam::on_button_next_clicked()
 {
-	if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
+    if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
     {
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex());
     }
@@ -665,7 +665,10 @@ void MainWindowTeam::on_button_next_clicked()
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
     }
 
-	UpdateFightNumber_();
+    // reset osaekomi view (to reset active colors of previous fight)
+    m_pController->DoAction(eAction_ResetOsaeKomi, eFighterNobody, true /*doRevoke*/);
+
+    UpdateFightNumber_();
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
@@ -940,7 +943,6 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 
 
 void MainWindowTeam::on_button_current_round_clicked(bool checked)
-
 {
 	if (checked)
 	{

@@ -1082,6 +1082,9 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	std::for_each(m_Views.begin(), m_Views.end(),
-				  std::mem_fun(&IView::UpdateView));
+    std::for_each(begin(m_Views), end(m_Views),
+                  [](IView* pView)
+    {
+        pView->UpdateView();
+    });
 }
