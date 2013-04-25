@@ -365,6 +365,16 @@ void MainWindowTeam::UpdateFightNumber_()
         formatStr
 		.arg(QString::number(currentFight))
 		.arg(QString::number(m_pController->GetFightCount())));
+
+    const int currentRound = m_pController->GetCurrentTournamentIndex();
+    if (currentRound == 0)
+    {
+        m_pUi->widget_currentRound->UpdateImage(":res/images/one_blue.png");
+    }
+    else
+    {
+        m_pUi->widget_currentRound->UpdateImage(":res/images/two_green.png");
+    }
 }
 
 void MainWindowTeam::UpdateButtonText_()
@@ -373,13 +383,20 @@ void MainWindowTeam::UpdateButtonText_()
                 m_pController->GetCurrentTournamentIndex(),
                 m_pController->GetCurrentFightIndex()).is_saved;
 
-    const bool isLastFight = m_pController->GetCurrentFightIndex() ==
-            m_pController->GetFightCount() - 1;
+    const bool isLastFight =
+            m_pController->GetCurrentFightIndex() ==
+                m_pController->GetFightCount() - 1
+            && m_pController->GetCurrentTournamentIndex() ==
+                m_pController->GetRoundCount() -1;
+
+    const bool isFirstFight = m_pController->GetCurrentFightIndex() == 0
+            && m_pController->GetCurrentTournamentIndex() == 0;
 
     QString textSave = tr("Save");
     QString textNext = tr("Next");
 
     m_pUi->button_next->setEnabled(true);
+    m_pUi->button_prev->setEnabled(!isFirstFight);
 
     if (isLastFight)
     {
@@ -664,7 +681,7 @@ void MainWindowTeam::on_button_pause_clicked()
 	if (m_pScoreScreen->isVisible())
 	{
 		m_pScoreScreen->hide();
-		m_pUi->button_pause->setText(tr("Off"));
+        m_pUi->button_pause->setText(tr("Show results"));
 	}
 	else
 	{
@@ -689,23 +706,22 @@ void MainWindowTeam::on_button_pause_clicked()
 			m_pScoreScreen->show();
 		}
 
-		m_pUi->button_pause->setText(tr("On"));
+        m_pUi->button_pause->setText(tr("Hide results"));
 	}
 }
 
 void MainWindowTeam::on_button_prev_clicked()
 {
-	if (0 == m_pController->GetCurrentFightIndex())
-		return;
+    //if (0 == m_pController->GetCurrentFightIndex())
+    //	return;
 
-	m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
-
-	UpdateFightNumber_();
-    UpdateButtonText_();
+    m_pController->PrevFight();
+    //m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 }
 
 void MainWindowTeam::on_button_next_clicked()
 {
+    /*
     if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
     {
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex());
@@ -714,12 +730,11 @@ void MainWindowTeam::on_button_next_clicked()
     {
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
     }
+    */
+    m_pController->NextFight();
 
     // reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, eFighterNobody, true /*doRevoke*/);
-
-    UpdateFightNumber_();
-    UpdateButtonText_();
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
@@ -753,8 +768,6 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 
 	m_pUi->tableView_tournament_list1->selectRow(0);
 
-	m_pUi->button_current_round->setChecked(false);
-
 	if (m_pController->GetRoundCount() == 1)
 	{
 		m_pUi->label_intermediate_result->setText(m_pUi->label_final_score->text()); //TODO: make this better!
@@ -765,7 +778,6 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 		m_pUi->label_final_sub_score->hide();
 		m_pUi->lineEdit_score->hide();
 		m_pUi->lineEdit_wins->hide();
-		m_pUi->button_current_round->setEnabled(false);
 	}
 	else
 	{
@@ -787,7 +799,6 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 		m_pUi->label_final_sub_score->show();
 		m_pUi->lineEdit_score->show();
 		m_pUi->lineEdit_wins->show();
-		m_pUi->button_current_round->setEnabled(true);
 	}
 
 	// set mode text as mat label
@@ -797,6 +808,8 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 
 	m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
+
+    UpdateFightNumber_();
 }
 
 void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
@@ -994,7 +1007,8 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 
 void MainWindowTeam::on_button_current_round_clicked(bool checked)
 {
-	if (checked)
+    /*
+    if (checked)
 	{
 		m_pController->SetCurrentRound(1);
 	}
@@ -1006,6 +1020,7 @@ void MainWindowTeam::on_button_current_round_clicked(bool checked)
     m_pController->SetCurrentFight(0);
     UpdateFightNumber_();
     UpdateButtonText_();
+    */
 }
 
 void MainWindowTeam::on_actionScore_Screen_triggered()

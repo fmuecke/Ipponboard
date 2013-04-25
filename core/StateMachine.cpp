@@ -1,4 +1,4 @@
-#include "StateMachine.h"
+﻿#include "StateMachine.h"
 #include "Controller.h"
 
 #include <QTimer>
@@ -178,6 +178,11 @@ void IpponboardSM_::reset(Reset const& /*evt*/)
 	m_pCore->reset_fight();
 }
 
+void IpponboardSM_::save(Finish const& /*evt*/)
+{
+    m_pCore->save_fight();
+}
+
 void IpponboardSM_::stop_timer(Osaekomi_Toketa const& /*evt*/)
 {
 	m_pCore->stop_timer(eTimer_Hold);
@@ -194,7 +199,9 @@ void IpponboardSM_::stop_timer(Finish const& /*evt*/)
 	// --> stop timers
 	m_pCore->stop_timer(eTimer_Hold);
 	m_pCore->stop_timer(eTimer_Main);   // will save main time
+    m_pCore->save_fight();
 }
+
 void IpponboardSM_::stop_timer(Hajime_Mate const& /*evt*/)
 {
 	m_pCore->stop_timer(ETimer(Hajime_Mate::type));

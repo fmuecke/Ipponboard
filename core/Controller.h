@@ -90,6 +90,7 @@ public:
 private:
 	void start_timer(ETimer t);
 	void stop_timer(ETimer t);
+    void save_fight();
 	void reset_fight();
 	void reset_timer(ETimer);
 	Score& get_score(Ipponboard::EFighter who) final;
@@ -111,6 +112,8 @@ public:
 		return static_cast<int>(m_Tournament.size());
 	}
 
+    void NextFight();
+    void PrevFight();
 	void SetCurrentFight(unsigned int index);
 
 	int GetCurrentFightIndex() const

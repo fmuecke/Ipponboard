@@ -743,7 +743,7 @@
        <attribute name="title">
         <string>Board</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="10,0,1">
+       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="10,0,0">
         <item>
          <widget class="QFrame" name="frame_primary_view">
           <property name="styleSheet">
@@ -773,74 +773,73 @@
          </widget>
         </item>
         <item>
-         <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,1,2,1,2">
-          <property name="horizontalSpacing">
-           <number>6</number>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,1,0">
+          <property name="spacing">
+           <number>12</number>
           </property>
-          <property name="verticalSpacing">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item row="1" column="3">
-           <layout class="QHBoxLayout" name="layoutTabView" stretch="0,0">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
-             <number>9</number>
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="button_prev">
-              <property name="focusPolicy">
-               <enum>Qt::NoFocus</enum>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
-              <property name="toolTip">
-               <string>Re-load previous fight data (Note: the current data will be saved)</string>
-              </property>
-              <property name="text">
-               <string>Previous</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../base/ipponboard.qrc">
-                <normaloff>:/res/icons/left.png</normaloff>:/res/icons/left.png</iconset>
-              </property>
-              <property name="iconSize">
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>16</width>
-                <height>24</height>
+                <width>20</width>
+                <height>10</height>
                </size>
               </property>
-             </widget>
+             </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="button_next">
+             <widget class="QPushButton" name="button_pause">
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="focusPolicy">
                <enum>Qt::NoFocus</enum>
               </property>
               <property name="toolTip">
-               <string>Continue with next fight (current data will be saved)</string>
+               <string>Show result screen (F4)</string>
               </property>
               <property name="text">
-               <string notr="true">Next</string>
+               <string>Show Results</string>
               </property>
               <property name="icon">
                <iconset resource="../base/ipponboard.qrc">
-                <normaloff>:/res/icons/right.png</normaloff>:/res/icons/right.png</iconset>
+                <normaloff>:/res/images/off.png</normaloff>
+                <normalon>:/res/images/on_green.png</normalon>
+                <activeoff>:/res/images/off.png</activeoff>
+                <selectedoff>:/res/images/off.png</selectedoff>:/res/images/off.png</iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>16</width>
+                <width>24</width>
                 <height>24</height>
                </size>
+              </property>
+              <property name="shortcut">
+               <string notr="true"/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item row="1" column="4">
-           <spacer name="horizontalSpacer_2">
+          <item>
+           <spacer name="horizontalSpacer_10">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -852,55 +851,228 @@
             </property>
            </spacer>
           </item>
-          <item row="0" column="3">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
-             <number>12</number>
+             <number>6</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_8">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="topMargin">
+               <number>0</number>
               </property>
-              <property name="frameShape">
-               <enum>QFrame::NoFrame</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
-              <property name="text">
-               <string>Fight</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
+              <item>
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_round">
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                 <string>Round</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="ScaledImage" name="widget_currentRound" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <property name="text">
+                 <string>Fight</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_fight">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <italic>false</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>1/10</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLabel" name="label_fight">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <italic>false</italic>
-                <bold>true</bold>
-               </font>
+             <layout class="QHBoxLayout" name="layoutTabView" stretch="0,0,0,0">
+              <property name="spacing">
+               <number>9</number>
               </property>
-              <property name="text">
-               <string>1/10</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_prev">
+                <property name="minimumSize">
+                 <size>
+                  <width>90</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Re-load previous fight data (Note: the current data will be saved)</string>
+                </property>
+                <property name="text">
+                 <string>Previous</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../base/ipponboard.qrc">
+                  <normaloff>:/res/icons/left.png</normaloff>:/res/icons/left.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>16</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_next">
+                <property name="minimumSize">
+                 <size>
+                  <width>90</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Continue with next fight (current data will be saved)</string>
+                </property>
+                <property name="text">
+                 <string notr="true">Next</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../base/ipponboard.qrc">
+                  <normaloff>:/res/icons/right.png</normaloff>:/res/icons/right.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>16</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
-          <item row="1" column="2">
-           <spacer name="horizontalSpacer_7">
+          <item>
+           <spacer name="horizontalSpacer_11">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -912,115 +1084,19 @@
             </property>
            </spacer>
           </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="button_pause">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="toolTip">
-             <string>Show result screen (F4)</string>
-            </property>
-            <property name="text">
-             <string>Off</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../base/ipponboard.qrc">
-              <normaloff>:/res/images/off.png</normaloff>
-              <normalon>:/res/images/on_green.png</normalon>
-              <activeoff>:/res/images/off.png</activeoff>
-              <selectedoff>:/res/images/off.png</selectedoff>:/res/images/off.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-            <property name="shortcut">
-             <string notr="true"/>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_result_screen">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Result Screen</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_round">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Round</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="button_current_round">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="toolTip">
-             <string>Switch current round</string>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::RightToLeft</enum>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../base/ipponboard.qrc">
-              <normaloff>:/res/images/one_blue.png</normaloff>
-              <normalon>:/res/images/two_green.png</normalon>:/res/images/one_blue.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5" rowspan="2">
+          <item>
            <widget class="QPushButton" name="button_reset">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>
@@ -1424,6 +1500,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ScaledImage</class>
+   <extends>QWidget</extends>
+   <header>../Widgets/ScaledImage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>tableView_tournament_list1</tabstop>
@@ -1432,7 +1516,6 @@
   <tabstop>tableView_tournament_list2</tabstop>
   <tabstop>lineEdit_wins</tabstop>
   <tabstop>lineEdit_score</tabstop>
-  <tabstop>button_reset</tabstop>
  </tabstops>
  <resources>
   <include location="../base/ipponboard.qrc"/>

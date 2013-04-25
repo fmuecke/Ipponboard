@@ -669,8 +669,15 @@ void Controller::stop_timer(ETimer t)
 	if (eTimer_Main == t)
 	{
 		m_pTimerMain->stop();
-		current_fight().time_in_seconds = m_pTimeMain->secsTo(m_fightTime);
-	}
+    }
+}
+
+//=========================================================
+void Controller::save_fight()
+//=========================================================
+{
+    current_fight().time_in_seconds = m_pTimeMain->secsTo(m_fightTime);
+    current_fight().is_saved = true;
 }
 
 //=========================================================
@@ -752,16 +759,59 @@ bool Controller::is_golden_score() const
 }
 
 //=========================================================
+void Controller::NextFight()
+//=========================================================
+{
+    // move to Stopped state
+    // (will stop all timers and thus save the current fight)
+    m_pSM->process_event(IpponboardSM_::Finish());
+
+    auto currentFight = GetCurrentFightIndex();
+    auto currentRound = GetCurrentTournamentIndex();
+
+    if (currentFight == GetFightCount() - 1)
+    {
+        if (currentRound < GetRoundCount() - 1)
+        {
+            SetCurrentRound(currentRound + 1);
+            SetCurrentFight(0);
+        }
+    }
+    else
+    {
+        SetCurrentFight(currentFight + 1);
+    }
+}
+
+//=========================================================
+void Controller::PrevFight()
+//=========================================================
+{
+    // move to Stopped state
+    // (will stop all timers and thus save the current fight)
+    m_pSM->process_event(IpponboardSM_::Finish());
+
+    auto currentFight = GetCurrentFightIndex();
+    auto currentRound = GetCurrentTournamentIndex();
+
+    if (currentFight == 0)
+    {
+        if (currentRound > 0)
+        {
+            SetCurrentRound(currentRound - 1);
+            SetCurrentFight(GetFightCount() - 1);
+        }
+    }
+    else
+    {
+        SetCurrentFight(currentFight - 1);
+    }
+}
+
+//=========================================================
 void Controller::SetCurrentFight(unsigned int index)
 //=========================================================
 {
-	// move to Stopped state
-	// (will stop all timers and thus save the current fight time)
-	m_pSM->process_event(IpponboardSM_::Finish());
-
-	// set prev fight so saved
-	m_Tournament[m_currentRound]->at(m_currentFight).is_saved = true;
-
 	// now set pointer to next fight
 	m_currentFight = index;
 	*m_pTimeHold = QTime();
