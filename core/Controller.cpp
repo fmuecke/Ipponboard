@@ -30,8 +30,8 @@ const char* const Controller::msg_Winner = "Winner";
 
 //=========================================================
 Controller::Controller()
-    : m_mode()
-    , m_Tournament()
+	: m_mode()
+	, m_Tournament()
 	, m_TournamentModels()
 	, m_currentRound(0)
 	, m_currentFight(0)
@@ -45,7 +45,7 @@ Controller::Controller()
 	, setPointsInOsaekomi(false)
 	, m_isSonoMama(false)
 	, m_isGoldenScore(false)
-    , m_fightTime(0, 0, 0, 0)
+	, m_fightTime(0, 0, 0, 0)
 	, m_options(0)
 	, m_labelHome("HOME")
 	, m_labelGuest("GUEST")
@@ -58,7 +58,7 @@ Controller::Controller()
 	m_pTimeMain = new QTime();
 	m_pTimeHold = new QTime();
 
-    InitTournament(m_mode);
+	InitTournament(m_mode);
 
 	reset();
 	m_pSM->start();
@@ -84,19 +84,19 @@ void Controller::InitTournament(TournamentMode const& mode)
 {
 	m_TournamentModels.clear();
 	m_Tournament.clear();
-	
+
 	m_mode = mode;
 	QStringList actualWeights = m_mode.weights.split(';');
 
-    for (int round = 0; round < m_mode.nRounds; ++round)
+	for (int round = 0; round < m_mode.nRounds; ++round)
 	{
 		PTournamentRound pRound(new TournamentRound());
 
-        for (int fightNo = 0; fightNo < m_mode.FightsPerRound(); ++fightNo)
+		for (int fightNo = 0; fightNo < m_mode.FightsPerRound(); ++fightNo)
 		{
-			QString weight = m_mode.weightsAreDoubled ? 
-				actualWeights[fightNo/2] :
-				actualWeights[fightNo];
+			QString weight = m_mode.weightsAreDoubled ?
+							 actualWeights[fightNo / 2] :
+							 actualWeights[fightNo];
 
 			Fight fight;
 			fight.weight = weight;
@@ -108,14 +108,14 @@ void Controller::InitTournament(TournamentMode const& mode)
 		m_Tournament.push_back(pRound);
 
 		PTournamentModel pModel(new TournamentModel(pRound));
-        pModel->SetNumRows(m_mode.FightsPerRound());
+		pModel->SetNumRows(m_mode.FightsPerRound());
 
-        m_TournamentModels.push_back(pModel);
+		m_TournamentModels.push_back(pModel);
 	}
 
 	m_currentRound = 0;
 	m_currentFight = 0;
-	
+
 	// set time and update views
 	SetFightTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
 }
@@ -643,7 +643,7 @@ void Controller::RegisterView(IView* pView)
 {
 	m_Views.insert(pView);
 
-    // do not call UpdateViews here as views may not have been fully created
+	// do not call UpdateViews here as views may not have been fully created
 }
 
 //=========================================================
@@ -651,13 +651,13 @@ void Controller::start_timer(ETimer t)
 //=========================================================
 {
 	if (eTimer_Main == t)
-    {
+	{
 		m_pTimerMain->start(1000);
-    }
+	}
 	else
-    {
+	{
 		m_pTimerHold->start(1000);
-    }
+	}
 }
 
 //=========================================================
@@ -669,15 +669,15 @@ void Controller::stop_timer(ETimer t)
 	if (eTimer_Main == t)
 	{
 		m_pTimerMain->stop();
-    }
+	}
 }
 
 //=========================================================
 void Controller::save_fight()
 //=========================================================
 {
-    current_fight().time_in_seconds = m_pTimeMain->secsTo(m_fightTime);
-    current_fight().is_saved = true;
+	current_fight().time_in_seconds = m_pTimeMain->secsTo(m_fightTime);
+	current_fight().is_saved = true;
 }
 
 //=========================================================
@@ -697,7 +697,7 @@ void Controller::reset_fight()
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
 
-    update_views();
+	update_views();
 }
 
 //=========================================================
@@ -735,13 +735,13 @@ int Controller::get_time(ETimer t) const
 //=========================================================
 {
 	if (eTimer_Hold == t)
-    {
+	{
 		return -m_pTimeHold->secsTo(QTime(0, 0, 0, 0));
-    }
+	}
 	else
-    {
+	{
 		return m_pTimeMain->secsTo(QTime(0, 0, 0, 0));
-    }
+	}
 }
 
 //=========================================================
@@ -762,50 +762,50 @@ bool Controller::is_golden_score() const
 void Controller::NextFight()
 //=========================================================
 {
-    // move to Stopped state
-    // (will stop all timers and thus save the current fight)
-    m_pSM->process_event(IpponboardSM_::Finish());
+	// move to Stopped state
+	// (will stop all timers and thus save the current fight)
+	m_pSM->process_event(IpponboardSM_::Finish());
 
-    auto currentFight = GetCurrentFightIndex();
-    auto currentRound = GetCurrentTournamentIndex();
+	auto currentFight = GetCurrentFight();
+	auto currentRound = GetCurrentRound();
 
-    if (currentFight == GetFightCount() - 1)
-    {
-        if (currentRound < GetRoundCount() - 1)
-        {
-            SetCurrentRound(currentRound + 1);
-            SetCurrentFight(0);
-        }
-    }
-    else
-    {
-        SetCurrentFight(currentFight + 1);
-    }
+	if (currentFight == GetFightCount() - 1)
+	{
+		if (currentRound < GetRoundCount() - 1)
+		{
+			SetCurrentRound(currentRound + 1);
+			SetCurrentFight(0);
+		}
+	}
+	else
+	{
+		SetCurrentFight(currentFight + 1);
+	}
 }
 
 //=========================================================
 void Controller::PrevFight()
 //=========================================================
 {
-    // move to Stopped state
-    // (will stop all timers and thus save the current fight)
-    m_pSM->process_event(IpponboardSM_::Finish());
+	// move to Stopped state
+	// (will stop all timers and thus save the current fight)
+	m_pSM->process_event(IpponboardSM_::Finish());
 
-    auto currentFight = GetCurrentFightIndex();
-    auto currentRound = GetCurrentTournamentIndex();
+	auto currentFight = GetCurrentFight();
+	auto currentRound = GetCurrentRound();
 
-    if (currentFight == 0)
-    {
-        if (currentRound > 0)
-        {
-            SetCurrentRound(currentRound - 1);
-            SetCurrentFight(GetFightCount() - 1);
-        }
-    }
-    else
-    {
-        SetCurrentFight(currentFight - 1);
-    }
+	if (currentFight == 0)
+	{
+		if (currentRound > 0)
+		{
+			SetCurrentRound(currentRound - 1);
+			SetCurrentFight(GetFightCount() - 1);
+		}
+	}
+	else
+	{
+		SetCurrentFight(currentFight - 1);
+	}
 }
 
 //=========================================================
@@ -815,8 +815,8 @@ void Controller::SetCurrentFight(unsigned int index)
 	// now set pointer to next fight
 	m_currentFight = index;
 	*m_pTimeHold = QTime();
-    m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
-    *m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
+	m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+	*m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);
@@ -997,7 +997,7 @@ void Controller::SetWeights(QStringList const& weights)
 				Fight& f1 = m_Tournament.at(round)->at(fight);
 				f1.weight = weights.at(fight / 2);
 				f1.max_time_in_seconds = m_mode.GetFightDuration(f1.weight);
-				
+
 				Fight& f2 = m_Tournament.at(round)->at(fight + 1);
 				f2.weight = weights.at(fight / 2);
 				f2.max_time_in_seconds = m_mode.GetFightDuration(f2.weight);
@@ -1135,9 +1135,9 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-    std::for_each(begin(m_Views), end(m_Views),
-                  [](IView* pView)
-    {
-        pView->UpdateView();
-    });
+	std::for_each(begin(m_Views), end(m_Views),
+				  [](IView * pView)
+	{
+		pView->UpdateView();
+	});
 }

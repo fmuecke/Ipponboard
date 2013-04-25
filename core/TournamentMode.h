@@ -20,7 +20,7 @@ namespace Ipponboard
 
 class TournamentMode
 {
-    friend class TestTournamentMode;
+	friend class TestTournamentMode;
 
 public:
 	TournamentMode();
@@ -37,20 +37,20 @@ public:
 
 	static bool ReadModes(
 		const QString& filename,
-        std::vector<TournamentMode>& modes,
+		std::vector<TournamentMode>& modes,
 		QString& errorMsg);
 
-    bool operator< (TournamentMode const& other) const;
+	bool operator< (TournamentMode const& other) const;
 
 	QString FullTitle() const;
-    int FightsPerRound() const;
-    int GetFightDuration(QString const& weight) const;
+	int FightsPerRound() const;
+	int GetFightDuration(QString const& weight) const;
 
 private:
-    static bool parse_current_group(
-        QSettings const& config,
-        TournamentMode& tm,
-        QString& errorMsg);
+	static bool parse_current_group(
+		QSettings const& config,
+		TournamentMode& tm,
+		QString& errorMsg);
 
 	static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 
@@ -60,7 +60,7 @@ public: // nothing to encapsulate here
 	QString subTitle;
 	QString weights;
 	QString listTemplate;
-    std::vector< std::pair<QString, int> > fightTimeOverrides;
+	std::vector< std::pair<QString, int> > fightTimeOverrides;
 	int nRounds;
 	int fightTimeInSeconds; // TODO: rename to duration!
 	bool weightsAreDoubled;

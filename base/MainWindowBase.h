@@ -98,10 +98,10 @@ public:
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
 
-    /* IView */
-    virtual void UpdateView();
-    virtual void Reset() {}
-    virtual void SetShowInfoHeader(bool show) {}
+	/* IView */
+	virtual void UpdateView();
+	virtual void Reset() {}
+	virtual void SetShowInfoHeader(bool show) {}
 
 protected:
 	virtual void changeEvent(QEvent*) override;

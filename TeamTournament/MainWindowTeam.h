@@ -21,7 +21,7 @@ public:
 	virtual const char* EditionName() const final		{ return "Team Edition"; }
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
 
-    void SetModes(std::vector<Ipponboard::TournamentMode>& modes)
+	void SetModes(std::vector<Ipponboard::TournamentMode>& modes)
 	{
 		m_modes.swap(modes);
 	}
@@ -41,7 +41,7 @@ private:
 	// specific methods
 	void update_club_views();
 	void UpdateFightNumber_();
-    void UpdateButtonText_();
+	void UpdateButtonText_();
 	void update_score_screen();
 	void WriteScoreToHtml_();
 	virtual void write_specific_settings(QSettings& settings) final;
@@ -58,7 +58,6 @@ private slots:
 	void on_actionScore_Control_triggered();
 	void on_actionScore_Screen_triggered();
 	void on_button_pause_clicked();
-	void on_button_current_round_clicked(bool checked);
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
 	void on_toolButton_weights_pressed();
@@ -119,7 +118,7 @@ private:
 	//boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
-    std::vector<Ipponboard::TournamentMode> m_modes;
+	std::vector<Ipponboard::TournamentMode> m_modes;
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_

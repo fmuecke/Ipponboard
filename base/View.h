@@ -30,7 +30,7 @@ public:
 
 	// --- IScoreView ---
 	void UpdateView();
-    void Reset();
+	void Reset();
 	void SetShowInfoHeader(bool show);
 
 	// others

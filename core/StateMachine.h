@@ -136,7 +136,7 @@ public:
 	// transition actions
 	//--------------------
 	void reset(Reset const& /*evt*/);
-    void save(Finish const& /*evt*/);
+	void save(Finish const& /*evt*/);
 
 	void stop_timer(Osaekomi_Toketa const& /*evt*/);
 	void stop_timer(TimeEndedEvent const& /*evt*/);
@@ -217,7 +217,7 @@ public:
 			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
 			a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
 			a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
-            a_row < Stopped , Finish		, Stopped   , &sm::save									>,
+			a_row < Stopped , Finish		, Stopped   , &sm::save									>,
 			//row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
 			a_row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi								>,	// JUST FOR CONVENIENCE !!!
 			a_row < Stopped , RevokeShidoHM	, Stopped	, &sm::add_point							>,

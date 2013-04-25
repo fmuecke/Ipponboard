@@ -33,7 +33,7 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	m_HeaderData[eCol_hansokumake2] = "H";
 	m_HeaderData[eCol_won2]			= tr("Won");
 	m_HeaderData[eCol_score2]		= tr("Score");
-	m_HeaderData[eCol_time_remaining] = tr("Remaining"); // ⌚⌛ 
+	m_HeaderData[eCol_time_remaining] = tr("Remaining"); // ⌚⌛
 	m_HeaderData[eCol_time]			= tr("Time");  // "\u23F1" "⌚⌛,
 
 	// Judo: 柔道 \uE69F94 \uE98193
@@ -204,8 +204,9 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 					m_pEditWins->setText(QString::number(wins.first) + " : " + QString::number(wins.second));
 					m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
- 					// get time display
+					// get time display
 					QString ret = fight.GetTimeFaught();
+
 					if (ret == QString("0:00") && !fight.is_saved)
 					{
 						return QString();
@@ -381,7 +382,7 @@ bool TournamentModel::setData(const QModelIndex& index,
 				{
 					int seconds = s.left(1).toUInt() * 60;
 					seconds += s.right(s.length() - 2).toUInt();
-					fight.time_in_seconds = 
+					fight.time_in_seconds =
 						fight.max_time_in_seconds - seconds;
 
 					result = true;

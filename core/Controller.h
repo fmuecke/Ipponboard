@@ -50,7 +50,7 @@ public:
 	virtual ~Controller();
 
 	// --- IController ---
-    void InitTournament(TournamentMode const& mode);
+	void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
 	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
@@ -90,7 +90,7 @@ public:
 private:
 	void start_timer(ETimer t);
 	void stop_timer(ETimer t);
-    void save_fight();
+	void save_fight();
 	void reset_fight();
 	void reset_timer(ETimer);
 	Score& get_score(Ipponboard::EFighter who) final;
@@ -112,16 +112,16 @@ public:
 		return static_cast<int>(m_Tournament.size());
 	}
 
-    void NextFight();
-    void PrevFight();
+	void NextFight();
+	void PrevFight();
 	void SetCurrentFight(unsigned int index);
 
-	int GetCurrentFightIndex() const
+	int GetCurrentFight() const
 	{ return m_currentFight; }
 
 	void SetCurrentRound(unsigned int index);
 
-	int GetCurrentTournamentIndex() const
+	int GetCurrentRound() const
 	{ return m_currentRound; }
 
 	void ClearFights();
@@ -166,7 +166,7 @@ private:
 	Ipponboard::Fight& current_fight()
 	{ return m_Tournament.at(m_currentRound)->at(m_currentFight); }
 
-    Ipponboard::TournamentMode m_mode;
+	Ipponboard::TournamentMode m_mode;
 	Ipponboard::Tournament m_Tournament;
 	std::vector<std::shared_ptr<TournamentModel> > m_TournamentModels;
 	int m_currentRound;

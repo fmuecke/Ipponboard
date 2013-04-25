@@ -79,9 +79,9 @@ int main(int argc, char* argv[])
 	// load tournament modes
 	//
 	QString errMsg;
-    std::vector<Ipponboard::TournamentMode> modes;
+	std::vector<Ipponboard::TournamentMode> modes;
 
-    if (!Ipponboard::TournamentMode::ReadModes("TournamentModes.ini", modes, errMsg))
+	if (!Ipponboard::TournamentMode::ReadModes("TournamentModes.ini", modes, errMsg))
 	{
 		QMessageBox::critical(0,
 							  QCoreApplication::tr("Error reading configuration"),

@@ -20,7 +20,7 @@ class IControllerCore
 private:
 	virtual void start_timer(ETimer) = 0;
 	virtual void stop_timer(ETimer) = 0;
-    virtual void save_fight() = 0;
+	virtual void save_fight() = 0;
 	virtual void reset_fight() = 0;
 	virtual void reset_timer(ETimer) = 0;
 	virtual Score& get_score(Ipponboard::EFighter who) = 0;

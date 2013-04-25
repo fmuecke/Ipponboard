@@ -39,7 +39,7 @@ private:
 	};
 
 public:
-	Fight() 
+	Fight()
 		: weight("-")
 		, time_in_seconds(0)
 		, max_time_in_seconds(0)
