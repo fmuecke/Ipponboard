@@ -84,7 +84,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_import">
        <property name="toolTip">
-        <string>Move fighter up</string>
+        <string>Import fighters</string>
        </property>
        <property name="text">
         <string>&amp;Import</string>
@@ -101,7 +101,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_export">
        <property name="toolTip">
-        <string>Move fighter down</string>
+        <string>Export fighters</string>
        </property>
        <property name="text">
         <string>E&amp;xport</string>
