@@ -10,6 +10,8 @@
 #include "View.h"
 #include "../core/Controller.h"
 #include "../core/Fighter.h"
+#include "../core/Enums.h"
+#include "../core/EnumStrings.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
 #include "../gamepad/gamepad.h"
@@ -373,8 +375,8 @@ void MainWindowBase::write_settings()
 	settings.setValue(str_tag_AutoSize, m_bAutoSize);
 	settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
 	settings.setValue(str_tag_MatLabel, m_MatLabel);
-	settings.setValue(str_tag_AutoIncrementPoints, m_pController->GetOption(eOption_AutoIncrementPoints));
-	settings.setValue(str_tag_Use2013Rules, m_pController->GetOption(eOption_Use2013Rules));
+    settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
+    settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
 	settings.endGroup();
 
 	// write the edition specific settings
@@ -456,10 +458,10 @@ void MainWindowBase::read_settings()
 
 	// rules
 	m_pController->SetOption(eOption_AutoIncrementPoints,
-							 settings.value(str_tag_AutoIncrementPoints, true).toBool());
+                             settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
 
 	m_pController->SetOption(eOption_Use2013Rules,
-							 settings.value(str_tag_Use2013Rules, false).toBool());
+                             settings.value(EnumToString(eOption_Use2013Rules), false).toBool());
 	update_statebar();
 
 	settings.endGroup();

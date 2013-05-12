@@ -1,4 +1,4 @@
-#ifndef BASE__ENUMS_H_
+﻿#ifndef BASE__ENUMS_H_
 #define BASE__ENUMS_H_
 
 //
@@ -84,8 +84,10 @@ enum EOsaekomiVal
 
 enum EOption
 {
-	eOption_AutoIncrementPoints = 0,
+    eOption_Invalid = -1,
+    eOption_AutoIncrementPoints = 0,
 	eOption_Use2013Rules = 1,
+    eOption_ShowAllSubscores = 2,
 	eOption_MAX
 };
 

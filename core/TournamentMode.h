@@ -8,6 +8,8 @@
 #ifndef TOURNAMENTMODE_H
 #define TOURNAMENTMODE_H
 
+#include "Enums.h"
+
 #include <QString>
 #include <QStringList>
 #include <vector>
@@ -30,10 +32,12 @@ public:
 	static QString const& str_SubTitle;
 	static QString const& str_Weights;
 	static QString const& str_Template;
+    static QString const& str_Options;
 	static QString const& str_Rounds;
 	static QString const& str_FightTimeInSeconds;
 	static QString const& str_FightTimeOverrides;
 	static QString const& str_WeightsAreDoubled;
+    static QString const& str_none;
 
 	static bool ReadModes(
 		const QString& filename,
@@ -45,6 +49,7 @@ public:
 	QString FullTitle() const;
 	int FightsPerRound() const;
 	int GetFightDuration(QString const& weight) const;
+    bool IsOptionSet(EOption o) const;
 
 private:
 	static bool parse_current_group(
@@ -60,6 +65,7 @@ public: // nothing to encapsulate here
 	QString subTitle;
 	QString weights;
 	QString listTemplate;
+    QString options;
 	std::vector< std::pair<QString, int> > fightTimeOverrides;
 	int nRounds;
 	int fightTimeInSeconds; // TODO: rename to duration!

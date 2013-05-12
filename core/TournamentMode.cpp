@@ -6,6 +6,7 @@
 //
 
 #include "TournamentMode.h"
+#include "EnumStrings.h"
 
 #include <QString>
 #include <QStringList>
@@ -19,9 +20,11 @@ QString const& TournamentMode::str_SubTitle("SubTitle");
 QString const& TournamentMode::str_Weights("Weights");
 QString const& TournamentMode::str_Template("Template");
 QString const& TournamentMode::str_FightTimeOverrides("FightTimeOverrides");
+QString const& TournamentMode::str_Options("Options");
 QString const& TournamentMode::str_Rounds("Rounds");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
+QString const& TournamentMode::str_none("none");
 
 TournamentMode::TournamentMode()
 	: name("SingeTournament")
@@ -29,6 +32,7 @@ TournamentMode::TournamentMode()
 	, subTitle("Ipponboard")
 	, weights()
 	, listTemplate()
+    , options()
 	, fightTimeOverrides()
 	, nRounds(1)
 	, fightTimeInSeconds(300)
@@ -118,7 +122,17 @@ int TournamentMode::GetFightDuration(const QString& weight) const
 		}
 	}
 
-	return fightTimeInSeconds;
+    return fightTimeInSeconds;
+}
+
+bool TournamentMode::IsOptionSet(EOption o) const
+{
+    if (options.isEmpty())
+    {
+        return false;
+    }
+
+    return options.contains(EnumToString(o));
 }
 
 bool TournamentMode::parse_current_group(
@@ -143,6 +157,7 @@ bool TournamentMode::parse_current_group(
 	tm.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
 	tm.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
 	tm.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
+    tm.options = config.value(TournamentMode::str_Options, TournamentMode::str_none).toString();
 	const QString fightTimeOverridesString = config.value(TournamentMode::str_FightTimeOverrides).toString();
 
 	if (tm.weights.isEmpty())
@@ -168,6 +183,12 @@ bool TournamentMode::parse_current_group(
 			return false;
 		}
 	}
+
+    if (tm.options != TournamentMode::str_none)
+    {
+        // nothing to do
+        tm.options.clear();
+    }
 
 	if (tm.nRounds == 0)
 	{
@@ -227,7 +248,8 @@ bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& er
 	optionalKeys
 			<< str_SubTitle
 			<< str_FightTimeOverrides
-			<< str_WeightsAreDoubled;
+            << str_WeightsAreDoubled
+            << str_Options;
 
 	Q_FOREACH(QString const & key, childKeys)
 	{

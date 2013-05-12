@@ -101,6 +101,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 			Fight fight;
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
+            fight.showAllSubscores = m_mode.IsOptionSet(eOption_ShowAllSubscores);
 
 			pRound->emplace_back(fight);
 		}
@@ -887,6 +888,8 @@ void Controller::SetFight(
 	Ipponboard::Fight fight;
 	fight.weight = weight;
 	// TODO: set fight.max_time_in_seconds
+    // TODO: set fight.showAllSubscores
+    // (not set as setting fights is currently not used...): 130512
 
 	fight.fighters[Ipponboard::eFighter1].name = first_player_name;
 	fight.fighters[Ipponboard::eFighter1].club = first_player_club;

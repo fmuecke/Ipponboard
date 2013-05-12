@@ -41,6 +41,8 @@ HEADERS = ../base/pch.h \
     ../util/qstring_serialization.h \
     Controller.h \
     Enums.h \
+    EnumStrings.h \
+	Fight.h \
     FightCategory.h \
     iController.h \
     iControllerCore.h \
@@ -51,16 +53,16 @@ HEADERS = ../base/pch.h \
     Fighter.h \
 	TournamentMode.h \
 	TournamentModel.h \
-	ControllerConfig.h \
-	Fight.h
+	ControllerConfig.h
 
 SOURCES = Controller.cpp \
     FightCategory.cpp \
+    Fighter.cpp \
+    Fight.cpp \
     Score.cpp \
     StateMachine.cpp \
 	TournamentMode.cpp \
-    TournamentModel.cpp \
-    Fighter.cpp
+    TournamentModel.cpp
     
 #OTHER_FILES +=
 
