@@ -244,7 +244,8 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 
 void MainWindowTeam::write_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionName());
+    QString group = EditionName();
+    settings.beginGroup(group.replace(' ', '_'));
 	settings.setValue(StrTags::mode, m_mode);
 	settings.setValue(StrTags::host, m_host);
 	settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
@@ -254,7 +255,8 @@ void MainWindowTeam::write_specific_settings(QSettings& settings)
 
 void MainWindowTeam::read_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionName());
+    QString group = EditionName();
+    settings.beginGroup(group.replace(' ', '_'));
 	{
 		m_mode = settings.value(StrTags::mode, "").toString();
 		m_host = settings.value(StrTags::host, "").toString();
