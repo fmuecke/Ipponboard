@@ -617,6 +617,12 @@ void MainWindowBase::load_fighters()
 
 	QString errorMsg;
 
+    if (!QFile::exists(csvFile))
+    {
+        // silently ignore
+        return;
+    }
+
 	if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
 	{
 		QMessageBox::critical(
