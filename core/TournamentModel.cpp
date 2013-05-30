@@ -4,6 +4,8 @@
 
 #include <QSize>
 
+enum { eDefaultRowHight = 20 };
+
 //=========================================================
 TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObject* parent)
 //=========================================================
@@ -39,7 +41,7 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	// Judo: 柔道 \uE69F94 \uE98193
 
 	m_HeaderSizes[eCol_weight]		= 50;
-	m_HeaderSizes[eCol_name1]		= 180;
+	m_HeaderSizes[eCol_name1]		= 150;
 	m_HeaderSizes[eCol_yuko1]		= 20;
 	m_HeaderSizes[eCol_wazaari1]	= 20;
 	m_HeaderSizes[eCol_ippon1]		= 20;
@@ -47,7 +49,7 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	m_HeaderSizes[eCol_hansokumake1] = 20;
 	m_HeaderSizes[eCol_won1]		= 40;
 	m_HeaderSizes[eCol_score1]		= 40;
-	m_HeaderSizes[eCol_name2]		= 180;
+	m_HeaderSizes[eCol_name2]		= 150;
 	m_HeaderSizes[eCol_yuko2]		= 20;
 	m_HeaderSizes[eCol_wazaari2]	= 20;
 	m_HeaderSizes[eCol_ippon2]		= 20;
@@ -227,7 +229,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 			if (index.column() < static_cast<int>(sizeof(m_HeaderSizes)) &&
 					index.column() > 0)
 			{
-				return QSize(m_HeaderSizes[index.column()], 20);
+                return QSize(m_HeaderSizes[index.column()], eDefaultRowHight);
 			}
 
 			break;
@@ -270,7 +272,7 @@ QVariant TournamentModel::headerData(
 //	if (role == Qt::SizeHintRole && orientation == Qt::Horizontal)
 //	{
 //		if (section < sizeof(m_HeaderSizes) && section > 0)
-//			return QSize(m_HeaderSizes[section], 20);
+//			return QSize(m_HeaderSizes[section], eDefaultRowHight);
 //	}
 
 	return QAbstractItemModel::headerData(section, orientation, role);

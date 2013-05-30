@@ -47,7 +47,10 @@ MainWindowBase::~MainWindowBase()
 void MainWindowBase::Init()
 {
 	setWindowFlags(Qt::Window);
-	setWindowState(Qt::WindowMaximized);
+    //setWindowState(Qt::WindowMaximized);
+    // instead, center window
+    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
+            qApp->desktop()->availableGeometry()));
 
 	load_fighters();
 

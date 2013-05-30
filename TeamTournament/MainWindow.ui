@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
-    <height>680</height>
+    <width>938</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,8 +22,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>810</width>
-    <height>680</height>
+    <width>640</width>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -306,8 +306,8 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>714</width>
-            <height>180</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
           <property name="contextMenuPolicy">
@@ -513,8 +513,8 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>714</width>
-            <height>180</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
           <property name="contextMenuPolicy">
@@ -1122,7 +1122,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>810</width>
+     <width>938</width>
      <height>21</height>
     </rect>
    </property>
@@ -1509,15 +1509,25 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
+  <tabstop>comboBox_mode</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>comboBox_club_host</tabstop>
+  <tabstop>lineEdit_location</tabstop>
+  <tabstop>comboBox_club_home</tabstop>
+  <tabstop>toolButton_team_home</tabstop>
+  <tabstop>comboBox_club_guest</tabstop>
+  <tabstop>toolButton_team_guest</tabstop>
+  <tabstop>toolButton_weights</tabstop>
   <tabstop>tableView_tournament_list1</tabstop>
   <tabstop>lineEdit_wins_intermediate</tabstop>
   <tabstop>lineEdit_score_intermediate</tabstop>
+  <tabstop>pushButton_copySwitched</tabstop>
   <tabstop>tableView_tournament_list2</tabstop>
   <tabstop>lineEdit_wins</tabstop>
   <tabstop>lineEdit_score</tabstop>
  </tabstops>
  <resources>
+  <include location="../base/ipponboard.qrc"/>
   <include location="../base/ipponboard.qrc"/>
  </resources>
  <connections>

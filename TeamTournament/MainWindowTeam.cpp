@@ -103,8 +103,13 @@ void MainWindowTeam::Init()
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 
-	int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
+    // make name columns auto-resizable
+    m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
+	int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
 	if (-1 == modeIndex)
 	{
 		modeIndex = 0;
