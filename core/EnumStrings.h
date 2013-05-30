@@ -24,8 +24,8 @@ static char const* const EnumToString(EOption o)
     case eOption_Use2013Rules:
         return "Use2013Rules";
 
-    case eOption_CountAllSubscores:
-        return "CountAllSubscores";
+    case eOption_AllSubscoresCount:
+		return "AllSubscoresCount";
 
     default:
         return "";

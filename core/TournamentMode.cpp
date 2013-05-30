@@ -24,7 +24,6 @@ QString const& TournamentMode::str_Options("Options");
 QString const& TournamentMode::str_Rounds("Rounds");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
-QString const& TournamentMode::str_none("none");
 
 TournamentMode::TournamentMode()
 	: name("SingeTournament")
@@ -157,7 +156,7 @@ bool TournamentMode::parse_current_group(
 	tm.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
 	tm.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
 	tm.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
-    tm.options = config.value(TournamentMode::str_Options, TournamentMode::str_none).toString();
+    tm.options = config.value(TournamentMode::str_Options, QString()).toString();
 	const QString fightTimeOverridesString = config.value(TournamentMode::str_FightTimeOverrides).toString();
 
 	if (tm.weights.isEmpty())
@@ -184,10 +183,9 @@ bool TournamentMode::parse_current_group(
 		}
 	}
 
-    if (tm.options != TournamentMode::str_none)
+	if (!tm.options.isEmpty())
     {
         // nothing to do
-        tm.options.clear();
     }
 
 	if (tm.nRounds == 0)

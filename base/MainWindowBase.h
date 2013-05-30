@@ -99,7 +99,7 @@ public:
 	/* IView */
 	virtual void UpdateView();
 	virtual void Reset() {}
-	virtual void SetShowInfoHeader(bool show) {}
+	virtual void SetShowInfoHeader(bool /*show*/) {}
 
 protected:
 	virtual void changeEvent(QEvent*) override;

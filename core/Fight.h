@@ -47,7 +47,7 @@ public:
 	int time_in_seconds;
 	int max_time_in_seconds;
 	bool is_saved;
-    bool showAllSubscores; // option (first of many ;-)
+    bool allSubscoresCount; // option (first of many ;-)
 
     QString GetTimeFaught() const;
     QString GetTimeRemaining() const;

@@ -14,7 +14,7 @@ Fight::Fight()
     , time_in_seconds(0)
     , max_time_in_seconds(0)
     , is_saved(false)
-    , showAllSubscores(false)
+    , allSubscoresCount(false)
 {
     scores[0] = Score();
     scores[1] = Score();
@@ -102,7 +102,7 @@ int Fight::ScorePoints(EFighter who) const
         {
             return eScore_Hikewake;
         }
-        else if (showAllSubscores)
+        else if (allSubscoresCount)
         {
             // Special rule for Jugendliga
             if (scores[tori].Wazaari() > scores[uke].Wazaari())
