@@ -57,6 +57,7 @@ contains(COMPILER, msvc) {
 HEADERS = MainWindowTeam.h \
     ScoreScreen.h \
     ../base/pch.h \
+    ../base/AddFighterDlg.h \
     ../base/ClubManager.h \
     ../base/ClubManagerdlg.h \
     ../base/ComboBoxDelegate.h \
@@ -75,6 +76,7 @@ HEADERS = MainWindowTeam.h \
 SOURCES = Main.cpp \
     ScoreScreen.cpp \
     MainWindowTeam.cpp \
+    ../base/AddFighterDlg.cpp \
     ../base/ClubManager.cpp \
     ../base/ClubManagerdlg.cpp \
     ../base/FighterManager.cpp \
@@ -95,7 +97,8 @@ FORMS = ../base/ClubManagerDlg.ui \
     ../base/FighterManagerDlg.ui \
     ../base/view_horizontal.ui \
     ../widgets/SplashScreen.ui \
-    ../widgets/Countdown.ui
+    ../widgets/Countdown.ui \
+    ../base/AddFighterDlg.ui
 
 OTHER_FILES += \
     TournamentModes.ini

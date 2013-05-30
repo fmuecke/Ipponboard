@@ -8,8 +8,10 @@
 #include "ui_fightermanagerdlg.h"
 
 #include "FighterManager.h"
+#include "AddFighterDlg.h"
 #include "../core/fighter.h"
 //#include "../util/path_helpers.h"
+
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -40,17 +42,19 @@ FighterManagerDlg::FighterManagerDlg(
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
 	headerItem->setText(eColumn_club, tr("Club/Team"));
-	headerItem->setText(eColumn_category, tr("Category"));
+    //TODO: headerItem->setText(eColumn_category, tr("Category"));
 	headerItem->setText(eColumn_weight, tr("Weight"));
 	headerItem->setText(eColumn_firstName, tr("First Name"));
 	headerItem->setText(eColumn_lastName, tr("Last Name"));
 
 	// adjust column widths
 	ui->treeWidget_fighters->setColumnWidth(eColumn_club, 150);
-	ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
-	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
-	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
+    //TODO: ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
+    ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
 	populate_view();
 }
@@ -96,75 +100,40 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 void FighterManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-	bool ok(false);
+    auto dlg = AddFighterDlg(this);
 
-	const QChar splitter(';');
-	QString dlgTitle = tr("Add new fighter");
-	QString dlgMsg = tr("Use the following format to specify the new fighter.\n"\
-						"Use '%1' as separator. "\
-						"Categories should be one of these: M, F, FU21 etc.\n\nFormat: ").arg(splitter);
-
-	bool hasFilter = false;
-
+    QStringList clubs;
 	if (m_filter.first == eColumn_club)
-	{
-		dlgMsg.append("first name;last name;weight;category");
-		hasFilter = true;
-	}
-	else
-	{
-		dlgMsg.append("first name;last name;club;weight;category");
-	}
+    {
+        clubs.append(m_filter.second);
+    }
+    else
+    {
+        //FIXME:
+        //m_manager.GetClubs...
+    }
+    dlg.SetClubs(clubs);
 
-	QString data = QInputDialog::getText(this,
-										 dlgTitle,
-										 dlgMsg,
-										 QLineEdit::Normal,
-										 QString(),
-										 &ok);
-	auto dataParts = data.split(splitter);
+    if (dlg.exec() == QDialog::Rejected)
+    {
+        return;
+    }
 
-	while (ok && !(hasFilter ? dataParts.size() == 4 : dataParts.size() == 5))
-	{
-		QMessageBox::critical(this,
-							  tr(""),
-							  tr("Invalid format. Please correct your input."));
+    Ipponboard::Fighter fighter = dlg.GetFighter();
+    m_manager.m_fighters.insert(fighter);
 
-		data = QInputDialog::getText(this,
-									 dlgTitle,
-									 dlgMsg,
-									 QLineEdit::Normal,
-									 data,
-									 &ok);
-		dataParts = data.split(splitter);
-	}
+    QStringList contents;
+    for (int i = 0; i < eColumn_MAX; ++i) contents.append("");
+    contents[eColumn_club] = fighter.club;
+    //TODO: contents[eColumn_category] = fighter.category;
+    contents[eColumn_weight] = fighter.weight;
+    contents[eColumn_firstName] = fighter.first_name;
+    contents[eColumn_lastName] = fighter.last_name;
 
-	if (ok)
-	{
-		Ipponboard::Fighter fighter(
-			dataParts[0],  // first
-			dataParts[1]);  // last
-		fighter.club = hasFilter ? m_filter.second : dataParts[2];
-		fighter.weight = dataParts[hasFilter ? 2 : 3];
-		fighter.category = dataParts[hasFilter ? 3 : 4];
-
-		m_manager.m_fighters.insert(fighter);
-
-		QStringList contents;
-
-		for (int i = 0; i < eColumn_MAX; ++i) contents.append("");
-
-		contents[eColumn_club] = fighter.club;
-		contents[eColumn_category] = fighter.category;
-		contents[eColumn_weight] = fighter.weight;
-		contents[eColumn_firstName] = fighter.first_name;
-		contents[eColumn_lastName] = fighter.last_name;
-
-		QTreeWidgetItem* pItem =
-			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
-		pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-		ui->treeWidget_fighters->addTopLevelItem(pItem);
-	}
+    QTreeWidgetItem* pItem =
+        new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+    pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
+    ui->treeWidget_fighters->addTopLevelItem(pItem);
 }
 
 //---------------------------------------------------------
@@ -222,11 +191,10 @@ void FighterManagerDlg::populate_view()
 
 				break;
 
-			case eColumn_category:
-				if (m_filter.second == f.category)
-					skipItem = false;
-
-				break;
+            //TODO: case eColumn_category:
+            //	if (m_filter.second == f.category)
+            //		skipItem = false;
+            //	break;
 
 			default:
 				break;
@@ -244,7 +212,7 @@ void FighterManagerDlg::populate_view()
 			for (int i = 0; i < eColumn_MAX; ++i) contents.append("");
 
 			contents[eColumn_club] = f.club;
-			contents[eColumn_category] = f.category;
+            //TODO: contents[eColumn_category] = f.category;
 			contents[eColumn_weight] = f.weight;
 			contents[eColumn_firstName] = f.first_name;
 			contents[eColumn_lastName] = f.last_name;
@@ -343,7 +311,7 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 			pItem->text(eColumn_lastName));
 		currentFighter.club = pItem->text(eColumn_club);
 		currentFighter.weight = pItem->text(eColumn_weight);
-		currentFighter.category = pItem->text(eColumn_category);
+        //TODO: currentFighter.category = pItem->text(eColumn_category);
 
 		ui->treeWidget_fighters->takeTopLevelItem(
 			ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
@@ -365,12 +333,12 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 		QString lastName = pItem->text(eColumn_lastName);
 		QString club = pItem->text(eColumn_club);
 		QString weight = pItem->text(eColumn_weight);
-		QString category = pItem->text(eColumn_category);
+        //TODO: QString category = pItem->text(eColumn_category);
 
 		Ipponboard::Fighter changedFighter(firstName, lastName);
 		changedFighter.club = club;
 		changedFighter.weight = weight;
-		changedFighter.category = category;
+        //TODO: changedFighter.category = category;
 
 		qDebug("enum value: %i", column);
 
@@ -392,9 +360,9 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 			weight = m_tmpData;
 			break;
 
-		case eColumn_category:
-			category = m_tmpData;
-			break;
+        //TODO: case eColumn_category:
+            // category = m_tmpData;
+            // break;
 
 		default:
 			qDebug("ERROR: invalid enum value: %i", column);
@@ -404,7 +372,7 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 		Ipponboard::Fighter originalFighter(firstName, lastName);
 		originalFighter.club = club;
 		originalFighter.weight = weight;
-		originalFighter.category = category;
+        //TODO: originalFighter.category = category;
 
 		if (!m_manager.RemoveFighter(originalFighter))
 		{

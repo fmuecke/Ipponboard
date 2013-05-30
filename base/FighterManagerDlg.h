@@ -29,10 +29,10 @@ public:
 	enum EColumn
 	{
 		eColumn_club = 0,
-		eColumn_category,
-		eColumn_weight,
-		eColumn_firstName,
-		eColumn_lastName,
+        //eColumn_category,
+        eColumn_firstName,
+        eColumn_lastName,
+        eColumn_weight,
 		eColumn_MAX
 	};
 

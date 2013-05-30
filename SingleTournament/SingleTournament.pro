@@ -58,6 +58,7 @@ contains(COMPILER, msvc) {
 
 SOURCES = Main.cpp \
     MainWindow.cpp \
+    ../base/AddFighterDlg.cpp \
     ../base/ClubManager.cpp \
     ../base/ClubManagerDlg.cpp \
     ../base/SettingsDlg.cpp \
@@ -74,6 +75,7 @@ SOURCES = Main.cpp \
 
 HEADERS = ../base/pch.h \
     MainWIndow.h \
+    ../base/AddFighterDlg.h \
     ../base/ClubManager.h \
     ../base/ClubManagerDlg.h \
     ../base/MainWindowBase.h \
@@ -93,6 +95,7 @@ HEADERS = ../base/pch.h \
 
 FORMS = MainWindow.ui \
     view_vertical_single.ui \
+    ../base/AddFighterDlg.ui \
     ../base/ClubManagerDlg.ui \
     ../base/SettingsDlg.ui \
     ../base/FightCategoryManagerDlg.ui \
