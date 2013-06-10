@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QObject>  // needed for tr()
 #include <QString>
+#include <QStringList>
 #include <QTextStream>
 
 #include <boost/noncopyable.hpp>

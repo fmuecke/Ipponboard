@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QFile>
+#include <QLocale>
+#include <QTextCodec>
 
 int DelayUser()
 {

@@ -17,6 +17,15 @@
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
 
+#include <QDebug>
+#include <QDesktopServices>
+#include <QDesktopWidget>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QSettings>
+#include <QUrl>
+#include <QTimer>
+
 using namespace FMlib;
 using namespace Ipponboard;
 

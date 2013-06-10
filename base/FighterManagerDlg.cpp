@@ -100,7 +100,7 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 void FighterManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-    auto dlg = AddFighterDlg(this);
+    AddFighterDlg dlg(this);
 
     QStringList clubs;
 	if (m_filter.first == eColumn_club)

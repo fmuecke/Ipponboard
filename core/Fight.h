@@ -81,7 +81,7 @@ void serialize(Archive& ar,
 	ar& BOOST_SERIALIZATION_NVP(m.time_in_seconds);
     ar& BOOST_SERIALIZATION_NVP(m.max_time_in_seconds);
     ar& BOOST_SERIALIZATION_NVP(m.is_saved);
-    ar& BOOST_SERIALIZATION_NVP(m.countAllSubscores);
+    ar& BOOST_SERIALIZATION_NVP(m.allSubscoresCount);
 }
 
 template<class Archive>

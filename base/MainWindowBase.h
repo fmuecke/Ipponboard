@@ -25,6 +25,7 @@ class ClubManager;
 class FightCategoryMgr;
 class ScoreScreen;
 }
+class QSettings;
 
 namespace FMlib
 {
