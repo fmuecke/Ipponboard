@@ -164,8 +164,19 @@ MainWindow::MainWindow(QWidget* parent)
 
     int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
     if (-1 == modeIndex)
+	{
         modeIndex =  0;
-    m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	}
+	
+	if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
+	{
+		m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	}
+	else
+	{
+		// be sure to trigger
+		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentText());
+	}
 
     // TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
