@@ -7,9 +7,10 @@ DEFINES += _WIN32
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 
-INCLUDEPATH += $$quote($$(BOOST_DIR))
+INCLUDEPATH += $$quote($$(BOOST))
 
-QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib)
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
+    $$quote($$(BOOST)/stage/lib)
 
 DESTDIR = ../lib
 
@@ -29,15 +30,15 @@ build_pass:CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,_d)
 }
 
-win32-g++: COMPILER = mingw
-contains(COMPILER, mingw) {
-    QMAKE_CXXFLAGS += -std=c++11
+CONFIG(__GNUC__) {
+    QMAKE_CXXFLAGS += -std=c++0x
 }
 
 
 HEADERS = ../base/pch.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
+    controlconfig.h \
     controller.h \
     enums.h \
     fightcategory.h \
@@ -47,16 +48,14 @@ HEADERS = ../base/pch.h \
     score.h \
     statemachine.h \
     tournament.h \
-	fighter.h \
-    tournamentmodel.h \
-    ControllerConfig.h
+    tournamentmodel.h
 
 SOURCES = controller.cpp \
     fightcategory.cpp \
     score.cpp \
     statemachine.cpp \
-    tournamentmodel.cpp \
-	fighter.cpp    
+    tournamentmodel.cpp
+    
 
 #OTHER_FILES +=
 

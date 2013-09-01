@@ -13,39 +13,29 @@ DEFINES += _WIN32
 # (inclusion of header in HEADERS section is not required!)
 PRECOMPILED_HEADER = ../base/pch.h
 
-INCLUDEPATH += $$quote($$(BOOST_DIR))
+INCLUDEPATH += $$quote($$(BOOST))
 
-QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
+QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
+    $$quote($$(BOOST)/stage/lib) \
     ../lib
 
 DESTDIR = ../bin
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard
-    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
+    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad -lcore
 }
 
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
-    QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
+    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad_d -lcore_d
 }
 
-
-# Auto select compiler 
-win32-g++: COMPILER = mingw 
-win32-msvc2010: COMPILER = msvc
-
-contains(COMPILER, mingw) {
-	QMAKE_CXXFLAGS += -std=c++11
-	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
-	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
-	#QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
-}
-
-contains(COMPILER, msvc) {
-	#QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
-	#QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
-	#QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
+CONFIG(__GNUC__) {
+    QMAKE_CXXFLAGS += -std=c++0x
+    QMAKE_LIBS += -lboost_serialization
+    QMAKE_LIBS += -lboost_system
+    QMAKE_LIBS += -lboost_filesystem
 }
 
 SOURCES = main.cpp \
@@ -59,7 +49,13 @@ SOURCES = main.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp
+    ../widgets/countdown.cpp \
+    #../base/controller.cpp \
+    #../gamepad/gamepad.cpp \
+    #../base/score.cpp \
+    #../base/statemachine.cpp \
+    #../base/tournamentmodel.cpp \
+    #../base/fightcategory.cpp
 
 HEADERS = ../base/pch.h \
     ../base/clubmanager.h \
@@ -70,17 +66,27 @@ HEADERS = ../base/pch.h \
     ../base/view.h \
     ../base/fightcategorymanagerdlg.h \
     ../base/fightcategorymanager.h \
-    ../core/fighter.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
     ../widgets/countdown.h \
     ../widgets/splashscreen.h \
     ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h
+    ../widgets/scaledtext.h \
+    ../util/path_helpers.h \
+    ../util/qstring_serialization.h \
+    #../base/controller.h \
+    #../base/enums.h \
+    #../gamepad/gamepad.h \
+    #../base/icontroller.h \
+    #../base/icontrollercore.h \
+    #../base/iview.h \
+    #../base/score.h \
+    #../base/statemachine.h \
+    #../base/tournament.h \
+    #../base/tournamentmodel.h \
+    #../base/fightcategory.h
 
-FORMS = mainwindow.ui \
+FORMS = ../base/clubmanagerdlg.ui \
+    mainwindow.ui \
     view_vertical_single.ui \
-	../base/clubmanagerdlg.ui \
     ../base/settingsdlg.ui \
     ../base/view_horizontal.ui \
     ../base/fightcategorymanagerdlg.ui \
