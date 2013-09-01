@@ -54,11 +54,10 @@ bool Score::IsAwaseteIppon() const
 void Score::Clear()
 //=========================================================
 {
-	_points[ePoint_Ippon      ] = 0;
-	_points[ePoint_Wazaari    ] = 0;
-	_points[ePoint_Yuko       ] = 0;
-	_points[ePoint_Shido      ] = 0;
-	_points[ePoint_Hansokumake] = 0;
+	for (auto i = 0; i < ePoint_MAX; ++i)
+	{
+		_points[i] = 0;
+	}
 }
 
 

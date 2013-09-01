@@ -991,7 +991,7 @@ void MainWindow::WriteScoreToHtml_()
 
     for (int i(0); i < m_pController->GetFightCount(); ++i)
     {
-        const Fight& fight(m_pController->GetFight(0, i));
+        const Fight& fight = m_pController->GetFight(0, i);
 
         QString name_first(fight.fighters[eFighter1].name);
         QString name_second(fight.fighters[eFighter2].name);
@@ -1031,7 +1031,7 @@ void MainWindow::WriteScoreToHtml_()
 
     for (int i(0); i < m_pController->GetFightCount(); ++i)
     {
-        const Fight& fight(m_pController->GetFight(1, i));
+        const Fight& fight = m_pController->GetFight(1, i);
 
         QString name_first(fight.fighters[eFighter1].name);
         QString name_second(fight.fighters[eFighter2].name);
