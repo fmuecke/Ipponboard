@@ -16,6 +16,7 @@ enum EScore
 	eScore_Ippon = 10,
 	eScore_Wazaari = 7,
 	eScore_Yuko = 5,
+    eScore_Shido = 1,
 	eScore_Hantai = 1,
 	eScore_Hikewake = 0,
 	eScore_Lost = 0
@@ -29,8 +30,14 @@ struct Fighter
 
 struct Fight
 {
-	Fight() : weight("-"), time_in_seconds(0), is_saved(false)
+    Fight() 
+		: weight("-")
+		, time_in_seconds(0)
+		, is_saved(false)
+		, ruleSet(eClassicRules)
 	{
+		scores[0].Clear();
+		scores[1].Clear();
 	}
 
 	Score scores[2];
@@ -38,6 +45,7 @@ struct Fight
 	QString weight;
 	int time_in_seconds;
 	bool is_saved;
+    RuleSet ruleSet;
 
 	const QString GetRoundTimeRemainingText() const
 	{
@@ -64,55 +72,51 @@ struct Fight
 		return  ret + QString::number(seconds);
 	}
 
-	bool HasWon(EFighter who) const
+    bool HasWon(EFighter who) const
 	{
-		const EFighter tori = who;
-		const EFighter uke = (tori == eFighter1) ?
-							 eFighter2 : eFighter1;
+		const EFighter other = (who == eFighter1) ? eFighter2 : eFighter1;
+     
 
-		if (scores[tori].Ippon() || scores[tori].IsAwaseteIppon())
-			return true;
+		return scores[other].IsLess(scores[who], ruleSet);
+    }
 
-		if (scores[uke].Ippon() || scores[uke].IsAwaseteIppon())
-			return false;
-
-		if (scores[tori].Wazaari() > scores[uke].Wazaari())
-			return true;
-
-		if (scores[tori].Wazaari() < scores[uke].Wazaari())
-			return false;
-
-		if (scores[tori].Yuko() > scores[uke].Yuko())
-			return true;
-
-		return false;
-	}
-
-	int ScorePoints(EFighter who) const
+    int ScorePoints(EFighter who) const
 	{
-		const EFighter tori = who;
-		const EFighter uke = (tori == eFighter1) ?
-							 eFighter2 : eFighter1;
+		const EFighter other = (who == eFighter1) ? eFighter2 : eFighter1;
 
-		if (HasWon(tori))
+		if (HasWon(who))
 		{
-			if (scores[tori].Ippon() || scores[tori].IsAwaseteIppon())
+			if (scores[who].Ippon() || scores[who].IsAwaseteIppon())
+            {
 				return eScore_Ippon;
+            }
 
 			// Only the fight deciding point is taken into account!
-			if (scores[tori].Wazaari() > 0 &&
-					scores[tori].Wazaari() > scores[uke].Wazaari())
+			if (scores[who].Wazaari() > 0 
+				&& scores[who].Wazaari() > scores[other].Wazaari())
+            {
 				return eScore_Wazaari;
+            }
 
-			if (scores[tori].Yuko() > 0)
+			if (scores[who].Yuko() > 0)
+            {
 				return eScore_Yuko;
+            }
 
-			//TODO: Hantei!
+            if (e2013RuleSet == ruleSet 
+				&& scores[who].Shido() < scores[other].Shido())
+            {
+               return eScore_Shido;
+            }
+
+            //TODO: Hantei!
 		}
 		else
 		{
-			if (!HasWon(uke))
+            if (!HasWon(other))
+			{
 				return eScore_Hikewake;
+			}
 		}
 
 		return eScore_Lost;
