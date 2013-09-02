@@ -28,7 +28,7 @@ public:
 	virtual const QString GetFighterClub(Ipponboard::EFighter) const = 0;
 	virtual const QString& GetWeight() const = 0;
 	virtual const QString GetMessage() const = 0;
-	virtual const int GetTeamScore(Ipponboard::EFighter) const = 0;
+	virtual int GetTeamScore(Ipponboard::EFighter) const = 0;
 	virtual void SetTimerValue(Ipponboard::ETimer timer, const QString& value) = 0;
 	virtual void SetRoundTime(const QString& value) = 0;
 	virtual int GetRound() const = 0;

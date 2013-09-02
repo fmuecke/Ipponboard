@@ -33,6 +33,8 @@ build_pass:CONFIG(debug, debug|release) {
 win32-g++: COMPILER = mingw
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
+	# get rid of some nasty boost warnings
+	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
     #QMAKE_CXXFLAGS += -std=c++0x
 }
 

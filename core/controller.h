@@ -60,7 +60,7 @@ public:
 	const QString GetFighterClub(Ipponboard::EFighter who) const;
 	const QString& GetWeight() const;
 	const QString GetMessage() const;
-	const int GetTeamScore(Ipponboard::EFighter who) const;
+	int GetTeamScore(Ipponboard::EFighter who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
 	void SetRoundTime(const QString& value);
 	QString GetRoundTime() const;
@@ -87,7 +87,7 @@ private:
 	void reset_timer(ETimer);
 	Score& get_score(Ipponboard::EFighter who);
 	const Score& get_score(Ipponboard::EFighter who) const;
-	const int get_time(ETimer) const;
+	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
     bool is_option(Ipponboard::EOption option) const { return GetOption(option); } // TODO: use GetOption!

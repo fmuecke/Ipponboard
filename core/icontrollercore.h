@@ -24,7 +24,7 @@ private:
 	virtual void reset_timer(ETimer) = 0;
 	virtual Score& get_score(Ipponboard::EFighter who) = 0;
 	virtual const Score& get_score(Ipponboard::EFighter who) const = 0;
-	virtual const int get_time(ETimer) const = 0;
+	virtual int get_time(ETimer) const = 0;
 	virtual bool is_sonomama() const = 0;
 	virtual bool is_golden_score() const = 0;
     virtual bool is_option(Ipponboard::EOption option) const = 0;

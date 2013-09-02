@@ -143,8 +143,6 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 bool IpponboardSM_::has_enough_shido(Shido const& evt)
 //---------------------------------------------------------
 {
-	
-
 	if (Score_(evt.tori).Shido() == 3)
 	{
 		return true;

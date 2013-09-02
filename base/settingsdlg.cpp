@@ -373,12 +373,12 @@ const QString SettingsDlg::GetGongFile() const
     return path + ui->comboBox_sound_time_ends->currentText();
 }
 
-const bool SettingsDlg::IsAutoIncrementRule() const
+bool SettingsDlg::IsAutoIncrementRule() const
 {
     return ui->checkBox_increment_points->isChecked();
 }
 
-const bool SettingsDlg::IsUse2013Rules() const
+bool SettingsDlg::IsUse2013Rules() const
 {
     return ui->checkBox_rules_2013->isChecked();
 }

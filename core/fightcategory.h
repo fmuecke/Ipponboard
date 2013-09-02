@@ -39,7 +39,7 @@ public:
 	}
 
 	const QString ToString() const { return QString::fromStdString(name); }
-	const void Rename(QString const& newName) { name.assign(newName.toStdString()); }
+	void Rename(QString const& newName) { name.assign(newName.toStdString()); }
 
 	int GetRoundTime() const { return round_time_secs; }
 	int GetGoldenScoreTime() const { return golden_score_time_secs; }

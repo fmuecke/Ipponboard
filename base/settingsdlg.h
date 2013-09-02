@@ -51,8 +51,8 @@ public:
     const QString GetHomeLabel() const;
     const QString GetGuestLabel() const;
 	const QString GetGongFile() const;
-    const bool IsAutoIncrementRule() const;
-    const bool IsUse2013Rules() const;
+    bool IsAutoIncrementRule() const;
+    bool IsUse2013Rules() const;
 
 	void SetControlConfig(ControlConfig* pConfig);
 	void GetControlConfig(ControlConfig* pConfig);

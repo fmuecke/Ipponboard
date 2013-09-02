@@ -36,7 +36,10 @@ win32-g++: COMPILER = mingw
 win32-msvc2010: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-	QMAKE_CXXFLAGS += -std=c++0x
+	#QMAKE_CXXFLAGS += -std=c++0x
+	QMAKE_CXXFLAGS += -std=c++11
+	# get rid of some nasty boost warnings
+	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
 	QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
 	#QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53

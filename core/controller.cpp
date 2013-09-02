@@ -471,7 +471,7 @@ const QString Controller::GetMessage() const
 }
 
 //=========================================================
-const int Controller::GetTeamScore(Ipponboard::EFighter who) const
+int Controller::GetTeamScore(Ipponboard::EFighter who) const
 //=========================================================
 {
     int score(0);
@@ -699,7 +699,7 @@ const Score& Controller::get_score(EFighter who) const
 }
 
 //=========================================================
-const int Controller::get_time(ETimer t) const
+int Controller::get_time(ETimer t) const
 //=========================================================
 {
     if (eTimer_Hold == t)

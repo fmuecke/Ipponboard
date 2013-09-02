@@ -74,15 +74,13 @@ struct Fight
 
     bool HasWon(EFighter who) const
 	{
-		const EFighter other = (who == eFighter1) ? eFighter2 : eFighter1;
-     
-
+		const EFighter other = GetUkeFromTori(who);
 		return scores[other].IsLess(scores[who], ruleSet);
     }
 
     int ScorePoints(EFighter who) const
 	{
-		const EFighter other = (who == eFighter1) ? eFighter2 : eFighter1;
+		const EFighter other = GetUkeFromTori(who);
 
 		if (HasWon(who))
 		{
