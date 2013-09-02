@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QFile>
+#include <QLocale>
+#include <QTextCodec>
 #include "../base/mainwindow.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"

@@ -5,12 +5,12 @@ DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
-PRECOMPILED_HEADER = ../base/pch.h
+#PRECOMPILED_HEADER = ../base/pch.h
+#disabled due to mingw reasons
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib)
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib)
 
 DESTDIR = ../lib
 
@@ -30,8 +30,10 @@ build_pass:CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,_d)
 }
 
-CONFIG(__GNUC__) {
-    QMAKE_CXXFLAGS += -std=c++0x
+win32-g++: COMPILER = mingw
+contains(COMPILER, mingw) {
+    QMAKE_CXXFLAGS += -std=c++11
+    #QMAKE_CXXFLAGS += -std=c++0x
 }
 
 

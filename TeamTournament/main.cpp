@@ -1,8 +1,9 @@
 #include <QtGui/QApplication>
-#include <QTranslator>
+#include <QFile>
 #include <QMessageBox>
 #include <QSettings>
-#include <QFile>
+#include <QTextCodec>
+#include <QTranslator>
 #include "../base/mainwindow.h"
 #include "../widgets/countdown.h"
 #include "../widgets/splashscreen.h"

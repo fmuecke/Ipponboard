@@ -1031,7 +1031,7 @@ const QColor& View::get_color(const ColorType t) const
         return doSwap ? m_TextBgColorFirst : m_TextBgColorSecond;
 
     default:
-        assert(!"unhandled switch case!");
+        Q_ASSERT(!"unhandled switch case!");
     }
 
     return m_TextBgColorFirst; // just for debug purpose...

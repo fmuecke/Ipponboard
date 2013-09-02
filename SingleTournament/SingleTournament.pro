@@ -11,31 +11,50 @@ DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
-PRECOMPILED_HEADER = ../base/pch.h
+#PRECOMPILED_HEADER = ../base/pch.h
+#disabled due to mingw reasons
 
-INCLUDEPATH += $$quote($$(BOOST))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-QMAKE_LIBDIR += $$quote($$(BOOST)/lib) \
-    $$quote($$(BOOST)/stage/lib) \
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
 DESTDIR = ../bin
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad -lcore
+    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
 }
 
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
-    QMAKE_LIBS += -lshell32 -lWinmm -lgamepad_d -lcore_d
+    QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
 }
 
-CONFIG(__GNUC__) {
-    QMAKE_CXXFLAGS += -std=c++0x
-    QMAKE_LIBS += -lboost_serialization
-    QMAKE_LIBS += -lboost_system
-    QMAKE_LIBS += -lboost_filesystem
+# Auto select compiler 
+win32-g++: COMPILER = mingw
+win32-msvc2010: COMPILER = msvc
+
+contains(COMPILER, mingw) {
+	QMAKE_CXXFLAGS += -std=c++0x
+	QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
+	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
+	#QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
+
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += copy_files.cmd
+}
+
+contains(COMPILER, msvc) {
+	#QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
+	#QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
+	#QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
+
+	# remove unneccessary output files
+	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+
+	# copy all needed files to destdir
+        QMAKE_POST_LINK += & copy_files.cmd
 }
 
 SOURCES = main.cpp \
@@ -100,10 +119,3 @@ RESOURCES += ../base/ipponboard.qrc
 TRANSLATIONS = ../i18n/Ipponboard_de.ts
 
 win32:RC_FILE = ../base/ipponboard.rc
-
-# remove unneccessary output files
-QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp
-QMAKE_POST_LINK += && del /Q ..\\bin\\$${TARGET}.lib
-
-# copy all needed files to destdir
-QMAKE_POST_LINK += && copy_files.cmd

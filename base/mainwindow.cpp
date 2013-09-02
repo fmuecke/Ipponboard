@@ -20,17 +20,23 @@
 #include "../util/path_helpers.h"
 #include "../util/helpers.hpp"
 #include <QComboBox>
+#include <QDebug>
+#include <QDesktopServices>
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <QFileDialog>
 #include <QFontDialog>
 #include <QColorDialog>
 #include <QInputDialog>
+#include <QClipboard>
+#include <QPrinter>
+#include <QPrintPreviewDialog>
 #include <QSettings>
+#include <QTextEdit>
 #include <QTimer>
 #include <QSplashScreen>
 #include <functional>
 #include <QUrl>
-#include <QDesktopServices>
 #include <QMenu>
 
 using namespace FMlib;
@@ -2267,6 +2273,14 @@ void MainWindow::slot_clear_cell_content_list1()
     clear_cell_content(m_pUi->tableView_tournament_list1);
 }
 
+//-------------------------------------------------------------------------
+void MainWindow::Print(QPrinter* p)
+//-------------------------------------------------------------------------
+{
+	QTextEdit e(m_htmlScore, this);
+	e.document()->print(p);
+}
+	
 //-------------------------------------------------------------------------
 void MainWindow::slot_clear_cell_content_list2()
 //-------------------------------------------------------------------------
