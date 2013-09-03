@@ -8,49 +8,49 @@ namespace Ipponboard
 class Score
 {
 public:
-    static void Test_Compare()
-    {
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), e2013RuleSet)))
-            throw 1;
+	static void Test_Compare()
+	{
+		if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), e2013RuleSet)))
+			throw 1;
 
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
-            throw 2;
+		if ((Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
+			throw 2;
 
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
-            throw 3;
+		if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
+			throw 3;
 
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 4;
+		if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
+			throw 4;
 
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 5;
+		if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
+			throw 5;
 
-        if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 6;
-		
+		if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
+			throw 6;
+
 		// classic rules
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), eClassicRules)))
-            throw 1;
+		if ((Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), eClassicRules)))
+			throw 1;
 
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), eClassicRules)))
-            throw 2;
+		if ((Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), eClassicRules)))
+			throw 2;
 
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 1), eClassicRules)))
-            throw 3;
+		if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 1), eClassicRules)))
+			throw 3;
 
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 4;
+		if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
+			throw 4;
 
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 5;
+		if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
+			throw 5;
 
-        if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 6;
-		
-        //TODO: further tests
-    }
+		if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
+			throw 6;
 
-    Score()
+		//TODO: further tests
+	}
+
+	Score()
 	{
 		Clear();
 	}
@@ -69,7 +69,7 @@ public:
 	bool IsAwaseteIppon() const;
 	void Clear();
 
-    bool IsLess(const Score& rhs, RuleSet ruleSet) const
+	bool IsLess(const Score& rhs, RuleSet ruleSet) const
 	{
 		if (_points[ePoint_Hansokumake] != rhs._points[ePoint_Hansokumake])
 		{
@@ -109,19 +109,19 @@ public:
 			}
 		}
 
-        return false;
+		return false;
 	}
 
 private:
-    // for testing only
-    Score(int ippon, int wazaari, int yuko, int hansokumake, int shido)
-    {
-        _points[ePoint_Hansokumake] = hansokumake;
-        _points[ePoint_Shido] = shido;
-        _points[ePoint_Ippon] = ippon;
-        _points[ePoint_Wazaari] = wazaari;
-        _points[ePoint_Yuko] = yuko;
-    }
+	// for testing only
+	Score(int ippon, int wazaari, int yuko, int hansokumake, int shido)
+	{
+		_points[ePoint_Hansokumake] = hansokumake;
+		_points[ePoint_Shido] = shido;
+		_points[ePoint_Ippon] = ippon;
+		_points[ePoint_Wazaari] = wazaari;
+		_points[ePoint_Yuko] = yuko;
+	}
 
 	void correct_points();
 

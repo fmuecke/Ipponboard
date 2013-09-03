@@ -12,32 +12,33 @@
 #include <QDialog>
 #include <QTranslator>
 
-namespace Ui {
+namespace Ui
+{
 class MainDlg;
 }
 
 class MainDlg : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainDlg(QWidget *parent = 0);
-    ~MainDlg();
+	explicit MainDlg(QWidget* parent = 0);
+	~MainDlg();
 
 protected:
-    void changeEvent(QEvent *e);
+	void changeEvent(QEvent* e);
 
 private slots:
-    void on_commandLinkButton_single_clicked();
-    void on_commandLinkButton_team_clicked();
+	void on_commandLinkButton_single_clicked();
+	void on_commandLinkButton_team_clicked();
 
 private:
-    void StartApp(QString const& fileName);
-    void switchTranslator(QTranslator& translator, const QString& filename);
+	void StartApp(QString const& fileName);
+	void switchTranslator(QTranslator& translator, const QString& filename);
 
-    Ui::MainDlg *ui;
-    QTranslator m_translator;   ///< contains the translations for this application
-    //QTranslator m_translatorQt; ///< contains the translations for qt
+	Ui::MainDlg* ui;
+	QTranslator m_translator;   ///< contains the translations for this application
+	//QTranslator m_translatorQt; ///< contains the translations for qt
 };
 
 #endif // MAINDLG_H

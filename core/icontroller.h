@@ -36,11 +36,11 @@ public:
 	virtual QString const& GetCategoryName() const = 0;
 	virtual void SetGoldenScore(bool isGS) = 0;
 	virtual bool IsGoldenScore() const = 0;
-    virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
-    virtual bool GetOption(Ipponboard::EOption option) const = 0;
-    virtual QString GetHomeLabel() const = 0;
-    virtual QString GetGuestLabel() const = 0;
-    virtual void SetLabels(QString const& home, QString const& guest) = 0;
+	virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
+	virtual bool GetOption(Ipponboard::EOption option) const = 0;
+	virtual QString GetHomeLabel() const = 0;
+	virtual QString GetGuestLabel() const = 0;
+	virtual void SetLabels(QString const& home, QString const& guest) = 0;
 };
 
 }

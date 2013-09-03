@@ -18,30 +18,30 @@ class SplashScreen;
 
 class SplashScreen : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    struct Data
-    {
-        QDate date;
-        QString text;
-        QString info;
-    };
+	struct Data
+	{
+		QDate date;
+		QString text;
+		QString info;
+	};
 
-    SplashScreen(Data const& data, QWidget* parent = 0);
-    ~SplashScreen();
+	SplashScreen(Data const& data, QWidget* parent = 0);
+	~SplashScreen();
 
-    void SetImageStyleSheet(QString const& text);
+	void SetImageStyleSheet(QString const& text);
 
 protected:
-    void changeEvent(QEvent* e);
+	void changeEvent(QEvent* e);
 
 private:
-    Ui::SplashScreen* ui;
+	Ui::SplashScreen* ui;
 
 private slots:
-    void on_pushButton_Cancel_pressed();
-    void on_pushButton_pressed();
+	void on_pushButton_Cancel_pressed();
+	void on_pushButton_pressed();
 };
 
 #endif  // WIDGETS__SPLASHSCREEN_H_

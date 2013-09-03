@@ -18,10 +18,10 @@ enum EPoint
 
 enum EFighter
 {
-    eFighterNobody = -1,
-    eFighter1 = 0,
-    eFighter2 = 1,
-    eFighter_MAX
+	eFighterNobody = -1,
+	eFighter1 = 0,
+	eFighter2 = 1,
+	eFighter_MAX
 };
 
 static EFighter GetUkeFromTori(EFighter tori)
@@ -53,7 +53,7 @@ enum EState
 	eState_TimerStopped = 0,
 	eState_TimerRunning,
 	eState_Holding,
-    eState_SonoMama
+	eState_SonoMama
 };
 
 enum EHoldState
@@ -66,32 +66,32 @@ enum EHoldState
 enum ETimer
 {
 	eTimer_Main = 0,
-    eTimer_Hold
+	eTimer_Hold
 };
 
 enum EOsaekomiVal
 {
 	eOsaekomiVal_Yuko = 15,
 	eOsaekomiVal_Wazaari = 20,
-    eOsaekomiVal_Ippon = 25,
+	eOsaekomiVal_Ippon = 25,
 
-    // new values for 2013 rules
-    eOsaekomiVal2013_Yuko = 10,
-    eOsaekomiVal2013_Wazaari = 15,
-    eOsaekomiVal2013_Ippon = 20
+	// new values for 2013 rules
+	eOsaekomiVal2013_Yuko = 10,
+	eOsaekomiVal2013_Wazaari = 15,
+	eOsaekomiVal2013_Ippon = 20
 };
 
 enum EOption
 {
-    eOption_AutoIncrementPoints = 0,
-    eOption_Use2013Rules = 1,
-    eOption_MAX
+	eOption_AutoIncrementPoints = 0,
+	eOption_Use2013Rules = 1,
+	eOption_MAX
 };
 
 enum RuleSet
 {
-    eClassicRules,
-    e2013RuleSet
+	eClassicRules,
+	e2013RuleSet
 };
 
 }

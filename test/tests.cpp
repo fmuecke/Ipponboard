@@ -16,6 +16,6 @@ int main()
 	{
 		cout << i << " failed" << endl;
 	}
-	
+
 	return 0;
 }

@@ -71,11 +71,11 @@ public:
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
-    void SetOption(Ipponboard::EOption option, bool isSet);
-    bool GetOption(Ipponboard::EOption option) const;
-    QString GetHomeLabel() const { return m_labelHome; }
-    QString GetGuestLabel() const { return m_labelGuest; }
-    void SetLabels(QString const& home, QString const& guest);
+	void SetOption(Ipponboard::EOption option, bool isSet);
+	bool GetOption(Ipponboard::EOption option) const;
+	QString GetHomeLabel() const { return m_labelHome; }
+	QString GetGuestLabel() const { return m_labelGuest; }
+	void SetLabels(QString const& home, QString const& guest);
 
 	void Gong() const;
 
@@ -90,7 +90,7 @@ private:
 	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
-    bool is_option(Ipponboard::EOption option) const { return GetOption(option); } // TODO: use GetOption!
+	bool is_option(Ipponboard::EOption option) const { return GetOption(option); } // TODO: use GetOption!
 
 public:
 	// --- other functions ---
@@ -175,9 +175,9 @@ private:
 	bool m_isGoldenScore;
 	QTime m_roundTime;
 	QString m_weight_class;
-    std::bitset<eOption_MAX> m_options;
-    QString m_labelHome;
-    QString m_labelGuest;
+	std::bitset<eOption_MAX> m_options;
+	QString m_labelHome;
+	QString m_labelGuest;
 };
 
 } // namespace Ipponboard

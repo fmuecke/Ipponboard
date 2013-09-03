@@ -3,7 +3,7 @@
 
 using namespace Ipponboard;
 
-ScoreScreen::ScoreScreen(QWidget* parent) 
+ScoreScreen::ScoreScreen(QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui::ScoreScreen)
 {
