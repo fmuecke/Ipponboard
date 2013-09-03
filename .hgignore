@@ -9,6 +9,8 @@ SingleTournament/*.pdb
 _build/build_output/*
 *.bak
 *.orig
+*build.log
+*/ui_*.h
 base/.buildnr
 base/.date
 base/.revision
