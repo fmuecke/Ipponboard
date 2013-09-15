@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="9">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>18</count>
+	<count>19</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -123,6 +123,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>München</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>Sport-UNION-Witten Annen</value>
+		</c.name>
+		<c.logoFile>
+			<value>C:/dev/bitbucket/SUA-Logo_medium.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
 		</c.address>
 	</item>
 	<item>
