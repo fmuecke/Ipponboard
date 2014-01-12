@@ -13,7 +13,7 @@
 #include <QTextStream>
 
 #include <boost/noncopyable.hpp>
-
+#include <vector>
 
 namespace fmu
 {
