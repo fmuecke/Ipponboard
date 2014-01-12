@@ -34,6 +34,7 @@ CONFIG(debug, release|debug) {
 # Auto select compiler 
 win32-g++: COMPILER = mingw
 win32-msvc2010: COMPILER = msvc
+win32-msvc2012: COMPILER = msvc
 
 contains(COMPILER, mingw) {
 	#QMAKE_CXXFLAGS += -std=c++0x
@@ -49,15 +50,18 @@ contains(COMPILER, mingw) {
 }
 
 contains(COMPILER, msvc) {
-	#QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
-	#QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
-	#QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
+    QMAKE_CXX += /FS
+    DEFINES += "WINVER=0x0501"
+    DEFINES += WIN32 _WIN32_WINNT=0x0501
+    #QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
+    #QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
+    #QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
 
-	# remove unneccessary output files
-	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+    # remove unneccessary output files
+    QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
 
-	# copy all needed files to destdir
-        QMAKE_POST_LINK += & copy_files.cmd
+    # copy all needed files to destdir
+    QMAKE_POST_LINK += & copy_files.cmd
 }
 
 SOURCES = main.cpp \
