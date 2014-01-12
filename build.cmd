@@ -11,22 +11,6 @@
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
-SET LOCAL_CONFIG=cfg.bat
-
-IF EXIST "%LOCAL_CONFIG%" (
-  CALL "%LOCAL_CONFIG%"
-  echo;
-) ELSE (
-  echo @echo off>"%LOCAL_CONFIG%"
-  echo set QTDIR=C:\development\qt\qt-4.8.5-vc12xp\bin>>"%LOCAL_CONFIG%"
-  echo set QMAKESPEC=win32-msvc2012>>"%LOCAL_CONFIG%"
-  echo set BOOST_DIR=c:\development\boost\boost_1_55_0>>"%LOCAL_CONFIG%"
-  ::echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
-  echo Please configure paths in "%LOCAL_CONFIG%" first!
-  pause
-  GOTO :EOF
-)
-
 SET BASE_DIR=%CD%
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
@@ -38,10 +22,6 @@ IF "%VS100COMNTOOLS%"=="" (
 )
 
 cls
-echo Current configuration:
-echo -^> Makespec: %QMAKESPEC%
-echo -^> Qt      : %QTDIR%
-echo -^> boost   : %BOOST_DIR%
 echo;
 echo Select build mode:
 echo   (1) make clean
@@ -66,7 +46,7 @@ GOTO the_end
 	rem del /Q "%BASE_DIR%\base\.buildnr"
 	rd /Q /S "%BASE_DIR%\bin"
 	rd /Q /S "%BASE_DIR%\lib"
-	"%QTDIR%"\qmake -recursive
+	qmake -recursive
 	if errorlevel 1 pause
 
 	jom /S /L clean 1 2>nul
@@ -85,7 +65,7 @@ GOTO :EOF
 :build_incremental
 	echo;
 	echo --[build incremental]--
-	"%QTDIR%"\qmake -recursive
+	qmake -recursive
 	if errorlevel 1 pause
 	::jom /L /S /F Makefile release
 	::if errorlevel 1 pause
