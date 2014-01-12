@@ -11,7 +11,8 @@ DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
-PRECOMPILED_HEADER = ../base/pch.h
+#PRECOMPILED_HEADER = ../base/pch.h
+#disabled due to mingw reasons
 
 INCLUDEPATH += $$quote($$(BOOST_DIR))
 
@@ -36,9 +37,9 @@ win32-msvc2010: COMPILER = msvc
 
 contains(COMPILER, mingw) {
 	QMAKE_CXXFLAGS += -std=c++0x
-	QMAKE_LIBS += -lboost_serialization-mgw46-mt-1_50
-	QMAKE_LIBS += -lboost_system-mgw46-mt-1_50
-	#QMAKE_LIBS += -lboost_filesystem-mgw46-mt-1_50
+	QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
+	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
+	#QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
 
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd

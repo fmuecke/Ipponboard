@@ -19,9 +19,11 @@
 #include "../Widgets/ScaledImage.h"
 #include "../Widgets/ScaledText.h"
 
+#include <QClipboard>
 #include <QColorDialog>
 #include <QComboBox>
 #include <QCompleter>
+#include <QDebug>
 #include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QDir>
@@ -30,10 +32,15 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPrintPreviewDialog>
+#include <QPrinter>
 #include <QSettings>
 #include <QSplashScreen>
+#include <QTableView>
+#include <QTextEdit>
 #include <QTimer>
 #include <QUrl>
+
 #include <functional>
 
 namespace StrTags
@@ -1279,6 +1286,12 @@ void MainWindowTeam::slot_clear_cell_content_list2()
 	clear_cell_content(m_pUi->tableView_tournament_list2);
 }
 
+void MainWindowTeam::Print(QPrinter* p)
+{
+	QTextEdit e(m_htmlScore, this);
+	e.document()->print(p);
+}
+	
 QString MainWindowTeam::get_template_file(QString const& mode) const
 {
 	// TODO: use binary seach as the container is sorted

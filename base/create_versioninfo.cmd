@@ -2,7 +2,7 @@
 :: --> CHANGE VERSION HERE:
 SET VER1=1
 SET VER2=3
-SET VER3=0beta
+SET VER3=0
 IF NOT EXIST ..\base\.buildnr (
 	SET VER4=0
 ) ELSE (

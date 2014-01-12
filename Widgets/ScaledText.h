@@ -14,6 +14,7 @@
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
 class QResizeEvent;
+class QTextLayout;
 QT_END_NAMESPACE
 
 class ScaledText : public QWidget

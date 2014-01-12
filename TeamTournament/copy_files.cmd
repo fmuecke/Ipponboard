@@ -19,7 +19,7 @@ copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 REM -- binaries
 IF "%QMAKESPEC%"=="win32-g++" (
-	copy /Y "%THIRDPARTY%\Qt\4.8.2-mingw\*.dll" "%DEST%">nul
+	copy /Y "%THIRDPARTY%\Qt\4.8.4-mingw\*.dll" "%DEST%">nul
 ) ELSE (
 	copy /Y "%THIRDPARTY%\Qt\4.8.3-vc100\*.dll" "%DEST%">nul
 	copy /Y "%THIRDPARTY%\msvc100\*.dll" "%DEST%">nul

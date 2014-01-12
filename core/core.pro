@@ -5,7 +5,8 @@ DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
-PRECOMPILED_HEADER = ../base/pch.h
+#PRECOMPILED_HEADER = ../base/pch.h
+#disabled due to mingw reasons
 
 INCLUDEPATH += $$quote($$(BOOST_DIR))
 
