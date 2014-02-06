@@ -13,7 +13,7 @@
 
 int DelayUser()
 {
-	Countdown dlg(15);
+	Countdown dlg(7);
 	return dlg.exec();
 }
 
