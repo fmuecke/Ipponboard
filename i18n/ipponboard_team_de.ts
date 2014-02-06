@@ -2202,8 +2202,8 @@ Please visit the project webpage - there should be a newer one available.</sourc
     </message>
     <message utf8="true">
         <location filename="../widgets/SplashScreen.ui" line="165"/>
-        <source>(c) 2010-2013 Florian Mücke</source>
-        <translation>(c) 2010-2013 Florian Mücke</translation>
+        <source>(c) 2010-2014 Florian Mücke</source>
+        <translation>(c) 2010-2014 Florian Mücke</translation>
     </message>
     <message>
         <location filename="../widgets/SplashScreen.ui" line="200"/>

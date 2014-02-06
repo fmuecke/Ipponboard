@@ -622,7 +622,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
-							  ", &copy; " + QApplication::organizationName() + ", 2010-2013";
+							  ", &copy; " + QApplication::organizationName() + ", 2010-2014";
 	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 

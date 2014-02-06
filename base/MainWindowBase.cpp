@@ -1,4 +1,4 @@
-﻿// Copyright 2010-2013 Florian Muecke. All rights reserved.
+﻿// Copyright 2010-2014 Florian Muecke. All rights reserved.
 // http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
