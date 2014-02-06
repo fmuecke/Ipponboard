@@ -1558,17 +1558,7 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
 {
 	m_mode = s;
 
-	if (s == str_mode_1te_bundesliga_nord_f ||
-			s == str_mode_1te_bundesliga_sued_f ||
-			s == str_mode_1te_bundesliga_nord_m ||
-			s == str_mode_1te_bundesliga_sued_m)
-	{
-		m_pController->SetOption(eOption_Use2013Rules, true);
-	}
-	else
-	{
-		m_pController->SetOption(eOption_Use2013Rules, false);
-	}
+	m_pController->SetOption(eOption_Use2013Rules, true);
 
 	if (s == str_mode_1te_bundesliga_nord_m ||
 			s == str_mode_1te_bundesliga_sued_m ||
