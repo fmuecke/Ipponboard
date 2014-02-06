@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2013, 12, 31);
+	splashData.date = QDate(2015, 01, 31);
 	SplashScreen splash(splashData);
 	splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
 	splash.resize(480, 410);

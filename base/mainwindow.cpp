@@ -1088,7 +1088,7 @@ void MainWindow::WriteScoreToHtml_()
 
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
-							  ", &copy; " + QApplication::organizationName() + ", 2010-2013";
+							  ", &copy; " + QApplication::organizationName() + ", 2010-2014";
 	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 #endif
@@ -1104,7 +1104,7 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
 		tr("<h3>%1 v%2</h3>"
 		   "<p>Revision: %3</p>"
 		   "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-		   "<p>&copy; 2010-2013 Florian M&uuml;cke. All rights reserved.</p>"
+		   "<p>&copy; 2010-2014 Florian M&uuml;cke. All rights reserved.</p>"
 		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 		   "PARTICULAR PURPOSE.<br/>"
