@@ -1,13 +1,15 @@
 @echo off
+call ..\env_cfg.bat
+
 REM -- language file
 SET DEST=..\bin
 SET THIRDPARTY=..\..\3rdParty
 
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
-lrelease -compress -silent ..\i18n\core_de.ts -qm ..\i18n\core_de.qm
-lrelease -compress -silent ..\i18n\Ipponboard_team_de.ts -qm ..\i18n\Ipponboard_team_de.qm
-lrelease -compress -silent ..\i18n\VersionSelector_de.ts -qm ..\i18n\VersionSelector_de.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\core_de.ts -qm ..\i18n\core_de.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\Ipponboard_team_de.ts -qm ..\i18n\Ipponboard_team_de.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\VersionSelector_de.ts -qm ..\i18n\VersionSelector_de.qm
 copy /Y "..\i18n\core_de.qm" "%DEST%\lang">nul
 copy /Y "..\i18n\Ipponboard_team_de.qm" "%DEST%\lang">nul
 copy /Y "..\i18n\VersionSelector_de.qm" "%DEST%\lang">nul
@@ -18,8 +20,8 @@ copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 REM -- binaries
-copy /Y "%THIRDPARTY%\qt\4.8.3-vc100\*.dll" "%DEST%">nul
-copy /Y "%THIRDPARTY%\msvc100\*.dll" "%DEST%">nul
+copy /Y "%THIRDPARTY%\qt\4.8.5-vc120xp\*.dll" "%DEST%">nul
+copy /Y "%THIRDPARTY%\msvc120\*.dll" "%DEST%">nul
 
 REM -- doc
 rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul

@@ -11,19 +11,53 @@
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
+SET LOCAL_CONFIG=env_cfg.bat
+
+IF EXIST "%LOCAL_CONFIG%" (
+  CALL "%LOCAL_CONFIG%"
+  echo;
+) ELSE (
+  echo @echo off>"%LOCAL_CONFIG%"
+  echo set QTDIR=c:\development\qt\qt-4.8.5-vc12xp\bin>>"%LOCAL_CONFIG%"
+  echo set QMAKESPEC=win32-msvc2012>>"%LOCAL_CONFIG%"
+  echo set BOOST_DIR=c:\development\boost\boost_1_55_0>>"%LOCAL_CONFIG%"
+  rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
+  echo Please configure paths in "%LOCAL_CONFIG%" first!
+  pause
+  GOTO :EOF
+)
+
 SET BASE_DIR=%CD%
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
-IF "%VS100COMNTOOLS%"=="" (
-  CALL "%VS90COMNTOOLS%..\..\vc\vcvarsall.bat" x86
-) ELSE (
-  CALL "%VS100COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+IF "%QMAKESPEC%"=="win32-msvc2012" (
+	CALL "%VS120COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+)
+
+IF NOT EXIST "%BOOST_DIR%\boost" (
+	ECHO Can't find boost. Please set "BOOST" to boost path.
+	pause
+	GOTO :EOF
+)
+
+IF NOT EXIST "%QTDIR%\qmake.exe" (
+	ECHO Can't find qmake.exe. Please specify "QTDIR".
+	pause
+	GOTO :EOF
 )
 
 cls
 echo;
+echo Current config:
+echo;
+echo   QMAKESPEC : %QMAKESPEC%
+echo   QTDIR     : %QTDIR%
+echo   BOOST_DIR : %BOOST_DIR%
+echo;
+echo;
 echo Select build mode:
+echo;
 echo   (1) make clean
 echo   (2) clean build
 echo   (3) incremental build
@@ -46,11 +80,11 @@ GOTO the_end
 	rem del /Q "%BASE_DIR%\base\.buildnr"
 	rd /Q /S "%BASE_DIR%\bin"
 	rd /Q /S "%BASE_DIR%\lib"
-	qmake -recursive
+	"%QTDIR%"\qmake -recursive
 	if errorlevel 1 pause
 
-	jom /S /L clean 1 2>nul
-	rem if errorlevel 1 pause
+	jom /S /L clean>nul 
+	if errorlevel 1 pause
 	if not "%1"=="internal" pause
 GOTO :EOF
 
@@ -65,7 +99,7 @@ GOTO :EOF
 :build_incremental
 	echo;
 	echo --[build incremental]--
-	qmake -recursive
+	"%QTDIR%"\qmake -recursive
 	if errorlevel 1 pause
 	::jom /L /S /F Makefile release
 	::if errorlevel 1 pause
@@ -74,7 +108,7 @@ GOTO :EOF
 	CALL :do_compile SingleTournament
 	CALL :do_compile TeamTournament
 	::CALL :do_compile VersionSelector
-	CALL :do_compile GamePadDemo
+	CALL :do_compile GamepadDemo
 	if not "%1"=="internal" pause
 GOTO :EOF
 
@@ -107,9 +141,9 @@ GOTO :EOF
 
 :do_compile
 	echo;
-	echo -- compiling %1
+	echo -- Compiling %1
 	pushd %1
-	jom /L /S /F Makefile.Release 1>build.log
+	jom /L /S /F Makefile.Release
 	if errorlevel 1 pause
 	popd
 GOTO :EOF

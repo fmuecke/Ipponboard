@@ -1,2 +1,4 @@
 @echo off
-qmake -tp vc
+call ..\env_cfg.bat
+
+"%QTDIR%\qmake" -tp vc

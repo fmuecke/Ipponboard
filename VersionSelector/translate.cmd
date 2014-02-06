@@ -1,6 +1,8 @@
 @echo off
-lupdate -verbose VersionSelector.pro
+call ..\env_cfg.bat
+
+"%QTDIR%\lupdate" -verbose VersionSelector.pro
 pause
-linguist ..\i18n\VersionSelector_de.ts
-lrelease -compress ..\i18n\VersionSelector_de.ts -qm ..\i18n\VersionSelector_de.qm
+"%QTDIR%\linguist" ..\i18n\VersionSelector_de.ts
+"%QTDIR%\lrelease" -compress ..\i18n\VersionSelector_de.ts -qm ..\i18n\VersionSelector_de.qm
 pause

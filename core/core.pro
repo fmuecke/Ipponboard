@@ -31,13 +31,18 @@ build_pass:CONFIG(debug, debug|release) {
 }
 
 win32-g++: COMPILER = mingw
+win32-msvc2012: COMPILER = msvc
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
-	# get rid of some nasty boost warnings
-	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+    # get rid of some nasty boost warnings
+    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
     #QMAKE_CXXFLAGS += -std=c++0x
 }
-
+contains(COMPILER, msvc) {
+    QMAKE_CXX += /FS
+    DEFINES += "WINVER=0x0501"
+    DEFINES += WIN32 _WIN32_WINNT=0x0501
+}
 
 HEADERS = ../base/pch.h \
     ../util/path_helpers.h \
