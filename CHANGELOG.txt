@@ -1,3 +1,8 @@
+Version 1.2.2
+- (mod): all leagues use the 2013 IJF rules per default
+- (mod): reduced expiration countdown time to 7 seconds (from 15)
+- (fix): updated to Qt 4.8.5 and VC12, still supporting Windows XP
+
 Version 1.2.1
 - (mod): all primer leagues use IJF rules of 2013 per default all others don't
 - (fix): single shidos did lead to a wrong result in the score and subscore (2013 rules only, issue #27)

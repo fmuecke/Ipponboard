@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!DOCTYPE boost_serialization>
-<boost_serialization signature="serialization::archive" version="9">
+<boost_serialization signature="serialization::archive" version="10">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>19</count>
+	<count>21</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -35,6 +35,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Ettlingen</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Freising 1964</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_freising.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
 		</c.address>
 	</item>
 	<item>
@@ -131,6 +142,17 @@
 		</c.name>
 		<c.logoFile>
 			<value>clubs/su_annen.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TG Höchberg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs\tg_hoechberg.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
