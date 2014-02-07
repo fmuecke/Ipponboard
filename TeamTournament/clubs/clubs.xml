@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!DOCTYPE boost_serialization>
-<boost_serialization signature="serialization::archive" version="9">
+<boost_serialization signature="serialization::archive" version="10">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>25</count>
+	<count>27</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
 			<value>1. SC Gröbenzell</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\sc_groebenzell.png</value>
+			<value>clubs/sc_groebenzell.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
@@ -46,6 +46,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Ettlingen</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Freising 1964</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_freising.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
 		</c.address>
 	</item>
 	<item>
@@ -174,7 +185,18 @@
 			<value>TG Höchberg</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\tg_hoechberg.png</value>
+			<value>clubs/tg_hoechberg.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TG Höchberg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tg_hoechberg.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
@@ -207,7 +229,7 @@
 			<value>TSV Altenfurt</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\tsv_altenfurt.png</value>
+			<value>clubs/tsv_altenfurt.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
@@ -232,7 +254,7 @@
 			<value>clubs/koenigsbrunn.png</value>
 		</c.logoFile>
 		<c.address>
-			<value>FuggerstraßŸe 38, 86343 Königsbrunn</value>
+			<value>Fuggerstraße 38, 86343 Königsbrunn</value>
 		</c.address>
 	</item>
 	<item>
