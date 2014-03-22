@@ -120,9 +120,17 @@ void MainWindowTeam::Init()
 	if (-1 == modeIndex)
 	{
 		modeIndex = 0;
-	}
+    }
 
-	m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+    if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
+    {
+        m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+    }
+    else
+    {
+        // be sure to trigger
+        on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentText());
+    }
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -779,6 +787,10 @@ void MainWindowTeam::on_button_next_clicked()
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 {
 	m_mode = s;
+
+    // FIXME2014: use this???
+    //m_pController->SetOption(eOption_Use2013Rules, true);
+
 
 	// TODO: use binary seach as the container is sorted
 	auto iter = std::find_if(begin(m_modes), end(m_modes),

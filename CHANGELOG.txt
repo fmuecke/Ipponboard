@@ -12,6 +12,15 @@ Version 1.3.beta
 - (new): redesigned some parts of the UI
 	- re-worked visualization of saved fights
 
+Version 1.2.2
+- (mod): all leagues use the 2013 IJF rules per default
+- (mod): reduced expiration countdown time to 7 seconds (from 15)
+- (fix): updated to Qt 4.8.5 and VC12, still supporting Windows XP
+	
+Version 1.2.1
+- (mod): all primer leagues use IJF rules of 2013 per default all others don't
+- (fix): single shidos did lead to a wrong result in the score and subscore (2013 rules only, issue #27)
+	
 Version 1.2
 - (new): implemented new IJF rules of 2013
     - Penalties(1): Shidos do not give points to the other fighter (except forth Shido = Hasokumake). At the end of the fight, if scoring is equal, the one with less Shido wins. (issue #18)
