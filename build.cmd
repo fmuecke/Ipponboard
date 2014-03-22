@@ -1,7 +1,7 @@
 ::---------------------------------------------------------
 :: Ipponboard build script
 ::
-:: Copyright 2010-2013 Florian Muecke. All rights reserved.
+:: Copyright 2010-2014 Florian Muecke. All rights reserved.
 :: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 ::
 :: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -11,7 +11,7 @@
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
-SET LOCAL_CONFIG=cfg.bat
+SET LOCAL_CONFIG=env_cfg.bat
 
 IF EXIST "%LOCAL_CONFIG%" (
   CALL "%LOCAL_CONFIG%"
@@ -21,7 +21,7 @@ IF EXIST "%LOCAL_CONFIG%" (
   echo set QTDIR=c:\development\qt\qt-4.8.5-vc12xp\bin>>"%LOCAL_CONFIG%"
   echo set QMAKESPEC=win32-msvc2012>>"%LOCAL_CONFIG%"
   echo set BOOST_DIR=c:\development\boost\boost_1_55_0>>"%LOCAL_CONFIG%"
-  ::echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
+  rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
   echo Please configure paths in "%LOCAL_CONFIG%" first!
   pause
   GOTO :EOF
@@ -31,16 +31,8 @@ SET BASE_DIR=%CD%
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
-IF NOT "%MINGW%"=="" (
-	SET QMAKESPEC=win32-g++
-) ELSE (
-	IF "%VS100COMNTOOLS%"=="" (
-	  CALL "%VS90COMNTOOLS%..\..\vc\vcvarsall.bat" x86
-	  SET QMAKESPEC=win32-msvc2008
-	) ELSE (
-	  CALL "%VS100COMNTOOLS%..\..\vc\vcvarsall.bat" x86
-	  SET QMAKESPEC=win32-msvc2010
-	)
+IF "%QMAKESPEC%"=="win32-msvc2012" (
+	CALL "%VS120COMNTOOLS%..\..\vc\vcvarsall.bat" x86
 )
 
 IF NOT EXIST "%BOOST_DIR%\boost" (

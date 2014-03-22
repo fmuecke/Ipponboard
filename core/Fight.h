@@ -34,6 +34,7 @@ private:
 		eScore_Wazaari = 7,
 		eScore_Yuko = 5,
 		eScore_Hantai = 1,
+		eScore_Shido = 1,
 		eScore_Hikewake = 0,
 		eScore_Lost = 0
 	};
@@ -47,6 +48,8 @@ public:
 	int time_in_seconds;
 	int max_time_in_seconds;
 	bool is_saved;
+    RuleSet ruleSet;
+
     bool allSubscoresCount; // option (first of many ;-)
 
     QString GetTimeFaught() const;

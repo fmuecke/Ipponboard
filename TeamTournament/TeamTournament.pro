@@ -35,12 +35,19 @@ CONFIG(debug, release|debug) {
 # Auto select compiler
 win32-g++: COMPILER = mingw
 win32-msvc2010: COMPILER = msvc
+win32-msvc2012: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-    QMAKE_CXXFLAGS += -std=c++0x
+    QMAKE_CXXFLAGS += -std=c++11
+	# get rid of some nasty boost warnings
+	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+	#QMAKE_CXXFLAGS += -std=c++0x
     QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
+
+
+
 
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd
@@ -48,11 +55,14 @@ contains(COMPILER, mingw) {
 
 
 contains(COMPILER, msvc) {
-        # remove unneccessary output files
-	QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
-
-	# copy all needed files to destdir
-        QMAKE_POST_LINK += & copy_files.cmd
+    QMAKE_CXX += /FS
+    DEFINES += "WINVER=0x0501"
+    DEFINES += WIN32 _WIN32_WINNT=0x0501
+	
+    # remove unneccessary output files
+    QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+    # copy all needed files to destdir
+    QMAKE_POST_LINK += & copy_files.cmd
 }
 
 HEADERS = MainWindowTeam.h \

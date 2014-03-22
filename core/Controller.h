@@ -98,7 +98,7 @@ private:
 	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
-	bool is_option(Ipponboard::EOption option) const { return GetOption(option); }
+	bool is_option(Ipponboard::EOption option) const { return GetOption(option); } // TODO: use GetOption!
 
 public:
 	// --- other functions ---

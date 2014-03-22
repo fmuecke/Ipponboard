@@ -14,6 +14,7 @@ Fight::Fight()
     , time_in_seconds(0)
     , max_time_in_seconds(0)
     , is_saved(false)
+	, ruleSet(eClassicRules)
     , allSubscoresCount(false)
 {
     scores[0] = Score();
@@ -53,63 +54,51 @@ QString Fight::GetTimeRemaining() const
 
 bool Fight::HasWon(EFighter who) const
 {
-    const EFighter tori = who;
-    const EFighter uke = (tori == eFighter1) ?
-                         eFighter2 : eFighter1;
-
-    if (scores[tori].Ippon() || scores[tori].IsAwaseteIppon())
-        return true;
-
-    if (scores[uke].Ippon() || scores[uke].IsAwaseteIppon())
-        return false;
-
-    if (scores[tori].Wazaari() > scores[uke].Wazaari())
-        return true;
-
-    if (scores[tori].Wazaari() < scores[uke].Wazaari())
-        return false;
-
-    if (scores[tori].Yuko() > scores[uke].Yuko())
-        return true;
-
-    return false;
+	const EFighter other = GetUkeFromTori(who);
+	return scores[other].IsLess(scores[who], ruleSet);
 }
 
 int Fight::ScorePoints(EFighter who) const
 {
-    const EFighter tori = who;
-    const EFighter uke = (tori == eFighter1) ?
-                         eFighter2 : eFighter1;
+    const EFighter other = GetUkeFromTori(who);
 
-    if (HasWon(tori))
+    if (HasWon(who))
     {
-        if (scores[tori].Ippon() || scores[tori].IsAwaseteIppon())
+        if (scores[who].Ippon() || scores[who].IsAwaseteIppon())
             return eScore_Ippon;
 
         // Only the fight deciding point is taken into account!
-        if (scores[tori].Wazaari() > 0 &&
-                scores[tori].Wazaari() > scores[uke].Wazaari())
-            return eScore_Wazaari;
+        if (scores[who].Wazaari() > 0 && scores[who].Wazaari() > scores[other].Wazaari())
+        {
+			return eScore_Wazaari;
+		}
 
-        if (scores[tori].Yuko() > 0)
+        if (scores[who].Yuko() > 0)
+		{
             return eScore_Yuko;
+		}
 
+		if (e2013RuleSet == ruleSet
+				&& scores[who].Shido() < scores[other].Shido())
+		{
+			return eScore_Shido;
+		}		
         //TODO: Hantei!
     }
     else
     {
-        if (!HasWon(uke))
+        if (!HasWon(other))
         {
             return eScore_Hikewake;
         }
         else if (allSubscoresCount)
         {
             // Special rule for Jugendliga
-            if (scores[tori].Wazaari() > scores[uke].Wazaari())
+            if (scores[who].Wazaari() > scores[other].Wazaari())
             {
                 return eScore_Wazaari;
             }
-            else if(scores[tori].Yuko() > scores[uke].Yuko())
+            else if(scores[who].Yuko() > scores[other].Yuko())
             {
                 return eScore_Yuko;
             }

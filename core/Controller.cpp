@@ -267,8 +267,10 @@ void Controller::DoAction(EAction action, EFighter whos, bool doRevoke)
 		//       scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
 		{
-			if (get_score(eFighter1) < get_score(eFighter2) ||
-					get_score(eFighter2) < get_score(eFighter1))
+            RuleSet ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
+
+            if (get_score(eFighter1).IsLess(get_score(eFighter2), ruleSet) ||
+                    get_score(eFighter2).IsLess(get_score(eFighter1), ruleSet))
 			{
 				m_pSM->process_event(IpponboardSM_::Hajime_Mate());
 			}
@@ -614,6 +616,19 @@ void Controller::SetOption(EOption option, bool isSet)
 //=========================================================
 {
 	m_options.set(option, isSet);
+
+    // unfortunately some options need to be propagated further
+    if (eOption_Use2013Rules == option)
+    {
+        RuleSet ruleSet = isSet ? e2013RuleSet : eClassicRules;
+		for (auto pRound : m_Tournament)
+		{
+			for (auto fight : *pRound)
+			{
+				fight.ruleSet = ruleSet;
+			}
+		}
+    }
 }
 
 //=========================================================
@@ -697,6 +712,7 @@ void Controller::reset_fight()
 	Fight& fight = m_Tournament[m_currentRound]->at(m_currentFight);
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
+    fight.ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
 
 	update_views();
 }
@@ -894,6 +910,7 @@ void Controller::SetFight(
 	fight.fighters[Ipponboard::eFighter1].name = first_player_name;
 	fight.fighters[Ipponboard::eFighter1].club = first_player_club;
 	fight.scores[Ipponboard::eFighter1].Clear();
+    fight.ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
 
 	while (yuko1 != -1 && yuko1 > 0)
 	{

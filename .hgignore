@@ -54,3 +54,6 @@ VersionSelector/debug/*
 GamepadDemo/ui_gamepaddemo.h
 ui*.h
 *.pro.user
+test\Makefile.Debug
+test\Makefile.Release
+ipch/

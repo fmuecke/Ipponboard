@@ -8,10 +8,9 @@ namespace Ipponboard
 {
 enum EPoint
 {
-	ePoint_NONE,
-	ePoint_Yuko,
+	ePoint_Ippon = 0,
 	ePoint_Wazaari,
-	ePoint_Ippon,
+	ePoint_Yuko,
 	ePoint_Shido,
 	ePoint_Hansokumake,
 	ePoint_MAX
@@ -89,6 +88,12 @@ enum EOption
 	eOption_Use2013Rules = 1,
     eOption_AllSubscoresCount = 2,
 	eOption_MAX
+};
+
+enum RuleSet
+{
+    eClassicRules,
+    e2013RuleSet
 };
 
 }

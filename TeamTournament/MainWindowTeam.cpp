@@ -530,7 +530,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
 	{
-		const Fight& fight(m_pController->GetFight(0, fightNo));
+		const Fight& fight = m_pController->GetFight(0, fightNo);
 		pHelperFight = &fight;
 
 		QString name_first(fight.fighters[eFighter1].name);
@@ -574,7 +574,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 	{
 		for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
 		{
-			const Fight& fight(m_pController->GetFight(roundNo, fightNo));
+			const Fight& fight = m_pController->GetFight(roundNo, fightNo);
 			pHelperFight = &fight;
 
 			QString name_first(fight.fighters[eFighter1].name);
