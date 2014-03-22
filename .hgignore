@@ -53,3 +53,9 @@ VersionSelector/release/*
 VersionSelector/Makefile.Release
 VersionSelector/Makefile.Debug
 VersionSelector/debug/*
+env_cfg.bat
+*.sln
+*.vcxproj
+*.filters
+TeamTournament\IpponboardT.ini
+base\pch.h.cpp
