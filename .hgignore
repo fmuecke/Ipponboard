@@ -57,3 +57,9 @@ ui*.h
 test\Makefile.Debug
 test\Makefile.Release
 ipch/
+env_cfg.bat
+*.sln
+*.vcxproj
+*.filters
+TeamTournament\IpponboardT.ini
+base\pch.h.cpp
