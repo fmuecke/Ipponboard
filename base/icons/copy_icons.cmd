@@ -64,8 +64,10 @@ copy %SOURCE%\arrows\arrow-270-medium.png %DEST%\arrow_down.png
 copy %SOURCE%\arrows\arrow-090-medium.png %DEST%\arrow_up.png
 copy %SOURCE%\symbols\information-frame.png %DEST%\about.png
 copy %SOURCE%\media\joystick.png %DEST%\controller.png
-copy %SOURCE%\tag-label.png %DEST%\fighter_blue.png
-copy %SOURCE%\tag.png %DEST%\fighter_white.png
+::copy %SOURCE%\tag-label.png %DEST%\fighter_blue.png
+::copy %SOURCE%\tag.png %DEST%\fighter_white.png
+copy %SOURCE%\people\user.png %DEST%\fighter_blue.png
+copy %SOURCE%\people\user-white.png %DEST%\fighter_white.png
 copy %SOURCE%\keyboard.png %DEST%\keyboard.png
 copy %SOURCE%\document\document-pdf.png %DEST%\pdf.png
 copy %SOURCE%\application\application-list.png %DEST%\list.png
