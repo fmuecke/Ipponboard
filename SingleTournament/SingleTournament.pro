@@ -64,7 +64,7 @@ contains(COMPILER, msvc) {
     QMAKE_POST_LINK += & copy_files.cmd
 }
 
-SOURCES = main.cpp \
+SOURCES = Main.cpp \
     ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
     ../base/mainwindow.cpp \
@@ -111,7 +111,7 @@ HEADERS = ../base/pch.h \
     #../base/fightcategory.h
 
 FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
+    MainWindow.ui \
     view_vertical_single.ui \
     ../base/settingsdlg.ui \
     ../base/view_horizontal.ui \
