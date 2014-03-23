@@ -1,22 +1,22 @@
-#include "mainwindow.h"
+#include "MainWindowBase.h"
 #include "ui_mainwindow.h"
-#include "clubmanagerdlg.h"
-#include "fightcategorymanagerdlg.h"
-#include "view.h"
-#include "../core/controller.h"
-#include "clubmanager.h"
-#include "fightcategorymanager.h"
+#include "ClubManagerDlg.h"
+#include "FightCategoryManagerDlg.h"
+#include "View.h"
+#include "../core/Controller.h"
+#include "ClubManager.h"
+#include "FightCategoryManager.h"
 #include "../base/versioninfo.h"
-#include "../core/tournamentmodel.h"
-#include "../widgets/scaledimage.h"
-#include "../widgets/scaledtext.h"
+#include "../core/TournamentModel.h"
+#include "../Widgets/ScaledImage.h"
+#include "../Widgets/ScaledText.h"
 #ifdef TEAM_VIEW
-#include "scorescreen.h"
-#include "../core/tournament.h"
+#include "ScoreScreen.h"
+#include "../core/Tournament.h"
 #endif
 #include "../gamepad/gamepad.h"
-#include "../core/controlconfig.h"
-#include "../base/settingsdlg.h"
+#include "../core/ControllerConfig.h"
+#include "../base/SettingsDlg.h"
 #include "../util/path_helpers.h"
 #include "../util/helpers.hpp"
 #include <QComboBox>
@@ -43,7 +43,7 @@ using namespace FMlib;
 using namespace Ipponboard;
 
 //=========================================================
-MainWindow::MainWindow(QWidget* parent)
+MainWindowBase::MainWindowBase(QWidget* parent)
 	: QMainWindow(parent)
 	, m_pUi(new Ui::MainWindow)
 	, m_pPrimaryView(nullptr)
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget* parent)
 	, m_secondScreenSize()
 	, m_Language("en")
 	, m_weights()
-	, m_controlCfg()
+	, m_controllerCfg()
 //=========================================================
 {
 	m_pUi->setupUi(this);
@@ -230,7 +230,7 @@ MainWindow::MainWindow(QWidget* parent)
 }
 
 //=========================================================
-MainWindow::~MainWindow()
+MainWindowBase::~MainWindowBase()
 //=========================================================
 {
 	delete m_pSecondaryView;
@@ -246,7 +246,7 @@ MainWindow::~MainWindow()
 }
 
 //=========================================================
-void MainWindow::changeEvent(QEvent* e)
+void MainWindowBase::changeEvent(QEvent* e)
 //=========================================================
 {
 	QMainWindow::changeEvent(e);
@@ -263,7 +263,7 @@ void MainWindow::changeEvent(QEvent* e)
 }
 
 //=========================================================
-void MainWindow::closeEvent(QCloseEvent* event)
+void MainWindowBase::closeEvent(QCloseEvent* event)
 //=========================================================
 {
 	write_settings();
@@ -286,7 +286,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 }
 
 //=========================================================
-void MainWindow::keyPressEvent(QKeyEvent* event)
+void MainWindowBase::keyPressEvent(QKeyEvent* event)
 //=========================================================
 {
 	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
@@ -520,7 +520,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 }
 
 //=========================================================
-void MainWindow::write_settings()
+void MainWindowBase::write_settings()
 //=========================================================
 {
 	QString iniFile(
@@ -573,22 +573,22 @@ void MainWindow::write_settings()
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Input);
-	settings.setValue(str_tag_buttonHajimeMate, m_controlCfg.button_hajime_mate);
-	settings.setValue(str_tag_buttonNext, m_controlCfg.button_next);
-	settings.setValue(str_tag_buttonPrev, m_controlCfg.button_prev);
-	settings.setValue(str_tag_buttonPause, m_controlCfg.button_pause);
-	settings.setValue(str_tag_buttonReset, m_controlCfg.button_reset);
-	settings.setValue(str_tag_buttonReset2, m_controlCfg.button_reset_2);
-	settings.setValue(str_tag_buttonResetHoldFirst, m_controlCfg.button_reset_hold_first);
-	settings.setValue(str_tag_buttonResetHoldSecond, m_controlCfg.button_reset_hold_second);
-	settings.setValue(str_tag_buttonFirstHolding, m_controlCfg.button_osaekomi_toketa_first);
-	settings.setValue(str_tag_buttonSecondHolding, m_controlCfg.button_osaekomi_toketa_second);
-	settings.setValue(str_tag_buttonHansokumakeFirst, m_controlCfg.button_hansokumake_first);
-	settings.setValue(str_tag_buttonHansokumakeSecond, m_controlCfg.button_hansokumake_second);
-	settings.setValue(str_tag_invertX, m_controlCfg.axis_inverted_X);
-	settings.setValue(str_tag_invertY, m_controlCfg.axis_inverted_Y);
-	settings.setValue(str_tag_invertR, m_controlCfg.axis_inverted_R);
-	settings.setValue(str_tag_invertZ, m_controlCfg.axis_inverted_Z);
+	settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
+	settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
+	settings.setValue(str_tag_buttonPrev, m_controllerCfg.button_prev);
+	settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
+	settings.setValue(str_tag_buttonReset, m_controllerCfg.button_reset);
+	settings.setValue(str_tag_buttonReset2, m_controllerCfg.button_reset_2);
+	settings.setValue(str_tag_buttonResetHoldFirst, m_controllerCfg.button_reset_hold_first);
+	settings.setValue(str_tag_buttonResetHoldSecond, m_controllerCfg.button_reset_hold_second);
+	settings.setValue(str_tag_buttonFirstHolding, m_controllerCfg.button_osaekomi_toketa_first);
+	settings.setValue(str_tag_buttonSecondHolding, m_controllerCfg.button_osaekomi_toketa_second);
+	settings.setValue(str_tag_buttonHansokumakeFirst, m_controllerCfg.button_hansokumake_first);
+	settings.setValue(str_tag_buttonHansokumakeSecond, m_controllerCfg.button_hansokumake_second);
+	settings.setValue(str_tag_invertX, m_controllerCfg.axis_inverted_X);
+	settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
+	settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
+	settings.setValue(str_tag_invertZ, m_controllerCfg.axis_inverted_Z);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
@@ -597,7 +597,7 @@ void MainWindow::write_settings()
 }
 
 //=========================================================
-void MainWindow::read_settings()
+void MainWindowBase::read_settings()
 //=========================================================
 {
 	QString iniFile(
@@ -607,7 +607,7 @@ void MainWindow::read_settings()
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 
 	//
-	// MainWindow
+	// MainWindowBase
 	//
 	settings.beginGroup(str_tag_Main);
 
@@ -728,51 +728,51 @@ void MainWindow::read_settings()
 
 	settings.beginGroup(str_tag_Input);
 
-	m_controlCfg.button_hajime_mate =
+	m_controllerCfg.button_hajime_mate =
 		settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
 
-	m_controlCfg.button_next =
+	m_controllerCfg.button_next =
 		settings.value(str_tag_buttonNext, Gamepad::eButton10).toInt();
 
-	m_controlCfg.button_prev =
+	m_controllerCfg.button_prev =
 		settings.value(str_tag_buttonPrev, Gamepad::eButton9).toInt();
 
-	m_controlCfg.button_pause =
+	m_controllerCfg.button_pause =
 		settings.value(str_tag_buttonPause, Gamepad::eButton2).toInt();
 
-	m_controlCfg.button_reset =
+	m_controllerCfg.button_reset =
 		settings.value(str_tag_buttonReset, Gamepad::eButton1).toInt();
 
-	m_controlCfg.button_reset_2 =
+	m_controllerCfg.button_reset_2 =
 		settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
 
-	m_controlCfg.button_reset_hold_first =
+	m_controllerCfg.button_reset_hold_first =
 		settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
 
-	m_controlCfg.button_reset_hold_second =
+	m_controllerCfg.button_reset_hold_second =
 		settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
 
-	m_controlCfg.button_osaekomi_toketa_first =
+	m_controllerCfg.button_osaekomi_toketa_first =
 		settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
 
-	m_controlCfg.button_osaekomi_toketa_second =
+	m_controllerCfg.button_osaekomi_toketa_second =
 		settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
 
-	m_controlCfg.button_hansokumake_first =
+	m_controllerCfg.button_hansokumake_first =
 		settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
 
-	m_controlCfg.button_hansokumake_second =
+	m_controllerCfg.button_hansokumake_second =
 		settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
 
-	m_controlCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
-	m_controlCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
-	m_controlCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
-	m_controlCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
+	m_controllerCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
+	m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
+	m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
+	m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
 	// apply settings to gamepad controller
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controlCfg.axis_inverted_X);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controlCfg.axis_inverted_Y);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R);
-	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z);
+	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
+	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
+	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
+	m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
@@ -789,7 +789,7 @@ void MainWindow::read_settings()
 }
 
 //=========================================================
-void MainWindow::update_info_text_color(const QColor& color, const QColor& bgColor)
+void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetInfoTextColor(color, bgColor);
@@ -801,7 +801,7 @@ void MainWindow::update_info_text_color(const QColor& color, const QColor& bgCol
 }
 
 //=========================================================
-void MainWindow::update_text_color_first(const QColor& color, const QColor& bgColor)
+void MainWindowBase::update_text_color_first(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetTextColorFirst(color, bgColor);
@@ -812,7 +812,7 @@ void MainWindow::update_text_color_first(const QColor& color, const QColor& bgCo
 }
 
 //=========================================================
-void MainWindow::update_text_color_second(const QColor& color, const QColor& bgColor)
+void MainWindowBase::update_text_color_second(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
 	m_pPrimaryView->SetTextColorSecond(color, bgColor);
@@ -823,7 +823,7 @@ void MainWindow::update_text_color_second(const QColor& color, const QColor& bgC
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void MainWindow::update_fighter_name_font(const QFont& font)
+void MainWindowBase::update_fighter_name_font(const QFont& font)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
 	m_FighterNameFont = font;
@@ -835,7 +835,7 @@ void MainWindow::update_fighter_name_font(const QFont& font)
 }
 
 //=========================================================
-void MainWindow::show_hide_view() const
+void MainWindowBase::show_hide_view() const
 //=========================================================
 {
 	if (m_pSecondaryView->isHidden())
@@ -866,7 +866,7 @@ void MainWindow::show_hide_view() const
 }
 
 //=========================================================
-void MainWindow::update_views()
+void MainWindowBase::update_views()
 //=========================================================
 {
 	m_pPrimaryView->UpdateView();
@@ -879,7 +879,7 @@ void MainWindow::update_views()
 
 #ifdef TEAM_VIEW
 //=========================================================
-void MainWindow::update_club_views()
+void MainWindowBase::update_club_views()
 //=========================================================
 {
 	QString oldHost = m_host;
@@ -913,7 +913,7 @@ void MainWindow::update_club_views()
 }
 
 //=========================================================
-void MainWindow::UpdateFightNumber_()
+void MainWindowBase::UpdateFightNumber_()
 //=========================================================
 {
 	const int currentFight = m_pController->GetCurrentFightIndex() + 1;
@@ -925,7 +925,7 @@ void MainWindow::UpdateFightNumber_()
 }
 
 //=========================================================
-void MainWindow::UpdateScoreScreen_()
+void MainWindowBase::UpdateScoreScreen_()
 //=========================================================
 {
 	const QString home = m_pUi->comboBox_club_home->currentText();
@@ -940,7 +940,7 @@ void MainWindow::UpdateScoreScreen_()
 }
 
 //=========================================================
-void MainWindow::WriteScoreToHtml_()
+void MainWindowBase::WriteScoreToHtml_()
 //=========================================================
 {
 	QString modeText = get_full_mode_title(m_pUi->comboBox_mode->currentText());
@@ -1095,7 +1095,7 @@ void MainWindow::WriteScoreToHtml_()
 
 
 //=========================================================
-void MainWindow::on_actionAbout_Ipponboard_triggered()
+void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 //=========================================================
 {
 	QMessageBox::about(
@@ -1117,14 +1117,14 @@ void MainWindow::on_actionAbout_Ipponboard_triggered()
 }
 
 //=========================================================
-void MainWindow::on_actionTest_Gong_triggered()
+void MainWindowBase::on_actionTest_Gong_triggered()
 //=========================================================
 {
 	m_pController->Gong();
 }
 
 //=========================================================
-void MainWindow::on_actionShow_SecondaryView_triggered()
+void MainWindowBase::on_actionShow_SecondaryView_triggered()
 //=========================================================
 {
 	show_hide_view();
@@ -1132,7 +1132,7 @@ void MainWindow::on_actionShow_SecondaryView_triggered()
 
 
 ////=========================================================
-//void MainWindow::on_actionSelect_Color_triggered()
+//void MainWindowBase::on_actionSelect_Color_triggered()
 ////=========================================================
 //{
 //	QColor color = m_pPrimaryView->GetTextColor();
@@ -1145,7 +1145,7 @@ void MainWindow::on_actionShow_SecondaryView_triggered()
 //}
 //
 ////=========================================================
-//void MainWindow::on_actionChange_Background_triggered()
+//void MainWindowBase::on_actionChange_Background_triggered()
 ////=========================================================
 //{
 //	bool ok;
@@ -1166,7 +1166,7 @@ void MainWindow::on_actionShow_SecondaryView_triggered()
 //}
 
 //=========================================================
-void MainWindow::on_actionReset_Scores_triggered()
+void MainWindowBase::on_actionReset_Scores_triggered()
 //=========================================================
 {
 	if (QMessageBox::warning(
@@ -1183,7 +1183,7 @@ void MainWindow::on_actionReset_Scores_triggered()
 }
 
 //=========================================================
-void MainWindow::on_actionPreferences_triggered()
+void MainWindowBase::on_actionPreferences_triggered()
 //=========================================================
 {
 	SettingsDlg dlg(this);
@@ -1205,7 +1205,7 @@ void MainWindow::on_actionPreferences_triggered()
 	dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
 				 m_pController->GetOption(eOption_Use2013Rules));
 
-	dlg.SetControlConfig(&m_controlCfg);
+	dlg.SetControllerConfig(&m_controllerCfg);
 
 	dlg.SetLabels(m_MatLabel,
 				  m_pController->GetHomeLabel(),
@@ -1231,12 +1231,12 @@ void MainWindow::on_actionPreferences_triggered()
 		m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
 		m_pController->SetOption(eOption_Use2013Rules, dlg.IsUse2013Rules());
 
-		dlg.GetControlConfig(&m_controlCfg);
+		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controlCfg.axis_inverted_X);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controlCfg.axis_inverted_Y);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controlCfg.axis_inverted_R);
-		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controlCfg.axis_inverted_Z);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
+		m_pGamePad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 
 
 		m_MatLabel = dlg.GetMatLabel();
@@ -1257,7 +1257,7 @@ void MainWindow::on_actionPreferences_triggered()
 }
 
 //=========================================================
-void MainWindow::on_button_reset_clicked()
+void MainWindowBase::on_button_reset_clicked()
 //=========================================================
 {
 //	QMessageBox::StandardButton answer =
@@ -1272,7 +1272,7 @@ void MainWindow::on_button_reset_clicked()
 }
 
 //=========================================================
-void MainWindow::EvaluateInput()
+void MainWindowBase::EvaluateInput()
 //=========================================================
 {
 	if (Gamepad::eState_ok != m_pGamePad->GetState())
@@ -1280,19 +1280,19 @@ void MainWindow::EvaluateInput()
 
 	m_pGamePad->ReadData();
 
-	if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hajime_mate)))
+	if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
 		m_pController->DoAction(eAction_Hajime_Mate, eFighterNobody);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_first)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
 		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter1, true);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_reset_hold_second)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_second)))
 	{
 		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter2, true);
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_first)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
 				eFighter1 != m_pController->GetLead())
@@ -1304,7 +1304,7 @@ void MainWindow::EvaluateInput()
 			m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter1);
 		}
 	}
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_osaekomi_toketa_second)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
 				eFighter2 != m_pController->GetLead())
@@ -1318,22 +1318,22 @@ void MainWindow::EvaluateInput()
 	}
 	// reset
 	else if (
-		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset)) &&
-		m_pGamePad->IsPressed(Gamepad::EButton(m_controlCfg.button_reset_2)))
+		m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
+		m_pGamePad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
 		m_pController->DoAction(eAction_ResetAll, eFighterNobody);
 	}
 
 	// back
 #ifdef TEAM_VIEW
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_prev)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_prev)))
 	{
 		on_button_prev_clicked();
 		// TODO: check: is UpdateViews_(); necessary here?
 		// --> handle update views outside of this function
 	}
 	// next
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_next)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_next)))
 	{
 		on_button_next_clicked();
 		// TODO: check: is UpdateViews_(); necessary here?
@@ -1342,14 +1342,14 @@ void MainWindow::EvaluateInput()
 
 #endif
 	// hansokumake first
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_first)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
 	{
 		const bool revoke(m_pController->GetScore(
 							  eFighter1, ePoint_Hansokumake) != 0);
 		m_pController->DoAction(eAction_Hansokumake, eFighter1, revoke);
 	}
 	// hansokumake second
-	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controlCfg.button_hansokumake_second)))
+	else if (m_pGamePad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
 	{
 		const bool revoke(m_pController->GetScore(
 							  eFighter2, ePoint_Hansokumake) != 0);
@@ -1445,14 +1445,14 @@ void MainWindow::EvaluateInput()
 
 #ifdef TEAM_VIEW
 //=========================================================
-void MainWindow::on_tabWidget_currentChanged(int /*index*/)
+void MainWindowBase::on_tabWidget_currentChanged(int /*index*/)
 //=========================================================
 {
 	update_views();
 }
 
 //=========================================================
-void MainWindow::on_actionManage_Clubs_triggered()
+void MainWindowBase::on_actionManage_Clubs_triggered()
 //=========================================================
 {
 	ClubManagerDlg dlg(m_pClubManager, this);
@@ -1460,7 +1460,7 @@ void MainWindow::on_actionManage_Clubs_triggered()
 }
 
 //=========================================================
-void MainWindow::on_actionLoad_Demo_Data_triggered()
+void MainWindowBase::on_actionLoad_Demo_Data_triggered()
 //=========================================================
 {
 	m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
@@ -1493,7 +1493,7 @@ void MainWindow::on_actionLoad_Demo_Data_triggered()
 }
 
 //=========================================================
-void MainWindow::on_button_pause_clicked()
+void MainWindowBase::on_button_pause_clicked()
 //=========================================================
 {
 	if (m_pScoreScreen->isVisible())
@@ -1529,7 +1529,7 @@ void MainWindow::on_button_pause_clicked()
 }
 
 //=========================================================
-void MainWindow::on_button_prev_clicked()
+void MainWindowBase::on_button_prev_clicked()
 //=========================================================
 {
 	if (0 == m_pController->GetCurrentFightIndex())
@@ -1541,7 +1541,7 @@ void MainWindow::on_button_prev_clicked()
 }
 
 //=========================================================
-void MainWindow::on_button_next_clicked()
+void MainWindowBase::on_button_next_clicked()
 //=========================================================
 {
 	if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
@@ -1553,7 +1553,7 @@ void MainWindow::on_button_next_clicked()
 }
 
 //=========================================================
-void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_mode_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	m_mode = s;
@@ -1629,7 +1629,7 @@ void MainWindow::on_comboBox_mode_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_club_host_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_club_host_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	m_host = s;
@@ -1639,7 +1639,7 @@ void MainWindow::on_comboBox_club_host_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_club_home_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_club_home_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	m_pController->SetClub(Ipponboard::eFighter1, s);
@@ -1648,7 +1648,7 @@ void MainWindow::on_comboBox_club_home_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_club_guest_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	m_pController->SetClub(Ipponboard::eFighter2, s);
@@ -1657,7 +1657,7 @@ void MainWindow::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_actionPrint_triggered()
+void MainWindowBase::on_actionPrint_triggered()
 //=========================================================
 {
 	WriteScoreToHtml_();
@@ -1672,7 +1672,7 @@ void MainWindow::on_actionPrint_triggered()
 }
 
 //=========================================================
-void MainWindow::on_actionExport_triggered()
+void MainWindowBase::on_actionExport_triggered()
 //=========================================================
 {
 	WriteScoreToHtml_();
@@ -1722,7 +1722,7 @@ void MainWindow::on_actionExport_triggered()
 
 #else // TEAM_VIEW
 //=========================================================
-void MainWindow::on_actionManage_Classes_triggered()
+void MainWindowBase::on_actionManage_Classes_triggered()
 //=========================================================
 {
 	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
@@ -1755,7 +1755,7 @@ void MainWindow::on_actionManage_Classes_triggered()
 }
 
 //=========================================================
-void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_weight_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	m_pPrimaryView->SetWeight(s);
@@ -1765,21 +1765,21 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_first_textChanged(const QString& s)
+void MainWindowBase::on_lineEdit_name_first_textChanged(const QString& s)
 //=========================================================
 {
 	m_pController->SetFighterName(eFighter1, s);
 }
 
 //=========================================================
-void MainWindow::on_lineEdit_name_second_textChanged(const QString& s)
+void MainWindowBase::on_lineEdit_name_second_textChanged(const QString& s)
 //=========================================================
 {
 	m_pController->SetFighterName(eFighter2, s);
 }
 
 //=========================================================
-void MainWindow::on_checkBox_golden_score_clicked(bool checked)
+void MainWindowBase::on_checkBox_golden_score_clicked(bool checked)
 //=========================================================
 {
 	const QString name = m_pUi->comboBox_weight_class->currentText();
@@ -1810,7 +1810,7 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 }
 
 //=========================================================
-void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
+void MainWindowBase::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 //=========================================================
 {
 	FightCategory t(s);
@@ -1830,19 +1830,19 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 }
 #endif //TEAM_VIEW else
 
-void MainWindow::on_actionVisit_Project_Homepage_triggered()
+void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
 	QUrl url("http://www.ipponboard.info");
 	QDesktopServices::openUrl(url);
 }
 
-void MainWindow::on_actionOnline_Feedback_triggered()
+void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
 	QUrl url("http://flo.mueckeimnetz.de/ipponboard/survey_de");
 	QDesktopServices::openUrl(url);
 }
 
-void MainWindow::on_actionContact_Author_triggered()
+void MainWindowBase::on_actionContact_Author_triggered()
 {
 	QUrl url("mailto:ipponboardinfo@googlemail.com?"
 			 "subject=Ipponboard_v" + QCoreApplication::applicationVersion() +
@@ -1850,7 +1850,7 @@ void MainWindow::on_actionContact_Author_triggered()
 	QDesktopServices::openUrl(url);
 }
 
-void MainWindow::change_lang(bool beQuiet)
+void MainWindowBase::change_lang(bool beQuiet)
 {
 	// set checks
 	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
@@ -1863,7 +1863,7 @@ void MainWindow::change_lang(bool beQuiet)
 	}
 }
 
-void MainWindow::on_actionLang_Deutsch_triggered(bool val)
+void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 {
 	if (val)
 	{
@@ -1872,7 +1872,7 @@ void MainWindow::on_actionLang_Deutsch_triggered(bool val)
 	}
 }
 
-void MainWindow::on_actionLang_English_triggered(bool val)
+void MainWindowBase::on_actionLang_English_triggered(bool val)
 {
 	if (val)
 	{
@@ -1881,13 +1881,13 @@ void MainWindow::on_actionLang_English_triggered(bool val)
 	}
 }
 
-void MainWindow::on_action_Info_Header_triggered(bool val)
+void MainWindowBase::on_action_Info_Header_triggered(bool val)
 {
 	m_pPrimaryView->SetShowInfoHeader(val);
 	m_pSecondaryView->SetShowInfoHeader(val);
 }
 
-void MainWindow::on_actionSet_Hold_Timer_triggered()
+void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 {
 	bool ok(false);
 	const int seconds = QInputDialog::getInt(
@@ -1904,7 +1904,7 @@ void MainWindow::on_actionSet_Hold_Timer_triggered()
 		m_pController->SetTimerValue(eTimer_Hold, QString::number(seconds));
 }
 
-void MainWindow::on_actionSet_Main_Timer_triggered()
+void MainWindowBase::on_actionSet_Main_Timer_triggered()
 {
 //	if( m_pController->GetCurrentState() == eState_SonoMama ||
 //		m_pController->GetCurrentState() == eState_TimerStopped )
@@ -1923,7 +1923,7 @@ void MainWindow::on_actionSet_Main_Timer_triggered()
 	}
 }
 
-void MainWindow::update_statebar()
+void MainWindowBase::update_statebar()
 {
 //    if (Gamepad::eState_ok != m_pGamePad->GetState())
 //    {
@@ -1941,7 +1941,7 @@ void MainWindow::update_statebar()
 }
 
 #ifdef TEAM_VIEW
-void MainWindow::on_toolButton_weights_pressed()
+void MainWindowBase::on_toolButton_weights_pressed()
 {
 	bool ok(false);
 	const QString weights = QInputDialog::getText(
@@ -1969,18 +1969,18 @@ void MainWindow::on_toolButton_weights_pressed()
 	}
 }
 
-void MainWindow::update_weights(QString weightString)
+void MainWindowBase::update_weights(QString weightString)
 {
 	m_weights = weightString;
 	m_pController->SetWeights(weightString.split(';'));
 }
 
-void MainWindow::on_pushButton_copySwitched_pressed()
+void MainWindowBase::on_pushButton_copySwitched_pressed()
 {
 	m_pController->CopyAndSwitchGuestFighters();
 }
 
-void MainWindow::on_actionSet_Round_Time_triggered()
+void MainWindowBase::on_actionSet_Round_Time_triggered()
 {
 	bool ok(false);
 	const QString time = QInputDialog::getText(
@@ -1996,7 +1996,7 @@ void MainWindow::on_actionSet_Round_Time_triggered()
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::on_button_current_round_clicked(bool checked)
+void MainWindowBase::on_button_current_round_clicked(bool checked)
 //-------------------------------------------------------------------------
 {
 	m_pController->SetCurrentFight(0);
@@ -2015,18 +2015,18 @@ void MainWindow::on_button_current_round_clicked(bool checked)
 	UpdateFightNumber_();
 }
 
-void MainWindow::on_actionScore_Screen_triggered()
+void MainWindowBase::on_actionScore_Screen_triggered()
 {
 	m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_score_table);
 }
 
-void MainWindow::on_actionScore_Control_triggered()
+void MainWindowBase::on_actionScore_Control_triggered()
 {
 	m_pUi->tabWidget->setCurrentWidget(m_pUi->tab_view);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::on_tableView_customContextMenuRequested(QTableView* pTableView,
+void MainWindowBase::on_tableView_customContextMenuRequested(QTableView* pTableView,
 		QPoint const& pos,
 		const char* copySlot,
 		const char* pasteSlot,
@@ -2089,7 +2089,7 @@ void MainWindow::on_tableView_customContextMenuRequested(QTableView* pTableView,
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos)
+void MainWindowBase::on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos)
 //-------------------------------------------------------------------------
 {
 	on_tableView_customContextMenuRequested(
@@ -2101,7 +2101,7 @@ void MainWindow::on_tableView_tournament_list1_customContextMenuRequested(QPoint
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos)
+void MainWindowBase::on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos)
 //-------------------------------------------------------------------------
 {
 	on_tableView_customContextMenuRequested(
@@ -2113,7 +2113,7 @@ void MainWindow::on_tableView_tournament_list2_customContextMenuRequested(QPoint
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::copy_cell_content(QTableView* pTableView)
+void MainWindowBase::copy_cell_content(QTableView* pTableView)
 //-------------------------------------------------------------------------
 {
 	QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
@@ -2146,7 +2146,7 @@ void MainWindow::copy_cell_content(QTableView* pTableView)
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::paste_cell_content(QTableView* pTableView)
+void MainWindowBase::paste_cell_content(QTableView* pTableView)
 //-------------------------------------------------------------------------
 {
 	if (QApplication::clipboard()->text().isEmpty())
@@ -2214,7 +2214,7 @@ void MainWindow::paste_cell_content(QTableView* pTableView)
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::clear_cell_content(QTableView* pTableView)
+void MainWindowBase::clear_cell_content(QTableView* pTableView)
 //-------------------------------------------------------------------------
 {
 	QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
@@ -2238,42 +2238,42 @@ void MainWindow::clear_cell_content(QTableView* pTableView)
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_copy_cell_content_list1()
+void MainWindowBase::slot_copy_cell_content_list1()
 //-------------------------------------------------------------------------
 {
 	copy_cell_content(m_pUi->tableView_tournament_list1);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_copy_cell_content_list2()
+void MainWindowBase::slot_copy_cell_content_list2()
 //-------------------------------------------------------------------------
 {
 	copy_cell_content(m_pUi->tableView_tournament_list2);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_paste_cell_content_list1()
+void MainWindowBase::slot_paste_cell_content_list1()
 //-------------------------------------------------------------------------
 {
 	paste_cell_content(m_pUi->tableView_tournament_list1);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_paste_cell_content_list2()
+void MainWindowBase::slot_paste_cell_content_list2()
 //-------------------------------------------------------------------------
 {
 	paste_cell_content(m_pUi->tableView_tournament_list2);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_clear_cell_content_list1()
+void MainWindowBase::slot_clear_cell_content_list1()
 //-------------------------------------------------------------------------
 {
 	clear_cell_content(m_pUi->tableView_tournament_list1);
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::Print(QPrinter* p)
+void MainWindowBase::Print(QPrinter* p)
 //-------------------------------------------------------------------------
 {
 	QTextEdit e(m_htmlScore, this);
@@ -2281,13 +2281,13 @@ void MainWindow::Print(QPrinter* p)
 }
 
 //-------------------------------------------------------------------------
-void MainWindow::slot_clear_cell_content_list2()
+void MainWindowBase::slot_clear_cell_content_list2()
 //-------------------------------------------------------------------------
 {
 	clear_cell_content(m_pUi->tableView_tournament_list2);
 }
 //-------------------------------------------------------------------------
-QString MainWindow::get_template_file(QString const& mode)
+QString MainWindowBase::get_template_file(QString const& mode)
 //-------------------------------------------------------------------------
 {
 	if (str_mode_1te_bundesliga_nord_m == mode ||
@@ -2324,7 +2324,7 @@ QString MainWindow::get_template_file(QString const& mode)
 }
 
 //-------------------------------------------------------------------------
-QString MainWindow::get_full_mode_title(QString const& mode)
+QString MainWindowBase::get_full_mode_title(QString const& mode)
 //-------------------------------------------------------------------------
 {
 	QString year(QString::number(QDate::currentDate().year()));
@@ -2395,12 +2395,12 @@ QString MainWindow::get_full_mode_title(QString const& mode)
 #endif
 
 
-void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
+void MainWindowBase::on_checkBox_use2013rules_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_Use2013Rules, checked);
 }
 
-void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
+void MainWindowBase::on_checkBox_autoIncrement_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_AutoIncrementPoints, checked);
 }

@@ -1,11 +1,11 @@
-#ifndef BASE__MAINWINDOW_H_
-#define BASE__MAINWINDOW_H_
+#ifndef BASE__MAINWINDOWBASE_H_
+#define BASE__MAINWINDOWBASE_H_
 
 #include <QMainWindow>
 #include <QTableWidgetItem>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "../core/controlconfig.h"
+#include "../core/ControllerConfig.h"
 
 // forwards
 namespace Ui
@@ -108,12 +108,12 @@ static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 
-class MainWindow : public QMainWindow
+class MainWindowBase : public QMainWindow
 {
 	Q_OBJECT
 public:
-	explicit MainWindow(QWidget* parent = 0);
-	virtual ~MainWindow();
+	explicit MainWindowBase(QWidget* parent = 0);
+	virtual ~MainWindowBase();
 
 protected:
 	void changeEvent(QEvent* e);
@@ -234,7 +234,7 @@ private:
 	QString m_Language;
 	QString m_weights;
 
-	Ipponboard::ControlConfig m_controlCfg;
+	Ipponboard::ControllerConfig m_controllerCfg;
 };
 
 #endif  // BASE__MAINWINDOW_H_

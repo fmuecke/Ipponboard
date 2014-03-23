@@ -5,9 +5,9 @@
 #include <QFile>
 #include <QLocale>
 #include <QTextCodec>
-#include "../base/mainwindow.h"
-#include "../widgets/countdown.h"
-#include "../widgets/splashscreen.h"
+#include "../base/MainWindowBase.h"
+#include "../Widgets/Countdown.h"
+#include "../Widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
 
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 	//                             "Please visit the project homepage - there should be a newer version available."));
 	//}
 
-	MainWindow w;
+	MainWindowBase w;
 	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
 					 QCoreApplication::applicationVersion());
 	w.show();

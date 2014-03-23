@@ -65,63 +65,45 @@ contains(COMPILER, msvc) {
 }
 
 SOURCES = Main.cpp \
-    ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
-    ../base/mainwindow.cpp \
-    ../base/settingsdlg.cpp \
-    ../base/view.cpp \
-    ../base/fightcategorymanagerdlg.cpp \
-    ../base/fightcategorymanager.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
-    ../widgets/countdown.cpp \
-    #../base/controller.cpp \
-    #../gamepad/gamepad.cpp \
-    #../base/score.cpp \
-    #../base/statemachine.cpp \
-    #../base/tournamentmodel.cpp \
-    #../base/fightcategory.cpp
+    ../base/ClubManager.cpp \
+    ../base/ClubManagerDlg.cpp \
+    ../base/MainWindowBase.cpp \
+    ../base/SettingsDlg.cpp \
+    ../base/View.cpp \
+    ../base/FightCategoryManagerDlg.cpp \
+    ../base/FightCategoryManager.cpp \
+    ../Widgets/ScaledImage.cpp \
+    ../Widgets/ScaledText.cpp \
+    ../Widgets/SplashScreen.cpp \
+    ../Widgets/Countdown.cpp \
 
 HEADERS = ../base/pch.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
-    #../base/controlconfig.h \
-    ../base/mainwindow.h \
-    ../base/settingsdlg.h \
-    ../base/view.h \
-    ../base/fightcategorymanagerdlg.h \
-    ../base/fightcategorymanager.h \
-    ../widgets/countdown.h \
-    ../widgets/splashscreen.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
+    ../base/ClubManager.h \
+    ../base/ClubManagerDlg.h \
+    ../base/MainWindowBase.h \
+    ../base/SettingsDlg.h \
+    ../base/View.h \
+    ../base/FightCategoryManagerDlg.h \
+    ../base/FightCategoryManager.h \
+    ../Widgets/Countdown.h \
+    ../Widgets/SplashScreen.h \
+    ../Widgets/ScaledImage.h \
+    ../Widgets/ScaledText.h \
     ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
-    #../base/controller.h \
-    #../base/enums.h \
-    #../gamepad/gamepad.h \
-    #../base/icontroller.h \
-    #../base/icontrollercore.h \
-    #../base/iview.h \
-    #../base/score.h \
-    #../base/statemachine.h \
-    #../base/tournament.h \
-    #../base/tournamentmodel.h \
-    #../base/fightcategory.h
+    ../util/qstring_serialization.h
 
-FORMS = ../base/clubmanagerdlg.ui \
+FORMS = ../base/ClubManagerDlg.ui \
     MainWindow.ui \
-    view_vertical_single.ui \
-    ../base/settingsdlg.ui \
-    ../base/view_horizontal.ui \
-    ../base/fightcategorymanagerdlg.ui \
-    ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui
+    View_vertical_single.ui \
+    ../base/SettingsDlg.ui \
+    ../base/View_horizontal.ui \
+    ../base/FightCategoryManagerDlg.ui \
+    ../Widgets/SplashScreen.ui \
+    ../Widgets/Countdown.ui
 
 #OTHER_FILES +=
 
-RESOURCES += ../base/ipponboard.qrc
+RESOURCES += ../base/Ipponboard.qrc
 
 TRANSLATIONS = ../i18n/Ipponboard_de.ts
 

@@ -46,9 +46,6 @@ contains(COMPILER, mingw) {
 	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
 
-
-
-
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd
 }
@@ -67,42 +64,42 @@ contains(COMPILER, msvc) {
 }
 
 HEADERS = ../base/pch.h \
-    ../base/clubmanager.h \
-    ../base/clubmanagerdlg.h \
-    ../widgets/countdown.h \
-    ../widgets/scaledimage.h \
-    ../widgets/scaledtext.h \
-    ../widgets/splashscreen.h \
+    ../base/ClubManager.h \
+    ../base/ClubManagerDlg.h \
+    ../Widgets/Countdown.h \
+    ../Widgets/ScaledImage.h \
+    ../Widgets/ScaledText.h \
+    ../Widgets/SplashScreen.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    ../base/mainwindow.h \
-    ../base/settingsdlg.h \
-    ../base/view.h \
+    ../base/MainWindowBase.h \
+    ../base/SettingsDlg.h \
+    ../base/View.h \
     ScoreScreen.h
 
-SOURCES = ../base/clubmanager.cpp \
-    ../base/clubmanagerdlg.cpp \
-    ../base/mainwindow.cpp \
-    ../base/settingsdlg.cpp \
-    ../base/view.cpp \
-    ../widgets/countdown.cpp \
-    ../widgets/scaledimage.cpp \
-    ../widgets/scaledtext.cpp \
-    ../widgets/splashscreen.cpp \
+SOURCES = ../base/ClubManager.cpp \
+    ../base/ClubManagerDlg.cpp \
+    ../base/MainWindowBase.cpp \
+    ../base/SettingsDlg.cpp \
+    ../base/View.cpp \
+    ../Widgets/Countdown.cpp \
+    ../Widgets/ScaledImage.cpp \
+    ../Widgets/ScaledText.cpp \
+    ../Widgets/SplashScreen.cpp \
     Main.cpp \
     ScoreScreen.cpp
 
-FORMS = ../base/clubmanagerdlg.ui \
+FORMS = ../base/ClubManagerDlg.ui \
     MainWindow.ui \
     ScoreScreen.ui \
-    ../base/settingsdlg.ui \
+    ../base/SettingsDlg.ui \
     ../base/view_horizontal.ui \
-    ../widgets/splashscreen.ui \
-    ../widgets/countdown.ui
+    ../Widgets/SplashScreen.ui \
+    ../Widgets/Countdown.ui
 
 OTHER_FILES +=
 
-RESOURCES += ../base/ipponboard.qrc
+RESOURCES += ../base/Ipponboard.qrc
 
 TRANSLATIONS = ../i18n/ipponboard_team_de.ts
 
