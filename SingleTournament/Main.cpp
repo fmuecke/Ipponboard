@@ -1,3 +1,9 @@
+#include "MainWindow.h"
+#include "../Widgets/Countdown.h"
+#include "../Widgets/SplashScreen.h"
+#include "../base/versioninfo.h"
+#include "../util/path_helpers.h"
+
 #include <QtGui/QApplication>
 #include <QTranslator>
 #include <QMessageBox>
@@ -5,12 +11,6 @@
 #include <QFile>
 #include <QLocale>
 #include <QTextCodec>
-#include "../base/MainWindowBase.h"
-#include "../Widgets/Countdown.h"
-#include "../Widgets/SplashScreen.h"
-#include "../base/versioninfo.h"
-#include "../util/path_helpers.h"
-
 
 int DelayUser()
 {
@@ -35,12 +35,16 @@ int main(int argc, char* argv[])
 	QCoreApplication::setOrganizationDomain("ipponboard.info");
 	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
 
+	MainWindow mainWnd;
+	mainWnd.setWindowTitle(QCoreApplication::applicationName() + " v" +
+						   QCoreApplication::applicationVersion());
+
 	// read language code
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
 
 	const QString ini(QString::fromStdString(
-						  fmu::GetSettingsFilePath(str_ini_name)));
+						  fmu::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
 	QSettings settings(ini, QSettings::IniFormat, &a);
 
 	settings.beginGroup(str_tag_Main);
@@ -81,7 +85,7 @@ int main(int argc, char* argv[])
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2012, 6, 30);
+	splashData.date = QDate(2012, 7, 30);
 	SplashScreen splash(splashData);
 
 	if (QDialog::Accepted != splash.exec())
@@ -109,10 +113,8 @@ int main(int argc, char* argv[])
 	//                             "Please visit the project homepage - there should be a newer version available."));
 	//}
 
-	MainWindowBase w;
-	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-					 QCoreApplication::applicationVersion());
-	w.show();
+	mainWnd.Init();
+	mainWnd.show();
 
 	return a.exec();
 }

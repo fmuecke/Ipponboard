@@ -263,7 +263,7 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 
 
 //---------------------------------------------------------
-std::string const FightCategoryMgr::CategoriesToString()
+std::string FightCategoryMgr::CategoriesToString()
 //---------------------------------------------------------
 {
 	// make an archive

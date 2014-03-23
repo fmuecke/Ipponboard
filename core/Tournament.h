@@ -22,8 +22,9 @@ enum EScore
 	eScore_Lost = 0
 };
 
-struct Fighter
+class Fighter
 {
+public:
 	QString name;
 	QString club;
 };

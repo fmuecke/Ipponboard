@@ -2,7 +2,9 @@
 #include "iview.h"
 #include "score.h"
 #include "enums.h"
+//dev:#include "TournamentMode.h"
 #include "tournamentmodel.h"
+#include "StateMachine.h"
 
 #include <QTimer>
 #include <QSound>
@@ -10,7 +12,6 @@
 #include <QMessageBox>
 #include <algorithm>
 #include <functional>
-#include "statemachine.h"
 #include <boost/foreach.hpp>
 
 using namespace Ipponboard;
@@ -357,7 +358,7 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 
 
 //=========================================================
-const QString Controller::GetTimeText(ETimer timer) const
+QString Controller::GetTimeText(ETimer timer) const
 //=========================================================
 {
 	QString ret;
@@ -382,7 +383,7 @@ const QString Controller::GetTimeText(ETimer timer) const
 }
 
 //=========================================================
-const QString Controller::GetFighterName(EFighter who) const
+QString Controller::GetFighterName(EFighter who) const
 //=========================================================
 {
 	Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -402,7 +403,7 @@ const QString Controller::GetFighterName(EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
+QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
 //=========================================================
 {
 	Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -422,7 +423,7 @@ const QString Controller::GetFighterLastName(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
+QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
 //=========================================================
 {
 	Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -446,7 +447,7 @@ const QString Controller::GetFighterFirstName(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-const QString Controller::GetFighterClub(EFighter who) const
+QString Controller::GetFighterClub(EFighter who) const
 //=========================================================
 {
 	Q_ASSERT(who == eFighter1 || who == eFighter2);
@@ -456,7 +457,7 @@ const QString Controller::GetFighterClub(EFighter who) const
 }
 
 //=========================================================
-const QString& Controller::GetWeight() const
+QString Controller::GetWeight() const
 //=========================================================
 {
 	return m_TournamentScores[m_currentTournament]
@@ -464,7 +465,7 @@ const QString& Controller::GetWeight() const
 }
 
 //=========================================================
-const QString Controller::GetMessage() const
+QString Controller::GetMessage() const
 //=========================================================
 {
 	return m_Message;
@@ -619,7 +620,6 @@ void Controller::RegisterView(IView* pView)
 //=========================================================
 {
 	m_Views.insert(pView);
-	pView->SetController(this);
 
 	// do not call UpdateViews here as views may not have been fully created
 }
@@ -629,9 +629,13 @@ void Controller::start_timer(ETimer t)
 //=========================================================
 {
 	if (eTimer_Main == t)
+	{
 		m_pTimerMain->start(1000);
+	}
 	else
+	{
 		m_pTimerHold->start(1000);
+}
 }
 
 //=========================================================
@@ -665,7 +669,7 @@ void Controller::reset_fight()
 	fight.is_saved = false;
 	fight.ruleSet = GetOption(eOption_Use2013Rules) ? e2013RuleSet : eClassicRules;
 
-	std::for_each(m_Views.begin(), m_Views.end(), std::mem_fun(&IView::Reset));
+	update_views();
 }
 
 //=========================================================
@@ -703,9 +707,13 @@ int Controller::get_time(ETimer t) const
 //=========================================================
 {
 	if (eTimer_Hold == t)
+	{
 		return -m_pTimeHold->secsTo(QTime(0, 0, 0, 0));
+	}
 	else
+	{
 		return m_pTimeMain->secsTo(QTime(0, 0, 0, 0));
+	}
 }
 
 //=========================================================
@@ -957,7 +965,7 @@ void Controller::SetGongFile(const QString& s)
 }
 
 //=========================================================
-const QString& Controller::GetGongFile() const
+QString const& Controller::GetGongFile() const
 //=========================================================
 {
 	return m_gongFile;
@@ -1032,6 +1040,9 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	std::for_each(m_Views.begin(), m_Views.end(),
-				  std::mem_fun(&IView::UpdateView));
+	std::for_each(begin(m_Views), end(m_Views),
+				  [](IView * pView)
+	{
+		pView->UpdateView();
+	});
 }

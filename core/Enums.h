@@ -24,7 +24,7 @@ enum EFighter
 	eFighter_MAX
 };
 
-static EFighter GetUkeFromTori(EFighter tori)
+inline EFighter GetUkeFromTori(EFighter tori)
 {
 	return (tori == eFighter1) ? eFighter2 : eFighter1;
 }
@@ -75,7 +75,7 @@ enum EOsaekomiVal
 	eOsaekomiVal_Wazaari = 20,
 	eOsaekomiVal_Ippon = 25,
 
-	// new values for 2013 rules
+	// new values for 2013 IJF rules
 	eOsaekomiVal2013_Yuko = 10,
 	eOsaekomiVal2013_Wazaari = 15,
 	eOsaekomiVal2013_Ippon = 20
@@ -83,8 +83,10 @@ enum EOsaekomiVal
 
 enum EOption
 {
-	eOption_AutoIncrementPoints = 0,
+    eOption_Invalid = -1,
+    eOption_AutoIncrementPoints = 0,
 	eOption_Use2013Rules = 1,
+    eOption_AllSubscoresCount = 2,
 	eOption_MAX
 };
 

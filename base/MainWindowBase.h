@@ -1,11 +1,14 @@
-#ifndef BASE__MAINWINDOWBASE_H_
-#define BASE__MAINWINDOWBASE_H_
+#ifndef BASE__MAINWINDOW_BASE_H_
+#define BASE__MAINWINDOW_BASE_H_
+
+#include "../core/iView.h"
+//dev:#include "FighterManager.h"
+#include "../core/ControllerConfig.h"
+#include "../util/helpers.hpp"
 
 #include <QMainWindow>
-#include <QTableWidgetItem>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "../core/ControllerConfig.h"
 
 // forwards
 namespace Ui
@@ -15,42 +18,20 @@ class Frame_Clubs;
 }
 namespace Ipponboard
 {
+class Fighter;
 class View;
 class Controller;
 class ClubManager;
 class FightCategoryMgr;
 class ScoreScreen;
 }
+class QSettings;
 
 namespace FMlib
 {
 class Gamepad;
 }
-typedef boost::shared_ptr<FMlib::Gamepad> PGamePad;
-
-#ifdef TEAM_VIEW
-static const char* const str_ini_name = "IpponboardT.ini";
-static const char* const str_mode_1te_bundesliga_nord_m = "1. Bundesliga Nord (Männer)";
-static const char* const str_mode_1te_bundesliga_sued_m = "1. Bundesliga Süd (Männer)";
-static const char* const str_mode_2te_bundesliga_nord_m = "2. Bundesliga Nord (Männer)";
-static const char* const str_mode_2te_bundesliga_sued_m = "2. Bundesliga Süd (Männer)";
-static const char* const str_mode_1te_bundesliga_nord_f = "1. Bundesliga Nord (Frauen)";
-static const char* const str_mode_1te_bundesliga_sued_f = "1. Bundesliga Süd (Frauen)";
-static const char* const str_mode_2te_bundesliga_nord_f = "2. Bundesliga Nord (Frauen)";
-static const char* const str_mode_2te_bundesliga_sued_f = "2. Bundesliga Süd (Frauen)";
-static const char* const str_mode_bayernliga_nord_m = "Bayernliga Nord (M)";
-static const char* const str_mode_bayernliga_sued_m = "Bayernliga Süd (M)";
-static const char* const str_mode_bayernliga_nord_f = "Bayernliga Nord (F)";
-static const char* const str_mode_bayernliga_sued_f = "Bayernliga Süd (F)";
-static const char* const str_mode_landesliga_nord_m = "Landesliga Nord (M)";
-static const char* const str_mode_landesliga_sued_m = "Landesliga Süd (M)";
-static const char* const str_mode_landesliga_nord_f = "Landesliga Nord (F)";
-static const char* const str_mode_landesliga_sued_f = "Landesliga Süd (F)";
-static const char* const str_mode_mm_u17_m = "Deutsche VMM MU17";
-static const char* const str_mode_mm_u17_f = "Deutsche VMM FU17";
-#else
-static const char* const str_ini_name = "Ipponboard.ini";
-#endif
+typedef boost::shared_ptr<FMlib::Gamepad> PGamepad;
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -68,10 +49,7 @@ static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
 static const char* const str_tag_AutoIncrementPoints = "AutoIncrementPoints";
 static const char* const str_tag_Use2013Rules = "Use2013Rules";
-#ifdef TEAM_VIEW
-static const char* const str_tag_Mode = "Mode";
-static const char* const str_tag_Host = "Host";
-#endif
+
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
 static const char* const str_tag_FighterNameFont = "FighterNameFont";
@@ -108,133 +86,92 @@ static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 
-class MainWindowBase : public QMainWindow
+class MainWindowBase : public QMainWindow, public Ipponboard::IView
 {
 	Q_OBJECT
 public:
-	explicit MainWindowBase(QWidget* parent = 0);
+	explicit MainWindowBase(QWidget* parent = nullptr);
 	virtual ~MainWindowBase();
 
-protected:
-	void changeEvent(QEvent* e);
-	void closeEvent(QCloseEvent* event);
-	void keyPressEvent(QKeyEvent* event);
+	virtual void Init();
 
-private:
+	QString GetConfigFileName() const;
+	//dev:QString GetFighterFileName() const;
+	virtual const char* EditionName() const = 0;
+	virtual const char* EditionNameShort() const = 0;
+
+	/* IView */
+	virtual void UpdateView();
+	virtual void Reset() {}
+	virtual void SetShowInfoHeader(bool /*show*/) {}
+
+protected:
+	virtual void changeEvent(QEvent*) override;
+	virtual void closeEvent(QCloseEvent*) override;
+	virtual void keyPressEvent(QKeyEvent*) override;
+
 	void write_settings();
 	void read_settings();
-	void update_info_text_color(const QColor& color, const QColor& bgColor);
-	void update_text_color_first(const QColor& color, const QColor& bgColor);
-	void update_text_color_second(const QColor& color, const QColor& bgColor);
-	void update_fighter_name_font(const QFont&);
-	void show_hide_view() const;
-	void update_views();
-	void change_lang(bool beQuiet = false);
-#ifdef TEAM_VIEW
-	void update_club_views();
-	void UpdateFightNumber_();
-	void UpdateScoreScreen_();
-	void WriteScoreToHtml_();
-#endif
+	//dev:void load_fighters();
+	//dev:void save_fighters();
+	virtual void update_views();
+	virtual void update_statebar();
+	virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
+	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
+	virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
+	virtual void update_fighter_name_font(const QFont&);
 
-private slots:
-#ifdef TEAM_VIEW
-	void on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos);
-	void on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos);
-	void on_actionScore_Control_triggered();
-	void on_actionScore_Screen_triggered();
-	void on_button_pause_clicked();
-	void on_button_current_round_clicked(bool checked);
-	void on_actionSet_Round_Time_triggered();
-	void on_pushButton_copySwitched_pressed();
-	void on_toolButton_weights_pressed();
-	void slot_copy_cell_content_list1();
-	void slot_copy_cell_content_list2();
-	void slot_paste_cell_content_list1();
-	void slot_paste_cell_content_list2();
-	void slot_clear_cell_content_list1();
-	void slot_clear_cell_content_list2();
-	void Print(QPrinter* p);
-	void on_tabWidget_currentChanged(int index);
-	void on_actionManage_Clubs_triggered();
-	void on_actionLoad_Demo_Data_triggered();
-	void on_button_prev_clicked();
-	void on_button_next_clicked();
-	void on_comboBox_mode_currentIndexChanged(const QString& s);
-	void on_comboBox_club_host_currentIndexChanged(const QString& s);
-	void on_comboBox_club_home_currentIndexChanged(const QString& s);
-	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
-	void on_actionPrint_triggered();
-	void on_actionExport_triggered();
-#else
-	void on_actionManage_Classes_triggered();
-	void on_comboBox_weight_currentIndexChanged(const QString&);
-	void on_lineEdit_name_second_textChanged(const QString&);
-	void on_lineEdit_name_first_textChanged(const QString&);
-	void on_checkBox_golden_score_clicked(bool checked);
-	void on_comboBox_weight_class_currentIndexChanged(const QString&);
-#endif
+private:
+	virtual void write_specific_settings(QSettings& settings);
+	virtual void read_specific_settings(QSettings& settings);
+	void change_lang(bool beQuiet = false);
+	void show_hide_view() const;
+
+protected slots:
 	void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);
+	void on_actionTest_Gong_triggered();
+	void on_actionShow_SecondaryView_triggered();
+	//void on_actionReset_Scores_triggered();
+	void on_actionPreferences_triggered();
+	void on_button_reset_clicked();
+	void EvaluateInput();
 	void on_actionLang_English_triggered(bool);
 	void on_actionLang_Deutsch_triggered(bool);
 	void on_actionContact_Author_triggered();
 	void on_actionOnline_Feedback_triggered();
 	void on_actionVisit_Project_Homepage_triggered();
 	void on_actionAbout_Ipponboard_triggered();
-	void on_actionTest_Gong_triggered();
-	void on_actionShow_SecondaryView_triggered();
-	void on_actionReset_Scores_triggered();
-	void on_actionPreferences_triggered();
-	void on_button_reset_clicked();
-	void EvaluateInput();
+	//dev:virtual void on_actionManageFighters_triggered() {}
 
-	void on_checkBox_use2013rules_toggled(bool checked);
+	//SINGLE: void on_checkBox_use2013rules_toggled(bool checked);
+	//SINGLE: void on_checkBox_autoIncrement_toggled(bool checked);
 
-	void on_checkBox_autoIncrement_toggled(bool checked);
+protected:
+	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+
+	boost::shared_ptr<Ui::MainWindow> m_pUi;
+	boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
+	boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
+	boost::shared_ptr<Ipponboard::Controller> m_pController;
+	//dev:Ipponboard::FighterManager m_fighterManager;
 
 private:
-	void update_statebar();
-	Ui::MainWindow* m_pUi;
-	Ipponboard::View* m_pPrimaryView;
-	Ipponboard::View* m_pSecondaryView;
-	Ipponboard::Controller* m_pController;
-#ifdef TEAM_VIEW
-	void update_weights(QString weightString);
-	void on_tableView_customContextMenuRequested(QTableView* pTableView,
-			QPoint const& pos,
-			const char* copySlot,
-			const char* pasteSlot,
-			const char* clearSlot);
-	void copy_cell_content(QTableView* pTableView);
-	void paste_cell_content(QTableView* pTableView);
-	void clear_cell_content(QTableView* pTableView);
-	static QString get_template_file(QString const& mode);
-	static QString get_full_mode_title(QString const& mode);
-
-	Ipponboard::ScoreScreen* m_pScoreScreen;
-	Ipponboard::ClubManager* m_pClubManager;
-	std::vector<QTableWidgetItem> fighters_home;
-	std::vector<QTableWidgetItem> fighters_guest;
-	QString m_htmlScore;
-	QString m_mode;
-	QString m_host;
-#else
-	Ipponboard::FightCategoryMgr* m_pCategoryManager;
-#endif
+	QString m_Language;
 	QString m_MatLabel;
-	PGamePad m_pGamePad;
+	QString m_weights;
 
 	QFont m_FighterNameFont;
 	int m_secondScreenNo;
-	bool m_bAlwaysShow;
-	bool m_bAutoSize;
 	QSize m_secondScreenSize;
-	QString m_Language;
-	QString m_weights;
+	bool m_bAutoSize;
+	bool m_bAlwaysShow;
 
 	Ipponboard::ControllerConfig m_controllerCfg;
+
+private:
+	PGamepad m_pGamepad;
 };
 
-#endif  // BASE__MAINWINDOW_H_
+#endif  // BASE__MAINWINDOW_BASE_H_

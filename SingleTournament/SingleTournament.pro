@@ -65,6 +65,7 @@ contains(COMPILER, msvc) {
 }
 
 SOURCES = Main.cpp \
+ MainWindow.cpp \
     ../base/ClubManager.cpp \
     ../base/ClubManagerDlg.cpp \
     ../base/MainWindowBase.cpp \
@@ -78,6 +79,7 @@ SOURCES = Main.cpp \
     ../Widgets/Countdown.cpp \
 
 HEADERS = ../base/pch.h \
+    MainWindow.h \
     ../base/ClubManager.h \
     ../base/ClubManagerDlg.h \
     ../base/MainWindowBase.h \
