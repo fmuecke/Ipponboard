@@ -78,7 +78,7 @@ HEADERS = ../base/pch.h \
     ../base/mainwindow.h \
     ../base/settingsdlg.h \
     ../base/view.h \
-    scorescreen.h
+    ScoreScreen.h
 
 SOURCES = ../base/clubmanager.cpp \
     ../base/clubmanagerdlg.cpp \
@@ -89,12 +89,12 @@ SOURCES = ../base/clubmanager.cpp \
     ../widgets/scaledimage.cpp \
     ../widgets/scaledtext.cpp \
     ../widgets/splashscreen.cpp \
-    main.cpp \
-    scorescreen.cpp
+    Main.cpp \
+    ScoreScreen.cpp
 
 FORMS = ../base/clubmanagerdlg.ui \
-    mainwindow.ui \
-    scorescreen.ui \
+    MainWindow.ui \
+    ScoreScreen.ui \
     ../base/settingsdlg.ui \
     ../base/view_horizontal.ui \
     ../widgets/splashscreen.ui \
