@@ -11,9 +11,10 @@
 
 #include <iostream>
 #include <string>
+#pragma warning (disable: 4512 4127 4100) // warning C4512: assignment operator could not be generated, C4100: unreferenced formal parameter
 #include <boost/msm/back/state_machine.hpp>
 #include <boost/msm/front/state_machine_def.hpp>
-
+#pragma warning (default: 4512 4127 4100)
 #include "enums.h"
 #include "score.h"
 #include "icontrollercore.h"
@@ -155,10 +156,12 @@ public:
 	template<typename T>
 	void add_point(PointEvent<T> const& evt)
 	{
+#pragma warning(disable: 4127)  // conditional expression is constant
 		if (T::revoke)
 			Score_(evt.tori).Remove(EPoint(T::type));
 		else
 			Score_(evt.tori).Add(EPoint(T::type));
+#pragma warning(default: 4127)
 	}
 	template <typename T>
 	void add_point_stop_timer(T const& evt)

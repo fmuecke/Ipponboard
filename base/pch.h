@@ -39,6 +39,7 @@
 //
 // QT
 //
+#pragma warning (disable: 4127)  // conditional expression is constant
 #include <QObject>
 #include <QString>
 #include <QApplication>
@@ -62,6 +63,8 @@
 #include <QPainter>
 #include <QtGui>
 #include <QStringList>
+#include <QList>
+#include <QVector>
 #include <QSize>
 #include <QTime>
 #include <QFontDatabase>
@@ -78,6 +81,7 @@
 #include <QMouseEvent>
 #include <QFile>
 #include <QDir>
+#pragma warning (default: 4127)
 
 //
 // custom
