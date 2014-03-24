@@ -46,6 +46,9 @@ contains(COMPILER, mingw) {
 	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
 
+
+
+
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd
 }
@@ -58,27 +61,37 @@ contains(COMPILER, msvc) {
 	
     # remove unneccessary output files
     QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
-
     # copy all needed files to destdir
     QMAKE_POST_LINK += & copy_files.cmd
 }
 
-HEADERS = ../base/pch.h \
+HEADERS = MainWindowTeam.h \
+    ScoreScreen.h \
+    ../base/pch.h \
+    #../base/AddFighterDlg.h \
     ../base/ClubManager.h \
     ../base/ClubManagerDlg.h \
-    ../Widgets/Countdown.h \
-    ../Widgets/ScaledImage.h \
-    ../Widgets/ScaledText.h \
-    ../Widgets/SplashScreen.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
+    #../base/ComboBoxDelegate.h \
+    #../base/FighterManager.h \
+    #../base/FighterManagerDlg.h \
     ../base/MainWindowBase.h \
     ../base/SettingsDlg.h \
     ../base/View.h \
-    ScoreScreen.h
+    ../util/path_helpers.h \
+    ../util/qstring_serialization.h \
+    ../Widgets/Countdown.h \
+    ../Widgets/ScaledImage.h \
+    ../Widgets/ScaledText.h \
+    ../Widgets/SplashScreen.h
 
-SOURCES = ../base/ClubManager.cpp \
+SOURCES = Main.cpp \
+    ScoreScreen.cpp \
+    MainWindowTeam.cpp \
+    #../base/AddFighterDlg.cpp \
+    ../base/ClubManager.cpp \
     ../base/ClubManagerDlg.cpp \
+    #../base/FighterManager.cpp \
+    #../base/FighterManagerDlg.cpp \
     ../base/MainWindowBase.cpp \
     ../base/SettingsDlg.cpp \
     ../base/View.cpp \
@@ -86,18 +99,20 @@ SOURCES = ../base/ClubManager.cpp \
     ../Widgets/ScaledImage.cpp \
     ../Widgets/ScaledText.cpp \
     ../Widgets/SplashScreen.cpp \
-    Main.cpp \
-    ScoreScreen.cpp
+    #../base/ComboBoxDelegate.cpp
 
 FORMS = ../base/ClubManagerDlg.ui \
     MainWindow.ui \
     ScoreScreen.ui \
     ../base/SettingsDlg.ui \
+    #../base/FighterManagerDlg.ui \
     ../base/view_horizontal.ui \
     ../Widgets/SplashScreen.ui \
-    ../Widgets/Countdown.ui
+    ../Widgets/Countdown.ui \
+    #../base/AddFighterDlg.ui
 
-OTHER_FILES +=
+#OTHER_FILES += \
+#    TournamentModes.ini
 
 RESOURCES += ../base/Ipponboard.qrc
 

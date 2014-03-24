@@ -47,9 +47,6 @@ static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
 static const char* const str_tag_Language = "Language";
 static const char* const str_tag_Version = "Version";
-static const char* const str_tag_AutoIncrementPoints = "AutoIncrementPoints";
-static const char* const str_tag_Use2013Rules = "Use2013Rules";
-
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
 static const char* const str_tag_FighterNameFont = "FighterNameFont";
@@ -157,11 +154,9 @@ protected:
 	boost::shared_ptr<Ipponboard::Controller> m_pController;
 	//dev:Ipponboard::FighterManager m_fighterManager;
 
-private:
 	QString m_Language;
 	QString m_MatLabel;
 	QString m_weights;
-
 	QFont m_FighterNameFont;
 	int m_secondScreenNo;
 	QSize m_secondScreenSize;

@@ -60,9 +60,9 @@ HEADERS = ../base/pch.h \
 	ControllerConfig.h
 
 SOURCES = Controller.cpp \
-    Fightcategory.cpp \
+    FightCategory.cpp \
     Score.cpp \
-    Statemachine.cpp \
+    StateMachine.cpp \
     TournamentModel.cpp
     
 

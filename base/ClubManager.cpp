@@ -45,7 +45,7 @@ bool ClubManager::GetClub(int index, Ipponboard::Club& club) const
 }
 
 //---------------------------------------------------------
-const QString ClubManager::GetLogo(const QString& clubName) const
+QString ClubManager::GetLogo(const QString& clubName) const
 //---------------------------------------------------------
 {
 	for (unsigned i(0); i < m_Clubs.size(); ++i)
@@ -58,7 +58,7 @@ const QString ClubManager::GetLogo(const QString& clubName) const
 }
 
 //---------------------------------------------------------
-const QString ClubManager::GetAddress(const QString& clubName) const
+QString ClubManager::GetAddress(const QString& clubName) const
 //---------------------------------------------------------
 {
 	for (unsigned i(0); i < m_Clubs.size(); ++i)

@@ -72,8 +72,8 @@ public:
 	virtual ~ClubManager();
 
 	bool GetClub(int index, Ipponboard::Club& club) const;
-	const QString GetLogo(const QString& clubName) const;
-	const QString GetAddress(const QString& clubName) const;
+	QString GetLogo(const QString& clubName) const;
+	QString GetAddress(const QString& clubName) const;
 
 	// overwrites an existing club!
 	void AddClub(const Ipponboard::Club& club);
