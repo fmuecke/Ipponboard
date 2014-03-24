@@ -8,7 +8,7 @@
 
 #include <QMainWindow>
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 // forwards
 namespace Ui
@@ -31,7 +31,7 @@ namespace FMlib
 {
 class Gamepad;
 }
-typedef boost::shared_ptr<FMlib::Gamepad> PGamepad;
+typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -148,10 +148,10 @@ protected slots:
 protected:
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
 
-	boost::shared_ptr<Ui::MainWindow> m_pUi;
-	boost::shared_ptr<Ipponboard::View> m_pPrimaryView;
-	boost::shared_ptr<Ipponboard::View> m_pSecondaryView;
-	boost::shared_ptr<Ipponboard::Controller> m_pController;
+	std::shared_ptr<Ui::MainWindow> m_pUi;
+	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
+	std::shared_ptr<Ipponboard::View> m_pSecondaryView;
+	std::shared_ptr<Ipponboard::Controller> m_pController;
 	//dev:Ipponboard::FighterManager m_fighterManager;
 
 	QString m_Language;

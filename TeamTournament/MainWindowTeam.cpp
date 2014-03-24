@@ -1372,7 +1372,7 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 	}
 
 	QString selectedText;
-	Q_FOREACH(QModelIndex index, selection)
+	for (QModelIndex index : selection)
 	{
 		QVariant data =
 			pTableView->model()->data(index, Qt::DisplayRole);
@@ -1441,7 +1441,7 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 	}
 
 	int dataIndex(0);
-	Q_FOREACH(QModelIndex index, selection)
+	for (QModelIndex index : selection)
 	{
 		if (index.column() == TournamentModel::eCol_name1 ||
 				index.column() == TournamentModel::eCol_name2)
@@ -1468,7 +1468,7 @@ void MainWindowTeam::clear_cell_content(QTableView* pTableView)
 		}
 	}
 
-	Q_FOREACH(QModelIndex index, selection)
+	for (QModelIndex index : selection)
 	{
 		pTableView->model()->setData(
 			index, "", Qt::EditRole);

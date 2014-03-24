@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace Ui
 {
@@ -15,7 +15,7 @@ namespace FMlib
 class Gamepad;
 }
 
-typedef boost::shared_ptr<FMlib::Gamepad> PGamepad;
+typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
 
 class GamepadDemo : public QMainWindow
 {

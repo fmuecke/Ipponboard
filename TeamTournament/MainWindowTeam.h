@@ -8,7 +8,7 @@
 
 #include <QTableWidgetItem>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class QTableView;
 class QPrinter;
@@ -125,14 +125,14 @@ private:
 	QString get_template_file(QString const& mode) const;
 	QString get_full_mode_title(QString const& mode) const;
 
-	boost::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
-	boost::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
+	std::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
+	std::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
 
 	QString m_htmlScore;
 	QString m_mode;
 	QString m_host;
 
-	//boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
+	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	//dev:QStringList m_FighterNamesHome;
 	//dev:QStringList m_FighterNamesGuest;
 	//dev:std::vector<Ipponboard::TournamentMode> m_modes;

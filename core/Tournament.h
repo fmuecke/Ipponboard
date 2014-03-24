@@ -5,6 +5,7 @@
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 #include <vector>
+#include <array>
 
 #include "score.h"
 
@@ -125,7 +126,7 @@ struct Fight
 };
 
 //FIXME:typedef std::vector<Fight> Tournament;
-typedef boost::array<Fight, eTournament_FightCount> Tournament;
+typedef std::array<Fight, eTournament_FightCount> Tournament;
 
 } // namespace Ipponboard
 
