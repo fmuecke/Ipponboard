@@ -12,7 +12,6 @@
 #include <QMessageBox>
 #include <algorithm>
 #include <functional>
-#include <boost/foreach.hpp>
 
 using namespace Ipponboard;
 
@@ -1027,7 +1026,7 @@ void Controller::SetWeights(QStringList const& weights)
 		}
 	}
 
-	BOOST_FOREACH(PTournamentModel const & pModel, m_TournamentModels)
+	for (auto pModel : m_TournamentModels)
 	{
 		pModel->SetDataChanged();
 	}

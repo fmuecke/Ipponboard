@@ -8,7 +8,7 @@
 #include <QStringList>
 #include <vector>
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 
@@ -27,7 +27,7 @@ public:
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
 
-	typedef boost::shared_ptr<FightCategoryMgr> Ptr;
+	typedef std::shared_ptr<FightCategoryMgr> Ptr;
 
 	bool GetCategory(int index, FightCategory& t) const;
 	bool GetCategory(QString const& name, FightCategory& t) const;

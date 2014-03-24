@@ -9,7 +9,7 @@
 
 #include "../base/MainWindowBase.h"
 #include "../util/helpers.hpp"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class MainWindow : public MainWindowBase
 {
@@ -60,7 +60,7 @@ private slots:
 
 private:
 	/* member */
-	boost::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
+	std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_CurrentFighterNames;
 };
 
