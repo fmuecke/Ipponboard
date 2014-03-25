@@ -1130,8 +1130,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
     <addaction name="actionImport_Fighters"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
@@ -1173,7 +1171,6 @@
      <addaction name="actionLang_Deutsch"/>
      <addaction name="actionLang_English"/>
     </widget>
-    <addaction name="separator"/>
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
     <addaction name="separator"/>
