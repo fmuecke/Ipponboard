@@ -12,12 +12,12 @@
         <translation type="obsolete">Weiß</translation>
     </message>
     <message>
-        <location filename="../core/Controller.cpp" line="373"/>
+        <location filename="../core/Controller.cpp" line="378"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
     <message>
-        <location filename="../core/Controller.cpp" line="373"/>
+        <location filename="../core/Controller.cpp" line="378"/>
         <source>Second</source>
         <translation>Zweiter</translation>
     </message>
@@ -25,35 +25,35 @@
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="19"/>
+        <location filename="../core/TournamentModel.cpp" line="21"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="20"/>
-        <location filename="../core/TournamentModel.cpp" line="28"/>
+        <location filename="../core/TournamentModel.cpp" line="22"/>
+        <location filename="../core/TournamentModel.cpp" line="30"/>
         <source>Firstname Lastname</source>
         <translation>Vorname Nachname</translation>
     </message>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="26"/>
-        <location filename="../core/TournamentModel.cpp" line="34"/>
+        <location filename="../core/TournamentModel.cpp" line="28"/>
+        <location filename="../core/TournamentModel.cpp" line="36"/>
         <source>Won</source>
         <translation>Sieg</translation>
     </message>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="27"/>
-        <location filename="../core/TournamentModel.cpp" line="35"/>
+        <location filename="../core/TournamentModel.cpp" line="29"/>
+        <location filename="../core/TournamentModel.cpp" line="37"/>
         <source>Score</source>
         <translation>UB</translation>
     </message>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="36"/>
+        <location filename="../core/TournamentModel.cpp" line="38"/>
         <source>Remaining</source>
-        <translation type="unfinished"></translation>
+        <translation>Restzeit</translation>
     </message>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="37"/>
+        <location filename="../core/TournamentModel.cpp" line="39"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>

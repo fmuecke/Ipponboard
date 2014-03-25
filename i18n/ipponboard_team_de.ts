@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
 <context>
+    <name>AddFighterDlg</name>
+    <message>
+        <location filename="../base/AddFighterDlg.ui" line="17"/>
+        <source>Add Fighter</source>
+        <translation>Kämpfer hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../base/AddFighterDlg.ui" line="28"/>
+        <source>Club/Team</source>
+        <translation>Verein/Mannschaft</translation>
+    </message>
+    <message>
+        <location filename="../base/AddFighterDlg.ui" line="38"/>
+        <source>First name</source>
+        <translation>Vorname</translation>
+    </message>
+    <message>
+        <location filename="../base/AddFighterDlg.ui" line="48"/>
+        <source>Last name</source>
+        <translation>Nachname</translation>
+    </message>
+    <message>
+        <location filename="../base/AddFighterDlg.ui" line="58"/>
+        <source>Weight</source>
+        <translation>Gewicht</translation>
+    </message>
+</context>
+<context>
     <name>ClubManagerDlg</name>
     <message>
         <location filename="../base/ClubManagerDlg.ui" line="14"/>
@@ -94,7 +122,7 @@
     <message>
         <location filename="../widgets/Countdown.ui" line="23"/>
         <source>Please update your version...</source>
-        <translation>Bitte Version updaten...</translation>
+        <translation>Bitte Version aktualisieren...</translation>
     </message>
 </context>
 <context>
@@ -113,7 +141,11 @@
     </message>
     <message>
         <source>Time</source>
-        <translation type="obsolete">Zeit</translation>
+        <translation>Zeit</translation>
+    </message>
+    <message>
+        <source>Remaining</source>
+        <translation>Restzeit</translation>
     </message>
     <message>
         <source>Round Time</source>
@@ -200,9 +232,8 @@
         <translation>Kämpfer verwalten</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.ui" line="87"/>
         <source>Move fighter up</source>
-        <translation>Kämpfer hoch</translation>
+        <translation type="obsolete">Kämpfer hoch</translation>
     </message>
     <message>
         <location filename="../base/FighterManagerDlg.ui" line="90"/>
@@ -210,9 +241,18 @@
         <translation>&amp;Importieren</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.ui" line="104"/>
         <source>Move fighter down</source>
-        <translation>Kämpfer runter</translation>
+        <translation type="obsolete">Kämpfer runter</translation>
+    </message>
+    <message>
+        <location filename="../base/FighterManagerDlg.ui" line="87"/>
+        <source>Import fighters</source>
+        <translation>Kämpfer importieren</translation>
+    </message>
+    <message>
+        <location filename="../base/FighterManagerDlg.ui" line="104"/>
+        <source>Export fighters</source>
+        <translation>Kämpfer exportieren</translation>
     </message>
     <message>
         <location filename="../base/FighterManagerDlg.ui" line="107"/>
@@ -245,75 +285,71 @@
         <translation>&amp;Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="42"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="44"/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="43"/>
         <source>Category</source>
-        <translation>Kategorie</translation>
+        <translation type="obsolete">Kategorie</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="44"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="46"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="45"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="47"/>
         <source>First Name</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="46"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="48"/>
         <source>Last Name</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="102"/>
         <source>Add new fighter</source>
-        <translation>Neuen Kämpfer hinzufügen</translation>
+        <translation type="obsolete">Neuen Kämpfer hinzufügen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="103"/>
         <source>Use the following format to specify the new fighter.
 Use &apos;%1&apos; as separator. Categories should be one of these: M, F, FU21 etc.
 
 Format: </source>
-        <translation>Für den neuen Kämpfer bitte folgendes Format verwenden.
+        <translation type="obsolete">Für den neuen Kämpfer bitte folgendes Format verwenden.
 Dabei &apos;%1&apos; als Trenner verwenden. Kategorien sollten eine von diesen sein: M, F, FU21 etc.
 
 Format: </translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="131"/>
-        <location filename="../base/FighterManagerDlg.cpp" line="463"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="431"/>
         <source>Invalid format. Please correct your input.</source>
         <translation>Ungültiges Format. Bitte die Eingaben korrigieren.</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="265"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="233"/>
         <source>Select CSV file with fighters</source>
         <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="267"/>
-        <location filename="../base/FighterManagerDlg.cpp" line="304"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="235"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="272"/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV-Dateien (*.csv);;Textdateien (*.txt)</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="302"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="270"/>
         <source>Name CSV file to store fighters in</source>
         <translation>Name der CSV-Datei, in der die Kämpferdaten gespeichert werden sollen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="436"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="404"/>
         <source>Specify import/export format</source>
         <translation>Import-/Export-Format festlegen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="437"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="405"/>
         <source>Use valid specifiers and some kind of separator (;,:|/ etc.)
 Valid specifiers are: %1</source>
         <translation>Bitte gültige Spezifizierer und einen Trenner (;,:,|/etc.) verwenden.
@@ -1168,33 +1204,33 @@ Gültige Spezifizierer sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="291"/>
+        <location filename="../base/MainWindowBase.cpp" line="305"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="292"/>
+        <location filename="../base/MainWindowBase.cpp" line="306"/>
         <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2013 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="335"/>
+        <location filename="../base/MainWindowBase.cpp" line="349"/>
         <source>Please restart the application so that the changes can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="961"/>
-        <location filename="../base/MainWindowBase.cpp" line="985"/>
+        <location filename="../base/MainWindowBase.cpp" line="981"/>
+        <location filename="../base/MainWindowBase.cpp" line="1005"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="962"/>
+        <location filename="../base/MainWindowBase.cpp" line="982"/>
         <source>Set value to (ss):</source>
         <translation>Setze Wert auf (ss):</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="986"/>
+        <location filename="../base/MainWindowBase.cpp" line="1006"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
@@ -1202,147 +1238,147 @@ Gültige Spezifizierer sind: %1</translation>
 <context>
     <name>MainWindowTeam</name>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="258"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="280"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="259"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="281"/>
         <source>Guest</source>
         <translation>Gast</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="361"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="383"/>
         <source> (saved)</source>
         <translation> (gespeichert)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="396"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="418"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="397"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="419"/>
         <source>Next</source>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="443"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="465"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="444"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="466"/>
         <source>File could not be opened: </source>
         <translation>Datei konnte nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="488"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="510"/>
         <source>tie</source>
         <translation>Unentschieden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="601"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="623"/>
         <source>List generated with Ipponboard v</source>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="611"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="633"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="612"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="634"/>
         <source>Really reset complete score table?</source>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="709"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="731"/>
         <source>Show results</source>
         <translation>Ergebnis anzeigen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="734"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="756"/>
         <source>Hide results</source>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="902"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="928"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="903"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="929"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="904"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="930"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation>PDF-Datei (*.pdf);;HTML-Datei (*.html)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="945"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="971"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="946"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="972"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
         <translation>Setze die Gewichtsklassen (getrennt durch &apos;;&apos;):</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="957"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="983"/>
         <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
         <translation>Sie müssen die %1 Klassen getrennt durch &apos;;&apos; angeben!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1023"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1049"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1024"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1050"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1094"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1120"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1097"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1123"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1100"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1126"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1163"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1189"/>
         <source>There is nothing to paste!</source>
         <translation>Es gibt nichts zum Einfügen!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1174"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1200"/>
         <source>Can not paste into an empty selection!</source>
         <translation>In eine leere Auswahl kann nicht eingefügt werden!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1183"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1209"/>
         <source>There is too few data for the selection in the clipboard!</source>
         <translation>Zum Einfügen gibt es nicht genügend Daten in der Zwischenablage!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1206"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1232"/>
         <source>There is more data available in the clipboard as could be pasted!</source>
         <translation>Die Zwischenablage entählt mehr Daten als eingefügt werden können!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1315"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1347"/>
         <source>Ipponboard fight list %1</source>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
@@ -1407,18 +1443,18 @@ und ist uneingeschränkt bis zum &lt;b&gt;30. April 2011&lt;/b&gt; lauffähig.&l
 &lt;p&gt;&lt;em&gt;Vielen Dank!&lt;/em&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/Main.cpp" line="87"/>
+        <location filename="../TeamTournament/Main.cpp" line="90"/>
         <source>Error reading configuration</source>
         <translation>Fehler beim Lesen der Einstellungen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/Main.cpp" line="121"/>
-        <location filename="../TeamTournament/Main.cpp" line="132"/>
+        <location filename="../TeamTournament/Main.cpp" line="124"/>
+        <location filename="../TeamTournament/Main.cpp" line="135"/>
         <source>Warning</source>
         <translation>Vorsicht</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/Main.cpp" line="122"/>
+        <location filename="../TeamTournament/Main.cpp" line="125"/>
         <source>This version is no longer valid!
 
 You need to visit the project homepage for a (free) update.</source>
@@ -1434,7 +1470,7 @@ You need to visit the project homepage for an update.</source>
 Bitte besuchen Sie die Programmhomepage für ein Update!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/Main.cpp" line="133"/>
+        <location filename="../TeamTournament/Main.cpp" line="136"/>
         <source>This version will stop to work in less than 30 days!
 
 Please visit the project homepage - there should be a newer version available.</source>
