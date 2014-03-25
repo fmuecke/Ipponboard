@@ -2,10 +2,21 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="10">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>21</count>
+	<count>27</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
+			<value>1. SC Gröbenzell</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/sc_groebenzell.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>Bushido Amberg</value>
 		</c.name>
 		<c.logoFile>
@@ -57,6 +68,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Leipzig</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>JC Münchberg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/jc_muenchberg.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>95213 Münchberg</value>
 		</c.address>
 	</item>
 	<item>
@@ -127,6 +149,17 @@
 	</item>
 	<item>
 		<c.name>
+			<value>Post-SV München</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/psv_muenchen.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>München</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
 			<value>SF Harteck München</value>
 		</c.name>
 		<c.logoFile>
@@ -152,7 +185,18 @@
 			<value>TG Höchberg</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs\tg_hoechberg.png</value>
+			<value>clubs/tg_hoechberg.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TG Höchberg</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tg_hoechberg.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
@@ -182,7 +226,18 @@
 	</item>
 	<item>
 		<c.name>
-			<value>TSV Großhadern</value>
+			<value>TSV Altenfurt</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tsv_altenfurt.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV GroßŸhadern</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/tsv_grosshadern.png</value>
@@ -193,7 +248,7 @@
 	</item>
 	<item>
 		<c.name>
-			<value>TSV Königsbrunn e.V.</value>
+			<value>TSV Königsbrunn</value>
 		</c.name>
 		<c.logoFile>
 			<value>clubs/koenigsbrunn.png</value>
@@ -233,6 +288,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Peiting</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TV Lenggries</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tv_lenggries.png</value>
+		</c.logoFile>
+		<c.address>
+			<value></value>
 		</c.address>
 	</item>
 </m_Clubs>
