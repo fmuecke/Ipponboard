@@ -86,6 +86,9 @@ void Controller::InitTournament(TournamentMode const& mode)
 
 	m_mode = mode;
 	QStringList actualWeights = m_mode.weights.split(';');
+	SetOption(eOption_Use2013Rules, m_mode.IsOptionSet(eOption_Use2013Rules));
+	SetOption(eOption_AutoIncrementPoints, m_mode.IsOptionSet(eOption_AutoIncrementPoints));
+	SetOption(eOption_AllSubscoresCount, m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 	for (int round = 0; round < m_mode.nRounds; ++round)
 	{
