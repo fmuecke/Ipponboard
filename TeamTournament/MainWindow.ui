@@ -1018,9 +1018,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="separator"/>
     <addaction name="actionPrint"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
@@ -1079,7 +1076,6 @@
      <addaction name="actionSet_Hold_Timer"/>
      <addaction name="actionSet_Main_Timer"/>
     </widget>
-    <addaction name="actionLeagues"/>
     <addaction name="actionManage_Clubs"/>
     <addaction name="menuTimers"/>
     <addaction name="actionTest_Gong"/>
