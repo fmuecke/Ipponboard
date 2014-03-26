@@ -7,6 +7,18 @@ Was ist neu gegenüber der Version vom Vorjahr?
 - Shidos füren nicht mehr direkt zu Wertungen, werden aber bei Punktegleichheit gewertet
 - Unterstützung für Windows XP verlängert
 
+Neu in dieser Version ist außerdem, dass man folgendes für eine Liga konfigurieren kann:
+- Anzahl Runden
+- Anzahl Kämpfe pro Runde
+- Gewichtsklassen
+- Titel und Untertitel
+- Vorlagedatei für die Listenausgabe
+- Kampfzeit
+- verwendete Regeln
+
+Falls die vordefinierten Werte nicht passen sollten, wovon ich nicht ausgehe, könnte man diese in der 'TournamentModes.ini'-Datei anpassen.
+
+
 Die Bedingungen für die Nutzung sind die selben wie gehabt:
 - Nutzung nur für euch persönlich/Verein
 - Keine Weitergabe an Dritte
@@ -15,7 +27,9 @@ Die Bedingungen für die Nutzung sind die selben wie gehabt:
 - Spenden sind willkommen!
 
 Link:
-http://ipponboard.koe-judo.de/files/Ipponboard-FULL-v1.2.2.7z
+http://ipponboard.koe-judo.de/files/Ipponboard-FULL-v1.3.3.7z
 
 Freundliche Grüße & eine erfolgreiche Saison!
+
 Florian Mücke
+
