@@ -1157,9 +1157,8 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	std::for_each(begin(m_Views), end(m_Views),
-				  [](IView * pView)
+	for (auto pView : m_Views)
 	{
 		pView->UpdateView();
-	});
+	}
 }
