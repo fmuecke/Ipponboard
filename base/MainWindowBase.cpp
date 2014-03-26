@@ -659,8 +659,8 @@ void MainWindowBase::save_fighters()
 
 void MainWindowBase::update_views()
 {
-	//m_pPrimaryView->UpdateView();
-	//m_pSecondaryView->UpdateView();
+	m_pPrimaryView->UpdateView();
+	m_pSecondaryView->UpdateView();
 }
 
 void MainWindowBase::on_actionTest_Gong_triggered()
