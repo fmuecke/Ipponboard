@@ -79,11 +79,10 @@ void MainWindowTeam::Init()
 	m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
 	// load modes
-	std::for_each(begin(m_modes), end(m_modes),
-				  [&](TournamentMode const & mode)
+	for (auto const& mode : m_modes)
 	{
 		m_pUi->comboBox_mode->addItem(mode.FullTitle());
-	});
+	}
 
 	//
 	// setup data

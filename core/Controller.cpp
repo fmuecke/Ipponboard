@@ -86,9 +86,6 @@ void Controller::InitTournament(TournamentMode const& mode)
 
 	m_mode = mode;
 	QStringList actualWeights = m_mode.weights.split(';');
-	SetOption(eOption_Use2013Rules, m_mode.IsOptionSet(eOption_Use2013Rules));
-	SetOption(eOption_AutoIncrementPoints, m_mode.IsOptionSet(eOption_AutoIncrementPoints));
-	SetOption(eOption_AllSubscoresCount, m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 	for (int round = 0; round < m_mode.nRounds; ++round)
 	{
@@ -103,6 +100,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 			Fight fight;
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
+			fight.ruleSet = m_mode.IsOptionSet(eOption_Use2013Rules) ? e2013RuleSet : eClassicRules;
             fight.allSubscoresCount = m_mode.IsOptionSet(eOption_AllSubscoresCount);
 
 			pRound->emplace_back(fight);
@@ -115,6 +113,11 @@ void Controller::InitTournament(TournamentMode const& mode)
 
 		m_TournamentModels.push_back(pModel);
 	}
+
+	// set options AFTER configuring fights
+	SetOption(eOption_Use2013Rules, m_mode.IsOptionSet(eOption_Use2013Rules));
+	SetOption(eOption_AutoIncrementPoints, m_mode.IsOptionSet(eOption_AutoIncrementPoints));
+	SetOption(eOption_AllSubscoresCount, m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 	m_currentRound = 0;
 	m_currentFight = 0;
@@ -623,14 +626,25 @@ void Controller::SetOption(EOption option, bool isSet)
     if (eOption_Use2013Rules == option)
     {
         RuleSet ruleSet = isSet ? e2013RuleSet : eClassicRules;
-		for (auto pRound : m_Tournament)
+		for (auto const& pRound : m_Tournament)
 		{
-			for (auto fight : *pRound)
+			for (auto & fight : *pRound)
 			{
 				fight.ruleSet = ruleSet;
 			}
 		}
     }
+
+	if (eOption_AllSubscoresCount == option)
+	{
+		for (auto const& pRound : m_Tournament)
+		{
+			for (auto & fight : *pRound)
+			{
+				fight.allSubscoresCount = isSet;
+			}
+		}
+	}
 }
 
 //=========================================================
@@ -1029,7 +1043,7 @@ void Controller::SetWeights(QStringList const& weights)
 		}
 	}
 
-	for (auto pModel : m_TournamentModels)
+	for (auto const& pModel : m_TournamentModels)
 	{
 		pModel->SetDataChanged();
 	}
@@ -1157,7 +1171,7 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	for (auto pView : m_Views)
+	for (auto const& pView : m_Views)
 	{
 		pView->UpdateView();
 	}

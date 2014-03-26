@@ -732,8 +732,6 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
-		//m_pPrimaryView->UpdateView();
-		//m_pSecondaryView->UpdateView();
 		m_pController->SetGongFile(dlg.GetGongFile());
 
 		// save changes to file
