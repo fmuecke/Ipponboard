@@ -246,6 +246,9 @@
           </item>
           <item row="3" column="2">
            <widget class="QToolButton" name="toolButton_team_home">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="toolTip">
              <string>Edit home team</string>
             </property>
@@ -273,6 +276,9 @@
           </item>
           <item row="3" column="6">
            <widget class="QToolButton" name="toolButton_team_guest">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="toolTip">
              <string>Edit guest team</string>
             </property>
@@ -1480,7 +1486,7 @@
   </action>
   <action name="actionManageFighters">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Fighters</string>
