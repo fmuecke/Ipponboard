@@ -77,12 +77,6 @@ void MainWindowBase::Init()
 	m_pSecondaryView.reset(
 		new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypeSecondary));
 
-	// set default background
-	QString styleSheet("background-color:black; color:white");
-
-	m_pUi->frame_primary_view->setStyleSheet(styleSheet);
-	m_pSecondaryView->setStyleSheet(styleSheet);
-
 	// clear data
 	m_pController->ClearFights();
 

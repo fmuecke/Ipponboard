@@ -97,6 +97,7 @@ private:
 	QColor m_TextBgColorSecond;
 	QColor m_InfoTextColor;
 	QColor m_InfoTextBgColor;
+	QColor m_MainClockBgColor;
 	QColor m_MainClockColorRunning;
 	QColor m_MainClockColorStopped;
 	QString m_mat;

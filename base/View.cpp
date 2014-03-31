@@ -26,6 +26,7 @@ View::View(IController* pController, EType type, QWidget* parent)
 	, m_TextBgColorSecond(Qt::blue)
 	, m_InfoTextColor(QColor(255, 255, 96)) //Qt::darkFirst
 	, m_InfoTextBgColor(Qt::black) //Qt::lightGray
+	, m_MainClockBgColor(Qt::black)
 	, m_MainClockColorRunning(Qt::yellow)
 	, m_MainClockColorStopped(Qt::red)
 	, m_mat(QCoreApplication::applicationName() + " v" +
@@ -245,21 +246,21 @@ void View::UpdateView()
 	{
 	case eState_TimerRunning:
 		{
-			ui->text_main_clock->SetColor(m_MainClockColorRunning);
+			ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
 			update_hold_clock(holder, eHoldState_pause);
 		}
 		break;
 
 	case eState_TimerStopped:
 		{
-			ui->text_main_clock->SetColor(m_MainClockColorStopped);
+			ui->text_main_clock->SetColor(m_MainClockColorStopped, m_MainClockBgColor);
 			update_hold_clock(holder, eHoldState_pause);
 		}
 		break;
 
 	case eState_Holding:
 		{
-			ui->text_main_clock->SetColor(m_MainClockColorRunning);
+			ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
 			update_hold_clock(holder, eHoldState_on);
 
 			if (is_secondary())
