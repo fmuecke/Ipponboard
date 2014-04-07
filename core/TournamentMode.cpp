@@ -41,7 +41,7 @@ TournamentMode::TournamentMode()
 
 bool TournamentMode::ReadModes(
 	const QString& filename,
-	std::vector<TournamentMode>& modes,
+    TournamentMode::List& modes,
 	QString& errorMsg)
 {
 	errorMsg.clear();
@@ -63,13 +63,13 @@ bool TournamentMode::ReadModes(
 		return false;
 	}
 
-	std::vector<TournamentMode> _modes;
-	Q_FOREACH(QString const & group, groups)
+    TournamentMode::List _modes;
+    for (QString const & group : groups)
 	{
-		TournamentMode tm;
+        TournamentMode mode;
 
 		config.beginGroup(group);
-		bool readSuccess = parse_current_group(config, tm, errorMsg);
+        bool readSuccess = parse_current_group(config, mode, errorMsg);
 		config.endGroup();
 
 		if (!readSuccess)
@@ -78,13 +78,13 @@ bool TournamentMode::ReadModes(
 			return false;
 		}
 
-		_modes.push_back(tm);
+        _modes.push_back(mode);
 	}
 
-	std::sort(begin(modes), end(modes));
+    std::sort(begin(_modes), end(_modes));
 
 	// all Ok, swap to internal
-	modes.swap(_modes);
+    modes.swap(_modes);
 	return true;
 }
 
@@ -132,6 +132,23 @@ bool TournamentMode::IsOptionSet(EOption o) const
     }
 
     return options.contains(EnumToString(o));
+}
+
+QString TournamentMode::GetFightTimeOverridesString() const
+{
+    QString ret;
+
+    for (auto const& p : fightTimeOverrides)
+    {
+        if (!ret.isEmpty())
+        {
+            ret += ";";
+        }
+
+        ret += QString("%1:%2").arg(p.first, QString::number(p.second));
+    }
+
+    return ret;
 }
 
 bool TournamentMode::parse_current_group(
@@ -209,7 +226,7 @@ bool TournamentMode::parse_current_group(
 	if (!fightTimeOverridesString.isEmpty())
 	{
 		QStringList splittedTimes = fightTimeOverridesString.split(';');
-		Q_FOREACH(QString const & s, splittedTimes)
+        for (QString const & s : splittedTimes)
 		{
 			if (!s.contains(':'))
 			{
@@ -249,7 +266,7 @@ bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& er
             << str_WeightsAreDoubled
             << str_Options;
 
-	Q_FOREACH(QString const & key, childKeys)
+    for (QString const & key : childKeys)
 	{
 		// check manadatory keys
 		auto pos = std::find(mandatoryKeys.begin(), mandatoryKeys.end(), key);

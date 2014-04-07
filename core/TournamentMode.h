@@ -27,6 +27,8 @@ class TournamentMode
 public:
 	TournamentMode();
 
+    typedef std::vector<TournamentMode> List;
+
 	// ascii strings
 	static QString const& str_Title;
 	static QString const& str_SubTitle;
@@ -41,7 +43,7 @@ public:
 
 	static bool ReadModes(
 		const QString& filename,
-		std::vector<TournamentMode>& modes,
+        TournamentMode::List& modes,
 		QString& errorMsg);
 
 	bool operator< (TournamentMode const& other) const;
@@ -50,6 +52,7 @@ public:
 	int FightsPerRound() const;
 	int GetFightDuration(QString const& weight) const;
     bool IsOptionSet(EOption o) const;
+    QString GetFightTimeOverridesString() const;
 
 private:
 	static bool parse_current_group(
@@ -69,7 +72,7 @@ public: // nothing to encapsulate here
 	std::vector< std::pair<QString, int> > fightTimeOverrides;
 	int nRounds;
 	int fightTimeInSeconds; // TODO: rename to duration!
-	bool weightsAreDoubled;
+    bool weightsAreDoubled;
 
 };
 
