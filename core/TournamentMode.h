@@ -28,6 +28,7 @@ public:
 	TournamentMode();
 
     typedef std::vector<TournamentMode> List;
+    typedef std::vector<std::pair<QString,int>> OverridesList;
 
 	// ascii strings
 	static QString const& str_Title;
@@ -42,9 +43,14 @@ public:
     static QString const& str_none;
 
 	static bool ReadModes(
-		const QString& filename,
+        QString const& filename,
         TournamentMode::List& modes,
 		QString& errorMsg);
+
+    static bool WriteModes(
+        QString const& filename,
+        List const& modes,
+        QString& errorMsg);
 
 	bool operator< (TournamentMode const& other) const;
 
@@ -52,7 +58,9 @@ public:
 	int FightsPerRound() const;
 	int GetFightDuration(QString const& weight) const;
     bool IsOptionSet(EOption o) const;
+    void SetOption(EOption o, bool checked);
     QString GetFightTimeOverridesString() const;
+    static bool ExtractFightTimeOverrides(QString const& overridesString, OverridesList& overrides);
 
 private:
 	static bool parse_current_group(
@@ -60,7 +68,7 @@ private:
 		TournamentMode& tm,
 		QString& errorMsg);
 
-	static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
+    static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 
 public: // nothing to encapsulate here
 	QString name;
@@ -69,11 +77,10 @@ public: // nothing to encapsulate here
 	QString weights;
 	QString listTemplate;
     QString options;
-	std::vector< std::pair<QString, int> > fightTimeOverrides;
+    OverridesList fightTimeOverrides;
 	int nRounds;
 	int fightTimeInSeconds; // TODO: rename to duration!
     bool weightsAreDoubled;
-
 };
 
 }  // namespace Ipponboard

@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QSettings>
+#include <regex>
 
 using namespace Ipponboard;
 
@@ -54,7 +55,8 @@ bool TournamentMode::ReadModes(
 		return false;
 	}
 
-	QSettings config(filename, QSettings::IniFormat, nullptr);
+    QSettings config(filename, QSettings::IniFormat, nullptr);
+    config.setIniCodec("UTF-8");
 	QStringList groups = config.childGroups();
 
 	if (groups.isEmpty())
@@ -85,7 +87,43 @@ bool TournamentMode::ReadModes(
 
 	// all Ok, swap to internal
     modes.swap(_modes);
-	return true;
+
+    return true;
+}
+
+bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List const& modes, QString &errorMsg)
+{
+    errorMsg.clear();
+
+
+    QFile file(filename);
+    if (file.exists() && !file.remove())
+    {
+        errorMsg = QString("Can not write to %1!").arg(filename);
+        return false;
+    }
+
+    QSettings config(filename, QSettings::IniFormat, nullptr);
+    config.setIniCodec("UTF-8");
+
+    for (auto const& mode : modes)
+    {
+        config.beginGroup(mode.name);
+
+        config.setValue(str_Title, mode.title);
+        config.setValue(str_SubTitle, mode.subTitle);
+        config.setValue(str_Weights, mode.weights);
+        config.setValue(str_Template, mode.listTemplate);
+        config.setValue(str_Rounds, mode.nRounds);
+        config.setValue(str_FightTimeInSeconds, mode.fightTimeInSeconds);
+        config.setValue(str_WeightsAreDoubled, mode.weightsAreDoubled);
+        config.setValue(str_Options, mode.options);
+        config.setValue(str_FightTimeOverrides, mode.GetFightTimeOverridesString());
+
+        config.endGroup();
+    }
+
+    return true;
 }
 
 bool TournamentMode::operator<(TournamentMode const& other) const
@@ -134,6 +172,27 @@ bool TournamentMode::IsOptionSet(EOption o) const
     return options.contains(EnumToString(o));
 }
 
+void TournamentMode::SetOption(EOption o, bool checked)
+{
+    auto option = EnumToString(o);
+
+    if (checked)
+    {
+        if (!options.contains(option))
+        {
+            options.append(";").append(option);
+        }
+    }
+    else
+    {
+        if (options.contains(option))
+        {
+            options.replace(option, QString());
+            options.replace(";;", ";");
+        }
+    }
+}
+
 QString TournamentMode::GetFightTimeOverridesString() const
 {
     QString ret;
@@ -149,6 +208,31 @@ QString TournamentMode::GetFightTimeOverridesString() const
     }
 
     return ret;
+}
+
+bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, OverridesList& overrides)
+{
+    if (!std::regex_match(overridesString.toStdString(), std::regex("(\\w+:\\d+;)*(\\w+:\\d+)$")))
+    {
+        return false;
+    }
+
+    OverridesList result;
+    QStringList splittedTimes = overridesString.split(';');
+    for (QString const & s : splittedTimes)
+    {
+        if (!s.contains(':'))
+        {
+            return false;
+        }
+
+        QStringList override = s.split(':');
+        std::pair<QString, int> overridePair = std::make_pair(override[0], override[1].toUInt());
+        result.push_back(overridePair);
+    }
+
+    overrides.swap(result);
+    return true;
 }
 
 bool TournamentMode::parse_current_group(
@@ -225,19 +309,11 @@ bool TournamentMode::parse_current_group(
 
 	if (!fightTimeOverridesString.isEmpty())
 	{
-		QStringList splittedTimes = fightTimeOverridesString.split(';');
-        for (QString const & s : splittedTimes)
-		{
-			if (!s.contains(':'))
-			{
-				errorMsg = errInvalid.arg(TournamentMode::str_FightTimeOverrides, config.group());
-				return false;
-			}
-
-			QStringList override = s.split(':');
-			std::pair<QString, int> overridePair = std::make_pair(override[0], override[1].toUInt());
-            mode.fightTimeOverrides.push_back(overridePair);
-		}
+        if (!ExtractFightTimeOverrides(fightTimeOverridesString, mode.fightTimeOverrides))
+        {
+            errorMsg = errInvalid.arg(TournamentMode::str_FightTimeOverrides, config.group());
+            return false;
+        }
 
         if (mode.fightTimeOverrides.empty())
 		{
