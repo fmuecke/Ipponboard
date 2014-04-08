@@ -51,6 +51,8 @@
         <file>icons/import_list.png</file>
         <file>icons/export_list.png</file>
         <file>images/golden_score.png</file>
+        <file>icons/save.png</file>
+        <file>icons/options.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>text/License_de.html</file>
