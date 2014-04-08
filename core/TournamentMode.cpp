@@ -95,7 +95,6 @@ bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List co
 {
     errorMsg.clear();
 
-
     QFile file(filename);
     if (file.exists() && !file.remove())
     {
@@ -273,12 +272,13 @@ bool TournamentMode::parse_current_group(
 	}
 	else
 	{
-        QFile listTemplate(mode.listTemplate);
+        QString templateFile = QString("%1/%2").arg(TemplateDirName(), mode.listTemplate);
+        QFile listTemplate(templateFile);
 
 		if (!listTemplate.exists())
 		{
 			errorMsg = QString("The list template for [%2] is not valid: \"%1\"")
-                       .arg(mode.listTemplate, config.group());
+                       .arg(templateFile, config.group());
 
 			return false;
 		}

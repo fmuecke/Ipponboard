@@ -6,6 +6,7 @@
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
+#include "ModeManagerDlg.h"
 //#include "../base/FightCategoryManager.h"
 //#include "../base/FightCategoryManagerDlg.h"
 #include "../base/View.h"
@@ -254,7 +255,15 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 		MainWindowBase::keyPressEvent(event);
 		//    break;
 		//}
-	}
+    }
+}
+
+QStringList MainWindowTeam::get_list_templates()
+{
+    QDir dir(TournamentMode::TemplateDirName());
+    QStringList filters;
+    filters.append("*.html");
+    return dir.entryList(filters, QDir::Files, QDir::Name);
 }
 
 void MainWindowTeam::write_specific_settings(QSettings& settings)
@@ -663,7 +672,47 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 
 void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 {
-	update_views();
+    update_views();
+}
+
+void MainWindowTeam::on_actionManageModes_triggered()
+{
+    QStringList templates = get_list_templates();
+    ModeManagerDlg dlg(m_modes, templates, this);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        auto currentMode = m_pUi->comboBox_mode->currentText();
+        QString errMsg;
+		if (!Ipponboard::TournamentMode::WriteModes(MainWindowTeam::ModeConfigurationFileName(), dlg.Result(), errMsg))
+        {
+            QMessageBox::critical(this,
+                                  QCoreApplication::tr("Error writing mode configurations"),
+                                  errMsg);
+
+            return;
+        }
+
+        m_pUi->comboBox_mode->clear();
+        SetModes(dlg.Result());
+
+        for (auto const& mode : m_modes)
+        {
+            m_pUi->comboBox_mode->addItem(mode.FullTitle());
+        }
+
+        auto pos = m_pUi->comboBox_mode->findText(currentMode);
+        if (pos != -1)
+        {
+            m_pUi->comboBox_mode->setCurrentIndex(pos);
+        }
+        else
+        {
+            if (!m_modes.empty())
+            {
+                m_pUi->comboBox_mode->setCurrentIndex(0);
+            }
+        }
+    }
 }
 
 void MainWindowTeam::on_actionManage_Clubs_triggered()
@@ -989,7 +1038,12 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 		{
 			update_weights(weights);
 		}
-	}
+    }
+}
+
+void MainWindowTeam::on_toolButton_manageModes_pressed()
+{
+    on_actionManageModes_triggered();
 }
 
 void MainWindowTeam::on_toolButton_team_home_pressed()
@@ -1320,7 +1374,7 @@ QString MainWindowTeam::get_template_file(QString const& mode) const
 
 	if (iter != end(m_modes))
 	{
-		return iter->listTemplate;
+        return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
 	}
 
 	return QString();
