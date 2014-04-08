@@ -24,11 +24,13 @@ prebuildhook.depends = prebuild
 CONFIG(release, debug|release):prebuildhook.target = Makefile.Release
 QMAKE_EXTRA_TARGETS += prebuildhook
 
-TARGET = core
-
-build_pass:CONFIG(debug, debug|release) {
-    TARGET = $$join(TARGET,,,_d)
-}
+#TARGET = core
+#
+#build_pass:CONFIG(debug, debug|release) {
+#    TARGET = $$join(TARGET,,,_d)
+#}
+Release:TARGET = core
+Debug:TARGET = core_d
 
 win32-g++: COMPILER = mingw
 win32-msvc2012: COMPILER = msvc
