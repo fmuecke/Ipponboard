@@ -33,6 +33,7 @@ public:
     explicit ModeManagerDlg(
             Ipponboard::TournamentMode::List const& modes,
             QStringList const& templates,
+            QString const& currentModeId,
             QWidget *parent = 0);
     ~ModeManagerDlg();
 

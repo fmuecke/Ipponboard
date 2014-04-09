@@ -25,9 +25,9 @@ using namespace Ipponboard;
 
 namespace { bool initialized = false; }
 
-ModeManagerDlg::ModeManagerDlg(
-        TournamentMode::List const& modes,
+ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
         QStringList const& templates,
+        QString const& currentModeId,
         QWidget *parent)
     : QDialog(parent)
     , FMU::DialogResult<TournamentMode::List>(modes)
@@ -40,13 +40,21 @@ ModeManagerDlg::ModeManagerDlg(
 
     if (!m_dialogData.empty())
     {
-        for (TournamentMode const& mode : m_dialogData)
+        int pos = 0;
+        for (size_t i = 0; i < m_dialogData.size(); ++i)
         {
+            TournamentMode const& mode = m_dialogData[i];
             m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
+
+            if (mode.id == currentModeId)
+            {
+                pos = i;
+            }
         }
 
         initialized = true;
-        on_comboBox_mode_currentIndexChanged(0);
+
+        on_comboBox_mode_currentIndexChanged(pos);
     }
 }
 

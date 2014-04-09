@@ -681,7 +681,7 @@ void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 void MainWindowTeam::on_actionManageModes_triggered()
 {
     QStringList templates = get_list_templates();
-    ModeManagerDlg dlg(m_modes, templates, this);
+    ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
     if (dlg.exec() == QDialog::Accepted)
     {
         QString errMsg;
