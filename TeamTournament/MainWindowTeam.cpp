@@ -699,20 +699,19 @@ void MainWindowTeam::on_actionManageModes_triggered()
 
         for (auto const& mode : m_modes)
         {
-			m_pUi->comboBox_mode->addItem(mode.Description());
+            m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
         }
 
         auto pos = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
-        if (pos != -1)
+        pos = pos == -1 ? 0 : pos;
+
+        if (pos != m_pUi->comboBox_mode->currentIndex())
         {
             m_pUi->comboBox_mode->setCurrentIndex(pos);
         }
         else
         {
-            if (!m_modes.empty())
-            {
-                m_pUi->comboBox_mode->setCurrentIndex(0);
-            }
+            on_comboBox_mode_currentIndexChanged(pos);
         }
     }
 }
