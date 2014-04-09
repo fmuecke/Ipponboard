@@ -52,7 +52,8 @@ private slots:
         void on_toolButton_remove_clicked();
         // spin controls
         void on_spinBox_rounds_valueChanged(int i);
-        void on_spinBox_fightTime_valueChanged(int i);
+        void on_spinBox_fightTimeSeconds_valueChanged(int i);
+        void on_spinBox_fightTimeMinutes_valueChanged(int i);
         // line edits
         void on_lineEdit_weights_textChanged(QString const& s);
         void on_lineEdit_title_textChanged(QString const& s);
@@ -60,6 +61,8 @@ private slots:
         void on_lineEdit_timeOverrides_textChanged(QString const& s);
 
 private:
+    void update_fights_per_round(Ipponboard::TournamentMode const& mode);
+
     Ipponboard::TournamentMode& GetMode(int i);
     std::shared_ptr<Ui::ModeManagerDlg> m_pUi;  //TODO: use unique_ptr
 };

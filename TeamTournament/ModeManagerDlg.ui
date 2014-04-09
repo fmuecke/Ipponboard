@@ -106,7 +106,7 @@
           <string>Indicates that all weights will be used two times</string>
          </property>
          <property name="text">
-          <string>Double weights</string>
+          <string>Weights count twice</string>
          </property>
         </widget>
        </item>
@@ -129,6 +129,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_fightsPerRound">
+         <property name="text">
+          <string>FIGHTS_PER_ROUND</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -141,35 +148,12 @@
          </property>
         </spacer>
        </item>
-       <item>
-        <widget class="QSpinBox" name="spinBox_fightsPerRound">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-         <property name="buttonSymbols">
-          <enum>QAbstractSpinBox::NoButtons</enum>
-         </property>
-         <property name="prefix">
-          <string/>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>fights per round</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_6">
        <property name="toolTip">
-        <string>The fight duration in seconds</string>
+        <string>The fight duration</string>
        </property>
        <property name="text">
         <string>Fight Time</string>
@@ -179,19 +163,39 @@
      <item row="5" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QSpinBox" name="spinBox_fightTime">
+        <widget class="QSpinBox" name="spinBox_fightTimeMinutes">
          <property name="minimum">
           <number>0</number>
          </property>
          <property name="maximum">
-          <number>86400</number>
+          <number>720</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>min</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_fightTimeSeconds">
+         <property name="suffix">
+          <string/>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>59</number>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>seconds</string>
+          <string>sec</string>
          </property>
         </widget>
        </item>
@@ -208,13 +212,6 @@
          </property>
         </spacer>
        </item>
-      </layout>
-     </item>
-     <item row="6" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <property name="topMargin">
-        <number>0</number>
-       </property>
        <item>
         <widget class="QCheckBox" name="checkBox_timeOverrides">
          <property name="toolTip">
@@ -225,6 +222,13 @@
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item row="6" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QLineEdit" name="lineEdit_timeOverrides">
          <property name="enabled">
@@ -237,7 +241,10 @@
           <bool>false</bool>
          </property>
          <property name="toolTip">
-          <string>The overrides should be something like this: &quot;U12:120;U15:180;U18:240&quot; (&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)</string>
+          <string>The overrides should be something like this:
+&quot;U12:120;U15:180;U18:240&quot;
+(&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
+Note: the time must be specified in seconds alone</string>
          </property>
          <property name="frame">
           <bool>true</bool>
@@ -265,7 +272,7 @@
         <string>Use the offical IJF rules of 2013</string>
        </property>
        <property name="text">
-        <string>2013 Rules</string>
+        <string>Use rules of 2013</string>
        </property>
       </widget>
      </item>
@@ -316,9 +323,7 @@
   <tabstop>lineEdit_weights</tabstop>
   <tabstop>checkBox_doubleWeights</tabstop>
   <tabstop>spinBox_rounds</tabstop>
-  <tabstop>spinBox_fightsPerRound</tabstop>
-  <tabstop>spinBox_fightTime</tabstop>
-  <tabstop>checkBox_timeOverrides</tabstop>
+  <tabstop>spinBox_fightTimeSeconds</tabstop>
   <tabstop>lineEdit_timeOverrides</tabstop>
   <tabstop>checkBox_2013Rules</tabstop>
   <tabstop>checkBox_autoIncrement</tabstop>

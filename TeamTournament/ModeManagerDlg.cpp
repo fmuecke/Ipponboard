@@ -74,9 +74,10 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     m_pUi->lineEdit_subtitle->setText(mode.subTitle);
     m_pUi->lineEdit_weights->setText(mode.weights);
     m_pUi->spinBox_rounds->setValue(mode.nRounds);
-    m_pUi->spinBox_fightTime->setValue(mode.fightTimeInSeconds);
-    m_pUi->spinBox_fightsPerRound->setValue(mode.FightsPerRound());
+    m_pUi->spinBox_fightTimeMinutes->setValue(mode.fightTimeInSeconds / 60);
+    m_pUi->spinBox_fightTimeSeconds->setValue(mode.fightTimeInSeconds % 60);
     m_pUi->checkBox_doubleWeights->setChecked(mode.weightsAreDoubled);
+    update_fights_per_round(mode);
 
     auto index = m_pUi->comboBox_template->findText(mode.listTemplate);
     if (index != -1)
@@ -115,7 +116,7 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 {
 	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
     mode.weightsAreDoubled = checked;
-    m_pUi->spinBox_fightsPerRound->setValue(mode.FightsPerRound());
+    update_fights_per_round(mode);
 }
 
 void ModeManagerDlg::on_checkBox_2013Rules_toggled(bool checked)
@@ -186,19 +187,26 @@ void ModeManagerDlg::on_spinBox_rounds_valueChanged(int i)
 {
 	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
     mode.nRounds = i;
+    update_fights_per_round(mode);
 }
 
-void ModeManagerDlg::on_spinBox_fightTime_valueChanged(int i)
+void ModeManagerDlg::on_spinBox_fightTimeMinutes_valueChanged(int i)
 {
 	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
-    mode.fightTimeInSeconds = i;
+    mode.fightTimeInSeconds = i * 60 + m_pUi->spinBox_fightTimeSeconds->value();
+}
+
+void ModeManagerDlg::on_spinBox_fightTimeSeconds_valueChanged(int i)
+{
+    auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
+    mode.fightTimeInSeconds = m_pUi->spinBox_fightTimeMinutes->value() * 60 + i;
 }
 
 void ModeManagerDlg::on_lineEdit_weights_textChanged(const QString &s)
 {
 	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
     mode.weights = s;
-    m_pUi->spinBox_fightsPerRound->setValue(mode.FightsPerRound());
+    update_fights_per_round(mode);
 }
 
 void ModeManagerDlg::on_lineEdit_title_textChanged(const QString &s)
@@ -226,6 +234,14 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString &s)
     {
         m_pUi->lineEdit_timeOverrides->setStyleSheet("color : red;");
     }
+}
+
+void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
+{
+    m_pUi->label_fightsPerRound->setText(
+                QString("%1 fights, %2 per round")
+                .arg(mode.FightsPerRound()*mode.nRounds)
+                .arg(mode.FightsPerRound()));
 }
 
 Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
