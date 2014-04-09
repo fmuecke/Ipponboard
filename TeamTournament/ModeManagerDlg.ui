@@ -17,17 +17,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QComboBox" name="comboBox_mode">
-       <property name="insertPolicy">
-        <enum>QComboBox::InsertAlphabetically</enum>
-       </property>
-       <property name="duplicatesEnabled">
-        <bool>false</bool>
-       </property>
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <widget class="QComboBox" name="comboBox_mode"/>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_add">

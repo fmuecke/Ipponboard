@@ -8,16 +8,13 @@ template <typename T>
 class DialogResult
 {
 public:
-	explicit DialogResult(T const& data) : m_data(data)
-	{}
-	
-    virtual T Result() const { return m_data; }
+    explicit DialogResult(T const& data) : m_dialogData(data) {}
+	virtual ~DialogResult(){}
+
+    virtual T Result() const { return m_dialogData; }
 
 protected:
-    T& DialogData() { return m_data; }
-
-private:
-	T m_data;
+    T m_dialogData;
 };
 
 }

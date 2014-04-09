@@ -84,7 +84,7 @@ private slots:
 	void on_actionLoad_Demo_Data_triggered();
 	void on_button_prev_clicked();
 	void on_button_next_clicked();
-	void on_comboBox_mode_currentIndexChanged(const QString& s);
+    void on_comboBox_mode_currentIndexChanged(int i);
 	void on_comboBox_club_host_currentIndexChanged(const QString& s);
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
@@ -117,7 +117,7 @@ private:
 	std::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
 	std::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
 	QString m_htmlScore;
-	QString m_mode;
+    QString m_currentMode;
 	QString m_host;
 
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;

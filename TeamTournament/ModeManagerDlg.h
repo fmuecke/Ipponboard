@@ -38,7 +38,7 @@ public:
 
 private slots:
         // comboBoxes
-        void on_comboBox_mode_currentIndexChanged(QString const& s);
+        void on_comboBox_mode_currentIndexChanged(int i);
         void on_comboBox_template_currentIndexChanged(QString const& s);
         // checkBoxes
         void on_checkBox_timeOverrides_toggled(bool checked);
@@ -59,10 +59,8 @@ private slots:
         void on_lineEdit_timeOverrides_textChanged(QString const& s);
 
 private:
-    Ipponboard::TournamentMode& GetMode(QString const& s);
-
+    Ipponboard::TournamentMode& GetMode(int i);
     std::shared_ptr<Ui::ModeManagerDlg> m_pUi;  //TODO: use unique_ptr
-    Ipponboard::TournamentMode::List m_modes;
 };
 
 #endif // MODEMANAGERDLG_H

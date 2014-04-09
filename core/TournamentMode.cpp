@@ -27,7 +27,7 @@ QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
 
 TournamentMode::TournamentMode()
-	: name("SingeTournament")
+    : id("SingeTournament")
 	, title("Single Tournament")
 	, subTitle("Ipponboard")
 	, weights()
@@ -107,7 +107,7 @@ bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List co
 
     for (auto const& mode : modes)
     {
-        config.beginGroup(mode.name);
+        config.beginGroup(mode.id);
 
         config.setValue(str_Title, mode.title);
         config.setValue(str_SubTitle, mode.subTitle);
@@ -127,14 +127,12 @@ bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List co
 
 bool TournamentMode::operator<(TournamentMode const& other) const
 {
-	return FullTitle() < other.FullTitle();
+	return Description() < other.Description();
 }
 
-QString TournamentMode::FullTitle() const
+QString TournamentMode::Description() const
 {
-	return subTitle.isEmpty() ?
-		   title :
-		   QString("%1 - %2").arg(title, subTitle);
+    return subTitle.isEmpty() ? title : QString("%1 - %2").arg(title, subTitle);
 }
 
 int TournamentMode::FightsPerRound() const
@@ -248,7 +246,7 @@ bool TournamentMode::parse_current_group(
 	const QString err = "The key [%1] in section [%2] is empty";
 	const QString errInvalid = "The key [%1] in section [%2] is invalid";
 
-    mode.name = config.group();
+    mode.id = config.group();
     mode.title = config.value(TournamentMode::str_Title).toString();
     mode.subTitle = config.value(TournamentMode::str_SubTitle).toString();
     mode.weights = config.value(TournamentMode::str_Weights).toString();

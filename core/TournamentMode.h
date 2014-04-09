@@ -55,7 +55,7 @@ public:
 
 	bool operator< (TournamentMode const& other) const;
 
-	QString FullTitle() const;
+    QString Description() const;
 	int FightsPerRound() const;
 	int GetFightDuration(QString const& weight) const;
     bool IsOptionSet(EOption o) const;
@@ -72,7 +72,7 @@ private:
     static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 
 public: // nothing to encapsulate here
-	QString name;
+    QString id;
 	QString title;
 	QString subTitle;
 	QString weights;
