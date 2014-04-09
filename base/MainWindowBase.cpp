@@ -370,6 +370,7 @@ void MainWindowBase::write_settings()
 			fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
+    //TODO: settings.setIniCodec("UTF-8");
 
 	settings.beginGroup(str_tag_Main);
 	settings.setValue(str_tag_Version, VersionInfo::VersionStr);
@@ -441,7 +442,7 @@ void MainWindowBase::read_settings()
 			fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
-
+    //TODO: settings.setIniCodec("UTF-8");
 
 	// MainWindow
 
