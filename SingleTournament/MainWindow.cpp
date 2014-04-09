@@ -169,12 +169,12 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 {
-	FightCategory t(s);
-	m_pCategoryManager->GetCategory(s, t);
+    FightCategory category(s);
+    m_pCategoryManager->GetCategory(s, category);
 
 	// add weights
 	m_pUi->comboBox_weight->clear();
-	m_pUi->comboBox_weight->addItems(t.GetWeightsList());
+    m_pUi->comboBox_weight->addItems(category.GetWeightsList());
 
 	// trigger round time update
 	on_checkBox_golden_score_clicked(m_pUi->checkBox_golden_score->checkState());
