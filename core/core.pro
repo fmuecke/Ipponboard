@@ -24,21 +24,27 @@ prebuildhook.depends = prebuild
 CONFIG(release, debug|release):prebuildhook.target = Makefile.Release
 QMAKE_EXTRA_TARGETS += prebuildhook
 
-#TARGET = core
-#
-#build_pass:CONFIG(debug, debug|release) {
-#    TARGET = $$join(TARGET,,,_d)
-#}
-Release:TARGET = core
-Debug:TARGET = core_d
-
+# Auto select compiler
 win32-g++: COMPILER = mingw
+win32-msvc2010: COMPILER = msvc
 win32-msvc2012: COMPILER = msvc
+
+CONFIG(release, release|debug) {
+    TARGET = core
+}
+
+CONFIG(debug, release|debug) {
+    TARGET = core_d
+
+    contains(COMPILER, msvc) {
+        QMAKE_CXX += /Od
+    }
+}
+
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
     # get rid of some nasty boost warnings
     QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
-    #QMAKE_CXXFLAGS += -std=c++0x
 }
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS

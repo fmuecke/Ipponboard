@@ -22,6 +22,11 @@ QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 
 DESTDIR = ../bin
 
+# Auto select compiler
+win32-g++: COMPILER = mingw
+win32-msvc2010: COMPILER = msvc
+win32-msvc2012: COMPILER = msvc
+
 CONFIG(release, release|debug) {
     TARGET = Ipponboard_team
     QMAKE_LIBS += -lgamepad -lcore -lshell32 -lwinmm
@@ -30,12 +35,11 @@ CONFIG(release, release|debug) {
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_team_d
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lwinmm 
-}
 
-# Auto select compiler
-win32-g++: COMPILER = mingw
-win32-msvc2010: COMPILER = msvc
-win32-msvc2012: COMPILER = msvc
+    contains(COMPILER, msvc) {
+        QMAKE_CXX += /Od
+    }
+}
 
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
@@ -45,9 +49,6 @@ contains(COMPILER, mingw) {
     QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
 	QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
-
-
-
 
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd
