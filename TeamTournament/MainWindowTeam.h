@@ -68,7 +68,6 @@ private slots:
 	void on_actionSet_Round_Time_triggered();
 	void on_pushButton_copySwitched_pressed();
 	void on_toolButton_weights_pressed();
-    void on_toolButton_manageModes_pressed();
 	void on_toolButton_team_home_pressed();
 	void on_toolButton_team_guest_pressed();
 	void slot_copy_cell_content_list1();

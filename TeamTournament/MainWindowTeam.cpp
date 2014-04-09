@@ -1047,11 +1047,6 @@ void MainWindowTeam::on_toolButton_weights_pressed()
     }
 }
 
-void MainWindowTeam::on_toolButton_manageModes_pressed()
-{
-    on_actionManageModes_triggered();
-}
-
 void MainWindowTeam::on_toolButton_team_home_pressed()
 {
 #if 0
