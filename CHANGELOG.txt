@@ -2,6 +2,7 @@ Version 1.4 (team edition valid until 01/2015)
 - (new): tournament modes can be configured nicely within the program (Management -> Modes)
 - (mod): removed menu entry to set the round time in team edition as it was confusing with the new mode management
 - (mod): changed the type of the internal label of the tournament modes from string to an unique identifier
+- (fix): fight time for women leagues was 5 instead of 4 minutes 
 - (fix): changed encoding of tournament modes configuration file to UTF-8
 - (fix): tournament modes were not sorted alphabetically
 - (fix): layout of remaining time was not proper in list templates
