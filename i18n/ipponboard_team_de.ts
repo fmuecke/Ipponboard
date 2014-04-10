@@ -1470,12 +1470,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
     </message>
     <message>
         <source>Double weights</source>
-        <translation type="obsolete">Klassen doppelt belegen</translation>
+        <translation type="obsolete">Klassen doppelt belegt</translation>
     </message>
     <message>
         <location filename="../TeamTournament/ModeManagerDlg.ui" line="109"/>
         <source>Weights count twice</source>
-        <translation>Klassen doppelt belegen</translation>
+        <translation>Klassen doppelt belegt</translation>
     </message>
     <message>
         <location filename="../TeamTournament/ModeManagerDlg.ui" line="118"/>

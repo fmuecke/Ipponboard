@@ -252,6 +252,7 @@ bool TournamentMode::parse_current_group(
     mode.weights = config.value(TournamentMode::str_Weights).toString();
     mode.listTemplate = config.value(TournamentMode::str_Template).toString();
     mode.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
+    mode.nRounds = mode.nRounds > 2 ? 2 : mode.nRounds;  // restrict to two rounds for now as the lists do not handle more
     mode.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
     mode.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
     mode.options = config.value(TournamentMode::str_Options, QString()).toString();
