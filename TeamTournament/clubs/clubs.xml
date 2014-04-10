@@ -171,21 +171,21 @@
 	</item>
 	<item>
 		<c.name>
-			<value>Sport-UNION-Witten Annen</value>
+			<value>SG Eltmann</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs/su_annen.png</value>
+			<value>clubs/sg_eltmann.png</value>
 		</c.logoFile>
 		<c.address>
-			<value></value>
+			<value>Eltmann</value>
 		</c.address>
 	</item>
 	<item>
 		<c.name>
-			<value>TG Höchberg</value>
+			<value>Sport-UNION-Witten Annen</value>
 		</c.name>
 		<c.logoFile>
-			<value>clubs/tg_hoechberg.png</value>
+			<value>clubs/su_annen.png</value>
 		</c.logoFile>
 		<c.address>
 			<value></value>
