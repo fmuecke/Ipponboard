@@ -1,19 +1,22 @@
 #ifndef BASE__CONTROLLER_H_
 #define BASE__CONTROLLER_H_
 
+#include "score.h"
+#include "tournament.h"
+#include "icontroller.h"
+#include "icontrollercore.h"
+//dev:#include "TournamentMode.h"
+#include "tournamentmodel.h"
+#include "statemachine.h"
+#include "../util/helpers.hpp"
+
 #include <QObject>
 #include <QTime>
 #include <utility>
 #include <set>
 #include <vector>
 #include <bitset>
-
-#include "score.h"
-#include "tournament.h"
-#include "icontroller.h"
-#include "icontrollercore.h"
-#include "tournamentmodel.h"
-#include "statemachine.h"
+#include <memory>
 
 // forwards
 class QTimer;
@@ -47,19 +50,20 @@ public:
 	virtual ~Controller();
 
 	// --- IController ---
+	//dev:void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
 	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
 	Ipponboard::EFighter GetLead() const;
 	Ipponboard::EFighter GetLastHolder() const;
-	const QString GetTimeText(Ipponboard::ETimer timer) const;
-	const QString GetFighterName(Ipponboard::EFighter who) const;
-	const QString GetFighterLastName(Ipponboard::EFighter) const;
-	const QString GetFighterFirstName(Ipponboard::EFighter) const;
-	const QString GetFighterClub(Ipponboard::EFighter who) const;
-	const QString& GetWeight() const;
-	const QString GetMessage() const;
+	QString GetTimeText(Ipponboard::ETimer timer) const;
+	QString GetFighterName(Ipponboard::EFighter who) const;
+	QString GetFighterLastName(Ipponboard::EFighter) const;
+	QString GetFighterFirstName(Ipponboard::EFighter) const;
+	QString GetFighterClub(Ipponboard::EFighter who) const;
+	QString GetWeight() const;
+	QString GetMessage() const;
 	int GetTeamScore(Ipponboard::EFighter who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
 	void SetRoundTime(const QString& value);
@@ -68,7 +72,7 @@ public:
 	void SetRoundTime(const QTime& time);
 	int GetRound() const;
 	void SetWeightClass(QString const& c);
-	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
+	QString GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
 	void SetOption(Ipponboard::EOption option, bool isSet);
@@ -79,14 +83,17 @@ public:
 
 	void Gong() const;
 
+	IController const* GetIController() const { return this; }
+	IController* GetIController() { return this; }
+
 	// --- IControllerCore ---
 private:
 	void start_timer(ETimer t);
 	void stop_timer(ETimer t);
 	void reset_fight();
 	void reset_timer(ETimer);
-	Score& get_score(Ipponboard::EFighter who);
-	const Score& get_score(Ipponboard::EFighter who) const;
+	Score& get_score(Ipponboard::EFighter who) final;
+	Score const& get_score(Ipponboard::EFighter who) const final;
 	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
@@ -128,7 +135,7 @@ public:
 	TournamentModel* GetTournamentScoreModel(int which = 0);
 
 	void SetGongFile(const QString&);
-	const QString& GetGongFile() const;
+	QString const& GetGongFile() const;
 
 
 private slots:

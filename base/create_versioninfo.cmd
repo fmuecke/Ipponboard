@@ -63,8 +63,8 @@ ECHO #include ^<winver.h^>>>%RC_FILE%
 ECHO #include ^<winver.h^>>>%RC_FILE2%
 ECHO #pragma code_page(1252)>>%RC_FILE%
 ECHO #pragma code_page(1252)>>%RC_FILE2%
-ECHO IDI_MAIN_ICON	ICON	"images/ipponboard.ico">>%RC_FILE%
-ECHO IDI_MAIN_ICON	ICON	"images/ipponboard_team.ico">>%RC_FILE2%
+ECHO 101 ICON "images/ipponboard.ico">>%RC_FILE%
+ECHO 101 ICON "images/ipponboard_team.ico">>%RC_FILE2%
 ECHO /////////////////////////////////////////////////////////////////////////////>>%RC_FILE%
 ECHO /////////////////////////////////////////////////////////////////////////////>>%RC_FILE2%
 ECHO VS_VERSION_INFO VERSIONINFO>>%RC_FILE%
@@ -97,28 +97,36 @@ ECHO     BLOCK "StringFileInfo">>%RC_FILE%
 ECHO     BLOCK "StringFileInfo">>%RC_FILE2%
 ECHO     BEGIN>>%RC_FILE%
 ECHO     BEGIN>>%RC_FILE2%
-ECHO         BLOCK "040704b0">>%RC_FILE%
-ECHO         BLOCK "040704b0">>%RC_FILE2%
+ECHO         BLOCK "040004b0">>%RC_FILE%
+ECHO         BLOCK "040004b0">>%RC_FILE2%
 ECHO         BEGIN>>%RC_FILE%
 ECHO         BEGIN>>%RC_FILE2%
-ECHO             VALUE "CompanyName", "Florian Mücke\0">>%RC_FILE%
-ECHO             VALUE "CompanyName", "Florian Mücke\0">>%RC_FILE2%
-ECHO             VALUE "FileDescription", "Ipponboard\0">>%RC_FILE%
-ECHO             VALUE "FileDescription", "Ipponboard Team Edition\0">>%RC_FILE2%
-ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE%
-ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE2%
-ECHO             VALUE "InternalName", "Ipponboard.exe\0">>%RC_FILE%
-ECHO             VALUE "InternalName", "Ipponboard_team.exe\0">>%RC_FILE2%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke\0">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke\0">>%RC_FILE2%
-ECHO             VALUE "OriginalFilename", "Ipponboard.exe\0">>%RC_FILE%
-ECHO             VALUE "OriginalFilename", "Ipponboard_team.exe\0">>%RC_FILE2%
-ECHO             VALUE "ProductName", "Ipponboard\0">>%RC_FILE%
-ECHO             VALUE "ProductName", "Ipponboard Team Edition\0">>%RC_FILE2%
-ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE%
-ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%\0">>%RC_FILE2%
+ECHO             VALUE "CompanyName", "Florian Mücke">>%RC_FILE%
+ECHO             VALUE "CompanyName", "Florian Mücke">>%RC_FILE2%
+ECHO             VALUE "FileDescription", "Ipponboard">>%RC_FILE%
+ECHO             VALUE "FileDescription", "Ipponboard Team Edition">>%RC_FILE2%
+ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
+ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE2%
+ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
+ECHO             VALUE "InternalName", "Ipponboard_team.exe">>%RC_FILE2%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE2%
+ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
+ECHO             VALUE "OriginalFilename", "Ipponboard_team.exe">>%RC_FILE2%
+ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
+ECHO             VALUE "ProductName", "Ipponboard Team Edition">>%RC_FILE2%
+ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
+ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE2%
 ECHO         END>>%RC_FILE%
 ECHO         END>>%RC_FILE2%
+ECHO     END>>%RC_FILE%
+ECHO     END>>%RC_FILE2%
+ECHO     BLOCK "VarFileInfo">>%RC_FILE%
+ECHO     BLOCK "VarFileInfo">>%RC_FILE2%
+ECHO     BEGIN>>%RC_FILE%
+ECHO     BEGIN>>%RC_FILE2%
+ECHO         VALUE "Translation", 0x400, 1200>>%RC_FILE%
+ECHO         VALUE "Translation", 0x400, 1200>>%RC_FILE2%
 ECHO     END>>%RC_FILE%
 ECHO     END>>%RC_FILE2%
 ECHO END>>%RC_FILE%

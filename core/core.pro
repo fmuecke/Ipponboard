@@ -47,23 +47,23 @@ contains(COMPILER, msvc) {
 HEADERS = ../base/pch.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
-    controlconfig.h \
-    controller.h \
-    enums.h \
-    fightcategory.h \
-    icontroller.h \
-    icontrollercore.h \
-    iview.h \
-    score.h \
-    statemachine.h \
-    tournament.h \
-    tournamentmodel.h
+    Controller.h \
+    Enums.h \
+    FightCategory.h \
+    iController.h \
+    iControllerCore.h \
+    iView.h \
+    Score.h \
+    StateMachine.h \
+    Tournament.h \
+	TournamentModel.h \
+	ControllerConfig.h
 
-SOURCES = controller.cpp \
-    fightcategory.cpp \
-    score.cpp \
-    statemachine.cpp \
-    tournamentmodel.cpp
+SOURCES = Controller.cpp \
+    FightCategory.cpp \
+    Score.cpp \
+    StateMachine.cpp \
+    TournamentModel.cpp
     
 
 #OTHER_FILES +=

@@ -3,14 +3,16 @@
 #include "clubmanager.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <memory>
 
 using namespace Ipponboard;
 
 //---------------------------------------------------------
-ClubManagerDlg::ClubManagerDlg(ClubManager* mgr, QWidget* parent)
+ClubManagerDlg::ClubManagerDlg(
+	std::shared_ptr<ClubManager> pMgr, QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::ClubManagerDlg)
-	, m_pClubMgr(mgr)
+	, m_pClubMgr(pMgr)
 	, m_SelectedClub(-1)
 //---------------------------------------------------------
 {
@@ -186,14 +188,12 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 	if (m_SelectedClub < 0)
 		return;
 
-	QFileDialog::Options options;
-	QString selectedFilter;
-	QString fileName = QFileDialog::getOpenFileName(this,
+	const QString fileName = QFileDialog::getOpenFileName(this,
 					   tr("Select Club Emblem"),
 					   ui->lineEdit_logoFile->text(),
 					   tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
-					   &selectedFilter,
-					   options);
+							 nullptr,
+							 QFileDialog::ReadOnly);
 
 	if (!fileName.isEmpty())
 	{

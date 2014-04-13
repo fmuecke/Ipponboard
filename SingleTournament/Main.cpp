@@ -1,19 +1,20 @@
-#include <QtGui/QApplication>
-#include <QFile>
-#include <QMessageBox>
-#include <QSettings>
-#include <QTextCodec>
-#include <QTranslator>
-#include "../base/mainwindow.h"
-#include "../widgets/countdown.h"
-#include "../widgets/splashscreen.h"
+#include "MainWindow.h"
+#include "../Widgets/Countdown.h"
+#include "../Widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
 
+#include <QtGui/QApplication>
+#include <QTranslator>
+#include <QMessageBox>
+#include <QSettings>
+#include <QFile>
+#include <QLocale>
+#include <QTextCodec>
 
 int DelayUser()
 {
-	Countdown dlg(7);
+	Countdown dlg(25);
 	return dlg.exec();
 }
 
@@ -32,15 +33,20 @@ int main(int argc, char* argv[])
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.info");
-	QCoreApplication::setApplicationName("Ipponboard (Team Edition)");
+	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
+
+	MainWindow mainWnd;
+	mainWnd.setWindowTitle(QCoreApplication::applicationName() + " v" +
+						   QCoreApplication::applicationVersion());
 
 	// read language code
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
 
 	const QString ini(QString::fromStdString(
-						  fmu::GetSettingsFilePath(str_ini_name)));
+						  fmu::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
 	QSettings settings(ini, QSettings::IniFormat, &a);
+
 	settings.beginGroup(str_tag_Main);
 
 	if (settings.contains(str_tag_Language))
@@ -56,10 +62,10 @@ int main(int argc, char* argv[])
 		const QString& langPath =
 			QCoreApplication::applicationDirPath() + QString("/lang");
 
-		if (translator.load("Ipponboard_team_de", langPath))
+		if (translator.load("Ipponboard_de", langPath))
 			a.installTranslator(&translator);
 		else
-			LangNotFound("Ipponboard_team_de");
+			LangNotFound("Ipponboard_de");
 
 		if (coreTranslator.load("core_de", langPath))
 			a.installTranslator(&coreTranslator);
@@ -67,9 +73,7 @@ int main(int argc, char* argv[])
 			LangNotFound("core_de");
 	}
 
-
-	//QFile f(langStr == "de" ? ":/text/text/License_team_de.html" : ":/text/text/License_team_en.html");
-	QFile f(":/text/text/License_team_de.html");
+	QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
 	f.open(QIODevice::ReadOnly | QIODevice::Text);
 	const QByteArray data = f.readAll();
 	f.close();
@@ -81,46 +85,36 @@ int main(int argc, char* argv[])
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2015, 01, 31);
+	splashData.date = QDate(2012, 7, 30);
 	SplashScreen splash(splashData);
-	splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
-	splash.resize(480, 410);
 
 	if (QDialog::Accepted != splash.exec())
 		return 0;
 
-	const int days_left = QDate::currentDate().daysTo(splashData.date);
+	//const int days_left = QDate::currentDate().daysTo(splashData.date);
 
-	if (days_left <= 0)
-	{
-		QMessageBox::critical(0,
-							  QCoreApplication::tr("Warning"),
-							  QCoreApplication::tr(
-								  "This version is no longer valid!\n\n"
-								  "You need to visit the project homepage for a (free) update."));
+	//if (days_left <= 0)
+	//{
+	//    QMessageBox::critical(0,
+	//                          QCoreApplication::tr("Warning"),
+	//                          QCoreApplication::tr(
+	//                              "This version is no longer valid!\n\n"
+	//                              "You need to visit the project homepage for a (free) update."));
+	//
+	//    if (QDialog::Accepted != DelayUser())
+	//        return 0;
+	//}
+	//else if (days_left < 30)
+	//{
+	//    QMessageBox::warning(0,
+	//                         QCoreApplication::tr("Warning"),
+	//                         QCoreApplication::tr(
+	//                             "This version will stop to work in less than 30 days!\n\n"
+	//                             "Please visit the project homepage - there should be a newer version available."));
+	//}
 
-		if (QDialog::Accepted != DelayUser())
-			return 0;
-	}
-	else if (days_left < 30)
-	{
-		QMessageBox::warning(0,
-							 QCoreApplication::tr("Warning"),
-							 QCoreApplication::tr(
-								 "This version will stop to work in less than 30 days!\n\n"
-								 "Please visit the project homepage - there should be a newer version available."));
-	}
-
-	MainWindow w;
-	w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-					 QCoreApplication::applicationVersion());
-
-	//w.setWindowTitle(QCoreApplication::applicationName() + " v" +
-	//				 QCoreApplication::applicationVersion() +
-	//" ***Spezialversion DJK ITSV Grosshadern***");
-	//				 " ***Spezialversion DJK Ingolstadt***");
-
-	w.show();
+	mainWnd.Init();
+	mainWnd.show();
 
 	return a.exec();
 }

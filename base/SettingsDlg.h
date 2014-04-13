@@ -14,7 +14,7 @@ class SettingsDlg;
 namespace Ipponboard
 {
 
-struct ControlConfig;
+struct ControllerConfig;
 
 class SettingsDlg : public QDialog
 {
@@ -54,8 +54,8 @@ public:
 	bool IsAutoIncrementRule() const;
 	bool IsUse2013Rules() const;
 
-	void SetControlConfig(ControlConfig* pConfig);
-	void GetControlConfig(ControlConfig* pConfig);
+	void SetControllerConfig(ControllerConfig* pConfig);
+	void GetControllerConfig(ControllerConfig* pConfig);
 
 protected:
 	void changeEvent(QEvent* e);

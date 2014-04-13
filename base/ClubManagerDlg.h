@@ -2,6 +2,7 @@
 #define BASE__CLUBMANAGERDLG_H_
 
 #include <QDialog>
+#include <memory>
 
 // forwards
 namespace Ui { class ClubManagerDlg; }
@@ -12,7 +13,9 @@ class ClubManagerDlg : public QDialog
 {
 	Q_OBJECT
 public:
-	ClubManagerDlg(Ipponboard::ClubManager* mgr, QWidget* parent = 0);
+	ClubManagerDlg(
+		std::shared_ptr<Ipponboard::ClubManager> pMgr,
+		QWidget* parent = nullptr);
 	~ClubManagerDlg();
 
 protected:
@@ -23,7 +26,7 @@ private:
 	void update_ui();
 
 	Ui::ClubManagerDlg* ui;
-	Ipponboard::ClubManager* m_pClubMgr;
+	std::shared_ptr<Ipponboard::ClubManager> m_pClubMgr;
 	int m_SelectedClub;
 
 private slots:

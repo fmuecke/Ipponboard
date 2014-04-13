@@ -59,3 +59,7 @@ env_cfg.bat
 *.filters
 TeamTournament\IpponboardT.ini
 base\pch.h.cpp
+GamePadDemo\debug\*
+*.sdf
+*.pdb
+*.suo
