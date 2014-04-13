@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="10">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>27</count>
+	<count>28</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -13,6 +13,17 @@
 		</c.logoFile>
 		<c.address>
 			<value></value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>Budokai Liestal</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/budokai_liestal.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>Rosenstrasse 21a, CH-4410 Liestal</value>
 		</c.address>
 	</item>
 	<item>
