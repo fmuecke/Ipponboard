@@ -161,11 +161,6 @@ protected:
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
-	//Ui::MainWindow* m_pUi;
-	//Ipponboard::View* m_pPrimaryView;
-	//Ipponboard::View* m_pSecondaryView;
-	//Ipponboard::Controller* m_pController;
-
 	PGamepad m_pGamepad;
 };
 
