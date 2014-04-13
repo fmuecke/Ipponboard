@@ -6,6 +6,7 @@
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
+#include "ModeManagerDlg.h"
 //#include "../base/FightCategoryManager.h"
 //#include "../base/FightCategoryManagerDlg.h"
 #include "../base/View.h"
@@ -53,13 +54,14 @@ static const char* const host = "Host";
 using namespace FMlib;
 using namespace Ipponboard;
 
+namespace { bool initialized = false; }
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
 	, m_pScoreScreen()
 	, m_pClubManager()
 	, m_htmlScore()
-	, m_mode()
+    , m_currentMode()
 	, m_host()
 	, m_FighterNamesHome()
 	, m_FighterNamesGuest()
@@ -81,8 +83,26 @@ void MainWindowTeam::Init()
 	// load modes
 	for (auto const& mode : m_modes)
 	{
-		m_pUi->comboBox_mode->addItem(mode.FullTitle());
+        m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
 	}
+
+	initialized = true;
+
+    int modeIndex = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
+    if (-1 == modeIndex)
+    {
+        modeIndex = 0;
+    }
+
+    if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
+    {
+        m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+    }
+    else
+    {
+        // be sure to trigger
+        on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
+    }
 
 	//
 	// setup data
@@ -115,22 +135,6 @@ void MainWindowTeam::Init()
     m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-
-	int modeIndex = m_pUi->comboBox_mode->findText(m_mode);
-	if (-1 == modeIndex)
-	{
-		modeIndex = 0;
-    }
-
-    if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
-    {
-        m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
-    }
-    else
-    {
-        // be sure to trigger
-        on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentText());
-    }
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -254,14 +258,22 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 		MainWindowBase::keyPressEvent(event);
 		//    break;
 		//}
-	}
+    }
+}
+
+QStringList MainWindowTeam::get_list_templates()
+{
+    QDir dir(TournamentMode::TemplateDirName());
+    QStringList filters;
+    filters.append("*.html");
+    return dir.entryList(filters, QDir::Files, QDir::Name);
 }
 
 void MainWindowTeam::write_specific_settings(QSettings& settings)
 {
     QString group = EditionName();
     settings.beginGroup(group.replace(' ', '_'));
-	settings.setValue(StrTags::mode, m_mode);
+    settings.setValue(StrTags::mode, m_currentMode);
 	settings.setValue(StrTags::host, m_host);
 	settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
 	settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
@@ -273,7 +285,7 @@ void MainWindowTeam::read_specific_settings(QSettings& settings)
     QString group = EditionName();
     settings.beginGroup(group.replace(' ', '_'));
 	{
-		m_mode = settings.value(StrTags::mode, "").toString();
+        m_currentMode = settings.value(StrTags::mode, "").toString();
 		m_host = settings.value(StrTags::host, "").toString();
 
 		m_pController->SetLabels(
@@ -453,8 +465,8 @@ void MainWindowTeam::update_score_screen()
 
 void MainWindowTeam::WriteScoreToHtml_()
 {
-	QString modeText = get_full_mode_title(m_pUi->comboBox_mode->currentText());
-	QString templateFile = get_template_file(m_pUi->comboBox_mode->currentText());
+    QString modeText = get_full_mode_title(m_currentMode);
+    QString templateFile = get_template_file(m_currentMode);
 	const QString filePath(
 		fmu::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 
@@ -663,7 +675,45 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 
 void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 {
-	update_views();
+    update_views();
+}
+
+void MainWindowTeam::on_actionManageModes_triggered()
+{
+    QStringList templates = get_list_templates();
+    ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        QString errMsg;
+		if (!Ipponboard::TournamentMode::WriteModes(MainWindowTeam::ModeConfigurationFileName(), dlg.Result(), errMsg))
+        {
+            QMessageBox::critical(this,
+                                  QCoreApplication::tr("Error writing mode configurations"),
+                                  errMsg);
+
+            return;
+        }
+
+        m_pUi->comboBox_mode->clear();
+        SetModes(dlg.Result());
+
+        for (auto const& mode : m_modes)
+        {
+            m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
+        }
+
+        auto pos = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
+        pos = pos == -1 ? 0 : pos;
+
+        if (pos != m_pUi->comboBox_mode->currentIndex())
+        {
+            m_pUi->comboBox_mode->setCurrentIndex(pos);
+        }
+        else
+        {
+            on_comboBox_mode_currentIndexChanged(pos);
+        }
+    }
 }
 
 void MainWindowTeam::on_actionManage_Clubs_triggered()
@@ -682,7 +732,7 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
 	//	return mode.name == modeBayernliga;
 	//});
 
-	//if (iter == end(m_modes) || m_pUi->comboBox_mode->findText(iter->FullTitle()) < 0)
+	//if (iter == end(m_modes) || m_pUi->comboBox_mode->findText(iter->Description()) < 0)
 	//{
 	//	QMessageBox::critical(this, tr("Load demo data error"),
 	//		tr("Tournament mode settings for [%1] could not be found.").arg(modeBayernliga));
@@ -690,7 +740,7 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
 	//	return;
 	//}
 
-	//int modeIndex = m_pUi->comboBox_mode->findText(iter->FullTitle());
+	//int modeIndex = m_pUi->comboBox_mode->findText(iter->Description());
 	//m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
 	//m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
@@ -784,19 +834,24 @@ void MainWindowTeam::on_button_next_clicked()
 	m_pController->DoAction(eAction_ResetOsaeKomi, eFighterNobody, true /*doRevoke*/);
 }
 
-void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 {
-	m_mode = s;
+    if (!initialized)
+    {
+        return;
+    }
+
+    m_currentMode = m_pUi->comboBox_mode->itemData(i).toString();
+    QString modeDescription =  m_pUi->comboBox_mode->currentText();
 
     // FIXME2014: use this???
     //m_pController->SetOption(eOption_Use2013Rules, true);
 
 
 	// TODO: use binary seach as the container is sorted
-	auto iter = std::find_if(begin(m_modes), end(m_modes),
-							 [&](TournamentMode const & tm)
+    auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & mode)
 	{
-		return tm.FullTitle() == s;
+        return mode.id == m_currentMode;
 	});
 
 	if (iter != end(m_modes))
@@ -853,9 +908,9 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(const QString& s)
 	}
 
 	// set mode text as mat label
-	m_MatLabel = s;
-	m_pPrimaryView->SetMat(s);
-	m_pSecondaryView->SetMat(s);
+    m_MatLabel = modeDescription;
+    m_pPrimaryView->SetMat(modeDescription);
+    m_pSecondaryView->SetMat(modeDescription);
 
 	m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
@@ -989,7 +1044,7 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 		{
 			update_weights(weights);
 		}
-	}
+    }
 }
 
 void MainWindowTeam::on_toolButton_team_home_pressed()
@@ -1309,24 +1364,23 @@ void MainWindowTeam::Print(QPrinter* p)
 	e.document()->print(p);
 }
 	
-QString MainWindowTeam::get_template_file(QString const& mode) const
+QString MainWindowTeam::get_template_file(QString const& modeId) const
 {
 	// TODO: use binary seach as the container is sorted
-	auto iter = std::find_if(begin(m_modes), end(m_modes),
-							 [&](TournamentMode const & tm)
+	auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const& m)
 	{
-		return tm.FullTitle() == mode;
+        return m.id == modeId;
 	});
 
 	if (iter != end(m_modes))
 	{
-		return iter->listTemplate;
+        return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
 	}
 
 	return QString();
 }
 
-QString MainWindowTeam::get_full_mode_title(QString const& mode) const
+QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
 {
 	QString year(QString::number(QDate::currentDate().year()));
 
@@ -1334,7 +1388,7 @@ QString MainWindowTeam::get_full_mode_title(QString const& mode) const
 	auto iter = std::find_if(begin(m_modes), end(m_modes),
 							 [&](TournamentMode const & tm)
 	{
-		return tm.FullTitle() == mode;
+        return tm.id == modeId;
 	});
 
 	if (iter != end(m_modes))

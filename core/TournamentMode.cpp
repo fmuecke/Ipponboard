@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QSettings>
+#include <regex>
 
 using namespace Ipponboard;
 
@@ -26,7 +27,7 @@ QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
 
 TournamentMode::TournamentMode()
-	: name("SingeTournament")
+    : id("SingeTournament")
 	, title("Single Tournament")
 	, subTitle("Ipponboard")
 	, weights()
@@ -41,7 +42,7 @@ TournamentMode::TournamentMode()
 
 bool TournamentMode::ReadModes(
 	const QString& filename,
-	std::vector<TournamentMode>& modes,
+    TournamentMode::List& modes,
 	QString& errorMsg)
 {
 	errorMsg.clear();
@@ -54,7 +55,8 @@ bool TournamentMode::ReadModes(
 		return false;
 	}
 
-	QSettings config(filename, QSettings::IniFormat, nullptr);
+    QSettings config(filename, QSettings::IniFormat, nullptr);
+    config.setIniCodec("UTF-8");
 	QStringList groups = config.childGroups();
 
 	if (groups.isEmpty())
@@ -63,13 +65,13 @@ bool TournamentMode::ReadModes(
 		return false;
 	}
 
-	std::vector<TournamentMode> _modes;
-	Q_FOREACH(QString const & group, groups)
+    TournamentMode::List _modes;
+    for (QString const & group : groups)
 	{
-		TournamentMode tm;
+        TournamentMode mode;
 
 		config.beginGroup(group);
-		bool readSuccess = parse_current_group(config, tm, errorMsg);
+        bool readSuccess = parse_current_group(config, mode, errorMsg);
 		config.endGroup();
 
 		if (!readSuccess)
@@ -78,26 +80,59 @@ bool TournamentMode::ReadModes(
 			return false;
 		}
 
-		_modes.push_back(tm);
+        _modes.push_back(mode);
 	}
 
-	std::sort(begin(modes), end(modes));
+    std::sort(begin(_modes), end(_modes));
 
 	// all Ok, swap to internal
-	modes.swap(_modes);
-	return true;
+    modes.swap(_modes);
+
+    return true;
+}
+
+bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List const& modes, QString &errorMsg)
+{
+    errorMsg.clear();
+
+    QFile file(filename);
+    if (file.exists() && !file.remove())
+    {
+        errorMsg = QString("Can not write to %1!").arg(filename);
+        return false;
+    }
+
+    QSettings config(filename, QSettings::IniFormat, nullptr);
+    config.setIniCodec("UTF-8");
+
+    for (auto const& mode : modes)
+    {
+        config.beginGroup(mode.id);
+
+        config.setValue(str_Title, mode.title);
+        config.setValue(str_SubTitle, mode.subTitle);
+        config.setValue(str_Weights, mode.weights);
+        config.setValue(str_Template, mode.listTemplate);
+        config.setValue(str_Rounds, mode.nRounds);
+        config.setValue(str_FightTimeInSeconds, mode.fightTimeInSeconds);
+        config.setValue(str_WeightsAreDoubled, mode.weightsAreDoubled);
+        config.setValue(str_Options, mode.options);
+        config.setValue(str_FightTimeOverrides, mode.GetFightTimeOverridesString());
+
+        config.endGroup();
+    }
+
+    return true;
 }
 
 bool TournamentMode::operator<(TournamentMode const& other) const
 {
-	return FullTitle() < other.FullTitle();
+	return Description() < other.Description();
 }
 
-QString TournamentMode::FullTitle() const
+QString TournamentMode::Description() const
 {
-	return subTitle.isEmpty() ?
-		   title :
-		   QString("%1 - %2").arg(title, subTitle);
+    return subTitle.isEmpty() ? title : QString("%1 - %2").arg(title, subTitle);
 }
 
 int TournamentMode::FightsPerRound() const
@@ -134,9 +169,72 @@ bool TournamentMode::IsOptionSet(EOption o) const
     return options.contains(EnumToString(o));
 }
 
+void TournamentMode::SetOption(EOption o, bool checked)
+{
+    auto option = EnumToString(o);
+
+    if (checked)
+    {
+        if (!options.contains(option))
+        {
+            options.append(";").append(option);
+        }
+    }
+    else
+    {
+        if (options.contains(option))
+        {
+            options.replace(option, QString());
+            options.replace(";;", ";");
+        }
+    }
+}
+
+QString TournamentMode::GetFightTimeOverridesString() const
+{
+    QString ret;
+
+    for (auto const& p : fightTimeOverrides)
+    {
+        if (!ret.isEmpty())
+        {
+            ret += ";";
+        }
+
+        ret += QString("%1:%2").arg(p.first, QString::number(p.second));
+    }
+
+    return ret;
+}
+
+bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, OverridesList& overrides)
+{
+    if (!std::regex_match(overridesString.toStdString(), std::regex("(\\w+:\\d+;)*(\\w+:\\d+)$")))
+    {
+        return false;
+    }
+
+    OverridesList result;
+    QStringList splittedTimes = overridesString.split(';');
+    for (QString const & s : splittedTimes)
+    {
+        if (!s.contains(':'))
+        {
+            return false;
+        }
+
+        QStringList override = s.split(':');
+        std::pair<QString, int> overridePair = std::make_pair(override[0], override[1].toUInt());
+        result.push_back(overridePair);
+    }
+
+    overrides.swap(result);
+    return true;
+}
+
 bool TournamentMode::parse_current_group(
 	QSettings const& config,
-	TournamentMode& tm,
+    TournamentMode& mode,
 	QString& errorMsg)
 {
 	if (!verify_child_keys(config.childKeys(), errorMsg))
@@ -148,59 +246,61 @@ bool TournamentMode::parse_current_group(
 	const QString err = "The key [%1] in section [%2] is empty";
 	const QString errInvalid = "The key [%1] in section [%2] is invalid";
 
-	tm.name = config.group();
-	tm.title = config.value(TournamentMode::str_Title).toString();
-	tm.subTitle = config.value(TournamentMode::str_SubTitle).toString();
-	tm.weights = config.value(TournamentMode::str_Weights).toString();
-	tm.listTemplate = config.value(TournamentMode::str_Template).toString();
-	tm.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
-	tm.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
-	tm.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
-    tm.options = config.value(TournamentMode::str_Options, QString()).toString();
+    mode.id = config.group();
+    mode.title = config.value(TournamentMode::str_Title).toString();
+    mode.subTitle = config.value(TournamentMode::str_SubTitle).toString();
+    mode.weights = config.value(TournamentMode::str_Weights).toString();
+    mode.listTemplate = config.value(TournamentMode::str_Template).toString();
+    mode.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
+    mode.nRounds = mode.nRounds > 2 ? 2 : mode.nRounds;  // restrict to two rounds for now as the lists do not handle more
+    mode.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
+    mode.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
+    mode.options = config.value(TournamentMode::str_Options, QString()).toString();
 	const QString fightTimeOverridesString = config.value(TournamentMode::str_FightTimeOverrides).toString();
 
-	if (tm.weights.isEmpty())
+    if (mode.weights.isEmpty())
 	{
 		errorMsg = err.arg(TournamentMode::str_Weights, config.group());
 		return false;
 	}
 
-	if (tm.listTemplate.isEmpty())
+    if (mode.listTemplate.isEmpty())
 	{
 		errorMsg = err.arg(TournamentMode::str_Template, config.group());
 		return false;
 	}
 	else
 	{
-		QFile listTemplate(tm.listTemplate);
+        QString templateFile = QString("%1/%2").arg(TemplateDirName(), mode.listTemplate);
+        QFile listTemplate(templateFile);
 
 		if (!listTemplate.exists())
 		{
 			errorMsg = QString("The list template for [%2] is not valid: \"%1\"")
-					   .arg(tm.listTemplate, config.group());
+                       .arg(templateFile, config.group());
 
 			return false;
 		}
 	}
 
-	if (!tm.options.isEmpty())
+    if (!mode.options.isEmpty())
     {
         // nothing to do
     }
 
-	if (tm.nRounds == 0)
+    if (mode.nRounds == 0)
 	{
 		errorMsg = err.arg(TournamentMode::str_Rounds, config.group());
 		return false;
 	}
 
-	if (tm.fightTimeInSeconds == 0)
+    if (mode.fightTimeInSeconds == 0)
 	{
 		errorMsg = err.arg(TournamentMode::str_FightTimeInSeconds, config.group());
 		return false;
 	}
 
-	if (tm.title.isEmpty())
+    if (mode.title.isEmpty())
 	{
 		errorMsg = err.arg(TournamentMode::str_Title, config.group());
 		return false;
@@ -208,21 +308,13 @@ bool TournamentMode::parse_current_group(
 
 	if (!fightTimeOverridesString.isEmpty())
 	{
-		QStringList splittedTimes = fightTimeOverridesString.split(';');
-		Q_FOREACH(QString const & s, splittedTimes)
-		{
-			if (!s.contains(':'))
-			{
-				errorMsg = errInvalid.arg(TournamentMode::str_FightTimeOverrides, config.group());
-				return false;
-			}
+        if (!ExtractFightTimeOverrides(fightTimeOverridesString, mode.fightTimeOverrides))
+        {
+            errorMsg = errInvalid.arg(TournamentMode::str_FightTimeOverrides, config.group());
+            return false;
+        }
 
-			QStringList override = s.split(':');
-			std::pair<QString, int> overridePair = std::make_pair(override[0], override[1].toUInt());
-			tm.fightTimeOverrides.push_back(overridePair);
-		}
-
-		if (tm.fightTimeOverrides.empty())
+        if (mode.fightTimeOverrides.empty())
 		{
 			errorMsg = errInvalid.arg(TournamentMode::str_FightTimeOverrides, config.group());
 			return false;
@@ -249,7 +341,7 @@ bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& er
             << str_WeightsAreDoubled
             << str_Options;
 
-	Q_FOREACH(QString const & key, childKeys)
+    for (QString const & key : childKeys)
 	{
 		// check manadatory keys
 		auto pos = std::find(mandatoryKeys.begin(), mandatoryKeys.end(), key);

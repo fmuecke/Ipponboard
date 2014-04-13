@@ -1,13 +1,13 @@
 Liebe Ipponboard-Freunde!
 
-Anbei sende ich euch die für 2014 gültige Version. Leider hat das Zusammenschnüren ungewollt diesmal etwas länger gedauert. Ihr könnt die Version unter dem unten angegebenen Link herunterladen.
+Heute habe ich die Version 1.4 von Ipponboard veröffentlicht.
 
 Was ist neu gegenüber der Version vom Vorjahr?
 - IJF-Regeln von 2013 jetzt für alle Ligen
 - Shidos füren nicht mehr direkt zu Wertungen, werden aber bei Punktegleichheit gewertet
 - Unterstützung für Windows XP verlängert
 
-Neu in dieser Version ist außerdem, dass man folgendes für eine Liga konfigurieren kann:
+Neu (ab Version 1.3) ist, dass man folgendes separat für eine Liga konfigurieren kann:
 - Anzahl Runden
 - Anzahl Kämpfe pro Runde
 - Gewichtsklassen
@@ -16,18 +16,40 @@ Neu in dieser Version ist außerdem, dass man folgendes für eine Liga konfiguri
 - Kampfzeit
 - verwendete Regeln
 
-Falls die vordefinierten Werte nicht passen sollten, wovon ich nicht ausgehe, könnte man diese in der 'TournamentModes.ini'-Datei anpassen.
+Hier ein Abriss der Änderungen:
+Version 1.4 (gültig bis 01/2015)
+- (new): Die Turniermodi können jetzt komfortabel über das Programm angepasst werden (Verwaltung -> Modesverwaltung)
+- (mod): Eintrag "Rundenzeit setzen" aus dem Menü entfernt, da es mit der neuen Modusverwaltung nicht mehr nötig ist
+- (fix): die Kampfzeit für die Damenliegen ist jetzt 4 statt 5 Minuten
+- (fix): die Datei für die Turniermodi wird jetzt in UTF-8 kodiert (bessere Behandlung von Sonderzeichen)
+- (fix): die Turniermodi sind jetzt alphabetisch sortiert
+- (fix): Layout der Restzeit war in den Listenvorlagen nich korrekt
+- (fix): Übersetzungen hatten für die Basic-Edition gefehlt
+- (fix): lehre Speichen/Öffnen-Aktion aus dem Menü entfernt
 
+Version 1.3.3 (bis 01/2015)
+- (mod): (!) Kämpferverwaltung deaktiviert, bis das Konzept hierfür 100%ig überzeugt
+- (fix): Regeln und andere Optionen wurden nicht korrekt an die einzelnen Kämpfer weitergegeben
+- (fix): die Anzeige wurde in einigen Fällen nicht aktualisiert
 
-Die Bedingungen für die Nutzung sind die selben wie gehabt:
+Die Team-Version könnt ihr dieses Jahr nach wie vor unter folgenden Bedingungen verwenden:
+- Ihr gebt mir auf jeden Fall Feedback, wie Ihr mit der Version zurecht kommt.(Sowohl Positives als auch Negatives!)
+- Schickt mir bitte Vorlagen von euren Wettkampflisten (sofern abweichend), dann kann ich diese in das Programm aufnehmen.
+- Schickt mir doch eure Vereinsdaten sowie das Vereinswappen für meine Datenbank (am liebsten im PNG-Format, gut wären mid. 500 Pixel Kantenlänge)
 - Nutzung nur für euch persönlich/Verein
-- Keine Weitergabe an Dritte
-- Gerne Werbung und Empfehlungen gerne weiterreichen
+- Nicht an Dritte weitergeben!
+- Empfehlt Ipponboard weiter
 - Feedback zeitnah geben
-- Spenden sind willkommen!
+- Hinweise "Wie kann ich helfen Ipponboard zu verbessern" beachten: http://ipponboard.koe-judo.de/archives/106
+
+Nachtrag: Es fehlen immer noch von etlichen Vereinen die Emblems für die Ligabegegnungen. Diese bitte umgehend zukommen lassen.
+
+Falls ihr Fragen, Wünsche oder weitere Anregungen habt, stehe ich euch gerne zur Verfügung.
+Falls ihr keine weitere Benachrichtigung wünscht, schreibt mir bitte eine Mail, dann nehme ich euch aus dem Verteiler.
 
 Link:
-http://ipponboard.koe-judo.de/files/Ipponboard-FULL-v1.3.3.7z
+http://ipponboard.koe-judo.de/files/Ipponboard-FULL-v1.4.0.7z
+
 
 Freundliche Grüße & eine erfolgreiche Saison!
 

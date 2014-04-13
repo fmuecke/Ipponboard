@@ -132,7 +132,7 @@ bool FighterManager::ImportFighters(
 
 	if (!DetermineSeparator(formatStr, sep))
 	{
-		errorMsg = QObject::tr("Format specifier hat invalid separator: %1")
+		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
 				   .arg(formatStr);
 		return false;
 	}
@@ -194,7 +194,7 @@ bool FighterManager::ExportFighters(
 
 	if (!DetermineSeparator(formatStr, sep))
 	{
-		errorMsg = QObject::tr("Format specifier hat invalid separator: %1")
+		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
 				   .arg(formatStr);
 
 		return false;

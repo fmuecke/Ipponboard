@@ -1,4 +1,20 @@
-Version 1.3.beta
+Version 1.4 (team edition valid until 01/2015)
+- (new): tournament modes can be configured nicely within the program (Management -> Modes)
+- (mod): removed menu entry to set the round time in team edition as it was confusing with the new mode management
+- (mod): changed the type of the internal label of the tournament modes from string to an unique identifier
+- (fix): fight time for women leagues was 5 instead of 4 minutes 
+- (fix): changed encoding of tournament modes configuration file to UTF-8
+- (fix): tournament modes were not sorted alphabetically
+- (fix): layout of remaining time was not proper in list templates
+- (fix): translation (DE) was missing in some parts of the basic edition
+- (fix): removed empty Open/Save command from menu
+
+Version 1.3.3 (team edition valid until 01/2015)
+- (mod): (!) deactivated fighter management for team edition - feature not 100% convincing (yet)
+- (fix): rules and other options were not properly propagated to fights
+- (fix): view was not updated in some cases
+
+Version 1.3.beta (team edition valid until 01/2014)
 - (new): whole new fighter management
 	- import/export
 	- selection of fighters via dropdown menu
@@ -12,7 +28,7 @@ Version 1.3.beta
 - (new): redesigned some parts of the UI
 	- re-worked visualization of saved fights
 
-Version 1.2.2
+Version 1.2.2 (team edition valid until 01/2014)
 - (mod): all leagues use the 2013 IJF rules per default
 - (mod): reduced expiration countdown time to 7 seconds (from 15)
 - (fix): updated to Qt 4.8.5 and VC12, still supporting Windows XP

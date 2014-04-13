@@ -25,8 +25,9 @@ public:
 
 	virtual const char* EditionName() const final		{ return "Team Edition"; }
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
+    static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
 
-	void SetModes(std::vector<Ipponboard::TournamentMode>& modes)
+    void SetModes(Ipponboard::TournamentMode::List& modes)
 	{
 		m_modes.swap(modes);
 	}
@@ -37,6 +38,7 @@ protected:
 	virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
+    static QStringList get_list_templates();
 	void update_info_text_color(const QColor& color, const QColor& bgColor) override;
 	void update_text_color_first(const QColor& color, const QColor& bgColor) override;
 	void update_text_color_second(const QColor& color, const QColor& bgColor) override;
@@ -76,11 +78,12 @@ private slots:
 	void slot_clear_cell_content_list2();
 	void Print(QPrinter* p);
 	void on_tabWidget_currentChanged(int index);
+    void on_actionManageModes_triggered();
 	void on_actionManage_Clubs_triggered();
 	void on_actionLoad_Demo_Data_triggered();
 	void on_button_prev_clicked();
 	void on_button_next_clicked();
-	void on_comboBox_mode_currentIndexChanged(const QString& s);
+    void on_comboBox_mode_currentIndexChanged(int i);
 	void on_comboBox_club_host_currentIndexChanged(const QString& s);
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
@@ -113,13 +116,13 @@ private:
 	std::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
 	std::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
 	QString m_htmlScore;
-	QString m_mode;
+    QString m_currentMode;
 	QString m_host;
 
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
-	std::vector<Ipponboard::TournamentMode> m_modes;
+    Ipponboard::TournamentMode::List m_modes;
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_

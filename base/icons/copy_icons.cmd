@@ -81,6 +81,8 @@ copy %SOURCE%\clipboard-paste.png %DEST%\paste.png
 copy %SOURCE%\layout\table-delete.png %DEST%\clear_cells.png
 copy %SOURCE%\layout\table-import.png %DEST%\import_list.png
 copy %SOURCE%\layout\table-export.png %DEST%\export_list.png
+copy %SOURCE%\media\disk-black.png %DEST%\save.png
+copy %SOURCE%\gear.png %DEST%\options.png
 
 GOTO THE_END
 
