@@ -12,10 +12,12 @@ IF NOT EXIST ..\base\.buildnr (
 echo %VER4% >..\base\.buildnr
 :: that's it. <--
 
-hg parents --template "{rev}:{node|short}" > ..\base\.revision
+rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
+git log -1 --format=%%h > ..\base\.revision
 SET /P REV=<..\base\.revision
 
-hg parents --template {date^|localdate^|isodate} > ..\base\.date
+rem hg parents --template {date^|localdate^|isodate} > ..\base\.date
+git log -1 --format=%%ci > ..\base\.date
 SET /P REV_DATE=<..\base\.date
 
 SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
