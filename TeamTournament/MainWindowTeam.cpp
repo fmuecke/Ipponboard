@@ -116,7 +116,7 @@ void MainWindowTeam::Init()
 	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
 	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
 	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
-#if 0
+
 	auto cbxFightersHome = new ComboBoxDelegate(this);
 	cbxFightersHome->SetItems(m_FighterNamesHome);
 
@@ -129,7 +129,7 @@ void MainWindowTeam::Init()
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
-#endif
+
     // make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
@@ -930,7 +930,6 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 {
 	m_pController->SetClub(Ipponboard::eFighter1, s);
 
-#if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
 							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
 
@@ -938,7 +937,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 	{
 		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
 	}
-#endif
+
 	//UpdateViews_(); --> already done by controller
 	update_score_screen();
 }
@@ -946,7 +945,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 {
 	m_pController->SetClub(Ipponboard::eFighter2, s);
-#if 0
+
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
 							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
 
@@ -954,7 +953,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s
 	{
 		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
 	}
-#endif
+
 	//UpdateViews_(); --> already done by controller
 	update_score_screen();
 }
@@ -1049,7 +1048,6 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 
 void MainWindowTeam::on_toolButton_team_home_pressed()
 {
-#if 0
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_home->currentText();
 
@@ -1065,12 +1063,10 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 	{
 		pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
 	}
-#endif
 }
 
 void MainWindowTeam::on_toolButton_team_guest_pressed()
 {
-#if 0
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_guest->currentText();
 
@@ -1086,7 +1082,6 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 	{
 		pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
 	}
-#endif
 }
 
 void MainWindowTeam::update_weights(QString const& weightString)
