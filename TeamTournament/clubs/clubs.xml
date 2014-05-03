@@ -2,7 +2,7 @@
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="10">
 <m_Clubs class_id="0" tracking_level="0" version="0">
-	<count>28</count>
+	<count>29</count>
 	<item_version>1</item_version>
 	<item class_id="1" tracking_level="0" version="1">
 		<c.name class_id="2" tracking_level="0" version="0">
@@ -288,6 +288,17 @@
 		</c.logoFile>
 		<c.address>
 			<value>Mainburg</value>
+		</c.address>
+	</item>
+	<item>
+		<c.name>
+			<value>TSV Palling</value>
+		</c.name>
+		<c.logoFile>
+			<value>clubs/tsv_palling.png</value>
+		</c.logoFile>
+		<c.address>
+			<value>Seestr. 25, 83349 Palling</value>
 		</c.address>
 	</item>
 	<item>
