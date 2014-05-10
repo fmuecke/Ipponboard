@@ -9,6 +9,7 @@
 
 #include "FighterManager.h"
 #include "AddFighterDlg.h"
+#include "FighterManagerImportDlg.h"
 #include "../core/fighter.h"
 //#include "../util/path_helpers.h"
 
@@ -18,19 +19,19 @@
 #include <QRegExp>
 #include <QPlainTextEdit>
 
-#include <boost/foreach.hpp>
-
 //using namespace Ipponboard;
 
 //---------------------------------------------------------
 FighterManagerDlg::FighterManagerDlg(
-	Ipponboard::FighterManager& manager,
-	QWidget* parent)
+        Ipponboard::FighterManager& manager,
+        QStringList const& clubs,
+        QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::FighterManagerDlg)
 	, m_manager(manager)
 	, m_filter()
 	, m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
+    , m_clubs(clubs)
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
@@ -158,8 +159,7 @@ void FighterManagerDlg::populate_view()
 		ui->label_filterinfo->hide();
 	}
 
-	std::for_each(begin(m_manager.m_fighters), end(m_manager.m_fighters),
-				  [&](Ipponboard::Fighter const & f)
+    for (Ipponboard::Fighter const& f : m_manager.m_fighters)
 	{
 		bool skipItem = true;
 
@@ -222,7 +222,7 @@ void FighterManagerDlg::populate_view()
 			pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 			ui->treeWidget_fighters->addTopLevelItem(pItem);
 		}
-	});
+    }
 }
 
 //---------------------------------------------------------
@@ -236,14 +236,34 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 
 	if (!fileName.isEmpty())
 	{
-		//TODO: make this right
-		on_pushButton_settings_pressed();
+        FighterManagerImportDlg dlg(fileName, m_clubs, this);
+        if (dlg.exec() == QDialog::Rejected)
+        {
+            return;
+        }
+
+        m_formatStr = dlg.GetFormatStr();
+
+        Ipponboard::FighterManager manager;
+
+
+        //on_pushButton_settings_pressed();
 
 		QString errorMsg;
 
-		if (m_manager.ImportFighters(fileName, m_formatStr, errorMsg))
+        if (manager.ImportFighters(fileName, m_formatStr, errorMsg))
 		{
-			QMessageBox::information(
+            for (auto fighter : manager.m_fighters)
+            {
+                if (!dlg.GetSelectedClub().isEmpty())
+                {
+                    fighter.club = dlg.GetSelectedClub();
+                }
+
+                m_manager.AddFighter(fighter);
+            }
+
+            QMessageBox::information(
 				this,
 				QCoreApplication::applicationName(),
 				errorMsg);
@@ -304,7 +324,7 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 	//QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
 
 	//if (pItem)
-	BOOST_FOREACH(QTreeWidgetItem * pItem, selectedItems)
+    for (QTreeWidgetItem * pItem : selectedItems)
 	{
 		Ipponboard::Fighter currentFighter(
 			pItem->text(eColumn_firstName),
@@ -402,7 +422,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 {
 	bool ok(false);
 	QString dlgTitle = tr("Specify import/export format");
-	QString dlgMsg = tr("Use valid specifiers and some kind of separator (;,:|/ etc.)"
+    QString dlgMsg = tr("Use valid specifiers and any kind of separator (;,:|/ etc.)"
 						"\nValid specifiers are: %1")
 					 .arg(Ipponboard::FighterManager::GetSpecifiererDescription());
 
@@ -412,6 +432,10 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 										 QLineEdit::Normal,
 										 m_formatStr,
 										 &ok);
+    if (!ok)
+    {
+        return;
+    }
 
 	QString separator;
 	bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(data, separator);

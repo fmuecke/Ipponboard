@@ -84,7 +84,8 @@ HEADERS = MainWindowTeam.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
 	../widgets/SplashScreen.h \
-    ModeManagerDlg.h
+    ModeManagerDlg.h \
+    ../base/FighterManagerImportDlg.h
 
 SOURCES = Main.cpp \
     ScoreScreen.cpp \
@@ -102,7 +103,8 @@ SOURCES = Main.cpp \
     ../widgets/ScaledText.cpp \
     ../widgets/SplashScreen.cpp \
 	../base/ComboBoxDelegate.cpp \
-    ModeManagerDlg.cpp
+    ModeManagerDlg.cpp \
+    ../base/FighterManagerImportDlg.cpp
 
 FORMS = ../base/ClubManagerDlg.ui \
     MainWindow.ui \
@@ -113,7 +115,8 @@ FORMS = ../base/ClubManagerDlg.ui \
     ../widgets/SplashScreen.ui \
     ../widgets/Countdown.ui \
     ../base/AddFighterDlg.ui \
-    ModeManagerDlg.ui
+    ModeManagerDlg.ui \
+    ../base/FighterManagerImportDlg.ui
 
 OTHER_FILES += \
     TournamentModes.ini

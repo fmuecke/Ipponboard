@@ -9,6 +9,8 @@
 
 #include "../core/Fighter.h"
 
+#include <QString>
+#include <QStringList>
 #include <boost/noncopyable.hpp>
 #include <array>
 #include <set>
@@ -22,15 +24,18 @@ namespace Ipponboard
 class FighterManager : public boost::noncopyable
 {
 public:
-	FighterManager();
+    FighterManager();
 
-	static char const* const str_FIRSTNAME;
-	static char const* const str_LASTNAME;
-	static char const* const str_CLUB;
-	static char const* const str_WEIGHT;
-	static char const* const str_CATEGORY;
+    static char const* const str_firstname;
+    static char const* const str_lastname;
+    static char const* const str_club;
+    static char const* const str_weight;
+    static char const* const str_category;
+    //static char const* const str_team;
+    static char const* const str_nation;
+    static char const* const str_year;
 
-	static const std::array<char const* const, 5> Specifiers;
+    static const std::array<char const* const, 7> Specifiers;
 
 	static QString GetSpecifiererDescription();
 	//static bool IsValidSpecifier(QString const& str);
@@ -39,6 +44,7 @@ public:
 
 	static QString DefaultExportFormat();
 
+    bool ImportFighters(QString const& fileName, QString const& formatStr, QString const& separator, QString& errorMsg);
 	bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 	bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
@@ -48,8 +54,6 @@ public:
 
 //private:
 	std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
-private:
-
 };
 
 }  // namespace Ipponboard

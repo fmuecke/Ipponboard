@@ -309,7 +309,15 @@ void MainWindowTeam::on_actionManageFighters_triggered()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
 
-	FighterManagerDlg dlg(m_fighterManager, this);
+    QStringList clubs;
+    for (auto i = 0; i != m_pClubManager->ClubCount(); ++i)
+    {
+        Ipponboard::Club club;
+        m_pClubManager->GetClub(i, club);
+        clubs.push_back(club.name);
+    }
+
+    FighterManagerDlg dlg(m_fighterManager, clubs, this);
 	dlg.exec();
 }
 
@@ -1050,8 +1058,9 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_home->currentText();
-
-	FighterManagerDlg dlg(m_fighterManager, this);
+    QStringList clubs;
+    clubs.append(club);
+    FighterManagerDlg dlg(m_fighterManager, clubs, this);
 	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
 
@@ -1070,7 +1079,9 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_guest->currentText();
 
-	FighterManagerDlg dlg(m_fighterManager, this);
+    QStringList clubs;
+    clubs.append(club);
+    FighterManagerDlg dlg(m_fighterManager, clubs, this);
 	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
 

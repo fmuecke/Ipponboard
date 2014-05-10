@@ -9,6 +9,7 @@
 #define FIGHTER_H
 
 #include <QString>
+#include <tuple>
 
 namespace Ipponboard
 {
@@ -24,45 +25,18 @@ public:
 		return this == &other ||
 			   (first_name == other.first_name &&
 				last_name == other.last_name &&
+                year == other.year &&
+                nation == other.nation &&
 				club == other.club &&
+                //team == other.team &&
 				weight == other.weight &&
 				category == other.category);
 	}
 
 	inline bool operator<(Fighter const& other) const
 	{
-		if (first_name < other.first_name)
-			return true;
-
-		if (other.first_name < first_name)
-			return false;
-
-		if (last_name < other.last_name)
-			return true;
-
-		if (other.last_name < last_name)
-			return false;
-
-		if (club < other.club)
-			return true;
-
-		if (other.club < club)
-			return false;
-
-		if (weight < other.weight)
-			return true;
-
-		if (other.weight < weight)
-			return false;
-
-		if (category < other.category)
-			return true;
-
-		if (other.category < category)
-			return false;
-
-		// equal
-		return false;
+		return std::tie(last_name, first_name, club, /*team, */nation, year, category, weight) <
+			std::tie(other.last_name, other.first_name, other.club, /*other.team,*/ other.nation, other.year, other.category, other.weight);
 	}
 
 	QString first_name;
@@ -70,7 +44,9 @@ public:
 	QString club;
 	QString weight;
 	QString category;
-	//QString nation;
+    QString nation;
+    //QString team;
+    QString year;
 };
 
 }  // namespace Ipponboard

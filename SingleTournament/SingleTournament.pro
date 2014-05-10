@@ -76,6 +76,7 @@ SOURCES = Main.cpp \
     ../base/MainWindowBase.cpp \
     ../base/FighterManager.cpp \
     ../base/FighterManagerDlg.cpp \
+    ../base/FighterManagerImportDlg.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
     ../widgets/SplashScreen.cpp \
@@ -93,6 +94,7 @@ HEADERS = ../base/pch.h \
     ../base/FightCategoryManager.h \
     ../base/FighterManager.h \
     ../base/FighterManagerDlg.h \
+    ../base/FighterManagerImportDlg.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
@@ -108,6 +110,7 @@ FORMS = MainWindow.ui \
     ../base/SettingsDlg.ui \
     ../base/FightCategoryManagerDlg.ui \
     ../base/FighterManagerDlg.ui \
+    ../base/FighterManagerImportDlg.ui \
     ../base/view_horizontal.ui \
     ../widgets/SplashScreen.ui \
     ../widgets/Countdown.ui

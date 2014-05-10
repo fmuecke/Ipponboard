@@ -38,6 +38,7 @@ public:
 
 	explicit FighterManagerDlg(
 		Ipponboard::FighterManager& manager,
+        QStringList const& clubs,
 		QWidget* parent = nullptr);
 
 	virtual ~FighterManagerDlg();
@@ -67,6 +68,7 @@ private:
 	QString m_tmpData;
 	std::pair<EColumn, QString> m_filter;
 	QString m_formatStr;
+    QStringList m_clubs;
 };
 
 #endif // BASE_FIGHTERMANAGERDLG_H

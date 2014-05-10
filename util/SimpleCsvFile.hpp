@@ -26,6 +26,7 @@ public:
             QString const& fileName,
             QString const& separator,
             std::vector<QStringList>& readData,
+			unsigned int minItemsPerLine,
             QString& errorMsg)
     {
         errorMsg.clear();
@@ -41,13 +42,25 @@ public:
 
         QTextStream in(&file);
         int lineNo = 0;
-        int itemsPerLine = 0;
+        int itemsPerLine = -1;
 
         for (QString line = in.readLine(); !line.isNull(); ++lineNo)
         {
             QStringList splittedLine = line.split(separator);
 
-            if (itemsPerLine == 0)
+			if (splittedLine.length() < static_cast<int>(minItemsPerLine))
+			{
+				errorMsg = QObject::tr("Error parsing file %1:\n"
+					"line %2 has only %4 items instead of at least %3.")
+					.arg(fileName)
+					.arg(QString::number(lineNo + 1))
+					.arg(QString::number(minItemsPerLine))
+					.arg(QString::number(splittedLine.length()));
+
+				return false;
+			}
+
+			if (itemsPerLine == -1)
             {
                 itemsPerLine = splittedLine.length();
             }

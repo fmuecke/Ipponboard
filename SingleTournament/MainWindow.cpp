@@ -110,7 +110,7 @@ void MainWindow::on_actionManageFighters_triggered()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
 
-	FighterManagerDlg dlg(m_fighterManager, this);
+    FighterManagerDlg dlg(m_fighterManager, QStringList(), this);
 	dlg.exec();
 }
 

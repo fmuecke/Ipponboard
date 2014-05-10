@@ -9,32 +9,37 @@
 
 #include <QObject>  // needed for tr()
 #include <QStringList>
-#include <boost/foreach.hpp>
 #include <algorithm>
 
 using namespace Ipponboard;
 
-char const* const FighterManager::str_FIRSTNAME = "@FIRSTNAME";
-char const* const FighterManager::str_LASTNAME = "@LASTNAME";
-char const* const FighterManager::str_CLUB = "@CLUB";
-char const* const FighterManager::str_WEIGHT = "@WEIGHT";
-char const* const FighterManager::str_CATEGORY = "@CATEGORY";
+char const* const FighterManager::str_firstname = "@firstname";
+char const* const FighterManager::str_lastname = "@lastname";
+char const* const FighterManager::str_club = "@club";
+char const* const FighterManager::str_weight = "@weight";
+char const* const FighterManager::str_category = "@category";
+//char const* const FighterManager::str_team = "@team";
+char const* const FighterManager::str_nation = "@nation";
+char const* const FighterManager::str_year = "@year";
 
-const std::array<char const* const, 5> FighterManager::Specifiers =
+const std::array<char const* const, 7> FighterManager::Specifiers =
 {
-	str_FIRSTNAME,
-	str_LASTNAME,
-	str_CLUB,
-	str_WEIGHT,
-	str_CATEGORY
+    str_lastname,
+    str_firstname,
+    str_club,
+    str_weight,
+    str_category,
+    //str_team,
+    str_nation,
+    str_year
 };
 
 QString FighterManager::DefaultExportFormat()
 {
 	QString ret;
 
-	BOOST_FOREACH(char const * const s, Specifiers)
-	{
+    for (auto const& s :  Specifiers)
+    {
 		if (!ret.isEmpty())
 		{
 			ret.append(';');
@@ -56,8 +61,7 @@ QString FighterManager::GetSpecifiererDescription()
 {
 	QString retVal;
 
-	//TODO: use for_each
-	BOOST_FOREACH(char const * const s, Specifiers)
+    for (auto const& s :  Specifiers)
 	{
 		if (!retVal.isEmpty())
 		{
@@ -81,11 +85,11 @@ QString FighterManager::GetSpecifiererDescription()
 //    return false;
 //}
 
-// A Satisfying format string must have at least tags for
+// A satisfying format string must have at least tags for
 // firstname and lastname
 bool Ipponboard::FighterManager::IsFormatSatisfying(const QString& formatStr)
 {
-	return formatStr.contains(str_FIRSTNAME) && formatStr.contains(str_LASTNAME);
+    return formatStr.contains(str_firstname) && formatStr.contains(str_lastname);
 }
 
 // Format string must be at least "satisfying" to be processed
@@ -99,14 +103,14 @@ bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString&
 	sep.clear();
 	QString workStr = str.trimmed();
 
-	auto beginPos = workStr.indexOf(str_FIRSTNAME);
-	auto endPos = beginPos + QString(str_FIRSTNAME).length();
+    auto beginPos = workStr.indexOf(str_firstname);
+    auto endPos = beginPos + QString(str_firstname).length();
 
 	// use second tag if is last tag in format specifier
 	if (endPos == workStr.length())
 	{
-		beginPos = workStr.indexOf(str_LASTNAME);
-		endPos = beginPos + QString(str_LASTNAME).length();
+        beginPos = workStr.indexOf(str_lastname);
+        endPos = beginPos + QString(str_lastname).length();
 	}
 
 	auto nextPos = workStr.indexOf("@", endPos);
@@ -122,39 +126,53 @@ bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString&
 }
 
 bool FighterManager::ImportFighters(
-	QString const& fileName,
-	QString const& formatStr,
-	QString& errorMsg)
+    QString const& fileName,
+    QString const& formatStr,
+    QString& errorMsg)
+{
+    QString sep;
+
+    if (!DetermineSeparator(formatStr, sep))
+    {
+        errorMsg = QObject::tr("Format specifier has invalid separator: %1")
+                   .arg(formatStr);
+        return false;
+    }
+
+    return ImportFighters(fileName, formatStr, sep, errorMsg);
+
+}
+
+bool FighterManager::ImportFighters(
+    QString const& fileName,
+    QString const& formatStr,
+    QString const& separator,
+    QString& errorMsg)
 {
 	errorMsg.clear();
 
-	QString sep;
-
-	if (!DetermineSeparator(formatStr, sep))
-	{
-		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
-				   .arg(formatStr);
-		return false;
-	}
-
 	// determine tag positions
-	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
+    const QStringList tags = formatStr.split(separator);
+    const int firstnamePos = tags.indexOf(str_firstname);
+    const int lastnamePos = tags.indexOf(str_lastname);
+    const int clubPos = tags.indexOf(str_club);
+    const int weightPos = tags.indexOf(str_weight);
+    const int categoryPos = tags.indexOf(str_category);
+    //const int teamPos = tags.indexOf(str_team);
+    const int nationPos = tags.indexOf(str_nation);
+    const int yearPos = tags.indexOf(str_year);
 
-	if (-1 == firstNamePos || -1 == lastNamePos)
+    if (-1 == firstnamePos || -1 == lastnamePos)
 	{
-		errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1")
-				   .arg(formatStr);
+		errorMsg = QObject::tr("Format specifier does not contain required fields: firstname, lastname");
 		return false;
 	}
+
+	int minItemsPerLine = 2;
 
 	std::vector<QStringList> data;
 
-	if (!fmu::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg))
+    if (!fmu::SimpleCsvFile::ReadItems(fileName, separator, data, minItemsPerLine, errorMsg))
 	{
 		return false;
 	}
@@ -162,18 +180,15 @@ bool FighterManager::ImportFighters(
 	//NO, don't do it: m_fighters.clear();
 
 	const size_t oldCount = m_fighters.size();
-	BOOST_FOREACH(QStringList const & line, data)
+    for (QStringList const & line : data)
 	{
-		QString firstName = line[firstNamePos];
-		QString lastName = line[lastNamePos];
-		QString club = -1 != clubPos ? line[clubPos] : club;
-		QString weight = -1 != weightPos ? line[weightPos] : weight;
-		QString category = -1 != categoryPos ? line[categoryPos] : category;
-
-		Ipponboard::Fighter fighter(firstName, lastName);
-		fighter.club = club;
-		fighter.weight = weight;
-		fighter.category = category;
+        Ipponboard::Fighter fighter(line[firstnamePos], line[lastnamePos]);
+        fighter.club = -1 != clubPos ? line[clubPos] : QString();
+        fighter.weight = -1 != weightPos ? line[weightPos] : QString();
+        fighter.category = -1 != categoryPos ? line[categoryPos] : QString();
+        //fighter.team = -1 != teamPos ? line[teamPos] : QString();
+        fighter.nation = -1 != nationPos ? line[nationPos] : QString();
+        fighter.year = -1 != yearPos ? line[yearPos] : QString();
 
 		m_fighters.insert(fighter);
 	}
@@ -190,9 +205,9 @@ bool FighterManager::ExportFighters(
 {
 	errorMsg.clear();
 
-	QString sep;
+    QString separator;
 
-	if (!DetermineSeparator(formatStr, sep))
+    if (!DetermineSeparator(formatStr, separator))
 	{
 		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
 				   .arg(formatStr);
@@ -209,15 +224,18 @@ bool FighterManager::ExportFighters(
 	}
 
 	// determine tag positions
-	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
+    const QStringList tags = formatStr.split(separator);
+    const int firstNamePos = tags.indexOf(str_firstname);
+    const int lastNamePos = tags.indexOf(str_lastname);
+    const int clubPos = tags.indexOf(str_club);
+    const int weightPos = tags.indexOf(str_weight);
+    const int categoryPos = tags.indexOf(str_category);
+    //const int teamPos = tags.indexOf(str_team);
+    const int nationPos = tags.indexOf(str_nation);
+    const int yearPos = tags.indexOf(str_year);
 
 	QStringList data;
-	BOOST_FOREACH(Ipponboard::Fighter const & f, m_fighters)
+    for (Ipponboard::Fighter const & f : m_fighters)
 	{
 		QString line;
 
@@ -225,7 +243,7 @@ bool FighterManager::ExportFighters(
 		{
 			if (!line.isEmpty())
 			{
-				line.append(sep);
+                line.append(separator);
 			}
 
 			if (i == firstNamePos)
@@ -248,6 +266,18 @@ bool FighterManager::ExportFighters(
 			{
 				line.append(f.category);
 			}
+            //else if (i == teamPos)
+            //{
+            //    line.append(f.team);
+            //}
+            else if (i == nationPos)
+            {
+                line.append(f.nation);
+            }
+            else if (i == yearPos)
+            {
+                line.append(f.year);
+            }
 			else
 			{
 				// empty tag
@@ -299,5 +329,5 @@ QStringList FighterManager::GetClubFighterNames(const QString& club) const
 		}
 	});
 
-	return ret;
+    return ret;
 }
