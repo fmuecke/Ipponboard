@@ -57,6 +57,8 @@ FighterManagerDlg::FighterManagerDlg(
     ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
     ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
+    ui->pushButton_remove->setEnabled(false);
+
 	populate_view();
 }
 
@@ -267,8 +269,6 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 				this,
 				QCoreApplication::applicationName(),
 				errorMsg);
-
-			//TODO?: update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
 		}
 		else
 		{
@@ -321,9 +321,11 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 {
 	auto selectedItems = ui->treeWidget_fighters->selectedItems();
 
-	//QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
+    if (QMessageBox::question(this, tr("Remove item(s)?"), tr("Relly remove %1 item(s)?").arg(selectedItems.size()),tr("Remove"), tr("Keep")) != 0)
+    {
+        return;
+    }
 
-	//if (pItem)
     for (QTreeWidgetItem * pItem : selectedItems)
 	{
 		Ipponboard::Fighter currentFighter(
@@ -415,7 +417,13 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 void FighterManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column)
 {
 	m_tmpData = item->text(column);
-	qDebug("data: %s", m_tmpData.toLatin1().data());
+    qDebug("data: %s", m_tmpData.toLatin1().data());
+}
+
+void FighterManagerDlg::on_treeWidget_fighters_itemSelectionChanged()
+{
+    auto selectedItems = ui->treeWidget_fighters->selectedItems();
+    ui->pushButton_remove->setEnabled(selectedItems.count() > 0);
 }
 
 void FighterManagerDlg::on_pushButton_settings_pressed()

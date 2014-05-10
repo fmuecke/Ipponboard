@@ -174,7 +174,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_remove">
        <property name="toolTip">
-        <string>Remove the currently selected weight class</string>
+        <string>Remove the currently selected fighter(s)</string>
        </property>
        <property name="text">
         <string>&amp;Remove</string>
@@ -193,6 +193,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>

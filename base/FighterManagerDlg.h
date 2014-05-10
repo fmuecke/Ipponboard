@@ -52,6 +52,7 @@ protected:
 private slots:
 	void on_treeWidget_fighters_itemChanged(QTreeWidgetItem* item, int column);
 	void on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column);
+    void on_treeWidget_fighters_itemSelectionChanged();
 	void on_pushButton_import_pressed();
 	void on_pushButton_export_pressed();
 	//void on_buttonBox_rejected();
