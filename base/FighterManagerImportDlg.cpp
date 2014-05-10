@@ -54,14 +54,14 @@ FighterManagerImportDlg::FighterManagerImportDlg(QString const& filePath, QStrin
     }
 
     auto headerItem = ui->treeWidget_preview->headerItem();
-    headerItem->setText(eColumn_Lastname, FighterManager::str_lastname);
-    headerItem->setText(eColumn_Firstname, FighterManager::str_firstname);
-    headerItem->setText(eColumn_Club, FighterManager::str_club);
+    headerItem->setText(eColumn_Lastname, FighterManager::str_lastname+1);  // +1 to skip "@" at beginning
+    headerItem->setText(eColumn_Firstname, FighterManager::str_firstname+1);
+    headerItem->setText(eColumn_Club, FighterManager::str_club+1);
     //headerItem->setText(eColumn_Team, FighterManager::str_team);
-    headerItem->setText(eColumn_Year, FighterManager::str_year);
-    headerItem->setText(eColumn_Nation, FighterManager::str_nation);
-    headerItem->setText(eColumn_Weight, FighterManager::str_weight);
-    headerItem->setText(eColumn_Category, FighterManager::str_category);
+    headerItem->setText(eColumn_Year, FighterManager::str_year+1);
+    headerItem->setText(eColumn_Nation, FighterManager::str_nation+1);
+    headerItem->setText(eColumn_Weight, FighterManager::str_weight+1);
+    headerItem->setText(eColumn_Category, FighterManager::str_category+1);
 	
 	ui->label_parse_error->hide();
 	ui->toolButton_lastname->toggle();
