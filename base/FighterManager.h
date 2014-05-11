@@ -31,14 +31,12 @@ public:
     static char const* const str_club;
     static char const* const str_weight;
     static char const* const str_category;
-    //static char const* const str_team;
     static char const* const str_nation;
     static char const* const str_year;
 
     static const std::array<char const* const, 7> Specifiers;
 
 	static QString GetSpecifiererDescription();
-	//static bool IsValidSpecifier(QString const& str);
 	static bool IsFormatSatisfying(QString const& formatStr);
 	static bool DetermineSeparator(QString const& str, QString& sep);
 

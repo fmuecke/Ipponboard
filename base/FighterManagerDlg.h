@@ -29,9 +29,11 @@ public:
 	enum EColumn
 	{
 		eColumn_club = 0,
-        //eColumn_category,
-        eColumn_firstName,
         eColumn_lastName,
+        eColumn_firstName,
+        eColumn_year,
+        eColumn_nation,
+        eColumn_category,
         eColumn_weight,
 		eColumn_MAX
 	};
@@ -55,11 +57,8 @@ private slots:
     void on_treeWidget_fighters_itemSelectionChanged();
 	void on_pushButton_import_pressed();
 	void on_pushButton_export_pressed();
-	//void on_buttonBox_rejected();
-	//void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
-	void on_pushButton_settings_pressed();
 
 private:
 	void populate_view();

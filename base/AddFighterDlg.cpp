@@ -33,8 +33,10 @@ void AddFighterDlg::SetClubs(QStringList clubs)
 Ipponboard::Fighter AddFighterDlg::GetFighter() const
 {
     Fighter f(ui->lineEdit_firstname->text(), ui->lineEdit_lastname->text());
-    //TODO: f.category = ui->comboBox_category->currentText();
+    f.category = ui->lineEdit_category->text();
     f.club = ui->comboBox_club->currentText();
+    f.year = ui->lineEdit_year->text();
+    f.nation = ui->lineEdit_nation->text();
     f.weight = ui->lineEdit_weight->text();
 
     return f;

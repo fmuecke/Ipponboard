@@ -36,24 +36,24 @@ FighterManagerDlg::FighterManagerDlg(
 {
 	ui->setupUi(this);
 
-	// hide settings buton
-	//TODO: improove!
-	ui->pushButton_settings->hide();
-
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
 	headerItem->setText(eColumn_club, tr("Club/Team"));
-    //TODO: headerItem->setText(eColumn_category, tr("Category"));
+    headerItem->setText(eColumn_category, tr("Category"));
 	headerItem->setText(eColumn_weight, tr("Weight"));
 	headerItem->setText(eColumn_firstName, tr("First Name"));
 	headerItem->setText(eColumn_lastName, tr("Last Name"));
+    headerItem->setText(eColumn_year, tr("Year"));
+    headerItem->setText(eColumn_nation, tr("Nation"));
 
 	// adjust column widths
 	ui->treeWidget_fighters->setColumnWidth(eColumn_club, 150);
-    //TODO: ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_year, 50);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_nation, 50);
     ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
-	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 120);
+    ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 120);
     ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
     ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
@@ -128,7 +128,9 @@ void FighterManagerDlg::on_pushButton_add_pressed()
     QStringList contents;
     for (int i = 0; i < eColumn_MAX; ++i) contents.append("");
     contents[eColumn_club] = fighter.club;
-    //TODO: contents[eColumn_category] = fighter.category;
+    contents[eColumn_year] = fighter.year;
+    contents[eColumn_nation] = fighter.nation;
+    contents[eColumn_category] = fighter.category;
     contents[eColumn_weight] = fighter.weight;
     contents[eColumn_firstName] = fighter.first_name;
     contents[eColumn_lastName] = fighter.last_name;
@@ -167,40 +169,16 @@ void FighterManagerDlg::populate_view()
 
 		if (hasFilter)
 		{
-			switch (m_filter.first)
-			{
-			case eColumn_firstName:
-				if (m_filter.second == f.first_name)
-					skipItem = false;
-
-				break;
-
-			case eColumn_lastName:
-				if (m_filter.second == f.last_name)
-					skipItem = false;
-
-				break;
-
-			case eColumn_club:
-				if (m_filter.second == f.club)
-					skipItem = false;
-
-				break;
-
-			case eColumn_weight:
-				if (m_filter.second == f.weight)
-					skipItem = false;
-
-				break;
-
-            //TODO: case eColumn_category:
-            //	if (m_filter.second == f.category)
-            //		skipItem = false;
-            //	break;
-
-			default:
-				break;
-			}
+            if (m_filter.first == eColumn_firstName && m_filter.second == f.first_name ||
+                    m_filter.first == eColumn_lastName && m_filter.second == f.last_name ||
+                    m_filter.first == eColumn_club && m_filter.second == f.club ||
+                    m_filter.first == eColumn_year && m_filter.second == f.year ||
+                    m_filter.first == eColumn_nation && m_filter.second == f.nation ||
+                    m_filter.first == eColumn_category && m_filter.second == f.category ||
+                    m_filter.first == eColumn_weight && m_filter.second == f.weight)
+            {
+                skipItem = false;
+            }
 		}
 		else
 		{
@@ -214,7 +192,9 @@ void FighterManagerDlg::populate_view()
 			for (int i = 0; i < eColumn_MAX; ++i) contents.append("");
 
 			contents[eColumn_club] = f.club;
-            //TODO: contents[eColumn_category] = f.category;
+            contents[eColumn_category] = f.category;
+            contents[eColumn_year] = f.year;
+            contents[eColumn_nation] = f.nation;
 			contents[eColumn_weight] = f.weight;
 			contents[eColumn_firstName] = f.first_name;
 			contents[eColumn_lastName] = f.last_name;
@@ -244,16 +224,10 @@ void FighterManagerDlg::on_pushButton_import_pressed()
             return;
         }
 
-        m_formatStr = dlg.GetFormatStr();
-
         Ipponboard::FighterManager manager;
-
-
-        //on_pushButton_settings_pressed();
-
 		QString errorMsg;
 
-        if (manager.ImportFighters(fileName, m_formatStr, errorMsg))
+        if (manager.ImportFighters(fileName, dlg.GetFormatStr(), errorMsg))
 		{
             for (auto fighter : manager.m_fighters)
             {
@@ -293,12 +267,9 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 
 	if (!fileName.isEmpty())
 	{
-		//TODO: make this right
-		on_pushButton_settings_pressed();
-
 		QString errorMsg;
 
-		if (m_manager.ExportFighters(fileName, m_formatStr, errorMsg))
+        if (m_manager.ExportFighters(fileName, Ipponboard::FighterManager::DefaultExportFormat(), errorMsg))
 		{
 			QMessageBox::information(
 				this,
@@ -331,16 +302,19 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 		Ipponboard::Fighter currentFighter(
 			pItem->text(eColumn_firstName),
 			pItem->text(eColumn_lastName));
+
 		currentFighter.club = pItem->text(eColumn_club);
 		currentFighter.weight = pItem->text(eColumn_weight);
-        //TODO: currentFighter.category = pItem->text(eColumn_category);
+        currentFighter.category = pItem->text(eColumn_category);
+        currentFighter.year = pItem->text(eColumn_year);
+        currentFighter.nation = pItem->text(eColumn_nation);
 
-		ui->treeWidget_fighters->takeTopLevelItem(
+        auto pRealItem = ui->treeWidget_fighters->takeTopLevelItem(
 			ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+        Q_ASSERT(pRealItem == pItem);
 
 		m_manager.RemoveFighter(currentFighter);
-
-		delete pItem;
+        delete pRealItem;
 	}
 }
 
@@ -351,50 +325,25 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 {
 	if (pItem)
 	{
-		QString firstName = pItem->text(eColumn_firstName);
-		QString lastName = pItem->text(eColumn_lastName);
-		QString club = pItem->text(eColumn_club);
-		QString weight = pItem->text(eColumn_weight);
-        //TODO: QString category = pItem->text(eColumn_category);
+        Ipponboard::Fighter originalFighter(
+            column == eColumn_firstName ? m_tmpData : pItem->text(eColumn_firstName),
+            column == eColumn_lastName ? m_tmpData : pItem->text(eColumn_lastName));
 
-		Ipponboard::Fighter changedFighter(firstName, lastName);
-		changedFighter.club = club;
-		changedFighter.weight = weight;
-        //TODO: changedFighter.category = category;
+        originalFighter.club = column == eColumn_club ? m_tmpData : pItem->text(eColumn_club);
+        originalFighter.weight = column == eColumn_weight ? m_tmpData : pItem->text(eColumn_weight);
+        originalFighter.category = column == eColumn_category ? m_tmpData : pItem->text(eColumn_category);
+        originalFighter.year = column == eColumn_year ? m_tmpData : pItem->text(eColumn_year);
+        originalFighter.nation = column == eColumn_nation ? m_tmpData : pItem->text(eColumn_nation);
 
-		qDebug("enum value: %i", column);
+        Ipponboard::Fighter changedFighter(
+            pItem->text(eColumn_firstName),
+            pItem->text(eColumn_lastName));
 
-		switch (column)
-		{
-		case eColumn_firstName:
-			firstName = m_tmpData;
-			break;
-
-		case eColumn_lastName:
-			lastName = m_tmpData;
-			break;
-
-		case eColumn_club:
-			club = m_tmpData;
-			break;
-
-		case eColumn_weight:
-			weight = m_tmpData;
-			break;
-
-        //TODO: case eColumn_category:
-            // category = m_tmpData;
-            // break;
-
-		default:
-			qDebug("ERROR: invalid enum value: %i", column);
-			break;
-		}
-
-		Ipponboard::Fighter originalFighter(firstName, lastName);
-		originalFighter.club = club;
-		originalFighter.weight = weight;
-        //TODO: originalFighter.category = category;
+        changedFighter.club = pItem->text(eColumn_club);
+        changedFighter.weight = pItem->text(eColumn_weight);
+        changedFighter.category = pItem->text(eColumn_category);
+        changedFighter.year = pItem->text(eColumn_year);
+        changedFighter.nation = pItem->text(eColumn_nation);
 
 		if (!m_manager.RemoveFighter(originalFighter))
 		{
@@ -403,13 +352,8 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 
 		if (!m_manager.AddFighter(changedFighter))
 		{
-			ui->treeWidget_fighters->takeTopLevelItem(
-				ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
-
-			// due to duplicate entry
-			qDebug("removed changed entry due to duplicate: %s %s",
-				   changedFighter.first_name.toAscii().data(),
-				   changedFighter.last_name.toAscii().data());
+            // reset value to avoid duplicate entries
+            pItem->setText(column, m_tmpData);
 		}
 	}
 }
@@ -426,59 +370,3 @@ void FighterManagerDlg::on_treeWidget_fighters_itemSelectionChanged()
     ui->pushButton_remove->setEnabled(selectedItems.count() > 0);
 }
 
-void FighterManagerDlg::on_pushButton_settings_pressed()
-{
-	bool ok(false);
-	QString dlgTitle = tr("Specify import/export format");
-    QString dlgMsg = tr("Use valid specifiers and any kind of separator (;,:|/ etc.)"
-						"\nValid specifiers are: %1")
-					 .arg(Ipponboard::FighterManager::GetSpecifiererDescription());
-
-	QString data = QInputDialog::getText(this,
-										 dlgTitle,
-										 dlgMsg,
-										 QLineEdit::Normal,
-										 m_formatStr,
-										 &ok);
-    if (!ok)
-    {
-        return;
-    }
-
-	QString separator;
-	bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(data, separator);
-
-	QStringList dataParts;
-
-	if (isValidSeparator)
-	{
-		dataParts = data.split(separator);
-	}
-
-	// at least 3 parts must be set (first, last, ...)
-	while (ok && (!isValidSeparator || dataParts.size() < 3))
-	{
-		QMessageBox::critical(this,
-							  tr(""),
-							  tr("Invalid format. Please correct your input."));
-
-		data = QInputDialog::getText(this,
-									 dlgTitle,
-									 dlgMsg,
-									 QLineEdit::Normal,
-									 data,
-									 &ok);
-		isValidSeparator =
-			Ipponboard::FighterManager::DetermineSeparator(data, separator);
-
-		if (isValidSeparator)
-		{
-			dataParts = data.split(separator);
-		}
-	}
-
-	if (ok && isValidSeparator)
-	{
-		m_formatStr = data;
-	}
-}

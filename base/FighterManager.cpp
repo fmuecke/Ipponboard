@@ -18,7 +18,6 @@ char const* const FighterManager::str_lastname = "@lastname";
 char const* const FighterManager::str_club = "@club";
 char const* const FighterManager::str_weight = "@weight";
 char const* const FighterManager::str_category = "@category";
-//char const* const FighterManager::str_team = "@team";
 char const* const FighterManager::str_nation = "@nation";
 char const* const FighterManager::str_year = "@year";
 
@@ -29,7 +28,6 @@ const std::array<char const* const, 7> FighterManager::Specifiers =
     str_club,
     str_weight,
     str_category,
-    //str_team,
     str_nation,
     str_year
 };
@@ -73,17 +71,6 @@ QString FighterManager::GetSpecifiererDescription()
 
 	return retVal;
 }
-
-//bool Ipponboard::FighterManager::IsValidSpecifier(const QString& str)
-//{
-//    BOOST_FOREACH(char const * const s, Specifiers)
-//    {
-//        if (str.compare(s) == 0)
-//            return true;
-//    }
-
-//    return false;
-//}
 
 // A satisfying format string must have at least tags for
 // firstname and lastname
@@ -158,7 +145,6 @@ bool FighterManager::ImportFighters(
     const int clubPos = tags.indexOf(str_club);
     const int weightPos = tags.indexOf(str_weight);
     const int categoryPos = tags.indexOf(str_category);
-    //const int teamPos = tags.indexOf(str_team);
     const int nationPos = tags.indexOf(str_nation);
     const int yearPos = tags.indexOf(str_year);
 
@@ -186,7 +172,6 @@ bool FighterManager::ImportFighters(
         fighter.club = -1 != clubPos ? line[clubPos] : QString();
         fighter.weight = -1 != weightPos ? line[weightPos] : QString();
         fighter.category = -1 != categoryPos ? line[categoryPos] : QString();
-        //fighter.team = -1 != teamPos ? line[teamPos] : QString();
         fighter.nation = -1 != nationPos ? line[nationPos] : QString();
         fighter.year = -1 != yearPos ? line[yearPos] : QString();
 
@@ -230,7 +215,6 @@ bool FighterManager::ExportFighters(
     const int clubPos = tags.indexOf(str_club);
     const int weightPos = tags.indexOf(str_weight);
     const int categoryPos = tags.indexOf(str_category);
-    //const int teamPos = tags.indexOf(str_team);
     const int nationPos = tags.indexOf(str_nation);
     const int yearPos = tags.indexOf(str_year);
 
@@ -266,10 +250,6 @@ bool FighterManager::ExportFighters(
 			{
 				line.append(f.category);
 			}
-            //else if (i == teamPos)
-            //{
-            //    line.append(f.team);
-            //}
             else if (i == nationPos)
             {
                 line.append(f.nation);
