@@ -1299,7 +1299,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
     <message>
         <location filename="../base/FighterManager.cpp" line="181"/>
         <source>Imported %1 new fighters.</source>
-        <translation>% neue Kämpfer importiert.</translation>
+        <translation>%1 neue Kämpfer importiert.</translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="205"/>
