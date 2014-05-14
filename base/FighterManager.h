@@ -42,8 +42,8 @@ public:
 
 	static QString DefaultExportFormat();
 
-    bool ImportFighters(QString const& fileName, QString const& formatStr, QString const& separator, QString& errorMsg);
-	bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+    bool ImportFighters(QString const& fileName, QString const& formatStr, QString const& separator, QString const& encoding, QString& errorMsg);
+    bool ImportFighters(QString const& fileName, QString const& formatStr, QString const& encoding, QString& errorMsg);
 	bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
 	bool AddFighter(Ipponboard::Fighter f);

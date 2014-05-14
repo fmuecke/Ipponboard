@@ -627,7 +627,7 @@ void MainWindowBase::load_fighters()
         return;
     }
 
-	if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+    if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), "", errorMsg))
 	{
 		QMessageBox::critical(
 			this,

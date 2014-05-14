@@ -115,6 +115,7 @@ bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString&
 bool FighterManager::ImportFighters(
     QString const& fileName,
     QString const& formatStr,
+    QString const& encoding,
     QString& errorMsg)
 {
     QString sep;
@@ -126,7 +127,7 @@ bool FighterManager::ImportFighters(
         return false;
     }
 
-    return ImportFighters(fileName, formatStr, sep, errorMsg);
+    return ImportFighters(fileName, formatStr, sep, encoding, errorMsg);
 
 }
 
@@ -134,6 +135,7 @@ bool FighterManager::ImportFighters(
     QString const& fileName,
     QString const& formatStr,
     QString const& separator,
+    QString const& encoding,
     QString& errorMsg)
 {
 	errorMsg.clear();
@@ -158,7 +160,7 @@ bool FighterManager::ImportFighters(
 
 	std::vector<QStringList> data;
 
-    if (!fmu::SimpleCsvFile::ReadItems(fileName, separator, data, minItemsPerLine, errorMsg))
+    if (!fmu::SimpleCsvFile::ReadItems(fileName, separator, data, minItemsPerLine, encoding, errorMsg))
 	{
 		return false;
 	}

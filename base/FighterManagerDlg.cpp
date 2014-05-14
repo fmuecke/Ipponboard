@@ -227,7 +227,7 @@ void FighterManagerDlg::on_pushButton_import_pressed()
         Ipponboard::FighterManager manager;
 		QString errorMsg;
 
-        if (manager.ImportFighters(fileName, dlg.GetFormatStr(), errorMsg))
+        if (manager.ImportFighters(fileName, dlg.GetFormatStr(), dlg.GetEncoding(), errorMsg))
 		{
             for (auto fighter : manager.m_fighters)
             {

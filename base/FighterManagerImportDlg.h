@@ -24,6 +24,7 @@ public:
 
     QString GetFormatStr() const;
     QString GetSelectedClub() const;
+    QString GetEncoding() const;
 
 private slots:
     void on_toolButton_firstname_toggled(bool checked);
@@ -37,9 +38,15 @@ private slots:
     void on_comboBox_separator_currentIndexChanged(const QString &s);
     void on_lineEdit_specifiers_textChanged(const QString& s);
     void on_checkBox_importToClub_toggled(bool checked);
+    void on_radioButton_latin1_toggled(bool checked);
+    void on_radioButton_utf8_toggled(bool checked);
+    void on_radioButton_utf16_toggled(bool checked);
+    void on_radioButton_utf32_toggled(bool checked);
 
 private:
     void ToggleSpecifier(QString const& specifier, bool checked);
+    void ReadFile();
+    void UpdatePreview();
 
     enum EColumns
     {
