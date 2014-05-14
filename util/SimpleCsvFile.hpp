@@ -12,6 +12,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
+#include <QTextCodec>
 
 #include <boost/noncopyable.hpp>
 #include <vector>
@@ -27,6 +28,7 @@ public:
             QString const& separator,
             std::vector<QStringList>& readData,
 			unsigned int minItemsPerLine,
+            QString const& codecName,
             QString& errorMsg)
     {
         errorMsg.clear();
@@ -41,6 +43,12 @@ public:
         readData.clear();
 
         QTextStream in(&file);
+        auto pCodec = QTextCodec::codecForName(codecName.toAscii());
+        if (pCodec)
+        {
+            in.setCodec(pCodec);
+        }
+
         int lineNo = 0;
         int itemsPerLine = -1;
 
