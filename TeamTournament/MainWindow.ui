@@ -347,7 +347,7 @@
            <enum>Qt::ScrollBarAsNeeded</enum>
           </property>
           <property name="editTriggers">
-           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+           <set>QAbstractItemView::AllEditTriggers</set>
           </property>
           <property name="dragEnabled">
            <bool>false</bool>
@@ -554,7 +554,7 @@
            <enum>Qt::ScrollBarAsNeeded</enum>
           </property>
           <property name="editTriggers">
-           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+           <set>QAbstractItemView::AllEditTriggers</set>
           </property>
           <property name="dragEnabled">
            <bool>false</bool>
