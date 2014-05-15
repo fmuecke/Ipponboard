@@ -627,7 +627,7 @@ void MainWindowBase::load_fighters()
         return;
     }
 
-    if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), "", errorMsg))
+    if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), "utf-8", errorMsg))
 	{
 		QMessageBox::critical(
 			this,
@@ -643,7 +643,7 @@ void MainWindowBase::save_fighters()
 			fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
 	QString errorMsg;
 
-	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+    if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), "utf-8", errorMsg))
 	{
 		QMessageBox::critical(
 			this,

@@ -269,7 +269,7 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 	{
 		QString errorMsg;
 
-        if (m_manager.ExportFighters(fileName, Ipponboard::FighterManager::DefaultExportFormat(), errorMsg))
+        if (m_manager.ExportFighters(fileName, Ipponboard::FighterManager::DefaultExportFormat(), "utf-8", errorMsg))
 		{
 			QMessageBox::information(
 				this,

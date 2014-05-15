@@ -40,6 +40,10 @@ QWidget* ComboBoxDelegate::createEditor(
 			}
 		}
 	}
+    else if (!m_items.empty())
+    {
+        editor->setCurrentIndex(0);
+    }
 
 	return editor;
 }

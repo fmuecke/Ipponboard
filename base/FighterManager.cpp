@@ -188,6 +188,7 @@ bool FighterManager::ImportFighters(
 bool FighterManager::ExportFighters(
 	QString const& fileName,
 	QString const& formatStr,
+    QString const& encoding,
 	QString& errorMsg)
 {
 	errorMsg.clear();
@@ -269,7 +270,7 @@ bool FighterManager::ExportFighters(
 		data.push_back(line);
 	}
 
-	if (!fmu::SimpleCsvFile::WriteData(fileName, data, errorMsg))
+    if (!fmu::SimpleCsvFile::WriteData(fileName, data, encoding, errorMsg))
 	{
 		return false;
 	}
@@ -302,6 +303,7 @@ bool FighterManager::RemoveFighter(Fighter f)
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
 	QStringList ret;
+    ret.append("----");
 	std::for_each(begin(m_fighters), end(m_fighters),
 				  [&](Ipponboard::Fighter const & f)
 	{

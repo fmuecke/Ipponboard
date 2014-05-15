@@ -248,7 +248,7 @@ void FighterManagerImportDlg::on_comboBox_separator_currentIndexChanged(const QS
     ui->lineEdit_specifiers->setText(text);
 }
 
-void FighterManagerImportDlg::on_lineEdit_specifiers_textChanged(const QString& s)
+void FighterManagerImportDlg::on_lineEdit_specifiers_textChanged(const QString& /*s*/)
 {
     UpdatePreview();
 }

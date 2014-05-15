@@ -118,13 +118,15 @@ void MainWindowTeam::Init()
 	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
 
 	auto cbxFightersHome = new ComboBoxDelegate(this);
+    m_FighterNamesHome.push_back(tr("----"));
 	cbxFightersHome->SetItems(m_FighterNamesHome);
 
 	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
 	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
 	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
 	auto cbxFightersGuest = new ComboBoxDelegate(this);
-	cbxFightersGuest->SetItems(m_FighterNamesGuest);
+    m_FighterNamesGuest.push_back(tr("----"));
+    cbxFightersGuest->SetItems(m_FighterNamesGuest);
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
@@ -943,7 +945,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
 	}
 
 	//UpdateViews_(); --> already done by controller
@@ -959,7 +961,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
 	}
 
 	//UpdateViews_(); --> already done by controller

@@ -98,6 +98,7 @@ public:
     static bool WriteData(
             QString const& fileName,
             QStringList const& data,
+            QString const& encoding,
             QString& errorMsg)
     {
         errorMsg.clear();
@@ -117,7 +118,13 @@ public:
 		else
 		{
 			QTextStream outStream(&file);
-			Q_FOREACH(QString const& line, data)
+            auto pCodec = QTextCodec::codecForName(encoding.toAscii());
+            if (pCodec)
+            {
+                outStream.setCodec(pCodec);
+            }
+
+            for (QString const& line : data)
 			{
 				outStream << line << endl;
 			}
