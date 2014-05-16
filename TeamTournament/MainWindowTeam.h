@@ -38,6 +38,8 @@ protected:
 	virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
+    void ResetTableDataForHome();
+    void ResetTableDataForGuest();
     static QStringList get_list_templates();
 	void update_info_text_color(const QColor& color, const QColor& bgColor) override;
 	void update_text_color_first(const QColor& color, const QColor& bgColor) override;

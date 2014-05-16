@@ -303,7 +303,7 @@ bool FighterManager::RemoveFighter(Fighter f)
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
 	QStringList ret;
-    ret.append("----");
+    ret.append("--");
 	std::for_each(begin(m_fighters), end(m_fighters),
 				  [&](Ipponboard::Fighter const & f)
 	{

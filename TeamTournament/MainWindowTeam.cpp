@@ -59,7 +59,7 @@ namespace { bool initialized = false; }
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
 	, m_pScoreScreen()
-	, m_pClubManager()
+    , m_pClubManager()
 	, m_htmlScore()
     , m_currentMode()
 	, m_host()
@@ -68,6 +68,44 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 	, m_modes()
 {
 	m_pUi->setupUi(this);
+}
+
+void MainWindowTeam::ResetTableDataForHome()
+{
+    // Note: delegate for list1 and list2 is the same
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
+                             (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
+
+    if (pCbx)
+    {
+        pCbx->SetItems(m_FighterNamesHome);
+    }
+
+    for (int i = 0; i < m_pUi->tableView_tournament_list1->model()->rowCount(); ++i)
+    {
+        auto modelIndex = m_pUi->tableView_tournament_list1->model()->index(i, TournamentModel::eCol_name1);
+        m_pUi->tableView_tournament_list1->model()->setData(modelIndex, m_FighterNamesHome[0], Qt::EditRole);
+        m_pUi->tableView_tournament_list2->model()->setData(modelIndex, m_FighterNamesHome[0], Qt::EditRole);
+    }
+}
+
+void MainWindowTeam::ResetTableDataForGuest()
+{
+    // Note: delegate for list1 and list2 is the same
+    ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
+                             (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
+
+    if (pCbx)
+    {
+        pCbx->SetItems(m_FighterNamesGuest);
+    }
+
+    for (int i = 0; i < m_pUi->tableView_tournament_list1->model()->rowCount(); ++i)
+    {
+        auto modelIndex = m_pUi->tableView_tournament_list1->model()->index(i, TournamentModel::eCol_name2);
+        m_pUi->tableView_tournament_list1->model()->setData(modelIndex, m_FighterNamesGuest[0], Qt::EditRole);
+        m_pUi->tableView_tournament_list2->model()->setData(modelIndex, m_FighterNamesGuest[0], Qt::EditRole);
+    }
 }
 
 void MainWindowTeam::Init()
@@ -112,23 +150,14 @@ void MainWindowTeam::Init()
 
 	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
-	// set fighter comboboxes
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+    //m_FighterNamesHome.push_back(tr("--"));
+    //m_FighterNamesGuest.push_back(tr("--"));
 
-	auto cbxFightersHome = new ComboBoxDelegate(this);
-    m_FighterNamesHome.push_back(tr("----"));
-	cbxFightersHome->SetItems(m_FighterNamesHome);
+    auto cbxFightersHome = new ComboBoxDelegate(this);
+    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
 
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
 	auto cbxFightersGuest = new ComboBoxDelegate(this);
-    m_FighterNamesGuest.push_back(tr("----"));
-    cbxFightersGuest->SetItems(m_FighterNamesGuest);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
 	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 
@@ -137,6 +166,9 @@ void MainWindowTeam::Init()
     m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+
+    ResetTableDataForHome();
+    ResetTableDataForGuest();
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -939,14 +971,9 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
 void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 {
 	m_pController->SetClub(Ipponboard::eFighter1, s);
+    m_FighterNamesHome = m_fighterManager.GetClubFighterNames(s);
 
-	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
-
-	if (pCbx)
-	{
-        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
-	}
+    ResetTableDataForHome();
 
 	//UpdateViews_(); --> already done by controller
 	update_score_screen();
@@ -955,14 +982,9 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 {
 	m_pController->SetClub(Ipponboard::eFighter2, s);
+    m_FighterNamesGuest = m_fighterManager.GetClubFighterNames(s);
 
-	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
-
-	if (pCbx)
-	{
-        pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
-	}
+    ResetTableDataForGuest();
 
 	//UpdateViews_(); --> already done by controller
 	update_score_screen();
