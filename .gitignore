@@ -70,3 +70,4 @@ test/release/*
 test/Makefile.Debug
 test/Makefile.Release
 ui*.h
+UpgradeLog*.htm
