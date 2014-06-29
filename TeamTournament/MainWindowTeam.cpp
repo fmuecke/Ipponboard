@@ -858,6 +858,16 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 	{
 		m_pController->InitTournament(*iter);
 		update_weights(iter->weights); // TODO: don't set weights twice
+
+        // disable "copy & switch" button if no duplicate weight classes are used (issue #42)
+        if (iter->weightsAreDoubled)
+        {
+            m_pUi->pushButton_copySwitched->show();
+        }
+        else
+        {
+            m_pUi->pushButton_copySwitched->hide();
+        }
 	}
 	else
 	{
@@ -899,7 +909,6 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 		m_pUi->tableView_tournament_list2->selectRow(0);
 
 		m_pUi->tableView_tournament_list2->show();
-		m_pUi->pushButton_copySwitched->show();
 		m_pUi->label_final_score->show();
 		m_pUi->label_final_wins->show();
 		m_pUi->label_final_sub_score->show();
