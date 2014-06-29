@@ -147,6 +147,7 @@ void ModeManagerDlg::on_toolButton_add_clicked()
     mode.fightTimeInSeconds = 300;
     mode.nRounds = 2;
     mode.weightsAreDoubled = true;
+    mode.listTemplate = m_pUi->comboBox_template->itemText(0);
     mode.SetOption(eOption_Use2013Rules, true);
 
     m_dialogData.push_back(mode);
