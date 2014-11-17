@@ -1141,8 +1141,8 @@ Valid specifiers are: %1</source>
     </message>
     <message>
         <location filename="../base/MainWindowBase.cpp" line="300"/>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2013 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
-        <translation></translation>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2014 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../base/MainWindowBase.cpp" line="343"/>
@@ -1282,9 +1282,8 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation>Kann %1 nicht speichern!</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="197"/>
         <source>Format specifier hat invalid separator: %1</source>
-        <translation>Formatspzifikation enthält ungültigen Trenner: %1</translation>
+        <translation type="obsolete">Formatspzifikation enthält ungültigen Trenner: %1</translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="150"/>
@@ -1293,6 +1292,7 @@ Please visit the project webpage - there should be a newer one available.</sourc
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="135"/>
+        <location filename="../base/FighterManager.cpp" line="197"/>
         <source>Format specifier has invalid separator: %1</source>
         <translation>Formatspzifikation enthält ungültigen Trenner: %1</translation>
     </message>

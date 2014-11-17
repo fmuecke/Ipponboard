@@ -12,12 +12,12 @@
         <translation type="obsolete">Weiß</translation>
     </message>
     <message>
-        <location filename="../core/Controller.cpp" line="378"/>
+        <location filename="../core/Controller.cpp" line="381"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
     <message>
-        <location filename="../core/Controller.cpp" line="378"/>
+        <location filename="../core/Controller.cpp" line="381"/>
         <source>Second</source>
         <translation>Zweiter</translation>
     </message>

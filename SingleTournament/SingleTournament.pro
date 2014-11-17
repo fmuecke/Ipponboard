@@ -114,6 +114,7 @@ FORMS = MainWindow.ui \
 
 #OTHER_FILES +=
 RESOURCES += ../base/ipponboard.qrc
-TRANSLATIONS = ../i18n/Ipponboard_de.ts
+TRANSLATIONS = ../i18n/Ipponboard_de.ts \
+    ../i18n/Ipponboard_nl.ts
 
 win32:RC_FILE = ../base/ipponboard.rc

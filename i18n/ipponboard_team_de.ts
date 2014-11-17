@@ -1220,8 +1220,8 @@ Gültige Spezifizierer sind: %1</translation>
     </message>
     <message>
         <location filename="../base/MainWindowBase.cpp" line="300"/>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2013 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
-        <translation></translation>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2014 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../base/MainWindowBase.cpp" line="343"/>
@@ -1229,18 +1229,18 @@ Gültige Spezifizierer sind: %1</translation>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="973"/>
-        <location filename="../base/MainWindowBase.cpp" line="997"/>
+        <location filename="../base/MainWindowBase.cpp" line="974"/>
+        <location filename="../base/MainWindowBase.cpp" line="998"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="974"/>
+        <location filename="../base/MainWindowBase.cpp" line="975"/>
         <source>Set value to (ss):</source>
         <translation>Setze Wert auf (ss):</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="998"/>
+        <location filename="../base/MainWindowBase.cpp" line="999"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
@@ -1313,82 +1313,82 @@ Gültige Spezifizierer sind: %1</translation>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="984"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="993"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="985"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="994"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="986"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="995"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation>PDF-Datei (*.pdf);;HTML-Datei (*.html)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1027"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1036"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1028"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1037"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
         <translation>Setze die Gewichtsklassen (getrennt durch &apos;;&apos;):</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1039"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1048"/>
         <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
         <translation>Sie müssen die %1 Klassen getrennt durch &apos;;&apos; angeben!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1109"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1118"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1110"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1119"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1180"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1189"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1183"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1192"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1186"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1195"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1249"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1258"/>
         <source>There is nothing to paste!</source>
         <translation>Es gibt nichts zum Einfügen!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1260"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1269"/>
         <source>Can not paste into an empty selection!</source>
         <translation>In eine leere Auswahl kann nicht eingefügt werden!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1269"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1278"/>
         <source>There is too few data for the selection in the clipboard!</source>
         <translation>Zum Einfügen gibt es nicht genügend Daten in der Zwischenablage!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1292"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1301"/>
         <source>There is more data available in the clipboard as could be pasted!</source>
         <translation>Die Zwischenablage entählt mehr Daten als eingefügt werden können!</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1406"/>
+        <location filename="../TeamTournament/MainWindowTeam.cpp" line="1415"/>
         <source>Ipponboard fight list %1</source>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
@@ -1418,7 +1418,7 @@ Gültige Spezifizierer sind: %1</translation>
     </message>
     <message>
         <location filename="../TeamTournament/ModeManagerDlg.ui" line="74"/>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="262"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="265"/>
         <source>The fight duration in seconds</source>
         <translation>Die Kampfzeit in Sekunden</translation>
     </message>
@@ -1438,27 +1438,27 @@ Gültige Spezifizierer sind: %1</translation>
         <translation>Gibt an, dass alle Gewichtsklassen doppelt belegt sind</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="134"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="137"/>
         <source>FIGHTS_PER_ROUND</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="156"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="159"/>
         <source>The fight duration</source>
         <translation>Die Kampfzeit in Minuten und Sekunden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="178"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="181"/>
         <source>min</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="198"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="201"/>
         <source>sec</source>
         <translation>Sek</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="244"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="247"/>
         <source>The overrides should be something like this:
 &quot;U12:120;U15:180;U18:240&quot;
 (&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
@@ -1487,7 +1487,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation type="obsolete">Kämpfe pro Runde</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="159"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="162"/>
         <source>Fight Time</source>
         <translation>Kampfzeit</translation>
     </message>
@@ -1500,12 +1500,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation type="obsolete">Sekunden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="218"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="221"/>
         <source>Enables to specify overrides for the fight time for certain categories. E.g. &quot;U12:120;U15:180;U18:240&quot;</source>
         <translation>Erlaubt es die Kampfzeit für bestimmte Gewichtsklassen zu überschreiben: z.B. &quot;U12:120;U15:180;U18:240&quot;</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="221"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="224"/>
         <source>Use overrides</source>
         <translation>Ausnahmen verwenden</translation>
     </message>
@@ -1514,17 +1514,17 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation type="obsolete">Die Ausnahmen sollten folgende Form haben: &quot;U12:120;U15:180;U18:240&quot; (&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="265"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="268"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="272"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="275"/>
         <source>Use the offical IJF rules of 2013</source>
         <translation>Die offiziellen 2013er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="275"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="278"/>
         <source>Use rules of 2013</source>
         <translation>IJF Regeln von 2013 verwenden</translation>
     </message>
@@ -1533,22 +1533,22 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation type="obsolete">2013er Regeln verwenden</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="282"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="285"/>
         <source>Automatically add points during Osae-komi</source>
         <translation>Wertungen für Osaekomi-Zeiten und Strafen automatisch vergeben</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="285"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="288"/>
         <source>Auto increment points</source>
         <translation>Wertungen automatisch erhöhen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="292"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="295"/>
         <source>Sub-scores are valued even if the fight is lost</source>
         <translation>Unterbewertungen werden auch für verlorene Kämpfe mitgezählt</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.ui" line="295"/>
+        <location filename="../TeamTournament/ModeManagerDlg.ui" line="298"/>
         <source>All sub-scores count</source>
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
@@ -1558,22 +1558,22 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation>*neu*</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="165"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="166"/>
         <source>Remove item</source>
         <translation>Eintrag entfernen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="166"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="167"/>
         <source>Really remove &quot;%1&quot;?</source>
         <translation>Wirklich &quot;%1&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="167"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="168"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="168"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="169"/>
         <source>Keep</source>
         <translation>Behalten</translation>
     </message>
@@ -1710,10 +1710,14 @@ Please visit the project webpage - there should be a newer one available.</sourc
         <translation type="obsolete">Kann %1 nicht speichern!</translation>
     </message>
     <message>
+        <source>Format specifier hat invalid separator: %1</source>
+        <translation type="obsolete">Spezifiziertes format hat ungültigen Trenner: %1</translation>
+    </message>
+    <message>
         <location filename="../base/FighterManager.cpp" line="135"/>
         <location filename="../base/FighterManager.cpp" line="197"/>
-        <source>Format specifier hat invalid separator: %1</source>
-        <translation>Spezifiziertes format hat ungültigen Trenner: %1</translation>
+        <source>Format specifier has invalid separator: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="150"/>

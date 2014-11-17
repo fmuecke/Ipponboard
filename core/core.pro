@@ -82,4 +82,5 @@ SOURCES = Controller.cpp \
     
 #OTHER_FILES +=
 
-TRANSLATIONS = ../i18n/core_de.ts
+TRANSLATIONS = ../i18n/core_de.ts \
+    ../i18n/core_nl.ts

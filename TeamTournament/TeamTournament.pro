@@ -119,6 +119,7 @@ OTHER_FILES += \
     TournamentModes.ini
 
 RESOURCES += ../base/ipponboard.qrc
-TRANSLATIONS = ../i18n/ipponboard_team_de.ts
+TRANSLATIONS = ../i18n/ipponboard_team_de.ts \
+    ../i18n/ipponboard_team_nl.ts
 
 win32:RC_FILE = ../base/Ipponboard_team.rc
