@@ -58,95 +58,145 @@ echo;
 echo;
 echo Select build mode:
 echo;
-echo   (1) make clean
-echo   (2) clean build
-echo   (3) incremental build
-echo   (4) setup only
-echo   (9) everything
+echo   (1) clean
+echo   (2) build
+echo   (3) rebuild
+echo   (4) setup
+echo   (9) all
 echo   (q) quit
 choice /C 12349q /N
 :: value "0" is reserved!
 if %errorlevel%==6 goto :eof
-if %errorlevel%==5 goto build_all
-if %errorlevel%==4 goto build_setup
-if %errorlevel%==3 goto build_incremental
-if %errorlevel%==2 goto build_clean
-if %errorlevel%==1 goto make_clean
+if %errorlevel%==5 goto cmd_all
+if %errorlevel%==4 goto cmd_setup
+if %errorlevel%==3 goto cmd_rebuild
+if %errorlevel%==2 goto cmd_build
+if %errorlevel%==1 goto cmd_clean
 GOTO the_end
 
+:cmd_all
+	_build\stopwatch start build
+	call :make_clean
+	if errorlevel 1 goto the_error
+	call :make_build
+	if errorlevel 1 goto the_error
+	call :make_setup
+	if errorlevel 1 goto the_error
+goto the_end
+
+:cmd_setup
+	_build\stopwatch start build
+	call :make_setup
+	if errorlevel 1 goto the_error	
+goto the_end
+
+
+:cmd_build
+	_build\stopwatch start build
+	call :make_build
+	if errorlevel 1 goto the_error
+goto the_end
+
+:cmd_rebuild
+	_build\stopwatch start build
+	call :make_clean
+	if errorlevel 1 goto the_error
+	call :make_build
+	if errorlevel 1 goto the_error
+goto the_end
+
+:cmd_clean
+	_build\stopwatch start build
+	call :make_clean
+	if errorlevel 1 goto the_error
+goto the_end
+
+
+::-------------------------------
 :make_clean
 	echo;
-	echo --[make clean]--
-	rem del /Q "%BASE_DIR%\base\.buildnr"
-	rd /Q /S "%BASE_DIR%\bin"
-	rd /Q /S "%BASE_DIR%\lib"
-	"%QTDIR%"\qmake -recursive
-	if errorlevel 1 pause
+	echo --[clean]--
+	rd /Q /S "%BASE_DIR%\bin" >nul 2>&1
+	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
+	
+	call :generate_makefiles
+	if errorlevel 1 exit /b %errorlevel%
+	
+	jom /S /L clean>nul 2>&1
+	if errorlevel 1 exit /b %errorlevel%
+goto :eof
 
-	jom /S /L clean>nul 
-	if errorlevel 1 pause
-	if not "%1"=="internal" pause
+::-------------------------------
+:make_build
+	echo;
+	echo --[build]--
+
+	CALL :compile core
+	if errorlevel 1 exit /b %errorlevel%
+
+	CALL :compile gamepad
+	if errorlevel 1 exit /b %errorlevel%
+
+	CALL :compile SingleTournament
+	if errorlevel 1 exit /b %errorlevel%
+
+	CALL :compile TeamTournament
+	if errorlevel 1 exit /b %errorlevel%
+
+	::CALL :compile VersionSelector
+	::if errorlevel 1 exit /b %errorlevel%
+
+	CALL :compile GamepadDemo
+	if errorlevel 1 exit /b %errorlevel%
 GOTO :EOF
 
-:build_clean
+::-------------------------------
+:make_setup
 	echo;
-	echo --[build clean]--
-	CALL :make_clean internal
-	CALL :build_incremental internal
-	if not "%1"=="internal" pause
-GOTO :EOF
-
-:build_incremental
-	echo;
-	echo --[build incremental]--
-	"%QTDIR%"\qmake -recursive
-	if errorlevel 1 pause
-	::jom /L /S /F Makefile release
-	::if errorlevel 1 pause
-	CALL :do_compile core
-	CALL :do_compile gamepad
-	CALL :do_compile SingleTournament
-	CALL :do_compile TeamTournament
-	::CALL :do_compile VersionSelector
-	CALL :do_compile GamepadDemo
-	if not "%1"=="internal" pause
-GOTO :EOF
-
-:build_setup
-	echo;
-	echo --[setup only]--
+	echo --[setup]--
 	if not exist "%INNO_DIR%\iscc.exe" (
 		echo Error: iscc.exe not found or INNO_DIR not defined!
 		GOTO :EOF
 	)
 	CALL _build\scripts\clear_build_dir.cmd
-	if errorlevel 1 pause
+	if errorlevel 1 exit /b %errorlevel%
+
 	CALL _build\scripts\Ipponboard_copy_files.cmd
-	if errorlevel 1 pause
+	if errorlevel 1 exit /b %errorlevel%
+
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup.iss"
-	if errorlevel 1 pause
+	if errorlevel 1 exit /b %errorlevel%
+
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup_team.iss"
-	if errorlevel 1 pause
-	if errorlevel 0 dir /OD "%BASE_DIR%\_build\build_output"
-	if not "%1"=="internal" pause
+	if errorlevel 1 exit /b %errorlevel%
+	dir /OD "%BASE_DIR%\_build\build_output"
 GOTO :EOF
 
-:build_all
-	echo;
-	echo --[build all]--
-	CALL :build_clean internal
-	CALL :build_setup internal
-	if not "%1"=="internal" pause
-GOTO :EOF
 
-:do_compile
-	echo;
+:compile
 	echo -- Compiling %1
 	pushd %1
 	jom /L /S /F Makefile.Release
-	if errorlevel 1 pause
+	if errorlevel 1 exit /b %errorlevel%
 	popd
 GOTO :EOF
 
+
+:generate_makefiles
+	echo -- Creating makefiles
+	"%QTDIR%"\qmake -recursive
+	if errorlevel 1 exit /b %errorlevel%
+goto :EOF
+
+
+:the_error
+echo.
+echo FAILED (code=%errorlevel%)
+pause
+exit /b %errorlevel%
+
 :the_end
+echo.
+echo SUCCESS
+_build\stopwatch stop build "Time Elapsed: {1}"
 pause
