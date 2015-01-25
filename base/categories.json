@@ -1,50 +1,48 @@
-[
-	{ 
-		"name" : "M",
-		"round_time_secs" : 300,
-		"golden_score_time_secs" : 180,
-		"weights" : [-60;-66;-73;-81;-90;-100;+100]
-	},
-	{
-		"name" : "MU21",
-		"round_time_secs" : 240,
-		"golden_score_time_secs" : 120,
-		"weights" : [-55;-60;-66;-73;-81;-90;-100;+100]
-	},
-	{
-		"name" : "MU18",
-		"round_time_secs" : 240,
-		"golden_score_time_secs" : 120,
-		"weights" : [-43;-46;-50;-55;-60;-66;-73;-81;-90;+90]
-	},
-	{
-		"name" : "MU15",
-		"round_time_secs" : 180,
-		"golden_score_time_secs" : 90,
-		"weights" : [-34;-37;-40;-43;-46;-50;-55;-60;-66;+66]
-	},
-	{
-		"name" : "F",
-		"round_time_secs" : 300,
-		"golden_score_time_secs" : 180,
-		"weights" : [-48;-52;-57;-63;-70;-78;+78]
-	},
-	{
-		"name" : "FU21",
-		"round_time_secs" : 240,
-		"golden_score_time_secs" : 120,
-		"weights" : [-44;-48;-52;-57;-63;-70;-78;+78]
-	},
-	{
-		"name" : "FU18",
-		"round_time_secs" : 240,
-		"golden_score_time_secs" : 120,
-		"weights" : [-40;-44;-48;-52;-57;-63;-70;-78;+78]
-	},
-	{
-		"name" : "FU15",
-		"round_time_secs" : 180,
-		"golden_score_time_secs" : 90,
-		"weights" : [-33;-36;-40;-44;-48;-52;-57;-63;+63]
-	}
-]
+[{
+	"name": "M",
+	"round_time_secs": 300,
+	"golden_score_time_secs": 180,
+	"weights": ["-60", "-66", "-73", "-81", "-90", "-100", "+100"]
+},
+{
+	"name": "MU21",
+	"round_time_secs": 240,
+	"golden_score_time_secs": 120,
+	"weights": ["-55", "-60", "-66", "-73", "-81", "-90", "-100", "+100"]
+},
+{
+	"name": "MU18",
+	"round_time_secs": 240,
+	"golden_score_time_secs": 120,
+	"weights": ["-43", "-46", "-50", "-55", "-60", "-66", "-73", "-81", "-90", "+90"]
+},
+{
+	"name": "MU15",
+	"round_time_secs": 180,
+	"golden_score_time_secs": 90,
+	"weights": ["-34", "-37", "-40", "-43", "-46", "-50", "-55", "-60", "-66", "+66"]
+},
+{
+	"name": "F",
+	"round_time_secs": 300,
+	"golden_score_time_secs": 180,
+	"weights": ["-48", "-52", "-57", "-63", "-70", "-78", "+78"]
+},
+{
+	"name": "FU21",
+	"round_time_secs": 240,
+	"golden_score_time_secs": 120,
+	"weights": ["-44", "-48", "-52", "-57", "-63", "-70", "-78", "+78"]
+},
+{
+	"name": "FU18",
+	"round_time_secs": 240,
+	"golden_score_time_secs": 120,
+	"weights": ["-40", "-44", "-48", "-52", "-57", "-63", "-70", "-78", "+78"]
+},
+{
+	"name": "FU15",
+	"round_time_secs": 180,
+	"golden_score_time_secs": 90,
+	"weights": ["-33", "-36", "-40", "-44", "-48", "-52", "-57", "-63", "+63"]
+}]
