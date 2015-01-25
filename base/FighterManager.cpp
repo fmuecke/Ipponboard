@@ -9,7 +9,6 @@
 
 #include <QObject>  // needed for tr()
 #include <QStringList>
-#include <boost/foreach.hpp>
 #include <algorithm>
 
 using namespace Ipponboard;
@@ -33,7 +32,7 @@ QString FighterManager::DefaultExportFormat()
 {
 	QString ret;
 
-	BOOST_FOREACH(char const * const s, Specifiers)
+	for(char const * const s: Specifiers)
 	{
 		if (!ret.isEmpty())
 		{
@@ -56,8 +55,7 @@ QString FighterManager::GetSpecifiererDescription()
 {
 	QString retVal;
 
-	//TODO: use for_each
-	BOOST_FOREACH(char const * const s, Specifiers)
+	for(char const * const s : Specifiers)
 	{
 		if (!retVal.isEmpty())
 		{
@@ -72,7 +70,7 @@ QString FighterManager::GetSpecifiererDescription()
 
 //bool Ipponboard::FighterManager::IsValidSpecifier(const QString& str)
 //{
-//    BOOST_FOREACH(char const * const s, Specifiers)
+//    for(char const * const s : Specifiers)
 //    {
 //        if (str.compare(s) == 0)
 //            return true;
@@ -162,7 +160,7 @@ bool FighterManager::ImportFighters(
 	//NO, don't do it: m_fighters.clear();
 
 	const size_t oldCount = m_fighters.size();
-	BOOST_FOREACH(QStringList const & line, data)
+	for(QStringList const & line : data)
 	{
 		QString firstName = line[firstNamePos];
 		QString lastName = line[lastNamePos];
@@ -217,7 +215,7 @@ bool FighterManager::ExportFighters(
 	const int categoryPos = tags.indexOf(str_CATEGORY);
 
 	QStringList data;
-	BOOST_FOREACH(Ipponboard::Fighter const & f, m_fighters)
+	for(Ipponboard::Fighter const & f : m_fighters)
 	{
 		QString line;
 

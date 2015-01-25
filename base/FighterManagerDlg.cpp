@@ -18,8 +18,6 @@
 #include <QRegExp>
 #include <QPlainTextEdit>
 
-#include <boost/foreach.hpp>
-
 //using namespace Ipponboard;
 
 //---------------------------------------------------------
@@ -304,7 +302,7 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 	//QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
 
 	//if (pItem)
-	BOOST_FOREACH(QTreeWidgetItem * pItem, selectedItems)
+	for(QTreeWidgetItem * pItem : selectedItems)
 	{
 		Ipponboard::Fighter currentFighter(
 			pItem->text(eColumn_firstName),

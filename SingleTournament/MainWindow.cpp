@@ -190,7 +190,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 	// filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
-	Q_FOREACH(const Ipponboard::Fighter & f, m_fighterManager.m_fighters)
+	for(const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
 	{
 		if (f.weight == weight || f.weight.isEmpty())
 		{
