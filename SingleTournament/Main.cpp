@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 	langStr.truncate(langStr.lastIndexOf('_'));
 
 	const QString ini(QString::fromStdString(
-						  fmu::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
+						  fm::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
 	QSettings settings(ini, QSettings::IniFormat, &a);
 
 	settings.beginGroup(str_tag_Main);

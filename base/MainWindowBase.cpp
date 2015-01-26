@@ -367,7 +367,7 @@ void MainWindowBase::write_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
+			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
     //TODO: settings.setIniCodec("UTF-8");
@@ -439,7 +439,7 @@ void MainWindowBase::read_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fmu::GetSettingsFilePath(GetConfigFileName().toAscii())));
+			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
     //TODO: settings.setIniCodec("UTF-8");
@@ -617,7 +617,7 @@ void MainWindowBase::load_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
 	QString errorMsg;
 
@@ -640,7 +640,7 @@ void MainWindowBase::save_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fmu::GetSettingsFilePath(GetFighterFileName().toAscii())));
+			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 	QString errorMsg;
 
 	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))

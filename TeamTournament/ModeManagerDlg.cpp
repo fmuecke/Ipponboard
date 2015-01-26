@@ -30,7 +30,7 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
         QString const& currentModeId,
         QWidget *parent)
     : QDialog(parent)
-    , FMU::DialogResult<TournamentMode::List>(modes)
+    , fm::DialogResult<TournamentMode::List>(modes)
     , m_pUi(new Ui::ModeManagerDlg)
 {
     std::sort(begin(m_dialogData), end(m_dialogData));

@@ -16,7 +16,7 @@
 #include <boost/noncopyable.hpp>
 #include <vector>
 
-namespace fmu
+namespace fm
 {
 
 class SimpleCsvFile : boost::noncopyable

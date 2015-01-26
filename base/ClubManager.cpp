@@ -110,7 +110,7 @@ void ClubManager::LoadClubs_()
 	//m_Clubs.push_back(Club("TV Lenggries", "..\\base\\emblems\\tv_lenggries.png"));
 
 	const std::string filePath(
-		fmu::GetSettingsFilePath(str_filename_club_definitions));
+		fm::GetSettingsFilePath(str_filename_club_definitions));
 
 	std::ifstream ifs(filePath.c_str());
 
@@ -146,7 +146,7 @@ void ClubManager::SaveClubs_()
 {
 	// make an archive
 	const std::string filePath(
-		fmu::GetSettingsFilePath(str_filename_club_definitions));
+		fm::GetSettingsFilePath(str_filename_club_definitions));
 
 	std::ofstream ofs(filePath.c_str());
 

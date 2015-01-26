@@ -15,7 +15,7 @@
 #include <boost/foreach.hpp>
 
 
-namespace fmu
+namespace fm
 {
 namespace IocNations
 {

@@ -26,7 +26,7 @@
 
 #include <string>
 
-namespace fmu
+namespace fm
 {
 
 namespace

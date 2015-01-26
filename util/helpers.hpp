@@ -9,7 +9,7 @@
 #define final sealed
 #endif
 
-namespace fmu
+namespace fm
 {
 
 template<typename T, int size>

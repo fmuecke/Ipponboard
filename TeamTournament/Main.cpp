@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 
 	const QString ini(
 		QString::fromStdString(
-			fmu::GetSettingsFilePath(
+			fm::GetSettingsFilePath(
 				mainWnd.GetConfigFileName().toAscii())));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);

@@ -25,7 +25,7 @@ namespace Ui {
 class ModeManagerDlg;
 }
 
-class ModeManagerDlg : public QDialog, public FMU::DialogResult<Ipponboard::TournamentMode::List>
+class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::TournamentMode::List>
 {
     Q_OBJECT
 

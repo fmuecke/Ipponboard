@@ -1,7 +1,7 @@
 #ifndef UTIL__DIALOGRESULT_H_
 #define UTIL__DIALOGRESULT_H_
 
-namespace FMU
+namespace fm
 {
 
 template <typename T>

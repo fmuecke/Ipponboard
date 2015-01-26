@@ -265,7 +265,7 @@ QVariant TournamentModel::headerData(
 		if (Qt::Vertical == orientation)
 			return QString::number(section + 1);
 
-		if (section < fmu::ArrayLength(m_HeaderData))
+		if (section < fm::ArrayLength(m_HeaderData))
 			return m_HeaderData[section];
 	}
 

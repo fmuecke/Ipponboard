@@ -152,7 +152,7 @@ bool FighterManager::ImportFighters(
 
 	std::vector<QStringList> data;
 
-	if (!fmu::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg))
+	if (!fm::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg))
 	{
 		return false;
 	}
@@ -255,7 +255,7 @@ bool FighterManager::ExportFighters(
 		data.push_back(line);
 	}
 
-	if (!fmu::SimpleCsvFile::WriteData(fileName, data, errorMsg))
+	if (!fm::SimpleCsvFile::WriteData(fileName, data, errorMsg))
 	{
 		return false;
 	}
