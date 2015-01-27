@@ -1,0 +1,98 @@
+{
+	"clubs" : [
+	{
+		"name": "TSV Königsbrunn",
+		"address": "Fuggerstraße 38, 86343 Königsbrunn",
+		"image": "clubs/tsv_koenigsbrunn.png"
+	},
+	{
+		"name": "Bushido Amberg",
+		"address": "Amberg",
+		"image": "clubs/bushido_amberg.png"
+	},
+	{
+		"name": "DJK Ingolstadt",
+		"address": "clubs/djk_ingolstadt.png",
+		"image": "Ingolstadt"
+	},
+	{
+		"name": "JC Ettlingen",
+		"address": "Ettlingen",
+		"image": "clubs/jc_ettlingen.png"
+	},
+	{
+		"name": "JC Leipzig",
+		"address": "Leipzig",
+		"image": "clubs/jc_leipzig.png"
+	},
+	{
+		"name": "JC Rüsselsheim",
+		"address": "Rüsselsheim",
+		"image": "clubs/jc_ruesselsheim.png"
+	},
+ 	{
+		"name": "JC Wiesbaden",
+		"address": "Wiesbaden",
+		"image": "clubs/jc_wiesbaden.png"
+	},
+ 	{
+		"name": "JV Ippon Rodewisch",
+		"address": "Rodewisch",
+		"image": "clubs/jv_rodewisch.png"
+	},
+ 	{
+		"name": "KSV Esslingen",
+		"address": "Esslingen",
+		"image": "clubs/ksv_esslingen.png"
+	},
+ 	{
+		"name": "Kodokan München",
+		"address": "München",
+		"image": "clubs/kodokan_muenchen.png"
+	},
+ 	{
+		"name": "Post SV Bamberg 1928",
+		"address": "Bamberg",
+		"image": "clubs/post_sv_bamberg_1928.png"
+	},
+	{
+		"name": "SF Harteck München",
+		"address": "München",
+		"image": "clubs/sf_harteck.png"
+	},
+ 	{
+		"name": "TG Landshut",
+		"address": "Landshut",
+		"image": "clubs/default.png"
+	},
+ 	{
+		"name": "TSV Abensberg",
+		"address": "Abensberg",
+		"image": "clubs/tsv_abensberg.png"
+	},
+ 	{
+		"name": "TSV Großhadern",
+		"address": "Heiglhofstrasse 25, 81377 München",
+		"image": "clubs/tsv_grosshadern.png"
+	},
+ 	{
+		"name": "TSV Lohr",
+		"address": "Lohr am Main",
+		"image": "clubs/lohr.png"
+	},
+ 	{
+		"name": "TSV Mainburg",
+		"address": "Mainburg",
+		"image": "clubs/mainburg.png"
+	},
+	{
+		"name": "1. JC Oberhaid",
+		"address": "Oberhaid",
+		"image": "clubs/jc_oberhaid.png"
+	},
+ 	{
+		"name": "TSV Peiting",
+		"address": "Peiting",
+		"image": "clubs/tsv_peiting.png"
+	}]
+}
