@@ -102,6 +102,8 @@ SOURCES = Main.cpp \
     ../widgets/ScaledText.cpp \
     ../widgets/SplashScreen.cpp \
 	../base/ComboBoxDelegate.cpp \
+	../util/json.hpp \
+	../util/jsoncpp/json.cpp \
     ModeManagerDlg.cpp
 
 FORMS = ../base/ClubManagerDlg.ui \

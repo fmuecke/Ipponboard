@@ -3,8 +3,6 @@
 
 #include <QString>
 #include <vector>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
 
 // forwards
 class QListWidgetItem;
@@ -37,26 +35,6 @@ struct Club
 	inline QString ToString() const { return name; }
 };
 }
-
-BOOST_CLASS_VERSION(Ipponboard::Club, 1);
-
-namespace boost
-{
-namespace serialization
-{
-
-template<class Archive>
-void serialize(Archive& ar, Ipponboard::Club& c, const unsigned int version)
-{
-	ar& BOOST_SERIALIZATION_NVP(c.name);
-	ar& BOOST_SERIALIZATION_NVP(c.logoFile);
-
-	if (version > 0)
-		ar& BOOST_SERIALIZATION_NVP(c.address);
-}
-
-} // namespace serialization
-} // namespace boost
 
 namespace Ipponboard
 {

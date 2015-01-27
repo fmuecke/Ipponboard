@@ -5,7 +5,7 @@
 #include <fstream>
 #include "../util/qstring_serialization.h"
 #include "../util/path_helpers.h"
-#include <boost/serialization/vector.hpp>
+#include "../util/json.hpp"
 #include <algorithm>
 
 
@@ -112,32 +112,25 @@ void ClubManager::LoadClubs_()
 	const std::string filePath(
 		fm::GetSettingsFilePath(str_filename_club_definitions));
 
-	std::ifstream ifs(filePath.c_str());
+    try
+    {
+        auto jsonClubs = fm::Json::ReadFile(filePath.c_str());
 
-	if (ifs.good())
-	{
-		try
-		{
-			boost::archive::xml_iarchive ia(ifs);
-			// restore the clubs from the xml archive
-			ia >> BOOST_SERIALIZATION_NVP(m_Clubs);
-		}
-		catch (std::exception&)
-		{
-			QMessageBox::critical(0, QString("Error"),
-								  QString("Unable to parse %1!").arg(
-									  str_filename_club_definitions));
-		}
-	}
-	else
-	{
-		QMessageBox::critical(0, QString("Error"),
-							  QString("Unable to open %1!").arg(
-								  str_filename_club_definitions));
+        for (auto const& jsonClub : jsonClubs)
+        {
+            Json::Value v;
+            Club club;
+            club.name = jsonClub["name"].asCString();
+            club.address = jsonClub["address"].asCString();
+            club.logoFile = jsonClub["image"].asCString();
 
-	}
-
-	ifs.close();
+            m_Clubs.push_back(club);
+        }
+    }
+    catch (fm::Json::Exception const& e)
+    {
+        QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
+    }
 }
 
 //---------------------------------------------------------
@@ -148,19 +141,23 @@ void ClubManager::SaveClubs_()
 	const std::string filePath(
 		fm::GetSettingsFilePath(str_filename_club_definitions));
 
-	std::ofstream ofs(filePath.c_str());
+    fm::Json::Value jsonClubs;
 
-	if (ofs.good())
-	{
-		boost::archive::xml_oarchive oa(ofs);
-		oa << BOOST_SERIALIZATION_NVP(m_Clubs);
-	}
-	else
-	{
-		QMessageBox::critical(0, QString("Error"),
-							  QString("Unable to save %1!").arg(
-								  str_filename_club_definitions));
-	}
+    for (auto const& club : m_Clubs)
+    {
+        fm::Json::Value jsonClub;
+        jsonClub["name"] = club.name.toStdString();
+        jsonClub["address"] = club.address.toStdString();
+        jsonClub["image"] = club.logoFile.toStdString();
+        jsonClubs.append(jsonClub);
+    }
 
-	ofs.close();
+    try
+    {
+        fm::Json::WriteFile(filePath.c_str(), jsonClubs);
+    }
+    catch(fm::Json::Exception const& e)
+    {
+        QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
+	}
 }
