@@ -1,98 +1,97 @@
-{
-	"clubs" : [
-	{
-		"name": "TSV Königsbrunn",
-		"address": "Fuggerstraße 38, 86343 Königsbrunn",
-		"image": "clubs/tsv_koenigsbrunn.png"
-	},
-	{
-		"name": "Bushido Amberg",
-		"address": "Amberg",
-		"image": "clubs/bushido_amberg.png"
-	},
-	{
-		"name": "DJK Ingolstadt",
-		"address": "clubs/djk_ingolstadt.png",
-		"image": "Ingolstadt"
-	},
-	{
-		"name": "JC Ettlingen",
-		"address": "Ettlingen",
-		"image": "clubs/jc_ettlingen.png"
-	},
-	{
-		"name": "JC Leipzig",
-		"address": "Leipzig",
-		"image": "clubs/jc_leipzig.png"
-	},
-	{
-		"name": "JC Rüsselsheim",
-		"address": "Rüsselsheim",
-		"image": "clubs/jc_ruesselsheim.png"
-	},
- 	{
-		"name": "JC Wiesbaden",
-		"address": "Wiesbaden",
-		"image": "clubs/jc_wiesbaden.png"
-	},
- 	{
-		"name": "JV Ippon Rodewisch",
-		"address": "Rodewisch",
-		"image": "clubs/jv_rodewisch.png"
-	},
- 	{
-		"name": "KSV Esslingen",
-		"address": "Esslingen",
-		"image": "clubs/ksv_esslingen.png"
-	},
- 	{
-		"name": "Kodokan München",
-		"address": "München",
-		"image": "clubs/kodokan_muenchen.png"
-	},
- 	{
-		"name": "Post SV Bamberg 1928",
-		"address": "Bamberg",
-		"image": "clubs/post_sv_bamberg_1928.png"
-	},
-	{
-		"name": "SF Harteck München",
-		"address": "München",
-		"image": "clubs/sf_harteck.png"
-	},
- 	{
-		"name": "TG Landshut",
-		"address": "Landshut",
-		"image": "clubs/default.png"
-	},
- 	{
-		"name": "TSV Abensberg",
-		"address": "Abensberg",
-		"image": "clubs/tsv_abensberg.png"
-	},
- 	{
-		"name": "TSV Großhadern",
-		"address": "Heiglhofstrasse 25, 81377 München",
-		"image": "clubs/tsv_grosshadern.png"
-	},
- 	{
-		"name": "TSV Lohr",
-		"address": "Lohr am Main",
-		"image": "clubs/lohr.png"
-	},
- 	{
-		"name": "TSV Mainburg",
-		"address": "Mainburg",
-		"image": "clubs/mainburg.png"
-	},
-	{
-		"name": "1. JC Oberhaid",
-		"address": "Oberhaid",
-		"image": "clubs/jc_oberhaid.png"
-	},
- 	{
-		"name": "TSV Peiting",
-		"address": "Peiting",
-		"image": "clubs/tsv_peiting.png"
-	}]
-}
+ï»¿[
+   {
+      "address" : "Oberhaid",
+      "image" : "clubs/jc_oberhaid.png",
+      "name" : "1. JC Oberhaid"
+   },
+   {
+      "address" : "Amberg",
+      "image" : "clubs/bushido_amberg.png",
+      "name" : "Bushido Amberg"
+   },
+   {
+      "address" : "Ingolstadt",
+      "image" : "clubs/djk_ingolstadt.png",
+      "name" : "DJK Ingolstadt"
+   },
+   {
+      "address" : "Ettlingen",
+      "image" : "clubs/jc_ettlingen.png",
+      "name" : "JC Ettlingen"
+   },
+   {
+      "address" : "Leipzig",
+      "image" : "clubs/jc_leipzig.png",
+      "name" : "JC Leipzig"
+   },
+   {
+      "address" : "RÃ¼sselsheim",
+      "image" : "clubs/jc_ruesselsheim.png",
+      "name" : "JC RÃ¼sselsheim"
+   },
+   {
+      "address" : "Wiesbaden",
+      "image" : "clubs/jc_wiesbaden.png",
+      "name" : "JC Wiesbaden"
+   },
+   {
+      "address" : "Rodewisch",
+      "image" : "clubs/jv_rodewisch.png",
+      "name" : "JV Ippon Rodewisch"
+   },
+   {
+      "address" : "Esslingen",
+      "image" : "clubs/ksv_esslingen.png",
+      "name" : "KSV Esslingen"
+   },
+   {
+      "address" : "MÃ¼nchen",
+      "image" : "clubs/kodokan_muenchen.png",
+      "name" : "Kodokan MÃ¼nchen"
+   },
+   {
+      "address" : "Bamberg",
+      "image" : "clubs/post_sv_bamberg_1928.png",
+      "name" : "Post SV Bamberg 1928"
+   },
+   {
+      "address" : "MÃ¼nchen",
+      "image" : "clubs/sf_harteck.png",
+      "name" : "SF Harteck MÃ¼nchen"
+   },
+   {
+      "address" : "Landshut",
+      "image" : "clubs/default.png",
+      "name" : "TG Landshut"
+   },
+   {
+      "address" : "Abensberg",
+      "image" : "clubs/tsv_abensberg.png",
+      "name" : "TSV Abensberg"
+   },
+   {
+      "address" : "Heiglhofstrasse 25, 81377 MÃ¼nchen",
+      "image" : "clubs/tsv_grosshadern.png",
+      "name" : "TSV GroÃŸhadern"
+   },
+   {
+      "address" : "FuggerstraÃŸe 38, 86343 KÃ¶nigsbrunn",
+      "image" : "clubs/tsv_koenigsbrunn.png",
+      "name" : "TSV KÃ¶nigsbrunn"
+   },
+   {
+      "address" : "Lohr am Main",
+      "image" : "clubs/lohr.png",
+      "name" : "TSV Lohr"
+   },
+   {
+      "address" : "Mainburg",
+      "image" : "clubs/tsv_mainburg.png",
+      "name" : "TSV Mainburg"
+   },
+   {
+      "address" : "Peiting",
+      "image" : "clubs/tsv_peiting.png",
+      "name" : "TSV Peiting"
+   }
+]
