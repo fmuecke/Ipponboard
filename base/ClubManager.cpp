@@ -6,11 +6,12 @@
 #include "../util/qstring_serialization.h"
 #include "../util/path_helpers.h"
 #include "../util/json.hpp"
+#include "../util/qt_helpers.hpp"
 #include <algorithm>
 
 
 using namespace Ipponboard;
-const char* const ClubManager::str_filename_club_definitions = "clubs\\clubs.xml";
+const char* const ClubManager::str_filename_club_definitions = "clubs\\clubs.json";
 
 //---------------------------------------------------------
 ClubManager::ClubManager()
@@ -106,7 +107,7 @@ void ClubManager::LoadClubs_()
 {
 	// open the archive
 
-	//m_Clubs.push_back(Club("TSV Königsbrunn", "..\\base\\emblems\\koenigsbrunn.png"));
+	//m_Clubs.push_back(Club("TSV KÃ¶nigsbrunn", "..\\base\\emblems\\koenigsbrunn.png"));
 	//m_Clubs.push_back(Club("TV Lenggries", "..\\base\\emblems\\tv_lenggries.png"));
 
 	const std::string filePath(
@@ -114,15 +115,14 @@ void ClubManager::LoadClubs_()
 
     try
     {
-        auto jsonClubs = fm::Json::ReadFile(filePath.c_str());
+        auto const& jsonClubs = fm::Json::ReadFile(filePath.c_str());
 
         for (auto const& jsonClub : jsonClubs)
         {
-            Json::Value v;
             Club club;
-            club.name = jsonClub["name"].asCString();
-            club.address = jsonClub["address"].asCString();
-            club.logoFile = jsonClub["image"].asCString();
+            club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
+            club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
+            club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
 
             m_Clubs.push_back(club);
         }
@@ -131,24 +131,34 @@ void ClubManager::LoadClubs_()
     {
         QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
     }
+    catch(std::exception const& e)
+    {
+        QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+    }
 }
 
 //---------------------------------------------------------
 void ClubManager::SaveClubs_()
 //---------------------------------------------------------
 {
-	// make an archive
+    if (m_Clubs.empty())
+    {
+        return;
+    }
+
+    // make an archive
 	const std::string filePath(
 		fm::GetSettingsFilePath(str_filename_club_definitions));
 
     fm::Json::Value jsonClubs;
 
-    for (auto const& club : m_Clubs)
+    for (Club const& club : m_Clubs)
     {
         fm::Json::Value jsonClub;
-        jsonClub["name"] = club.name.toStdString();
-        jsonClub["address"] = club.address.toStdString();
-        jsonClub["image"] = club.logoFile.toStdString();
+        jsonClub["name"] = fm::qt::to_utf8_str(club.name);
+        jsonClub["address"] = fm::qt::to_utf8_str(club.address);
+        jsonClub["image"] = fm::qt::to_utf8_str(club.logoFile);
+
         jsonClubs.append(jsonClub);
     }
 
@@ -160,4 +170,9 @@ void ClubManager::SaveClubs_()
     {
         QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
 	}
+    catch(std::exception const& e)
+    {
+        QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+    }
+
 }
