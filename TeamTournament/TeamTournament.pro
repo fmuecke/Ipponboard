@@ -22,10 +22,11 @@ QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 
 DESTDIR = ../bin
 
+QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
+
 # Auto select compiler
 win32-g++: COMPILER = mingw
-win32-msvc2010: COMPILER = msvc
-win32-msvc2012: COMPILER = msvc
+win32-msvc2013: COMPILER = msvc
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard_team
@@ -56,7 +57,7 @@ contains(COMPILER, mingw) {
 
 
 contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS
+    QMAKE_CXX += /FS /MP
     DEFINES += "WINVER=0x0501"
     DEFINES += WIN32 _WIN32_WINNT=0x0501
 	

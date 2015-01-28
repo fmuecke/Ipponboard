@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#define BOOST_AUTO_LINK_TAGGED
 #include <boost/serialization/vector.hpp>
 #include <algorithm>
 #include <QMessageBox>

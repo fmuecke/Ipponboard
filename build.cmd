@@ -31,7 +31,7 @@ SET BASE_DIR=%CD%
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
-IF "%QMAKESPEC%"=="win32-msvc2012" (
+IF "%QMAKESPEC%"=="win32-msvc2013" (
 	CALL "%VS120COMNTOOLS%..\..\vc\vcvarsall.bat" x86
 )
 

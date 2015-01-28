@@ -18,7 +18,7 @@ copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 REM -- binaries
-copy /Y "%THIRDPARTY%\qt\4.8.5-vc120xp\*.dll" "%DEST%">nul
+copy /Y "%THIRDPARTY%\qt\4.8.6-vc120xp\*.dll" "%DEST%">nul
 copy /Y "%THIRDPARTY%\msvc120\*.dll" "%DEST%">nul
 
 REM -- doc

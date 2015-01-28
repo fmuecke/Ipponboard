@@ -31,10 +31,11 @@ CONFIG(debug, release|debug) {
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
 }
 
+QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
+
 # Auto select compiler 
 win32-g++: COMPILER = mingw
-win32-msvc2010: COMPILER = msvc
-win32-msvc2012: COMPILER = msvc
+win32-msvc2013: COMPILER = msvc
 
 contains(COMPILER, mingw) {
 	#QMAKE_CXXFLAGS += -std=c++0x
@@ -50,12 +51,9 @@ contains(COMPILER, mingw) {
 }
 
 contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS
+    QMAKE_CXX += /FS /MP
     DEFINES += "WINVER=0x0501"
     DEFINES += WIN32 _WIN32_WINNT=0x0501
-    #QMAKE_LIBS += -llibboost_serialization-vc100-mt-1_50
-    #QMAKE_LIBS += -llibboost_system-vc100-mt-1_50
-    #QMAKE_LIBS += -llibboost_filesystem-vc100-mt-1_50
 
     # remove unneccessary output files
     QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
