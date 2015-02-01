@@ -15,14 +15,14 @@
 #include <vector>
 
 class QSettings;
-class TestTournamentMode;
+struct IpponboardTest;
 
 namespace Ipponboard
 {
 
 class TournamentMode
 {
-	friend class TestTournamentMode;
+    friend struct IpponboardTest;
 
 public:
 	TournamentMode();

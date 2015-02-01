@@ -1,25 +1,37 @@
-QT += testlib
+TEMPLATE = app
+CONFIG += console
+TARGET = IpponboardTest
+DESTDIR = bin
 
-win32-g++: COMPILER = mingw
-win32-msvc2012: COMPILER = msvc
-contains(COMPILER, mingw) {
-    QMAKE_CXXFLAGS += -std=c++11
-    # get rid of some nasty boost warnings
-    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
-    #QMAKE_CXXFLAGS += -std=c++0x
-}
-contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS
-    DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501
-}
+HEADERS = \
+	TestJson.hpp \
+    TestTournamentMode.hpp
 
-SOURCES = TestTournamentMode.cpp \
-	../core/TournamentMode.cpp
-
-# install
-#target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/tutorial1
-#INSTALLS += target
+SOURCES = \
+    IpponboardTest.cpp
 
 OTHER_FILES += \
-    TournamentModes-test.ini
+    TestData/TournamentModes-test.ini \
+    TestData/utf8.json \
+    TestData/utf8_with_bom.json
+
+QMAKE_CXXFLAGS += -EHsc
+
+# Copy required DLLs to output directory
+CONFIG(debug, debug|release) {
+    #QMAKE_POST_LINK += copy /Y "$$[QT_INSTALL_BINS]\\QtCored4.dll" bin
+    QtCored4.commands = copy /Y $$[QT_INSTALL_BINS]\\QtCored4.dll bin
+    QtCored4.target = bin/QtCored4.dll
+    QMAKE_EXTRA_TARGETS += QtCored4
+    POST_TARGETDEPS += bin/QtCored4.dll
+} else:CONFIG(release, debug|release) {
+    #QMAKE_POST_LINK += copy /Y "$$[QT_INSTALL_BINS]\\QtCore4.dll" bin
+    QtCore4.commands = copy /Y $$[QT_INSTALL_BINS]\\QtCore4.dll bin
+    QtCore4.target = bin/QtCore4.dll
+    QMAKE_EXTRA_TARGETS += QtCore4
+    POST_TARGETDEPS += bin/QtCore4.dll
+} else {
+    error(Unknown set of dependencies.)
+}
+
+QMAKE_POST_LINK += "xcopy /Y /Q /I TestData bin\\TestData"
