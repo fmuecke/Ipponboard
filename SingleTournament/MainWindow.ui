@@ -709,7 +709,7 @@
    </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/gb.png</normaloff>:/res/icons/gb.png</iconset>
+     <normaloff>:/res/icons/flags/gb.png</normaloff>:/res/icons/flags/gb.png</iconset>
    </property>
    <property name="text">
     <string notr="true">English</string>
@@ -727,7 +727,7 @@
    </property>
    <property name="icon">
     <iconset resource="../base/ipponboard.qrc">
-     <normaloff>:/res/icons/de.png</normaloff>:/res/icons/de.png</iconset>
+     <normaloff>:/res/icons/flags/de.png</normaloff>:/res/icons/flags/de.png</iconset>
    </property>
    <property name="text">
     <string notr="true">Deutsch</string>
