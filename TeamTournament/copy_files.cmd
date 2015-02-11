@@ -29,7 +29,7 @@ rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
 REM -- clubs
 if not exist "%DEST%\clubs" mkdir "%DEST%\clubs">nul
-copy /Y "clubs\clubs.json" "%DEST%\clubs">nul
+copy /Y "clubs.json" "%DEST%">nul
 copy /Y "clubs\*.png" "%DEST%\clubs">nul
 
 REM -- templates

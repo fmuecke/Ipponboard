@@ -10,7 +10,7 @@
 
 
 using namespace Ipponboard;
-const char* const ClubManager::str_filename_club_definitions = "clubs\\clubs.json";
+const char* const ClubManager::str_filename_club_definitions = "clubs.json";
 
 //---------------------------------------------------------
 ClubManager::ClubManager()
