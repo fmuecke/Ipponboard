@@ -116,6 +116,7 @@ int main(int argc, char* argv[])
 	if (QDialog::Accepted != splash.exec())
 		return 0;
 
+#if TRIAL_VERSION
 	const int days_left = QDate::currentDate().daysTo(splashData.date);
 
 	if (days_left <= 0)
@@ -142,7 +143,7 @@ int main(int argc, char* argv[])
 	//				 QCoreApplication::applicationVersion() +
 	//" ***Spezialversion DJK ITSV Grosshadern***");
 	//				 " ***Spezialversion DJK Ingolstadt***");
-
+#endif
 	mainWnd.Init();
 	mainWnd.show();
 
