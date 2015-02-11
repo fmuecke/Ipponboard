@@ -5,9 +5,6 @@
 #include <QStringList>
 #include <vector>
 #include <string>
-#define BOOST_AUTO_LINK_TAGGED
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
 
 namespace Ipponboard
 {
@@ -56,23 +53,6 @@ public:
 	QStringList GetWeightsList() const;
 
 private:
-	friend class boost::serialization::access;
-
-	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version)
-	{
-		// Version history:
-		// 0: first initial shot
-		// 1: weights are now separated by semicolons (instead of commas)
-
-		ar& BOOST_SERIALIZATION_NVP(name);
-		ar& BOOST_SERIALIZATION_NVP(round_time_secs);
-		ar& BOOST_SERIALIZATION_NVP(golden_score_time_secs);
-		ar& BOOST_SERIALIZATION_NVP(weights);
-
-		if (version < 1)
-			std::replace(weights.begin(), weights.end(), ',', ';');
-	}
 
 	std::string name;
 	int round_time_secs;
@@ -84,7 +64,5 @@ private:
 typedef std::vector<FightCategory> FightCategoryList;
 
 } // namespace Ipponboard
-
-BOOST_CLASS_VERSION(Ipponboard::FightCategory, 1);
 
 #endif  // BASE__FIGHTCATEGORY_H_

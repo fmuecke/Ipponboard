@@ -26,7 +26,7 @@ rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
 rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
 REM -- categories
-copy /Y "..\base\categories.xml" "%DEST%">nul
+copy /Y "..\base\categories.json" "%DEST%">nul
 
 REM -- programme
 REM if not exist "%DEST%\Ipponboard.exe" (

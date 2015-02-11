@@ -4,15 +4,15 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#define BOOST_AUTO_LINK_TAGGED
-#include <boost/serialization/vector.hpp>
 #include <algorithm>
 #include <QMessageBox>
 #include "../util/path_helpers.h"
+#include "../util/qt_helpers.hpp"
+#include "../util/json.hpp"
 
 using namespace Ipponboard;
 
-const char* const FightCategoryMgr::str_fileName = "categories.xml";
+const char* const FightCategoryMgr::str_fileName = "categories.json";
 
 //---------------------------------------------------------
 FightCategoryMgr::FightCategoryMgr()
@@ -126,8 +126,6 @@ void FightCategoryMgr::RenameCategory(QString const& oldName,
 	iter->Rename(newName);
 }
 
-
-
 //---------------------------------------------------------
 void FightCategoryMgr::RemoveCategory(QString const& name)
 //---------------------------------------------------------
@@ -173,93 +171,89 @@ void FightCategoryMgr::MoveCategoryDown(QString const& name)
 void FightCategoryMgr::load_categories()
 //---------------------------------------------------------
 {
-	// open the archive
+    const std::string filePath(fm::GetSettingsFilePath(str_fileName));
+    
+	try
+    {
+        auto jsonCategories = fm::Json::ReadFile(filePath.c_str());
 
-	const std::string filePath(
-		fm::GetSettingsFilePath(str_fileName));
+        for (fm::Json::Value const& jsonCat : jsonCategories)
+        {
+            FightCategory cat(fm::qt::from_utf8_str(jsonCat["name"].asString()));
+            cat.SetRoundTime(jsonCat["round_time_secs"].asInt());
+            cat.SetGoldenScoreTime(jsonCat["golden_score_time_secs"].asInt());
+            cat.SetWeights(fm::qt::from_utf8_str(jsonCat["weights"].asString()));
 
-	std::ifstream ifs(filePath.c_str());
+            AddCategory(cat);
+        }
+    }
+    catch(fm::Json::Exception const& e)
+    {
+        QMessageBox::critical(0,
+            QString(QObject::tr("Error")),
+            QString(QObject::tr("Unable to read fight categories:\n%1\n\nRestoring defaults.").arg(
+                    QString::fromStdString(e.what()))));
 
-	if (ifs.good())
-	{
-		try
-		{
-			boost::archive::xml_iarchive ia(ifs);
-			// restore the classes from the xml archive
-			ia >> BOOST_SERIALIZATION_NVP(m_Categories);
-		}
-		catch (std::exception&)
-		{
-			//QMessageBox::critical(0,
-			//	QString(QObject::tr("Error")),
-			//	QString(QObject::tr("Unable to parse %1!").arg(
-			//			QString::fromStdString(filePath))));
+        load_default_categories();
+    }
+    catch(std::exception const& e)
+    {
+        QMessageBox::critical(0,
+            QString(QObject::tr("Error")),
+            QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
+                    QString::fromStdString(e.what()))));
 
-			load_default_categories();
-		}
-	}
-	else
-	{
-		load_default_categories();
-	}
-
-	ifs.close();
-
-	//if( CategoryCount() == 0 )
-	//load_default_categories();
+        load_default_categories();
+    }
 }
 
 //---------------------------------------------------------
 void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
-	// make an archive
-
-	const std::string filePath(
-		fm::GetSettingsFilePath(str_fileName));
-
-	std::ofstream ofs(filePath.c_str());
-
-	if (ofs.good())
-	{
-		boost::archive::xml_oarchive oa(ofs);
-		oa << BOOST_SERIALIZATION_NVP(m_Categories);
-	}
-	else
-	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to save %1!").arg(
-										  QString::fromStdString(filePath))));
-	}
-
-	ofs.close();
+    const std::string filePath(fm::GetSettingsFilePath(str_fileName));
+	const std::string& jsonString = CategoriesToString();
+	fm::Json::WriteFile(filePath.c_str(), jsonString);
 }
 
 //---------------------------------------------------------
 bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 //---------------------------------------------------------
 {
-	// open the archive
-	std::stringstream ss;
-	ss.str(s);
-
-	if (ss.good())
+	try
 	{
-		try
+		auto jsonCategories = fm::Json::ReadString(s);
+
+		for (fm::Json::Value const& jsonCat : jsonCategories)
 		{
-			boost::archive::xml_iarchive ia(ss);
-			// restore the classes from the xml archive
-			ia >> BOOST_SERIALIZATION_NVP(m_Categories);
-			return true;
-		}
-		catch (std::exception&)
-		{
-			return false;
+			FightCategory cat(fm::qt::from_utf8_str(jsonCat["name"].asString()));
+			cat.SetRoundTime(jsonCat["round_time_secs"].asInt());
+			cat.SetGoldenScoreTime(jsonCat["golden_score_time_secs"].asInt());
+			cat.SetWeights(fm::qt::from_utf8_str(jsonCat["weights"].asString()));
+
+			AddCategory(cat);
 		}
 	}
+	catch (fm::Json::Exception const& e)
+	{
+		QMessageBox::critical(0,
+			QString(QObject::tr("Error")),
+			QString(QObject::tr("Unable to read fight categories:\n%1\n\nRestoring defaults.").arg(
+			QString::fromStdString(e.what()))));
 
-	return false;
+		return false;
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(0,
+			QString(QObject::tr("Error")),
+			QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
+			QString::fromStdString(e.what()))));
+
+		return false;
+	}
+
+    return true;
 }
 
 
@@ -267,20 +261,39 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 std::string FightCategoryMgr::CategoriesToString()
 //---------------------------------------------------------
 {
-	// make an archive
-	std::stringstream ss;
-
-	if (ss.good())
+	try
 	{
-		boost::archive::xml_oarchive oa(ss);
-		oa << BOOST_SERIALIZATION_NVP(m_Categories);
+		fm::Json::Value jsonCategories;
+
+		for (FightCategory const& cat : m_Categories)
+		{
+			fm::Json::Value jsonCat;
+			jsonCat["name"] = fm::qt::to_utf8_str(cat.ToString());
+			jsonCat["round_time_secs"] = cat.GetRoundTime();
+			jsonCat["golden_score_time_secs"] = cat.GetGoldenScoreTime();
+			jsonCat["weights"] = fm::qt::to_utf8_str(cat.GetWeights());
+
+			jsonCategories.append(jsonCat);
+		}
+
+		return jsonCategories.toStyledString();
 	}
-	else
+	catch (fm::Json::Exception const& e)
 	{
-		return std::string("");
+		QMessageBox::critical(0,
+			QString(QObject::tr("Error")),
+			QString(QObject::tr("Unable to write fight categories:\n%1").arg(
+			QString::fromStdString(e.what()))));
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(0,
+			QString(QObject::tr("Error")),
+			QString(QObject::tr("Unable to convert fight categories:\n%1").arg(
+			QString::fromStdString(e.what()))));
 	}
 
-	return ss.str();
+    return std::string();
 }
 
 //--------------------------------------------------------

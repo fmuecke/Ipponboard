@@ -25,10 +25,6 @@
 // boost
 //
 #include <boost/utility.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/string.hpp>
 #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS		// needed for msm
 #define BOOST_MPL_LIMIT_VECTOR_SIZE	50			// needed for msm
 #define BOOST_MPL_LIMIT_MAP_SIZE		50			// needed for msm
@@ -86,7 +82,7 @@
 //
 // custom
 //
-#include "../util/qstring_serialization.h"
+//#include "../util/qstring_serialization.h"
 
 
 #endif // __cplusplus

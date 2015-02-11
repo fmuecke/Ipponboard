@@ -13,10 +13,6 @@
 
 #include "QString"
 
-#define BOOST_AUTO_LINK_TAGGED
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
-
 namespace Ipponboard
 {
 
@@ -61,42 +57,5 @@ public:
 
 } // namespace Ipponboard
 
-namespace boost
-{
-namespace serialization
-{
-template<class Archive>
-void serialize(Archive& ar,
-			   Ipponboard::SimpleFighter& f,
-			   const unsigned int /*version*/)
-{
-	ar& BOOST_SERIALIZATION_NVP(f.name);
-	ar& BOOST_SERIALIZATION_NVP(f.club);
-}
-
-template<class Archive>
-void serialize(Archive& ar,
-			   Ipponboard::Fight& m,
-			   const unsigned int /*version*/)
-{
-	ar& BOOST_SERIALIZATION_NVP(m.scores);
-	ar& BOOST_SERIALIZATION_NVP(m.fighters);
-	ar& BOOST_SERIALIZATION_NVP(m.weight);
-	ar& BOOST_SERIALIZATION_NVP(m.time_in_seconds);
-    ar& BOOST_SERIALIZATION_NVP(m.max_time_in_seconds);
-    ar& BOOST_SERIALIZATION_NVP(m.is_saved);
-    ar& BOOST_SERIALIZATION_NVP(m.allSubscoresCount);
-}
-
-template<class Archive>
-void serialize(Archive& ar,
-			   Ipponboard::Score& s,
-			   const unsigned int /*version*/)
-{
-	ar& BOOST_SERIALIZATION_NVP(s._points);
-}
-
-} // namespace serialization
-} // namespace boost
 
 #endif // __CORE_FIGHT_H

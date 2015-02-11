@@ -8,7 +8,8 @@ HEADERS = \
     TestTournamentMode.hpp
 
 SOURCES = \
-    IpponboardTest.cpp
+    IpponboardTest.cpp \
+    ../util/jsoncpp/json.cpp
 
 OTHER_FILES += \
     TestData/TournamentModes-test.ini \

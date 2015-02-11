@@ -9,9 +9,6 @@
 #include <vector>
 #include <string>
 #include <memory>
-#define BOOST_AUTO_LINK_TAGGED
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
 
 // forwards
 class QListWidgetItem;
@@ -52,7 +49,7 @@ private:
 	void save_categories();
 	void load_default_categories();
 
-	FightCategoryList m_Categories;
+    FightCategoryList m_Categories;
 };
 
 } // namespace Ipponboard

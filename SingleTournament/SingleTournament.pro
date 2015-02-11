@@ -41,10 +41,7 @@ contains(COMPILER, mingw) {
 	#QMAKE_CXXFLAGS += -std=c++0x
 	QMAKE_CXXFLAGS += -std=c++11
 	# get rid of some nasty boost warnings
-	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
-	QMAKE_LIBS += -lboost_serialization-mgw48-mt-1_53
-	QMAKE_LIBS += -lboost_system-mgw48-mt-1_53
-	#QMAKE_LIBS += -lboost_filesystem-mgw48-mt-1_53
+    QMAKE_CXXFLAGS += -Wno-unused-local-typedef
 
 	# copy all needed files to destdir
 	QMAKE_POST_LINK += copy_files.cmd
@@ -64,6 +61,7 @@ contains(COMPILER, msvc) {
 
 SOURCES = Main.cpp \
     MainWindow.cpp \
+    ../util/jsoncpp/json.cpp \
     ../base/AddFighterDlg.cpp \
     ../base/ClubManager.cpp \
     ../base/ClubManagerDlg.cpp \
