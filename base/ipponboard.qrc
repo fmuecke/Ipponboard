@@ -55,11 +55,6 @@
         <file>icons/save.png</file>
         <file>icons/options.png</file>
     </qresource>
-    <qresource prefix="/text">
-        <file>text/License_de.html</file>
-        <file>text/License_en.html</file>
-        <file>text/License_team_de.html</file>
-    </qresource>
     <qresource prefix="/leagues">
         <file>emblems/bjv-logo.png</file>
         <file>emblems/djb-logo.png</file>
