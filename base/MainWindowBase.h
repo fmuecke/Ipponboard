@@ -136,6 +136,7 @@ protected slots:
 	void EvaluateInput();
 	void on_actionLang_English_triggered(bool);
 	void on_actionLang_Deutsch_triggered(bool);
+    void on_actionLang_Dutch_triggered(bool);
 	void on_actionContact_Author_triggered();
 	void on_actionOnline_Feedback_triggered();
 	void on_actionVisit_Project_Homepage_triggered();

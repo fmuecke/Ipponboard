@@ -8,9 +8,11 @@ SET THIRDPARTY=..\..\3rdParty
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
 "%QTDIR%\lrelease" -compress -silent ..\i18n\core_de.ts -qm ..\i18n\core_de.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\core_nl.ts -qm ..\i18n\core_nl.qm
 "%QTDIR%\lrelease" -compress -silent ..\i18n\Ipponboard_de.ts -qm ..\i18n\Ipponboard_de.qm
-copy /Y "..\i18n\core_de.qm" "%DEST%\lang">nul
-copy /Y "..\i18n\Ipponboard_de.qm" "%DEST%\lang">nul
+"%QTDIR%\lrelease" -compress -silent ..\i18n\Ipponboard_nl.ts -qm ..\i18n\Ipponboard_nl.qm
+copy /Y "..\i18n\core_??.qm" "%DEST%\lang">nul
+copy /Y "..\i18n\Ipponboard_??.qm" "%DEST%\lang">nul
 
 REM -- sounds
 if not exist "%DEST%\sounds" mkdir "%DEST%\sounds">nul

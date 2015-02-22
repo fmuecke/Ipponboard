@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 #include "../Widgets/Countdown.h"
 #include "../Widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
@@ -12,11 +12,6 @@
 #include <QLocale>
 #include <QTextCodec>
 
-int DelayUser()
-{
-	Countdown dlg(25);
-	return dlg.exec();
-}
 
 void LangNotFound(const QString& fileName)
 {
@@ -26,92 +21,108 @@ void LangNotFound(const QString& fileName)
 						  "\nThe default language is being used.");
 }
 
+void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& coreTranslator, QString const& langStr)
+{
+    if (langStr == QString("en"))
+    {
+        return; // default
+    }
+
+    if (langStr == QString("de") || langStr == QString("nl"))
+    {
+		const QString& langPath =
+			QCoreApplication::applicationDirPath() + QString("/lang");
+
+		if (translator.load("Ipponboard_" + langStr, langPath))
+		{
+			app.installTranslator(&translator);
+  		}
+		else
+		{
+			LangNotFound("Ipponboard_" + langStr);
+		}
+
+		if (coreTranslator.load("core_" + langStr, langPath))
+		{
+			app.installTranslator(&coreTranslator);
+		}
+		else
+		{
+			LangNotFound("core_" + langStr);
+		}
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-	QCoreApplication::setOrganizationName("Florian M�cke");
+	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.info");
 	QCoreApplication::setApplicationName("Ipponboard (Basic Edition)");
 
 	MainWindow mainWnd;
-	mainWnd.setWindowTitle(QCoreApplication::applicationName() + " v" +
-						   QCoreApplication::applicationVersion());
+	mainWnd.setWindowTitle(
+		QCoreApplication::applicationName() + " v" +
+		QCoreApplication::applicationVersion());
 
 	// read language code
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
 
-	const QString ini(QString::fromStdString(
-						  fm::GetSettingsFilePath(mainWnd.GetConfigFileName().toAscii())));
+	const QString ini(
+		QString::fromStdString(
+			fm::GetSettingsFilePath(
+				mainWnd.GetConfigFileName().toAscii())));
 	QSettings settings(ini, QSettings::IniFormat, &a);
 
 	settings.beginGroup(str_tag_Main);
 
 	if (settings.contains(str_tag_Language))
+    {
 		langStr = settings.value(str_tag_Language).toString();
+    }
 
 	settings.endGroup();
 
-	QTranslator translator;  // Note: this object needs to stay.
-	QTranslator coreTranslator; // Note: this object needs to stay.
+    QTranslator translator;  // Note: this object needs to remain in scope.
+    QTranslator coreTranslator; // Note: this object needs to remain in scope
 
-	if (langStr == QString("de"))
-	{
-		const QString& langPath =
-			QCoreApplication::applicationDirPath() + QString("/lang");
+    SetTranslation(a, translator, coreTranslator, langStr);
 
-		if (translator.load("Ipponboard_de", langPath))
-			a.installTranslator(&translator);
-		else
-			LangNotFound("Ipponboard_de");
+    auto eulaText1 = QCoreApplication::tr("This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.");
+    auto eulaText2 = QCoreApplication::tr("Please consider to support the development and future maintainance of Ipponbord by a small donation.");
+    auto eulaText3 = QCoreApplication::tr("To donate just get in touch with me or use the donate link on the Ipponboard project homepage.");
+    auto eulaText4 = QCoreApplication::tr("If you have improvements regardings the design (view, handling) or the controlling - please let me know! "\
+                                          "I would love hearing from you! Please leave your comments in the online survey <em>Menu&rarr;About&rarr;Feedback</em> - "\
+                                          "it just takes a few seconds!");
+    auto eulaText5 = QCoreApplication::tr("The most recent version can be found on the homepage:");
+    auto eulaText6 = QCoreApplication::tr("Thank you very much!");
+    auto edition = "Basic Edition";
 
-		if (coreTranslator.load("core_de", langPath))
-			a.installTranslator(&coreTranslator);
-		else
-			LangNotFound("core_de");
-	}
-
-	QFile f(langStr == "de" ? ":/text/text/License_de.html" : ":/text/text/License_en.html");
-	f.open(QIODevice::ReadOnly | QIODevice::Text);
-	const QByteArray data = f.readAll();
-	f.close();
-	const QString text = QTextCodec::codecForHtml(data)->toUnicode(data);
+    const QString text = QString(
+                "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> %7 <small>v%8</small></h2>"\
+                "<p><strong>%1</strong></p>"\
+                "<p><span style=\"color:blue\"><em>%2</em></span></p>"\
+                "<p>%3</p>"\
+                "<p>%4</p>"\
+                "<p>%5 <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"\
+                "<p><br/><em>%6</em></p>"\
+                "</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, edition, VersionInfo::VersionStrShort);
 
 	SplashScreen::Data splashData;
-	splashData.text = text;
+    splashData.text = text;
 	splashData.info = QCoreApplication::applicationName()
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
-	splashData.date = QDate(2012, 7, 30);
 	SplashScreen splash(splashData);
 
 	if (QDialog::Accepted != splash.exec())
+	{
 		return 0;
-
-	//const int days_left = QDate::currentDate().daysTo(splashData.date);
-
-	//if (days_left <= 0)
-	//{
-	//    QMessageBox::critical(0,
-	//                          QCoreApplication::tr("Warning"),
-	//                          QCoreApplication::tr(
-	//                              "This version is no longer valid!\n\n"
-	//                              "You need to visit the project homepage for a (free) update."));
-	//
-	//    if (QDialog::Accepted != DelayUser())
-	//        return 0;
-	//}
-	//else if (days_left < 30)
-	//{
-	//    QMessageBox::warning(0,
-	//                         QCoreApplication::tr("Warning"),
-	//                         QCoreApplication::tr(
-	//                             "This version will stop to work in less than 30 days!\n\n"
-	//                             "Please visit the project homepage - there should be a newer version available."));
-	//}
+	}
 
 	mainWnd.Init();
 	mainWnd.show();

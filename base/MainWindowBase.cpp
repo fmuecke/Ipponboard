@@ -300,7 +300,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("<h3>%1 v%2</h3>"
 		   "<p>Build: %3, Revision: %4</p>"
 		   "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-		   "<p>&copy; 2010-2014 Florian M&uuml;cke. All rights reserved.</p>"
+           "<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
 		   "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
 		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
@@ -308,7 +308,8 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		  ).arg(QCoreApplication::applicationName(),
 				QCoreApplication::applicationVersion(),
 				VersionInfo::Date,
-				VersionInfo::Revision));
+                VersionInfo::Revision,
+                VersionInfo::CopyrightYear));
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
@@ -336,6 +337,7 @@ void MainWindowBase::change_lang(bool beQuiet)
 	// set checks
 	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
 	m_pUi->actionLang_English->setChecked("en" == m_Language);
+    m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
 
 	if (!beQuiet)
 	{
@@ -362,6 +364,15 @@ void MainWindowBase::on_actionLang_English_triggered(bool val)
 	}
 }
 
+
+void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
+{
+    if (val)
+    {
+        m_Language = "nl";
+        change_lang();
+    }
+}
 
 void MainWindowBase::write_settings()
 {
