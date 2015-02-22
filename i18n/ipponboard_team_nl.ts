@@ -526,15 +526,19 @@ Valid specifiers are: %1</source>
         <source>Manage tournament modes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose Dutch as program language</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowBase</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2014 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -806,23 +810,31 @@ Note: the time must be specified in seconds alone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This version is no longer valid!
-
-You need to visit the project homepage for a (free) update.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This version will stop to work in less than 30 days!
-
-Please visit the project homepage - there should be a newer version available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error writing mode configurations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please consider to support the development and future maintainance of Ipponbord by a small donation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To donate just get in touch with me or use the donate link on the Ipponboard project homepage.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have improvements regardings the design (view, handling) or the controlling - please let me know! I would love hearing from you! Please leave your comments in the online survey &lt;em&gt;Menu&amp;rarr;About&amp;rarr;Feedback&lt;/em&gt; - it just takes a few seconds!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The most recent version can be found on the homepage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thank you very much!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1243,10 +1255,6 @@ Please visit the project homepage - there should be a newer version available.</
     </message>
     <message>
         <source>Ipponboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>(c) 2010-2014 Florian Mücke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

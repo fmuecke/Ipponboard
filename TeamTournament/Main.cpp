@@ -110,13 +110,14 @@ int main(int argc, char* argv[])
 	mainWnd.SetModes(modes);
 
 
-    auto eulaText1 = QCoreApplication::tr("Dies ist keine freie Version. Kopieren und Weitergeben ist untersagt.");
-    auto eulaText2 = QCoreApplication::tr("Bitte unterstützen Sie die Weitereintwicklung und zukünftige Pflege von Ipponboard durch eine kleine Spende.");
-    auto eulaText3 = QCoreApplication::tr("Spenden können Sie einfach über den Link auf der Homepage oder Sie kontaktieren uns einfach.");
-    auto eulaText4 = QCoreApplication::tr("Falls Sie Verbesserungsvorschläge bzgl. der Anzeige (Darstellung, Bedienung) oder der Steuerung haben, oder aber finden, dass es noch irgendwo hakt, dann teilen Sie uns dies bitte mit - wir freuen uns, wenn wir unsere Software noch besser machen können. Hierzu gibt es einen Online-Fragebogen, erreichbar über <em>Menü&rarr;Über&rarr;Feedback</em> (dauert wirklich nicht lange).");
-    auto eulaText5 = QCoreApplication::tr("Die aktuellste Version finden Sie auf der Homepage:");
-    auto eulaText6 = QCoreApplication::tr("Vielen Dank!");
-    auto edition = "Team Edition";
+    auto eulaText1 = QCoreApplication::tr("This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.");
+    auto eulaText2 = QCoreApplication::tr("Please consider to support the development and future maintainance of Ipponbord by a small donation.");
+    auto eulaText3 = QCoreApplication::tr("To donate just get in touch with me or use the donate link on the Ipponboard project homepage.");
+    auto eulaText4 = QCoreApplication::tr("If you have improvements regardings the design (view, handling) or the controlling - please let me know! "\
+                                          "I would love hearing from you! Please leave your comments in the online survey <em>Menu&rarr;About&rarr;Feedback</em> - "\
+                                          "it just takes a few seconds!");
+    auto eulaText5 = QCoreApplication::tr("The most recent version can be found on the homepage:");
+    auto eulaText6 = QCoreApplication::tr("Thank you very much!");
 
     const QString text = QString(
                 "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> %7 <small>v%8</small></h2>"\
@@ -126,7 +127,7 @@ int main(int argc, char* argv[])
                 "<p>%4</p>"\
                 "<p>%5 <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"\
                 "<p><br/><em>%6</em></p>"\
-                "</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, edition, VersionInfo::VersionStrShort);
+                "</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, mainWnd.EditionName(), VersionInfo::VersionStrShort);
 
 	SplashScreen::Data splashData;
 	splashData.text = text;
@@ -136,7 +137,7 @@ int main(int argc, char* argv[])
 					  + "Build: " + VersionInfo::Date;
 	SplashScreen splash(splashData);
 	splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
-	splash.resize(480, 410);
+    //splash.resize(480, 410);
 
 	if (QDialog::Accepted != splash.exec())
     {

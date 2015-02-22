@@ -297,7 +297,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 	QMessageBox::about(
 		this,
 		tr("About %1").arg(QCoreApplication::applicationName()),
-		tr("<h3>%1 v%2</h3>"
+		QString("<h3>%1 v%2</h3>"
 		   "<p>Build: %3, Revision: %4</p>"
 		   "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
            "<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"

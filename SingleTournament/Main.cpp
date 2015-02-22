@@ -99,25 +99,26 @@ int main(int argc, char* argv[])
                                           "it just takes a few seconds!");
     auto eulaText5 = QCoreApplication::tr("The most recent version can be found on the homepage:");
     auto eulaText6 = QCoreApplication::tr("Thank you very much!");
-    auto edition = "Basic Edition";
 
     const QString text = QString(
                 "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> %7 <small>v%8</small></h2>"\
-                "<p><strong>%1</strong></p>"\
+                "<!--<p><strong>%1</strong></p>-->"\
                 "<p><span style=\"color:blue\"><em>%2</em></span></p>"\
                 "<p>%3</p>"\
                 "<p>%4</p>"\
                 "<p>%5 <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"\
                 "<p><br/><em>%6</em></p>"\
-                "</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, edition, VersionInfo::VersionStrShort);
+                "</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, mainWnd.EditionName(), VersionInfo::VersionStrShort);
 
 	SplashScreen::Data splashData;
-    splashData.text = text;
+	splashData.text = text;
 	splashData.info = QCoreApplication::applicationName()
 					  + " v" + QCoreApplication::applicationVersion()
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
 	SplashScreen splash(splashData);
+	//splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
+    //splash.resize(480, 410);
 
 	if (QDialog::Accepted != splash.exec())
 	{

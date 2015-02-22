@@ -550,6 +550,14 @@ Geldige velden zijn: %1</translation>
         <source>Set the main timer to a certain value</source>
         <translation>Wedstrijdtijd wijzigen naar andere waarde</translation>
     </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose Dutch as program language</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowBase</name>
@@ -559,7 +567,7 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-2014 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build:%3, Revisie:%4&lt;/p&gt;&lt;p&gt;&lt;a href:&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&amp;copy;2010-2014 Florian M&amp;uum|;cke. All Rights reserved.&lt;/p&gt;&lt;p&gt;Sommige iconen door &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt; Alle rechten voorbehouden.&lt;/p&gt;&lt;p&gt;Dit programma is beschikbaar zoals het is met geen enkele garantie op eender welke wijze; inclusief de garantie op design, verkoop en persoonlijke gezondheid.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build:%3, Revisie:%4&lt;/p&gt;&lt;p&gt;&lt;a href:&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&amp;copy;2010-2014 Florian M&amp;uum|;cke. All Rights reserved.&lt;/p&gt;&lt;p&gt;Sommige iconen door &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt; Alle rechten voorbehouden.&lt;/p&gt;&lt;p&gt;Dit programma is beschikbaar zoals het is met geen enkele garantie op eender welke wijze; inclusief de garantie op design, verkoop en persoonlijke gezondheid.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Please restart the application so that the changes can take effect.</source>
@@ -577,6 +585,37 @@ Geldige velden zijn: %1</translation>
         <source>Set value to (m:ss):</source>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
+    <message>
+        <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-%5 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build:%3, Revisie:%4&lt;/p&gt;&lt;p&gt;&lt;a href:&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&amp;copy;2010-2014 Florian M&amp;uum|;cke. All Rights reserved.&lt;/p&gt;&lt;p&gt;Sommige iconen door &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt; Alle rechten voorbehouden.&lt;/p&gt;&lt;p&gt;Dit programma is beschikbaar zoals het is met geen enkele garantie op eender welke wijze; inclusief de garantie op design, verkoop en persoonlijke gezondheid.&lt;/p&gt; {3&gt;?} {1 ?} {2&lt;?} {3&gt;?} {3,?} {4&lt;?} {2010-%5 ?}</translation>
+    </message>
+</context>
+<context>
+    <name>QCoreApplication</name>
+    <message>
+        <source>This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please consider to support the development and future maintainance of Ipponbord by a small donation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To donate just get in touch with me or use the donate link on the Ipponboard project homepage.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have improvements regardings the design (view, handling) or the controlling - please let me know! I would love hearing from you! Please leave your comments in the online survey &lt;em&gt;Menu&amp;rarr;About&amp;rarr;Feedback&lt;/em&gt; - it just takes a few seconds!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The most recent version can be found on the homepage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thank you very much!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -586,7 +625,7 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <source>Unable to save %1!</source>
-        <translation>Onmogelijk om %1 op te slaan!</translation>
+        <translation type="obsolete">Onmogelijk om %1 op te slaan!</translation>
     </message>
     <message>
         <source>Format specifier has invalid separator: %1</source>
@@ -621,6 +660,30 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
     <message>
         <source>Unable to open file %1 for writing</source>
         <translation>Kan bestand %1 niet openen om weg te bewerken</translation>
+    </message>
+    <message>
+        <source>Unable to read fight categories:
+%1
+
+Restoring defaults.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to parse fight categories:
+%1
+
+Restoring defaults.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to write fight categories:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to convert fight categories:
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1022,7 +1085,7 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
     </message>
     <message utf8="true">
         <source>(c) 2010-2014 Florian Mücke</source>
-        <translation>(c) 2010-2014 Florian Müncke</translation>
+        <translation type="obsolete">(c) 2010-2014 Florian Müncke</translation>
     </message>
     <message>
         <source>Accept the terms of usage</source>
