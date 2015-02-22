@@ -1,4 +1,4 @@
-// Copyright 2010-2014 Florian Muecke. All rights reserved.
+﻿// Copyright 2010-2014 Florian Muecke. All rights reserved.
 // http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 //
 // THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -7,6 +7,7 @@
 // $Id$
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
+#include "../base/versioninfo.h"
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)
@@ -21,6 +22,7 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 
 	ui->textEdit->setHtml(data.text);
 	ui->label_info->setText(data.info);
+    ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 	setWindowFlags(Qt::Window);
 }
 
