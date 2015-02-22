@@ -40,6 +40,8 @@ echo namespace VersionInfo>>%FILENAME_NO_EXT%.tmp
 echo {>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Revision = "%REV%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Date = "%REV_DATE%";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const CopyrightYear = "%DATE:~-4%";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const VersionStrShort = "%VER1%.%VER2%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStrFull = "%VER1%.%VER2%.%VER3%.%VER4%";>>%FILENAME_NO_EXT%.tmp
 echo }>>%FILENAME_NO_EXT%.tmp
