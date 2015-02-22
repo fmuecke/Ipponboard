@@ -1,5 +1,9 @@
 Version 1.5
-(mod): clubs are stored in JSON format
+(new): made team edition is available freely
+(new): Dutch localization for basic edition (thanks to Jan D'haene)
+(mod): clubs are stored in JSON format (team only)
+(mod): categories are stored in JSON format (single only)
+(mod): removed one-year restrictions for team edition
 
 Version 1.4 (team edition valid until 01/2015)
 (new): tournament modes can be configured nicely within the program (Management -> Modes)
