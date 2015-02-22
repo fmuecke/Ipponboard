@@ -72,12 +72,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_13">
+        <widget class="QLabel" name="label_copyRight">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>(C) Florian Mücke 2010-2011 </string>
+          <string notr="true">Copyright FM</string>
          </property>
         </widget>
        </item>

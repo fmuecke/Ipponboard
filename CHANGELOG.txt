@@ -4,6 +4,7 @@ Version 1.5
 (mod): clubs are stored in JSON format (team only)
 (mod): categories are stored in JSON format (single only)
 (mod): removed one-year restrictions for team edition
+(fix): fixed some Windows XP compatibility issues
 
 Version 1.4 (team edition valid until 01/2015)
 (new): tournament modes can be configured nicely within the program (Management -> Modes)

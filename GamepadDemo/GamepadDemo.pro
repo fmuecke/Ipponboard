@@ -14,14 +14,16 @@ build_pass:CONFIG(debug, debug|release) {
 	QMAKE_LIBS += -lgamepad_d -lwinmm
 } 
 
+QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
 win32-g++: COMPILER = mingw
-win32-msvc2012: COMPILER = msvc
+win32-msvc2013: COMPILER = msvc
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
     # get rid of some nasty boost warnings
     QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
     #QMAKE_CXXFLAGS += -std=c++0x
 }
+
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS
     DEFINES += "WINVER=0x0501"
