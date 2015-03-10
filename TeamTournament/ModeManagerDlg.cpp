@@ -78,10 +78,10 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     m_pUi->checkBox_doubleWeights->setChecked(mode.weightsAreDoubled);
     update_fights_per_round(mode);
 
-    auto index = m_pUi->comboBox_template->findText(mode.listTemplate);
-    if (index != -1)
+    auto templateIndex = m_pUi->comboBox_template->findText(mode.listTemplate);
+	if (templateIndex != -1)
     {
-        m_pUi->comboBox_template->setCurrentIndex(index);
+		m_pUi->comboBox_template->setCurrentIndex(templateIndex);
     }
 
     if (!mode.fightTimeOverrides.empty())
@@ -99,7 +99,7 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     m_pUi->checkBox_autoIncrement->setChecked(mode.IsOptionSet(eOption_AutoIncrementPoints));
     m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount));
 
-	m_currentIndex = index;
+	m_currentIndex = i;
 }
 
 void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString &s)
@@ -115,9 +115,12 @@ void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString &s)
 
 void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
 {
-    m_pUi->lineEdit_timeOverrides->setEnabled(checked);
-
-	//FIXME: sufficient?
+	if (!is_initialized())
+	{
+		return;
+	}
+	
+	m_pUi->lineEdit_timeOverrides->setEnabled(checked);
 }
 
 void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
