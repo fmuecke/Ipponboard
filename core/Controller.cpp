@@ -26,6 +26,7 @@ const char* const Controller::msg_SonoMama = "Sono Mama";
 //const char* const Controller::msg_Hantei = "Hantei";
 const char* const Controller::msg_Hikiwaki = "Hikiwaki";
 const char* const Controller::msg_Winner = "Winner";
+const char* const emptyFighterName = "--";
 
 //=========================================================
 Controller::Controller()
@@ -102,7 +103,11 @@ void Controller::InitTournament(TournamentMode const& mode)
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
 			fight.ruleSet = m_mode.IsOptionSet(eOption_Use2013Rules) ? e2013RuleSet : eClassicRules;
             fight.allSubscoresCount = m_mode.IsOptionSet(eOption_AllSubscoresCount);
-
+			SimpleFighter emptyFighter;
+			emptyFighter.name = emptyFighterName;
+			fight.fighters[0] = emptyFighter;
+			fight.fighters[1] = emptyFighter;
+				 
 			pRound->emplace_back(fight);
 		}
 
@@ -923,7 +928,8 @@ void Controller::SetFight(
     // TODO: set fight.allSubscoresCount
     // (not set as setting fights is currently not used...): 130512
 
-	fight.fighters[Ipponboard::eFighter1].name = first_player_name;
+	fight.fighters[Ipponboard::eFighter1].name = first_player_name.isEmpty() ?
+		emptyFighterName : first_player_name;
 	fight.fighters[Ipponboard::eFighter1].club = first_player_club;
 	fight.scores[Ipponboard::eFighter1].Clear();
     fight.ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
@@ -952,7 +958,8 @@ void Controller::SetFight(
 	if (hansokumake1 > 0)
 		fight.scores[Ipponboard::eFighter1].Add(Ipponboard::ePoint_Hansokumake);
 
-	fight.fighters[Ipponboard::eFighter2].name = second_player_name;
+	fight.fighters[Ipponboard::eFighter2].name = second_player_name.isEmpty() ?
+		emptyFighterName : second_player_name;
 	fight.fighters[Ipponboard::eFighter2].club = second_player_club;
 	fight.scores[Ipponboard::eFighter2].Clear();
 
