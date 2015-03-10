@@ -62,9 +62,11 @@ private slots:
 
 private:
     void update_fights_per_round(Ipponboard::TournamentMode const& mode);
+	bool is_initialized() const { return m_currentIndex != -1;  }
 
     Ipponboard::TournamentMode& GetMode(int i);
     std::shared_ptr<Ui::ModeManagerDlg> m_pUi;  //TODO: use unique_ptr
+	int m_currentIndex;
 };
 
 #endif // MODEMANAGERDLG_H

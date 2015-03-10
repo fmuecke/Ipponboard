@@ -53,6 +53,8 @@ public:
         List const& modes,
         QString& errorMsg);
 
+	static TournamentMode Default();
+
 	bool operator< (TournamentMode const& other) const;
 
     QString Description() const;

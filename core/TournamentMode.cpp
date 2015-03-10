@@ -11,6 +11,7 @@
 #include <QString>
 #include <QStringList>
 #include <QFile>
+#include <QUuid>
 #include <QSettings>
 #include <regex>
 
@@ -123,6 +124,23 @@ bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List co
     }
 
     return true;
+}
+
+TournamentMode TournamentMode::Default()
+{
+	TournamentMode mode;
+
+	mode.id = QUuid::createUuid().toString();
+	mode.id = mode.id.mid(1, mode.id.length() - 2);  // remove "{}"
+	mode.title = "*new*";
+	mode.weights = "-66;-73;-81;-90;+90";
+	mode.fightTimeInSeconds = 300;
+	mode.nRounds = 2;
+	mode.weightsAreDoubled = true;
+	//mode.listTemplate = m_pUi->comboBox_template->itemText(0);
+	mode.SetOption(eOption_Use2013Rules, true);
+
+	return std::move(mode);
 }
 
 bool TournamentMode::operator<(TournamentMode const& other) const
