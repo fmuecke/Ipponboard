@@ -970,7 +970,7 @@ Gültige Spezifizierer sind: %1</translation>
     <message>
         <location filename="../TeamTournament/MainWindow.ui" line="1316"/>
         <source>Reset Scores</source>
-        <translation>Punktestand zurücksetzten</translation>
+        <translation>Tabelle zurücksetzten</translation>
     </message>
     <message>
         <source>Change Background</source>
@@ -1300,7 +1300,7 @@ Gültige Spezifizierer sind: %1</translation>
     <message>
         <location filename="../TeamTournament/MainWindowTeam.cpp" line="645"/>
         <source>Reset Scores</source>
-        <translation>Punktestand zurücksetzten</translation>
+        <translation>Tabelle zurücksetzten</translation>
     </message>
     <message>
         <location filename="../TeamTournament/MainWindowTeam.cpp" line="646"/>
@@ -1558,27 +1558,27 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden!</translat
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="145"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="174"/>
         <source>*new*</source>
         <translation>*neu*</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="166"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="190"/>
         <source>Remove item</source>
         <translation>Eintrag entfernen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="167"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="191"/>
         <source>Really remove &quot;%1&quot;?</source>
         <translation>Wirklich &quot;%1&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="168"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="192"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="169"/>
+        <location filename="../TeamTournament/ModeManagerDlg.cpp" line="193"/>
         <source>Keep</source>
         <translation>Behalten</translation>
     </message>
