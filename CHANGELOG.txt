@@ -1,5 +1,11 @@
+Version 1.5.1
+(new): empty fights/unassigned fighters are shown as "--" on the board and in the lists (issue #31 & #11)
+(mod): path to club logos is stored releative to the program folder instead of using an absolute path (Team Edition only) (issue #9)
+(fix): mode manager did show wrong values / did overwrite other items (issue #40)
+(fix): improved wording in German translation (issue #23)
+
 Version 1.5
-(new): made team edition is available freely
+(new): made team edition available freely
 (new): Dutch localization for basic edition (thanks to Jan D'haene)
 (mod): clubs are stored in JSON format (team only)
 (mod): categories are stored in JSON format (single only)
