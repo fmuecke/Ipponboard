@@ -1377,7 +1377,7 @@ Die Standardwerte werden geladen.</translation>
     <message>
         <location filename="../base/FighterManager.cpp" line="179"/>
         <source>Imported %1 new fighters.</source>
-        <translation>% neue Kämpfer importiert.</translation>
+        <translation>%1 neue Kämpfer importiert.</translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="203"/>
