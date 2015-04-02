@@ -164,9 +164,9 @@ bool FighterManager::ImportFighters(
 	{
 		QString firstName = line[firstNamePos];
 		QString lastName = line[lastNamePos];
-		QString club = -1 != clubPos ? line[clubPos] : club;
-		QString weight = -1 != weightPos ? line[weightPos] : weight;
-		QString category = -1 != categoryPos ? line[categoryPos] : category;
+		QString club = -1 != clubPos ? line[clubPos] : "";
+		QString weight = -1 != weightPos ? line[weightPos] : "";
+		QString category = -1 != categoryPos ? line[categoryPos] : "";
 
 		Ipponboard::Fighter fighter(firstName, lastName);
 		fighter.club = club;
