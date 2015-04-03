@@ -24,7 +24,9 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& coreTranslator, QString const& langStr)
 {
-    if (langStr == QString("en"))
+    UNREFERENCED_PARAMETER(app);
+		
+	if (langStr == QString("en"))
     {
         return; // default
     }

@@ -74,3 +74,4 @@ ui*.h
 *.obj
 /**/bin/**/*.*
 *.autosave
+*.opensdf
