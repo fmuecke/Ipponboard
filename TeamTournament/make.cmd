@@ -1,6 +1,6 @@
 @echo off
-call "%VS100COMNTOOLS%..\..\VC\vcvarsall.bat" x86
+call "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat" x86
 jom clean > nul
-qmake
+"%QTDIR%\qmake.exe"
 jom /S /L /F makefile.release
 pause
