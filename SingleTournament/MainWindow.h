@@ -28,6 +28,7 @@ protected:
 	//virtual void closeEvent(QCloseEvent* event) override;
 	//virtual void keyPressEvent(QKeyEvent* event) override;
 	virtual void update_statebar() override;
+	virtual void attach_primary_view() final;
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;

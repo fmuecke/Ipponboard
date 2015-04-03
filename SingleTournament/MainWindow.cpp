@@ -254,6 +254,16 @@ void MainWindow::update_statebar()
 	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
 }
 
+void MainWindow::attach_primary_view()
+{
+	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+	
+	if (widget)
+	{
+		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}	
+}
+
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_Use2013Rules, checked);

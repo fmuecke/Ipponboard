@@ -36,6 +36,7 @@ protected:
 	//virtual void changeEvent(QEvent* e) override;
 	virtual void closeEvent(QCloseEvent* event) override;
 	virtual void keyPressEvent(QKeyEvent* event) override;
+	virtual void attach_primary_view() final;
 
 private:
     static QStringList get_list_templates();

@@ -412,6 +412,16 @@ void MainWindowTeam::UpdateFightNumber_()
 	}
 }
 
+void MainWindowTeam::attach_primary_view()
+{
+	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+	
+	if (widget)
+	{
+		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}	
+}
+
 void MainWindowTeam::UpdateButtonText_()
 {
 	const bool isSaved = m_pController->GetFight(

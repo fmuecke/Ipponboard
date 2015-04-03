@@ -117,6 +117,7 @@ protected:
 	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
 	virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
 	virtual void update_fighter_name_font(const QFont&);
+	virtual void attach_primary_view() = 0;
 
 private:
 	virtual void write_specific_settings(QSettings& settings);
