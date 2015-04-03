@@ -1,5 +1,5 @@
 ﻿#include "MainWindowTeam.h"
-#include "ui_mainwindow.h" //TODO: may be obsolete
+#include "ui_MainWindowTeam.h" 
 
 #include "ScoreScreen.h"
 #include "../base/ComboboxDelegate.h"
@@ -58,6 +58,7 @@ namespace { bool initialized = false; }
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
+	, m_pUi(new Ui::MainWindowTeam)
 	, m_pScoreScreen()
 	, m_pClubManager()
 	, m_htmlScore()
@@ -68,6 +69,10 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 	, m_modes()
 {
 	m_pUi->setupUi(this);
+}
+
+MainWindowTeam::~MainWindowTeam()
+{
 }
 
 void MainWindowTeam::Init()
@@ -410,6 +415,25 @@ void MainWindowTeam::attach_primary_view()
 	{
 		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
 	}	
+}
+
+void MainWindowTeam::retranslate_Ui()
+{
+	m_pUi->retranslateUi(this);
+}
+
+void MainWindowTeam::ui_check_language_items()
+{
+	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+	m_pUi->actionLang_English->setChecked("en" == m_Language);
+	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
+
+	// don't forget second implementation!
+}
+
+void MainWindowTeam::ui_check_show_secondary_view(bool checked)
+{
+	m_pUi->actionShow_SecondaryView->setChecked(true);
 }
 
 void MainWindowTeam::UpdateButtonText_()

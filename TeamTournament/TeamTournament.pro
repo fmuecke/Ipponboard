@@ -108,7 +108,7 @@ SOURCES = Main.cpp \
     ModeManagerDlg.cpp
 
 FORMS = ../base/ClubManagerDlg.ui \
-    MainWindow.ui \
+    MainWindowTeam.ui \
     ScoreScreen.ui \
     ../base/SettingsDlg.ui \
     ../base/FighterManagerDlg.ui \

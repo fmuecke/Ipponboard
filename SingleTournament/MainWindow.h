@@ -11,6 +11,8 @@
 #include "../util/helpers.hpp"
 #include <memory>
 
+namespace Ui { class MainWindow; }
+
 class MainWindow : public MainWindowBase
 {
 	Q_OBJECT
@@ -29,6 +31,9 @@ protected:
 	//virtual void keyPressEvent(QKeyEvent* event) override;
 	virtual void update_statebar() override;
 	virtual void attach_primary_view() final;
+	virtual void retranslate_Ui() final;
+	virtual void ui_check_language_items() final;
+	virtual void ui_check_show_secondary_view(bool checked) final;
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
@@ -61,6 +66,7 @@ private slots:
 
 private:
 	/* member */
+	std::unique_ptr<Ui::MainWindow> m_pUi;
 	std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_CurrentFighterNames;
 };

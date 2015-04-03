@@ -13,8 +13,8 @@
 // forwards
 namespace Ui
 {
-class MainWindow;
-class Frame_Clubs;
+//class MainWindow;
+//class Frame_Clubs;
 }
 namespace Ipponboard
 {
@@ -116,6 +116,9 @@ protected:
 	virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
 	virtual void update_fighter_name_font(const QFont&);
 	virtual void attach_primary_view() = 0;
+	virtual void retranslate_Ui() = 0;
+	virtual void ui_check_language_items() = 0;
+	virtual void ui_check_show_secondary_view(bool checked) = 0;
 
 private:
 	virtual void write_specific_settings(QSettings& settings);
@@ -145,7 +148,6 @@ protected slots:
 protected:
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
 
-	std::shared_ptr<Ui::MainWindow> m_pUi;
 	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
 	std::shared_ptr<Ipponboard::View> m_pSecondaryView;
 	std::shared_ptr<Ipponboard::Controller> m_pController;

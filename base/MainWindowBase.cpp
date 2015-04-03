@@ -5,7 +5,6 @@
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
 #include "MainWindowBase.h"
-#include "ui_MainWindow.h"
 
 #include "View.h"
 #include "../core/Controller.h"
@@ -17,6 +16,8 @@
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
 
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDesktopWidget>
@@ -25,13 +26,13 @@
 #include <QSettings>
 #include <QUrl>
 #include <QTimer>
+#include <QStyle>
 
 using namespace FMlib;
 using namespace Ipponboard;
 
 MainWindowBase::MainWindowBase(QWidget* parent)
 	: QMainWindow(parent)
-	, m_pUi(new Ui::MainWindow)
 	, m_pPrimaryView()
 	, m_pSecondaryView()
 	, m_pController(new Ipponboard::Controller())
@@ -59,7 +60,7 @@ void MainWindowBase::Init()
     //setWindowState(Qt::WindowMaximized);
     // instead, center window
     this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
-            qApp->desktop()->availableGeometry()));
+		QApplication::desktop()->availableGeometry()));
 
 	load_fighters();
 
@@ -80,7 +81,7 @@ void MainWindowBase::Init()
 
 	if (m_bAlwaysShow)
 	{
-		m_pUi->actionShow_SecondaryView->setChecked(true);
+		ui_check_show_secondary_view(true);
 		on_actionShow_SecondaryView_triggered();
 	}
 
@@ -120,7 +121,7 @@ void MainWindowBase::changeEvent(QEvent* e)
 	switch (e->type())
 	{
 	case QEvent::LanguageChange:
-		m_pUi->retranslateUi(this);
+		retranslate_Ui();
 		break;
 
 	default:
@@ -329,15 +330,12 @@ void MainWindowBase::on_actionContact_Author_triggered()
 
 void MainWindowBase::change_lang(bool beQuiet)
 {
-	// set checks
-	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
-	m_pUi->actionLang_English->setChecked("en" == m_Language);
-    m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
+	ui_check_language_items();
 
 	if (!beQuiet)
 	{
 		QMessageBox::information(this, QCoreApplication::applicationName(),
-								 tr("Please restart the application so that the changes can take effect."));
+								 tr("Please restart the application so that the change can take effect."));
 	}
 }
 

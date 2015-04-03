@@ -48,6 +48,7 @@ using namespace Ipponboard;
 
 MainWindow::MainWindow(QWidget* parent)
 	: MainWindowBase(parent)
+	, m_pUi(new Ui::MainWindow)
 	, m_pCategoryManager()
 {
 	m_pUi->setupUi(this);
@@ -262,6 +263,25 @@ void MainWindow::attach_primary_view()
 	{
 		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
 	}	
+}
+
+void MainWindow::retranslate_Ui()
+{
+	m_pUi->retranslateUi(this);
+}
+
+void MainWindow::ui_check_language_items()
+{
+	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+	m_pUi->actionLang_English->setChecked("en" == m_Language);
+	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
+
+	// don't forget second implementation!
+}
+
+void MainWindow::ui_check_show_secondary_view(bool checked)
+{
+	m_pUi->actionShow_SecondaryView->setChecked(true);
 }
 
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)

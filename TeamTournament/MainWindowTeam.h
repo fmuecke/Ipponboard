@@ -14,12 +14,14 @@ class QSettings;
 class QString;
 class QPoint;
 
+namespace Ui { class MainWindowTeam; }
+
 class MainWindowTeam : public MainWindowBase
 {
 	Q_OBJECT
 public:
 	explicit MainWindowTeam(QWidget* parent = nullptr);
-	virtual ~MainWindowTeam() {}
+	virtual ~MainWindowTeam();
 
 	virtual void Init() final;
 
@@ -37,6 +39,9 @@ protected:
 	virtual void closeEvent(QCloseEvent* event) override;
 	virtual void keyPressEvent(QKeyEvent* event) override;
 	virtual void attach_primary_view() final;
+	virtual void retranslate_Ui() final;
+	virtual void ui_check_language_items() final;
+	virtual void ui_check_show_secondary_view(bool checked) final;
 
 private:
     static QStringList get_list_templates();
@@ -113,7 +118,8 @@ private:
 	void clear_cell_content(QTableView* pTableView);
 	QString get_template_file(QString const& mode) const;
 	QString get_full_mode_title(QString const& mode) const;
-
+	
+	std::unique_ptr<Ui::MainWindowTeam> m_pUi;
 	std::shared_ptr<Ipponboard::ScoreScreen> m_pScoreScreen;
 	std::shared_ptr<Ipponboard::ClubManager> m_pClubManager;
 	QString m_htmlScore;
