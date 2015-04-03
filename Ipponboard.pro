@@ -3,10 +3,8 @@ CONFIG += ordered
 SUBDIRS += \
 	core \
 	gamepad \
-	SingleTournament \
-	TeamTournament \
+	base \
 	#VersionSelector \
 	GamepadDemo \
 	test
-SingleTournament.depends = core gamepad
-TeamTournament.depends = core gamepad
+base.depends = core gamepad

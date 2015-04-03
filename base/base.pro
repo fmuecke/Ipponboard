@@ -67,7 +67,7 @@ HEADERS = pch.h \
     ClubManager.h \
     ClubManagerDlg.h \
     MainWindowBase.h \
-	.ModeManagerDlg.h \
+	ModeManagerDlg.h \
     SettingsDlg.h \
 	ScoreScreen.h \
     View.h \
