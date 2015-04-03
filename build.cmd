@@ -47,6 +47,7 @@ IF NOT EXIST "%QTDIR%\qmake.exe" (
 	GOTO :EOF
 )
 
+:menu
 cls
 echo;
 echo Current config:
@@ -193,10 +194,11 @@ goto :EOF
 echo.
 echo FAILED (code=%errorlevel%)
 pause
-exit /b %errorlevel%
+goto menu
 
 :the_end
 echo.
 echo SUCCESS
 _build\stopwatch stop build "Time Elapsed: {1}"
 pause
+goto menu
