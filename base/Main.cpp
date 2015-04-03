@@ -1,5 +1,5 @@
-﻿#include "../SingleTournament/MainWindow.h"
-#include "../TeamTournament/MainWindowTeam.h"
+﻿#include "MainWindow.h"
+#include "MainWindowTeam.h"
 #include "../core/TournamentMode.h"
 #include "../Widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
@@ -36,13 +36,13 @@ void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& cor
         const QString& langPath =
             QCoreApplication::applicationDirPath() + QString("/lang");
 
-        if (translator.load("Ipponboard_" + langStr, langPath))
+        if (translator.load(langStr, langPath))
         {
             app.installTranslator(&translator);
         }
         else
         {
-            LangNotFound("Ipponboard_" + langStr);
+            LangNotFound(langStr);
         }
 
         if (coreTranslator.load("core_" + langStr, langPath))

@@ -22,14 +22,14 @@ QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 
 DESTDIR = ../bin
 
-CONFIG(release, release|debug) {
-    TARGET = Ipponboard
-    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
-}
-
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
+}
+
+CONFIG(release, release|debug) {
+    TARGET = Ipponboard
+    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
@@ -61,15 +61,15 @@ contains(COMPILER, msvc) {
 }
 
 HEADERS = pch.h \
-    ../SingleTournament/MainWindow.h \
-	../TeamTournament/MainWindowTeam.h \
+    MainWindow.h \
+	MainWindowTeam.h \
     AddFighterDlg.h \
     ClubManager.h \
     ClubManagerDlg.h \
     MainWindowBase.h \
-	../TeamTournament/ModeManagerDlg.h \
+	.ModeManagerDlg.h \
     SettingsDlg.h \
-	../TeamTournament/ScoreScreen.h \
+	ScoreScreen.h \
     View.h \
     FightCategoryManagerDlg.h \
     FightCategoryManager.h \
@@ -85,8 +85,8 @@ HEADERS = pch.h \
 
 SOURCES = Main.cpp \
     Main.cpp \
-    ../SingleTournament/MainWindow.cpp \
-    ../TeamTournament/MainWindowTeam.cpp \
+    MainWindow.cpp \
+    MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \
 	AddFighterDlg.cpp \
     ClubManager.cpp \
@@ -96,24 +96,24 @@ SOURCES = Main.cpp \
     FightCategoryManagerDlg.cpp \
     FightCategoryManager.cpp \
     MainWindowBase.cpp \
-	../TeamTournament/ModeManagerDlg.cpp \
+	ModeManagerDlg.cpp \
     FighterManager.cpp \
     FighterManagerDlg.cpp \
-	../TeamTournament/ScoreScreen.cpp \
+	ScoreScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
     ../widgets/SplashScreen.cpp \
     ../widgets/Countdown.cpp
 
 
-FORMS = ../SingleTournament/MainWindow.ui \
-    ../TeamTournament/MainWindowTeam.ui \
-    ../SingleTournament/view_vertical_single.ui \
+FORMS = MainWindow.ui \
+    MainWindowTeam.ui \
+    view_vertical_single.ui \
     AddFighterDlg.ui \
     ClubManagerDlg.ui \
-	../TeamTournament/ScoreScreen.ui \
+	ScoreScreen.ui \
     SettingsDlg.ui \
-	../TeamTournament/ModeManagerDlg.ui \
+	ModeManagerDlg.ui \
     FightCategoryManagerDlg.ui \
     FighterManagerDlg.ui \
     view_horizontal.ui \
@@ -124,7 +124,7 @@ OTHER_FILES += \
     TournamentModes.ini
 
 RESOURCES += ipponboard.qrc
-TRANSLATIONS = ../i18n/Ipponboard_de.ts \
-    ../i18n/Ipponboard_nl.ts
+TRANSLATIONS = ../i18n/de.ts \
+    ../i18n/nl.ts
 
 win32:RC_FILE = ipponboard.rc
