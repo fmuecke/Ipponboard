@@ -293,16 +293,6 @@ void MainWindowTeam::read_specific_settings(QSettings& settings)
 			settings.value(str_tag_LabelGuest, tr("Guest")).toString());
 	}
 	settings.endGroup();
-
-	settings.beginGroup(str_tag_Styles);
-
-	if (settings.contains(str_tag_BgStyle))
-	{
-		const QString styleSheet = settings.value(str_tag_BgStyle).toString();
-		m_pScoreScreen->setStyleSheet(styleSheet);
-	}
-
-	settings.endGroup();
 }
 
 void MainWindowTeam::on_actionManageFighters_triggered()

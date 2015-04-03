@@ -412,11 +412,6 @@ void MainWindowBase::write_settings()
 	//settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
 	settings.endGroup();
 
-	// Styles
-	settings.beginGroup(str_tag_Styles);
-	settings.setValue(str_tag_BgStyle, m_pUi->frame_primary_view->styleSheet());
-	settings.endGroup();
-
 	settings.beginGroup(str_tag_Input);
 	settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
 	settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
@@ -547,18 +542,6 @@ void MainWindowBase::read_settings()
 	//	bgColor = settings.value(str_tag_MainClockColorStopped).value<QColor>();
 	//m_pPrimaryView->SetMainClockColor(fgColor, bgColor);
 	//m_pSecondaryView->SetMainClockColor(fgColor, bgColor);
-	settings.endGroup();
-
-	// Styles
-	settings.beginGroup(str_tag_Styles);
-
-	if (settings.contains(str_tag_BgStyle))
-	{
-		const QString styleSheet = settings.value(str_tag_BgStyle).toString();
-		m_pUi->frame_primary_view->setStyleSheet(styleSheet);
-		m_pSecondaryView->setStyleSheet(styleSheet);
-	}
-
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Input);
