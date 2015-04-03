@@ -57,6 +57,11 @@ void SplashScreen::on_pushButton_pressed()
 	accept();
 }
 
+void SplashScreen::on_pushButton_team_pressed()
+{
+	done(QDialog::Accepted + 1);
+}
+
 void SplashScreen::on_pushButton_Cancel_pressed()
 {
 	reject();

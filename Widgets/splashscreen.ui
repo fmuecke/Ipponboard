@@ -111,7 +111,7 @@ p, li { white-space: pre-wrap; }
       <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="bottomMargin">
       <number>0</number>
@@ -130,14 +130,11 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
         <number>0</number>
        </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
+       <property name="leftMargin">
         <number>0</number>
        </property>
        <item>
@@ -145,20 +142,20 @@ p, li { white-space: pre-wrap; }
          <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>20</width>
-           <height>0</height>
-          </size>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="text">
-          <string>Ipponboard</string>
+          <string notr="true">Ipponboard v1.6.6</string>
          </property>
          <property name="textFormat">
           <enum>Qt::PlainText</enum>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         <property name="scaledContents">
+          <bool>false</bool>
          </property>
          <property name="margin">
           <number>5</number>
@@ -169,6 +166,12 @@ p, li { white-space: pre-wrap; }
         <widget class="QLabel" name="labelCopyright">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="text">
           <string notr="true">© F. Mücke</string>
@@ -187,33 +190,27 @@ p, li { white-space: pre-wrap; }
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-       <property name="spacing">
-        <number>7</number>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
        </property>
        <property name="topMargin">
         <number>0</number>
        </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="pushButton">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_team">
          <property name="focusPolicy">
           <enum>Qt::TabFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Accept the terms of usage</string>
+          <string>Accept terms of usage &amp; start Team Tournament edition.</string>
          </property>
          <property name="text">
-          <string>I aggree</string>
+          <string>I agree</string>
          </property>
          <property name="icon">
           <iconset resource="../base/ipponboard.qrc">
-           <normaloff>:/res/icons/accept.png</normaloff>:/res/icons/accept.png</iconset>
+           <normaloff>:/res/icons/category.png</normaloff>:/res/icons/category.png</iconset>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -226,8 +223,40 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>Accept terms of usage &amp; start Single Tournament edition.</string>
+         </property>
+         <property name="text">
+          <string>I agree</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../base/ipponboard.qrc">
+           <normaloff>:/res/icons/fighter_blue.png</normaloff>:/res/icons/fighter_blue.png</iconset>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
         <widget class="QPushButton" name="pushButton_Cancel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::TabFocus</enum>
          </property>
@@ -259,9 +288,10 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_Cancel</tabstop>
   <tabstop>textEdit</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_team</tabstop>
+  <tabstop>pushButton_Cancel</tabstop>
  </tabstops>
  <resources>
   <include location="../base/ipponboard.qrc"/>

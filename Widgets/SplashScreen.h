@@ -42,6 +42,7 @@ private:
 private slots:
 	void on_pushButton_Cancel_pressed();
 	void on_pushButton_pressed();
+	void on_pushButton_team_pressed();
 };
 
 #endif  // WIDGETS__SPLASHSCREEN_H_

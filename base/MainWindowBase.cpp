@@ -56,6 +56,10 @@ MainWindowBase::~MainWindowBase()
 
 void MainWindowBase::Init()
 {
+	setWindowTitle(
+		QCoreApplication::applicationName() + " v" +
+		QCoreApplication::applicationVersion());
+		
 	setWindowFlags(Qt::Window);
     //setWindowState(Qt::WindowMaximized);
     // instead, center window
@@ -101,7 +105,7 @@ void MainWindowBase::Init()
 
 QString MainWindowBase::GetConfigFileName() const
 {
-	return QString("Ipponboard%1.ini").arg(EditionNameShort());
+	return "Ipponboard.ini";
 }
 
 QString MainWindowBase::GetFighterFileName() const

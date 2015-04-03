@@ -60,27 +60,10 @@ int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
-	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
-
-	if (a.arguments().size() > 0 && a.arguments().contains("/team"))
-	{
-		pMainWnd = std::make_unique<MainWindowTeam>();
-	}
-	else
-	{
-		pMainWnd = std::make_unique<MainWindow>();
-
-	}
-
-
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.info");
-	QCoreApplication::setApplicationName(pMainWnd->EditionName());
-
-	pMainWnd->setWindowTitle(
-		QCoreApplication::applicationName() + " v" +
-		QCoreApplication::applicationVersion());
+	QCoreApplication::setApplicationName("Ipponboard");
 
 	// read language code
 	QString langStr = QLocale::system().name();
@@ -88,8 +71,7 @@ int main(int argc, char* argv[])
 
 	const QString ini(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(
-			pMainWnd->GetConfigFileName().toAscii())));
+			fm::GetSettingsFilePath("Ipponboard.ini")));
 
 	QSettings settings(ini, QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
@@ -116,14 +98,14 @@ int main(int argc, char* argv[])
     auto eulaText6 = QCoreApplication::tr("Thank you very much!");
 
     const QString text = QString(
-                "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> %7 <small>v%8</small></h2>"\
+                "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> <small>v%7</small></h2>"\
                 "<!--<p><strong>%1</strong></p>-->"\
                 "<p><span style=\"color:blue\"><em>%2</em></span></p>"\
                 "<p>%3</p>"\
                 "<p>%4</p>"\
                 "<p>%5 <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"\
                 "<p><br/><em>%6</em></p>"\
-				"</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, QCoreApplication::applicationName(), VersionInfo::VersionStrShort);
+				"</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, VersionInfo::VersionStrShort);
 
 	SplashScreen::Data splashData;
 	splashData.text = text;
@@ -132,14 +114,25 @@ int main(int argc, char* argv[])
 					  + "\n"
 					  + "Build: " + VersionInfo::Date;
 	SplashScreen splash(splashData);
-	splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
+	//splash.SetImageStyleSheet("image: url(:/res/images/logo_team.png);");
     //splash.resize(480, 410);
 
-	if (QDialog::Accepted != splash.exec())
+	auto dlgResult = splash.exec();
+	if (QDialog::Rejected == dlgResult)
     {
 		return 0;
     }
-
+	
+	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
+	if (dlgResult == QDialog::Accepted + 1)
+	{
+		pMainWnd = std::make_unique<MainWindowTeam>();
+	}
+	else
+	{
+		pMainWnd = std::make_unique<MainWindow>();
+	}
+		
 	try
 	{
 		pMainWnd->Init();
