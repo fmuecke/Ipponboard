@@ -61,14 +61,15 @@ contains(COMPILER, msvc) {
 }
 
 HEADERS = pch.h \
-    MainWindow.h \
+    ../SingleTournament/MainWindow.h \
+	../TeamTournament/MainWindowTeam.h \
     AddFighterDlg.h \
     ClubManager.h \
     ClubManagerDlg.h \
     MainWindowBase.h \
-ModeManagerDlg.h \
+	../TeamTournament/ModeManagerDlg.h \
     SettingsDlg.h \
-ScoreScreen.h \
+	../TeamTournament/ScoreScreen.h \
     View.h \
     FightCategoryManagerDlg.h \
     FightCategoryManager.h \
@@ -84,8 +85,8 @@ ScoreScreen.h \
 
 SOURCES = Main.cpp \
     Main.cpp \
-    MainWindow.cpp \
-    MainWindowTeam.cpp \
+    ../SingleTournament/MainWindow.cpp \
+    ../TeamTournament/MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \
 	AddFighterDlg.cpp \
     ClubManager.cpp \
@@ -95,25 +96,24 @@ SOURCES = Main.cpp \
     FightCategoryManagerDlg.cpp \
     FightCategoryManager.cpp \
     MainWindowBase.cpp \
-ModeManagerDlg.cpp \
+	../TeamTournament/ModeManagerDlg.cpp \
     FighterManager.cpp \
     FighterManagerDlg.cpp \
-ScoreScreen.cpp \
+	../TeamTournament/ScoreScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
     ../widgets/SplashScreen.cpp \
     ../widgets/Countdown.cpp
 
 
-
-FORMS = MainWindow.ui \
-    MainWindowTeam.ui \
-    view_vertical_single.ui \
+FORMS = ../SingleTournament/MainWindow.ui \
+    ../TeamTournament/MainWindowTeam.ui \
+    ../SingleTournament/view_vertical_single.ui \
     AddFighterDlg.ui \
     ClubManagerDlg.ui \
-ScoreScreen.ui \
+	../TeamTournament/ScoreScreen.ui \
     SettingsDlg.ui \
-ModeManagerDlg.ui \
+	../TeamTournament/ModeManagerDlg.ui \
     FightCategoryManagerDlg.ui \
     FighterManagerDlg.ui \
     view_horizontal.ui \

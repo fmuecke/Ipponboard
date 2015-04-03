@@ -1,7 +1,6 @@
-﻿#include "MainWindow.h"
-#include "MainWindowTeam.h"
+﻿#include "../SingleTournament/MainWindow.h"
+#include "../TeamTournament/MainWindowTeam.h"
 #include "../core/TournamentMode.h"
-//#include "../Widgets/Countdown.h"
 #include "../Widgets/SplashScreen.h"
 #include "../base/versioninfo.h"
 #include "../util/path_helpers.h"
@@ -25,7 +24,9 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& coreTranslator, QString const& langStr)
 {
-    if (langStr == QString("en"))
+	UNREFERENCED_PARAMETER(app);
+
+	if (langStr == QString("en"))
     {
         return; // default
     }
@@ -58,7 +59,6 @@ void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& cor
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
-	auto x = a.arguments;
 
 	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
 
@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
 	{
 		pMainWnd->Init();
 	}
-	catch (std::exception const& e)
+	catch (std::exception const&)
 	{
 		return 0;
 	}

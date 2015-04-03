@@ -85,6 +85,21 @@ void MainWindowTeam::Init()
 	// set default background
 	m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
+	//
+	// load tournament modes
+	//
+	QString errMsg;
+    Ipponboard::TournamentMode::List modes;
+    if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
+	{
+		QMessageBox::critical(0,
+                              QCoreApplication::tr("Error reading mode configurations"),
+							  errMsg);
+
+		throw std::exception("Initialization failed!");
+	}
+	SetModes(modes);
+	
 	// load modes
 	for (auto const& mode : m_modes)
 	{
