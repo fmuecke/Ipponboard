@@ -1836,12 +1836,12 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     <message>
         <location line="-399"/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
-        <translation>&quot;Gast&quot;-Beschriftung</translation>
+        <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Guest Label</source>
-        <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
+        <translation>&quot;Gast&quot;-Beschriftung</translation>
     </message>
     <message>
         <location line="+406"/>
