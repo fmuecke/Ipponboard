@@ -832,7 +832,7 @@ void MainWindowTeam::on_button_pause_clicked()
 			m_pScoreScreen->move(QPoint(screenres.x(), screenres.y()));
 		}
 
-		if (m_bAutoSize)
+		if (m_secondScreenSize.isNull())
 		{
 			m_pScoreScreen->showFullScreen();
 		}

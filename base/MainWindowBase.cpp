@@ -43,8 +43,6 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
 	, m_secondScreenSize()
-	, m_bAutoSize(true)
-	, m_bAlwaysShow(true)
 	, m_controllerCfg()
 	, m_pGamepad(new Gamepad)
 {
@@ -82,12 +80,6 @@ void MainWindowBase::Init()
 
 	// Load settings
 	read_settings();
-
-	if (m_bAlwaysShow)
-	{
-		ui_check_show_secondary_view(true);
-		on_actionShow_SecondaryView_triggered();
-	}
 
 	change_lang(true);
 
@@ -387,8 +379,6 @@ void MainWindowBase::write_settings()
 	settings.setValue(str_tag_pos, pos());
 	settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
 	settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
-	settings.setValue(str_tag_AutoSize, m_bAutoSize);
-	settings.setValue(str_tag_AlwaysShow, m_bAlwaysShow);
 	settings.setValue(str_tag_MatLabel, m_MatLabel);
     settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
     settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
@@ -459,9 +449,7 @@ void MainWindowBase::read_settings()
 	move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
 	m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
 	m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
-										QSize(1024, 768)).toSize();
-	m_bAutoSize = settings.value(str_tag_AutoSize, true).toBool();
-	m_bAlwaysShow = settings.value(str_tag_AlwaysShow, true).toBool();
+										QSize(0, 0)).toSize();
 	m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
 	m_pPrimaryView->SetMat(m_MatLabel);
 	m_pSecondaryView->SetMat(m_MatLabel);
@@ -674,8 +662,7 @@ void MainWindowBase::on_actionPreferences_triggered()
 	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
 							m_pPrimaryView->GetTextBgColorSecond());
 
-	dlg.SetScreensSettings(m_bAlwaysShow, m_secondScreenNo, m_bAutoSize,
-						   m_secondScreenSize);
+	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
 
 	dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
 				 m_pController->GetOption(eOption_Use2013Rules));
@@ -697,9 +684,7 @@ void MainWindowBase::on_actionPreferences_triggered()
 		update_text_color_first(dlg.GetTextColorFirst(), dlg.GetTextBgColorFirst());
 		update_text_color_second(dlg.GetTextColorSecond(), dlg.GetTextBgColorSecond());
 
-		m_bAlwaysShow = dlg.IsShowAlways();
 		m_secondScreenNo = dlg.GetSelectedScreen();
-		m_bAutoSize = dlg.IsAutoSize();
 		m_secondScreenSize = dlg.GetSize();
 
 		// rules
@@ -741,7 +726,7 @@ void MainWindowBase::show_hide_view() const
 			m_pSecondaryView->move(QPoint(screenres.x(), screenres.y()));
 		}
 
-		if (m_bAutoSize)
+		if (m_secondScreenSize.isNull())
 		{
 			m_pSecondaryView->showFullScreen();
 		}

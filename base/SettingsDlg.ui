@@ -63,67 +63,37 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QGridLayout" name="gridLayout">
-            <property name="verticalSpacing">
-             <number>8</number>
-            </property>
+           <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox_open_secondary_view">
+            <property name="horizontalSpacing">
+             <number>10</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>8</number>
+            </property>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>Display on start</string>
+               <string>Size</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
-              <property name="spacing">
-               <number>8</number>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_screen">
+              <property name="text">
+               <string>Screen</string>
               </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_screen">
-                <property name="text">
-                 <string>Use screen</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_screen"/>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
+             </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="checkBox_autosize_secondary_view">
-              <property name="text">
-               <string>Determine size automatically</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
+             <widget class="QComboBox" name="comboBox_screen"/>
             </item>
             <item row="1" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,0,0">
+             <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,0,0,0,0">
               <property name="spacing">
-               <number>8</number>
+               <number>6</number>
               </property>
               <property name="topMargin">
                <number>0</number>
@@ -131,6 +101,19 @@
               <property name="rightMargin">
                <number>0</number>
               </property>
+              <item>
+               <widget class="QCheckBox" name="checkBox_secondary_view_custom_size">
+                <property name="toolTip">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Use custom size</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QLabel" name="label_screen_width">
                 <property name="enabled">
@@ -143,7 +126,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>width</string>
+                 <string>Width</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -184,7 +167,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>height</string>
+                 <string>Height</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1496,9 +1479,6 @@
  <tabstops>
   <tabstop>tab_extended</tabstop>
   <tabstop>buttonBox</tabstop>
-  <tabstop>checkBox_open_secondary_view</tabstop>
-  <tabstop>comboBox_screen</tabstop>
-  <tabstop>checkBox_autosize_secondary_view</tabstop>
   <tabstop>lineEdit_fixedsize_width</tabstop>
   <tabstop>lineEdit_fixedsize_height</tabstop>
   <tabstop>fontComboBox_infoHeader</tabstop>
