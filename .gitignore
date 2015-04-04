@@ -37,10 +37,6 @@ env_cfg.bat
 /**/Makefile
 /**/debug/*
 /**/release/*
-i18n/Ipponboard_de.qm
-i18n/Ipponboard_team_de.qm
-i18n/VersionSelector_de.qm
-i18n/core_de.qm
 ipch/
 lib/*
 ui*.h
@@ -49,3 +45,4 @@ ui*.h
 /**/bin/**/*.*
 *.autosave
 *.opensdf
+i18n/*.qm
