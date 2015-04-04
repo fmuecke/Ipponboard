@@ -1,6 +1,7 @@
 #ifndef BASE__SETTINGSDLG_H_
 #define BASE__SETTINGSDLG_H_
 
+#include "../core/EditionType.h"
 #include <QDialog>
 #include <map>
 
@@ -20,7 +21,7 @@ class SettingsDlg : public QDialog
 {
 	Q_OBJECT
 public:
-	SettingsDlg(QWidget* parent = 0);
+	SettingsDlg(EditionType edition, QWidget* parent = 0);
 	~SettingsDlg();
 
 	void SetScreensSettings(int screen, const QSize& dimensions); // zero dimensions means auto size
@@ -62,6 +63,7 @@ private:
 	void set_button_value(QComboBox* pCombo, int buttonId);
 
 private:
+	EditionType m_edition;
 	Ui::SettingsDlg* ui;
 	typedef std::map<int, QString> ButtonTextMap;
 	ButtonTextMap m_buttonTexts;

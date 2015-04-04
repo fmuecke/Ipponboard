@@ -2,6 +2,7 @@
 #define BASE__MAINWINDOW_BASE_H_
 
 #include "../core/iView.h"
+#include "../core/EditionType.h"
 #include "FighterManager.h"
 #include "../core/ControllerConfig.h"
 #include "../util/helpers.hpp"
@@ -90,6 +91,7 @@ public:
 
 	QString GetConfigFileName() const;
 	QString GetFighterFileName() const;
+	virtual EditionType Edition() const = 0;
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
 

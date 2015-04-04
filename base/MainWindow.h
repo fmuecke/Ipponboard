@@ -22,6 +22,7 @@ public:
 
 	virtual void Init() final;
 
+	virtual EditionType Edition() const final			{ return EditionType::Single; }
 	virtual const char* EditionName() const final		{ return "Basic Edition"; }
 	virtual const char* EditionNameShort() const final	{ return "Basic"; }
 

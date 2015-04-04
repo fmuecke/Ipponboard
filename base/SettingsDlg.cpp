@@ -12,28 +12,34 @@
 
 using namespace Ipponboard;
 
-SettingsDlg::SettingsDlg(QWidget* parent) :
+SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	QDialog(parent),
+	m_edition(edition),
 	ui(new Ui::SettingsDlg)
 {
 	ui->setupUi(this);
 
-#ifdef TEAM_VIEW
-	ui->comboBox_next->setEnabled(true);
-	ui->comboBox_prev->setEnabled(true);
-	ui->comboBox_pause->setEnabled(true);
+	if (m_edition == EditionType::Team)
+	{
+		ui->comboBox_next->setEnabled(true);
+		ui->comboBox_prev->setEnabled(true);
+		ui->comboBox_pause->setEnabled(true);
 
-	ui->label_home->setEnabled(true);
-	ui->label_guest->setEnabled(true);
-	ui->lineEdit_labelHome->setEnabled(true);
-	ui->lineEdit_labelGuest->setEnabled(true);
-#else
-	ui->label_home->setEnabled(false);
-	ui->label_guest->setEnabled(false);
-	ui->lineEdit_labelHome->setEnabled(false);
-	ui->lineEdit_labelGuest->setEnabled(false);
-#endif
-
+		ui->comboBox_mat->setEnabled(false);
+		ui->label_home->setEnabled(true);
+		ui->label_guest->setEnabled(true);
+		ui->lineEdit_labelHome->setEnabled(true);
+		ui->lineEdit_labelGuest->setEnabled(true);
+	}
+	else
+	{
+		ui->comboBox_mat->setEnabled(true);
+		ui->label_home->setEnabled(false);
+		ui->label_guest->setEnabled(false);
+		ui->lineEdit_labelHome->setEnabled(false);
+		ui->lineEdit_labelGuest->setEnabled(false);
+	}
+	
 	//TODO: remove comment
 	//ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 

@@ -68,12 +68,12 @@ void MainWindowBase::Init()
 
 	// Setup views
 	m_pPrimaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypePrimary));
+		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypePrimary));
 
 	attach_primary_view();
 
 	m_pSecondaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Ipponboard::View::eTypeSecondary));
+		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypeSecondary));
 
 	// clear data
 	m_pController->ClearFights();
@@ -649,7 +649,7 @@ void MainWindowBase::on_actionShow_SecondaryView_triggered()
 
 void MainWindowBase::on_actionPreferences_triggered()
 {
-	SettingsDlg dlg(this);
+	SettingsDlg dlg(Edition(), this);
 	dlg.SetInfoHeaderSettings(m_pPrimaryView->GetInfoHeaderFont(),
 							  m_pPrimaryView->GetInfoTextColor(),
 							  m_pPrimaryView->GetInfoTextBgColor());
