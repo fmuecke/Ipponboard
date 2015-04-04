@@ -571,7 +571,7 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <source>Please restart the application so that the changes can take effect.</source>
-        <translation>Herstart het programma alvorens de wijzigingen effect hebben.</translation>
+        <translation type="obsolete">Herstart het programma alvorens de wijzigingen effect hebben.</translation>
     </message>
     <message>
         <source>Set Value</source>
@@ -588,6 +588,563 @@ Geldige velden zijn: %1</translation>
     <message>
         <source>&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build: %3, Revision: %4&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;copy; 2010-%5 Florian M&amp;uuml;cke. All rights reserved.&lt;/p&gt;&lt;p&gt;Some icons by &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;. All rights reserved.&lt;/p&gt;&lt;p&gt;This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;%1 v%2&lt;/h3&gt;&lt;p&gt;Build:%3, Revisie:%4&lt;/p&gt;&lt;p&gt;&lt;a href:&quot;http://www.ipponboard.info&quot;&gt;www.ipponboard.info&lt;/a&gt;&lt;/p&gt;&amp;copy;2010-2014 Florian M&amp;uum|;cke. All Rights reserved.&lt;/p&gt;&lt;p&gt;Sommige iconen door &lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt; Alle rechten voorbehouden.&lt;/p&gt;&lt;p&gt;Dit programma is beschikbaar zoals het is met geen enkele garantie op eender welke wijze; inclusief de garantie op design, verkoop en persoonlijke gezondheid.&lt;/p&gt; {3&gt;?} {1 ?} {2&lt;?} {3&gt;?} {3,?} {4&lt;?} {2010-%5 ?}</translation>
+    </message>
+    <message>
+        <source>Please restart the application so that the change can take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MainWindowTeam</name>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (saved)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Opslaan</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Volgende</translation>
+    </message>
+    <message>
+        <source>File open error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File could not be opened: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List generated with Ipponboard v</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Scores</source>
+        <translation type="unfinished">Scores Herstellen</translation>
+    </message>
+    <message>
+        <source>Really reset complete score table?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export file to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ScoreList_</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF File (*.pdf);;HTML File (*.html)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Weights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set weights (separated by &apos;;&apos;):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set value to (m:ss):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is nothing to paste!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can not paste into an empty selection!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is too few data for the selection in the clipboard!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is more data available in the clipboard as could be pasted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ipponboard fight list %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ipponboard</source>
+        <translation type="unfinished">Ipponboard</translation>
+    </message>
+    <message>
+        <source>List (Ctrl+1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit home team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit guest team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weights</source>
+        <translation type="unfinished">Gewichten</translation>
+    </message>
+    <message>
+        <source>Score after 1st round:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Wins)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Sub score)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy &amp;&amp; switch guest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Final score:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Score board (Ctrl+2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Board</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show result screen (F4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1/10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-load previous fight data (Note: the current data will be saved)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continue with next fight (current data will be saved)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset current scores and timers (Ctrl + Backspace)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Instellingen</translation>
+    </message>
+    <message>
+        <source>Select program language</source>
+        <translation type="unfinished">Selecteer taal</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Taal</translation>
+    </message>
+    <message>
+        <source>Manage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Openen</translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished">Ctrl+O</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished">Ctrl+S</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished">Verlaten</translation>
+    </message>
+    <message>
+        <source>End Ipponboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Q</source>
+        <translation type="unfinished">Ctrl+Q</translation>
+    </message>
+    <message>
+        <source>Visit Project Homepage</source>
+        <translation type="unfinished">Bezoek de homepagina</translation>
+    </message>
+    <message>
+        <source>About Ipponboard</source>
+        <translation type="unfinished">Over Ipponboard</translation>
+    </message>
+    <message>
+        <source>F1</source>
+        <translation type="unfinished">F1</translation>
+    </message>
+    <message>
+        <source>Show Secondary View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles secodary screen view</source>
+        <translation type="unfinished">Schakelen naar het beelds van het tweede scherm</translation>
+    </message>
+    <message>
+        <source>F2</source>
+        <translation type="unfinished">F2</translation>
+    </message>
+    <message>
+        <source>Clubs</source>
+        <translation type="unfinished">Clubs</translation>
+    </message>
+    <message>
+        <source>Manage Clubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play Mat Signal</source>
+        <translation type="unfinished">Signaal Afspelen</translation>
+    </message>
+    <message>
+        <source>Plays the mat signal sound file</source>
+        <translation type="unfinished">Speelt het geluidssignaal af</translation>
+    </message>
+    <message>
+        <source>Ctrl+G</source>
+        <translation type="unfinished">Ctrl+G</translation>
+    </message>
+    <message>
+        <source>Controller</source>
+        <translation type="unfinished">Controller</translation>
+    </message>
+    <message>
+        <source>Preferences</source>
+        <translation type="unfinished">Voorkeuren</translation>
+    </message>
+    <message>
+        <source>Load Demo Data</source>
+        <translation type="unfinished">Laad de Demodata</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation type="unfinished">Printen</translation>
+    </message>
+    <message>
+        <source>Results as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provide Feedback (Online)</source>
+        <translation type="unfinished">Bezorg uw Feedback (Online)</translation>
+    </message>
+    <message>
+        <source>Contact Author</source>
+        <translation type="unfinished">Contacteer de Auteur</translation>
+    </message>
+    <message>
+        <source>Set Hold Timer</source>
+        <translation type="unfinished">Osaekomi-tijd instellen</translation>
+    </message>
+    <message>
+        <source>Set the hold timer to a certain value</source>
+        <translation type="unfinished">Osaekomi-tijd wijzigen naar andere waarde</translation>
+    </message>
+    <message>
+        <source>Set Main Timer</source>
+        <translation type="unfinished">Wedstrijdtijd instellen</translation>
+    </message>
+    <message>
+        <source>Set the main timer to a certain value</source>
+        <translation type="unfinished">Wedstrijdtijd wijzigen naar andere waarde</translation>
+    </message>
+    <message>
+        <source>&amp;Info Header</source>
+        <translation type="unfinished">&amp;Informatiebanner</translation>
+    </message>
+    <message>
+        <source>Toggles the info header (mat and category/weight class) on and off</source>
+        <translation type="unfinished">Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</translation>
+    </message>
+    <message>
+        <source>Set Round Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set round time for all fights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch to Score Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swith to Score Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fighters</source>
+        <translation type="unfinished">Deelnemers</translation>
+    </message>
+    <message>
+        <source>Import Fighters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage tournament modes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose Dutch as program language</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ModeManagerDlg</name>
+    <message>
+        <source>Mode Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subtitle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The fight duration in seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weights</source>
+        <translation type="unfinished">Gewichten</translation>
+    </message>
+    <message>
+        <source>Indicates that all weights will be used two times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weights count twice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source># rounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FIGHTS_PER_ROUND</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The fight duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fight Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables to specify overrides for the fight time for certain categories. E.g. &quot;U12:120;U15:180;U18:240&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use overrides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The overrides should be something like this:
+&quot;U12:120;U15:180;U18:240&quot;
+(&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
+Note: the time must be specified in seconds alone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Opties</translation>
+    </message>
+    <message>
+        <source>Use the offical IJF rules of 2013</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use rules of 2013</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically add points during Osae-komi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto increment points</source>
+        <translation type="unfinished">Automatisch punten optellen</translation>
+    </message>
+    <message>
+        <source>Sub-scores are valued even if the fight is lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All sub-scores count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*new*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Really remove &quot;%1&quot;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Verwijderen</translation>
+    </message>
+    <message>
+        <source>Keep</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -614,6 +1171,14 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <source>Thank you very much!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error reading mode configurations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error writing mode configurations</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -683,6 +1248,13 @@ Restoring defaults.</source>
     <message>
         <source>Unable to convert fight categories:
 %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScoreScreen</name>
+    <message>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1081,7 +1653,7 @@ Restoring defaults.</source>
     </message>
     <message>
         <source>Ipponboard</source>
-        <translation>Ipponboard</translation>
+        <translation type="obsolete">Ipponboard</translation>
     </message>
     <message utf8="true">
         <source>(c) 2010-2014 Florian Mücke</source>
@@ -1089,15 +1661,27 @@ Restoring defaults.</source>
     </message>
     <message>
         <source>Accept the terms of usage</source>
-        <translation>Aanvaar de gebruiksrechten</translation>
+        <translation type="obsolete">Aanvaar de gebruiksrechten</translation>
     </message>
     <message>
         <source>I aggree</source>
-        <translation>Ik ga akkoord</translation>
+        <translation type="obsolete">Ik ga akkoord</translation>
     </message>
     <message>
         <source>No, thanks!</source>
         <translation>Neen, Bedankt!</translation>
+    </message>
+    <message>
+        <source>Accept terms of usage &amp; start Team Tournament edition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I agree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept terms of usage &amp; start Single Tournament edition.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
