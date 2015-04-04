@@ -1,4 +1,5 @@
 @echo off
+setlocal
 REM -- language file
 call ..\env_cfg.bat
 
