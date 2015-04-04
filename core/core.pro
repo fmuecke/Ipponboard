@@ -26,61 +26,63 @@ QMAKE_EXTRA_TARGETS += prebuildhook
 
 # Auto select compiler
 win32-g++: COMPILER = mingw
-win32-msvc2010: COMPILER = msvc
-win32-msvc2012: COMPILER = msvc
+win32-msvc2013: COMPILER = msvc
 
 CONFIG(release, release|debug) {
-    TARGET = core
+	TARGET = core
 }
 
 CONFIG(debug, release|debug) {
-    TARGET = core_d
+	TARGET = core_d
 
-    contains(COMPILER, msvc) {
-        QMAKE_CXX += /Od
-    }
+	contains(COMPILER, msvc) {
+		QMAKE_CXX += /Od
+	}
 }
 
 contains(COMPILER, mingw) {
-    QMAKE_CXXFLAGS += -std=c++11
-    # get rid of some nasty boost warnings
-    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+	QMAKE_CXXFLAGS += -std=c++11
+	# get rid of some nasty boost warnings
+	QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
 }
 contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS
-    DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501
+	QMAKE_CXX += /FS
+	DEFINES += "WINVER=0x0501"
+	DEFINES += WIN32 _WIN32_WINNT=0x0501
 }
 
-HEADERS = ../base/pch.h \
-    ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
-    Controller.h \
-    Enums.h \
-    EnumStrings.h \
+HEADERS = \
+	../base/pch.h \
+	../util/path_helpers.h \
+	../util/qstring_serialization.h \
+	Controller.h \
+	Enums.h \
+	EnumStrings.h \
 	Fight.h \
-    FightCategory.h \
-    iController.h \
-    iControllerCore.h \
-    iView.h \
-    Score.h \
-    StateMachine.h \
-    Tournament.h \
-    Fighter.h \
+	FightCategory.h \
+	iController.h \
+	iControllerCore.h \
+	iView.h \
+	Score.h \
+	StateMachine.h \
+	Tournament.h \
+	Fighter.h \
 	TournamentMode.h \
 	TournamentModel.h \
 	ControllerConfig.h
 
-SOURCES = Controller.cpp \
-    FightCategory.cpp \
-    Fighter.cpp \
-    Fight.cpp \
-    Score.cpp \
-    StateMachine.cpp \
+SOURCES = \
+	Controller.cpp \
+	FightCategory.cpp \
+	Fighter.cpp \
+	Fight.cpp \
+	Score.cpp \
+	StateMachine.cpp \
 	TournamentMode.cpp \
-    TournamentModel.cpp
-    
+	TournamentModel.cpp
+	
 #OTHER_FILES +=
 
-TRANSLATIONS = ../i18n/core_de.ts \
-    ../i18n/core_nl.ts
+TRANSLATIONS = \
+	../i18n/core_de.ts \
+	../i18n/core_nl.ts
