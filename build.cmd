@@ -1,7 +1,7 @@
 ::---------------------------------------------------------
 :: Ipponboard build script
 ::
-:: Copyright 2010-2014 Florian Muecke. All rights reserved.
+:: Copyright 2010-2015 Florian Muecke. All rights reserved.
 :: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 ::
 :: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -119,6 +119,8 @@ goto the_end
 	echo --[clean]--
 	rd /Q /S "%BASE_DIR%\bin" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
+	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul
+	if errorlevel 1 exit /b %errorlevel%
 	
 	call :generate_makefiles
 	if errorlevel 1 exit /b %errorlevel%
@@ -138,10 +140,7 @@ goto :eof
 	CALL :compile gamepad
 	if errorlevel 1 exit /b %errorlevel%
 
-	CALL :compile SingleTournament
-	if errorlevel 1 exit /b %errorlevel%
-
-	CALL :compile TeamTournament
+	CALL :compile base
 	if errorlevel 1 exit /b %errorlevel%
 
 	::CALL :compile VersionSelector

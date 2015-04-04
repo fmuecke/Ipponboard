@@ -4,13 +4,6 @@ setlocal
 SET VER1=1
 SET VER2=5
 SET VER3=1
-IF NOT EXIST ..\base\.buildnr (
-	SET VER4=0
-) ELSE (
-	SET /P VER4=<..\base\.buildnr
-	SET /A VER4+=1 >nul
-)
-echo %VER4% >..\base\.buildnr
 :: that's it. <--
 
 rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
@@ -21,8 +14,22 @@ rem hg parents --template {date^|localdate^|isodate} > ..\base\.date
 git log -1 --format=%%ci > ..\base\.date
 SET /P REV_DATE=<..\base\.date
 
-SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
 SET FILENAME_NO_EXT=..\base\versioninfo
+IF NOT EXIST ..\base\.buildnr (
+	SET VER4=0
+) ELSE (
+	SET /P VER4=<..\base\.buildnr
+	IF NOT EXIST %FILENAME_NO_EXT%.h SET /A VER4+=1 >nul
+	)
+)
+echo %VER4% >..\base\.buildnr
+
+IF EXIST %FILENAME_NO_EXT%.h (
+	echo --^> version info up to date: %VER1%.%VER2%.%VER3%.%VER4%
+	goto :eof
+)
+
+SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
 
 rem subwcrev>nul
 rem if %errorlevel%==1 goto do_it
@@ -50,7 +57,7 @@ echo #endif  // BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 
 echo -^> generating version info header
 :: generate header file
-del %FILENAME_NO_EXT%.h>nul
+del %FILENAME_NO_EXT%.h>nul 2>&1
 move %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
 
 :: --
