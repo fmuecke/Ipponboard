@@ -251,8 +251,8 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
-	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
+	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_Use2013Rules));
 }
 
 void MainWindow::attach_primary_view()
