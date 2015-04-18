@@ -75,3 +75,7 @@ ui*.h
 /**/bin/**/*.*
 *.autosave
 *.opensdf
+base/release/
+base/debug/
+Makefile*
+i18n/*.qm
