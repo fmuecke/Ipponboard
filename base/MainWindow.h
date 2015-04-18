@@ -23,13 +23,15 @@ public:
 	virtual void Init() final;
 
 	virtual EditionType Edition() const final			{ return EditionType::Single; }
-	virtual const char* EditionName() const final		{ return "Basic Edition"; }
-	virtual const char* EditionNameShort() const final	{ return "Basic"; }
+	virtual const char* EditionName() const final		{ return "Single Edition"; }
+	virtual const char* EditionNameShort() const final	{ return "Single"; }
 
 protected:
 	//virtual void changeEvent(QEvent* e) override;
 	//virtual void closeEvent(QCloseEvent* event) override;
 	//virtual void keyPressEvent(QKeyEvent* event) override;
+	virtual void write_specific_settings(QSettings& settings) final;
+	virtual void read_specific_settings(QSettings& settings) final;
 	virtual void update_statebar() override;
 	virtual void attach_primary_view() final;
 	virtual void retranslate_Ui() final;

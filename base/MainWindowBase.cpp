@@ -38,7 +38,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_pController(new Ipponboard::Controller())
 	, m_fighterManager()
 	, m_Language("en")
-	, m_MatLabel()
+	, m_MatLabel("  www.ipponboard.info   ")
 	, m_weights()
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
@@ -373,58 +373,65 @@ void MainWindowBase::write_settings()
     //TODO: settings.setIniCodec("UTF-8");
 
 	settings.beginGroup(str_tag_Main);
-	settings.setValue(str_tag_Version, VersionInfo::VersionStr);
-	settings.setValue(str_tag_Language, m_Language);
-	settings.setValue(str_tag_size, size());
-	settings.setValue(str_tag_pos, pos());
-	settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
-	settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
-	settings.setValue(str_tag_MatLabel, m_MatLabel);
-    settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
-    settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
+	{
+		settings.setValue(str_tag_Version, VersionInfo::VersionStr);
+		settings.setValue(str_tag_Language, m_Language);
+		settings.setValue(str_tag_size, size());
+		settings.setValue(str_tag_pos, pos());
+		settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
+		settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
+	}
 	settings.endGroup();
 
 	// write the edition specific settings
 	write_specific_settings(settings);
 
 	settings.beginGroup(str_tag_Fonts);
-	settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
-	settings.setValue(str_tag_FighterNameFont, m_FighterNameFont.toString());
-	settings.setValue(str_tag_DigitFont, m_pPrimaryView->GetDigitFont().toString());
+	{
+		settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
+		settings.setValue(str_tag_FighterNameFont, m_FighterNameFont.toString());
+		settings.setValue(str_tag_DigitFont, m_pPrimaryView->GetDigitFont().toString());
+	}
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Colors);
-	settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
-	settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
-	settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
-	settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
-	settings.setValue(str_tag_TextColorSecond, m_pPrimaryView->GetTextColorSecond());
-	settings.setValue(str_tag_TextBgColorSecond, m_pPrimaryView->GetTextBgColorSecond());
-	//settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
-	//settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
+	{
+		settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
+		settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
+		settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
+		settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
+		settings.setValue(str_tag_TextColorSecond, m_pPrimaryView->GetTextColorSecond());
+		settings.setValue(str_tag_TextBgColorSecond, m_pPrimaryView->GetTextBgColorSecond());
+		//settings.setValue(str_tag_MainClockColorRunning, m_pPrimaryView->GetMainClockColor1());
+		//settings.setValue(str_tag_MainClockColorStopped, m_pPrimaryView->GetMainClockColor2());
+	}
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Input);
-	settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
-	settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
-	settings.setValue(str_tag_buttonPrev, m_controllerCfg.button_prev);
-	settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
-	settings.setValue(str_tag_buttonReset, m_controllerCfg.button_reset);
-	settings.setValue(str_tag_buttonReset2, m_controllerCfg.button_reset_2);
-	settings.setValue(str_tag_buttonResetHoldFirst, m_controllerCfg.button_reset_hold_first);
-	settings.setValue(str_tag_buttonResetHoldSecond, m_controllerCfg.button_reset_hold_second);
-	settings.setValue(str_tag_buttonFirstHolding, m_controllerCfg.button_osaekomi_toketa_first);
-	settings.setValue(str_tag_buttonSecondHolding, m_controllerCfg.button_osaekomi_toketa_second);
-	settings.setValue(str_tag_buttonHansokumakeFirst, m_controllerCfg.button_hansokumake_first);
-	settings.setValue(str_tag_buttonHansokumakeSecond, m_controllerCfg.button_hansokumake_second);
-	settings.setValue(str_tag_invertX, m_controllerCfg.axis_inverted_X);
-	settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
-	settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
-	settings.setValue(str_tag_invertZ, m_controllerCfg.axis_inverted_Z);
+	{
+		settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
+		settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
+		settings.setValue(str_tag_buttonPrev, m_controllerCfg.button_prev);
+		settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
+		settings.setValue(str_tag_buttonReset, m_controllerCfg.button_reset);
+		settings.setValue(str_tag_buttonReset2, m_controllerCfg.button_reset_2);
+		settings.setValue(str_tag_buttonResetHoldFirst, m_controllerCfg.button_reset_hold_first);
+		settings.setValue(str_tag_buttonResetHoldSecond, m_controllerCfg.button_reset_hold_second);
+		settings.setValue(str_tag_buttonFirstHolding, m_controllerCfg.button_osaekomi_toketa_first);
+		settings.setValue(str_tag_buttonSecondHolding, m_controllerCfg.button_osaekomi_toketa_second);
+		settings.setValue(str_tag_buttonHansokumakeFirst, m_controllerCfg.button_hansokumake_first);
+		settings.setValue(str_tag_buttonHansokumakeSecond, m_controllerCfg.button_hansokumake_second);
+		settings.setValue(str_tag_invertX, m_controllerCfg.axis_inverted_X);
+		settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
+		settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
+		settings.setValue(str_tag_invertZ, m_controllerCfg.axis_inverted_Z);
+	}
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
-	settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
+	{
+		settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
+	}
 	settings.endGroup();
 }
 
@@ -440,28 +447,18 @@ void MainWindowBase::read_settings()
 	// MainWindow
 
 	settings.beginGroup(str_tag_Main);
+	{
+		QString langStr = QLocale::system().name();
+		langStr.truncate(langStr.lastIndexOf('_'));
+		m_Language = settings.value(str_tag_Language, langStr).toString();
 
-	QString langStr = QLocale::system().name();
-	langStr.truncate(langStr.lastIndexOf('_'));
-	m_Language = settings.value(str_tag_Language, langStr).toString();
-
-	//resize(settings.value(str_tag_size, size()).toSize());
-	move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
-	m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
-	m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
-										QSize(0, 0)).toSize();
-	m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
-	m_pPrimaryView->SetMat(m_MatLabel);
-	m_pSecondaryView->SetMat(m_MatLabel);
-
-	// rules
-	m_pController->SetOption(eOption_AutoIncrementPoints,
-                             settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
-
-	m_pController->SetOption(eOption_Use2013Rules,
-                             settings.value(EnumToString(eOption_Use2013Rules), false).toBool());
-	update_statebar();
-
+		//resize(settings.value(str_tag_size, size()).toSize());
+		move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
+		m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
+		m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
+											QSize(0, 0)).toSize();
+		update_statebar();
+	}
 	settings.endGroup();
 
 	// read edition specific settings
@@ -471,121 +468,128 @@ void MainWindowBase::read_settings()
 	// Fonts
 	//
 	settings.beginGroup(str_tag_Fonts);
-	QFont font = m_pPrimaryView->GetInfoHeaderFont();
-	font.fromString(settings.value(str_tag_TextFont1, font.toString()).toString());
-	m_pPrimaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
-	m_pSecondaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
+	{
+		QFont font = m_pPrimaryView->GetInfoHeaderFont();
+		font.fromString(settings.value(str_tag_TextFont1, font.toString()).toString());
+		m_pPrimaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
+		m_pSecondaryView->SetInfoHeaderFont(m_pPrimaryView->GetInfoHeaderFont());
 
-	font = m_pPrimaryView->GetFighterNameFont();
-	font.fromString(settings.value(str_tag_FighterNameFont, font.toString()).toString());
-	update_fighter_name_font(font);
+		font = m_pPrimaryView->GetFighterNameFont();
+		font.fromString(settings.value(str_tag_FighterNameFont, font.toString()).toString());
+		update_fighter_name_font(font);
 
-	font = m_pPrimaryView->GetDigitFont();
-	font.fromString(settings.value(str_tag_DigitFont, font.toString()).toString());
-	m_pPrimaryView->SetDigitFont(font);
-	m_pSecondaryView->SetDigitFont(font);
-	//m_pScoreScreen->SetDigitFont(font);
+		font = m_pPrimaryView->GetDigitFont();
+		font.fromString(settings.value(str_tag_DigitFont, font.toString()).toString());
+		m_pPrimaryView->SetDigitFont(font);
+		m_pSecondaryView->SetDigitFont(font);
+		//m_pScoreScreen->SetDigitFont(font);
+	}
 	settings.endGroup();
 
 	//
 	// Colors
 	//
 	settings.beginGroup(str_tag_Colors);
-	QColor fgColor = m_pSecondaryView->GetInfoTextColor();
-	QColor bgColor = m_pSecondaryView->GetInfoTextBgColor();
+	{
+		QColor fgColor = m_pSecondaryView->GetInfoTextColor();
+		QColor bgColor = m_pSecondaryView->GetInfoTextBgColor();
 
-	if (settings.contains(str_tag_InfoTextColor))
-		fgColor = settings.value(str_tag_InfoTextColor).value<QColor>();
+		if (settings.contains(str_tag_InfoTextColor))
+			fgColor = settings.value(str_tag_InfoTextColor).value<QColor>();
 
-	if (settings.contains(str_tag_InfoTextBgColor))
-		bgColor = settings.value(str_tag_InfoTextBgColor).value<QColor>();
+		if (settings.contains(str_tag_InfoTextBgColor))
+			bgColor = settings.value(str_tag_InfoTextBgColor).value<QColor>();
 
-	update_info_text_color(fgColor, bgColor);
+		update_info_text_color(fgColor, bgColor);
 
-	fgColor = m_pSecondaryView->GetTextColorFirst();
-	bgColor = m_pSecondaryView->GetTextBgColorFirst();
+		fgColor = m_pSecondaryView->GetTextColorFirst();
+		bgColor = m_pSecondaryView->GetTextBgColorFirst();
 
-	if (settings.contains(str_tag_TextColorFirst))
-		fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
+		if (settings.contains(str_tag_TextColorFirst))
+			fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
 
-	if (settings.contains(str_tag_TextBgColorFirst))
-		bgColor = settings.value(str_tag_TextBgColorFirst).value<QColor>();
+		if (settings.contains(str_tag_TextBgColorFirst))
+			bgColor = settings.value(str_tag_TextBgColorFirst).value<QColor>();
 
-	update_text_color_first(fgColor, bgColor);
+		update_text_color_first(fgColor, bgColor);
 
-	fgColor = m_pPrimaryView->GetTextColorSecond();
-	bgColor = m_pSecondaryView->GetTextBgColorSecond();
+		fgColor = m_pPrimaryView->GetTextColorSecond();
+		bgColor = m_pSecondaryView->GetTextBgColorSecond();
 
-	if (settings.contains(str_tag_TextColorSecond))
-		fgColor = settings.value(str_tag_TextColorSecond).value<QColor>();
+		if (settings.contains(str_tag_TextColorSecond))
+			fgColor = settings.value(str_tag_TextColorSecond).value<QColor>();
 
-	if (settings.contains(str_tag_TextBgColorSecond))
-		bgColor = settings.value(str_tag_TextBgColorSecond).value<QColor>();
+		if (settings.contains(str_tag_TextBgColorSecond))
+			bgColor = settings.value(str_tag_TextBgColorSecond).value<QColor>();
 
-	update_text_color_second(fgColor, bgColor);
+		update_text_color_second(fgColor, bgColor);
 
-	//fgColor = m_pPrimaryView->GetMainClockColor1();
-	//bgColor = m_pPrimaryView->GetMainClockColor2();
-	//if( settings.contains(str_tag_MainClockColorRunning) )
-	//	fgColor = settings.value(str_tag_MainClockColorRunning).value<QColor>();
-	//if( settings.contains(str_tag_MainClockColorStopped) )
-	//	bgColor = settings.value(str_tag_MainClockColorStopped).value<QColor>();
-	//m_pPrimaryView->SetMainClockColor(fgColor, bgColor);
-	//m_pSecondaryView->SetMainClockColor(fgColor, bgColor);
+		//fgColor = m_pPrimaryView->GetMainClockColor1();
+		//bgColor = m_pPrimaryView->GetMainClockColor2();
+		//if( settings.contains(str_tag_MainClockColorRunning) )
+		//	fgColor = settings.value(str_tag_MainClockColorRunning).value<QColor>();
+		//if( settings.contains(str_tag_MainClockColorStopped) )
+		//	bgColor = settings.value(str_tag_MainClockColorStopped).value<QColor>();
+		//m_pPrimaryView->SetMainClockColor(fgColor, bgColor);
+		//m_pSecondaryView->SetMainClockColor(fgColor, bgColor);
+	}
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Input);
+	{
+		m_controllerCfg.button_hajime_mate =
+			settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
 
-	m_controllerCfg.button_hajime_mate =
-		settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
+		m_controllerCfg.button_next =
+			settings.value(str_tag_buttonNext, Gamepad::eButton10).toInt();
 
-	m_controllerCfg.button_next =
-		settings.value(str_tag_buttonNext, Gamepad::eButton10).toInt();
+		m_controllerCfg.button_prev =
+			settings.value(str_tag_buttonPrev, Gamepad::eButton9).toInt();
 
-	m_controllerCfg.button_prev =
-		settings.value(str_tag_buttonPrev, Gamepad::eButton9).toInt();
+		m_controllerCfg.button_pause =
+			settings.value(str_tag_buttonPause, Gamepad::eButton2).toInt();
 
-	m_controllerCfg.button_pause =
-		settings.value(str_tag_buttonPause, Gamepad::eButton2).toInt();
+		m_controllerCfg.button_reset =
+			settings.value(str_tag_buttonReset, Gamepad::eButton1).toInt();
 
-	m_controllerCfg.button_reset =
-		settings.value(str_tag_buttonReset, Gamepad::eButton1).toInt();
+		m_controllerCfg.button_reset_2 =
+			settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
 
-	m_controllerCfg.button_reset_2 =
-		settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
+		m_controllerCfg.button_reset_hold_first =
+			settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
 
-	m_controllerCfg.button_reset_hold_first =
-		settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
+		m_controllerCfg.button_reset_hold_second =
+			settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
 
-	m_controllerCfg.button_reset_hold_second =
-		settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
+		m_controllerCfg.button_osaekomi_toketa_first =
+			settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
 
-	m_controllerCfg.button_osaekomi_toketa_first =
-		settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
+		m_controllerCfg.button_osaekomi_toketa_second =
+			settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
 
-	m_controllerCfg.button_osaekomi_toketa_second =
-		settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
+		m_controllerCfg.button_hansokumake_first =
+			settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
 
-	m_controllerCfg.button_hansokumake_first =
-		settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
+		m_controllerCfg.button_hansokumake_second =
+			settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
 
-	m_controllerCfg.button_hansokumake_second =
-		settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
-
-	m_controllerCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
-	m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
-	m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
-	m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
-	// apply settings to gamepad controller
-	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
-	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
-	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
-	m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+		m_controllerCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
+		m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
+		m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
+		m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
+		// apply settings to gamepad controller
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+	}
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
-	m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
-							   "sounds/buzzer1.wav").toString());
+	{	
+		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
+								"sounds/buzzer1.wav").toString());
+	}
 	settings.endGroup();
 
 	// update views

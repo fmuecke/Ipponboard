@@ -14,6 +14,7 @@
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
+#include "../core/EnumStrings.h"
 #include "../core/Fighter.h"
 #include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
@@ -292,4 +293,33 @@ void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
 void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_AutoIncrementPoints, checked);
+}
+
+void MainWindow::write_specific_settings(QSettings& settings)
+{
+	settings.beginGroup(EditionNameShort());
+	{
+		settings.setValue(str_tag_MatLabel, m_MatLabel);
+		settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
+		settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
+	}
+	settings.endGroup();
+}
+
+void MainWindow::read_specific_settings(QSettings& settings)
+{
+	settings.beginGroup(EditionNameShort());
+	{
+		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
+		m_pPrimaryView->SetMat(m_MatLabel);
+		m_pSecondaryView->SetMat(m_MatLabel);
+
+		// rules
+		m_pController->SetOption(eOption_AutoIncrementPoints,
+								 settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
+
+		m_pController->SetOption(eOption_Use2013Rules,
+								 settings.value(EnumToString(eOption_Use2013Rules), false).toBool());
+	}
+	settings.endGroup();
 }
