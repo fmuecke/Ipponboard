@@ -334,7 +334,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+41"/>
+        <location filename="../base/SettingsDlg.cpp" line="+47"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -357,7 +357,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+460"/>
+        <location filename="../base/View.cpp" line="+470"/>
         <source>Set time</source>
         <translation>Tijd Instellen</translation>
     </message>
@@ -699,12 +699,12 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+299"/>
+        <location filename="../base/MainWindowBase.cpp" line="+291"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location line="+666"/>
+        <location line="+663"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -720,7 +720,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-648"/>
+        <location line="-645"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1427,7 +1427,33 @@ Note: the time must be specified in seconds alone</source>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+91"/>
+        <location filename="../base/Main.cpp" line="+42"/>
+        <source>New version available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>There is a newer version of Ipponboard available: %1
+Do you want to download it or visit the project homepage?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Visit Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
+    </message>
+    <message>
+        <location line="+115"/>
         <source>This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1586,39 +1612,39 @@ Restoring defaults.</source>
     </message>
     <message>
         <location line="+27"/>
-        <location line="+738"/>
+        <location line="+721"/>
         <source>General</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location line="-732"/>
+        <location line="-715"/>
         <source>Secondary View</source>
         <translation>Tweede Scherm</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Display on start</source>
-        <translation>Tonen bij opstarten</translation>
+        <location line="+23"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
-        <source>Use screen</source>
-        <translation>Gebruik Scherm</translation>
+        <location line="+7"/>
+        <source>Screen</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
-        <source>Determine size automatically</source>
-        <translation>Schermgroote automatisch aanpassen</translation>
+        <location line="+24"/>
+        <source>Use custom size</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
-        <source>width</source>
-        <translation>Breedte</translation>
+        <location line="+19"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+41"/>
-        <source>height</source>
-        <translation>Hoogte</translation>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+48"/>
@@ -2072,23 +2098,27 @@ Restoring defaults.</source>
         <translation>Informatie Licentie</translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+208"/>
+        <source>Ok, start Single Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Ok, start Team Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>No, thanks!</source>
         <translation>Neen, Bedankt!</translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-32"/>
         <source>Accept terms of usage &amp; start Team Tournament edition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+26"/>
-        <source>I agree</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-3"/>
+        <location line="-26"/>
         <source>Accept terms of usage &amp; start Single Tournament edition.</source>
         <translation type="unfinished"></translation>
     </message>

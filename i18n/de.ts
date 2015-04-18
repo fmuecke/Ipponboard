@@ -334,7 +334,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+41"/>
+        <location filename="../base/SettingsDlg.cpp" line="+47"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -357,7 +357,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+460"/>
+        <location filename="../base/View.cpp" line="+470"/>
         <source>Set time</source>
         <translation>Zeit setzen</translation>
     </message>
@@ -699,12 +699,12 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+299"/>
+        <location filename="../base/MainWindowBase.cpp" line="+291"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location line="+666"/>
+        <location line="+663"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -720,7 +720,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-648"/>
+        <location line="-645"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1430,7 +1430,34 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+91"/>
+        <location filename="../base/Main.cpp" line="+42"/>
+        <source>New version available</source>
+        <translation>Neue Version verfügbar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>There is a newer version of Ipponboard available: %1
+Do you want to download it or visit the project homepage?</source>
+        <translation>Eine neuere Version von Ipponboard ist verfügbar: %1
+Wollen Sie diese herunterladen oder die Projektseite besuchen?</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Download</source>
+        <translation>Runterladen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Visit Homepage</source>
+        <translation>Seite besuchen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location line="+115"/>
         <source>This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.</source>
         <translation>Diese Version kann uneingeschränkt verwendet werden. Die Weitergabe in unveränderter Form ist erlaubt und erwünscht.</translation>
     </message>
@@ -1597,37 +1624,17 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
         <location line="+27"/>
-        <location line="+738"/>
+        <location line="+721"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location line="-732"/>
+        <location line="-715"/>
         <source>Secondary View</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="+35"/>
-        <source>Use screen</source>
-        <translation>Benutze Bildschirm</translation>
-    </message>
-    <message>
-        <location line="+25"/>
-        <source>Determine size automatically</source>
-        <translation>Größe automatisch bestimmen</translation>
-    </message>
-    <message>
-        <location line="+30"/>
-        <source>width</source>
-        <translation>Breite</translation>
-    </message>
-    <message>
-        <location line="+41"/>
-        <source>height</source>
-        <translation>Höhe</translation>
-    </message>
-    <message>
-        <location line="+297"/>
+        <location line="+411"/>
         <location line="+195"/>
         <source>bold</source>
         <translation>fett</translation>
@@ -1693,12 +1700,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Y-Achse invertieren</translation>
     </message>
     <message>
-        <location line="-921"/>
-        <source>Display on start</source>
-        <translation>Beim Start anzeigen</translation>
-    </message>
-    <message>
-        <location line="+159"/>
+        <location line="-762"/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>
@@ -1839,7 +1841,32 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-259"/>
+        <source>Size</source>
+        <translation>Auflösung</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Screen</source>
+        <translation>Bildschirm</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Use custom size</source>
+        <translation>Eigene Größe verwenden</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Width</source>
+        <translation>Breite</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Height</source>
+        <translation>Höhe</translation>
+    </message>
+    <message>
+        <location line="+171"/>
         <source>Guest Label</source>
         <translation>&quot;Gast&quot;-Beschriftung</translation>
     </message>
@@ -2083,23 +2110,27 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Lizenzinformation</translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+208"/>
+        <source>Ok, start Single Version</source>
+        <translation>Ok, Einzelversion starten</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Ok, start Team Version</source>
+        <translation>Ok, Mannschaftsversion starten</translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>No, thanks!</source>
         <translation>Nein, danke!</translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-32"/>
         <source>Accept terms of usage &amp; start Team Tournament edition.</source>
         <translation>Lizenzbestimmungen akzeptieren &amp; Team-Version starten.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+26"/>
-        <source>I agree</source>
-        <translation>Ich stimme zu</translation>
-    </message>
-    <message>
-        <location line="-3"/>
+        <location line="-26"/>
         <source>Accept terms of usage &amp; start Single Tournament edition.</source>
         <translation>Lizenzbestimmungen akzeptieren &amp; Ipponboard starten.</translation>
     </message>
