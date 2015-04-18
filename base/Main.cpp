@@ -35,15 +35,23 @@ bool CheckForNeverVersion()
 		query.evaluateTo(&version);
 		version = version.trimmed();
 
-		if (version != VersionInfo::VersionStr)
+		QStringList onlineVer = version.split('.');
+		QStringList buildVer = QString(VersionInfo::VersionStr).split('.');
+		
+		while (onlineVer.length() < 3) onlineVer.append("0");
+		while (buildVer.length() < 3) buildVer.append("0");
+
+		if (onlineVer[0].toInt() > buildVer[0].toInt() ||
+			onlineVer[1].toInt() > buildVer[2].toInt() || 
+			onlineVer[2].toInt() > buildVer[2].toInt())
 		{
-			auto result = QMessageBox::question(
+			auto result = QMessageBox::information(
 				nullptr,
 				QCoreApplication::tr("New version available"),
-				QCoreApplication::tr("There is a new version available for Ipponboard: %1\nDo you want to download it or visit the project homepage?").arg(version),
+				QCoreApplication::tr("There is a newer version of Ipponboard available: %1\nDo you want to download it or visit the project homepage?").arg(version),
 				QCoreApplication::tr("Download"), 
 				QCoreApplication::tr("Visit Homepage"), 
-				QString("Cancel"), 
+				QCoreApplication::tr("Cancel"),
 				0, 2);
 
 			if (result == 0)
