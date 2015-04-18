@@ -1,6 +1,7 @@
 #ifndef BASE__SETTINGSDLG_H_
 #define BASE__SETTINGSDLG_H_
 
+#include "../core/EditionType.h"
 #include <QDialog>
 #include <map>
 
@@ -20,11 +21,10 @@ class SettingsDlg : public QDialog
 {
 	Q_OBJECT
 public:
-	SettingsDlg(QWidget* parent = 0);
+	SettingsDlg(EditionType edition, QWidget* parent = 0);
 	~SettingsDlg();
 
-	void SetScreensSettings(bool showAlways, int screen, bool autosize,
-							const QSize& dimensions);
+	void SetScreensSettings(int screen, const QSize& dimensions); // zero dimensions means auto size
 	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
 							   const QColor& background);
 	void SetFighterNameFont(const QFont& font);
@@ -35,9 +35,7 @@ public:
 
 	void SetRules(bool autoIncrement, bool use2013RuleSet);
 
-	bool IsShowAlways() const;
 	int GetSelectedScreen() const;
-	bool IsAutoSize() const;
 	QSize GetSize() const;
 	QFont GetInfoHeaderFont() const;
 	QFont GetFighterNameFont() const;
@@ -65,6 +63,7 @@ private:
 	void set_button_value(QComboBox* pCombo, int buttonId);
 
 private:
+	EditionType m_edition;
 	Ui::SettingsDlg* ui;
 	typedef std::map<int, QString> ButtonTextMap;
 	ButtonTextMap m_buttonTexts;
@@ -86,7 +85,7 @@ private slots:
 	void on_toolButton_play_gong_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();
-	void on_checkBox_autosize_secondary_view_toggled(bool checked);
+	void on_checkBox_secondary_view_custom_size_toggled(bool checked);
 };
 
 } // namespace Ipponboard

@@ -7,6 +7,7 @@
 #include "../core/iController.h"
 #include "../core/iView.h"
 #include "../core/Enums.h"
+#include "../core/EditionType.h"
 
 // forwards
 namespace Ui { class ScoreViewHorizontal; }
@@ -24,6 +25,7 @@ public:
 	enum EType { eTypePrimary, eTypeSecondary };
 	enum ColorType { firstFg, firstBg, secondFg, secondBg };
 	explicit View(IController* pController,
+				  EditionType edition,
 				  EType type,
 				  QWidget* parent = 0);
 	virtual ~View();
@@ -84,6 +86,7 @@ private:
 	void update_colors();
 	void show_golden_score(bool show);
 
+	EditionType m_Edition;
 	EType m_Type;
 	IController* m_pController;
 	Ui::ScoreViewHorizontal* ui;

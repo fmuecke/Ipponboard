@@ -1,5 +1,5 @@
 ﻿#include "MainWindowTeam.h"
-#include "ui_mainwindow.h" //TODO: may be obsolete
+#include "ui_MainWindowTeam.h" 
 
 #include "ScoreScreen.h"
 #include "../base/ComboboxDelegate.h"
@@ -58,6 +58,7 @@ namespace { bool initialized = false; }
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
+	, m_pUi(new Ui::MainWindowTeam)
 	, m_pScoreScreen()
 	, m_pClubManager()
 	, m_htmlScore()
@@ -70,6 +71,10 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 	m_pUi->setupUi(this);
 }
 
+MainWindowTeam::~MainWindowTeam()
+{
+}
+
 void MainWindowTeam::Init()
 {
 	m_pClubManager.reset(new Ipponboard::ClubManager());
@@ -80,6 +85,21 @@ void MainWindowTeam::Init()
 	// set default background
 	m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
+	//
+	// load tournament modes
+	//
+	QString errMsg;
+    Ipponboard::TournamentMode::List modes;
+    if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
+	{
+		QMessageBox::critical(0,
+                              QCoreApplication::tr("Error reading mode configurations"),
+							  errMsg);
+
+		throw std::exception("Initialization failed!");
+	}
+	SetModes(modes);
+	
 	// load modes
 	for (auto const& mode : m_modes)
 	{
@@ -293,16 +313,6 @@ void MainWindowTeam::read_specific_settings(QSettings& settings)
 			settings.value(str_tag_LabelGuest, tr("Guest")).toString());
 	}
 	settings.endGroup();
-
-	settings.beginGroup(str_tag_Styles);
-
-	if (settings.contains(str_tag_BgStyle))
-	{
-		const QString styleSheet = settings.value(str_tag_BgStyle).toString();
-		m_pScoreScreen->setStyleSheet(styleSheet);
-	}
-
-	settings.endGroup();
 }
 
 void MainWindowTeam::on_actionManageFighters_triggered()
@@ -410,6 +420,35 @@ void MainWindowTeam::UpdateFightNumber_()
 	{
 		m_pUi->widget_currentRound->UpdateImage(":res/images/two_green.png");
 	}
+}
+
+void MainWindowTeam::attach_primary_view()
+{
+	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+	
+	if (widget)
+	{
+		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}	
+}
+
+void MainWindowTeam::retranslate_Ui()
+{
+	m_pUi->retranslateUi(this);
+}
+
+void MainWindowTeam::ui_check_language_items()
+{
+	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+	m_pUi->actionLang_English->setChecked("en" == m_Language);
+	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
+
+	// don't forget second implementation!
+}
+
+void MainWindowTeam::ui_check_show_secondary_view(bool checked)
+{
+	m_pUi->actionShow_SecondaryView->setChecked(true);
 }
 
 void MainWindowTeam::UpdateButtonText_()
@@ -793,7 +832,7 @@ void MainWindowTeam::on_button_pause_clicked()
 			m_pScoreScreen->move(QPoint(screenres.x(), screenres.y()));
 		}
 
-		if (m_bAutoSize)
+		if (m_secondScreenSize.isNull())
 		{
 			m_pScoreScreen->showFullScreen();
 		}

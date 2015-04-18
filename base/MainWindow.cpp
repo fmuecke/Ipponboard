@@ -14,6 +14,7 @@
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
+#include "../core/EnumStrings.h"
 #include "../core/Fighter.h"
 #include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
@@ -48,6 +49,7 @@ using namespace Ipponboard;
 
 MainWindow::MainWindow(QWidget* parent)
 	: MainWindowBase(parent)
+	, m_pUi(new Ui::MainWindow)
 	, m_pCategoryManager()
 {
 	m_pUi->setupUi(this);
@@ -250,8 +252,37 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
-	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
+	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+}
+
+void MainWindow::attach_primary_view()
+{
+	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+	
+	if (widget)
+	{
+		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}	
+}
+
+void MainWindow::retranslate_Ui()
+{
+	m_pUi->retranslateUi(this);
+}
+
+void MainWindow::ui_check_language_items()
+{
+	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+	m_pUi->actionLang_English->setChecked("en" == m_Language);
+	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
+
+	// don't forget second implementation!
+}
+
+void MainWindow::ui_check_show_secondary_view(bool checked)
+{
+	m_pUi->actionShow_SecondaryView->setChecked(true);
 }
 
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
@@ -262,4 +293,33 @@ void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
 void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_AutoIncrementPoints, checked);
+}
+
+void MainWindow::write_specific_settings(QSettings& settings)
+{
+	settings.beginGroup(EditionNameShort());
+	{
+		settings.setValue(str_tag_MatLabel, m_MatLabel);
+		settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
+		settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
+	}
+	settings.endGroup();
+}
+
+void MainWindow::read_specific_settings(QSettings& settings)
+{
+	settings.beginGroup(EditionNameShort());
+	{
+		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
+		m_pPrimaryView->SetMat(m_MatLabel);
+		m_pSecondaryView->SetMat(m_MatLabel);
+
+		// rules
+		m_pController->SetOption(eOption_AutoIncrementPoints,
+								 settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
+
+		m_pController->SetOption(eOption_Use2013Rules,
+								 settings.value(EnumToString(eOption_Use2013Rules), false).toBool());
+	}
+	settings.endGroup();
 }

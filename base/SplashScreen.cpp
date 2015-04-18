@@ -7,7 +7,7 @@
 // $Id$
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
-#include "../base/versioninfo.h"
+#include "versioninfo.h"
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)
@@ -55,6 +55,11 @@ void SplashScreen::changeEvent(QEvent* e)
 void SplashScreen::on_pushButton_pressed()
 {
 	accept();
+}
+
+void SplashScreen::on_pushButton_team_pressed()
+{
+	done(QDialog::Accepted + 1);
 }
 
 void SplashScreen::on_pushButton_Cancel_pressed()

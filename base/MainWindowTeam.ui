@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Florian Mücke</author>
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>MainWindowTeam</class>
+ <widget class="QMainWindow" name="MainWindowTeam">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -1584,7 +1584,7 @@
   <connection>
    <sender>actionExit</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>MainWindowTeam</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

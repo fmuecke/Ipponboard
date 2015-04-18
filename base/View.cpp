@@ -12,8 +12,9 @@
 using namespace Ipponboard;
 
 //=========================================================
-View::View(IController* pController, EType type, QWidget* parent)
+View::View(IController* pController, EditionType edition, EType type, QWidget* parent)
 	: QWidget(parent)
+	, m_Edition(edition)
 	, m_Type(type)
 	, m_pController(pController)
 	, ui(new Ui::ScoreViewHorizontal)
@@ -90,14 +91,16 @@ View::View(IController* pController, EType type, QWidget* parent)
 	ui->dummy_first->SetBgColor(bgColor1);
 	ui->dummy_second->SetBgColor(bgColor2);
 
-#ifdef TEAM_VIEW
-	ui->text_score_team_first_label->SetColor(Qt::gray, Qt::black);
-	ui->text_score_team_second_label->SetColor(Qt::gray, Qt::black);
-	ui->text_score_team_first->SetColor(Qt::gray, Qt::black);
-	ui->text_score_team_second->SetColor(Qt::gray, Qt::black);
-	ui->layout_info_top->setStretchFactor(ui->text_mat, 3);
-	ui->layout_info_top->setStretchFactor(ui->text_weight, 1);
-#endif
+	if (m_Edition == EditionType::Team)
+	{
+
+		ui->text_score_team_first_label->SetColor(Qt::gray, Qt::black);
+		ui->text_score_team_second_label->SetColor(Qt::gray, Qt::black);
+		ui->text_score_team_first->SetColor(Qt::gray, Qt::black);
+		ui->text_score_team_second->SetColor(Qt::gray, Qt::black);
+		ui->layout_info_top->setStretchFactor(ui->text_mat, 3);
+		ui->layout_info_top->setStretchFactor(ui->text_weight, 1);
+	}
 
 	ui->text_ippon_first->SetColor(fgColor1, bgColor1);
 	ui->text_wazaari_first->SetColor(fgColor1, bgColor1);
@@ -168,21 +171,24 @@ void View::UpdateView()
 	// weight class
 	//
 	ui->text_mat->SetText(m_mat, ScaledText::eSize_normal);
-#ifdef TEAM_VIEW
-	QString infoText/*(tr("Fight ").toUpper())*/;
-	//infoText += QString::number(m_pController->GetRound()) + ": ";
-	infoText += m_pController->GetWeight() + "kg";
-	ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
-#else
-	QString infoText(m_category);
+	if (m_Edition == EditionType::Team)
+	{
+		QString infoText/*(tr("Fight ").toUpper())*/;
+		//infoText += QString::number(m_pController->GetRound()) + ": ";
+		infoText += m_pController->GetWeight() + "kg";
+		ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
+	}
+	else
+	{
+		QString infoText(m_category);
 
-	if (!infoText.isEmpty())
-		infoText += " / ";
+		if (!infoText.isEmpty())
+			infoText += " / ";
 
-	infoText += m_weight;//.toUpper();
-	ui->text_weight->SetText(infoText + "KG", ScaledText::eSize_full);
-#endif
-
+		infoText += m_weight;//.toUpper();
+		ui->text_weight->SetText(infoText + "KG", ScaledText::eSize_full);
+	}
+	
 	if (m_showInfoHeader)
 	{
 		ui->verticalLayout_main->setStretchFactor(ui->layout_info_top, 4);
@@ -319,10 +325,11 @@ void View::SetInfoHeaderFont(const QFont& font)
 	ui->text_weight->SetFont(font);
 	ui->text_mat->SetFont(font);
 
-#ifdef TEAM_VIEW
-	ui->text_score_team_first_label->SetFont(font);
-	ui->text_score_team_second_label->SetFont(font);
-#endif
+	if (m_Edition == EditionType::Team)
+	{
+		ui->text_score_team_first_label->SetFont(font);
+		ui->text_score_team_second_label->SetFont(font);
+	}
 }
 
 //=========================================================
@@ -357,10 +364,13 @@ void View::SetDigitFont(const QFont& font)
 	ui->text_yuko_second->SetFont(font);
 	ui->text_hold_clock_first->SetFont(font);
 	ui->text_hold_clock_second->SetFont(font);
-#ifdef TEAM_VIEW
-	ui->text_score_team_first->SetFont(font);
-	ui->text_score_team_second->SetFont(font);
-#endif
+
+	if (m_Edition == EditionType::Team)
+	{
+
+		ui->text_score_team_first->SetFont(font);
+		ui->text_score_team_second->SetFont(font);
+	}
 }
 
 //=========================================================
@@ -870,32 +880,34 @@ void View::update_team_score() const
 	//    tori = eFighter2;
 	//}
 
-#ifdef TEAM_VIEW
-
-	if (is_secondary())
+	if (m_Edition == EditionType::Team)
 	{
-		ui->text_score_team_first_label->SetText(m_pController->GetHomeLabel());
-		ui->text_score_team_second_label->SetText(m_pController->GetGuestLabel());
+		if (is_secondary())
+		{
+			ui->text_score_team_first_label->SetText(m_pController->GetHomeLabel());
+			ui->text_score_team_second_label->SetText(m_pController->GetGuestLabel());
+		}
+		else
+		{
+			ui->text_score_team_second_label->SetText(m_pController->GetHomeLabel());
+			ui->text_score_team_first_label->SetText(m_pController->GetGuestLabel());
+		}
+
+		ui->text_score_team_first->SetText(
+			QString::number(m_pController->GetTeamScore(GVF_(eFighter1))),
+			ScaledText::eSize_full);
+
+		ui->text_score_team_second->SetText(
+			QString::number(m_pController->GetTeamScore(GVF_(eFighter2))),
+			ScaledText::eSize_full);
 	}
 	else
 	{
-		ui->text_score_team_second_label->SetText(m_pController->GetHomeLabel());
-		ui->text_score_team_first_label->SetText(m_pController->GetGuestLabel());
+		ui->text_score_team_first_label->SetText("");
+		ui->text_score_team_second_label->SetText("");
+		ui->text_score_team_first->SetText("");
+		ui->text_score_team_second->SetText("");
 	}
-
-	ui->text_score_team_first->SetText(
-		QString::number(m_pController->GetTeamScore(GVF_(eFighter1))),
-		ScaledText::eSize_full);
-
-	ui->text_score_team_second->SetText(
-		QString::number(m_pController->GetTeamScore(GVF_(eFighter2))),
-		ScaledText::eSize_full);
-#else
-	ui->text_score_team_first_label->SetText("");
-	ui->text_score_team_second_label->SetText("");
-	ui->text_score_team_first->SetText("");
-	ui->text_score_team_second->SetText("");
-#endif
 }
 
 //=========================================================

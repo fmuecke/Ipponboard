@@ -1,8 +1,11 @@
 #------------------------------------------------------------------------------
+QT += xmlpatterns
+
 # This app depends on:
 #   - gamepad
 #   - core
 # These need to be build first.
+#PRE_TARGETDEPS += ../gamepad ../core
 
 TEMPLATE = app
 LANGUAGE = C++
@@ -11,8 +14,8 @@ DEFINES += _WIN32
 
 # Use Precompiled headers (PCH)
 # (inclusion of header in HEADERS section is not required!)
-#PRECOMPILED_HEADER = ../base/pch.h
-#disabled due to mingw reasons
+#PRECOMPILED_HEADER  = ../base/pch.h
+#disabled for mingw!
 
 INCLUDEPATH += $$quote($$(BOOST_DIR))
 
@@ -21,14 +24,14 @@ QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 
 DESTDIR = ../bin
 
-CONFIG(release, release|debug) {
-    TARGET = Ipponboard
-    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
-}
-
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
+}
+
+CONFIG(release, release|debug) {
+    TARGET = Ipponboard
+    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
@@ -59,58 +62,71 @@ contains(COMPILER, msvc) {
     QMAKE_POST_LINK += & copy_files.cmd
 }
 
-SOURCES = Main.cpp \
-    MainWindow.cpp \
-    ../util/jsoncpp/json.cpp \
-    ../base/AddFighterDlg.cpp \
-    ../base/ClubManager.cpp \
-    ../base/ClubManagerDlg.cpp \
-    ../base/SettingsDlg.cpp \
-    ../base/View.cpp \
-    ../base/FightCategoryManagerDlg.cpp \
-    ../base/FightCategoryManager.cpp \
-    ../base/MainWindowBase.cpp \
-    ../base/FighterManager.cpp \
-    ../base/FighterManagerDlg.cpp \
-    ../widgets/ScaledImage.cpp \
-    ../widgets/ScaledText.cpp \
-    ../widgets/SplashScreen.cpp \
-    ../widgets/Countdown.cpp
-
-HEADERS = ../base/pch.h \
-    MainWIndow.h \
-    ../base/AddFighterDlg.h \
-    ../base/ClubManager.h \
-    ../base/ClubManagerDlg.h \
-    ../base/MainWindowBase.h \
-    ../base/SettingsDlg.h \
-    ../base/View.h \
-    ../base/FightCategoryManagerDlg.h \
-    ../base/FightCategoryManager.h \
-    ../base/FighterManager.h \
-    ../base/FighterManagerDlg.h \
+HEADERS = pch.h \
+    MainWindow.h \
+	MainWindowTeam.h \
+    AddFighterDlg.h \
+    ClubManager.h \
+    ClubManagerDlg.h \
+    MainWindowBase.h \
+	ModeManagerDlg.h \
+    SettingsDlg.h \
+	ScoreScreen.h \
+    View.h \
+    FightCategoryManagerDlg.h \
+    FightCategoryManager.h \
+    FighterManager.h \
+    FighterManagerDlg.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
-    ../widgets/SplashScreen.h \
+    SplashScreen.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp 
 
+SOURCES = Main.cpp \
+    Main.cpp \
+    MainWindow.cpp \
+    MainWindowTeam.cpp \
+    ../util/jsoncpp/json.cpp \
+	AddFighterDlg.cpp \
+    ClubManager.cpp \
+    ClubManagerDlg.cpp \
+    SettingsDlg.cpp \
+    View.cpp \
+    FightCategoryManagerDlg.cpp \
+    FightCategoryManager.cpp \
+    MainWindowBase.cpp \
+	ModeManagerDlg.cpp \
+    FighterManager.cpp \
+    FighterManagerDlg.cpp \
+	ScoreScreen.cpp \
+    ../widgets/ScaledImage.cpp \
+    ../widgets/ScaledText.cpp \
+    SplashScreen.cpp \
+    ../widgets/Countdown.cpp
+
+
 FORMS = MainWindow.ui \
+    MainWindowTeam.ui \
     view_vertical_single.ui \
-    ../base/AddFighterDlg.ui \
-    ../base/ClubManagerDlg.ui \
-    ../base/SettingsDlg.ui \
-    ../base/FightCategoryManagerDlg.ui \
-    ../base/FighterManagerDlg.ui \
-    ../base/view_horizontal.ui \
-    ../widgets/SplashScreen.ui \
+    AddFighterDlg.ui \
+    ClubManagerDlg.ui \
+	ScoreScreen.ui \
+    SettingsDlg.ui \
+	ModeManagerDlg.ui \
+    FightCategoryManagerDlg.ui \
+    FighterManagerDlg.ui \
+    view_horizontal.ui \
+    SplashScreen.ui \
     ../widgets/Countdown.ui
 
-#OTHER_FILES +=
-RESOURCES += ../base/ipponboard.qrc
-TRANSLATIONS = ../i18n/Ipponboard_de.ts \
-    ../i18n/Ipponboard_nl.ts
+OTHER_FILES += \
+    TournamentModes.ini
 
-win32:RC_FILE = ../base/ipponboard.rc
+RESOURCES += ipponboard.qrc
+TRANSLATIONS = ../i18n/de.ts \
+    ../i18n/nl.ts
+
+win32:RC_FILE = ipponboard.rc

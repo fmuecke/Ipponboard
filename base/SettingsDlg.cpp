@@ -12,28 +12,34 @@
 
 using namespace Ipponboard;
 
-SettingsDlg::SettingsDlg(QWidget* parent) :
+SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	QDialog(parent),
+	m_edition(edition),
 	ui(new Ui::SettingsDlg)
 {
 	ui->setupUi(this);
 
-#ifdef TEAM_VIEW
-	ui->comboBox_next->setEnabled(true);
-	ui->comboBox_prev->setEnabled(true);
-	ui->comboBox_pause->setEnabled(true);
+	if (m_edition == EditionType::Team)
+	{
+		ui->comboBox_next->setEnabled(true);
+		ui->comboBox_prev->setEnabled(true);
+		ui->comboBox_pause->setEnabled(true);
 
-	ui->label_home->setEnabled(true);
-	ui->label_guest->setEnabled(true);
-	ui->lineEdit_labelHome->setEnabled(true);
-	ui->lineEdit_labelGuest->setEnabled(true);
-#else
-	ui->label_home->setEnabled(false);
-	ui->label_guest->setEnabled(false);
-	ui->lineEdit_labelHome->setEnabled(false);
-	ui->lineEdit_labelGuest->setEnabled(false);
-#endif
-
+		ui->comboBox_mat->setEnabled(false);
+		ui->label_home->setEnabled(true);
+		ui->label_guest->setEnabled(true);
+		ui->lineEdit_labelHome->setEnabled(true);
+		ui->lineEdit_labelGuest->setEnabled(true);
+	}
+	else
+	{
+		ui->comboBox_mat->setEnabled(true);
+		ui->label_home->setEnabled(false);
+		ui->label_guest->setEnabled(false);
+		ui->lineEdit_labelHome->setEnabled(false);
+		ui->lineEdit_labelGuest->setEnabled(false);
+	}
+	
 	//TODO: remove comment
 	//ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
@@ -193,24 +199,22 @@ SettingsDlg::~SettingsDlg()
 }
 
 
-void SettingsDlg::SetScreensSettings(bool showAlways,
-									 int screen,
-									 bool autosize,
-									 const QSize& dimensions)
+void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions)
 {
-	ui->checkBox_open_secondary_view->setChecked(showAlways);
-
 	Q_ASSERT(screen < ui->comboBox_screen->count());
 	ui->comboBox_screen->setCurrentIndex(screen);
 
-	ui->checkBox_autosize_secondary_view->setChecked(autosize);
-	ui->lineEdit_fixedsize_width->setText(
-		QString::number(dimensions.width()));
-	ui->lineEdit_fixedsize_height->setText(
-		QString::number(dimensions.height()));
-
-	if (!autosize)
+	if (dimensions.isNull())
 	{
+		ui->checkBox_secondary_view_custom_size->setChecked(false);
+	}
+	else
+	{
+		ui->checkBox_secondary_view_custom_size->setChecked(true);
+		ui->lineEdit_fixedsize_width->setText(
+			QString::number(dimensions.width()));
+		ui->lineEdit_fixedsize_height->setText(
+			QString::number(dimensions.height()));
 		ui->lineEdit_fixedsize_width->setEnabled(true);
 		ui->lineEdit_fixedsize_height->setEnabled(true);
 	}
@@ -286,19 +290,9 @@ void SettingsDlg::SetRules(bool autoIncrement, bool use2013RuleSet)
 	ui->checkBox_rules_2013->setChecked(use2013RuleSet);
 }
 
-bool SettingsDlg::IsShowAlways() const
-{
-	return ui->checkBox_open_secondary_view->isChecked();
-}
-
 int SettingsDlg::GetSelectedScreen() const
 {
 	return ui->comboBox_screen->currentIndex();
-}
-
-bool SettingsDlg::IsAutoSize() const
-{
-	return ui->checkBox_autosize_secondary_view->isChecked();
 }
 
 QSize SettingsDlg::GetSize() const
@@ -627,11 +621,17 @@ void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
 	pCombo->setCurrentIndex(index);
 }
 
-void Ipponboard::SettingsDlg::on_checkBox_autosize_secondary_view_toggled(bool checked)
+void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(bool checked)
 {
-	ui->lineEdit_fixedsize_width->setEnabled(!checked);
-	ui->lineEdit_fixedsize_height->setEnabled(!checked);
-	ui->label_screen_width->setEnabled(!checked);
-	ui->label_screen_height->setEnabled(!checked);
+	ui->lineEdit_fixedsize_width->setEnabled(checked);
+	ui->lineEdit_fixedsize_height->setEnabled(checked);
+	ui->label_screen_width->setEnabled(checked);
+	ui->label_screen_height->setEnabled(checked);
+	
+	if (!checked)
+	{
+		ui->lineEdit_fixedsize_width->setText("0");
+		ui->lineEdit_fixedsize_height->setText("0");
+	}
 }
 

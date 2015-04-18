@@ -2,6 +2,7 @@
 #define BASE__MAINWINDOW_BASE_H_
 
 #include "../core/iView.h"
+#include "../core/EditionType.h"
 #include "FighterManager.h"
 #include "../core/ControllerConfig.h"
 #include "../util/helpers.hpp"
@@ -13,8 +14,8 @@
 // forwards
 namespace Ui
 {
-class MainWindow;
-class Frame_Clubs;
+//class MainWindow;
+//class Frame_Clubs;
 }
 namespace Ipponboard
 {
@@ -40,8 +41,6 @@ static const char* const str_tag_size = "size";
 static const char* const str_tag_pos = "pos";
 static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
-static const char* const str_tag_AutoSize = "AutoSize";
-static const char* const str_tag_AlwaysShow = "AlwaysShow";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
@@ -60,8 +59,6 @@ static const char* const str_tag_TextColorSecond = "TextColorSecond";
 static const char* const str_tag_TextBgColorSecond = "TextBgColorSecond";
 static const char* const str_tag_MainClockColorRunning = "MainClockColorRunning";
 static const char* const str_tag_MainClockColorStopped = "MainClockColorStopped";
-static const char* const str_tag_Styles = "Styles";
-static const char* const str_tag_BgStyle = "BackgroundStyle";
 static const char* const str_tag_Input = "Input";
 static const char* const str_tag_buttonHajimeMate = "ButtonHajimeMate";
 static const char* const str_tag_buttonOsaekomiToketa = "ButtonOsaekomiToketa";
@@ -94,6 +91,7 @@ public:
 
 	QString GetConfigFileName() const;
 	QString GetFighterFileName() const;
+	virtual EditionType Edition() const = 0;
 	virtual const char* EditionName() const = 0;
 	virtual const char* EditionNameShort() const = 0;
 
@@ -117,6 +115,10 @@ protected:
 	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
 	virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
 	virtual void update_fighter_name_font(const QFont&);
+	virtual void attach_primary_view() = 0;
+	virtual void retranslate_Ui() = 0;
+	virtual void ui_check_language_items() = 0;
+	virtual void ui_check_show_secondary_view(bool checked) = 0;
 
 private:
 	virtual void write_specific_settings(QSettings& settings);
@@ -146,7 +148,6 @@ protected slots:
 protected:
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
 
-	std::shared_ptr<Ui::MainWindow> m_pUi;
 	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
 	std::shared_ptr<Ipponboard::View> m_pSecondaryView;
 	std::shared_ptr<Ipponboard::Controller> m_pController;
@@ -157,8 +158,6 @@ protected:
 	QFont m_FighterNameFont;
 	int m_secondScreenNo;
 	QSize m_secondScreenSize;
-	bool m_bAutoSize;
-	bool m_bAlwaysShow;
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:

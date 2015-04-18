@@ -1,4 +1,5 @@
 @echo off
+setlocal
 REM -- language file
 call ..\env_cfg.bat
 
@@ -9,10 +10,10 @@ rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
 "%QTDIR%\lrelease" -compress -silent ..\i18n\core_de.ts -qm ..\i18n\core_de.qm
 "%QTDIR%\lrelease" -compress -silent ..\i18n\core_nl.ts -qm ..\i18n\core_nl.qm
-"%QTDIR%\lrelease" -compress -silent ..\i18n\Ipponboard_de.ts -qm ..\i18n\Ipponboard_de.qm
-"%QTDIR%\lrelease" -compress -silent ..\i18n\Ipponboard_nl.ts -qm ..\i18n\Ipponboard_nl.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\de.ts -qm ..\i18n\de.qm
+"%QTDIR%\lrelease" -compress -silent ..\i18n\nl.ts -qm ..\i18n\nl.qm
 copy /Y "..\i18n\core_??.qm" "%DEST%\lang">nul
-copy /Y "..\i18n\Ipponboard_??.qm" "%DEST%\lang">nul
+copy /Y "..\i18n\??.qm" "%DEST%\lang">nul
 
 REM -- sounds
 if not exist "%DEST%\sounds" mkdir "%DEST%\sounds">nul
@@ -29,6 +30,17 @@ rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
 REM -- categories
 copy /Y "..\base\categories.json" "%DEST%">nul
+REM -- clubs
+if not exist "%DEST%\clubs" mkdir "%DEST%\clubs">nul
+copy /Y "clubs.json" "%DEST%">nul
+copy /Y "clubs\*.png" "%DEST%\clubs">nul
+
+REM -- templates
+if not exist "%DEST%\templates" mkdir "%DEST%\templates">nul
+copy /Y "templates\*.*" "%DEST%\templates">nul
+
+REM -- modes
+copy /Y TournamentModes.ini "%DEST%">nul
 
 REM -- programme
 REM if not exist "%DEST%\Ipponboard.exe" (

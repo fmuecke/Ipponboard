@@ -11,6 +11,8 @@
 #include "../util/helpers.hpp"
 #include <memory>
 
+namespace Ui { class MainWindow; }
+
 class MainWindow : public MainWindowBase
 {
 	Q_OBJECT
@@ -20,14 +22,21 @@ public:
 
 	virtual void Init() final;
 
-	virtual const char* EditionName() const final		{ return "Basic Edition"; }
-	virtual const char* EditionNameShort() const final	{ return "Basic"; }
+	virtual EditionType Edition() const final			{ return EditionType::Single; }
+	virtual const char* EditionName() const final		{ return "Single Edition"; }
+	virtual const char* EditionNameShort() const final	{ return "Single"; }
 
 protected:
 	//virtual void changeEvent(QEvent* e) override;
 	//virtual void closeEvent(QCloseEvent* event) override;
 	//virtual void keyPressEvent(QKeyEvent* event) override;
+	virtual void write_specific_settings(QSettings& settings) final;
+	virtual void read_specific_settings(QSettings& settings) final;
 	virtual void update_statebar() override;
+	virtual void attach_primary_view() final;
+	virtual void retranslate_Ui() final;
+	virtual void ui_check_language_items() final;
+	virtual void ui_check_show_secondary_view(bool checked) final;
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
@@ -60,6 +69,7 @@ private slots:
 
 private:
 	/* member */
+	std::unique_ptr<Ui::MainWindow> m_pUi;
 	std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_CurrentFighterNames;
 };
