@@ -1,8 +1,8 @@
 ﻿#include "MainWindow.h"
 #include "MainWindowTeam.h"
 #include "../core/TournamentMode.h"
-#include "../Widgets/SplashScreen.h"
-#include "../base/versioninfo.h"
+#include "SplashScreen.h"
+#include "versioninfo.h"
 #include "../util/path_helpers.h"
 
 #include <QtGui/QApplication>

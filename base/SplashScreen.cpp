@@ -7,7 +7,7 @@
 // $Id$
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
-#include "../base/versioninfo.h"
+#include "versioninfo.h"
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)

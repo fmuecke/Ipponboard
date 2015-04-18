@@ -80,7 +80,7 @@ HEADERS = pch.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
-    ../widgets/SplashScreen.h \
+    SplashScreen.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp 
@@ -104,7 +104,7 @@ SOURCES = Main.cpp \
 	ScoreScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
-    ../widgets/SplashScreen.cpp \
+    SplashScreen.cpp \
     ../widgets/Countdown.cpp
 
 
@@ -119,7 +119,7 @@ FORMS = MainWindow.ui \
     FightCategoryManagerDlg.ui \
     FighterManagerDlg.ui \
     view_horizontal.ui \
-    ../widgets/SplashScreen.ui \
+    SplashScreen.ui \
     ../widgets/Countdown.ui
 
 OTHER_FILES += \
