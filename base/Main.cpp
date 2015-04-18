@@ -12,7 +12,72 @@
 #include <QFile>
 #include <QLocale>
 #include <QtextCodec>
+#include <QXmlQuery>
+#include <QUrl>
+#include <QDesktopServices>
 
+bool CheckForNeverVersion()
+{
+	QXmlQuery query;
+	try
+	{
+		query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml"));
+	}
+	catch (...)
+	{
+		return false;
+	}
+
+	query.setQuery("Ipponboard/Version/text()");
+	if (query.isValid())
+	{
+		QString version;
+		query.evaluateTo(&version);
+		version = version.trimmed();
+
+		if (version != VersionInfo::VersionStr)
+		{
+			auto result = QMessageBox::question(
+				nullptr,
+				QCoreApplication::tr("New version available"),
+				QCoreApplication::tr("There is a new version available for Ipponboard: %1\nDo you want to download it or visit the project homepage?").arg(version),
+				QCoreApplication::tr("Download"), 
+				QCoreApplication::tr("Visit Homepage"), 
+				QString("Cancel"), 
+				0, 2);
+
+			if (result == 0)
+			{
+				query.setQuery("Ipponboard/DownloadUrl/text()");
+				if (query.isValid())
+				{
+					QString url;
+					query.evaluateTo(&url);
+					url = url.trimmed();
+					return QDesktopServices::openUrl(QUrl(url));
+				}
+			}
+			else if (result == 1)
+			{
+				query.setQuery("Ipponboard/InfoUrl/text()");
+				if (query.isValid())
+				{
+					QString url;
+					query.evaluateTo(&url);
+					url = url.trimmed();
+					if (!QDesktopServices::openUrl(QUrl(url)))
+					{
+						return QDesktopServices::openUrl(QUrl("http://www.ipponboard.info/"));
+					}
+
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 void LangNotFound(const QString& fileName)
 {
@@ -87,6 +152,11 @@ int main(int argc, char* argv[])
     QTranslator coreTranslator; // Note: this object needs to remain in scope
 
     SetTranslation(a, translator, coreTranslator, langStr);
+
+	if (CheckForNeverVersion())
+	{
+		return 0;
+	}
 
     auto eulaText1 = QCoreApplication::tr("This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.");
     auto eulaText2 = QCoreApplication::tr("Please consider to support the development and future maintainance of Ipponbord by a small donation.");
