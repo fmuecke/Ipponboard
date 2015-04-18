@@ -223,7 +223,7 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="icon">
           <iconset resource="../base/ipponboard.qrc">
-           <normaloff>:/res/icons/fighter_blue.png</normaloff>:/res/icons/fighter_blue.png</iconset>
+           <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -249,7 +249,7 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="icon">
           <iconset resource="../base/ipponboard.qrc">
-           <normaloff>:/res/icons/category.png</normaloff>:/res/icons/category.png</iconset>
+           <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
