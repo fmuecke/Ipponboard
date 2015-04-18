@@ -2117,7 +2117,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     <message>
         <location line="+26"/>
         <source>Ok, start Team Version</source>
-        <translation>Ok, Mannschaftsversion starten</translation>
+        <translation>Ok, Teamversion starten</translation>
     </message>
     <message>
         <location line="+29"/>

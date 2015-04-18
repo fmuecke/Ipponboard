@@ -1,3 +1,10 @@
+Version 1.6.0
+(mod): combined Team Edition and Basic Edition in a single program (reduces maintenance costs)
+(new): automatic check if newer version is available
+(fix): option checkboxes were mixed up (autoincrement points, 2013 rules)
+(fix): improved German and English translation
+(fix): fixed a potential crash during initialization of manual fighter import
+
 Version 1.5.1
 (new): empty fights/unassigned fighters are shown as "--" on the board and in the lists (issue #31 & #11)
 (mod): path to club logos is stored releative to the program folder instead of using an absolute path (Team Edition only) (issue #9)

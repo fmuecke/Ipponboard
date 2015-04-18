@@ -2,8 +2,8 @@
 setlocal
 :: --> CHANGE VERSION HERE:
 SET VER1=1
-SET VER2=5
-SET VER3=1
+SET VER2=6
+SET VER3=0
 :: that's it. <--
 
 rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
