@@ -526,11 +526,22 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location line="+12"/>
-        <source>Visit Project Homepage</source>
-        <translation>Bezoek de homepagina</translation>
+        <source>Visit Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+147"/>
+        <location line="+3"/>
+        <source>Report a Bug</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
+        <source>Provide Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-150"/>
         <source>About Ipponboard</source>
         <translation>Over Ipponboard</translation>
     </message>
@@ -641,22 +652,7 @@ Geldige velden zijn: %1</translation>
         <translation>Bewerk Wedstrijdcategorieën</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Provide Feedback (Online)</source>
-        <translation>Bezorg uw Feedback (Online)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Manage Fight Categories</source>
-        <translation>Bewerk de wedstrijdcategorieën</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Contact Author</source>
-        <translation>Contacteer de Auteur</translation>
-    </message>
-    <message>
-        <location line="+50"/>
+        <location line="+71"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Informatiebanner</translation>
     </message>
@@ -704,7 +700,12 @@ Geldige velden zijn: %1</translation>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location line="+663"/>
+        <location line="+31"/>
+        <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+631"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -1085,11 +1086,21 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location line="+12"/>
-        <source>Visit Project Homepage</source>
-        <translation type="unfinished">Bezoek de homepagina</translation>
+        <source>Visit Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+116"/>
+        <source>Report a Bug</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
+        <source>Provide Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-116"/>
         <source>About Ipponboard</source>
         <translation type="unfinished">Over Ipponboard</translation>
     </message>
@@ -1166,17 +1177,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Provide Feedback (Online)</source>
-        <translation type="unfinished">Bezorg uw Feedback (Online)</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Contact Author</source>
-        <translation type="unfinished">Contacteer de Auteur</translation>
-    </message>
-    <message>
-        <location line="+44"/>
+        <location line="+62"/>
         <source>Set Hold Timer</source>
         <translation type="unfinished">Osaekomi-tijd instellen</translation>
     </message>
@@ -1427,7 +1428,7 @@ Note: the time must be specified in seconds alone</source>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+42"/>
+        <location filename="../base/Main.cpp" line="+68"/>
         <source>New version available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2093,12 +2094,12 @@ Restoring defaults.</source>
 <context>
     <name>SplashScreen</name>
     <message>
-        <location filename="../widgets/SplashScreen.ui" line="+17"/>
+        <location filename="../base/SplashScreen.ui" line="+17"/>
         <source>License Information</source>
         <translation>Informatie Licentie</translation>
     </message>
     <message>
-        <location line="+208"/>
+        <location line="+205"/>
         <source>Ok, start Single Version</source>
         <translation type="unfinished"></translation>
     </message>

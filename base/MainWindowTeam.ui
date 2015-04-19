@@ -36,7 +36,7 @@
    <string>Ipponboard</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../base/ipponboard.qrc">
+   <iconset resource="ipponboard.qrc">
     <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
   </property>
   <property name="statusTip">
@@ -105,7 +105,7 @@
         <string>List (Ctrl+1)</string>
        </property>
        <attribute name="icon">
-        <iconset resource="../base/ipponboard.qrc">
+        <iconset resource="ipponboard.qrc">
          <normaloff>:/res/icons/list.png</normaloff>:/res/icons/list.png</iconset>
        </attribute>
        <attribute name="title">
@@ -755,7 +755,7 @@
         <string>Score board (Ctrl+2)</string>
        </property>
        <attribute name="icon">
-        <iconset resource="../base/ipponboard.qrc">
+        <iconset resource="ipponboard.qrc">
          <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
        </attribute>
        <attribute name="title">
@@ -843,7 +843,7 @@
                <string>Show Results</string>
               </property>
               <property name="icon">
-               <iconset resource="../base/ipponboard.qrc">
+               <iconset resource="ipponboard.qrc">
                 <normaloff>:/res/images/off.png</normaloff>
                 <normalon>:/res/images/on_green.png</normalon>
                 <activeoff>:/res/images/off.png</activeoff>
@@ -1041,7 +1041,7 @@
                  <string>Previous</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="../base/ipponboard.qrc">
+                 <iconset resource="ipponboard.qrc">
                   <normaloff>:/res/icons/left.png</normaloff>:/res/icons/left.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1070,7 +1070,7 @@
                  <string notr="true">Next</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="../base/ipponboard.qrc">
+                 <iconset resource="ipponboard.qrc">
                   <normaloff>:/res/icons/right.png</normaloff>:/res/icons/right.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1171,8 +1171,8 @@
     <addaction name="actionAbout_Ipponboard"/>
     <addaction name="separator"/>
     <addaction name="actionVisit_Project_Homepage"/>
-    <addaction name="actionOnline_Feedback"/>
     <addaction name="actionContact_Author"/>
+    <addaction name="actionOnline_Feedback"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1266,16 +1266,16 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/homepage.png</normaloff>:/res/icons/homepage.png</iconset>
    </property>
    <property name="text">
-    <string>Visit Project Homepage</string>
+    <string>Visit Homepage</string>
    </property>
   </action>
   <action name="actionAbout_Ipponboard">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/about.png</normaloff>:/res/icons/about.png</iconset>
    </property>
    <property name="text">
@@ -1290,7 +1290,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
    </property>
    <property name="text">
@@ -1321,7 +1321,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
    </property>
    <property name="text">
@@ -1344,7 +1344,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
    </property>
    <property name="text">
@@ -1361,7 +1361,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/printer.png</normaloff>:/res/icons/printer.png</iconset>
    </property>
    <property name="text">
@@ -1370,7 +1370,7 @@
   </action>
   <action name="actionExport">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/pdf.png</normaloff>:/res/icons/pdf.png</iconset>
    </property>
    <property name="text">
@@ -1382,20 +1382,20 @@
   </action>
   <action name="actionOnline_Feedback">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/feedback.png</normaloff>:/res/icons/feedback.png</iconset>
    </property>
    <property name="text">
-    <string>Provide Feedback (Online)</string>
+    <string>Report a Bug</string>
    </property>
   </action>
   <action name="actionContact_Author">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/mail.png</normaloff>:/res/icons/mail.png</iconset>
    </property>
    <property name="text">
-    <string>Contact Author</string>
+    <string>Provide Feedback</string>
    </property>
   </action>
   <action name="actionLang_English">
@@ -1406,7 +1406,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/flags/gb.png</normaloff>:/res/icons/flags/gb.png</iconset>
    </property>
    <property name="text">
@@ -1424,7 +1424,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/flags/de.png</normaloff>:/res/icons/flags/de.png</iconset>
    </property>
    <property name="text">
@@ -1477,7 +1477,7 @@
   </action>
   <action name="actionScore_Screen">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/list.png</normaloff>:/res/icons/list.png</iconset>
    </property>
    <property name="text">
@@ -1492,7 +1492,7 @@
   </action>
   <action name="actionScore_Control">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
    </property>
    <property name="text">
@@ -1515,7 +1515,7 @@
   </action>
   <action name="actionImport_Fighters">
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
    </property>
    <property name="text">
@@ -1538,7 +1538,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../base/ipponboard.qrc">
+    <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/flags/nl.png</normaloff>:/res/icons/flags/nl.png</iconset>
    </property>
    <property name="text">
@@ -1577,8 +1577,8 @@
   <tabstop>lineEdit_score</tabstop>
  </tabstops>
  <resources>
-  <include location="../base/ipponboard.qrc"/>
-  <include location="../base/ipponboard.qrc"/>
+  <include location="ipponboard.qrc"/>
+  <include location="ipponboard.qrc"/>
  </resources>
  <connections>
   <connection>

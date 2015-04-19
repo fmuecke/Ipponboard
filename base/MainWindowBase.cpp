@@ -312,15 +312,14 @@ void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("http://flo.mueckeimnetz.de/ipponboard/survey_de");
+	QUrl url("https://bitbucket.org/fmuecke/ipponboard/issues?status=new&status=open");
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionContact_Author_triggered()
 {
-	QUrl url("mailto:ipponboardinfo@googlemail.com?"
-			 "subject=Ipponboard_v" + QCoreApplication::applicationVersion() +
-			 "&body=Please tell us what you want to know/suggest...");
+	QUrl url("mailto:ipponboardinfo@gmail.com?subject=Ipponboard%20v" + QCoreApplication::applicationVersion() + 
+		"%20Feedback&body=" + tr("Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that..."));
 	QDesktopServices::openUrl(url);
 }
 

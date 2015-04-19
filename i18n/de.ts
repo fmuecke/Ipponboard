@@ -440,12 +440,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Visit Project Homepage</source>
-        <translation>Projektseite besuchen</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+21"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
@@ -545,7 +540,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ipponboard verlassen</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+15"/>
+        <source>Visit Homepage</source>
+        <translation>Homepage besuchen</translation>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Secondary View</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
@@ -596,7 +596,18 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="+167"/>
+        <location line="+74"/>
+        <location line="+3"/>
+        <source>Report a Bug</source>
+        <translation>Fehler melden</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Provide Feedback</source>
+        <translation>Feedback geben</translation>
+    </message>
+    <message>
+        <location line="+81"/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
@@ -646,22 +657,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kategorien und Gewichtsklassen verwalten</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Provide Feedback (Online)</source>
-        <translation>Feedback (Online)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Manage Fight Categories</source>
-        <translation>Kategorien verwalten</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Contact Author</source>
-        <translation>Autor kontaktieren</translation>
-    </message>
-    <message>
-        <location line="+58"/>
+        <location line="+79"/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
@@ -704,7 +700,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location line="+663"/>
+        <location line="+31"/>
+        <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
+        <translation>Hallo, mein Name ist ??? I habe Ipponboard bei uns für (Einzel/Team)-Matches im Einsatz und hätte für eine zukünftige Version folgende Idee...</translation>
+    </message>
+    <message>
+        <location line="+631"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -1085,11 +1086,21 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location line="+12"/>
-        <source>Visit Project Homepage</source>
+        <source>Visit Homepage</source>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
+        <location line="+116"/>
+        <source>Report a Bug</source>
+        <translation>Fehler melden</translation>
+    </message>
+    <message>
         <location line="+9"/>
+        <source>Provide Feedback</source>
+        <translation>Feedback geben</translation>
+    </message>
+    <message>
+        <location line="-116"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
@@ -1166,17 +1177,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnisliste als PDF</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Provide Feedback (Online)</source>
-        <translation>Feedback (Online)</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Contact Author</source>
-        <translation>Autor kontaktieren</translation>
-    </message>
-    <message>
-        <location line="+44"/>
+        <location line="+62"/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
@@ -1430,7 +1431,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+42"/>
+        <location filename="../base/Main.cpp" line="+68"/>
         <source>New version available</source>
         <translation>Neue Version verfügbar</translation>
     </message>
@@ -2105,12 +2106,12 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <location filename="../widgets/SplashScreen.ui" line="+17"/>
+        <location filename="../base/SplashScreen.ui" line="+17"/>
         <source>License Information</source>
         <translation>Lizenzinformation</translation>
     </message>
     <message>
-        <location line="+208"/>
+        <location line="+205"/>
         <source>Ok, start Single Version</source>
         <translation>Ok, Einzelversion starten</translation>
     </message>
