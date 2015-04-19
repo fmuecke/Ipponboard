@@ -63,17 +63,28 @@ echo   (1) clean
 echo   (2) build
 echo   (3) rebuild
 echo   (4) setup
+echo   (5) run
 echo   (9) all
 echo   (q) quit
-choice /C 12349q /N
+choice /C 123459q /N
 :: value "0" is reserved!
-if %errorlevel%==6 goto :eof
-if %errorlevel%==5 goto cmd_all
+if %errorlevel%==7 goto :eof
+if %errorlevel%==6 goto cmd_all
+if %errorlevel%==5 goto cmd_run
 if %errorlevel%==4 goto cmd_setup
 if %errorlevel%==3 goto cmd_rebuild
 if %errorlevel%==2 goto cmd_build
 if %errorlevel%==1 goto cmd_clean
 GOTO the_end
+
+:cmd_run
+	pushd %BASE_DIR%\bin
+	ipponboard.exe
+	if errorlevel 1 (
+		popd
+		goto the_error
+	)
+goto the_end
 
 :cmd_all
 	_build\stopwatch start build
