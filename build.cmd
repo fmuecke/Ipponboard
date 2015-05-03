@@ -24,7 +24,7 @@ IF EXIST "%LOCAL_CONFIG%" (
   rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
   echo Please configure paths in "%LOCAL_CONFIG%" first!
   pause
-  GOTO :EOF
+  exit /b 0
 )
 
 SET BASE_DIR=%CD%
@@ -38,13 +38,13 @@ IF "%QMAKESPEC%"=="win32-msvc2013" (
 IF NOT EXIST "%BOOST_DIR%\boost" (
 	ECHO Can't find boost. Please set "BOOST" to boost path.
 	pause
-	GOTO :EOF
+	exit /b 0
 )
 
 IF NOT EXIST "%QTDIR%\qmake.exe" (
 	ECHO Can't find qmake.exe. Please specify "QTDIR".
 	pause
-	GOTO :EOF
+	exit /b 0
 )
 
 :menu
@@ -68,7 +68,7 @@ echo   (9) all
 echo   (q) quit
 choice /C 123459q /N
 :: value "0" is reserved!
-if %errorlevel%==7 goto :eof
+if %errorlevel%==7 exit /b 0
 if %errorlevel%==6 goto cmd_all
 if %errorlevel%==5 goto cmd_run
 if %errorlevel%==4 goto cmd_setup
@@ -138,7 +138,7 @@ goto the_end
 	
 	jom /S /L clean>nul 2>&1
 	if errorlevel 1 exit /b %errorlevel%
-goto :eof
+exit /b 0
 
 ::-------------------------------
 :make_build
@@ -159,7 +159,7 @@ goto :eof
 
 	CALL :compile GamepadDemo
 	if errorlevel 1 exit /b %errorlevel%
-GOTO :EOF
+exit /b 0
 
 ::-------------------------------
 :make_setup
@@ -167,7 +167,7 @@ GOTO :EOF
 	echo --[setup]--
 	if not exist "%INNO_DIR%\iscc.exe" (
 		echo Error: iscc.exe not found or INNO_DIR not defined!
-		GOTO :EOF
+		exit /b 0
 	)
 	CALL _build\scripts\clear_build_dir.cmd
 	if errorlevel 1 exit /b %errorlevel%
@@ -181,7 +181,7 @@ GOTO :EOF
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup_team.iss"
 	if errorlevel 1 exit /b %errorlevel%
 	dir /OD "%BASE_DIR%\_build\build_output"
-GOTO :EOF
+exit /b 0
 
 
 :compile
@@ -190,14 +190,14 @@ GOTO :EOF
 	jom /L /S /F Makefile.Release
 	if errorlevel 1 exit /b %errorlevel%
 	popd
-GOTO :EOF
+exit /b 0
 
 
 :generate_makefiles
 	echo -- Creating makefiles
 	"%QTDIR%"\qmake -recursive
 	if errorlevel 1 exit /b %errorlevel%
-goto :EOF
+exit /b 0
 
 
 :the_error
