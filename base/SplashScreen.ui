@@ -10,14 +10,14 @@
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>370</height>
+    <height>410</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>License Information</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../base/ipponboard.qrc">
+   <iconset resource="ipponboard.qrc">
     <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -222,7 +222,7 @@ p, li { white-space: pre-wrap; }
           <string>Ok, start Single Version</string>
          </property>
          <property name="icon">
-          <iconset resource="../base/ipponboard.qrc">
+          <iconset resource="ipponboard.qrc">
            <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
          </property>
          <property name="autoDefault">
@@ -248,7 +248,7 @@ p, li { white-space: pre-wrap; }
           <string>Ok, start Team Version</string>
          </property>
          <property name="icon">
-          <iconset resource="../base/ipponboard.qrc">
+          <iconset resource="ipponboard.qrc">
            <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
          </property>
          <property name="autoDefault">
@@ -277,7 +277,7 @@ p, li { white-space: pre-wrap; }
           <string>No, thanks!</string>
          </property>
          <property name="icon">
-          <iconset resource="../base/ipponboard.qrc">
+          <iconset resource="ipponboard.qrc">
            <normaloff>:/res/icons/deny.png</normaloff>:/res/icons/deny.png</iconset>
          </property>
          <property name="shortcut">
@@ -307,8 +307,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>pushButton_Cancel</tabstop>
  </tabstops>
  <resources>
-  <include location="../base/ipponboard.qrc"/>
-  <include location="../base/ipponboard.qrc"/>
+  <include location="ipponboard.qrc"/>
+  <include location="ipponboard.qrc"/>
  </resources>
  <connections/>
 </ui>
