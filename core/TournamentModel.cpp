@@ -148,10 +148,10 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 				return display_string(fight.is_saved, fight.scores[0].Shido());
 
 			case eCol_won1:
-				return display_string(fight.is_saved, fight.HasWon(Ipponboard::eFighter1));
+				return display_string(fight.is_saved, fight.HasWon(Ipponboard::FighterEnum::First));
 
 			case eCol_score1:
-				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::eFighter1));
+				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::FighterEnum::First));
 
 			case eCol_name2:
 				return fight.fighters[1].name;
@@ -172,10 +172,10 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 				return display_string(fight.is_saved, fight.scores[1].Shido());
 
 			case eCol_won2:
-				return display_string(fight.is_saved, fight.HasWon(Ipponboard::eFighter2));
+				return display_string(fight.is_saved, fight.HasWon(Ipponboard::FighterEnum::Second));
 
 			case eCol_score2:
-				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::eFighter2));
+				return display_string(fight.is_saved, fight.ScorePoints(Ipponboard::FighterEnum::Second));
 
 			case eCol_time_remaining:
 				{
@@ -314,26 +314,26 @@ bool TournamentModel::setData(const QModelIndex& index,
 			break;
 
 		case eCol_yuko1:
-			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari1:
-			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon1:
-			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake1:
-			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
 			break;
 
 		case eCol_shido1:
-			fight.scores[0].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
+			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Shido, value.toInt());
 			break;
 
 		case eCol_won1:
@@ -347,27 +347,27 @@ bool TournamentModel::setData(const QModelIndex& index,
 			break;
 
 		case eCol_yuko2:
-			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Yuko, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari2:
-			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Wazaari, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon2:
-			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Ippon, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake2:
-			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Hansokumake, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
 			result = true;
 			break;
 
 		case eCol_shido2:
-			fight.scores[1].OverwriteValue(Ipponboard::ePoint_Shido, value.toInt());
+			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Shido, value.toInt());
 			result = true;
 			break;
 
@@ -463,8 +463,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalWins() const
 
 	for (int i(0); i < m_nRows; ++i)
 	{
-		wins1 += m_pTournamentRound->at(i).HasWon(Ipponboard::eFighter1);
-		wins2 += m_pTournamentRound->at(i).HasWon(Ipponboard::eFighter2);
+		wins1 += m_pTournamentRound->at(i).HasWon(Ipponboard::FighterEnum::First);
+		wins2 += m_pTournamentRound->at(i).HasWon(Ipponboard::FighterEnum::Second);
 	}
 
 	return std::make_pair(wins1, wins2);
@@ -479,8 +479,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 
 	for (int i(0); i < m_nRows; ++i)
 	{
-		score1 += m_pTournamentRound->at(i).ScorePoints(Ipponboard::eFighter1);
-		score2 += m_pTournamentRound->at(i).ScorePoints(Ipponboard::eFighter2);
+		score1 += m_pTournamentRound->at(i).ScorePoints(Ipponboard::FighterEnum::First);
+		score2 += m_pTournamentRound->at(i).ScorePoints(Ipponboard::FighterEnum::Second);
 	}
 
 	return std::make_pair(score1, score2);

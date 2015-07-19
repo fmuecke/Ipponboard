@@ -52,27 +52,27 @@ public:
 	template<typename T>
 	struct PointEvent
 	{
-		PointEvent(Ipponboard::EFighter f)
+		PointEvent(Ipponboard::FighterEnum f)
 			: tori(f) {}
-		Ipponboard::EFighter tori;
+		Ipponboard::FighterEnum tori;
 	};
 
 	struct ippon_type
-	{ enum { type = Ipponboard::ePoint_Ippon, revoke = false }; };
+	{ enum { type = Ipponboard::Score::Point::Ippon, revoke = false }; };
 	struct wazaari_type
-	{ enum { type = Ipponboard::ePoint_Wazaari, revoke = false }; };
+	{ enum { type = Ipponboard::Score::Point::Wazaari, revoke = false }; };
 	struct yuko_type
-	{ enum { type = Ipponboard::ePoint_Yuko, revoke = false }; };
+	{ enum { type = Ipponboard::Score::Point::Yuko, revoke = false }; };
 	struct shido_type
-	{ enum { type = Ipponboard::ePoint_Shido, revoke = false }; };
+	{ enum { type = Ipponboard::Score::Point::Shido, revoke = false }; };
 	struct hansokumake_type
-	{ enum { type = Ipponboard::ePoint_Hansokumake, revoke = false }; };
+	{ enum { type = Ipponboard::Score::Point::Hansokumake, revoke = false }; };
 	struct revoke_ippon_type
-	{ enum { type = Ipponboard::ePoint_Ippon, revoke = true }; };
+	{ enum { type = Ipponboard::Score::Point::Ippon, revoke = true }; };
 	struct revoke_wazaari_type
-	{ enum { type = Ipponboard::ePoint_Wazaari, revoke = true }; };
+	{ enum { type = Ipponboard::Score::Point::Wazaari, revoke = true }; };
 	struct revoke_yuko_type
-	{ enum { type = Ipponboard::ePoint_Yuko, revoke = true }; };
+	{ enum { type = Ipponboard::Score::Point::Yuko, revoke = true }; };
 	struct revoke_shido_hm_type	{};
 
 	typedef PointEvent<ippon_type	   > Ippon;
@@ -90,9 +90,9 @@ public:
 	template<typename T>
 	struct TimeEvent
 	{
-		TimeEvent(int s, Ipponboard::EFighter f) : secs(s), tori(f) {}
+		TimeEvent(int s, Ipponboard::FighterEnum f) : secs(s), tori(f) {}
 		int secs;
-		Ipponboard::EFighter tori;
+		Ipponboard::FighterEnum tori;
 	};
 	struct hold_timer_type
 	{
@@ -159,9 +159,9 @@ public:
 	{
 #pragma warning(disable: 4127)  // conditional expression is constant
 		if (T::revoke)
-			Score_(evt.tori).Remove(EPoint(T::type));
+			Score_(evt.tori).Remove(Score::Point(T::type));
 		else
-			Score_(evt.tori).Add(EPoint(T::type));
+			Score_(evt.tori).Add(Score::Point(T::type));
 #pragma warning(default: 4127)
 	}
 	template <typename T>
@@ -279,9 +279,9 @@ public:
 	}
 
 private:
-	inline Score& Score_(EFighter who)
+	inline Score& Score_(FighterEnum who)
 	{ return m_pCore->get_score(who); }
-	inline const Score& Score_(EFighter who) const
+	inline const Score& Score_(FighterEnum who) const
 	{ return m_pCore->get_score(who); }
 
 	IControllerCore* m_pCore;

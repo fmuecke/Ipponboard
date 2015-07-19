@@ -10,64 +10,65 @@ class Score
 {
 public:
 
-	//// for testing purpose
-	//Score(int ippon, int wazaari, int yuko, int hansokumake, int shido)
-	//{
-	//	_points[ePoint_Hansokumake] = hansokumake;
-	//	_points[ePoint_Shido] = shido;
-	//	_points[ePoint_Ippon] = ippon;
-	//	_points[ePoint_Wazaari] = wazaari;
-	//	_points[ePoint_Yuko] = yuko;
-	//}
+	enum class Point
+	{
+		Ippon = 0,
+		Wazaari,
+		Yuko,
+		Shido,
+		Hansokumake,
+		_MAX
+	};
 
 	Score()
 	{
 		Clear();
 	}
 
-	Score& Add(Ipponboard::EPoint point);
-	Score& Remove(Ipponboard::EPoint point);
-	Score& OverwriteValue(Ipponboard::EPoint point, int value);
+	Score& Add(Point point);
+	Score& Remove(Point point);
+	Score& OverwriteValue(Point point, int value);
+	int Value(Point point) const { return _points[static_cast<int>(point)]; }
 
 	// convenience functions
-	bool Ippon() const { return _points[ePoint_Ippon] != 0; }
-	int Wazaari() const { return _points[ePoint_Wazaari]; }
-	int Yuko() const { return _points[ePoint_Yuko]; }
-	int Shido() const { return _points[ePoint_Shido]; }
-	bool Hansokumake() const  { return _points[ePoint_Hansokumake] != 0; }
+	bool Ippon() const { return Value(Point::Ippon) != 0; }
+	int Wazaari() const { return Value(Point::Wazaari); }
+	int Yuko() const { return Value(Point::Yuko); }
+	int Shido() const { return Value(Point::Shido); }
+	bool Hansokumake() const  { return Value(Point::Hansokumake) != 0; }
 
 	bool IsAwaseteIppon() const;
 	void Clear();
 
     bool IsLess(const Score& rhs, RuleSet ruleSet) const
 	{
-		if (_points[ePoint_Hansokumake] != rhs._points[ePoint_Hansokumake])
+		if (Value(Point::Hansokumake) != rhs.Value(Point::Hansokumake))
 		{
-			return _points[ePoint_Hansokumake] > rhs._points[ePoint_Hansokumake];
+			return Value(Point::Hansokumake) > rhs.Value(Point::Hansokumake);
 		}
 		else
 		{
-			if (_points[ePoint_Ippon] != rhs._points[ePoint_Ippon])
+			if (Value(Point::Ippon) != rhs.Value(Point::Ippon))
 			{
-				return _points[ePoint_Ippon] < rhs._points[ePoint_Ippon];
+				return Value(Point::Ippon) < rhs.Value(Point::Ippon);
 			}
 			else
 			{
-				if (_points[ePoint_Wazaari] != rhs._points[ePoint_Wazaari])
+				if (Value(Point::Wazaari) != rhs.Value(Point::Wazaari))
 				{
-					return _points[ePoint_Wazaari] < rhs._points[ePoint_Wazaari];
+					return Value(Point::Wazaari) < rhs.Value(Point::Wazaari);
 				}
 				else
 				{
-					if (_points[ePoint_Yuko] != rhs._points[ePoint_Yuko])
+					if (Value(Point::Yuko) != rhs.Value(Point::Yuko))
 					{
-						return _points[ePoint_Yuko] < rhs._points[ePoint_Yuko];
+						return Value(Point::Yuko) < rhs.Value(Point::Yuko);
 					}
 					else
 					{
 						if (e2013RuleSet == ruleSet)
 						{
-							return _points[ePoint_Shido] > rhs._points[ePoint_Shido];
+							return Value(Point::Shido) > rhs.Value(Point::Shido);
 						}
 						else
 						{
@@ -85,7 +86,7 @@ public:
 private:
 	void correct_points();
 
-	int _points[ePoint_MAX];
+	int _points[static_cast<int>(Point::_MAX)];
 };
 
 } // namespace ipponboard

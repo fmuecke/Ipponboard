@@ -5,7 +5,8 @@ DESTDIR = bin
 
 HEADERS = \
 	TestJson.hpp \
-	TestTeamScore.hpp \
+	TestScore.hpp \
+	TestFight.hpp \
     TestTournamentMode.hpp
 
 SOURCES = \

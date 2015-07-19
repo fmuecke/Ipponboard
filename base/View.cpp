@@ -10,6 +10,7 @@
 #include <QInputDialog>
 
 using namespace Ipponboard;
+using Point = Score::Point;
 
 //=========================================================
 View::View(IController* pController, EditionType edition, EType type, QWidget* parent)
@@ -206,31 +207,31 @@ void View::UpdateView()
 	// fighter names
 	//
 	ui->text_lastname_first->SetText(
-		m_pController->GetFighterLastName(GVF_(eFighter1)),
+		m_pController->GetFighterLastName(GVF_(FighterEnum::First)),
 		ScaledText::eSize_uppercase);
 	ui->text_lastname_second->SetText(
-		m_pController->GetFighterLastName(GVF_(eFighter2)),
+		m_pController->GetFighterLastName(GVF_(FighterEnum::Second)),
 		ScaledText::eSize_uppercase);
 	ui->text_firstname_first->SetText(
-		m_pController->GetFighterFirstName(GVF_(eFighter1)),
+		m_pController->GetFighterFirstName(GVF_(FighterEnum::First)),
 		ScaledText::eSize_uppercase);
 	ui->text_firstname_second->SetText(
-		m_pController->GetFighterFirstName(GVF_(eFighter2)),
+		m_pController->GetFighterFirstName(GVF_(FighterEnum::Second)),
 		ScaledText::eSize_uppercase);
 
 	// first score
-	update_ippon(eFighter1);
-	update_wazaari(eFighter1);
-	update_yuko(eFighter1);
-	update_shido(eFighter1);
-	update_hansokumake(eFighter1);
+	update_ippon(FighterEnum::First);
+	update_wazaari(FighterEnum::First);
+	update_yuko(FighterEnum::First);
+	update_shido(FighterEnum::First);
+	update_hansokumake(FighterEnum::First);
 
 	// second score
-	update_ippon(eFighter2);
-	update_wazaari(eFighter2);
-	update_yuko(eFighter2);
-	update_shido(eFighter2);
-	update_hansokumake(eFighter2);
+	update_ippon(FighterEnum::Second);
+	update_wazaari(FighterEnum::Second);
+	update_yuko(FighterEnum::Second);
+	update_shido(FighterEnum::Second);
+	update_hansokumake(FighterEnum::Second);
 
 	update_team_score();
 
@@ -241,9 +242,9 @@ void View::UpdateView()
 		m_pController->GetTimeText(eTimer_Main),
 		ScaledText::eSize_full);
 
-	const EFighter holder(m_pController->GetLastHolder());
+	const FighterEnum holder(m_pController->GetLastHolder());
 
-	if (eFighterNobody == holder && is_secondary())
+	if (FighterEnum::None == holder && is_secondary())
 	{
 		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
 	}
@@ -283,7 +284,7 @@ void View::UpdateView()
 	}
 
 	// time is up?
-	//const EFighter lead( m_pController->GetLead() );
+	//const FighterEnum lead( m_pController->GetLead() );
 	//if ( eState_TimerEnded == m_pController->GetCurrentState() )
 	//{
 	//	// something to do here?
@@ -447,7 +448,7 @@ void View::mousePressEvent(QMouseEvent* event)
 {
 	Q_ASSERT(m_pController && "IBController not set!");
 
-	EFighter whos(eFighterNobody);
+	FighterEnum whos(FighterEnum::None);
 	EAction action(eAction_NONE);
 	const bool doRevoke = event->button() & Qt::RightButton;
 
@@ -488,10 +489,10 @@ void View::mousePressEvent(QMouseEvent* event)
 			}
 			else
 			{
-				whos = eFighter1;
+				whos = FighterEnum::First;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-						GVF_(eFighter1) != m_pController->GetLead())
+						GVF_(FighterEnum::First) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
@@ -509,10 +510,10 @@ void View::mousePressEvent(QMouseEvent* event)
 			}
 			else
 			{
-				whos = eFighter2;
+				whos = FighterEnum::Second;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-						GVF_(eFighter2) != m_pController->GetLead())
+						GVF_(FighterEnum::Second) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
@@ -524,32 +525,32 @@ void View::mousePressEvent(QMouseEvent* event)
 		}
 		else if (child == ui->text_ippon_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Ippon;
 		}
 		else if (child == ui->text_ippon_first)
 		{
-			whos = eFighter1;
+			whos = FighterEnum::First;
 			action = eAction_Ippon;
 		}
 		else if (child == ui->text_wazaari_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Wazaari;
 		}
 		else if (child == ui->text_wazaari_first)
 		{
-			whos = eFighter1;
+			whos = FighterEnum::First;
 			action = eAction_Wazaari;
 		}
 		else if (child == ui->text_yuko_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Yuko;
 		}
 		else if (child == ui->text_yuko_first)
 		{
-			whos = eFighter1;
+			whos = FighterEnum::First;
 			action = eAction_Yuko;
 		}
 
@@ -562,31 +563,31 @@ void View::mousePressEvent(QMouseEvent* event)
 	{
 		if (child == ui->image_shido1_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
 		else if (child == ui->image_shido3_second ||
 				 child == ui->image_shido2_second ||
 				 child == ui->image_shido1_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
 		else if (child == ui->image_shido3_first ||
 				 child == ui->image_shido2_first ||
 				 child == ui->image_shido1_first)
 		{
-			whos = eFighter1;
+			whos = FighterEnum::First;
 			action = eAction_Shido;
 		}
 		else if (child == ui->image_hansokumake_second)
 		{
-			whos = eFighter2;
+			whos = FighterEnum::Second;
 			action = eAction_Hansokumake;
 		}
 		else if (child == ui->image_hansokumake_first)
 		{
-			whos = eFighter1;
+			whos = FighterEnum::First;
 			action = eAction_Hansokumake;
 		}
 
@@ -604,21 +605,21 @@ void View::mousePressEvent(QMouseEvent* event)
 void View::setOsaekomiFirst_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, eFighter1, false/*doRevoke*/);
+	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false/*doRevoke*/);
 }
 
 //=========================================================
 void View::setOsaekomiSecond_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, eFighter2, false/*doRevoke*/);
+	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false/*doRevoke*/);
 }
 
 //=========================================================
 void View::resetMainTimerValue_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_ResetMainTimer, eFighterNobody, true/*doRevoke*/);
+	m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::None, true/*doRevoke*/);
 }
 
 //=========================================================
@@ -654,29 +655,29 @@ void View::blink_()
 
 	if (is_secondary())
 	{
-		update_ippon(eFighter1);
-		update_ippon(eFighter2);
+		update_ippon(FighterEnum::First);
+		update_ippon(FighterEnum::Second);
 	}
 }
 
 //=========================================================
-void View::update_ippon(Ipponboard::EFighter who) const
+void View::update_ippon(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledText* digit_ippon(ui->text_ippon_first);
 	QVBoxLayout* digit_wazaari(ui->layout_wazaari_first);
 	QVBoxLayout* digit_yuko(ui->layout_yuko_first);
-	EFighter uke(eFighter2);
+	FighterEnum uke(FighterEnum::Second);
 
-	if (eFighter2 == who)
+	if (FighterEnum::Second == who)
 	{
 		digit_ippon = ui->text_ippon_second;
 		digit_wazaari = ui->layout_wazaari_second;
 		digit_yuko = ui->layout_yuko_second;
-		uke = eFighter1;
+		uke = FighterEnum::First;
 	}
 
-	const int score = m_pController->GetScore(GVF_(who), ePoint_Ippon);
+	const int score = m_pController->GetScore(GVF_(who), Point::Ippon);
 
 	if (score != 0)
 	{
@@ -712,7 +713,7 @@ void View::update_ippon(Ipponboard::EFighter who) const
 	}
 	else
 	{
-		const int score_uke = m_pController->GetScore(GVF_(uke), ePoint_Ippon);
+		const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
 
 		if (m_pBlinkTimer->isActive() &&  0 == score_uke)
 			m_pBlinkTimer->stop();
@@ -737,41 +738,41 @@ void View::update_ippon(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-void View::update_wazaari(Ipponboard::EFighter who) const
+void View::update_wazaari(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledText* digit(ui->text_wazaari_first);
 
-	if (eFighter2 == who)
+	if (FighterEnum::Second == who)
 		digit = ui->text_wazaari_second;
 
-	const int score = m_pController->GetScore(GVF_(who), ePoint_Wazaari);
+	const int score = m_pController->GetScore(GVF_(who), Point::Wazaari);
 	//digit->setDigitCount( score > 9 ? 2 : 1 );
 	digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
 
 //=========================================================
-void View::update_yuko(Ipponboard::EFighter who) const
+void View::update_yuko(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledText* digit(ui->text_yuko_first);
 
-	if (eFighter2 == who)
+	if (FighterEnum::Second == who)
 		digit = ui->text_yuko_second;
 
-	const int score = m_pController->GetScore(GVF_(who), ePoint_Yuko);
+	const int score = m_pController->GetScore(GVF_(who), Point::Yuko);
 	digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
 
 //=========================================================
-void View::update_shido(Ipponboard::EFighter who) const
+void View::update_shido(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledImage* pImage1(0);
 	ScaledImage* pImage2(0);
 	ScaledImage* pImage3(0);
 
-	if (eFighter1 == who)
+	if (FighterEnum::First == who)
 	{
 		pImage1 = ui->image_shido1_first;
 		pImage2 = ui->image_shido2_first;
@@ -784,7 +785,7 @@ void View::update_shido(Ipponboard::EFighter who) const
 		pImage3 = ui->image_shido3_second;
 	}
 
-	const int score = m_pController->GetScore(GVF_(who), ePoint_Shido);
+	const int score = m_pController->GetScore(GVF_(who), Point::Shido);
 
 	if (score >= 3)
 	{
@@ -824,22 +825,22 @@ void View::update_shido(Ipponboard::EFighter who) const
 }
 
 //=========================================================
-void View::update_hansokumake(Ipponboard::EFighter who) const
+void View::update_hansokumake(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledImage* pImage(ui->image_hansokumake_first);
 
 //	QHBoxLayout* pLayout(ui->horizontalLayout_score_first);
 //	QVBoxLayout* pShidoLayout(ui->verticalLayout_shido_first);
-	if (eFighter2 == who)
+	if (FighterEnum::Second == who)
 	{
 		pImage = ui->image_hansokumake_second;
 //		pLayout = ui->horizontalLayout_score_second;
 //		pShidoLayout = ui->verticalLayout_shido_second;
 	}
 
-	const int score_hansokumake = m_pController->GetScore(GVF_(who), ePoint_Hansokumake);
-	const int score_shido = m_pController->GetScore(GVF_(who), ePoint_Shido);
+	const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
+	const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
 
 	if (score_hansokumake > 0 || score_shido == 4)
 	{
@@ -871,13 +872,13 @@ void View::update_team_score() const
 //=========================================================
 {
 	//unused code...
-	//EFighter tori(eFighter1);
-	//EFighter uke(eFighter2);
+	//FighterEnum tori(FighterEnum::First);
+	//FighterEnum uke(FighterEnum::Second);
 	//
 	//if (m_Type == eTypePrimary)
 	//{
-	//    uke = eFighter1;
-	//    tori = eFighter2;
+	//    uke = FighterEnum::First;
+	//    tori = FighterEnum::Second;
 	//}
 
 	if (m_Edition == EditionType::Team)
@@ -894,11 +895,11 @@ void View::update_team_score() const
 		}
 
 		ui->text_score_team_first->SetText(
-			QString::number(m_pController->GetTeamScore(GVF_(eFighter1))),
+			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::First))),
 			ScaledText::eSize_full);
 
 		ui->text_score_team_second->SetText(
-			QString::number(m_pController->GetTeamScore(GVF_(eFighter2))),
+			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::Second))),
 			ScaledText::eSize_full);
 	}
 	else
@@ -911,12 +912,12 @@ void View::update_team_score() const
 }
 
 //=========================================================
-void View::update_hold_clock(EFighter holder, EHoldState state) const
+void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 //=========================================================
 {
 	const QString value(m_pController->GetTimeText(eTimer_Hold));
-	const EFighter first = GVF_(eFighter1);
-	const EFighter second = GVF_(eFighter2);
+	const FighterEnum first = GVF_(FighterEnum::First);
+	const FighterEnum second = GVF_(FighterEnum::Second);
 
 	struct ColorPair
 	{
@@ -930,12 +931,12 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 	};
 
 	ColorPair hold_clock_colors[3][2];
-	hold_clock_colors[eHoldState_on][eFighter1] = ColorPair(m_TextColorFirst, m_TextBgColorFirst);
-	hold_clock_colors[eHoldState_on][eFighter2] = ColorPair(m_TextColorSecond, m_TextBgColorSecond);
-	hold_clock_colors[eHoldState_off][eFighter1] = ColorPair(Qt::gray, Qt::black);
-	hold_clock_colors[eHoldState_off][eFighter2] = ColorPair(Qt::gray, Qt::black);
-	hold_clock_colors[eHoldState_pause][eFighter1] = ColorPair(Qt::lightGray, m_TextBgColorFirst);
-	hold_clock_colors[eHoldState_pause][eFighter2] = ColorPair(Qt::darkGray, m_TextBgColorSecond);
+	hold_clock_colors[eHoldState_on][FighterEnum::First] = ColorPair(m_TextColorFirst, m_TextBgColorFirst);
+	hold_clock_colors[eHoldState_on][FighterEnum::Second] = ColorPair(m_TextColorSecond, m_TextBgColorSecond);
+	hold_clock_colors[eHoldState_off][FighterEnum::First] = ColorPair(Qt::gray, Qt::black);
+	hold_clock_colors[eHoldState_off][FighterEnum::Second] = ColorPair(Qt::gray, Qt::black);
+	hold_clock_colors[eHoldState_pause][FighterEnum::First] = ColorPair(Qt::lightGray, m_TextBgColorFirst);
+	hold_clock_colors[eHoldState_pause][FighterEnum::Second] = ColorPair(Qt::darkGray, m_TextBgColorSecond);
 
 	ScaledText* pClocks[2] =
 	{
@@ -945,24 +946,24 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 
 	// reset drawing first
 	pClocks[first]->SetColor(
-		hold_clock_colors[eHoldState_off][eFighter1].fg,
-		hold_clock_colors[eHoldState_off][eFighter1].bg);
+		hold_clock_colors[eHoldState_off][FighterEnum::First].fg,
+		hold_clock_colors[eHoldState_off][FighterEnum::First].bg);
 
 	pClocks[second]->SetColor(
-		hold_clock_colors[eHoldState_off][eFighter2].fg,
-		hold_clock_colors[eHoldState_off][eFighter2].bg);
+		hold_clock_colors[eHoldState_off][FighterEnum::Second].fg,
+		hold_clock_colors[eHoldState_off][FighterEnum::Second].bg);
 
 	pClocks[first]->SetText("00", ScaledText::eSize_full);
 	pClocks[second]->SetText("00", ScaledText::eSize_full);
 	ui->image_sand_clock->SetBgColor(Qt::black);
 
 	// no one holding?
-	if (eFighterNobody == holder)
+	if (FighterEnum::None == holder)
 	{
 		if (is_secondary())
 		{
-			pClocks[eFighter1]->SetText("", ScaledText::eSize_full);
-			pClocks[eFighter2]->SetText("", ScaledText::eSize_full);
+			pClocks[FighterEnum::First]->SetText("", ScaledText::eSize_full);
+			pClocks[FighterEnum::Second]->SetText("", ScaledText::eSize_full);
 			ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
 		}
 
@@ -1005,12 +1006,12 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 //		ui->layout_info->setStretchFactor(ui->layout_name_first, 4);
 //		ui->layout_info->setStretchFactor(ui->layout_name_second, 4);
 
-		if (eFighter1 == holder)
+		if (FighterEnum::First == holder)
 		{
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 7);
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 0);
 		}
-		else if (eFighter2 == holder)
+		else if (FighterEnum::Second == holder)
 		{
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 0);
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 7);
@@ -1023,12 +1024,12 @@ void View::update_hold_clock(EFighter holder, EHoldState state) const
 }
 
 //=========================================================
-Ipponboard::EFighter View::GVF_(const Ipponboard::EFighter f) const
+Ipponboard::FighterEnum View::GVF_(const Ipponboard::FighterEnum f) const
 //=========================================================
 {
 	if (!is_secondary())
 	{
-		return (f == eFighter1) ? eFighter2 : eFighter1;
+		return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
 	}
 
 	return f;

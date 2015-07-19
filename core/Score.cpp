@@ -3,10 +3,10 @@
 using namespace Ipponboard;
 
 //=========================================================
-Score& Score::Add(EPoint point)
+Score& Score::Add(Point point)
 //=========================================================
 {
-	++_points[point];
+	++_points[static_cast<int>(point)];
 
 	correct_points();
 
@@ -14,10 +14,10 @@ Score& Score::Add(EPoint point)
 }
 
 //=========================================================
-Score& Score::Remove(EPoint point)
+Score& Score::Remove(Point point)
 //=========================================================
 {
-	--_points[point];
+	--_points[static_cast<int>(point)];
 
 	correct_points();
 
@@ -25,25 +25,14 @@ Score& Score::Remove(EPoint point)
 }
 
 //=========================================================
-Score& Score::OverwriteValue(Ipponboard::EPoint point, int value)
+Score& Score::OverwriteValue(Ipponboard::Score::Point point, int value)
 //=========================================================
 {
 	if (value >= 0)
 	{
-		_points[point] = value;
+		_points[static_cast<int>(point)] = value;
 
-		// correct points
-		if (_points[ePoint_Ippon] > 1)
-			_points[ePoint_Ippon] = 1;
-
-		if (_points[ePoint_Wazaari] > 2)
-			_points[ePoint_Wazaari] = 2;
-
-		if (_points[ePoint_Shido] > 4)
-			_points[ePoint_Shido] = 4;
-
-		if (_points[ePoint_Hansokumake] > 1)
-			_points[ePoint_Hansokumake] = 1;
+		correct_points();
 	}
 
 	return *this;
@@ -53,14 +42,14 @@ Score& Score::OverwriteValue(Ipponboard::EPoint point, int value)
 bool Score::IsAwaseteIppon() const
 //=========================================================
 {
-	return _points[ePoint_Wazaari] == 2;
+	return Value(Point::Wazaari) == 2;
 }
 
 //=========================================================
 void Score::Clear()
 //=========================================================
 {
-	for (auto i = 0; i < ePoint_MAX; ++i)
+	for (auto i = 0; i < static_cast<int>(Point::_MAX); ++i)
 	{
 		_points[i] = 0;
 	}
@@ -70,31 +59,31 @@ void Score::Clear()
 void Score::correct_points()
 {
 	// validate upper bound
-	if (_points[ePoint_Ippon] > 1)
-		_points[ePoint_Ippon] = 1;
+	if (Value(Point::Ippon) > 1)
+		_points[static_cast<int>(Point::Ippon)] = 1;
 
-	if (_points[ePoint_Wazaari] > 2)
-		_points[ePoint_Wazaari] = 2;
+	if (Value(Point::Wazaari) > 2)
+		_points[static_cast<int>(Point::Wazaari)] = 2;
 
-	if (_points[ePoint_Shido] > 4)
-		_points[ePoint_Shido] = 4;
+	if (Value(Point::Shido) > 4)
+		_points[static_cast<int>(Point::Shido)] = 4;
 
-	if (_points[ePoint_Hansokumake] > 1)
-		_points[ePoint_Hansokumake] = 1;
+	if (Value(Point::Hansokumake) > 1)
+		_points[static_cast<int>(Point::Hansokumake)] = 1;
 
 	// validate lower bound
-	if (_points[ePoint_Ippon] < 0)
-		_points[ePoint_Ippon] = 0;
+	if (Value(Point::Ippon) < 0)
+		_points[static_cast<int>(Point::Ippon)] = 0;
 
-	if (_points[ePoint_Wazaari] < 0)
-		_points[ePoint_Wazaari] = 0;
+	if (Value(Point::Wazaari) < 0)
+		_points[static_cast<int>(Point::Wazaari)] = 0;
 
-	if (_points[ePoint_Yuko] < 0)
-		_points[ePoint_Yuko] = 0;
+	if (Value(Point::Yuko) < 0)
+		_points[static_cast<int>(Point::Yuko)] = 0;
 
-	if (_points[ePoint_Shido] < 0)
-		_points[ePoint_Shido] = 0;
+	if (Value(Point::Shido) < 0)
+		_points[static_cast<int>(Point::Shido)] = 0;
 
-	if (_points[ePoint_Hansokumake] < 0)
-		_points[ePoint_Hansokumake] = 0;
+	if (Value(Point::Hansokumake) < 0)
+		_points[static_cast<int>(Point::Hansokumake)] = 0;
 }

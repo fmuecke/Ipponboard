@@ -4,6 +4,7 @@
 #include <QTimer>
 
 using namespace Ipponboard;
+using Point = Score::Point;
 
 //---------------------------------------------------------
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
@@ -13,36 +14,36 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 	{
 		if (m_pCore->is_option(Ipponboard::eOption_Use2013Rules))
 		{
-			if (eOsaekomiVal2013_Yuko == evt.secs)
+			if (OsaekomiValue::Yuko == evt.secs)
 			{
-				Score_(evt.tori).Add(ePoint_Yuko);
+				Score_(evt.tori).Add(Point::Yuko);
 			}
-			else if (eOsaekomiVal2013_Wazaari == evt.secs)
+			else if (OsaekomiValue::Wazaari == evt.secs)
 			{
-				Score_(evt.tori).Remove(ePoint_Yuko);
-				Score_(evt.tori).Add(ePoint_Wazaari);
+				Score_(evt.tori).Remove(Point::Yuko);
+				Score_(evt.tori).Add(Point::Wazaari);
 			}
-			else if (eOsaekomiVal2013_Ippon == evt.secs)
+			else if (OsaekomiValue::Ippon == evt.secs)
 			{
-				Score_(evt.tori).Remove(ePoint_Wazaari);
-				Score_(evt.tori).Add(ePoint_Ippon);
+				Score_(evt.tori).Remove(Point::Wazaari);
+				Score_(evt.tori).Add(Point::Ippon);
 			}
 		}
 		else
 		{
-			if (eOsaekomiVal_Yuko == evt.secs)
+			if (OsaekomiValue::YukoOld == evt.secs)
 			{
-				Score_(evt.tori).Add(ePoint_Yuko);
+				Score_(evt.tori).Add(Point::Yuko);
 			}
-			else if (eOsaekomiVal_Wazaari == evt.secs)
+			else if (OsaekomiValue::WazaariOld == evt.secs)
 			{
-				Score_(evt.tori).Remove(ePoint_Yuko);
-				Score_(evt.tori).Add(ePoint_Wazaari);
+				Score_(evt.tori).Remove(Point::Yuko);
+				Score_(evt.tori).Add(Point::Wazaari);
 			}
-			else if (eOsaekomiVal_Ippon == evt.secs)
+			else if (OsaekomiValue::IpponOld == evt.secs)
 			{
-				Score_(evt.tori).Remove(ePoint_Wazaari);
-				Score_(evt.tori).Add(ePoint_Ippon);
+				Score_(evt.tori).Remove(Point::Wazaari);
+				Score_(evt.tori).Add(Point::Ippon);
 			}
 		}
 	}
@@ -86,8 +87,8 @@ bool IpponboardSM_::has_IpponTime(HoldTimeEvent const& evt)
 {
 	auto checkVal =
 		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		eOsaekomiVal2013_Ippon :
-		eOsaekomiVal_Ippon;
+		OsaekomiValue::Ippon :
+		OsaekomiValue::IpponOld;
 
 	return checkVal == evt.secs;
 }
@@ -98,8 +99,8 @@ bool IpponboardSM_::has_WazaariTime(HoldTimeEvent const& evt)
 {
 	auto checkVal =
 		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		eOsaekomiVal2013_Wazaari :
-		eOsaekomiVal_Wazaari;
+		OsaekomiValue::Wazaari :
+		OsaekomiValue::WazaariOld;
 
 	return checkVal == evt.secs;
 }
@@ -112,8 +113,8 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 	{
 		auto checkVal =
 			m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-			eOsaekomiVal2013_Wazaari :
-			eOsaekomiVal_Wazaari;
+			OsaekomiValue::Wazaari :
+			OsaekomiValue::WazaariOld;
 
 		return checkVal == evt.secs;
 	}
@@ -127,8 +128,8 @@ bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
 {
 	auto checkVal =
 		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		eOsaekomiVal2013_Yuko :
-		eOsaekomiVal_Yuko;
+		OsaekomiValue::Yuko :
+		OsaekomiValue::YukoOld;
 
 	return checkVal == evt.secs;
 }
@@ -154,7 +155,7 @@ bool IpponboardSM_::has_enough_shido(Shido const& evt)
 	// Note: new 2013 IJF rule: no points for first three shido
 	if (!m_pCore->is_option(eOption_Use2013Rules))
 	{
-		EFighter uke = GetUkeFromTori(evt.tori);
+		FighterEnum uke = GetUkeFromTori(evt.tori);
 
 		if (Score_(evt.tori).Shido() == 2 &&
 				Score_(uke).Wazaari() == 1)
@@ -221,7 +222,7 @@ void IpponboardSM_::start_timer(Osaekomi_Toketa const& /*evt*/)
 
 void IpponboardSM_::add_point(PointEvent<ippon_type> const& evt)
 {
-	Score_(evt.tori).Add(ePoint_Ippon);
+	Score_(evt.tori).Add(Point::Ippon);
 	m_pCore->stop_timer(eTimer_Main);
 	m_pCore->stop_timer(eTimer_Hold);
 }
@@ -230,45 +231,45 @@ void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 {
 	if (m_pCore->is_option(eOption_AutoIncrementPoints))
 	{
-		EFighter uke = GetUkeFromTori(evt.tori);
+		FighterEnum uke = GetUkeFromTori(evt.tori);
 
 		if (m_pCore->is_option(eOption_Use2013Rules))
 		{
 			if (3 == Score_(evt.tori).Shido())
 			{
-				Score_(uke).Add(ePoint_Ippon);
+				Score_(uke).Add(Point::Ippon);
 			}
 		}
 		else
 		{
 			if (3 == Score_(evt.tori).Shido())
 			{
-				Score_(uke).Remove(ePoint_Wazaari);
-				Score_(uke).Add(ePoint_Ippon);
+				Score_(uke).Remove(Point::Wazaari);
+				Score_(uke).Add(Point::Ippon);
 			}
 			else if (2 == Score_(evt.tori).Shido())
 			{
-				Score_(uke).Remove(ePoint_Yuko);
-				Score_(uke).Add(ePoint_Wazaari);
+				Score_(uke).Remove(Point::Yuko);
+				Score_(uke).Add(Point::Wazaari);
 			}
 			else if (1 == Score_(evt.tori).Shido())
 			{
-				Score_(uke).Add(ePoint_Yuko);
+				Score_(uke).Add(Point::Yuko);
 			}
 		}
 	}
 
-	Score_(evt.tori).Add(ePoint_Shido);
+	Score_(evt.tori).Add(Point::Shido);
 }
 
 void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 {
-	EFighter uke = GetUkeFromTori(evt.tori);
+	FighterEnum uke = GetUkeFromTori(evt.tori);
 
 	if (Score_(evt.tori).Hansokumake())
 	{
-		Score_(uke).Remove(ePoint_Ippon);
-		Score_(evt.tori).Remove(ePoint_Hansokumake);
+		Score_(uke).Remove(Point::Ippon);
+		Score_(evt.tori).Remove(Point::Hansokumake);
 	}
 	else
 	{
@@ -278,37 +279,37 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 			{
 				if (4 == Score_(evt.tori).Shido())
 				{
-					Score_(uke).Remove(ePoint_Ippon);
+					Score_(uke).Remove(Point::Ippon);
 				}
 			}
 			else
 			{
 				if (4 == Score_(evt.tori).Shido())
 				{
-					Score_(uke).Remove(ePoint_Ippon);
-					Score_(uke).Add(ePoint_Wazaari);
+					Score_(uke).Remove(Point::Ippon);
+					Score_(uke).Add(Point::Wazaari);
 				}
 				else if (3 == Score_(evt.tori).Shido())
 				{
-					Score_(uke).Remove(ePoint_Wazaari);
-					Score_(uke).Add(ePoint_Yuko);
+					Score_(uke).Remove(Point::Wazaari);
+					Score_(uke).Add(Point::Yuko);
 				}
 				else if (2 == Score_(evt.tori).Shido())
 				{
-					Score_(uke).Remove(ePoint_Yuko);
+					Score_(uke).Remove(Point::Yuko);
 				}
 			}
 		}
 
-		Score_(evt.tori).Remove(ePoint_Shido);
+		Score_(evt.tori).Remove(Point::Shido);
 	}
 }
 
 void IpponboardSM_::add_point(PointEvent<hansokumake_type> const& evt)
 {
-	EFighter uke = GetUkeFromTori(evt.tori);
-	Score_(uke).Add(ePoint_Ippon);
-	Score_(evt.tori).Add(ePoint_Hansokumake);
+	FighterEnum uke = GetUkeFromTori(evt.tori);
+	Score_(uke).Add(Point::Ippon);
+	Score_(evt.tori).Add(Point::Hansokumake);
 
 	m_pCore->stop_timer(eTimer_Main);
 	m_pCore->stop_timer(eTimer_Hold);

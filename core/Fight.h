@@ -39,6 +39,26 @@ private:
 public:
     Fight();
 
+	Score const& GetScore(FighterEnum fighter) const
+	{ 
+		return scores[static_cast<int>(fighter)]; 
+	}
+
+	Score& GetScore(FighterEnum fighter)
+	{
+		return scores[static_cast<int>(fighter)];
+	}
+
+	SimpleFighter const& GetFighter(FighterEnum fighter) const
+	{
+		return fighters[static_cast<int>(fighter)];
+	}
+
+	SimpleFighter GetFighter(FighterEnum fighter)
+	{
+		return fighters[static_cast<int>(fighter)];
+	}
+
 	Score scores[2];
 	SimpleFighter fighters[2];
 	QString weight;
@@ -51,8 +71,8 @@ public:
 
     QString GetTimeFaught() const;
     QString GetTimeRemaining() const;
-    bool HasWon(EFighter who) const;
-    int ScorePoints(EFighter who) const;
+    bool HasWon(FighterEnum who) const;
+    int ScorePoints(FighterEnum who) const;
 };
 
 } // namespace Ipponboard

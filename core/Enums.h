@@ -6,29 +6,19 @@
 //
 namespace Ipponboard
 {
-enum EPoint
+
+enum  FighterEnum
 {
-	ePoint_Ippon = 0,
-	ePoint_Wazaari,
-	ePoint_Yuko,
-	ePoint_Shido,
-	ePoint_Hansokumake,
-	ePoint_MAX
+	None = -1,
+	First = 0,
+	Second = 1,
+	_MAX
 };
 
-enum EFighter
+inline FighterEnum GetUkeFromTori(FighterEnum tori)
 {
-	eFighterNobody = -1,
-	eFighter1 = 0,
-	eFighter2 = 1,
-	eFighter_MAX
-};
-
-inline EFighter GetUkeFromTori(EFighter tori)
-{
-	return (tori == eFighter1) ? eFighter2 : eFighter1;
+	return (tori == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
 }
-
 
 enum EAction
 {
@@ -69,16 +59,16 @@ enum ETimer
 	eTimer_Hold
 };
 
-enum EOsaekomiVal
+enum OsaekomiValue
 {
-	eOsaekomiVal_Yuko = 15,
-	eOsaekomiVal_Wazaari = 20,
-	eOsaekomiVal_Ippon = 25,
+	YukoOld = 15,
+	WazaariOld = 20,
+	IpponOld = 25,
 
 	// new values for 2013 IJF rules
-	eOsaekomiVal2013_Yuko = 10,
-	eOsaekomiVal2013_Wazaari = 15,
-	eOsaekomiVal2013_Ippon = 20
+	Yuko = 10,
+	Wazaari = 15,
+	Ippon = 20
 };
 
 enum EOption

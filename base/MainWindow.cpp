@@ -130,14 +130,14 @@ void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
 {
 	update_fighters(s);
 
-	m_pController->SetFighterName(eFighter1, s);
+	m_pController->SetFighterName(FighterEnum::First, s);
 }
 
 void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
 {
 	update_fighters(s);
 
-	m_pController->SetFighterName(eFighter2, s);
+	m_pController->SetFighterName(FighterEnum::Second, s);
 }
 
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)

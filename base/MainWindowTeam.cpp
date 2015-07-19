@@ -495,8 +495,8 @@ void MainWindowTeam::update_score_screen()
 	const QString logo_home = m_pClubManager->GetLogo(home);
 	const QString logo_guest = m_pClubManager->GetLogo(guest);
 	m_pScoreScreen->SetLogos(logo_home, logo_guest);
-	const int score_first = m_pController->GetTeamScore(Ipponboard::eFighter1);
-	const int score_second = m_pController->GetTeamScore(Ipponboard::eFighter2);
+	const int score_first = m_pController->GetTeamScore(Ipponboard::FighterEnum::First);
+	const int score_second = m_pController->GetTeamScore(Ipponboard::FighterEnum::Second);
 	m_pScoreScreen->SetScore(score_first, score_second);
 
 	m_pScoreScreen->update();
@@ -592,10 +592,10 @@ void MainWindowTeam::WriteScoreToHtml_()
 		const Fight& fight = m_pController->GetFight(0, fightNo);
 		pHelperFight = &fight;
 
-		QString name_first(fight.fighters[eFighter1].name);
-		QString name_second(fight.fighters[eFighter2].name);
-		const Score& score_first(fight.scores[eFighter1]);
-		const Score& score_second(fight.scores[eFighter2]);
+		QString name_first(fight.fighters[FighterEnum::First].name);
+		QString name_second(fight.fighters[FighterEnum::Second].name);
+		const Score& score_first(fight.scores[FighterEnum::First]);
+		const Score& score_second(fight.scores[FighterEnum::Second]);
 
 		QString round("<tr>");
 		round.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>"); // number
@@ -606,16 +606,16 @@ void MainWindowTeam::WriteScoreToHtml_()
 		round.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + getNum(fight.HasWon(eFighter1)) + "</center></td>"); // won
-		round.append("<td><center>" + getNum(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+		round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::First)) + "</center></td>"); // won
+		round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::First)) + "</center></td>"); // score
 		round.append("<td><center>" + name_second + "</center></td>"); // name
 		round.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
 		round.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
 		round.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
 		round.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
 		round.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + getNum(fight.HasWon(eFighter2)) + "</center></td>"); // won
-		round.append("<td><center>" + getNum(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
+		round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::Second)) + "</center></td>"); // won
+		round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::Second)) + "</center></td>"); // score
 		round.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
 		round.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
 		round.append("</tr>\n");
@@ -636,10 +636,10 @@ void MainWindowTeam::WriteScoreToHtml_()
 			const Fight& fight = m_pController->GetFight(roundNo, fightNo);
 			pHelperFight = &fight;
 
-			QString name_first(fight.fighters[eFighter1].name);
-			QString name_second(fight.fighters[eFighter2].name);
-			const Score& score_first(fight.scores[eFighter1]);
-			const Score& score_second(fight.scores[eFighter2]);
+			QString name_first(fight.fighters[FighterEnum::First].name);
+			QString name_second(fight.fighters[FighterEnum::Second].name);
+			const Score& score_first(fight.scores[FighterEnum::First]);
+			const Score& score_second(fight.scores[FighterEnum::Second]);
 
 			QString round("<tr>");
 			round.append("<td><center>" + QString::number(fightNo + 1 + m_pController->GetFightCount()) + "</center></td>"); // number
@@ -650,16 +650,16 @@ void MainWindowTeam::WriteScoreToHtml_()
 			round.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
 			round.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
 			round.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-			round.append("<td><center>" + getNum(fight.HasWon(eFighter1)) + "</center></td>"); // won
-			round.append("<td><center>" + getNum(fight.ScorePoints(eFighter1)) + "</center></td>"); // score
+			round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::First)) + "</center></td>"); // won
+			round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::First)) + "</center></td>"); // score
 			round.append("<td><center>" + name_second + "</center></td>"); // name
 			round.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
 			round.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
 			round.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
 			round.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
 			round.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-			round.append("<td><center>" + getNum(fight.HasWon(eFighter2)) + "</center></td>"); // won
-			round.append("<td><center>" + getNum(fight.ScorePoints(eFighter2)) + "</center></td>"); // score
+			round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::Second)) + "</center></td>"); // won
+			round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::Second)) + "</center></td>"); // score
 			round.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
 			round.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
 			round.append("</tr>\n");
@@ -870,7 +870,7 @@ void MainWindowTeam::on_button_next_clicked()
 	m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
-	m_pController->DoAction(eAction_ResetOsaeKomi, eFighterNobody, true /*doRevoke*/);
+	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
@@ -976,7 +976,7 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
 
 void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 {
-	m_pController->SetClub(Ipponboard::eFighter1, s);
+	m_pController->SetClub(Ipponboard::FighterEnum::First, s);
 
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
@@ -993,7 +993,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 
 void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
 {
-	m_pController->SetClub(Ipponboard::eFighter2, s);
+	m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
 							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));

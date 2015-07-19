@@ -30,6 +30,7 @@
 
 using namespace FMlib;
 using namespace Ipponboard;
+using Point = Score::Point;
 
 MainWindowBase::MainWindowBase(QWidget* parent)
 	: QMainWindow(parent)
@@ -145,14 +146,14 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	switch (event->key())
 	{
 	case Qt::Key_Space:
-		m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::eFighterNobody);
+		m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::FighterEnum::None);
 		qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
 		break;
 
 	case Qt::Key_Backspace:
 		if (isCtrlPressed)
 		{
-			m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::eFighterNobody);
+			m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::FighterEnum::None);
 			qDebug() << "Action [ Reset ] was triggered by keyboard";
 		}
 
@@ -161,15 +162,15 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Left:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::eFighter1 != m_pController->GetLead())
+					Ipponboard::FighterEnum::First != m_pController->GetLead())
 			{
 				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::eFighter1);
+										Ipponboard::FighterEnum::First);
 			}
 			else
 			{
 				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::eFighter1);
+										Ipponboard::FighterEnum::First);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
@@ -180,15 +181,15 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Right:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::eFighter2 != m_pController->GetLead())
+					Ipponboard::FighterEnum::Second != m_pController->GetLead())
 			{
 				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::eFighter2);
+										Ipponboard::FighterEnum::Second);
 			}
 			else
 			{
 				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::eFighter2);
+										Ipponboard::FighterEnum::Second);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
@@ -200,7 +201,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		//if (isCtrlPressed)
 		{
 			m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-									Ipponboard::eFighterNobody,
+									Ipponboard::FighterEnum::None,
 									true);
 			qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
 		}
@@ -208,7 +209,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F5:
 		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::eFighter1,
+								Ipponboard::FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter1, revoke="
 				 << isCtrlPressed
@@ -217,7 +218,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F6:
 		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::eFighter1,
+								Ipponboard::FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter1, revoke="
 				 << isCtrlPressed
@@ -226,7 +227,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F7:
 		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::eFighter1,
+								Ipponboard::FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter1, revoke="
 				 << isCtrlPressed
@@ -235,7 +236,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F8:
 		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::eFighter1,
+								Ipponboard::FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter1, revoke="
 				 << isCtrlPressed
@@ -244,7 +245,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F9:
 		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::eFighter2,
+								Ipponboard::FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter2, revoke="
 				 << isCtrlPressed
@@ -253,7 +254,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F10:
 		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::eFighter2,
+								Ipponboard::FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter2, revoke="
 				 << isCtrlPressed
@@ -262,7 +263,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F11:
 		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::eFighter2,
+								Ipponboard::FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter2, revoke="
 				 << isCtrlPressed
@@ -271,7 +272,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 	case Qt::Key_F12:
 		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::eFighter2,
+								Ipponboard::FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter2, revoke="
 				 << isCtrlPressed
@@ -757,38 +758,38 @@ void MainWindowBase::EvaluateInput()
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
-		m_pController->DoAction(eAction_Hajime_Mate, eFighterNobody);
+		m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::None);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
-		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter1, true);
+		m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::First, true);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_second)))
 	{
-		m_pController->DoAction(eAction_ResetOsaeKomi, eFighter2, true);
+		m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Second, true);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
-				eFighter1 != m_pController->GetLead())
+				FighterEnum::First != m_pController->GetLead())
 		{
-			m_pController->DoAction(eAction_SetOsaekomi, eFighter1);
+			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
 		}
 		else
 		{
-			m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter1);
+			m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
 		}
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
 	{
 		if (eState_Holding == m_pController->GetCurrentState() &&
-				eFighter2 != m_pController->GetLead())
+				FighterEnum::Second != m_pController->GetLead())
 		{
-			m_pController->DoAction(eAction_SetOsaekomi, eFighter2);
+			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
 		}
 		else
 		{
-			m_pController->DoAction(eAction_OsaeKomi_Toketa, eFighter2);
+			m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
 		}
 	}
 	// reset
@@ -796,22 +797,22 @@ void MainWindowBase::EvaluateInput()
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
-		m_pController->DoAction(eAction_ResetAll, eFighterNobody);
+		m_pController->DoAction(eAction_ResetAll, FighterEnum::None);
 	}
 
 	// hansokumake fighter1
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
 	{
 		const bool revoke(m_pController->GetScore(
-							  eFighter1, ePoint_Hansokumake) != 0);
-		m_pController->DoAction(eAction_Hansokumake, eFighter1, revoke);
+							  FighterEnum::First, Point::Hansokumake) != 0);
+		m_pController->DoAction(eAction_Hansokumake, FighterEnum::First, revoke);
 	}
 	// hansokumake fighter2
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
 	{
 		const bool revoke(m_pController->GetScore(
-							  eFighter2, ePoint_Hansokumake) != 0);
-		m_pController->DoAction(eAction_Hansokumake, eFighter2, revoke);
+							  FighterEnum::Second, Point::Hansokumake) != 0);
+		m_pController->DoAction(eAction_Hansokumake, FighterEnum::Second, revoke);
 
 	}
 	else
@@ -834,69 +835,69 @@ void MainWindowBase::EvaluateInput()
 
 		if (m_pGamepad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
 		{
-			m_pController->DoAction(eAction_Ippon, eFighter1);
+			m_pController->DoAction(eAction_Ippon, FighterEnum::First);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
 		{
-			m_pController->DoAction(eAction_Wazaari, eFighter1);
+			m_pController->DoAction(eAction_Wazaari, FighterEnum::First);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
 		{
-			m_pController->DoAction(eAction_Yuko, eFighter1);
+			m_pController->DoAction(eAction_Yuko, FighterEnum::First);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
 		{
-			m_pController->DoAction(eAction_Shido, eFighter1, true);
+			m_pController->DoAction(eAction_Shido, FighterEnum::First, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
 		{
-			m_pController->DoAction(eAction_Ippon, eFighter1, true);
+			m_pController->DoAction(eAction_Ippon, FighterEnum::First, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
 		{
-			m_pController->DoAction(eAction_Wazaari, eFighter1, true);
+			m_pController->DoAction(eAction_Wazaari, FighterEnum::First, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
 		{
-			m_pController->DoAction(eAction_Yuko, eFighter1, true);
+			m_pController->DoAction(eAction_Yuko, FighterEnum::First, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
 		{
-			m_pController->DoAction(eAction_Shido, eFighter1);
+			m_pController->DoAction(eAction_Shido, FighterEnum::First);
 		}
 
 		// evaluate fighter2 actions
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
 		{
-			m_pController->DoAction(eAction_Ippon, eFighter2);
+			m_pController->DoAction(eAction_Ippon, FighterEnum::Second);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
 		{
-			m_pController->DoAction(eAction_Wazaari, eFighter2);
+			m_pController->DoAction(eAction_Wazaari, FighterEnum::Second);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
 		{
-			m_pController->DoAction(eAction_Yuko, eFighter2);
+			m_pController->DoAction(eAction_Yuko, FighterEnum::Second);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
 		{
-			m_pController->DoAction(eAction_Shido, eFighter2, true);
+			m_pController->DoAction(eAction_Shido, FighterEnum::Second, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
 		{
-			m_pController->DoAction(eAction_Ippon, eFighter2, true);
+			m_pController->DoAction(eAction_Ippon, FighterEnum::Second, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
 		{
-			m_pController->DoAction(eAction_Wazaari, eFighter2, true);
+			m_pController->DoAction(eAction_Wazaari, FighterEnum::Second, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
 		{
-			m_pController->DoAction(eAction_Yuko, eFighter2, true);
+			m_pController->DoAction(eAction_Yuko, FighterEnum::Second, true);
 		}
 		else if (m_pGamepad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
 		{
-			m_pController->DoAction(eAction_Shido, eFighter2);
+			m_pController->DoAction(eAction_Shido, FighterEnum::Second);
 		}
 	}
 }
@@ -935,7 +936,7 @@ void MainWindowBase::on_button_reset_clicked()
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
 	m_pController->DoAction(Ipponboard::eAction_ResetAll,
-							Ipponboard::eFighterNobody,
+							Ipponboard::FighterEnum::None,
 							false);
 }
 

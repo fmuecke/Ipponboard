@@ -52,19 +52,19 @@ public:
 	// --- IController ---
 	void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
-	int GetScore(Ipponboard::EFighter whos, Ipponboard::EPoint point) const;
-	void DoAction(Ipponboard::EAction action, Ipponboard::EFighter who = Ipponboard::eFighter1, bool doRevoke = false);
+	int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const;
+	void DoAction(Ipponboard::EAction action, Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
-	Ipponboard::EFighter GetLead() const;
-	Ipponboard::EFighter GetLastHolder() const;
+	Ipponboard::FighterEnum GetLead() const;
+	Ipponboard::FighterEnum GetLastHolder() const;
 	QString GetTimeText(Ipponboard::ETimer timer) const;
-	QString GetFighterName(Ipponboard::EFighter who) const;
-	QString GetFighterLastName(Ipponboard::EFighter) const;
-	QString GetFighterFirstName(Ipponboard::EFighter) const;
-	QString GetFighterClub(Ipponboard::EFighter who) const;
+	QString GetFighterName(Ipponboard::FighterEnum who) const;
+	QString GetFighterLastName(Ipponboard::FighterEnum) const;
+	QString GetFighterFirstName(Ipponboard::FighterEnum) const;
+	QString GetFighterClub(Ipponboard::FighterEnum who) const;
 	QString const& GetWeight() const;
 	QString GetMessage() const;
-	int GetTeamScore(Ipponboard::EFighter who) const;
+	int GetTeamScore(Ipponboard::FighterEnum who) const;
 	void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
 	void SetFightTime(const QString& value);
 	QString GetFightTimeString() const;
@@ -93,8 +93,8 @@ private:
 	void save_fight();
 	void reset_fight();
 	void reset_timer(ETimer);
-	Score& get_score(Ipponboard::EFighter who) final;
-	Score const& get_score(Ipponboard::EFighter who) const final;
+	Score& get_score(Ipponboard::FighterEnum who) final;
+	Score const& get_score(Ipponboard::FighterEnum who) const final;
 	int get_time(ETimer) const;
 	bool is_sonomama() const;
 	bool is_golden_score() const;
@@ -125,7 +125,7 @@ public:
 	{ return m_currentRound; }
 
 	void ClearFights();
-	void SetClub(Ipponboard::EFighter whos, const QString& clubName);
+	void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
 	void SetFight(unsigned int tournament_index, unsigned int fight_index,
 				  const QString& weight, const QString& first_player_name,
 				  const QString& first_player_club, const QString& second_player_name,
@@ -134,7 +134,7 @@ public:
 				  int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1,
 				  int ippon2 = -1, int shido2 = -1, int hansokumake2 = -1);
 	Ipponboard::Fight const& GetFight(unsigned int tournament_index, unsigned int fight_index) const;
-	void SetFighterName(Ipponboard::EFighter whos, const QString& name);
+	void SetFighterName(Ipponboard::FighterEnum whos, const QString& name);
 
 	void SetWeights(QStringList const& weights);
 	void CopyAndSwitchGuestFighters();
@@ -149,8 +149,8 @@ private slots:
 	void update_hold_time();
 
 private:
-//	void AddPoint_( Ipponboard::EFighter whos, Ipponboard::EPoint point );
-//	void RemovePoint_( Ipponboard::EFighter whos, Ipponboard::EPoint point );
+//	void AddPoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
+//	void RemovePoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
 //	void StartStopTimer_( Ipponboard::ETimer timer );
 //	void UpdatePointsFromHoldTimer_();
 //	void CorrectState_();
@@ -178,7 +178,7 @@ private:
 	QTimer* m_pTimerHold;
 	QTime* m_pTimeMain;
 	QTime* m_pTimeHold; // needed when side is not chosen yet
-	Ipponboard::EFighter m_Tori;
+	Ipponboard::FighterEnum m_Tori;
 	typedef std::set<IView*> ViewList;	// TODO: protect pointer
 	ViewList m_Views;
 	QString m_Message;

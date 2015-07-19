@@ -52,34 +52,34 @@ QString Fight::GetTimeRemaining() const
     return  ret + QString::number(seconds);
 }
 
-bool Fight::HasWon(EFighter who) const
+bool Fight::HasWon(FighterEnum who) const
 {
-	const EFighter other = GetUkeFromTori(who);
-	return scores[other].IsLess(scores[who], ruleSet);
+	const FighterEnum other = GetUkeFromTori(who);
+	return GetScore(other).IsLess(GetScore(who), ruleSet);
 }
 
-int Fight::ScorePoints(EFighter who) const
+int Fight::ScorePoints(FighterEnum who) const
 {
-    const EFighter other = GetUkeFromTori(who);
+    const FighterEnum other = GetUkeFromTori(who);
 
     if (HasWon(who))
     {
-        if (scores[who].Ippon() || scores[who].IsAwaseteIppon())
+        if (GetScore(who).Ippon() || GetScore(who).IsAwaseteIppon())
             return eScore_Ippon;
 
         // Only the fight deciding point is taken into account!
-        if (scores[who].Wazaari() > 0 && scores[who].Wazaari() > scores[other].Wazaari())
+        if (GetScore(who).Wazaari() > 0 && GetScore(who).Wazaari() > GetScore(other).Wazaari())
         {
 			return eScore_Wazaari;
 		}
 
-        if (scores[who].Yuko() > 0)
+        if (GetScore(who).Yuko() > 0)
 		{
             return eScore_Yuko;
 		}
 
 		if (e2013RuleSet == ruleSet
-				&& scores[who].Shido() < scores[other].Shido())
+				&& GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		
@@ -94,11 +94,11 @@ int Fight::ScorePoints(EFighter who) const
         else if (allSubscoresCount)
         {
             // Special rule for Jugendliga
-            if (scores[who].Wazaari() > scores[other].Wazaari())
+            if (GetScore(who).Wazaari() > GetScore(other).Wazaari())
             {
                 return eScore_Wazaari;
             }
-            else if(scores[who].Yuko() > scores[other].Yuko())
+            else if(GetScore(who).Yuko() > GetScore(other).Yuko())
             {
                 return eScore_Yuko;
             }
