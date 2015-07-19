@@ -9,56 +9,25 @@ namespace Ipponboard
 class Score
 {
 public:
-    static void Test_Compare()
-    {
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), e2013RuleSet)))
-            throw 1;
 
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
-            throw 2;
+	//// for testing purpose
+	//Score(int ippon, int wazaari, int yuko, int hansokumake, int shido)
+	//{
+	//	_points[ePoint_Hansokumake] = hansokumake;
+	//	_points[ePoint_Shido] = shido;
+	//	_points[ePoint_Ippon] = ippon;
+	//	_points[ePoint_Wazaari] = wazaari;
+	//	_points[ePoint_Yuko] = yuko;
+	//}
 
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 0, 0, 1), e2013RuleSet)))
-            throw 3;
-
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 4;
-
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 5;
-
-        if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), e2013RuleSet)))
-            throw 6;
-		
-		// classic rules
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 0), eClassicRules)))
-            throw 1;
-
-        if ( (Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 0, 0, 1), eClassicRules)))
-            throw 2;
-
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 1), eClassicRules)))
-            throw 3;
-
-        if (!(Score(0, 0, 0, 0, 1).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 4;
-
-        if (!(Score(0, 0, 0, 0, 2).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 5;
-
-        if (!(Score(0, 0, 0, 0, 0).IsLess(Score(0, 0, 1, 0, 2), eClassicRules)))
-            throw 6;
-		
-        //TODO: further tests
-    }
-
-    Score()
+	Score()
 	{
 		Clear();
 	}
 
-	void Add(Ipponboard::EPoint point);
-	void Remove(Ipponboard::EPoint point);
-	void OverwriteValue(Ipponboard::EPoint point, int value);
+	Score& Add(Ipponboard::EPoint point);
+	Score& Remove(Ipponboard::EPoint point);
+	Score& OverwriteValue(Ipponboard::EPoint point, int value);
 
 	// convenience functions
 	bool Ippon() const { return _points[ePoint_Ippon] != 0; }
@@ -114,16 +83,6 @@ public:
 	}
 
 private:
-    // for testing only
-    Score(int ippon, int wazaari, int yuko, int hansokumake, int shido)
-    {
-        _points[ePoint_Hansokumake] = hansokumake;
-        _points[ePoint_Shido] = shido;
-        _points[ePoint_Ippon] = ippon;
-        _points[ePoint_Wazaari] = wazaari;
-        _points[ePoint_Yuko] = yuko;
-    }
-
 	void correct_points();
 
 	int _points[ePoint_MAX];

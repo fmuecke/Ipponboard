@@ -3,25 +3,29 @@
 using namespace Ipponboard;
 
 //=========================================================
-void Score::Add(EPoint point)
+Score& Score::Add(EPoint point)
 //=========================================================
 {
 	++_points[point];
 
 	correct_points();
+
+	return *this;
 }
 
 //=========================================================
-void Score::Remove(EPoint point)
+Score& Score::Remove(EPoint point)
 //=========================================================
 {
 	--_points[point];
 
 	correct_points();
+
+	return *this;
 }
 
 //=========================================================
-void Score::OverwriteValue(Ipponboard::EPoint point, int value)
+Score& Score::OverwriteValue(Ipponboard::EPoint point, int value)
 //=========================================================
 {
 	if (value >= 0)
@@ -41,6 +45,8 @@ void Score::OverwriteValue(Ipponboard::EPoint point, int value)
 		if (_points[ePoint_Hansokumake] > 1)
 			_points[ePoint_Hansokumake] = 1;
 	}
+
+	return *this;
 }
 
 //=========================================================
