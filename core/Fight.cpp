@@ -73,7 +73,7 @@ int Fight::ScorePoints(FighterEnum who) const
 			return eScore_Wazaari;
 		}
 
-        if (GetScore(who).Yuko() > 0)
+		if (GetScore(who).Yuko() > GetScore(other).Yuko())
 		{
             return eScore_Yuko;
 		}
