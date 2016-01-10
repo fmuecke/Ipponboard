@@ -17,6 +17,8 @@ build_pass:CONFIG(debug, debug|release) {
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
 win32-g++: COMPILER = mingw
 win32-msvc2013: COMPILER = msvc
+win32-msvc2015: COMPILER = msvc
+
 contains(COMPILER, mingw) {
     QMAKE_CXXFLAGS += -std=c++11
     # get rid of some nasty boost warnings

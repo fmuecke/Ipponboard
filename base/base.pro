@@ -39,6 +39,7 @@ QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
 # Auto select compiler 
 win32-g++: COMPILER = mingw
 win32-msvc2013: COMPILER = msvc
+win32-msvc2015: COMPILER = msvc
 
 contains(COMPILER, mingw) {
 	#QMAKE_CXXFLAGS += -std=c++0x

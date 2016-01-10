@@ -34,6 +34,9 @@ SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 IF "%QMAKESPEC%"=="win32-msvc2013" (
 	CALL "%VS120COMNTOOLS%..\..\vc\vcvarsall.bat" x86
 )
+IF "%QMAKESPEC%"=="win32-msvc2015" (
+	CALL "%VS140COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+)
 
 IF NOT EXIST "%BOOST_DIR%\boost" (
 	ECHO Can't find boost. Please set "BOOST" to boost path.

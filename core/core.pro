@@ -27,6 +27,7 @@ QMAKE_EXTRA_TARGETS += prebuildhook
 # Auto select compiler
 win32-g++: COMPILER = mingw
 win32-msvc2013: COMPILER = msvc
+win32-msvc2015: COMPILER = msvc
 
 CONFIG(release, release|debug) {
 	TARGET = core

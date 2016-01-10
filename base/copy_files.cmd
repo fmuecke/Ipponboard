@@ -21,7 +21,10 @@ copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 REM -- binaries
-copy /Y "%THIRDPARTY%\qt\4.8.6-vc120xp\*.dll" "%DEST%">nul
+copy /Y "%QTDIR%\QtCore*.dll" "%DEST%">nul
+copy /Y "%QTDIR%\QtGui*.dll" "%DEST%">nul
+copy /Y "%QTDIR%\QtNetwork*.dll" "%DEST%">nul
+copy /Y "%QTDIR%\QtXmlPatterns*.dll" "%DEST%">nul
 copy /Y "%THIRDPARTY%\msvc120\*.dll" "%DEST%">nul
 
 REM -- doc
