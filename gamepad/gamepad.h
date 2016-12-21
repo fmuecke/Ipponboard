@@ -144,62 +144,77 @@ namespace FMlib
 		{
 			return m_caps.szPname;
 		}
+		
 		inline WORD GetMId() const
 		{
 			return m_caps.wMid;
 		}
+		
 		inline WORD GetPId() const
 		{
 			return m_caps.wPid;
 		}
+		
 		inline unsigned GetNumButtons() const
 		{
 			return m_caps.wNumButtons;
 		}
+		
 		inline unsigned GetNumAxes() const
 		{
 			return m_caps.wNumAxes;
 		}
+		
 		inline UnsignedPair GetPollingFreq() const
 		{
 			return std::make_pair(m_caps.wPeriodMin, m_caps.wPeriodMax);
 		}
+		
 		inline UnsignedPair GetRangeX() const
 		{
 			return std::make_pair(m_caps.wXmin, m_caps.wXmax);
 		}
+		
 		inline UnsignedPair GetRangeY() const
 		{
 			return std::make_pair(m_caps.wYmin, m_caps.wYmax);
 		}
+		
 		inline UnsignedPair GetRangeZ() const
 		{
 			return std::make_pair(m_caps.wZmin, m_caps.wZmax);
 		}
+		
 		inline UnsignedPair GetRangeR() const
 		{
 			return std::make_pair(m_caps.wRmin, m_caps.wRmax);
 		}
+		
 		inline UnsignedPair GetRangeU() const
 		{
 			return std::make_pair(m_caps.wUmin, m_caps.wUmax);
 		}
+		
 		inline UnsignedPair GetRangeV() const
 		{
 			return std::make_pair(m_caps.wVmin, m_caps.wVmax);
 		}
+		
 		inline bool HasAxisZ() const
 		{
 			return m_caps.wCaps & JOYCAPS_HASZ;
 		}
+		
 		inline bool HasAxisR() const
 		{
 			return (m_caps.wCaps & JOYCAPS_HASR) != 0;
 		}
+		
 		inline bool HasAxisU() const
 		{
 			return (m_caps.wCaps & JOYCAPS_HASU) != 0;
 		}
+		
 		inline bool HasAxisV() const
 		{
 			return (m_caps.wCaps & JOYCAPS_HASV) != 0;
@@ -233,7 +248,9 @@ namespace FMlib
 			{
 				if (button_code[b] == m_data.dwPOV &&
 						m_data.dwPOV != m_lastData.dwPOV)
+				{
 					return true;
+				}
 
 				return false;
 			}
@@ -277,10 +294,14 @@ namespace FMlib
 
 			if (-1.0f == lastAlpha || -1.0f == curAlpha ||
 					fabs(lastAlpha - curAlpha) > eTolerance)
+			{
 				changed = true;
+			}
 
 			if (changed && IsInSection(curAlpha, min, max))
+			{
 				return true;
+			}
 
 			return false;
 		}	
@@ -307,10 +328,14 @@ namespace FMlib
 
 			if (-1.0f == lastAlpha || -1.0f == curAlpha ||
 					fabs(lastAlpha - curAlpha) > eTolerance)
+			{
 				changed = true;
+			}
 
 			if (changed && IsInSection(curAlpha, min, max))
+			{
 				return true;
+			}
 
 			return false;
 		}
@@ -327,14 +352,20 @@ namespace FMlib
 			if (min > max)
 			{
 				if (min <= alpha && alpha <= 360.0f)
+				{
 					ret = true;
+				}
 				else if (0 < alpha && alpha <= max)
+				{
 					ret = true;
+				}
 			}
 			else
 			{
 				if (min <= alpha && max >= alpha)
+				{
 					ret = true;
+				}
 			}
 
 			return ret;
@@ -344,19 +375,19 @@ namespace FMlib
 		T GetAngle(int x, int y, float factor = 0.0f, int max = 0) const
 		{
 			if (0 == x && 0 == y)
+			{
 				return -1;
+			}
 
 			T h = sqrt((T)x * x + (T)y * y);
 
 			if (h * factor < (float)max)
+			{
 				return -1;
+			}
 
 			T angle = asin((T)y / h) * 180 / (T)3.141592653589793L;
-
-			if (x > 0)
-				angle = 90 - angle;
-			else
-				angle = 270 + angle;
+			angle = x > 0 ? 90 - angle : 270 + angle;
 
 			return angle;
 		}
