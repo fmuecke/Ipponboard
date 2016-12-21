@@ -148,12 +148,6 @@ exit /b 0
 	echo;
 	echo --[build]--
 
-	CALL :compile core
-	if errorlevel 1 exit /b %errorlevel%
-
-	CALL :compile gamepad
-	if errorlevel 1 exit /b %errorlevel%
-
 	CALL :compile base
 	if errorlevel 1 exit /b %errorlevel%
 

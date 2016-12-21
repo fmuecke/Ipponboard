@@ -2,10 +2,9 @@
 QT += xmlpatterns
 
 # This app depends on:
-#   - gamepad
 #   - core
 # These need to be build first.
-#PRE_TARGETDEPS += ../gamepad ../core
+#PRE_TARGETDEPS += ../core
 
 TEMPLATE = app
 LANGUAGE = C++
@@ -24,14 +23,24 @@ QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 
 DESTDIR = ../bin
 
+#----------------------------------------------------------
+# Create our custom prebuild target for the release build
+#----------------------------------------------------------
+prebuild.commands = create_versioninfo.cmd
+QMAKE_EXTRA_TARGETS += prebuild
+# Hook our prebuild target in between qmake's Makefile update and the actual project target.
+prebuildhook.depends = prebuild
+CONFIG(release, debug|release):prebuildhook.target = Makefile.Release
+QMAKE_EXTRA_TARGETS += prebuildhook
+
 CONFIG(debug, release|debug) {
     TARGET = Ipponboard_d
-    QMAKE_LIBS += -lgamepad_d -lcore_d -lshell32 -lWinmm
+    QMAKE_LIBS += -lshell32
 }
 
 CONFIG(release, release|debug) {
     TARGET = Ipponboard
-    QMAKE_LIBS += -lgamepad -lcore -lshell32 -lWinmm
+    QMAKE_LIBS += -lshell32
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
@@ -84,7 +93,22 @@ HEADERS = pch.h \
     SplashScreen.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
-    ../util/SimpleCsvFile.hpp 
+    ../util/SimpleCsvFile.hpp \
+	../core/Controller.h \
+	../core/Enums.h \
+	../core/EnumStrings.h \
+	../core/Fight.h \
+	../core/FightCategory.h \
+	../core/iController.h \
+	../core/iControllerCore.h \
+	../core/iView.h \
+	../core/Score.h \
+	../core/StateMachine.h \
+	../core/Tournament.h \
+	../core/Fighter.h \
+	../core/TournamentMode.h \
+	../core/TournamentModel.h \
+	../core/ControllerConfig.h
 
 SOURCES = Main.cpp \
     Main.cpp \
@@ -106,8 +130,15 @@ SOURCES = Main.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
     SplashScreen.cpp \
-    ../widgets/Countdown.cpp
-
+    ../widgets/Countdown.cpp \
+	../core/Controller.cpp \
+	../core/FightCategory.cpp \
+	../core/Fighter.cpp \
+	../core/Fight.cpp \
+	../core/Score.cpp \
+	../core/StateMachine.cpp \
+	../core/TournamentMode.cpp \
+	../core/TournamentModel.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \
