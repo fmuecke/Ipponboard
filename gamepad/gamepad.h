@@ -340,7 +340,7 @@ namespace FMlib
 			return false;
 		}
 		
-		bool WasSectionLeft(float min, float max) const 
+        bool WasSectionLeft(float /*min*/, float /*max*/) const
 		{ 
 			return false; 
 		}

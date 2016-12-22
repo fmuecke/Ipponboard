@@ -8,8 +8,6 @@ SET THIRDPARTY=..\..\3rdParty
 
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
-"%QTDIR%\lrelease" -compress -silent ..\i18n\core_de.ts -qm ..\i18n\core_de.qm
-"%QTDIR%\lrelease" -compress -silent ..\i18n\core_nl.ts -qm ..\i18n\core_nl.qm
 "%QTDIR%\lrelease" -compress -silent ..\i18n\de.ts -qm ..\i18n\de.qm
 "%QTDIR%\lrelease" -compress -silent ..\i18n\nl.ts -qm ..\i18n\nl.qm
 copy /Y "..\i18n\core_??.qm" "%DEST%\lang">nul

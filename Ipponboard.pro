@@ -5,4 +5,4 @@ SUBDIRS += \
 	#VersionSelector \
 	GamepadDemo \
 	test
-base.depends = core gamepad
+#base.depends = core gamepad

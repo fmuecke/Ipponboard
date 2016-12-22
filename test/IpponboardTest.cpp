@@ -6,7 +6,7 @@
 //
 
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
-#include "../../../../development/Catch/include/catch.hpp"
+#include "../../../../devtools/Catch/include/catch.hpp"
 #include "../core/Score.cpp"
 #include "../core/Fight.cpp"
 
