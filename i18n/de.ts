@@ -2172,7 +2172,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     <message>
         <location line="+29"/>
         <source>No, thanks!</source>
-        <translation>Nein, danke!</translation>
+        <translation>Nein, Danke!</translation>
     </message>
     <message>
         <location line="-32"/>

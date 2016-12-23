@@ -297,7 +297,9 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		   "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
 		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
-		   "PARTICULAR PURPOSE.</p>"
+           "PARTICULAR PURPOSE.</p>"
+           "<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ\">"
+           "with a little donation.</a></em>"
 		  ).arg(QCoreApplication::applicationName(),
 				QCoreApplication::applicationVersion(),
 				VersionInfo::Date,

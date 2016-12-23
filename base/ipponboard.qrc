@@ -54,6 +54,7 @@
         <file>images/golden_score.png</file>
         <file>icons/save.png</file>
         <file>icons/options.png</file>
+        <file>images/btn_donate_EN_s.gif</file>
     </qresource>
     <qresource prefix="/leagues">
         <file>emblems/bjv-logo.png</file>

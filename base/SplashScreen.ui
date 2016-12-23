@@ -9,9 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
-    <height>410</height>
+    <width>680</width>
+    <height>400</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>License Information</string>
@@ -31,7 +36,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
    <property name="spacing">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="leftMargin">
     <number>0</number>
@@ -100,214 +105,113 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,1">
-     <property name="spacing">
-      <number>0</number>
-     </property>
+    <layout class="QGridLayout" name="gridLayout">
      <property name="leftMargin">
-      <number>5</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
+      <number>6</number>
      </property>
      <property name="rightMargin">
-      <number>5</number>
+      <number>6</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>6</number>
      </property>
-     <item>
-      <widget class="QWidget" name="widget_image" native="true">
+     <item row="1" column="2">
+      <widget class="QCommandLinkButton" name="commandLinkButton_cancel">
        <property name="minimumSize">
         <size>
-         <width>60</width>
-         <height>60</height>
+         <width>220</width>
+         <height>0</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/res/images/logo.png);</string>
+       <property name="text">
+        <string>Maybe another time</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="rightMargin">
-        <number>0</number>
+     <item row="1" column="1">
+      <widget class="QCommandLinkButton" name="commandLinkButton_startTeamVersion">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
        </property>
-       <property name="bottomMargin">
-        <number>0</number>
+       <property name="text">
+        <string>Ok, start Team Tournament</string>
        </property>
-       <item>
-        <widget class="QLabel" name="label_info">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string notr="true">Ipponboard v1.6.6</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::PlainText</enum>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="margin">
-          <number>5</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelCopyright">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string notr="true">© F. Mücke</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::PlainText</enum>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="margin">
-          <number>5</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="leftMargin">
-        <number>0</number>
+     <item row="1" column="0">
+      <widget class="QCommandLinkButton" name="commandLinkButton_startSingleVersion">
+       <property name="text">
+        <string>Ok, start Single Tournament</string>
        </property>
-       <property name="topMargin">
-        <number>0</number>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
        </property>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton">
-         <property name="focusPolicy">
-          <enum>Qt::TabFocus</enum>
-         </property>
-         <property name="toolTip">
-          <string>Accept terms of usage &amp; start Single Tournament edition.</string>
-         </property>
-         <property name="text">
-          <string>Ok, start Single Version</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ipponboard.qrc">
-           <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
-         </property>
-         <property name="autoDefault">
-          <bool>true</bool>
-         </property>
-         <property name="default">
-          <bool>true</bool>
-         </property>
-         <property name="flat">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QPushButton" name="pushButton_team">
-         <property name="focusPolicy">
-          <enum>Qt::TabFocus</enum>
-         </property>
-         <property name="toolTip">
-          <string>Accept terms of usage &amp; start Team Tournament edition.</string>
-         </property>
-         <property name="text">
-          <string>Ok, start Team Version</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ipponboard.qrc">
-           <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
-         </property>
-         <property name="autoDefault">
-          <bool>true</bool>
-         </property>
-         <property name="default">
-          <bool>true</bool>
-         </property>
-         <property name="flat">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4" rowspan="2">
-        <widget class="QPushButton" name="pushButton_Cancel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::TabFocus</enum>
-         </property>
-         <property name="text">
-          <string>No, thanks!</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ipponboard.qrc">
-           <normaloff>:/res/icons/deny.png</normaloff>:/res/icons/deny.png</iconset>
-         </property>
-         <property name="shortcut">
-          <string notr="true"/>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
-         <property name="default">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_info">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true">Ipponboard v1.6.6</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QCommandLinkButton" name="commandLinkButton_donate">
+       <property name="text">
+        <string>I want to show my support as Ipponboard is really helpful.</string>
+       </property>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/images/btn_donate_EN_s.gif</normaloff>:/res/images/btn_donate_EN_s.gif</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>70</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>textEdit</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_team</tabstop>
-  <tabstop>pushButton_Cancel</tabstop>
- </tabstops>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>
