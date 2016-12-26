@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>680</width>
-    <height>400</height>
+    <height>420</height>
    </rect>
   </property>
   <property name="font">
@@ -62,6 +62,9 @@
        <kerning>true</kerning>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
@@ -83,6 +86,9 @@
      <property name="autoFormatting">
       <set>QTextEdit::AutoAll</set>
      </property>
+     <property name="tabChangesFocus">
+      <bool>false</bool>
+     </property>
      <property name="undoRedoEnabled">
       <bool>false</bool>
      </property>
@@ -94,7 +100,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ipponboard rocks!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="acceptRichText">
       <bool>false</bool>
@@ -115,45 +121,6 @@ p, li { white-space: pre-wrap; }
      <property name="bottomMargin">
       <number>6</number>
      </property>
-     <item row="1" column="2">
-      <widget class="QCommandLinkButton" name="commandLinkButton_cancel">
-       <property name="minimumSize">
-        <size>
-         <width>220</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Maybe another time</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QCommandLinkButton" name="commandLinkButton_startTeamVersion">
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string>Ok, start Team Tournament</string>
-       </property>
-       <property name="icon">
-        <iconset resource="ipponboard.qrc">
-         <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="default">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QCommandLinkButton" name="commandLinkButton_startSingleVersion">
        <property name="text">
@@ -162,6 +129,9 @@ p, li { white-space: pre-wrap; }
        <property name="icon">
         <iconset resource="ipponboard.qrc">
          <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -190,7 +160,7 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="2">
+     <item row="0" column="1">
       <widget class="QCommandLinkButton" name="commandLinkButton_donate">
        <property name="text">
         <string>I want to show my support as Ipponboard is really helpful.</string>
@@ -205,12 +175,44 @@ p, li { white-space: pre-wrap; }
          <height>20</height>
         </size>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCommandLinkButton" name="commandLinkButton_startTeamVersion">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>Ok, start Team Tournament</string>
+       </property>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>textEdit</tabstop>
+  <tabstop>commandLinkButton_donate</tabstop>
+  <tabstop>commandLinkButton_startSingleVersion</tabstop>
+  <tabstop>commandLinkButton_startTeamVersion</tabstop>
+ </tabstops>
  <resources>
   <include location="ipponboard.qrc"/>
  </resources>

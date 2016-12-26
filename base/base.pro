@@ -108,7 +108,9 @@ HEADERS = pch.h \
 	../core/Fighter.h \
 	../core/TournamentMode.h \
 	../core/TournamentModel.h \
-	../core/ControllerConfig.h
+	../core/ControllerConfig.h \
+    DonationManager.h \
+    ../util/array_helpers.h
 
 SOURCES = Main.cpp \
     Main.cpp \
@@ -138,7 +140,8 @@ SOURCES = Main.cpp \
 	../core/Score.cpp \
 	../core/StateMachine.cpp \
 	../core/TournamentMode.cpp \
-	../core/TournamentModel.cpp
+	../core/TournamentModel.cpp \
+    DonationManager.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \

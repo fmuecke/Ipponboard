@@ -5,13 +5,10 @@
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
 // $Id$
+#include "DonationManager.h"
 #include "splashscreen.h"
 #include "ui_splashscreen.h"
 #include "versioninfo.h"
-#include <QDesktopServices>
-#include <QUrl>
-
-static QString DonationUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)
@@ -27,7 +24,7 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	ui->textEdit->setHtml(data.text);
 	ui->label_info->setText(data.info);
     //ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
-    //ui->label_donate->setText("<em><a href=\"" + DonationUrl + \">Ipponboard really helps us, please don't stop!</a></em>");
+    ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
 
 	setWindowFlags(Qt::Window);
 }
@@ -70,7 +67,7 @@ void SplashScreen::on_commandLinkButton_startTeamVersion_pressed()
 
 void SplashScreen::on_commandLinkButton_donate_pressed()
 {
-    QDesktopServices::openUrl(QUrl(DonationUrl));
+    DonationManager::OpenUrl();
 }
 
 void SplashScreen::on_commandLinkButton_cancel_pressed()

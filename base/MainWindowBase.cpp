@@ -7,6 +7,7 @@
 #include "MainWindowBase.h"
 
 #include "View.h"
+#include "DonationManager.h"
 #include "../core/Controller.h"
 #include "../core/Fighter.h"
 #include "../core/Enums.h"
@@ -298,13 +299,14 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
            "PARTICULAR PURPOSE.</p>"
-           "<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ\">"
+           "<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
            "with a little donation.</a></em>"
 		  ).arg(QCoreApplication::applicationName(),
 				QCoreApplication::applicationVersion(),
 				VersionInfo::Date,
                 VersionInfo::Revision,
-                VersionInfo::CopyrightYear));
+                VersionInfo::CopyrightYear,
+                DonationManager::DonationUrl));
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
