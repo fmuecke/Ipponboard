@@ -113,7 +113,7 @@ void LangNotFound(const QString& fileName)
 						  "\nThe default language is being used.");
 }
 
-void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& coreTranslator, QString const& langStr)
+void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
 	UNREFERENCED_PARAMETER(app);
 
@@ -134,15 +134,6 @@ void SetTranslation(QApplication& app, QTranslator& translator, QTranslator& cor
         else
         {
             LangNotFound(langStr);
-        }
-
-        if (coreTranslator.load("core_" + langStr, langPath))
-        {
-            app.installTranslator(&coreTranslator);
-        }
-        else
-        {
-            LangNotFound("core_" + langStr);
         }
     }
 }
@@ -175,35 +166,34 @@ int main(int argc, char* argv[])
 	settings.endGroup();
 
     QTranslator translator;  // Note: this object needs to remain in scope.
-    QTranslator coreTranslator; // Note: this object needs to remain in scope
 
-    SetTranslation(a, translator, coreTranslator, langStr);
+    SetTranslation(a, translator, langStr);
 
 	if (CheckForNeverVersion())
 	{
 		return 0;
 	}
 
-    auto eulaText1 = QCoreApplication::tr("This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.");
-    auto eulaText2 = QCoreApplication::tr("Please consider to support the development and future maintainance of Ipponbord by a small donation.");
-    auto eulaText3 = QCoreApplication::tr("To donate just get in touch with me or use the donate link on the Ipponboard project homepage.");
-    auto eulaText4 = QCoreApplication::tr("If you have improvements regardings the design (view, handling) or the controlling - please let me know! "\
-                                          "I would love hearing from you! Please leave your comments in the online survey <em>Menu&rarr;About&rarr;Feedback</em> - "\
-                                          "it just takes a few seconds!");
-    auto eulaText5 = QCoreApplication::tr("The most recent version can be found on the homepage:");
-    auto eulaText6 = QCoreApplication::tr("Thank you very much!");
-	auto eulaText7 = QCoreApplication::tr("Thank you for using Ipponboard!");
+    auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
+    auto t2 = QCoreApplication::tr("Judo is part of our lives. Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.");
+    auto t3 = QCoreApplication::tr("Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.");
+    auto t4 = QCoreApplication::tr("This version can be used without restriction. Copying in unchanged form is permitted.");
+    auto t5 = QCoreApplication::tr("If you like Ipponboard, please support its development by:");
+    auto t6 = QCoreApplication::tr("feedback");
+    auto t7 = QCoreApplication::tr("wishes and suggestions");
+    auto t8 = QCoreApplication::tr("or by giving appreciative donations");
+    auto t9 = QCoreApplication::tr("Thank you very much!");
 
-    const QString text = QString(
-                "<html><body><h2><span style=\"color:#336699\">Ipponboard</span> <small>v%7</small></h2>"\
-                "<p><em>%8</em></p>"\
-				"<p>%1</p>"\
-                "<p><span style=\"color:blue\"><em>%2</em></span></p>"\
-                "<p>%3</p>"\
-                "<p>%4</p>"\
-                "<p>%5 <a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"\
-                "<p><br/><em>%6</em></p>"\
-				"</body></html>").arg(eulaText1, eulaText2, eulaText3, eulaText4, eulaText5, eulaText6, VersionInfo::VersionStrShort, eulaText7);
+    auto text = QString("<html><body><p><big><span style=\"color:#336699;font-weight:bold\">Ipponboard</span> - %1</big></p>"
+                        "<p><em>%2</em></p>"
+                        "<p><em>%3</em></p>"
+                        "<p>%4</p>"
+                        "<p>%5<ul>"
+                        "<li>%6</li>"
+                        "<li>%7</li>"
+                        "<li>%8</li></ul></p>"
+                        "<p><em>%9</em></p>"
+                        "</body></html>").arg(t1, t2, t3, t4, t5, t6, t7, t8, t9);
 
 	SplashScreen::Data splashData;
 	splashData.text = text;

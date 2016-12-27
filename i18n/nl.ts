@@ -2,55 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="nl" sourcelanguage="en_US">
 <context>
-    <name>Ipponboard::Controller</name>
-    <message>
-        <location filename="../core/Controller.cpp" line="+386"/>
-        <source>First</source>
-        <translation>Eerste</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Second</source>
-        <translation>Tweede</translation>
-    </message>
-</context>
-<context>
-    <name>TournamentModel</name>
-    <message>
-        <location filename="../core/TournamentModel.cpp" line="+21"/>
-        <source>Weight</source>
-        <translation>Gewicht</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <location line="+8"/>
-        <source>Firstname Lastname</source>
-        <translation>Voornaam Achternaam</translation>
-    </message>
-    <message>
-        <location line="-2"/>
-        <location line="+8"/>
-        <source>Won</source>
-        <translation>Won</translation>
-    </message>
-    <message>
-        <location line="-7"/>
-        <location line="+8"/>
-        <source>Score</source>
-        <translation>Score</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Remaining</source>
-        <translation>Overblijvende</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Time</source>
-        <translation>Tijd</translation>
-    </message>
-</context>
-<context>
     <name>AddFighterDlg</name>
     <message>
         <location filename="../base/AddFighterDlg.ui" line="+17"/>
@@ -152,6 +103,90 @@
         <location filename="../widgets/Countdown.ui" line="+23"/>
         <source>Please update your version...</source>
         <translation>Uw versie updaten aub...</translation>
+    </message>
+</context>
+<context>
+    <name>DonationLabel</name>
+    <message>
+        <location filename="../base/DonationManager.cpp" line="+19"/>
+        <source>I really like Ipponboard and want to contribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Ipponboard rocks! Please don&apos;t stop!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Ipponboard really saves my day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Let me donate a beer (or two)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>It really makes tournaments less work</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Best score board ever!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>I really love Ipponboard!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Let me support future development</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>I want to donate because Ipponboard is really great</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Let me show my appreciation and donate a buck</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>There are still features missing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>I believe there is still some development to do...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please fix my bug...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please keep Ipponboard alive!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>I need more features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Thanks for investing your time!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -381,6 +416,19 @@ Geldige velden zijn: %1</translation>
     </message>
 </context>
 <context>
+    <name>Ipponboard::Controller</name>
+    <message>
+        <location filename="../core/Controller.cpp" line="+387"/>
+        <source>First</source>
+        <translation>Eerste</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Second</source>
+        <translation>Tweede</translation>
+    </message>
+</context>
+<context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
         <location filename="../base/SettingsDlg.cpp" line="+47"/>
@@ -406,7 +454,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+470"/>
+        <location filename="../base/View.cpp" line="+471"/>
         <source>Set time</source>
         <translation>Tijd Instellen</translation>
     </message>
@@ -744,12 +792,12 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+291"/>
+        <location filename="../base/MainWindowBase.cpp" line="+293"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+34"/>
         <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1504,27 +1552,42 @@ Do you want to download it or visit the project homepage?</source>
     </message>
     <message>
         <location line="+115"/>
-        <source>This version can be used without any fee. The unmodified version may and shall be copied and distributed freely.</source>
+        <source>the score board for judoka by judoka</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Please consider to support the development and future maintainance of Ipponbord by a small donation.</source>
+        <source>Judo is part of our lives. Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>To donate just get in touch with me or use the donate link on the Ipponboard project homepage.</source>
+        <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>If you have improvements regardings the design (view, handling) or the controlling - please let me know! I would love hearing from you! Please leave your comments in the online survey &lt;em&gt;Menu&amp;rarr;About&amp;rarr;Feedback&lt;/em&gt; - it just takes a few seconds!</source>
+        <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>The most recent version can be found on the homepage:</source>
+        <location line="+1"/>
+        <source>If you like Ipponboard, please support its development by:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>wishes and suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>or by giving appreciative donations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2143,34 +2206,60 @@ Restoring defaults.</source>
 <context>
     <name>SplashScreen</name>
     <message>
-        <location filename="../base/SplashScreen.ui" line="+17"/>
-        <source>License Information</source>
-        <translation>Informatie Licentie</translation>
+        <location filename="../base/SplashScreen.ui" line="+22"/>
+        <source>Welcome to Ipponboard!</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+205"/>
-        <source>Ok, start Single Version</source>
+        <location line="+105"/>
+        <source>Ok, start Single Tournament</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>I want to show my support as Ipponboard is really helpful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>Ok, start Team Version</source>
+        <source>Ok, start Team Tournament</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>TournamentModel</name>
     <message>
-        <location line="+29"/>
-        <source>No, thanks!</source>
-        <translation>Neen, Bedankt!</translation>
+        <location filename="../core/TournamentModel.cpp" line="+21"/>
+        <source>Weight</source>
+        <translation>Gewicht</translation>
     </message>
     <message>
-        <location line="-32"/>
-        <source>Accept terms of usage &amp; start Team Tournament edition.</source>
-        <translation type="unfinished"></translation>
+        <location line="+1"/>
+        <location line="+8"/>
+        <source>Firstname Lastname</source>
+        <translation>Voornaam Achternaam</translation>
     </message>
     <message>
-        <location line="-26"/>
-        <source>Accept terms of usage &amp; start Single Tournament edition.</source>
-        <translation type="unfinished"></translation>
+        <location line="-2"/>
+        <location line="+8"/>
+        <source>Won</source>
+        <translation>Won</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <location line="+8"/>
+        <source>Score</source>
+        <translation>Score</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Remaining</source>
+        <translation>Overblijvende</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Time</source>
+        <translation>Tijd</translation>
     </message>
 </context>
 </TS>

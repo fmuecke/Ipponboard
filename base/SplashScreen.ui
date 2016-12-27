@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>680</width>
-    <height>420</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="font">
@@ -19,7 +19,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>License Information</string>
+   <string>Welcome to Ipponboard!</string>
   </property>
   <property name="windowIcon">
    <iconset resource="ipponboard.qrc">
@@ -51,7 +51,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QTextEdit" name="textEdit">
+    <widget class="QTextEdit" name="textEdit_eula">
      <property name="font">
       <font>
        <family>MS Shell Dlg 2</family>
@@ -178,6 +178,9 @@ p, li { white-space: pre-wrap; }
        <property name="autoDefault">
         <bool>true</bool>
        </property>
+       <property name="description">
+        <string/>
+       </property>
       </widget>
      </item>
      <item row="1" column="1">
@@ -208,7 +211,7 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>textEdit</tabstop>
+  <tabstop>textEdit_eula</tabstop>
   <tabstop>commandLinkButton_donate</tabstop>
   <tabstop>commandLinkButton_startSingleVersion</tabstop>
   <tabstop>commandLinkButton_startTeamVersion</tabstop>
