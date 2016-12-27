@@ -108,32 +108,12 @@
 <context>
     <name>DonationLabel</name>
     <message>
-        <location filename="../base/DonationManager.cpp" line="+19"/>
-        <source>I really like Ipponboard and want to contribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location filename="../base/DonationManager.cpp" line="+20"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Ipponboard really saves my day</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Let me donate a beer (or two)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>It really makes tournaments less work</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Best score board ever!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -143,28 +123,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Let me support future development</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>I want to donate because Ipponboard is really great</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Let me show my appreciation and donate a buck</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>There are still features missing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="-10"/>
+        <source>Contribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>It really saves my day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>I believe there is still some development to do...</source>
+        <source>Donate a beer (or two)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Tournaments are less work now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Support future development</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Ipponboard is really great</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show my appreciation and donate a buck</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>There is still some development to do...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1551,7 +1551,7 @@ Do you want to download it or visit the project homepage?</source>
         <translation type="unfinished">Annuleren</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+105"/>
         <source>the score board for judoka by judoka</source>
         <translation type="unfinished"></translation>
     </message>

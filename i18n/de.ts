@@ -108,32 +108,12 @@
 <context>
     <name>DonationLabel</name>
     <message>
-        <location filename="../base/DonationManager.cpp" line="+19"/>
-        <source>I really like Ipponboard and want to contribute</source>
-        <translation>Mir gefällt Ipponboard sehr gut und ich möchte gerne mithelfen </translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location filename="../base/DonationManager.cpp" line="+20"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
         <translation>Ipponboard rockt! Bitte hör nicht auf!</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Ipponboard really saves my day</source>
-        <translation>Ipponboard rettet echt meinen Tag</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Let me donate a beer (or two)</source>
-        <translation>Lass mich ein Bier spendieren (oder zwei)</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>It really makes tournaments less work</source>
-        <translation>Wettkämpfe sind jetzt wirklich weniger Arbeit </translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Best score board ever!</source>
         <translation>Bestes Anzeigeprogramm überhaupt!</translation>
     </message>
@@ -143,29 +123,49 @@
         <translation>Ipponboard ist einfach geil!</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Let me support future development</source>
-        <translation>Lass mich die Weiterentwicklung unterstützen  </translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>I want to donate because Ipponboard is really great</source>
-        <translation>Ipponboard ist genial - lass mich was spenden</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Let me show my appreciation and donate a buck</source>
-        <translation>Ich möchte meine Anerkennung zeigen und nen Euro springen lassen</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>There are still features missing...</source>
         <translation>Hey, da fehlen aber noch ein paar Features...</translation>
     </message>
     <message>
+        <location line="-10"/>
+        <source>Contribute</source>
+        <translation>Unterstützen und Mitmachen</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>It really saves my day</source>
+        <translation>Es rettet meinen Tag</translation>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>I believe there is still some development to do...</source>
-        <translation>I glaube, da gibt es noch ein paar Sachen zu verbessern...</translation>
+        <source>Donate a beer (or two)</source>
+        <translation>Bier (oder zwei) springen lassen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Tournaments are less work now</source>
+        <translation>Wettkämpfe sind jetzt weniger Arbeit</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Support future development</source>
+        <translation>Weiterentwicklung unterstützen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Ipponboard is really great</source>
+        <translation>Ipponboard ist einfach geil</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show my appreciation and donate a buck</source>
+        <translation>Anerkennung zeigen und nen Euro springen lassen</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>There is still some development to do...</source>
+        <translation>Es gibt da noch was zu verbessern...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1555,7 +1555,7 @@ Wollen Sie diese herunterladen oder die Projektseite besuchen?</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+105"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
