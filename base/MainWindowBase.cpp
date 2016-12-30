@@ -317,7 +317,7 @@ void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("https://bitbucket.org/fmuecke/ipponboard/issues?status=new&status=open");
+	QUrl url("https://bitbucket.org/ipponboard/ipponboard_dev/issues?status=new&status=open");
 	QDesktopServices::openUrl(url);
 }
 
