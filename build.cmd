@@ -169,9 +169,9 @@ exit /b 0
 	CALL _build\scripts\clear_build_dir.cmd
 	if errorlevel 1 exit /b %errorlevel%
 
-	CALL _build\scripts\Ipponboard_copy_files.cmd
-	if errorlevel 1 exit /b %errorlevel%
-
+	rem CALL _build\scripts\Ipponboard_copy_files.cmd
+	rem if errorlevel 1 exit /b %errorlevel%
+	
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss"
 	if errorlevel 1 exit /b %errorlevel%
 	dir /OD "%BASE_DIR%\_output"

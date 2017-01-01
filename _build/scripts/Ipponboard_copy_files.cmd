@@ -4,8 +4,7 @@ MKDIR "%BUILD_DIR%\sounds">nul
 copy "%BASE_DIR%\bin\Ipponboard.exe" "%BUILD_DIR%">nul
 
 :: language file
-copy "%BASE_DIR%\bin\lang\core_de.qm" "%BUILD_DIR%\lang">nul
-copy "%BASE_DIR%\bin\lang\Ipponboard_de.qm" "%BUILD_DIR%\lang">nul
+copy "%BASE_DIR%\bin\lang\*.qm" "%BUILD_DIR%\lang">nul
 
 :: sound files
 copy "%BASE_DIR%\bin\sounds\buzzer.wav" "%BUILD_DIR%\sounds">nul
@@ -29,7 +28,7 @@ copy "%BASE_DIR%\bin\sounds\windgong.wav" "%BUILD_DIR%\sounds">nul
 copy "%BASE_DIR%\bin\GamepadDemo.exe" "%BUILD_DIR%">nul
 
 :: 3rdParty library files
-copy "%BASE_DIR%\bin\QtCore4.dll" "%BUILD_DIR%">nul
+copy "%BASE_DIR%\bin\Qt*4.dll" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\bin\QtGui4.dll" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\bin\msvcp100.dll" "%BUILD_DIR%">nul
 copy "%BASE_DIR%\bin\msvcr100.dll" "%BUILD_DIR%">nul
@@ -51,3 +50,5 @@ xcopy /S /Q "%BASE_DIR%\bin\templates" "%BUILD_DIR_TEAM%\templates\"
 :: main files
 copy "%BASE_DIR%\bin\Ipponboard_team.exe" "%BUILD_DIR_TEAM%">nul
 copy "%BASE_DIR%\bin\VersionSelector.exe" "%BUILD_DIR_TEAM%">nul
+
+exit /b 0
