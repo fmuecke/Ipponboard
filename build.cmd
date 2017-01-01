@@ -172,10 +172,7 @@ exit /b 0
 	CALL _build\scripts\Ipponboard_copy_files.cmd
 	if errorlevel 1 exit /b %errorlevel%
 
-	REM "%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_build\build_output" "%BASE_DIR%\setup\setup.iss"
-	REM if errorlevel 1 exit /b %errorlevel%
-
-	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup_team.iss"
+	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss"
 	if errorlevel 1 exit /b %errorlevel%
 	dir /OD "%BASE_DIR%\_output"
 exit /b 0

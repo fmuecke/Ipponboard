@@ -114,58 +114,33 @@ const std::string GetCommonAppData()
 	return GetShellFolder(eShellFolderType_COMMON_APPDATA);
 }
 
-bool IsPortable()
-{
-	// NOTE: one could also use QCoreApplication::applicationFilePath()
-#ifdef _WIN32
-	char buf[MAX_PATH] = {0};
-	unsigned ret = ::GetModuleFileNameA(NULL, buf, MAX_PATH);
-
-	if (ret != 0)
-	{
-		const std::string compStr("-portable.exe");
-		std::string s(buf);
-		return 0 == s.compare(s.size() - compStr.size(), compStr.size(), compStr);
-	}
-
-#else
-	// TODO: handle other platforms (when needed)
-#error "not implemented yet"
-#endif
-	return false;
-}
-
 const std::string GetSettingsFilePath(const char* fileName)
 {
-	// (1) if portable, return fileName directly
-	// (2) use file in common app data
-	// (3) create file or error
+	// (1) use file in common app data
+	// (2) create file or error
 	std::string filePath(fileName);
 
-	if (!IsPortable())
-	{
-		filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
-		filePath.append(fileName);
+	filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
+	filePath.append(fileName);
 #if 0
 
-		// Unfortunately this did not link anymore with vc2010/Qt4.8.2/boost 1.50
-		if (!boost::filesystem::exists(filePath))
+	// Unfortunately this did not link anymore with vc2010/Qt4.8.2/boost 1.50
+	if (!boost::filesystem::exists(filePath))
 #else
-		// so we need to go plain Win32
+	// so we need to go plain Win32
 #	ifndef _WIN32
-		// TODO: handle other platforms (when needed)
+	// TODO: handle other platforms (when needed)
 #	error "not implemented yet"
 #	endif
-		const DWORD dwAttrib = ::GetFileAttributesA(filePath.c_str());
+	const DWORD dwAttrib = ::GetFileAttributesA(filePath.c_str());
 
-		if (dwAttrib == INVALID_FILE_ATTRIBUTES ||
-				(dwAttrib & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY)
+	if (dwAttrib == INVALID_FILE_ATTRIBUTES ||
+			(dwAttrib & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY)
 #endif
-		{
-			filePath.assign(fileName);
-		}
+	{
+		filePath.assign(fileName);
 	}
-
+	
 	return filePath;
 }
 

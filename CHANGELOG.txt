@@ -1,3 +1,9 @@
+Version 1.x
+(mod): released with full installer again
+(mod): switched installation from per machtine to per user
+(fix): installs into user's local app data; no admin rights required for install; 
+(mod): removed portable mode
+
 Version 1.6.0
 (mod): combined Team Edition and Basic Edition in a single program (reduces maintenance costs)
 (new): automatic check if newer version is available
