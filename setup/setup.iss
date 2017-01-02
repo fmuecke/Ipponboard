@@ -74,6 +74,8 @@ en.ViewProgram=Open %1
 ;en.Survey=Feedback/Survey
 de.UninstallKeepSettings=Möchten Sie die Programmeinstellungen für eine spätere Installation aufheben?
 en.UninstallKeepSettings=Do you want to keep your settings for a later installation?
+;en.VCmsg=Installing Microsoft Visual C++ Minimum Runtime...
+;de.VCmsg=Installiere Microsoft Visual C++ Minimum Runtime...
 
 [Tasks]
 ;Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
@@ -84,11 +86,17 @@ Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion prompti
 Source: "..\bin\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
 Source: "..\bin\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
 Source: "..\bin\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
-Source: "..\bin\lang\*.qm"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 ;Source: ..\bin\msvcp100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
 ;Source: ..\bin\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
-Source: "..\bin\Qt*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\CHANGELOG.txt"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\msvcp140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full
@@ -112,6 +120,7 @@ Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir
 Filename: {app}\Ipponboard.exe; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent unchecked; WorkingDir: {app}
 ;Filename: "{app}\Anleitung.pdf"; Description: {cm:ViewProgram,Anleitung}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: de
 ;Filename: "{app}\Manual.pdf"; Description: {cm:ViewProgram,manual}; Flags: shellexec nowait postinstall skipifsilent; WorkingDir: {app}; Languages: en
+;Filename: "{tmp}\vcredist_x86.exe"; Parameters: "/install /quiet /norestart"; StatusMsg: "{#VCmsg}"; Check: VCRedistNeedsInstall; WorkingDir: {tmp};
 
 [Registry]
 Root: "HKCU"; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey
@@ -126,7 +135,6 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}"
 Type: files; Name: "{userdesktop}\{#MyAppName}.lnk"
 
 [Code]
-
 // function ShouldSkipPage(PageID: Integer): Boolean;
 // begin
 //   { Skip pages that shouldn't be shown }
@@ -179,3 +187,47 @@ begin
     GetVersionNumbersString(filename, Result);
 end;
 
+#IFDEF UNICODE
+  #DEFINE AW "W"
+#ELSE
+  #DEFINE AW "A"
+#ENDIF
+type
+  INSTALLSTATE = Longint;
+const
+  INSTALLSTATE_INVALIDARG = -2;  { An invalid parameter was passed to the function. }
+  INSTALLSTATE_UNKNOWN = -1;     { The product is neither advertised or installed. }
+  INSTALLSTATE_ADVERTISED = 1;   { The product is advertised but not installed. }
+  INSTALLSTATE_ABSENT = 2;       { The product is installed for a different user. }
+  INSTALLSTATE_DEFAULT = 5;      { The product is installed for the current user. }
+
+  { Visual C++ 2015 Redistributable 14.0.23026 }
+  VC_2015_REDIST_X86_MIN = '{A2563E55-3BEC-3828-8D67-E5E8B9E8B675}';
+  VC_2015_REDIST_X64_MIN = '{0D3E9E15-DE7A-300B-96F1-B4AF12B96488}';
+
+  VC_2015_REDIST_X86_ADD = '{BE960C1C-7BAD-3DE6-8B1A-2616FE532845}';
+  VC_2015_REDIST_X64_ADD = '{BC958BD2-5DAC-3862-BB1A-C1BE0790438D}';
+
+  { Visual C++ 2015 Redistributable 14.0.24210 }
+  VC_2015_REDIST_X86 = '{8FD71E98-EE44-3844-9DAD-9CB0BBBC603C}';
+  VC_2015_U3_REDIST_X86 = '{37B55901-995A-3650-80B1-BBFD047E2911}'; { 14.0.24212 }
+  VC_2015_REDIST_X64 = '{C0B2C673-ECAA-372D-94E5-E89440D087AD}';
+
+function MsiQueryProductState(szProduct: string): INSTALLSTATE; 
+  external 'MsiQueryProductState{#AW}@msi.dll stdcall';
+
+function VCVersionInstalled(const ProductID: string): Boolean;
+begin
+  Result := MsiQueryProductState(ProductID) = INSTALLSTATE_DEFAULT;
+end;
+
+function VCRedistNeedsInstall: Boolean;
+begin
+  { here the Result must be True when you need to install your VCRedist }
+  { or False when you don't need to, so now it's upon you how you build }
+  { this statement, the following won't install your VC redist only when }
+  { the Visual C++ 2010 Redist (x86) and Visual C++ 2010 SP1 Redist(x86) }
+  { are installed for the current user }
+  Result := not (VCVersionInstalled(VC_2015_REDIST_X86) and 
+    VCVersionInstalled(VC_2015_U3_REDIST_X86));
+end;
