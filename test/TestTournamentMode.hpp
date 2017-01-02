@@ -15,12 +15,9 @@ static bool parse_group(QSettings& config, QString const& group, QString& errorM
 
     config.beginGroup(group);
     bool readSuccess = TournamentMode::parse_current_group(config, tm, errorMsg);
-
     if (!readSuccess)
     {
-#ifdef _DEBUG
-        std::cout << "--> " << errorMsg.toStdString() << std::endl;
-#endif
+		//std::cout << "--> Error in 'parse_group': " << errorMsg.toStdString() << std::endl;
     }
 
     config.endGroup();
@@ -31,7 +28,7 @@ static bool parse_group(QSettings& config, QString const& group, QString& errorM
 
 TEST_CASE("Test_parse_current_group")
 {
-	QSettings config("TournamentModes-test.ini", QSettings::IniFormat, nullptr);
+	QSettings config("TestData\\TournamentModes-test.ini", QSettings::IniFormat, nullptr);
 	QStringList groups;
 	groups
 			<< "basic"
