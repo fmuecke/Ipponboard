@@ -133,7 +133,7 @@ exit /b 0
 :make_build
 	echo;
 	echo --[build]--
-	call :compile test || exit /b %errorlevel%
+	call :compile test debug || exit /b %errorlevel%
 		pushd "%BASE_DIR%\test\bin"
 		IpponboardTest.exe & popd 
 		if errorlevel 1 exit /b 1
@@ -164,7 +164,11 @@ exit /b 0
 	echo;
 	echo -- Compiling %1
 	pushd %1
-	jom /L /S /F Makefile.Release || exit /b %errorlevel%
+	if "%2"=="debug" (
+		jom /L /S /F Makefile.Debug || exit /b %errorlevel%
+	) else (
+		jom /L /S /F Makefile.Release || exit /b %errorlevel%
+	)
 	popd
 exit /b 0
 
