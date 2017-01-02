@@ -34,7 +34,7 @@ SplashScreen::~SplashScreen()
 	delete ui;
 }
 
-void SplashScreen::SetImageStyleSheet(QString const& text)
+void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 {
 	//"image: url(:/res/images/logo.png);"
     //ui->widget_image->setStyleSheet(text);
