@@ -3,45 +3,81 @@ setlocal
 REM -- language file
 call ..\env_cfg.bat
 
-SET DEST=..\bin
-SET THIRDPARTY=..\..\3rdParty
+set DEST=..\bin
+set THIRDPARTY=..\..\3rdParty
+if "%1"=="-release" set RELEASE=1
 
+echo building and copying language files...
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
 "%QTDIR%\lrelease" -compress -silent ..\i18n\de.ts -qm ..\i18n\de.qm
+if errorlevel 1 exit /b 1
 "%QTDIR%\lrelease" -compress -silent ..\i18n\nl.ts -qm ..\i18n\nl.qm
-copy /Y "..\i18n\core_??.qm" "%DEST%\lang">nul
+if errorlevel 1 exit /b 1
 copy /Y "..\i18n\??.qm" "%DEST%\lang">nul
+if errorlevel 1 exit /b 1
 
-REM -- sounds
+echo copying sound files...
 if not exist "%DEST%\sounds" mkdir "%DEST%\sounds">nul
 copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul
+if errorlevel 1 exit /b 1
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
+:: if errorlevel 1 exit /b 1
 
-REM -- binaries
-copy /Y "%QTDIR%\QtCore*.dll" "%DEST%">nul
-copy /Y "%QTDIR%\QtGui*.dll" "%DEST%">nul
-copy /Y "%QTDIR%\QtNetwork*.dll" "%DEST%">nul
-copy /Y "%QTDIR%\QtXmlPatterns*.dll" "%DEST%">nul
-copy /Y "%THIRDPARTY%\msvc120\*.dll" "%DEST%">nul
+echo copying QT runtime...
+if defined RELEASE (
+	copy /Y "%QTDIR%\QtCore4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtGui4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtNetwork4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtXmlPatterns4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+) else (
+	copy /Y "%QTDIR%\QtCored4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtGuid4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtNetworkd4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "%QTDIR%\QtXmlPatternsd4.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+)
+
+echo copying C^+^+ runtime...
+if defined RELEASE (
+	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\msvcp140.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\vcruntime140.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+) else (
+	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\debug_nonredist\x86\Microsoft.VC140.DebugCRT\\msvcp140d.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\debug_nonredist\x86\Microsoft.VC140.DebugCRT\vcruntime140d.dll" "%DEST%">nul
+	if errorlevel 1 exit /b 1
+)
 
 REM -- doc
 rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
 rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
-REM -- categories
+echo copying categories and modes...
 copy /Y "..\base\categories.json" "%DEST%">nul
-REM -- clubs
+copy /Y TournamentModes.ini "%DEST%">nul
+if errorlevel 1 exit /b 1
+
+echo copying clubs...
 if not exist "%DEST%\clubs" mkdir "%DEST%\clubs">nul
 copy /Y "clubs.json" "%DEST%">nul
+if errorlevel 1 exit /b 1
 copy /Y "clubs\*.png" "%DEST%\clubs">nul
+if errorlevel 1 exit /b 1
 
-REM -- templates
+echo copying templates...
 if not exist "%DEST%\templates" mkdir "%DEST%\templates">nul
 copy /Y "templates\*.*" "%DEST%\templates">nul
-
-REM -- modes
-copy /Y TournamentModes.ini "%DEST%">nul
+if errorlevel 1 exit /b 1
 
 REM -- programme
 REM if not exist "%DEST%\Ipponboard.exe" (
@@ -51,3 +87,6 @@ REM if not exist "%DEST%\Ipponboard.exe" (
 REM )
 
 copy /Y "..\CHANGELOG.txt" "%DEST%">nul
+if errorlevel 1 exit /b 1
+
+exit /b 0
