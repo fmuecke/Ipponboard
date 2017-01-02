@@ -1,7 +1,7 @@
 ::---------------------------------------------------------
 :: Ipponboard build script
 ::
-:: Copyright 2010-2015 Florian Muecke. All rights reserved.
+:: Copyright 2010-2017 Florian Muecke. All rights reserved.
 :: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 ::
 :: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
@@ -24,7 +24,7 @@ IF EXIST "%LOCAL_CONFIG%" (
   rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
   echo Please configure paths in "%LOCAL_CONFIG%" first!
   pause
-  exit /b 0
+  exit /b 1
 )
 
 SET BASE_DIR=%CD%
@@ -41,13 +41,13 @@ IF "%QMAKESPEC%"=="win32-msvc2015" (
 IF NOT EXIST "%BOOST_DIR%\boost" (
 	ECHO Can't find boost. Please set "BOOST" to boost path.
 	pause
-	exit /b 0
+	exit /b 1
 )
 
 IF NOT EXIST "%QTDIR%\qmake.exe" (
 	ECHO Can't find qmake.exe. Please specify "QTDIR".
 	pause
-	exit /b 0
+	exit /b 1
 )
 
 :menu
@@ -91,41 +91,32 @@ goto the_end
 
 :cmd_all
 	_build\stopwatch start build
-	call :make_clean
-	if errorlevel 1 goto the_error
-	call :make_build
-	if errorlevel 1 goto the_error
-	call :make_setup
-	if errorlevel 1 goto the_error
+	call :make_clean || goto the_error
+	call :make_build || goto the_error
+	call :make_setup || goto the_error
 goto the_end
 
 :cmd_setup
 	_build\stopwatch start build
-	call :make_setup
-	if errorlevel 1 goto the_error	
+	call :make_setup || goto the_error
 goto the_end
 
 
 :cmd_build
 	_build\stopwatch start build
-	call :make_build
-	if errorlevel 1 goto the_error
+	call :make_build || goto the_error
 goto the_end
 
 :cmd_rebuild
 	_build\stopwatch start build
-	call :make_clean
-	if errorlevel 1 goto the_error
-	call :make_build
-	if errorlevel 1 goto the_error
+	call :make_clean || goto the_error
+	call :make_build || goto the_error
 goto the_end
 
 :cmd_clean
 	_build\stopwatch start build
-	call :make_clean
-	if errorlevel 1 goto the_error
+	call :make_clean || goto the_error
 goto the_end
-
 
 ::-------------------------------
 :make_clean
@@ -133,29 +124,22 @@ goto the_end
 	echo --[clean]--
 	rd /Q /S "%BASE_DIR%\bin" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
-	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul
-	if errorlevel 1 exit /b %errorlevel%
-	
-	call :generate_makefiles
-	if errorlevel 1 exit /b %errorlevel%
-	
-	jom /S /L clean>nul 2>&1
-	if errorlevel 1 exit /b %errorlevel%
+	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
+	call :generate_makefiles || exit /b %errorlevel%
+	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
 :make_build
 	echo;
 	echo --[build]--
-
-	CALL :compile base
-	if errorlevel 1 exit /b %errorlevel%
-
-	::CALL :compile VersionSelector
-	::if errorlevel 1 exit /b %errorlevel%
-
-	CALL :compile GamepadDemo
-	if errorlevel 1 exit /b %errorlevel%
+	call :compile test || exit /b %errorlevel%
+		pushd "%BASE_DIR%\test\bin"
+		IpponboardTest.exe & popd 
+		if errorlevel 1 exit /b 1
+	call :compile base || exit /b %errorlevel%
+	::call :compile VersionSelector || exit /b %errorlevel%
+	call :compile GamepadDemo || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -164,33 +148,30 @@ exit /b 0
 	echo --[setup]--
 	if not exist "%INNO_DIR%\iscc.exe" (
 		echo Error: iscc.exe not found or INNO_DIR not defined!
-		exit /b 0
+		exit /b 1
 	)
-	CALL _build\scripts\clear_build_dir.cmd
-	if errorlevel 1 exit /b %errorlevel%
+	CALL _build\scripts\clear_build_dir.cmd || exit /b %errorlevel%
 
 	rem CALL _build\scripts\Ipponboard_copy_files.cmd
 	rem if errorlevel 1 exit /b %errorlevel%
 	
-	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss"
-	if errorlevel 1 exit /b %errorlevel%
+	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss" || exit /b %errorlevel%
 	dir /OD "%BASE_DIR%\_output"
 exit /b 0
 
 
 :compile
+	echo;
 	echo -- Compiling %1
 	pushd %1
-	jom /L /S /F Makefile.Release
-	if errorlevel 1 exit /b %errorlevel%
+	jom /L /S /F Makefile.Release || exit /b %errorlevel%
 	popd
 exit /b 0
 
 
 :generate_makefiles
 	echo -- Creating makefiles
-	"%QTDIR%"\qmake -recursive
-	if errorlevel 1 exit /b %errorlevel%
+	"%QTDIR%"\qmake -recursive || exit /b %errorlevel%
 exit /b 0
 
 

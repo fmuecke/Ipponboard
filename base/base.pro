@@ -29,17 +29,18 @@ DESTDIR = ../bin
 prebuild.commands = create_versioninfo.cmd
 QMAKE_EXTRA_TARGETS += prebuild
 # Hook our prebuild target in between qmake's Makefile update and the actual project target.
-prebuildhook.depends = prebuild
-CONFIG(release, debug|release):prebuildhook.target = Makefile.Release
 QMAKE_EXTRA_TARGETS += prebuildhook
+prebuildhook.depends = prebuild
 
 CONFIG(debug, release|debug) {
+	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lshell32
 }
 
 CONFIG(release, release|debug) {
-    TARGET = Ipponboard
+    prebuildhook.target = Makefile.Release
+	TARGET = Ipponboard
     QMAKE_LIBS += -lshell32
 }
 
@@ -51,13 +52,9 @@ win32-msvc2013: COMPILER = msvc
 win32-msvc2015: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-	#QMAKE_CXXFLAGS += -std=c++0x
 	QMAKE_CXXFLAGS += -std=c++11
 	# get rid of some nasty boost warnings
     QMAKE_CXXFLAGS += -Wno-unused-local-typedef
-
-	# copy all needed files to destdir
-	QMAKE_POST_LINK += copy_files.cmd
 }
 
 contains(COMPILER, msvc) {
@@ -67,9 +64,16 @@ contains(COMPILER, msvc) {
 
     # remove unneccessary output files
     QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+}
 
-    # copy all needed files to destdir
-    QMAKE_POST_LINK += & copy_files.cmd
+CONFIG(debug, release|debug) {
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += && call copy_files.cmd
+}
+
+CONFIG(release, release|debug) {
+	# copy all needed files to destdir
+	QMAKE_POST_LINK += && call copy_files.cmd -release
 }
 
 HEADERS = pch.h \
