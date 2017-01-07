@@ -684,7 +684,7 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 				tr("Reset Scores"),
 				tr("Really reset complete score table?"),
 				QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
-		m_pController->ClearFights();
+		m_pController->ClearFightsAndResetTimers();
 
 	UpdateFightNumber_();
 	UpdateButtonText_();

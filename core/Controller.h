@@ -124,7 +124,7 @@ public:
 	int GetCurrentRound() const
 	{ return m_currentRound; }
 
-	void ClearFights();
+    void ClearFightsAndResetTimers();
 	void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
 	void SetFight(unsigned int tournament_index, unsigned int fight_index,
 				  const QString& weight, const QString& first_player_name,
@@ -191,6 +191,7 @@ private:
 	std::bitset<eOption_MAX> m_options;
 	QString m_labelHome;
 	QString m_labelGuest;
+    void reset_timers();
 };
 
 } // namespace Ipponboard

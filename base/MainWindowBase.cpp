@@ -78,7 +78,7 @@ void MainWindowBase::Init()
 		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypeSecondary));
 
 	// clear data
-	m_pController->ClearFights();
+    m_pController->ClearFightsAndResetTimers();
 
 	// Load settings
 	read_settings();

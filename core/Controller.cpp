@@ -365,25 +365,28 @@ Ipponboard::FighterEnum Controller::GetLastHolder() const
 
 
 //=========================================================
+void Controller::reset_timers()
+{
+    m_State = eState_TimerStopped;
+
+    Q_ASSERT(m_pTimeMain);
+    Q_ASSERT(m_pTimeHold);
+
+    m_pTimerMain->stop();
+    reset_timer_value(eTimer_Main);
+
+    m_pTimerHold->stop();
+    reset_timer_value(eTimer_Hold);
+    m_Tori = FighterEnum::None;
+
+    m_isSonoMama = false;
+    m_isGoldenScore = false;
+}
+
 void Controller::reset()
 //=========================================================
 {
-	m_State = eState_TimerStopped;
-
-	Q_ASSERT(m_pTimeMain);
-	Q_ASSERT(m_pTimeHold);
-
-	m_pTimerMain->stop();
-	reset_timer_value(eTimer_Main);
-
-	m_pTimerHold->stop();
-	reset_timer_value(eTimer_Hold);
-	m_Tori = FighterEnum::None;
-
-	m_isSonoMama = false;
-	m_isGoldenScore = false;
-
-	ClearFights();
+    ClearFightsAndResetTimers();
 	SetFight(0, 0, "-XX", tr("First"), "", tr("Second"), "");
 
 	update_views();
@@ -876,10 +879,12 @@ void Controller::SetCurrentRound(unsigned int index)
 }
 
 //=========================================================
-void Controller::ClearFights()
+void Controller::ClearFightsAndResetTimers()
 //=========================================================
 {
-	for (unsigned int round(0); round < m_Tournament.size(); ++round)
+    reset_timers();
+
+    for (unsigned int round(0); round < m_Tournament.size(); ++round)
 	{
 		for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
 		{
