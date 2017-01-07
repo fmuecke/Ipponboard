@@ -70,7 +70,7 @@ void SplashScreen::on_commandLinkButton_donate_pressed()
     DonationManager::OpenUrl();
 }
 
-void SplashScreen::on_commandLinkButton_cancel_pressed()
-{
-	reject();
-}
+//void SplashScreen::on_commandLinkButton_cancel_pressed()
+//{
+//	reject();
+//}
