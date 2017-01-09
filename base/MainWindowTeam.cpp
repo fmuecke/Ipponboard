@@ -424,7 +424,7 @@ void MainWindowTeam::UpdateFightNumber_()
 
 void MainWindowTeam::attach_primary_view()
 {
-	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+    auto widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
 	
 	if (widget)
 	{
@@ -577,31 +577,22 @@ void MainWindowTeam::WriteScoreToHtml_()
 	m_htmlScore.replace("%GUEST%", m_pUi->comboBox_club_guest->currentText());
 
 	// intermediate score
-	const std::pair<unsigned, unsigned> wins1st =
-		m_pController->GetTournamentScoreModel(0)->GetTotalWins();
+    auto wins1st = m_pController->GetTournamentScoreModel(0)->GetTotalWins();
 	m_htmlScore.replace("%WINS_HOME%", QString::number(wins1st.first));
 	m_htmlScore.replace("%WINS_GUEST%", QString::number(wins1st.second));
-	const std::pair<unsigned, unsigned> score1st =
-		m_pController->GetTournamentScoreModel(0)->GetTotalScore();
+    auto score1st = m_pController->GetTournamentScoreModel(0)->GetTotalScore();
 	m_htmlScore.replace("%SCORE_HOME%", QString::number(score1st.first));
 	m_htmlScore.replace("%SCORE_GUEST%", QString::number(score1st.second));
 
 	// final score
-	const std::pair<unsigned, unsigned> wins2nd =
-		m_pController->GetTournamentScoreModel(1)->GetTotalWins();
-	const std::pair<unsigned, unsigned> totalWins =
-		std::make_pair(wins1st.first + wins2nd.first,
-					   wins1st.second + wins2nd.second);
+    auto wins2nd = m_pController->GetTournamentScoreModel(1)->GetTotalWins();
+    auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
 	m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
 	m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
-	const std::pair<unsigned, unsigned> score2nd =
-		m_pController->GetTournamentScoreModel(1)->GetTotalScore();
-	const std::pair<unsigned, unsigned> totalScore =
-		std::make_pair(score1st.first + score2nd.first,
-					   score1st.second + score2nd.second);
+    auto score2nd = m_pController->GetTournamentScoreModel(1)->GetTotalScore();
+    auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
 	m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
 	m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
-
 
 	QString winner = tr("tie");
 
@@ -1096,7 +1087,7 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
 
-	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
+    auto pCbx = dynamic_cast<ComboBoxDelegate*>(
 								 m_pUi->tableView_tournament_list2->
 								 itemDelegateForColumn(TournamentModel::eCol_name2));
 
@@ -1122,7 +1113,7 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 {
 	bool ok(false);
 
-	const QString time = QInputDialog::getText(
+    auto timeStr = QInputDialog::getText(
 							 this,
 							 tr("Set Value"),
 							 tr("Set value to (m:ss):"),
@@ -1132,7 +1123,7 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 
 	if (ok)
 	{
-		m_pController->SetFightTime(time);
+        m_pController->SetFightTime(timeStr);
 	}
 }
 
@@ -1246,9 +1237,7 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 	QString selectedText;
 	for (QModelIndex index : selection)
 	{
-		QVariant data =
-			pTableView->model()->data(index, Qt::DisplayRole);
-
+        auto data =	pTableView->model()->data(index, Qt::DisplayRole);
 		selectedText += data.toString() + '\n';
 	}
 
@@ -1268,7 +1257,7 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 		return;
 	}
 
-	QStringList data = QApplication::clipboard()->text().split('\n');
+    auto lines = QApplication::clipboard()->text().split('\n');
 
 	QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
 
@@ -1281,14 +1270,14 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 
 	std::sort(selection.begin(), selection.end());
 
-	if (data.size() < selection.size())
+    if (lines.size() < selection.size())
 	{
 		QMessageBox::critical(this, QApplication::applicationName(),
 							  tr("There is too few data for the selection in the clipboard!"));
 		return;
 	}
 
-	if (data.size() > selection.size())
+    if (lines.size() > selection.size())
 	{
 		// extend selection to maximum possible
 		QModelIndex index = selection.back();
@@ -1296,7 +1285,7 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 
 		while (index.row() < nRows &&
 				index.isValid() &&
-				data.size() > selection.size())
+                lines.size() > selection.size())
 		{
 			index = pTableView->model()->index(
 						index.row() + 1, index.column());
@@ -1304,22 +1293,22 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 			pTableView->selectionModel()->select(index, QItemSelectionModel::Select);
 		}
 
-		if (data.size() < selection.size())
+        if (lines.size() < selection.size())
 		{
 			QMessageBox::warning(this, QApplication::applicationName(),
 								 tr("There is more data available in the clipboard as could be pasted!"));
 		}
 	}
 
-	int dataIndex(0);
+    auto lineNo = 0;
 	for (QModelIndex index : selection)
 	{
 		if (index.column() == TournamentModel::eCol_name1 ||
 				index.column() == TournamentModel::eCol_name2)
 		{
 			pTableView->model()->setData(
-				index, data[dataIndex], Qt::EditRole);
-			++dataIndex;
+                index, lines[lineNo], Qt::EditRole);
+            ++lineNo;
 		}
 	}
 }
@@ -1341,8 +1330,7 @@ void MainWindowTeam::clear_cell_content(QTableView* pTableView)
 
 	for (QModelIndex index : selection)
 	{
-		pTableView->model()->setData(
-			index, "", Qt::EditRole);
+        pTableView->model()->setData(index, "", Qt::EditRole);
 	}
 }
 
@@ -1384,7 +1372,7 @@ void MainWindowTeam::Print(QPrinter* p)
 	
 QString MainWindowTeam::get_template_file(QString const& modeId) const
 {
-	// TODO: use binary seach as the container is sorted
+    // TODO: use binary seach as the container is already sorted
 	auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const& m)
 	{
         return m.id == modeId;
@@ -1402,9 +1390,8 @@ QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
 {
 	QString year(QString::number(QDate::currentDate().year()));
 
-	// TODO: use binary seach as the container is sorted
-	auto iter = std::find_if(begin(m_modes), end(m_modes),
-							 [&](TournamentMode const & tm)
+    // TODO: use binary seach as the container is already sorted
+    auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & tm)
 	{
         return tm.id == modeId;
 	});
