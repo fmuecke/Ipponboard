@@ -3,6 +3,7 @@
 
 #include "../base/MainWindowBase.h"
 #include "../core/Fighter.h"
+#include "../core/Fight.h"
 #include "../core/TournamentMode.h"
 #include "../util/helpers.hpp"
 
@@ -131,6 +132,7 @@ private:
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
     Ipponboard::TournamentMode::List m_modes;
+    QString GetRoundHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_

@@ -502,6 +502,51 @@ void MainWindowTeam::update_score_screen()
 	m_pScoreScreen->update();
 }
 
+QString MainWindowTeam::GetRoundHtml(const Fight& fight, int fightNo)
+{
+    // little helper to hide initial zeros for early print outs
+    auto getNum = [&](int val)
+    {
+        return (!fight.is_saved && val == 0) ? QString() : QString::number(val);
+    };
+
+    auto getTime = [&](QString const & timeStr)
+    {
+        return !fight.is_saved ? QString() : timeStr;
+    };
+
+    auto first = FighterEnum::First;
+    auto second = FighterEnum::Second;
+    auto const& score_first(fight.scores[first]);
+    auto const& score_second(fight.scores[second]);
+
+    QString roundData("<tr>");
+
+    roundData.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>"); // number
+    roundData.append("<td><center>" + fight.weight + "</center></td>"); // weight
+    roundData.append("<td><center>" + fight.fighters[first].name + "</center></td>"); // name
+    roundData.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>"); // I
+    roundData.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
+    roundData.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
+    roundData.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
+    roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
+    roundData.append("<td><center>" + getNum(fight.HasWon(first)) + "</center></td>"); // won
+    roundData.append("<td><center>" + getNum(fight.ScorePoints(first)) + "</center></td>"); // score
+    roundData.append("<td><center>" + fight.fighters[second].name + "</center></td>"); // name
+    roundData.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
+    roundData.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
+    roundData.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
+    roundData.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
+    roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
+    roundData.append("<td><center>" + getNum(fight.HasWon(second)) + "</center></td>"); // won
+    roundData.append("<td><center>" + getNum(fight.ScorePoints(second)) + "</center></td>"); // score
+    roundData.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
+    roundData.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
+    roundData.append("</tr>\n");
+
+    return roundData;
+}
+
 void MainWindowTeam::WriteScoreToHtml_()
 {
     QString modeText = get_full_mode_title(m_currentMode);
@@ -572,104 +617,29 @@ void MainWindowTeam::WriteScoreToHtml_()
 	m_htmlScore.replace("%WINNER%", winner);
 
 	// first round
-	QString rounds;
+    QString scoreData;
 
-	// little helper to hide initial zeros for early print outs
-	const Fight* pHelperFight = nullptr;
-	auto getNum = [&](int val)
-	{
-		return (!pHelperFight->is_saved && val == 0) ?
-			   QString() :
-			   QString::number(val);
-	};
-	auto getTime = [&](QString const & timeStr)
-	{
-		return !pHelperFight->is_saved ? QString() : timeStr;
-	};
+    for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+    {
+        const auto& fight = m_pController->GetFight(0, fightNo);
+        scoreData.append(GetRoundHtml(fight, fightNo));
+    }
 
-	for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
-	{
-		const Fight& fight = m_pController->GetFight(0, fightNo);
-		pHelperFight = &fight;
+    m_htmlScore.replace("%FIRST_ROUND%", scoreData);
 
-		QString name_first(fight.fighters[FighterEnum::First].name);
-		QString name_second(fight.fighters[FighterEnum::Second].name);
-		const Score& score_first(fight.scores[FighterEnum::First]);
-		const Score& score_second(fight.scores[FighterEnum::Second]);
+    // second round
+    scoreData.clear();
 
-		QString round("<tr>");
-		round.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>"); // number
-		round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-		round.append("<td><center>" + name_first + "</center></td>"); // name
-		round.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>"); // I
-		round.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
-		round.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
-		round.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::First)) + "</center></td>"); // won
-		round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::First)) + "</center></td>"); // score
-		round.append("<td><center>" + name_second + "</center></td>"); // name
-		round.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
-		round.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
-		round.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
-		round.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
-		round.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-		round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::Second)) + "</center></td>"); // won
-		round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::Second)) + "</center></td>"); // score
-		round.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
-		round.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
-		round.append("</tr>\n");
-		rounds.append(round);
+    for (int roundNo(1); roundNo < m_pController->GetRoundCount(); ++roundNo)
+    {
+        for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+        {
+            const auto& fight = m_pController->GetFight(roundNo, fightNo);
+            scoreData.append(GetRoundHtml(fight, fightNo + m_pController->GetFightCount()));
+        }
+    }
 
-		pHelperFight = nullptr;
-	}
-
-	m_htmlScore.replace("%FIRST_ROUND%", rounds);
-
-	// second round
-	rounds.clear();
-
-	for (int roundNo(1); roundNo < m_pController->GetRoundCount(); ++roundNo)
-	{
-		for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
-		{
-			const Fight& fight = m_pController->GetFight(roundNo, fightNo);
-			pHelperFight = &fight;
-
-			QString name_first(fight.fighters[FighterEnum::First].name);
-			QString name_second(fight.fighters[FighterEnum::Second].name);
-			const Score& score_first(fight.scores[FighterEnum::First]);
-			const Score& score_second(fight.scores[FighterEnum::Second]);
-
-			QString round("<tr>");
-			round.append("<td><center>" + QString::number(fightNo + 1 + m_pController->GetFightCount()) + "</center></td>"); // number
-			round.append("<td><center>" + fight.weight + "</center></td>"); // weight
-			round.append("<td><center>" + name_first + "</center></td>"); // name
-			round.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>"); // I
-			round.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
-			round.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
-			round.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
-			round.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-			round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::First)) + "</center></td>"); // won
-			round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::First)) + "</center></td>"); // score
-			round.append("<td><center>" + name_second + "</center></td>"); // name
-			round.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
-			round.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
-			round.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
-			round.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
-			round.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-			round.append("<td><center>" + getNum(fight.HasWon(FighterEnum::Second)) + "</center></td>"); // won
-			round.append("<td><center>" + getNum(fight.ScorePoints(FighterEnum::Second)) + "</center></td>"); // score
-			round.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
-			round.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
-			round.append("</tr>\n");
-			rounds.append(round);
-
-			pHelperFight = nullptr;
-		}
-	}
-
-	m_htmlScore.replace("%SECOND_ROUND%", rounds);
+    m_htmlScore.replace("%SECOND_ROUND%", scoreData);
 
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
