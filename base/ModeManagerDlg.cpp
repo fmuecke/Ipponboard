@@ -299,10 +299,13 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString &s)
 
 void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
 {
-    m_pUi->label_fightsPerRound->setText(
-                QString("%1 fights, %2 per round")
-                .arg(mode.FightsPerRound()*mode.nRounds)
-                .arg(mode.FightsPerRound()));
+    auto text = mode.nRounds > 1 ?
+                QString("%1 fights total, %2 per round") :
+                QString("%1 fights total");
+
+    m_pUi->label_fightsPerRound->setText(text
+                                         .arg(mode.FightsPerRound()*mode.nRounds)
+                                         .arg(mode.FightsPerRound()));
 }
 
 Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)

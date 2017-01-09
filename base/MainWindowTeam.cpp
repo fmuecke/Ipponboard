@@ -585,14 +585,17 @@ void MainWindowTeam::WriteScoreToHtml_()
 	m_htmlScore.replace("%SCORE_GUEST%", QString::number(score1st.second));
 
 	// final score
-    auto wins2nd = m_pController->GetTournamentScoreModel(1)->GetTotalWins();
+    auto wins2nd = m_pController->GetRoundCount() > 1 ?
+            m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0,0);
+    auto score2nd = m_pController->GetRoundCount() > 1 ?
+                m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0,0);
     auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
-	m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
-	m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
-    auto score2nd = m_pController->GetTournamentScoreModel(1)->GetTotalScore();
     auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
-	m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
-	m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
+
+    m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
+    m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
+    m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
+    m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
 
 	QString winner = tr("tie");
 
