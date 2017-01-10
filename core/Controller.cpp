@@ -5,6 +5,7 @@
 #include "TournamentMode.h"
 #include "TournamentModel.h"
 #include "StateMachine.h"
+#include "Rules.h"
 
 #include <QTimer>
 #include <QSound>
@@ -102,8 +103,16 @@ void Controller::InitTournament(TournamentMode const& mode)
 			Fight fight;
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
-			fight.ruleSet = m_mode.IsOptionSet(eOption_Use2013Rules) ? e2013RuleSet : eClassicRules;
-            fight.allSubscoresCount = m_mode.IsOptionSet(eOption_AllSubscoresCount);
+            if (m_mode.IsOptionSet(eOption_Use2013Rules))
+            {
+                fight.ruleSet = std::make_shared<Rules2013>();
+            }
+            else
+            {
+                fight.ruleSet = std::make_shared<ClassicRules>();
+            }
+            fight.ruleSet->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
+
 			SimpleFighter emptyFighter;
 			emptyFighter.name = emptyFighterName;
 			fight.fighters[0] = emptyFighter;
@@ -274,11 +283,10 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 	if (m_isGoldenScore
 			&& eState_TimerStopped != EState(m_pSM->current_state()[0]))
 	{
-		// Note: In golden score the hold should not end after the first
-		//       scored point!
+        // Note: In golden score the hold should not end after the first scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
 		{
-            RuleSet ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
+            auto ruleSet = GetRuleSet();
 
             if (get_score(FighterEnum::First).IsLess(get_score(FighterEnum::Second), ruleSet) ||
                     get_score(FighterEnum::Second).IsLess(get_score(FighterEnum::First), ruleSet))
@@ -625,6 +633,26 @@ void Controller::SetGoldenScore(bool isGS)
 	m_isGoldenScore = isGS;
 }
 
+
+std::shared_ptr<AbstractRules> Controller::GetRuleSet() const
+{
+    return m_rules;
+}
+
+void Controller::SetRuleSet(std::shared_ptr<AbstractRules> rules)
+{
+    m_rules = rules;
+
+    for (auto const& pRound : m_Tournament)
+    {
+        for (auto & fight : *pRound)
+        {
+            fight.ruleSet = rules;
+        }
+    }
+}
+
+
 //=========================================================
 void Controller::SetOption(EOption option, bool isSet)
 //=========================================================
@@ -634,27 +662,26 @@ void Controller::SetOption(EOption option, bool isSet)
     // unfortunately some options need to be propagated further
     if (eOption_Use2013Rules == option)
     {
-        RuleSet ruleSet = isSet ? e2013RuleSet : eClassicRules;
-		for (auto const& pRound : m_Tournament)
-		{
-			for (auto & fight : *pRound)
-			{
-				fight.ruleSet = ruleSet;
-			}
-		}
+        if (isSet)
+        {
+            SetRuleSet(std::make_shared<Rules2013>());
+        }
+        else
+        {
+            SetRuleSet(std::make_shared<ClassicRules>());
+        }
     }
 
 	if (eOption_AllSubscoresCount == option)
 	{
-		for (auto const& pRound : m_Tournament)
-		{
-			for (auto & fight : *pRound)
-			{
-				fight.allSubscoresCount = isSet;
-			}
-		}
+        m_rules->SetCountSubscores(isSet);
+//        for (auto const& pRound : m_Tournament)
+//		{
+//            pRound->ruleSet->SetAllSubscoresCount(isSet);
+//		}
 	}
 }
+
 
 //=========================================================
 bool Controller::GetOption(EOption option) const
@@ -737,7 +764,7 @@ void Controller::reset_fight()
 	Fight& fight = m_Tournament[m_currentRound]->at(m_currentFight);
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
-    fight.ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
+    fight.ruleSet = m_rules;
 
 	update_views();
 }
@@ -938,7 +965,7 @@ void Controller::SetFight(
 		emptyFighterName : first_player_name;
 	fight.fighters[Ipponboard::FighterEnum::First].club = first_player_club;
 	fight.scores[Ipponboard::FighterEnum::First].Clear();
-    fight.ruleSet = GetOption(eOption_Use2013Rules)? e2013RuleSet : eClassicRules;
+    fight.ruleSet = m_rules;
 
 	while (yuko1 != -1 && yuko1 > 0)
 	{
@@ -1162,13 +1189,10 @@ void Controller::update_hold_time()
 	*m_pTimeHold = m_pTimeHold->addSecs(1);
 	const int secs = m_pTimeHold->second();
 
-	if ((is_option(eOption_Use2013Rules)
-			&& (OsaekomiValue::Yuko == secs
-				|| OsaekomiValue::Wazaari == secs
-				|| OsaekomiValue::Ippon == secs))
-			|| (OsaekomiValue::YukoOld == secs
-				|| OsaekomiValue::WazaariOld == secs
-				|| OsaekomiValue::IpponOld == secs))
+    if (secs > 0 &&
+        (m_rules->GetOsaekomiValue(Score::Point::Yuko) == secs
+        || m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs
+        || m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
 	{
 		m_pSM->process_event(IpponboardSM_::HoldTimeEvent(secs, m_Tori));
 		m_State = EState(m_pSM->current_state()[0]);

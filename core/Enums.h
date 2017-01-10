@@ -56,19 +56,7 @@ enum EHoldState
 enum ETimer
 {
 	eTimer_Main = 0,
-	eTimer_Hold
-};
-
-enum OsaekomiValue
-{
-	YukoOld = 15,
-	WazaariOld = 20,
-	IpponOld = 25,
-
-	// new values for 2013 IJF rules
-	Yuko = 10,
-	Wazaari = 15,
-	Ippon = 20
+    eTimer_Hold
 };
 
 enum EOption

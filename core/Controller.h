@@ -28,6 +28,7 @@ namespace Ipponboard
 {
 // forwards
 class IView;
+class AbstractRules;
 
 class Controller : public QObject, public IController, public IControllerCore
 {
@@ -50,6 +51,7 @@ public:
 	virtual ~Controller();
 
 	// --- IController ---
+    //FIXME: use override/final
 	void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
 	int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const;
@@ -75,7 +77,9 @@ public:
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
-	void SetOption(Ipponboard::EOption option, bool isSet);
+    void SetRuleSet(std::shared_ptr<AbstractRules> rules);
+    virtual std::shared_ptr<AbstractRules> GetRuleSet() const override;
+    void SetOption(Ipponboard::EOption option, bool isSet);
 	bool GetOption(Ipponboard::EOption option) const;
 	QString GetHomeLabel() const { return m_labelHome; }
 	QString GetGuestLabel() const { return m_labelGuest; }
@@ -192,6 +196,7 @@ private:
 	QString m_labelHome;
 	QString m_labelGuest;
     void reset_timers();
+    std::shared_ptr<AbstractRules> m_rules;
 };
 
 } // namespace Ipponboard

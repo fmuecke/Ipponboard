@@ -3,24 +3,27 @@
 
 #include "Enums.h"
 
+#include <memory>
+
 namespace Ipponboard
 {
+class AbstractRules;
 
 class Score
 {
 public:
 
-	enum class Point
-	{
-		Ippon = 0,
-		Wazaari,
-		Yuko,
-		Shido,
-		Hansokumake,
-		_MAX
-	};
+    enum class Point
+    {
+        Ippon = 0,
+        Wazaari,
+        Yuko,
+        Shido,
+        Hansokumake,
+        _MAX
+    };
 
-	Score()
+    Score()
 	{
 		Clear();
 	}
@@ -40,48 +43,7 @@ public:
 	bool IsAwaseteIppon() const;
 	void Clear();
 
-    bool IsLess(const Score& rhs, RuleSet ruleSet) const
-	{
-		if (Value(Point::Hansokumake) != rhs.Value(Point::Hansokumake))
-		{
-			return Value(Point::Hansokumake) > rhs.Value(Point::Hansokumake);
-		}
-		else
-		{
-			if (Value(Point::Ippon) != rhs.Value(Point::Ippon))
-			{
-				return Value(Point::Ippon) < rhs.Value(Point::Ippon);
-			}
-			else
-			{
-				if (Value(Point::Wazaari) != rhs.Value(Point::Wazaari))
-				{
-					return Value(Point::Wazaari) < rhs.Value(Point::Wazaari);
-				}
-				else
-				{
-					if (Value(Point::Yuko) != rhs.Value(Point::Yuko))
-					{
-						return Value(Point::Yuko) < rhs.Value(Point::Yuko);
-					}
-					else
-					{
-						if (e2013RuleSet == ruleSet)
-						{
-							return Value(Point::Shido) > rhs.Value(Point::Shido);
-						}
-						else
-						{
-							// shidos are not compared as they result in
-							// concrete points
-						}
-					}
-				}
-			}
-		}
-
-        return false;
-	}
+    bool IsLess(const Score& rhs, std::shared_ptr<AbstractRules> ruleSet) const;
 
 protected:
     virtual void correct_point(Point p);

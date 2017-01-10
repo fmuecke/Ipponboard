@@ -114,7 +114,8 @@ HEADERS = pch.h \
 	../core/TournamentModel.h \
 	../core/ControllerConfig.h \
     DonationManager.h \
-    ../util/array_helpers.h
+    ../util/array_helpers.h \
+    ../core/Rules.h
 
 SOURCES = Main.cpp \
     Main.cpp \
@@ -145,7 +146,8 @@ SOURCES = Main.cpp \
 	../core/StateMachine.cpp \
 	../core/TournamentMode.cpp \
 	../core/TournamentModel.cpp \
-    DonationManager.cpp
+    DonationManager.cpp \
+    ../core/Rules.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \

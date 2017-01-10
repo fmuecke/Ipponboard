@@ -14,14 +14,15 @@ Fight::Fight()
     , time_in_seconds(0)
     , max_time_in_seconds(0)
     , is_saved(false)
-	, ruleSet(eClassicRules)
-    , allSubscoresCount(false)
+    , ruleSet(new ClassicRules)
 {
     scores[0] = Score();
     scores[1] = Score();
 
     fighters[0] = SimpleFighter();
     fighters[1] = SimpleFighter();
+
+    ruleSet->SetCountSubscores(false);
 }
 
 
@@ -78,8 +79,7 @@ int Fight::ScorePoints(FighterEnum who) const
             return eScore_Yuko;
 		}
 
-		if (e2013RuleSet == ruleSet
-				&& GetScore(who).Shido() < GetScore(other).Shido())
+        if (std::dynamic_pointer_cast<Rules2013>(ruleSet) && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		
@@ -91,7 +91,7 @@ int Fight::ScorePoints(FighterEnum who) const
         {
             return eScore_Hikewake;
         }
-        else if (allSubscoresCount)
+        else if (ruleSet->IsCountSubscores())
         {
             // Special rule for Jugendliga
             if (GetScore(who).Wazaari() > GetScore(other).Wazaari())

@@ -10,8 +10,10 @@
 
 #include "Score.h"
 #include "Enums.h"
+#include "Rules.h"
 
 #include "QString"
+#include <memory>
 
 namespace Ipponboard
 {
@@ -65,9 +67,7 @@ public:
 	int time_in_seconds;
 	int max_time_in_seconds;
 	bool is_saved;
-    RuleSet ruleSet;
-
-    bool allSubscoresCount; // option (first of many ;-)
+    std::shared_ptr<AbstractRules> ruleSet;
 
     QString GetTimeFaught() const;
     QString GetTimeRemaining() const;

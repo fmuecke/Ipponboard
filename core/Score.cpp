@@ -1,4 +1,5 @@
 #include "Score.h"
+#include "Rules.h"
 
 using namespace Ipponboard;
 
@@ -53,6 +54,49 @@ void Score::Clear()
 	{
 		_points[i] = 0;
     }
+}
+
+bool Score::IsLess(const Score &rhs, std::shared_ptr<AbstractRules> ruleSet) const
+{
+    if (Value(Point::Hansokumake) != rhs.Value(Point::Hansokumake))
+    {
+        return Value(Point::Hansokumake) > rhs.Value(Point::Hansokumake);
+    }
+    else
+    {
+        if (Value(Point::Ippon) != rhs.Value(Point::Ippon))
+        {
+            return Value(Point::Ippon) < rhs.Value(Point::Ippon);
+        }
+        else
+        {
+            if (Value(Point::Wazaari) != rhs.Value(Point::Wazaari))
+            {
+                return Value(Point::Wazaari) < rhs.Value(Point::Wazaari);
+            }
+            else
+            {
+                if (Value(Point::Yuko) != rhs.Value(Point::Yuko))
+                {
+                    return Value(Point::Yuko) < rhs.Value(Point::Yuko);
+                }
+                else
+                {
+                    if (std::dynamic_pointer_cast<Rules2013>(ruleSet))
+                    {
+                        return Value(Point::Shido) > rhs.Value(Point::Shido);
+                    }
+                    else
+                    {
+                        // shidos are not compared as they result in
+                        // concrete points
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 void Score::correct_point(Score::Point p)
