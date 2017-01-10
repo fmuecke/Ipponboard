@@ -83,6 +83,9 @@ public:
         return false;
 	}
 
+protected:
+    virtual void correct_point(Point p);
+
 private:
 	void correct_points();
 
