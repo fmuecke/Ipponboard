@@ -27,7 +27,7 @@ public:
 
 	Score& Add(Point point);
 	Score& Remove(Point point);
-	Score& OverwriteValue(Point point, int value);
+    Score& SetValue(Point point, int value);
 	int Value(Point point) const { return _points[static_cast<int>(point)]; }
 
 	// convenience functions

@@ -25,7 +25,7 @@ Score& Score::Remove(Point point)
 }
 
 //=========================================================
-Score& Score::OverwriteValue(Ipponboard::Score::Point point, int value)
+Score& Score::SetValue(Ipponboard::Score::Point point, int value)
 //=========================================================
 {
 	if (value >= 0)

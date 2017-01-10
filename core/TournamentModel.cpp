@@ -314,26 +314,26 @@ bool TournamentModel::setData(const QModelIndex& index,
 			break;
 
 		case eCol_yuko1:
-			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Yuko, value.toInt());
+			fight.scores[0].SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari1:
-			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Wazaari, value.toInt());
+			fight.scores[0].SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon1:
-			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Ippon, value.toInt());
+			fight.scores[0].SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake1:
-			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
+			fight.scores[0].SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
 			break;
 
 		case eCol_shido1:
-			fight.scores[0].OverwriteValue(Ipponboard::Score::Point::Shido, value.toInt());
+			fight.scores[0].SetValue(Ipponboard::Score::Point::Shido, value.toInt());
 			break;
 
 		case eCol_won1:
@@ -347,27 +347,27 @@ bool TournamentModel::setData(const QModelIndex& index,
 			break;
 
 		case eCol_yuko2:
-			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Yuko, value.toInt());
+			fight.scores[1].SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
 			result = true;
 			break;
 
 		case eCol_wazaari2:
-			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Wazaari, value.toInt());
+			fight.scores[1].SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
 			result = true;
 			break;
 
 		case eCol_ippon2:
-			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Ippon, value.toInt());
+			fight.scores[1].SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
 			result = true;
 			break;
 
 		case eCol_hansokumake2:
-			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
+			fight.scores[1].SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
 			result = true;
 			break;
 
 		case eCol_shido2:
-			fight.scores[1].OverwriteValue(Ipponboard::Score::Point::Shido, value.toInt());
+			fight.scores[1].SetValue(Ipponboard::Score::Point::Shido, value.toInt());
 			result = true;
 			break;
 
