@@ -1,3 +1,6 @@
+#pragma once
+
+#include "../../../../devtools/Catch/include/catch.hpp"
 #include "../core/TournamentMode.h"
 #include "../core/TournamentMode.cpp"
 

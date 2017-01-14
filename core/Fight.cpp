@@ -56,7 +56,7 @@ QString Fight::GetTimeRemaining() const
 bool Fight::HasWon(FighterEnum who) const
 {
 	const FighterEnum other = GetUkeFromTori(who);
-	return GetScore(other).IsLess(GetScore(who), ruleSet);
+    return ruleSet->IsScoreLess(GetScore(other), GetScore(who));
 }
 
 int Fight::ScorePoints(FighterEnum who) const
@@ -65,7 +65,7 @@ int Fight::ScorePoints(FighterEnum who) const
 
     if (HasWon(who))
     {
-        if (GetScore(who).Ippon() || GetScore(who).IsAwaseteIppon())
+        if (GetScore(who).Ippon() || ruleSet->IsAwaseteIppon(GetScore(who)))
             return eScore_Ippon;
 
         // Only the fight deciding point is taken into account!
@@ -79,7 +79,7 @@ int Fight::ScorePoints(FighterEnum who) const
             return eScore_Yuko;
 		}
 
-        if (std::dynamic_pointer_cast<Rules2013>(ruleSet) && GetScore(who).Shido() < GetScore(other).Shido())
+        if (!ruleSet->IsShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		

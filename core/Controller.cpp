@@ -159,7 +159,7 @@ int Controller::GetScore(FighterEnum whos, Score::Point point) const
 		break;
 
 	case Point::Ippon:
-		if (score.Ippon() || score.IsAwaseteIppon())
+        if (score.Ippon() || m_rules->IsAwaseteIppon(score))
 			value =  1;
 		else
 			value = 0;
@@ -280,16 +280,15 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 	//
 	// handle golden score
 	// TODO: use state machine!
-	if (m_isGoldenScore
-			&& eState_TimerStopped != EState(m_pSM->current_state()[0]))
+    if (m_isGoldenScore && eState_TimerStopped != EState(m_pSM->current_state()[0]))
 	{
         // Note: In golden score the hold should not end after the first scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
 		{
             auto ruleSet = GetRuleSet();
 
-            if (get_score(FighterEnum::First).IsLess(get_score(FighterEnum::Second), ruleSet) ||
-                    get_score(FighterEnum::Second).IsLess(get_score(FighterEnum::First), ruleSet))
+            if (ruleSet->IsScoreLess(get_score(FighterEnum::First), get_score(FighterEnum::Second))
+                    || ruleSet->IsScoreLess(get_score(FighterEnum::Second), get_score(FighterEnum::First)))
 			{
 				m_pSM->process_event(IpponboardSM_::Hajime_Mate());
 			}

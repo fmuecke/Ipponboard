@@ -9,7 +9,7 @@
 #include "../../../../devtools/Catch/include/catch.hpp"
 #include "../core/Score.cpp"
 #include "../core/Fight.cpp"
-
+#include "../core/Rules.cpp"
 
 #include "TestTournamentMode.hpp"
 #include "TestJson.hpp"

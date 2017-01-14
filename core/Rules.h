@@ -31,7 +31,18 @@ public:
         return _isCountSubscores;
     }
 
+    virtual bool IsAwaseteIppon(Score const& s) const
+    {
+        return s.Wazaari() == 2;
+    }
+
+    virtual bool IsShidosCountAsPoints() const { return false; }
+
+    virtual int GetMaxShidoCount() const { return 3; }
+
     virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;
+
+    virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
 
 private:
     bool _isAutoIncementPoints { false };
@@ -44,6 +55,11 @@ class ClassicRules : public AbstractRules
 {
 public:
     ClassicRules();
+
+    virtual bool IsShidosCountAsPoints() const final
+    {
+        return true;
+    }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
@@ -78,6 +94,16 @@ class Rules2017 : public AbstractRules
 {
 public:
     Rules2017();
+
+    virtual bool IsAwaseteIppon(Score const&) const final
+    {
+        return false;
+    }
+
+    virtual int GetMaxShidoCount() const final
+    {
+        return 2;
+    }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {

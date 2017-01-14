@@ -1,7 +1,9 @@
 #pragma once
 
+#include "../../../../devtools/Catch/include/catch.hpp"
 #include "../core/Score.h"
 #include "../core/Enums.h"
+#include "../core/Rules.h"
 
 using Point = Ipponboard::Score::Point;
 
@@ -17,25 +19,27 @@ TEST_CASE("Shido rules for fights")
 	auto wazaariWithTwoShido = Score().Add(Point::Wazaari).Add(Point::Shido).Add(Point::Shido);
 	auto wazaariWithThreeShido = Score().Add(Point::Wazaari).Add(Point::Shido).Add(Point::Shido).Add(Point::Shido);
 
-	REQUIRE_FALSE(shido.IsLess(shido, e2013RuleSet));
-	REQUIRE(shido.IsLess(empty, e2013RuleSet));
-	REQUIRE(twoShido.IsLess(shido, e2013RuleSet));
-	REQUIRE(shido.IsLess(yukoWithTwoShido, e2013RuleSet));
-	REQUIRE(twoShido.IsLess(yukoWithTwoShido, e2013RuleSet));
-	REQUIRE(empty.IsLess(yukoWithTwoShido, e2013RuleSet));
-	REQUIRE(wazaariWithShido.IsLess(wazaari, e2013RuleSet));
-	REQUIRE(wazaariWithTwoShido.IsLess(wazaari, e2013RuleSet));
-	REQUIRE(wazaariWithTwoShido.IsLess(wazaariWithShido, e2013RuleSet));
-	REQUIRE(wazaariWithThreeShido.IsLess(wazaariWithShido, e2013RuleSet));
-	REQUIRE(wazaariWithThreeShido.IsLess(wazaariWithTwoShido, e2013RuleSet));
+    auto rules2013 = std::make_shared<Ipponboard::Rules2013>();
+    REQUIRE_FALSE(rules2013->IsScoreLess(shido, shido));
+    REQUIRE(rules2013->IsScoreLess(shido, empty));
+    REQUIRE(rules2013->IsScoreLess(twoShido, shido));
+    REQUIRE(rules2013->IsScoreLess(shido, yukoWithTwoShido));
+    REQUIRE(rules2013->IsScoreLess(twoShido, yukoWithTwoShido));
+    REQUIRE(rules2013->IsScoreLess(empty, yukoWithTwoShido));
+    REQUIRE(rules2013->IsScoreLess(wazaariWithShido, wazaari));
+    REQUIRE(rules2013->IsScoreLess(wazaariWithTwoShido, wazaari));
+    REQUIRE(rules2013->IsScoreLess(wazaariWithTwoShido, wazaariWithShido));
+    REQUIRE(rules2013->IsScoreLess(wazaariWithThreeShido, wazaariWithShido));
+    REQUIRE(rules2013->IsScoreLess(wazaariWithThreeShido, wazaariWithTwoShido));
 
 	// classic rules
-	REQUIRE_FALSE(shido.IsLess(empty, eClassicRules));
-	REQUIRE_FALSE(shido.IsLess(shido, eClassicRules));
-	REQUIRE(twoShido.IsLess(yukoWithShido, eClassicRules));
-	REQUIRE(shido.IsLess(yukoWithTwoShido, eClassicRules));
-	REQUIRE(twoShido.IsLess(yukoWithTwoShido, eClassicRules));
-	REQUIRE(empty.IsLess(yukoWithTwoShido, eClassicRules));
+    auto classicRules = std::make_shared<Ipponboard::ClassicRules>();
+    REQUIRE_FALSE(classicRules->IsScoreLess(shido, empty));
+    REQUIRE_FALSE(classicRules->IsScoreLess(shido, shido));
+    REQUIRE(classicRules->IsScoreLess(twoShido, yukoWithShido));
+    REQUIRE(classicRules->IsScoreLess(shido, yukoWithTwoShido));
+    REQUIRE(classicRules->IsScoreLess(twoShido, yukoWithTwoShido));
+    REQUIRE(classicRules->IsScoreLess(empty, yukoWithTwoShido));
 }
 
 //TEST_CASE("4th shido sets hansokumake")
@@ -54,17 +58,50 @@ TEST_CASE("Shido rules for fights")
 //	REQUIRE_FALSE(two.IsLess(one));
 //}
 
-TEST_CASE("Score supports two Hansokumake")
+TEST_CASE("Each fighter can have Hansokumake")
 {
 	Score score1;
 	Score score2;
+    auto classicRules = std::make_shared<Ipponboard::ClassicRules>();
+    auto rules2013 = std::make_shared<Ipponboard::Rules2013>();
 
 	score1.Add(Score::Point::Hansokumake);
-	score2.Add(Score::Point::Hansokumake);
-	
-	REQUIRE_FALSE(score1.IsLess(score2, Ipponboard::eClassicRules));
-	REQUIRE_FALSE(score2.IsLess(score1, Ipponboard::eClassicRules));
 
-	REQUIRE_FALSE(score1.IsLess(score2, Ipponboard::e2013RuleSet));
-	REQUIRE_FALSE(score2.IsLess(score1, Ipponboard::e2013RuleSet));
+    REQUIRE(classicRules->IsScoreLess(score1, score2));
+    REQUIRE_FALSE(classicRules->IsScoreLess(score2, score1));
+
+    REQUIRE(rules2013->IsScoreLess(score1, score2));
+    REQUIRE_FALSE(rules2013->IsScoreLess(score2, score1));
+
+    score2.Add(Score::Point::Hansokumake);
+	
+    REQUIRE_FALSE(classicRules->IsScoreLess(score1, score2));
+    REQUIRE_FALSE(classicRules->IsScoreLess(score2, score1));
+
+    REQUIRE_FALSE(rules2013->IsScoreLess(score1, score2));
+    REQUIRE_FALSE(rules2013->IsScoreLess(score2, score1));
+}
+
+TEST_CASE("is awasette ippon")
+{
+    Score score;
+    auto classicRules = std::make_shared<Ipponboard::ClassicRules>();
+    auto rules2013 = std::make_shared<Ipponboard::Rules2013>();
+    auto rules2017 = std::make_shared<Ipponboard::Rules2017>();
+
+    REQUIRE_FALSE(classicRules->IsAwaseteIppon(score));
+    REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
+    REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+
+    score.Add(Score::Point::Wazaari);
+
+    REQUIRE_FALSE(classicRules->IsAwaseteIppon(score));
+    REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
+    REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+
+    score.Add(Score::Point::Wazaari);
+
+    REQUIRE(classicRules->IsAwaseteIppon(score));
+    REQUIRE(rules2013->IsAwaseteIppon(score));
+    REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
 }

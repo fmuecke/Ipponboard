@@ -40,10 +40,7 @@ public:
 	int Shido() const { return Value(Point::Shido); }
 	bool Hansokumake() const  { return Value(Point::Hansokumake) != 0; }
 
-	bool IsAwaseteIppon() const;
 	void Clear();
-
-    bool IsLess(const Score& rhs, std::shared_ptr<AbstractRules> ruleSet) const;
 
 protected:
     virtual void correct_point(Point p);

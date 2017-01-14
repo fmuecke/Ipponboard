@@ -29,6 +29,7 @@ private:
 	virtual bool is_sonomama() const = 0;
 	virtual bool is_golden_score() const = 0;
 	virtual bool is_option(Ipponboard::EOption option) const = 0;
+    virtual std::shared_ptr<AbstractRules> GetRuleSet() const = 0;
 };
 
 }

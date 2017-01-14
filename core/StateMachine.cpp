@@ -12,40 +12,22 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 {
 	if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
 	{
-		if (m_pCore->is_option(Ipponboard::eOption_Use2013Rules))
-		{
-			if (OsaekomiValue::Yuko == evt.secs)
-			{
-				Score_(evt.tori).Add(Point::Yuko);
-			}
-			else if (OsaekomiValue::Wazaari == evt.secs)
-			{
-				Score_(evt.tori).Remove(Point::Yuko);
-				Score_(evt.tori).Add(Point::Wazaari);
-			}
-			else if (OsaekomiValue::Ippon == evt.secs)
-			{
-				Score_(evt.tori).Remove(Point::Wazaari);
-				Score_(evt.tori).Add(Point::Ippon);
-			}
-		}
-		else
-		{
-			if (OsaekomiValue::YukoOld == evt.secs)
-			{
-				Score_(evt.tori).Add(Point::Yuko);
-			}
-			else if (OsaekomiValue::WazaariOld == evt.secs)
-			{
-				Score_(evt.tori).Remove(Point::Yuko);
-				Score_(evt.tori).Add(Point::Wazaari);
-			}
-			else if (OsaekomiValue::IpponOld == evt.secs)
-			{
-				Score_(evt.tori).Remove(Point::Wazaari);
-				Score_(evt.tori).Add(Point::Ippon);
-			}
-		}
+        auto rs = m_pCore->GetRuleSet();
+
+        if (rs->GetOsaekomiValue(Point::Yuko)== evt.secs)
+        {
+            Score_(evt.tori).Add(Point::Yuko);
+        }
+        else if (rs->GetOsaekomiValue(Point::Wazaari) == evt.secs)
+        {
+            Score_(evt.tori).Remove(Point::Yuko);
+            Score_(evt.tori).Add(Point::Wazaari);
+        }
+        else if (rs->GetOsaekomiValue(Point::Ippon) == evt.secs)
+        {
+            Score_(evt.tori).Remove(Point::Wazaari);
+            Score_(evt.tori).Add(Point::Ippon);
+        }
 	}
 }
 
@@ -85,24 +67,14 @@ bool IpponboardSM_::has_no_wazaari(Wazaari const& evt)
 bool IpponboardSM_::has_IpponTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	auto checkVal =
-		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		OsaekomiValue::Ippon :
-		OsaekomiValue::IpponOld;
-
-	return checkVal == evt.secs;
+    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Ippon) == evt.secs;
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::has_WazaariTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	auto checkVal =
-		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		OsaekomiValue::Wazaari :
-		OsaekomiValue::WazaariOld;
-
-	return checkVal == evt.secs;
+    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
 }
 
 //---------------------------------------------------------
@@ -111,12 +83,7 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 {
 	if (0 != Score_(evt.tori).Wazaari())
 	{
-		auto checkVal =
-			m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-			OsaekomiValue::Wazaari :
-			OsaekomiValue::WazaariOld;
-
-		return checkVal == evt.secs;
+        return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
 	}
 
 	return false;
@@ -126,12 +93,7 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	auto checkVal =
-		m_pCore->is_option(Ipponboard::eOption_Use2013Rules) ?
-		OsaekomiValue::Yuko :
-		OsaekomiValue::YukoOld;
-
-	return checkVal == evt.secs;
+    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Yuko) == evt.secs;
 }
 
 //---------------------------------------------------------
@@ -145,20 +107,17 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 bool IpponboardSM_::has_enough_shido(Shido const& evt)
 //---------------------------------------------------------
 {
-
-
-	if (Score_(evt.tori).Shido() == 3)
+    if (Score_(evt.tori).Shido() == m_pCore->GetRuleSet()->GetMaxShidoCount())
 	{
 		return true;
 	}
 
 	// Note: new 2013 IJF rule: no points for first three shido
-	if (!m_pCore->is_option(eOption_Use2013Rules))
+    if (m_pCore->GetRuleSet()->IsShidosCountAsPoints())
 	{
 		FighterEnum uke = GetUkeFromTori(evt.tori);
 
-		if (Score_(evt.tori).Shido() == 2 &&
-				Score_(uke).Wazaari() == 1)
+        if (Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1)
 		{
 			return true;
 		}

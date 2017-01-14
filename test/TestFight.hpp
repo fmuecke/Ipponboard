@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../../../../devtools/Catch/include/catch.hpp"
 #include "../core/Score.h"
 #include "../core/Enums.h"
 #include "../core/Fight.h"
+#include "../core/Rules.h"
 
 using Ipponboard::Fight;
 using Ipponboard::Score;
@@ -16,7 +18,7 @@ TEST_CASE("Fighter with less Shidos wins if points are equal")
 	auto scoreWithThreeShido = Score(score).Add(Point::Shido).Add(Point::Shido).Add(Point::Shido);
 
 	Fight fight;
-	fight.ruleSet = e2013RuleSet;
+    fight.ruleSet = std::make_shared<Ipponboard::Rules2013>();
 
 	fight.scores[0] = score;
 	fight.scores[1] = score;
@@ -54,7 +56,7 @@ TEST_CASE("Validate score points (subscore)")
 	auto second = FighterEnum::Second;
 
 	Fight fight;
-	fight.ruleSet = e2013RuleSet;
+    fight.ruleSet = std::make_shared<Ipponboard::Rules2013>();
 
 	auto emptyScore = Score();
 	auto shidoScore = Score().Add(Point::Shido);

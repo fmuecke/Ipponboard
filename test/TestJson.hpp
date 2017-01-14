@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../../../devtools/Catch/include/catch.hpp"
 #include "../util/json.hpp"
 
 TEST_CASE("JSON read file")
