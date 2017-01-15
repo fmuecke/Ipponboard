@@ -653,6 +653,9 @@ void MainWindowBase::on_actionTest_Gong_triggered()
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
 	show_hide_view();
+    if (m_pSecondaryView->isVisible())
+    {
+    }
 }
 
 void MainWindowBase::on_actionPreferences_triggered()
@@ -723,15 +726,22 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::show_hide_view() const
 {
-	if (m_pSecondaryView->isHidden())
+    static bool isAlreadyCalled = false;
+    if (isAlreadyCalled)
+    {
+        return;
+    }
+
+    isAlreadyCalled = true;  // prevents recursive calls (TODO: implement better)
+
+    if (m_pSecondaryView->isHidden())
 	{
 		const int nScreens(QApplication::desktop()->numScreens());
 
 		if (nScreens > 0 && nScreens > m_secondScreenNo)
 		{
-			QRect screenres =
-				QApplication::desktop()->screenGeometry(m_secondScreenNo);
-			m_pSecondaryView->move(QPoint(screenres.x(), screenres.y()));
+            auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
+            m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
 		}
 
 		if (m_secondScreenSize.isNull())
@@ -748,17 +758,24 @@ void MainWindowBase::show_hide_view() const
 	{
 		m_pSecondaryView->hide();
 	}
+
+    ui_check_show_secondary_view(!m_pSecondaryView->isHidden());
+    isAlreadyCalled = false;
 }
 
 void MainWindowBase::EvaluateInput()
 {
-	if (Gamepad::eState_ok != m_pGamepad->GetState())
-		return;
+    if (Gamepad::eState_ok != m_pGamepad->GetState())
+    {
+        return;
+    }
 
 	m_pGamepad->ReadData();
 
-	if (EvaluateSpecificInput(m_pGamepad.get()))
-		return;
+    if (EvaluateSpecificInput(m_pGamepad.get()))
+    {
+        return;
+    }
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{

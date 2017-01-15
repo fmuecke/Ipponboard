@@ -252,8 +252,19 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-	m_pUi->checkBox_autoIncrement->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
-	m_pUi->checkBox_use2013rules->setChecked(m_pController->GetOption(eOption_Use2013Rules));
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
+    if (m_pController->GetOption(eOption_Use2013Rules))
+    {
+        m_pUi->action_rule_classic->setChecked(false);
+        m_pUi->action_rule_2013->setChecked(true);
+        m_pUi->action_rule_2017->setChecked(false);
+    }
+    else
+    {
+        m_pUi->action_rule_classic->setChecked(true);
+        m_pUi->action_rule_2013->setChecked(false);
+        m_pUi->action_rule_2017->setChecked(false);
+    }
 }
 
 void MainWindow::attach_primary_view()
@@ -280,9 +291,10 @@ void MainWindow::ui_check_language_items()
 	// don't forget second implementation!
 }
 
-void MainWindow::ui_check_show_secondary_view(bool checked)
+void MainWindow::ui_check_show_secondary_view(bool checked) const
 {
-	m_pUi->actionShow_SecondaryView->setChecked(true);
+    m_pUi->actionShow_SecondaryView->setChecked(checked);
+    m_pUi->toolButton_viewSecondaryScreen->setChecked(checked);
 }
 
 void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
@@ -290,9 +302,42 @@ void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
 	m_pController->SetOption(eOption_Use2013Rules, checked);
 }
 
-void MainWindow::on_checkBox_autoIncrement_toggled(bool checked)
+void MainWindow::on_actionAutoAdjustPoints_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_AutoIncrementPoints, checked);
+}
+
+void MainWindow::on_actionViewInfoBar_toggled(bool checked)
+{
+    for (int i = 0; i < m_pUi->horizontalLayout_infoBar->count(); ++i)
+    {
+        auto item = m_pUi->horizontalLayout_infoBar->itemAt(i)->widget();
+        if (item)
+        {
+            if (checked)
+            {
+                item->show();
+            }
+            else
+            {
+                item->hide();
+            }
+        }
+    }
+
+    if (checked)
+    {
+        m_pUi->line_infoBar->show();
+    }
+    else
+    {
+        m_pUi->line_infoBar->hide();
+    }
+}
+
+void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
+{
+    on_actionShow_SecondaryView_triggered();
 }
 
 void MainWindow::write_specific_settings(QSettings& settings)

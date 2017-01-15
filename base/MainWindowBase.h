@@ -118,7 +118,7 @@ protected:
 	virtual void attach_primary_view() = 0;
 	virtual void retranslate_Ui() = 0;
 	virtual void ui_check_language_items() = 0;
-	virtual void ui_check_show_secondary_view(bool checked) = 0;
+    virtual void ui_check_show_secondary_view(bool checked) const = 0;
 
 private:
 	virtual void write_specific_settings(QSettings& settings);

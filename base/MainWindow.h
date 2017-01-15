@@ -36,7 +36,7 @@ protected:
 	virtual void attach_primary_view() final;
 	virtual void retranslate_Ui() final;
 	virtual void ui_check_language_items() final;
-	virtual void ui_check_show_secondary_view(bool checked) final;
+    virtual void ui_check_show_secondary_view(bool checked) const final;
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
@@ -65,7 +65,9 @@ protected slots:
 
 private slots:
 	void on_checkBox_use2013rules_toggled(bool checked);
-	void on_checkBox_autoIncrement_toggled(bool checked);
+    void on_actionAutoAdjustPoints_toggled(bool checked);
+    void on_actionViewInfoBar_toggled(bool checked);
+    void on_toolButton_viewSecondaryScreen_toggled();
 
 private:
 	/* member */

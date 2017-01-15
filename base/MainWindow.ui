@@ -52,7 +52,7 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0,0,0">
+   <layout class="QVBoxLayout" name="verticalLayout_0" stretch="1,0,0,0">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -102,83 +102,87 @@
      </widget>
     </item>
     <item>
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_infoBar">
       <property name="leftMargin">
-       <number>5</number>
+       <number>3</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="rightMargin">
-       <number>5</number>
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
       </property>
       <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QToolButton" name="toolButton_viewSecondaryScreen">
+        <property name="toolTip">
+         <string>Display secondary screen</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_Options">
         <property name="text">
-         <string>Options</string>
+         <string>Secondary Display</string>
+        </property>
+        <property name="icon">
+         <iconset resource="ipponboard.qrc">
+          <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::DelayedPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::NoArrow</enum>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
+       <spacer name="horizontalSpacer_infoBar">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
+         <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>10</width>
-          <height>20</height>
+          <width>40</width>
+          <height>0</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_autoIncrement">
-        <property name="toolTip">
-         <string>Automatically set resulting points from osaekomi or penalties</string>
+       <widget class="QLabel" name="label_usedOptions">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
         </property>
         <property name="text">
-         <string>Auto set points</string>
+         <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Options: auto increment points,  Rules: 2013&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_use2013rules">
-        <property name="toolTip">
-         <string>Use the new 2013 IJF rule set</string>
-        </property>
-        <property name="text">
-         <string>Use 2013 rules</string>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="Line" name="line">
+     <widget class="Line" name="line_infoBar">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -198,22 +202,8 @@
       <property name="bottomMargin">
        <number>5</number>
       </property>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Weight</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Class</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
+      <item row="1" column="6">
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -225,15 +215,22 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox_weight_class">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Class</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="6">
-       <spacer name="horizontalSpacer_2">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Weight</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -259,6 +256,60 @@
         <property name="icon">
          <iconset resource="ipponboard.qrc">
           <normaloff>:/res/icons/test_sound.png</normaloff>:/res/icons/test_sound.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_weight_class">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="comboBox_name_first">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAlphabetically</enum>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7" colspan="2">
+       <widget class="QCheckBox" name="checkBox_golden_score">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Activate Golden Score</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Golden Score</string>
         </property>
        </widget>
       </item>
@@ -299,50 +350,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7" colspan="2">
-       <widget class="QCheckBox" name="checkBox_golden_score">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>Golden Score round time</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QComboBox" name="comboBox_name_first">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>160</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="mouseTracking">
-         <bool>true</bool>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-        <property name="insertPolicy">
-         <enum>QComboBox::InsertAlphabetically</enum>
-        </property>
-        <property name="frame">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="5">
        <widget class="QComboBox" name="comboBox_name_second">
         <property name="sizePolicy">
@@ -374,10 +381,32 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_weight">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string notr="true"/>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>First Fighter (first last)</string>
         </property>
        </widget>
       </item>
@@ -403,22 +432,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_2">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>First Fighter (first last)</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="3">
        <widget class="QLabel" name="label_8">
         <property name="text">
@@ -432,16 +445,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string notr="true"/>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::PlainText</enum>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="ipponboard.qrc">:/res/icons/fighter_blue.png</pixmap>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_weight">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
        </widget>
       </item>
@@ -483,6 +490,7 @@
     </property>
     <addaction name="actionShow_SecondaryView"/>
     <addaction name="action_Info_Header"/>
+    <addaction name="actionViewInfoBar"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -499,6 +507,17 @@
      <addaction name="actionLang_English"/>
      <addaction name="actionLang_Dutch"/>
     </widget>
+    <widget class="QMenu" name="menuRules">
+     <property name="title">
+      <string>Rules</string>
+     </property>
+     <addaction name="action_rule_2017"/>
+     <addaction name="action_rule_2013"/>
+     <addaction name="action_rule_classic"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="actionAutoAdjustPoints"/>
+    <addaction name="menuRules"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
@@ -519,9 +538,9 @@
     <addaction name="actionTest_Gong"/>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menuView"/>
    <addaction name="menuManage"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuView"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionOpen">
@@ -590,7 +609,7 @@
      <normaloff>:/res/icons/secondary_view.png</normaloff>:/res/icons/secondary_view.png</iconset>
    </property>
    <property name="text">
-    <string>Secondary View</string>
+    <string>Secondary Display</string>
    </property>
    <property name="toolTip">
     <string>Toggles secodary screen view</string>
@@ -812,6 +831,61 @@
     <string>Choose Dutch as program language</string>
    </property>
   </action>
+  <action name="actionAutoAdjustPoints">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto Adjust Points</string>
+   </property>
+  </action>
+  <action name="action_rule_2017">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>IJF 2017</string>
+   </property>
+   <property name="toolTip">
+    <string>Use IJF 2017 rules</string>
+   </property>
+  </action>
+  <action name="action_rule_2013">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>IJF 2013</string>
+   </property>
+   <property name="toolTip">
+    <string>Use IJF 2013 rules</string>
+   </property>
+  </action>
+  <action name="action_rule_classic">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Classic</string>
+   </property>
+   <property name="toolTip">
+    <string>Use classic rules</string>
+   </property>
+  </action>
+  <action name="actionViewInfoBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Info Bar</string>
+   </property>
+   <property name="toolTip">
+    <string>Shows/hides the info bar which dispays the current options and rules.</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -821,7 +895,6 @@
   <tabstop>comboBox_name_second</tabstop>
  </tabstops>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections>

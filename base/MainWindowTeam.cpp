@@ -446,9 +446,9 @@ void MainWindowTeam::ui_check_language_items()
 	// don't forget second implementation!
 }
 
-void MainWindowTeam::ui_check_show_secondary_view(bool checked)
+void MainWindowTeam::ui_check_show_secondary_view(bool checked) const
 {
-	m_pUi->actionShow_SecondaryView->setChecked(true);
+    m_pUi->actionShow_SecondaryView->setChecked(checked);
 }
 
 void MainWindowTeam::UpdateButtonText_()
