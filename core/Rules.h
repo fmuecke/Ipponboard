@@ -37,18 +37,17 @@ public:
     }
 
     virtual bool IsShidosCountAsPoints() const { return false; }
-
+    virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
     virtual int GetMaxShidoCount() const { return 3; }
-
     virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;
 
-    virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
+    template<typename T>
+    bool IsOfType() { return dynamic_cast<T*>(this) != nullptr; }
 
 private:
     bool _isAutoIncementPoints { false };
     bool _isCountSubscores { false };
 };
-
 
 
 class ClassicRules : public AbstractRules

@@ -172,10 +172,24 @@
          <number>0</number>
         </property>
         <property name="text">
-         <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Options: auto increment points,  Rules: 2013&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string notr="true">Options: auto increment points</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>/</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_usedRules">
+        <property name="text">
+         <string notr="true">RULES</string>
         </property>
        </widget>
       </item>
@@ -511,9 +525,9 @@
      <property name="title">
       <string>Rules</string>
      </property>
-     <addaction name="action_rule_2017"/>
-     <addaction name="action_rule_2013"/>
-     <addaction name="action_rule_classic"/>
+     <addaction name="actionRulesClassic"/>
+     <addaction name="actionRules2013"/>
+     <addaction name="actionRules2017"/>
     </widget>
     <addaction name="separator"/>
     <addaction name="actionAutoAdjustPoints"/>
@@ -839,34 +853,34 @@
     <string>Auto Adjust Points</string>
    </property>
   </action>
-  <action name="action_rule_2017">
+  <action name="actionRules2017">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>IJF 2017</string>
+    <string>IJF Rules 2017</string>
    </property>
    <property name="toolTip">
     <string>Use IJF 2017 rules</string>
    </property>
   </action>
-  <action name="action_rule_2013">
+  <action name="actionRules2013">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>IJF 2013</string>
+    <string>IJF Rules 2013</string>
    </property>
    <property name="toolTip">
     <string>Use IJF 2013 rules</string>
    </property>
   </action>
-  <action name="action_rule_classic">
+  <action name="actionRulesClassic">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Classic</string>
+    <string>Classic Rules</string>
    </property>
    <property name="toolTip">
     <string>Use classic rules</string>

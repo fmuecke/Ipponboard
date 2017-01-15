@@ -253,18 +253,21 @@ void MainWindow::update_statebar()
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
     m_pUi->actionAutoAdjustPoints->setChecked(m_pController->GetOption(eOption_AutoIncrementPoints));
-    if (m_pController->GetOption(eOption_Use2013Rules))
-    {
-        m_pUi->action_rule_classic->setChecked(false);
-        m_pUi->action_rule_2013->setChecked(true);
-        m_pUi->action_rule_2017->setChecked(false);
-    }
-    else
-    {
-        m_pUi->action_rule_classic->setChecked(true);
-        m_pUi->action_rule_2013->setChecked(false);
-        m_pUi->action_rule_2017->setChecked(false);
-    }
+
+    ui_check_rules_items();
+
+//    if (m_pController->GetOption(eOption_Use2013Rules))
+//    {
+//        m_pUi->actionRulesClassic->setChecked(false);
+//        m_pUi->actionRules2013->setChecked(true);
+//        m_pUi->actionRules2017->setChecked(false);
+//    }
+//    else
+//    {
+//        m_pUi->actionRulesClassic->setChecked(true);
+//        m_pUi->actionRules2013->setChecked(false);
+//        m_pUi->actionRules2017->setChecked(false);
+//    }
 }
 
 void MainWindow::attach_primary_view()
@@ -289,6 +292,27 @@ void MainWindow::ui_check_language_items()
 	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
 
 	// don't forget second implementation!
+}
+
+void MainWindow::ui_check_rules_items()
+{
+    auto rules = m_pController->GetRuleSet();
+    m_pUi->actionRulesClassic->setChecked(rules->IsOfType<ClassicRules>());
+    m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
+    m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
+
+    if (rules->IsOfType<ClassicRules>())
+    {
+        m_pUi->label_usedRules->setText(m_pUi->actionRulesClassic->text());
+    }
+    else if (rules->IsOfType<Rules2013>())
+    {
+        m_pUi->label_usedRules->setText(m_pUi->actionRules2013->text());
+    }
+    else if(rules->IsOfType<Rules2017>())
+    {
+        m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text());
+    }
 }
 
 void MainWindow::ui_check_show_secondary_view(bool checked) const
