@@ -37,8 +37,8 @@ public:
 	virtual QString const& GetCategoryName() const = 0;
 	virtual void SetGoldenScore(bool isGS) = 0;
 	virtual bool IsGoldenScore() const = 0;
-    virtual std::shared_ptr<AbstractRules> GetRuleSet() const = 0;
-    virtual void SetRuleSet(std::shared_ptr<AbstractRules> rules) = 0;
+    virtual std::shared_ptr<AbstractRules> GetRules() const = 0;
+    virtual void SetRules(std::shared_ptr<AbstractRules> rules) = 0;
 	virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
 	virtual bool GetOption(Ipponboard::EOption option) const = 0;
 	virtual QString GetHomeLabel() const = 0;

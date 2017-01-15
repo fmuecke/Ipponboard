@@ -296,7 +296,7 @@ void MainWindow::ui_check_language_items()
 
 void MainWindow::ui_check_rules_items()
 {
-    auto rules = m_pController->GetRuleSet();
+    auto rules = m_pController->GetRules();
     m_pUi->actionRulesClassic->setChecked(rules->IsOfType<ClassicRules>());
     m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
     m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());

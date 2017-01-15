@@ -77,8 +77,8 @@ public:
 	QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
 	void SetGoldenScore(bool isGS);
 	bool IsGoldenScore() const { return is_golden_score(); }
-    void SetRuleSet(std::shared_ptr<AbstractRules> rules);
-    virtual std::shared_ptr<AbstractRules> GetRuleSet() const override;
+    void SetRules(std::shared_ptr<AbstractRules> rules);
+    virtual std::shared_ptr<AbstractRules> GetRules() const override;
     void SetOption(Ipponboard::EOption option, bool isSet);
 	bool GetOption(Ipponboard::EOption option) const;
 	QString GetHomeLabel() const { return m_labelHome; }

@@ -105,13 +105,13 @@ void Controller::InitTournament(TournamentMode const& mode)
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
             if (m_mode.IsOptionSet(eOption_Use2013Rules))
             {
-                fight.ruleSet = std::make_shared<Rules2013>();
+                fight.rules = std::make_shared<Rules2013>();
             }
             else
             {
-                fight.ruleSet = std::make_shared<ClassicRules>();
+                fight.rules = std::make_shared<ClassicRules>();
             }
-            fight.ruleSet->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
+            fight.rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 			SimpleFighter emptyFighter;
 			emptyFighter.name = emptyFighterName;
@@ -285,7 +285,7 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         // Note: In golden score the hold should not end after the first scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
 		{
-            auto ruleSet = GetRuleSet();
+            auto ruleSet = GetRules();
 
             if (ruleSet->IsScoreLess(get_score(FighterEnum::First), get_score(FighterEnum::Second))
                     || ruleSet->IsScoreLess(get_score(FighterEnum::Second), get_score(FighterEnum::First)))
@@ -633,12 +633,12 @@ void Controller::SetGoldenScore(bool isGS)
 }
 
 
-std::shared_ptr<AbstractRules> Controller::GetRuleSet() const
+std::shared_ptr<AbstractRules> Controller::GetRules() const
 {
     return m_rules;
 }
 
-void Controller::SetRuleSet(std::shared_ptr<AbstractRules> rules)
+void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 {
     m_rules = rules;
 
@@ -646,7 +646,7 @@ void Controller::SetRuleSet(std::shared_ptr<AbstractRules> rules)
     {
         for (auto & fight : *pRound)
         {
-            fight.ruleSet = rules;
+            fight.rules = rules;
         }
     }
 }
@@ -663,11 +663,11 @@ void Controller::SetOption(EOption option, bool isSet)
     {
         if (isSet)
         {
-            SetRuleSet(std::make_shared<Rules2013>());
+            SetRules(std::make_shared<Rules2013>());
         }
         else
         {
-            SetRuleSet(std::make_shared<ClassicRules>());
+            SetRules(std::make_shared<ClassicRules>());
         }
     }
 
@@ -763,7 +763,7 @@ void Controller::reset_fight()
 	Fight& fight = m_Tournament[m_currentRound]->at(m_currentFight);
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
-    fight.ruleSet = m_rules;
+    fight.rules = m_rules;
 
 	update_views();
 }
@@ -964,7 +964,7 @@ void Controller::SetFight(
 		emptyFighterName : first_player_name;
 	fight.fighters[Ipponboard::FighterEnum::First].club = first_player_club;
 	fight.scores[Ipponboard::FighterEnum::First].Clear();
-    fight.ruleSet = m_rules;
+    fight.rules = m_rules;
 
 	while (yuko1 != -1 && yuko1 > 0)
 	{

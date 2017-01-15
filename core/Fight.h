@@ -67,7 +67,7 @@ public:
 	int time_in_seconds;
 	int max_time_in_seconds;
 	bool is_saved;
-    std::shared_ptr<AbstractRules> ruleSet;
+    std::shared_ptr<AbstractRules> rules;
 
     QString GetTimeFaught() const;
     QString GetTimeRemaining() const;

@@ -14,7 +14,7 @@ Fight::Fight()
     , time_in_seconds(0)
     , max_time_in_seconds(0)
     , is_saved(false)
-    , ruleSet(new ClassicRules)
+    , rules(new ClassicRules)
 {
     scores[0] = Score();
     scores[1] = Score();
@@ -22,7 +22,7 @@ Fight::Fight()
     fighters[0] = SimpleFighter();
     fighters[1] = SimpleFighter();
 
-    ruleSet->SetCountSubscores(false);
+    rules->SetCountSubscores(false);
 }
 
 
@@ -56,7 +56,7 @@ QString Fight::GetTimeRemaining() const
 bool Fight::HasWon(FighterEnum who) const
 {
 	const FighterEnum other = GetUkeFromTori(who);
-    return ruleSet->IsScoreLess(GetScore(other), GetScore(who));
+    return rules->IsScoreLess(GetScore(other), GetScore(who));
 }
 
 int Fight::ScorePoints(FighterEnum who) const
@@ -65,7 +65,7 @@ int Fight::ScorePoints(FighterEnum who) const
 
     if (HasWon(who))
     {
-        if (GetScore(who).Ippon() || ruleSet->IsAwaseteIppon(GetScore(who)))
+        if (GetScore(who).Ippon() || rules->IsAwaseteIppon(GetScore(who)))
             return eScore_Ippon;
 
         // Only the fight deciding point is taken into account!
@@ -79,7 +79,7 @@ int Fight::ScorePoints(FighterEnum who) const
             return eScore_Yuko;
 		}
 
-        if (!ruleSet->IsShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
+        if (!rules->IsShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		
@@ -91,7 +91,7 @@ int Fight::ScorePoints(FighterEnum who) const
         {
             return eScore_Hikewake;
         }
-        else if (ruleSet->IsCountSubscores())
+        else if (rules->IsCountSubscores())
         {
             // Special rule for Jugendliga
             if (GetScore(who).Wazaari() > GetScore(other).Wazaari())

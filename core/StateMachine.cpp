@@ -12,7 +12,7 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 {
 	if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
 	{
-        auto rs = m_pCore->GetRuleSet();
+        auto rs = m_pCore->GetRules();
 
         if (rs->GetOsaekomiValue(Point::Yuko)== evt.secs)
         {
@@ -67,14 +67,14 @@ bool IpponboardSM_::has_no_wazaari(Wazaari const& evt)
 bool IpponboardSM_::has_IpponTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Ippon) == evt.secs;
+    return m_pCore->GetRules()->GetOsaekomiValue(Point::Ippon) == evt.secs;
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::has_WazaariTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
+    return m_pCore->GetRules()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
 }
 
 //---------------------------------------------------------
@@ -83,7 +83,7 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 {
 	if (0 != Score_(evt.tori).Wazaari())
 	{
-        return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
+        return m_pCore->GetRules()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
 	}
 
 	return false;
@@ -93,7 +93,7 @@ bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_YukoTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-    return m_pCore->GetRuleSet()->GetOsaekomiValue(Point::Yuko) == evt.secs;
+    return m_pCore->GetRules()->GetOsaekomiValue(Point::Yuko) == evt.secs;
 }
 
 //---------------------------------------------------------
@@ -107,13 +107,13 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 bool IpponboardSM_::has_enough_shido(Shido const& evt)
 //---------------------------------------------------------
 {
-    if (Score_(evt.tori).Shido() == m_pCore->GetRuleSet()->GetMaxShidoCount())
+    if (Score_(evt.tori).Shido() == m_pCore->GetRules()->GetMaxShidoCount())
 	{
 		return true;
 	}
 
 	// Note: new 2013 IJF rule: no points for first three shido
-    if (m_pCore->GetRuleSet()->IsShidosCountAsPoints())
+    if (m_pCore->GetRules()->IsShidosCountAsPoints())
 	{
 		FighterEnum uke = GetUkeFromTori(evt.tori);
 

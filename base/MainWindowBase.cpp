@@ -372,7 +372,7 @@ void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 {
     if (checked)
     {
-        m_pController->SetRuleSet(std::make_shared<ClassicRules>());
+        m_pController->SetRules(std::make_shared<ClassicRules>());
         ui_check_rules_items();
     }
 }
@@ -381,7 +381,7 @@ void MainWindowBase::on_actionRules2013_triggered(bool checked)
 {
     if (checked)
     {
-        m_pController->SetRuleSet(std::make_shared<Rules2013>());
+        m_pController->SetRules(std::make_shared<Rules2013>());
         ui_check_rules_items();
     }
 }
@@ -390,7 +390,7 @@ void MainWindowBase::on_actionRules2017_triggered(bool checked)
 {
     if (checked)
     {
-        m_pController->SetRuleSet(std::make_shared<Rules2017>());
+        m_pController->SetRules(std::make_shared<Rules2017>());
         ui_check_rules_items();
     }
 }
