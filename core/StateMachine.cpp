@@ -192,29 +192,30 @@ void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 	{
 		FighterEnum uke = GetUkeFromTori(evt.tori);
 
-		if (m_pCore->is_option(eOption_Use2013Rules))
+        auto maxShidoCount = m_pCore->GetRules()->GetMaxShidoCount();
+        if (maxShidoCount == Score_(evt.tori).Shido())
 		{
-			if (3 == Score_(evt.tori).Shido())
-			{
-				Score_(uke).Add(Point::Ippon);
-			}
+            Score_(uke).Add(Point::Ippon);
 		}
 		else
 		{
-			if (3 == Score_(evt.tori).Shido())
-			{
-				Score_(uke).Remove(Point::Wazaari);
-				Score_(uke).Add(Point::Ippon);
-			}
-			else if (2 == Score_(evt.tori).Shido())
-			{
-				Score_(uke).Remove(Point::Yuko);
-				Score_(uke).Add(Point::Wazaari);
-			}
-			else if (1 == Score_(evt.tori).Shido())
-			{
-				Score_(uke).Add(Point::Yuko);
-			}
+            if (m_pCore->GetRules()->IsShidosCountAsPoints())
+            {
+                if (maxShidoCount > 2 && 3 == Score_(evt.tori).Shido())
+                {
+                    Score_(uke).Remove(Point::Wazaari);
+                    Score_(uke).Add(Point::Ippon);
+                }
+                else if (maxShidoCount > 1 && 2 == Score_(evt.tori).Shido())
+                {
+                    Score_(uke).Remove(Point::Yuko);
+                    Score_(uke).Add(Point::Wazaari);
+                }
+                else if (maxShidoCount > 0 && 1 == Score_(evt.tori).Shido())
+                {
+                    Score_(uke).Add(Point::Yuko);
+                }
+            }
 		}
 	}
 
@@ -234,26 +235,24 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 	{
 		if (m_pCore->is_option(eOption_AutoIncrementPoints))
 		{
-			if (m_pCore->is_option(eOption_Use2013Rules))
+            auto maxShidoCount = m_pCore->GetRules()->GetMaxShidoCount();
+            if (maxShidoCount + 1 == Score_(evt.tori).Shido())
 			{
-				if (4 == Score_(evt.tori).Shido())
-				{
-					Score_(uke).Remove(Point::Ippon);
-				}
+                Score_(uke).Remove(Point::Ippon);
 			}
 			else
 			{
-				if (4 == Score_(evt.tori).Shido())
+                if (maxShidoCount > 2 && 4 == Score_(evt.tori).Shido())
 				{
 					Score_(uke).Remove(Point::Ippon);
 					Score_(uke).Add(Point::Wazaari);
 				}
-				else if (3 == Score_(evt.tori).Shido())
+                else if (maxShidoCount > 1 && 3 == Score_(evt.tori).Shido())
 				{
 					Score_(uke).Remove(Point::Wazaari);
 					Score_(uke).Add(Point::Yuko);
 				}
-				else if (2 == Score_(evt.tori).Shido())
+                else if (maxShidoCount > 0 && 2 == Score_(evt.tori).Shido())
 				{
 					Score_(uke).Remove(Point::Yuko);
 				}

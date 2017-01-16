@@ -2,6 +2,7 @@
 #define RULESET_H
 
 #include "Score.h"
+#include <QString>
 
 namespace Ipponboard
 {
@@ -10,6 +11,8 @@ class AbstractRules
 {
 public:
     AbstractRules();
+
+    virtual const char* Name() const = 0;
 
     virtual void SetAutoIncementPoints(bool autoIncrement)
     {
@@ -36,13 +39,15 @@ public:
         return s.Wazaari() == 2;
     }
 
+    virtual bool HasUnlimitedGoldenScore() const { return true; }
+    virtual bool HasYukoSupport() const { return true; }
     virtual bool IsShidosCountAsPoints() const { return false; }
     virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
     virtual int GetMaxShidoCount() const { return 3; }
     virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;
 
     template<typename T>
-    bool IsOfType() { return dynamic_cast<T*>(this) != nullptr; }
+    bool IsOfType() const { return dynamic_cast<const T*>(this) != nullptr; }
 
 private:
     bool _isAutoIncementPoints { false };
@@ -54,6 +59,16 @@ class ClassicRules : public AbstractRules
 {
 public:
     ClassicRules();
+
+    virtual const char* Name() const final
+    {
+        return "Classic";
+    }
+
+    virtual bool HasUnlimitedGoldenScore() const final
+    {
+        return false;
+    }
 
     virtual bool IsShidosCountAsPoints() const final
     {
@@ -77,6 +92,11 @@ class Rules2013 : public AbstractRules
 public:
     Rules2013();
 
+    virtual const char* Name() const final
+    {
+        return "IJF-2013";
+    }
+
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
        switch(p)
@@ -93,6 +113,16 @@ class Rules2017 : public AbstractRules
 {
 public:
     Rules2017();
+
+    virtual const char* Name() const final
+    {
+        return "IJF-2017";
+    }
+
+    virtual bool HasYukoSupport() const final
+    {
+        return false;
+    }
 
     virtual bool IsAwaseteIppon(Score const&) const final
     {
@@ -115,7 +145,25 @@ public:
     }
 };
 
+class RulesFactory
+{
+public:
+    static std::shared_ptr<AbstractRules> Create(QString name)
+    {
+        if (name == ClassicRules().Name())
+        {
+            return std::make_shared<ClassicRules>();
+        }
 
-}
+        if (name == Rules2013().Name())
+        {
+            return std::make_shared<Rules2013>();
+        }
 
+        // default
+        return std::make_shared<Rules2017>();
+    }
+};
+
+} // namespace
 #endif // RULESET_H

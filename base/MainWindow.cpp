@@ -152,20 +152,18 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 	if (checked)
 	{
-		if (m_pController->GetOption(Ipponboard::eOption_Use2013Rules))
+        if (m_pController->GetRules()->HasUnlimitedGoldenScore())
 		{
 			m_pController->SetFightTime(QTime());
 		}
 		else
 		{
-			m_pController->SetFightTime(
-				QTime().addSecs(t.GetGoldenScoreTime()));
+            m_pController->SetFightTime(QTime().addSecs(t.GetGoldenScoreTime()));
 		}
 	}
 	else
 	{
-		m_pController->SetFightTime(
-			QTime().addSecs(t.GetRoundTime()));
+        m_pController->SetFightTime(QTime().addSecs(t.GetRoundTime()));
 	}
 }
 
@@ -321,11 +319,6 @@ void MainWindow::ui_check_show_secondary_view(bool checked) const
     m_pUi->toolButton_viewSecondaryScreen->setChecked(checked);
 }
 
-void MainWindow::on_checkBox_use2013rules_toggled(bool checked)
-{
-	m_pController->SetOption(eOption_Use2013Rules, checked);
-}
-
 void MainWindow::on_actionAutoAdjustPoints_toggled(bool checked)
 {
 	m_pController->SetOption(eOption_AutoIncrementPoints, checked);
@@ -371,6 +364,7 @@ void MainWindow::write_specific_settings(QSettings& settings)
 		settings.setValue(str_tag_MatLabel, m_MatLabel);
 		settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
 		settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
+        settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
 	}
 	settings.endGroup();
 }
@@ -387,8 +381,8 @@ void MainWindow::read_specific_settings(QSettings& settings)
 		m_pController->SetOption(eOption_AutoIncrementPoints,
 								 settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
 
-		m_pController->SetOption(eOption_Use2013Rules,
-								 settings.value(EnumToString(eOption_Use2013Rules), false).toBool());
+        auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
+        m_pController->SetRules(rules);
 	}
 	settings.endGroup();
 }

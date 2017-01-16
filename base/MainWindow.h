@@ -65,7 +65,6 @@ protected slots:
 	void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
 private slots:
-	void on_checkBox_use2013rules_toggled(bool checked);
     void on_actionAutoAdjustPoints_toggled(bool checked);
     void on_actionViewInfoBar_toggled(bool checked);
     void on_toolButton_viewSecondaryScreen_toggled();

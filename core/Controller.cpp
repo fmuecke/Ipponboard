@@ -88,6 +88,10 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_Tournament.clear();
 
 	m_mode = mode;
+    m_rules = RulesFactory::Create(m_mode.rules);
+    m_rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
+    m_rules->SetAutoIncementPoints(m_mode.IsOptionSet(eOption_AutoIncrementPoints));
+
 	QStringList actualWeights = m_mode.weights.split(';');
 
 	for (int round = 0; round < m_mode.nRounds; ++round)
@@ -103,14 +107,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 			Fight fight;
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
-            if (m_mode.IsOptionSet(eOption_Use2013Rules))
-            {
-                fight.rules = std::make_shared<Rules2013>();
-            }
-            else
-            {
-                fight.rules = std::make_shared<ClassicRules>();
-            }
+            fight.rules = m_rules;
             fight.rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 			SimpleFighter emptyFighter;
@@ -130,9 +127,6 @@ void Controller::InitTournament(TournamentMode const& mode)
 	}
 
 	// set options AFTER configuring fights
-	SetOption(eOption_Use2013Rules, m_mode.IsOptionSet(eOption_Use2013Rules));
-	SetOption(eOption_AutoIncrementPoints, m_mode.IsOptionSet(eOption_AutoIncrementPoints));
-	SetOption(eOption_AllSubscoresCount, m_mode.IsOptionSet(eOption_AllSubscoresCount));
 
 	m_currentRound = 0;
 	m_currentFight = 0;
@@ -658,26 +652,10 @@ void Controller::SetOption(EOption option, bool isSet)
 {
 	m_options.set(option, isSet);
 
-    // unfortunately some options need to be propagated further
-    if (eOption_Use2013Rules == option)
-    {
-        if (isSet)
-        {
-            SetRules(std::make_shared<Rules2013>());
-        }
-        else
-        {
-            SetRules(std::make_shared<ClassicRules>());
-        }
-    }
-
-	if (eOption_AllSubscoresCount == option)
+    // TODO: remove maybe
+    if (eOption_AllSubscoresCount == option)
 	{
         m_rules->SetCountSubscores(isSet);
-//        for (auto const& pRound : m_Tournament)
-//		{
-//            pRound->ruleSet->SetAllSubscoresCount(isSet);
-//		}
 	}
 }
 
@@ -1145,8 +1123,7 @@ QString const& Controller::GetGongFile() const
 void Controller::update_main_time()
 //=========================================================
 {
-	if (is_option(Ipponboard::eOption_Use2013Rules)
-			&& is_golden_score())
+    if (m_rules->HasUnlimitedGoldenScore() && is_golden_score())
 	{
 		*m_pTimeMain = m_pTimeMain->addSecs(1);
 	}
