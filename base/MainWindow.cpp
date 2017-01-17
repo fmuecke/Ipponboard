@@ -311,6 +311,9 @@ void MainWindow::ui_check_rules_items()
     {
         m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text());
     }
+
+    m_pPrimaryView->UpdateView();
+    m_pSecondaryView->UpdateView();
 }
 
 void MainWindow::ui_check_show_secondary_view(bool checked) const

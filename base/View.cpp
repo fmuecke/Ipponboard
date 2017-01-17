@@ -1,5 +1,6 @@
 ﻿#include "View.h"
 #include "ui_view_horizontal.h"
+#include "../core/Rules.h"
 
 #include <QPainter>
 #include <QMessageBox>
@@ -116,7 +117,11 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	{
         ui->text_ippon_desc1->hide();
         ui->text_ippon_desc2->hide();
-	}
+        ui->text_wazaari_desc1->SetText("Waza-ari");
+        ui->text_wazaari_desc1->SetText("Waza-ari");
+        ui->text_yuko_desc1->SetText("Yuko");
+        ui->text_yuko_desc2->SetText("Yuko");
+    }
 	else
 	{
         ui->text_ippon_desc1->show();
@@ -131,6 +136,17 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->image_shido2_second->SetBgColor(bgColor2);
 	ui->image_shido3_second->SetBgColor(bgColor2);
 	ui->image_hansokumake_second->SetBgColor(bgColor2);
+
+    if (m_pController->GetRules()->GetMaxShidoCount() < 3)
+    {
+        ui->image_shido3_first->hide();
+        ui->image_shido3_second->hide();
+    }
+    else
+    {
+        ui->image_shido3_first->show();
+        ui->image_shido3_second->show();
+    }
 
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
@@ -158,6 +174,20 @@ void View::UpdateView()
 //=========================================================
 {
 	Q_ASSERT(m_pController && "Controller not set!");
+    if (m_pController->GetRules()->HasYukoSupport())
+    {
+        ui->text_yuko_first->show();
+        ui->text_yuko_second->show();
+        ui->text_yuko_desc1->show();
+        ui->text_yuko_desc2->show();
+    }
+    else
+    {
+        ui->text_yuko_first->hide();
+        ui->text_yuko_second->hide();
+        ui->text_yuko_desc1->hide();
+        ui->text_yuko_desc2->hide();
+    }
 
 	show_golden_score(m_pController->IsGoldenScore());
 
@@ -693,26 +723,35 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 			{
                 digit_ippon->show();
                 digit_wazaari->hide();
-                digit_yuko->hide();
                 wazaariLabel->SetText("");
-                yukoLabel->SetText("");
+                if (m_pController->GetRules()->HasYukoSupport())
+                {
+                    digit_yuko->hide();
+                    yukoLabel->SetText("");
+                }
 			}
 			else
 			{
                 digit_ippon->hide();
                 digit_wazaari->show();
-                digit_yuko->show();
-                wazaariLabel->SetText("W");
-                yukoLabel->SetText("Y");
+                wazaariLabel->SetText("Waza-ari");
+                if (m_pController->GetRules()->HasYukoSupport())
+                {
+                    digit_yuko->show();
+                    yukoLabel->SetText("Yuko");
+                }
             }
 		}
 		else
 		{
             digit_ippon->show();
             digit_wazaari->show();
-            digit_yuko->show();
             wazaariLabel->SetText("W");
-            yukoLabel->SetText("Y");
+            if (m_pController->GetRules()->HasYukoSupport())
+            {
+                digit_yuko->show();
+                yukoLabel->SetText("Y");
+            }
 		}
 
         digit_ippon->SetText("IPPON", ScaledText::eSize_full, !is_secondary());
@@ -732,19 +771,25 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 		{
             digit_ippon->show();
             digit_wazaari->show();
-            digit_yuko->show();
             wazaariLabel->SetText("W");
-            yukoLabel->SetText("Y");
+            if (m_pController->GetRules()->HasYukoSupport())
+            {
+                digit_yuko->show();
+                yukoLabel->SetText("Y");
+            }
 			digit_ippon->SetText("-", ScaledText::eSize_full);
 		}
 		else
 		{
             digit_ippon->hide();
             digit_wazaari->show();
-            digit_yuko->show();
-            wazaariLabel->SetText("W");
-            yukoLabel->SetText("Y");
-			digit_ippon->SetText("");
+            wazaariLabel->SetText("Waza-ari");
+            if (m_pController->GetRules()->HasYukoSupport())
+            {
+                digit_yuko->show();
+                yukoLabel->SetText("Yuko");
+            }
+            digit_ippon->SetText("");
 		}
 	}
 }
