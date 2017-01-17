@@ -31,36 +31,25 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 	}
 }
 
-
 //---------------------------------------------------------
-bool IpponboardSM_::has_wazaari(Wazaari const& evt)
+bool IpponboardSM_::can_add_wazaari(Wazaari const& evt)
 //---------------------------------------------------------
 {
-	if (0 != Score_(evt.tori).Wazaari())
-	{
-		return true;
-	}
-
-	return false;
+    return Score_(evt.tori).Wazaari() < m_pCore->GetRules()->GetMaxWazaariCount();
 }
 
 //---------------------------------------------------------
-bool IpponboardSM_::has_2wazaari(RevokeWazaari const& evt)
+bool IpponboardSM_::wazaari_is_match_point(Wazaari const& evt)
 //---------------------------------------------------------
 {
-	if (2 == Score_(evt.tori).Wazaari())
-	{
-		return true;
-	}
-
-	return false;
+    return Score_(evt.tori).Wazaari() + 1 == m_pCore->GetRules()->GetMaxWazaariCount();
 }
 
 //---------------------------------------------------------
-bool IpponboardSM_::has_no_wazaari(Wazaari const& evt)
+bool IpponboardSM_::has_max_wazaari(RevokeWazaari const& evt)
 //---------------------------------------------------------
 {
-	return !has_wazaari(evt);
+    return m_pCore->GetRules()->IsAwaseteIppon(Score_(evt.tori));
 }
 
 //---------------------------------------------------------

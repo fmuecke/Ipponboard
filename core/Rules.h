@@ -36,14 +36,15 @@ public:
 
     virtual bool IsAwaseteIppon(Score const& s) const
     {
-        return s.Wazaari() == 2;
+        return s.Wazaari() == GetMaxWazaariCount();
     }
 
+    virtual bool IsShidosCountAsPoints() const { return false; }
     virtual bool HasUnlimitedGoldenScore() const { return true; }
     virtual bool HasYukoSupport() const { return true; }
-    virtual bool IsShidosCountAsPoints() const { return false; }
     virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
     virtual int GetMaxShidoCount() const { return 3; }
+    virtual int GetMaxWazaariCount() const { return 2; }
     virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;
 
     template<typename T>
@@ -142,6 +143,11 @@ public:
         case Score::Point::Wazaari: return 10;
         default: return -1;
        }
+    }
+
+    virtual int GetMaxWazaariCount() const final
+    {
+        return INT32_MAX;
     }
 };
 

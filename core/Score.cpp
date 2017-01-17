@@ -61,8 +61,8 @@ void Score::correct_point(Score::Point p)
         break;
 
     case Point::Wazaari:
-        if (Value(Point::Wazaari) > 2)
-            _points[static_cast<int>(Point::Wazaari)] = 2;
+        //if (Value(Point::Wazaari) > 2)
+        //    _points[static_cast<int>(Point::Wazaari)] = 2;
         if (Value(Point::Wazaari) < 0)
             _points[static_cast<int>(Point::Wazaari)] = 0;
         break;
