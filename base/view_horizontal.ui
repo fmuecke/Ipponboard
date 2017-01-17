@@ -33,7 +33,16 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -303,129 +312,160 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layout_point_names" stretch="1,1,1,1,1,1,0">
+    <layout class="QHBoxLayout" name="layout_point_names_second" stretch="1,1">
      <property name="spacing">
       <number>0</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
-      <widget class="ScaledText" name="text_ippon_desc1" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <layout class="QHBoxLayout" name="layout_point_names_second_2" stretch="1,1,1">
+       <property name="spacing">
+        <number>0</number>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-      </widget>
+       <item>
+        <widget class="ScaledText" name="text_ippon_desc2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ScaledText" name="text_wazaari_desc2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ScaledText" name="text_yuko_desc2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="ScaledText" name="text_wazaari_desc1" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <layout class="QHBoxLayout" name="layout_point_names_first" stretch="1,1,1">
+       <property name="spacing">
+        <number>0</number>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScaledText" name="text_yuko_desc1" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScaledText" name="text_ippon_desc2" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScaledText" name="text_wazaari_desc2" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScaledText" name="text_yuko_desc2" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScaledText" name="text_shido_desc" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </widget>
+       <item>
+        <widget class="ScaledText" name="text_ippon_desc1" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: blue;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ScaledText" name="text_wazaari_desc1" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: blue;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ScaledText" name="text_yuko_desc1" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: blue;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_score" stretch="1,1">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -439,11 +479,14 @@
       <number>0</number>
      </property>
      <item>
-      <layout class="QHBoxLayout" name="layout_score" stretch="1,1,1,1,1,1">
+      <layout class="QHBoxLayout" name="layout_score_second" stretch="1,1,1">
        <property name="spacing">
         <number>0</number>
        </property>
-       <property name="margin">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <property name="leftMargin">
         <number>0</number>
        </property>
        <item>
@@ -472,78 +515,74 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="layout_wazaari_second" stretch="0">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="ScaledText" name="text_wazaari_second" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>5</horstretch>
+           <verstretch>5</verstretch>
+          </sizepolicy>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
-         <item>
-          <widget class="ScaledText" name="text_wazaari_second" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>5</horstretch>
-             <verstretch>5</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: white;</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="layout_yuko_second" stretch="0">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="ScaledText" name="text_yuko_second" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>5</horstretch>
+           <verstretch>5</verstretch>
+          </sizepolicy>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
-         <property name="topMargin">
-          <number>0</number>
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
          </property>
-         <item>
-          <widget class="ScaledText" name="text_yuko_second" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>5</horstretch>
-             <verstretch>5</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: white;</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;</string>
+         </property>
+        </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="layout_score_first" stretch="1,1,1">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="ScaledText" name="text_ippon_first" native="true">
          <property name="sizePolicy">
@@ -570,81 +609,61 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="layout_wazaari_first" stretch="0">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="ScaledText" name="text_wazaari_first" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>5</horstretch>
+           <verstretch>5</verstretch>
+          </sizepolicy>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
-         <item>
-          <widget class="ScaledText" name="text_wazaari_first" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>5</horstretch>
-             <verstretch>5</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: blue;</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: blue;</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="layout_yuko_first" stretch="0">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="ScaledText" name="text_yuko_first" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>5</horstretch>
+           <verstretch>5</verstretch>
+          </sizepolicy>
          </property>
-         <property name="leftMargin">
-          <number>0</number>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
-         <item>
-          <widget class="ScaledText" name="text_yuko_first" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>5</horstretch>
-             <verstretch>5</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: blue;</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: blue;</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,2,2,1,1,1,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_penalties" stretch="1,1,1,1,2,2,1,1,1,1">
      <property name="topMargin">
       <number>0</number>
      </property>
@@ -1013,7 +1032,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>

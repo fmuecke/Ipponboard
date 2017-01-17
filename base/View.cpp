@@ -72,29 +72,26 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->text_ippon_desc1->SetColor(fgColor1);
 	ui->text_wazaari_desc1->SetColor(fgColor1);
 	ui->text_yuko_desc1->SetColor(fgColor1);
-	ui->text_shido_desc->SetColor(fgColor1);
 	ui->text_ippon_desc1->SetText("I");
 	ui->text_wazaari_desc1->SetText("W");
 	ui->text_yuko_desc1->SetText("Y");
-	ui->text_shido_desc->SetText("");
 	ui->text_ippon_desc2->setFont(descFont);
 	ui->text_wazaari_desc2->setFont(descFont);
 	ui->text_yuko_desc2->setFont(descFont);
-	ui->text_ippon_desc2->SetColor(fgColor1, bgColor1);
-	ui->text_wazaari_desc2->SetColor(fgColor1, bgColor1);
-	ui->text_yuko_desc2->SetColor(fgColor1, bgColor1);
+    ui->text_ippon_desc2->SetColor(fgColor2, bgColor2);
+    ui->text_wazaari_desc2->SetColor(fgColor2, bgColor2);
+    ui->text_yuko_desc2->SetColor(fgColor2, bgColor2);
 	ui->text_ippon_desc2->SetText("I");
 	ui->text_wazaari_desc2->SetText("W");
 	ui->text_yuko_desc2->SetText("Y");
-	ui->text_ippon_desc1->SetColor(fgColor2, bgColor2);
-	ui->text_wazaari_desc1->SetColor(fgColor2, bgColor2);
-	ui->text_yuko_desc1->SetColor(fgColor2, bgColor2);
+    ui->text_ippon_desc1->SetColor(fgColor1, bgColor1);
+    ui->text_wazaari_desc1->SetColor(fgColor1, bgColor1);
+    ui->text_yuko_desc1->SetColor(fgColor1, bgColor1);
 	ui->dummy_first->SetBgColor(bgColor1);
 	ui->dummy_second->SetBgColor(bgColor2);
 
 	if (m_Edition == EditionType::Team)
 	{
-
 		ui->text_score_team_first_label->SetColor(Qt::gray, Qt::black);
 		ui->text_score_team_second_label->SetColor(Qt::gray, Qt::black);
 		ui->text_score_team_first->SetColor(Qt::gray, Qt::black);
@@ -117,15 +114,13 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 
 	if (is_secondary())
 	{
-		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc1, 0);
-		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc2, 0);
-		ui->text_ippon_desc1->SetText("");
-		ui->text_ippon_desc2->SetText("");
+        ui->text_ippon_desc1->hide();
+        ui->text_ippon_desc2->hide();
 	}
 	else
 	{
-		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc1, 1);
-		ui->layout_point_names->setStretchFactor(ui->text_ippon_desc2, 1);
+        ui->text_ippon_desc1->show();
+        ui->text_ippon_desc2->show();
 	}
 
 	ui->image_shido1_first->SetBgColor(bgColor1);
@@ -664,16 +659,22 @@ void View::blink_()
 void View::update_ippon(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledText* digit_ippon(ui->text_ippon_first);
-	QVBoxLayout* digit_wazaari(ui->layout_wazaari_first);
-	QVBoxLayout* digit_yuko(ui->layout_yuko_first);
+    auto digit_ippon = ui->text_ippon_first;
+    auto digit_wazaari = ui->text_wazaari_first;
+    auto digit_yuko = ui->text_yuko_first;
+    auto wazaariLabel = ui->text_wazaari_desc1;
+    auto yukoLabel = ui->text_yuko_desc1;
+    auto scoreLayout = ui->layout_score_first;
 	FighterEnum uke(FighterEnum::Second);
 
-	if (FighterEnum::Second == who)
+    if (uke == who)
 	{
-		digit_ippon = ui->text_ippon_second;
-		digit_wazaari = ui->layout_wazaari_second;
-		digit_yuko = ui->layout_yuko_second;
+        scoreLayout = ui->layout_score_second;
+        digit_ippon = ui->text_ippon_second;
+        digit_wazaari = ui->text_wazaari_second;
+        digit_yuko = ui->text_yuko_second;
+        wazaariLabel = ui->text_wazaari_desc2;
+        yukoLabel = ui->text_yuko_desc2;
 		uke = FighterEnum::First;
 	}
 
@@ -690,48 +691,59 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 		{
 			if (m_drawIppon)
 			{
-				ui->layout_score->setStretchFactor(digit_ippon, 6);
-				ui->layout_score->setStretchFactor(digit_wazaari, 0);
-				ui->layout_score->setStretchFactor(digit_yuko, 0);
+                digit_ippon->show();
+                digit_wazaari->hide();
+                digit_yuko->hide();
+                wazaariLabel->SetText("");
+                yukoLabel->SetText("");
 			}
 			else
 			{
-				ui->layout_score->setStretchFactor(digit_ippon, 0);
-				ui->layout_score->setStretchFactor(digit_wazaari, 3);
-				ui->layout_score->setStretchFactor(digit_yuko, 3);
-			}
+                digit_ippon->hide();
+                digit_wazaari->show();
+                digit_yuko->show();
+                wazaariLabel->SetText("W");
+                yukoLabel->SetText("Y");
+            }
 		}
 		else
 		{
-			ui->layout_score->setStretchFactor(digit_ippon, 2);
-			ui->layout_score->setStretchFactor(digit_wazaari, 2);
-			ui->layout_score->setStretchFactor(digit_yuko, 2);
+            digit_ippon->show();
+            digit_wazaari->show();
+            digit_yuko->show();
+            wazaariLabel->SetText("W");
+            yukoLabel->SetText("Y");
 		}
 
-		digit_ippon->SetText("IPPON", ScaledText::eSize_full,
-							 !is_secondary());
+        digit_ippon->SetText("IPPON", ScaledText::eSize_full, !is_secondary());
 	}
 	else
 	{
 		const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
 
 		if (m_pBlinkTimer->isActive() &&  0 == score_uke)
+        {
 			m_pBlinkTimer->stop();
+        }
 
 		digit_ippon->SetBlinking(false);
 
 		if (!is_secondary())
 		{
-			ui->layout_score->setStretchFactor(digit_ippon, 2);
-			ui->layout_score->setStretchFactor(digit_wazaari, 2);
-			ui->layout_score->setStretchFactor(digit_yuko, 2);
+            digit_ippon->show();
+            digit_wazaari->show();
+            digit_yuko->show();
+            wazaariLabel->SetText("W");
+            yukoLabel->SetText("Y");
 			digit_ippon->SetText("-", ScaledText::eSize_full);
 		}
 		else
 		{
-			ui->layout_score->setStretchFactor(digit_ippon, 0);
-			ui->layout_score->setStretchFactor(digit_wazaari, 3);
-			ui->layout_score->setStretchFactor(digit_yuko, 3);
+            digit_ippon->hide();
+            digit_wazaari->show();
+            digit_yuko->show();
+            wazaariLabel->SetText("W");
+            yukoLabel->SetText("Y");
 			digit_ippon->SetText("");
 		}
 	}
@@ -1083,9 +1095,9 @@ void View::update_colors()
 	ui->text_yuko_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_wazaari_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_ippon_first->SetColor(get_color(firstFg), get_color(firstBg));
-	ui->text_ippon_desc2->SetColor(get_color(firstFg), get_color(firstBg));
-	ui->text_wazaari_desc2->SetColor(get_color(firstFg), get_color(firstBg));
-	ui->text_yuko_desc2->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_ippon_desc1->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_wazaari_desc1->SetColor(get_color(firstFg), get_color(firstBg));
+    ui->text_yuko_desc1->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_lastname_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_firstname_first->SetColor(get_color(firstFg), get_color(firstBg));
 
@@ -1099,9 +1111,9 @@ void View::update_colors()
 	ui->text_yuko_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_wazaari_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_ippon_second->SetColor(get_color(secondFg), get_color(secondBg));
-	ui->text_ippon_desc1->SetColor(get_color(secondFg), get_color(secondBg));
-	ui->text_wazaari_desc1->SetColor(get_color(secondFg), get_color(secondBg));
-	ui->text_yuko_desc1->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_ippon_desc2->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_wazaari_desc2->SetColor(get_color(secondFg), get_color(secondBg));
+    ui->text_yuko_desc2->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_lastname_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_firstname_second->SetColor(get_color(secondFg), get_color(secondBg));
 }
