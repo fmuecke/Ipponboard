@@ -35,14 +35,16 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 bool IpponboardSM_::can_add_wazaari(Wazaari const& evt)
 //---------------------------------------------------------
 {
-    return Score_(evt.tori).Wazaari() < m_pCore->GetRules()->GetMaxWazaariCount();
+    return m_pCore->GetRules()->HasAwaseteIpponSupport() ||
+            Score_(evt.tori).Wazaari() < m_pCore->GetRules()->GetMaxWazaariCount();
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::wazaari_is_match_point(Wazaari const& evt)
 //---------------------------------------------------------
 {
-    return Score_(evt.tori).Wazaari() + 1 == m_pCore->GetRules()->GetMaxWazaariCount();
+    return m_pCore->GetRules()->HasAwaseteIpponSupport()
+            && Score_(evt.tori).Wazaari() == m_pCore->GetRules()->GetMaxWazaariCount() - 1;
 }
 
 //---------------------------------------------------------
@@ -70,7 +72,7 @@ bool IpponboardSM_::has_WazaariTime(HoldTimeEvent const& evt)
 bool IpponboardSM_::has_AwaseteTime(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if (0 != Score_(evt.tori).Wazaari())
+    if (m_pCore->GetRules()->HasAwaseteIpponSupport() && 0 != Score_(evt.tori).Wazaari())
 	{
         return m_pCore->GetRules()->GetOsaekomiValue(Point::Wazaari) == evt.secs;
 	}
@@ -188,7 +190,7 @@ void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 		}
 		else
 		{
-            if (m_pCore->GetRules()->IsShidosCountAsPoints())
+            if (m_pCore->GetRules()->HasShidosCountAsPoints())
             {
                 if (maxShidoCount > 2 && 3 == Score_(evt.tori).Shido())
                 {
