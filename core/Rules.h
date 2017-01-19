@@ -36,12 +36,13 @@ public:
 
     virtual bool IsAwaseteIppon(Score const& s) const
     {
-        return s.Wazaari() == GetMaxWazaariCount();
+        return HasAwaseteIpponSupport() && s.Wazaari() == GetMaxWazaariCount();
     }
 
-    virtual bool IsShidosCountAsPoints() const { return false; }
-    virtual bool HasUnlimitedGoldenScore() const { return true; }
+    virtual bool HasShidosCountAsPoints() const { return false; }
+    virtual bool HasAwaseteIpponSupport() const { return true; }
     virtual bool HasYukoSupport() const { return true; }
+    virtual bool HasOpenEndGoldenScore() const { return true; }
     virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
     virtual int GetMaxShidoCount() const { return 3; }
     virtual int GetMaxWazaariCount() const { return 2; }
@@ -66,12 +67,12 @@ public:
         return "Classic";
     }
 
-    virtual bool HasUnlimitedGoldenScore() const final
+    virtual bool HasOpenEndGoldenScore() const final
     {
         return false;
     }
 
-    virtual bool IsShidosCountAsPoints() const final
+    virtual bool HasShidosCountAsPoints() const final
     {
         return true;
     }
@@ -121,6 +122,11 @@ public:
     }
 
     virtual bool HasYukoSupport() const final
+    {
+        return false;
+    }
+
+    virtual bool HasAwaseteIpponSupport() const
     {
         return false;
     }

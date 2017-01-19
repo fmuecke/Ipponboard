@@ -34,7 +34,7 @@ bool AbstractRules::IsScoreLess(const Score& lhs, const Score& rhs) const
                 }
                 else
                 {
-                    if (IsShidosCountAsPoints())
+                    if (HasShidosCountAsPoints())
                     {
                         // shidos are not compared as they result in
                         // concrete points

@@ -1123,7 +1123,7 @@ QString const& Controller::GetGongFile() const
 void Controller::update_main_time()
 //=========================================================
 {
-    if (m_rules->HasUnlimitedGoldenScore() && is_golden_score())
+    if (m_rules->HasOpenEndGoldenScore() && is_golden_score())
 	{
 		*m_pTimeMain = m_pTimeMain->addSecs(1);
 	}

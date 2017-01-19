@@ -65,7 +65,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	QColor fgColor2 = get_color(secondFg);
 
 	// set point descriptions
-	const QFont descFont("Calibri", 12, QFont::Bold, false);
+    const QFont descFont("Calibri", 12, QFont::Bold, false);
 
 	ui->text_ippon_desc1->setFont(descFont);
 	ui->text_wazaari_desc1->setFont(descFont);
@@ -137,17 +137,6 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->image_shido3_second->SetBgColor(bgColor2);
 	ui->image_hansokumake_second->SetBgColor(bgColor2);
 
-    if (m_pController->GetRules()->GetMaxShidoCount() < 3)
-    {
-        ui->image_shido3_first->hide();
-        ui->image_shido3_second->hide();
-    }
-    else
-    {
-        ui->image_shido3_first->show();
-        ui->image_shido3_second->show();
-    }
-
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
 
@@ -174,6 +163,18 @@ void View::UpdateView()
 //=========================================================
 {
 	Q_ASSERT(m_pController && "Controller not set!");
+
+    if (m_pController->GetRules()->GetMaxShidoCount() < 3)
+    {
+        ui->image_shido3_first->hide();
+        ui->image_shido3_second->hide();
+    }
+    else
+    {
+        ui->image_shido3_first->show();
+        ui->image_shido3_second->show();
+    }
+
     if (m_pController->GetRules()->HasYukoSupport())
     {
         ui->text_yuko_first->show();
@@ -752,7 +753,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
                 digit_yuko->show();
                 yukoLabel->SetText("Y");
             }
-		}
+        }
 
         digit_ippon->SetText("IPPON", ScaledText::eSize_full, !is_secondary());
 	}
@@ -842,43 +843,14 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 		pImage3 = ui->image_shido3_second;
 	}
 
-	const int score = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score = m_pController->GetScore(GVF_(who), Point::Shido);
+    const auto imageOn = ":res/images/on.png";
+    const auto imageOff = ":res/images/off.png";
+    const auto imageEmpty = ":res/images/off_empty.png";
 
-	if (score >= 3)
-	{
-		pImage3->UpdateImage(":res/images/on.png");
-	}
-	else
-	{
-		if (eTypePrimary == m_Type)
-			pImage3->UpdateImage(":res/images/off.png");
-		else
-			pImage3->UpdateImage(":res/images/off_empty.png");
-	}
-
-	if (score >= 2)
-	{
-		pImage2->UpdateImage(":res/images/on.png");
-	}
-	else
-	{
-		if (eTypePrimary == m_Type)
-			pImage2->UpdateImage(":res/images/off.png");
-		else
-			pImage2->UpdateImage(":res/images/off_empty.png");
-	}
-
-	if (score >= 1)
-	{
-		pImage1->UpdateImage(":res/images/on.png");
-	}
-	else
-	{
-		if (eTypePrimary == m_Type)
-			pImage1->UpdateImage(":res/images/off.png");
-		else
-			pImage1->UpdateImage(":res/images/off_empty.png");
-	}
+    pImage3->UpdateImage(score >= 3 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+    pImage2->UpdateImage(score >= 2 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+    pImage1->UpdateImage(score >= 1 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
 }
 
 //=========================================================
@@ -886,41 +858,21 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledImage* pImage(ui->image_hansokumake_first);
-
-//	QHBoxLayout* pLayout(ui->horizontalLayout_score_first);
-//	QVBoxLayout* pShidoLayout(ui->verticalLayout_shido_first);
 	if (FighterEnum::Second == who)
 	{
 		pImage = ui->image_hansokumake_second;
-//		pLayout = ui->horizontalLayout_score_second;
-//		pShidoLayout = ui->verticalLayout_shido_second;
 	}
 
 	const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
-	const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
 
-	if (score_hansokumake > 0 || score_shido == 4)
+    if (score_hansokumake > 0 || score_shido == m_pController->GetRules()->GetMaxShidoCount() + 1)
 	{
-		pImage->UpdateImage(":res/images/on_hansokumake.png");
-
-		if (is_secondary())
-		{
-//			pLayout->setStretchFactor(pImage, 3);
-//			pLayout->setStretchFactor(pShidoLayout, 3);
-		}
+        pImage->UpdateImage(":res/images/on_hansokumake.png");
 	}
 	else
 	{
-		if (eTypePrimary == m_Type)
-		{
-			pImage->UpdateImage(":res/images/off_hansokumake.png");
-		}
-		else
-		{
-			pImage->UpdateImage(":res/images/off_empty.png");
-//			pLayout->setStretchFactor(pImage, 0);
-//			pLayout->setStretchFactor(pShidoLayout, 6);
-		}
+        pImage->UpdateImage(eTypePrimary == m_Type ? ":res/images/off_hansokumake.png" : ":res/images/off_empty.png");
 	}
 }
 
@@ -928,16 +880,6 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 void View::update_team_score() const
 //=========================================================
 {
-	//unused code...
-	//FighterEnum tori(FighterEnum::First);
-	//FighterEnum uke(FighterEnum::Second);
-	//
-	//if (m_Type == eTypePrimary)
-	//{
-	//    uke = FighterEnum::First;
-	//    tori = FighterEnum::Second;
-	//}
-
 	if (m_Edition == EditionType::Team)
 	{
 		if (is_secondary())
@@ -978,8 +920,7 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 
 	struct ColorPair
 	{
-		ColorPair(QColor f = Qt::lightGray,
-				  QColor b = Qt::black)
+        ColorPair(QColor f = Qt::lightGray, QColor b = Qt::black)
 			: fg(f), bg(b)
 		{}
 

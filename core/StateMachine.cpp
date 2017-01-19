@@ -93,7 +93,7 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 }
 
 //---------------------------------------------------------
-bool IpponboardSM_::has_enough_shido(Shido const& evt)
+bool IpponboardSM_::shido_is_match_point(Shido const& evt)
 //---------------------------------------------------------
 {
     if (Score_(evt.tori).Shido() == m_pCore->GetRules()->GetMaxShidoCount())
@@ -102,15 +102,15 @@ bool IpponboardSM_::has_enough_shido(Shido const& evt)
 	}
 
 	// Note: new 2013 IJF rule: no points for first three shido
-    if (m_pCore->GetRules()->IsShidosCountAsPoints())
-	{
-		FighterEnum uke = GetUkeFromTori(evt.tori);
+//    if (m_pCore->GetRules()->IsShidosCountAsPoints())
+//	{
+//		FighterEnum uke = GetUkeFromTori(evt.tori);
 
-        if (Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1)
-		{
-			return true;
-		}
-	}
+//        if (Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1)
+//		{
+//			return true;
+//		}
+//	}
 
 	return false;
 }
@@ -119,7 +119,7 @@ bool IpponboardSM_::has_enough_shido(Shido const& evt)
 bool IpponboardSM_::can_take_shido(Shido const& evt)
 //---------------------------------------------------------
 {
-	return !has_enough_shido(evt);
+    return Score_(evt.tori).Shido() <= m_pCore->GetRules()->GetMaxShidoCount();
 }
 
 void IpponboardSM_::reset(Reset const& /*evt*/)

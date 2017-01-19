@@ -79,7 +79,7 @@ int Fight::ScorePoints(FighterEnum who) const
             return eScore_Yuko;
 		}
 
-        if (!rules->IsShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
+        if (!rules->HasShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		
