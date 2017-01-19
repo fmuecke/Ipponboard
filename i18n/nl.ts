@@ -418,7 +418,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+387"/>
+        <location filename="../core/Controller.cpp" line="+391"/>
         <source>First</source>
         <translation>Eerste</translation>
     </message>
@@ -454,7 +454,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+471"/>
+        <location filename="../base/View.cpp" line="+497"/>
         <source>Set time</source>
         <translation>Tijd Instellen</translation>
     </message>
@@ -482,42 +482,17 @@ Geldige velden zijn: %1</translation>
         <translation>Ipponboard</translation>
     </message>
     <message>
-        <location line="+108"/>
-        <source>Options</source>
-        <translation>Opties</translation>
-    </message>
-    <message>
-        <location line="+23"/>
-        <source>Automatically set resulting points from osaekomi or penalties</source>
-        <translation>Automatisch instellen van punten voor osaekomi of Shido</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Auto set points</source>
-        <translation>Automatisch punten instellen</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Use the new 2013 IJF rule set</source>
-        <translation>Gebruik de nieuwe 2013 IJF Wedstrijdregels</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Use 2013 rules</source>
-        <translation>Nieuwe regels 2013</translation>
-    </message>
-    <message>
-        <location line="+30"/>
+        <location line="+212"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-7"/>
         <source>Class</source>
         <translation>Klasse</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+30"/>
         <source>Plays the signal sound file</source>
         <translation>Speel het geluidssignaal</translation>
     </message>
@@ -527,7 +502,7 @@ Geldige velden zijn: %1</translation>
         <translation>Signaal</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+92"/>
         <source>Reset all clocks and scores</source>
         <translation>Herstel alle tijden en scores</translation>
     </message>
@@ -537,22 +512,43 @@ Geldige velden zijn: %1</translation>
         <translation>Herstel</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>Golden Score round time</source>
-        <translation>Golden Score wedstrijdtijd</translation>
-    </message>
-    <message>
-        <location line="+91"/>
+        <location line="+82"/>
         <source>Second Fighter (first last)</source>
         <translation>Tweede Deelnemer (Voornaam Achternaam)</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-22"/>
         <source>First Fighter (first last)</source>
         <translation>Eerste Deelnemer (Voornaam Achternaam)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="-302"/>
+        <source>Display secondary screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <location line="+502"/>
+        <source>Secondary Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-441"/>
+        <source>/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+135"/>
+        <source>Activate Golden Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Golden Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+158"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
@@ -567,7 +563,7 @@ Geldige velden zijn: %1</translation>
         <translation>&amp;Bekijken</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>&amp;Settings</source>
         <translation>&amp;Instellingen</translation>
     </message>
@@ -582,7 +578,12 @@ Geldige velden zijn: %1</translation>
         <translation>Taal</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+8"/>
+        <source>Rules</source>
+        <translation type="unfinished">Regels</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>&amp;Manage</source>
         <translation>&amp;Bewerken</translation>
     </message>
@@ -648,12 +649,7 @@ Geldige velden zijn: %1</translation>
         <translation>F1</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Secondary View</source>
-        <translation>Tweede Scherm</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+15"/>
         <source>Toggles secodary screen view</source>
         <translation>Schakelen naar het beelds van het tweede scherm</translation>
     </message>
@@ -788,11 +784,56 @@ Geldige velden zijn: %1</translation>
         <source>Choose Dutch as program language</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location line="+8"/>
+        <source>Auto Adjust Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>IJF Rules 2017</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2017 rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>IJF Rules 2013</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2013 rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Classic Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use classic rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Info Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shows/hides the info bar which dispays the current options and rules.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+293"/>
+        <location filename="../base/MainWindowBase.cpp" line="+294"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
@@ -802,7 +843,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+631"/>
+        <location line="+676"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -818,7 +859,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="-690"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -854,7 +895,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished">Volgende</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+91"/>
         <source>File open error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -864,12 +905,12 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+38"/>
         <source>tie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+38"/>
         <source>List generated with Ipponboard v</source>
         <translation type="unfinished"></translation>
     </message>
@@ -950,7 +991,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+61"/>
         <source>There is nothing to paste!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -970,7 +1011,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+112"/>
         <source>Ipponboard fight list %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1525,18 +1566,27 @@ Note: the time must be specified in seconds alone</source>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+68"/>
-        <source>New version available</source>
+        <location filename="../base/Main.cpp" line="+76"/>
+        <source>en</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>There is a newer version of Ipponboard available: %1
-Do you want to download it or visit the project homepage?</source>
+        <location line="+10"/>
+        <source>Version %1 available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+8"/>
+        <source>Do you want to download it or visit the project homepage?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Ipponboard - New Version Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1551,13 +1601,18 @@ Do you want to download it or visit the project homepage?</source>
         <translation type="unfinished">Annuleren</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+91"/>
         <source>the score board for judoka by judoka</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Judo is part of our lives. Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
+        <source>Judo is part of our lives.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1596,12 +1651,12 @@ Do you want to download it or visit the project homepage?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1358"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1318"/>
         <source>Error reading mode configurations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+634"/>
+        <location line="+598"/>
         <source>Error writing mode configurations</source>
         <translation type="unfinished"></translation>
     </message>

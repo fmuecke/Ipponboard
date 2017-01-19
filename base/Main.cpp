@@ -16,7 +16,21 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-bool CheckForNeverVersion()
+QString GetXmlValue(QXmlQuery query, QString xPath)
+{
+    QString value;
+    query.setQuery(xPath);
+    if (query.isValid())
+    {
+        query.evaluateTo(&value);
+        return value.trimmed();
+    }
+
+    return value;
+}
+
+
+bool CheckForNewerVersion()
 {
 	QXmlQuery query;
 	try
@@ -28,13 +42,9 @@ bool CheckForNeverVersion()
 		return false;
 	}
 
-	query.setQuery("Ipponboard/Version/text()");
-	if (query.isValid())
+    auto version = GetXmlValue(query, "Ipponboard/Version/text()");
+    if (!version.isEmpty())
 	{
-		QString version;
-		query.evaluateTo(&version);
-		version = version.trimmed();
-
 		QStringList onlineVer = version.split('.');
 		QStringList buildVer = QString(VersionInfo::VersionStr).split('.');
 		
@@ -63,42 +73,48 @@ bool CheckForNeverVersion()
 
 		if (isOldVersion)
 		{
-			auto result = QMessageBox::information(
-				nullptr,
-				QCoreApplication::tr("New version available"),
-				QCoreApplication::tr("There is a newer version of Ipponboard available: %1\nDo you want to download it or visit the project homepage?").arg(version),
-				QCoreApplication::tr("Download"), 
-				QCoreApplication::tr("Visit Homepage"), 
-				QCoreApplication::tr("Cancel"),
-				0, 2);
+            auto lang = QCoreApplication::tr("en");
+            lang = lang == "de" ? "de" : "en";
+            auto changes = GetXmlValue(query, "Ipponboard/Changes[@lang='" + lang + "']/text()");
+            if (!changes.isEmpty())
+            {
+                changes = QString(": <em>%1</em>").arg(changes);
+            }
+
+            QString msg = QString("<p>%1 %2</p>")
+                    .arg(
+                        QCoreApplication::tr("Version %1 available").arg(
+                            QString("<b>%1</b>").arg(version)))
+                    .arg(changes);
+
+            auto downloadUrl = GetXmlValue(query, "Ipponboard/DownloadUrl/text()");
+            auto infoUrl = GetXmlValue(query, "Ipponboard/InfoUrl/text()");
+
+            msg += QString("<p>%1</p>")
+                    .arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
+
+            auto result = QMessageBox::information(
+                        nullptr,
+                        QCoreApplication::tr("Ipponboard - New Version Available"),
+                        msg,
+                        QCoreApplication::tr("Download"),
+                        QCoreApplication::tr("Visit Homepage"),
+                        QCoreApplication::tr("Cancel"),
+                        0, 2);
 
 			if (result == 0)
 			{
-				query.setQuery("Ipponboard/DownloadUrl/text()");
-				if (query.isValid())
-				{
-					QString url;
-					query.evaluateTo(&url);
-					url = url.trimmed();
-					return QDesktopServices::openUrl(QUrl(url));
-				}
-			}
+                return QDesktopServices::openUrl(QUrl(downloadUrl));
+            }
 			else if (result == 1)
 			{
-				query.setQuery("Ipponboard/InfoUrl/text()");
-				if (query.isValid())
-				{
-					QString url;
-					query.evaluateTo(&url);
-					url = url.trimmed();
-					if (!QDesktopServices::openUrl(QUrl(url)))
-					{
-						return QDesktopServices::openUrl(QUrl("http://www.ipponboard.info/"));
-					}
+                if (!QDesktopServices::openUrl(QUrl(infoUrl)))
+                {
+                    return QDesktopServices::openUrl(QUrl("http://www.ipponboard.info/"));
+                }
 
-					return true;
-				}
-			}
+                return true;
+            }
 		}
 	}
 
@@ -169,13 +185,14 @@ int main(int argc, char* argv[])
 
     SetTranslation(a, translator, langStr);
 
-	if (CheckForNeverVersion())
+    if (CheckForNewerVersion())
 	{
 		return 0;
 	}
 
     auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
-    auto t2 = QCoreApplication::tr("Judo is part of our lives. Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.");
+    auto t10 = QCoreApplication::tr("Judo is part of our lives.");
+    auto t2 = QCoreApplication::tr("Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.");
     auto t3 = QCoreApplication::tr("Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.");
     auto t4 = QCoreApplication::tr("This version can be used without restriction. Copying in unchanged form is permitted.");
     auto t5 = QCoreApplication::tr("If you like Ipponboard, please support its development by:");
@@ -185,15 +202,15 @@ int main(int argc, char* argv[])
     auto t9 = QCoreApplication::tr("Thank you very much!");
 
     auto text = QString("<html><body><p><big><span style=\"color:#336699;font-weight:bold\">Ipponboard</span> - %1</big></p>"
-                        "<p><em>%2</em></p>"
-                        "<p><em>%3</em></p>"
+                        "<blockquote><p><em><b>%10</b> %2</em></p>"
+                        "<p><em>%3</em></p></blockquote>"
                         "<p>%4</p>"
                         "<p>%5<ul>"
                         "<li>%6</li>"
                         "<li>%7</li>"
                         "<li>%8</li></ul></p>"
                         "<p><em>%9</em></p>"
-                        "</body></html>").arg(t1, t2, t3, t4, t5, t6, t7, t8, t9);
+                        "</body></html>").arg(t1, t2, t3, t4, t5, t6, t7, t8, t9).arg(t10);
 
 	SplashScreen::Data splashData;
 	splashData.text = text;

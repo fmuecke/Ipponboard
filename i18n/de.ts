@@ -418,7 +418,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+387"/>
+        <location filename="../core/Controller.cpp" line="+391"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
@@ -454,7 +454,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+471"/>
+        <location filename="../base/View.cpp" line="+497"/>
         <source>Set time</source>
         <translation>Zeit setzen</translation>
     </message>
@@ -482,22 +482,48 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+268"/>
+        <location line="+333"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="-87"/>
+        <location line="-128"/>
         <source>Class</source>
         <translation>Klasse</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-114"/>
+        <source>Display secondary screen</source>
+        <translation>Sekundäre Anzeige anzeigen</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <location line="+502"/>
+        <source>Secondary Display</source>
+        <translation>Sekundäre Anzeige</translation>
+    </message>
+    <message>
+        <location line="-441"/>
+        <source>/</source>
+        <translation>/</translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location line="+289"/>
+        <location line="+78"/>
+        <source>Activate Golden Score</source>
+        <translation>Golden-Score einschalten</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Golden Score</source>
+        <translation>Golden-Score</translation>
+    </message>
+    <message>
+        <location line="+189"/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
@@ -507,7 +533,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+8"/>
+        <source>Rules</source>
+        <translation>Regeln</translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -552,7 +583,52 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Schaltet die sekundäre Anzeige an/aus</translation>
     </message>
     <message>
-        <location line="-342"/>
+        <location line="+224"/>
+        <source>Auto Adjust Points</source>
+        <translation>Wertungen automatisch erhöhen</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>IJF Rules 2017</source>
+        <translation>2017er IJF Regeln</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2017 rules</source>
+        <translation>2017er IJF Regeln verwenden</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>IJF Rules 2013</source>
+        <translation>2013er IJF Regeln</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2013 rules</source>
+        <translation>2013er IJF Regeln verwenden</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Classic Rules</source>
+        <translation>Klassische Regeln</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use classic rules</source>
+        <translation>Klassisches Regelwerk verwenden</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Info Bar</source>
+        <translation>Info-Zeile</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shows/hides the info bar which dispays the current options and rules.</source>
+        <translation>Zeigt/versteckt die Info-Zeile mit den Optionen und aktiven Regeln.</translation>
+    </message>
+    <message>
+        <location line="-635"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
@@ -562,17 +638,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Signal</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Golden Score round time</source>
-        <translation>Golden Score</translation>
-    </message>
-    <message>
-        <location line="-16"/>
+        <location line="+92"/>
         <source>Reset all clocks and scores</source>
         <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
-        <location line="+168"/>
+        <location line="+124"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -587,52 +658,27 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>&amp;Anzeige</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+33"/>
         <source>&amp;Manage</source>
         <translation>&amp;Verwaltung</translation>
     </message>
     <message>
-        <location line="-373"/>
-        <source>Options</source>
-        <translation>Optionen</translation>
-    </message>
-    <message>
-        <location line="+23"/>
-        <source>Automatically set resulting points from osaekomi or penalties</source>
-        <translation>Punkte bei Osaekomi und Bestrafungen automatisch setzen</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Auto set points</source>
-        <translation>Wertungen automatisch setzen</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Use the new 2013 IJF rule set</source>
-        <translation>Die neuen IJF Regeln von 2013 verwenden</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Use 2013 rules</source>
-        <translation>2013er Regln verwenden</translation>
-    </message>
-    <message>
-        <location line="+244"/>
+        <location line="-121"/>
         <source>First Fighter (first last)</source>
         <translation>Erster Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="+22"/>
         <source>Second Fighter (first last)</source>
         <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+142"/>
         <source>Leave Ipponboard</source>
         <translation>Ipponboard verlassen</translation>
     </message>
@@ -642,12 +688,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <source>Secondary View</source>
-        <translation>Sekundäre Anzeige</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+30"/>
         <source>F2</source>
         <translation></translation>
     </message>
@@ -792,7 +833,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+293"/>
+        <location filename="../base/MainWindowBase.cpp" line="+294"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
@@ -802,7 +843,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Hallo, mein Name ist ??? I habe Ipponboard bei uns für (Einzel/Team)-Matches im Einsatz und hätte für eine zukünftige Version folgende Idee...</translation>
     </message>
     <message>
-        <location line="+631"/>
+        <location line="+676"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -818,7 +859,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="-690"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -854,7 +895,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+91"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -864,12 +905,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Datei konnte nicht geöffnet werden: </translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+38"/>
         <source>tie</source>
         <translation>Unentschieden</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+38"/>
         <source>List generated with Ipponboard v</source>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
@@ -950,7 +991,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+61"/>
         <source>There is nothing to paste!</source>
         <translation>Es gibt nichts zum Einfügen!</translation>
     </message>
@@ -970,7 +1011,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Die Zwischenablage entählt mehr Daten als eingefügt werden können!</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+112"/>
         <source>Ipponboard fight list %1</source>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
@@ -1528,21 +1569,29 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+68"/>
-        <source>New version available</source>
-        <translation>Neue Version verfügbar</translation>
+        <location filename="../base/Main.cpp" line="+76"/>
+        <source>en</source>
+        <translation>de</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>There is a newer version of Ipponboard available: %1
-Do you want to download it or visit the project homepage?</source>
-        <translation>Eine neuere Version von Ipponboard ist verfügbar: %1
-Wollen Sie diese herunterladen oder die Projektseite besuchen?</translation>
+        <location line="+10"/>
+        <source>Version %1 available</source>
+        <translation>Version %1 verfügbar</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+8"/>
+        <source>Do you want to download it or visit the project homepage?</source>
+        <translation>Möchtest du sie gleich herunterladen oder zuerst die Homepage besuchen?</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Ipponboard - New Version Available</source>
+        <translation>Ipponboard - Neue Version verfügbar</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Download</source>
-        <translation>Runterladen</translation>
+        <translation>Herunterladen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1555,14 +1604,19 @@ Wollen Sie diese herunterladen oder die Projektseite besuchen?</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+91"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Judo is part of our lives. Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation>Judo ist Teil unseres Lebens. Daher ist Ipponboard nicht nur irgend ein Anzeigeprogramm, sondern von Judoka für Judoka entwickelt. Es ist nicht nur für die Leute am Zeitnehmertisch hilfreich, sondern auch für die Trainer, Zuschauer und Kämpfer selbst.</translation>
+        <source>Judo is part of our lives.</source>
+        <translation>Judo ist Teil unseres Lebens.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
+        <translation>Daher ist Ipponboard nicht nur irgend ein Anzeigeprogramm, sondern von Judoka für Judoka entwickelt. Es ist nicht nur für die Leute am Zeitnehmertisch hilfreich, sondern auch für die Trainer, Zuschauer und Kämpfer selbst.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1600,12 +1654,12 @@ Wollen Sie diese herunterladen oder die Projektseite besuchen?</translation>
         <translation>Vielen Dank!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1358"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1318"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+634"/>
+        <location line="+598"/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
