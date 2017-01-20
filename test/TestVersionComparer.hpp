@@ -61,7 +61,10 @@ TEST_CASE("Patch_level_is_lower")
 
 TEST_CASE("Prerelease_is_lower")
 {
-    //REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta1", "1.2.3-beta2"));
-    //REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta", "1.2.3"));
+    REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta1", "1.2.3-beta2"));
+    REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta", "1.2.3"));
+    REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta", "1.2.4"));
+    REQUIRE(VersionComparer::IsVersionLess("1.2.3-beta", "1.2.4-beta"));
+    REQUIRE_FALSE(VersionComparer::IsVersionLess("1.2.4", "1.2.3-beta"));
 }
 
