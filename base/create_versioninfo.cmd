@@ -2,8 +2,9 @@
 setlocal
 :: --> CHANGE VERSION HERE:
 SET VER1=1
-SET VER2=6
+SET VER2=7
 SET VER3=0
+SET TAG=beta
 :: that's it. <--
 
 rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
@@ -50,8 +51,12 @@ echo 	const char* const Revision = "%REV%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Date = "%REV_DATE%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const CopyrightYear = "%DATE:~-4%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStrShort = "%VER1%.%VER2%";>>%FILENAME_NO_EXT%.tmp
-echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStrFull = "%VER1%.%VER2%.%VER3%.%VER4%";>>%FILENAME_NO_EXT%.tmp
+if "%TAG%"=="" (
+	echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%";>>%FILENAME_NO_EXT%.tmp
+) else (
+	echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%-%TAG%";>>%FILENAME_NO_EXT%.tmp
+)
 echo }>>%FILENAME_NO_EXT%.tmp
 echo #endif  // BASE__VERSIONINFO_H_>>%FILENAME_NO_EXT%.tmp
 
@@ -95,7 +100,11 @@ ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
-ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
+if "%TAG%"=="" (
+ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%">>%RC_FILE%
+) else (
+ECHO             VALUE "ProductVersion", "%VER1%.%VER2%.%VER3%-%TAG%">>%RC_FILE%
+)
 ECHO         END>>%RC_FILE%
 ECHO     END>>%RC_FILE%
 ECHO     BLOCK "VarFileInfo">>%RC_FILE%
