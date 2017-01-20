@@ -82,19 +82,21 @@ HEADERS = pch.h \
     AddFighterDlg.h \
     ClubManager.h \
     ClubManagerDlg.h \
+    DonationManager.h \
     MainWindowBase.h \
 	ModeManagerDlg.h \
     SettingsDlg.h \
 	ScoreScreen.h \
+    SplashScreen.h \
     View.h \
     FightCategoryManagerDlg.h \
     FightCategoryManager.h \
     FighterManager.h \
     FighterManagerDlg.h \
+    ../util/array_helpers.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
-    SplashScreen.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp \
@@ -113,9 +115,9 @@ HEADERS = pch.h \
 	../core/TournamentMode.h \
 	../core/TournamentModel.h \
 	../core/ControllerConfig.h \
-    DonationManager.h \
-    ../util/array_helpers.h \
-    ../core/Rules.h
+    ../core/Rules.h \
+    UpdateChecker.h
+
 
 SOURCES = Main.cpp \
     Main.cpp \
@@ -125,6 +127,7 @@ SOURCES = Main.cpp \
 	AddFighterDlg.cpp \
     ClubManager.cpp \
     ClubManagerDlg.cpp \
+    DonationManager.cpp \
     SettingsDlg.cpp \
     View.cpp \
     FightCategoryManagerDlg.cpp \
@@ -134,9 +137,9 @@ SOURCES = Main.cpp \
     FighterManager.cpp \
     FighterManagerDlg.cpp \
 	ScoreScreen.cpp \
+    SplashScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
-    SplashScreen.cpp \
     ../widgets/Countdown.cpp \
 	../core/Controller.cpp \
 	../core/FightCategory.cpp \
@@ -146,8 +149,8 @@ SOURCES = Main.cpp \
 	../core/StateMachine.cpp \
 	../core/TournamentMode.cpp \
 	../core/TournamentModel.cpp \
-    DonationManager.cpp \
-    ../core/Rules.cpp
+    ../core/Rules.cpp \
+    UpdateChecker.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \
