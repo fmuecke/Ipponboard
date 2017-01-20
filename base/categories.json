@@ -2,7 +2,7 @@
    {
       "golden_score_time_secs" : 180,
       "name" : "M",
-      "round_time_secs" : 300,
+      "round_time_secs" : 240,
       "weights" : "-60;-66;-73;-81;-90;-100;+100"
    },
    {
@@ -38,7 +38,7 @@
    {
       "golden_score_time_secs" : 180,
       "name" : "F",
-      "round_time_secs" : 300,
+      "round_time_secs" : 240,
       "weights" : "-48;-52;-57;-63;-70;-78;+78"
    },
    {

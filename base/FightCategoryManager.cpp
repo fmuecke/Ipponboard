@@ -304,7 +304,7 @@ void FightCategoryMgr::load_default_categories()
 
 	FightCategory t("M");
 	t.SetWeights("-60;-66;-73;-81;-90;-100;+100");
-	t.SetRoundTime(5 * 60);
+    t.SetRoundTime(4 * 60);
 	t.SetGoldenScoreTime(3 * 60);
 	AddCategory(t);
 
@@ -340,7 +340,7 @@ void FightCategoryMgr::load_default_categories()
 
 	t = FightCategory("F");
 	t.SetWeights("-48;-52;-57;-63;-70;-78;+78");
-	t.SetRoundTime(5 * 60);
+    t.SetRoundTime(4 * 60);
 	t.SetGoldenScoreTime(3 * 60);
 	AddCategory(t);
 

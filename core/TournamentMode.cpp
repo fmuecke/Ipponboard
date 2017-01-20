@@ -36,7 +36,7 @@ TournamentMode::TournamentMode()
     , options()
 	, fightTimeOverrides()
 	, nRounds(1)
-	, fightTimeInSeconds(300)
+    , fightTimeInSeconds(240)
 	, weightsAreDoubled(false)
 {
 }
@@ -134,7 +134,7 @@ TournamentMode TournamentMode::Default()
 	mode.id = mode.id.mid(1, mode.id.length() - 2);  // remove "{}"
 	mode.title = "*new*";
 	mode.weights = "-66;-73;-81;-90;+90";
-	mode.fightTimeInSeconds = 300;
+    mode.fightTimeInSeconds = 240;
 	mode.nRounds = 2;
 	mode.weightsAreDoubled = true;
 	//mode.listTemplate = m_pUi->comboBox_template->itemText(0);
