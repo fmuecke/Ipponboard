@@ -116,7 +116,8 @@ HEADERS = pch.h \
 	../core/TournamentModel.h \
 	../core/ControllerConfig.h \
     ../core/Rules.h \
-    UpdateChecker.h
+    UpdateChecker.h \
+    VersionComparer.h
 
 
 SOURCES = Main.cpp \
@@ -150,7 +151,8 @@ SOURCES = Main.cpp \
 	../core/TournamentMode.cpp \
 	../core/TournamentModel.cpp \
     ../core/Rules.cpp \
-    UpdateChecker.cpp
+    UpdateChecker.cpp \
+    VersionComparer.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \

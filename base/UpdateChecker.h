@@ -1,6 +1,8 @@
 #ifndef UPDATER_H
 #define UPDATER_H
 
+class QString;
+
 class UpdateChecker
 {
 public:

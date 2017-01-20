@@ -1,5 +1,6 @@
 #include "UpdateChecker.h"
 #include "versioninfo.h"
+#include "VersionComparer.h"
 
 #include <QtGui/QApplication>
 #include <QMessageBox>
@@ -41,33 +42,7 @@ bool UpdateChecker::CheckForNewerVersion()
     auto version = GetXmlValue(query, "Ipponboard/Version/text()");
     if (!version.isEmpty())
     {
-        QStringList onlineVer = version.split('.');
-        QStringList buildVer = QString(VersionInfo::VersionStr).split('.');
-
-        while (onlineVer.length() < 3) onlineVer.append("0");
-        while (buildVer.length() < 3) buildVer.append("0");
-
-        bool isOldVersion = false;
-        if ((onlineVer[0].toInt() > buildVer[0].toInt()))
-        {
-            isOldVersion = true;
-        }
-        else if (onlineVer[0].toInt() == buildVer[0].toInt())
-        {
-            if (onlineVer[1].toInt() > buildVer[1].toInt())
-            {
-                isOldVersion = true;
-            }
-            else if ((onlineVer[1].toInt() == buildVer[1].toInt()))
-            {
-                if ((onlineVer[2].toInt() > buildVer[2].toInt()))
-                {
-                    isOldVersion = true;
-                }
-            }
-        }
-
-        if (isOldVersion)
+        if (VersionComparer::IsVersionLess(VersionInfo::VersionStr, version.toStdString()))
         {
             auto lang = QCoreApplication::tr("en");
             lang = lang == "de" ? "de" : "en";

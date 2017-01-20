@@ -3,11 +3,17 @@ CONFIG += console
 TARGET = IpponboardTest
 DESTDIR = bin
 
+#INCLUDEPATH += $$quote($$(BOOST_DIR))
+
+#QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
+#    ../lib
+
 HEADERS = \
 	TestJson.hpp \
 	TestScore.hpp \
 	TestFight.hpp \
-    TestTournamentMode.hpp
+    TestTournamentMode.hpp \
+    TestVersionComparer.hpp
 
 SOURCES = \
     IpponboardTest.cpp \

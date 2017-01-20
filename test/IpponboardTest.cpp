@@ -15,7 +15,7 @@
 #include "TestJson.hpp"
 #include "TestScore.hpp"
 #include "TestFight.hpp"
-
+#include "TestVersionComparer.hpp"
 
 /*
 int main(int argc, char *argv[])
