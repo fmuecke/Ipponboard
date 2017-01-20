@@ -140,7 +140,7 @@ p, li { white-space: pre-wrap; }
         <bool>false</bool>
        </property>
        <property name="autoDefault">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="default">
         <bool>false</bool>
@@ -157,7 +157,7 @@ p, li { white-space: pre-wrap; }
          <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
        </property>
        <property name="autoDefault">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -202,7 +202,7 @@ p, li { white-space: pre-wrap; }
         </size>
        </property>
        <property name="autoDefault">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="description">
         <string/>
