@@ -34,7 +34,6 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QSettings>
-#include <QSplashScreen>
 #include <QTimer>
 #include <QUrl>
 #include <functional>

@@ -126,6 +126,10 @@ int main(int argc, char* argv[])
 	}
 
     auto dlgResult = ShowSplashScreen();
+    if (dlgResult == 0)
+    {
+        return 0;
+    }
 	
 	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
 	if (dlgResult == QDialog::Accepted + 1)
