@@ -24,25 +24,28 @@ public:
         _isCountSubscores = countSubscores;
     }
 
-    virtual bool IsAutoIncrementPoints() const
+    virtual bool IsOption_AutoIncrementPoints() const
     {
         return _isAutoIncementPoints;
     }
 
-    virtual bool IsCountSubscores() const
+    virtual bool IsOption_CountSubscores() const
     {
         return _isCountSubscores;
     }
 
     virtual bool IsAwaseteIppon(Score const& s) const
     {
-        return HasAwaseteIpponSupport() && s.Wazaari() == GetMaxWazaariCount();
+        return IsOption_AwaseteIppon() && s.Wazaari() == GetMaxWazaariCount();
     }
 
-    virtual bool HasShidosCountAsPoints() const { return false; }
-    virtual bool HasAwaseteIpponSupport() const { return true; }
-    virtual bool HasYukoSupport() const { return true; }
-    virtual bool HasOpenEndGoldenScore() const { return true; }
+    // second shido will result in yuko beeing added, 3rd will give waza-ari
+    virtual bool IsOption_ShidoAddsPoint() const { return false; }
+    virtual bool IsOption_ShidoScoreCounts() const { return true; }
+    virtual bool IsOption_AwaseteIppon() const { return true; }
+    virtual bool IsOption_HasYuko() const { return true; }
+    virtual bool IsOption_OpenEndGoldenScore() const { return true; }
+
     virtual bool IsScoreLess(const Score& lhs, const Score& rhs) const;
     virtual int GetMaxShidoCount() const { return 3; }
     virtual int GetMaxWazaariCount() const { return 2; }
@@ -67,12 +70,12 @@ public:
         return "Classic";
     }
 
-    virtual bool HasOpenEndGoldenScore() const final
+    virtual bool IsOption_OpenEndGoldenScore() const final
     {
         return false;
     }
 
-    virtual bool HasShidosCountAsPoints() const final
+    virtual bool IsOption_ShidoAddsPoint() const final
     {
         return true;
     }
@@ -121,12 +124,17 @@ public:
         return "IJF-2017";
     }
 
-    virtual bool HasYukoSupport() const final
+    virtual bool IsOption_ShidoScoreCounts() const final
     {
         return false;
     }
 
-    virtual bool HasAwaseteIpponSupport() const
+    virtual bool IsOption_HasYuko() const final
+    {
+        return false;
+    }
+
+    virtual bool IsOption_AwaseteIppon() const
     {
         return false;
     }

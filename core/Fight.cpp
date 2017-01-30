@@ -79,7 +79,7 @@ int Fight::ScorePoints(FighterEnum who) const
             return eScore_Yuko;
 		}
 
-        if (!rules->HasShidosCountAsPoints() && GetScore(who).Shido() < GetScore(other).Shido())
+        if (!rules->IsOption_ShidoAddsPoint() && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
 		}		
@@ -91,7 +91,7 @@ int Fight::ScorePoints(FighterEnum who) const
         {
             return eScore_Hikewake;
         }
-        else if (rules->IsCountSubscores())
+        else if (rules->IsOption_CountSubscores())
         {
             // Special rule for Jugendliga
             if (GetScore(who).Wazaari() > GetScore(other).Wazaari())

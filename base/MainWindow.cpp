@@ -151,7 +151,7 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 	if (checked)
 	{
-        if (m_pController->GetRules()->HasOpenEndGoldenScore())
+        if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
 		{
 			m_pController->SetFightTime(QTime());
 		}

@@ -5,6 +5,7 @@ Version 1.7
 (mod): released with full installer again
 (mod): switched installation from per machtine to per user
 (mod): removed portable mode
+(fix): shido will not matter anymore for entering golden score (applies to 2017 IJF rules; fixes #56)
 (fix): installs into user's local app data; no admin rights required for install; 
 (fix): here a bug, there a bug
 

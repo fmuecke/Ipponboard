@@ -4,7 +4,7 @@ setlocal
 SET VER1=1
 SET VER2=7
 SET VER3=0
-SET TAG=beta
+SET TAG=beta2
 :: that's it. <--
 
 rem hg parents --template "{rev}:{node|short}" > ..\base\.revision

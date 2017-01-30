@@ -175,7 +175,7 @@ void View::UpdateView()
         ui->image_shido3_second->show();
     }
 
-    if (m_pController->GetRules()->HasYukoSupport())
+    if (m_pController->GetRules()->IsOption_HasYuko())
     {
         ui->text_yuko_first->show();
         ui->text_yuko_second->show();
@@ -725,7 +725,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
                 digit_ippon->show();
                 digit_wazaari->hide();
                 wazaariLabel->SetText("");
-                if (m_pController->GetRules()->HasYukoSupport())
+                if (m_pController->GetRules()->IsOption_HasYuko())
                 {
                     digit_yuko->hide();
                     yukoLabel->SetText("");
@@ -736,7 +736,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
                 digit_ippon->hide();
                 digit_wazaari->show();
                 wazaariLabel->SetText("Waza-ari");
-                if (m_pController->GetRules()->HasYukoSupport())
+                if (m_pController->GetRules()->IsOption_HasYuko())
                 {
                     digit_yuko->show();
                     yukoLabel->SetText("Yuko");
@@ -748,7 +748,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
             digit_ippon->show();
             digit_wazaari->show();
             wazaariLabel->SetText("W");
-            if (m_pController->GetRules()->HasYukoSupport())
+            if (m_pController->GetRules()->IsOption_HasYuko())
             {
                 digit_yuko->show();
                 yukoLabel->SetText("Y");
@@ -773,7 +773,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
             digit_ippon->show();
             digit_wazaari->show();
             wazaariLabel->SetText("W");
-            if (m_pController->GetRules()->HasYukoSupport())
+            if (m_pController->GetRules()->IsOption_HasYuko())
             {
                 digit_yuko->show();
                 yukoLabel->SetText("Y");
@@ -785,7 +785,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
             digit_ippon->hide();
             digit_wazaari->show();
             wazaariLabel->SetText("Waza-ari");
-            if (m_pController->GetRules()->HasYukoSupport())
+            if (m_pController->GetRules()->IsOption_HasYuko())
             {
                 digit_yuko->show();
                 yukoLabel->SetText("Yuko");
