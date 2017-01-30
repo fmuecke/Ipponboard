@@ -55,6 +55,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->dummy_first->UpdateImage(":res/images/off_empty.png");
 	ui->dummy_second->UpdateImage(":res/images/off_empty.png");
 	ui->image_golden_score->UpdateImage(":res/images/golden_score.png");
+    ui->image_golden_score->SetBgColor(Qt::black);
 
 	ui->text_hold_clock_first->SetText("00", ScaledText::eSize_full);
 	ui->text_hold_clock_second->SetText("00", ScaledText::eSize_full);
@@ -658,7 +659,8 @@ void View::setMainTimerValue_()
 	//  m_pController->GetCurrentState() == eState_TimerStopped )
 	{
 		bool ok(false);
-		const QString time = QInputDialog::getText(
+        this->setStyleSheet("");
+        const QString time = QInputDialog::getText(
 								 this,
 								 tr("Set Value"),
 								 tr("Set value to (m:ss):"),

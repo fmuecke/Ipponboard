@@ -73,9 +73,6 @@
       <property name="focusPolicy">
        <enum>Qt::StrongFocus</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
-      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>

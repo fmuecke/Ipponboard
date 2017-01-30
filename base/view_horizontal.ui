@@ -23,12 +23,6 @@
   <property name="statusTip">
    <string notr="true"/>
   </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
-  </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_main" stretch="4,7,3,8,3,8">
    <property name="spacing">
     <number>0</number>
@@ -106,9 +100,6 @@
          <weight>50</weight>
          <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -213,9 +204,6 @@
            <bold>false</bold>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
         </widget>
        </item>
        <item>
@@ -254,9 +242,6 @@
            <bold>false</bold>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
         </widget>
        </item>
       </layout>
@@ -285,9 +270,6 @@
            <width>20</width>
            <height>20</height>
           </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
          </property>
         </widget>
        </item>
@@ -697,9 +679,6 @@
          <height>40</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
       </widget>
      </item>
      <item>
@@ -922,9 +901,6 @@
          <width>0</width>
          <height>40</height>
         </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-color: rgb(255, 255, 0);</string>
        </property>
       </widget>
      </item>
