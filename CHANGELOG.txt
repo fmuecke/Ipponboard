@@ -1,11 +1,14 @@
-Version 1.7
+Version 1.7-beta2
+(fix): fixed background color for golden score and set time dialog
+(fix): shido will not matter anymore for entering golden score (applies to 2017 IJF rules; fixes #56)
+
+Version 1.7-beta
 (new): support for IJF rules of 2017
 (new): added info bar that shows the current options and used rules and if the second srceen is active
 (mod): current rules can be switched live 
 (mod): released with full installer again
 (mod): switched installation from per machtine to per user
 (mod): removed portable mode
-(fix): shido will not matter anymore for entering golden score (applies to 2017 IJF rules; fixes #56)
 (fix): installs into user's local app data; no admin rights required for install; 
 (fix): here a bug, there a bug
 
