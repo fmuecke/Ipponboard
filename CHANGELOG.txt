@@ -1,4 +1,4 @@
-Version 1.8
+Version 1.7-beta3
 (new): separate mode for new U15 matches (which allows four shidos)
 
 Version 1.7-beta2
