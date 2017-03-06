@@ -454,22 +454,22 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+497"/>
+        <location filename="../base/View.cpp" line="+498"/>
         <source>Set time</source>
         <translation>Zeit setzen</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+167"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location line="-163"/>
+        <location line="-164"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+165"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
@@ -482,7 +482,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+333"/>
+        <location line="+330"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -498,12 +498,12 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+502"/>
+        <location line="+503"/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="-441"/>
+        <location line="-442"/>
         <source>/</source>
         <translation>/</translation>
     </message>
@@ -538,7 +538,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Regeln</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -628,7 +628,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zeigt/versteckt die Info-Zeile mit den Optionen und aktiven Regeln.</translation>
     </message>
     <message>
-        <location line="-635"/>
+        <location line="+8"/>
+        <source>IJF Rules 2017 (U15)</source>
+        <translation>2017er IJF Regeln (U15)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2017 rules (U15)</source>
+        <translation>2017er IJF Regeln verwenden (U15)</translation>
+    </message>
+    <message>
+        <location line="-647"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
@@ -663,12 +673,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+34"/>
         <source>&amp;Manage</source>
         <translation>&amp;Verwaltung</translation>
     </message>
     <message>
-        <location line="-121"/>
+        <location line="-122"/>
         <source>First Fighter (first last)</source>
         <translation>Erster Kämpfer (Vorname Nachname)</translation>
     </message>
@@ -678,7 +688,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+143"/>
         <source>Leave Ipponboard</source>
         <translation>Ipponboard verlassen</translation>
     </message>
@@ -843,7 +853,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Hallo, mein Name ist ??? I habe Ipponboard bei uns für (Einzel/Team)-Matches im Einsatz und hätte für eine zukünftige Version folgende Idee...</translation>
     </message>
     <message>
-        <location line="+676"/>
+        <location line="+684"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -859,7 +869,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-690"/>
+        <location line="-698"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1569,7 +1579,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+76"/>
+        <location filename="../base/UpdateChecker.cpp" line="+47"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1604,7 +1614,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location filename="../base/Main.cpp" line="+54"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -2277,7 +2287,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Willkommen zu Ipponboard!</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+131"/>
         <source>Ok, start Single Tournament</source>
         <translation>OK, Einzelmodus starten</translation>
     </message>
@@ -2287,7 +2297,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-59"/>
         <source>Ok, start Team Tournament</source>
         <translation>OK, Mannschaftsmodus starten</translation>
     </message>

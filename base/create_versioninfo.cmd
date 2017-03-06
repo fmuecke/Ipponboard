@@ -2,7 +2,7 @@
 setlocal
 :: --> CHANGE VERSION HERE:
 SET VER1=1
-SET VER2=7
+SET VER2=8
 SET VER3=0
 SET TAG=beta2
 :: that's it. <--

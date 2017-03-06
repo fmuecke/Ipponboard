@@ -395,6 +395,14 @@ void MainWindowBase::on_actionRules2017_triggered(bool checked)
     }
 }
 
+void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
+{
+    if (checked)
+    {
+        m_pController->SetRules(std::make_shared<Rules2017U15>());
+        ui_check_rules_items();
+    }
+}
 
 void MainWindowBase::write_settings()
 {

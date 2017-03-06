@@ -63,22 +63,11 @@ private:
 class ClassicRules : public AbstractRules
 {
 public:
-    ClassicRules();
+    ClassicRules() {}
 
-    virtual const char* Name() const final
-    {
-        return "Classic";
-    }
-
-    virtual bool IsOption_OpenEndGoldenScore() const final
-    {
-        return false;
-    }
-
-    virtual bool IsOption_ShidoAddsPoint() const final
-    {
-        return true;
-    }
+    virtual const char* Name() const final { return "Classic"; }
+    virtual bool IsOption_OpenEndGoldenScore() const final { return false; }
+    virtual bool IsOption_ShidoAddsPoint() const final { return true; }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
@@ -95,12 +84,9 @@ public:
 class Rules2013 : public AbstractRules
 {
 public:
-    Rules2013();
+    Rules2013() {}
 
-    virtual const char* Name() const final
-    {
-        return "IJF-2013";
-    }
+    virtual const char* Name() const final { return "IJF-2013"; }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
@@ -117,37 +103,14 @@ public:
 class Rules2017 : public AbstractRules
 {
 public:
-    Rules2017();
+    Rules2017() {}
 
-    virtual const char* Name() const final
-    {
-        return "IJF-2017";
-    }
-
-    virtual bool IsOption_ShidoScoreCounts() const final
-    {
-        return false;
-    }
-
-    virtual bool IsOption_HasYuko() const final
-    {
-        return false;
-    }
-
-    virtual bool IsOption_AwaseteIppon() const
-    {
-        return false;
-    }
-
-    virtual bool IsAwaseteIppon(Score const&) const final
-    {
-        return false;
-    }
-
-    virtual int GetMaxShidoCount() const final
-    {
-        return 2;
-    }
+    virtual const char* Name() const final { return "IJF-2017"; }
+    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
+    virtual bool IsOption_HasYuko() const final { return false; }
+    virtual bool IsOption_AwaseteIppon() const { return false; }
+    virtual bool IsAwaseteIppon(Score const&) const final { return false; }
+    virtual int GetMaxShidoCount() const final { return 2; }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
@@ -159,11 +122,34 @@ public:
        }
     }
 
-    virtual int GetMaxWazaariCount() const final
-    {
-        return INT32_MAX;
-    }
+    virtual int GetMaxWazaariCount() const final { return INT32_MAX; }
 };
+
+class Rules2017U15 : public AbstractRules
+{
+public:
+    Rules2017U15() {}
+
+    virtual const char* Name() const final { return "IJF-2017 U15"; }
+    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
+    virtual bool IsOption_HasYuko() const final { return false; }
+    virtual bool IsOption_AwaseteIppon() const { return false; }
+    virtual bool IsAwaseteIppon(Score const&) const final { return false; }
+    virtual int GetMaxShidoCount() const final { return 3; }
+
+    virtual int GetOsaekomiValue(Score::Point p) const final
+    {
+       switch(p)
+       {
+        case Score::Point::Ippon: return 20;
+        case Score::Point::Wazaari: return 10;
+        default: return -1;
+       }
+    }
+
+    virtual int GetMaxWazaariCount() const final { return INT32_MAX; }
+};
+
 
 class RulesFactory
 {
@@ -178,6 +164,11 @@ public:
         if (name == Rules2013().Name())
         {
             return std::make_shared<Rules2013>();
+        }
+
+        if (name == Rules2017U15().Name())
+        {
+            return std::make_shared<Rules2017U15>();
         }
 
         // default

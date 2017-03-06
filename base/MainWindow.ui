@@ -525,6 +525,7 @@
      <addaction name="actionRulesClassic"/>
      <addaction name="actionRules2013"/>
      <addaction name="actionRules2017"/>
+     <addaction name="actionRules2017U15"/>
     </widget>
     <addaction name="separator"/>
     <addaction name="actionAutoAdjustPoints"/>
@@ -895,6 +896,17 @@
    </property>
    <property name="toolTip">
     <string>Shows/hides the info bar which dispays the current options and rules.</string>
+   </property>
+  </action>
+  <action name="actionRules2017U15">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>IJF Rules 2017 (U15)</string>
+   </property>
+   <property name="toolTip">
+    <string>Use IJF 2017 rules (U15)</string>
    </property>
   </action>
  </widget>

@@ -46,18 +46,3 @@ bool AbstractRules::IsScoreLess(const Score& lhs, const Score& rhs) const
 
     return false;
 }
-
-ClassicRules::ClassicRules()
-{
-
-}
-
-Rules2013::Rules2013()
-{
-
-}
-
-Rules2017::Rules2017()
-{
-
-}

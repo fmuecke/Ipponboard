@@ -1,3 +1,6 @@
+Version 1.8
+(new): separate mode for new U15 matches (which allows four shidos)
+
 Version 1.7-beta2
 (fix): fixed background color for golden score and set time dialog
 (fix): shido will not matter anymore for entering golden score (applies to 2017 IJF rules; fixes #56)
