@@ -90,7 +90,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_mode = mode;
     m_rules = RulesFactory::Create(m_mode.rules);
     m_rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
-    m_rules->SetAutoIncementPoints(m_mode.IsOptionSet(eOption_AutoIncrementPoints));
+    m_rules->SetAutoAdjustPoints(m_mode.IsOptionSet(eOption_AutoAdjustPoints));
 
 	QStringList actualWeights = m_mode.weights.split(';');
 

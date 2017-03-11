@@ -93,9 +93,6 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_hansokumake_first->addItems(buttons);
 	ui->comboBox_hansokumake_second->addItems(buttons);
 
-    ui->comboBox_rules->clear();
-    ui->comboBox_rules->addItems(RulesFactory::GetNames());
-
 	// num screens
 	int screens = QApplication::desktop()->numScreens();
 
@@ -288,14 +285,6 @@ void SettingsDlg::SetGongFile(const QString& path)
 		ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-void SettingsDlg::SetRules(bool autoIncrement, QString const& rulesName)
-{
-    auto rulesIndex = ui->comboBox_rules->findText(rulesName);
-    ui->comboBox_rules->setCurrentIndex(rulesIndex != -1 ? rulesIndex : 0);
-
-    ui->checkBox_increment_points->setChecked(autoIncrement);
-}
-
 int SettingsDlg::GetSelectedScreen() const
 {
 	return ui->comboBox_screen->currentIndex();
@@ -372,16 +361,6 @@ QString SettingsDlg::GetGongFile() const
 {
 	QString path = QDir::currentPath() + "/sounds/";
 	return path + ui->comboBox_sound_time_ends->currentText();
-}
-
-bool SettingsDlg::IsAutoIncrementRule() const
-{
-	return ui->checkBox_increment_points->isChecked();
-}
-
-QString SettingsDlg::GetRules() const
-{
-    return ui->comboBox_rules->currentText();
 }
 
 void SettingsDlg::on_buttonBox_accepted()

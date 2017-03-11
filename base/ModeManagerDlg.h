@@ -45,7 +45,7 @@ private slots:
         // checkBoxes
         void on_checkBox_timeOverrides_toggled(bool checked);
         void on_checkBox_doubleWeights_toggled(bool checked);
-        void on_checkBox_autoIncrement_toggled(bool checked);
+        void on_checkBox_autoAdjustPoints_toggled(bool checked);
         void on_checkBox_allSubscoresCount_toggled(bool checked);
         // buttons
         void on_toolButton_add_clicked();

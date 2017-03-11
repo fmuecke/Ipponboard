@@ -706,7 +706,6 @@ void MainWindowBase::on_actionPreferences_triggered()
     dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
     dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
 	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
-    dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints), m_pController->GetRules()->Name());
 	dlg.SetControllerConfig(&m_controllerCfg);
     dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
 	dlg.SetGongFile(m_pController->GetGongFile());
@@ -722,10 +721,6 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 		m_secondScreenNo = dlg.GetSelectedScreen();
 		m_secondScreenSize = dlg.GetSize();
-
-		// rules
-        m_pController->SetRules(RulesFactory::Create(dlg.GetRules()));
-		m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
 
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad

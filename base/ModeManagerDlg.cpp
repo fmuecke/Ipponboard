@@ -105,7 +105,7 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
         m_pUi->comboBox_rules->setCurrentIndex(rulesIndex);
     }
 
-    m_pUi->checkBox_autoIncrement->setChecked(mode.IsOptionSet(eOption_AutoIncrementPoints));
+    m_pUi->checkBox_autoAdjustPoints->setChecked(mode.IsOptionSet(eOption_AutoAdjustPoints));
     m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount)); //FIXME
 
 	m_currentIndex = i;
@@ -124,11 +124,11 @@ void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString &s)
 
 void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int i)
 {
-    if (!is_initialized())
-    {
-        return;
-    }
-
+	if (!is_initialized())
+	{
+		return;
+	}
+	
     auto& mode = GetMode(m_currentIndex);
     mode.rules = m_pUi->comboBox_rules->currentText();
 }
@@ -139,7 +139,7 @@ void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
 	{
 		return;
 	}
-	
+
 	m_pUi->lineEdit_timeOverrides->setEnabled(checked);
 }
 
@@ -155,7 +155,7 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
     update_fights_per_round(mode);
 }
 
-void ModeManagerDlg::on_checkBox_autoIncrement_toggled(bool checked)
+void ModeManagerDlg::on_checkBox_autoAdjustPoints_toggled(bool checked)
 {
 	if (!is_initialized())
 	{
@@ -163,7 +163,7 @@ void ModeManagerDlg::on_checkBox_autoIncrement_toggled(bool checked)
 	}
 
 	auto& mode = GetMode(m_currentIndex);
-    mode.SetOption(eOption_AutoIncrementPoints, checked);
+    mode.SetOption(eOption_AutoAdjustPoints, checked);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)

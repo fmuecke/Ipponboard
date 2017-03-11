@@ -482,7 +482,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+330"/>
+        <location line="+349"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -492,18 +492,23 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Klasse</translation>
     </message>
     <message>
-        <location line="-114"/>
+        <location line="-133"/>
         <source>Display secondary screen</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+503"/>
+        <location line="+522"/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-471"/>
+        <source>Options:</source>
+        <translation>Optionen:</translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>/</source>
         <translation>/</translation>
     </message>
@@ -839,6 +844,11 @@ Mögliche Spezifikatorens sind: %1</translation>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
+    <message>
+        <location filename="../base/MainWindow.cpp" line="+341"/>
+        <source>Auto adjust points</source>
+        <translation>Wertungen automatisch setzen</translation>
+    </message>
 </context>
 <context>
     <name>MainWindowBase</name>
@@ -853,7 +863,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Hallo, mein Name ist ??? I habe Ipponboard bei uns für (Einzel/Team)-Matches im Einsatz und hätte für eine zukünftige Version folgende Idee...</translation>
     </message>
     <message>
-        <location line="+684"/>
+        <location line="+677"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -869,7 +879,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-698"/>
+        <location line="-691"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1491,7 +1501,12 @@ Note: the time must be specified in seconds alone</source>
 Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="+41"/>
+        <source>Auto adjust points</source>
+        <translation>Wertungen automatisch setzen</translation>
+    </message>
+    <message>
+        <location line="-179"/>
         <source>Weights count twice</source>
         <translation>Klassen doppelt belegt</translation>
     </message>
@@ -1536,12 +1551,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Wertungen für Osaekomi-Zeiten und Strafen automatisch vergeben</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Auto increment points</source>
-        <translation>Wertungen automatisch erhöhen</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Sub-scores are valued even if the fight is lost</source>
         <translation>Unterbewertungen werden auch für verlorene Kämpfe mitgezählt</translation>
     </message>
@@ -1801,12 +1811,12 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
         <location line="+27"/>
-        <location line="+721"/>
+        <location line="+702"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location line="-715"/>
+        <location line="-696"/>
         <source>Secondary View</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
@@ -1842,7 +1852,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Abspielen</translation>
     </message>
     <message>
-        <location line="+535"/>
+        <location line="+516"/>
         <source>Next fight</source>
         <translation>Nächster Kampf</translation>
     </message>
@@ -1877,7 +1887,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Y-Achse invertieren</translation>
     </message>
     <message>
-        <location line="-762"/>
+        <location line="-743"/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>
@@ -1957,7 +1967,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Schriften und Farben</translation>
     </message>
     <message>
-        <location line="+396"/>
+        <location line="+377"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
@@ -1998,22 +2008,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Achsen für die Wertungen: X/Y</translation>
     </message>
     <message>
-        <location line="-232"/>
-        <source>Rules</source>
-        <translation>Regeln</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically add points for osaekomi and penalties</source>
-        <translation>Wertungen für Osaekomi-Zeiten und Strafen automatisch vergeben</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Auto increment points</source>
-        <translation>Wertungen automatisch erhöhen</translation>
-    </message>
-    <message>
-        <location line="-399"/>
+        <location line="-603"/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
     </message>
@@ -2048,17 +2043,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>&quot;Gast&quot;-Beschriftung</translation>
     </message>
     <message>
-        <location line="+406"/>
-        <source>Use the new IJF rules of 2013</source>
-        <translation>IJF Regeln von 2013 verwenden</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Use 2013 IJF rules</source>
-        <translation>IJF Regeln von 2013 verwenden</translation>
-    </message>
-    <message>
-        <location line="+153"/>
+        <location line="+543"/>
         <source>First Fighter</source>
         <translation>Erster Kämpfer</translation>
     </message>

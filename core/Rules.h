@@ -16,9 +16,9 @@ public:
 
     virtual const char* Name() const = 0;
 
-    virtual void SetAutoIncementPoints(bool autoIncrement)
+    virtual void SetAutoAdjustPoints(bool autoAdjust)
     {
-        _isAutoIncementPoints = autoIncrement;
+        _isAutoAdjustPoints = autoAdjust;
     }
 
     virtual void SetCountSubscores(bool countSubscores)
@@ -26,9 +26,9 @@ public:
         _isCountSubscores = countSubscores;
     }
 
-    virtual bool IsOption_AutoIncrementPoints() const
+    virtual bool IsOption_AutoAdjustPoints() const
     {
-        return _isAutoIncementPoints;
+        return _isAutoAdjustPoints;
     }
 
     virtual bool IsOption_CountSubscores() const
@@ -57,7 +57,7 @@ public:
     bool IsOfType() const { return dynamic_cast<const T*>(this) != nullptr; }
 
 private:
-    bool _isAutoIncementPoints { false };
+    bool _isAutoAdjustPoints { false };
     bool _isCountSubscores { false };
 };
 

@@ -18,8 +18,8 @@ static char const* const EnumToString(EOption o)
 {
     switch (o)
     {
-    case eOption_AutoIncrementPoints:
-        return "AutoIncrementPoints";
+    case eOption_AutoAdjustPoints:
+        return "AutoAdjustPoints";
 
     case eOption_AllSubscoresCount:
         return "AllSubscoresCount";

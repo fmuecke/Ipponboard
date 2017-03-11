@@ -10,7 +10,7 @@ using Point = Score::Point;
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if (m_pCore->is_option(Ipponboard::eOption_AutoIncrementPoints))
+	if (m_pCore->is_option(Ipponboard::eOption_AutoAdjustPoints))
 	{
         auto rs = m_pCore->GetRules();
 
@@ -179,7 +179,7 @@ void IpponboardSM_::add_point(PointEvent<ippon_type> const& evt)
 
 void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 {
-	if (m_pCore->is_option(eOption_AutoIncrementPoints))
+	if (m_pCore->is_option(eOption_AutoAdjustPoints))
 	{
 		FighterEnum uke = GetUkeFromTori(evt.tori);
 
@@ -224,7 +224,7 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 	}
 	else
 	{
-		if (m_pCore->is_option(eOption_AutoIncrementPoints))
+		if (m_pCore->is_option(eOption_AutoAdjustPoints))
 		{
             auto maxShidoCount = m_pCore->GetRules()->GetMaxShidoCount();
             if (maxShidoCount + 1 == Score_(evt.tori).Shido())

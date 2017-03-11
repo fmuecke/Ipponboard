@@ -158,6 +158,25 @@
        </spacer>
       </item>
       <item>
+       <widget class="QLabel" name="label_options">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="text">
+         <string>Options:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="label_usedOptions">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -169,7 +188,7 @@
          <number>0</number>
         </property>
         <property name="text">
-         <string notr="true">Options: auto increment points</string>
+         <string notr="true">auto increment points</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

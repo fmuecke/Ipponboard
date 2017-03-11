@@ -275,9 +275,9 @@ Note: the time must be specified in seconds alone</string>
         <bool>true</bool>
        </property>
        <item>
-        <property name="text">
+       <property name="text">
          <string>Rules 2017</string>
-        </property>
+       </property>
        </item>
        <item>
         <property name="text">
@@ -297,12 +297,12 @@ Note: the time must be specified in seconds alone</string>
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QCheckBox" name="checkBox_autoIncrement">
+      <widget class="QCheckBox" name="checkBox_autoAdjustPoints">
        <property name="toolTip">
         <string>Automatically add points during Osae-komi</string>
        </property>
        <property name="text">
-        <string>Auto increment points</string>
+        <string>Auto adjust points</string>
        </property>
       </widget>
      </item>
@@ -345,7 +345,7 @@ Note: the time must be specified in seconds alone</string>
   <tabstop>spinBox_rounds</tabstop>
   <tabstop>spinBox_fightTimeSeconds</tabstop>
   <tabstop>lineEdit_timeOverrides</tabstop>
-  <tabstop>checkBox_autoIncrement</tabstop>
+  <tabstop>checkBox_autoAdjustPoints</tabstop>
   <tabstop>checkBox_allSubscoresCount</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>

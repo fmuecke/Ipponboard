@@ -33,8 +33,6 @@ public:
 	void SetLabels(QString const& mat, QString const& home, QString const& guest);
 	void SetGongFile(const QString& path);
 
-    void SetRules(bool autoIncrement, QString const& rulesName);
-
 	int GetSelectedScreen() const;
 	QSize GetSize() const;
 	QFont GetInfoHeaderFont() const;
@@ -49,8 +47,6 @@ public:
 	QString GetHomeLabel() const;
 	QString GetGuestLabel() const;
 	QString GetGongFile() const;
-    QString GetRules() const;
-	bool IsAutoIncrementRule() const;
 
 	void SetControllerConfig(const ControllerConfig* pConfig);
 	void GetControllerConfig(ControllerConfig* pConfig);
