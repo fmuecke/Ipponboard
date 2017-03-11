@@ -712,9 +712,6 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
 
-	dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
-				 m_pController->GetOption(eOption_Use2013Rules));
-
 	dlg.SetControllerConfig(&m_controllerCfg);
 
 	dlg.SetLabels(m_MatLabel,
@@ -734,10 +731,6 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 		m_secondScreenNo = dlg.GetSelectedScreen();
 		m_secondScreenSize = dlg.GetSize();
-
-		// rules
-		m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
-		m_pController->SetOption(eOption_Use2013Rules, dlg.IsUse2013Rules());
 
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad

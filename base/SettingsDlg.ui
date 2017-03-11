@@ -722,38 +722,6 @@
          </layout>
         </widget>
        </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_rules">
-         <property name="title">
-          <string>Rules</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
-          <item>
-           <widget class="QCheckBox" name="checkBox_increment_points">
-            <property name="toolTip">
-             <string>Automatically add points for osaekomi and penalties</string>
-            </property>
-            <property name="text">
-             <string>Auto increment points</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_rules_2013">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="toolTip">
-             <string>Use the new IJF rules of 2013</string>
-            </property>
-            <property name="text">
-             <string>Use 2013 IJF rules</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_gamepad">
@@ -1513,7 +1481,6 @@
   <tabstop>buttonBox_3</tabstop>
  </tabstops>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections/>

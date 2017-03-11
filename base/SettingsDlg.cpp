@@ -284,12 +284,6 @@ void SettingsDlg::SetGongFile(const QString& path)
 		ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-void SettingsDlg::SetRules(bool autoIncrement, bool use2013RuleSet)
-{
-	ui->checkBox_increment_points->setChecked(autoIncrement);
-	ui->checkBox_rules_2013->setChecked(use2013RuleSet);
-}
-
 int SettingsDlg::GetSelectedScreen() const
 {
 	return ui->comboBox_screen->currentIndex();
@@ -366,16 +360,6 @@ QString SettingsDlg::GetGongFile() const
 {
 	QString path = QDir::currentPath() + "/sounds/";
 	return path + ui->comboBox_sound_time_ends->currentText();
-}
-
-bool SettingsDlg::IsAutoIncrementRule() const
-{
-	return ui->checkBox_increment_points->isChecked();
-}
-
-bool SettingsDlg::IsUse2013Rules() const
-{
-	return ui->checkBox_rules_2013->isChecked();
 }
 
 void SettingsDlg::on_buttonBox_accepted()
