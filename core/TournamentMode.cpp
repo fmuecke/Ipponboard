@@ -7,6 +7,7 @@
 
 #include "TournamentMode.h"
 #include "EnumStrings.h"
+#include "Rules.h"
 
 #include <QString>
 #include <QStringList>
@@ -137,8 +138,8 @@ TournamentMode TournamentMode::Default()
     mode.fightTimeInSeconds = 240;
 	mode.nRounds = 2;
 	mode.weightsAreDoubled = true;
-	//mode.listTemplate = m_pUi->comboBox_template->itemText(0);
-	mode.SetOption(eOption_Use2013Rules, true);
+    //mode.listTemplate = m_pUi->comboBox_template->itemText(0);
+    mode.rules = RulesFactory::GetDefaultName();
 
 	return std::move(mode);
 }

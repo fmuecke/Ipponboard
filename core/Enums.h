@@ -63,15 +63,8 @@ enum EOption
 {
     eOption_Invalid = -1,
     eOption_AutoIncrementPoints = 0,
-	eOption_Use2013Rules = 1,
     eOption_AllSubscoresCount = 2,
 	eOption_MAX
-};
-
-enum RuleSet
-{
-    eClassicRules,
-    e2013RuleSet
 };
 
 }

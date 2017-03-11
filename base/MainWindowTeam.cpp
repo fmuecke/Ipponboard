@@ -850,8 +850,6 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     // FIXME2014: use this???
     //m_pController->SetOption(eOption_Use2013Rules, true);
 
-
-	// TODO: use binary seach as the container is sorted
     auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & mode)
 	{
         return mode.id == m_currentMode;

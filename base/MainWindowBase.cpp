@@ -703,24 +703,12 @@ void MainWindowBase::on_actionPreferences_triggered()
 							  m_pPrimaryView->GetInfoTextBgColor());
 
 	dlg.SetFighterNameFont(m_FighterNameFont);
-
-	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(),
-						   m_pPrimaryView->GetTextBgColorFirst());
-
-	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
-							m_pPrimaryView->GetTextBgColorSecond());
-
+    dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
+    dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
 	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
-
-	dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints),
-				 m_pController->GetOption(eOption_Use2013Rules));
-
+    dlg.SetRules(m_pController->GetOption(eOption_AutoIncrementPoints), m_pController->GetRules()->Name());
 	dlg.SetControllerConfig(&m_controllerCfg);
-
-	dlg.SetLabels(m_MatLabel,
-				  m_pController->GetHomeLabel(),
-				  m_pController->GetGuestLabel());
-
+    dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
 	dlg.SetGongFile(m_pController->GetGongFile());
 
 	if (QDialog::Accepted == dlg.exec())
@@ -736,8 +724,8 @@ void MainWindowBase::on_actionPreferences_triggered()
 		m_secondScreenSize = dlg.GetSize();
 
 		// rules
+        m_pController->SetRules(RulesFactory::Create(dlg.GetRules()));
 		m_pController->SetOption(eOption_AutoIncrementPoints, dlg.IsAutoIncrementRule());
-		m_pController->SetOption(eOption_Use2013Rules, dlg.IsUse2013Rules());
 
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad

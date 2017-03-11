@@ -3,6 +3,8 @@
 
 #include "Score.h"
 #include <QString>
+#include <QStringList>
+#include <memory>
 
 namespace Ipponboard
 {
@@ -65,7 +67,8 @@ class ClassicRules : public AbstractRules
 public:
     ClassicRules() {}
 
-    virtual const char* Name() const final { return "Classic"; }
+    static const char* const StaticName;
+    virtual const char* Name() const final { return StaticName; }
     virtual bool IsOption_OpenEndGoldenScore() const final { return false; }
     virtual bool IsOption_ShidoAddsPoint() const final { return true; }
 
@@ -86,7 +89,9 @@ class Rules2013 : public AbstractRules
 public:
     Rules2013() {}
 
-    virtual const char* Name() const final { return "IJF-2013"; }
+    static const char* const StaticName;
+
+    virtual const char* Name() const final { return StaticName; }
 
     virtual int GetOsaekomiValue(Score::Point p) const final
     {
@@ -105,7 +110,8 @@ class Rules2017 : public AbstractRules
 public:
     Rules2017() {}
 
-    virtual const char* Name() const final { return "IJF-2017"; }
+    static const char* const StaticName;
+    virtual const char* Name() const final { return StaticName; }
     virtual bool IsOption_ShidoScoreCounts() const final { return false; }
     virtual bool IsOption_HasYuko() const final { return false; }
     virtual bool IsOption_AwaseteIppon() const { return false; }
@@ -130,7 +136,8 @@ class Rules2017U15 : public AbstractRules
 public:
     Rules2017U15() {}
 
-    virtual const char* Name() const final { return "IJF-2017 U15"; }
+    static const char* const StaticName;
+    virtual const char* Name() const final { return StaticName; }
     virtual bool IsOption_ShidoScoreCounts() const final { return false; }
     virtual bool IsOption_HasYuko() const final { return false; }
     virtual bool IsOption_AwaseteIppon() const { return false; }
@@ -150,29 +157,45 @@ public:
     virtual int GetMaxWazaariCount() const final { return INT32_MAX; }
 };
 
-
 class RulesFactory
 {
 public:
     static std::shared_ptr<AbstractRules> Create(QString name)
     {
-        if (name == ClassicRules().Name())
+        if (name == ClassicRules::StaticName)
         {
             return std::make_shared<ClassicRules>();
         }
 
-        if (name == Rules2013().Name())
+        if (name == Rules2013::StaticName)
         {
             return std::make_shared<Rules2013>();
         }
 
-        if (name == Rules2017U15().Name())
+        if (name == Rules2017U15::StaticName)
         {
             return std::make_shared<Rules2017U15>();
         }
 
         // default
         return std::make_shared<Rules2017>();
+    }
+
+    static QStringList GetNames()
+    {
+        auto result = QStringList();
+
+        result.push_back(Rules2017::StaticName);
+        result.push_back(Rules2017U15::StaticName);
+        result.push_back(Rules2013::StaticName);
+        result.push_back(ClassicRules::StaticName);
+
+        return result;
+    }
+
+    static QString GetDefaultName()
+    {
+        return Rules2017::StaticName;
     }
 };
 

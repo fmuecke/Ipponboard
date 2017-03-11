@@ -369,9 +369,8 @@ void MainWindow::write_specific_settings(QSettings& settings)
 	settings.beginGroup(EditionNameShort());
 	{
 		settings.setValue(str_tag_MatLabel, m_MatLabel);
-		settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
-		settings.setValue(EnumToString(eOption_Use2013Rules), m_pController->GetOption(eOption_Use2013Rules));
         settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
+		settings.setValue(EnumToString(eOption_AutoIncrementPoints), m_pController->GetOption(eOption_AutoIncrementPoints));
 	}
 	settings.endGroup();
 }
@@ -385,11 +384,9 @@ void MainWindow::read_specific_settings(QSettings& settings)
 		m_pSecondaryView->SetMat(m_MatLabel);
 
 		// rules
-		m_pController->SetOption(eOption_AutoIncrementPoints,
-								 settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
-
         auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
         m_pController->SetRules(rules);
+        m_pController->SetOption(eOption_AutoIncrementPoints, settings.value(EnumToString(eOption_AutoIncrementPoints), true).toBool());
 	}
 	settings.endGroup();
 }

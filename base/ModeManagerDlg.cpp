@@ -15,6 +15,7 @@
 #include "ui_ModeManagerDlg.h"
 #include "..\core\Enums.h"
 #include "..\core\EnumStrings.h"
+#include "..\core\Rules.h"
 
 #include <QComboBox>
 #include <QStringList>
@@ -36,6 +37,9 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
 
     m_pUi->setupUi(this);
     m_pUi->comboBox_template->addItems(templates);
+
+    m_pUi->comboBox_rules->clear();
+    m_pUi->comboBox_rules->addItems(RulesFactory::GetNames());
 
     if (!m_dialogData.empty())
     {
@@ -95,9 +99,14 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
         m_pUi->lineEdit_timeOverrides->setText(QString());
     }
 
-    m_pUi->checkBox_2013Rules->setChecked(mode.IsOptionSet(eOption_Use2013Rules));
+    auto rulesIndex = m_pUi->comboBox_rules->findText(mode.rules);
+    if (rulesIndex != -1)
+    {
+        m_pUi->comboBox_rules->setCurrentIndex(rulesIndex);
+    }
+
     m_pUi->checkBox_autoIncrement->setChecked(mode.IsOptionSet(eOption_AutoIncrementPoints));
-    m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount));
+    m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount)); //FIXME
 
 	m_currentIndex = i;
 }
@@ -111,6 +120,17 @@ void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString &s)
 
 	auto& mode = GetMode(m_currentIndex);
     mode.listTemplate = s;
+}
+
+void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int i)
+{
+    if (!is_initialized())
+    {
+        return;
+    }
+
+    auto& mode = GetMode(m_currentIndex);
+    mode.rules = m_pUi->comboBox_rules->currentText();
 }
 
 void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
@@ -133,17 +153,6 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 	auto& mode = GetMode(m_currentIndex);
     mode.weightsAreDoubled = checked;
     update_fights_per_round(mode);
-}
-
-void ModeManagerDlg::on_checkBox_2013Rules_toggled(bool checked)
-{
-	if (!is_initialized())
-	{
-		return;
-	}
-
-	auto& mode = GetMode(m_currentIndex);
-    mode.SetOption(eOption_Use2013Rules, checked);
 }
 
 void ModeManagerDlg::on_checkBox_autoIncrement_toggled(bool checked)

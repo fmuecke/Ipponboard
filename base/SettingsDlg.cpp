@@ -2,6 +2,7 @@
 #include "ui_SettingsDlg.h"
 #include "../gamepad/gamepad.h"
 #include "../core/ControllerConfig.h"
+#include "../core/Rules.h"
 
 #include <QStringList>
 #include <QDesktopWidget>
@@ -91,6 +92,9 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_second_holding->addItems(buttons);
 	ui->comboBox_hansokumake_first->addItems(buttons);
 	ui->comboBox_hansokumake_second->addItems(buttons);
+
+    ui->comboBox_rules->clear();
+    ui->comboBox_rules->addItems(RulesFactory::GetNames());
 
 	// num screens
 	int screens = QApplication::desktop()->numScreens();
@@ -284,10 +288,12 @@ void SettingsDlg::SetGongFile(const QString& path)
 		ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-void SettingsDlg::SetRules(bool autoIncrement, bool use2013RuleSet)
+void SettingsDlg::SetRules(bool autoIncrement, QString const& rulesName)
 {
-	ui->checkBox_increment_points->setChecked(autoIncrement);
-	ui->checkBox_rules_2013->setChecked(use2013RuleSet);
+    auto rulesIndex = ui->comboBox_rules->findText(rulesName);
+    ui->comboBox_rules->setCurrentIndex(rulesIndex != -1 ? rulesIndex : 0);
+
+    ui->checkBox_increment_points->setChecked(autoIncrement);
 }
 
 int SettingsDlg::GetSelectedScreen() const
@@ -373,9 +379,9 @@ bool SettingsDlg::IsAutoIncrementRule() const
 	return ui->checkBox_increment_points->isChecked();
 }
 
-bool SettingsDlg::IsUse2013Rules() const
+QString SettingsDlg::GetRules() const
 {
-	return ui->checkBox_rules_2013->isChecked();
+    return ui->comboBox_rules->currentText();
 }
 
 void SettingsDlg::on_buttonBox_accepted()

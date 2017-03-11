@@ -21,9 +21,6 @@ static char const* const EnumToString(EOption o)
     case eOption_AutoIncrementPoints:
         return "AutoIncrementPoints";
 
-    case eOption_Use2013Rules:
-        return "Use2013Rules";
-
     case eOption_AllSubscoresCount:
         return "AllSubscoresCount";
 
@@ -31,24 +28,6 @@ static char const* const EnumToString(EOption o)
         return "";
     }
 }
-
-//static EOption StringToEnum(QString const& str)
-//{
-//    if (str == EnumToString(eOption_AutoIncrementPoints))
-//    {
-//        return eOption_AutoIncrementPoints;
-//    }
-//    else if (str == EnumToString(eOption_Use2013Rules))
-//    {
-//        return eOption_Use2013Rules;
-//    }
-//    else if (str == EnumToString(eOption_CountAllSubscores))
-//    {
-//        return eOption_CountAllSubscores;
-//    }
-
-//    return eOption_Invalid;
-//}
 
 }
 #endif // CORE_ENUMSTRINGS_H
