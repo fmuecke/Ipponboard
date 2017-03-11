@@ -38,6 +38,7 @@ protected:
 	virtual void ui_check_language_items() final;
     virtual void ui_check_rules_items() final;
     virtual void ui_check_show_secondary_view(bool checked) const final;
+    virtual void ui_update_used_options();
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;

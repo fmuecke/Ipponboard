@@ -96,7 +96,7 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     }
 
     m_pUi->checkBox_2013Rules->setChecked(mode.IsOptionSet(eOption_Use2013Rules));
-    m_pUi->checkBox_autoIncrement->setChecked(mode.IsOptionSet(eOption_AutoIncrementPoints));
+    m_pUi->checkBox_autoAdjustPoints->setChecked(mode.IsOptionSet(eOption_AutoAdjustPoints));
     m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount));
 
 	m_currentIndex = i;
@@ -146,7 +146,7 @@ void ModeManagerDlg::on_checkBox_2013Rules_toggled(bool checked)
     mode.SetOption(eOption_Use2013Rules, checked);
 }
 
-void ModeManagerDlg::on_checkBox_autoIncrement_toggled(bool checked)
+void ModeManagerDlg::on_checkBox_autoAdjustPoints_toggled(bool checked)
 {
 	if (!is_initialized())
 	{
@@ -154,7 +154,7 @@ void ModeManagerDlg::on_checkBox_autoIncrement_toggled(bool checked)
 	}
 
 	auto& mode = GetMode(m_currentIndex);
-    mode.SetOption(eOption_AutoIncrementPoints, checked);
+    mode.SetOption(eOption_AutoAdjustPoints, checked);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
