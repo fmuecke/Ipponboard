@@ -14,7 +14,6 @@
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
-#include "../core/EnumStrings.h"
 #include "../core/Fighter.h"
 #include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
@@ -249,7 +248,7 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->GetOption(eOption_AutoAdjustPoints));
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
     ui_check_rules_items();
 
@@ -328,7 +327,8 @@ void MainWindow::ui_check_show_secondary_view(bool checked) const
 
 void MainWindow::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-    m_pController->SetOption(eOption_AutoAdjustPoints, checked);
+    MainWindowBase::on_actionAutoAdjustPoints_toggled(checked);
+
     ui_update_used_options();
 }
 
@@ -336,7 +336,7 @@ void MainWindow::ui_update_used_options()
 {
     QString text;
 
-    if (m_pController->GetOption(eOption_AutoAdjustPoints))
+    if (m_pController->IsAutoAdjustPoints())
     {
         text += tr("Auto adjust points");
     }
@@ -388,7 +388,7 @@ void MainWindow::write_specific_settings(QSettings& settings)
 	{
 		settings.setValue(str_tag_MatLabel, m_MatLabel);
         settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
-        settings.setValue(EnumToString(eOption_AutoAdjustPoints), m_pController->GetOption(eOption_AutoAdjustPoints));
+        settings.setValue(str_tag_autoAdjustPoints, m_pController->IsAutoAdjustPoints());
 	}
 	settings.endGroup();
 }
@@ -404,7 +404,7 @@ void MainWindow::read_specific_settings(QSettings& settings)
 		// rules
         auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
         m_pController->SetRules(rules);
-		m_pController->SetOption(eOption_AutoAdjustPoints, settings.value(EnumToString(eOption_AutoAdjustPoints), true).toBool());
+        m_pController->SetAutoAdjustPoints(settings.value(str_tag_autoAdjustPoints, true).toBool());
 	}
 	settings.endGroup();
 }

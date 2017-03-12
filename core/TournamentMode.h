@@ -43,6 +43,8 @@ public:
 	static QString const& str_FightTimeOverrides;
 	static QString const& str_WeightsAreDoubled;
     static QString const& str_none;
+    static QString const& str_Option_AlwaysAutoAdjustPoints;
+    static QString const& str_Option_AllSubscoresCount;
 
 	static bool ReadModes(
         QString const& filename,
@@ -61,8 +63,8 @@ public:
     QString Description() const;
 	int FightsPerRound() const;
 	int GetFightDuration(QString const& weight) const;
-    bool IsOptionSet(EOption o) const;
-    void SetOption(EOption o, bool checked);
+    bool IsOptionSet(QString const& option) const;
+    void SetOption(QString const& option, bool checked);
     QString GetFightTimeOverridesString() const;
     static bool ExtractFightTimeOverrides(QString const& overridesString, OverridesList& overrides);
 

@@ -79,6 +79,8 @@ public:
 	bool IsGoldenScore() const { return is_golden_score(); }
     void SetRules(std::shared_ptr<AbstractRules> rules);
     virtual std::shared_ptr<AbstractRules> GetRules() const override;
+    bool IsAutoAdjustPoints() const final;
+    void SetAutoAdjustPoints(bool isActive) final;
     void SetOption(Ipponboard::EOption option, bool isSet);
 	bool GetOption(Ipponboard::EOption option) const;
 	QString GetHomeLabel() const { return m_labelHome; }
@@ -92,17 +94,18 @@ public:
 
 	// --- IControllerCore ---
 private:
-	void start_timer(ETimer t);
-	void stop_timer(ETimer t);
-	void save_fight();
-	void reset_fight();
-	void reset_timer(ETimer);
+    void start_timer(ETimer t) final;
+    void stop_timer(ETimer t) final;
+    void save_fight() final;
+    void reset_fight() final;
+    void reset_timer(ETimer) final;
 	Score& get_score(Ipponboard::FighterEnum who) final;
 	Score const& get_score(Ipponboard::FighterEnum who) const final;
-	int get_time(ETimer) const;
-	bool is_sonomama() const;
-	bool is_golden_score() const;
-	bool is_option(Ipponboard::EOption option) const { return GetOption(option); } // TODO: use GetOption!
+    int get_time(ETimer) const final;
+    bool is_sonomama() const final;
+    bool is_golden_score() const final;
+    bool is_option(Ipponboard::EOption option) const final { return GetOption(option); } // TODO: use GetOption!
+    bool is_auto_adjust() const final { return m_isAutoAdjustPoints; }
 
 public:
 	// --- other functions ---
@@ -186,13 +189,13 @@ private:
 	typedef std::set<IView*> ViewList;	// TODO: protect pointer
 	ViewList m_Views;
 	QString m_Message;
-	bool setPointsInOsaekomi;
 	QString m_gongFile;
 	bool m_isSonoMama;
 	bool m_isGoldenScore;
 	QTime m_fightTime;
 	QString m_weight_class;
 	std::bitset<eOption_MAX> m_options;
+    bool m_isAutoAdjustPoints {true};
 	QString m_labelHome;
 	QString m_labelGuest;
     void reset_timers();

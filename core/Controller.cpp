@@ -44,7 +44,6 @@ Controller::Controller()
 	, m_pTimeMain(0)
 	, m_pTimeHold(0)
 	, m_Tori(FighterEnum::None)
-	, setPointsInOsaekomi(false)
 	, m_isSonoMama(false)
 	, m_isGoldenScore(false)
 	, m_fightTime(0, 0, 0, 0)
@@ -89,8 +88,8 @@ void Controller::InitTournament(TournamentMode const& mode)
 
 	m_mode = mode;
     m_rules = RulesFactory::Create(m_mode.rules);
-    m_rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
-    m_rules->SetAutoAdjustPoints(m_mode.IsOptionSet(eOption_AutoAdjustPoints));
+    m_rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+    m_rules->SetAlwaysAutoAdjustPoints(m_mode.IsOptionSet(TournamentMode::str_Option_AlwaysAutoAdjustPoints));
 
 	QStringList actualWeights = m_mode.weights.split(';');
 
@@ -108,7 +107,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
             fight.rules = m_rules;
-            fight.rules->SetCountSubscores(m_mode.IsOptionSet(eOption_AllSubscoresCount));
+            fight.rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
 			SimpleFighter emptyFighter;
 			emptyFighter.name = emptyFighterName;
@@ -645,6 +644,15 @@ void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
     }
 }
 
+bool Controller::IsAutoAdjustPoints() const
+{
+    return m_isAutoAdjustPoints;
+}
+
+void Controller::SetAutoAdjustPoints(bool isActive)
+{
+    m_isAutoAdjustPoints = isActive;
+}
 
 //=========================================================
 void Controller::SetOption(EOption option, bool isSet)

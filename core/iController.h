@@ -39,6 +39,8 @@ public:
 	virtual bool IsGoldenScore() const = 0;
     virtual std::shared_ptr<AbstractRules> GetRules() const = 0;
     virtual void SetRules(std::shared_ptr<AbstractRules> rules) = 0;
+    virtual bool IsAutoAdjustPoints() const = 0;
+    virtual void SetAutoAdjustPoints(bool isActive) = 0;
 	virtual void SetOption(Ipponboard::EOption option, bool isSet) = 0;
 	virtual bool GetOption(Ipponboard::EOption option) const = 0;
 	virtual QString GetHomeLabel() const = 0;

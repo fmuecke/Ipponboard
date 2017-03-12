@@ -14,7 +14,6 @@
 #include "ModeManagerDlg.h"
 #include "ui_ModeManagerDlg.h"
 #include "..\core\Enums.h"
-#include "..\core\EnumStrings.h"
 #include "..\core\Rules.h"
 
 #include <QComboBox>
@@ -105,8 +104,8 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
         m_pUi->comboBox_rules->setCurrentIndex(rulesIndex);
     }
 
-    m_pUi->checkBox_autoAdjustPoints->setChecked(mode.IsOptionSet(eOption_AutoAdjustPoints));
-    m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(eOption_AllSubscoresCount)); //FIXME
+    m_pUi->checkBox_alwaysAutoAdjustPoints->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AlwaysAutoAdjustPoints));
+    m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
 	m_currentIndex = i;
 }
@@ -122,7 +121,7 @@ void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString &s)
     mode.listTemplate = s;
 }
 
-void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int i)
+void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int /*i*/)
 {
 	if (!is_initialized())
 	{
@@ -155,7 +154,7 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
     update_fights_per_round(mode);
 }
 
-void ModeManagerDlg::on_checkBox_autoAdjustPoints_toggled(bool checked)
+void ModeManagerDlg::on_checkBox_alwaysAutoAdjustPoints_toggled(bool checked)
 {
 	if (!is_initialized())
 	{
@@ -163,7 +162,7 @@ void ModeManagerDlg::on_checkBox_autoAdjustPoints_toggled(bool checked)
 	}
 
 	auto& mode = GetMode(m_currentIndex);
-    mode.SetOption(eOption_AutoAdjustPoints, checked);
+    mode.SetOption(TournamentMode::str_Option_AlwaysAutoAdjustPoints, checked);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
@@ -174,7 +173,7 @@ void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
 	}
 
 	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
-    mode.SetOption(eOption_AllSubscoresCount, checked);
+    mode.SetOption(TournamentMode::str_Option_AllSubscoresCount, checked);
 }
 
 void ModeManagerDlg::on_toolButton_add_clicked()

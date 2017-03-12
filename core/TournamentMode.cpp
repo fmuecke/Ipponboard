@@ -6,7 +6,6 @@
 //
 
 #include "TournamentMode.h"
-#include "EnumStrings.h"
 #include "Rules.h"
 
 #include <QString>
@@ -27,6 +26,8 @@ QString const& TournamentMode::str_Options("Options");
 QString const& TournamentMode::str_Rounds("Rounds");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
+QString const& TournamentMode::str_Option_AlwaysAutoAdjustPoints("AutoAdjustPoints");
+QString const& TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
 
 TournamentMode::TournamentMode()
     : id("SingeTournament")
@@ -178,20 +179,18 @@ int TournamentMode::GetFightDuration(const QString& weight) const
     return fightTimeInSeconds;
 }
 
-bool TournamentMode::IsOptionSet(EOption o) const
+bool TournamentMode::IsOptionSet(QString const& option) const
 {
     if (options.isEmpty())
     {
         return false;
     }
 
-    return options.contains(EnumToString(o));
+    return options.contains(option);
 }
 
-void TournamentMode::SetOption(EOption o, bool checked)
+void TournamentMode::SetOption(QString const& option, bool checked)
 {
-    auto option = EnumToString(o);
-
     if (checked)
     {
         if (!options.contains(option))

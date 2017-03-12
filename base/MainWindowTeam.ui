@@ -1203,6 +1203,8 @@
     <addaction name="menuLanguages"/>
     <addaction name="separator"/>
     <addaction name="actionLoad_Demo_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionAutoAdjustPoints"/>
    </widget>
    <widget class="QMenu" name="menuManage">
     <property name="title">
@@ -1548,6 +1550,11 @@
     <string>Choose Dutch as program language</string>
    </property>
   </action>
+  <action name="actionAutoAdjustPoints">
+   <property name="text">
+    <string>Auto Adjust Points</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -1577,7 +1584,6 @@
   <tabstop>lineEdit_score</tabstop>
  </tabstops>
  <resources>
-  <include location="ipponboard.qrc"/>
   <include location="ipponboard.qrc"/>
  </resources>
  <connections>

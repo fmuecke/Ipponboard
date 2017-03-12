@@ -102,7 +102,6 @@ HEADERS = pch.h \
     ../util/SimpleCsvFile.hpp \
 	../core/Controller.h \
 	../core/Enums.h \
-	../core/EnumStrings.h \
 	../core/Fight.h \
 	../core/FightCategory.h \
 	../core/iController.h \

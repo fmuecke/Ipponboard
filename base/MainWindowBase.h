@@ -80,6 +80,7 @@ static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 static const char* const str_tag_rules = "Rules";
+static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
 
 class MainWindowBase : public QMainWindow, public Ipponboard::IView
 {
@@ -150,6 +151,8 @@ protected slots:
 	void on_actionVisit_Project_Homepage_triggered();
 	void on_actionAbout_Ipponboard_triggered();
 	virtual void on_actionManageFighters_triggered() {}
+    virtual void on_actionAutoAdjustPoints_toggled(bool checked);
+
 
 protected:
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }

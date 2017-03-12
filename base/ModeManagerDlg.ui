@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>584</width>
-    <height>332</height>
+    <height>335</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,7 +115,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string># rounds</string>
+        <string># Rounds</string>
        </property>
       </widget>
      </item>
@@ -260,12 +260,12 @@ Note: the time must be specified in seconds alone</string>
       </layout>
      </item>
      <item row="7" column="0">
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="label_11">
        <property name="toolTip">
         <string>The fight duration in seconds</string>
        </property>
        <property name="text">
-        <string>Options</string>
+        <string>Rules</string>
        </property>
       </widget>
      </item>
@@ -275,9 +275,9 @@ Note: the time must be specified in seconds alone</string>
         <bool>true</bool>
        </property>
        <item>
-       <property name="text">
+        <property name="text">
          <string>Rules 2017</string>
-       </property>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -296,23 +296,33 @@ Note: the time must be specified in seconds alone</string>
        </item>
       </widget>
      </item>
-     <item row="8" column="1">
-      <widget class="QCheckBox" name="checkBox_autoAdjustPoints">
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_9">
        <property name="toolTip">
-        <string>Automatically add points during Osae-komi</string>
+        <string>The fight duration in seconds</string>
        </property>
        <property name="text">
-        <string>Auto adjust points</string>
+        <string>Options</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
+     <item row="8" column="1">
       <widget class="QCheckBox" name="checkBox_allSubscoresCount">
        <property name="toolTip">
         <string>Sub-scores are valued even if the fight is lost</string>
        </property>
        <property name="text">
         <string>All sub-scores count</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QCheckBox" name="checkBox_alwaysAutoAdjustPoints">
+       <property name="toolTip">
+        <string>Automatically add points during Osae-komi</string>
+       </property>
+       <property name="text">
+        <string>Always adjust points automatically (or use main setting)</string>
        </property>
       </widget>
      </item>
@@ -345,8 +355,6 @@ Note: the time must be specified in seconds alone</string>
   <tabstop>spinBox_rounds</tabstop>
   <tabstop>spinBox_fightTimeSeconds</tabstop>
   <tabstop>lineEdit_timeOverrides</tabstop>
-  <tabstop>checkBox_autoAdjustPoints</tabstop>
-  <tabstop>checkBox_allSubscoresCount</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>

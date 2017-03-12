@@ -11,7 +11,6 @@
 #include "../core/Controller.h"
 #include "../core/Fighter.h"
 #include "../core/Enums.h"
-#include "../core/EnumStrings.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
 #include "../gamepad/gamepad.h"
@@ -308,6 +307,11 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
                 VersionInfo::Revision,
                 VersionInfo::CopyrightYear,
                 DonationManager::DonationUrl));
+}
+
+void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
+{
+    m_pController->SetAutoAdjustPoints(checked);
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()

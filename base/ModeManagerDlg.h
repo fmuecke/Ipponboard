@@ -41,11 +41,11 @@ private slots:
         // comboBoxes
         void on_comboBox_mode_currentIndexChanged(int i);
         void on_comboBox_template_currentIndexChanged(QString const& s);
-        void on_comboBox_rules_currentIndexChanged(int i);
+        void on_comboBox_rules_currentIndexChanged(int);
         // checkBoxes
         void on_checkBox_timeOverrides_toggled(bool checked);
         void on_checkBox_doubleWeights_toggled(bool checked);
-        void on_checkBox_autoAdjustPoints_toggled(bool checked);
+        void on_checkBox_alwaysAutoAdjustPoints_toggled(bool checked);
         void on_checkBox_allSubscoresCount_toggled(bool checked);
         // buttons
         void on_toolButton_add_clicked();

@@ -10,20 +10,21 @@ using Point = Score::Point;
 void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 //---------------------------------------------------------
 {
-	if (m_pCore->is_option(Ipponboard::eOption_AutoAdjustPoints))
-	{
-        auto rs = m_pCore->GetRules();
+    auto pRules = m_pCore->GetRules();
 
-        if (rs->GetOsaekomiValue(Point::Yuko)== evt.secs)
+    if (m_pCore->is_auto_adjust() || pRules->IsOption_AlwaysAutoAdjustPoints())
+	{
+
+        if (pRules->GetOsaekomiValue(Point::Yuko)== evt.secs)
         {
             Score_(evt.tori).Add(Point::Yuko);
         }
-        else if (rs->GetOsaekomiValue(Point::Wazaari) == evt.secs)
+        else if (pRules->GetOsaekomiValue(Point::Wazaari) == evt.secs)
         {
             Score_(evt.tori).Remove(Point::Yuko);
             Score_(evt.tori).Add(Point::Wazaari);
         }
-        else if (rs->GetOsaekomiValue(Point::Ippon) == evt.secs)
+        else if (pRules->GetOsaekomiValue(Point::Ippon) == evt.secs)
         {
             Score_(evt.tori).Remove(Point::Wazaari);
             Score_(evt.tori).Add(Point::Ippon);
@@ -179,18 +180,20 @@ void IpponboardSM_::add_point(PointEvent<ippon_type> const& evt)
 
 void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 {
-	if (m_pCore->is_option(eOption_AutoAdjustPoints))
+    auto pRules = m_pCore->GetRules();
+
+    if (m_pCore->is_auto_adjust() || pRules->IsOption_AlwaysAutoAdjustPoints())
 	{
 		FighterEnum uke = GetUkeFromTori(evt.tori);
 
-        auto maxShidoCount = m_pCore->GetRules()->GetMaxShidoCount();
+        auto maxShidoCount = pRules->GetMaxShidoCount();
         if (maxShidoCount == Score_(evt.tori).Shido())
 		{
             Score_(uke).Add(Point::Ippon);
 		}
 		else
 		{
-            if (m_pCore->GetRules()->IsOption_ShidoAddsPoint())
+            if (pRules->IsOption_ShidoAddsPoint())
             {
                 if (maxShidoCount > 2 && 3 == Score_(evt.tori).Shido())
                 {
@@ -224,9 +227,11 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 	}
 	else
 	{
-		if (m_pCore->is_option(eOption_AutoAdjustPoints))
+        auto pRules = m_pCore->GetRules();
+
+        if (m_pCore->is_auto_adjust() || pRules->IsOption_AlwaysAutoAdjustPoints())
 		{
-            auto maxShidoCount = m_pCore->GetRules()->GetMaxShidoCount();
+            auto maxShidoCount = pRules->GetMaxShidoCount();
             if (maxShidoCount + 1 == Score_(evt.tori).Shido())
 			{
                 Score_(uke).Remove(Point::Ippon);
