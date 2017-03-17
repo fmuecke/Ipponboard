@@ -26,7 +26,6 @@ QString const& TournamentMode::str_Options("Options");
 QString const& TournamentMode::str_Rounds("Rounds");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
-QString const& TournamentMode::str_Option_AlwaysAutoAdjustPoints("AutoAdjustPoints");
 QString const& TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
 
 TournamentMode::TournamentMode()

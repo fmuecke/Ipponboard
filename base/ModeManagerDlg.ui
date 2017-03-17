@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>584</width>
-    <height>335</height>
+    <height>312</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -313,16 +313,6 @@ Note: the time must be specified in seconds alone</string>
        </property>
        <property name="text">
         <string>All sub-scores count</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QCheckBox" name="checkBox_alwaysAutoAdjustPoints">
-       <property name="toolTip">
-        <string>Automatically add points during Osae-komi</string>
-       </property>
-       <property name="text">
-        <string>Always adjust points automatically (or use main setting)</string>
        </property>
       </widget>
      </item>

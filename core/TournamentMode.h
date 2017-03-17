@@ -43,7 +43,6 @@ public:
 	static QString const& str_FightTimeOverrides;
 	static QString const& str_WeightsAreDoubled;
     static QString const& str_none;
-    static QString const& str_Option_AlwaysAutoAdjustPoints;
     static QString const& str_Option_AllSubscoresCount;
 
 	static bool ReadModes(

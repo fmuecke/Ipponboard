@@ -62,7 +62,7 @@ enum ETimer
 enum EOption
 {
     eOption_Invalid = -1,
-    eOption_AutoAdjustPoints = 0,
+    //eOption_AutoAdjustPoints = 0,
     eOption_AllSubscoresCount = 2,
 	eOption_MAX
 };

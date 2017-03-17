@@ -90,7 +90,7 @@ void MainWindowBase::Init()
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
 	m_pTimer->start(75);
 
-	update_statebar();
+    update_statebar();
 
 	m_pController->RegisterView(m_pPrimaryView.get());
 	m_pController->RegisterView(m_pSecondaryView.get());

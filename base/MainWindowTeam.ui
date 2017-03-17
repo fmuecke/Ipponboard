@@ -1354,6 +1354,9 @@
    </property>
   </action>
   <action name="actionLoad_Demo_Data">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Load Demo Data</string>
    </property>
@@ -1551,6 +1554,12 @@
    </property>
   </action>
   <action name="actionAutoAdjustPoints">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Auto Adjust Points</string>
    </property>

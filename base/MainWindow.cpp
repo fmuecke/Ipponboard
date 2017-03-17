@@ -61,18 +61,20 @@ void MainWindow::Init()
 {
 	m_pCategoryManager.reset(new FightCategoryMgr());
 
-	MainWindowBase::Init();
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
-	// init tournament classes (if there are none present)
-	for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
-	{
-		FightCategory t("");
-		m_pCategoryManager->GetCategory(i, t);
-		m_pUi->comboBox_weight_class->addItem(t.ToString());
-	}
+    MainWindowBase::Init();
 
-	// trigger tournament class combobox update
-	on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
+    // init tournament classes (if there are none present)
+    for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
+    {
+        FightCategory t("");
+        m_pCategoryManager->GetCategory(i, t);
+        m_pUi->comboBox_weight_class->addItem(t.ToString());
+    }
+
+    // trigger tournament class combobox update
+    on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
 }
 
 void MainWindow::on_actionManageClasses_triggered()
@@ -248,8 +250,6 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
-
     ui_check_rules_items();
 
 //    if (m_pController->GetOption(eOption_Use2013Rules))

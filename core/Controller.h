@@ -105,7 +105,7 @@ private:
     bool is_sonomama() const final;
     bool is_golden_score() const final;
     bool is_option(Ipponboard::EOption option) const final { return GetOption(option); } // TODO: use GetOption!
-    bool is_auto_adjust() const final { return m_isAutoAdjustPoints; }
+    bool is_auto_adjust() const final { return IsAutoAdjustPoints(); }
 
 public:
 	// --- other functions ---

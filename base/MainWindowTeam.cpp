@@ -78,35 +78,37 @@ MainWindowTeam::~MainWindowTeam()
 void MainWindowTeam::Init()
 {
 	m_pClubManager.reset(new Ipponboard::ClubManager());
-	m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
+    m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
 
-	MainWindowBase::Init();
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
-	// set default background
-	m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
+    MainWindowBase::Init();
 
-	//
-	// load tournament modes
-	//
-	QString errMsg;
+    // set default background
+    m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
+
+    //
+    // load tournament modes
+    //
+    QString errMsg;
     Ipponboard::TournamentMode::List modes;
     if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
-	{
-		QMessageBox::critical(0,
+    {
+        QMessageBox::critical(0,
                               QCoreApplication::tr("Error reading mode configurations"),
-							  errMsg);
+                              errMsg);
 
-		throw std::exception("Initialization failed!");
-	}
-	SetModes(modes);
-	
-	// load modes
-	for (auto const& mode : m_modes)
-	{
+        throw std::exception("Initialization failed!");
+    }
+    SetModes(modes);
+
+    // load modes
+    for (auto const& mode : m_modes)
+    {
         m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
-	}
+    }
 
-	initialized = true;
+    initialized = true;
 
     int modeIndex = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
     if (-1 == modeIndex)
@@ -124,31 +126,31 @@ void MainWindowTeam::Init()
         on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
     }
 
-	//
-	// setup data
-	//
-	m_pUi->dateEdit->setDate(QDate::currentDate());
-	update_club_views();
+    //
+    // setup data
+    //
+    m_pUi->dateEdit->setDate(QDate::currentDate());
+    update_club_views();
 
-	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
+    //m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
-	// set fighter comboboxes
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+    // set fighter comboboxes
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
+    //m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
 #if 0
-	auto cbxFightersHome = new ComboBoxDelegate(this);
-	cbxFightersHome->SetItems(m_FighterNamesHome);
+    auto cbxFightersHome = new ComboBoxDelegate(this);
+    cbxFightersHome->SetItems(m_FighterNamesHome);
 
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
-	auto cbxFightersGuest = new ComboBoxDelegate(this);
-	cbxFightersGuest->SetItems(m_FighterNamesGuest);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
+    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
+    auto cbxFightersGuest = new ComboBoxDelegate(this);
+    cbxFightersGuest->SetItems(m_FighterNamesGuest);
+    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 #endif
     // make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
@@ -163,29 +165,29 @@ void MainWindowTeam::Init()
 //	m_pUi->gridLayout_main->removeItem(m_pUi->horizontalSpacer_4);
 //	delete m_pUi->horizontalSpacer_4;
 
-	//update_weights("-66;-73;-81;-90;+90");
-	//FIXME: check why this has not been in branch
+    //update_weights("-66;-73;-81;-90;+90");
+    //FIXME: check why this has not been in branch
 
-	UpdateFightNumber_();
-	UpdateButtonText_();
+    UpdateFightNumber_();
+    UpdateButtonText_();
 
-	//m_pUi->button_pause->click();	// we start with pause!
+    //m_pUi->button_pause->click();	// we start with pause!
 }
 
 void MainWindowTeam::closeEvent(QCloseEvent* event)
 {
-	MainWindowBase::closeEvent(event);
+    MainWindowBase::closeEvent(event);
 
-	if (m_pScoreScreen)
-	{
-		m_pScoreScreen->close();
-	}
+    if (m_pScoreScreen)
+    {
+        m_pScoreScreen->close();
+    }
 }
 
 void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 {
-	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
-	const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
+    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
+    const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
 
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
@@ -1026,7 +1028,7 @@ void MainWindowTeam::on_actionExport_triggered()
 		}
 
 		QApplication::restoreOverrideCursor();
-	}
+    }
 }
 
 void MainWindowTeam::on_toolButton_weights_pressed()

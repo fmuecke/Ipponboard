@@ -104,7 +104,6 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
         m_pUi->comboBox_rules->setCurrentIndex(rulesIndex);
     }
 
-    m_pUi->checkBox_alwaysAutoAdjustPoints->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AlwaysAutoAdjustPoints));
     m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
 	m_currentIndex = i;
@@ -152,17 +151,6 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 	auto& mode = GetMode(m_currentIndex);
     mode.weightsAreDoubled = checked;
     update_fights_per_round(mode);
-}
-
-void ModeManagerDlg::on_checkBox_alwaysAutoAdjustPoints_toggled(bool checked)
-{
-	if (!is_initialized())
-	{
-		return;
-	}
-
-	auto& mode = GetMode(m_currentIndex);
-    mode.SetOption(TournamentMode::str_Option_AlwaysAutoAdjustPoints, checked);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
