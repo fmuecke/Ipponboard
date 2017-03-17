@@ -1519,6 +1519,9 @@
    </property>
   </action>
   <action name="actionImport_Fighters">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="ipponboard.qrc">
      <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
