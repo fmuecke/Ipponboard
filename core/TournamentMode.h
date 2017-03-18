@@ -38,6 +38,7 @@ public:
 	static QString const& str_Weights;
 	static QString const& str_Template;
     static QString const& str_Options;
+    static QString const& str_Rules;
 	static QString const& str_Rounds;
 	static QString const& str_FightTimeInSeconds;
 	static QString const& str_FightTimeOverrides;

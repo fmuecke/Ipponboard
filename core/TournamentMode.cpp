@@ -24,6 +24,7 @@ QString const& TournamentMode::str_Template("Template");
 QString const& TournamentMode::str_FightTimeOverrides("FightTimeOverrides");
 QString const& TournamentMode::str_Options("Options");
 QString const& TournamentMode::str_Rounds("Rounds");
+QString const& TournamentMode::str_Rules("Rules");
 QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
 QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
 QString const& TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
@@ -119,6 +120,7 @@ bool TournamentMode::WriteModes(const QString &filename, TournamentMode::List co
         config.setValue(str_FightTimeInSeconds, mode.fightTimeInSeconds);
         config.setValue(str_WeightsAreDoubled, mode.weightsAreDoubled);
         config.setValue(str_Options, mode.options);
+        config.setValue(str_Rules, mode.rules);
         config.setValue(str_FightTimeOverrides, mode.GetFightTimeOverridesString());
 
         config.endGroup();
@@ -202,9 +204,12 @@ void TournamentMode::SetOption(QString const& option, bool checked)
         if (options.contains(option))
         {
             options.replace(option, QString());
-            options.replace(";;", ";");
         }
     }
+
+    options.replace(";;", ";");
+    options.remove(QRegExp("^;"));
+    options.remove(QRegExp(";$"));
 }
 
 QString TournamentMode::GetFightTimeOverridesString() const
@@ -273,6 +278,7 @@ bool TournamentMode::parse_current_group(
     mode.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
     mode.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
     mode.options = config.value(TournamentMode::str_Options, QString()).toString();
+    mode.rules = config.value(TournamentMode::str_Rules, mode.rules).toString();
 	const QString fightTimeOverridesString = config.value(TournamentMode::str_FightTimeOverrides).toString();
 
     if (mode.weights.isEmpty())
@@ -302,7 +308,9 @@ bool TournamentMode::parse_current_group(
 
     if (!mode.options.isEmpty())
     {
-        // nothing to do
+        // remove no longer supported options
+        mode.options.replace("AutoIncrementPoints", QString());
+        mode.options.replace("Use2013Rules", QString());
     }
 
     if (mode.nRounds == 0)
@@ -353,9 +361,10 @@ bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& er
 
 	QStringList optionalKeys;
 	optionalKeys
-			<< str_SubTitle
+            << str_SubTitle
 			<< str_FightTimeOverrides
             << str_WeightsAreDoubled
+            << str_Rules
             << str_Options;
 
     for (QString const & key : childKeys)
