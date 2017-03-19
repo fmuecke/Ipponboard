@@ -46,3 +46,4 @@ ui*.h
 *.autosave
 *.opensdf
 i18n/*.qm
+_output/

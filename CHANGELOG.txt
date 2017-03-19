@@ -1,3 +1,7 @@
+Version 1.8-beta2
+(new): team tournament mode with current IJF rules: rules can now be configured via the mode manager
+(mod): automatically adjusting points is no longer a mode specific setting but a general program option
+
 Version 1.7-beta3
 (new): separate mode for new U15 matches (which allows four shidos)
 
