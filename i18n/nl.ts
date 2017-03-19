@@ -418,7 +418,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+391"/>
+        <location filename="../core/Controller.cpp" line="+389"/>
         <source>First</source>
         <translation>Eerste</translation>
     </message>
@@ -431,7 +431,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+47"/>
+        <location filename="../base/SettingsDlg.cpp" line="+48"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -853,17 +853,17 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+294"/>
+        <location filename="../base/MainWindowBase.cpp" line="+293"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+39"/>
         <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+677"/>
+        <location line="+667"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -879,7 +879,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-691"/>
+        <location line="-681"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -888,7 +888,7 @@ Geldige velden zijn: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+312"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+314"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
@@ -904,7 +904,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1079"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1081"/>
         <location filename="../base/MainWindowTeam.cpp" line="+64"/>
         <source>Save</source>
         <translation type="unfinished">Opslaan</translation>
@@ -956,7 +956,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+187"/>
+        <location line="+185"/>
         <source>Export file to...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1036,7 +1036,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1280"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1282"/>
         <source>Ipponboard</source>
         <translation type="unfinished">Ipponboard</translation>
     </message>
@@ -1203,7 +1203,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished">Taal</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>Manage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1248,7 +1248,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+119"/>
         <source>Report a Bug</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1258,7 +1258,12 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="+164"/>
+        <source>Auto Adjust Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-283"/>
         <source>About Ipponboard</source>
         <translation type="unfinished">Over Ipponboard</translation>
     </message>
@@ -1319,7 +1324,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished">Voorkeuren</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>Load Demo Data</source>
         <translation type="unfinished">Laad de Demodata</translation>
     </message>
@@ -1400,7 +1405,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished">Deelnemers</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>Import Fighters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1451,11 +1456,12 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="+10"/>
         <location line="+191"/>
+        <location line="+22"/>
         <source>The fight duration in seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-188"/>
+        <location line="-210"/>
         <source>Template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1476,7 +1482,7 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source># rounds</source>
+        <source># Rounds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1524,28 +1530,13 @@ Note: the time must be specified in seconds alone</source>
     </message>
     <message>
         <location line="+21"/>
+        <source>Rules</source>
+        <translation type="unfinished">Regels</translation>
+    </message>
+    <message>
+        <location line="+22"/>
         <source>Options</source>
         <translation type="unfinished">Opties</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Use the offical IJF rules of 2013</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Use rules of 2013</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Automatically add points during Osae-komi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Auto adjust points</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1558,7 +1549,7 @@ Note: the time must be specified in seconds alone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+174"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+170"/>
         <source>*new*</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1671,7 +1662,7 @@ Note: the time must be specified in seconds alone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1318"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1316"/>
         <source>Error reading mode configurations</source>
         <translation type="unfinished"></translation>
     </message>

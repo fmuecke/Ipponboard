@@ -276,22 +276,7 @@ Note: the time must be specified in seconds alone</string>
        </property>
        <item>
         <property name="text">
-         <string>Rules 2017</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Rules 2017 (U15)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Rules 2013</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Classic Rules</string>
+         <string notr="true">RULES</string>
         </property>
        </item>
       </widget>
