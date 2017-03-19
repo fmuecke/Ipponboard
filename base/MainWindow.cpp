@@ -61,8 +61,6 @@ void MainWindow::Init()
 {
 	m_pCategoryManager.reset(new FightCategoryMgr());
 
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
-
     MainWindowBase::Init();
 
     // init tournament classes (if there are none present)
@@ -75,6 +73,8 @@ void MainWindow::Init()
 
     // trigger tournament class combobox update
     on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
+
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 }
 
 void MainWindow::on_actionManageClasses_triggered()
@@ -384,18 +384,18 @@ void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
 
 void MainWindow::write_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionNameShort());
-	{
-		settings.setValue(str_tag_MatLabel, m_MatLabel);
+    settings.beginGroup(EditionNameShort());
+    {
+        settings.remove("");
+        settings.setValue(str_tag_MatLabel, m_MatLabel);
         settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
-        settings.setValue(str_tag_autoAdjustPoints, m_pController->IsAutoAdjustPoints());
 	}
 	settings.endGroup();
 }
 
 void MainWindow::read_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionNameShort());
+    settings.beginGroup(EditionNameShort());
 	{
 		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
@@ -404,7 +404,6 @@ void MainWindow::read_specific_settings(QSettings& settings)
 		// rules
         auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
         m_pController->SetRules(rules);
-        m_pController->SetAutoAdjustPoints(settings.value(str_tag_autoAdjustPoints, true).toBool());
 	}
 	settings.endGroup();
 }

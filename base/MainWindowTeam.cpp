@@ -80,8 +80,6 @@ void MainWindowTeam::Init()
 	m_pClubManager.reset(new Ipponboard::ClubManager());
     m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
 
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
-
     MainWindowBase::Init();
 
     // set default background
@@ -167,6 +165,8 @@ void MainWindowTeam::Init()
 
     //update_weights("-66;-73;-81;-90;+90");
     //FIXME: check why this has not been in branch
+
+    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
     UpdateFightNumber_();
     UpdateButtonText_();
@@ -293,19 +293,20 @@ QStringList MainWindowTeam::get_list_templates()
 
 void MainWindowTeam::write_specific_settings(QSettings& settings)
 {
-    QString group = EditionName();
-    settings.beginGroup(group.replace(' ', '_'));
-    settings.setValue(StrTags::mode, m_currentMode);
-	settings.setValue(StrTags::host, m_host);
-	settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
-	settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
+    settings.beginGroup(EditionNameShort());
+    {
+        settings.remove("");
+        settings.setValue(StrTags::mode, m_currentMode);
+        settings.setValue(StrTags::host, m_host);
+        settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
+        settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
+    }
 	settings.endGroup();
 }
 
 void MainWindowTeam::read_specific_settings(QSettings& settings)
 {
-    QString group = EditionName();
-    settings.beginGroup(group.replace(' ', '_'));
+    settings.beginGroup(EditionNameShort());
 	{
         m_currentMode = settings.value(StrTags::mode, "").toString();
 		m_host = settings.value(StrTags::host, "").toString();

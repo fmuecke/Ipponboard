@@ -419,7 +419,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Main);
 	{
-		settings.setValue(str_tag_Version, VersionInfo::VersionStr);
+        settings.remove("");
+        settings.setValue(str_tag_Version, VersionInfo::VersionStr);
 		settings.setValue(str_tag_Language, m_Language);
 		settings.setValue(str_tag_size, size());
 		settings.setValue(str_tag_pos, pos());
@@ -433,7 +434,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Fonts);
 	{
-		settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
+        settings.remove("");
+        settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
 		settings.setValue(str_tag_FighterNameFont, m_FighterNameFont.toString());
 		settings.setValue(str_tag_DigitFont, m_pPrimaryView->GetDigitFont().toString());
 	}
@@ -441,7 +443,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Colors);
 	{
-		settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
+        settings.remove("");
+        settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
 		settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
 		settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
 		settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
@@ -454,7 +457,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Input);
 	{
-		settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
+        settings.remove("");
+        settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
 		settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
 		settings.setValue(str_tag_buttonPrev, m_controllerCfg.button_prev);
 		settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
@@ -475,9 +479,17 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Sounds);
 	{
-		settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
+        settings.remove("");
+        settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
 	}
 	settings.endGroup();
+
+    settings.beginGroup(str_tag_Options);
+    {
+        settings.remove("");
+        settings.setValue(str_tag_autoAdjustPoints, m_pController->IsAutoAdjustPoints());
+    }
+    settings.endGroup();
 }
 
 void MainWindowBase::read_settings()
@@ -636,6 +648,13 @@ void MainWindowBase::read_settings()
 								"sounds/buzzer1.wav").toString());
 	}
 	settings.endGroup();
+
+    settings.beginGroup(str_tag_Options);
+    {
+        const auto isAutoAdjust = settings.value(str_tag_autoAdjustPoints, true).toBool();
+        m_pController->SetAutoAdjustPoints(isAutoAdjust);
+    }
+    settings.endGroup();
 
 	// update views
 	update_views();

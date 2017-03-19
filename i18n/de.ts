@@ -590,7 +590,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     <message>
         <location line="+224"/>
         <source>Auto Adjust Points</source>
-        <translation>Wertungen automatisch erhöhen</translation>
+        <translation>Wertungen automatisch setzen</translation>
     </message>
     <message>
         <location line="+8"/>

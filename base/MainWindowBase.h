@@ -78,6 +78,7 @@ static const char* const str_tag_invertY = "InvertY";
 static const char* const str_tag_invertR = "InvertR";
 static const char* const str_tag_invertZ = "InvertZ";
 static const char* const str_tag_Sounds = "Sounds";
+static const char* const str_tag_Options = "Options";
 static const char* const str_tag_sound_time_ends = "TimeEnds";
 static const char* const str_tag_rules = "Rules";
 static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
