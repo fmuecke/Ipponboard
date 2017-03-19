@@ -87,6 +87,7 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\categories.json"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\clubs.json"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
 Source: "..\bin\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
