@@ -421,7 +421,9 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 //=========================================================
 {
 	if (!index.isValid())
+    {
 		return 0;
+    }
 
 	if (index.column() == eCol_won1 ||
 			index.column() == eCol_won2 ||
@@ -439,7 +441,9 @@ QSize TournamentModel::span(const QModelIndex& index) const
 //=========================================================
 {
 	if (index.column() == 2 && index.row() == 5)
+    {
 		return QSize(1, 2);
+    }
 
 	return QSize();
 }
