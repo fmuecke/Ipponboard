@@ -1,3 +1,7 @@
+Version 1.8-beta3
+(fix): URL for issue tracke does not lead to 404
+(fix): auto adjust settings is being restored properly
+
 Version 1.8-beta2
 (new): team tournament mode with current IJF rules: rules can now be configured via the mode manager
 (mod): automatically adjusting points is no longer a mode specific setting but a general program option
