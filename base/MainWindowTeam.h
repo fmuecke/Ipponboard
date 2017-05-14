@@ -37,7 +37,8 @@ public:
 	}
 
 protected:
-	//virtual void changeEvent(QEvent* e) override;
+    virtual void UpdateGoldenScoreView() final;
+    //virtual void changeEvent(QEvent* e) override;
 	virtual void closeEvent(QCloseEvent* event) override;
 	virtual void keyPressEvent(QKeyEvent* event) override;
 	virtual void attach_primary_view() final;
@@ -101,6 +102,7 @@ private slots:
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
 	void on_actionPrint_triggered();
 	void on_actionExport_triggered();
+    void on_button_golden_score_toggled(bool);
 
 	//void on_actionManage_Classes_triggered();
 	//void on_comboBox_weight_currentIndexChanged(const QString&);

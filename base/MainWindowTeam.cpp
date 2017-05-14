@@ -174,6 +174,12 @@ void MainWindowTeam::Init()
     //m_pUi->button_pause->click();	// we start with pause!
 }
 
+void MainWindowTeam::UpdateGoldenScoreView()
+{
+    m_pUi->button_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
+    m_pUi->button_golden_score->setChecked(m_pController->IsGoldenScore());
+}
+
 void MainWindowTeam::closeEvent(QCloseEvent* event)
 {
     MainWindowBase::closeEvent(event);
@@ -651,7 +657,9 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 				tr("Reset Scores"),
 				tr("Really reset complete score table?"),
 				QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
 		m_pController->ClearFightsAndResetTimers();
+    }
 
 	UpdateFightNumber_();
 	UpdateButtonText_();
@@ -818,7 +826,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	//if (0 == m_pController->GetCurrentFightIndex())
 	//	return;
 
-	m_pController->PrevFight();
+    m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 }
 
@@ -834,10 +842,11 @@ void MainWindowTeam::on_button_next_clicked()
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
 	}
 	*/
-	m_pController->NextFight();
+    m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
 	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
+
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
@@ -1030,6 +1039,11 @@ void MainWindowTeam::on_actionExport_triggered()
 
 		QApplication::restoreOverrideCursor();
     }
+}
+
+void MainWindowTeam::on_button_golden_score_toggled(bool toggled)
+{
+    m_pController->SetGoldenScore(toggled);
 }
 
 void MainWindowTeam::on_toolButton_weights_pressed()

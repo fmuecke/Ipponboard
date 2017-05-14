@@ -94,7 +94,8 @@ void MainWindowBase::Init()
 
 	m_pController->RegisterView(m_pPrimaryView.get());
 	m_pController->RegisterView(m_pSecondaryView.get());
-	m_pController->RegisterView(this);
+    m_pController->RegisterView(static_cast<IView*>(this));
+    m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
 }
 
 QString MainWindowBase::GetConfigFileName() const

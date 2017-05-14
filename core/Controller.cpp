@@ -1,5 +1,6 @@
 ﻿#include "Controller.h"
 #include "iView.h"
+#include "iGoldenScoreView.h"
 #include "Score.h"
 #include "Enums.h"
 #include "TournamentMode.h"
@@ -73,7 +74,8 @@ Controller::Controller()
 Controller::~Controller()
 //=========================================================
 {
-	m_Views.clear();
+    m_views.clear();
+    m_goldenScoreViews.clear();
 	//delete m_pTimeHold;
 	//delete m_pTimeMain;
 	delete m_pSM;
@@ -622,8 +624,18 @@ void Controller::SetGoldenScore(bool isGS)
 //=========================================================
 {
 	m_isGoldenScore = isGS;
-}
+    //> Set this before setting the time.
+    //> Setting time will then update the views.
 
+    if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
+    {
+        SetFightTime(QTime());
+    }
+    else
+    {
+        SetFightTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
+    }
+}
 
 std::shared_ptr<AbstractRules> Controller::GetRules() const
 {
@@ -693,9 +705,14 @@ void Controller::Gong() const
 void Controller::RegisterView(IView* pView)
 //=========================================================
 {
-	m_Views.insert(pView);
+    m_views.insert(pView);
 
 	// do not call UpdateViews here as views may not have been fully created
+}
+
+void Controller::RegisterView(IGoldenScoreView* pView)
+{
+    m_goldenScoreViews.insert(pView);
 }
 
 //=========================================================
@@ -870,6 +887,7 @@ void Controller::SetCurrentFight(unsigned int index)
 	*m_pTimeHold = QTime();
 	m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
 	*m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
+    m_isGoldenScore = false;
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);
@@ -1191,8 +1209,14 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	for (auto const& pView : m_Views)
+    for (auto const& pView : m_views)
 	{
 		pView->UpdateView();
 	}
+
+    for (auto const& pView : m_goldenScoreViews)
+    {
+        pView->UpdateGoldenScoreView();
+    }
 }
+

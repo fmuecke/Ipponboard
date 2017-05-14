@@ -28,6 +28,7 @@ namespace Ipponboard
 {
 // forwards
 class IView;
+class IGoldenScoreView;
 class AbstractRules;
 
 class Controller : public QObject, public IController, public IControllerCore
@@ -54,6 +55,7 @@ public:
     //FIXME: use override/final
 	void InitTournament(TournamentMode const& mode);
 	void RegisterView(IView* pView);
+    void RegisterView(IGoldenScoreView* pView);
 	int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const;
 	void DoAction(Ipponboard::EAction action, Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const	{ return m_State; }
@@ -186,8 +188,8 @@ private:
 	QTime* m_pTimeMain;
 	QTime* m_pTimeHold; // needed when side is not chosen yet
 	Ipponboard::FighterEnum m_Tori;
-	typedef std::set<IView*> ViewList;	// TODO: protect pointer
-	ViewList m_Views;
+    std::set<IView*> m_views;
+    std::set<IGoldenScoreView*> m_goldenScoreViews;
 	QString m_Message;
 	QString m_gongFile;
 	bool m_isSonoMama;

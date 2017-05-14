@@ -800,7 +800,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,1,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,2,0,1,0,0">
           <property name="spacing">
            <number>12</number>
           </property>
@@ -1110,6 +1110,64 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="button_golden_score">
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
+              <property name="toolTip">
+               <string>Toggle Golden Score mode</string>
+              </property>
+              <property name="text">
+               <string>Golden Score</string>
+              </property>
+              <property name="icon">
+               <iconset resource="ipponboard.qrc">
+                <normaloff>:/res/images/off.png</normaloff>
+                <normalon>:/res/images/on_green.png</normalon>
+                <activeoff>:/res/images/off.png</activeoff>
+                <selectedoff>:/res/images/off.png</selectedoff>:/res/images/off.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="shortcut">
+               <string notr="true"/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
           <item>
            <widget class="QPushButton" name="button_reset">

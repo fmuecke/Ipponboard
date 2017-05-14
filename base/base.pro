@@ -106,7 +106,6 @@ HEADERS = pch.h \
 	../core/FightCategory.h \
 	../core/iController.h \
 	../core/iControllerCore.h \
-	../core/iView.h \
 	../core/Score.h \
 	../core/StateMachine.h \
 	../core/Tournament.h \
@@ -116,7 +115,9 @@ HEADERS = pch.h \
 	../core/ControllerConfig.h \
     ../core/Rules.h \
     UpdateChecker.h \
-    VersionComparer.h
+    VersionComparer.h \
+    ../core/iGoldenScoreView.h \
+    ../core/iView.h
 
 
 SOURCES = Main.cpp \

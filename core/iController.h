@@ -11,12 +11,14 @@ namespace Ipponboard
 
 // forwards
 class IView;
+class IGoldenScoreView;
 class AbstractRules;
 
 class IController
 {
 public:
 	virtual void RegisterView(IView* pView) = 0;
+    virtual void RegisterView(IGoldenScoreView* pView) = 0;
 	virtual int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const = 0;
 	virtual void DoAction(Ipponboard::EAction action, Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool doRevoke = false) = 0;
 	virtual Ipponboard::EState GetCurrentState() const	= 0;

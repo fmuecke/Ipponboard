@@ -2,6 +2,7 @@
 #define BASE__MAINWINDOW_BASE_H_
 
 #include "../core/iView.h"
+#include "../core/iGoldenScoreView.h"
 #include "../core/EditionType.h"
 #include "FighterManager.h"
 #include "../core/ControllerConfig.h"
@@ -83,7 +84,7 @@ static const char* const str_tag_sound_time_ends = "TimeEnds";
 static const char* const str_tag_rules = "Rules";
 static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
 
-class MainWindowBase : public QMainWindow, public Ipponboard::IView
+class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ipponboard::IGoldenScoreView
 {
 	Q_OBJECT
 public:
@@ -102,6 +103,9 @@ public:
 	virtual void UpdateView();
 	virtual void Reset() {}
 	virtual void SetShowInfoHeader(bool /*show*/) {}
+
+    /* IGoldenScoreView */
+    virtual void UpdateGoldenScoreView() {};
 
 protected:
 	virtual void changeEvent(QEvent*) override;
