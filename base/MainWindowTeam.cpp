@@ -511,7 +511,7 @@ void MainWindowTeam::update_score_screen()
 	m_pScoreScreen->update();
 }
 
-QString MainWindowTeam::GetRoundHtml(const Fight& fight, int fightNo)
+QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
 {
     // little helper to hide initial zeros for early print outs
     auto getNum = [&](int val)
@@ -625,7 +625,7 @@ void MainWindowTeam::WriteScoreToHtml_()
     for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
     {
         const auto& fight = m_pController->GetFight(0, fightNo);
-        scoreData.append(GetRoundHtml(fight, fightNo));
+        scoreData.append(GetRoundDataAsHtml(fight, fightNo));
     }
 
     m_htmlScore.replace("%FIRST_ROUND%", scoreData);
@@ -638,7 +638,7 @@ void MainWindowTeam::WriteScoreToHtml_()
         for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
         {
             const auto& fight = m_pController->GetFight(roundNo, fightNo);
-            scoreData.append(GetRoundHtml(fight, fightNo + m_pController->GetFightCount()));
+            scoreData.append(GetRoundDataAsHtml(fight, fightNo + m_pController->GetFightCount()));
         }
     }
 

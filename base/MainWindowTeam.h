@@ -138,7 +138,7 @@ private:
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
     Ipponboard::TournamentMode::List m_modes;
-    QString GetRoundHtml(const Ipponboard::Fight& fight, int fightNo);
+    QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 
 #endif  // TEAM_EDITION_MAINWINDOW_H_
