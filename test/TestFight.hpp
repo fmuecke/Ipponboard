@@ -18,7 +18,7 @@ TEST_CASE("Fighter with less Shidos wins if points are equal")
 	auto scoreWithThreeShido = Score(score).Add(Point::Shido).Add(Point::Shido).Add(Point::Shido);
 
 	Fight fight;
-    fight.rules = std::make_shared<Ipponboard::Rules2013>();
+	fight.rules = std::make_shared<Ipponboard::Rules2013>();
 
 	fight.scores[0] = score;
 	fight.scores[1] = score;
@@ -56,7 +56,7 @@ TEST_CASE("Validate score points (subscore)")
 	auto second = FighterEnum::Second;
 
 	Fight fight;
-    fight.rules = std::make_shared<Ipponboard::Rules2013>();
+	fight.rules = std::make_shared<Ipponboard::Rules2013>();
 
 	auto emptyScore = Score();
 	auto shidoScore = Score().Add(Point::Shido);
@@ -93,4 +93,20 @@ TEST_CASE("Validate score points (subscore)")
 	fight.scores[1] = twoYukoWithTwoShidoScore;
 	REQUIRE(fight.ScorePoints(first) == 1);
 	REQUIRE(fight.ScorePoints(second) == 0);
+}
+
+TEST_CASE("TimeRemaining accounts for golden score")
+{
+	Fight f;
+	f.max_time_in_seconds = 240;
+	f.time_in_seconds = -65;
+	REQUIRE(f.GetTimeRemaining().toStdString() == "-1:05");
+}
+
+TEST_CASE("TimeFaught accounts for golden score")
+{
+	Fight f;
+	f.max_time_in_seconds = 240;
+	f.time_in_seconds = -65;
+	REQUIRE(f.GetTimeFaught().toStdString() == "5:05");
 }

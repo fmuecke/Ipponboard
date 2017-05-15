@@ -28,29 +28,42 @@ Fight::Fight()
 
 QString Fight::GetTimeFaught() const
 {
-    // get time display
-    const int minutes = time_in_seconds / 60;
-    const int seconds = time_in_seconds - minutes * 60;
-    QString ret = QString::number(minutes) + ":";
+	// get time display
+	const auto isNegative = time_in_seconds < 0;
+	int minutes = time_in_seconds / 60;
+	int seconds = time_in_seconds - minutes * 60;
+	if (isNegative)
+	{
+		seconds = max_time_in_seconds % 60 - time_in_seconds + minutes * 60;
+		minutes = max_time_in_seconds / 60 - minutes;
+	}
 
-    if (seconds < 10)	// append leading zero?
-        ret += "0";
+	QString ret = QString::number(minutes) + ":";
 
-    return  ret + QString::number(seconds);
+	if (seconds < 10)    // append leading zero?
+	{
+		ret += "0";
+	}
+
+	return  ret + QString::number(seconds);
 }
 
 QString Fight::GetTimeRemaining() const
 {
-    // get time display
-    const int time_remaining = max_time_in_seconds - time_in_seconds;
-    const int minutes = time_remaining / 60;
-    const int seconds = time_remaining - minutes * 60;
-    QString ret = QString::number(minutes) + ":";
+	// get time display
+	auto isNegative = time_in_seconds < 0;
+	auto time_remaining = isNegative ? -time_in_seconds : max_time_in_seconds - time_in_seconds;
+	auto minutes = time_remaining / 60;
+	auto seconds = time_remaining - minutes * 60;
 
-    if (seconds < 10)	// append leading zero?
-        ret += "0";
+	auto ret = isNegative ? "-" : QString();
+	ret += QString::number(minutes) + ":";
+	if (seconds < 10)    // append leading zero?
+	{
+		ret += "0";
+	}
 
-    return  ret + QString::number(seconds);
+	return ret + QString::number(seconds);
 }
 
 bool Fight::HasWon(FighterEnum who) const
