@@ -1,3 +1,6 @@
+Version 1.9-beta1
+(new): team tournament now supports Golden Score 
+
 Version 1.8-beta3
 (fix): URL for issue tracke does not lead to 404
 (fix): auto adjust settings is being restored properly
