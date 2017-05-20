@@ -10,19 +10,19 @@
 using namespace Ipponboard;
 
 Fight::Fight()
-    : weight("-")
-    , time_in_seconds(0)
-    , max_time_in_seconds(0)
-    , is_saved(false)
-    , rules(new ClassicRules)
+	: weight("-")
+	, time_in_seconds(0)
+	, max_time_in_seconds(0)
+	, is_saved(false)
+	, rules(new ClassicRules)
 {
-    scores[0] = Score();
-    scores[1] = Score();
+	scores[0] = Score();
+	scores[1] = Score();
 
-    fighters[0] = SimpleFighter();
-    fighters[1] = SimpleFighter();
+	fighters[0] = SimpleFighter();
+	fighters[1] = SimpleFighter();
 
-    rules->SetCountSubscores(false);
+	rules->SetCountSubscores(false);
 }
 
 
@@ -69,54 +69,64 @@ QString Fight::GetTimeRemaining() const
 bool Fight::HasWon(FighterEnum who) const
 {
 	const FighterEnum other = GetUkeFromTori(who);
-    return rules->IsScoreLess(GetScore(other), GetScore(who));
+
+	auto result = rules->CompareScore(*this);
+
+	if (who == FighterEnum::First && result < 0 ||
+		who == FighterEnum::Second && result > 0)
+	{
+		return true;
+	}
+	return false;
 }
 
-int Fight::ScorePoints(FighterEnum who) const
+int Fight::GetScorePoints(FighterEnum who) const
 {
-    const FighterEnum other = GetUkeFromTori(who);
+	const FighterEnum other = GetUkeFromTori(who);
 
-    if (HasWon(who))
-    {
-        if (GetScore(who).Ippon() || rules->IsAwaseteIppon(GetScore(who)))
-            return eScore_Ippon;
+	if (HasWon(who))
+	{
+		if (GetScore(who).Ippon() || rules->IsAwaseteIppon(GetScore(who)))
+		{
+			return eScore_Ippon;
+		}
 
-        // Only the fight deciding point is taken into account!
-        if (GetScore(who).Wazaari() > 0 && GetScore(who).Wazaari() > GetScore(other).Wazaari())
-        {
+		// Only the fight deciding point is taken into account!
+		if (GetScore(who).Wazaari() > 0 && GetScore(who).Wazaari() > GetScore(other).Wazaari())
+		{
 			return eScore_Wazaari;
 		}
 
 		if (GetScore(who).Yuko() > GetScore(other).Yuko())
 		{
-            return eScore_Yuko;
+			return eScore_Yuko;
 		}
 
-        if (!rules->IsOption_ShidoAddsPoint() && GetScore(who).Shido() < GetScore(other).Shido())
+		if ((!rules->IsOption_ShidoAddsPoint() || IsGoldenScore()) && GetScore(who).Shido() < GetScore(other).Shido())
 		{
 			return eScore_Shido;
-		}		
-        //TODO: Hantei!
-    }
-    else
-    {
-        if (!HasWon(other))
-        {
-            return eScore_Hikewake;
-        }
-        else if (rules->IsOption_CountSubscores())
-        {
-            // Special rule for Jugendliga
-            if (GetScore(who).Wazaari() > GetScore(other).Wazaari())
-            {
-                return eScore_Wazaari;
-            }
-            else if(GetScore(who).Yuko() > GetScore(other).Yuko())
-            {
-                return eScore_Yuko;
-            }
-        }
-    }
+		}
+		//TODO: Hantei!
+	}
+	else
+	{
+		if (!HasWon(other))
+		{
+			return eScore_Hikewake;
+		}
+		else if (rules->IsOption_CountSubscores())
+		{
+			// Special rule for Jugendliga
+			if (GetScore(who).Wazaari() > GetScore(other).Wazaari())
+			{
+				return eScore_Wazaari;
+			}
+			else if (GetScore(who).Yuko() > GetScore(other).Yuko())
+			{
+				return eScore_Yuko;
+			}
+		}
+	}
 
-    return eScore_Lost;
+	return eScore_Lost;
 }

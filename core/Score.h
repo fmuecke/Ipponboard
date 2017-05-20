@@ -7,49 +7,47 @@
 
 namespace Ipponboard
 {
-class AbstractRules;
+	class AbstractRules;
 
-class Score
-{
-public:
-
-    enum class Point
-    {
-        Ippon = 0,
-        Wazaari,
-        Yuko,
-        Shido,
-        Hansokumake,
-        _MAX
-    };
-
-    Score()
+	class Score
 	{
-		Clear();
-	}
+	public:
 
-	Score& Add(Point point);
-	Score& Remove(Point point);
-    Score& SetValue(Point point, int value);
-	int Value(Point point) const { return _points[static_cast<int>(point)]; }
+		enum class Point
+		{
+			Ippon = 0,
+			Wazaari,
+			Yuko,
+			Shido,
+			Hansokumake,
+			_MAX
+		};
 
-	// convenience functions
-	bool Ippon() const { return Value(Point::Ippon) != 0; }
-	int Wazaari() const { return Value(Point::Wazaari); }
-	int Yuko() const { return Value(Point::Yuko); }
-	int Shido() const { return Value(Point::Shido); }
-	bool Hansokumake() const  { return Value(Point::Hansokumake) != 0; }
+		Score()
+		{
+			Clear();
+		}
 
-	void Clear();
+		Score& Add(Point point);
+		Score& Remove(Point point);
+		Score& SetValue(Point point, int value);
+		int Value(Point point) const { return _points[static_cast<int>(point)]; }
 
-protected:
-    virtual void correct_point(Point p);
+		// convenience functions
+		bool Ippon() const { return Value(Point::Ippon) != 0; }
+		int Wazaari() const { return Value(Point::Wazaari); }
+		int Yuko() const { return Value(Point::Yuko); }
+		int Shido() const { return Value(Point::Shido); }
+		bool Hansokumake() const { return Value(Point::Hansokumake) != 0; }
+		void Clear();
 
-private:
-	void correct_points();
+	protected:
+		virtual void correct_point(Point p);
 
-	int _points[static_cast<int>(Point::_MAX)];
-};
+	private:
+		void correct_points();
 
+		int _points[static_cast<int>(Point::_MAX)];
+	};
 } // namespace ipponboard
 #endif  // BASE__SCORE_H_

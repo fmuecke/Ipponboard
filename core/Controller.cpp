@@ -46,7 +46,6 @@ Controller::Controller()
 	, m_pTimeHold(0)
 	, m_Tori(FighterEnum::None)
 	, m_isSonoMama(false)
-	, m_isGoldenScore(false)
 	, m_fightTime(0, 0, 0, 0)
 	, m_options(0)
 	, m_labelHome("HOME")
@@ -67,15 +66,14 @@ Controller::Controller()
 
 	connect(m_pTimerMain, SIGNAL(timeout()), this, SLOT(update_main_time()));
 	connect(m_pTimerHold, SIGNAL(timeout()), this, SLOT(update_hold_time()));
-
 }
 
 //=========================================================
 Controller::~Controller()
 //=========================================================
 {
-    m_views.clear();
-    m_goldenScoreViews.clear();
+	m_views.clear();
+	m_goldenScoreViews.clear();
 	//delete m_pTimeHold;
 	//delete m_pTimeMain;
 	delete m_pSM;
@@ -89,8 +87,8 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_Tournament.clear();
 
 	m_mode = mode;
-    m_rules = RulesFactory::Create(m_mode.rules);
-    m_rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+	m_rules = RulesFactory::Create(m_mode.rules);
+	m_rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
 	QStringList actualWeights = m_mode.weights.split(';');
 
@@ -101,20 +99,20 @@ void Controller::InitTournament(TournamentMode const& mode)
 		for (int fightNo = 0; fightNo < m_mode.FightsPerRound(); ++fightNo)
 		{
 			QString weight = m_mode.weightsAreDoubled ?
-							 actualWeights[fightNo / 2] :
-							 actualWeights[fightNo];
+				actualWeights[fightNo / 2] :
+				actualWeights[fightNo];
 
 			Fight fight;
 			fight.weight = weight;
 			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
-            fight.rules = m_rules;
-            fight.rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+			fight.rules = m_rules;
+			fight.rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
 			SimpleFighter emptyFighter;
 			emptyFighter.name = emptyFighterName;
 			fight.fighters[0] = emptyFighter;
 			fight.fighters[1] = emptyFighter;
-				 
+
 			pRound->emplace_back(fight);
 		}
 
@@ -153,8 +151,8 @@ int Controller::GetScore(FighterEnum whos, Score::Point point) const
 		break;
 
 	case Point::Ippon:
-        if (score.Ippon() || m_rules->IsAwaseteIppon(score))
-			value =  1;
+		if (score.Ippon() || m_rules->IsAwaseteIppon(score))
+			value = 1;
 		else
 			value = 0;
 
@@ -175,7 +173,6 @@ int Controller::GetScore(FighterEnum whos, Score::Point point) const
 
 	return value;
 }
-
 
 //=========================================================
 void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
@@ -267,22 +264,20 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 		}
 	}
 
-//	if( eState_SonoMama == m_State && action != eAction_SonoMama_Yoshi )
-//		return;
-//
-
+	//	if( eState_SonoMama == m_State && action != eAction_SonoMama_Yoshi )
+	//		return;
 	//
-	// handle golden score
-	// TODO: use state machine!
-    if (m_isGoldenScore && eState_TimerStopped != EState(m_pSM->current_state()[0]))
+
+		//
+		// handle golden score
+		// TODO: use state machine!
+	if (current_fight().IsGoldenScore() && eState_TimerStopped != EState(m_pSM->current_state()[0]))
 	{
-        // Note: In golden score the hold should not end after the first scored point!
+		// Note: In golden score the hold should not end after the first scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
 		{
-            auto ruleSet = GetRules();
-
-            if (ruleSet->IsScoreLess(get_score(FighterEnum::First), get_score(FighterEnum::Second))
-                    || ruleSet->IsScoreLess(get_score(FighterEnum::Second), get_score(FighterEnum::First)))
+			auto ruleSet = GetRules();
+			if (ruleSet->CompareScore(current_fight()) != 0)
 			{
 				m_pSM->process_event(IpponboardSM_::Hajime_Mate());
 			}
@@ -295,7 +290,6 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 	update_views();
 }
 
-
 //=========================================================
 FighterEnum Controller::GetLead() const
 //=========================================================
@@ -306,44 +300,44 @@ FighterEnum Controller::GetLead() const
 	{
 	case eState_TimerRunning:
 	case eState_TimerStopped:
+	{
+		// determine who has the lead
+		if (get_score(FighterEnum::First).Wazaari() > get_score(FighterEnum::Second).Wazaari())
 		{
-			// determine who has the lead
-			if (get_score(FighterEnum::First).Wazaari() > get_score(FighterEnum::Second).Wazaari())
+			winner = FighterEnum::First;
+		}
+		else if (get_score(FighterEnum::First).Wazaari() < get_score(FighterEnum::Second).Wazaari())
+		{
+			winner = FighterEnum::Second;
+		}
+		else  // GetScore_(eFirst).Wazaari() == GetScore_(eSecond).Wazaari()
+		{
+			if (get_score(FighterEnum::First).Yuko() >
+				get_score(FighterEnum::Second).Yuko())
 			{
 				winner = FighterEnum::First;
 			}
-			else if (get_score(FighterEnum::First).Wazaari() < get_score(FighterEnum::Second).Wazaari())
+			else if (get_score(FighterEnum::First).Yuko() < get_score(FighterEnum::Second).Yuko())
 			{
 				winner = FighterEnum::Second;
 			}
-			else  // GetScore_(eFirst).Wazaari() == GetScore_(eSecond).Wazaari()
+			else  // GetScore_(eFirst).Yuko() == GetScore_(eSecond).Yuko()
 			{
-				if (get_score(FighterEnum::First).Yuko() >
-						get_score(FighterEnum::Second).Yuko())
-				{
+				if (get_score(FighterEnum::First).Shido() < get_score(FighterEnum::Second).Shido() &&
+					get_score(FighterEnum::Second).Shido() > 1)  // no "koka"!
 					winner = FighterEnum::First;
-				}
-				else if (get_score(FighterEnum::First).Yuko() < get_score(FighterEnum::Second).Yuko())
-				{
+				else if (get_score(FighterEnum::First).Shido() > get_score(FighterEnum::Second).Shido() &&
+						 get_score(FighterEnum::First).Shido() > 1)
 					winner = FighterEnum::Second;
-				}
-				else  // GetScore_(eFirst).Yuko() == GetScore_(eSecond).Yuko()
+				else
 				{
-					if (get_score(FighterEnum::First).Shido() < get_score(FighterEnum::Second).Shido() &&
-							get_score(FighterEnum::Second).Shido() > 1)  // no "koka"!
-						winner = FighterEnum::First;
-					else if (get_score(FighterEnum::First).Shido() > get_score(FighterEnum::Second).Shido() &&
-							 get_score(FighterEnum::First).Shido() > 1)
-						winner = FighterEnum::Second;
-					else
-					{
-						// equal ==> golden score in single tournament (Hantai is no more)
-					}
+					// equal ==> golden score in single tournament (Hantai is no more)
 				}
 			}
-
-			break;
 		}
+
+		break;
+	}
 
 	case eState_SonoMama:
 	case eState_Holding:
@@ -364,30 +358,29 @@ Ipponboard::FighterEnum Controller::GetLastHolder() const
 	return m_Tori;
 }
 
-
 //=========================================================
 void Controller::reset_timers()
 {
-    m_State = eState_TimerStopped;
+	m_State = eState_TimerStopped;
 
-    Q_ASSERT(m_pTimeMain);
-    Q_ASSERT(m_pTimeHold);
+	Q_ASSERT(m_pTimeMain);
+	Q_ASSERT(m_pTimeHold);
 
-    m_pTimerMain->stop();
-    reset_timer_value(eTimer_Main);
+	m_pTimerMain->stop();
+	reset_timer_value(eTimer_Main);
 
-    m_pTimerHold->stop();
-    reset_timer_value(eTimer_Hold);
-    m_Tori = FighterEnum::None;
+	m_pTimerHold->stop();
+	reset_timer_value(eTimer_Hold);
+	m_Tori = FighterEnum::None;
 
-    m_isSonoMama = false;
-    m_isGoldenScore = false;
+	m_isSonoMama = false;
+	current_fight().SetGoldenScore(false);
 }
 
 void Controller::reset()
 //=========================================================
 {
-    ClearFightsAndResetTimers();
+	ClearFightsAndResetTimers();
 	SetFight(0, 0, "-XX", tr("First"), "", tr("Second"), "");
 
 	update_views();
@@ -445,7 +438,7 @@ QString Controller::GetFighterName(FighterEnum who) const
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
-				   ->at(m_currentFight).GetFighter(who).name;
+		->at(m_currentFight).GetFighter(who).name;
 
 	// shorten name
 	const int pos = name.indexOf(' ');
@@ -465,7 +458,7 @@ QString Controller::GetFighterLastName(Ipponboard::FighterEnum who) const
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
-				   ->at(m_currentFight).GetFighter(who).name;
+		->at(m_currentFight).GetFighter(who).name;
 
 	// get last name
 	const int pos = name.indexOf(' ');
@@ -485,7 +478,7 @@ QString Controller::GetFighterFirstName(Ipponboard::FighterEnum who) const
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
-				   ->at(m_currentFight).GetFighter(who).name;
+		->at(m_currentFight).GetFighter(who).name;
 
 	// get first name
 	const int pos = name.indexOf(' ');
@@ -509,7 +502,7 @@ QString Controller::GetFighterClub(FighterEnum who) const
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
-		   ->at(m_currentFight).GetFighter(who).club;
+		->at(m_currentFight).GetFighter(who).club;
 }
 
 //=========================================================
@@ -517,7 +510,7 @@ QString const& Controller::GetWeight() const
 //=========================================================
 {
 	return m_Tournament[m_currentRound]
-		   ->at(m_currentFight).weight;
+		->at(m_currentFight).weight;
 }
 
 //=========================================================
@@ -552,7 +545,7 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
 //=========================================================
 {
 	if (eState_TimerStopped == m_State ||
-			eState_SonoMama == m_State)
+		eState_SonoMama == m_State)
 	{
 		if (eTimer_Main == timer)
 		{
@@ -563,7 +556,6 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
 			{
 				*m_pTimeMain = newTime;
 			}
-
 		}
 		else if (eTimer_Hold == timer)
 		{
@@ -623,46 +615,53 @@ void Controller::SetWeightClass(QString const& c)
 void Controller::SetGoldenScore(bool isGS)
 //=========================================================
 {
-	m_isGoldenScore = isGS;
-    //> Set this before setting the time.
-    //> Setting time will then update the views.
+	current_fight().SetGoldenScore(isGS);
+	//> Set this before setting the time.
+	//> Setting time will then update the views.
 
-    if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
-    {
-        SetFightTime(QTime());
-    }
-    else
-    {
-        SetFightTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
-    }
+	if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
+	{
+		if (current_fight().time_in_seconds < 0)
+		{
+			SetFightTime(QTime().addSecs(-current_fight().time_in_seconds));
+		}
+		else
+		{
+			SetFightTime(QTime());
+		}
+	}
+	else
+	{
+		SetFightTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
+	}
 }
 
 std::shared_ptr<AbstractRules> Controller::GetRules() const
 {
-    return m_rules;
+	return m_rules;
 }
 
 void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 {
-    m_rules = rules;
+	m_rules = rules;
 
-    for (auto const& pRound : m_Tournament)
-    {
-        for (auto & fight : *pRound)
-        {
-            fight.rules = rules;
-        }
-    }
+	for (auto const& pRound : m_Tournament)
+	{
+		for (auto & fight : *pRound)
+		{
+			fight.rules = rules;
+		}
+	}
 }
 
 bool Controller::IsAutoAdjustPoints() const
 {
-    return m_isAutoAdjustPoints;
+	return m_isAutoAdjustPoints;
 }
 
 void Controller::SetAutoAdjustPoints(bool isActive)
 {
-    m_isAutoAdjustPoints = isActive;
+	m_isAutoAdjustPoints = isActive;
 }
 
 //=========================================================
@@ -671,13 +670,12 @@ void Controller::SetOption(EOption option, bool isSet)
 {
 	m_options.set(option, isSet);
 
-    // TODO: remove maybe
-    if (eOption_AllSubscoresCount == option)
+	// TODO: remove maybe
+	if (eOption_AllSubscoresCount == option)
 	{
-        m_rules->SetCountSubscores(isSet);
+		m_rules->SetCountSubscores(isSet);
 	}
 }
-
 
 //=========================================================
 bool Controller::GetOption(EOption option) const
@@ -705,14 +703,14 @@ void Controller::Gong() const
 void Controller::RegisterView(IView* pView)
 //=========================================================
 {
-    m_views.insert(pView);
+	m_views.insert(pView);
 
 	// do not call UpdateViews here as views may not have been fully created
 }
 
 void Controller::RegisterView(IGoldenScoreView* pView)
 {
-    m_goldenScoreViews.insert(pView);
+	m_goldenScoreViews.insert(pView);
 }
 
 //=========================================================
@@ -765,7 +763,7 @@ void Controller::reset_fight()
 	Fight& fight = m_Tournament[m_currentRound]->at(m_currentFight);
 	fight.time_in_seconds = 0;
 	fight.is_saved = false;
-    fight.rules = m_rules;
+	fight.rules = m_rules;
 
 	update_views();
 }
@@ -787,7 +785,7 @@ Score& Controller::get_score(FighterEnum who)
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
-		   ->at(m_currentFight).GetScore(who);
+		->at(m_currentFight).GetScore(who);
 }
 
 //=========================================================
@@ -797,7 +795,7 @@ Score const& Controller::get_score(FighterEnum who) const
 	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
-		   ->at(m_currentFight).GetScore(who);
+		->at(m_currentFight).GetScore(who);
 }
 
 //=========================================================
@@ -825,7 +823,7 @@ bool Controller::is_sonomama() const
 bool Controller::is_golden_score() const
 //=========================================================
 {
-	return m_isGoldenScore;
+	return current_fight().IsGoldenScore();
 }
 
 //=========================================================
@@ -886,8 +884,16 @@ void Controller::SetCurrentFight(unsigned int index)
 	m_currentFight = index;
 	*m_pTimeHold = QTime();
 	m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
-	*m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
-    m_isGoldenScore = false;
+
+	//FIXME: check this block
+	//if (current_fight().IsGoldenScore())
+	//{
+	//	*m_pTimeMain = QTime().addSecs(-current_fight().time_in_seconds);
+	//}
+	//else
+	//{
+		*m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
+	//}
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);
@@ -911,9 +917,9 @@ void Controller::SetCurrentRound(unsigned int index)
 void Controller::ClearFightsAndResetTimers()
 //=========================================================
 {
-    reset_timers();
+	reset_timers();
 
-    for (unsigned int round(0); round < m_Tournament.size(); ++round)
+	for (unsigned int round(0); round < m_Tournament.size(); ++round)
 	{
 		for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
 		{
@@ -927,7 +933,6 @@ void Controller::ClearFightsAndResetTimers()
 
 	update_views();
 }
-
 
 //=========================================================
 void Controller::SetClub(Ipponboard::FighterEnum who, const QString& clubName)
@@ -960,67 +965,71 @@ void Controller::SetFight(
 	Ipponboard::Fight fight;
 	fight.weight = weight;
 	// TODO: set fight.max_time_in_seconds
-    // TODO: set fight.allSubscoresCount
-    // (not set as setting fights is currently not used...): 130512
+	// TODO: set fight.allSubscoresCount
+	// (not set as setting fights is currently not used...): 130512
 
 	fight.fighters[Ipponboard::FighterEnum::First].name = first_player_name.isEmpty() ?
 		emptyFighterName : first_player_name;
 	fight.fighters[Ipponboard::FighterEnum::First].club = first_player_club;
-	fight.scores[Ipponboard::FighterEnum::First].Clear();
-    fight.rules = m_rules;
+	fight.GetScore1().Clear();
+	fight.rules = m_rules;
 
 	while (yuko1 != -1 && yuko1 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Yuko);
+		fight.GetScore1().Add(Ipponboard::Score::Point::Yuko);
 		--yuko1;
 	}
 
 	while (wazaari1 != -1 && wazaari1 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Wazaari);
+		fight.GetScore1().Add(Ipponboard::Score::Point::Wazaari);
 		--wazaari1;
 	}
 
 	if (ippon1 > 0)
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Ippon);
+	{
+		fight.GetScore1().Add(Ipponboard::Score::Point::Ippon);
+	}
 
 	while (shido1 != -1 && shido1 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Shido);
+		fight.GetScore1().Add(Ipponboard::Score::Point::Shido);
 		--shido1;
 	}
 
 	if (hansokumake1 > 0)
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Hansokumake);
+	{
+		fight.GetScore1().Add(Ipponboard::Score::Point::Hansokumake);
+	}
 
 	fight.fighters[Ipponboard::FighterEnum::Second].name = second_player_name.isEmpty() ?
 		emptyFighterName : second_player_name;
 	fight.fighters[Ipponboard::FighterEnum::Second].club = second_player_club;
-	fight.scores[Ipponboard::FighterEnum::Second].Clear();
+	fight.GetScore2().Clear();
 
 	while (yuko2 != -1 && yuko2 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::Second].Add(Ipponboard::Score::Point::Yuko);
+		fight.GetScore2().Add(Ipponboard::Score::Point::Yuko);
 		--yuko2;
 	}
 
 	while (wazaari2 != -1 && wazaari2 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::Second].Add(Ipponboard::Score::Point::Wazaari);
+		fight.GetScore2().Add(Ipponboard::Score::Point::Wazaari);
 		--wazaari2;
 	}
 
 	if (ippon2 > 0)
-		fight.scores[Ipponboard::FighterEnum::Second].Add(Ipponboard::Score::Point::Ippon);
+		fight.GetScore2().Add(Ipponboard::Score::Point::Ippon);
 
 	while (shido2 != -1 && shido2 > 0)
 	{
-		fight.scores[Ipponboard::FighterEnum::Second].Add(Ipponboard::Score::Point::Shido);
+		fight.GetScore2().Add(Ipponboard::Score::Point::Shido);
 		--shido2;
 	}
 
 	if (hansokumake2 > 0)
-		fight.scores[Ipponboard::FighterEnum::First].Add(Ipponboard::Score::Point::Hansokumake);
+		fight.GetScore1().Add(Ipponboard::Score::Point::Hansokumake);
 
 	fight.time_in_seconds = 0;
 
@@ -1044,7 +1053,7 @@ void Controller::SetFighterName(Ipponboard::FighterEnum whos,
 //=========================================================
 {
 	m_Tournament[m_currentRound]
-	->at(m_currentFight).fighters[whos].name = name;
+		->at(m_currentFight).fighters[whos].name = name;
 
 	update_views();
 }
@@ -1148,7 +1157,7 @@ QString const& Controller::GetGongFile() const
 void Controller::update_main_time()
 //=========================================================
 {
-    if (m_rules->IsOption_OpenEndGoldenScore() && is_golden_score())
+	if (m_rules->IsOption_OpenEndGoldenScore() && is_golden_score())
 	{
 		*m_pTimeMain = m_pTimeMain->addSecs(1);
 	}
@@ -1190,10 +1199,10 @@ void Controller::update_hold_time()
 	*m_pTimeHold = m_pTimeHold->addSecs(1);
 	const int secs = m_pTimeHold->second();
 
-    if (secs > 0 &&
-        (m_rules->GetOsaekomiValue(Score::Point::Yuko) == secs
-        || m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs
-        || m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
+	if (secs > 0 &&
+		(m_rules->GetOsaekomiValue(Score::Point::Yuko) == secs
+		 || m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs
+		 || m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
 	{
 		m_pSM->process_event(IpponboardSM_::HoldTimeEvent(secs, m_Tori));
 		m_State = EState(m_pSM->current_state()[0]);
@@ -1209,14 +1218,13 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-    for (auto const& pView : m_views)
+	for (auto const& pView : m_views)
 	{
 		pView->UpdateView();
 	}
 
-    for (auto const& pView : m_goldenScoreViews)
-    {
-        pView->UpdateGoldenScoreView();
-    }
+	for (auto const& pView : m_goldenScoreViews)
+	{
+		pView->UpdateGoldenScoreView();
+	}
 }
-

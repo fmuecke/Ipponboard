@@ -1,5 +1,5 @@
 ﻿#include "MainWindowTeam.h"
-#include "ui_MainWindowTeam.h" 
+#include "ui_MainWindowTeam.h"
 
 #include "ScoreScreen.h"
 #include "../base/ComboboxDelegate.h"
@@ -46,10 +46,9 @@
 
 namespace StrTags
 {
-static const char* const mode = "Mode";
-static const char* const host = "Host";
+	static const char* const mode = "Mode";
+	static const char* const host = "Host";
 }
-
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -62,7 +61,7 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 	, m_pScoreScreen()
 	, m_pClubManager()
 	, m_htmlScore()
-    , m_currentMode()
+	, m_currentMode()
 	, m_host()
 	, m_FighterNamesHome()
 	, m_FighterNamesGuest()
@@ -72,89 +71,88 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 }
 
 MainWindowTeam::~MainWindowTeam()
-{
-}
+{}
 
 void MainWindowTeam::Init()
 {
 	m_pClubManager.reset(new Ipponboard::ClubManager());
-    m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
+	m_pScoreScreen.reset(new Ipponboard::ScoreScreen());
 
-    MainWindowBase::Init();
+	MainWindowBase::Init();
 
-    // set default background
-    m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
+	// set default background
+	m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
-    //
-    // load tournament modes
-    //
-    QString errMsg;
-    Ipponboard::TournamentMode::List modes;
-    if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
-    {
-        QMessageBox::critical(0,
-                              QCoreApplication::tr("Error reading mode configurations"),
-                              errMsg);
+	//
+	// load tournament modes
+	//
+	QString errMsg;
+	Ipponboard::TournamentMode::List modes;
+	if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
+	{
+		QMessageBox::critical(0,
+							  QCoreApplication::tr("Error reading mode configurations"),
+							  errMsg);
 
-        throw std::exception("Initialization failed!");
-    }
-    SetModes(modes);
+		throw std::exception("Initialization failed!");
+	}
+	SetModes(modes);
 
-    // load modes
-    for (auto const& mode : m_modes)
-    {
-        m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
-    }
+	// load modes
+	for (auto const& mode : m_modes)
+	{
+		m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
+	}
 
-    initialized = true;
+	initialized = true;
 
-    int modeIndex = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
-    if (-1 == modeIndex)
-    {
-        modeIndex = 0;
-    }
+	int modeIndex = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
+	if (-1 == modeIndex)
+	{
+		modeIndex = 0;
+	}
 
-    if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
-    {
-        m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
-    }
-    else
-    {
-        // be sure to trigger
-        on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
-    }
+	if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
+	{
+		m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
+	}
+	else
+	{
+		// be sure to trigger
+		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
+	}
 
-    //
-    // setup data
-    //
-    m_pUi->dateEdit->setDate(QDate::currentDate());
-    update_club_views();
+	//
+	// setup data
+	//
+	m_pUi->dateEdit->setDate(QDate::currentDate());
+	update_club_views();
 
-    //m_pUi->comboBox_club_guest->setCurrentIndex(0);
+	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
-    // set fighter comboboxes
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+	// set fighter comboboxes
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
 #if 0
-    auto cbxFightersHome = new ComboBoxDelegate(this);
-    cbxFightersHome->SetItems(m_FighterNamesHome);
+	auto cbxFightersHome = new ComboBoxDelegate(this);
+	cbxFightersHome->SetItems(m_FighterNamesHome);
 
-    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
-    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
-    //m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
-    auto cbxFightersGuest = new ComboBoxDelegate(this);
-    cbxFightersGuest->SetItems(m_FighterNamesGuest);
-    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-    m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
-    m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
+	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
+	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
+	auto cbxFightersGuest = new ComboBoxDelegate(this);
+	cbxFightersGuest->SetItems(m_FighterNamesGuest);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 #endif
-    // make name columns auto-resizable
-    m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+	// make name columns auto-resizable
+	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -163,37 +161,37 @@ void MainWindowTeam::Init()
 //	m_pUi->gridLayout_main->removeItem(m_pUi->horizontalSpacer_4);
 //	delete m_pUi->horizontalSpacer_4;
 
-    //update_weights("-66;-73;-81;-90;+90");
-    //FIXME: check why this has not been in branch
+	//update_weights("-66;-73;-81;-90;+90");
+	//FIXME: check why this has not been in branch
 
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
+	m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
-    UpdateFightNumber_();
-    UpdateButtonText_();
+	UpdateFightNumber_();
+	UpdateButtonText_();
 
-    //m_pUi->button_pause->click();	// we start with pause!
+	//m_pUi->button_pause->click();	// we start with pause!
 }
 
 void MainWindowTeam::UpdateGoldenScoreView()
 {
-    m_pUi->button_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
-    m_pUi->button_golden_score->setChecked(m_pController->IsGoldenScore());
+	m_pUi->button_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
+	m_pUi->button_golden_score->setChecked(m_pController->IsGoldenScore());
 }
 
 void MainWindowTeam::closeEvent(QCloseEvent* event)
 {
-    MainWindowBase::closeEvent(event);
+	MainWindowBase::closeEvent(event);
 
-    if (m_pScoreScreen)
-    {
-        m_pScoreScreen->close();
-    }
+	if (m_pScoreScreen)
+	{
+		m_pScoreScreen->close();
+	}
 }
 
 void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 {
-    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
-    const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
+	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
+	const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
 
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
@@ -286,35 +284,35 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 		MainWindowBase::keyPressEvent(event);
 		//    break;
 		//}
-    }
+	}
 }
 
 QStringList MainWindowTeam::get_list_templates()
 {
-    QDir dir(TournamentMode::TemplateDirName());
-    QStringList filters;
-    filters.append("*.html");
-    return dir.entryList(filters, QDir::Files, QDir::Name);
+	QDir dir(TournamentMode::TemplateDirName());
+	QStringList filters;
+	filters.append("*.html");
+	return dir.entryList(filters, QDir::Files, QDir::Name);
 }
 
 void MainWindowTeam::write_specific_settings(QSettings& settings)
 {
-    settings.beginGroup(EditionNameShort());
-    {
-        settings.remove("");
-        settings.setValue(StrTags::mode, m_currentMode);
-        settings.setValue(StrTags::host, m_host);
-        settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
-        settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
-    }
+	settings.beginGroup(EditionNameShort());
+	{
+		settings.remove("");
+		settings.setValue(StrTags::mode, m_currentMode);
+		settings.setValue(StrTags::host, m_host);
+		settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
+		settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
+	}
 	settings.endGroup();
 }
 
 void MainWindowTeam::read_specific_settings(QSettings& settings)
 {
-    settings.beginGroup(EditionNameShort());
+	settings.beginGroup(EditionNameShort());
 	{
-        m_currentMode = settings.value(StrTags::mode, "").toString();
+		m_currentMode = settings.value(StrTags::mode, "").toString();
 		m_host = settings.value(StrTags::host, "").toString();
 
 		m_pController->SetLabels(
@@ -404,8 +402,8 @@ void MainWindowTeam::UpdateFightNumber_()
 	const int currentFight = m_pController->GetCurrentFight() + 1;
 
 	const bool isSaved = m_pController->GetFight(
-							 m_pController->GetCurrentRound(),
-							 m_pController->GetCurrentFight()).is_saved;
+		m_pController->GetCurrentRound(),
+		m_pController->GetCurrentFight()).is_saved;
 
 	QString formatStr("%1 / %2");
 
@@ -433,12 +431,12 @@ void MainWindowTeam::UpdateFightNumber_()
 
 void MainWindowTeam::attach_primary_view()
 {
-    auto widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
-	
+	auto widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+
 	if (widget)
 	{
-		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
-	}	
+		m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}
 }
 
 void MainWindowTeam::retranslate_Ui()
@@ -457,14 +455,14 @@ void MainWindowTeam::ui_check_language_items()
 
 void MainWindowTeam::ui_check_show_secondary_view(bool checked) const
 {
-    m_pUi->actionShow_SecondaryView->setChecked(checked);
+	m_pUi->actionShow_SecondaryView->setChecked(checked);
 }
 
 void MainWindowTeam::UpdateButtonText_()
 {
 	const bool isSaved = m_pController->GetFight(
-							 m_pController->GetCurrentRound(),
-							 m_pController->GetCurrentFight()).is_saved;
+		m_pController->GetCurrentRound(),
+		m_pController->GetCurrentFight()).is_saved;
 
 	const bool isLastFight =
 		m_pController->GetCurrentFight() ==
@@ -473,7 +471,7 @@ void MainWindowTeam::UpdateButtonText_()
 		m_pController->GetRoundCount() - 1;
 
 	const bool isFirstFight = m_pController->GetCurrentFight() == 0
-							  && m_pController->GetCurrentRound() == 0;
+		&& m_pController->GetCurrentRound() == 0;
 
 	QString textSave = tr("Save");
 	QString textNext = tr("Next");
@@ -513,53 +511,53 @@ void MainWindowTeam::update_score_screen()
 
 QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
 {
-    // little helper to hide initial zeros for early print outs
-    auto getNum = [&](int val)
-    {
-        return (!fight.is_saved && val == 0) ? QString() : QString::number(val);
-    };
+	// little helper to hide initial zeros for early print outs
+	auto getNum = [&](int val)
+	{
+		return (!fight.is_saved && val == 0) ? QString() : QString::number(val);
+	};
 
-    auto getTime = [&](QString const & timeStr)
-    {
-        return !fight.is_saved ? QString() : timeStr;
-    };
+	auto getTime = [&](QString const & timeStr)
+	{
+		return !fight.is_saved ? QString() : timeStr;
+	};
 
-    auto first = FighterEnum::First;
-    auto second = FighterEnum::Second;
-    auto const& score_first(fight.scores[first]);
-    auto const& score_second(fight.scores[second]);
+	auto first = FighterEnum::First;
+	auto second = FighterEnum::Second;
+	auto const& score_first = fight.GetScore1();
+	auto const& score_second = fight.GetScore2();
 
-    QString roundData("<tr>");
+	QString roundData("<tr>");
 
-    roundData.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>"); // number
-    roundData.append("<td><center>" + fight.weight + "</center></td>"); // weight
-    roundData.append("<td><center>" + fight.fighters[first].name + "</center></td>"); // name
-    roundData.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>"); // I
-    roundData.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
-    roundData.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
-    roundData.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
-    roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-    roundData.append("<td><center>" + getNum(fight.HasWon(first)) + "</center></td>"); // won
-    roundData.append("<td><center>" + getNum(fight.ScorePoints(first)) + "</center></td>"); // score
-    roundData.append("<td><center>" + fight.fighters[second].name + "</center></td>"); // name
-    roundData.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
-    roundData.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
-    roundData.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
-    roundData.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
-    roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-    roundData.append("<td><center>" + getNum(fight.HasWon(second)) + "</center></td>"); // won
-    roundData.append("<td><center>" + getNum(fight.ScorePoints(second)) + "</center></td>"); // score
-    roundData.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
-    roundData.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
-    roundData.append("</tr>\n");
+	roundData.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>"); // number
+	roundData.append("<td><center>" + fight.weight + "</center></td>"); // weight
+	roundData.append("<td><center>" + fight.fighters[first].name + "</center></td>"); // name
+	roundData.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>"); // I
+	roundData.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
+	roundData.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>"); // Y
+	roundData.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>"); // S
+	roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
+	roundData.append("<td><center>" + getNum(fight.HasWon(first)) + "</center></td>"); // won
+	roundData.append("<td><center>" + getNum(fight.GetScorePoints(first)) + "</center></td>"); // score
+	roundData.append("<td><center>" + fight.fighters[second].name + "</center></td>"); // name
+	roundData.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>"); // I
+	roundData.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
+	roundData.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>"); // Y
+	roundData.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>"); // S
+	roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
+	roundData.append("<td><center>" + getNum(fight.HasWon(second)) + "</center></td>"); // won
+	roundData.append("<td><center>" + getNum(fight.GetScorePoints(second)) + "</center></td>"); // score
+	roundData.append("<td><center>" + getTime(fight.GetTimeRemaining()) + "</center></td>"); // time
+	roundData.append("<td><center>" + getTime(fight.GetTimeFaught()) + "</center></td>"); // time
+	roundData.append("</tr>\n");
 
-    return roundData;
+	return roundData;
 }
 
 void MainWindowTeam::WriteScoreToHtml_()
 {
-    QString modeText = get_full_mode_title(m_currentMode);
-    QString templateFile = get_template_file(m_currentMode);
+	QString modeText = get_full_mode_title(m_currentMode);
+	QString templateFile = get_template_file(m_currentMode);
 	const QString filePath(
 		fm::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 
@@ -586,25 +584,25 @@ void MainWindowTeam::WriteScoreToHtml_()
 	m_htmlScore.replace("%GUEST%", m_pUi->comboBox_club_guest->currentText());
 
 	// intermediate score
-    auto wins1st = m_pController->GetTournamentScoreModel(0)->GetTotalWins();
+	auto wins1st = m_pController->GetTournamentScoreModel(0)->GetTotalWins();
 	m_htmlScore.replace("%WINS_HOME%", QString::number(wins1st.first));
 	m_htmlScore.replace("%WINS_GUEST%", QString::number(wins1st.second));
-    auto score1st = m_pController->GetTournamentScoreModel(0)->GetTotalScore();
+	auto score1st = m_pController->GetTournamentScoreModel(0)->GetTotalScore();
 	m_htmlScore.replace("%SCORE_HOME%", QString::number(score1st.first));
 	m_htmlScore.replace("%SCORE_GUEST%", QString::number(score1st.second));
 
 	// final score
-    auto wins2nd = m_pController->GetRoundCount() > 1 ?
-            m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0,0);
-    auto score2nd = m_pController->GetRoundCount() > 1 ?
-                m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0,0);
-    auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
-    auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
+	auto wins2nd = m_pController->GetRoundCount() > 1 ?
+		m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0, 0);
+	auto score2nd = m_pController->GetRoundCount() > 1 ?
+		m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0, 0);
+	auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
+	auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
 
-    m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
-    m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
-    m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
-    m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
+	m_htmlScore.replace("%TOTAL_WINS_HOME%", QString::number(totalWins.first));
+	m_htmlScore.replace("%TOTAL_WINS_GUEST%", QString::number(totalWins.second));
+	m_htmlScore.replace("%TOTAL_SCORE_HOME%", QString::number(totalScore.first));
+	m_htmlScore.replace("%TOTAL_SCORE_GUEST%", QString::number(totalScore.second));
 
 	QString winner = tr("tie");
 
@@ -620,46 +618,46 @@ void MainWindowTeam::WriteScoreToHtml_()
 	m_htmlScore.replace("%WINNER%", winner);
 
 	// first round
-    QString scoreData;
+	QString scoreData;
 
-    for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
-    {
-        const auto& fight = m_pController->GetFight(0, fightNo);
-        scoreData.append(GetRoundDataAsHtml(fight, fightNo));
-    }
+	for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+	{
+		const auto& fight = m_pController->GetFight(0, fightNo);
+		scoreData.append(GetRoundDataAsHtml(fight, fightNo));
+	}
 
-    m_htmlScore.replace("%FIRST_ROUND%", scoreData);
+	m_htmlScore.replace("%FIRST_ROUND%", scoreData);
 
-    // second round
-    scoreData.clear();
+	// second round
+	scoreData.clear();
 
-    for (int roundNo(1); roundNo < m_pController->GetRoundCount(); ++roundNo)
-    {
-        for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
-        {
-            const auto& fight = m_pController->GetFight(roundNo, fightNo);
-            scoreData.append(GetRoundDataAsHtml(fight, fightNo + m_pController->GetFightCount()));
-        }
-    }
+	for (int roundNo(1); roundNo < m_pController->GetRoundCount(); ++roundNo)
+	{
+		for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+		{
+			const auto& fight = m_pController->GetFight(roundNo, fightNo);
+			scoreData.append(GetRoundDataAsHtml(fight, fightNo + m_pController->GetFightCount()));
+		}
+	}
 
-    m_htmlScore.replace("%SECOND_ROUND%", scoreData);
+	m_htmlScore.replace("%SECOND_ROUND%", scoreData);
 
 	const QString copyright = tr("List generated with Ipponboard v") +
-							  QApplication::applicationVersion() +
-                              ", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
+		QApplication::applicationVersion() +
+		", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
 	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
 }
 
 void MainWindowTeam::on_actionReset_Scores_triggered()
 {
 	if (QMessageBox::warning(
-				this,
-				tr("Reset Scores"),
-				tr("Really reset complete score table?"),
-				QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
-    {
+		this,
+		tr("Reset Scores"),
+		tr("Really reset complete score table?"),
+		QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+	{
 		m_pController->ClearFightsAndResetTimers();
-    }
+	}
 
 	UpdateFightNumber_();
 	UpdateButtonText_();
@@ -689,45 +687,45 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 
 void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 {
-    update_views();
+	update_views();
 }
 
 void MainWindowTeam::on_actionManageModes_triggered()
 {
-    QStringList templates = get_list_templates();
-    ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
-    if (dlg.exec() == QDialog::Accepted)
-    {
-        QString errMsg;
+	QStringList templates = get_list_templates();
+	ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
+	if (dlg.exec() == QDialog::Accepted)
+	{
+		QString errMsg;
 		if (!Ipponboard::TournamentMode::WriteModes(MainWindowTeam::ModeConfigurationFileName(), dlg.Result(), errMsg))
-        {
-            QMessageBox::critical(this,
-                                  QCoreApplication::tr("Error writing mode configurations"),
-                                  errMsg);
+		{
+			QMessageBox::critical(this,
+								  QCoreApplication::tr("Error writing mode configurations"),
+								  errMsg);
 
-            return;
-        }
+			return;
+		}
 
-        m_pUi->comboBox_mode->clear();
-        SetModes(dlg.Result());
+		m_pUi->comboBox_mode->clear();
+		SetModes(dlg.Result());
 
-        for (auto const& mode : m_modes)
-        {
-            m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
-        }
+		for (auto const& mode : m_modes)
+		{
+			m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
+		}
 
-        auto pos = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
-        pos = pos == -1 ? 0 : pos;
+		auto pos = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
+		pos = pos == -1 ? 0 : pos;
 
-        if (pos != m_pUi->comboBox_mode->currentIndex())
-        {
-            m_pUi->comboBox_mode->setCurrentIndex(pos);
-        }
-        else
-        {
-            on_comboBox_mode_currentIndexChanged(pos);
-        }
-    }
+		if (pos != m_pUi->comboBox_mode->currentIndex())
+		{
+			m_pUi->comboBox_mode->setCurrentIndex(pos);
+		}
+		else
+		{
+			on_comboBox_mode_currentIndexChanged(pos);
+		}
+	}
 }
 
 void MainWindowTeam::on_actionManage_Clubs_triggered()
@@ -826,7 +824,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	//if (0 == m_pController->GetCurrentFightIndex())
 	//	return;
 
-    m_pController->PrevFight();
+	m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 }
 
@@ -842,29 +840,28 @@ void MainWindowTeam::on_button_next_clicked()
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
 	}
 	*/
-    m_pController->NextFight();
+	m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
 	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
-
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 {
-    if (!initialized)
-    {
-        return;
-    }
-
-    m_currentMode = m_pUi->comboBox_mode->itemData(i).toString();
-    QString modeDescription =  m_pUi->comboBox_mode->currentText();
-
-    // FIXME2014: use this???
-    //m_pController->SetOption(eOption_Use2013Rules, true);
-
-    auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & mode)
+	if (!initialized)
 	{
-        return mode.id == m_currentMode;
+		return;
+	}
+
+	m_currentMode = m_pUi->comboBox_mode->itemData(i).toString();
+	QString modeDescription = m_pUi->comboBox_mode->currentText();
+
+	// FIXME2014: use this???
+	//m_pController->SetOption(eOption_Use2013Rules, true);
+
+	auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & mode)
+	{
+		return mode.id == m_currentMode;
 	});
 
 	if (iter != end(m_modes))
@@ -872,15 +869,15 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 		m_pController->InitTournament(*iter);
 		update_weights(iter->weights); // TODO: don't set weights twice
 
-        // disable "copy & switch" button if no duplicate weight classes are used (issue #42)
-        if (iter->weightsAreDoubled)
-        {
-            m_pUi->pushButton_copySwitched->show();
-        }
-        else
-        {
-            m_pUi->pushButton_copySwitched->hide();
-        }
+		// disable "copy & switch" button if no duplicate weight classes are used (issue #42)
+		if (iter->weightsAreDoubled)
+		{
+			m_pUi->pushButton_copySwitched->show();
+		}
+		else
+		{
+			m_pUi->pushButton_copySwitched->hide();
+		}
 	}
 	else
 	{
@@ -930,9 +927,9 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 	}
 
 	// set mode text as mat label
-    m_MatLabel = modeDescription;
-    m_pPrimaryView->SetMat(modeDescription);
-    m_pSecondaryView->SetMat(modeDescription);
+	m_MatLabel = modeDescription;
+	m_pPrimaryView->SetMat(modeDescription);
+	m_pSecondaryView->SetMat(modeDescription);
 
 	m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
@@ -954,7 +951,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
 
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
+		(m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
 
 	if (pCbx)
 	{
@@ -970,7 +967,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s
 	m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
+		(m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
 
 	if (pCbx)
 	{
@@ -1003,10 +1000,10 @@ void MainWindowTeam::on_actionExport_triggered()
 	QString dateStr(m_pUi->dateEdit->text());
 	dateStr.replace('.', '-');
 	QString fileName = QFileDialog::getSaveFileName(this,
-					   tr("Export file to..."),
-					   tr("ScoreList_") + dateStr,
-					   tr("PDF File (*.pdf);;HTML File (*.html)"),
-					   &selectedFilter);
+													tr("Export file to..."),
+													tr("ScoreList_") + dateStr,
+													tr("PDF File (*.pdf);;HTML File (*.html)"),
+													&selectedFilter);
 
 	if (!fileName.isEmpty())
 	{
@@ -1038,29 +1035,29 @@ void MainWindowTeam::on_actionExport_triggered()
 		}
 
 		QApplication::restoreOverrideCursor();
-    }
+	}
 }
 
 void MainWindowTeam::on_button_golden_score_toggled(bool toggled)
 {
-    m_pController->SetGoldenScore(toggled);
+	m_pController->SetGoldenScore(toggled);
 }
 
 void MainWindowTeam::on_toolButton_weights_pressed()
 {
 	bool ok(false);
 	const QString weights = QInputDialog::getText(
-								this,
-								tr("Set Weights"),
-								tr("Set weights (separated by ';'):"),
-								QLineEdit::Normal,
-								m_weights,
-								&ok);
+		this,
+		tr("Set Weights"),
+		tr("Set weights (separated by ';'):"),
+		QLineEdit::Normal,
+		m_weights,
+		&ok);
 
 	if (ok)
 	{
 		if (m_pController->GetFightCount() / 2 - 1 != weights.count(';')
-				&& m_pController->GetFightCount() - 1 != weights.count(';'))
+			&& m_pController->GetFightCount() - 1 != weights.count(';'))
 		{
 			QMessageBox::critical(this, "Wrong values",
 								  tr("You need to specify %1 weight classes separated by ';'!")
@@ -1071,7 +1068,7 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 		{
 			update_weights(weights);
 		}
-    }
+	}
 }
 
 void MainWindowTeam::on_toolButton_team_home_pressed()
@@ -1085,8 +1082,8 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 	dlg.exec();
 
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
-								 m_pUi->tableView_tournament_list1->
-								 itemDelegateForColumn(TournamentModel::eCol_name1));
+		m_pUi->tableView_tournament_list1->
+		itemDelegateForColumn(TournamentModel::eCol_name1));
 
 	if (pCbx)
 	{
@@ -1105,9 +1102,9 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
 	dlg.exec();
 
-    auto pCbx = dynamic_cast<ComboBoxDelegate*>(
-								 m_pUi->tableView_tournament_list2->
-								 itemDelegateForColumn(TournamentModel::eCol_name2));
+	auto pCbx = dynamic_cast<ComboBoxDelegate*>(
+		m_pUi->tableView_tournament_list2->
+		itemDelegateForColumn(TournamentModel::eCol_name2));
 
 	if (pCbx)
 	{
@@ -1131,17 +1128,17 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 {
 	bool ok(false);
 
-    auto timeStr = QInputDialog::getText(
-							 this,
-							 tr("Set Value"),
-							 tr("Set value to (m:ss):"),
-							 QLineEdit::Normal,
-							 m_pController->GetFightTimeString(),
-							 &ok);
+	auto timeStr = QInputDialog::getText(
+		this,
+		tr("Set Value"),
+		tr("Set value to (m:ss):"),
+		QLineEdit::Normal,
+		m_pController->GetFightTimeString(),
+		&ok);
 
 	if (ok)
 	{
-        m_pController->SetFightTime(timeStr);
+		m_pController->SetFightTime(timeStr);
 	}
 }
 
@@ -1194,7 +1191,7 @@ void MainWindowTeam::on_tableView_customContextMenuRequested(
 	// and if the clipboard is not empty
 	const bool pasteAllowed = (selection[0].column() == TournamentModel::eCol_name1
 							   || selection[0].column() == TournamentModel::eCol_name2)
-							  && !QApplication::clipboard()->text().isEmpty();
+		&& !QApplication::clipboard()->text().isEmpty();
 
 	const bool clearAllowed = copyAllowed;
 
@@ -1255,7 +1252,7 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 	QString selectedText;
 	for (QModelIndex index : selection)
 	{
-        auto data =	pTableView->model()->data(index, Qt::DisplayRole);
+		auto data = pTableView->model()->data(index, Qt::DisplayRole);
 		selectedText += data.toString() + '\n';
 	}
 
@@ -1275,7 +1272,7 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 		return;
 	}
 
-    auto lines = QApplication::clipboard()->text().split('\n');
+	auto lines = QApplication::clipboard()->text().split('\n');
 
 	QModelIndexList selection = pTableView->selectionModel()->selectedIndexes();
 
@@ -1288,45 +1285,45 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 
 	std::sort(selection.begin(), selection.end());
 
-    if (lines.size() < selection.size())
+	if (lines.size() < selection.size())
 	{
 		QMessageBox::critical(this, QApplication::applicationName(),
 							  tr("There is too few data for the selection in the clipboard!"));
 		return;
 	}
 
-    if (lines.size() > selection.size())
+	if (lines.size() > selection.size())
 	{
 		// extend selection to maximum possible
 		QModelIndex index = selection.back();
 		const int nRows = pTableView->model()->rowCount();
 
 		while (index.row() < nRows &&
-				index.isValid() &&
-                lines.size() > selection.size())
+			   index.isValid() &&
+			   lines.size() > selection.size())
 		{
 			index = pTableView->model()->index(
-						index.row() + 1, index.column());
+				index.row() + 1, index.column());
 			selection.push_back(index);
 			pTableView->selectionModel()->select(index, QItemSelectionModel::Select);
 		}
 
-        if (lines.size() < selection.size())
+		if (lines.size() < selection.size())
 		{
 			QMessageBox::warning(this, QApplication::applicationName(),
 								 tr("There is more data available in the clipboard as could be pasted!"));
 		}
 	}
 
-    auto lineNo = 0;
+	auto lineNo = 0;
 	for (QModelIndex index : selection)
 	{
 		if (index.column() == TournamentModel::eCol_name1 ||
-				index.column() == TournamentModel::eCol_name2)
+			index.column() == TournamentModel::eCol_name2)
 		{
 			pTableView->model()->setData(
-                index, lines[lineNo], Qt::EditRole);
-            ++lineNo;
+				index, lines[lineNo], Qt::EditRole);
+			++lineNo;
 		}
 	}
 }
@@ -1348,7 +1345,7 @@ void MainWindowTeam::clear_cell_content(QTableView* pTableView)
 
 	for (QModelIndex index : selection)
 	{
-        pTableView->model()->setData(index, "", Qt::EditRole);
+		pTableView->model()->setData(index, "", Qt::EditRole);
 	}
 }
 
@@ -1387,18 +1384,18 @@ void MainWindowTeam::Print(QPrinter* p)
 	QTextEdit e(m_htmlScore, this);
 	e.document()->print(p);
 }
-	
+
 QString MainWindowTeam::get_template_file(QString const& modeId) const
 {
-    // TODO: use binary seach as the container is already sorted
+	// TODO: use binary seach as the container is already sorted
 	auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const& m)
 	{
-        return m.id == modeId;
+		return m.id == modeId;
 	});
 
 	if (iter != end(m_modes))
 	{
-        return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
+		return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
 	}
 
 	return QString();
@@ -1408,10 +1405,10 @@ QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
 {
 	QString year(QString::number(QDate::currentDate().year()));
 
-    // TODO: use binary seach as the container is already sorted
-    auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & tm)
+	// TODO: use binary seach as the container is already sorted
+	auto iter = std::find_if(begin(m_modes), end(m_modes), [&](TournamentMode const & tm)
 	{
-        return tm.id == modeId;
+		return tm.id == modeId;
 	});
 
 	if (iter != end(m_modes))
