@@ -193,10 +193,8 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 
 				if (m_pIntermediateModel)
 				{
-					std::pair<unsigned, unsigned> intermediate_wins =
-						m_pIntermediateModel->GetTotalWins();
-					std::pair<unsigned, unsigned> intermediate_score =
-						m_pIntermediateModel->GetTotalScore();
+                    std::pair<unsigned, unsigned> intermediate_wins = m_pIntermediateModel->GetTotalWins();
+                    std::pair<unsigned, unsigned> intermediate_score = m_pIntermediateModel->GetTotalScore();
 
 					wins.first += intermediate_wins.first;
 					wins.second += intermediate_wins.second;
@@ -208,7 +206,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 				m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
 				// get time display
-                QString ret = fight.GetTimeElapsedString();
+                QString ret = fight.GetTotalTimeElapsedString();
 
 				if (ret == QString("0:00") && !fight.is_saved)
 				{
@@ -377,32 +375,15 @@ bool TournamentModel::setData(const QModelIndex& index,
 			// disabled!
 			break;
 
-		case eCol_time_remaining:
-		{
-			const QString s(value.toString());
-
-			if (s.at(1) == ':')
-			{
-				int seconds = s.left(1).toUInt() * 60;
-				seconds += s.right(s.length() - 2).toUInt();
-                fight.SetSecondsElapsed(fight.GetRoundSeconds() - seconds);
-
-				result = true;
-			}
-		}
+        case eCol_time_remaining:
+        {
+            break;
+        }
 
 		case eCol_time:
 		{
-			const QString s(value.toString());
-
-			if (s.at(1) == ':')
-			{
-				int seconds = s.left(1).toUInt() * 60;
-				seconds += s.right(s.length() - 2).toUInt();
-                fight.SetSecondsElapsed(seconds);
-
-				result = true;
-			}
+            result = fight.SetElapsedFromTotalTime(value.toString());
+            break;
 		}
 
 		default:
@@ -411,7 +392,9 @@ bool TournamentModel::setData(const QModelIndex& index,
 	}
 
 	if (result)
+    {
 		emit dataChanged(index, index);
+    }
 
 	return result;
 }
@@ -428,7 +411,8 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 	if (index.column() == eCol_won1 ||
 		index.column() == eCol_won2 ||
 		index.column() == eCol_score1 ||
-		index.column() == eCol_score2)
+        index.column() == eCol_score2 ||
+        index.column() == eCol_time_remaining)
 	{
 		return (Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}

@@ -29,6 +29,7 @@ int Fight::GetSecondsElapsed() const
 
 void Fight::SetSecondsElapsed(int s)
 {
+    SetGoldenScore(s < 0);
     seconds_elapsed = s;
 }
 
@@ -57,7 +58,7 @@ int Fight::GetGoldenScoreTime() const
 }
 
 
-QString Fight::GetTimeElapsedString() const
+QString Fight::GetTotalTimeElapsedString() const
 {
 	// get time display
     auto elapsed = IsGoldenScore() ? -seconds_elapsed + round_time_seconds : seconds_elapsed;
@@ -69,6 +70,30 @@ QString Fight::GetTimeElapsedString() const
                 QString::number(minutes),
                 seconds < 10 ? "0" : "",
                 QString::number(seconds));
+}
+
+bool Fight::SetElapsedFromTotalTime(QString s)
+{
+    int secs = 0;
+    auto parts = s.split(":");
+    if (parts.size() > 1)
+    {
+        secs += parts.at(0).toUInt() * 60;
+        secs += parts.at(1).toUInt();
+    }
+    else
+    {
+        return false;
+    }
+
+    if (secs > round_time_seconds)
+    {
+        secs = round_time_seconds - secs;
+    }
+
+    SetSecondsElapsed(secs);
+
+    return true;
 }
 
 QString Fight::GetTimeRemainingString() const

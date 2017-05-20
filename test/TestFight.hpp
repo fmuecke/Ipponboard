@@ -93,7 +93,6 @@ TEST_CASE("TimeRemaining accounts for golden score")
 {
 	Fight f;
     f.SetRoundTime(240);
-    f.SetGoldenScore(true);
     f.SetSecondsElapsed(-65);
     REQUIRE(f.GetTimeRemainingString().toStdString() == "-1:05");
 }
@@ -102,9 +101,19 @@ TEST_CASE("TimeFaught accounts for golden score")
 {
 	Fight f;
     f.SetRoundTime(240);
-    f.SetGoldenScore(true);
     f.SetSecondsElapsed(-65);
-    REQUIRE(f.GetTimeElapsedString().toStdString() == "5:05");
+    REQUIRE(f.GetTotalTimeElapsedString().toStdString() == "5:05");
+}
+
+TEST_CASE("time string with Golden Score is propertly converted")
+{
+    Fight f;
+    f.SetRoundTime(240);
+    f.SetElapsedFromTotalTime("5:23");
+    REQUIRE(f.GetTotalTimeElapsedString().toStdString() == "5:23");
+
+    f.SetElapsedFromTotalTime("14:20");
+    REQUIRE(f.GetTotalTimeElapsedString().toStdString() == "14:20");
 }
 
 TEST_CASE("rules2017: score points will return 1 for shido won in golden score only")

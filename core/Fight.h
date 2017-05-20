@@ -92,8 +92,11 @@ namespace Ipponboard
 
         int GetSecondsElapsed() const;
         void SetSecondsElapsed(int s);
+        bool SetElapsedFromTotalTime(QString s);
         int GetRoundSeconds() const;
         void SetRoundTime(int secs);
+        QString GetTotalTimeElapsedString() const;
+        QString GetTimeRemainingString() const;
 
 	private:
 		Score scores[2]{ Score(), Score() };
@@ -109,8 +112,6 @@ namespace Ipponboard
         // returns remaining seconds
         int GetRemainingTime() const;
         int GetGoldenScoreTime() const;
-        QString GetTimeElapsedString() const;
-        QString GetTimeRemainingString() const;
 		bool HasWon(FighterEnum who) const;
 		bool IsGoldenScore() const { return _isGoldenScore; }
 		int GetScorePoints(FighterEnum who) const;

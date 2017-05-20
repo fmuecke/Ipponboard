@@ -548,7 +548,7 @@ QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
 	roundData.append("<td><center>" + getNum(fight.HasWon(second)) + "</center></td>"); // won
 	roundData.append("<td><center>" + getNum(fight.GetScorePoints(second)) + "</center></td>"); // score
 	roundData.append("<td><center>" + getTime(fight.GetTimeRemainingString()) + "</center></td>"); // time
-	roundData.append("<td><center>" + getTime(fight.GetTimeElapsedString()) + "</center></td>"); // time
+    roundData.append("<td><center>" + getTime(fight.GetTotalTimeElapsedString()) + "</center></td>"); // time
 	roundData.append("</tr>\n");
 
 	return roundData;
