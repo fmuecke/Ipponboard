@@ -90,18 +90,27 @@ namespace Ipponboard
 			_isGoldenScore = val;
 		}
 
+        int GetSecondsElapsed() const;
+        void SetSecondsElapsed(int s);
+        int GetRoundSeconds() const;
+        void SetRoundTime(int secs);
+
 	private:
 		Score scores[2]{ Score(), Score() };
-	public:
+        int seconds_elapsed{ 0 };
+        int round_time_seconds{ 0 };
+
+    public:
 		SimpleFighter fighters[2];
 		QString weight;
-		int time_in_seconds;
-		int max_time_in_seconds;
-		bool is_saved;
+        bool is_saved{ false };
 		std::shared_ptr<AbstractRules> rules; // TODO: this should be removed if possible
 
-		QString GetTimeFaught() const;
-		QString GetTimeRemaining() const;
+        // returns remaining seconds
+        int GetRemainingTime() const;
+        int GetGoldenScoreTime() const;
+        QString GetTimeElapsedString() const;
+        QString GetTimeRemainingString() const;
 		bool HasWon(FighterEnum who) const;
 		bool IsGoldenScore() const { return _isGoldenScore; }
 		int GetScorePoints(FighterEnum who) const;

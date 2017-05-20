@@ -92,17 +92,19 @@ TEST_CASE("Validate score points (subscore)")
 TEST_CASE("TimeRemaining accounts for golden score")
 {
 	Fight f;
-	f.max_time_in_seconds = 240;
-	f.time_in_seconds = -65;
-	REQUIRE(f.GetTimeRemaining().toStdString() == "-1:05");
+    f.SetRoundTime(240);
+    f.SetGoldenScore(true);
+    f.SetSecondsElapsed(-65);
+    REQUIRE(f.GetTimeRemainingString().toStdString() == "-1:05");
 }
 
 TEST_CASE("TimeFaught accounts for golden score")
 {
 	Fight f;
-	f.max_time_in_seconds = 240;
-	f.time_in_seconds = -65;
-	REQUIRE(f.GetTimeFaught().toStdString() == "5:05");
+    f.SetRoundTime(240);
+    f.SetGoldenScore(true);
+    f.SetSecondsElapsed(-65);
+    REQUIRE(f.GetTimeElapsedString().toStdString() == "5:05");
 }
 
 TEST_CASE("rules2017: score points will return 1 for shido won in golden score only")

@@ -104,7 +104,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 
 			Fight fight;
 			fight.weight = weight;
-			fight.max_time_in_seconds = m_mode.GetFightDuration(weight);
+            fight.SetRoundTime(m_mode.GetFightDuration(weight));
 			fight.rules = m_rules;
 			fight.rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 
@@ -621,14 +621,7 @@ void Controller::SetGoldenScore(bool isGS)
 
 	if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
 	{
-		if (current_fight().time_in_seconds < 0)
-		{
-			SetFightTime(QTime().addSecs(-current_fight().time_in_seconds));
-		}
-		else
-		{
-			SetFightTime(QTime());
-		}
+        SetFightTime(QTime().addSecs(current_fight().GetGoldenScoreTime()));
 	}
 	else
 	{
@@ -743,7 +736,7 @@ void Controller::stop_timer(ETimer t)
 void Controller::save_fight()
 //=========================================================
 {
-	current_fight().time_in_seconds = m_pTimeMain->secsTo(m_fightTime);
+    current_fight().SetSecondsElapsed(m_pTimeMain->secsTo(m_fightTime));
 	current_fight().is_saved = true;
 }
 
@@ -761,7 +754,7 @@ void Controller::reset_fight()
 	get_score(FighterEnum::First) = Score();
 	get_score(FighterEnum::Second) = Score();
 	Fight& fight = m_Tournament[m_currentRound]->at(m_currentFight);
-	fight.time_in_seconds = 0;
+    fight.SetSecondsElapsed(0);
 	fight.is_saved = false;
 	fight.rules = m_rules;
 
@@ -886,14 +879,14 @@ void Controller::SetCurrentFight(unsigned int index)
 	m_fightTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
 
 	//FIXME: check this block
-	//if (current_fight().IsGoldenScore())
-	//{
-	//	*m_pTimeMain = QTime().addSecs(-current_fight().time_in_seconds);
-	//}
-	//else
-	//{
-		*m_pTimeMain = QTime(m_fightTime).addSecs(-current_fight().time_in_seconds);
-	//}
+    if (current_fight().IsGoldenScore())
+    {
+        *m_pTimeMain = QTime().addSecs(current_fight().GetGoldenScoreTime());
+    }
+    else
+    {
+        *m_pTimeMain = QTime().addSecs(current_fight().GetRemainingTime());
+    }
 
 	// update state
 	m_State = EState(m_pSM->current_state()[0]);
@@ -924,7 +917,8 @@ void Controller::ClearFightsAndResetTimers()
 		for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
 		{
 			SetFight(round, fight, "", "", "", "", "");
-			m_Tournament[round]->at(fight).time_in_seconds = 0;
+            m_Tournament[round]->at(fight).SetSecondsElapsed(0);
+            m_Tournament[round]->at(fight).SetGoldenScore(false);
 		}
 	}
 
@@ -964,74 +958,83 @@ void Controller::SetFight(
 {
 	Ipponboard::Fight fight;
 	fight.weight = weight;
+    fight.SetSecondsElapsed(0);
+    fight.rules = m_rules;
+
 	// TODO: set fight.max_time_in_seconds
 	// TODO: set fight.allSubscoresCount
 	// (not set as setting fights is currently not used...): 130512
+    auto First = FighterEnum::First;
+    auto Second = FighterEnum::Second;
+    auto Yuko = Score::Point::Yuko;
+    auto Wazaari = Score::Point::Wazaari;
+    auto Ippon = Score::Point::Ippon;
+    auto Shido = Score::Point::Shido;
+    auto Hansokumake = Score::Point::Hansokumake;
 
-	fight.fighters[Ipponboard::FighterEnum::First].name = first_player_name.isEmpty() ?
-		emptyFighterName : first_player_name;
-	fight.fighters[Ipponboard::FighterEnum::First].club = first_player_club;
+    fight.fighters[First].name = first_player_name.isEmpty() ? emptyFighterName : first_player_name;
+    fight.fighters[First].club = first_player_club;
 	fight.GetScore1().Clear();
-	fight.rules = m_rules;
 
 	while (yuko1 != -1 && yuko1 > 0)
 	{
-		fight.GetScore1().Add(Ipponboard::Score::Point::Yuko);
+        fight.GetScore1().Add(Yuko);
 		--yuko1;
 	}
 
 	while (wazaari1 != -1 && wazaari1 > 0)
 	{
-		fight.GetScore1().Add(Ipponboard::Score::Point::Wazaari);
+        fight.GetScore1().Add(Wazaari);
 		--wazaari1;
 	}
 
 	if (ippon1 > 0)
 	{
-		fight.GetScore1().Add(Ipponboard::Score::Point::Ippon);
+        fight.GetScore1().Add(Ippon);
 	}
 
 	while (shido1 != -1 && shido1 > 0)
 	{
-		fight.GetScore1().Add(Ipponboard::Score::Point::Shido);
+        fight.GetScore1().Add(Shido);
 		--shido1;
 	}
 
 	if (hansokumake1 > 0)
 	{
-		fight.GetScore1().Add(Ipponboard::Score::Point::Hansokumake);
+        fight.GetScore1().Add(Hansokumake);
 	}
 
-	fight.fighters[Ipponboard::FighterEnum::Second].name = second_player_name.isEmpty() ?
-		emptyFighterName : second_player_name;
-	fight.fighters[Ipponboard::FighterEnum::Second].club = second_player_club;
+    fight.fighters[Second].name = second_player_name.isEmpty() ? emptyFighterName : second_player_name;
+    fight.fighters[Second].club = second_player_club;
 	fight.GetScore2().Clear();
 
 	while (yuko2 != -1 && yuko2 > 0)
 	{
-		fight.GetScore2().Add(Ipponboard::Score::Point::Yuko);
+        fight.GetScore2().Add(Yuko);
 		--yuko2;
 	}
 
 	while (wazaari2 != -1 && wazaari2 > 0)
 	{
-		fight.GetScore2().Add(Ipponboard::Score::Point::Wazaari);
+        fight.GetScore2().Add(Wazaari);
 		--wazaari2;
 	}
 
 	if (ippon2 > 0)
-		fight.GetScore2().Add(Ipponboard::Score::Point::Ippon);
+    {
+        fight.GetScore2().Add(Ippon);
+    }
 
 	while (shido2 != -1 && shido2 > 0)
 	{
-		fight.GetScore2().Add(Ipponboard::Score::Point::Shido);
+        fight.GetScore2().Add(Shido);
 		--shido2;
 	}
 
 	if (hansokumake2 > 0)
-		fight.GetScore1().Add(Ipponboard::Score::Point::Hansokumake);
-
-	fight.time_in_seconds = 0;
+    {
+        fight.GetScore1().Add(Hansokumake);
+    }
 
 	m_Tournament[round_index]->at(fight_index) = fight;
 
@@ -1070,7 +1073,7 @@ void Controller::SetWeights(QStringList const& weights)
 			{
 				Fight& f = m_Tournament.at(round)->at(fight);
 				f.weight = weights.at(fight);
-				f.max_time_in_seconds = m_mode.GetFightDuration(f.weight);
+                f.SetRoundTime(m_mode.GetFightDuration(f.weight));
 			}
 		}
 	}
@@ -1083,11 +1086,11 @@ void Controller::SetWeights(QStringList const& weights)
 			{
 				Fight& f1 = m_Tournament.at(round)->at(fight);
 				f1.weight = weights.at(fight / 2);
-				f1.max_time_in_seconds = m_mode.GetFightDuration(f1.weight);
+                f1.SetRoundTime(m_mode.GetFightDuration(f1.weight));
 
 				Fight& f2 = m_Tournament.at(round)->at(fight + 1);
 				f2.weight = weights.at(fight / 2);
-				f2.max_time_in_seconds = m_mode.GetFightDuration(f2.weight);
+                f2.SetRoundTime(m_mode.GetFightDuration(f2.weight));
 
 				++fight;
 			}

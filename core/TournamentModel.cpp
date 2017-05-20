@@ -181,7 +181,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 			case eCol_time_remaining:
 			{
 				// get time display
-				return fight.GetTimeRemaining();
+				return fight.GetTimeRemainingString();
 			}
 
 			case eCol_time:
@@ -208,7 +208,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 				m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
 
 				// get time display
-				QString ret = fight.GetTimeFaught();
+                QString ret = fight.GetTimeElapsedString();
 
 				if (ret == QString("0:00") && !fight.is_saved)
 				{
@@ -385,8 +385,7 @@ bool TournamentModel::setData(const QModelIndex& index,
 			{
 				int seconds = s.left(1).toUInt() * 60;
 				seconds += s.right(s.length() - 2).toUInt();
-				fight.time_in_seconds =
-					fight.max_time_in_seconds - seconds;
+                fight.SetSecondsElapsed(fight.GetRoundSeconds() - seconds);
 
 				result = true;
 			}
@@ -400,7 +399,7 @@ bool TournamentModel::setData(const QModelIndex& index,
 			{
 				int seconds = s.left(1).toUInt() * 60;
 				seconds += s.right(s.length() - 2).toUInt();
-				fight.time_in_seconds = seconds;
+                fight.SetSecondsElapsed(seconds);
 
 				result = true;
 			}

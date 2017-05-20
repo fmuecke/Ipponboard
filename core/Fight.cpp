@@ -11,9 +11,6 @@ using namespace Ipponboard;
 
 Fight::Fight()
 	: weight("-")
-	, time_in_seconds(0)
-	, max_time_in_seconds(0)
-	, is_saved(false)
 	, rules(new ClassicRules)
 {
 	scores[0] = Score();
@@ -22,48 +19,72 @@ Fight::Fight()
 	fighters[0] = SimpleFighter();
 	fighters[1] = SimpleFighter();
 
-	rules->SetCountSubscores(false);
+    rules->SetCountSubscores(false);
+}
+
+int Fight::GetSecondsElapsed() const
+{
+    return seconds_elapsed;
+}
+
+void Fight::SetSecondsElapsed(int s)
+{
+    seconds_elapsed = s;
+}
+
+int Fight::GetRoundSeconds() const { return round_time_seconds; }
+
+void Fight::SetRoundTime(int secs) { round_time_seconds = secs; }
+
+int Fight::GetRemainingTime() const
+{
+    if (IsGoldenScore())
+    {
+        return 0;
+    }
+
+    return round_time_seconds - seconds_elapsed;
+}
+
+int Fight::GetGoldenScoreTime() const
+{
+    if (IsGoldenScore() && seconds_elapsed < 0)
+    {
+        return -seconds_elapsed;
+    }
+
+    return 0;
 }
 
 
-QString Fight::GetTimeFaught() const
+QString Fight::GetTimeElapsedString() const
 {
 	// get time display
-	const auto isNegative = time_in_seconds < 0;
-	int minutes = time_in_seconds / 60;
-	int seconds = time_in_seconds - minutes * 60;
-	if (isNegative)
-	{
-		seconds = max_time_in_seconds % 60 - time_in_seconds + minutes * 60;
-		minutes = max_time_in_seconds / 60 - minutes;
-	}
+    auto elapsed = IsGoldenScore() ? -seconds_elapsed + round_time_seconds : seconds_elapsed;
 
-	QString ret = QString::number(minutes) + ":";
+    int minutes = elapsed / 60;
+    int seconds = elapsed % 60;
 
-	if (seconds < 10)    // append leading zero?
-	{
-		ret += "0";
-	}
-
-	return  ret + QString::number(seconds);
+    return QString("%1:%3%4").arg(
+                QString::number(minutes),
+                seconds < 10 ? "0" : "",
+                QString::number(seconds));
 }
 
-QString Fight::GetTimeRemaining() const
+QString Fight::GetTimeRemainingString() const
 {
 	// get time display
-	auto isNegative = time_in_seconds < 0;
-	auto time_remaining = isNegative ? -time_in_seconds : max_time_in_seconds - time_in_seconds;
+    auto isGoldenScore = seconds_elapsed < 0;
+
+    auto time_remaining = isGoldenScore ? GetGoldenScoreTime() : GetRemainingTime();
 	auto minutes = time_remaining / 60;
-	auto seconds = time_remaining - minutes * 60;
+    auto seconds = time_remaining % 60;
 
-	auto ret = isNegative ? "-" : QString();
-	ret += QString::number(minutes) + ":";
-	if (seconds < 10)    // append leading zero?
-	{
-		ret += "0";
-	}
-
-	return ret + QString::number(seconds);
+    return QString("%1%2:%3%4").arg(
+                isGoldenScore ? "-" : "",
+                QString::number(minutes),
+                seconds < 10 ? "0" : "",
+                QString::number(seconds));
 }
 
 bool Fight::HasWon(FighterEnum who) const
