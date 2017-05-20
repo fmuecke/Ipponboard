@@ -29,7 +29,7 @@ int Fight::GetSecondsElapsed() const
 
 void Fight::SetSecondsElapsed(int s)
 {
-    SetGoldenScore(s < 0);
+    //SetGoldenScore(s < 0);
     seconds_elapsed = s;
 }
 

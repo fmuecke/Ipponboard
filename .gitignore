@@ -47,3 +47,5 @@ ui*.h
 *.opensdf
 i18n/*.qm
 _output/
+.vs/
+ipponboard.VC.*

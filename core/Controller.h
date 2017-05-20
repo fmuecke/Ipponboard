@@ -69,10 +69,10 @@ namespace Ipponboard
 		QString GetMessage() const;
 		int GetTeamScore(Ipponboard::FighterEnum who) const;
 		void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
-		void SetFightTime(const QString& value);
+        void SetRoundTime(const QString& value);
 		QString GetFightTimeString() const;
 		int GetFightDuration(QString const& weight) const;
-		void SetFightTime(const QTime& time);
+        void SetRoundTime(const QTime& time);
 		//FIXME: int GetRound() const;
 		void SetWeightClass(QString const& c);
 		QString const& GetCategoryName() const { return m_weight_class; } //TODO: weight class should be part of tournament!
@@ -174,11 +174,12 @@ namespace Ipponboard
 		void reset();
 		void reset_timer_value(Ipponboard::ETimer timer);
 
-		Ipponboard::Fight& current_fight()
+        inline Ipponboard::Fight& current_fight()
 		{
 			return m_Tournament.at(m_currentRound)->at(m_currentFight);
 		}
-		Ipponboard::Fight const& current_fight() const
+
+        inline Ipponboard::Fight const& current_fight() const
 		{
 			return m_Tournament.at(m_currentRound)->at(m_currentFight);
 		}
@@ -201,7 +202,7 @@ namespace Ipponboard
 		QString m_Message;
 		QString m_gongFile;
 		bool m_isSonoMama;
-		QTime m_fightTime;
+        QTime m_roundTime;
 		QString m_weight_class;
 		std::bitset<eOption_MAX> m_options;
 		bool m_isAutoAdjustPoints{ true };

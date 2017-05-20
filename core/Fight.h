@@ -85,10 +85,8 @@ namespace Ipponboard
 			return fighters[static_cast<int>(fighter)];
 		}
 
-		void SetGoldenScore(bool val)
-		{
-			_isGoldenScore = val;
-		}
+        bool IsGoldenScore() const { return _isGoldenScore; }
+        void SetGoldenScore(bool val) { _isGoldenScore = val; }
 
         int GetSecondsElapsed() const;
         void SetSecondsElapsed(int s);
@@ -113,7 +111,7 @@ namespace Ipponboard
         int GetRemainingTime() const;
         int GetGoldenScoreTime() const;
 		bool HasWon(FighterEnum who) const;
-		bool IsGoldenScore() const { return _isGoldenScore; }
+
 		int GetScorePoints(FighterEnum who) const;
 	};
 } // namespace Ipponboard

@@ -154,16 +154,16 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 	{
         if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
 		{
-			m_pController->SetFightTime(QTime());
+			m_pController->SetRoundTime(QTime());
 		}
 		else
 		{
-            m_pController->SetFightTime(QTime().addSecs(t.GetGoldenScoreTime()));
+            m_pController->SetRoundTime(QTime().addSecs(t.GetGoldenScoreTime()));
 		}
 	}
 	else
 	{
-        m_pController->SetFightTime(QTime().addSecs(t.GetRoundTime()));
+        m_pController->SetRoundTime(QTime().addSecs(t.GetRoundTime()));
 	}
 }
 

@@ -1138,7 +1138,7 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
 
 	if (ok)
 	{
-		m_pController->SetFightTime(timeStr);
+        m_pController->SetRoundTime(timeStr);
 	}
 }
 

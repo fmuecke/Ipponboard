@@ -135,3 +135,13 @@ TEST_CASE("rules2017: score points will return 1 for shido won in golden score o
 	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
 	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 1);
 }
+
+TEST_CASE("Setting negative seconds enabled golden score")
+{
+    Fight f;
+    f.SetSecondsElapsed(-5);
+    REQUIRE(f.IsGoldenScore());
+
+    f.SetSecondsElapsed(5);
+    REQUIRE_FALSE(f.IsGoldenScore());
+}
