@@ -18,7 +18,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 	m_pSBarText = new QLabel;
 	m_pSBarText->setText("-");
 	ui->statusBar->addWidget(m_pSBarText, 1);
-    ui->label_copyRight->setText(QString("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
+	ui->label_copyRight->setText(QString("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 
 	ui->image_button_1->UpdateImage(":images/off.png");
 	ui->image_button_2->UpdateImage(":images/off.png");

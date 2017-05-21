@@ -10,27 +10,29 @@
 
 #include <QDialog>
 
-namespace Ui {
+namespace Ui
+{
 class AddFighterDlg;
 }
 
-namespace Ipponboard {
+namespace Ipponboard
+{
 class Fighter;
 }
 
 class AddFighterDlg : public QDialog
 {
-    Q_OBJECT
-    
-public:
-    explicit AddFighterDlg(QWidget *parent = 0);
-    ~AddFighterDlg();
+	Q_OBJECT
 
-    void SetClubs(QStringList clubs);
-    Ipponboard::Fighter GetFighter() const;
-    
+public:
+	explicit AddFighterDlg(QWidget* parent = 0);
+	~AddFighterDlg();
+
+	void SetClubs(QStringList clubs);
+	Ipponboard::Fighter GetFighter() const;
+
 private:
-    Ui::AddFighterDlg *ui;
+	Ui::AddFighterDlg* ui;
 };
 
 #endif // ADDFIGHTERDLG_H

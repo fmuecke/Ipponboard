@@ -118,8 +118,8 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 	case Qt::EditRole:
 	case Qt::DisplayRole:
 		if (index.row() < m_nRows &&
-			index.column() >= 0 &&
-			index.column() < eCol_MAX)
+				index.column() >= 0 &&
+				index.column() < eCol_MAX)
 		{
 			const int row = index.row();
 
@@ -179,42 +179,42 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 				return display_string(fight.is_saved, fight.GetScorePoints(Ipponboard::FighterEnum::Second));
 
 			case eCol_time_remaining:
-			{
-				// get time display
-				return fight.GetTimeRemainingString();
-			}
+				{
+					// get time display
+					return fight.GetTimeRemainingString();
+				}
 
 			case eCol_time:
-			{
-				// we do get and set the total score display here
-				Q_ASSERT(m_pEditWins && m_pEditScore);
-				std::pair<unsigned, unsigned> wins = GetTotalWins();
-				std::pair<unsigned, unsigned> score = GetTotalScore();
-
-				if (m_pIntermediateModel)
 				{
-                    std::pair<unsigned, unsigned> intermediate_wins = m_pIntermediateModel->GetTotalWins();
-                    std::pair<unsigned, unsigned> intermediate_score = m_pIntermediateModel->GetTotalScore();
+					// we do get and set the total score display here
+					Q_ASSERT(m_pEditWins && m_pEditScore);
+					std::pair<unsigned, unsigned> wins = GetTotalWins();
+					std::pair<unsigned, unsigned> score = GetTotalScore();
 
-					wins.first += intermediate_wins.first;
-					wins.second += intermediate_wins.second;
-					score.first += intermediate_score.first;
-					score.second += intermediate_score.second;
+					if (m_pIntermediateModel)
+					{
+						std::pair<unsigned, unsigned> intermediate_wins = m_pIntermediateModel->GetTotalWins();
+						std::pair<unsigned, unsigned> intermediate_score = m_pIntermediateModel->GetTotalScore();
+
+						wins.first += intermediate_wins.first;
+						wins.second += intermediate_wins.second;
+						score.first += intermediate_score.first;
+						score.second += intermediate_score.second;
+					}
+
+					m_pEditWins->setText(QString::number(wins.first) + " : " + QString::number(wins.second));
+					m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
+
+					// get time display
+					QString ret = fight.GetTotalTimeElapsedString();
+
+					if (ret == QString("0:00") && !fight.is_saved)
+					{
+						return QString();
+					}
+
+					return ret;
 				}
-
-				m_pEditWins->setText(QString::number(wins.first) + " : " + QString::number(wins.second));
-				m_pEditScore->setText(QString::number(score.first) + " : " + QString::number(score.second));
-
-				// get time display
-                QString ret = fight.GetTotalTimeElapsedString();
-
-				if (ret == QString("0:00") && !fight.is_saved)
-				{
-					return QString();
-				}
-
-				return ret;
-			}
 
 			default:
 				break;
@@ -224,26 +224,26 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 		}
 
 	case Qt::SizeHintRole:
-	{
-		if (index.column() < static_cast<int>(sizeof(m_HeaderSizes)) &&
-			index.column() > 0)
 		{
-			return QSize(m_HeaderSizes[index.column()], eDefaultRowHight);
-		}
+			if (index.column() < static_cast<int>(sizeof(m_HeaderSizes)) &&
+					index.column() > 0)
+			{
+				return QSize(m_HeaderSizes[index.column()], eDefaultRowHight);
+			}
 
-		break;
-	}
+			break;
+		}
 
 	case Qt::TextAlignmentRole:
-	{
-		if (eCol_name1 != index.column() &&
-			eCol_name2 != index.column())
 		{
-			return Qt::AlignCenter;
-		}
+			if (eCol_name1 != index.column() &&
+					eCol_name2 != index.column())
+			{
+				return Qt::AlignCenter;
+			}
 
-		break;
-	}
+			break;
+		}
 
 	default:
 		break;
@@ -284,8 +284,8 @@ bool TournamentModel::setData(const QModelIndex& index,
 //=========================================================
 {
 	if (!index.isValid() ||
-		(flags(index) & Qt::ItemIsEditable) == 0 ||
-		role != Qt::EditRole)
+			(flags(index) & Qt::ItemIsEditable) == 0 ||
+			role != Qt::EditRole)
 	{
 		return false;
 	}
@@ -293,8 +293,8 @@ bool TournamentModel::setData(const QModelIndex& index,
 	bool result(false);
 
 	if (index.row() < m_nRows &&
-		index.column() >= 0 &&
-		index.column() < eCol_MAX)
+			index.column() >= 0 &&
+			index.column() < eCol_MAX)
 	{
 		const int row = index.row();
 
@@ -375,16 +375,16 @@ bool TournamentModel::setData(const QModelIndex& index,
 			// disabled!
 			break;
 
-        case eCol_time_remaining:
-        {
-            break;
-        }
+		case eCol_time_remaining:
+			{
+				break;
+			}
 
 		case eCol_time:
-		{
-            result = fight.SetElapsedFromTotalTime(value.toString());
-            break;
-		}
+			{
+				result = fight.SetElapsedFromTotalTime(value.toString());
+				break;
+			}
 
 		default:
 			break;
@@ -392,9 +392,9 @@ bool TournamentModel::setData(const QModelIndex& index,
 	}
 
 	if (result)
-    {
+	{
 		emit dataChanged(index, index);
-    }
+	}
 
 	return result;
 }
@@ -409,10 +409,10 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 	}
 
 	if (index.column() == eCol_won1 ||
-		index.column() == eCol_won2 ||
-		index.column() == eCol_score1 ||
-        index.column() == eCol_score2 ||
-        index.column() == eCol_time_remaining)
+			index.column() == eCol_won2 ||
+			index.column() == eCol_score1 ||
+			index.column() == eCol_score2 ||
+			index.column() == eCol_time_remaining)
 	{
 		return (Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}

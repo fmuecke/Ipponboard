@@ -6,12 +6,12 @@
 class DonationManager
 {
 public:
-    static char const * const DonationUrl;
+	static char const* const DonationUrl;
 
-    DonationManager();
+	DonationManager();
 
-    static QString GetDonationLabel();
-    static void OpenUrl();
+	static QString GetDonationLabel();
+	static void OpenUrl();
 };
 
 #endif // DONATIONMANAGER_H

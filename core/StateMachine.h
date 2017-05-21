@@ -158,10 +158,12 @@ public:
 	void add_point(PointEvent<T> const& evt)
 	{
 #pragma warning(disable: 4127)  // conditional expression is constant
+
 		if (T::revoke)
 			Score_(evt.tori).Remove(Score::Point(T::type));
 		else
 			Score_(evt.tori).Add(Score::Point(T::type));
+
 #pragma warning(default: 4127)
 	}
 	template <typename T>
@@ -198,15 +200,15 @@ public:
 		return 0 == m_pCore->get_time(eTimer_Main);
 	}
 
-    bool wazaari_is_match_point(Wazaari const& evt);
-    bool can_add_wazaari(Wazaari const& evt);
-    bool has_max_wazaari(RevokeWazaari const& evt);
+	bool wazaari_is_match_point(Wazaari const& evt);
+	bool can_add_wazaari(Wazaari const& evt);
+	bool has_max_wazaari(RevokeWazaari const& evt);
 	bool has_IpponTime(HoldTimeEvent const& evt);
 	bool has_WazaariTime(HoldTimeEvent const& evt);
 	bool has_AwaseteTime(HoldTimeEvent const& evt);
 	bool has_YukoTime(HoldTimeEvent const& evt);
 	bool is_sonomama(Osaekomi_Toketa const& evt);
-    bool shido_is_match_point(Shido const& evt);
+	bool shido_is_match_point(Shido const& evt);
 	bool can_take_shido(Shido const& evt);
 
 	typedef Ipponboard::IpponboardSM_ sm; // makes transition table cleaner
@@ -216,8 +218,8 @@ public:
 			//		Start		Event			Next	  Action				Guard
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
 			a_row < Stopped , Hajime_Mate	, Running	, &sm::start_timer							>,
-            //row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
-              row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
+			//row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
+			row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::can_take_shido	>,
 			a_row < Stopped , Hansokumake	, Stopped	, &sm::add_point							>,
 			a_row < Stopped , Reset         , Stopped	, &sm::reset								>,
 			a_row < Stopped , Finish		, Stopped   , &sm::save									>,
@@ -228,14 +230,14 @@ public:
 			a_row < Stopped	, RevokeYuko	, Stopped	, &sm::add_point							>,
 			a_row < Stopped , Ippon			, Stopped	, &sm::add_point							>,	// just to correct values...
 			a_row < Stopped , RevokeIppon	, Stopped	, &sm::add_point							>,	// just to correct values...
-              row < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::can_add_wazaari  >,	// just to correct values...
+			row < Stopped , Wazaari		, Stopped	, &sm::add_point	, &sm::can_add_wazaari  >,	// just to correct values...
 			a_row < Stopped , Yuko			, Stopped	, &sm::add_point							>,	// just to correct values...
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
 			a_row < Running , Hajime_Mate	, Stopped	, &sm::stop_timer					 		>,
 			a_row < Running , TimeEndedEvent, Stopped	, &sm::stop_timer							>,
 			a_row < Running , Ippon			, Stopped	, &sm::add_point							>,
-              row < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::wazaari_is_match_point>,
-              row < Running , Wazaari		, Running	, &sm::add_point    , &sm::can_add_wazaari  >,
+			row < Running , Wazaari		, Stopped	, &sm::add_point_stop_timer, &sm::wazaari_is_match_point>,
+			row < Running , Wazaari		, Running	, &sm::add_point    , &sm::can_add_wazaari  >,
 			a_row < Running , Yuko			, Running	, &sm::add_point							>,
 			a_row < Running	, Reset			, Stopped	, &sm::reset								>,
 			a_row < Running , Finish		, Stopped	, &sm::stop_timer							>,
@@ -244,28 +246,28 @@ public:
 			a_row < Running	, RevokeYuko	, Running	, &sm::add_point							>,
 			a_row < Running , RevokeShidoHM	, Running	, &sm::add_point							>,	// just to correct values...
 			a_row < Running , Hansokumake	, Stopped	, &sm::add_point							>,	// just to correct values...
-              row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
-              row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::shido_is_match_point	>,	// just to correct values...
+			row < Running , Shido			, Running	, &sm::add_point			, &sm::can_take_shido	>,	// just to correct values...
+			row < Running , Shido			, Stopped	, &sm::add_point_stop_timer	, &sm::shido_is_match_point	>,	// just to correct values...
 			//	  +---------+---------------+-----------+-------------------+-----------------------+
-              row < Holding , Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
-              row < Holding , Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
+			row < Holding , Osaekomi_Toketa, Running	, &sm::stop_timer			, &sm::time_is_left		>,
+			row < Holding , Osaekomi_Toketa, Stopped	, &sm::stop_timer			, &sm::time_is_up		>,
 			a_row < Holding , Hajime_Mate	, Stopped	, &sm::stop_timer									>,
 			a_row < Holding , Reset			, Stopped	, &sm::reset										>,
-            a_row < Holding , Finish		, Stopped	, &sm::stop_timer									>,
+			a_row < Holding , Finish		, Stopped	, &sm::stop_timer									>,
 			a_row < Holding , Hansokumake	, Stopped	, &sm::add_point									>,
 			a_row < Holding , Ippon			, Stopped	, &sm::add_point									>,
 			a_row < Holding , Wazaari		, Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , Yuko			, Holding	, &sm::add_point									>,	// just to correct values...
-              row < Holding , Shido			, Holding	, &sm::add_point            , &sm::can_take_shido   >,	// just to correct values...
+			row < Holding , Shido			, Holding	, &sm::add_point            , &sm::can_take_shido   >,	// just to correct values...
 			a_row < Holding , RevokeWazaari	, Holding	, &sm::add_point									>,	// just to correct values...
-            a_row < Holding , RevokeYuko	, Holding	, &sm::add_point									>,	// just to correct values...
+			a_row < Holding , RevokeYuko	, Holding	, &sm::add_point									>,	// just to correct values...
 			a_row < Holding , RevokeShidoHM	, Holding	, &sm::add_point									>,	// just to correct values...
 			//
 			// Note: Transitions are processed bottom up!
-              row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_YukoTime     >,
-              row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_WazaariTime  >,
-              row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_AwaseteTime  >,
-              row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_IpponTime	>
+			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_YukoTime     >,
+			row < Holding , HoldTimeEvent	, Holding	, &sm::add_point			, &sm::has_WazaariTime  >,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_AwaseteTime  >,
+			row < Holding , HoldTimeEvent	, Stopped	, &sm::add_point_stop_timer	, &sm::has_IpponTime	>
 			//	  +---------+---------------+-----------+-------------------+----------------------+
 			> {};
 	// Replaces the default no-transition response.

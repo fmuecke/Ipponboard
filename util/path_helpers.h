@@ -140,7 +140,7 @@ const std::string GetSettingsFilePath(const char* fileName)
 	{
 		filePath.assign(fileName);
 	}
-	
+
 	return filePath;
 }
 

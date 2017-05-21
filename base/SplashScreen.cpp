@@ -24,33 +24,33 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 //			"- " + QString::number( days_left ) +
 //			" " + tr("days left") + " -");
 
-    ui->textEdit_eula->setHtml(data.text);
+	ui->textEdit_eula->setHtml(data.text);
 	ui->label_info->setText(data.info);
-    //ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
-    ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
+	//ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
+	ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
 
-    /*std::vector<QCommandLinkButton*> buttons =
-    {
-        ui->commandLinkButton_donate,
-        ui->commandLinkButton_startSingleVersion,
-        ui->commandLinkButton_startTeamVersion
-    };
+	/*std::vector<QCommandLinkButton*> buttons =
+	{
+	    ui->commandLinkButton_donate,
+	    ui->commandLinkButton_startSingleVersion,
+	    ui->commandLinkButton_startTeamVersion
+	};
 
-    buttons.erase(
-            remove_if(
-                  begin(buttons),
-                  end(buttons),
-                  [](QCommandLinkButton* b) { return !b->isEnabled(); }),
-            end(buttons));
+	buttons.erase(
+	        remove_if(
+	              begin(buttons),
+	              end(buttons),
+	              [](QCommandLinkButton* b) { return !b->isEnabled(); }),
+	        end(buttons));
 
-    auto r = qrand() % buttons.size();
-    buttons[r]->setFocus();
-    buttons[r]->setDefault(true);
+	auto r = qrand() % buttons.size();
+	buttons[r]->setFocus();
+	buttons[r]->setDefault(true);
 
-    //ui->commandLinkButton_donate->setFocus();
-    */
+	//ui->commandLinkButton_donate->setFocus();
+	*/
 
-    setWindowFlags(Qt::Window);
+	setWindowFlags(Qt::Window);
 }
 
 SplashScreen::~SplashScreen()
@@ -61,7 +61,7 @@ SplashScreen::~SplashScreen()
 void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 {
 	//"image: url(:/res/images/logo.png);"
-    //ui->widget_image->setStyleSheet(text);
+	//ui->widget_image->setStyleSheet(text);
 }
 
 void SplashScreen::changeEvent(QEvent* e)
@@ -86,12 +86,12 @@ void SplashScreen::on_commandLinkButton_startSingleVersion_pressed()
 
 void SplashScreen::on_commandLinkButton_startTeamVersion_pressed()
 {
-    done(QDialog::Accepted + 1);
+	done(QDialog::Accepted + 1);
 }
 
 void SplashScreen::on_commandLinkButton_donate_pressed()
 {
-    DonationManager::OpenUrl();
+	DonationManager::OpenUrl();
 }
 
 //void SplashScreen::on_commandLinkButton_cancel_pressed()

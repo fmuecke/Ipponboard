@@ -36,9 +36,9 @@ protected:
 	virtual void attach_primary_view() final;
 	virtual void retranslate_Ui() final;
 	virtual void ui_check_language_items() final;
-    virtual void ui_check_rules_items() final;
-    virtual void ui_check_show_secondary_view(bool checked) const final;
-    virtual void ui_update_used_options();
+	virtual void ui_check_rules_items() final;
+	virtual void ui_check_show_secondary_view(bool checked) const final;
+	virtual void ui_update_used_options();
 
 private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
@@ -66,9 +66,9 @@ protected slots:
 	void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
 private slots:
-    void on_actionAutoAdjustPoints_toggled(bool checked) override;
-    void on_actionViewInfoBar_toggled(bool checked);
-    void on_toolButton_viewSecondaryScreen_toggled();
+	void on_actionAutoAdjustPoints_toggled(bool checked) override;
+	void on_actionViewInfoBar_toggled(bool checked);
+	void on_toolButton_viewSecondaryScreen_toggled();
 
 private:
 	/* member */

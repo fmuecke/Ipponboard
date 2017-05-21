@@ -112,66 +112,66 @@ void ClubManager::LoadClubs_()
 	const std::string filePath(
 		fm::GetSettingsFilePath(str_filename_club_definitions));
 
-    try
-    {
-        auto const& jsonClubs = fm::Json::ReadFile(filePath.c_str());
+	try
+	{
+		auto const& jsonClubs = fm::Json::ReadFile(filePath.c_str());
 
-        for (auto const& jsonClub : jsonClubs)
-        {
-            Club club;
-            club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
-            club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
-            club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
+		for (auto const & jsonClub : jsonClubs)
+		{
+			Club club;
+			club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
+			club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
+			club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
 
-            m_Clubs.push_back(club);
-        }
-    }
-    catch (fm::Json::Exception const& e)
-    {
-        QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
-    }
-    catch(std::exception const& e)
-    {
-        QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
-    }
+			m_Clubs.push_back(club);
+		}
+	}
+	catch (fm::Json::Exception const& e)
+	{
+		QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+	}
 }
 
 //---------------------------------------------------------
 void ClubManager::SaveClubs_()
 //---------------------------------------------------------
 {
-    if (m_Clubs.empty())
-    {
-        return;
-    }
+	if (m_Clubs.empty())
+	{
+		return;
+	}
 
-    // make an archive
+	// make an archive
 	const std::string filePath(
 		fm::GetSettingsFilePath(str_filename_club_definitions));
 
-    fm::Json::Value jsonClubs;
+	fm::Json::Value jsonClubs;
 
-    for (Club const& club : m_Clubs)
-    {
-        fm::Json::Value jsonClub;
-        jsonClub["name"] = fm::qt::to_utf8_str(club.name);
-        jsonClub["address"] = fm::qt::to_utf8_str(club.address);
-        jsonClub["image"] = fm::qt::to_utf8_str(club.logoFile);
+	for (Club const & club : m_Clubs)
+	{
+		fm::Json::Value jsonClub;
+		jsonClub["name"] = fm::qt::to_utf8_str(club.name);
+		jsonClub["address"] = fm::qt::to_utf8_str(club.address);
+		jsonClub["image"] = fm::qt::to_utf8_str(club.logoFile);
 
-        jsonClubs.append(jsonClub);
-    }
-
-    try
-    {
-        fm::Json::WriteFile(filePath.c_str(), jsonClubs);
-    }
-    catch(fm::Json::Exception const& e)
-    {
-        QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
+		jsonClubs.append(jsonClub);
 	}
-    catch(std::exception const& e)
-    {
-        QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
-    }
+
+	try
+	{
+		fm::Json::WriteFile(filePath.c_str(), jsonClubs);
+	}
+	catch (fm::Json::Exception const& e)
+	{
+		QMessageBox::critical(0, QString("Error"), QString::fromStdString(e.what()));
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+	}
 
 }

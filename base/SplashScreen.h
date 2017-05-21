@@ -40,9 +40,9 @@ private:
 	Ui::SplashScreen* ui;
 
 private slots:
-    void on_commandLinkButton_startSingleVersion_pressed();
-    void on_commandLinkButton_startTeamVersion_pressed();
-    void on_commandLinkButton_donate_pressed();
+	void on_commandLinkButton_startSingleVersion_pressed();
+	void on_commandLinkButton_startTeamVersion_pressed();
+	void on_commandLinkButton_donate_pressed();
 };
 
 #endif  // WIDGETS__SPLASHSCREEN_H_

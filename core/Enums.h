@@ -56,14 +56,14 @@ enum EHoldState
 enum ETimer
 {
 	eTimer_Main = 0,
-    eTimer_Hold
+	eTimer_Hold
 };
 
 enum EOption
 {
-    eOption_Invalid = -1,
-    //eOption_AutoAdjustPoints = 0,
-    eOption_AllSubscoresCount = 2,
+	eOption_Invalid = -1,
+	//eOption_AutoAdjustPoints = 0,
+	eOption_AllSubscoresCount = 2,
 	eOption_MAX
 };
 

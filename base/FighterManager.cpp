@@ -32,7 +32,7 @@ QString FighterManager::DefaultExportFormat()
 {
 	QString ret;
 
-	for(char const * const s: Specifiers)
+	for (char const * const s : Specifiers)
 	{
 		if (!ret.isEmpty())
 		{
@@ -55,7 +55,7 @@ QString FighterManager::GetSpecifiererDescription()
 {
 	QString retVal;
 
-	for(char const * const s : Specifiers)
+	for (char const * const s : Specifiers)
 	{
 		if (!retVal.isEmpty())
 		{
@@ -160,7 +160,8 @@ bool FighterManager::ImportFighters(
 	//NO, don't do it: m_fighters.clear();
 
 	const size_t oldCount = m_fighters.size();
-	for(QStringList const & line : data)
+
+	for (QStringList const & line : data)
 	{
 		QString firstName = line[firstNamePos];
 		QString lastName = line[lastNamePos];
@@ -215,7 +216,8 @@ bool FighterManager::ExportFighters(
 	const int categoryPos = tags.indexOf(str_CATEGORY);
 
 	QStringList data;
-	for(Ipponboard::Fighter const & f : m_fighters)
+
+	for (Ipponboard::Fighter const & f : m_fighters)
 	{
 		QString line;
 

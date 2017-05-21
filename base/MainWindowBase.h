@@ -104,8 +104,8 @@ public:
 	virtual void Reset() {}
 	virtual void SetShowInfoHeader(bool /*show*/) {}
 
-    /* IGoldenScoreView */
-    virtual void UpdateGoldenScoreView() {};
+	/* IGoldenScoreView */
+	virtual void UpdateGoldenScoreView() {};
 
 protected:
 	virtual void changeEvent(QEvent*) override;
@@ -125,8 +125,8 @@ protected:
 	virtual void attach_primary_view() = 0;
 	virtual void retranslate_Ui() = 0;
 	virtual void ui_check_language_items() = 0;
-    virtual void ui_check_rules_items() = 0;
-    virtual void ui_check_show_secondary_view(bool checked) const = 0;
+	virtual void ui_check_rules_items() = 0;
+	virtual void ui_check_show_secondary_view(bool checked) const = 0;
 
 private:
 	virtual void write_specific_settings(QSettings& settings);
@@ -146,17 +146,17 @@ protected slots:
 	void EvaluateInput();
 	void on_actionLang_English_triggered(bool);
 	void on_actionLang_Deutsch_triggered(bool);
-    void on_actionLang_Dutch_triggered(bool);
-    void on_actionRulesClassic_triggered(bool);
-    void on_actionRules2013_triggered(bool);
-    void on_actionRules2017_triggered(bool);
-    void on_actionRules2017U15_triggered(bool);
+	void on_actionLang_Dutch_triggered(bool);
+	void on_actionRulesClassic_triggered(bool);
+	void on_actionRules2013_triggered(bool);
+	void on_actionRules2017_triggered(bool);
+	void on_actionRules2017U15_triggered(bool);
 	void on_actionContact_Author_triggered();
 	void on_actionOnline_Feedback_triggered();
 	void on_actionVisit_Project_Homepage_triggered();
 	void on_actionAbout_Ipponboard_triggered();
 	virtual void on_actionManageFighters_triggered() {}
-    virtual void on_actionAutoAdjustPoints_toggled(bool checked);
+	virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
 
 protected:

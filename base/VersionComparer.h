@@ -6,7 +6,7 @@
 class VersionComparer
 {
 public:
-    static bool IsVersionLess(std::string const& version1, std::string const& version2);
+	static bool IsVersionLess(std::string const& version1, std::string const& version2);
 };
 
 #endif // VERSIONCOMPARER_H

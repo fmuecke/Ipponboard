@@ -40,7 +40,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 		ui->lineEdit_labelHome->setEnabled(false);
 		ui->lineEdit_labelGuest->setEnabled(false);
 	}
-	
+
 	//TODO: remove comment
 	//ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
@@ -612,7 +612,7 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
 	ui->lineEdit_fixedsize_height->setEnabled(checked);
 	ui->label_screen_width->setEnabled(checked);
 	ui->label_screen_height->setEnabled(checked);
-	
+
 	if (!checked)
 	{
 		ui->lineEdit_fixedsize_width->setText("0");

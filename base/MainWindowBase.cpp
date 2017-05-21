@@ -59,12 +59,12 @@ void MainWindowBase::Init()
 	setWindowTitle(
 		QCoreApplication::applicationName() + " v" +
 		QCoreApplication::applicationVersion());
-		
+
 	setWindowFlags(Qt::Window);
-    //setWindowState(Qt::WindowMaximized);
-    // instead, center window
-    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
-		QApplication::desktop()->availableGeometry()));
+	//setWindowState(Qt::WindowMaximized);
+	// instead, center window
+	this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
+										  QApplication::desktop()->availableGeometry()));
 
 	load_fighters();
 
@@ -78,7 +78,7 @@ void MainWindowBase::Init()
 		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypeSecondary));
 
 	// clear data
-    m_pController->ClearFightsAndResetTimers();
+	m_pController->ClearFightsAndResetTimers();
 
 	// Load settings
 	read_settings();
@@ -90,12 +90,12 @@ void MainWindowBase::Init()
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
 	m_pTimer->start(75);
 
-    update_statebar();
+	update_statebar();
 
 	m_pController->RegisterView(m_pPrimaryView.get());
 	m_pController->RegisterView(m_pSecondaryView.get());
-    m_pController->RegisterView(static_cast<IView*>(this));
-    m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
+	m_pController->RegisterView(static_cast<IView*>(this));
+	m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
 }
 
 QString MainWindowBase::GetConfigFileName() const
@@ -293,26 +293,26 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		this,
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
-		   "<p>Build: %3, Revision: %4</p>"
-		   "<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-           "<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
-		   "<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
-		   "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
-		   "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
-           "PARTICULAR PURPOSE.</p>"
-           "<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
-           "with a little donation.</a></em>"
-		  ).arg(QCoreApplication::applicationName(),
-				QCoreApplication::applicationVersion(),
-				VersionInfo::Date,
-                VersionInfo::Revision,
-                VersionInfo::CopyrightYear,
-                DonationManager::DonationUrl));
+				"<p>Build: %3, Revision: %4</p>"
+				"<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
+				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
+				"<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
+				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
+				"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
+				"PARTICULAR PURPOSE.</p>"
+				"<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
+				"with a little donation.</a></em>"
+			   ).arg(QCoreApplication::applicationName(),
+					 QCoreApplication::applicationVersion(),
+					 VersionInfo::Date,
+					 VersionInfo::Revision,
+					 VersionInfo::CopyrightYear,
+					 DonationManager::DonationUrl));
 }
 
 void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-    m_pController->SetAutoAdjustPoints(checked);
+	m_pController->SetAutoAdjustPoints(checked);
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
@@ -323,14 +323,14 @@ void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-    QUrl url("https://bitbucket.org/ipponboard/ipponboard/issues/new");
+	QUrl url("https://bitbucket.org/ipponboard/ipponboard/issues/new");
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionContact_Author_triggered()
 {
-	QUrl url("mailto:ipponboardinfo@gmail.com?subject=Ipponboard%20v" + QCoreApplication::applicationVersion() + 
-		"%20Feedback&body=" + tr("Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that..."));
+	QUrl url("mailto:ipponboardinfo@gmail.com?subject=Ipponboard%20v" + QCoreApplication::applicationVersion() +
+			 "%20Feedback&body=" + tr("Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that..."));
 	QDesktopServices::openUrl(url);
 }
 
@@ -366,47 +366,47 @@ void MainWindowBase::on_actionLang_English_triggered(bool val)
 
 void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 {
-    if (val)
-    {
-        m_Language = "nl";
-        change_lang();
-    }
+	if (val)
+	{
+		m_Language = "nl";
+		change_lang();
+	}
 }
 
 void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 {
-    if (checked)
-    {
-        m_pController->SetRules(std::make_shared<ClassicRules>());
-        ui_check_rules_items();
-    }
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<ClassicRules>());
+		ui_check_rules_items();
+	}
 }
 
 void MainWindowBase::on_actionRules2013_triggered(bool checked)
 {
-    if (checked)
-    {
-        m_pController->SetRules(std::make_shared<Rules2013>());
-        ui_check_rules_items();
-    }
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<Rules2013>());
+		ui_check_rules_items();
+	}
 }
 
 void MainWindowBase::on_actionRules2017_triggered(bool checked)
 {
-    if (checked)
-    {
-        m_pController->SetRules(std::make_shared<Rules2017>());
-        ui_check_rules_items();
-    }
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<Rules2017>());
+		ui_check_rules_items();
+	}
 }
 
 void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
 {
-    if (checked)
-    {
-        m_pController->SetRules(std::make_shared<Rules2017U15>());
-        ui_check_rules_items();
-    }
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<Rules2017U15>());
+		ui_check_rules_items();
+	}
 }
 
 void MainWindowBase::write_settings()
@@ -416,12 +416,12 @@ void MainWindowBase::write_settings()
 			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
-    //TODO: settings.setIniCodec("UTF-8");
+	//TODO: settings.setIniCodec("UTF-8");
 
 	settings.beginGroup(str_tag_Main);
 	{
-        settings.remove("");
-        settings.setValue(str_tag_Version, VersionInfo::VersionStr);
+		settings.remove("");
+		settings.setValue(str_tag_Version, VersionInfo::VersionStr);
 		settings.setValue(str_tag_Language, m_Language);
 		settings.setValue(str_tag_size, size());
 		settings.setValue(str_tag_pos, pos());
@@ -435,8 +435,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Fonts);
 	{
-        settings.remove("");
-        settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
+		settings.remove("");
+		settings.setValue(str_tag_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
 		settings.setValue(str_tag_FighterNameFont, m_FighterNameFont.toString());
 		settings.setValue(str_tag_DigitFont, m_pPrimaryView->GetDigitFont().toString());
 	}
@@ -444,8 +444,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Colors);
 	{
-        settings.remove("");
-        settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
+		settings.remove("");
+		settings.setValue(str_tag_InfoTextColor, m_pPrimaryView->GetInfoTextColor());
 		settings.setValue(str_tag_InfoTextBgColor, m_pPrimaryView->GetInfoTextBgColor());
 		settings.setValue(str_tag_TextColorFirst, m_pPrimaryView->GetTextColorFirst());
 		settings.setValue(str_tag_TextBgColorFirst, m_pPrimaryView->GetTextBgColorFirst());
@@ -458,8 +458,8 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Input);
 	{
-        settings.remove("");
-        settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
+		settings.remove("");
+		settings.setValue(str_tag_buttonHajimeMate, m_controllerCfg.button_hajime_mate);
 		settings.setValue(str_tag_buttonNext, m_controllerCfg.button_next);
 		settings.setValue(str_tag_buttonPrev, m_controllerCfg.button_prev);
 		settings.setValue(str_tag_buttonPause, m_controllerCfg.button_pause);
@@ -480,17 +480,17 @@ void MainWindowBase::write_settings()
 
 	settings.beginGroup(str_tag_Sounds);
 	{
-        settings.remove("");
-        settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
+		settings.remove("");
+		settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
 	}
 	settings.endGroup();
 
-    settings.beginGroup(str_tag_Options);
-    {
-        settings.remove("");
-        settings.setValue(str_tag_autoAdjustPoints, m_pController->IsAutoAdjustPoints());
-    }
-    settings.endGroup();
+	settings.beginGroup(str_tag_Options);
+	{
+		settings.remove("");
+		settings.setValue(str_tag_autoAdjustPoints, m_pController->IsAutoAdjustPoints());
+	}
+	settings.endGroup();
 }
 
 void MainWindowBase::read_settings()
@@ -500,7 +500,7 @@ void MainWindowBase::read_settings()
 			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
-    //TODO: settings.setIniCodec("UTF-8");
+	//TODO: settings.setIniCodec("UTF-8");
 
 	// MainWindow
 
@@ -644,18 +644,18 @@ void MainWindowBase::read_settings()
 	settings.endGroup();
 
 	settings.beginGroup(str_tag_Sounds);
-	{	
+	{
 		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
-								"sounds/buzzer1.wav").toString());
+								   "sounds/buzzer1.wav").toString());
 	}
 	settings.endGroup();
 
-    settings.beginGroup(str_tag_Options);
-    {
-        const auto isAutoAdjust = settings.value(str_tag_autoAdjustPoints, true).toBool();
-        m_pController->SetAutoAdjustPoints(isAutoAdjust);
-    }
-    settings.endGroup();
+	settings.beginGroup(str_tag_Options);
+	{
+		const auto isAutoAdjust = settings.value(str_tag_autoAdjustPoints, true).toBool();
+		m_pController->SetAutoAdjustPoints(isAutoAdjust);
+	}
+	settings.endGroup();
 
 	// update views
 	update_views();
@@ -669,11 +669,11 @@ void MainWindowBase::load_fighters()
 
 	QString errorMsg;
 
-    if (!QFile::exists(csvFile))
-    {
-        // silently ignore
-        return;
-    }
+	if (!QFile::exists(csvFile))
+	{
+		// silently ignore
+		return;
+	}
 
 	if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
 	{
@@ -714,9 +714,10 @@ void MainWindowBase::on_actionTest_Gong_triggered()
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
 	show_hide_view();
-    if (m_pSecondaryView->isVisible())
-    {
-    }
+
+	if (m_pSecondaryView->isVisible())
+	{
+	}
 }
 
 void MainWindowBase::on_actionPreferences_triggered()
@@ -727,11 +728,11 @@ void MainWindowBase::on_actionPreferences_triggered()
 							  m_pPrimaryView->GetInfoTextBgColor());
 
 	dlg.SetFighterNameFont(m_FighterNameFont);
-    dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
-    dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
+	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
+	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
 	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
 	dlg.SetControllerConfig(&m_controllerCfg);
-    dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
+	dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
 	dlg.SetGongFile(m_pController->GetGongFile());
 
 	if (QDialog::Accepted == dlg.exec())
@@ -770,22 +771,23 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::show_hide_view() const
 {
-    static bool isAlreadyCalled = false;
-    if (isAlreadyCalled)
-    {
-        return;
-    }
+	static bool isAlreadyCalled = false;
 
-    isAlreadyCalled = true;  // prevents recursive calls (TODO: implement better)
+	if (isAlreadyCalled)
+	{
+		return;
+	}
 
-    if (m_pSecondaryView->isHidden())
+	isAlreadyCalled = true;  // prevents recursive calls (TODO: implement better)
+
+	if (m_pSecondaryView->isHidden())
 	{
 		const int nScreens(QApplication::desktop()->numScreens());
 
 		if (nScreens > 0 && nScreens > m_secondScreenNo)
 		{
-            auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
-            m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
+			auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
+			m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
 		}
 
 		if (m_secondScreenSize.isNull())
@@ -803,23 +805,23 @@ void MainWindowBase::show_hide_view() const
 		m_pSecondaryView->hide();
 	}
 
-    ui_check_show_secondary_view(!m_pSecondaryView->isHidden());
-    isAlreadyCalled = false;
+	ui_check_show_secondary_view(!m_pSecondaryView->isHidden());
+	isAlreadyCalled = false;
 }
 
 void MainWindowBase::EvaluateInput()
 {
-    if (Gamepad::eState_ok != m_pGamepad->GetState())
-    {
-        return;
-    }
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
+	{
+		return;
+	}
 
 	m_pGamepad->ReadData();
 
-    if (EvaluateSpecificInput(m_pGamepad.get()))
-    {
-        return;
-    }
+	if (EvaluateSpecificInput(m_pGamepad.get()))
+	{
+		return;
+	}
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{

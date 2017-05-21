@@ -49,7 +49,7 @@ private:
 	void save_categories();
 	void load_default_categories();
 
-    FightCategoryList m_Categories;
+	FightCategoryList m_Categories;
 };
 
 } // namespace Ipponboard

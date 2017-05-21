@@ -55,7 +55,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->dummy_first->UpdateImage(":res/images/off_empty.png");
 	ui->dummy_second->UpdateImage(":res/images/off_empty.png");
 	ui->image_golden_score->UpdateImage(":res/images/golden_score.png");
-    ui->image_golden_score->SetBgColor(Qt::black);
+	ui->image_golden_score->SetBgColor(Qt::black);
 
 	ui->text_hold_clock_first->SetText("00", ScaledText::eSize_full);
 	ui->text_hold_clock_second->SetText("00", ScaledText::eSize_full);
@@ -66,7 +66,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	QColor fgColor2 = get_color(secondFg);
 
 	// set point descriptions
-    const QFont descFont("Calibri", 12, QFont::Bold, false);
+	const QFont descFont("Calibri", 12, QFont::Bold, false);
 
 	ui->text_ippon_desc1->setFont(descFont);
 	ui->text_wazaari_desc1->setFont(descFont);
@@ -80,15 +80,15 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->text_ippon_desc2->setFont(descFont);
 	ui->text_wazaari_desc2->setFont(descFont);
 	ui->text_yuko_desc2->setFont(descFont);
-    ui->text_ippon_desc2->SetColor(fgColor2, bgColor2);
-    ui->text_wazaari_desc2->SetColor(fgColor2, bgColor2);
-    ui->text_yuko_desc2->SetColor(fgColor2, bgColor2);
+	ui->text_ippon_desc2->SetColor(fgColor2, bgColor2);
+	ui->text_wazaari_desc2->SetColor(fgColor2, bgColor2);
+	ui->text_yuko_desc2->SetColor(fgColor2, bgColor2);
 	ui->text_ippon_desc2->SetText("I");
 	ui->text_wazaari_desc2->SetText("W");
 	ui->text_yuko_desc2->SetText("Y");
-    ui->text_ippon_desc1->SetColor(fgColor1, bgColor1);
-    ui->text_wazaari_desc1->SetColor(fgColor1, bgColor1);
-    ui->text_yuko_desc1->SetColor(fgColor1, bgColor1);
+	ui->text_ippon_desc1->SetColor(fgColor1, bgColor1);
+	ui->text_wazaari_desc1->SetColor(fgColor1, bgColor1);
+	ui->text_yuko_desc1->SetColor(fgColor1, bgColor1);
 	ui->dummy_first->SetBgColor(bgColor1);
 	ui->dummy_second->SetBgColor(bgColor2);
 
@@ -116,17 +116,17 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 
 	if (is_secondary())
 	{
-        ui->text_ippon_desc1->hide();
-        ui->text_ippon_desc2->hide();
-        ui->text_wazaari_desc1->SetText("Waza-ari");
-        ui->text_wazaari_desc1->SetText("Waza-ari");
-        ui->text_yuko_desc1->SetText("Yuko");
-        ui->text_yuko_desc2->SetText("Yuko");
-    }
+		ui->text_ippon_desc1->hide();
+		ui->text_ippon_desc2->hide();
+		ui->text_wazaari_desc1->SetText("Waza-ari");
+		ui->text_wazaari_desc1->SetText("Waza-ari");
+		ui->text_yuko_desc1->SetText("Yuko");
+		ui->text_yuko_desc2->SetText("Yuko");
+	}
 	else
 	{
-        ui->text_ippon_desc1->show();
-        ui->text_ippon_desc2->show();
+		ui->text_ippon_desc1->show();
+		ui->text_ippon_desc2->show();
 	}
 
 	ui->image_shido1_first->SetBgColor(bgColor1);
@@ -165,31 +165,31 @@ void View::UpdateView()
 {
 	Q_ASSERT(m_pController && "Controller not set!");
 
-    if (m_pController->GetRules()->GetMaxShidoCount() < 3)
-    {
-        ui->image_shido3_first->hide();
-        ui->image_shido3_second->hide();
-    }
-    else
-    {
-        ui->image_shido3_first->show();
-        ui->image_shido3_second->show();
-    }
+	if (m_pController->GetRules()->GetMaxShidoCount() < 3)
+	{
+		ui->image_shido3_first->hide();
+		ui->image_shido3_second->hide();
+	}
+	else
+	{
+		ui->image_shido3_first->show();
+		ui->image_shido3_second->show();
+	}
 
-    if (m_pController->GetRules()->IsOption_HasYuko())
-    {
-        ui->text_yuko_first->show();
-        ui->text_yuko_second->show();
-        ui->text_yuko_desc1->show();
-        ui->text_yuko_desc2->show();
-    }
-    else
-    {
-        ui->text_yuko_first->hide();
-        ui->text_yuko_second->hide();
-        ui->text_yuko_desc1->hide();
-        ui->text_yuko_desc2->hide();
-    }
+	if (m_pController->GetRules()->IsOption_HasYuko())
+	{
+		ui->text_yuko_first->show();
+		ui->text_yuko_second->show();
+		ui->text_yuko_desc1->show();
+		ui->text_yuko_desc2->show();
+	}
+	else
+	{
+		ui->text_yuko_first->hide();
+		ui->text_yuko_second->hide();
+		ui->text_yuko_desc1->hide();
+		ui->text_yuko_desc2->hide();
+	}
 
 	show_golden_score(m_pController->IsGoldenScore());
 
@@ -199,6 +199,7 @@ void View::UpdateView()
 	// weight class
 	//
 	ui->text_mat->SetText(m_mat, ScaledText::eSize_normal);
+
 	if (m_Edition == EditionType::Team)
 	{
 		QString infoText/*(tr("Fight ").toUpper())*/;
@@ -216,7 +217,7 @@ void View::UpdateView()
 		infoText += m_weight;//.toUpper();
 		ui->text_weight->SetText(infoText + "KG", ScaledText::eSize_full);
 	}
-	
+
 	if (m_showInfoHeader)
 	{
 		ui->verticalLayout_main->setStretchFactor(ui->layout_info_top, 4);
@@ -659,8 +660,8 @@ void View::setMainTimerValue_()
 	//  m_pController->GetCurrentState() == eState_TimerStopped )
 	{
 		bool ok(false);
-        this->setStyleSheet("");
-        const QString time = QInputDialog::getText(
+		this->setStyleSheet("");
+		const QString time = QInputDialog::getText(
 								 this,
 								 tr("Set Value"),
 								 tr("Set value to (m:ss):"),
@@ -692,22 +693,22 @@ void View::blink_()
 void View::update_ippon(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    auto digit_ippon = ui->text_ippon_first;
-    auto digit_wazaari = ui->text_wazaari_first;
-    auto digit_yuko = ui->text_yuko_first;
-    auto wazaariLabel = ui->text_wazaari_desc1;
-    auto yukoLabel = ui->text_yuko_desc1;
-    auto scoreLayout = ui->layout_score_first;
+	auto digit_ippon = ui->text_ippon_first;
+	auto digit_wazaari = ui->text_wazaari_first;
+	auto digit_yuko = ui->text_yuko_first;
+	auto wazaariLabel = ui->text_wazaari_desc1;
+	auto yukoLabel = ui->text_yuko_desc1;
+	auto scoreLayout = ui->layout_score_first;
 	FighterEnum uke(FighterEnum::Second);
 
-    if (uke == who)
+	if (uke == who)
 	{
-        scoreLayout = ui->layout_score_second;
-        digit_ippon = ui->text_ippon_second;
-        digit_wazaari = ui->text_wazaari_second;
-        digit_yuko = ui->text_yuko_second;
-        wazaariLabel = ui->text_wazaari_desc2;
-        yukoLabel = ui->text_yuko_desc2;
+		scoreLayout = ui->layout_score_second;
+		digit_ippon = ui->text_ippon_second;
+		digit_wazaari = ui->text_wazaari_second;
+		digit_yuko = ui->text_yuko_second;
+		wazaariLabel = ui->text_wazaari_desc2;
+		yukoLabel = ui->text_yuko_desc2;
 		uke = FighterEnum::First;
 	}
 
@@ -724,75 +725,82 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 		{
 			if (m_drawIppon)
 			{
-                digit_ippon->show();
-                digit_wazaari->hide();
-                wazaariLabel->SetText("");
-                if (m_pController->GetRules()->IsOption_HasYuko())
-                {
-                    digit_yuko->hide();
-                    yukoLabel->SetText("");
-                }
+				digit_ippon->show();
+				digit_wazaari->hide();
+				wazaariLabel->SetText("");
+
+				if (m_pController->GetRules()->IsOption_HasYuko())
+				{
+					digit_yuko->hide();
+					yukoLabel->SetText("");
+				}
 			}
 			else
 			{
-                digit_ippon->hide();
-                digit_wazaari->show();
-                wazaariLabel->SetText("Waza-ari");
-                if (m_pController->GetRules()->IsOption_HasYuko())
-                {
-                    digit_yuko->show();
-                    yukoLabel->SetText("Yuko");
-                }
-            }
+				digit_ippon->hide();
+				digit_wazaari->show();
+				wazaariLabel->SetText("Waza-ari");
+
+				if (m_pController->GetRules()->IsOption_HasYuko())
+				{
+					digit_yuko->show();
+					yukoLabel->SetText("Yuko");
+				}
+			}
 		}
 		else
 		{
-            digit_ippon->show();
-            digit_wazaari->show();
-            wazaariLabel->SetText("W");
-            if (m_pController->GetRules()->IsOption_HasYuko())
-            {
-                digit_yuko->show();
-                yukoLabel->SetText("Y");
-            }
-        }
+			digit_ippon->show();
+			digit_wazaari->show();
+			wazaariLabel->SetText("W");
 
-        digit_ippon->SetText("IPPON", ScaledText::eSize_full, !is_secondary());
+			if (m_pController->GetRules()->IsOption_HasYuko())
+			{
+				digit_yuko->show();
+				yukoLabel->SetText("Y");
+			}
+		}
+
+		digit_ippon->SetText("IPPON", ScaledText::eSize_full, !is_secondary());
 	}
 	else
 	{
 		const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
 
 		if (m_pBlinkTimer->isActive() &&  0 == score_uke)
-        {
+		{
 			m_pBlinkTimer->stop();
-        }
+		}
 
 		digit_ippon->SetBlinking(false);
 
 		if (!is_secondary())
 		{
-            digit_ippon->show();
-            digit_wazaari->show();
-            wazaariLabel->SetText("W");
-            if (m_pController->GetRules()->IsOption_HasYuko())
-            {
-                digit_yuko->show();
-                yukoLabel->SetText("Y");
-            }
+			digit_ippon->show();
+			digit_wazaari->show();
+			wazaariLabel->SetText("W");
+
+			if (m_pController->GetRules()->IsOption_HasYuko())
+			{
+				digit_yuko->show();
+				yukoLabel->SetText("Y");
+			}
+
 			digit_ippon->SetText("-", ScaledText::eSize_full);
 		}
 		else
 		{
-            digit_ippon->hide();
-            digit_wazaari->show();
-            wazaariLabel->SetText("Waza-ari");
-            if (m_pController->GetRules()->IsOption_HasYuko())
-            {
-                digit_yuko->show();
-                yukoLabel->SetText("Yuko");
-            }
-            digit_ippon->SetText("");
+			digit_ippon->hide();
+			digit_wazaari->show();
+			wazaariLabel->SetText("Waza-ari");
+
+			if (m_pController->GetRules()->IsOption_HasYuko())
+			{
+				digit_yuko->show();
+				yukoLabel->SetText("Yuko");
+			}
+
+			digit_ippon->SetText("");
 		}
 	}
 }
@@ -845,14 +853,14 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 		pImage3 = ui->image_shido3_second;
 	}
 
-    const int score = m_pController->GetScore(GVF_(who), Point::Shido);
-    const auto imageOn = ":res/images/on.png";
-    const auto imageOff = ":res/images/off.png";
-    const auto imageEmpty = ":res/images/off_empty.png";
+	const int score = m_pController->GetScore(GVF_(who), Point::Shido);
+	const auto imageOn = ":res/images/on.png";
+	const auto imageOff = ":res/images/off.png";
+	const auto imageEmpty = ":res/images/off_empty.png";
 
-    pImage3->UpdateImage(score >= 3 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
-    pImage2->UpdateImage(score >= 2 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
-    pImage1->UpdateImage(score >= 1 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+	pImage3->UpdateImage(score >= 3 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+	pImage2->UpdateImage(score >= 2 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+	pImage1->UpdateImage(score >= 1 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
 }
 
 //=========================================================
@@ -860,21 +868,22 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 //=========================================================
 {
 	ScaledImage* pImage(ui->image_hansokumake_first);
+
 	if (FighterEnum::Second == who)
 	{
 		pImage = ui->image_hansokumake_second;
 	}
 
 	const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
-    const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
+	const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
 
-    if (score_hansokumake > 0 || score_shido == m_pController->GetRules()->GetMaxShidoCount() + 1)
+	if (score_hansokumake > 0 || score_shido == m_pController->GetRules()->GetMaxShidoCount() + 1)
 	{
-        pImage->UpdateImage(":res/images/on_hansokumake.png");
+		pImage->UpdateImage(":res/images/on_hansokumake.png");
 	}
 	else
 	{
-        pImage->UpdateImage(eTypePrimary == m_Type ? ":res/images/off_hansokumake.png" : ":res/images/off_empty.png");
+		pImage->UpdateImage(eTypePrimary == m_Type ? ":res/images/off_hansokumake.png" : ":res/images/off_empty.png");
 	}
 }
 
@@ -922,7 +931,7 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 
 	struct ColorPair
 	{
-        ColorPair(QColor f = Qt::lightGray, QColor b = Qt::black)
+		ColorPair(QColor f = Qt::lightGray, QColor b = Qt::black)
 			: fg(f), bg(b)
 		{}
 
@@ -1083,9 +1092,9 @@ void View::update_colors()
 	ui->text_yuko_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_wazaari_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_ippon_first->SetColor(get_color(firstFg), get_color(firstBg));
-    ui->text_ippon_desc1->SetColor(get_color(firstFg), get_color(firstBg));
-    ui->text_wazaari_desc1->SetColor(get_color(firstFg), get_color(firstBg));
-    ui->text_yuko_desc1->SetColor(get_color(firstFg), get_color(firstBg));
+	ui->text_ippon_desc1->SetColor(get_color(firstFg), get_color(firstBg));
+	ui->text_wazaari_desc1->SetColor(get_color(firstFg), get_color(firstBg));
+	ui->text_yuko_desc1->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_lastname_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_firstname_first->SetColor(get_color(firstFg), get_color(firstBg));
 
@@ -1099,9 +1108,9 @@ void View::update_colors()
 	ui->text_yuko_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_wazaari_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_ippon_second->SetColor(get_color(secondFg), get_color(secondBg));
-    ui->text_ippon_desc2->SetColor(get_color(secondFg), get_color(secondBg));
-    ui->text_wazaari_desc2->SetColor(get_color(secondFg), get_color(secondBg));
-    ui->text_yuko_desc2->SetColor(get_color(secondFg), get_color(secondBg));
+	ui->text_ippon_desc2->SetColor(get_color(secondFg), get_color(secondBg));
+	ui->text_wazaari_desc2->SetColor(get_color(secondFg), get_color(secondBg));
+	ui->text_yuko_desc2->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_lastname_second->SetColor(get_color(secondFg), get_color(secondBg));
 	ui->text_firstname_second->SetColor(get_color(secondFg), get_color(secondBg));
 }

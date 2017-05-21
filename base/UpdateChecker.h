@@ -6,9 +6,9 @@ class QString;
 class UpdateChecker
 {
 public:
-    UpdateChecker();
+	UpdateChecker();
 
-    static bool CheckForNewerVersion();
+	static bool CheckForNewerVersion();
 };
 
 #endif // UPDATER_H

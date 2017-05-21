@@ -189,11 +189,11 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 		return;
 
 	QString fileName = QFileDialog::getOpenFileName(this,
-							 tr("Select Club Emblem"),
-							 ui->lineEdit_logoFile->text(),
-							 tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
-							 nullptr,
-							 QFileDialog::ReadOnly);
+					   tr("Select Club Emblem"),
+					   ui->lineEdit_logoFile->text(),
+					   tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
+					   nullptr,
+					   QFileDialog::ReadOnly);
 
 	if (!fileName.isEmpty())
 	{
@@ -210,7 +210,7 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 			// store releative path if possible
 			QDir appDir(QCoreApplication::applicationDirPath());
 			fileName = appDir.relativeFilePath(fileName);
-			
+
 			ui->lineEdit_logoFile->setText(fileName);
 			ui->scaledImage_logo->UpdateImage(fileName);
 		}

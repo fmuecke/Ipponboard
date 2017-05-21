@@ -11,7 +11,7 @@ class IController;
 class IGoldenScoreView
 {
 public:
-    virtual void UpdateGoldenScoreView() = 0;
+	virtual void UpdateGoldenScoreView() = 0;
 };
 
 }

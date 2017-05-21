@@ -11,7 +11,7 @@ const char* const ClassicRules::StaticName = "Classic";
 AbstractRules::AbstractRules()
 {}
 
-int Ipponboard::AbstractRules::CompareScore(const Fight & f) const
+int Ipponboard::AbstractRules::CompareScore(const Fight& f) const
 {
 	using Point = Score::Point;
 

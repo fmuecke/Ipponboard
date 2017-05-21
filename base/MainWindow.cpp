@@ -61,20 +61,20 @@ void MainWindow::Init()
 {
 	m_pCategoryManager.reset(new FightCategoryMgr());
 
-    MainWindowBase::Init();
+	MainWindowBase::Init();
 
-    // init tournament classes (if there are none present)
-    for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
-    {
-        FightCategory t("");
-        m_pCategoryManager->GetCategory(i, t);
-        m_pUi->comboBox_weight_class->addItem(t.ToString());
-    }
+	// init tournament classes (if there are none present)
+	for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
+	{
+		FightCategory t("");
+		m_pCategoryManager->GetCategory(i, t);
+		m_pUi->comboBox_weight_class->addItem(t.ToString());
+	}
 
-    // trigger tournament class combobox update
-    on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
+	// trigger tournament class combobox update
+	on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
 
-    m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
+	m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 }
 
 void MainWindow::on_actionManageClasses_triggered()
@@ -152,29 +152,29 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 	if (checked)
 	{
-        if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
+		if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
 		{
 			m_pController->SetRoundTime(QTime());
 		}
 		else
 		{
-            m_pController->SetRoundTime(QTime().addSecs(t.GetGoldenScoreTime()));
+			m_pController->SetRoundTime(QTime().addSecs(t.GetGoldenScoreTime()));
 		}
 	}
 	else
 	{
-        m_pController->SetRoundTime(QTime().addSecs(t.GetRoundTime()));
+		m_pController->SetRoundTime(QTime().addSecs(t.GetRoundTime()));
 	}
 }
 
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 {
-    FightCategory category(s);
-    m_pCategoryManager->GetCategory(s, category);
+	FightCategory category(s);
+	m_pCategoryManager->GetCategory(s, category);
 
 	// add weights
 	m_pUi->comboBox_weight->clear();
-    m_pUi->comboBox_weight->addItems(category.GetWeightsList());
+	m_pUi->comboBox_weight->addItems(category.GetWeightsList());
 
 	// trigger round time update
 	on_checkBox_golden_score_clicked(m_pUi->checkBox_golden_score->checkState());
@@ -190,7 +190,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 	// filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
-	for(const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
+	for (const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
 	{
 		if (f.weight == weight || f.weight.isEmpty())
 		{
@@ -250,7 +250,7 @@ void MainWindow::update_statebar()
 //        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
 //        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
 //    }
-    ui_check_rules_items();
+	ui_check_rules_items();
 
 //    if (m_pController->GetOption(eOption_Use2013Rules))
 //    {
@@ -269,11 +269,11 @@ void MainWindow::update_statebar()
 void MainWindow::attach_primary_view()
 {
 	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
-	
+
 	if (widget)
 	{
-		 m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
-	}	
+		m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}
 }
 
 void MainWindow::retranslate_Ui()
@@ -292,118 +292,119 @@ void MainWindow::ui_check_language_items()
 
 void MainWindow::ui_check_rules_items()
 {
-    auto rules = m_pController->GetRules();
-    m_pUi->actionRulesClassic->setChecked(rules->IsOfType<ClassicRules>());
-    m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
-    m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
-    m_pUi->actionRules2017U15->setChecked(rules->IsOfType<Rules2017U15>());
+	auto rules = m_pController->GetRules();
+	m_pUi->actionRulesClassic->setChecked(rules->IsOfType<ClassicRules>());
+	m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
+	m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
+	m_pUi->actionRules2017U15->setChecked(rules->IsOfType<Rules2017U15>());
 
-    if (rules->IsOfType<ClassicRules>())
-    {
-        m_pUi->label_usedRules->setText(m_pUi->actionRulesClassic->text());
-    }
-    else if (rules->IsOfType<Rules2013>())
-    {
-        m_pUi->label_usedRules->setText(m_pUi->actionRules2013->text());
-    }
-    else if(rules->IsOfType<Rules2017>())
-    {
-        m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text());
-    }
-    else if(rules->IsOfType<Rules2017U15>())
-    {
-        m_pUi->label_usedRules->setText(m_pUi->actionRules2017U15->text());
-    }
+	if (rules->IsOfType<ClassicRules>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRulesClassic->text());
+	}
+	else if (rules->IsOfType<Rules2013>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2013->text());
+	}
+	else if (rules->IsOfType<Rules2017>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text());
+	}
+	else if (rules->IsOfType<Rules2017U15>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2017U15->text());
+	}
 
-    m_pPrimaryView->UpdateView();
-    m_pSecondaryView->UpdateView();
+	m_pPrimaryView->UpdateView();
+	m_pSecondaryView->UpdateView();
 }
 
 void MainWindow::ui_check_show_secondary_view(bool checked) const
 {
-    m_pUi->actionShow_SecondaryView->setChecked(checked);
-    m_pUi->toolButton_viewSecondaryScreen->setChecked(checked);
+	m_pUi->actionShow_SecondaryView->setChecked(checked);
+	m_pUi->toolButton_viewSecondaryScreen->setChecked(checked);
 }
 
 void MainWindow::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-    MainWindowBase::on_actionAutoAdjustPoints_toggled(checked);
+	MainWindowBase::on_actionAutoAdjustPoints_toggled(checked);
 
-    ui_update_used_options();
+	ui_update_used_options();
 }
 
 void MainWindow::ui_update_used_options()
 {
-    QString text;
+	QString text;
 
-    if (m_pController->IsAutoAdjustPoints())
-    {
-        text += tr("Auto adjust points");
-    }
-    else
-    {
-        text = "-";
-    }
+	if (m_pController->IsAutoAdjustPoints())
+	{
+		text += tr("Auto adjust points");
+	}
+	else
+	{
+		text = "-";
+	}
 
-    m_pUi->label_usedOptions->setText(text);
+	m_pUi->label_usedOptions->setText(text);
 
 }
 
 void MainWindow::on_actionViewInfoBar_toggled(bool checked)
 {
-    for (int i = 0; i < m_pUi->horizontalLayout_infoBar->count(); ++i)
-    {
-        auto item = m_pUi->horizontalLayout_infoBar->itemAt(i)->widget();
-        if (item)
-        {
-            if (checked)
-            {
-                item->show();
-            }
-            else
-            {
-                item->hide();
-            }
-        }
-    }
+	for (int i = 0; i < m_pUi->horizontalLayout_infoBar->count(); ++i)
+	{
+		auto item = m_pUi->horizontalLayout_infoBar->itemAt(i)->widget();
 
-    if (checked)
-    {
-        m_pUi->line_infoBar->show();
-    }
-    else
-    {
-        m_pUi->line_infoBar->hide();
-    }
+		if (item)
+		{
+			if (checked)
+			{
+				item->show();
+			}
+			else
+			{
+				item->hide();
+			}
+		}
+	}
+
+	if (checked)
+	{
+		m_pUi->line_infoBar->show();
+	}
+	else
+	{
+		m_pUi->line_infoBar->hide();
+	}
 }
 
 void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
 {
-    on_actionShow_SecondaryView_triggered();
+	on_actionShow_SecondaryView_triggered();
 }
 
 void MainWindow::write_specific_settings(QSettings& settings)
 {
-    settings.beginGroup(EditionNameShort());
-    {
-        settings.remove("");
-        settings.setValue(str_tag_MatLabel, m_MatLabel);
-        settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
+	settings.beginGroup(EditionNameShort());
+	{
+		settings.remove("");
+		settings.setValue(str_tag_MatLabel, m_MatLabel);
+		settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
 	}
 	settings.endGroup();
 }
 
 void MainWindow::read_specific_settings(QSettings& settings)
 {
-    settings.beginGroup(EditionNameShort());
+	settings.beginGroup(EditionNameShort());
 	{
 		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
 
 		// rules
-        auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
-        m_pController->SetRules(rules);
+		auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
+		m_pController->SetRules(rules);
 	}
 	settings.endGroup();
 }
