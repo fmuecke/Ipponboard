@@ -90,7 +90,12 @@ bool Fight::SetElapsedFromTotalTime(QString s)
 	if (secs > round_time_seconds)
 	{
 		secs = round_time_seconds - secs;
+        SetGoldenScore(true);
 	}
+    else
+    {
+        SetGoldenScore(false);
+    }
 
 	SetSecondsElapsed(secs);
 
@@ -119,8 +124,7 @@ bool Fight::HasWon(FighterEnum who) const
 
 	auto result = rules->CompareScore(*this);
 
-	if (who == FighterEnum::First && result < 0 ||
-			who == FighterEnum::Second && result > 0)
+    if (who == FighterEnum::First && result < 0 || who == FighterEnum::Second && result > 0)
 	{
 		return true;
 	}
