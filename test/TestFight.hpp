@@ -11,7 +11,7 @@ using Ipponboard::Score;
 using Ipponboard::FighterEnum;
 using Point = Ipponboard::Score::Point;
 
-TEST_CASE("Fighter with less Shidos wins if points are equal")
+TEST_CASE("Fighter with less Shidos wins if points are equal (rules 2013)")
 {
 	auto score = Score().Add(Point::Yuko).Add(Point::Yuko);
 	auto scoreWithShido = Score(score).Add(Point::Shido);
@@ -137,6 +137,20 @@ TEST_CASE("rules2017: score points will return 1 for shido won in golden score o
 	f.SetGoldenScore(true);
 	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
 	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 1);
+}
+
+TEST_CASE("rules2017: no one has won if points are equal and shidos aren't in golden score")
+{
+    auto score1 = Score().Add(Point::Yuko).Add(Point::Shido);
+    auto score2 = Score().Add(Point::Yuko);
+    Fight fight{ score1, score2 };
+    fight.rules = std::make_shared<Ipponboard::Rules2017>();
+
+    auto first = FighterEnum::First;
+    auto second = FighterEnum::Second;
+
+    REQUIRE_FALSE(fight.HasWon(second));
+    REQUIRE_FALSE(fight.HasWon(first));
 }
 
 //TEST_CASE("Setting negative seconds enabled golden score")
