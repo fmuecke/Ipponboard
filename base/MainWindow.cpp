@@ -179,6 +179,9 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 	// trigger round time update
 	on_checkBox_golden_score_clicked(m_pUi->checkBox_golden_score->checkState());
 
+	m_pController->OverrideRoundTimeOfFightMode(category.GetRoundTime());
+	m_pController->DoAction(Ipponboard::eAction_ResetAll);
+	
 	m_pPrimaryView->SetCategory(s);
 	m_pSecondaryView->SetCategory(s);
 	m_pPrimaryView->UpdateView();
@@ -407,4 +410,10 @@ void MainWindow::read_specific_settings(QSettings& settings)
 		m_pController->SetRules(rules);
 	}
 	settings.endGroup();
+}
+
+void MainWindow::UpdateGoldenScoreView()
+{
+	m_pUi->checkBox_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
+	m_pUi->checkBox_golden_score->setChecked(m_pController->IsGoldenScore());
 }

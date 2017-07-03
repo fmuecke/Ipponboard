@@ -603,6 +603,11 @@ void Controller::SetRoundTime(QTime const& time)
 	update_views();
 }
 
+void Controller::OverrideRoundTimeOfFightMode(int fightTimeSecs)
+{
+	m_mode.fightTimeInSeconds = fightTimeSecs;
+}
+
 //=========================================================
 QString Controller::GetFightTimeString() const
 //=========================================================
@@ -768,7 +773,6 @@ void Controller::reset_fight()
 	m_pTimerHold->stop();
 	m_pTimerMain->stop();
 	m_pTimeHold->setHMS(0, 0, 0, 0);
-	*m_pTimeMain = m_roundTime;
 	m_Tori = FighterEnum::None;
 
 	// just clear the score, not the names
@@ -781,6 +785,8 @@ void Controller::reset_fight()
 	fight.SetGoldenScore(false);
 	fight.is_saved = false;
 	fight.rules = m_rules;
+	m_roundTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+	*m_pTimeMain = m_roundTime;
 
 	update_views();
 }

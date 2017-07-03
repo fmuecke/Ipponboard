@@ -1,5 +1,6 @@
 Version 1.9-beta2
-(fixed): starting timer only possible if points are equal (Golden Score mode)
+(fix): resetting main timer to correct value after switching fight classes or using Golden Score
+(fix): starting timer is not only possible if points are equal (Golden Score mode)
 (new): team tournament now supports Golden Score 
 
 Version 1.8-beta3
