@@ -212,7 +212,7 @@ void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
 	const std::string filePath(fm::GetSettingsFilePath(str_fileName));
-	const std::string& jsonString = CategoriesToString();
+    const std::string& jsonString = ConvertCategoriesToString_WITH_GUI_ERROR();
 	fm::Json::WriteFile(filePath.c_str(), jsonString);
 }
 
@@ -256,27 +256,31 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 	return true;
 }
 
+std::string FightCategoryMgr::categories_to_str()
+{
+    fm::Json::Value jsonCategories;
+
+    for (FightCategory const & cat : m_Categories)
+    {
+        fm::Json::Value jsonCat;
+        jsonCat["name"] = fm::qt::to_utf8_str(cat.ToString());
+        jsonCat["round_time_secs"] = cat.GetRoundTime();
+        jsonCat["golden_score_time_secs"] = cat.GetGoldenScoreTime();
+        jsonCat["weights"] = fm::qt::to_utf8_str(cat.GetWeights());
+
+        jsonCategories.append(jsonCat);
+    }
+
+    return jsonCategories.toStyledString();
+}
 
 //---------------------------------------------------------
-std::string FightCategoryMgr::CategoriesToString()
+std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 //---------------------------------------------------------
 {
 	try
 	{
-		fm::Json::Value jsonCategories;
-
-		for (FightCategory const & cat : m_Categories)
-		{
-			fm::Json::Value jsonCat;
-			jsonCat["name"] = fm::qt::to_utf8_str(cat.ToString());
-			jsonCat["round_time_secs"] = cat.GetRoundTime();
-			jsonCat["golden_score_time_secs"] = cat.GetGoldenScoreTime();
-			jsonCat["weights"] = fm::qt::to_utf8_str(cat.GetWeights());
-
-			jsonCategories.append(jsonCat);
-		}
-
-		return jsonCategories.toStyledString();
+        return categories_to_str();
 	}
 	catch (fm::Json::Exception const& e)
 	{

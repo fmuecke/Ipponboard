@@ -42,12 +42,15 @@ public:
 	int CategoryCount() const { return m_Categories.size(); }
 
 	bool CategoriesFromString(std::string const& s);
-	std::string CategoriesToString();
+    std::string ConvertCategoriesToString_WITH_GUI_ERROR();
 
 private:
 	void load_categories();
 	void save_categories();
+    void save_categories_toml();
 	void load_default_categories();
+    std::string categories_to_str();
+
 
 	FightCategoryList m_Categories;
 };

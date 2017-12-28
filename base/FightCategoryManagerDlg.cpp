@@ -26,7 +26,7 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 
 	Q_ASSERT(m_pClassMgr);
 
-	m_originalClasses = m_pClassMgr->CategoriesToString();
+    m_originalClasses = m_pClassMgr->ConvertCategoriesToString_WITH_GUI_ERROR();
 
 	load_values();
 }
