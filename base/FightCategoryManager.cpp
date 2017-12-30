@@ -6,13 +6,14 @@
 #include <sstream>
 #include <algorithm>
 #include <QMessageBox>
+#include <QFile>
 #include "../util/path_helpers.h"
-#include "../util/qt_helpers.hpp"
-#include "../util/json.hpp"
+#include "FightCategoryParser.h"
 
 using namespace Ipponboard;
 
 const char* const FightCategoryMgr::str_fileName = "categories.json";
+const char* const FightCategoryMgr::str_configFileName = "categories.config";
 
 //---------------------------------------------------------
 FightCategoryMgr::FightCategoryMgr()
@@ -171,49 +172,44 @@ void FightCategoryMgr::MoveCategoryDown(QString const& name)
 void FightCategoryMgr::load_categories()
 //---------------------------------------------------------
 {
-	const std::string filePath(fm::GetSettingsFilePath(str_fileName));
+    auto configFile{fm::GetSettingsFilePath(str_configFileName)};
+    auto legacyFile{fm::GetSettingsFilePath(str_fileName)};
 
-	try
-	{
-		auto jsonCategories = fm::Json::ReadFile(filePath.c_str());
+    try
+    {
+        if (QFile::exists(configFile.c_str()))
+        {
+            m_Categories = FightCategoryParser::ParseIniFile(configFile.c_str());
+        }
+        else
+        {
+            if (!QFile::exists(legacyFile.c_str()))
+            {
+                load_default_categories();
+            }
+            else
+            {
+                m_Categories = FightCategoryParser::ParseJsonFile(legacyFile.c_str());
+            }
+        }
+    }
+    catch (std::exception const& e)
+    {
+        QMessageBox::critical(0,
+                              QString(QObject::tr("Error")),
+                              QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
+                                          QString::fromStdString(e.what()))));
 
-		for (fm::Json::Value const & jsonCat : jsonCategories)
-		{
-			FightCategory cat(fm::qt::from_utf8_str(jsonCat["name"].asString()));
-			cat.SetRoundTime(jsonCat["round_time_secs"].asInt());
-			cat.SetGoldenScoreTime(jsonCat["golden_score_time_secs"].asInt());
-			cat.SetWeights(fm::qt::from_utf8_str(jsonCat["weights"].asString()));
-
-			AddCategory(cat);
-		}
-	}
-	catch (fm::Json::Exception const& e)
-	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to read fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
-
-		load_default_categories();
-	}
-	catch (std::exception const& e)
-	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
-
-		load_default_categories();
-	}
+        load_default_categories();
+    }
 }
 
 //---------------------------------------------------------
 void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
-	const std::string filePath(fm::GetSettingsFilePath(str_fileName));
-    const std::string& jsonString = ConvertCategoriesToString_WITH_GUI_ERROR();
-	fm::Json::WriteFile(filePath.c_str(), jsonString);
+    std::string filePath{fm::GetSettingsFilePath(str_configFileName)};
+    FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
 }
 
 //---------------------------------------------------------
@@ -222,26 +218,12 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 {
 	try
 	{
-		auto jsonCategories = fm::Json::ReadString(s);
+        auto cats = FightCategoryParser::ParseJsonString(s);
 
-		for (fm::Json::Value const & jsonCat : jsonCategories)
-		{
-			FightCategory cat(fm::qt::from_utf8_str(jsonCat["name"].asString()));
-			cat.SetRoundTime(jsonCat["round_time_secs"].asInt());
-			cat.SetGoldenScoreTime(jsonCat["golden_score_time_secs"].asInt());
-			cat.SetWeights(fm::qt::from_utf8_str(jsonCat["weights"].asString()));
-
+        for (auto const& cat : cats)
+        {
 			AddCategory(cat);
 		}
-	}
-	catch (fm::Json::Exception const& e)
-	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to read fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
-
-		return false;
 	}
 	catch (std::exception const& e)
 	{
@@ -256,44 +238,19 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 	return true;
 }
 
-std::string FightCategoryMgr::categories_to_str()
-{
-    fm::Json::Value jsonCategories;
-
-    for (FightCategory const & cat : m_Categories)
-    {
-        fm::Json::Value jsonCat;
-        jsonCat["name"] = fm::qt::to_utf8_str(cat.ToString());
-        jsonCat["round_time_secs"] = cat.GetRoundTime();
-        jsonCat["golden_score_time_secs"] = cat.GetGoldenScoreTime();
-        jsonCat["weights"] = fm::qt::to_utf8_str(cat.GetWeights());
-
-        jsonCategories.append(jsonCat);
-    }
-
-    return jsonCategories.toStyledString();
-}
-
 //---------------------------------------------------------
 std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 //---------------------------------------------------------
 {
 	try
 	{
-        return categories_to_str();
-	}
-	catch (fm::Json::Exception const& e)
-	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
-										  QString::fromStdString(e.what()))));
+        return FightCategoryParser::ToJsonString(m_Categories);
 	}
 	catch (std::exception const& e)
 	{
 		QMessageBox::critical(0,
 							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to convert fight categories:\n%1").arg(
+                              QString(QObject::tr("Unable to write fight categories:\n%1").arg(
 										  QString::fromStdString(e.what()))));
 	}
 

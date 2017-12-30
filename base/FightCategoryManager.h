@@ -21,6 +21,7 @@ class FightCategoryMgr
 	//Q_OBJECT
 public:
 	static const char* const str_fileName;
+    static const char* const str_configFileName;
 
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
@@ -47,10 +48,7 @@ public:
 private:
 	void load_categories();
 	void save_categories();
-    void save_categories_toml();
 	void load_default_categories();
-    std::string categories_to_str();
-
 
 	FightCategoryList m_Categories;
 };

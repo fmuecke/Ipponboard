@@ -128,6 +128,7 @@ void FightCategoryManagerDlg::on_buttonBox_accepted()
 //---------------------------------------------------------
 {
 	// do not restore old values
+    //TODO: ? accept();
 }
 
 //---------------------------------------------------------
@@ -135,7 +136,9 @@ void FightCategoryManagerDlg::on_buttonBox_rejected()
 //---------------------------------------------------------
 {
 	// restore old values
-	m_pClassMgr->CategoriesFromString(m_originalClasses);
+    //TODO: ? reject();
+
+    m_pClassMgr->CategoriesFromString(m_originalClasses);
 }
 
 //---------------------------------------------------------

@@ -117,7 +117,9 @@ HEADERS = pch.h \
     UpdateChecker.h \
     VersionComparer.h \
     ../core/iGoldenScoreView.h \
-    ../core/iView.h
+    ../core/iView.h \
+    ../util/json.hpp \
+    FightCategoryParser.h
 
 
 SOURCES = Main.cpp \
@@ -152,7 +154,8 @@ SOURCES = Main.cpp \
 	../core/TournamentModel.cpp \
     ../core/Rules.cpp \
     UpdateChecker.cpp \
-    VersionComparer.cpp
+    VersionComparer.cpp \
+    FightCategoryParser.cpp
 
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \
