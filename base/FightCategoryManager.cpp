@@ -141,34 +141,6 @@ void FightCategoryMgr::RemoveCategory(QString const& name)
 }
 
 //---------------------------------------------------------
-void FightCategoryMgr::MoveCategoryUp(QString const& name)
-//---------------------------------------------------------
-{
-	FightCategoryList::iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), name);
-
-	if (iter == m_Categories.end())
-		Q_ASSERT(!"Critical: weight class not in list!");
-
-	if (iter != m_Categories.begin())
-		std::swap(*iter, *(iter - 1));
-}
-
-//---------------------------------------------------------
-void FightCategoryMgr::MoveCategoryDown(QString const& name)
-//---------------------------------------------------------
-{
-	FightCategoryList::iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), name);
-
-	if (iter == m_Categories.end())
-		Q_ASSERT(!"Critical: weight class not in list!");
-
-	if (iter + 1 != m_Categories.end())
-		std::swap(*iter, *(iter + 1));
-}
-
-//---------------------------------------------------------
 void FightCategoryMgr::load_categories()
 //---------------------------------------------------------
 {

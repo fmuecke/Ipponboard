@@ -66,7 +66,7 @@
        <string>Round Time</string>
       </property>
       <property name="textAlignment">
-       <set>AlignLeft|AlignVCenter</set>
+       <set>AlignLeading|AlignVCenter</set>
       </property>
      </column>
      <column>
@@ -98,34 +98,6 @@
      <property name="rightMargin">
       <number>0</number>
      </property>
-     <item>
-      <widget class="QPushButton" name="pushButton_up">
-       <property name="toolTip">
-        <string>Move category up</string>
-       </property>
-       <property name="text">
-        <string>Up</string>
-       </property>
-       <property name="icon">
-        <iconset resource="ipponboard.qrc">
-         <normaloff>:/res/icons/arrow_up.png</normaloff>:/res/icons/arrow_up.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_down">
-       <property name="toolTip">
-        <string>Move category down</string>
-       </property>
-       <property name="text">
-        <string>Down</string>
-       </property>
-       <property name="icon">
-        <iconset resource="ipponboard.qrc">
-         <normaloff>:/res/icons/arrow_down.png</normaloff>:/res/icons/arrow_down.png</iconset>
-       </property>
-      </widget>
-     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">

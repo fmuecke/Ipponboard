@@ -142,47 +142,6 @@ void FightCategoryManagerDlg::on_buttonBox_rejected()
 }
 
 //---------------------------------------------------------
-void FightCategoryManagerDlg::on_pushButton_up_pressed()
-//---------------------------------------------------------
-{
-	const int index = ui->treeWidget_classes->indexOfTopLevelItem(
-						  ui->treeWidget_classes->currentItem());
-
-	if (index > 0)
-	{
-		QTreeWidgetItem* pItem =
-			ui->treeWidget_classes->takeTopLevelItem(index);
-
-		ui->treeWidget_classes->insertTopLevelItem(index - 1, pItem);
-		ui->treeWidget_classes->setCurrentItem(pItem);
-
-		// update data
-		m_pClassMgr->MoveCategoryUp(pItem->text(eColumn_Name));
-	}
-}
-
-//---------------------------------------------------------
-void FightCategoryManagerDlg::on_pushButton_down_pressed()
-//---------------------------------------------------------
-{
-	const int index = ui->treeWidget_classes->indexOfTopLevelItem(
-						  ui->treeWidget_classes->currentItem());
-
-	if (index >= 0 &&
-			index < ui->treeWidget_classes->topLevelItemCount() - 1)
-	{
-		QTreeWidgetItem* pItem =
-			ui->treeWidget_classes->takeTopLevelItem(index);
-
-		ui->treeWidget_classes->insertTopLevelItem(index + 1, pItem);
-		ui->treeWidget_classes->setCurrentItem(pItem);
-
-		// update data
-		m_pClassMgr->MoveCategoryDown(pItem->text(eColumn_Name));
-	}
-}
-
-//---------------------------------------------------------
 void FightCategoryManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {

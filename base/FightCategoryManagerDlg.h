@@ -36,8 +36,6 @@ private:
 
 private slots:
 	void on_treeWidget_classes_itemChanged(QTreeWidgetItem* item, int column);
-	void on_pushButton_down_pressed();
-	void on_pushButton_up_pressed();
 	void on_buttonBox_rejected();
 	void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
