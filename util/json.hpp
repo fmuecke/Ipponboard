@@ -99,7 +99,7 @@ namespace fm
 			}
 		}
 
-		static void WriteFile(const char * const & file, std::string const& jsonStr, bool writeBom = true)
+        static void WriteFile(const char * const & file, std::string const& str, bool writeBom = true)
 		{
 			try
 			{
@@ -111,7 +111,7 @@ namespace fm
 						t << (char)0xEF << (char)0xBB << (char)0xBF;
 					}
 
-					t << jsonStr;
+                    t << str;
 					t.close();
 				}
 
