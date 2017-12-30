@@ -283,11 +283,11 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 	// - we were not trying to start the timer itself
 	// - if point <> shidos are changeed
 	// - and the timer is not stopped
-	// 
+	//
 	if (current_fight().IsGoldenScore()
-		&& action != eAction_Hajime_Mate
-		&& action != eAction_Shido
-		&& eState_TimerStopped != EState(m_pSM->current_state()[0]))
+			&& action != eAction_Hajime_Mate
+			&& action != eAction_Shido
+			&& eState_TimerStopped != EState(m_pSM->current_state()[0]))
 	{
 		// Note: In golden score the hold should not end after the first scored point!
 		if (eState_Holding != EState(m_pSM->current_state()[0]))
@@ -341,15 +341,15 @@ FighterEnum Controller::GetLead() const
 				else  // GetScore_(eFirst).Yuko() == GetScore_(eSecond).Yuko()
 				{
 					if (get_score(FighterEnum::First).Shido() < get_score(FighterEnum::Second).Shido() &&
-                        get_score(FighterEnum::Second).Shido() > 1)  // no "koka"!
-                    {
+							get_score(FighterEnum::Second).Shido() > 1)  // no "koka"!
+					{
 						winner = FighterEnum::First;
-                    }
+					}
 					else if (get_score(FighterEnum::First).Shido() > get_score(FighterEnum::Second).Shido() &&
 							 get_score(FighterEnum::First).Shido() > 1)
-                    {
+					{
 						winner = FighterEnum::Second;
-                    }
+					}
 					else
 					{
 						// equal ==> golden score in single tournament (Hantai is no more)

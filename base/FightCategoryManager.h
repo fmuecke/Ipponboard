@@ -21,7 +21,7 @@ class FightCategoryMgr
 	//Q_OBJECT
 public:
 	static const char* const str_fileName;
-    static const char* const str_configFileName;
+	static const char* const str_configFileName;
 
 	FightCategoryMgr();
 	virtual ~FightCategoryMgr();
@@ -41,7 +41,7 @@ public:
 	int CategoryCount() const { return m_Categories.size(); }
 
 	bool CategoriesFromString(std::string const& s);
-    std::string ConvertCategoriesToString_WITH_GUI_ERROR();
+	std::string ConvertCategoriesToString_WITH_GUI_ERROR();
 
 private:
 	void load_categories();

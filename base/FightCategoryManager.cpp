@@ -144,44 +144,44 @@ void FightCategoryMgr::RemoveCategory(QString const& name)
 void FightCategoryMgr::load_categories()
 //---------------------------------------------------------
 {
-    auto configFile{fm::GetSettingsFilePath(str_configFileName)};
-    auto legacyFile{fm::GetSettingsFilePath(str_fileName)};
+	auto configFile {fm::GetSettingsFilePath(str_configFileName)};
+	auto legacyFile {fm::GetSettingsFilePath(str_fileName)};
 
-    try
-    {
-        if (QFile::exists(configFile.c_str()))
-        {
-            m_Categories = FightCategoryParser::ParseIniFile(configFile.c_str());
-        }
-        else
-        {
-            if (!QFile::exists(legacyFile.c_str()))
-            {
-                load_default_categories();
-            }
-            else
-            {
-                m_Categories = FightCategoryParser::ParseJsonFile(legacyFile.c_str());
-            }
-        }
-    }
-    catch (std::exception const& e)
-    {
-        QMessageBox::critical(0,
-                              QString(QObject::tr("Error")),
-                              QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
-                                          QString::fromStdString(e.what()))));
+	try
+	{
+		if (QFile::exists(configFile.c_str()))
+		{
+			m_Categories = FightCategoryParser::ParseIniFile(configFile.c_str());
+		}
+		else
+		{
+			if (!QFile::exists(legacyFile.c_str()))
+			{
+				load_default_categories();
+			}
+			else
+			{
+				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile.c_str());
+			}
+		}
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(0,
+							  QString(QObject::tr("Error")),
+							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
+										  QString::fromStdString(e.what()))));
 
-        load_default_categories();
-    }
+		load_default_categories();
+	}
 }
 
 //---------------------------------------------------------
 void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
-    std::string filePath{fm::GetSettingsFilePath(str_configFileName)};
-    FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
+	std::string filePath {fm::GetSettingsFilePath(str_configFileName)};
+	FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
 }
 
 //---------------------------------------------------------
@@ -190,10 +190,10 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 {
 	try
 	{
-        auto cats = FightCategoryParser::ParseJsonString(s);
+		auto cats = FightCategoryParser::ParseJsonString(s);
 
-        for (auto const& cat : cats)
-        {
+		for (auto const & cat : cats)
+		{
 			AddCategory(cat);
 		}
 	}
@@ -216,13 +216,13 @@ std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 {
 	try
 	{
-        return FightCategoryParser::ToJsonString(m_Categories);
+		return FightCategoryParser::ToJsonString(m_Categories);
 	}
 	catch (std::exception const& e)
 	{
 		QMessageBox::critical(0,
 							  QString(QObject::tr("Error")),
-                              QString(QObject::tr("Unable to write fight categories:\n%1").arg(
+							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
 										  QString::fromStdString(e.what()))));
 	}
 

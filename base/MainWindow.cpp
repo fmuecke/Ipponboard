@@ -181,7 +181,7 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 
 	m_pController->OverrideRoundTimeOfFightMode(category.GetRoundTime());
 	m_pController->DoAction(Ipponboard::eAction_ResetAll);
-	
+
 	m_pPrimaryView->SetCategory(s);
 	m_pSecondaryView->SetCategory(s);
 	m_pPrimaryView->UpdateView();

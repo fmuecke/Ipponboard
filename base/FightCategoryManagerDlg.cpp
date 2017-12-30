@@ -26,7 +26,7 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 
 	Q_ASSERT(m_pClassMgr);
 
-    m_originalClasses = m_pClassMgr->ConvertCategoriesToString_WITH_GUI_ERROR();
+	m_originalClasses = m_pClassMgr->ConvertCategoriesToString_WITH_GUI_ERROR();
 
 	load_values();
 }
@@ -128,7 +128,7 @@ void FightCategoryManagerDlg::on_buttonBox_accepted()
 //---------------------------------------------------------
 {
 	// do not restore old values
-    //TODO: ? accept();
+	//TODO: ? accept();
 }
 
 //---------------------------------------------------------
@@ -136,9 +136,9 @@ void FightCategoryManagerDlg::on_buttonBox_rejected()
 //---------------------------------------------------------
 {
 	// restore old values
-    //TODO: ? reject();
+	//TODO: ? reject();
 
-    m_pClassMgr->CategoriesFromString(m_originalClasses);
+	m_pClassMgr->CategoriesFromString(m_originalClasses);
 }
 
 //---------------------------------------------------------
