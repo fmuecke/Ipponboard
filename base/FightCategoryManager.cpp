@@ -13,7 +13,7 @@
 using namespace Ipponboard;
 
 const char* const FightCategoryMgr::str_fileName = "categories.json";
-const char* const FightCategoryMgr::str_configFileName = "categories.config";
+const char* const FightCategoryMgr::str_configFileName = "Categories.ini";
 
 //---------------------------------------------------------
 FightCategoryMgr::FightCategoryMgr()
@@ -151,7 +151,7 @@ void FightCategoryMgr::load_categories()
 	{
 		if (QFile::exists(configFile.c_str()))
 		{
-			m_Categories = FightCategoryParser::ParseIniFile(configFile.c_str());
+			m_Categories = FightCategoryParser::ParseTomlFile(configFile.c_str());
 		}
 		else
 		{
@@ -161,7 +161,7 @@ void FightCategoryMgr::load_categories()
 			}
 			else
 			{
-				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile.c_str());
+				m_Categories = FightCategoryParser::ParseLegacyJsonFile(legacyFile.c_str());
 			}
 		}
 	}
@@ -181,7 +181,7 @@ void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
 	std::string filePath {fm::GetSettingsFilePath(str_configFileName)};
-	FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
+	FightCategoryParser::ToTomlFile(filePath.c_str(), m_Categories);
 }
 
 //---------------------------------------------------------

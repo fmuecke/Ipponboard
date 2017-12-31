@@ -12,7 +12,7 @@
 
 using namespace Ipponboard;
 const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json";
-const char* const ClubManager::str_clubs_settingsFile = "clubs.toml";
+const char* const ClubManager::str_clubs_settingsFile = "Clubs.ini";
 
 //---------------------------------------------------------
 ClubManager::ClubManager()

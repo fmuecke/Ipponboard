@@ -1,6 +1,7 @@
 #include "FightCategoryParser.h"
 #include "../util/qt_helpers.hpp"
 #include "../util/json.hpp"
+#include "../util/toml.h"
 
 #include <QSettings>
 
@@ -16,7 +17,7 @@ FightCategoryParser::FightCategoryParser()
 
 }
 
-void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryList const& categories)
+void FightCategoryParser::ToIniFile_UNUSED(const char* file, Ipponboard::FightCategoryList const& categories)
 {
 	QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
@@ -34,7 +35,7 @@ void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryL
 	}
 }
 
-Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(const char* file)
+Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile_UNUSED(const char* file)
 {
 	QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
@@ -116,9 +117,63 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseJsonString(std::string c
 }
 
 // May throw exception!
-Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const char* file)
+Ipponboard::FightCategoryList FightCategoryParser::ParseLegacyJsonFile(const char* file)
 {
 	auto json = fm::Json::ReadFile(file);
 	return ParseJson(json);
 }
 
+Ipponboard::FightCategoryList FightCategoryParser::ParseTomlFile(const char* filePath)
+{
+	auto root = toml::parseFile(filePath);
+
+	if (!root.valid())
+	{
+		throw std::runtime_error(root.errorReason);
+	}
+
+	if (!root.value.is<toml::Table>())
+	{
+		throw std::runtime_error("unexpected format");
+	}
+
+	Ipponboard::FightCategoryList categories;
+
+	for (auto const& val : root.value.as<toml::Table>())
+	{
+		Ipponboard::FightCategory cat(fm::qt::from_utf8_str(val.first));
+		if (val.second.has(Tags::RoundTime))
+		{
+			cat.SetRoundTime(val.second.get<int>(Tags::RoundTime));
+		}
+		if (val.second.has(Tags::GoldenScoreTime))
+		{
+			cat.SetGoldenScoreTime(val.second.get<int>(Tags::GoldenScoreTime));
+		}
+		if (val.second.has(Tags::Weights))
+		{
+			cat.SetWeights(fm::qt::from_utf8_str(val.second.get<std::string>(Tags::Weights)));
+		}
+
+		categories.emplace_back(cat);
+	}
+
+	return categories;
+}
+
+void FightCategoryParser::ToTomlFile(const char* filePath, Ipponboard::FightCategoryList const& categories)
+{
+	toml::Value root((toml::Table()));
+	toml::Value* top = &root;
+
+	for (auto const& cat : categories)
+	{
+		auto table = top->setChild(fm::qt::to_utf8_str(cat.ToString()), toml::Table());
+
+		table->setChild(Tags::RoundTime, cat.GetRoundTime());
+		table->setChild(Tags::GoldenScoreTime, cat.GetGoldenScoreTime());
+		table->setChild(Tags::Weights, fm::qt::to_utf8_str(cat.GetWeights()));
+	}
+
+	fm::WriteToml(filePath, root);
+}
