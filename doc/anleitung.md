@@ -238,7 +238,7 @@ Die Zeit wird jetzt so lange angezeigt, bis entweder erneut ein Haltegriff ausge
 Die Punkte werden über die beiden Analog-Sticks vergeben. Dabei entsprechen 
 beim blauen Kämpfer folgende Richtungen den jeweiligen Punkten:
 
-<image src="images/Analogstick.png" align="right"/>
+![](images/Analogstick.png)
 
  Wertung         | Taste 
 ---------------- | ----- 
