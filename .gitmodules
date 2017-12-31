@@ -1,0 +1,3 @@
+[submodule "util/tinytoml"]
+	path = util/tinytoml
+	url = https://github.com/mayah/tinytoml.git
