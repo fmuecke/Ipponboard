@@ -3,7 +3,7 @@
 
 #include "Club.h"
 #include "../util/json.hpp"
-#include "../util/tinytoml/include/toml/toml.h"
+#include "../util/toml.h"
 #include "../util/qt_helpers.hpp"
 
 #include <QSettings>
@@ -84,7 +84,6 @@ static void ToIniFile_UNUSED(const char* filePath, Ipponboard::ClubList const& c
 static Ipponboard::ClubList ParseTomlFile(const char* filePath)
 {
 	Ipponboard::ClubList clubs;
-
 	auto root = toml::parseFile(filePath);
 
 	if (!root.valid())
@@ -126,19 +125,7 @@ static void ToTomlFile(const char* filePath, Ipponboard::ClubList const& clubs)
 		table->setChild(Tags::LogoFile, fm::qt::to_utf8_str(club.logoFile));
 	}
 
-	std::ofstream of(filePath, std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
-	if (of.is_open())
-	{
-//			if (writeBom)
-//			{
-//				t << (char)0xEF << (char)0xBB << (char)0xBF;
-//			}
-
-		root.writeFormatted(&of, toml::FORMAT_INDENT);
-		//of << root;
-
-		of.close();
-	}
+	fm::WriteToml(filePath, root);
 }
 
 static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& clubs)

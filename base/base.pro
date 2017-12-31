@@ -120,7 +120,8 @@ HEADERS = pch.h \
     ../core/iView.h \
     ../util/json.hpp \
     FightCategoryParser.h \
-    ClubParser.h
+    ClubParser.h \
+    ../util/toml.h
 
 
 SOURCES = Main.cpp \
