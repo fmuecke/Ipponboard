@@ -119,7 +119,8 @@ HEADERS = pch.h \
     ../core/iGoldenScoreView.h \
     ../core/iView.h \
     ../util/json.hpp \
-    FightCategoryParser.h
+    FightCategoryParser.h \
+    ClubParser.h
 
 
 SOURCES = Main.cpp \

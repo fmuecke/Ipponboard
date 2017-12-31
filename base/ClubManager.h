@@ -1,40 +1,10 @@
 #ifndef BASE__CLUBMANAGER_H_
 #define BASE__CLUBMANAGER_H_
 
-#include <QString>
-#include <vector>
+#include "Club.h"
 
 // forwards
 class QListWidgetItem;
-
-namespace Ipponboard
-{
-struct Club
-{
-	Club()
-		: name()
-		, logoFile()
-		, address()
-	{}
-
-	Club(QString const& id, QString const& logo)
-		: name(id)
-		, logoFile(logo)
-		, address()
-	{}
-
-	QString name;
-	QString logoFile;
-	QString address;
-
-	inline bool operator<(const Club& rhs) const
-	{
-		return this->ToString() < rhs.ToString();
-	}
-
-	inline QString ToString() const { return name; }
-};
-}
 
 namespace Ipponboard
 {
@@ -43,8 +13,8 @@ class ClubManager
 {
 	//Q_OBJECT
 public:
-	typedef std::vector<Ipponboard::Club> ClubList;
-	static const char* const str_filename_club_definitions;
+	static const char* const str_legacy_filename_club_definitions;
+	static const char* const str_clubs_settingsFile;
 
 	ClubManager();
 	virtual ~ClubManager();
