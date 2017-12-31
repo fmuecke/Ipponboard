@@ -12,7 +12,7 @@
 
 using namespace Ipponboard;
 const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json";
-const char* const ClubManager::str_clubs_settingsFile = "clubs.config";
+const char* const ClubManager::str_clubs_settingsFile = "clubs.toml";
 
 //---------------------------------------------------------
 ClubManager::ClubManager()
@@ -108,22 +108,25 @@ void ClubManager::LoadClubs_()
 {
 	auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
 
-	if (QFile::exists(config.c_str()))
+	try
 	{
-		m_Clubs = ClubParser::ParseIniFile(config.c_str());
-	}
-	else
-	{
-		// load legacy settings for conversion
-		try
+		if (QFile::exists(config.c_str()))
 		{
+			m_Clubs = ClubParser::ParseTomlFile(config.c_str());
+		}
+		else
+		{
+		// load legacy settings for conversion
 			auto legacyConfig = fm::GetSettingsFilePath(str_legacy_filename_club_definitions);
 			m_Clubs = ClubParser::ParseJsonFile(legacyConfig.c_str());
 		}
-		catch (std::exception const& e)
-		{
-			QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
-		}
+	}
+	catch (std::exception const& e)
+	{
+		QMessageBox::critical(
+					0,
+					"Unable to load clubs",
+					QString("Error reading clubs from file '%1'.\n\n%2").arg(config.c_str(), e.what()));
 	}
 }
 
@@ -140,11 +143,13 @@ void ClubManager::SaveClubs_()
 	auto filePath = fm::GetSettingsFilePath(str_clubs_settingsFile);
 	try
 	{
-		ClubParser::ToIniFile(filePath.c_str(), m_Clubs);
+		ClubParser::ToTomlFile(filePath.c_str(), m_Clubs);
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+		QMessageBox::critical(
+					0,
+					"Unable to save clubs",
+					QString("Error saving clubs to file '%1'.\n\n%2").arg(filePath.c_str(), e.what()));
 	}
-
 }

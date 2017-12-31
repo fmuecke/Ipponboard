@@ -3,10 +3,12 @@
 
 #include "Club.h"
 #include "../util/json.hpp"
+#include "../util/tinytoml/include/toml/toml.h"
 #include "../util/qt_helpers.hpp"
 
 #include <QSettings>
 #include <QStringList>
+#include <iostream>
 
 namespace ClubParser
 {
@@ -76,6 +78,66 @@ static void ToIniFile(const char* filePath, Ipponboard::ClubList const& clubs)
 		settings.setValue(Tags::Address, club.address);
 		settings.setValue(Tags::LogoFile, club.logoFile);
 		settings.endGroup();
+	}
+}
+
+static Ipponboard::ClubList ParseTomlFile(const char* filePath)
+{
+	Ipponboard::ClubList clubs;
+
+	auto root = toml::parseFile(filePath);
+
+	if (!root.valid())
+	{
+		throw std::runtime_error(root.errorReason);
+	}
+
+	if (root.value.is<toml::Table>())
+	{
+		for (auto const& val : root.value.as<toml::Table>())
+		{
+			Ipponboard::Club club;
+
+			club.name = fm::qt::from_utf8_str(val.first);
+			club.address = fm::qt::from_utf8_str(val.second.get<std::string>(Tags::Address));
+			club.logoFile = fm::qt::from_utf8_str(val.second.get<std::string>(Tags::LogoFile));
+
+			clubs.emplace_back(club);
+		}
+	}
+	else
+	{
+		throw std::runtime_error("unexpected format");
+	}
+
+	return clubs;
+}
+
+static void ToTomlFile(const char* filePath, Ipponboard::ClubList const& clubs)
+{
+	toml::Value root((toml::Table()));
+	toml::Value* top = &root;
+
+	for (auto const& club : clubs)
+	{
+		auto table = top->setChild(fm::qt::to_utf8_str(club.name).c_str(), toml::Table());
+
+		table->setChild(Tags::Address, fm::qt::to_utf8_str(club.address));
+		table->setChild(Tags::LogoFile, fm::qt::to_utf8_str(club.logoFile));
+	}
+
+	std::ofstream of(filePath, std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
+	if (of.is_open())
+	{
+//			if (writeBom)
+//			{
+//				t << (char)0xEF << (char)0xBB << (char)0xBF;
+//			}
+
+		root.writeFormatted(&of, toml::FORMAT_INDENT);
+		//of << root;
+
+		of.close();
 	}
 }
 
