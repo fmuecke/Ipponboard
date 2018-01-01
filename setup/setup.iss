@@ -88,36 +88,39 @@ Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptif
 Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\categories.json"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\clubs.json"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\bin\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\bin\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
-Source: "..\bin\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
-Source: "..\bin\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
-Source: "..\bin\lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Clubs\*.*"; DestDir: "{app}\Clubs\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Sounds\*.*"; DestDir: "{app}\Sounds\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Templates\*.*"; DestDir: "{app}\Templates\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Licenses\*.*"; DestDir: "{app}\Licenses"; Flags: IgnoreVersion recursesubdirs
 ;Source: ..\bin\msvcp100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
 ;Source: ..\bin\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
 Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\CHANGELOG.txt"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\bin\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\bin\msvcp140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full
-Name: {app}; Permissions: users-full;
-Name: {app}\sounds; 
-Name: {app}\lang;
-Name: {app}\clubs; Permissions: users-full;
-Name: {app}\templates; Permissions: users-full;
+Name: "{app}\Sounds"
+Name: "{app}\Lang"
+Name: "{app}\Clubs"; Permissions: users-full
+Name: "{app}\Templates"; Permissions: users-full
+Name: "{app}\Licenses"
 
 [Icons]
-Name: "{userstartmenu}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"
-;Name: "{group}\Anleitung"; Filename: {app}\Anleitung.pdf; WorkingDir: {app}
+Name: "{userprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"
+Name: "{userprograms}\{#MyAppName}\{#MyAppName} Anleitung"; Filename: "{app}\Anleitung.html"; WorkingDir: "{app}"
+Name: "{userprograms}\{#MyAppName}\{#MyAppName} Changelog"; Filename: "{app}\CHANGELOG.html"; WorkingDir: "{app}"
 ;Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en
-Name: "{userstartmenu}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "http://www.ipponboard.info/"
-Name: "{userstartmenu}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
+Name: "{userprograms}\{#MyAppName}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "http://www.ipponboard.info/"
+Name: "{userprograms}\{#MyAppName}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 ;Name: "{userstartmenu}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de
 ;Name: "{userstartmenu}\Online-Survey (Feedback)"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_en/"; Languages: en
 Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Ipponboard.exe"; IconIndex: 0
