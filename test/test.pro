@@ -44,4 +44,4 @@ CONFIG(debug, debug|release) {
     error(Unknown set of dependencies.)
 }
 
-QMAKE_POST_LINK += "xcopy /Y /Q /I TestData bin\\TestData>nul"
+QMAKE_POST_LINK += "xcopy /Y /Q /I TestData bin\\TestData>nul && xcopy /Y /Q /I TestData\\*.ini bin\\templates\\>nul"

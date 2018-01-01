@@ -95,7 +95,6 @@ goto the_end
 	_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
-	call :make_doc || goto the_error
 	call :make_setup || goto the_error
 goto the_end
 
@@ -119,7 +118,6 @@ goto the_end
 	_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
-	call :make_doc || goto the_error
 goto the_end
 
 :cmd_clean
@@ -134,6 +132,7 @@ goto the_end
 	rd /Q /S "%BASE_DIR%\bin" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
 	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
+	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
 	call :generate_makefiles || exit /b %errorlevel%
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
 exit /b 0
@@ -148,15 +147,16 @@ exit /b 0
 		if errorlevel 1 exit /b 1
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
+	call ::make_doc || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
 :make_doc
 	echo;
-	echo --[build doc]--
-	echo creating Anleitung.html...
+	echo -- building doc
+	echo Anleitung.html...
 		pandoc -s "%BASE_DIR%\doc\manual\manual-de.md" -o "%BASE_DIR%\bin\Anleitung.html" --toc --css="%BASE_DIR%\doc\manual\Ipponboard.css" --resource-path="%BASE_DIR%\doc\manual" --number-sections --self-contained || exit /b %errorlevel%
-	echo creating CHANGELOG.html...
+	echo CHANGELOG.html...
 		pandoc -s "%BASE_DIR%\CHANGELOG.md" -o "%BASE_DIR%\bin\CHANGELOG.html" --css="%BASE_DIR%\doc\manual\Ipponboard.css" --self-contained || exit /b %errorlevel%
 	echo copying license files...
 		robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\doc\manual\licenses" bin\Licenses >nul || exit /b %errorlevel%

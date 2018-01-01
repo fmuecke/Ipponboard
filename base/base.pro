@@ -63,7 +63,7 @@ contains(COMPILER, msvc) {
     DEFINES += WIN32 _WIN32_WINNT=0x0501
 
     # remove unneccessary output files
-    QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib
+    #QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib>nul 
 }
 
 CONFIG(debug, release|debug) {

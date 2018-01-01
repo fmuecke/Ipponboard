@@ -43,18 +43,18 @@ REM -- doc
 rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
 rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
-echo  categories and modes
+echo  Categories and modes
 copy /Y "..\base\categories.json" "%DEST%">nul || exit /b 1
 copy /Y TournamentModes.ini "%DEST%">nul || exit /b 1
 
-echo  clubs
-if not exist "%DEST%\clubs" mkdir "%DEST%\clubs">nul
+echo  Clubs
+if not exist "%DEST%\clubs" mkdir "%DEST%\Clubs">nul
 copy /Y "clubs.json" "%DEST%">nul || exit /b 1
-copy /Y "clubs\*.png" "%DEST%\clubs">nul || exit /b 1
+copy /Y "clubs\*.png" "%DEST%\Clubs">nul || exit /b 1
 
-echo  templates
+echo  Templates
 if not exist "%DEST%\templates" mkdir "%DEST%\templates">nul
-copy /Y "templates\*.*" "%DEST%\templates">nul || exit /b 1
+copy /Y "templates\*.*" "%DEST%\Templates">nul || exit /b 1
 
 REM -- programme
 REM if not exist "%DEST%\Ipponboard.exe" (
@@ -62,7 +62,5 @@ REM if not exist "%DEST%\Ipponboard.exe" (
 	REM pause
 	REM exit 1
 REM )
-
-copy /Y "..\CHANGELOG.txt" "%DEST%">nul || exit /b 1
 
 exit /b 0
