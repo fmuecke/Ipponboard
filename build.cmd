@@ -67,12 +67,14 @@ echo   (2) build
 echo   (3) rebuild
 echo   (4) setup
 echo   (5) run
+echo   (6) build doc
 echo   (9) all
 echo   (q) quit
-choice /C 123459q /N
+choice /C 1234569q /N
 :: value "0" is reserved!
-if %errorlevel%==7 exit /b 0
-if %errorlevel%==6 goto cmd_all
+if %errorlevel%==8 exit /b 0
+if %errorlevel%==7 goto cmd_all
+if %errorlevel%==6 goto cmd_build_doc
 if %errorlevel%==5 goto cmd_run
 if %errorlevel%==4 goto cmd_setup
 if %errorlevel%==3 goto cmd_rebuild
@@ -93,7 +95,13 @@ goto the_end
 	_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
+	call :make_doc || goto the_error
 	call :make_setup || goto the_error
+goto the_end
+
+:cmd_build_doc
+	_build\stopwatch start build
+	call :make_doc || goto the_error
 goto the_end
 
 :cmd_setup
@@ -111,6 +119,7 @@ goto the_end
 	_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
+	call :make_doc || goto the_error
 goto the_end
 
 :cmd_clean
@@ -139,6 +148,18 @@ exit /b 0
 		if errorlevel 1 exit /b 1
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
+exit /b 0
+
+::-------------------------------
+:make_doc
+	echo;
+	echo --[build doc]--
+	echo creating Anleitung.html...
+		pandoc -s "%BASE_DIR%\doc\manual\manual-de.md" -o "%BASE_DIR%\bin\Anleitung.html" --toc --css="%BASE_DIR%\doc\manual\Ipponboard.css" --resource-path="%BASE_DIR%\doc\manual" --number-sections --self-contained || exit /b %errorlevel%
+	echo creating CHANGELOG.html...
+		pandoc -s "%BASE_DIR%\CHANGELOG.md" -o "%BASE_DIR%\bin\CHANGELOG.html" --css="%BASE_DIR%\doc\manual\Ipponboard.css" --self-contained || exit /b %errorlevel%
+	echo copying license files...
+		robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\doc\manual\licenses" bin\Licenses >nul || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
