@@ -49,3 +49,5 @@ i18n/*.qm
 _output/
 .vs/
 ipponboard.VC.*
+bin/
+setup/Output/
