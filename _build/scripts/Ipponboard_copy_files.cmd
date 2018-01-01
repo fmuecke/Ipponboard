@@ -43,12 +43,10 @@ copy "%BASE_DIR%\bin\categories.xml" "%BUILD_DIR%">nul
 :: copy base files to Team Edition folder
 xcopy /S /Q "%BUILD_DIR%" "%BUILD_DIR_TEAM%\"
 copy "%BASE_DIR%\bin\lang\Ipponboard_team_de.qm" "%BUILD_DIR_TEAM%\lang">nul
-copy "%BASE_DIR%\bin\lang\VersionSelector_de.qm" "%BUILD_DIR_TEAM%\lang">nul
 xcopy /S /Q "%BASE_DIR%\bin\clubs" "%BUILD_DIR_TEAM%\clubs\"
 xcopy /S /Q "%BASE_DIR%\bin\templates" "%BUILD_DIR_TEAM%\templates\"
 
 :: main files
 copy "%BASE_DIR%\bin\Ipponboard_team.exe" "%BUILD_DIR_TEAM%">nul
-copy "%BASE_DIR%\bin\VersionSelector.exe" "%BUILD_DIR_TEAM%">nul
 
 exit /b 0

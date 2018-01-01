@@ -138,7 +138,6 @@ exit /b 0
 		IpponboardTest.exe & popd 
 		if errorlevel 1 exit /b 1
 	call :compile base || exit /b %errorlevel%
-	::call :compile VersionSelector || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
 exit /b 0
 
