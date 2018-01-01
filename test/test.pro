@@ -8,16 +8,14 @@ DESTDIR = bin
 #QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
 #    ../lib
 
-HEADERS = \
-	TestJson.hpp \
-	TestScore.hpp \
-	TestFight.hpp \
-    TestTournamentMode.hpp \
-    TestVersionComparer.hpp
-
+HEADERS =
 SOURCES = \
     IpponboardTest.cpp \
-    ../util/jsoncpp/json.cpp
+    TestJson.cpp \
+    TestScore.cpp \
+    TestFight.cpp \
+    TestTournamentMode.cpp \
+    TestVersionComparer.cpp
 
 OTHER_FILES += \
     TestData/TournamentModes-test.ini \

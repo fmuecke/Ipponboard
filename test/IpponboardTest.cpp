@@ -5,17 +5,8 @@
 // IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
 //
 
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
-#include "../../../../devtools/Catch/include/catch.hpp"
-#include "../core/Score.cpp"
-#include "../core/Fight.cpp"
-#include "../core/Rules.cpp"
-
-#include "TestTournamentMode.hpp"
-#include "TestJson.hpp"
-#include "TestScore.hpp"
-#include "TestFight.hpp"
-#include "TestVersionComparer.hpp"
+#define CATCH_CONFIG_MAIN
+#include "../../../../devtools/Catch/single_include/catch.hpp"
 
 /*
 int main(int argc, char *argv[])

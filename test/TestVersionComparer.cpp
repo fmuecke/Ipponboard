@@ -1,13 +1,11 @@
-#pragma once
-
-#include "../../../../devtools/Catch/include/catch.hpp"
+#include "../../../../devtools/Catch/single_include/catch.hpp"
 #include "../base/VersionComparer.h"
 #include "../base/VersionComparer.cpp"
 
 #include <QString>
 #include <iostream>
 
-using namespace Ipponboard;
+//using namespace Ipponboard;
 
 // see testcases for semver here: https://github.com/coolaj86/semver-utils/blob/master/test/spec.js
 
