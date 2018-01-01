@@ -1,7 +1,6 @@
 #pragma once
 
-#include "jsoncpp\json.h"
-//#include "jsoncpp\json.cpp"
+#include "..\3rdParty\jsoncpp\json.h"
 
 #include <filesystem>
 #include <fstream>

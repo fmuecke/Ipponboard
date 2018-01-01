@@ -1,7 +1,7 @@
 #ifndef __UTIL_TOML_H_
 #define __UTIL_TOML_H_
 
-#include "tinytoml/include/toml/toml.h"
+#include "../3rdParty/tinytoml/include/toml/toml.h"
 #include <ostream>
 
 namespace fm

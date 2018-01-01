@@ -1,5 +1,5 @@
-[submodule "util/tinytoml"]
-	path = util/tinytoml
+[submodule "3rdParty/tinytoml"]
+	path = 3rdParty/tinytoml
 	url = https://github.com/mayah/tinytoml.git
 [submodule "doc/manual"]
 	path = doc/manual

@@ -1,6 +1,6 @@
 #include "../../../../devtools/Catch/single_include/catch.hpp"
 #include "../util/json.hpp"
-#include "../util/jsoncpp/json.cpp"
+#include "../3rdParty/jsoncpp/json.cpp"
 
 TEST_CASE("JSON read file")
 {

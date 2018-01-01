@@ -128,7 +128,7 @@ SOURCES = Main.cpp \
     Main.cpp \
     MainWindow.cpp \
     MainWindowTeam.cpp \
-    ../util/jsoncpp/json.cpp \
+    ../3rdParty/jsoncpp/json.cpp \
 	AddFighterDlg.cpp \
     ClubManager.cpp \
     ClubManagerDlg.cpp \
