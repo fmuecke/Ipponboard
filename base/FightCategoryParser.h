@@ -10,10 +10,12 @@ public:
 	FightCategoryParser();
 
 	//> for internal storage
-	static std::string ToJsonString(Ipponboard::FightCategoryList const& categories);
+	static std::string ToJsonString_UNUSED(Ipponboard::FightCategoryList const& categories);
+	static std::string ToTomlString(Ipponboard::FightCategoryList const& categories);
 
 	//> for internal storage
-	static Ipponboard::FightCategoryList ParseJsonString(std::string const& categories);
+	static Ipponboard::FightCategoryList ParseJsonString_UNUSED(std::string const& str);
+	static Ipponboard::FightCategoryList ParseTomlString(std::string const& str);
 
 	//> legacy (old format)
 	static Ipponboard::FightCategoryList ParseLegacyJsonFile(const char* file);

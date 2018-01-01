@@ -190,18 +190,18 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 {
 	try
 	{
-		auto cats = FightCategoryParser::ParseJsonString(s);
+		auto cats = FightCategoryParser::ParseTomlString(s);
 
-		for (auto const & cat : cats)
+		if (!cats.empty())
 		{
-			AddCategory(cat);
+			m_Categories = cats;
 		}
 	}
 	catch (std::exception const& e)
 	{
 		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
+							  QString(QObject::tr("Inernal Error")),
+							  QString(QObject::tr("Unexpected error restoring previous categories:\n%1").arg(
 										  QString::fromStdString(e.what()))));
 
 		return false;
@@ -216,13 +216,13 @@ std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 {
 	try
 	{
-		return FightCategoryParser::ToJsonString(m_Categories);
+		return FightCategoryParser::ToTomlString(m_Categories);
 	}
 	catch (std::exception const& e)
 	{
 		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
+							  QString(QObject::tr("Internal Error")),
+							  QString(QObject::tr("Unexpected error storing current categories:\n%1").arg(
 										  QString::fromStdString(e.what()))));
 	}
 
