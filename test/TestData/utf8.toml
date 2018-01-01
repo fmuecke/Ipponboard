@@ -1,0 +1,8 @@
+[TestData]
+  string = "Florian Mücke"
+  int = 300
+  double = 3.1415
+  array = [1,2,3,4,5]
+
+[TestData2]
+  string = "Ipponboard"

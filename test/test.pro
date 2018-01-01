@@ -15,12 +15,15 @@ SOURCES = \
     TestScore.cpp \
     TestFight.cpp \
     TestTournamentMode.cpp \
-    TestVersionComparer.cpp
+    TestVersionComparer.cpp \
+    TestTomlParser.cpp
 
 OTHER_FILES += \
     TestData/TournamentModes-test.ini \
     TestData/utf8.json \
-    TestData/utf8_with_bom.json
+    TestData/utf8.toml \
+    TestData/utf8_with_bom.json \
+    TestData/utf8_with_bom.toml
 
 QMAKE_CXXFLAGS += -EHsc
 
