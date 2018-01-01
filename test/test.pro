@@ -25,7 +25,7 @@ OTHER_FILES += \
     TestData/utf8_with_bom.json \
     TestData/utf8_with_bom.toml
 
-QMAKE_CXXFLAGS += -EHsc
+QMAKE_CXXFLAGS += -EHsc /D_CRT_SECURE_NO_WARNINGS
 
 MY_QTBINDIR=$$[QT_INSTALL_BINS]
 

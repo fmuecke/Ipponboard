@@ -58,7 +58,7 @@ contains(COMPILER, mingw) {
 }
 
 contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS /MP
+    QMAKE_CXX += /FS /MP /D_CRT_SECURE_NO_WARNINGS
     DEFINES += "WINVER=0x0501"
     DEFINES += WIN32 _WIN32_WINNT=0x0501
 
