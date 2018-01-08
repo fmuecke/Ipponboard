@@ -27,7 +27,7 @@ IF EXIST "%LOCAL_CONFIG%" (
   exit /b 1
 )
 
-SET BASE_DIR=%CD%
+SET BASE_DIR=%~dp0.
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
@@ -92,36 +92,36 @@ GOTO the_end
 goto the_end
 
 :cmd_all
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 	call :make_setup || goto the_error
 goto the_end
 
 :cmd_build_doc
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_doc || goto the_error
 goto the_end
 
 :cmd_setup
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_setup || goto the_error
 goto the_end
 
 
 :cmd_build
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_rebuild
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_clean
-	_build\stopwatch start build
+	%BASE_DIR%\_build\stopwatch start build
 	call :make_clean || goto the_error
 goto the_end
 
@@ -148,6 +148,7 @@ exit /b 0
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
 	call ::make_doc || exit /b %errorlevel%
+	call "%BASE_DIR%\base\copy_files.cmd" -release || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -183,7 +184,7 @@ exit /b 0
 :compile
 	echo;
 	echo -- Compiling %1
-	pushd %1
+	pushd %BASE_DIR%\%1
 	if "%2"=="debug" (
 		jom /L /S /F Makefile.Debug || exit /b %errorlevel%
 	) else (
@@ -208,6 +209,6 @@ goto menu
 :the_end
 echo.
 echo SUCCESS
-_build\stopwatch stop build "Time Elapsed: {1}"
+%BASE_DIR%\_build\stopwatch stop build "Time Elapsed: {1}"
 pause
 goto menu
