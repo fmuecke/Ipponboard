@@ -711,6 +711,8 @@ void MainWindowTeam::on_actionManageModes_triggered()
 			return;
 		}
 
+        Ipponboard::TournamentMode::WriteModesToToml(MainWindowTeam::ModeConfigurationFileName(), dlg.Result(), errMsg);
+
 		m_pUi->comboBox_mode->clear();
 		SetModes(dlg.Result());
 

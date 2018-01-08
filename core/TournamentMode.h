@@ -33,18 +33,18 @@ public:
 
 	// ascii strings
 	static const char* TemplateDirName() { return "templates"; }
-	static QString const& str_Title;
-	static QString const& str_SubTitle;
-	static QString const& str_Weights;
-	static QString const& str_Template;
-	static QString const& str_Options;
-	static QString const& str_Rules;
-	static QString const& str_Rounds;
-	static QString const& str_FightTimeInSeconds;
-	static QString const& str_FightTimeOverrides;
-	static QString const& str_WeightsAreDoubled;
-	static QString const& str_none;
-	static QString const& str_Option_AllSubscoresCount;
+    static const char* const str_Title;
+    static const char* const str_SubTitle;
+    static const char* const str_Weights;
+    static const char* const str_Template;
+    static const char* const str_Options;
+    static const char* const str_Rules;
+    static const char* const str_Rounds;
+    static const char* const str_FightTimeInSeconds;
+    static const char* const str_FightTimeOverrides;
+    static const char* const str_WeightsAreDoubled;
+    static const char* const str_none;
+    static const char* const str_Option_AllSubscoresCount;
 
 	static bool ReadModes(
 		QString const& filename,
@@ -55,6 +55,11 @@ public:
 		QString const& filename,
 		List const& modes,
 		QString& errorMsg);
+
+    static bool WriteModesToToml(
+        QString const& filename,
+        List const& modes,
+        QString& errorMsg);
 
 	static TournamentMode Default();
 

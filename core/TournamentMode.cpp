@@ -7,6 +7,8 @@
 
 #include "TournamentMode.h"
 #include "Rules.h"
+#include "../util/toml.h"
+#include "../util/qt_helpers.hpp"
 
 #include <QString>
 #include <QStringList>
@@ -16,18 +18,19 @@
 #include <regex>
 
 using namespace Ipponboard;
+using namespace fm::qt;
 
-QString const& TournamentMode::str_Title("Title");
-QString const& TournamentMode::str_SubTitle("SubTitle");
-QString const& TournamentMode::str_Weights("Weights");
-QString const& TournamentMode::str_Template("Template");
-QString const& TournamentMode::str_FightTimeOverrides("FightTimeOverrides");
-QString const& TournamentMode::str_Options("Options");
-QString const& TournamentMode::str_Rounds("Rounds");
-QString const& TournamentMode::str_Rules("Rules");
-QString const& TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
-QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
-QString const& TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
+const char* const TournamentMode::str_Title("Title");
+const char* const TournamentMode::str_SubTitle("SubTitle");
+const char* const TournamentMode::str_Weights("Weights");
+const char* const TournamentMode::str_Template("Template");
+const char* const TournamentMode::str_FightTimeOverrides("FightTimeOverrides");
+const char* const TournamentMode::str_Options("Options");
+const char* const TournamentMode::str_Rounds("Rounds");
+const char* const TournamentMode::str_Rules("Rules");
+const char* const TournamentMode::str_FightTimeInSeconds("FightTimeInSeconds");
+const char* const TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
+const char* const TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
 
 TournamentMode::TournamentMode()
 	: id("SingeTournament")
@@ -129,6 +132,41 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
 	}
 
 	return true;
+}
+
+bool TournamentMode::WriteModesToToml(const QString& filename, TournamentMode::List const& modes, QString& errorMsg)
+{
+    errorMsg.clear();
+
+    QFile file(filename);
+
+    if (file.exists() && !file.remove())
+    {
+        errorMsg = QString("Can not write to %1!").arg(filename);
+        return false;
+    }
+
+    auto root = toml::Value(toml::Table());
+
+    for (auto const & mode : modes)
+    {
+        auto table = root.setChild(to_utf8_str(mode.id), toml::Table());
+
+        table->setChild(str_Title, to_utf8_str(mode.title));
+        table->setChild(str_SubTitle, to_utf8_str(mode.subTitle));
+        table->setChild(str_Weights, to_utf8_str(mode.weights));
+        table->setChild(str_Template, to_utf8_str(mode.listTemplate));
+        table->setChild(str_Rounds, mode.nRounds);
+        table->setChild(str_FightTimeInSeconds, mode.fightTimeInSeconds);
+        table->setChild(str_WeightsAreDoubled, mode.weightsAreDoubled);
+        table->setChild(str_Options, to_utf8_str(mode.options));
+        table->setChild(str_Rules, to_utf8_str(mode.rules));
+        table->setChild(str_FightTimeOverrides, to_utf8_str(mode.GetFightTimeOverridesString()));
+    }
+
+    fm::WriteToml(to_utf8_str(filename + ".toml").c_str(), root);
+
+    return true;
 }
 
 TournamentMode TournamentMode::Default()
