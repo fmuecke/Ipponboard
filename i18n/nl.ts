@@ -237,27 +237,7 @@
         <translation>De gewichtsklassen (gescheiden door komma)</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>Move category up</source>
-        <translation>Categorie hoger plaatsen</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Up</source>
-        <translation>Hoger</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Move category down</source>
-        <translation>Categorie lager plaatsen</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Down</source>
-        <translation>Lager</translation>
-    </message>
-    <message>
-        <location line="+24"/>
+        <location line="+29"/>
         <source>Add a new category</source>
         <translation>Een nieuwe categorie toevoegen</translation>
     </message>
@@ -304,7 +284,7 @@
         <translation>Deze categorie bestaat reeds. Kies een andere naam aub.</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+134"/>
         <source>This name is already taken!</source>
         <translation>Deze naam is reeds in gebruik!</translation>
     </message>
@@ -382,7 +362,7 @@
         <translation>Achternaam</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+189"/>
         <source>Select CSV file with fighters</source>
         <translation>Selecteer CSV-bestand met de Deelnemers</translation>
     </message>
@@ -418,7 +398,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+389"/>
+        <location filename="../core/Controller.cpp" line="+404"/>
         <source>First</source>
         <translation>Eerste</translation>
     </message>
@@ -454,7 +434,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+498"/>
+        <location filename="../base/View.cpp" line="+499"/>
         <source>Set time</source>
         <translation>Tijd Instellen</translation>
     </message>
@@ -528,12 +508,12 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+522"/>
+        <location line="+523"/>
         <source>Secondary Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-443"/>
         <source>/</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,7 +563,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished">Regels</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>&amp;Manage</source>
         <translation>&amp;Bewerken</translation>
     </message>
@@ -644,12 +624,12 @@ Geldige velden zijn: %1</translation>
         <translation>Over Ipponboard</translation>
     </message>
     <message>
-        <location line="-456"/>
+        <location line="-457"/>
         <source>Options:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+459"/>
+        <location line="+460"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
@@ -845,7 +825,17 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+341"/>
+        <location line="+8"/>
+        <source>IJF Rules 2018</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Use IJF 2018 rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../base/MainWindow.cpp" line="+349"/>
         <source>Auto adjust points</source>
         <translation type="unfinished"></translation>
     </message>
@@ -853,7 +843,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+293"/>
+        <location filename="../base/MainWindowBase.cpp" line="+294"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
@@ -863,7 +853,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+667"/>
+        <location line="+697"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -879,7 +869,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-681"/>
+        <location line="-711"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -888,7 +878,7 @@ Geldige velden zijn: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+314"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+322"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
@@ -904,7 +894,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1081"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1137"/>
         <location filename="../base/MainWindowTeam.cpp" line="+64"/>
         <source>Save</source>
         <translation type="unfinished">Opslaan</translation>
@@ -946,7 +936,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+139"/>
         <source>Show results</source>
         <translation type="unfinished"></translation>
     </message>
@@ -956,7 +946,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+187"/>
         <source>Export file to...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -971,7 +961,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+46"/>
         <source>Set Weights</source>
         <translation type="unfinished"></translation>
     </message>
@@ -986,7 +976,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+72"/>
         <source>Set Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1011,7 +1001,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+62"/>
         <source>There is nothing to paste!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1031,12 +1021,12 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+113"/>
         <source>Ipponboard fight list %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1282"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1338"/>
         <source>Ipponboard</source>
         <translation type="unfinished">Ipponboard</translation>
     </message>
@@ -1158,12 +1148,22 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+32"/>
         <source>Continue with next fight (current data will be saved)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+67"/>
+        <source>Toggle Golden Score mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Golden Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1173,7 +1173,7 @@ Geldige velden zijn: %1</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1549,7 +1549,7 @@ Note: the time must be specified in seconds alone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+170"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+174"/>
         <source>*new*</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1577,12 +1577,12 @@ Note: the time must be specified in seconds alone</source>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/UpdateChecker.cpp" line="+47"/>
+        <location filename="../base/UpdateChecker.cpp" line="+50"/>
         <source>en</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Version %1 available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1662,12 +1662,12 @@ Note: the time must be specified in seconds alone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1316"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1342"/>
         <source>Error reading mode configurations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+598"/>
+        <location line="+613"/>
         <source>Error writing mode configurations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1675,28 +1675,25 @@ Note: the time must be specified in seconds alone</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+193"/>
-        <location line="+9"/>
-        <location line="+38"/>
-        <location line="+9"/>
-        <location line="+35"/>
-        <location line="+7"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+171"/>
+        <location line="+32"/>
+        <location line="+21"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="+133"/>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>Format specifier has invalid separator: %1</source>
         <translation>Het formaat heeft een verkeerd scheidingsteken:%1</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location line="-48"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
         <translation>Het formaat bevat geen voornaam en achternaam: %1</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+32"/>
         <source>Imported %1 new fighters.</source>
         <translation>%1 nieuwe deelnemers geimporeerd.</translation>
     </message>
@@ -1706,7 +1703,7 @@ Note: the time must be specified in seconds alone</source>
         <translation>Het formaat bestaat niet uit dezelfde criteria: %1</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Successfully exported %1 fighters.</source>
         <translation>Succesvol %1 deelnemers geëxporteerd.</translation>
     </message>
@@ -1728,17 +1725,15 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
         <translation>Kan bestand %1 niet openen om weg te bewerken</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="-97"/>
-        <location line="+47"/>
-        <source>Unable to read fight categories:
+        <location filename="../base/FightCategoryManager.cpp" line="-52"/>
+        <source>Unable to load fight categories:
 %1
 
 Restoring defaults.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+47"/>
+        <location line="+32"/>
         <source>Unable to parse fight categories:
 %1
 
@@ -1746,14 +1741,8 @@ Restoring defaults.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+21"/>
         <source>Unable to write fight categories:
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Unable to convert fight categories:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2270,7 +2259,7 @@ Restoring defaults.</source>
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="+21"/>
+        <location filename="../core/TournamentModel.cpp" line="+23"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>

@@ -83,7 +83,7 @@ public: // nothing to encapsulate here
 	QString weights;
 	QString listTemplate;
 	QString options;
-	QString rules { Rules2017().Name() };
+	QString rules { RulesFactory::GetDefaultName() };
 	OverridesList fightTimeOverrides;
 	int nRounds;
 	int fightTimeInSeconds; // TODO: rename to duration!

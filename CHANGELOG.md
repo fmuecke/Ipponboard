@@ -1,5 +1,9 @@
 % *Ipponboard* - Version History
 
+## Version 1.10-beta1
+  - (new): support for IJF-2018 rules
+  - known issues: you can add more than two wazaari
+
 ## Version 1.9-beta2
   - (fix): resetting main timer to correct value after switching fight classes or using Golden Score
   - (fix): starting timer is not only possible if points are equal (Golden Score mode)

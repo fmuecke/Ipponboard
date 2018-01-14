@@ -300,6 +300,7 @@ void MainWindow::ui_check_rules_items()
 	m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
 	m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
 	m_pUi->actionRules2017U15->setChecked(rules->IsOfType<Rules2017U15>());
+	m_pUi->actionRules2018->setChecked(rules->IsOfType<Rules2018>());
 
 	if (rules->IsOfType<ClassicRules>())
 	{
@@ -316,6 +317,10 @@ void MainWindow::ui_check_rules_items()
 	else if (rules->IsOfType<Rules2017U15>())
 	{
 		m_pUi->label_usedRules->setText(m_pUi->actionRules2017U15->text());
+	}
+	else if (rules->IsOfType<Rules2018>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2018->text());
 	}
 
 	m_pPrimaryView->UpdateView();

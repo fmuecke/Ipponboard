@@ -3,6 +3,7 @@
 
 using namespace Ipponboard;
 
+const char* const Rules2018::StaticName = "IJF-2018";
 const char* const Rules2017::StaticName = "IJF-2017";
 const char* const Rules2017U15::StaticName = "IJF-2017 U15";
 const char* const Rules2013::StaticName = "IJF-2013";

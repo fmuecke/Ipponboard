@@ -96,22 +96,39 @@ TEST_CASE("is awasette ippon")
 	auto classicRules = std::make_shared<Ipponboard::ClassicRules>();
 	auto rules2013 = std::make_shared<Ipponboard::Rules2013>();
 	auto rules2017 = std::make_shared<Ipponboard::Rules2017>();
+	auto rules2018 = std::make_shared<Ipponboard::Rules2018>();
 
 	REQUIRE_FALSE(classicRules->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+	REQUIRE_FALSE(rules2018->IsAwaseteIppon(score));
 
 	score.Add(Score::Point::Wazaari);
 
 	REQUIRE_FALSE(classicRules->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+	REQUIRE_FALSE(rules2018->IsAwaseteIppon(score));
 
 	score.Add(Score::Point::Wazaari);
 
 	REQUIRE(classicRules->IsAwaseteIppon(score));
 	REQUIRE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+	REQUIRE(rules2018->IsAwaseteIppon(score));
+
+	//TODO
+	//FIXME
+	/* not correct, yet
+	score.Add(Score::Point::Wazaari);
+
+	std::cout << "ippon: " << score.Ippon() << ", ";
+	std::cout << "wazaari: " << score.Wazaari();
+	REQUIRE(classicRules->IsAwaseteIppon(score));
+	REQUIRE(rules2013->IsAwaseteIppon(score));
+	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
+	REQUIRE(rules2018->IsAwaseteIppon(score));
+	*/
 }
 
 TEST_CASE("rules 2017: only first shido does not count")
