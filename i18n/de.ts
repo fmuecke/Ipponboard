@@ -1626,8 +1626,8 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
     </message>
     <message>
         <location line="+1"/>
-        <source>Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation>Daher ist Ipponboard nicht nur irgend ein Anzeigeprogramm, sondern von Judoka für Judoka entwickelt. Es ist nicht nur für die Leute am Zeitnehmertisch hilfreich, sondern auch für die Trainer, Zuschauer und Kämpfer selbst.</translation>
+        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
+        <translation>Ipponboard ist nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen. Daher wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
     </message>
     <message>
         <location line="+1"/>

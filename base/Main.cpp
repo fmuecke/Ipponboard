@@ -53,7 +53,7 @@ int ShowSplashScreen()
 {
 	auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
 	auto t10 = QCoreApplication::tr("Judo is part of our lives.");
-	auto t2 = QCoreApplication::tr("Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.");
+	auto t2 = QCoreApplication::tr("Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was intended to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.");
 	auto t3 = QCoreApplication::tr("Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.");
 	auto t4 = QCoreApplication::tr("This version can be used without restriction. Copying in unchanged form is permitted.");
 	auto t5 = QCoreApplication::tr("If you like Ipponboard, please support its development by:");
