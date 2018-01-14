@@ -138,6 +138,7 @@ void ClubManager::SaveClubs_()
 
 	// make an archive
 	auto filePath = fm::GetSettingsFilePath(str_clubs_settingsFile);
+
 	try
 	{
 		ClubParser::ToIniFile(filePath.c_str(), m_Clubs);

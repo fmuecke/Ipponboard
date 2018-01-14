@@ -4,12 +4,14 @@
 #include "../core/Rules.h"
 #include "../core/Fight.h"
 
+#include <iostream>
+
 using namespace Ipponboard;
 using Point = Score::Point;
 
 bool IsScoreLess(std::shared_ptr<Ipponboard::AbstractRules> pRules, Score const& lhs, Score const& rhs)
 {
-	Fight f{ lhs, rhs };
+	Fight f { lhs, rhs };
 	return pRules->CompareScore(f) > 0;
 }
 

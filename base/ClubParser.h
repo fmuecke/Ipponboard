@@ -42,11 +42,13 @@ static Ipponboard::ClubList ParseIniFile(const char* filePath)
 	settings.setIniCodec("UTF-8");
 
 	Ipponboard::ClubList clubs;
-	for (auto const& group : settings.childGroups())
+
+	for (auto const & group : settings.childGroups())
 	{
 		settings.beginGroup(group);
 		Ipponboard::Club club;
 		club.name = group;
+
 		if (settings.contains(Tags::Address))
 		{
 			club.address = settings.value(Tags::Address).toString();
@@ -56,6 +58,7 @@ static Ipponboard::ClubList ParseIniFile(const char* filePath)
 		{
 			club.logoFile = settings.value(Tags::LogoFile).toString();
 		}
+
 		settings.endGroup();
 
 		clubs.push_back(club);
@@ -70,7 +73,8 @@ static void ToIniFile(const char* filePath, Ipponboard::ClubList const& clubs)
 	settings.setIniCodec("UTF-8");
 
 	settings.clear();
-	for (auto const& club : clubs)
+
+	for (auto const & club : clubs)
 	{
 		settings.beginGroup(club.name);
 		settings.setValue(Tags::Address, club.address);
