@@ -1,9 +1,10 @@
 @echo off
 setlocal
 REM -- language file
-call ..\env_cfg.bat
+call %~dp0..\env_cfg.bat
 
-set DEST=..\bin
+set ROOT=%~dp0..\
+set DEST=%ROOT%\bin
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
 
@@ -11,14 +12,14 @@ echo Copying files...
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
-"%QTDIR%\lrelease" -compress -silent ..\i18n\de.ts -qm ..\i18n\de.qm || exit /b 1
-copy /Y "..\i18n\de.qm" "%DEST%\lang">nul || exit /b 1
-"%QTDIR%\lrelease" -compress -silent ..\i18n\nl.ts -qm ..\i18n\nl.qm || exit /b 1
-copy /Y "..\i18n\nl.qm" "%DEST%\lang">nul || exit /b 1
+"%QTDIR%\lrelease" -compress -silent %ROOT%\i18n\de.ts -qm %ROOT%\i18n\de.qm || exit /b 1
+copy /Y "%ROOT%\i18n\de.qm" "%DEST%\lang">nul || exit /b 1
+"%QTDIR%\lrelease" -compress -silent %ROOT%\i18n\nl.ts -qm %ROOT%\i18n\nl.qm || exit /b 1
+copy /Y "%ROOT%\i18n\nl.qm" "%DEST%\lang">nul || exit /b 1
 
 echo  sounds
 if not exist "%DEST%\sounds" mkdir "%DEST%\sounds">nul
-copy /Y "..\base\sounds\buzzer.wav" "%DEST%\sounds">nul || exit /b 1
+copy /Y "%ROOT%\base\sounds\buzzer.wav" "%DEST%\sounds">nul || exit /b 1
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 :: if errorlevel 1 exit /b 1
 
@@ -44,7 +45,7 @@ rem copy /Y "%DEST%\doc\Anleitung.pdf" "%DEST%">nul
 rem copy /Y "%DEST%\doc\manual.pdf" "%DEST%">nul
 
 echo  Categories and modes
-copy /Y "..\base\categories.json" "%DEST%">nul || exit /b 1
+copy /Y "%ROOT%\base\categories.json" "%DEST%">nul || exit /b 1
 copy /Y TournamentModes.ini "%DEST%">nul || exit /b 1
 
 echo  Clubs

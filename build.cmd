@@ -160,7 +160,7 @@ exit /b 0
 	echo CHANGELOG.html...
 		pandoc -s "%BASE_DIR%\CHANGELOG.md" -o "%BASE_DIR%\bin\CHANGELOG.html" --css="%BASE_DIR%\doc\manual\Ipponboard.css" --self-contained || exit /b %errorlevel%
 	echo copying license files...
-		robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\doc\manual\licenses" bin\Licenses >nul || exit /b %errorlevel%
+		robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\doc\manual\licenses" "%BASE_DIR%\bin\Licenses" >nul || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
