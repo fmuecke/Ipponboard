@@ -110,83 +110,83 @@
     <message>
         <location filename="../base/DonationManager.cpp" line="+20"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipponboard rocks! Stop alsjeblieft niet!</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Best score board ever!</source>
-        <translation type="unfinished"></translation>
+        <translation>Beste scorebord ooit!</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>I really love Ipponboard!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ik hou echt van Ipponboard!</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>There are still features missing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Er ontbreken nog steeds functies ...</translation>
     </message>
     <message>
         <location line="-10"/>
         <source>Contribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijdragen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>It really saves my day</source>
-        <translation type="unfinished"></translation>
+        <translation>Het scheelt echt mijn dag</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Donate a beer (or two)</source>
-        <translation type="unfinished"></translation>
+        <translation>Doneer een biertje (of twee)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Tournaments are less work now</source>
-        <translation type="unfinished"></translation>
+        <translation>Toernooien zijn nu minder werk</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Support future development</source>
-        <translation type="unfinished"></translation>
+        <translation>Ondersteuning van toekomstige ontwikkeling</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ipponboard is really great</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipponboard is echt geweldig</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show my appreciation and donate a buck</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon mijn waardering en schenk een cent</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>There is still some development to do...</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is nog wat ontwikkeling te doen ...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please fix my bug...</source>
-        <translation type="unfinished"></translation>
+        <translation>Corrigeer mijn bug ...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please keep Ipponboard alive!</source>
-        <translation type="unfinished"></translation>
+        <translation>Houd alsjeblieft Ipponboard levend!</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>I need more features</source>
-        <translation type="unfinished"></translation>
+        <translation>Ik heb meer functies nodig</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+1"/>
         <source>Thanks for investing your time!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedankt voor het investeren van je tijd!</translation>
     </message>
 </context>
 <context>
@@ -504,28 +504,28 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="-321"/>
         <source>Display secondary screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon tweede scherm</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+523"/>
         <source>Secondary Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Tweede Scherm</translation>
     </message>
     <message>
         <location line="-443"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location line="+135"/>
         <source>Activate Golden Score</source>
-        <translation type="unfinished"></translation>
+        <translation>Activeer Golden Score Tijd</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Golden Score</source>
-        <translation type="unfinished"></translation>
+        <translation>Golden Score</translation>
     </message>
     <message>
         <location line="+158"/>
@@ -560,7 +560,7 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="+8"/>
         <source>Rules</source>
-        <translation type="unfinished">Regels</translation>
+        <translation>Regels</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -605,18 +605,18 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="+12"/>
         <source>Visit Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezoek Homepage</translation>
     </message>
     <message>
         <location line="+147"/>
         <location line="+3"/>
         <source>Report a Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Meld een bug</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Provide Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef feedback</translation>
     </message>
     <message>
         <location line="-150"/>
@@ -626,7 +626,7 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="-457"/>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opties:</translation>
     </message>
     <message>
         <location line="+460"/>
@@ -762,82 +762,82 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="+12"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederlands</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Choose Dutch as program language</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies Nederlands als programmeertaal</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Auto Adjust Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto aanpassen punten</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>IJF Rules 2017</source>
-        <translation type="unfinished"></translation>
+        <translation>IJF Regels 2017</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use IJF 2017 rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik IJF 2017-regels</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>IJF Rules 2013</source>
-        <translation type="unfinished"></translation>
+        <translation>IJF Regles 2013</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use IJF 2013 rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik IJF 2013-regels</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Classic Rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Klassiek Regels</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use classic rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik klassik regels</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Info Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Info Balk</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Shows/hides the info bar which dispays the current options and rules.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toont / verbergt de infobalk met de huidige opties en regels.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>IJF Rules 2017 (U15)</source>
-        <translation type="unfinished"></translation>
+        <translation>IJF Regels 2017 (U15)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use IJF 2017 rules (U15)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik IJF 2017 regels (U15)</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>IJF Rules 2018</source>
-        <translation type="unfinished"></translation>
+        <translation>IJF Regels 2018</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use IJF 2018 rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik IJF 2018-regels</translation>
     </message>
     <message>
         <location filename="../base/MainWindow.cpp" line="+349"/>
         <source>Auto adjust points</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto aanpassen punten</translation>
     </message>
 </context>
 <context>
@@ -850,7 +850,7 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="+39"/>
         <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+697"/>
@@ -871,7 +871,7 @@ Geldige velden zijn: %1</translation>
     <message>
         <location line="-711"/>
         <source>Please restart the application so that the change can take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
 </context>
 <context>
@@ -880,554 +880,556 @@ Geldige velden zijn: %1</translation>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
         <location filename="../base/MainWindowTeam.cpp" line="+322"/>
         <source>Home</source>
-        <translation type="unfinished"></translation>
+        <translation>Thuis</translation>
     </message>
     <message>
         <location line="+17"/>
         <location filename="../base/MainWindowTeam.cpp" line="+1"/>
         <source>Guest</source>
-        <translation type="unfinished"></translation>
+        <translation>Gasten</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="+92"/>
         <source> (saved)</source>
-        <translation type="unfinished"></translation>
+        <translation> (opslaaned)</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+1137"/>
         <location filename="../base/MainWindowTeam.cpp" line="+64"/>
         <source>Save</source>
-        <translation type="unfinished">Opslaan</translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="+1"/>
         <source>Next</source>
-        <translation type="unfinished">Volgende</translation>
+        <translation>Volgende</translation>
     </message>
     <message>
         <location line="+91"/>
         <source>File open error</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand open fout</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>File could not be opened: </source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand kon niet worden geopend:</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>tie</source>
-        <translation type="unfinished"></translation>
+        <translation>onbeslist</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>List generated with Ipponboard v</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst gegenereerd met Ipponboard v</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+69"/>
         <location filename="../base/MainWindowTeam.cpp" line="+10"/>
         <source>Reset Scores</source>
-        <translation type="unfinished">Scores Herstellen</translation>
+        <translation>Scores Herstellen</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="+1"/>
         <source>Really reset complete score table?</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledige scoretabel echt resetten?</translation>
     </message>
     <message>
         <location line="+139"/>
         <source>Show results</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon resultaten</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Hide results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultaten verbergen</translation>
     </message>
     <message>
         <location line="+187"/>
         <source>Export file to...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand exporteren naar ...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ScoreList_</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Set Weights</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewichten instellen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set weights (separated by &apos;;&apos;):</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewichten instellen (gescheiden door &apos;;&apos;):</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>U moet%1 gewichtsklassen opgeven, gescheiden door &apos;;&apos;!</translation>
     </message>
     <message>
         <location line="+72"/>
         <source>Set Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarde Instellen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set value to (m:ss):</source>
-        <translation type="unfinished"></translation>
+        <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
         <location line="+70"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaren</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>There is nothing to paste!</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is niets om te plakken!</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Can not paste into an empty selection!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan niet in een lege selectie plakken!</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>There is too few data for the selection in the clipboard!</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn te weinig gegevens voor de selectie op het klembord!</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>There is more data available in the clipboard as could be pasted!</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn meer gegevens beschikbaar op het klembord die kunnen worden geplakt!</translation>
     </message>
     <message>
         <location line="+113"/>
         <source>Ipponboard fight list %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipponboard-gevechtslijst %1</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="-1338"/>
         <source>Ipponboard</source>
-        <translation type="unfinished">Ipponboard</translation>
+        <translation>Ipponboard</translation>
     </message>
     <message>
         <location line="+69"/>
         <source>List (Ctrl+1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst (Ctrl+1)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst</translation>
     </message>
     <message>
         <location line="+99"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijze</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Gastheer</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Edit home team</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk thuisploeg</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Plaats</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Edit guest team</source>
-        <translation type="unfinished"></translation>
+        <translation>Gastteam bewerken</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Weights</source>
-        <translation type="unfinished">Gewichten</translation>
+        <translation>Gewichten</translation>
     </message>
     <message>
         <location line="+105"/>
         <source>Score after 1st round:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scoren na de eerste ronde:</translation>
     </message>
     <message>
         <location line="+41"/>
         <location line="+225"/>
         <source>(Wins)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Overwinningen)</translation>
     </message>
     <message>
         <location line="-181"/>
         <location line="+237"/>
         <source>(Sub score)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="-214"/>
         <source>Copy &amp;&amp; switch guest</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieer &amp;&amp; switch guest</translation>
     </message>
     <message>
         <location line="+105"/>
         <source>Final score:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eindscore</translation>
     </message>
     <message>
         <location line="+132"/>
         <source>Score board (Ctrl+2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scorebord (Ctrl+2)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Board</source>
-        <translation type="unfinished"></translation>
+        <translation>Bord</translation>
     </message>
     <message>
         <location line="+78"/>
         <source>Show result screen (F4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon resultatenscherm (F4)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Show Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon resultaten</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Round</source>
-        <translation type="unfinished"></translation>
+        <translation>Ronde</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Fight</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontmoeting</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>1/10</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+52"/>
         <source>Re-load previous fight data (Note: the current data will be saved)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eerdere vechtgegevens opnieuw laden (Opmerking: de huidige gegevens worden opgeslagen)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorige</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Continue with next fight (current data will be saved)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>strijd?</translatorcomment>
+        <translation>Doorgaan met volgende strijd (huidige gegevens worden opgeslagen)</translation>
     </message>
     <message>
         <location line="+67"/>
         <source>Toggle Golden Score mode</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>wijze?</translatorcomment>
+        <translation>Schakelen Golden Score wijze</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Golden Score</source>
-        <translation type="unfinished"></translation>
+        <translation>Golden Score</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset huidige scores en timers (Ctrl + Backspace)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Herstellen</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Over</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekijken</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Settings</source>
-        <translation type="unfinished">Instellingen</translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Select program language</source>
-        <translation type="unfinished">Selecteer taal</translation>
+        <translation>Selecteer taal</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Language</source>
-        <translation type="unfinished">Taal</translation>
+        <translation>Taal</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Manage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Timers</source>
-        <translation type="unfinished"></translation>
+        <translation>Tijd</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Open</source>
-        <translation type="unfinished">Openen</translation>
+        <translation>Openen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished">Ctrl+O</translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished">Ctrl+S</translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Exit</source>
-        <translation type="unfinished">Verlaten</translation>
+        <translation>Verlaten</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>End Ipponboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrit Ipponboard</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished">Ctrl+Q</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Visit Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezoek Homepage</translation>
     </message>
     <message>
         <location line="+119"/>
         <source>Report a Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Meld een bug</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Provide Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef feedback</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>Auto Adjust Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto aanpassen punten</translation>
     </message>
     <message>
         <location line="-283"/>
         <source>About Ipponboard</source>
-        <translation type="unfinished">Over Ipponboard</translation>
+        <translation>Over Ipponboard</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>F1</source>
-        <translation type="unfinished">F1</translation>
+        <translation>F1</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Show Secondary View</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon tweede scherm</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Toggles secodary screen view</source>
-        <translation type="unfinished">Schakelen naar het beelds van het tweede scherm</translation>
+        <translation>Schakelen naar het beelds van het tweede scherm</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>F2</source>
-        <translation type="unfinished">F2</translation>
+        <translation>F2</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Clubs</source>
-        <translation type="unfinished">Clubs</translation>
+        <translation>Clubs</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Manage Clubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk Clubs</translation>
     </message>
     <message>
         <location line="+17"/>
         <location line="+3"/>
         <source>Play Mat Signal</source>
-        <translation type="unfinished">Signaal Afspelen</translation>
+        <translation>Signaal Afspelen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Plays the mat signal sound file</source>
-        <translation type="unfinished">Speelt het geluidssignaal af</translation>
+        <translation>Speelt het geluidssignaal af</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ctrl+G</source>
-        <translation type="unfinished">Ctrl+G</translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Controller</source>
-        <translation type="unfinished">Controller</translation>
+        <translation>Controller</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Preferences</source>
-        <translation type="unfinished">Voorkeuren</translation>
+        <translation>Voorkeuren</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Load Demo Data</source>
-        <translation type="unfinished">Laad de Demodata</translation>
+        <translation>Laad de Demodata</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Print</source>
-        <translation type="unfinished">Printen</translation>
+        <translation>Printen</translation>
     </message>
     <message>
         <location line="+9"/>
         <location line="+3"/>
         <source>Results as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultaten als PDF</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Set Hold Timer</source>
-        <translation type="unfinished">Osaekomi-tijd instellen</translation>
+        <translation>Osaekomi-tijd instellen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Set the hold timer to a certain value</source>
-        <translation type="unfinished">Osaekomi-tijd wijzigen naar andere waarde</translation>
+        <translation>Osaekomi-tijd wijzigen naar andere waarde</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Set Main Timer</source>
-        <translation type="unfinished">Wedstrijdtijd instellen</translation>
+        <translation>Wedstrijdtijd instellen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Set the main timer to a certain value</source>
-        <translation type="unfinished">Wedstrijdtijd wijzigen naar andere waarde</translation>
+        <translation>Wedstrijdtijd wijzigen naar andere waarde</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Info Header</source>
-        <translation type="unfinished">&amp;Informatiebanner</translation>
+        <translation>&amp;Informatiebanner</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
-        <translation type="unfinished">Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</translation>
+        <translation>Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Set Round Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Wedstrijdtijd instellen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Set round time for all fights</source>
-        <translation type="unfinished"></translation>
+        <translation>Set ronde tijd voor alle gevechten</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Switch to Score Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakelen naar scoretabel</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ctrl+1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Swith to Score Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel over naar Score Control</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ctrl+2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Fighters</source>
-        <translation type="unfinished">Deelnemers</translation>
+        <translation>Deelnemers</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Import Fighters</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeer Deelnemers</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Modi</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Manage tournament modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Beheer toernooimodi</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederlands</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Choose Dutch as program language</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies Nederlands als programmeertaal</translation>
     </message>
 </context>
 <context>
@@ -1435,90 +1437,90 @@ Geldige velden zijn: %1</translation>
     <message>
         <location filename="../base/ModeManagerDlg.ui" line="+14"/>
         <source>Mode Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus Beheer</translation>
     </message>
     <message>
         <location line="+11"/>
         <location line="+11"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Subtitle</source>
-        <translation type="unfinished"></translation>
+        <translation>Subtitel</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+191"/>
         <location line="+22"/>
         <source>The fight duration in seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>De vechtduur in seconden</translation>
     </message>
     <message>
         <location line="-210"/>
         <source>Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorlegging</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Weights</source>
-        <translation type="unfinished">Gewichten</translation>
+        <translation>Gewichten</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Indicates that all weights will be used two times</source>
-        <translation type="unfinished"></translation>
+        <translation>Geeft aan dat alle gewichten twee keer worden gebruikt</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Weights count twice</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewichten tellen twee keer</translation>
     </message>
     <message>
         <location line="+9"/>
         <source># Rounds</source>
-        <translation type="unfinished"></translation>
+        <translation># Ronde</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>FIGHTS_PER_ROUND</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+22"/>
         <source>The fight duration</source>
-        <translation type="unfinished"></translation>
+        <translation>De vechtduur</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Fight Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Vechttijd</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>min</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+20"/>
         <source>sec</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Enables to specify overrides for the fight time for certain categories. E.g. &quot;U12:120;U15:180;U18:240&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee kunt u overschrijvingen opgeven voor de vechttijd voor bepaalde categorieën. Bijv. &quot;U12: 120; U15: 180; U18: 240&quot;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Use overrides</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik overschrijvingen</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1526,52 +1528,55 @@ Geldige velden zijn: %1</translation>
 &quot;U12:120;U15:180;U18:240&quot;
 (&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
 Note: the time must be specified in seconds alone</source>
-        <translation type="unfinished"></translation>
+        <translation>De opheffingen moeten zoiets als dit zijn:
+&quot;U12: 120; U15: 180; U18: 240&quot;
+(&lt;identifier&gt;:&lt;tijd in seconden&gt;;&lt;identifier&gt; ...)
+Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Rules</source>
-        <translation type="unfinished">Regels</translation>
+        <translation>Regels</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Options</source>
-        <translation type="unfinished">Opties</translation>
+        <translation>Opties</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Sub-scores are valued even if the fight is lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Subscores worden zelfs gewaardeerd als het gevecht verloren is</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>All sub-scores count</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle subscores tellen</translation>
     </message>
     <message>
         <location filename="../base/ModeManagerDlg.cpp" line="+174"/>
         <source>*new*</source>
-        <translation type="unfinished"></translation>
+        <translation>*nieuwe*</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Remove item</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder voorwerp</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Really remove &quot;%1&quot;?</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; echt verwijderen?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Remove</source>
-        <translation type="unfinished">Verwijderen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Houden</translation>
     </message>
 </context>
 <context>
@@ -1579,97 +1584,97 @@ Note: the time must be specified in seconds alone</source>
     <message>
         <location filename="../base/UpdateChecker.cpp" line="+50"/>
         <source>en</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Version %1 available</source>
-        <translation type="unfinished"></translation>
+        <translation>Versie%1 beschikbaar</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Do you want to download it or visit the project homepage?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je het downloaden of de startpagina van het project bezoeken?</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Ipponboard - New Version Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipponboard - Nieuwe Versie Beschikbaar</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Visit Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezoek Homepage</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annuleren</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../base/Main.cpp" line="+54"/>
         <source>the score board for judoka by judoka</source>
-        <translation type="unfinished"></translation>
+        <translation>het scorebord voor judoka door judoka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Judo is part of our lives.</source>
-        <translation type="unfinished"></translation>
+        <translation>Judo maakt deel uit van ons leven.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Therefore, Ipponboard is not just a simple display program, but developed by judoka for judoka. It is not only helpful for the people at the time table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation type="unfinished"></translation>
+        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
+        <translation>Daarom is Ipponboard niet alleen een eenvoudig Judo-weergaveprogramma, maar met passie ontwikkeld door judoka voor judoka. Het is ontwikkeld om niet alleen de mensen aan de tijdopnemerstafel te ondersteunen, maar ook voor de trainers, het publiek en de jagers zelf.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ipponboard is niet alleen duidelijk leesbaar maar ook revolutionair eenvoudig en intuïtief in gebruik. Daarom wordt het gewaardeerd door clubs en organisaties over de hele wereld en wordt het al vele jaren gebruikt bij grote kampioenschappen.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze versie kan zonder beperking worden gebruikt. Kopiëren in ongewijzigde vorm is toegestaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>If you like Ipponboard, please support its development by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Als je Ipponboard leuk vindt, steun dan de ontwikkeling ervan door:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>feedback</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>wishes and suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>wensen en suggesties</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>or by giving appreciative donations</source>
-        <translation type="unfinished"></translation>
+        <translation>of door het geven van dankbare donaties</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Thank you very much!</source>
-        <translation type="unfinished"></translation>
+        <translation>Veel dank!</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="-1342"/>
         <source>Error reading mode configurations</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij lezen van modusconfiguraties</translation>
     </message>
     <message>
         <location line="+613"/>
         <source>Error writing mode configurations</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
 </context>
 <context>
@@ -1730,7 +1735,10 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
 %1
 
 Restoring defaults.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan vechtcategorieën niet laden:
+%1
+
+Standaardwaarden herstellen.</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1738,13 +1746,13 @@ Restoring defaults.</source>
 %1
 
 Restoring defaults.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Unable to write fight categories:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1752,7 +1760,7 @@ Restoring defaults.</source>
     <message>
         <location filename="../base/ScoreScreen.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1792,27 +1800,27 @@ Restoring defaults.</source>
     <message>
         <location line="+23"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Grootte</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherm</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Use custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik aangepast grootte</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation>breedte</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogte</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -2238,22 +2246,22 @@ Restoring defaults.</source>
     <message>
         <location filename="../base/SplashScreen.ui" line="+22"/>
         <source>Welcome to Ipponboard!</source>
-        <translation type="unfinished"></translation>
+        <translation>Welkom bij Ipponboard!</translation>
     </message>
     <message>
         <location line="+131"/>
         <source>Ok, start Single Tournament</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké, start een enkel toernooi</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>I want to show my support as Ipponboard is really helpful.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ik wil mijn steun te betuigen als Ipponboard is echt nuttig.</translation>
     </message>
     <message>
         <location line="-59"/>
         <source>Ok, start Team Tournament</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok, start teamtoernooi</translation>
     </message>
 </context>
 <context>

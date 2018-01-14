@@ -1,7 +1,9 @@
 % *Ipponboard* - Version History
 
-## Version 1.10-beta1
+## Version 1.10-beta
   - (new): support for IJF-2018 rules
+  - (new): includes German manual (still work in progress)
+  - (mod): updated Dutch translation (google translate)
   - known issues: you can add more than two wazaari
 
 ## Version 1.9-beta2

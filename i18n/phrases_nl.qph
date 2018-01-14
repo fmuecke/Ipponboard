@@ -1,0 +1,1979 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en_US" language="nl_NL">
+<phrase>
+    <source>Please restart the application so that the change can take effect.</source>
+    <target>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</target>
+</phrase>
+<phrase>
+    <source>Add Fighter</source>
+    <target>Deelnemer Toevoegen</target>
+</phrase>
+<phrase>
+    <source>Club/Team</source>
+    <target>Club/Team</target>
+</phrase>
+<phrase>
+    <source>First name</source>
+    <target>Voornaam</target>
+</phrase>
+<phrase>
+    <source>Last name</source>
+    <target>Achternaam</target>
+</phrase>
+<phrase>
+    <source>Weight</source>
+    <target>Gewicht</target>
+</phrase>
+<phrase>
+    <source>Manage Clubs</source>
+    <target>Club Bewerken</target>
+</phrase>
+<phrase>
+    <source>Add</source>
+    <target>Toevoegen</target>
+</phrase>
+<phrase>
+    <source>Remove</source>
+    <target>Verwijderen</target>
+</phrase>
+<phrase>
+    <source>Details</source>
+    <target>Details</target>
+</phrase>
+<phrase>
+    <source>Name</source>
+    <target>Naam</target>
+</phrase>
+<phrase>
+    <source>Logo</source>
+    <target>Logo</target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>Opslaan</target>
+</phrase>
+<phrase>
+    <source>...</source>
+    <target>...</target>
+</phrase>
+<phrase>
+    <source>Address</source>
+    <target>Adres</target>
+</phrase>
+<phrase>
+    <source>Select Club Emblem</source>
+    <target>Selecteer Clubembleem</target>
+</phrase>
+<phrase>
+    <source>PNG files (*.png);;Image files (*.png *.xpm *.jpg)</source>
+    <target>PNG bestanden(*.png);;Afbeelding bestanden (*.png *.xpm *.jpg)</target>
+</phrase>
+<phrase>
+    <source>Unsupported Image Type</source>
+    <target>Bestandstype afbeelding wordt niet ondersteund</target>
+</phrase>
+<phrase>
+    <source>The specified image could not be loaded!</source>
+    <target>De afbeelding kon niet geladen worden!</target>
+</phrase>
+<phrase>
+    <source>Please update your version...</source>
+    <target>Uw versie updaten aub...</target>
+</phrase>
+<phrase>
+    <source>Ipponboard rocks! Please don&apos;t stop!</source>
+    <target>Ipponboard rocks! Stop alsjeblieft niet!</target>
+</phrase>
+<phrase>
+    <source>Best score board ever!</source>
+    <target>Beste scorebord ooit!</target>
+</phrase>
+<phrase>
+    <source>I really love Ipponboard!</source>
+    <target>Ik hou echt van Ipponboard!</target>
+</phrase>
+<phrase>
+    <source>There are still features missing...</source>
+    <target>Er ontbreken nog steeds functies ...</target>
+</phrase>
+<phrase>
+    <source>Contribute</source>
+    <target>Bijdragen</target>
+</phrase>
+<phrase>
+    <source>It really saves my day</source>
+    <target>Het scheelt echt mijn dag</target>
+</phrase>
+<phrase>
+    <source>Donate a beer (or two)</source>
+    <target>Doneer een biertje (of twee)</target>
+</phrase>
+<phrase>
+    <source>Tournaments are less work now</source>
+    <target>Toernooien zijn nu minder werk</target>
+</phrase>
+<phrase>
+    <source>Support future development</source>
+    <target>Ondersteuning van toekomstige ontwikkeling</target>
+</phrase>
+<phrase>
+    <source>Ipponboard is really great</source>
+    <target>Ipponboard is echt geweldig</target>
+</phrase>
+<phrase>
+    <source>Show my appreciation and donate a buck</source>
+    <target>Toon mijn waardering en schenk een cent</target>
+</phrase>
+<phrase>
+    <source>There is still some development to do...</source>
+    <target>Er is nog wat ontwikkeling te doen ...</target>
+</phrase>
+<phrase>
+    <source>Please fix my bug...</source>
+    <target>Corrigeer mijn bug ...</target>
+</phrase>
+<phrase>
+    <source>Please keep Ipponboard alive!</source>
+    <target>Houd alsjeblieft Ipponboard levend!</target>
+</phrase>
+<phrase>
+    <source>I need more features</source>
+    <target>Ik heb meer functies nodig</target>
+</phrase>
+<phrase>
+    <source>Thanks for investing your time!</source>
+    <target>Bedankt voor het investeren van je tijd!</target>
+</phrase>
+<phrase>
+    <source>Manage Fight Categories</source>
+    <target>Bewerk wedstrijdcategorieën</target>
+</phrase>
+<phrase>
+    <source>Category</source>
+    <target>Categorie</target>
+</phrase>
+<phrase>
+    <source>The name of the category</source>
+    <target>Naam van de Categorie</target>
+</phrase>
+<phrase>
+    <source>Time</source>
+    <target>Tijd</target>
+</phrase>
+<phrase>
+    <source>Round Time</source>
+    <target>Wedstrijdtijd</target>
+</phrase>
+<phrase>
+    <source>GS</source>
+    <target>GS</target>
+</phrase>
+<phrase>
+    <source>Golden Score Time</source>
+    <target>Golden Score Tijd</target>
+</phrase>
+<phrase>
+    <source>The weight classes (comma separated)</source>
+    <target>De gewichtsklassen (gescheiden door komma)</target>
+</phrase>
+<phrase>
+    <source>Add a new category</source>
+    <target>Een nieuwe categorie toevoegen</target>
+</phrase>
+<phrase>
+    <source>Add</source>
+    <target>Toevoegen</target>
+</phrase>
+<phrase>
+    <source>Remove the currently selected weight class</source>
+    <target>Verwijder de geslecteerde gewichtsklasse</target>
+</phrase>
+<phrase>
+    <source>Remove</source>
+    <target>Verwijderen</target>
+</phrase>
+<phrase>
+    <source>Ok</source>
+    <target>Ok</target>
+</phrase>
+<phrase>
+    <source>Cancel</source>
+    <target>Annuleren</target>
+</phrase>
+<phrase>
+    <source>Add new category</source>
+    <target>Nieuwe categorie toevoegen</target>
+</phrase>
+<phrase>
+    <source>Enter the name of the new category</source>
+    <target>Geef de naam van de nieuwe categorie</target>
+</phrase>
+<phrase>
+    <source>This category already exists. Please choose an other name.</source>
+    <target>Deze categorie bestaat reeds. Kies een andere naam aub.</target>
+</phrase>
+<phrase>
+    <source>This name is already taken!</source>
+    <target>Deze naam is reeds in gebruik!</target>
+</phrase>
+<phrase>
+    <source>Manage Fighters</source>
+    <target>Bewerk deelnemers</target>
+</phrase>
+<phrase>
+    <source>Import fighters</source>
+    <target>Importeer Deelnemers</target>
+</phrase>
+<phrase>
+    <source>&amp;Import</source>
+    <target>&amp;Importeren</target>
+</phrase>
+<phrase>
+    <source>Export fighters</source>
+    <target>Exporteer Deelnemers</target>
+</phrase>
+<phrase>
+    <source>E&amp;xport</source>
+    <target>&amp;Exporteer</target>
+</phrase>
+<phrase>
+    <source>Settings for import/export</source>
+    <target>Instellingen voor Importeren/Exporteren</target>
+</phrase>
+<phrase>
+    <source>Add a new fighter</source>
+    <target>Een nieuwe deelnemer toevoegen</target>
+</phrase>
+<phrase>
+    <source>&amp;Add</source>
+    <target>&amp;Toevoegen</target>
+</phrase>
+<phrase>
+    <source>Remove the currently selected weight class</source>
+    <target>Verwijder de huidige geselecteerde gewichtsklasse</target>
+</phrase>
+<phrase>
+    <source>&amp;Remove</source>
+    <target>&amp;Verwijderen</target>
+</phrase>
+<phrase>
+    <source>Club/Team</source>
+    <target>Club/team</target>
+</phrase>
+<phrase>
+    <source>First Name</source>
+    <target>Voornaam</target>
+</phrase>
+<phrase>
+    <source>Last Name</source>
+    <target>Achternaam</target>
+</phrase>
+<phrase>
+    <source>Select CSV file with fighters</source>
+    <target>Selecteer CSV-bestand met de Deelnemers</target>
+</phrase>
+<phrase>
+    <source>CSV files (*.csv);;Text files (*.txt)</source>
+    <target>CSV Bestanden (*.csv);;Tekst Bestanden (*.txt)</target>
+</phrase>
+<phrase>
+    <source>Name CSV file to store fighters in</source>
+    <target>Naam CSV bestand om Deelnemers in op te slaan</target>
+</phrase>
+<phrase>
+    <source>Specify import/export format</source>
+    <target>Specifieer het Importeer/Exporteer formaat</target>
+</phrase>
+<phrase>
+    <source>Use valid specifiers and some kind of separator (;,:|/ etc.)
+Valid specifiers are: %1</source>
+    <target>Gebruik geldige velden en mogelijke scheidigstekens (;,:|/ enz.)
+Geldige velden zijn: %1</target>
+</phrase>
+<phrase>
+    <source>Invalid format. Please correct your input.</source>
+    <target>Incorrect formaat. Corrigeer uw ingave aub.</target>
+</phrase>
+<phrase>
+    <source>First</source>
+    <target>Eerste</target>
+</phrase>
+<phrase>
+    <source>Second</source>
+    <target>Tweede</target>
+</phrase>
+<phrase>
+    <source>FIRST FIGHTER</source>
+    <target>Eerste Deelnemer</target>
+</phrase>
+<phrase>
+    <source>SECOND FIGHTER</source>
+    <target>Tweede Deelnemer</target>
+</phrase>
+<phrase>
+    <source>Ok</source>
+    <target>OK</target>
+</phrase>
+<phrase>
+    <source>Cancel</source>
+    <target>Annuleren</target>
+</phrase>
+<phrase>
+    <source>Set time</source>
+    <target>Tijd Instellen</target>
+</phrase>
+<phrase>
+    <source>Reset</source>
+    <target>Herstellen</target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target>Waarde Instellen</target>
+</phrase>
+<phrase>
+    <source>Set value to (m:ss):</source>
+    <target>Waarde instellen naar (m:ss):</target>
+</phrase>
+<phrase>
+    <source>Ipponboard</source>
+    <target>Ipponboard</target>
+</phrase>
+<phrase>
+    <source>Class</source>
+    <target>Klasse</target>
+</phrase>
+<phrase>
+    <source>Plays the signal sound file</source>
+    <target>Speel het geluidssignaal</target>
+</phrase>
+<phrase>
+    <source>Signal</source>
+    <target>Signaal</target>
+</phrase>
+<phrase>
+    <source>Reset all clocks and scores</source>
+    <target>Herstel alle tijden en scores</target>
+</phrase>
+<phrase>
+    <source>Reset</source>
+    <target>Herstel</target>
+</phrase>
+<phrase>
+    <source>Second Fighter (first last)</source>
+    <target>Tweede Deelnemer (Voornaam Achternaam)</target>
+</phrase>
+<phrase>
+    <source>First Fighter (first last)</source>
+    <target>Eerste Deelnemer (Voornaam Achternaam)</target>
+</phrase>
+<phrase>
+    <source>Display secondary screen</source>
+    <target>Toon tweede scherm</target>
+</phrase>
+<phrase>
+    <source>Secondary Display</source>
+    <target>Tweede Scherm</target>
+</phrase>
+<phrase>
+    <source>/</source>
+    <target>/</target>
+</phrase>
+<phrase>
+    <source>Activate Golden Score</source>
+    <target>Activeer Golden Score Tijd</target>
+</phrase>
+<phrase>
+    <source>Golden Score</source>
+    <target>Golden Score</target>
+</phrase>
+<phrase>
+    <source>&amp;File</source>
+    <target>&amp;Bestand</target>
+</phrase>
+<phrase>
+    <source>&amp;About</source>
+    <target>&amp;Over</target>
+</phrase>
+<phrase>
+    <source>&amp;View</source>
+    <target>&amp;Bekijken</target>
+</phrase>
+<phrase>
+    <source>&amp;Settings</source>
+    <target>&amp;Instellingen</target>
+</phrase>
+<phrase>
+    <source>Select program language</source>
+    <target>Selecteer taal</target>
+</phrase>
+<phrase>
+    <source>Language</source>
+    <target>Taal</target>
+</phrase>
+<phrase>
+    <source>Rules</source>
+    <target>Regels</target>
+</phrase>
+<phrase>
+    <source>&amp;Manage</source>
+    <target>&amp;Bewerken</target>
+</phrase>
+<phrase>
+    <source>Open</source>
+    <target>Openen</target>
+</phrase>
+<phrase>
+    <source>Ctrl+O</source>
+    <target>Ctrl+O</target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>Opslaan</target>
+</phrase>
+<phrase>
+    <source>Ctrl+S</source>
+    <target>Ctrl+S</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>Verlaten</target>
+</phrase>
+<phrase>
+    <source>Leave Ipponboard</source>
+    <target>Ippnoboard Afsluiten</target>
+</phrase>
+<phrase>
+    <source>Ctrl+Q</source>
+    <target>Ctrl+Q</target>
+</phrase>
+<phrase>
+    <source>Visit Homepage</source>
+    <target>Bezoek Homepage</target>
+</phrase>
+<phrase>
+    <source>Report a Bug</source>
+    <target>Meld een bug</target>
+</phrase>
+<phrase>
+    <source>Provide Feedback</source>
+    <target>Geef feedback</target>
+</phrase>
+<phrase>
+    <source>About Ipponboard</source>
+    <target>Over Ipponboard</target>
+</phrase>
+<phrase>
+    <source>Options:</source>
+    <target>Opties:</target>
+</phrase>
+<phrase>
+    <source>F1</source>
+    <target>F1</target>
+</phrase>
+<phrase>
+    <source>Toggles secodary screen view</source>
+    <target>Schakelen naar het beelds van het tweede scherm</target>
+</phrase>
+<phrase>
+    <source>F2</source>
+    <target>F2</target>
+</phrase>
+<phrase>
+    <source>Select Font</source>
+    <target>Selecteer Tekenset (Font)</target>
+</phrase>
+<phrase>
+    <source>Select Color</source>
+    <target>Selecteer Kleur</target>
+</phrase>
+<phrase>
+    <source>Clubs</source>
+    <target>Clubs</target>
+</phrase>
+<phrase>
+    <source>Manage Clubs</source>
+    <target>Bewerk Clubs</target>
+</phrase>
+<phrase>
+    <source>Reset Scores</source>
+    <target>Scores Herstellen</target>
+</phrase>
+<phrase>
+    <source>Change Background</source>
+    <target>Achtergrond wijzigen</target>
+</phrase>
+<phrase>
+    <source>Play Mat Signal</source>
+    <target>Signaal Afspelen</target>
+</phrase>
+<phrase>
+    <source>Plays the mat signal sound file</source>
+    <target>Speelt het geluidssignaal af</target>
+</phrase>
+<phrase>
+    <source>Ctrl+G</source>
+    <target>Ctrl+G</target>
+</phrase>
+<phrase>
+    <source>Controller</source>
+    <target>Controller</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>Voorkeuren</target>
+</phrase>
+<phrase>
+    <source>Load Demo Data</source>
+    <target>Laad de Demodata</target>
+</phrase>
+<phrase>
+    <source>Fighters</source>
+    <target>Deelnemers</target>
+</phrase>
+<phrase>
+    <source>Manage fighters</source>
+    <target>Bewerk Deelnemers</target>
+</phrase>
+<phrase>
+    <source>Print</source>
+    <target>Printen</target>
+</phrase>
+<phrase>
+    <source>Fight Categories</source>
+    <target>Wedstrijd Categorieën</target>
+</phrase>
+<phrase>
+    <source>Manage fight categories</source>
+    <target>Bewerk Wedstrijdcategorieën</target>
+</phrase>
+<phrase>
+    <source>&amp;Info Header</source>
+    <target>&amp;Informatiebanner</target>
+</phrase>
+<phrase>
+    <source>Toggles the info header (mat and category/weight class) on and off</source>
+    <target>Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</target>
+</phrase>
+<phrase>
+    <source>Set Hold Timer</source>
+    <target>Osaekomi-tijd instellen</target>
+</phrase>
+<phrase>
+    <source>Set the hold timer to a certain value</source>
+    <target>Osaekomi-tijd wijzigen naar andere waarde</target>
+</phrase>
+<phrase>
+    <source>Set Main Timer</source>
+    <target>Wedstrijdtijd instellen</target>
+</phrase>
+<phrase>
+    <source>Set the main timer to a certain value</source>
+    <target>Wedstrijdtijd wijzigen naar andere waarde</target>
+</phrase>
+<phrase>
+    <source>Dutch</source>
+    <target>Nederlands</target>
+</phrase>
+<phrase>
+    <source>Choose Dutch as program language</source>
+    <target>Kies Nederlands als programmeertaal</target>
+</phrase>
+<phrase>
+    <source>Auto Adjust Points</source>
+    <target>Auto aanpassen punten</target>
+</phrase>
+<phrase>
+    <source>IJF Rules 2017</source>
+    <target>IJF Regels 2017</target>
+</phrase>
+<phrase>
+    <source>Use IJF 2017 rules</source>
+    <target>Gebruik IJF 2017-regels</target>
+</phrase>
+<phrase>
+    <source>IJF Rules 2013</source>
+    <target>IJF Regles 2013</target>
+</phrase>
+<phrase>
+    <source>Use IJF 2013 rules</source>
+    <target>Gebruik IJF 2013-regels</target>
+</phrase>
+<phrase>
+    <source>Classic Rules</source>
+    <target>Klassiek Regels</target>
+</phrase>
+<phrase>
+    <source>Use classic rules</source>
+    <target>Gebruik klassik regels</target>
+</phrase>
+<phrase>
+    <source>Info Bar</source>
+    <target>Info Balk</target>
+</phrase>
+<phrase>
+    <source>Shows/hides the info bar which dispays the current options and rules.</source>
+    <target>Toont / verbergt de infobalk met de huidige opties en regels.</target>
+</phrase>
+<phrase>
+    <source>IJF Rules 2017 (U15)</source>
+    <target>IJF Regels 2017 (U15)</target>
+</phrase>
+<phrase>
+    <source>Use IJF 2017 rules (U15)</source>
+    <target>Gebruik IJF 2017 regels (U15)</target>
+</phrase>
+<phrase>
+    <source>IJF Rules 2018</source>
+    <target>IJF Regels 2018</target>
+</phrase>
+<phrase>
+    <source>Use IJF 2018 rules</source>
+    <target>Gebruik IJF 2018-regels</target>
+</phrase>
+<phrase>
+    <source>Auto adjust points</source>
+    <target>Auto aanpassen punten</target>
+</phrase>
+<phrase>
+    <source>About %1</source>
+    <target>Over %1</target>
+</phrase>
+<phrase>
+    <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target>Tijd instellen</target>
+</phrase>
+<phrase>
+    <source>Set value to (ss):</source>
+    <target>Tijd instellen naar (ss):</target>
+</phrase>
+<phrase>
+    <source>Set value to (m:ss):</source>
+    <target>Tijd instellen naar (m:ss):</target>
+</phrase>
+<phrase>
+    <source>Please restart the application so that the change can take effect.</source>
+    <target>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</target>
+</phrase>
+<phrase>
+    <source>Guest</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source> (saved)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>Opslaan</target>
+</phrase>
+<phrase>
+    <source>Next</source>
+    <target>Volgende</target>
+</phrase>
+<phrase>
+    <source>File open error</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>File could not be opened: </source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>tie</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>List generated with Ipponboard v</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Reset Scores</source>
+    <target>Scores Herstellen</target>
+</phrase>
+<phrase>
+    <source>Really reset complete score table?</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Show results</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Hide results</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Export file to...</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>ScoreList_</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>PDF File (*.pdf);;HTML File (*.html)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set Weights</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set weights (separated by &apos;;&apos;):</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set value to (m:ss):</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Copy</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Paste</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Clear</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>There is nothing to paste!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Can not paste into an empty selection!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>There is too few data for the selection in the clipboard!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>There is more data available in the clipboard as could be pasted!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ipponboard fight list %1</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ipponboard</source>
+    <target>Ipponboard</target>
+</phrase>
+<phrase>
+    <source>List (Ctrl+1)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>List</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Date</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Host</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Edit home team</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Location</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Edit guest team</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Score after 1st round:</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>(Wins)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>(Sub score)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Copy &amp;&amp; switch guest</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Final score:</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Score board (Ctrl+2)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Board</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Show result screen (F4)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Show Results</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Round</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Fight</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>1/10</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Re-load previous fight data (Note: the current data will be saved)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Previous</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Continue with next fight (current data will be saved)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Toggle Golden Score mode</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Golden Score</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Reset current scores and timers (Ctrl + Backspace)</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Reset</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>File</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>About</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Settings</source>
+    <target>Instellingen</target>
+</phrase>
+<phrase>
+    <source>Select program language</source>
+    <target>Selecteer taal</target>
+</phrase>
+<phrase>
+    <source>Language</source>
+    <target>Taal</target>
+</phrase>
+<phrase>
+    <source>Manage</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Timers</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Open</source>
+    <target>Openen</target>
+</phrase>
+<phrase>
+    <source>Ctrl+O</source>
+    <target>Ctrl+O</target>
+</phrase>
+<phrase>
+    <source>Ctrl+S</source>
+    <target>Ctrl+S</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>Verlaten</target>
+</phrase>
+<phrase>
+    <source>End Ipponboard</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ctrl+Q</source>
+    <target>Ctrl+Q</target>
+</phrase>
+<phrase>
+    <source>Visit Homepage</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Report a Bug</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Provide Feedback</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Auto Adjust Points</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>About Ipponboard</source>
+    <target>Over Ipponboard</target>
+</phrase>
+<phrase>
+    <source>F1</source>
+    <target>F1</target>
+</phrase>
+<phrase>
+    <source>Show Secondary View</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Toggles secodary screen view</source>
+    <target>Schakelen naar het beelds van het tweede scherm</target>
+</phrase>
+<phrase>
+    <source>F2</source>
+    <target>F2</target>
+</phrase>
+<phrase>
+    <source>Clubs</source>
+    <target>Clubs</target>
+</phrase>
+<phrase>
+    <source>Manage Clubs</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Play Mat Signal</source>
+    <target>Signaal Afspelen</target>
+</phrase>
+<phrase>
+    <source>Plays the mat signal sound file</source>
+    <target>Speelt het geluidssignaal af</target>
+</phrase>
+<phrase>
+    <source>Ctrl+G</source>
+    <target>Ctrl+G</target>
+</phrase>
+<phrase>
+    <source>Controller</source>
+    <target>Controller</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>Voorkeuren</target>
+</phrase>
+<phrase>
+    <source>Load Demo Data</source>
+    <target>Laad de Demodata</target>
+</phrase>
+<phrase>
+    <source>Print</source>
+    <target>Printen</target>
+</phrase>
+<phrase>
+    <source>Results as PDF</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set Hold Timer</source>
+    <target>Osaekomi-tijd instellen</target>
+</phrase>
+<phrase>
+    <source>Set the hold timer to a certain value</source>
+    <target>Osaekomi-tijd wijzigen naar andere waarde</target>
+</phrase>
+<phrase>
+    <source>Set Main Timer</source>
+    <target>Wedstrijdtijd instellen</target>
+</phrase>
+<phrase>
+    <source>Set the main timer to a certain value</source>
+    <target>Wedstrijdtijd wijzigen naar andere waarde</target>
+</phrase>
+<phrase>
+    <source>&amp;Info Header</source>
+    <target>&amp;Informatiebanner</target>
+</phrase>
+<phrase>
+    <source>Toggles the info header (mat and category/weight class) on and off</source>
+    <target>Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</target>
+</phrase>
+<phrase>
+    <source>Set Round Time</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Set round time for all fights</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Switch to Score Table</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ctrl+1</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Swith to Score Control</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ctrl+2</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Fighters</source>
+    <target>Deelnemers</target>
+</phrase>
+<phrase>
+    <source>Import Fighters</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Modes</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Manage tournament modes</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Dutch</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Choose Dutch as program language</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Mode Management</source>
+    <target>Modus Beheer</target>
+</phrase>
+<phrase>
+    <source>...</source>
+    <target>...</target>
+</phrase>
+<phrase>
+    <source>Title</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Subtitle</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>The fight duration in seconds</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Template</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Weights</source>
+    <target>Gewichten</target>
+</phrase>
+<phrase>
+    <source>Indicates that all weights will be used two times</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Weights count twice</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source># Rounds</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>FIGHTS_PER_ROUND</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>The fight duration</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Fight Time</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>min</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>sec</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Enables to specify overrides for the fight time for certain categories. E.g. &quot;U12:120;U15:180;U18:240&quot;</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Use overrides</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>The overrides should be something like this:
+&quot;U12:120;U15:180;U18:240&quot;
+(&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
+Note: the time must be specified in seconds alone</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Rules</source>
+    <target>Regels</target>
+</phrase>
+<phrase>
+    <source>Options</source>
+    <target>Opties</target>
+</phrase>
+<phrase>
+    <source>Sub-scores are valued even if the fight is lost</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>All sub-scores count</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>*new*</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Remove item</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Really remove &quot;%1&quot;?</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Remove</source>
+    <target>Verwijderen</target>
+</phrase>
+<phrase>
+    <source>Keep</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>en</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Version %1 available</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Do you want to download it or visit the project homepage?</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ipponboard - New Version Available</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Download</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Visit Homepage</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Cancel</source>
+    <target>Annuleren</target>
+</phrase>
+<phrase>
+    <source>the score board for judoka by judoka</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Judo is part of our lives.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>If you like Ipponboard, please support its development by:</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>feedback</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>wishes and suggestions</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>or by giving appreciative donations</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Thank you very much!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Error reading mode configurations</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Error writing mode configurations</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Error</source>
+    <target>Fout</target>
+</phrase>
+<phrase>
+    <source>Format specifier has invalid separator: %1</source>
+    <target>Het formaat heeft een verkeerd scheidingsteken:%1</target>
+</phrase>
+<phrase>
+    <source>Format specifier does not contain firstname and lastname: %1</source>
+    <target>Het formaat bevat geen voornaam en achternaam: %1</target>
+</phrase>
+<phrase>
+    <source>Imported %1 new fighters.</source>
+    <target>%1 nieuwe deelnemers geimporeerd.</target>
+</phrase>
+<phrase>
+    <source>Format specifier does not meet criteria: %1</source>
+    <target>Het formaat bestaat niet uit dezelfde criteria: %1</target>
+</phrase>
+<phrase>
+    <source>Successfully exported %1 fighters.</source>
+    <target>Succesvol %1 deelnemers geëxporteerd.</target>
+</phrase>
+<phrase>
+    <source>Unable to open file %1</source>
+    <target>Kan het bestand %1 niet openen</target>
+</phrase>
+<phrase>
+    <source>Error parsing file %1:
+line %2 has %3 items instead of %4 like in the previous lines</source>
+    <target>Fout tijdens het ontleden van bestand %1:
+Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</target>
+</phrase>
+<phrase>
+    <source>Unable to open file %1 for writing</source>
+    <target>Kan bestand %1 niet openen om weg te bewerken</target>
+</phrase>
+<phrase>
+    <source>Unable to load fight categories:
+%1
+
+Restoring defaults.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Unable to parse fight categories:
+%1
+
+Restoring defaults.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Unable to write fight categories:
+%1</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Form</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>IpponBoard View</source>
+    <target>Beeld IpponBoard</target>
+</phrase>
+<phrase>
+    <source>IpponBoard View</source>
+    <target>Beeld IpponBoard</target>
+</phrase>
+<phrase>
+    <source>Settings</source>
+    <target>Instellingen</target>
+</phrase>
+<phrase>
+    <source>General</source>
+    <target>Algemeen</target>
+</phrase>
+<phrase>
+    <source>Secondary View</source>
+    <target>Tweede Scherm</target>
+</phrase>
+<phrase>
+    <source>Size</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Screen</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Use custom size</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Width</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Height</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Mat</source>
+    <target>Mat</target>
+</phrase>
+<phrase>
+    <source>The text that is shown above the score for the &quot;home&quot; side</source>
+    <target>Tekst die boven de score van de &quot;Thuis&quot;-kant te zien is</target>
+</phrase>
+<phrase>
+    <source>Home Label</source>
+    <target>Thuislabel</target>
+</phrase>
+<phrase>
+    <source>Play</source>
+    <target>Start</target>
+</phrase>
+<phrase>
+    <source>Mat Label</source>
+    <target>Mat Label</target>
+</phrase>
+<phrase>
+    <source>Mat 1</source>
+    <target>Mat 1</target>
+</phrase>
+<phrase>
+    <source>Mat 2</source>
+    <target>Mat 2</target>
+</phrase>
+<phrase>
+    <source>Mat 3</source>
+    <target>Mat 3</target>
+</phrase>
+<phrase>
+    <source>Mat 4</source>
+    <target>Mat 4</target>
+</phrase>
+<phrase>
+    <source>Mat 5</source>
+    <target>Mat 5</target>
+</phrase>
+<phrase>
+    <source>Mat 6</source>
+    <target>Mat 6</target>
+</phrase>
+<phrase>
+    <source>Mat 7</source>
+    <target>Mat 7</target>
+</phrase>
+<phrase>
+    <source>Mat 8</source>
+    <target>Mat 8</target>
+</phrase>
+<phrase>
+    <source>Mat 9</source>
+    <target>Mat 9</target>
+</phrase>
+<phrase>
+    <source>Mat 10</source>
+    <target>Mat 10</target>
+</phrase>
+<phrase>
+    <source>The text that is shown above the score for the &quot;guest&quot; side</source>
+    <target>Tekst die boven de score van de &quot;Gast&quot;-kant te zien is</target>
+</phrase>
+<phrase>
+    <source>Guest Label</source>
+    <target>Gastenlabel</target>
+</phrase>
+<phrase>
+    <source>Mat Signal</source>
+    <target>Matsignaal</target>
+</phrase>
+<phrase>
+    <source>Fonts &amp;&amp; Colors</source>
+    <target>Tekst &amp;&amp; Kleuren</target>
+</phrase>
+<phrase>
+    <source>Sets the foreground color</source>
+    <target>Kleur voorgrond Instellen</target>
+</phrase>
+<phrase>
+    <source>Sets the background color</source>
+    <target>Kleur Achtergrond Instellen</target>
+</phrase>
+<phrase>
+    <source>bold</source>
+    <target>Vet</target>
+</phrase>
+<phrase>
+    <source>italic</source>
+    <target>Italic</target>
+</phrase>
+<phrase>
+    <source>Gamepad</source>
+    <target>Gamepad</target>
+</phrase>
+<phrase>
+    <source>Next fight</source>
+    <target>Volgende Wedstrijd</target>
+</phrase>
+<phrase>
+    <source>Pause screen</source>
+    <target>Pauzescherm</target>
+</phrase>
+<phrase>
+    <source>Reset all
+(two buttons needed)</source>
+    <target>Alles Herstellen
+(Twee toetsen nodig)</target>
+</phrase>
+<phrase>
+    <source>Prev fight</source>
+    <target>Volgende Wedstrijd</target>
+</phrase>
+<phrase>
+    <source>Hajime/Mate</source>
+    <target>Hajime/Mate</target>
+</phrase>
+<phrase>
+    <source>First Fighter</source>
+    <target>Eerste Deelnemer</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa</source>
+    <target>Osaekomi/Toketa</target>
+</phrase>
+<phrase>
+    <source>Reset hold time</source>
+    <target>Osaekomi-tijd herstellen</target>
+</phrase>
+<phrase>
+    <source>Hansokumake</source>
+    <target>Hansokumake</target>
+</phrase>
+<phrase>
+    <source>Axes used for points: X/Y</source>
+    <target>Assen voor de punten: X/Y</target>
+</phrase>
+<phrase>
+    <source>Invert Y axis</source>
+    <target>Y as omkeren</target>
+</phrase>
+<phrase>
+    <source>Invert X axis</source>
+    <target>X as omkeren</target>
+</phrase>
+<phrase>
+    <source>Second Fighter</source>
+    <target>Tweede deelnemer</target>
+</phrase>
+<phrase>
+    <source>Invert Z axis</source>
+    <target>Z as omkeren</target>
+</phrase>
+<phrase>
+    <source>Invert R axis</source>
+    <target>R as omkeren</target>
+</phrase>
+<phrase>
+    <source>Axes used for points: Z/R</source>
+    <target>Assen gebruikt voor punten: Z/R</target>
+</phrase>
+<phrase>
+    <source>Keyboard</source>
+    <target>Toetsenbord</target>
+</phrase>
+<phrase>
+    <source>Next</source>
+    <target>Volgende</target>
+</phrase>
+<phrase>
+    <source>Prev</source>
+    <target>Vorige</target>
+</phrase>
+<phrase>
+    <source>Result Screen</source>
+    <target>Resultatenscherm</target>
+</phrase>
+<phrase>
+    <source>Reset all</source>
+    <target>Alles Herstellen</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa (blue)</source>
+    <target>Osaekomi/Toketa (Blauw)</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa (white)</source>
+    <target>Osaekomi/Toketa (Wit)</target>
+</phrase>
+<phrase>
+    <source>Reset Hold Time</source>
+    <target>Osaekomi-tijd herstellen</target>
+</phrase>
+<phrase>
+    <source>+/- Ippon (blue)</source>
+    <target>+/- Ippon (Blauw)</target>
+</phrase>
+<phrase>
+    <source>+/- Wazaari (blue)</source>
+    <target>+/- Waza-ari (Blauw)</target>
+</phrase>
+<phrase>
+    <source>+/- Yuko (blue)</source>
+    <target>+/- Yuko (Blauw)</target>
+</phrase>
+<phrase>
+    <source>+/- Shido (blue)</source>
+    <target>+/- Shido (Blauw)</target>
+</phrase>
+<phrase>
+    <source>+/- Ippon (white)</source>
+    <target>+/- Ippon (Wit)</target>
+</phrase>
+<phrase>
+    <source>+/- Wazaari (white)</source>
+    <target>+/- Waza-Ari (Wit)</target>
+</phrase>
+<phrase>
+    <source>+/- Yuko (white)</source>
+    <target>+/- Yuko (Wit)</target>
+</phrase>
+<phrase>
+    <source>+/- Shido (white)</source>
+    <target>+/- Shido (Wit)</target>
+</phrase>
+<phrase>
+    <source>Modifier</source>
+    <target>Bewerker</target>
+</phrase>
+<phrase>
+    <source>Key</source>
+    <target>Toets</target>
+</phrase>
+<phrase>
+    <source>Space</source>
+    <target>Spatie</target>
+</phrase>
+<phrase>
+    <source>Ctrl + Alt</source>
+    <target>Ctrl + Alt</target>
+</phrase>
+<phrase>
+    <source>Right</source>
+    <target>Rechts</target>
+</phrase>
+<phrase>
+    <source>Left</source>
+    <target>Links</target>
+</phrase>
+<phrase>
+    <source>F4</source>
+    <target>F4</target>
+</phrase>
+<phrase>
+    <source>Ctrl</source>
+    <target>Ctrl</target>
+</phrase>
+<phrase>
+    <source>Backspace</source>
+    <target>Backspace</target>
+</phrase>
+<phrase>
+    <source>Down</source>
+    <target>Pijl naar beneden</target>
+</phrase>
+<phrase>
+    <source>Ctrl (for revoke)</source>
+    <target>Ctrl (om te verminderen)</target>
+</phrase>
+<phrase>
+    <source>F5</source>
+    <target>F5</target>
+</phrase>
+<phrase>
+    <source>F6</source>
+    <target>F6</target>
+</phrase>
+<phrase>
+    <source>F7</source>
+    <target>F7</target>
+</phrase>
+<phrase>
+    <source>F8</source>
+    <target>F8</target>
+</phrase>
+<phrase>
+    <source>F9</source>
+    <target>F9</target>
+</phrase>
+<phrase>
+    <source>F10</source>
+    <target>F10</target>
+</phrase>
+<phrase>
+    <source>F11</source>
+    <target>F11</target>
+</phrase>
+<phrase>
+    <source>The keyboard shortcuts can not be changed in this version (yet).</source>
+    <target>De toetsen kunnen in deze versie (nog) niet gewijzigd worden.</target>
+</phrase>
+<phrase>
+    <source>Extended</source>
+    <target>Uitgebreid</target>
+</phrase>
+<phrase>
+    <source>Format specifier for fighter import and export</source>
+    <target>Specifieer formaat voor importeren en exporteren van deelnemers</target>
+</phrase>
+<phrase>
+    <source>Fighter import/export format</source>
+    <target>Formaat Importeren/Exporteren Deelnemers</target>
+</phrase>
+<phrase>
+    <source>club;firstname;lastname;weight</source>
+    <target>club;voornaam;achternaam;gewicht</target>
+</phrase>
+<phrase>
+    <source>Welcome to Ipponboard!</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ok, start Single Tournament</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>I want to show my support as Ipponboard is really helpful.</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Ok, start Team Tournament</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Firstname Lastname</source>
+    <target>Voornaam Achternaam</target>
+</phrase>
+<phrase>
+    <source>Won</source>
+    <target>Won</target>
+</phrase>
+<phrase>
+    <source>Score</source>
+    <target>Score</target>
+</phrase>
+<phrase>
+    <source>Remaining</source>
+    <target>Overblijvende</target>
+</phrase>
+<phrase>
+    <source>Time</source>
+    <target>Tijd</target>
+</phrase>
+<phrase>
+    <source>Home</source>
+    <target>Thuis</target>
+</phrase>
+<phrase>
+    <source>Guest</source>
+    <target>Gasten</target>
+</phrase>
+<phrase>
+    <source> (saved)</source>
+    <target> (opslaaned)</target>
+</phrase>
+<phrase>
+    <source>File open error</source>
+    <target>Bestand open fout</target>
+</phrase>
+<phrase>
+    <source>File could not be opened: </source>
+    <target>Bestand kon niet worden geopend:</target>
+</phrase>
+<phrase>
+    <source>tie</source>
+    <target>onbeslist</target>
+</phrase>
+<phrase>
+    <source>Export file to...</source>
+    <target>Bestand exporteren naar ...</target>
+</phrase>
+<phrase>
+    <source>Set Weights</source>
+    <target>Gewichten instellen</target>
+</phrase>
+<phrase>
+    <source>Set weights (separated by &apos;;&apos;):</source>
+    <target>Gewichten instellen (gescheiden door &apos;;&apos;):</target>
+</phrase>
+<phrase>
+    <source>You need to specify %1 weight classes separated by &apos;;&apos;!</source>
+    <target>U moet% 1 gewichtsklassen opgeven, gescheiden door &apos;;&apos;!</target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target>Waarde Instellen</target>
+</phrase>
+<phrase>
+    <source>Copy</source>
+    <target>Kopiëren</target>
+</phrase>
+<phrase>
+    <source>Paste</source>
+    <target>Plakken</target>
+</phrase>
+<phrase>
+    <source>Clear</source>
+    <target>Klaren</target>
+</phrase>
+<phrase>
+    <source>There is nothing to paste!</source>
+    <target>Er is niets om te plakken!</target>
+</phrase>
+<phrase>
+    <source>Can not paste into an empty selection!</source>
+    <target>Kan niet in een lege selectie plakken!</target>
+</phrase>
+<phrase>
+    <source>There is too few data for the selection in the clipboard!</source>
+    <target>Er zijn te weinig gegevens voor de selectie op het klembord!</target>
+</phrase>
+<phrase>
+    <source>There is more data available in the clipboard as could be pasted!</source>
+    <target>Er zijn meer gegevens beschikbaar op het klembord die kunnen worden geplakt!</target>
+</phrase>
+<phrase>
+    <source>Ipponboard fight list %1</source>
+    <target>Ipponboard-gevechtslijst %1</target>
+</phrase>
+<phrase>
+    <source>List (Ctrl+1)</source>
+    <target>Lijst (Ctrl+1)</target>
+</phrase>
+<phrase>
+    <source>List</source>
+    <target>Lijst</target>
+</phrase>
+<phrase>
+    <source>Date</source>
+    <target>Datum</target>
+</phrase>
+<phrase>
+    <source>Mode</source>
+    <target>Modus</target>
+</phrase>
+<phrase>
+    <source>Edit home team</source>
+    <target>Bewerk thuisploeg</target>
+</phrase>
+<phrase>
+    <source>Location</source>
+    <target>Plaats</target>
+</phrase>
+<phrase>
+    <source>Edit guest team</source>
+    <target>Gastteam bewerken</target>
+</phrase>
+<phrase>
+    <source>(Wins)</source>
+    <target>(Overwinningen)</target>
+</phrase>
+<phrase>
+    <source>Copy &amp;&amp; switch guest</source>
+    <target>Kopieer &amp;&amp; switch guest</target>
+</phrase>
+<phrase>
+    <source>Final score:</source>
+    <target>Eindscore</target>
+</phrase>
+<phrase>
+    <source>Score board (Ctrl+2)</source>
+    <target>Scorebord (Ctrl+2)</target>
+</phrase>
+<phrase>
+    <source>Board</source>
+    <target>Bord</target>
+</phrase>
+<phrase>
+    <source>Show Results</source>
+    <target>Toon resultaten</target>
+</phrase>
+<phrase>
+    <source>Round</source>
+    <target>Ronde</target>
+</phrase>
+<phrase>
+    <source>Previous</source>
+    <target>Vorige</target>
+</phrase>
+<phrase>
+    <source>Reset current scores and timers (Ctrl + Backspace)</source>
+    <target>Reset huidige scores en timers (Ctrl + Backspace)</target>
+</phrase>
+<phrase>
+    <source>About</source>
+    <target>Over</target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target>Bekijken</target>
+</phrase>
+<phrase>
+    <source>Manage</source>
+    <target>Bewerken</target>
+</phrase>
+<phrase>
+    <source>Timers</source>
+    <target>Tijd</target>
+</phrase>
+<phrase>
+    <source>End Ipponboard</source>
+    <target>Afrit Ipponboard</target>
+</phrase>
+<phrase>
+    <source>Manage Clubs</source>
+    <target>Bewerk Clubs</target>
+</phrase>
+<phrase>
+    <source>Results as PDF</source>
+    <target>Resultaten als PDF</target>
+</phrase>
+<phrase>
+    <source>Modes</source>
+    <target>Modi</target>
+</phrase>
+<phrase>
+    <source>Dutch</source>
+    <target>Nederlands</target>
+</phrase>
+<phrase>
+    <source>Title</source>
+    <target>Titel</target>
+</phrase>
+<phrase>
+    <source>Subtitle</source>
+    <target>Subtitel</target>
+</phrase>
+<phrase>
+    <source>Template</source>
+    <target>Voorlegging</target>
+</phrase>
+<phrase>
+    <source>Fight Time</source>
+    <target>Vechttijd</target>
+</phrase>
+<phrase>
+    <source>Version %1 available</source>
+    <target>Versie%1 beschikbaar</target>
+</phrase>
+<phrase>
+    <source>Do you want to download it or visit the project homepage?</source>
+    <target>Wil je het downloaden of de startpagina van het project bezoeken?</target>
+</phrase>
+<phrase>
+    <source>Visit Homepage</source>
+    <target>Bezoek Homepage</target>
+</phrase>
+<phrase>
+    <source>the score board for judoka by judoka</source>
+    <target>het scorebord voor judoka door judoka</target>
+</phrase>
+<phrase>
+    <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
+    <target>Deze versie kan zonder beperking worden gebruikt. Kopiëren in ongewijzigde vorm is toegestaan.</target>
+</phrase>
+<phrase>
+    <source>wishes and suggestions</source>
+    <target>wensen en suggesties</target>
+</phrase>
+<phrase>
+    <source>or by giving appreciative donations</source>
+    <target>of door het geven van dankbare donaties</target>
+</phrase>
+<phrase>
+    <source>Thank you very much!</source>
+    <target>Veel dank!</target>
+</phrase>
+<phrase>
+    <source>Error reading mode configurations</source>
+    <target>Fout bij lezen van modusconfiguraties</target>
+</phrase>
+<phrase>
+    <source>Size</source>
+    <target>Grootte</target>
+</phrase>
+<phrase>
+    <source>Screen</source>
+    <target>Scherm</target>
+</phrase>
+<phrase>
+    <source>Width</source>
+    <target>breedte</target>
+</phrase>
+<phrase>
+    <source>Height</source>
+    <target>Hoogte</target>
+</phrase>
+<phrase>
+    <source>Welcome to Ipponboard!</source>
+    <target>Welkom bij Ipponboard!</target>
+</phrase>
+<phrase>
+    <source>Ok, start Single Tournament</source>
+    <target>Oké, start een enkel toernooi</target>
+</phrase>
+</QPH>
