@@ -10,7 +10,7 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 ## What is Ipponboard?
 Ipponboard is a specially for Judo designed score view system that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
 
-##What’s so cool about it?
+## What’s so cool about it?
 - reliability, ease and straightforward in use
 - everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
 - whole fight control can be done by a single person instead of three (clocks, list handling, scores)
