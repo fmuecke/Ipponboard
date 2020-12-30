@@ -30,11 +30,13 @@ SET BASE_DIR=%~dp0.
 SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
 SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
-IF "%QMAKESPEC%"=="win32-msvc2013" (
-	CALL "%VS120COMNTOOLS%..\..\vc\vcvarsall.bat" x86
-)
-IF "%QMAKESPEC%"=="win32-msvc2015" (
-	CALL "%VS140COMNTOOLS%..\..\vc\vcvarsall.bat" x86
+rem check for compiler
+cl > nul 2>&1
+IF ERRORLEVEL 1 (
+	ECHO Can't find C++ compiler tools. Please run from within Visual Studio x86 Developer Command Prompt 
+		pause	
+		exit /b 1
+	)
 )
 
 IF NOT EXIST "%BOOST_DIR%\boost" (
@@ -48,6 +50,8 @@ IF NOT EXIST "%QTDIR%\qmake.exe" (
 	pause
 	exit /b 1
 )
+
+IF NOT EXIST "%BASE_DIR%\bin" mkdir "%BASE_DIR%\bin"
 
 :menu
 cls
