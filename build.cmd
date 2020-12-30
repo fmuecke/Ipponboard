@@ -5,9 +5,7 @@
 :: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
 ::
 :: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
-:: IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
-::
-:: $Id$
+:: https://github.com/fmuecke/Ipponboard
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
@@ -18,9 +16,10 @@ IF EXIST "%LOCAL_CONFIG%" (
   echo;
 ) ELSE (
   echo @echo off>"%LOCAL_CONFIG%"
-  echo set QTDIR=c:\development\qt\qt-4.8.5-vc12xp\bin>>"%LOCAL_CONFIG%"
-  echo set QMAKESPEC=win32-msvc2012>>"%LOCAL_CONFIG%"
-  echo set BOOST_DIR=c:\development\boost\boost_1_55_0>>"%LOCAL_CONFIG%"
+  echo set QTDIR=c:\devtools\qt\qt-4.8.7-vc14\bin\>>"%LOCAL_CONFIG%"
+  echo set QMAKESPEC=win32-msvc2015>>"%LOCAL_CONFIG%"
+  echo set BOOST_DIR=c:\devtools\boost_1_59_0>>"%LOCAL_CONFIG%"
+  echo set INNO_DIR=c:\devtools\inno setup 5>>"%LOCAL_CONFIG%"
   rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
   echo Please configure paths in "%LOCAL_CONFIG%" first!
   pause
