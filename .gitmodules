@@ -1,0 +1,3 @@
+[submodule "doc/manual"]
+	path = doc/manual
+	url = fmuecke@bitbucket.org:ipponboard/ipponboard_doc.git
