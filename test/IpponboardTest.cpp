@@ -6,7 +6,7 @@
 //
 
 #define CATCH_CONFIG_MAIN
-#include "../../../../devtools/Catch/single_include/catch.hpp"
+#include "../util/catch/catch.hpp"
 
 /*
 int main(int argc, char *argv[])

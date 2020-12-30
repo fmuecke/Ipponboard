@@ -1,4 +1,4 @@
-#include "../../../../devtools/Catch/single_include/catch.hpp"
+#include "../util/catch/catch.hpp"
 #include "../base/VersionComparer.h"
 #include "../base/VersionComparer.cpp"
 

@@ -1,4 +1,4 @@
-#include "../../../../devtools/Catch/single_include/catch.hpp"
+#include "../util/catch/catch.hpp"
 #include "../core/Score.h"
 #include "../core/Enums.h"
 #include "../core/Rules.h"

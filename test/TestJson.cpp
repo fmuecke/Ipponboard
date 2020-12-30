@@ -1,4 +1,4 @@
-#include "../../../../devtools/Catch/single_include/catch.hpp"
+#include "../util/catch/catch.hpp"
 #include "../util/json.hpp"
 #include "../util/jsoncpp/json.cpp"
 
