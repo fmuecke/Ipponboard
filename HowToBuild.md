@@ -1,7 +1,7 @@
 # Prerequisites
 
 Ipponboard requires the following libraries and tools to get built: 
-- [Microsoft Visual Studio C++](https://visualstudio.microsoft.com/de/vs/features/cplusplus/) (last used: VS 2015/VC14)
+- [Microsoft Visual Studio C++](https://visualstudio.microsoft.com/de/vs/features/cplusplus/) (last used: VS 2015/2017 a.k.a VC14; get [standalone build tools](https://aka.ms/buildtools))
 - [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported)
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.59)
 - [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 5.0)
