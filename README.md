@@ -1,3 +1,4 @@
+<link href="style.css" rel="stylesheet"></link>
 # Ipponboard - the judo score board and timer
 
 ## What is Ipponboard?
