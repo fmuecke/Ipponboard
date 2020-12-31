@@ -1,38 +1,50 @@
-# Ipponboard - the judo score board and timer
+# Content
 
-## What is Ipponboard?
+- [Features](#why-it's-*so*-cool!)
+- [Getting started](#getting-started)
 
 Ipponboard is a score board specially designed for Judo tournaments that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
 
-![Screenshot](https://ipponboard.koenigsbrunn-judo.de/wp-content/uploads/2011/12/Ipponboard-the-judo-score-board-and-timer-300x169.jpg)
+![Screenshot](https://ipponboard.koe-judo.de/wp-content/uploads/2011/12/Ipponboard-the-judo-score-board-and-timer-300x169.jpg)
 
+# Why it's *so* cool!
 
-## What is Ipponboard?
-Ipponboard is a specially for Judo designed score view system that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
+- Reliability, ease and straightforward in use
+- Everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
+- Whole fight control can be done by a single person instead of three (clocks, list handling, scores)
+- Thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mous cursor
 
-## What’s so cool about it?
-- reliability, ease and straightforward in use
-- everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
-- whole fight control can be done by a single person instead of three (clocks, list handling, scores)
-- thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mous cursor
+## Even more features
 
-## Some more features
-- automated list handling for team matches (including PDF export of the results)
+- Automated list handling for team matches (including PDF export of the results)
 - Golden Score automatism
-- automatic addition of penalties and hold scores
-- new clubs can be easily added with the club manager
-- arbituary mat signal and label
-- arbituary colors (instead of the default blue and white)
+- Automatic addition of penalties and hold scores
+- New clubs can be easily added with the club manager
+- Customizable mat signal and label
+- Customizable colors (instead of the default blue and white)
 
-## What do I need to get started?
-- computer/laptop with Windows operating system
-- a big computer or TV sceen
+# Getting started
 
-## How much is it?
-- the basic version for single tournaments is free of charge
-- A pricing model for the team version has not yet been defined. You can have it on request (with no charge for now).
-- Of course donations are welcome and keep the project alive.
+You can download and install the latest version from ipponboard.koe-judo.de or build Ipponboard from source.
 
-## Where can I get it?
-- www.ipponboard.info (you are right there)
-- contact the author (Florian Mücke): i p p o n b a o r d i n f o AT g o o g l e m a i l DOT c o m
+Basic requirements to get started:
+- Computer/laptop with Windows operating system
+- A big computer or TV screen
+
+More information about usage and configuration is described within the manual:
+- [German manual](docs\manual-de.md)
+- [English manual](docs\manual-en.md)
+
+# How much does it cost?
+
+- Ipponboard can be used free of charge.
+- Donations are welcome and keep the project alive.
+
+# Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
+
+# Contact
+- source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
+- latest news and downloads: ipponboard.koe-judo.de
+- contact the author (Florian Mücke): i p p o n b a o r d i n f o AT g m a i l DOT c o m
