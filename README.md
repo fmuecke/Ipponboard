@@ -1,6 +1,6 @@
 # Content
 
-- [Features](#why-it's-*so*-cool!)
+- [Why it's *so* cool!](#why-its-so-cool)
 - [Getting started](#getting-started)
 
 Ipponboard is a score board specially designed for Judo tournaments that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
@@ -32,8 +32,8 @@ Basic requirements to get started:
 - A big computer or TV screen
 
 More information about usage and configuration is described within the manual:
-- [German manual](docs\manual-de.md)
-- [English manual](docs\manual-en.md)
+- [German manual](doc\manual-de.md)
+- [English manual](doc\manual-en.md)
 
 # How much does it cost?
 
