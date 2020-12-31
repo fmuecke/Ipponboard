@@ -30,3 +30,18 @@ Modify those according to your environment. After that you may try building ;)..
       (6) build doc
       (9) all
       (q) quit
+
+## Configure Visual Studio Build Tools
+
+You must ensure that you use the same compiler version that was used to build the Qt libraries to build Ipponboard to avoid runtime problems.
+
+### MSVC v140 using Visual Studio 2019
+
+1. Make sure the build tools are installed.
+2. Start the VC140 Developer Command Prompt
+   e.g. by starting a custom batch file `vc14.cmd` that calls `vcvarsall.bat` or specify the `-vcvars_ver=14.0` parameter manually:
+   ```batch
+   @echo off
+   title Visual Studio Command Shell
+   %comspec% /k "c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.0
+   ```
