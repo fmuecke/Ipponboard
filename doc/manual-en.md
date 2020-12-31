@@ -16,7 +16,7 @@ Ipponboard was written and developed by Florian Mücke.
 
 **Ipponboard source code**
 
-- The Ipponboard source code was released under a BDS-like license in 2020.
+- The Ipponboard source code was released under a BSD-like license in 2020.
 - Check the [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.txt) in https://github.com/fmuecke/Ipponboard repository.
 
 **Third-party components**
