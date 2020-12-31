@@ -27,8 +27,6 @@ IF EXIST "%LOCAL_CONFIG%" (
 )
 
 SET BASE_DIR=%~dp0.
-SET BUILD_DIR=%BASE_DIR%\_build\build_output\~tmp
-SET BUILD_DIR_TEAM=%BASE_DIR%\_build\build_output\~tmp_TE
 
 rem check for compiler
 cl > nul 2>&1
@@ -174,10 +172,6 @@ exit /b 0
 		echo Error: iscc.exe not found or INNO_DIR not defined!
 		exit /b 1
 	)
-	CALL _build\scripts\clear_build_dir.cmd || exit /b %errorlevel%
-
-	rem CALL _build\scripts\Ipponboard_copy_files.cmd
-	rem if errorlevel 1 exit /b %errorlevel%
 	
 	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss" || exit /b %errorlevel%
 	dir /OD "%BASE_DIR%\_output"
