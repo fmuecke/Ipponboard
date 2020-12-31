@@ -11,12 +11,13 @@ Ipponboard was written and developed by Florian Mücke.
    
 **Ipponboard Binaries**
 
-- *Ipponboard may be used freely on as many computers as desired and the program in unmodified form to third parties free of charge.*
+- *Ipponboard may be used freely on any number of computers and the program may be passed on to third parties in unchanged form free of charge.*
 - The binaries of the Ipponboard project are released under the following license: [Attribution-NoDerivs 3.0 Unported](http://creativecommons.org/licenses/by-nd/3.0/)
 
 **Ipponboard source code**
 
-- Check the [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.md) in https://github.com/fmuecke/Ipponboard repository.
+- The Ipponboard source code was released under a BDS-like license in 2020.
+- Check the [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.txt) in https://github.com/fmuecke/Ipponboard repository.
 
 **Third-party components**
 
