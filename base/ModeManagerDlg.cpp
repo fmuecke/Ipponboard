@@ -1,15 +1,6 @@
-///////////////////////////////////////////////////////////////////////////////
-// $Id$
-///////////////////////////////////////////////////////////////////////////////
-//
-// Copyright (c) 2010-2014 Florian Muecke - (ipponboardinfo at googlemail dot com)
-// All rights reserved.  Web: http://www.ipponboard.info
-//
-// This file is part of the Ipponboard project.
-//
-// It may not be distributed to or shared with the public in any form!
-///////////////////////////////////////////////////////////////////////////////
-
+// Copyright 2018 Florian Muecke. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE.txt file.
 
 #include "ModeManagerDlg.h"
 #include "ui_ModeManagerDlg.h"

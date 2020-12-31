@@ -1,4 +1,8 @@
-﻿#include "MainWindow.h"
+﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE.txt file.
+
+#include "MainWindow.h"
 #include "MainWindowTeam.h"
 #include "../core/TournamentMode.h"
 #include "SplashScreen.h"

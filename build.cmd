@@ -1,11 +1,7 @@
 ::---------------------------------------------------------
-:: Ipponboard build script
-::
-:: Copyright 2010-2017 Florian Muecke. All rights reserved.
-:: http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
-::
-:: THIS FILE IS PART OF THE IPPONBOARD PROJECT.
-:: https://github.com/fmuecke/Ipponboard
+:: Copyright 2018 Florian Muecke. All rights reserved.
+:: Use of this source code is governed by a BSD-style license that can be
+:: found in the LICENSE.txt file.
 ::---------------------------------------------------------
 @echo off
 SETLOCAL

@@ -1,3 +1,6 @@
+# Copyright 2018 Florian Muecke. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE.txt file.
 # -------------------------------------------------
 # Project created by QtCreator 2010-02-19T22:00:18
 # -------------------------------------------------

@@ -1,10 +1,6 @@
-// Copyright 2010-2012 Florian Muecke. All rights reserved.
-// http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
-//
-// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
-// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
-//
-// $Id$
+// Copyright 2018 Florian Muecke. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 #ifndef IOC_NATIONS_H
 #define IOC_NATIONS_H

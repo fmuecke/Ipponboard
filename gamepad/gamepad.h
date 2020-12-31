@@ -1,12 +1,11 @@
+// Copyright 2018 Florian Muecke. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE.txt file.
+
 #ifndef FMLIB_GAMEPAD_H_
 #define FMLIB_GAMEPAD_H_
 
 #pragma once
-
-// Gamepad wrapper class
-// (c) 2010 Florian Muecke <dev_AT_mueckeimnetz_DOT_de>
-//
-// $Id$:
 
 #include <bitset>
 #include <cmath>

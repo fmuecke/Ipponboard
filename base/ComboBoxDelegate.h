@@ -1,9 +1,7 @@
-﻿// Copyright 2010-2013 Florian Muecke. All rights reserved.
-// http://www.ipponboard.info (ipponboardinfo at googlemail dot com)
-//
-// THIS FILE IS PART OF THE IPPONBOARD PROJECT.
-// IT MAY NOT BE DISTRIBUTED TO OR SHARED WITH THE PUBLIC IN ANY FORM!
-//
+﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE.txt file.
+
 
 #ifndef __BASE_COMBOBOXDELEGATE_H
 #define __BASE_COMBOBOXDELEGATE_H
