@@ -29,7 +29,7 @@ IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 rem check for compiler
 cl > nul 2>&1
 IF ERRORLEVEL 1 (
-	ECHO Can't find C++ compiler tools. Please run from within Visual Studio x86 Developer Command Prompt 
+	ECHO Can't find C++ compiler tools. Please run build.cmd from within Visual Studio x86 Developer Command Prompt 
 		pause	
 		exit /b 1
 	)
