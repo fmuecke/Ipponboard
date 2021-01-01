@@ -33,7 +33,7 @@ Basic requirements to get started:
 
 More information about usage and configuration is described within the manual:
 - [German manual](doc/manual-de.md)
-- [English manual](doc/manual-en.md)
+- [English manual](doc/USER_MANUAL-EN.md)
 
 # How much does it cost?
 
