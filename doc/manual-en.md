@@ -16,30 +16,36 @@
     - [Primary display](#primary-display)
     - [Secondary/external display](#secondaryexternal-display)
   - [Program settings](#program-settings)
-- **[Operating Ipponboard](#operating-ipponboard)**
-  - [Working with the different controllers](#working-with-the-different-controllers)
-    - [Mouse control](#mouse-control)
-
+- **[Controlling Iponboard](#controlling-ipponboard)**
+  - [Gampad rocks!](#gampad-rocks)
+  - [Working with mouse, keyboard or gamepad](#working-with-mouse-keyboard-or-gamepad)
+  - [Awarding and undoing points](#awarding-and-undoing-points)
+  - [Reset display](#reset-display)
+  - [Start/stop main timer (*Hajime/Matte*)]
+  - [Start/stop hold timer (*Osaekomi/Toketa*)]
+  - [Reset hold timer](#reset-hold-timer)
+  - [Sono-mama/Yoshi](#sono-mama-yoshi)
+- **[Troubleshooting](#troubleshooting)**
+  -[Preparing for dual screen operation](#preparing-for-dual-screen-operation)
 
 # General
 
 ## License terms
   
-Ipponboard was written and developed by Florian Mücke. 
+Ipponboard was written and developed by Florian Mücke.
+Copyright © 2009-today Florian Mücke
 
-*Copyright © 2009-today Florian Mücke.*
-   
-**Ipponboard binaries**
+### Ipponboard binaries
 
 - *Ipponboard may be used freely on any number of computers and the program may be passed on to third parties in unchanged form free of charge.*
 - The binaries of the Ipponboard project are released under the following license: [Attribution-NoDerivs 3.0 Unported](http://creativecommons.org/licenses/by-nd/3.0/)
 
-**Ipponboard source code**
+### Ipponboard source code
 
 - The Ipponboard source code was released under a BSD-like license in 2020.
 - Check the [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.txt) in https://github.com/fmuecke/Ipponboard repository.
 
-**Third-party components**
+### Third-party components
 
 Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
@@ -168,14 +174,13 @@ They provide access to various general options for customizing the program:
 - Change colors for fighters/ratings
 - Select sound file for timekeeper table signal
 
-
-![](images/Einstellungen_Allgemein.png)
+![General setting dialog](images/Einstellungen_Allgemein.png)
 
 Besides the general options, the gamepad buttons can also be reassigned in the settings menu.
 
-![Settings dialog](images/Einstellungen_Eingabe.png)
+![Input settings dialog](images/Einstellungen_Eingabe.png)
 
-# Operating Iponboard
+# Controlling Iponboard
 
 Ipponboard can be controlled with the following input devices:
 
@@ -183,9 +188,9 @@ Ipponboard can be controlled with the following input devices:
 - Keyboard
 - Gamepad
 
-Even if the control by mouse is very intuitive and catchy, my experiences have shown that with the Gamepad a substantially more relaxed operation is possible. Therefore I would like to recommend the control with the gamepad to you with the following reasons:
+Even if the control by mouse is very intuitive and catchy, my experiences have shown that with the gamepad a substantially more relaxed operation is possible. Therefore I would like to recommend the control with the gamepad to you with the following reasons:
 
-**Advantages of the Gampad control**.
+## Gampad rocks!
 
 1. *Everything under control*
 
@@ -203,91 +208,116 @@ Even if the control by mouse is very intuitive and catchy, my experiences have s
 
    For youth use, don't underestimate the "coolness factor" - everyone really wants to operate like this!
 
-## Working with the different controllers
+## Working with mouse, keyboard or gamepad
 
-### Mouse control
+### Mouse usage
 
 The program can be controlled completely with the mouse. All that is required is to click on the respective fields in the primary (embedded) display or on the corresponding buttons in the user interface.
 
-#### Assigning and undoing points
+### Keyboard configuration
 
-In order to assign points or take them back, you only have to click in the respective field. The following applies:
+Almost everything in Ipponboard can be accessed by keyboard. The assignment of the individual buttons can be viewed in the *Settings &rarr; Preferences* menu.
 
-Mouse Button | Action
------ | ------
-left | give score
-right | cancel score
+![Gamepad button assignments](images/settings_keyboard-EN.png)
 
-#### Start/stop time (*Hajime/Matte*)
-
-The fight time can be started (yellow) and stopped (red) with a left click.
-
-#### Start/stop hold time (*Osaekomi / Toketa*)
-
-To start the hold time, click on the "00" field next to the hourglass. The hold will be displayed automatically for blue at first. 
-Using the context menu of this field (right click), the hold can then be assigned to white, if necessary.
-
-Clicking the field again with the left mouse button stops the hold time.
-
-The time is now displayed until either a grab is triggered again, or the main time runs again after stopping (=Hajime).
-
-### Gamepad control
-
-#### Button layout
+### Gamepad button layout
 
 ![Gamepad button layout](images/p380.jpg)
 
-#### Awarding and undoing points
-Points are awarded using the two analog sticks. For the blue fighter, the following directions correspond to the respective points:
+The assignment of the individual buttons can be configured in the *Settings &rarr; Preferences* menu.
 
-![Gamepad control circle](images/Analogstick.png)
+![Gamepad button assignments](images/settings_gamepad-EN.png)
 
- Score | Button
----------------- | -----
- Ippon + | up
- Ippon - | down
- Waza-ari + | top right
- Waza-ari - | down left
- Yuko + | right
- Yuko - | left
- Shido + | left up
- Shido - | right bottom
- Hansokumake toggle | press stick
+## Awarding and undoing points
 
-For the white fighter the directions are simply mirrored.
+Using the *mouse*:
 
-> *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
->
-> *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
+- In order to assign points or take them back, you only have to click in the respective field. The following applies:
 
-#### Start/stop time (*Hajime/Matte*)
+  Mouse Button | Action
+  ----- | ------
+  left | give score
+  right | cancel score
 
-The main time is started or stopped using the 'down' button of the gamepad's control pad.
+Using the *gamepad*
 
-#### Start/stop hold time (Osaekomi/Toketa)
+- Points are awarded using the two analog sticks. For the blue fighter, the following directions correspond to the respective points:
 
-The hold time is set in the default setting by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the blue fighter and the right one for the white fighter. Pressing the hold key again will stop the hold (*Toketa*).
-If the button of the other fighter is pressed, it can be switched and the hold will then apply to that fighter.
+  ![Gamepad control circle](images/gamepad_layout-EN.jpg)
 
-#### Reset hold time
+   Score | Button
+  ---------------- | -----
+   Ippon + | up
+   Ippon - | down
+   Waza-ari + | top right
+   Waza-ari - | down left
+   Yuko + | right
+   Yuko - | left
+   Shido + | left up
+   Shido - | right bottom
+   Hansokumake toggle | press stick
 
-The first version could reset the time automatically on *Hajime* or resume on *Osaekomi*. Since this does not necessarily correspond to the usual behavior of a display, the behavior has been changed so that the hold time can and must be reset manually. This is done with the rear lower fire keys.
+  For the white fighter the directions are simply mirrored.
 
-#### Reset complete display
+- *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
 
-To reset all values, the buttons defined for this purpose must be pressed simultaneously.
+- *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
-## Special features
+## Reset complete display
 
-### *Sono-mama/Yoshi*
+Using the *mouse*:
 
-For *Sono-mama* you have to press mat during a hold. The hold time is then marked in gray (paused). By pressing the respective hold button, the hold can be resumed (*Yoshi*).
+- Use the *Reset* button of the user interface.
 
-![Sono-mama control diagram](images/Ablaufdiagramm.jpg)
+Using the *gamepad*:
+
+- To reset all values, the buttons defined for this purpose must be pressed simultaneously. Default is `button 1 + button 4`.
+
+## Start/stop main timer (*Hajime/Matte*)
+
+Using the *mouse*:
+
+- The fight time can be started (yellow) and stopped (red) with a left click.
+
+Using the *gamepad*:
+
+- The main time is started or stopped using the `down` button of the gamepad's control pad.
+
+## Start/stop hold timer (*Osaekomi/Toketa*)
+
+Using the *mouse*:
+
+- To start the hold time, click on the "00" field next to the hourglass. The hold will be displayed automatically for blue at first. Using the context menu of this field (right click), the hold can then be assigned to white, if necessary.
+- Clicking the field again with the left mouse button stops the hold time.
+- The time is now displayed until either a hold is triggered again, or the main time runs again after stopping (=*Hajime*).
+
+Using the *gamepad*:
+
+- The hold time is set by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the blue fighter and the right one for the white fighter. The button mapping can be changed via the settings.
+- Pressing the hold key again will stop the hold (*Toketa*).
+- If the button for the other fighter is pressed, it can be switched and the hold will then apply to that fighter.
+
+## Reset hold timer
+
+Using the *mouse*:
+
+- Right click on the respective hold timer (you might want to stop the timer first)
+
+Using the *gamepad*:
+
+- This is done with the rear lower fire keys.
+
+*Nice to know:* The first version could reset the time automatically on *Hajime* or resume on *Osaekomi*. Since this does not necessarily correspond to the usual behavior of a display, the behavior has been changed so that the hold time can and must be reset manually.
+
+## *Sono-mama/Yoshi*
+
+For *Sono-mama* you have to signal *Matte* during a hold. The hold time is then marked in gray (paused). By pressing the respective hold button, the hold can be resumed (*Yoshi*).
+
+![Sono-mama control diagram](images/osaekomi-flow-EN.png)
 
 # Troubleshooting
 
-## Preparing the computer for dual screen operation
+## Preparing for dual screen operation
 
 When configuring the second screen on the computer, the following points must be points must be strictly followed:
 
@@ -296,5 +326,5 @@ When configuring the second screen on the computer, the following points must be
     So that the second screen can be used in the program, it must be it must be configured as an extended desktop. The resolution resolution is not important, it will be detected by the program and the content is scaled accordingly. If the display on the second monitor is not correct, it can also be set manually in the program settings manually. This requires a restart of the program.
 
 - *Turn off interference*
-   
+
    Please make sure that the computer does not automatically go to sleep (standby) automatically goes to sleep (standby) or the screen saver turns on. screen saver turns on. This can be avoided with newer newer computer models by switching them to presentation mode. presentation mode.
