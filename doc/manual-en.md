@@ -1,7 +1,27 @@
-% *Ipponboard* - The Judo Score Board
-% **Version 1.6**
+<title>Ipponboard Manual</title>
+<p style="font-size:3em;text-align:center">Ipponboard</p>
+<p style="font-style:italic;text-align:center">The Judo Score Board</p>
+<p style="font-size:2em;font-weight:bold">User Manual</p>
 
-# *Ipponboard* - General
+## Content
+
+- **[General](#general)**
+  - [License terms](#license-terms)
+  - [Acknowledgements](#acknowledgements)
+  - [System requirements](#system-requirements)
+  - [Version history](#version-history)
+  - [Feedback & contact](#feedback--contact) FIX LINK
+- **[Operation & Settings](#operation--settings)**
+  - [Displays](#displays)
+    - [Primary display](#primary-display)
+    - [Secondary/external display](#secondaryexternal-display)
+  - [Program settings](#program-settings)
+- **[Operating Ipponboard](#operating-ipponboard)**
+  - [Working with the different controllers](#working-with-the-different-controllers)
+    - [Mouse control](#mouse-control)
+
+
+# General
 
 ## License terms
   
@@ -9,7 +29,7 @@ Ipponboard was written and developed by Florian Mücke.
 
 *Copyright © 2009-today Florian Mücke.*
    
-**Ipponboard Binaries**
+**Ipponboard binaries**
 
 - *Ipponboard may be used freely on any number of computers and the program may be passed on to third parties in unchanged form free of charge.*
 - The binaries of the Ipponboard project are released under the following license: [Attribution-NoDerivs 3.0 Unported](http://creativecommons.org/licenses/by-nd/3.0/)
@@ -23,17 +43,16 @@ Ipponboard was written and developed by Florian Mücke.
 
 Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
-- Qt Framework, [www.qtproject.org](http://www.qtproject.org), [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP)
-- Boost C++ libraries, [www.boost.org](http://www.boost.org), [Boost Software License](licenses/boost/LICENSE_1_0.txt), 
-- Microsoft Visual C++ CRT, [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
-- JsonCpp, [github.com](https://github.com/open-source-parsers/jsoncpp), [MIT License](licenses/jasoncpp/LICENSE)
-- Sounddateien: Public Domain 2003
-- FamFam Flag icons, [www.famfamfam.com](http://www.famfamfam.com/archive/flag-icons-released/), [by Mark James Public Domain](licenses/flags/readme.txt)
-- Fugue Icons, [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/), [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/), [copyright.txt](licenses/Fugue-iconset/copyright_fugue.txt), [README.txt](licenses/Fugue-iconset/README.txt)
-- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)
+- [Qt Framework](http://www.qtproject.org) &rarr; [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP)
+- [Boost C++ libraries](http://www.boost.org) &rarr; [Boost Software License](licenses/boost/LICENSE_1_0.txt)
+- Microsoft Visual C++ CRT &rarr; [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
+- [JsonCpp](https://github.com/open-source-parsers/jsoncpp) by Baptiste Lepilleur &rarr; [MIT License](licenses/jasoncpp/LICENSE)
+- Sound files &rarr; public domain 2003
+- [FamFam Flag icons](http://www.famfamfam.com/archive/flag-icons-released/) by Mark James &rarr; [public domain](licenses/flags/readme.txt)
+- [Fugue Icons](http://p.yusukekamiyamane.com/) by Yusuke Kamiyamane &rarr; [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/), [copyright.txt](licenses/Fugue-iconset/copyright_fugue.txt), [README.txt](licenses/Fugue-iconset/README.txt)
+<!--- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)-->
 
-
-## Acknowledgement
+## Acknowledgements
 
 My special thanks go to the following people who contributed significantly to its creation:
 
@@ -44,7 +63,7 @@ My special thanks go to the following people who contributed significantly to it
   *TSV Königsbrunn, Post SV Telekom Augsburg, TSV Peiting, TSV München-Grosshadern, 
  DJK Ingolstadt, PSV München, TSV Mainburg*, and many more.
 
-##  System requirements
+## System requirements
 
 To use the competition display the following hardware and software requirements apply:
 
@@ -52,15 +71,16 @@ To use the competition display the following hardware and software requirements 
  a laptop)
 - TV or large computer screen for secondary display
 - connection cable computer &rarr; secondary screen
-- Optional: 
-	- USB gamepad to control the display (e.g.Saitek P380)
-	- loudspeaker for the mat signal (but can also be played via audio cable via the TV)
+- Optional:
+  - USB gamepad to control the display (e.g.Saitek P380)
+  - loudspeaker for the mat signal (but can also be played via audio cable via the TV)
 
 ## Version history
 
-Information about the contents (changes, bugfixes) of the latest versions can be found on the following page: [Changes](Changes.html)
+- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/manual-en.md). 
+- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](Changes.html)
 
-## Feedback
+## Feedback & contact
 
 > *Your opinion counts!*
 
@@ -73,14 +93,11 @@ or other corner it is not perfect yet. *Please help us to improve it!
 - Tell your friends
 - Inform us about bugs and problems with the service
 
-## Contact
-
 Questions or suggestions for improvement may be directed to:
 
 - Homepage: <https://ipponboard.koe-judo.de> 
 - Issues and bug tracker: [https://github.com/fmuecke/Ipponboard/issues](https://github.com/fmuecke/Ipponboard/issues)  
 - E-Mail: [ipponboardinfo ât gmail.com](mailto:ipponboardinfo@gmail.com)  
-
 
 # Operation & Settings
 
@@ -92,13 +109,8 @@ special attention:
 - excellent readability
 - easy handling
 - uncomplicated use
- 
-The program is basically operated from a PC (laptop) and controlled with mouse 
-or gamepad. Ipponboard manages two displays, an external one for the 
-the fighters/supervisors/audience and one for the timekeepers. The display of the 
-timekeeper is mirrored, so that it can be better assigned to the fighters. 
-to the fighters.
 
+The program is basically operated from a PC (laptop) and controlled with mouse or gamepad. Ipponboard manages two displays, an external one for the the fighters/supervisors/audience and one for the timekeepers. The display of the timekeeper is mirrored, so that it can be better assigned to the fighters.
 
 ## Displays
 
@@ -125,12 +137,11 @@ adjustable:
 - Set/reset scores
 - change fight information (mat number, current weight class)
 
-![](images/primary_view-DE.jpg)
+![Primary display](images/primary_view-DE.jpg)
 
 ### Secondary/external display
 
-In contrast to the primary display, the secondary display shows only those details that are 
-details that are essential for the fight:
+In contrast to the primary display, the secondary display shows only those details that are details that are essential for the fight:
 
 - only the scores up to Waza-ari (Ippon is superimposed flashing)
 - only the active penalties
@@ -140,12 +151,11 @@ In addition, the secondary display does not respond to mouse input.
 
 > Tip:* The secondary display can be (de)activated via the hotkey `F2`.
 
-Whether the second display should be shown immediately at program start or on which screen 
-or on which screen it should be displayed, can be defined in the program settings.
+Whether the second display should be shown immediately at program start or on which screen or on which screen it should be displayed, can be defined in the program settings.
 
 How to configure the computer for dual view operation can be found in the appendix [Preparing the computer for dual screen operation](#Appendix_DualView).
 
-![](images/secondary_view-2-DE.jpg)
+![Secondary display](images/secondary_view-2-DE.jpg)
 
 
 ## Program settings
@@ -163,26 +173,25 @@ They provide access to various general options for customizing the program:
 
 Besides the general options, the gamepad buttons can also be reassigned in the settings menu.
 
-![](images/Einstellungen_Eingabe.png)
+![Settings dialog](images/Einstellungen_Eingabe.png)
 
-# Control
+# Operating Iponboard
 
 Ipponboard can be controlled with the following input devices:
 
-- mouse
-- keyboard
-- gamepad
+- Mouse
+- Keyboard
+- Gamepad
 
-Even if the control by mouse is very intuitive and catchy, my experiences have shown that with the Gamepad a substantially 
-more relaxed operation is possible. Therefore I would like to recommend the control with the gamepad to you with the following reasons:
+Even if the control by mouse is very intuitive and catchy, my experiences have shown that with the Gamepad a substantially more relaxed operation is possible. Therefore I would like to recommend the control with the gamepad to you with the following reasons:
 
-**Advantages of the Gampad control**. 
- 
+**Advantages of the Gampad control**.
+
 1. *Everything under control*
 
     With a standard USB gamepad, all essential functions can be accessed at the touch of a button - whether it's the hold display, fight time, scores or penalties. The left hand is responsible for the left fighter and the right hand for the right.
 
-2. *Full concentration on the fight*. 
+2. *Full concentration on the fight*.
 
    The eye does not have to constantly switch back and forth between the scoreboard and the mat. Scores can be entered directly and there is no need to constantly search for the mouse pointer and awkwardly move it to the score symbol. A press of a button and an occasional cursory check is all that is needed.
 
@@ -194,13 +203,11 @@ more relaxed operation is possible. Therefore I would like to recommend the cont
 
    For youth use, don't underestimate the "coolness factor" - everyone really wants to operate like this!
 
-	
-## Operating principle of the control system
+## Working with the different controllers
 
 ### Mouse control
 
-The program can be controlled completely with the mouse. All that is required is to click on the respective fields in the primary (embedded) display 
-or on the corresponding buttons in the user interface. 
+The program can be controlled completely with the mouse. All that is required is to click on the respective fields in the primary (embedded) display or on the corresponding buttons in the user interface.
 
 #### Assigning and undoing points
 
@@ -213,7 +220,7 @@ right | cancel score
 
 #### Start/stop time (*Hajime/Matte*)
 
-The fight time can be started (yellow) and stopped (red) with a left click. 
+The fight time can be started (yellow) and stopped (red) with a left click.
 
 #### Start/stop hold time (*Osaekomi / Toketa*)
 
@@ -226,48 +233,45 @@ The time is now displayed until either a grab is triggered again, or the main ti
 
 ### Gamepad control
 
-#### Konfigure buttons
-![](images/p380.jpg)
+#### Button layout
+
+![Gamepad button layout](images/p380.jpg)
 
 #### Awarding and undoing points
 Points are awarded using the two analog sticks. For the blue fighter, the following directions correspond to the respective points:
 
-![](images/Analogstick.png)
+![Gamepad control circle](images/Analogstick.png)
 
- Score | Button 
----------------- | ----- 
- + Ippon | up 
- - Ippon | down 
- + Waza-ari | top right
- - Waza-ari | down left
- + Yuko | right                                
- - Yuko | left                        
- + Shido | left up
- - Shido | right bottom
- +/- Hansokumake | press stick
+ Score | Button
+---------------- | -----
+ Ippon + | up
+ Ippon - | down
+ Waza-ari + | top right
+ Waza-ari - | down left
+ Yuko + | right
+ Yuko - | left
+ Shido + | left up
+ Shido - | right bottom
+ Hansokumake toggle | press stick
 
 For the white fighter the directions are simply mirrored.
 
 > *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
-> 
-> *Tip:* To find out how the respective gampad is aligned, you can use the included program 'GamepadDemo.exe'. There you can see how the respective axes are aligned and how the buttons are numbered internally.
+>
+> *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
 #### Start/stop time (*Hajime/Matte*)
 
-The main time is started or stopped using the 'down' button of the gamepad's turnstile.
+The main time is started or stopped using the 'down' button of the gamepad's control pad.
 
 #### Start/stop hold time (Osaekomi/Toketa)
 
-The hold time is set in the default setting by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the 
-left one is for the blue fighter and the right one for the white fighter. Pressing the hold key again will stop the hold (*Toketa*). 
-
+The hold time is set in the default setting by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the blue fighter and the right one for the white fighter. Pressing the hold key again will stop the hold (*Toketa*).
 If the button of the other fighter is pressed, it can be switched and the hold will then apply to that fighter.
 
 #### Reset hold time
 
-The first version could reset the time automatically on hajime or renewed *Osaekomi*. Since this does not necessarily correspond to the usual 
-behavior of a display, the behavior has been changed so that the hold time can and must be reset manually. 
-must. This is done with the rear lower fire keys.
+The first version could reset the time automatically on *Hajime* or resume on *Osaekomi*. Since this does not necessarily correspond to the usual behavior of a display, the behavior has been changed so that the hold time can and must be reset manually. This is done with the rear lower fire keys.
 
 #### Reset complete display
 
@@ -279,15 +283,11 @@ To reset all values, the buttons defined for this purpose must be pressed simult
 
 For *Sono-mama* you have to press mat during a hold. The hold time is then marked in gray (paused). By pressing the respective hold button, the hold can be resumed (*Yoshi*).
 
+![Sono-mama control diagram](images/Ablaufdiagramm.jpg)
 
-![](images/Ablaufdiagramm.jpg)
+# Troubleshooting
 
-
-# Appendix
-
-## Troubleshooting
-
-### Preparing the computer for dual screen operation {#Anhang_DualView}
+## Preparing the computer for dual screen operation
 
 When configuring the second screen on the computer, the following points must be points must be strictly followed:
 
