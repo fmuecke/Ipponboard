@@ -1,4 +1,3 @@
-<title>Ipponboard Manual</title>
 <p style="font-size:3em;text-align:center">Ipponboard</p>
 <p style="font-style:italic;text-align:center">The 🥋Judo Score Board</p>
 <p style="font-size:2em;font-weight:bold">User Manual</p>
