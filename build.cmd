@@ -23,6 +23,8 @@ IF EXIST "%LOCAL_CONFIG%" (
 )
 
 SET BASE_DIR=%~dp0.
+SET BIN_DIR=%BASE_DIR%\bin
+IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 
 rem check for compiler
 cl > nul 2>&1
@@ -45,7 +47,6 @@ IF NOT EXIST "%QTDIR%\qmake.exe" (
 	exit /b 1
 )
 
-IF NOT EXIST "%BASE_DIR%\bin" mkdir "%BASE_DIR%\bin"
 
 :menu
 cls
@@ -80,7 +81,7 @@ if %errorlevel%==1 goto cmd_clean
 GOTO the_end
 
 :cmd_run
-	pushd %BASE_DIR%\bin
+	pushd "%BIN_DIR%"
 	ipponboard.exe
 	if errorlevel 1 (
 		popd
@@ -126,7 +127,7 @@ goto the_end
 :make_clean
 	echo;
 	echo --[clean]--
-	rd /Q /S "%BASE_DIR%\bin" >nul 2>&1
+	rd /Q /S "%BIN_DIR%" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
 	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
