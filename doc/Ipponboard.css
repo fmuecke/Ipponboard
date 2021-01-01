@@ -486,6 +486,7 @@ h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, 
 h1 {
   font-size: 32px;
   color: #000;
+  margin-top: 80px;
 }
 
 h2 {
@@ -522,7 +523,7 @@ a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-
   padding-top: 0;
 }
 
-h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+h2+p, h3+p, h4+p, h5+p, h6+p {
   margin-top: 10px;
 }
 
