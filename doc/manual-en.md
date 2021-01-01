@@ -1,6 +1,6 @@
 <title>Ipponboard Manual</title>
 <p style="font-size:3em;text-align:center">Ipponboard</p>
-<p style="font-style:italic;text-align:center">The Judo Score Board</p>
+<p style="font-style:italic;text-align:center">The 🥋Judo Score Board</p>
 <p style="font-size:2em;font-weight:bold">User Manual</p>
 
 ## Content
@@ -10,7 +10,7 @@
   - [Acknowledgements](#acknowledgements)
   - [System requirements](#system-requirements)
   - [Version history](#version-history)
-  - [Feedback & contact](#feedback--contact) FIX LINK
+  - [Feedback & contact](#feedback--contact)
 - **[Operation & Settings](#operation--settings)**
   - [Displays](#displays)
     - [Primary display](#primary-display)
@@ -21,12 +21,13 @@
   - [Working with mouse, keyboard or gamepad](#working-with-mouse-keyboard-or-gamepad)
   - [Awarding and undoing points](#awarding-and-undoing-points)
   - [Reset display](#reset-display)
-  - [Start/stop main timer (*Hajime/Matte*)]
-  - [Start/stop hold timer (*Osaekomi/Toketa*)]
+  - [Start/stop main timer (*Hajime/Matte*)](#startstop-main-timer-hajimematte)
+  - [Start/stop hold timer (*Osaekomi/Toketa*)](#startstop-hold-timer-osaekomitoketa)
   - [Reset hold timer](#reset-hold-timer)
-  - [Sono-mama/Yoshi](#sono-mama-yoshi)
+  - [Sono-mama/Yoshi](#sono-mamayoshi)
 - **[Troubleshooting](#troubleshooting)**
-  -[Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+  - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+
 
 # General
 
@@ -107,14 +108,11 @@ Questions or suggestions for improvement may be directed to:
 
 # Operation & Settings
 
-Ipponboard is an advanced display system for managing fight time 
-time and points, designed specifically for judo competition. 
-judo competition. During the development, special attention has been and will be paid to 
-special attention:
+Ipponboard is an advanced display system for managing fight time time and points, designed specifically for judo competition. During the development, special attention has been and will be paid to:
   
-- excellent readability
-- easy handling
-- uncomplicated use
+- Excellent readability
+- Easy handling
+- Uncomplicated use
 
 The program is basically operated from a PC (laptop) and controlled with mouse or gamepad. Ipponboard manages two displays, an external one for the the fighters/supervisors/audience and one for the timekeepers. The display of the timekeeper is mirrored, so that it can be better assigned to the fighters.
 
@@ -122,7 +120,7 @@ The program is basically operated from a PC (laptop) and controlled with mouse o
 
 Ipponboard uses two customized displays to provide the best possible comfort for the operators on one side and the fighters/referees and spectators on the other.
 
-Each display consists mainly of five areas: 
+Each display consists mainly of five areas:
 
 - Fight time: this is located at the bottom of the display. If the fight is interrupted the fight time is displayed in red, otherwise in yellow.
 - Scores: The scores are grouped on the side of the respective fighter and in the respective color combination (white on blue or black on white).
@@ -133,9 +131,7 @@ Each display consists mainly of five areas:
 
 ### Primary display
 
-The primary display serves as the central control unit for the 
-Ipponboard operator. On it all information is available and 
-adjustable:
+The primary display serves as the central control unit for the Ipponboard operator. On it all information is available and adjustable:
 
 - Start/stop/(reset) fight and hold time
 - Reset fight
@@ -149,9 +145,9 @@ adjustable:
 
 In contrast to the primary display, the secondary display shows only those details that are details that are essential for the fight:
 
-- only the scores up to Waza-ari (Ippon is superimposed flashing)
-- only the active penalties
-- only the active hold time
+- Only the scores up to Waza-ari (Ippon is superimposed flashing)
+- Only the active penalties
+- Only the active hold time
 
 In addition, the secondary display does not respond to mouse input.
 
@@ -159,15 +155,13 @@ In addition, the secondary display does not respond to mouse input.
 
 Whether the second display should be shown immediately at program start or on which screen or on which screen it should be displayed, can be defined in the program settings.
 
-How to configure the computer for dual view operation can be found in the appendix [Preparing the computer for dual screen operation](#Appendix_DualView).
+How to configure the computer for dual view operation can be found in the appendix [Preparing the computer for dual screen operation](#troubleshooting).
 
 ![Secondary display](images/secondary_view-2-DE.jpg)
 
-
 ## Program settings
 
-The program settings can be found in the application menu under *Settings*. 
-They provide access to various general options for customizing the program:
+The program settings can be found in the application menu under *Settings*. They provide access to various general options for customizing the program:
 
 - Configure secondary display
 - Change colors and font for info area
@@ -184,9 +178,9 @@ Besides the general options, the gamepad buttons can also be reassigned in the s
 
 Ipponboard can be controlled with the following input devices:
 
-- Mouse
-- Keyboard
-- Gamepad
+- Mouse 🐭
+- Keyboard ⌨️
+- Gamepad 🎮
 
 Even if the control by mouse is very intuitive and catchy, my experiences have shown that with the gamepad a substantially more relaxed operation is possible. Therefore I would like to recommend the control with the gamepad to you with the following reasons:
 
@@ -230,7 +224,7 @@ The assignment of the individual buttons can be configured in the *Settings &rar
 
 ## Awarding and undoing points
 
-Using the *mouse*:
+Using the *mouse* 🐭:
 
 - In order to assign points or take them back, you only have to click in the respective field. The following applies:
 
@@ -239,7 +233,7 @@ Using the *mouse*:
   left | give score
   right | cancel score
 
-Using the *gamepad*
+Using the *gamepad* 🎮:
 
 - Points are awarded using the two analog sticks. For the *blue* fighter, the following directions correspond to the respective points:
 
@@ -262,35 +256,35 @@ Using the *gamepad*
 - *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
 - *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
-## Reset complete display
+## Reset display
 
 Using the *mouse*:
 
 - Use the *Reset* button of the user interface.
 
-Using the *gamepad*:
+Using the *gamepad* 🎮:
 
 - To reset all values, the buttons defined for this purpose must be pressed simultaneously. Default is `button 1 + button 4`.
 
 ## Start/stop main timer (*Hajime/Matte*)
 
-Using the *mouse*:
+Using the *mouse* 🐭:
 
 - The fight time can be started (yellow) and stopped (red) with a left click.
 
-Using the *gamepad*:
+Using the *gamepad* 🎮:
 
 - The main time is started or stopped using the `down` button of the gamepad's control pad.
 
 ## Start/stop hold timer (*Osaekomi/Toketa*)
 
-Using the *mouse*:
+Using the *mouse* 🐭:
 
 - To start the hold time, click on the "00" field next to the hourglass. The hold will be displayed automatically for blue at first. Using the context menu of this field (right click), the hold can then be assigned to white, if necessary.
 - Clicking the field again with the left mouse button stops the hold time.
 - The time is now displayed until either a hold is triggered again, or the main time runs again after stopping (=*Hajime*).
 
-Using the *gamepad*:
+Using the *gamepad* 🎮:
 
 - The hold time is set by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the blue fighter and the right one for the white fighter. The button mapping can be changed via the settings.
 - Pressing the hold key again will stop the hold (*Toketa*).
@@ -298,11 +292,11 @@ Using the *gamepad*:
 
 ## Reset hold timer
 
-Using the *mouse*:
+Using the *mouse* 🐭:
 
 - Right click on the respective hold timer (you might want to stop the timer first)
 
-Using the *gamepad*:
+Using the *gamepad* 🎮:
 
 - This is done with the rear lower fire keys.
 
@@ -327,3 +321,5 @@ When configuring the second screen on the computer, the following points must be
 - *Turn off interference*
 
    Please make sure that the computer does not automatically go to sleep (standby) automatically goes to sleep (standby) or the screen saver turns on. screen saver turns on. This can be avoided with newer newer computer models by switching them to presentation mode. presentation mode.
+
+[Back to the top &uarr;](#content)
