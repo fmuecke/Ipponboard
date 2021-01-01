@@ -222,7 +222,7 @@ Almost everything in Ipponboard can be accessed by keyboard. The assignment of t
 
 ### Gamepad button layout
 
-![Gamepad button layout](images/p380.jpg)
+![Gamepad button layout](images/gamepad_layout-EN.jpg)
 
 The assignment of the individual buttons can be configured in the *Settings &rarr; Preferences* menu.
 
@@ -241,10 +241,10 @@ Using the *mouse*:
 
 Using the *gamepad*
 
-- Points are awarded using the two analog sticks. For the blue fighter, the following directions correspond to the respective points:
+- Points are awarded using the two analog sticks. For the *blue* fighter, the following directions correspond to the respective points:
 
-  ![Gamepad control circle](images/gamepad_layout-EN.jpg)
-
+  ![Gamepad button layout](images/Analogstick.png)
+  
    Score | Button
   ---------------- | -----
    Ippon + | up
@@ -257,10 +257,9 @@ Using the *gamepad*
    Shido - | right bottom
    Hansokumake toggle | press stick
 
-  For the white fighter the directions are simply mirrored.
+  For the *white* fighter the directions are simply mirrored.
 
 - *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
-
 - *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
 ## Reset complete display
