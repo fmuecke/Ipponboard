@@ -152,12 +152,7 @@ exit /b 0
 :make_doc
 	echo;
 	echo -- building doc
-	echo Anleitung.html...
-		pandoc -s "%BASE_DIR%\doc\manual\manual-de.md" -o "%BASE_DIR%\bin\Anleitung.html" --toc --css="%BASE_DIR%\doc\manual\Ipponboard.css" --resource-path="%BASE_DIR%\doc\manual" --number-sections --self-contained || exit /b %errorlevel%
-	echo CHANGELOG.html...
-		pandoc -s "%BASE_DIR%\CHANGELOG.md" -o "%BASE_DIR%\bin\CHANGELOG.html" --css="%BASE_DIR%\doc\manual\Ipponboard.css" --self-contained || exit /b %errorlevel%
-	echo copying license files...
-		robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\doc\manual\licenses" "%BASE_DIR%\bin\Licenses" >nul || exit /b %errorlevel%
+	call "%BASE_DIR%\doc\build_doc.cmd" || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
