@@ -308,6 +308,12 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 					 DonationManager::DonationUrl));
 }
 
+void MainWindowBase::on_actionUser_Manual_triggered()
+{
+	QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
+	QDesktopServices::openUrl(url);
+}
+
 void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 {
 	m_pController->SetAutoAdjustPoints(checked);

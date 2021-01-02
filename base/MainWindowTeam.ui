@@ -1225,6 +1225,7 @@
      <string>About</string>
     </property>
     <addaction name="actionAbout_Ipponboard"/>
+    <addaction name="actionUser_Manual"/>
     <addaction name="separator"/>
     <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionContact_Author"/>
@@ -1332,15 +1333,8 @@
    </property>
   </action>
   <action name="actionAbout_Ipponboard">
-   <property name="icon">
-    <iconset resource="ipponboard.qrc">
-     <normaloff>:/res/icons/about.png</normaloff>:/res/icons/about.png</iconset>
-   </property>
    <property name="text">
     <string>About Ipponboard</string>
-   </property>
-   <property name="shortcut">
-    <string>F1</string>
    </property>
   </action>
   <action name="actionShow_SecondaryView">
@@ -1621,6 +1615,18 @@
    </property>
    <property name="text">
     <string>Auto Adjust Points</string>
+   </property>
+  </action>
+  <action name="actionUser_Manual">
+   <property name="icon">
+    <iconset resource="ipponboard.qrc">
+     <normaloff>:/res/icons/about.png</normaloff>:/res/icons/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>User Manual</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
  </widget>

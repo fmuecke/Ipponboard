@@ -77,7 +77,7 @@
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/ClubManagerDlg.cpp" line="+192"/>
+        <location filename="../base/ClubManagerDlg.cpp" line="+196"/>
         <source>Select Club Emblem</source>
         <translation>Vereinslogo auswählen</translation>
     </message>
@@ -108,7 +108,7 @@
 <context>
     <name>DonationLabel</name>
     <message>
-        <location filename="../base/DonationManager.cpp" line="+20"/>
+        <location filename="../base/DonationManager.cpp" line="+24"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
         <translation>Ipponboard rockt! Bitte hör nicht auf!</translation>
     </message>
@@ -257,7 +257,7 @@
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+24"/>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+28"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -342,7 +342,7 @@
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+42"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="+40"/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
@@ -398,7 +398,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+404"/>
+        <location filename="../core/Controller.cpp" line="+408"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
@@ -411,7 +411,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+48"/>
+        <location filename="../base/SettingsDlg.cpp" line="+52"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -434,7 +434,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+499"/>
+        <location filename="../base/View.cpp" line="+503"/>
         <source>Set time</source>
         <translation>Zeit setzen</translation>
     </message>
@@ -478,12 +478,12 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+523"/>
+        <location line="+516"/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="-472"/>
+        <location line="-465"/>
         <source>Options:</source>
         <translation>Optionen:</translation>
     </message>
@@ -553,9 +553,14 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+17"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
+    </message>
+    <message>
+        <location line="+308"/>
+        <source>User Manual</source>
+        <translation>Anleitung</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -563,12 +568,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-296"/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die sekundäre Anzeige an/aus</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+215"/>
         <source>Auto Adjust Points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -633,7 +638,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>2018er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location line="-659"/>
+        <location line="-643"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
@@ -693,7 +698,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+23"/>
         <source>F2</source>
         <translation></translation>
     </message>
@@ -745,11 +750,6 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Provide Feedback</source>
-        <translation>Feedback geben</translation>
-    </message>
-    <message>
         <location line="+81"/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
@@ -770,7 +770,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Um die Kampfzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
     <message>
-        <location line="-152"/>
+        <location line="-143"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
@@ -800,7 +800,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kategorien und Gewichtsklassen verwalten</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+70"/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
@@ -815,7 +815,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location line="-98"/>
+        <location line="-89"/>
         <source>Fighters</source>
         <translation>Kämpfer</translation>
     </message>
@@ -825,17 +825,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kämpferverwaltung</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+89"/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location line="-86"/>
+        <location line="-77"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+349"/>
+        <location filename="../base/MainWindow.cpp" line="+347"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -843,17 +843,17 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+294"/>
+        <location filename="../base/MainWindowBase.cpp" line="+292"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location line="+39"/>
-        <source>Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that...</source>
-        <translation>Hallo, mein Name ist ??? I habe Ipponboard bei uns für (Einzel/Team)-Matches im Einsatz und hätte für eine zukünftige Version folgende Idee...</translation>
+        <location line="+20"/>
+        <source>/User-Manual.html</source>
+        <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+697"/>
+        <location line="+714"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -878,7 +878,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+322"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+326"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
@@ -925,7 +925,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+69"/>
+        <location filename="../base/MainWindowTeam.ui" line="+62"/>
         <location filename="../base/MainWindowTeam.cpp" line="+10"/>
         <source>Reset Scores</source>
         <translation>Tabelle zurücksetzten</translation>
@@ -1026,7 +1026,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1338"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1331"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
@@ -1248,14 +1248,9 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+112"/>
         <source>Report a Bug</source>
         <translation>Fehler melden</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Provide Feedback</source>
-        <translation>Feedback geben</translation>
     </message>
     <message>
         <location line="+164"/>
@@ -1263,9 +1258,14 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Wertungen automatisch setzen</translation>
     </message>
     <message>
-        <location line="-283"/>
+        <location line="-271"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
+    </message>
+    <message>
+        <location line="+280"/>
+        <source>User Manual</source>
+        <translation>Anleitung</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1273,7 +1273,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>F1</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="-271"/>
         <source>Show Secondary View</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
@@ -1340,7 +1340,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnisliste als PDF</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+53"/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
@@ -1552,7 +1552,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+174"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+165"/>
         <source>*new*</source>
         <translation>*neu*</translation>
     </message>
@@ -1580,7 +1580,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/UpdateChecker.cpp" line="+50"/>
+        <location filename="../base/UpdateChecker.cpp" line="+54"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1615,7 +1615,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../base/Main.cpp" line="+54"/>
+        <location filename="../base/Main.cpp" line="+58"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -1678,7 +1678,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+171"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
         <location line="+32"/>
         <location line="+21"/>
         <source>Error</source>
@@ -1711,7 +1711,7 @@ Die Standardwerte werden geladen.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+148"/>
+        <location filename="../base/FighterManager.cpp" line="+146"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
         <translation>Formatspezifikation enthält Vor- und Nachname nicht: %1</translation>
     </message>
@@ -1737,7 +1737,7 @@ Die Standardwerte werden geladen.</translation>
         <translation>%1 Kämper erfolgreich exportiert.</translation>
     </message>
     <message>
-        <location filename="../util/SimpleCsvFile.hpp" line="+36"/>
+        <location filename="../util/SimpleCsvFile.hpp" line="+34"/>
         <source>Unable to open file %1</source>
         <translation>Datei %1 kann nicht geöffnet werden</translation>
     </message>
@@ -2266,7 +2266,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="+23"/>
+        <location filename="../core/TournamentModel.cpp" line="+27"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
