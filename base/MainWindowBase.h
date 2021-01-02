@@ -156,7 +156,6 @@ protected slots:
 	void on_actionRules2017_triggered(bool);
 	void on_actionRules2017U15_triggered(bool);
 	void on_actionRules2018_triggered(bool);
-	void on_actionContact_Author_triggered();
 	void on_actionOnline_Feedback_triggered();
 	void on_actionVisit_Project_Homepage_triggered();
 	void on_actionAbout_Ipponboard_triggered();

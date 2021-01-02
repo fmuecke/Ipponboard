@@ -511,7 +511,6 @@
     <addaction name="actionAbout_Ipponboard"/>
     <addaction name="separator"/>
     <addaction name="actionVisit_Project_Homepage"/>
-    <addaction name="actionContact_Author"/>
     <addaction name="actionOnline_Feedback"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -768,15 +767,6 @@
    </property>
    <property name="toolTip">
     <string>Report a Bug</string>
-   </property>
-  </action>
-  <action name="actionContact_Author">
-   <property name="icon">
-    <iconset resource="ipponboard.qrc">
-     <normaloff>:/res/icons/mail.png</normaloff>:/res/icons/mail.png</iconset>
-   </property>
-   <property name="text">
-    <string>Provide Feedback</string>
    </property>
   </action>
   <action name="actionLang_English">

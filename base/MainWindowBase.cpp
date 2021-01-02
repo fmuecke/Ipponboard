@@ -292,7 +292,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
-				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a></p>"
+				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
 				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
 				"<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
 				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
@@ -300,7 +300,6 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 				"PARTICULAR PURPOSE.</p>"
 				"<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
 				"with a little donation.</a></em>"
-				"<p>Full source code is available on <a href=\"https://github.com/fmuecke/Ipponboard\">GitHub</a>"
 			   ).arg(QCoreApplication::applicationName(),
 					 QCoreApplication::applicationVersion(),
 					 VersionInfo::Date,
@@ -323,13 +322,6 @@ void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
 	QUrl url("https://bitbucket.org/ipponboard/ipponboard/issues/new");
-	QDesktopServices::openUrl(url);
-}
-
-void MainWindowBase::on_actionContact_Author_triggered()
-{
-	QUrl url("mailto:ipponboardinfo@gmail.com?subject=Ipponboard%20v" + QCoreApplication::applicationVersion() +
-			 "%20Feedback&body=" + tr("Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that..."));
 	QDesktopServices::openUrl(url);
 }
 
