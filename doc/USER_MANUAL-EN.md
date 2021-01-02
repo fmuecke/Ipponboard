@@ -240,14 +240,14 @@ Using the *gamepad* 🎮:
   
    Score | Button
   ---------------- | -----
-   Ippon + | up
-   Ippon - | down
-   Waza-ari + | top right
-   Waza-ari - | down left
-   Yuko + | right
-   Yuko - | left
-   Shido + | left up
-   Shido - | right bottom
+   Ippon + | &uarr; up
+   Ippon - | &darr; down
+   Waza-ari + | &nearr; top right
+   Waza-ari - | &swarr; down left
+   Yuko + | &rarr; right
+   Yuko - | &larr; left
+   Shido + | &nwarr; left up
+   Shido - | &searr; right bottom
    Hansokumake toggle | press stick
 
   For the *white* fighter the directions are simply mirrored.
