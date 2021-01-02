@@ -321,7 +321,7 @@ void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("https://bitbucket.org/ipponboard/ipponboard/issues/new");
+	QUrl url("https://github.com/fmuecke/Ipponboard/issues");
 	QDesktopServices::openUrl(url);
 }
 
