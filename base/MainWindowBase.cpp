@@ -300,6 +300,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 				"PARTICULAR PURPOSE.</p>"
 				"<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
 				"with a little donation.</a></em>"
+				"<p>Full source code is available on <a href=\"https://github.com/fmuecke/Ipponboard\">GitHub</a>"
 			   ).arg(QCoreApplication::applicationName(),
 					 QCoreApplication::applicationVersion(),
 					 VersionInfo::Date,
