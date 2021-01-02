@@ -27,7 +27,6 @@
 - **[Troubleshooting](#troubleshooting)**
   - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
 
-
 # General
 
 ## License terms
@@ -138,7 +137,8 @@ The primary display serves as the central control unit for the Ipponboard operat
 - Set/reset scores
 - change fight information (mat number, current weight class)
 
-![Primary display](images/primary_view-DE.jpg)
+![Primary display](images/main-screen-EN.png)
+Whizzard of Oz.
 
 ### Secondary/external display
 
@@ -167,11 +167,12 @@ The program settings can be found in the application menu under *Settings*. They
 - Change colors for fighters/ratings
 - Select sound file for timekeeper table signal
 
-![General setting dialog](images/Einstellungen_Allgemein.png)
+![General setting dialog](images/settings_general-EN.png)
 
-Besides the general options, the gamepad buttons can also be reassigned in the settings menu.
+Besides the general options, the gamepad buttons and keyboard accessors can also be reassigned in the settings menu.
 
-![Input settings dialog](images/Einstellungen_Eingabe.png)
+![Gamepad button assignments](images/settings_gamepad-EN.png)
+![Input settings dialog](images/settings_keyboard-EN.png)
 
 # Controlling Iponboard
 
@@ -203,23 +204,13 @@ Even if the control by mouse is very intuitive and catchy, my experiences have s
 
 ## Working with mouse, keyboard or gamepad
 
-### Mouse usage
+- 🐭**Mouse**: The program can be controlled completely with the mouse. All that is required is to click on the respective fields in the primary (embedded) display or on the corresponding buttons in the user interface.
 
-The program can be controlled completely with the mouse. All that is required is to click on the respective fields in the primary (embedded) display or on the corresponding buttons in the user interface.
+- ⌨️**Keyboard**: Almost everything in Ipponboard can be accessed by keyboard. The assignment of the individual buttons can be viewed in the [*Settings &rarr; Preferences*](#program-settings) menu.
 
-### Keyboard configuration
-
-Almost everything in Ipponboard can be accessed by keyboard. The assignment of the individual buttons can be viewed in the *Settings &rarr; Preferences* menu.
-
-![Gamepad button assignments](images/settings_keyboard-EN.png)
-
-### Gamepad button layout
-
-![Gamepad button layout](images/gamepad_layout-EN.jpg)
-
-The assignment of the individual buttons can be configured in the *Settings &rarr; Preferences* menu.
-
-![Gamepad button assignments](images/settings_gamepad-EN.png)
+- 🎮 **Gamepad**: Ipponboard was specially designed with gamepad use in mind. The button layout can be configured in the [*Settings &rarr; Preferences*](#program-settings) menu. The default configuration is as follows:
+  
+  ![Gamepad button layout](images/gamepad_layout-EN.jpg)
 
 ## Awarding and undoing points
 
