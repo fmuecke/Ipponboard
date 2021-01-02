@@ -38,7 +38,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_pController(new Ipponboard::Controller())
 	, m_fighterManager()
 	, m_Language("en")
-	, m_MatLabel("  www.ipponboard.info   ")
+	, m_MatLabel("  Ipponboard   ")
 	, m_weights()
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
@@ -292,7 +292,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
-				"<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
+				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a></p>"
 				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
 				"<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
 				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
@@ -315,7 +315,7 @@ void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
-	QUrl url("http://www.ipponboard.info");
+	QUrl url("https://ipponboard.koe-judo.de");
 	QDesktopServices::openUrl(url);
 }
 

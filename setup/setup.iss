@@ -32,9 +32,9 @@ AppName={#MyAppName}
 AppVersion={#MySimpleAppVersion}
 AppVerName={#MyAppName} {#MySimpleAppVersion}
 AppPublisher={#MyAppAuthor}
-AppPublisherURL=http://www.ipponboard.info/
-AppSupportURL=http://www.ipponboard.info/
-AppUpdatesURL=http://www.ipponboard.info/
+AppPublisherURL=https://ipponboard.koe-judo.de/
+AppSupportURL=https://github.com/fmuecke/Ipponboard/issues
+AppUpdatesURL=https://ipponboard.koe-judo.de/
 AppCopyright=Copyright (C) {#MyAppCopyright}
 DefaultDirName={localappdata}\{#MyAppName}
 DisableProgramGroupPage=yes
@@ -120,7 +120,7 @@ Name: "{userprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\Ipponboard.ex
 Name: "{userprograms}\{#MyAppName}\{#MyAppName} Anleitung"; Filename: "{app}\Anleitung.html"; WorkingDir: "{app}"
 Name: "{userprograms}\{#MyAppName}\{#MyAppName} Changelog"; Filename: "{app}\CHANGELOG.html"; WorkingDir: "{app}"
 ;Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en
-Name: "{userprograms}\{#MyAppName}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "http://www.ipponboard.info/"
+Name: "{userprograms}\{#MyAppName}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "https://ipponboard.koe-judo.de/"
 Name: "{userprograms}\{#MyAppName}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 ;Name: "{userstartmenu}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de
 ;Name: "{userstartmenu}\Online-Survey (Feedback)"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_en/"; Languages: en

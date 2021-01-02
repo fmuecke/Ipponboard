@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.info");
+	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
 
 	// read language code
