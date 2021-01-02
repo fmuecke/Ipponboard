@@ -87,7 +87,8 @@ GOTO the_end
 		popd
 		goto the_error
 	)
-goto the_end
+	popd
+goto menu
 
 :cmd_all
 	%BASE_DIR%\_build\stopwatch start build
