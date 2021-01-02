@@ -292,14 +292,13 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
+ 				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.<br>For third party licenses see the User Manual.</p>"
 				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
-				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
-				"<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
+				"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
+				"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
 				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 				"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 				"PARTICULAR PURPOSE.</p>"
-				"<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
-				"with a little donation.</a></em>"
 			   ).arg(QCoreApplication::applicationName(),
 					 QCoreApplication::applicationVersion(),
 					 VersionInfo::Date,
