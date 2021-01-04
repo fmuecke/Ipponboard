@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "../util/catch/catch.hpp"
+#include "../util/catch2/catch.hpp"
 #include "../core/TournamentMode.h"
 #include "../core/TournamentMode.cpp"
 
@@ -14,11 +14,12 @@ using namespace Ipponboard;
 struct IpponboardTest
 {
 
-	static bool parse_group(QSettings& config, QString const& group, QString& errorMsg)
+	static bool parse_group(QSettings& config, QString const& group)
 	{
 		TournamentMode tm;
 
 		config.beginGroup(group);
+		QString errorMsg;
 		bool readSuccess = TournamentMode::parse_current_group(config, tm, errorMsg);
 
 		if (!readSuccess)
@@ -49,16 +50,15 @@ TEST_CASE("Test_parse_current_group")
 
 	REQUIRE(groups.count() == config.childGroups().count());
 
-	QString errorMsg;
-	REQUIRE(IpponboardTest::parse_group(config, "basic", errorMsg));
-	REQUIRE(IpponboardTest::parse_group(config, "with_weights_doubled", errorMsg));
-	REQUIRE(IpponboardTest::parse_group(config, "with_time_overrides", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "template_not_found", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "no_title", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "no_weights", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "no_rounds", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "no_template", errorMsg));
-	REQUIRE(!IpponboardTest::parse_group(config, "no_fight_time", errorMsg));
+	REQUIRE(IpponboardTest::parse_group(config, "basic"));
+	REQUIRE(IpponboardTest::parse_group(config, "with_weights_doubled"));
+	REQUIRE(IpponboardTest::parse_group(config, "with_time_overrides"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "template_not_found"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_title"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_weights"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_rounds"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_template"));
+	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_fight_time"));
 
 	//QCOMPARE(str.toUpper(), QString("HELLO"));
 }
