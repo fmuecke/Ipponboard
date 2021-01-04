@@ -27,7 +27,7 @@ public:
 	enum EColumn
 	{
 		eColumn_club = 0,
-		//eColumn_category,
+		eColumn_category,
 		eColumn_firstName,
 		eColumn_lastName,
 		eColumn_weight,
@@ -59,10 +59,12 @@ private slots:
 
 private:
 	void populate_view();
+	Ipponboard::Fighter itemToFighter(QTreeWidgetItem* pItem) const;
+	QStringList fighterToItemData(Ipponboard::Fighter) const;
 
 	Ui::FighterManagerDlg* ui;
 	Ipponboard::FighterManager& m_manager;
-	QString m_tmpData;
+	QString m_currentCellData;
 	std::pair<EColumn, QString> m_filter;
 	QString m_formatStr;
 };

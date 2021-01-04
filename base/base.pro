@@ -82,7 +82,6 @@ CONFIG(release, release|debug) {
 HEADERS = pch.h \
     MainWindow.h \
 	MainWindowTeam.h \
-    AddFighterDlg.h \
     ClubManager.h \
     ClubManagerDlg.h \
     DonationManager.h \
@@ -131,7 +130,6 @@ SOURCES = Main.cpp \
     MainWindow.cpp \
     MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \
-	AddFighterDlg.cpp \
     ClubManager.cpp \
     ClubManagerDlg.cpp \
     DonationManager.cpp \
@@ -164,7 +162,6 @@ SOURCES = Main.cpp \
 FORMS = MainWindow.ui \
     MainWindowTeam.ui \
     view_vertical_single.ui \
-    AddFighterDlg.ui \
     ClubManagerDlg.ui \
 	ScoreScreen.ui \
     SettingsDlg.ui \
