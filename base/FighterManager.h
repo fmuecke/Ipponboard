@@ -40,6 +40,7 @@ public:
 	bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 	bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
+	Ipponboard::Fighter AddNewFighter();
 	bool AddFighter(Ipponboard::Fighter f);
 	bool RemoveFighter(Ipponboard::Fighter f);
 	QStringList GetClubFighterNames(QString const& filter) const;

@@ -266,6 +266,18 @@ bool FighterManager::ExportFighters(
 	return true;
 }
 
+Ipponboard::Fighter FighterManager::AddNewFighter()
+{
+	auto id = rand();
+	Ipponboard::Fighter f(
+				QString("first_name_%1").arg(id),
+				QString("last_name_%1").arg(id));
+
+	AddFighter(f);
+
+	return f;
+}
+
 bool FighterManager::AddFighter(Fighter f)
 {
 	return m_fighters.insert(f).second;
