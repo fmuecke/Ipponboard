@@ -114,6 +114,7 @@ void MainWindow::on_actionManageFighters_triggered()
 
 	FighterManagerDlg dlg(m_fighterManager, this);
 	dlg.exec();
+	on_comboBox_weight_currentIndexChanged(m_pUi->comboBox_weight->currentText());
 }
 
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
@@ -214,7 +215,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
 void MainWindow::update_fighters(const QString& s)
 {
-	if (s.isEmpty())
+	/*if (s.isEmpty())
 		return;
 
 	QString firstName = s;
@@ -237,7 +238,7 @@ void MainWindow::update_fighters(const QString& s)
 	fNew.weight = weight;
 	fNew.category = category;
 
-	m_fighterManager.AddFighter(fNew); // only adds fighter if new
+	m_fighterManager.AddFighter(fNew); // only adds fighter if new*/
 }
 
 void MainWindow::update_statebar()
