@@ -46,3 +46,16 @@ You must ensure that you use the same compiler version that was used to build th
    title Visual Studio Command Shell
    %comspec% /k "c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.0
    ```
+
+## Using *QtCreator* to build Ipponboard
+
+1. Download and install [QCreator](https://www.qt.io/product/development-tools)
+2. Configure the Qt environment
+3. Open `Ipponboard.pro` with QtCreator
+4. add `BOOST_DIR` to the environment variables of the project
+
+### Configuring CDB Debugger
+
+1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
+2. Insert path in the QtCreator debugger options (tab *CDB paths*): e.g. `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
+3. Restart QtCreator
