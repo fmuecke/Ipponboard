@@ -26,22 +26,24 @@ public:
 
 	virtual ~FightCategoryManagerDlg();
 
+	virtual void accept() override;
+	virtual void reject() override;
+
 protected:
 	void changeEvent(QEvent* e);
 
 private:
 	enum { eColumn_Name = 0, eColumn_Time, eColumn_GS, eColumn_Weights };
 	void load_values();
+	bool isModifiedData {false};
+	void close_dialog();
 
 	Ui::FightCategoryManagerDlg* ui;
 	Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
-	std::string m_originalClasses;
 	//Ipponboard::WeightClass m_currentClass;
 
 private slots:
 	void on_treeWidget_classes_itemChanged(QTreeWidgetItem* item, int column);
-	void on_buttonBox_rejected();
-	void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
 };

@@ -189,45 +189,37 @@ void FightCategoryMgr::save_categories()
 }
 
 //---------------------------------------------------------
-bool FightCategoryMgr::CategoriesFromString(std::string const& s)
+void FightCategoryMgr::CategoriesFromString_UNUSED(std::string const& s) // throws std::exception
 //---------------------------------------------------------
 {
 	try
 	{
 		auto cats = FightCategoryParser::ParseJsonString(s);
-
+		throw std::exception("fromString failed");
+		m_Categories.clear();
 		for (auto const & cat : cats)
 		{
 			AddCategory(cat);
 		}
 	}
-	catch (std::exception const& e)
+	catch (std::exception const&)
 	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
-
-		return false;
+		throw; // re-throw
 	}
-
-	return true;
 }
 
 //---------------------------------------------------------
-std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
+std::string FightCategoryMgr::CategoriesToString_UNUSED() // throws std::exception
 //---------------------------------------------------------
 {
 	try
 	{
+		throw std::exception("toString failed");
 		return FightCategoryParser::ToJsonString(m_Categories);
 	}
-	catch (std::exception const& e)
+	catch (std::exception const&)
 	{
-		QMessageBox::critical(0,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
-										  QString::fromStdString(e.what()))));
+		throw; // re-throw
 	}
 
 	return std::string();
