@@ -87,6 +87,7 @@ GOTO the_end
 		popd
 		goto the_error
 	)
+	popd
 goto menu
 
 :cmd_all
@@ -130,9 +131,11 @@ goto the_end
 	rd /Q /S "%BIN_DIR%" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
 	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
+	::if NOT exist "%BASE_DIR%\base\versioninfo.h" echo Removed %BASE_DIR%\base\versioninfo.h
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
 	call :generate_makefiles || exit /b %errorlevel%
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
+	::if exist "%BASE_DIR%\base\versioninfo.h" echo Created %BASE_DIR%\base\versioninfo.h
 exit /b 0
 
 ::-------------------------------

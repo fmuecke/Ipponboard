@@ -48,7 +48,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	//TODO: remove comment
 	//ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
 
-	ui->text_text_sample->SetText("  www.ipponboard.info   ");
+	ui->text_text_sample->SetText("  Ipponboard   ");
 	ui->text_color_first->SetText(tr("FIRST FIGHTER"));
 	ui->text_color_second->SetText(tr("SECOND FIGHTER"));
 

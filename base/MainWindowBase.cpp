@@ -38,7 +38,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_pController(new Ipponboard::Controller())
 	, m_fighterManager()
 	, m_Language("en")
-	, m_MatLabel("  www.ipponboard.info   ")
+	, m_MatLabel("  Ipponboard   ")
 	, m_weights()
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
@@ -292,14 +292,13 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
-				"<p><a href=\"http://www.ipponboard.info\">www.ipponboard.info</a></p>"
-				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.</p>"
-				"<p>Some icons by <a href=\"http://p.yusukekamiyamane.com/\">Yusuke Kamiyamane</a>. All rights reserved.</p>"
+ 				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.<br>For third party licenses see the User Manual.</p>"
+				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
+				"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
+				"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
 				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 				"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 				"PARTICULAR PURPOSE.</p>"
-				"<p></p><p><em>Please keep Ipponboard alive and support further development <a href=\"%6\">"
-				"with a little donation.</a></em>"
 			   ).arg(QCoreApplication::applicationName(),
 					 QCoreApplication::applicationVersion(),
 					 VersionInfo::Date,
@@ -321,20 +320,13 @@ void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
-	QUrl url("http://www.ipponboard.info");
+	QUrl url("https://ipponboard.koe-judo.de");
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("https://bitbucket.org/ipponboard/ipponboard/issues/new");
-	QDesktopServices::openUrl(url);
-}
-
-void MainWindowBase::on_actionContact_Author_triggered()
-{
-	QUrl url("mailto:ipponboardinfo@gmail.com?subject=Ipponboard%20v" + QCoreApplication::applicationVersion() +
-			 "%20Feedback&body=" + tr("Hi, my name is ???! I am using Ipponboard for (single/team) matches and would like to suggest that..."));
+	QUrl url("https://github.com/fmuecke/Ipponboard/issues");
 	QDesktopServices::openUrl(url);
 }
 

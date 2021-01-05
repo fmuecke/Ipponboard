@@ -32,9 +32,9 @@ AppName={#MyAppName}
 AppVersion={#MySimpleAppVersion}
 AppVerName={#MyAppName} {#MySimpleAppVersion}
 AppPublisher={#MyAppAuthor}
-AppPublisherURL=http://www.ipponboard.info/
-AppSupportURL=http://www.ipponboard.info/
-AppUpdatesURL=http://www.ipponboard.info/
+AppPublisherURL=https://ipponboard.koe-judo.de/
+AppSupportURL=https://github.com/fmuecke/Ipponboard/issues
+AppUpdatesURL=https://ipponboard.koe-judo.de/
 AppCopyright=Copyright (C) {#MyAppCopyright}
 DefaultDirName={localappdata}\{#MyAppName}
 DisableProgramGroupPage=yes
@@ -89,7 +89,8 @@ Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptif
 Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\categories.json"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\clubs.json"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
+Source: "..\bin\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\bin\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\bin\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\Clubs\*.*"; DestDir: "{app}\Clubs\"; Flags: ignoreversion promptifolder
@@ -97,8 +98,6 @@ Source: "..\bin\Sounds\*.*"; DestDir: "{app}\Sounds\"; Flags: ignoreversion prom
 Source: "..\bin\Templates\*.*"; DestDir: "{app}\Templates\"; Flags: ignoreversion promptifolder
 Source: "..\bin\Lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\Licenses\*.*"; DestDir: "{app}\Licenses"; Flags: IgnoreVersion recursesubdirs
-;Source: ..\bin\msvcp100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
-;Source: ..\bin\msvcr100.dll; DestDir: {app}; Flags: IgnoreVersion promptifolder;
 Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
@@ -117,13 +116,11 @@ Name: "{app}\Licenses"
 
 [Icons]
 Name: "{userprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"
-Name: "{userprograms}\{#MyAppName}\{#MyAppName} Anleitung"; Filename: "{app}\Anleitung.html"; WorkingDir: "{app}"
+Name: "{userprograms}\{#MyAppName}\{#MyAppName} Anleitung"; Filename: "{app}\Anleitung.html"; WorkingDir: "{app}"; Languages: de
+Name: "{userprograms}\{#MyAppName}\{#MyAppName} User manual"; Filename: "{app}\User-Manual.html"; WorkingDir: "{app}"; Languages: en
 Name: "{userprograms}\{#MyAppName}\{#MyAppName} Changelog"; Filename: "{app}\CHANGELOG.html"; WorkingDir: "{app}"
-;Name: "{group}\Manual"; Filename: {app}\manual.pdf; WorkingDir: {app}; Languages: en
-Name: "{userprograms}\{#MyAppName}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "http://www.ipponboard.info/"
+Name: "{userprograms}\{#MyAppName}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "https://ipponboard.koe-judo.de/"
 Name: "{userprograms}\{#MyAppName}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-;Name: "{userstartmenu}\Umfrage"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_de/"; Languages: de
-;Name: "{userstartmenu}\Online-Survey (Feedback)"; Filename: "http://flo.mueckeimnetz.de/ipponboard/survey_en/"; Languages: en
 Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Ipponboard.exe"; IconIndex: 0
 
 [Run]
