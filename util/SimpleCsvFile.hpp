@@ -20,11 +20,7 @@ namespace fm
 class SimpleCsvFile : boost::noncopyable
 {
 public:
-    static bool ReadItems(
-            QString const& fileName,
-            QString const& separator,
-            std::vector<QStringList>& readData,
-            QString& errorMsg)
+	static bool ReadItems(QString const& fileName, QString const& separator, std::vector<QStringList>& readData, QString& errorMsg)
     {
         errorMsg.clear();
 
@@ -72,10 +68,7 @@ public:
         return true;
     }
 
-    static bool WriteData(
-            QString const& fileName,
-            QStringList const& data,
-            QString& errorMsg)
+	static bool WriteData(QString const& fileName, QStringList const& data, QString& errorMsg)
     {
         errorMsg.clear();
 
