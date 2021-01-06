@@ -4,6 +4,7 @@
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add
+- (new): fighter lists are stored in UTF-8 with byte-order-mark (can be opened and edited in Excel right away)
 
 ## Version 1.10-beta
 - (new): support for IJF-2018 rules

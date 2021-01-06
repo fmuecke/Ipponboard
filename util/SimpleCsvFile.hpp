@@ -33,7 +33,9 @@ public:
 
         readData.clear();
 
-        QTextStream in(&file);
+		QTextStream in(&file);
+		in.setCodec("UTF-8");
+
         int lineNo = 0;
         int itemsPerLine = 0;
 
@@ -87,6 +89,8 @@ public:
 		else
 		{
 			QTextStream outStream(&file);
+			outStream.setCodec("UTF-8");
+			outStream.setGenerateByteOrderMark(true);
 			Q_FOREACH(QString const& line, data)
 			{
 				outStream << line << endl;
