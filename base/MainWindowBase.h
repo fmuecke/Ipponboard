@@ -118,8 +118,8 @@ protected:
 
 	void write_settings();
 	void read_settings();
-	void load_fighters();
-	void save_fighters();
+	virtual void load_fighters();
+	virtual void save_fighters();
 	virtual void update_views();
 	virtual void update_statebar();
 	virtual void update_info_text_color(const QColor& color, const QColor& bgColor);

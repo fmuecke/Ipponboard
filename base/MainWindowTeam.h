@@ -60,6 +60,8 @@ private:
 	void update_text_color_first(const QColor& color, const QColor& bgColor) override;
 	void update_text_color_second(const QColor& color, const QColor& bgColor) override;
 	virtual void update_fighter_name_font(const QFont&) override;
+	virtual void load_fighters() override {} // no-op for now
+	virtual void save_fighters() override {} // no-op for now
 	virtual void update_views() override;
 
 	// specific methods
