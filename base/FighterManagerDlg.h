@@ -55,7 +55,6 @@ private slots:
 	//void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
-	void on_pushButton_settings_pressed();
 
 private:
 	void populate_view();
@@ -66,7 +65,6 @@ private:
 	Ipponboard::FighterManager& m_manager;
 	QString m_currentCellData;
 	std::pair<EColumn, QString> m_filter;
-	QString m_formatStr;
 };
 
 #endif // BASE_FIGHTERMANAGERDLG_H

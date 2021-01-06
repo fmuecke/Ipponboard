@@ -26,38 +26,20 @@ const std::array<char const* const, 5> FighterManager::Specifiers =
 	str_CATEGORY
 };
 
-QString FighterManager::DefaultExportFormat()
-{
-	QString ret;
-
-	for (char const * const s : Specifiers)
-	{
-		if (!ret.isEmpty())
-		{
-			ret.append(';');
-		}
-
-		ret.append(s);
-	}
-
-	return ret;
-}
-
-
 FighterManager::FighterManager()
 	: m_fighters()
 {
 }
 
-QString FighterManager::GetSpecifiererDescription()
+QString FighterManager::GetCsvHeaderFormat()
 {
 	QString retVal;
 
-	for (char const * const s : Specifiers)
+	for (auto const s : Specifiers)
 	{
 		if (!retVal.isEmpty())
 		{
-			retVal.append(", ");
+			retVal.append(Separator);
 		}
 
 		retVal.append(s);
@@ -66,111 +48,46 @@ QString FighterManager::GetSpecifiererDescription()
 	return retVal;
 }
 
-//bool Ipponboard::FighterManager::IsValidSpecifier(const QString& str)
-//{
-//    for(char const * const s : Specifiers)
-//    {
-//        if (str.compare(s) == 0)
-//            return true;
-//    }
-
-//    return false;
-//}
-
-// A Satisfying format string must have at least tags for
-// firstname and lastname
-bool Ipponboard::FighterManager::IsFormatSatisfying(const QString& formatStr)
-{
-	return formatStr.contains(str_FIRSTNAME) && formatStr.contains(str_LASTNAME);
-}
-
-// Format string must be at least "satisfying" to be processed
-bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString& sep)
-{
-	if (!IsFormatSatisfying(str))
-	{
-		return false;
-	}
-
-	sep.clear();
-	QString workStr = str.trimmed();
-
-	auto beginPos = workStr.indexOf(str_FIRSTNAME);
-	auto endPos = beginPos + QString(str_FIRSTNAME).length();
-
-	// use second tag if is last tag in format specifier
-	if (endPos == workStr.length())
-	{
-		beginPos = workStr.indexOf(str_LASTNAME);
-		endPos = beginPos + QString(str_LASTNAME).length();
-	}
-
-	auto nextPos = workStr.indexOf("@", endPos);
-
-	if (-1 == nextPos)
-	{
-		return false;
-	}
-
-	sep = workStr.mid(endPos, nextPos - endPos);
-
-	return true;
-}
-
-bool FighterManager::ImportFighters(
-	QString const& fileName,
-	QString const& formatStr,
-	QString& errorMsg)
+bool FighterManager::LoadFighters(QString const& csvFile, QString& errorMsg)
 {
 	errorMsg.clear();
 
-	QString sep;
+	m_fighters.clear();
 
-	if (!DetermineSeparator(formatStr, sep))
-	{
-		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
-				   .arg(formatStr);
-		return false;
-	}
+	return AddFighters(csvFile, errorMsg);
+}
 
-	// determine tag positions
-	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
-
-	if (-1 == firstNamePos || -1 == lastNamePos)
-	{
-		errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1")
-				   .arg(formatStr);
-		return false;
-	}
+bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
+{
+	errorMsg.clear();
 
 	std::vector<QStringList> data;
-
-	if (!fm::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg))
+	if (!fm::SimpleCsvFile::ReadItems(csvFile, &Separator, data, errorMsg))
 	{
 		return false;
 	}
 
-	//NO, don't do it: m_fighters.clear();
+	if (data.empty() || data[0].join(&Separator) != GetCsvHeaderFormat())
+	{
+		errorMsg = QObject::tr("No fighters were added: file %1 does not have the proper header:\n\n%2").arg(csvFile, GetCsvHeaderFormat());
+		return false;
+	}
 
 	const size_t oldCount = m_fighters.size();
 
-	for (QStringList const & line : data)
+	for (unsigned int i=1; i<data.size(); ++i)
 	{
-		QString firstName = line[firstNamePos];
-		QString lastName = line[lastNamePos];
-		QString club = -1 != clubPos ? line[clubPos] : "";
-		QString weight = -1 != weightPos ? line[weightPos] : "";
-		QString category = -1 != categoryPos ? line[categoryPos] : "";
+		auto line = data[i];
+		if (line.count() != Specifiers.size())
+		{
+			errorMsg = QObject::tr("Line %1 of file %2 does not have the right number of fields").arg(i).arg(csvFile);
+			return false;
+		}
 
-		Ipponboard::Fighter fighter(firstName, lastName);
-		fighter.club = club;
-		fighter.weight = weight;
-		fighter.category = category;
+		Ipponboard::Fighter fighter(line[0], line[1]);
+		fighter.club = line[2];
+		fighter.weight = line[3];
+		fighter.category = line[4];
 
 		m_fighters.insert(fighter);
 	}
@@ -180,98 +97,31 @@ bool FighterManager::ImportFighters(
 	return true;
 }
 
-bool FighterManager::ExportFighters(
-	QString const& fileName,
-	QString const& formatStr,
-	QString& errorMsg)
+bool FighterManager::SaveFighters(QString const& csvFile, QString& errorMsg)
 {
 	errorMsg.clear();
 
-	QString sep;
-
-	if (!DetermineSeparator(formatStr, sep))
-	{
-		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
-				   .arg(formatStr);
-
-		return false;
-	}
-
-	if (!IsFormatSatisfying(formatStr))
-	{
-		errorMsg = QObject::tr("Format specifier does not meet criteria: %1")
-				   .arg(formatStr);
-
-		return false;
-	}
-
-	// determine tag positions
-	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
-
 	QStringList data;
+	data.push_back(GetCsvHeaderFormat());
 
 	for (Ipponboard::Fighter const & f : m_fighters)
 	{
-		QString line;
-
-		for (int i = 0; i < static_cast<int>(tags.size()); ++i)
-		{
-			if (!line.isEmpty())
-			{
-				line.append(sep);
-			}
-
-			if (i == firstNamePos)
-			{
-				line.append(f.first_name);
-			}
-			else if (i == lastNamePos)
-			{
-				line.append(f.last_name);
-			}
-			else if (i == clubPos)
-			{
-				line.append(f.club);
-			}
-			else if (i == weightPos)
-			{
-				line.append(f.weight);
-			}
-			else if (i == categoryPos)
-			{
-				line.append(f.category);
-			}
-			else
-			{
-				// empty tag
-			}
-		}
-
-		data.push_back(line);
+		data.push_back(QString("%1;%2;%3;%4;%5").arg(f.first_name, f.last_name, f.club, f.weight, f.category));
 	}
 
-	if (!fm::SimpleCsvFile::WriteData(fileName, data, errorMsg))
+	if (!fm::SimpleCsvFile::WriteData(csvFile, data, errorMsg))
 	{
 		return false;
 	}
 
-	errorMsg = QObject::tr("Successfully exported %1 fighters.")
-			   .arg(QString::number(m_fighters.size()));
-
+	qDebug("Successfully saved %i fighters to %s.", m_fighters.size(), csvFile);
 	return true;
 }
 
 Ipponboard::Fighter FighterManager::AddNewFighter()
 {
 	auto id = rand();
-	Ipponboard::Fighter f(
-				QString("first_name_%1").arg(id),
-				QString("last_name_%1").arg(id));
+	Ipponboard::Fighter f(QString("first_name_%1").arg(id), QString("last_name_%1").arg(id));
 
 	AddFighter(f);
 
@@ -300,8 +150,7 @@ bool FighterManager::RemoveFighter(Fighter f)
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
 	QStringList ret;
-	std::for_each(begin(m_fighters), end(m_fighters),
-				  [&](Ipponboard::Fighter const & f)
+	std::for_each(begin(m_fighters), end(m_fighters), [&](Ipponboard::Fighter const & f)
 	{
 		if (f.club == club)
 		{

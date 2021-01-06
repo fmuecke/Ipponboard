@@ -25,14 +25,9 @@ FighterManagerDlg::FighterManagerDlg(
 	, ui(new Ui::FighterManagerDlg)
 	, m_manager(manager)
 	, m_filter()
-	, m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
-
-	// hide settings buton
-	//TODO: improove!
-	ui->pushButton_settings->hide();
 
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
@@ -225,26 +220,14 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 
 	if (!fileName.isEmpty())
 	{
-		//TODO: make this right
-		on_pushButton_settings_pressed();
-
 		QString errorMsg;
-
-		if (m_manager.ImportFighters(fileName, m_formatStr, errorMsg))
+		if (m_manager.AddFighters(fileName, errorMsg))
 		{
-			QMessageBox::information(
-				this,
-				QCoreApplication::applicationName(),
-				errorMsg);
-
-			//TODO?: update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
+			QMessageBox::information(this, QCoreApplication::applicationName(), errorMsg);
 		}
 		else
 		{
-			QMessageBox::critical(
-				this,
-				QCoreApplication::applicationName(),
-				errorMsg);
+			QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 		}
 	}
 
@@ -262,24 +245,18 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 
 	if (!fileName.isEmpty())
 	{
-		//TODO: make this right
-		on_pushButton_settings_pressed();
-
 		QString errorMsg;
-
-		if (m_manager.ExportFighters(fileName, m_formatStr, errorMsg))
+		if (m_manager.SaveFighters(fileName, errorMsg))
 		{
-			QMessageBox::information(
-				this,
-				QCoreApplication::applicationName(),
-				errorMsg);
+			QMessageBox::information(this,
+									 QCoreApplication::applicationName(),
+									 tr("Successfully saved %1 fighters to %2.").arg(
+										 QString::number(m_manager.m_fighters.size()),
+										 fileName));
 		}
 		else
 		{
-			QMessageBox::critical(
-				this,
-				QCoreApplication::applicationName(),
-				errorMsg);
+			QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 		}
 	}
 }
@@ -386,57 +363,4 @@ void FighterManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item
 {
 	m_currentCellData = item->text(column);
 	qDebug("data: %s", m_currentCellData.toLatin1().data());
-}
-
-void FighterManagerDlg::on_pushButton_settings_pressed()
-{
-	bool ok(false);
-	QString dlgTitle = tr("Specify import/export format");
-	QString dlgMsg = tr("Use valid specifiers and some kind of separator (;,:|/ etc.)"
-						"\nValid specifiers are: %1")
-					 .arg(Ipponboard::FighterManager::GetSpecifiererDescription());
-
-	QString data = QInputDialog::getText(this,
-										 dlgTitle,
-										 dlgMsg,
-										 QLineEdit::Normal,
-										 m_formatStr,
-										 &ok);
-
-	QString separator;
-	bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(data, separator);
-
-	QStringList dataParts;
-
-	if (isValidSeparator)
-	{
-		dataParts = data.split(separator);
-	}
-
-	// at least 3 parts must be set (first, last, ...)
-	while (ok && (!isValidSeparator || dataParts.size() < 3))
-	{
-		QMessageBox::critical(this,
-							  tr(""),
-							  tr("Invalid format. Please correct your input."));
-
-		data = QInputDialog::getText(this,
-									 dlgTitle,
-									 dlgMsg,
-									 QLineEdit::Normal,
-									 data,
-									 &ok);
-		isValidSeparator =
-			Ipponboard::FighterManager::DetermineSeparator(data, separator);
-
-		if (isValidSeparator)
-		{
-			dataParts = data.split(separator);
-		}
-	}
-
-	if (ok && isValidSeparator)
-	{
-		m_formatStr = data;
-	}
 }

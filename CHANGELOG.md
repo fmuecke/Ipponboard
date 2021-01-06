@@ -5,6 +5,7 @@
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add
 - (new): fighter lists are stored in UTF-8 with byte-order-mark (can be opened and edited in Excel right away)
+- (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
 - (fix): Team edition does not create Fighter*.csv any longer as it was not used
 
 ## Version 1.10-beta

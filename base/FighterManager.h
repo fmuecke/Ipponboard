@@ -30,15 +30,16 @@ public:
 
 	static const std::array<char const* const, 5> Specifiers;
 
-	static QString GetSpecifiererDescription();
-	//static bool IsValidSpecifier(QString const& str);
-	static bool IsFormatSatisfying(QString const& formatStr);
-	static bool DetermineSeparator(QString const& str, QString& sep);
+	static QString GetCsvHeaderFormat(); // returns all specifiers separated by Separator
 
-	static QString DefaultExportFormat();
+	// clears fighter list and imports them from a csv-file
+	bool LoadFighters(QString const& csvFile, QString& errorMsg);
 
-	bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
-	bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+	// imports fighters from a csv-file
+	bool AddFighters(QString const& csvFile, QString& errorMsg);
+
+	// saves all fighters to a csv-file
+	bool SaveFighters(QString const& csvFile, QString& errorMsg);
 
 	Ipponboard::Fighter AddNewFighter();
 	bool AddFighter(Ipponboard::Fighter f);
@@ -48,6 +49,7 @@ public:
 //private:
 	std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
 private:
+	static const char Separator {';'};
 
 };
 

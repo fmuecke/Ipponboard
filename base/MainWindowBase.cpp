@@ -103,7 +103,7 @@ QString MainWindowBase::GetConfigFileName() const
 
 QString MainWindowBase::GetFighterFileName() const
 {
-	return QString("Fighters%1.csv").arg(EditionNameShort());
+	return QString("FighterList-%1.csv").arg(EditionNameShort());
 }
 
 void MainWindowBase::UpdateView()
@@ -680,28 +680,20 @@ void MainWindowBase::load_fighters()
 		return;
 	}
 
-	if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+	if (!m_fighterManager.AddFighters(csvFile, errorMsg))
 	{
-		QMessageBox::critical(
-			this,
-			QCoreApplication::applicationName(),
-			errorMsg);
+		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 	}
 }
 
 void MainWindowBase::save_fighters()
 {
-	QString csvFile(
-		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
-	QString errorMsg;
+	QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
-	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+	QString errorMsg;
+	if (!m_fighterManager.SaveFighters(csvFile, errorMsg))
 	{
-		QMessageBox::critical(
-			this,
-			QCoreApplication::applicationName(),
-			errorMsg);
+		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 	}
 }
 
