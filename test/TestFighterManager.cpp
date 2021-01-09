@@ -9,6 +9,15 @@
 
 using Ipponboard::FighterManager;
 
+static Fighter GetDummyFighter()
+{
+	Fighter f("Hans", "Dampf");
+	f.weight = "1234";
+	f.category = "AllStars";
+	f.club = "FC Bayern";
+	return f;
+}
+
 TEST_CASE("CSV header format is @FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY")
 {
 	REQUIRE(FighterManager::GetCsvHeaderFormat() == "@FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY");
@@ -74,10 +83,7 @@ TEST_CASE("LoadFighters clears existing fighters")
 TEST_CASE("Contains finds identical fighters")
 {
 	FighterManager m;
-	Fighter f("hans", "dampf");
-	f.weight = "1234";
-	f.category = "AllStars";
-	f.club = "FC Bayern";
+	auto f = GetDummyFighter();
 	REQUIRE_FALSE(m.Contains(f));
 
 	m.AddFighter(f);
@@ -87,10 +93,8 @@ TEST_CASE("Contains finds identical fighters")
 TEST_CASE("Contains finds fighter if database has empty weight")
 {
 	FighterManager m;
-	Fighter f("hans", "dampf");
+	auto f = GetDummyFighter();
 	f.weight = "";
-	f.category = "AllStars";
-	f.club = "FC Bayern";
 	m.AddFighter(f);
 	REQUIRE(m.Contains(f));
 
@@ -101,10 +105,7 @@ TEST_CASE("Contains finds fighter if database has empty weight")
 TEST_CASE("Contains finds fighter if fighter has empty weight")
 {
 	FighterManager m;
-	Fighter f("hans", "dampf");
-	f.weight = "1234";
-	f.category = "AllStars";
-	f.club = "FC Bayern";
+	auto f = GetDummyFighter();
 	m.AddFighter(f);
 	REQUIRE(m.Contains(f));
 
@@ -115,10 +116,8 @@ TEST_CASE("Contains finds fighter if fighter has empty weight")
 TEST_CASE("Contains finds fighter if database has empty category")
 {
 	FighterManager m;
-	Fighter f("hans", "dampf");
-	f.weight = "1234";
+	auto f = GetDummyFighter();
 	f.category = "";
-	f.club = "FC Bayern";
 	m.AddFighter(f);
 	REQUIRE(m.Contains(f));
 
@@ -129,13 +128,29 @@ TEST_CASE("Contains finds fighter if database has empty category")
 TEST_CASE("Contains finds fighter if fighter has empty category")
 {
 	FighterManager m;
-	Fighter f("hans", "dampf");
-	f.weight = "1234";
-	f.category = "AllStars";
-	f.club = "FC Bayern";
+	auto f = GetDummyFighter();
 	m.AddFighter(f);
 	REQUIRE(m.Contains(f));
 
 	f.category = "";
 	REQUIRE(m.Contains(f));
+}
+
+TEST_CASE("Underscores values are converted to spaces when adding; duplicate spaces are trimmed")
+{
+	FighterManager m;
+	auto f = GetDummyFighter();
+	f.first_name = "_Hans__Egon_ _Friedrich__";
+	f.last_name = "_Dampf_ _Backe_";
+	f.weight = "__1_2_";
+	f.category = "__12_Divers _and__children__";
+	f.club = "___FC_Bayern__ _München__";
+
+	m.AddFighter(f);
+	Fighter g = *m.m_fighters.begin();
+	REQUIRE(g.first_name.toStdString() == "Hans Egon Friedrich");
+	REQUIRE(g.last_name.toStdString() == "Dampf Backe");
+	REQUIRE(g.weight.toStdString() == "1 2");
+	REQUIRE(g.category.toStdString() == "12 Divers and children");
+	REQUIRE(g.club.toStdString() == "FC Bayern München");
 }

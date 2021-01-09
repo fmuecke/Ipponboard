@@ -98,6 +98,7 @@ HEADERS = pch.h \
     ../util/array_helpers.h \
     ../util/path_helpers.h \
     ../util/qstring_serialization.h \
+	../util/qstring_helper.h \
     ../widgets/Countdown.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \

@@ -115,7 +115,7 @@ bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
 		fighter.weight = line[3];
 		fighter.category = line[4];
 
-		m_fighters.insert(fighter);
+		AddFighter(fighter);
 	}
 
 	errorMsg = QObject::tr("Imported %1 new fighters.").arg(QString::number(m_fighters.size() - oldCount));
@@ -157,7 +157,8 @@ Ipponboard::Fighter FighterManager::AddNewFighter()
 bool FighterManager::AddFighter(Fighter f)
 {
 	if (Contains(f)) return false;
-	return m_fighters.insert(f).second;
+
+	return m_fighters.insert(f.GetNormalized()).second;
 }
 
 bool FighterManager::RemoveFighter(Fighter f)
