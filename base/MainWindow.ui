@@ -432,11 +432,14 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="toolTip">
+         <string>firstname lastname</string>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>First Fighter (first last)</string>
+         <string>First Fighter</string>
         </property>
        </widget>
       </item>
@@ -448,6 +451,9 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="toolTip">
+         <string>firstname lastname</string>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -458,7 +464,7 @@
          <enum>QFrame::Plain</enum>
         </property>
         <property name="text">
-         <string>Second Fighter (first last)</string>
+         <string>Second Fighter</string>
         </property>
        </widget>
       </item>

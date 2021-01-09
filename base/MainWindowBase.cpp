@@ -674,15 +674,14 @@ void MainWindowBase::load_fighters()
 
 	QString errorMsg;
 
-	if (!QFile::exists(csvFile))
+	if (!m_fighterManager.LoadFighters(csvFile, errorMsg))
 	{
-		// silently ignore
-		return;
-	}
-
-	if (!m_fighterManager.AddFighters(csvFile, errorMsg))
-	{
-		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
+		// only show error, if file did exist
+		// -> ensures proper default file creating and handling
+		if (QFile::exists(csvFile))
+		{
+			QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
+		}
 	}
 }
 

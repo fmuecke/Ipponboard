@@ -458,12 +458,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+516"/>
+        <location line="+522"/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="-465"/>
+        <location line="-471"/>
         <source>Options:</source>
         <translation>Optionen:</translation>
     </message>
@@ -493,7 +493,23 @@
         <translation>Golden-Score</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+94"/>
+        <location line="+19"/>
+        <source>firstname lastname</source>
+        <translation>Vorname Nachname</translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>First Fighter</source>
+        <translation>Erster Kämpfer</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Second Fighter</source>
+        <translation>Zweiter Kämpfer</translation>
+    </message>
+    <message>
+        <location line="+70"/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
@@ -623,7 +639,7 @@
         <translation>2018er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location line="-643"/>
+        <location line="-649"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
@@ -638,7 +654,7 @@
         <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+130"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -663,17 +679,7 @@
         <translation>&amp;Verwaltung</translation>
     </message>
     <message>
-        <location line="-123"/>
-        <source>First Fighter (first last)</source>
-        <translation>Erster Kämpfer (Vorname Nachname)</translation>
-    </message>
-    <message>
-        <location line="+22"/>
-        <source>Second Fighter (first last)</source>
-        <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
-    </message>
-    <message>
-        <location line="+144"/>
+        <location line="+43"/>
         <source>Leave Ipponboard</source>
         <translation>Ipponboard verlassen</translation>
     </message>
@@ -820,7 +826,7 @@
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+349"/>
+        <location filename="../base/MainWindow.cpp" line="+351"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -838,7 +844,7 @@
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+706"/>
+        <location line="+705"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -854,7 +860,7 @@
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-703"/>
+        <location line="-702"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1676,7 +1682,17 @@ Restoring defaults.</source>
         <translation>Fehler beim Laden der Wettkampfkategorien: %1 Stelle Standards wieder her.</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+72"/>
+        <location filename="../base/FighterManager.cpp" line="+61"/>
+        <source>FIRST NAME</source>
+        <translation>VORNAME</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>LAST NAME</source>
+        <translation>NACHNAME</translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>No fighters were added: file %1 does not have the proper header:
 
 %2</source>
