@@ -62,6 +62,9 @@ echo  Templates
 if not exist "%DEST%\templates" mkdir "%DEST%\templates">nul
 copy /Y "templates\*.*" "%DEST%\Templates">nul || exit /b 1
 
+echo Demo data
+copy /Y "%ROOT%\base\FighterList-DEMO.csv" "%DEST%">nul || exit /b 1
+
 REM -- programme
 REM if not exist "%DEST%\Ipponboard.exe" (
 	REM echo ERROR: Ipponboard.exe not found

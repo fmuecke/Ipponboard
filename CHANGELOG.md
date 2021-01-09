@@ -6,10 +6,11 @@
   - use *del* key to remove and *ins* key to add
 - (new): fighter lists are stored in UTF-8 with byte-order-mark (can be opened and edited in Excel right away)
 - (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
-- (fix): Team Edition does not create Fighter*.csv any longer as it was not used
+- (fix): Team Edition does not create `Fighter*.csv` any longer as it was not used
 - (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)
 - (mod): spaces and underscores in fighter properties are trimmed and converted to simple spaces
 - (new): added fighter manager description to the manual (single tournament)
+- (new): added demo fighters `FighterList-Demo.csv`
 
 ## Version 1.10-beta
 - (new): support for IJF-2018 rules

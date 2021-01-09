@@ -85,25 +85,26 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 ;Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
+Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
 Source: "..\bin\categories.json"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\clubs.json"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
-Source: "..\bin\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
-Source: "..\bin\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion; Languages: de
+Source: "..\bin\User-Manual.html"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion; Languages: en
+Source: "..\bin\CHANGELOG.html"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion
 Source: "..\bin\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\FighterList-DEMO.csv"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion
 Source: "..\bin\Clubs\*.*"; DestDir: "{app}\Clubs\"; Flags: ignoreversion promptifolder
 Source: "..\bin\Sounds\*.*"; DestDir: "{app}\Sounds\"; Flags: ignoreversion promptifolder
 Source: "..\bin\Templates\*.*"; DestDir: "{app}\Templates\"; Flags: ignoreversion promptifolder
-Source: "..\bin\Lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\Licenses\*.*"; DestDir: "{app}\Licenses"; Flags: IgnoreVersion recursesubdirs
-Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\bin\msvcp140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\Lang\*.*"; DestDir: "{app}\lang\"; Flags: ignoreVersion promptifolder
+Source: "..\bin\Licenses\*.*"; DestDir: "{app}\Licenses"; Flags: ignoreVersion recursesubdirs
+Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
+Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
+Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
+Source: "..\bin\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: ignoreVersion promptifolder
+Source: "..\bin\vcruntime140.dll"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion
+Source: "..\bin\msvcp140.dll"; DestDir: "{app}"; Flags: ignoreVersion replacesameversion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
