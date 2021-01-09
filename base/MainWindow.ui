@@ -248,7 +248,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Class</string>
+         <string>Category</string>
         </property>
        </widget>
       </item>
@@ -290,7 +290,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox_weight_class">
+       <widget class="QComboBox" name="comboBox_category">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -939,7 +939,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>comboBox_weight_class</tabstop>
+  <tabstop>comboBox_category</tabstop>
   <tabstop>comboBox_weight</tabstop>
   <tabstop>comboBox_name_first</tabstop>
   <tabstop>comboBox_name_second</tabstop>

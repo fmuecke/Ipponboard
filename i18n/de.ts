@@ -2,34 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE" sourcelanguage="en_US">
 <context>
-    <name>AddFighterDlg</name>
-    <message>
-        <location filename="../base/AddFighterDlg.ui" line="+17"/>
-        <source>Add Fighter</source>
-        <translation>Kämpfer hinzufügen</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Club/Team</source>
-        <translation>Verein/Mannschaft</translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>First name</source>
-        <translation>Vorname</translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Last name</source>
-        <translation>Nachname</translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Weight</source>
-        <translation>Gewicht</translation>
-    </message>
-</context>
-<context>
     <name>ClubManagerDlg</name>
     <message>
         <location filename="../base/ClubManagerDlg.ui" line="+14"/>
@@ -192,12 +164,17 @@
 <context>
     <name>FightCategoryManagerDlg</name>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.ui" line="+14"/>
+        <location filename="../base/FightCategoryManagerDlg.ui" line="+17"/>
         <source>Manage Fight Categories</source>
         <translation>Kategorien verwalten</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+19"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live Edit&lt;/span&gt;: All changes are immediate! They may trigger reloading of the score board.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live-Edit&lt;/span&gt;: Alle Änderungen sind sofort wirksam! Sie können ein Neuladen der Anzeigetafel auslösen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
@@ -257,17 +234,7 @@
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+28"/>
-        <source>Ok</source>
-        <translation>Ok</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <location line="+39"/>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+66"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Neue Kategorie hinzufügen</translation>
@@ -280,11 +247,11 @@
     </message>
     <message>
         <location line="-4"/>
-        <source>This category already exists. Please choose an other name.</source>
-        <translation>Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
+        <source>This category already exists. Please choose a different name.</source>
+        <translation>Diese Kategorie existiert bereits. Bitte wähle einen anderen Namen.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+118"/>
         <source>This name is already taken!</source>
         <translation>Dieser Name ist bereits vergeben!</translation>
     </message>
@@ -297,7 +264,12 @@
         <translation>Kämpferverwaltung</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+16"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live Edit&lt;/span&gt;: All changes are immediate! They may trigger reloading of the score board.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live-Edit&lt;/span&gt;: Alle Änderungen sind sofort wirksam! Sie können ein Neuladen der Anzeigetafel auslösen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+64"/>
         <source>Import fighters</source>
         <translation>Kämpfer importieren</translation>
     </message>
@@ -317,12 +289,12 @@
         <translation>E&amp;xportieren</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <source>Settings for import/export</source>
-        <translation>Einstellungen für Im-/Export</translation>
+        <location line="+57"/>
+        <source>Del</source>
+        <translation>Entf</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="-33"/>
         <source>Add a new fighter</source>
         <translation>Neuen Kämpfer hinzufügen</translation>
     </message>
@@ -332,7 +304,12 @@
         <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+7"/>
+        <source>Ins</source>
+        <translation>Einfügen</translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Remove the currently selected weight class</source>
         <translation>Entfernt die gerade ausgewählte Kategorie</translation>
     </message>
@@ -342,12 +319,17 @@
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+40"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="+34"/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>Category</source>
+        <translation>Kategorie</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
@@ -362,13 +344,13 @@
         <translation>Nachname</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+179"/>
         <source>Select CSV file with fighters</source>
         <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+37"/>
+        <location line="+25"/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV-Dateien (*.csv);;Textdateien (*.txt)</translation>
     </message>
@@ -378,21 +360,24 @@
         <translation>CSV-Datei angeben, in denen die Kämpferdaten gespeichert werden sollen</translation>
     </message>
     <message>
-        <location line="+134"/>
-        <source>Specify import/export format</source>
-        <translation>Format für Im-/Export festlegen</translation>
+        <location line="+11"/>
+        <source>Successfully saved %1 fighters to %2.</source>
+        <translation>%1 Kämpfer erfolgreich in %2 gespeichert.</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Use valid specifiers and some kind of separator (;,:|/ etc.)
-Valid specifiers are: %1</source>
-        <translation>Bitte gültige Spezifiatoren und beliebige Separatoren (;,:|/ etc.) verwenden.
-Mögliche Spezifikatorens sind: %1</translation>
+        <location line="+20"/>
+        <source>Really remove fighter &quot;%1 %2&quot;?</source>
+        <translation>Kämpfer &quot;%1 %2&quot; wirklich entfernen?</translation>
     </message>
     <message>
-        <location line="+26"/>
-        <source>Invalid format. Please correct your input.</source>
-        <translation>Ungültiges Format. Bitte Eingaben korrigieren.</translation>
+        <location line="+8"/>
+        <source>Really remove the %1 selected fighters?</source>
+        <translation>Wieklich die asgewählten %1 Kämpfer entfernen?</translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>The new entry is identical to an already existing one and was therefore discarded: %1 %2</source>
+        <translation>Der neue Eintrag ist identisch zu einem bereits existierenden und wurde deshalb verworfen: %1 %2</translation>
     </message>
 </context>
 <context>
@@ -467,12 +452,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="-128"/>
-        <source>Class</source>
-        <translation>Klasse</translation>
-    </message>
-    <message>
-        <location line="-133"/>
+        <location line="-261"/>
         <source>Display secondary screen</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
@@ -493,7 +473,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>/</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+50"/>
+        <source>Category</source>
+        <translation>Kategorie</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
@@ -835,7 +820,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+347"/>
+        <location filename="../base/MainWindow.cpp" line="+349"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -853,7 +838,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+714"/>
+        <location line="+706"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -869,7 +854,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-711"/>
+        <location line="-703"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1626,7 +1611,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
     </message>
     <message>
         <location line="+1"/>
-        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
+        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was intended to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
         <translation>Ipponboard ist nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen. Daher wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
     </message>
     <message>
@@ -1679,13 +1664,11 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
     <name>QObject</name>
     <message>
         <location filename="../base/FightCategoryManager.cpp" line="+175"/>
-        <location line="+32"/>
-        <location line="+21"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="+1"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1693,63 +1676,38 @@ Restoring defaults.</source>
         <translation>Fehler beim Laden der Wettkampfkategorien: %1 Stelle Standards wieder her.</translation>
     </message>
     <message>
-        <location line="+32"/>
-        <source>Unable to parse fight categories:
-%1
+        <location filename="../base/FighterManager.cpp" line="+72"/>
+        <source>No fighters were added: file %1 does not have the proper header:
 
-Restoring defaults.</source>
-        <translation>Die Kampfkategorien können nicht geparst werden:
-%1
+%2</source>
+        <translation>Es wurden keine Kämpfer hinzugefügt, weil die Datei %1 nicht die richtige Kopfzeile hat:
 
-Die Standardwerte werden geladen.</translation>
+%2</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>Unable to write fight categories:
-%1</source>
-        <translation>Die Kampfkategorien können nicht geschrieben werden:
-%1</translation>
+        <location line="+11"/>
+        <source>Line %1 of file %2 does not have the right number of fields</source>
+        <translation>Zeile %1 in %2 hat nicht die erforderliche Anzahl Felder</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+146"/>
-        <source>Format specifier does not contain firstname and lastname: %1</source>
-        <translation>Formatspezifikation enthält Vor- und Nachname nicht: %1</translation>
-    </message>
-    <message>
-        <location line="-15"/>
-        <location line="+63"/>
-        <source>Format specifier has invalid separator: %1</source>
-        <translation>Formatspzifikation enthält ungültigen Trenner: %1</translation>
-    </message>
-    <message>
-        <location line="-16"/>
+        <location line="+12"/>
         <source>Imported %1 new fighters.</source>
         <translation>%1 neue Kämpfer importiert.</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <source>Format specifier does not meet criteria: %1</source>
-        <translation>Formatspezifikation erfüllt Kriterien nicht: %1</translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Successfully exported %1 fighters.</source>
-        <translation>%1 Kämper erfolgreich exportiert.</translation>
-    </message>
-    <message>
-        <location filename="../util/SimpleCsvFile.hpp" line="+34"/>
+        <location filename="../util/SimpleCsvFile.hpp" line="+30"/>
         <source>Unable to open file %1</source>
         <translation>Datei %1 kann nicht geöffnet werden</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>Error parsing file %1:
 line %2 has %3 items instead of %4 like in the previous lines</source>
         <translation>Fehler beim Parsen der Datei %1:
 Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+27"/>
         <source>Unable to open file %1 for writing</source>
         <translation>Kann Datei %1 nicht zum Schreiben öffnen</translation>
     </message>
@@ -2195,27 +2153,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Die Tasten können in der aktuellen Version (noch) nicht geändet werden.</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>Extended</source>
-        <translation>Erweitert</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Format specifier for fighter import and export</source>
-        <translation>Formatspezifikation for den Kämpferim- und -export</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Fighter import/export format</source>
-        <translation>Format für Kämpferim-/-export</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>club;firstname;lastname;weight</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-253"/>
+        <location line="-216"/>
         <source>Reset all</source>
         <translation>Reset (ALLES)</translation>
     </message>

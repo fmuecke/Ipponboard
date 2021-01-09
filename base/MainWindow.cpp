@@ -66,11 +66,11 @@ void MainWindow::Init()
 	{
 		FightCategory t("");
 		m_pCategoryManager->GetCategory(i, t);
-		m_pUi->comboBox_weight_class->addItem(t.ToString());
+		m_pUi->comboBox_category->addItem(t.ToString());
 	}
 
 	// trigger tournament class combobox update
-	on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
+	on_comboBox_category_currentIndexChanged(m_pUi->comboBox_category->currentText());
 
 	m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 }
@@ -81,28 +81,27 @@ void MainWindow::on_actionManageClasses_triggered()
 
 	if (QDialog::Accepted == dlg.exec())
 	{
-		QString currentClass =
-			m_pUi->comboBox_weight_class->currentText();
+		auto category = m_pUi->comboBox_category->currentText();
 
-		m_pUi->comboBox_weight_class->clear();
+		m_pUi->comboBox_category->clear();
 
 		for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
 		{
 			FightCategory t("");
 			m_pCategoryManager->GetCategory(i, t);
-			m_pUi->comboBox_weight_class->addItem(t.ToString());
+			m_pUi->comboBox_category->addItem(t.ToString());
 		}
 
-		int index = m_pUi->comboBox_weight_class->findText(currentClass);
+		int index = m_pUi->comboBox_category->findText(category);
 
 		if (-1 == index)
 		{
 			index = 0;
-			currentClass = m_pUi->comboBox_weight_class->itemText(index);
+			category = m_pUi->comboBox_category->itemText(index);
 		}
 
-		m_pUi->comboBox_weight_class->setCurrentIndex(index);
-		on_comboBox_weight_class_currentIndexChanged(currentClass);
+		m_pUi->comboBox_category->setCurrentIndex(index);
+		on_comboBox_category_currentIndexChanged(category);
 	}
 }
 
@@ -117,7 +116,8 @@ void MainWindow::on_actionManageFighters_triggered()
 
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 {
-	update_fighter_name_completer(s);
+	auto category = m_pUi->comboBox_category->currentText();
+	update_fighter_name_completer(s, category);
 
 	m_pPrimaryView->SetWeight(s);
 	m_pSecondaryView->SetWeight(s);
@@ -141,7 +141,7 @@ void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
 
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 {
-	const QString name = m_pUi->comboBox_weight_class->currentText();
+	const QString name = m_pUi->comboBox_category->currentText();
 	FightCategory t(name);
 	m_pCategoryManager->GetCategory(name, t);
 
@@ -166,7 +166,7 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 	}
 }
 
-void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_category_currentIndexChanged(const QString& s)
 {
 	FightCategory category(s);
 	m_pCategoryManager->GetCategory(s, category);
@@ -187,19 +187,20 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 	m_pSecondaryView->UpdateView();
 }
 
-void MainWindow::update_fighter_name_completer(const QString& weight)
+void MainWindow::update_fighter_name_completer(const QString& weight, const QString& category)
 {
 	// filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
-	for (const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
+	for (auto const& f : m_fighterManager.m_fighters)
 	{
 		if (f.weight == weight || f.weight.isEmpty())
 		{
-			const QString fullName =
-				QString("%1 %2").arg(f.first_name, f.last_name);
-
-			m_CurrentFighterNames.push_back(fullName);
+			if (f.category == category || f.category.isEmpty())
+			{
+				auto fullName =  QString("%1 %2").arg(f.first_name, f.last_name);
+				m_CurrentFighterNames.push_back(fullName);
+			}
 		}
 	}
 
@@ -229,7 +230,7 @@ void MainWindow::update_fighters(const QString& s)
 
 	const QString weight = m_pUi->comboBox_weight->currentText();
 	const QString club; // TODO: later
-	const QString category = m_pUi->comboBox_weight_class->currentText();
+	const QString category = m_pUi->comboBox_category->currentText();
 
 	Ipponboard::Fighter fNew(firstName, lastName);
 	fNew.club = club;

@@ -47,7 +47,7 @@ private:
 	//virtual void update_views() override;
 
 	/* specific private methods */
-	void update_fighter_name_completer(const QString& weight);
+	void update_fighter_name_completer(const QString& weight, const QString& category);
 	void update_fighters(const QString& s);
 
 	/* base class slot overrides */
@@ -62,7 +62,7 @@ protected slots:
 	void on_comboBox_name_second_currentIndexChanged(const QString&);
 	void on_comboBox_name_first_currentIndexChanged(const QString&);
 	void on_checkBox_golden_score_clicked(bool checked);
-	void on_comboBox_weight_class_currentIndexChanged(const QString&);
+	void on_comboBox_category_currentIndexChanged(const QString&);
 
 private slots:
 	void on_actionAutoAdjustPoints_toggled(bool checked) override;
