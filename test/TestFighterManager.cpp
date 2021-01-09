@@ -6,7 +6,6 @@
 #include "../base/FighterManager.h"
 
 #include "../base/FighterManager.cpp"
-#include "../core/Fighter.cpp"
 
 using Ipponboard::FighterManager;
 
@@ -70,4 +69,73 @@ TEST_CASE("LoadFighters clears existing fighters")
 	auto dummyFighter = *m.m_fighters.begin();
 
 	REQUIRE(dummyFighter != existingFighter);
+}
+
+TEST_CASE("Contains finds identical fighters")
+{
+	FighterManager m;
+	Fighter f("hans", "dampf");
+	f.weight = "1234";
+	f.category = "AllStars";
+	f.club = "FC Bayern";
+	REQUIRE_FALSE(m.Contains(f));
+
+	m.AddFighter(f);
+	REQUIRE(m.Contains(f));
+}
+
+TEST_CASE("Contains finds fighter if database has empty weight")
+{
+	FighterManager m;
+	Fighter f("hans", "dampf");
+	f.weight = "";
+	f.category = "AllStars";
+	f.club = "FC Bayern";
+	m.AddFighter(f);
+	REQUIRE(m.Contains(f));
+
+	f.weight = "123";
+	REQUIRE(m.Contains(f));
+}
+
+TEST_CASE("Contains finds fighter if fighter has empty weight")
+{
+	FighterManager m;
+	Fighter f("hans", "dampf");
+	f.weight = "1234";
+	f.category = "AllStars";
+	f.club = "FC Bayern";
+	m.AddFighter(f);
+	REQUIRE(m.Contains(f));
+
+	f.weight = "";
+	REQUIRE(m.Contains(f));
+}
+
+TEST_CASE("Contains finds fighter if database has empty category")
+{
+	FighterManager m;
+	Fighter f("hans", "dampf");
+	f.weight = "1234";
+	f.category = "";
+	f.club = "FC Bayern";
+	m.AddFighter(f);
+	REQUIRE(m.Contains(f));
+
+	f.category = "AllStars";
+	REQUIRE(m.Contains(f));
+}
+
+TEST_CASE("Contains finds fighter if fighter has empty category")
+{
+	FighterManager m;
+	Fighter f("hans", "dampf");
+	f.weight = "1234";
+	f.category = "AllStars";
+	f.club = "FC Bayern";
+	m.AddFighter(f);
+	REQUIRE(m.Contains(f));
+
+	f.category = "";
+	REQUIRE(m.Contains(f));
 }

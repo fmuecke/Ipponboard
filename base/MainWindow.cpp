@@ -217,8 +217,7 @@ void MainWindow::update_fighters(const QString& s)
 	if (s.isEmpty())
 		return;
 
-	/*
-	 QString firstName = s;
+	QString firstName = s;
 	QString lastName;
 
 	int pos = s.indexOf(' ');
@@ -229,17 +228,11 @@ void MainWindow::update_fighters(const QString& s)
 		lastName = s.mid(pos + 1);
 	}
 
-	const QString weight = m_pUi->comboBox_weight->currentText();
-	const QString club; // TODO: later
-	const QString category = m_pUi->comboBox_category->currentText();
-
 	Ipponboard::Fighter fNew(firstName, lastName);
-	fNew.club = club;
-	fNew.weight = weight;
-	fNew.category = category;
+	fNew.weight = m_pUi->comboBox_weight->currentText();
+	fNew.category = m_pUi->comboBox_category->currentText();
 
 	m_fighterManager.AddFighter(fNew); // only adds fighter if new
-	*/
 }
 
 void MainWindow::update_statebar()

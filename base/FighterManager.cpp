@@ -48,6 +48,24 @@ QString FighterManager::GetCsvHeaderFormat()
 	return retVal;
 }
 
+bool FighterManager::Contains(const Fighter &other) const
+{
+	if (m_fighters.find(other) != m_fighters.end())
+	{
+		return true;
+	}
+
+	for (auto const& f : m_fighters)
+	{
+		if (f.Matches(other))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool FighterManager::LoadFighters(QString const& csvFile, QString& errorMsg)
 {
 	errorMsg.clear();
@@ -138,6 +156,7 @@ Ipponboard::Fighter FighterManager::AddNewFighter()
 
 bool FighterManager::AddFighter(Fighter f)
 {
+	if (Contains(f)) return false;
 	return m_fighters.insert(f).second;
 }
 

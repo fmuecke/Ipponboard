@@ -26,6 +26,17 @@ public:
 				category == other.category);
 	}
 
+	// ignores weight or category if empty
+	inline bool Matches(Fighter const& other) const
+	{
+		return this == &other ||
+			   (first_name == other.first_name &&
+				last_name == other.last_name &&
+				club == other.club &&
+				(weight == other.weight || weight.isEmpty() || other.weight.isEmpty()) &&
+				(category == other.category || category.isEmpty() || other.category.isEmpty()));
+	}
+
 	inline bool operator!=(Fighter const& other) const
 	{
 		return !(*this==other);

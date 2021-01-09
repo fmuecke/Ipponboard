@@ -34,6 +34,8 @@ public:
 
 	static QString GetCsvHeaderFormat(); // returns all specifiers separated by Separator
 
+	bool Contains(Ipponboard::Fighter const& f) const;
+
 	// clears fighter list and imports them from a csv-file
 	bool LoadFighters(QString const& csvFile, QString& errorMsg);
 

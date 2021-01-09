@@ -21,7 +21,8 @@ SOURCES = \
     TestTournamentMode.cpp \
     TestVersionComparer.cpp \
     TestRules.cpp \
-    TestFighterManager.cpp
+    TestFighterManager.cpp \
+    TestFighter.cpp
 
 OTHER_FILES += \
     TestData/TournamentModes-test.ini \
