@@ -14,6 +14,7 @@
   - [Displays](#displays)
     - [Primary display](#primary-display)
     - [Secondary/external display](#secondaryexternal-display)
+    - [Managing fighters for single tournament](#managing-fighters-for-single-tournament)
   - [Program settings](#program-settings)
 - **[Controlling Iponboard](#controlling-ipponboard)**
   - [Gampad rocks!](#gampad-rocks)
@@ -150,13 +151,35 @@ In contrast to the primary display, the secondary display shows only those detai
 
 In addition, the secondary display does not respond to mouse input.
 
-> Tip:* The secondary display can be (de)activated via the hotkey `F2`.
+> *Tip:* The secondary display can be (de)activated via the hotkey `F2`.
 
 Whether the second display should be shown immediately at program start or on which screen or on which screen it should be displayed, can be defined in the program settings.
 
 How to configure the computer for dual view operation can be found in the appendix [Preparing the computer for dual screen operation](#troubleshooting).
 
 ![Secondary display](images/secondary_view-2-DE.jpg)
+
+## Managing fighters for single tournament
+
+To add or remove fighters start the *Fighter Manager* (*Manage &rarr; Fighters*). There you can add/modify or remove entries or import and export the whole list.
+
+![Fighter Manager](images/manage-fighters-EN.png)
+
+*Please Note*:
+
+- Changes have immediate effect!
+- Empty fields for *club*, *category* and *weight* are treated as wildcards. So it is not possible to add a fighter with the same name but a distict club, if she already exists with an empty club. Editing, however is possible.
+
+The fighters are stored in a `.csv` file. The file is recognized by its first line `@FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY` and the values are separated by `;` (semicolon).
+
+     @FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY
+     Amandine;BUCHARD;France;-52;F
+     Christa;DEGUCHI;Canada;-57;F
+     Clarisse;AGBENENOU;France;-63;F
+     Daria;BILODID;Ukraine;-48;F
+     ...
+
+You can edit it with Microsoft Excel or LibreOffice/OpenOffice Calc as well.
 
 ## Program settings
 

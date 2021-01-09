@@ -9,6 +9,7 @@
 - (fix): Team Edition does not create Fighter*.csv any longer as it was not used
 - (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)
 - (mod): spaces and underscores in fighter properties are trimmed and converted to simple spaces
+- (new): added fighter manager description to the manual (single tournament)
 
 ## Version 1.10-beta
 - (new): support for IJF-2018 rules
