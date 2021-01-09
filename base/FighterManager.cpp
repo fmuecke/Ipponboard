@@ -54,7 +54,15 @@ bool FighterManager::LoadFighters(QString const& csvFile, QString& errorMsg)
 
 	m_fighters.clear();
 
-	return AddFighters(csvFile, errorMsg);
+	auto addResult = AddFighters(csvFile, errorMsg);
+
+	if (m_fighters.empty())
+	{
+		Ipponboard::Fighter fighter(QObject::tr("FIRST NAME"), QObject::tr("LAST NAME"));
+		m_fighters.insert(fighter);
+	}
+
+	return addResult;
 }
 
 bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
@@ -149,14 +157,55 @@ bool FighterManager::RemoveFighter(Fighter f)
 
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
+	auto filteredFighters = Filter(m_fighters, str_CLUB, club);
+
 	QStringList ret;
-	std::for_each(begin(m_fighters), end(m_fighters), [&](Ipponboard::Fighter const & f)
+	for (auto const& f : filteredFighters)
 	{
-		if (f.club == club)
-		{
-			ret.append(QString("%1 %2").arg(f.first_name, f.last_name));
-		}
-	});
+		ret.append(QString("%1 %2").arg(f.first_name, f.last_name));
+	};
 
 	return ret;
+}
+
+FighterManager::FighterList FighterManager::Filter(FighterManager::FighterList const& fighters, QString const& specifier, QString const& value)
+{
+	FighterManager::FighterList resultSet;
+	QString Fighter::*pMember = nullptr;
+
+	if (specifier == FighterManager::str_CATEGORY)
+	{
+		pMember = &Fighter::category;
+	}
+	else if (specifier == FighterManager::str_CLUB)
+	{
+		pMember = &Fighter::club;
+	}
+	else if (specifier == FighterManager::str_FIRSTNAME)
+	{
+		pMember = &Fighter::first_name;
+	}
+	else if (specifier == FighterManager::str_WEIGHT)
+	{
+		pMember = &Fighter::weight;
+	}
+	else if (specifier == FighterManager::str_LASTNAME)
+	{
+		pMember = &Fighter::last_name;
+	}
+	else
+	{
+		// unknown specifier
+		return resultSet; //TODO: maybe throw exception
+	}
+
+	for (auto const& f : fighters)
+	{
+		if ((f.*pMember) == value || (f.*pMember).isEmpty())
+		{
+			resultSet.insert(f);
+		}
+	}
+
+	return resultSet;
 }

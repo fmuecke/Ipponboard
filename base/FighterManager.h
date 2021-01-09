@@ -22,6 +22,8 @@ class FighterManager : public boost::noncopyable
 public:
 	FighterManager();
 
+	using FighterList = std::set<Ipponboard::Fighter>;
+
 	static char const* const str_FIRSTNAME;
 	static char const* const str_LASTNAME;
 	static char const* const str_CLUB;
@@ -46,8 +48,10 @@ public:
 	bool RemoveFighter(Ipponboard::Fighter f);
 	QStringList GetClubFighterNames(QString const& filter) const;
 
+	static FighterList Filter(FighterList const& fighters, QString const& specifier, QString const& value);
+
 //private:
-	std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
+	FighterList m_fighters; //TODO: encapsulate
 private:
 	static const char Separator {';'};
 

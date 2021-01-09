@@ -192,16 +192,16 @@ void MainWindow::update_fighter_name_completer(const QString& weight, const QStr
 	// filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
-	for (auto const& f : m_fighterManager.m_fighters)
+	auto filteredFighters = FighterManager::Filter(m_fighterManager.m_fighters, FighterManager::str_CATEGORY, category);
+	filteredFighters = FighterManager::Filter(filteredFighters, FighterManager::str_WEIGHT, weight);
+
+	for (auto const& f : filteredFighters)
 	{
-		if (f.weight == weight || f.weight.isEmpty())
-		{
-			if (f.category == category || f.category.isEmpty())
-			{
-				auto fullName =  QString("%1 %2").arg(f.first_name, f.last_name);
-				m_CurrentFighterNames.push_back(fullName);
-			}
-		}
+		auto first = QString(f.first_name).replace(' ', '_');
+		auto last = QString(f.last_name).replace(' ', '_');
+
+		auto fullName =  QString("%1 %2").arg(first, last);
+		m_CurrentFighterNames.push_back(fullName);
 	}
 
 	m_CurrentFighterNames.sort();
@@ -214,10 +214,11 @@ void MainWindow::update_fighter_name_completer(const QString& weight, const QStr
 
 void MainWindow::update_fighters(const QString& s)
 {
-	/*if (s.isEmpty())
+	if (s.isEmpty())
 		return;
 
-	QString firstName = s;
+	/*
+	 QString firstName = s;
 	QString lastName;
 
 	int pos = s.indexOf(' ');
@@ -237,7 +238,8 @@ void MainWindow::update_fighters(const QString& s)
 	fNew.weight = weight;
 	fNew.category = category;
 
-	m_fighterManager.AddFighter(fNew); // only adds fighter if new*/
+	m_fighterManager.AddFighter(fNew); // only adds fighter if new
+	*/
 }
 
 void MainWindow::update_statebar()
