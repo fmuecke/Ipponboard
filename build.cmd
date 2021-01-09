@@ -149,7 +149,7 @@ exit /b 0
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
 	call ::make_doc || exit /b %errorlevel%
-	call "%BASE_DIR%\base\copy_files.cmd" -release || exit /b %errorlevel%
+	call ::copy_files || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -157,6 +157,13 @@ exit /b 0
 	echo;
 	echo -- building doc
 	call "%BASE_DIR%\doc\build_doc.cmd" || exit /b %errorlevel%
+exit /b 0
+
+::-------------------------------
+:copy_files
+	echo;
+	echo -- copying files
+	call "%BASE_DIR%\base\copy_files.cmd" -release || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------

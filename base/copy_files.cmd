@@ -13,7 +13,6 @@ set DEST=%ROOT%\bin
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
 
-echo Copying files...
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
