@@ -7,10 +7,10 @@ CONFIG += console
 TARGET = IpponboardTest
 DESTDIR = bin
 
-#INCLUDEPATH += $$quote($$(BOOST_DIR))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-#QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
-#    ../lib
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
+    ../lib
 
 HEADERS =
 SOURCES = \
@@ -20,7 +20,8 @@ SOURCES = \
     TestFight.cpp \
     TestTournamentMode.cpp \
     TestVersionComparer.cpp \
-    TestRules.cpp
+    TestRules.cpp \
+    TestFighterManager.cpp
 
 OTHER_FILES += \
     TestData/TournamentModes-test.ini \

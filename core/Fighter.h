@@ -26,6 +26,11 @@ public:
 				category == other.category);
 	}
 
+	inline bool operator!=(Fighter const& other) const
+	{
+		return !(*this==other);
+	}
+
 	inline bool operator<(Fighter const& other) const
 	{
 		if (first_name < other.first_name)
