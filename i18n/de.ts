@@ -372,7 +372,7 @@
     <message>
         <location line="+8"/>
         <source>Really remove the %1 selected fighters?</source>
-        <translation>Wieklich die asgewählten %1 Kämpfer entfernen?</translation>
+        <translation>Wirklich die ausgewählten %1 Kämpfer entfernen?</translation>
     </message>
     <message>
         <location line="+74"/>
