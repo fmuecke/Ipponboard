@@ -23,6 +23,7 @@ SOURCES = \
     TestRules.cpp \
     TestFighterManager.cpp \
     TestFighter.cpp \
+	TestSimpleCsvFile.cpp \
     TestQStringHelper.cpp
 
 OTHER_FILES += \
