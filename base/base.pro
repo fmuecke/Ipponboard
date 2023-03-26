@@ -61,7 +61,7 @@ contains(COMPILER, mingw) {
 }
 
 contains(COMPILER, msvc) {
-    QMAKE_CXX += /FS /MP
+    QMAKE_CXX += /FS /MP /std:c++17
     DEFINES += "WINVER=0x0501"
     DEFINES += WIN32 _WIN32_WINNT=0x0501
 
