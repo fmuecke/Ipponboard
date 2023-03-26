@@ -98,7 +98,6 @@ HEADERS = pch.h \
     FighterManagerDlg.h \
     ../util/array_helpers.h \
     ../util/path_helpers.h \
-    ../util/qstring_serialization.h \
     ../widgets/Countdown.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
