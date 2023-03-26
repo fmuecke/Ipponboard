@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <QString>
 #include "helpers.h"
-#include <boost/foreach.hpp>
-
 
 namespace fm
 {
@@ -251,7 +249,7 @@ namespace IocNations
 	static QStringList GetList()
 	{
 		QStringList list;
-		BOOST_FOREACH(Nation const& n, nations)
+		for (Nation const& n: nations)
 		{
 			list.push_back(n.name);
 		}

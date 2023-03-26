@@ -7,7 +7,6 @@
 
 #include "../core/Fighter.h"
 
-#include <boost/noncopyable.hpp>
 #include <array>
 #include <set>
 
@@ -17,10 +16,12 @@ class QStringList;
 namespace Ipponboard
 {
 
-class FighterManager : public boost::noncopyable
+class FighterManager
 {
 public:
 	FighterManager();
+	FighterManager(const FighterManager&) = delete;
+    FighterManager& operator=(const FighterManager&) = delete;
 
 	static char const* const str_FIRSTNAME;
 	static char const* const str_LASTNAME;

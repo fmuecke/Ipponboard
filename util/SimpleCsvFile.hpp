@@ -11,15 +11,13 @@
 #include <QStringList>
 #include <QTextStream>
 
-#include <boost/noncopyable.hpp>
 #include <vector>
 
 namespace fm
 {
 
-class SimpleCsvFile : boost::noncopyable
+namespace SimpleCsvFile
 {
-public:
     static bool ReadItems(
             QString const& fileName,
             QString const& separator,
