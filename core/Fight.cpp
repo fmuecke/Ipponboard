@@ -117,7 +117,7 @@ QString Fight::GetTimeRemainingString() const
 
 bool Fight::HasWon(FighterEnum who) const
 {
-	const FighterEnum other = GetUkeFromTori(who);
+	//unused: const FighterEnum other = GetUkeFromTori(who);
 
 	auto result = rules->CompareScore(*this);
 

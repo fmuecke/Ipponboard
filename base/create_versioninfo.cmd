@@ -6,8 +6,8 @@
 @echo off
 setlocal
 :: --> CHANGE VERSION HERE:
-SET VER1=1
-SET VER2=5
+SET VER1=2
+SET VER2=0
 SET VER3=0
 SET TAG=
 :: that's it. <--

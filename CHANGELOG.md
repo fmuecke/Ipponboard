@@ -1,7 +1,7 @@
 # *Ipponboard* - Version History 
 <small>by Florian Mücke</small>
 
-## Version 1.x (2023-xx-yy)
+## Version 2.x (2023-xx-yy)
 
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
@@ -14,7 +14,7 @@
 - (new): added fighter manager description to the manual (single tournament)
 - (new): added demo fighters `FighterList-Demo.csv`
 
-## Version 1.5 (2021-01-10)
+## Version 2.0 (2021-01-10)
 
 **Ipponboard is now open source**; changed license to BSD-2-clause. See https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt
 

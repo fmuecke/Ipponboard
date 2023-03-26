@@ -30,7 +30,7 @@ OTHER_FILES += \
     TestData/utf8.json \
     TestData/utf8_with_bom.json
 
-QMAKE_CXXFLAGS += -EHsc
+QMAKE_CXXFLAGS += -EHsc /std:c++17
 
 MY_QTBINDIR=$$[QT_INSTALL_BINS]
 

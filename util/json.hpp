@@ -13,7 +13,9 @@
 
 namespace fm
 {
-	namespace Json
+    namespace fs = std::filesystem;
+
+    namespace Json
 	{
 		using ::Json::Value;
 		
@@ -71,7 +73,7 @@ namespace fm
 
 		static Json::Value ReadFile(const char * const & file)
 		{
-			if (!std::tr2::sys::exists(std::tr2::sys::path(file)))
+			if (!fs::exists(fs::path(file)))
 			{
 				throw FileNotFoundException(file);
 			}
