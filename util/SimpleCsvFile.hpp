@@ -70,6 +70,48 @@ namespace SimpleCsvFile
         return true;
     }
 
+    static bool FormatValues(std::vector<QStringList> const& values, QString const& separator, QByteArray& result, QString& errorMsg)
+    {
+        if (values.empty() || values[0].empty() || values[0].at(0).isEmpty())
+        {
+            errorMsg = "no values";
+            return false;
+        }
+
+        result.clear();
+
+        auto const requiredValuesPerLine = values[0].length();
+
+        for (size_t index = 0; index < values.size(); ++index)
+        {
+            auto const& item = values[index];
+            if (item.length() != requiredValuesPerLine)
+            {
+                errorMsg = item.length() < requiredValuesPerLine ?
+                    QObject::tr("item at index %1 has fewer values as required by the first item").arg(QString::number(index)) :
+                    QObject::tr("item at index %1 has more values as required by the first item").arg(QString::number(index));
+
+                return false;
+            }
+
+            // check if item values contain separator
+            for (auto const& value : item)
+            {
+                if (value.contains(separator))
+                {
+                    // TODO: implement escaping
+                    errorMsg = QObject::tr("not supported: item at index %1 contains separator").arg(QString::number(index));
+                    return false;
+                }
+            }
+
+            result.append(item.join(separator));
+            result.append("\n");
+        }
+        
+        return true;
+    }
+
     static bool Read(QString const& fileName, QString const& separator, std::vector<QStringList>& result, QString& errorMsg)
     {
         errorMsg.clear();
