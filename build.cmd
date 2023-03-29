@@ -15,6 +15,7 @@ IF EXIST "%LOCAL_CONFIG%" (
   echo set QTDIR=c:\devtools\qt\qt-4.8.7-vc14\bin\>>"%LOCAL_CONFIG%"
   echo set QMAKESPEC=win32-msvc2015>>"%LOCAL_CONFIG%"
   echo set BOOST_DIR=c:\devtools\boost_1_81_0>>"%LOCAL_CONFIG%"
+  echo set "MSVC_CMD=C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars32.bat">>"%LOCAL_CONFIG%"
   echo set INNO_DIR=c:\devtools\inno setup 5>>"%LOCAL_CONFIG%"
   rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
   echo Please configure paths in "%LOCAL_CONFIG%" first!
@@ -27,6 +28,7 @@ SET BIN_DIR=%BASE_DIR%\bin
 IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 
 rem check for compiler
+call "%MSVC_CMD%"
 cl > nul 2>&1
 IF ERRORLEVEL 1 (
 	ECHO Can't find C++ compiler tools. Please run build.cmd from within Visual Studio x86 Developer Command Prompt 
