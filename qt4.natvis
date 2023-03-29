@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  INSTALLATION INSTRUCTIONS
+  =========================
+  copy file to 
+    %USERPROFILE%\Documents\Visual Studio 2022\Visualizers
+  or to:
+    c:\Users\username\OneDrive\Documents\Visual Studio 2022\Visualizers\
+-->
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+    <Type Name="QChar">
+        <DisplayString>{ucs,c}</DisplayString>
+        <StringView>ucs,c</StringView>
+        <Expand>
+            <Item Name="[latin 1]">ucs > 0xff ? '\0' : char(ucs),c</Item>
+            <Item Name="[unicode]">ucs,c</Item>
+        </Expand>
+    </Type>    
+	
+	<Type Name="QString">
+        <DisplayString>{d-&gt;data,sub}</DisplayString>
+        <StringView>d-&gt;data,sub</StringView>
+        <Expand>
+            <Item Name="[size]">d-&gt;size</Item>
+            <Item Name="[referenced]">d-&gt;ref._q_value</Item>
+            <ArrayItems>
+                <Size>d-&gt;size</Size>
+                <ValuePointer>d-&gt;data,c</ValuePointer>
+            </ArrayItems>
+        </Expand>
+    </Type>
+	
+    <Type Name="QByteArray">
+        <DisplayString>{((reinterpret_cast&lt;char*&gt;(d)) + d-&gt;data),sb}</DisplayString>
+        <StringView>((reinterpret_cast&lt;char*&gt;(d)) + d-&gt;data),sb</StringView>
+        <Expand>
+            <Item Name="[size]">d-&gt;size</Item>
+            <Item Name="[referenced]">d-&gt;ref._q_value</Item>
+            <ArrayItems>
+                <Size>d-&gt;size</Size>
+                <ValuePointer>((reinterpret_cast&lt;char*&gt;(d)) + d-&gt;data),c</ValuePointer>
+            </ArrayItems>
+        </Expand>
+    </Type>	
+
+    <Type Name="QVector&lt;*&gt;">
+        <AlternativeType Name="QStack&lt;*&gt;"></AlternativeType>
+        <DisplayString>{{ size = {d-&gt;size} }}</DisplayString>
+        <Expand>
+            <Item Name="[referenced]">d-&gt;ref._q_value</Item>
+            <Item Name="[size]">d-&gt;size</Item>
+            <Item Name="[capacity]">d-&gt;capacity</Item>
+            <ArrayItems>
+              <Size>d-&gt;size</Size>
+              <ValuePointer>($T1*)(reinterpret_cast&lt;char*&gt;(p-&gt;array))</ValuePointer> 
+            </ArrayItems>
+        </Expand>
+    </Type>
+
+    <Type Name="QList&lt;*&gt;">
+        <AlternativeType Name="QStringList"></AlternativeType>
+        <AlternativeType Name="QQueue&lt;*&gt;"></AlternativeType>
+        <DisplayString>{{ size = {d-&gt;end - d-&gt;begin} }}</DisplayString>
+        <Expand>
+            <Item Name="[referenced]">d-&gt;ref._q_value</Item>
+            <IndexListItems>
+                <Size>d-&gt;end - d-&gt;begin</Size>
+                <ValueNode>*reinterpret_cast&lt;$T1*&gt;((sizeof($T1) &gt; sizeof(void*))
+                    ? reinterpret_cast&lt;Node*&gt;(d->array + d->begin + $i)->v
+                    : reinterpret_cast&lt;$T1*&gt;(d->array + d->begin + $i))
+                </ValueNode>
+            </IndexListItems>
+        </Expand>
+    </Type>
+
+    <Type Name="QLinkedList&lt;*&gt;">
+        <DisplayString>{{ size = {d-&gt;size} }}</DisplayString>
+        <Expand>
+            <Item Name="[referenced]">d-&gt;ref._q_value</Item>
+            <LinkedListItems>
+                <Size>d-&gt;size</Size>
+                <HeadPointer>d-&gt;n</HeadPointer>
+                <NextPointer>n</NextPointer>
+                <ValueNode>(*(QLinkedListNode&lt;$T1&gt;*)this).t</ValueNode>
+            </LinkedListItems>
+        </Expand>
+    </Type>
+	
+	<Type Name="QDateTime">
+		<DisplayString Condition="d-&gt;time.mds == -1">Invalid</DisplayString>
+		<DisplayString Condition="d-&gt;utcOffset == 0">{d-&gt;date}  {d-&gt;time}  UTC</DisplayString>
+		<DisplayString Condition="d-&gt;utcOffset &gt; 0">{d-&gt;date}  {d-&gt;time} UTC+{d-&gt;utcOffset}</DisplayString>
+		<DisplayString Condition="d-&gt;utcOffset &lt; 0">{d-&gt;date}  {d-&gt;time}  UTC{d-&gt;utcOffset}</DisplayString>
+		<Expand>
+			<Item Name="[Date]">d-&gt;date</Item>
+			<Item Name="[Time]">d-&gt;time</Item>
+			<Item Name="[spec]">d-&gt;spec</Item>
+			<Item Name="[offset]">d-&gt;utcOffset</Item>
+		</Expand>
+	</Type>
+		
+    <Type Name="QPair&lt;*,*&gt;">
+        <DisplayString>({first}, {second})</DisplayString>
+        <Expand>
+            <Item Name="[first]">first</Item>
+            <Item Name="[second]">second</Item>
+        </Expand>
+    </Type>
+	
+    <Type Name="QSet&lt;*&gt;">
+        <DisplayString>{{ size = {q_hash.d-&gt;size} }}</DisplayString>
+        <Expand>
+            <ExpandedItem>q_hash</ExpandedItem>
+        </Expand>
+    </Type>	
+	
+    <Type Name="QSize">
+        <AlternativeType Name="QSizeF"/>
+        <DisplayString>{{ width = {wd}, height = {ht} }}</DisplayString>
+        <Expand>
+            <Item Name="[width]">wd</Item>
+            <Item Name="[height]">ht</Item>
+        </Expand>
+    </Type>	
+	
+    <Type Name="QVariant">
+        <DisplayString Condition="d.type == QMetaType::Bool">{d.data.b}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::Int">{d.data.i}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::UInt">{d.data.u}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::LongLong">{d.data.ll}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::ULongLong">{d.data.ull}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::Double">{d.data.d}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QChar">{d.data.c}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QVariantMap">{*((QMap&lt;QString,QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QVariantList">{*((QList&lt;QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QString">{*((QString*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QStringList">{*((QStringList*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QByteArray">{*((QByteArray*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QBitArray">{*((QBitArray*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QDate">{*((QDate*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QTime">{*((QTime*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QDateTime">DateTime</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QUrl">Url</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QLocale">Locale</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QRect">{*((QRect*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QRectF">{*((QRectF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QSize">{*((QSize*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QSizeF">{*((QSizeF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QLine">{*((QLine*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QLineF">{*((QLineF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPoint">{*((QPoint*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPointF">{*((QPointF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QRegExp">RegExp</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QVariantHash">{*((QHash&lt;QString,QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))}</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QFont">Font</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPixmap">Pixmap</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QBrush">Brush</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QColor">Color</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPalette">Palette</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QImage">Image</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPolygon">Polygon</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QRegion">Region</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QBitmap">Bitmap</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QCursor">Cursor</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QKeySequence">KeySequence</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QPen">Pen</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QTextLength">TextLength</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QTextFormat">TextFormat</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QMatrix">Matrix</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QTransform">Transform</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QIcon">Icon</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::QSizePolicy">SizePolicy</DisplayString>
+        <DisplayString Condition="d.type == QMetaType::User">UserType</DisplayString>
+        <DisplayString Condition="d.type == 0xffffffff">LastType</DisplayString>
+
+        <StringView Condition="d.type == QMetaType::QChar">d.data.c</StringView>
+        <StringView Condition="d.type == QMetaType::QString">*((QString*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</StringView>
+        <StringView Condition="d.type == QMetaType::QByteArray">*((QByteArray*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</StringView>
+
+        <Expand>
+            <ExpandedItem Condition="d.type == QMetaType::QVariantMap">*((QMap&lt;QString,QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QVariantList">*((QList&lt;QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QString">*((QString*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QStringList">*((QStringList*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QByteArray">*((QByteArray*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QBitArray">*((QBitArray*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QDate">*((QDate*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QTime">*((QTime*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QRect">*((QRect*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QRectF">*((QRectF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QSize">*((QSize*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QSizeF">*((QSizeF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QLine">*((QLine*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QLineF">*((QLineF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QPoint">*((QPoint*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QPointF">*((QPointF*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+            <ExpandedItem Condition="d.type == QMetaType::QVariantHash">*((QHash&lt;QString,QVariant&gt;*)(d.is_shared ? d.data.shared-&gt;ptr : reinterpret_cast&lt;const void *&gt;(&amp;d.data.ptr)))</ExpandedItem>
+        </Expand>
+    </Type>
+	
+	<Type Name="QUrl">
+		<StringView Condition="d.stateFalgs == 0">{d}</StringView>
+		<StringView>{d-&gt;scheme}{d-&gt;host}{d-&gt;path}</StringView>
+		<Expand>
+			<Item Name="scheme">d-&gt;sheme</Item>
+			<Item Name="host">d-&gt;host</Item>
+			<Item Name="path">d-&gt;path</Item>
+			<Item Name="username">d-&gt;username</Item>
+			<Item Name="password">d-&gt;password</Item>
+			<Item Name="encodedOriginal">d-&gt;encodedOriginal</Item>
+			<Item Name="query">d-&gt;query</Item>
+			<Item Name="fragment">d-&gt;fragment</Item>
+		</Expand>
+	</Type>	
+	
+</AutoVisualizer>
