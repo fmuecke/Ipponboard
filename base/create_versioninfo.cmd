@@ -12,27 +12,27 @@ SET VER3=0
 SET TAG=
 :: that's it. <--
 
-rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
-git log -1 --format=%%h > ..\base\.revision
-SET /P REV=<..\base\.revision
+pushd %~dp0
+git log -1 --format=%%h > %~dp0.revision
+SET /P REV=<%~dp0.revision
 
 rem hg parents --template {date^|localdate^|isodate} > ..\base\.date
-git log -1 --format=%%ci > ..\base\.date
-SET /P REV_DATE=<..\base\.date
+git log -1 --format=%%ci > %~dp0.date
+SET /P REV_DATE=<%~dp0.date
 
-SET FILENAME_NO_EXT=..\base\versioninfo
-IF NOT EXIST ..\base\.buildnr (
+SET FILENAME_NO_EXT=%~dp0versioninfo
+IF NOT EXIST %~dp0.buildnr (
 	SET VER4=0
 ) ELSE (
-	SET /P VER4=<..\base\.buildnr
+	SET /P VER4=<%~dp0.buildnr
 	IF NOT EXIST %FILENAME_NO_EXT%.h SET /A VER4+=1 >nul
 	)
 )
-echo %VER4% >..\base\.buildnr
+echo %VER4% >%~dp0.buildnr
 
 IF EXIST %FILENAME_NO_EXT%.h (
 	echo --^> version info up to date: %VER1%.%VER2%.%VER3%.%VER4%
-	goto :eof
+	goto the_end
 )
 
 SET IPPONBOARD_VERSION=%VER1%.%VER2%.%VER3%.%VER4%
@@ -73,7 +73,7 @@ move %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
 :: --
 :: Update RC file
 :: --
-SET RC_FILE=..\base\Ipponboard.rc
+SET RC_FILE=%~dp0Ipponboard.rc
 ECHO //>%RC_FILE%
 ECHO // FILE IS GENERATED - DO NOT CHANGE!!>>%RC_FILE%
 ECHO //>>%RC_FILE%
@@ -118,3 +118,6 @@ ECHO         VALUE "Translation", 0x400, 1200>>%RC_FILE%
 ECHO     END>>%RC_FILE%
 ECHO END>>%RC_FILE%
 ECHO /////////////////////////////////////////////////////////////////////////////>>%RC_FILE%
+
+:the_end
+popd
