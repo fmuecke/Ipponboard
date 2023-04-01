@@ -668,9 +668,7 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-	QString csvFile(
-		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+    QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
 	QString errorMsg;
 

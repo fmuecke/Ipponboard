@@ -332,8 +332,9 @@ void MainWindowTeam::read_specific_settings(QSettings& settings)
 void MainWindowTeam::on_actionManageFighters_triggered()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
+    QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
-	FighterManagerDlg dlg(m_fighterManager, this);
+    FighterManagerDlg dlg(m_fighterManager, csvFile, this);
 	dlg.exec();
 }
 

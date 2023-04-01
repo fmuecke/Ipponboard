@@ -36,7 +36,8 @@ public:
 
 	explicit FighterManagerDlg(
 		Ipponboard::FighterManager& manager,
-		QWidget* parent = nullptr);
+        QString fighterFile,
+        QWidget* parent = nullptr);
 
 	virtual ~FighterManagerDlg();
 

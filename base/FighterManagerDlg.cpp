@@ -2,11 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "fightermanagerdlg.h"
-#include "ui_fightermanagerdlg.h"
+#include "FighterManagerDlg.h"
+#include "ui_FighterManagerDlg.h"
 
 #include "FighterManager.h"
-#include "../core/fighter.h"
+#include "../core/Fighter.h"
 //#include "../util/path_helpers.h"
 
 #include <QInputDialog>
@@ -20,7 +20,8 @@
 //---------------------------------------------------------
 FighterManagerDlg::FighterManagerDlg(
 	Ipponboard::FighterManager& manager,
-	QWidget* parent)
+    QString fighterFile,
+    QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::FighterManagerDlg)
 	, m_manager(manager)
@@ -28,6 +29,7 @@ FighterManagerDlg::FighterManagerDlg(
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
+    ui->label_FighterFile->setText(fighterFile);
 
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
