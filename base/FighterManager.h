@@ -33,7 +33,7 @@ public:
 
 	static const std::array<char const* const, 5> Specifiers;
 
-	static QString GetCsvHeaderFormat(); // returns all specifiers separated by Separator
+	static QStringList GetCsvHeader(); // returns all specifiers separated by Separator
 
 	bool Contains(Ipponboard::Fighter const& f) const;
 
@@ -56,8 +56,7 @@ public:
 //private:
 	FighterList m_fighters; //TODO: encapsulate
 private:
-	static const char Separator {';'};
-
+    static char const* const str_Separator;
 };
 
 }  // namespace Ipponboard

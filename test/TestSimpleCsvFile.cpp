@@ -132,59 +132,77 @@ TEST_CASE("ParseData: single newline at the end is ignored")
 	REQUIRE(csv::ParseData(data, ",", result, errorMsg) == true);
 	REQUIRE(errorMsg == "");
 	REQUIRE(result.size() == 2);
+	REQUIRE(result[1].at(0) == "one");
 }
 
-TEST_CASE("ParseData: multiple newlines at the end are invalid")
+TEST_CASE("ParseData: UTF8-BOM is ignored")
 {
-	QByteArray data{ "abc,def\none,two\n\n" };
+	QByteArray data;
+	data += static_cast<char>(0xEF);
+	data += static_cast<char>(0xBB);
+	data += static_cast<char>(0xBF);
+	data += "abc, def\none, two\n";
+
 	std::vector<QStringList> result;
 	QString errorMsg;
-	REQUIRE(csv::ParseData(data, ",", result, errorMsg) == false);
-	REQUIRE(errorMsg != "");
-	REQUIRE(result.empty());
+	REQUIRE(csv::ParseData(data, ",", result, errorMsg) == true);
+	REQUIRE(errorMsg == "");
+	REQUIRE(result.size() == 2);
+	REQUIRE(result[1].at(0) == "one");
 }
 
-TEST_CASE("FormatValues: no values is invalid")
+TEST_CASE("EncodeValues: encode in UTF-8")
+{
+	std::vector<QStringList> data{ QStringList{ "Mücke" } };
+
+	QByteArray resultData;
+	QString errorMsg;
+	REQUIRE(csv::EncodeValues(data, ",", resultData, errorMsg) == true);
+	REQUIRE(errorMsg == "");
+	REQUIRE(resultData == QString(u8"Mücke\n"));
+}
+
+TEST_CASE("EncodeValues: no values is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("FormatValues: empty value is invalid")
+TEST_CASE("EncodeValues: empty value is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
 	values.push_back(QStringList());
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("FormatValues: value containing empty value is invalid")
+TEST_CASE("EncodeValues: value containing empty value is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
 	values.push_back(QStringList{""});
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("FormatValues: single value")
+TEST_CASE("EncodeValues: single value")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values{ QStringList{ "one" } };
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == true);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == true);
 	REQUIRE(errorMsg == "");
 	QByteArray const expectedData{ "one\n" };
 	REQUIRE(expectedData == resultData);
 }
 
-TEST_CASE("FormatValues: items must have same number of values")
+TEST_CASE("EncodeValues: items must have same number of values")
 {
 	QStringList firstItem{ "one" };
 	QStringList secondItem{ "one" };
@@ -193,16 +211,15 @@ TEST_CASE("FormatValues: items must have same number of values")
 
 	QByteArray resultData;
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(moreValues, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(moreValues, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "item at index 1 has more values as required by the first item");
 
 	std::vector<QStringList> fewerValues{ secondItem, firstItem };
-	REQUIRE(csv::FormatValues(fewerValues, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(fewerValues, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "item at index 1 has fewer values as required by the first item");
-
 }
 
-TEST_CASE("FormatValues: valid data case")
+TEST_CASE("EncodeValues: valid data case")
 {
 	QByteArray const expectedData{ "abc,def\none,two\n" };
 	
@@ -210,7 +227,7 @@ TEST_CASE("FormatValues: valid data case")
 	std::vector<QStringList> values;
 	QString errorMsg;
 	REQUIRE(csv::ParseData(expectedData, ",", values, errorMsg) == true);
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == true);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == true);
 	REQUIRE(errorMsg == "");
 	REQUIRE(expectedData.length() == resultData.length());
 	REQUIRE(expectedData == resultData);
@@ -222,6 +239,12 @@ TEST_CASE("values containing separator are not allowed")
 
 	QByteArray resultData;
 	QString errorMsg;
-	REQUIRE(csv::FormatValues(values, ",", resultData, errorMsg) == false);
+	REQUIRE(csv::EncodeValues(values, ",", resultData, errorMsg) == false);
 	REQUIRE(errorMsg == "not supported: item at index 0 contains separator");
+
+	errorMsg.clear();
+	REQUIRE(csv::EncodeValues(values, ";", resultData, errorMsg) == true);
+	REQUIRE(errorMsg == "");
 }
+
+

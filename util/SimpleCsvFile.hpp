@@ -28,7 +28,7 @@ namespace SimpleCsvFile
     {
         if (data.isEmpty())
         {
-            errorMsg = QObject::tr("no data");
+            errorMsg = "no data";
             return false;
         }
 
@@ -38,6 +38,7 @@ namespace SimpleCsvFile
             return false;
         }
 
+        errorMsg.clear();
         QTextStream in(data, QIODevice::ReadOnly);
 
         in.setCodec("UTF-8");
@@ -70,7 +71,7 @@ namespace SimpleCsvFile
         return true;
     }
 
-    static bool FormatValues(std::vector<QStringList> const& values, QString const& separator, QByteArray& result, QString& errorMsg)
+    static bool EncodeValues(std::vector<QStringList> const& values, QString const& separator, QByteArray& result, QString& errorMsg)
     {
         if (values.empty() || values[0].empty() || values[0].at(0).isEmpty())
         {
@@ -78,6 +79,7 @@ namespace SimpleCsvFile
             return false;
         }
 
+        errorMsg.clear();
         result.clear();
 
         auto const requiredValuesPerLine = values[0].length();
@@ -105,7 +107,7 @@ namespace SimpleCsvFile
                 }
             }
 
-            result.append(item.join(separator));
+            result.append(item.join(separator).toUtf8());
             result.append("\n");
         }
         
@@ -115,6 +117,7 @@ namespace SimpleCsvFile
     static bool Read(QString const& fileName, QString const& separator, std::vector<QStringList>& result, QString& errorMsg)
     {
         errorMsg.clear();
+        result.clear();
 
         QFile file(fileName);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -123,46 +126,13 @@ namespace SimpleCsvFile
             return false;
         }
 
-        result.clear();
-
-		QTextStream in(&file);
-		in.setCodec("UTF-8");
-
-        int lineNo = 0;
-        int itemsPerLine = 0;
-
-        for (QString line = in.readLine(); !line.isNull(); ++lineNo)
-        {
-            QStringList splittedLine = line.split(separator);
-
-            if (itemsPerLine == 0)
-            {
-                itemsPerLine = splittedLine.length();
-            }
-
-            if (splittedLine.length() != itemsPerLine)
-            {
-                errorMsg = QObject::tr("Error parsing file %1:\n"
-                              "line %2 has %3 items instead of %4 like in the previous lines")
-                        .arg(fileName)
-                        .arg(QString::number(lineNo+1))
-                        .arg(QString::number(itemsPerLine))
-                        .arg(QString::number(splittedLine.length()));
-
-                return false;
-            }
-
-            result.push_back(splittedLine);
-
-            line = in.readLine();
-        }
-
+        auto isSuccess = ParseData(file.readAll(), separator, result, errorMsg);
         file.close();
 
-        return true;
+        return isSuccess;
     }
 
-	static bool Write(QString const& fileName, QStringList const& data, QString& errorMsg)
+	static bool Write(QString const& fileName, std::vector<QStringList> const& itemData, QString const& separator, QString& errorMsg)
     {
         errorMsg.clear();
 
@@ -173,25 +143,20 @@ namespace SimpleCsvFile
             return false;
         }
 
-        if (data.empty())
+        QByteArray result{};
+        if (EncodeValues(itemData, separator, result, errorMsg))
         {
-        //    errorMsg = QObject::tr("Error writing to file %1:\nno data to write").arg(fileName);
-        //    return false;
+            file.write(result);
+            file.close();
+            return true;
         }
-		else
-		{
-			QTextStream outStream(&file);
-			outStream.setCodec("UTF-8");
-			outStream.setGenerateByteOrderMark(true);
-			Q_FOREACH(QString const& line, data)
-			{
-				outStream << line << endl;
-			}
-		}
-
-        return true;
+        else
+        {
+            file.close();
+            return false;
+        }
     }
-};
+}
 }
 
 #endif // _UTIL_SIMPLECSVFILE_HPP

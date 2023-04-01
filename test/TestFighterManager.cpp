@@ -20,7 +20,7 @@ static Fighter GetDummyFighter()
 
 TEST_CASE("CSV header format is @FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY")
 {
-	REQUIRE(FighterManager::GetCsvHeaderFormat() == "@FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY");
+	REQUIRE(FighterManager::GetCsvHeader().join(";") == "@FIRSTNAME;@LASTNAME;@CLUB;@WEIGHT;@CATEGORY");
 }
 
 TEST_CASE("Add new fighter increases fighter count")

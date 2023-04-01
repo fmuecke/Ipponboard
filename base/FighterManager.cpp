@@ -16,6 +16,7 @@ char const* const FighterManager::str_LASTNAME = "@LASTNAME";
 char const* const FighterManager::str_CLUB = "@CLUB";
 char const* const FighterManager::str_WEIGHT = "@WEIGHT";
 char const* const FighterManager::str_CATEGORY = "@CATEGORY";
+char const* const FighterManager::str_Separator = ";";
 
 const std::array<char const* const, 5> FighterManager::Specifiers =
 {
@@ -31,21 +32,16 @@ FighterManager::FighterManager()
 {
 }
 
-QString FighterManager::GetCsvHeaderFormat()
+QStringList FighterManager::GetCsvHeader()
 {
-	QString retVal;
+	QStringList headerValues;
 
 	for (auto const s : Specifiers)
 	{
-		if (!retVal.isEmpty())
-		{
-			retVal.append(Separator);
-		}
-
-		retVal.append(s);
+		headerValues.append(s);
 	}
 
-	return retVal;
+	return headerValues;
 }
 
 bool FighterManager::Contains(const Fighter &other) const
@@ -88,14 +84,16 @@ bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
 	errorMsg.clear();
 
 	std::vector<QStringList> data;
-	if (!fm::SimpleCsvFile::ReadItems(csvFile, &Separator, data, errorMsg))
+    if (!fm::SimpleCsvFile::Read(csvFile, str_Separator, data, errorMsg))
 	{
 		return false;
 	}
 
-	if (data.empty() || data[0].join(&Separator) != GetCsvHeaderFormat())
+    auto const expectedHeaderItems = GetCsvHeader();
+
+    if (data.empty() || data[0] != expectedHeaderItems)
 	{
-		errorMsg = QObject::tr("No fighters were added: file %1 does not have the proper header:\n\n%2").arg(csvFile, GetCsvHeaderFormat());
+        errorMsg = QObject::tr("No fighters were added: file %1 does not have the proper header:\n\n%2").arg(csvFile, expectedHeaderItems.join(str_Separator));
 		return false;
 	}
 
@@ -106,7 +104,7 @@ bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
 		auto line = data[i];
 		if (line.count() != Specifiers.size())
 		{
-			errorMsg = QObject::tr("Line %1 of file %2 does not have the right number of fields").arg(i).arg(csvFile);
+			errorMsg = QObject::tr("Line %1 of file %2 has %3 fields but should have %4.").arg(i).arg(csvFile).arg(line.count()).arg(Specifiers.size());
 			return false;
 		}
 
@@ -127,20 +125,26 @@ bool FighterManager::SaveFighters(QString const& csvFile, QString& errorMsg)
 {
 	errorMsg.clear();
 
-	QStringList data;
-	data.push_back(GetCsvHeaderFormat());
+	std::vector<QStringList> itemData;
+	itemData.push_back(GetCsvHeader());
 
 	for (Ipponboard::Fighter const & f : m_fighters)
 	{
-		data.push_back(QString("%1;%2;%3;%4;%5").arg(f.first_name, f.last_name, f.club, f.weight, f.category));
+		QStringList item;
+		item.append(f.first_name);
+		item.append(f.last_name);
+		item.append(f.club);
+		item.append(f.weight);
+		item.append(f.category);
+		itemData.push_back(item);
 	}
 
-	if (!fm::SimpleCsvFile::WriteData(csvFile, data, errorMsg))
+    if (!fm::SimpleCsvFile::Write(csvFile, itemData, str_Separator, errorMsg))
 	{
 		return false;
 	}
 
-	qDebug("Successfully saved %i fighters to %s.", m_fighters.size(), csvFile);
+    qDebug("Successfully saved %i fighters to %s.", m_fighters.size(), csvFile.toStdString().c_str());
 	return true;
 }
 
