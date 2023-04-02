@@ -56,6 +56,7 @@ private slots:
 	//void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
+    void on_toolButton_openFolder_pressed();
 
 private:
 	void populate_view();

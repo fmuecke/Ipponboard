@@ -14,6 +14,10 @@
 #include <QMessageBox>
 #include <QRegExp>
 #include <QPlainTextEdit>
+#include <QDesktopServices>
+#include <QUrl>
+
+#include <filesystem>
 
 //using namespace Ipponboard;
 
@@ -120,6 +124,12 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 	pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 	ui->treeWidget_fighters->addTopLevelItem(pItem);
 
+}
+
+void FighterManagerDlg::on_toolButton_openFolder_pressed()
+{
+    auto path = std::filesystem::path(ui->label_FighterFile->text().toStdString());
+    QDesktopServices::openUrl(QUrl(("file:///" + path.parent_path().string()).c_str()));
 }
 
 void FighterManagerDlg::populate_view()
