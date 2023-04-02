@@ -39,16 +39,16 @@ prebuildhook.depends = prebuild
 CONFIG(debug, release|debug) {
 	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d
-    QMAKE_LIBS += -lshell32
+    QMAKE_LIBS += -lshell32 -lOle32
 }
 
 CONFIG(release, release|debug) {
     prebuildhook.target = Makefile.Release
 	TARGET = Ipponboard
-    QMAKE_LIBS += -lshell32
+    QMAKE_LIBS += -lshell32 -lOle32
 }
 
-QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
+QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,6.00
 
 # Auto select compiler 
 win32-g++: COMPILER = mingw
@@ -63,8 +63,8 @@ contains(COMPILER, mingw) {
 
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS /MP /std:c++17
-    DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501
+    DEFINES += "WINVER=_WIN32_WINNT_VISTA"
+    DEFINES += WIN32 _WIN32_WINNT=0x0600
 
     # remove unneccessary output files
     #QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib>nul 

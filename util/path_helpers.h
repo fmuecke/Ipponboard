@@ -18,11 +18,8 @@
 #define nullptr NULL
 #endif
 
-#if 0
-#include <boost/filesystem.hpp>
-#endif
-
 #include <string>
+#include <filesystem>
 
 namespace fm
 {
@@ -30,69 +27,18 @@ namespace fm
 namespace
 {
 
-enum EShellFolderType
+enum EShellFolderType_DEPRECATED
 {
 	// http://msdn.microsoft.com/en-us/library/bb762494(v=vs.85).aspx
 	eShellFolderType_ADMINTOOLS = CSIDL_ADMINTOOLS,
-	//eShellFolderType_ALTSTARTUP
 	//eShellFolderType_APPDATA
-	//eShellFolderType_BITBUCKET
-	//eShellFolderType_CDBURN_AREA
-	//eShellFolderType_COMMON_ADMINTOOLS
-	//eShellFolderType_COMMON_ALTSTARTUP
 	eShellFolderType_COMMON_APPDATA = CSIDL_COMMON_APPDATA
-									  //eShellFolderType_COMMON_DESKTOPDIRECTORY
-									  //eShellFolderType_COMMON_DOCUMENTS
-									  //eShellFolderType_COMMON_FAVORITES
-									  //eShellFolderType_COMMON_MUSIC
-									  //eShellFolderType_COMMON_OEM_LINKS
-									  //eShellFolderType_COMMON_PICTURES
-									  //eShellFolderType_COMMON_PROGRAMS
-									  //eShellFolderType_COMMON_STARTMENU
-									  //eShellFolderType_COMMON_STARTUP
-									  //eShellFolderType_COMMON_TEMPLATES
-									  //eShellFolderType_COMMON_VIDEO
-									  //eShellFolderType_COMPUTERSNEARME
-									  //eShellFolderType_CONNECTIONS
-									  //eShellFolderType_CONTROLS
-									  //eShellFolderType_COOKIES
-									  //eShellFolderType_DESKTOP
-									  //eShellFolderType_DESKTOPDIRECTORY
-									  //eShellFolderType_DRIVES
-									  //eShellFolderType_FAVORITES
-									  //eShellFolderType_FONTS
-									  //eShellFolderType_HISTORY
-									  //eShellFolderType_INTERNET
-									  //eShellFolderType_INTERNET_CACHE
-									  //eShellFolderType_LOCAL_APPDATA
-									  //eShellFolderType_MYDOCUMENTS
-									  //eShellFolderType_MYMUSIC
-									  //eShellFolderType_MYPICTURES
-									  //eShellFolderType_MYVIDEO
-									  //eShellFolderType_NETHOOD
-									  //eShellFolderType_NETWORK
-									  //eShellFolderType_PERSONAL
-									  //eShellFolderType_PRINTERS
-									  //eShellFolderType_PRINTHOOD
-									  //eShellFolderType_PROFILE
-									  //eShellFolderType_PROGRAM_FILES
-									  //eShellFolderType_PROGRAM_FILESX86
-									  //eShellFolderType_PROGRAM_FILES_COMMON
-									  //eShellFolderType_PROGRAM_FILES_COMMONX86
-									  //eShellFolderType_PROGRAMS
-									  //eShellFolderType_RECENT
-									  //eShellFolderType_RESOURCES
-									  //eShellFolderType_RESOURCES_LOCALIZED
-									  //eShellFolderType_SENDTO
-									  //eShellFolderType_STARTMENU
-									  //eShellFolderType_STARTUP
-									  //eShellFolderType_SYSTEM
-									  //eShellFolderType_SYSTEMX86
-									  //eShellFolderType_TEMPLATES
-									  //eShellFolderType_WINDOWS
+	//eShellFolderType_COMMON_DOCUMENTS
+	//eShellFolderType_DESKTOP
+	//eShellFolderType_LOCAL_APPDATA
 };
 
-const std::string GetShellFolder(EShellFolderType what)
+const std::string GetShellFolder_DEPRECATED(EShellFolderType_DEPRECATED what)
 {
 #ifndef _WIN32
 	// TODO: handle other platforms (when needed)
@@ -107,42 +53,67 @@ const std::string GetShellFolder(EShellFolderType what)
 	return ret;
 }
 
-const std::string GetCommonAppData()
+struct KnownFolders
 {
-	return GetShellFolder(eShellFolderType_COMMON_APPDATA);
-}
+	// reference: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
+
+	static const std::string get_AppDataDesktop() { return get_folder(FOLDERID_AppDataDesktop); }
+	static const std::string get_AppDataDocuments() { return get_folder(FOLDERID_AppDataDocuments); }
+	static const std::string get_AppDataProgramData() { return get_folder(FOLDERID_AppDataProgramData); }
+	static const std::string get_ApplicationShortcuts() { return get_folder(FOLDERID_ApplicationShortcuts); }
+	static const std::string get_Desktop() { return get_folder(FOLDERID_Desktop); }
+	static const std::string get_Documents() { return get_folder(FOLDERID_Documents); }
+	static const std::string get_DocumentsLibrary() { return get_folder(FOLDERID_DocumentsLibrary); }
+	static const std::string get_Downloads() { return get_folder(FOLDERID_Downloads); }
+	static const std::string get_LocalAppData() { return get_folder(FOLDERID_LocalAppData); }
+	static const std::string get_LocalAppDataLow() { return get_folder(FOLDERID_LocalAppDataLow); }
+	static const std::string get_Profile() { return get_folder(FOLDERID_Profile); }
+	static const std::string get_ProgramData() { return get_folder(FOLDERID_ProgramData); }
+	static const std::string get_ProgramFiles() { return get_folder(FOLDERID_ProgramFiles); }
+#ifdef _WIN64
+	static const std::string get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
+#endif
+	static const std::string get_ProgramFilesX86() { return get_folder(FOLDERID_ProgramFilesX86); }
+	static const std::string get_RoamingAppData() { return get_folder(FOLDERID_RoamingAppData); }
+	static const std::string get_ProgramFilesCommon() { return get_folder(FOLDERID_ProgramFilesCommon); }
+
+private:
+	static std::string get_folder(GUID folderId)
+	{
+		PWSTR folder{ nullptr };
+		std::string result;
+		if (SUCCEEDED(::SHGetKnownFolderPath(folderId, 0, nullptr, &folder)))
+		{
+			result = std::filesystem::path(folder).string();
+		}
+		::CoTaskMemFree(folder);
+		return result;
+	}
+};
+
 
 const std::string GetSettingsFilePath(const char* fileName)
 {
 	// (1) use file in common app data
 	// (2) create file or error
-	std::string filePath(fileName);
+	//std::string filePath(fileName);
 
-	filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
-	filePath.append(fileName);
-#if 0
-
-	// Unfortunately this did not link anymore with vc2010/Qt4.8.2/boost 1.50
-	if (!boost::filesystem::exists(filePath))
-#else
-	// so we need to go plain Win32
-#	ifndef _WIN32
-	// TODO: handle other platforms (when needed)
-#	error "not implemented yet"
-#	endif
-	const DWORD dwAttrib = ::GetFileAttributesA(filePath.c_str());
-
-	if (dwAttrib == INVALID_FILE_ATTRIBUTES ||
-			(dwAttrib & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY)
-#endif
+	std::filesystem::path basePath{ KnownFolders::get_LocalAppData() };
+	if (!std::filesystem::exists(basePath))
 	{
-		filePath.assign(fileName);
+		return fileName;
 	}
 
-	return filePath;
+	auto configPath = basePath.append("Ipponboard");
+	if (!std::filesystem::exists(configPath) && !std::filesystem::create_directory(configPath))
+	{
+		return fileName;
+	}
+
+	return configPath.append(fileName).string();
 }
 
 } // anonymous namespace
-} // namespace fmu
+}
 
 #endif  // UTIL__PATH_HELPERS_H_

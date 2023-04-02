@@ -17,7 +17,6 @@
 
 //using namespace Ipponboard;
 
-//---------------------------------------------------------
 FighterManagerDlg::FighterManagerDlg(
 	Ipponboard::FighterManager& manager,
     QString fighterFile,
@@ -26,7 +25,6 @@ FighterManagerDlg::FighterManagerDlg(
 	, ui(new Ui::FighterManagerDlg)
 	, m_manager(manager)
 	, m_filter()
-//---------------------------------------------------------
 {
 	ui->setupUi(this);
     ui->label_FighterFile->setText(fighterFile);
@@ -51,16 +49,12 @@ FighterManagerDlg::FighterManagerDlg(
 	populate_view();
 }
 
-//---------------------------------------------------------
 FighterManagerDlg::~FighterManagerDlg()
-//---------------------------------------------------------
 {
 	delete ui;
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QString& value)
-//---------------------------------------------------------
 {
 	if (column >= 0 && column < eColumn_MAX)
 	{
@@ -81,7 +75,7 @@ Ipponboard::Fighter FighterManagerDlg::itemToFighter(QTreeWidgetItem* pItem) con
 	f.weight = pItem->text(eColumn_weight);
 	f.category = pItem->text(eColumn_category);
 
-	return std::move(f);
+    return f;
 }
 
 
@@ -97,12 +91,11 @@ QStringList FighterManagerDlg::fighterToItemData(Ipponboard::Fighter f) const
 	contents[eColumn_firstName] = f.first_name;
 	contents[eColumn_lastName] = f.last_name;
 
-	return std::move(contents);
+    return contents;
 }
 
-//---------------------------------------------------------
+
 void FighterManagerDlg::changeEvent(QEvent* e)
-//---------------------------------------------------------
 {
 	QDialog::changeEvent(e);
 
@@ -117,9 +110,7 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 	}
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::on_pushButton_add_pressed()
-//---------------------------------------------------------
 {
 	auto f = m_manager.AddNewFighter();
 	auto contents = fighterToItemData(f);
@@ -131,9 +122,7 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::populate_view()
-//---------------------------------------------------------
 {
 	ui->treeWidget_fighters->clear();
 
@@ -211,9 +200,7 @@ void FighterManagerDlg::populate_view()
 	});
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::on_pushButton_import_pressed()
-//---------------------------------------------------------
 {
 	const QString fileName = QFileDialog::getOpenFileName(this,
 							 tr("Select CSV file with fighters"),
@@ -236,9 +223,7 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 	populate_view();
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::on_pushButton_export_pressed()
-//---------------------------------------------------------
 {
 	const QString fileName = QFileDialog::getSaveFileName(this,
 							 tr("Name CSV file to store fighters in"),
@@ -263,9 +248,7 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 	}
 }
 
-//---------------------------------------------------------
 void FighterManagerDlg::on_pushButton_remove_pressed()
-//---------------------------------------------------------
 {
 	auto selectedItems = ui->treeWidget_fighters->selectedItems();
 	auto removeItems = false;
@@ -301,10 +284,7 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 	}
 }
 
-//---------------------------------------------------------
-void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
-	QTreeWidgetItem* pItem, int column)
-//---------------------------------------------------------
+void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pItem, int column)
 {
 	if (pItem)
 	{
