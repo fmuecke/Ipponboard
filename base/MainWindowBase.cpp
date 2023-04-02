@@ -671,8 +671,9 @@ void MainWindowBase::load_fighters()
     QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
 	QString errorMsg;
+    m_fighterManager.defaultCsvFile = csvFile;
 
-	if (!m_fighterManager.LoadFighters(csvFile, errorMsg))
+    if (!m_fighterManager.LoadFighters(m_fighterManager.defaultCsvFile, errorMsg))
 	{
 		// only show error, if file did exist
 		// -> ensures proper default file creating and handling
@@ -685,10 +686,10 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-	QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+    //QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
 
 	QString errorMsg;
-	if (!m_fighterManager.SaveFighters(csvFile, errorMsg))
+    if (!m_fighterManager.SaveFighters(m_fighterManager.defaultCsvFile, errorMsg))
 	{
 		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 	}

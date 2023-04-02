@@ -109,8 +109,7 @@ void MainWindow::on_actionManageFighters_triggered()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
 
-    QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
-    FighterManagerDlg dlg(m_fighterManager, csvFile, this);
+    FighterManagerDlg dlg(m_fighterManager, this);
 	dlg.exec();
 	on_comboBox_weight_currentIndexChanged(m_pUi->comboBox_weight->currentText());
 }

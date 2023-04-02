@@ -23,7 +23,6 @@
 
 FighterManagerDlg::FighterManagerDlg(
 	Ipponboard::FighterManager& manager,
-    QString fighterFile,
     QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::FighterManagerDlg)
@@ -31,7 +30,7 @@ FighterManagerDlg::FighterManagerDlg(
 	, m_filter()
 {
 	ui->setupUi(this);
-    ui->label_FighterFile->setText(fighterFile);
+    ui->label_FighterFile->setText(m_manager.defaultCsvFile);
 
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
@@ -128,8 +127,39 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
 void FighterManagerDlg::on_toolButton_openFolder_pressed()
 {
-    auto path = std::filesystem::path(ui->label_FighterFile->text().toStdString());
+    auto path = std::filesystem::path(m_manager.defaultCsvFile.toStdString());
     QDesktopServices::openUrl(QUrl(("file:///" + path.parent_path().string()).c_str()));
+}
+
+void FighterManagerDlg::on_toolButton_reload_pressed()
+{
+    QString errorMsg;
+    if (!m_manager.LoadFighters(m_manager.defaultCsvFile, errorMsg))
+    {
+        QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
+    }
+    else
+    {
+        QMessageBox::information(this, QCoreApplication::applicationName(), tr("Successfully read fighters from %1").arg(m_manager.defaultCsvFile));
+        populate_view();
+    }
+
+    ui->toolButton_reload->setDown(false);
+}
+
+void FighterManagerDlg::on_toolButton_save_pressed()
+{
+    QString errorMsg;
+    if (!m_manager.SaveFighters(m_manager.defaultCsvFile, errorMsg))
+    {
+        QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
+    }
+    else
+    {
+        QMessageBox::information(this, QCoreApplication::applicationName(), tr("Successfully updated %1").arg(m_manager.defaultCsvFile));
+    }
+
+    ui->toolButton_save->setDown(false);
 }
 
 void FighterManagerDlg::populate_view()

@@ -6,7 +6,7 @@
 #include "ui_MainWindowTeam.h"
 
 #include "ScoreScreen.h"
-#include "../base/ComboboxDelegate.h"
+#include "../base/ComboBoxDelegate.h"
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
@@ -332,9 +332,7 @@ void MainWindowTeam::read_specific_settings(QSettings& settings)
 void MainWindowTeam::on_actionManageFighters_triggered()
 {
 	MainWindowBase::on_actionManageFighters_triggered();
-    QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
-
-    FighterManagerDlg dlg(m_fighterManager, csvFile, this);
+    FighterManagerDlg dlg(m_fighterManager, this);
 	dlg.exec();
 }
 

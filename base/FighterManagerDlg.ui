@@ -99,6 +99,58 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="toolButton_reload">
+       <property name="statusTip">
+        <string>re-load from file</string>
+       </property>
+       <property name="text">
+        <string notr="true">save</string>
+       </property>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/icons/arrow-circle.png</normaloff>:/res/icons/arrow-circle.png</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::DelayedPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonIconOnly</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+       <property name="arrowType">
+        <enum>Qt::NoArrow</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButton_save">
+       <property name="statusTip">
+        <string>save to file</string>
+       </property>
+       <property name="text">
+        <string notr="true">save</string>
+       </property>
+       <property name="icon">
+        <iconset resource="ipponboard.qrc">
+         <normaloff>:/res/icons/save.png</normaloff>:/res/icons/save.png</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::DelayedPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonIconOnly</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+       <property name="arrowType">
+        <enum>Qt::NoArrow</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QToolButton" name="toolButton_openFolder">
        <property name="statusTip">
         <string>open folder</string>
@@ -114,6 +166,9 @@
        </property>
        <property name="toolButtonStyle">
         <enum>Qt::ToolButtonTextOnly</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
        </property>
        <property name="arrowType">
         <enum>Qt::NoArrow</enum>

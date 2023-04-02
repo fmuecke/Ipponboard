@@ -3,10 +3,12 @@
 
 ## Version 2.x (2023-xx-yy)
 
+- (mod): WindowsXP is no longer supported!
+- (new): default fighter file can be saved and re-loaded directly from within fighter manager dialog
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add
-- (new): fighter lists are stored in UTF-8 with byte-order-mark (can be opened and edited in Excel right away)
+- (new): fighter lists are stored in UTF-8 with byte-order-mark (so they can be opened and edited in Excel right away)
 - (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
 - (fix): Team Edition does not create `Fighter*.csv` any longer as it was not used
 - (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)

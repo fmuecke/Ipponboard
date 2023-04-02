@@ -67,6 +67,7 @@ copy %SOURCE%\computer\printer.png %DEST%\printer.png
 copy %SOURCE%\media\speaker-volume.png %DEST%\test_sound.png
 copy %SOURCE%\arrows\arrow-270-medium.png %DEST%\arrow_down.png
 copy %SOURCE%\arrows\arrow-090-medium.png %DEST%\arrow_up.png
+copy %SOURCE%\arrow_circle.png %DEST%\arrow_circle.png
 copy %SOURCE%\symbols\information-frame.png %DEST%\about.png
 copy %SOURCE%\media\joystick.png %DEST%\controller.png
 ::copy %SOURCE%\tag-label.png %DEST%\fighter_blue.png

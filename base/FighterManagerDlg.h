@@ -36,7 +36,6 @@ public:
 
 	explicit FighterManagerDlg(
 		Ipponboard::FighterManager& manager,
-        QString fighterFile,
         QWidget* parent = nullptr);
 
 	virtual ~FighterManagerDlg();
@@ -57,6 +56,8 @@ private slots:
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
     void on_toolButton_openFolder_pressed();
+    void on_toolButton_reload_pressed();
+    void on_toolButton_save_pressed();
 
 private:
 	void populate_view();
