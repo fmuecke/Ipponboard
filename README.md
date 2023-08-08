@@ -47,4 +47,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
 # Contact
 - source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
 - latest news and downloads: ipponboard.koe-judo.de
-- contact the author (Florian Mücke): i p p o n b a o r d i n f o AT g m a i l DOT c o m
+- contact the author (Florian Mücke): i p p o n b o a r d i n f o AT g m a i l DOT c o m
