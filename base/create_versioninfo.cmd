@@ -9,7 +9,7 @@ setlocal
 SET VER1=2
 SET VER2=0
 SET VER3=0
-SET TAG=
+SET TAG=Is-1
 :: that's it. <--
 
 rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
@@ -55,7 +55,7 @@ echo {>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Revision = "%REV%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const Date = "%REV_DATE%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const CopyrightYear = "%DATE:~-4%";>>%FILENAME_NO_EXT%.tmp
-echo 	const char* const VersionStrShort = "%VER1%.%VER2%";>>%FILENAME_NO_EXT%.tmp
+echo 	const char* const VersionStrShort = "%VER1%.%VER2%.%Ver3%";>>%FILENAME_NO_EXT%.tmp
 echo 	const char* const VersionStrFull = "%VER1%.%VER2%.%VER3%.%VER4%";>>%FILENAME_NO_EXT%.tmp
 if "%TAG%"=="" (
 	echo 	const char* const VersionStr = "%VER1%.%VER2%.%VER3%";>>%FILENAME_NO_EXT%.tmp
@@ -98,11 +98,11 @@ ECHO     BLOCK "StringFileInfo">>%RC_FILE%
 ECHO     BEGIN>>%RC_FILE%
 ECHO         BLOCK "040004b0">>%RC_FILE%
 ECHO         BEGIN>>%RC_FILE%
-ECHO             VALUE "CompanyName", "Florian Mücke">>%RC_FILE%
+ECHO             VALUE "CompanyName", "ESC feat. Florian Mücke">>%RC_FILE%
 ECHO             VALUE "FileDescription", "Ipponboard">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% ESC and Florian Mücke">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
 if "%TAG%"=="" (
