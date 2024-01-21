@@ -1,11 +1,11 @@
 % *Ipponboard* Wettkampfanzeige
-% **Version 1.6**
+% **Version 2.0.0**
 
 # Allgemeines zu *Ipponboard*
 
 ## Lizenzbedingungen
   
-Ipponboard wurde geschrieben und entwickelt von Florian Mücke.
+Ipponboard wurde geschrieben und entwickelt von Florian Mücke und wird überarbeitet von ESC.
 
 *Copyright © 2009-today Florian Mücke.*
    

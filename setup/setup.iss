@@ -20,8 +20,8 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2017 Florian Mücke"
-#define MyAppAuthor "Florian Mücke"
+#define MyAppCopyright "2010-2024 Florian Mücke and ESC"
+#define MyAppAuthor "ESC feat. Florian Mücke"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -33,7 +33,7 @@ AppVersion={#MySimpleAppVersion}
 AppVerName={#MyAppName} {#MySimpleAppVersion}
 AppPublisher={#MyAppAuthor}
 AppPublisherURL=https://ipponboard.koe-judo.de/
-AppSupportURL=https://github.com/fmuecke/Ipponboard/issues
+AppSupportURL=https://gitlab.com/r_bernhard/Ipponboard/-/issues
 AppUpdatesURL=https://ipponboard.koe-judo.de/
 AppCopyright=Copyright (C) {#MyAppCopyright}
 DefaultDirName={localappdata}\{#MyAppName}

@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 	QApplication a(argc, argv);
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-	QCoreApplication::setOrganizationName("Florian Mücke");
+	QCoreApplication::setOrganizationName("ESC feat. Florian Mücke");
 	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
 

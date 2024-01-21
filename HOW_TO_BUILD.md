@@ -1,52 +1,106 @@
 # Prerequisites
 
 Ipponboard requires the following libraries and tools to get built: 
-- [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2015/2017 a.k.a VC14)
-- [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported)
-- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.59)
-- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 5.0)
-- optional: pandoc to build the manual
+- [Microsoft Visual Studio C++] (last used: VS 2022 a.k.a VC17.8.3). Do not use BuildTools, because it is not much smaller and the IDE is missing! 
+- [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported) --> TODO: migrate to QT5
+- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.82.0) --> TODO: remove Boost dependencies
+- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 6.2.2)
+- optional: pandoc to build the manual (last used: 3.1.5)
+- optional: use jom instead of nmake to compile parallel with multiple cores (https://download.qt.io/official_releases/jom/) (last used 1.1.4)
 
-The first run of `build.cmd` will create a file to configure the paths to the above libraries
-    > build.cmd
-	Please configure paths in "env_cfg.bat" first!
-    Press any key to continue . . .
+## Build QT4 for your developement platform
+As there are no longer any official download sources for QT4 libraries that can be used on current operating systems (e.g. Windows 10), 
+these must be generated from the sources for the target system. 
 
-Modify those according to your environment. After that you may try building ;)...
+Attention, problems compiling the original code! The MSVC compiler from version 14 compiles c++11 standard, but there is incompatible 
+code in QT4. You either need mingw/gcc to reduce the standard or you can use source code that has already been adapted for 
+this (e.g. https://github.com/scharsig/Qt or https://github.com/raikantasahu/Qt)
+1. unpack the sources to: c:\dev\src\qt\qt-src-4.8.7
+2. delete the directory c:\dev\src\qt\qt-src-4.8.7\src\3rdparty\javascriptcore\JavaScriptCore\os-win32
+3. start vcvars64.bat for 64bit target compilation or vcvars32.bat for 32bit
+4. run configure. Create debug and release dlls with the msvc platform corresponding to the installed VStudio
+	for 32bit: configure -debug-and-release -prefix c:\dev\inst\qt\qt-4.8.7-x86-msvc2017 -opensource -confirm-license -nomake examples -nomake tests -shared -ltcg -no-qt3support -platform win32-msvc2017
+	for 64bit: configure -debug-and-release -prefix c:\dev\inst\qt\qt-4.8.7-x64-msvc2017 -opensource -confirm-license -nomake examples -nomake tests -shared -ltcg -no-qt3support -platform win32-msvc2017
+5. run nmake for QT:
+	a: nmake
+	b: nmake install	
 
-    > build.cmd
-	Current config:
+Note: The default directory in QT is defined by "configure -prefix <path>" and created by "nmake install". 
+This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, it is recommended that the QT installation is executed as described here. 
+To reconfigure the path, run "nmake confclean", change the setting and rerun nmake.
 
-      QMAKESPEC : win32-msvc2015
-      QTDIR     : c:\devtools\qt\qt-4.8.7-vc14\bin
-      BOOST_DIR : c:\devtools\boost_1_59_0
-    
-    Select build mode:
-    
+##  checkout and setup sources
+1. git clone https://gitlab.com/r_bernhard/Ipponboard.git
+2. Create versioninfo.h:
+	a: cd Ipponboard\base
+	b: edit in "create_versioninfo.cmd" the variable values of VER1, VER2, VER3 (e.g. major release/minor release/feature release).
+		TAG contains the git tag we´re planning for this version. 
+		VER4 contains the build number of the product (do not edit this variable)
+	c: execute "create_versioninfo.cmd" all the time before building a release!
+
+## compile
+### Using build.cmd
+1. The first run of `build.cmd` will create a file to configure the paths to the above libraries
+	- build.cmd
+	- Please configure paths in "env_cfg.bat" first!
+	-  Attention: Whenever you change a path in "build.cmd", you must delete the file "env_cfg.bat" and rerun "build.cmd"!
+
+2. Modify those according to your environment. After that you may try building ;)...
+- execute "build.cmd" again
+-->	Select build mode:  
       (1) clean
-      (2) build
+      (2) build --> needs jom
       (3) rebuild
-      (4) setup
+      (4) setup --> needs Inno Setup
       (5) run
-      (6) build doc
+      (6) build doc --> needs pandoc
       (9) all
+	  (m) optional: create makefiles
       (q) quit
+
+	try "clean"
+	try "build"
+	try "run"
+	try "rebuild"
+	try "build doc"
+	try "setup"
+	execute "all"
+	quit
+
+Note: In copy_files_cmd we only deploy 64bit redistributables --> TODO: make it variable
+
+### Using vcproj
+Create a VStudio project and solution file. You can use this for compiling or develop the source code in Visual Studio 
+(Note: Visual Studio 2019 was easier to run)
+	1. make_vcproj.cmd
+	2. nmake
+
+### Using cmake (wip, TODO)
+Write a CMakelist file for the Ipponboard with all needed targets
+	1. compile sources (done)
+		- Inclusion of CMakelists.txt in the Ipponboard source directory
+		- QT4: cmake -S "C:\\dev\\git\\Ipponboard\\cmake_qt4" -B "C:\\dev\\proj\\Ipponboard" -G "Visual Studio 17 2022" -A Win32 
+		- QT5: cmake -S "C:\\dev\\git\\Ipponboard\\cmake_qt5" -B "C:\\dev\\proj\\Ipponboard" -G "Visual Studio 17 2022" -A Win32 
+		- cd C:\dev\proj
+		- cmake --build Ipponboard --config Release 
+	2. create resources, e.g. language files, icons (TODO)
+	3. create documentation (TODO)
+	4. create installer (TODO)
 
 ## Configure Visual Studio Build Tools
 
 You must ensure that you use the same compiler version that was used to build the Qt libraries to build Ipponboard to avoid runtime problems.
 
-### MSVC v140 using Visual Studio 2019
+### Using Visual Studio 2022
 
-1. Make sure the build tools are installed.
-2. Start the VC140 Developer Command Prompt
-   e.g. by starting a custom batch file `vc14.cmd` that calls `vcvarsall.bat` or specify the `-vcvars_ver=14.0` parameter manually:
+Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars64.bat` for 64bit or `vcvars` for 32bit 
    ```batch
    @echo off
    title Visual Studio Command Shell
-   %comspec% /k "c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.0
+   set MAKE_BUILD_TYPE=Release
+   %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
    ```
-
+   
 ## Using *QtCreator* to build Ipponboard
 
 1. Download and install [QCreator](https://www.qt.io/product/development-tools)

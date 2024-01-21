@@ -1,11 +1,19 @@
 # Content
 
+- [Fork of https://github.com/fmuecke/Ipponboard.git]
 - [Why it's *so* cool!](#why-its-so-cool)
 - [Getting started](#getting-started)
 
-Ipponboard is a score board specially designed for Judo tournaments that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
+Ipponboard is a score board specially designed for Judo tournaments that features an innovative control via gamepad, 
+mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
 
 ![Screenshot](https://ipponboard.koe-judo.de/wp-content/uploads/2011/12/Ipponboard-the-judo-score-board-and-timer-300x169.jpg)
+
+# Fork of https://github.com/fmuecke/Ipponboard.git
+This is a fork of Florian Mückes great Ipponboard. 
+I decided to use a fork to process pull requests independently and merge them back into a master. 
+The commit and git-branch history should document all adjustments. If Florian likes some of these ideas, 
+I would be happy if they were incorporated into the original project.
 
 # Why it's *so* cool!
 
@@ -25,11 +33,11 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 
 # Getting started
 
-You can download and install the latest version from ipponboard.koe-judo.de or build Ipponboard from source.
+You can download and install the latest version from https://gitlab.com/r_bernhard/Ipponboard or build Ipponboard from source.
 
 Basic requirements to get started:
-- Computer/laptop with Windows operating system
-- A big computer or TV screen
+- Computer/laptop with Windows operating system (primary view)
+- A big computer or TV screen (secondary view)
 
 More information about usage and configuration is described within the manual:
 - [German manual](doc/manual-de.md)
@@ -45,6 +53,4 @@ More information about usage and configuration is described within the manual:
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
 
 # Contact
-- source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
-- latest news and downloads: ipponboard.koe-judo.de
-- contact the author (Florian Mücke): i p p o n b a o r d i n f o AT g m a i l DOT c o m
+- source code repository: https://gitlab.com/r_bernhard/Ipponboard

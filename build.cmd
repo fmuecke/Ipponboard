@@ -3,7 +3,7 @@
 :: Use of this source code is governed by a BSD-style license that can be
 :: found in the LICENSE.txt file.
 ::---------------------------------------------------------
-@echo off
+::@echo off
 SETLOCAL
 SET LOCAL_CONFIG=env_cfg.bat
 
@@ -12,11 +12,12 @@ IF EXIST "%LOCAL_CONFIG%" (
   echo;
 ) ELSE (
   echo @echo off>"%LOCAL_CONFIG%"
-  echo set QTDIR=c:\devtools\qt\qt-4.8.7-vc14\bin\>>"%LOCAL_CONFIG%"
-  echo set QMAKESPEC=win32-msvc2015>>"%LOCAL_CONFIG%"
-  echo set BOOST_DIR=c:\devtools\boost_1_81_0>>"%LOCAL_CONFIG%"
-  echo set INNO_DIR=c:\devtools\inno setup 5>>"%LOCAL_CONFIG%"
-  rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
+  echo set QTDIR=C:\dev\inst\qt\qt-4.8.7-x64-msvc2017>>"%LOCAL_CONFIG%"
+  echo set PATH=%%PATH%%;%%QTDIR%%\bin;C:\dev\inst\jom_1_1_3>>"%LOCAL_CONFIG%"
+  echo set QMAKESPEC=%%QTDIR%%\mkspecs\win32-msvc2017>>"%LOCAL_CONFIG%"
+  echo set BOOST_DIR=C:\dev\inst\boost_1_82_0>>"%LOCAL_CONFIG%"
+  echo set INNO_DIR=C:\dev\inst\InnoSetup6>>"%LOCAL_CONFIG%"
+  
   echo Please configure paths in "%LOCAL_CONFIG%" first!
   pause
   exit /b 1
@@ -41,7 +42,7 @@ IF NOT EXIST "%BOOST_DIR%\boost" (
 	exit /b 1
 )
 
-IF NOT EXIST "%QTDIR%\qmake.exe" (
+IF NOT EXIST "%QTDIR%\bin\qmake.exe" (
 	ECHO Can't find qmake.exe. Please specify "QTDIR".
 	pause
 	exit /b 1
@@ -168,8 +169,8 @@ exit /b 0
 		exit /b 1
 	)
 	
-	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss" || exit /b %errorlevel%
-	dir /OD "%BASE_DIR%\_output"
+	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\bin" "%BASE_DIR%\setup\setup.iss" || exit /b %errorlevel%
+	dir /OD "%BASE_DIR%\bin"
 exit /b 0
 
 
@@ -178,9 +179,9 @@ exit /b 0
 	echo -- Compiling %1
 	pushd %BASE_DIR%\%1
 	if "%2"=="debug" (
-		jom /L /S /F Makefile.Debug || exit /b %errorlevel%
+		jom /L /S /F Makefile.Debug /J 1 || exit /b %errorlevel%
 	) else (
-		jom /L /S /F Makefile.Release || exit /b %errorlevel%
+		jom /L /S /F Makefile.Release /J 1 || exit /b %errorlevel%
 	)
 	popd
 exit /b 0
@@ -188,7 +189,7 @@ exit /b 0
 
 :generate_makefiles
 	echo -- Creating makefiles
-	"%QTDIR%"\qmake -recursive || exit /b %errorlevel%
+	qmake -recursive || exit /b %errorlevel%
 exit /b 0
 
 

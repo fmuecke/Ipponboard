@@ -23,7 +23,6 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 
 	ui->textBrowser_eula->setHtml(data.text);
 	ui->label_info->setText(data.info);
-	//ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 	ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
 
 	/*std::vector<QCommandLinkButton*> buttons =
