@@ -3,7 +3,7 @@
 :: Use of this source code is governed by a BSD-style license that can be
 :: found in the LICENSE.txt file.
 ::---------------------------------------------------------
-::@echo off
+@echo off
 SETLOCAL
 SET LOCAL_CONFIG=env_cfg.bat
 
@@ -30,7 +30,7 @@ IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 rem check for compiler
 cl > nul 2>&1
 IF ERRORLEVEL 1 (
-	ECHO Can't find C++ compiler tools. Please run build.cmd from within Visual Studio x86 Developer Command Prompt 
+	ECHO Can't find C++ compiler tools. Please run build.cmd from within Visual Studio Developer Command Prompt 
 		pause	
 		exit /b 1
 	)
@@ -50,7 +50,7 @@ IF NOT EXIST "%QTDIR%\bin\qmake.exe" (
 
 
 :menu
-cls
+::cls
 echo;
 echo Current config:
 echo;
@@ -62,22 +62,24 @@ echo;
 echo Select build mode:
 echo;
 echo   (1) clean
-echo   (2) build
-echo   (3) rebuild
-echo   (4) setup
-echo   (5) run
-echo   (6) build doc
-echo   (9) all
+echo   (2) make makefiles
+echo   (3) build
+echo   (4) rebuild
+echo   (5) setup
+echo   (6) run
+echo   (7) build doc
+echo   (8) all
 echo   (q) quit
-choice /C 1234569q /N
+choice /C 12345678q /N
 :: value "0" is reserved!
-if %errorlevel%==8 exit /b 0
-if %errorlevel%==7 goto cmd_all
-if %errorlevel%==6 goto cmd_build_doc
-if %errorlevel%==5 goto cmd_run
-if %errorlevel%==4 goto cmd_setup
-if %errorlevel%==3 goto cmd_rebuild
-if %errorlevel%==2 goto cmd_build
+if %errorlevel%==9 exit /b 0
+if %errorlevel%==8 goto cmd_all
+if %errorlevel%==7 goto cmd_build_doc
+if %errorlevel%==6 goto cmd_run
+if %errorlevel%==5 goto cmd_setup
+if %errorlevel%==4 goto cmd_rebuild
+if %errorlevel%==3 goto cmd_build
+if %errorlevel%==2 goto cmd_make_makefiles
 if %errorlevel%==1 goto cmd_clean
 GOTO the_end
 
@@ -124,6 +126,12 @@ goto the_end
 	%BASE_DIR%\_build\stopwatch start build
 	call :make_clean || goto the_error
 goto the_end
+
+:cmd_make_makefiles
+	%BASE_DIR%\_build\stopwatch start build
+	call :generate_makefiles || goto the_error
+goto the_end
+
 
 ::-------------------------------
 :make_clean
@@ -173,7 +181,7 @@ exit /b 0
 	dir /OD "%BASE_DIR%\bin"
 exit /b 0
 
-
+::-------------------------------
 :compile
 	echo;
 	echo -- Compiling %1
@@ -186,19 +194,20 @@ exit /b 0
 	popd
 exit /b 0
 
-
+::-------------------------------
 :generate_makefiles
-	echo -- Creating makefiles
+	echo --[Creating makefiles]--
 	qmake -recursive || exit /b %errorlevel%
 exit /b 0
 
-
+::-------------------------------
 :the_error
 echo.
 echo FAILED (code=%errorlevel%)
 pause
 goto menu
 
+::-------------------------------
 :the_end
 echo.
 echo SUCCESS

@@ -49,13 +49,13 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 - execute "build.cmd" again
 -->	Select build mode:  
       (1) clean
-      (2) build --> needs jom
-      (3) rebuild
-      (4) setup --> needs Inno Setup
-      (5) run
-      (6) build doc --> needs pandoc
-      (9) all
-	  (m) optional: create makefiles
+	  (2) initial: create makefiles
+      (3) build --> needs jom
+      (4) rebuild
+      (5) setup --> needs Inno Setup
+      (6) run
+      (7) build doc --> needs pandoc
+      (8) all
       (q) quit
 
 	try "clean"
@@ -67,7 +67,7 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 	execute "all"
 	quit
 
-Note: In copy_files_cmd we only deploy 64bit redistributables --> TODO: make it variable
+Note: In copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
 
 ### Using vcproj
 Create a VStudio project and solution file. You can use this for compiling or develop the source code in Visual Studio 
