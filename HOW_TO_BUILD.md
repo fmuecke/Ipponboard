@@ -77,12 +77,12 @@ Create a VStudio project and solution file. You can use this for compiling or de
 
 ### Using cmake (wip, TODO)
 Write a CMakelist file for the Ipponboard with all needed targets
-	1. compile sources (done)
-		- Inclusion of CMakelists.txt in the Ipponboard source directory
-		- QT4: cmake -S "C:\\dev\\git\\Ipponboard\\cmake_qt4" -B "C:\\dev\\proj\\Ipponboard" -G "Visual Studio 17 2022" -A Win32 
-		- QT5: cmake -S "C:\\dev\\git\\Ipponboard\\cmake_qt5" -B "C:\\dev\\proj\\Ipponboard" -G "Visual Studio 17 2022" -A Win32 
-		- cd C:\dev\proj
-		- cmake --build Ipponboard --config Release 
+	1. compile sources
+		- Inclusion of CMakelists.txt in the Ipponboard source directory --> cmake_qt4 for QT4-compile and cnake_qt5 for QT5, that contain the CMakeLists.txt
+		- QT4-32: cmake -S "C:/dev/git/Ipponboard/cmake_qt4" -B "C:/dev/git/Ipponboard/_build_cmake" -G "Visual Studio 17 2022" -A Win32 
+		- QT4-64: cmake -S "C:/dev/git/Ipponboard/cmake_qt4" -B "C:/dev/git/Ipponboard/_build_cmake" -G "Visual Studio 17 2022" -A x64
+		- QT5-64: cmake -S "C:/dev/git/Ipponboard/cmake_qt5" -B "C:/dev/git/Ipponboard/_build_cmake" -G "Visual Studio 17 2022" -A x64  
+		- cmake --build _build_cmake --config Release  
 	2. create resources, e.g. language files, icons (TODO)
 	3. create documentation (TODO)
 	4. create installer (TODO)
