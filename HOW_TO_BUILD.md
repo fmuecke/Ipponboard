@@ -83,8 +83,12 @@ Write a CMakelist file for the Ipponboard with all needed targets
 		- QT4-32: cmake -S "cmake_qt4" -B "./_build_cmake" -G "Visual Studio 17 2022" -A Win32 
 		- QT4-64: cmake -S "cmake_qt4" -B "./_build_cmake" -G "Visual Studio 17 2022" -A x64
 		- QT5-64: cmake -S "cmake_qt5" -B "./_build_cmake" -G "Visual Studio 17 2022" -A x64  
-		- cmake --build _build_cmake --config Release  
-	2. create resources, e.g. language files, icons (TODO)
+		- Build Targets:
+			- Release Build: cmake --build _build_cmake --config Release --target Ipponboard
+			- Debug Build: cmake --build _build_cmake --config Debug --target Ipponboard_Debug
+			- (IpponboardTest: cmake --build _build_cmake --target IpponboardTest)
+			- (GamepadDemo: cmake --build _build_cmake --target GamepadDemo)
+			- Make Setup: cmake --build _build_cmake --target make-setup	2. create resources, e.g. language files, icons (TODO)
 	3. create documentation (TODO)
 	4. create installer (TODO)
 

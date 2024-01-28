@@ -11,11 +11,13 @@ set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+# compile GamepadDemo
 set( SOURCES
 ../Main.cpp
 ../GamepadDemo.cpp ../GamepadDemo.h ../GamepadDemo.ui
 ../../Widgets/ScaledImage.cpp ../../Widgets/ScaledImage.h
 )
 
+# Link the binary
 add_executable(GamepadDemo ${SOURCES} )
 target_link_libraries(GamepadDemo Qt4::QtCore Qt4::QtGui)

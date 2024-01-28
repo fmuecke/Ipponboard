@@ -48,9 +48,8 @@ Makefile
 /**/debug/*
 /**/release/*
 _build/build_output/*
-_build_cmake/*
 _output/
 bin/
 setup/Output/
-test/_build_cmake
 GamepadDemo/ui_gamepaddemo.h
+_build_cmake

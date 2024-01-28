@@ -11,6 +11,7 @@ set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
 set(CMAKE_AUTOMOC OFF)
 set(CMAKE_AUTOUIC OFF)
 
+# compile IpponboardTest
 set( SOURCES
 ../IpponboardTest.cpp
 ../TestJson.cpp
@@ -27,6 +28,6 @@ target_link_libraries(IpponboardTest Qt4::QtCore)
 
 # Add other data to the destination directory
 #file(COPY ${TESTDATA} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-add_custom_command(
-	TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory ../TestData $<TARGET_FILE_DIR:${PROJECT_NAME}>/TestData)
+add_custom_command(TARGET ${PROJECT_NAME} 
+					POST_BUILD
+					COMMAND ${CMAKE_COMMAND} -E copy_directory ../TestData $<TARGET_FILE_DIR:${PROJECT_NAME}>/TestData)

@@ -13,6 +13,7 @@ set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+# compile Ipponboard
 set( SOURCES
 ../core/Controller.cpp ../core/Controller.h
 ../core/ControllerConfig.h
@@ -65,9 +66,39 @@ set( SOURCES
 )
 
 include_directories(base ${BOOST_DIR} ${XMLQUERY} )
-add_executable(Ipponboard ${SOURCES} )
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
+
+# create a debug binary
+add_executable(Ipponboard_Debug ${SOURCES} )
+set_target_properties(Ipponboard_Debug PROPERTIES
+    OUTPUT_NAME Ipponboard_Debug
+    DEBUG_POSTFIX _d
+	RUNTIME_OUTPUT_DIRECTORY "../bin"
+)
+target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+
+# create a binary
+add_executable(Ipponboard ${SOURCES} ../base/Ipponboard.rc)
+set_target_properties(Ipponboard PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY "../bin"
+)
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
-# Testsuites
+# compile Testsuites
 add_subdirectory(../test/cmake_qt4 ../test/_build_cmake)
 add_subdirectory(../GamepadDemo/cmake_qt4 ../GamepadDemo/_build_cmake)
+
+if(WIN32)
+	add_custom_command(TARGET Ipponboard PRE_BUILD
+		COMMAND call "../base/create_versioninfo.cmd" )
+
+	add_custom_command(TARGET Ipponboard POST_BUILD
+		COMMAND call "../base/copy_files.cmd" -release )
+
+	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
+		COMMAND call "../base/copy_files.cmd" -debug )
+
+	add_custom_target(make-setup
+		COMMAND call "../doc/build_doc.cmd" 
+		COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O../bin ../setup/setup.iss )
+endif (WIN32)

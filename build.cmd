@@ -24,7 +24,9 @@ IF EXIST "%LOCAL_CONFIG%" (
 )
 
 SET BASE_DIR=%~dp0.
-SET BIN_DIR=%BASE_DIR%\bin
+::SET BIN_DIR=%BASE_DIR%\bin
+if "%2"=="debug" (SET BIN_DIR=%BASE_DIR%\bin\Debug) else (SET BIN_DIR=%BASE_DIR%\bin\Release)
+
 IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 
 rem check for compiler
