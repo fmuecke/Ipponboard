@@ -6,12 +6,12 @@ message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
 set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
-
 set (BOOST_DIR C:/dev/inst/boost_1_82_0)
 set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 set( SOURCES
 ../core/Controller.cpp ../core/Controller.h
@@ -64,7 +64,10 @@ set( SOURCES
 ../base/view_vertical_single.ui
 )
 
-#set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(base ${BOOST_DIR} ${XMLQUERY} )
 add_executable(Ipponboard ${SOURCES} )
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+
+# Testsuites
+add_subdirectory(../test/cmake_qt4 ../test/_build_cmake)
+add_subdirectory(../GamepadDemo/cmake_qt4 ../GamepadDemo/_build_cmake)
