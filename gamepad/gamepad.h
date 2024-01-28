@@ -139,10 +139,22 @@ public:
 		return m_state;
 	}
 
+#ifdef _WIN64 
+	inline const wchar_t* GetProductName() const
+	{
+		size_t size = strlen(m_caps.szPname)+1;
+		wchar_t* unicode_product_name = new wchar_t[size];
+		size_t convertedChars = 0;
+		mbstowcs_s(&convertedChars, unicode_product_name, size, m_caps.szPname, size-1);
+
+		return unicode_product_name;
+	}
+#elif _WIN32		
 	inline const wchar_t* GetProductName() const
 	{
 		return m_caps.szPname;
 	}
+#endif
 
 	inline WORD GetMId() const
 	{
@@ -587,7 +599,12 @@ private:
 
 	unsigned int m_currentId;
 	std::bitset<eAxis_MAX> m_invertedAxes;
+#ifdef _WIN64 
+	JOYCAPSA m_caps;
+#elif _WIN32		
 	JOYCAPSW m_caps;
+#endif
+
 	JOYINFOEX m_data;
 	JOYINFOEX m_lastData;
 	EState m_state;

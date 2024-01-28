@@ -9,11 +9,11 @@ REM -- language file
 call %~dp0..\env_cfg.bat
 
 set ROOT=%~dp0..
-set DEST=%ROOT%\bin
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
+if defined RELEASE (set DEST=%ROOT%\bin\Release) else (set DEST=%ROOT%\bin\Debug)
 
-echo Copying files...
+echo Copying files to %DEST% ...
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul

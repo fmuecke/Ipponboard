@@ -5,8 +5,8 @@
 #include "ISPPBuiltins.iss"
 #include "defines.def"
 
-#define MyFullAppVersion GetFileVersion('..\bin\Ipponboard.exe')
-#define MyAppVersion GetFileProductVersion('..\bin\Ipponboard.exe')
+#define MyFullAppVersion GetFileVersion('..\bin\Release\Ipponboard.exe')
+#define MyAppVersion GetFileProductVersion('..\bin\Release\Ipponboard.exe')
 ;#define MyAppVersion GetEnv("IPPONBOARD_VERSION")
 #if len(MyAppVersion) < 1
   #pragma warning "IPPONBOARD_VERSION not defined"
@@ -85,25 +85,25 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 ;Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-Source: "..\bin\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\categories.json"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\bin\clubs.json"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+;Source: "..\bin\Release\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\categories.json"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\Release\clubs.json"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\bin\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
 Source: "..\bin\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\bin\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\bin\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\bin\Clubs\*.*"; DestDir: "{app}\Clubs\"; Flags: ignoreversion promptifolder
-Source: "..\bin\Sounds\*.*"; DestDir: "{app}\Sounds\"; Flags: ignoreversion promptifolder
-Source: "..\bin\Templates\*.*"; DestDir: "{app}\Templates\"; Flags: ignoreversion promptifolder
-Source: "..\bin\Lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\bin\Release\Clubs\*.*"; DestDir: "{app}\Clubs\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Release\Sounds\*.*"; DestDir: "{app}\Sounds\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Release\Templates\*.*"; DestDir: "{app}\Templates\"; Flags: ignoreversion promptifolder
+Source: "..\bin\Release\Lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 Source: "..\bin\Licenses\*.*"; DestDir: "{app}\Licenses"; Flags: IgnoreVersion recursesubdirs
-Source: "..\bin\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\bin\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\bin\msvcp140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\Release\QtCore4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\QtGui4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\QtNetwork4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\QtXmlPatterns4.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+Source: "..\bin\Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\bin\Release\msvcp140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
