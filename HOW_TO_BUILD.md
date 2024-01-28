@@ -76,8 +76,8 @@ Create a VStudio project and solution file. You can use this for compiling or de
 
 Note:  This generates a solution compatible with VStudio 2015. Use CMake to create a more up-to-date solution)
 
-### Using cmake (wip, TODO)
-Write a CMakelist file for the Ipponboard with all needed targets
+### Using cmake: Recommendet build solution
+Via CMakelist we can do
 	1. compile sources
 		- Inclusion of CMakelists.txt in the Ipponboard source directory --> cmake_qt4 for QT4-compile and cnake_qt5 for QT5, that contain the CMakeLists.txt
 		- QT4-32: cmake -S "cmake_qt4" -B "./_build_cmake" -G "Visual Studio 17 2022" -A Win32 
@@ -89,8 +89,9 @@ Write a CMakelist file for the Ipponboard with all needed targets
 			- (IpponboardTest: cmake --build _build_cmake --target IpponboardTest)
 			- (GamepadDemo: cmake --build _build_cmake --target GamepadDemo)
 			- Make Setup: cmake --build _build_cmake --target make-setup	2. create resources, e.g. language files, icons (TODO)
-	3. create documentation (TODO)
-	4. create installer (TODO)
+	2. create documentation
+	3. create installer
+	Execute the file "build_ipponboard_qt4-x64.cmd" and you will find a Setup-File of Ipponboard in the bin-folder.
 
 ## Configure Visual Studio Build Tools
 
