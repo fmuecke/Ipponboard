@@ -69,10 +69,10 @@ include_directories(base ${BOOST_DIR} ${XMLQUERY} )
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
 # create a debug binary
-add_executable(Ipponboard_Debug ${SOURCES} )
+add_executable(Ipponboard_Debug ${SOURCES} ../base/Ipponboard.rc)
 set_target_properties(Ipponboard_Debug PROPERTIES
-    OUTPUT_NAME Ipponboard_Debug
-    DEBUG_POSTFIX _d
+	OUTPUT_NAME Ipponboard_Debug
+	DEBUG_POSTFIX _d
 	RUNTIME_OUTPUT_DIRECTORY "../bin"
 )
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
