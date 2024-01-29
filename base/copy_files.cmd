@@ -6,7 +6,7 @@
 @echo off
 setlocal
 REM -- language file
-call %~dp0..\env_cfg.bat
+::call %~dp0..\env_cfg.bat
 
 set ROOT=%~dp0..
 set THIRDPARTY=..\..\3rdParty

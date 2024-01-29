@@ -6,15 +6,16 @@
 # -------------------------------------------------
 TEMPLATE = app
 TARGET = GamepadDemo
-DESTDIR = ../bin
 
-#build_pass:CONFIG(release, debug|release) {
+build_pass:CONFIG(release, debug|release) {
 	#QMAKE_LIBS += 
-#}
+	DESTDIR = ../bin/Release
+}
 
 build_pass:CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,_d)
 	#QMAKE_LIBS += -lgamepad_d -lwinmm
+	DESTDIR = ../bin/Debug
 } 
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01

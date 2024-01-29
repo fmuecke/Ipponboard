@@ -24,8 +24,6 @@ INCLUDEPATH += $$quote($$(BOOST_DIR))
 QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
-DESTDIR = ../bin
-
 #----------------------------------------------------------
 # Create our custom prebuild target for the release build
 #----------------------------------------------------------
@@ -39,12 +37,14 @@ CONFIG(debug, release|debug) {
 	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lshell32
+	DESTDIR = ../bin/Debug
 }
 
 CONFIG(release, release|debug) {
     prebuildhook.target = Makefile.Release
 	TARGET = Ipponboard
     QMAKE_LIBS += -lshell32
+	DESTDIR = ../bin/Release
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01

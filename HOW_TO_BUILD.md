@@ -39,14 +39,14 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 	c: execute "create_versioninfo.cmd" all the time before building a release!
 
 ## compile
-### Using build.cmd
-1. The first run of `build.cmd` will create a file to configure the paths to the above libraries
-	- build.cmd
-	- Please configure paths in "env_cfg.bat" first!
-	-  Attention: Whenever you change a path in "build.cmd", you must delete the file "env_cfg.bat" and rerun "build.cmd"!
+### Using build_qmake_qt4-x86.cmd
+1. The first run of `build_qmake_qt4-x86.cmd` will create a file to configure the paths to the above libraries
+	- build_qmake_qt4-x86.cmd
+	- Please configure paths in "env_cfg-x86.bat" first!
+	-  Attention: Whenever you change a path in "build_qmake_qt4-x86.cmd", you must delete the file "env_cfg-x86.bat" and rerun "build_qmake_qt4-x86.cmd"!
 
 2. Modify those according to your environment. After that you may try building ;)...
-- execute "build.cmd" again
+- execute "build_qmake_qt4-x86.cmd" again
 -->	Select build mode:  
       (1) clean
 	  (2) initial: create makefiles
@@ -74,9 +74,9 @@ Create a VStudio project and solution file. You can use this for compiling or de
 	1. make_vcproj.cmd
 	2. nmake
 
-Note:  This generates a solution compatible with VStudio 2015. Use CMake to create a more up-to-date solution)
+Note:  This generates only a solution compatible with VStudio 2015. Use CMake to create a more up-to-date solution)
 
-### Using cmake: Recommendet build solution
+### Using cmake: Recommended build solution
 Via CMakelist we can do
 	1. compile sources
 		- Inclusion of CMakelists.txt in the Ipponboard source directory --> cmake_qt4 for QT4-compile and cnake_qt5 for QT5, that contain the CMakeLists.txt
@@ -91,7 +91,7 @@ Via CMakelist we can do
 			- Make Setup: cmake --build _build_cmake --target make-setup	2. create resources, e.g. language files, icons (TODO)
 	2. create documentation
 	3. create installer
-	Execute the file "build_ipponboard_qt4-x64.cmd" and you will find a Setup-File of Ipponboard in the bin-folder.
+	Execute the file "build_cmake_qt4-x64.cmd" and you will find a Setup-File of Ipponboard in the bin-folder.
 
 ## Configure Visual Studio Build Tools
 

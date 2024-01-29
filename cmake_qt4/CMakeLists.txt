@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.13)
 
 project(Ipponboard VERSION 2.0.0 LANGUAGES C CXX) 
 message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
@@ -68,7 +69,14 @@ set( SOURCES
 include_directories(base ${BOOST_DIR} ${XMLQUERY} )
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
-# create a debug binary
+# Target Ipponboard: create a binary
+add_executable(Ipponboard ${SOURCES} ../base/Ipponboard.rc)
+set_target_properties(Ipponboard PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY "../bin"
+)
+target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+
+# Target Ipponboard_Debug: create a debug binary
 add_executable(Ipponboard_Debug ${SOURCES} ../base/Ipponboard.rc)
 set_target_properties(Ipponboard_Debug PROPERTIES
 	OUTPUT_NAME Ipponboard_Debug
@@ -77,28 +85,39 @@ set_target_properties(Ipponboard_Debug PROPERTIES
 )
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
-# create a binary
-add_executable(Ipponboard ${SOURCES} ../base/Ipponboard.rc)
-set_target_properties(Ipponboard PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY "../bin"
-)
-target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
-
-# compile Testsuites
-add_subdirectory(../test/cmake_qt4 ../test/_build_cmake)
-add_subdirectory(../GamepadDemo/cmake_qt4 ../GamepadDemo/_build_cmake)
-
 if(WIN32)
-	add_custom_command(TARGET Ipponboard PRE_BUILD
-		COMMAND call "../base/create_versioninfo.cmd" )
-
+# Target Ipponboard
+add_custom_command(TARGET Ipponboard PRE_BUILD
+		COMMAND call "../base/create_versioninfo.cmd"
+		
+		if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+			COMMAND call "../create_env_cfg-x64.cmd" .. 
+		elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+			COMMAND call "../create_env_cfg-x86.cmd" .. 
+		endif() )
+		
 	add_custom_command(TARGET Ipponboard POST_BUILD
 		COMMAND call "../base/copy_files.cmd" -release )
+
+# Target Ipponboard_Debug
+add_custom_command(TARGET Ipponboard_Debug PRE_BUILD
+		COMMAND call "../base/create_versioninfo.cmd"
+		
+		if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+			COMMAND call "../create_env_cfg-x64.cmd" .. 
+		elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+			COMMAND call "../create_env_cfg-x86.cmd" .. 
+		endif() )
 
 	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
 		COMMAND call "../base/copy_files.cmd" -debug )
 
+# Target make-setup
 	add_custom_target(make-setup
 		COMMAND call "../doc/build_doc.cmd" 
 		COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O../bin ../setup/setup.iss )
 endif (WIN32)
+
+# compile Testsuites
+add_subdirectory(../test/cmake_qt4 ../test/_build_cmake)
+add_subdirectory(../GamepadDemo/cmake_qt4 ../GamepadDemo/_build_cmake)

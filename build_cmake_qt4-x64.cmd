@@ -1,4 +1,4 @@
-::@echo off
+@echo off
 set QTDIR=C:\dev\inst\qt\qt-4.8.7-x64-msvc2017
 set PATH=%PATH%;%QTDIR%\bin
 set INNO_DIR=C:\dev\inst\InnoSetup6
