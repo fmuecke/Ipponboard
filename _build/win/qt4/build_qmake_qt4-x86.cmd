@@ -3,33 +3,36 @@
 :: Use of this source code is governed by a BSD-style license that can be
 :: found in the LICENSE.txt file.
 ::---------------------------------------------------------
-@echo off
-SETLOCAL
+::@echo off
+setlocal
 
-call _create_env_cfg.cmd x86|| exit /b %errorlevel%
+call _create_env_cfg.cmd x86 || exit /b %errorlevel%
 
-SET BASE_DIR=..\..\..
-if "%2"=="debug" (SET BIN_DIR=%BASE_DIR%\bin\Debug) else (SET BIN_DIR=%BASE_DIR%\bin\Release)
+set BASE_DIR=..\..\..
+if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
 
-IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
+::if not exist "%BIN_DIR%" (
+::	mkdir "%BIN_DIR%"
+::	echo created directory %BIN_DIR%
+::)
 
 rem check for compiler
 cl > nul 2>&1
-IF ERRORLEVEL 1 (
-	ECHO Can't find C++ compiler tools. Please run create_env_cfg-x86.cmd from within Visual Studio Developer Command Prompt 
+if errorlevel 1 (
+	echo Can't find C++ compiler tools. Please run create_env_cfg-x86.cmd from within Visual Studio Developer Command Prompt 
 		pause	
 		exit /b 1
 	)
 )
 
-IF NOT EXIST "%BOOST_DIR%\boost" (
-	ECHO Can't find boost. Please set "BOOST" to boost path.
+if not exist "%BOOST_DIR%\boost" (
+	echo Can't find boost. Please set "BOOST" to boost path.
 	pause
 	exit /b 1
 )
 
-IF NOT EXIST "%QTDIR%\bin\qmake.exe" (
-	ECHO Can't find qmake.exe. Please specify "QTDIR".
+if not exist "%QTDIR%\bin\qmake.exe" (
+	echo Can't find qmake.exe. Please specify "QTDIR".
 	pause
 	exit /b 1
 )
@@ -71,7 +74,7 @@ GOTO the_end
 
 :cmd_make_makefiles
 	%~dp0.\_stopwatch start build
-	call :generate_makefiles || goto the_error
+	call :make_makefiles || goto the_error
 goto the_end
 
 :cmd_clean
@@ -112,13 +115,15 @@ goto the_end
 
 :cmd_all
 	%~dp0.\_stopwatch start build
-	call :make_clean || goto the_error
-	call :make_build || goto the_error
-	call :make_setup || goto the_error
+	call :make_clean 		|| goto the_error
+	call :make_makefiles 	|| goto the_error
+	call :make_build 		|| goto the_error
+	call :make_doc   		|| goto the_error
+	call :make_setup 		|| goto the_error
 goto the_end
 
 ::-------------------------------
-:generate_makefiles
+:make_makefiles
 	pushd "%BASE_DIR%"
 	echo --[Creating makefiles]--
 	qmake -recursive || exit /b %errorlevel%
@@ -177,7 +182,7 @@ exit /b 0
 :make_doc
 	echo;
 	echo -- building doc
-	call _build_doc.cmd || exit /b %errorlevel%
+	call %~dp0.\_build_doc.cmd || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
