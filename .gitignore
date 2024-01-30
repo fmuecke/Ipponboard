@@ -29,7 +29,7 @@ doc/manual.aux
 doc/manual.log
 doc/manual.out
 doc/manual.pdf
-env_cfg*.bat
+_env_cfg*.cmd
 ipch/
 lib/*
 ui*.h

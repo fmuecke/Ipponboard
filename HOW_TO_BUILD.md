@@ -67,7 +67,7 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 	execute "all"
 	quit
 
-Note: In copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
+Note: In _copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
 
 ### Using vcproj
 Create a VStudio project and solution file. You can use this for compiling or develop the source code in Visual Studio 

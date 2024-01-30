@@ -72,12 +72,12 @@ contains(COMPILER, msvc) {
 
 CONFIG(debug, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += call copy_files.cmd
+    QMAKE_POST_LINK += call _copy_files.cmd
 }
 
 CONFIG(release, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += call copy_files.cmd -release
+    QMAKE_POST_LINK += call _copy_files.cmd -release
 }
 
 HEADERS = pch.h \
