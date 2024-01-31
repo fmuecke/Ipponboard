@@ -24,15 +24,6 @@ INCLUDEPATH += $$quote($$(BOOST_DIR))
 QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
-#----------------------------------------------------------
-# Create our custom prebuild target for the release build
-#----------------------------------------------------------
-prebuild.commands = create_versioninfo.cmd
-QMAKE_EXTRA_TARGETS += prebuild
-# Hook our prebuild target in between qmake's Makefile update and the actual project target.
-QMAKE_EXTRA_TARGETS += prebuildhook
-prebuildhook.depends = prebuild
-
 CONFIG(debug, release|debug) {
 	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d

@@ -3,20 +3,9 @@
 :: Use of this source code is governed by a BSD-style license that can be
 :: found in the LICENSE.txt file.
 ::---------------------------------------------------------
-::@echo off
-setlocal
-
-call _create_env_cfg.cmd x86 || exit /b %errorlevel%
-
-set BASE_DIR=..\..\..
-if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
-
-::if not exist "%BIN_DIR%" (
-::	mkdir "%BIN_DIR%"
-::	echo created directory %BIN_DIR%
-::)
-
+@echo off
 rem check for compiler
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat" || exit /b %errorlevel%
 cl > nul 2>&1
 if errorlevel 1 (
 	echo Can't find C++ compiler tools. Please run create_env_cfg-x86.cmd from within Visual Studio Developer Command Prompt 
@@ -25,6 +14,7 @@ if errorlevel 1 (
 	)
 )
 
+call _create_env_cfg.cmd x86 || exit /b %errorlevel%
 if not exist "%BOOST_DIR%\boost" (
 	echo Can't find boost. Please set "BOOST" to boost path.
 	pause
@@ -37,6 +27,12 @@ if not exist "%QTDIR%\bin\qmake.exe" (
 	exit /b 1
 )
 
+setlocal
+
+set BASE_DIR=%~dp0..\..\..
+call "%BASE_DIR%\base\_create_versioninfo.cmd"
+
+if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
 
 :menu
 ::cls
@@ -51,13 +47,13 @@ echo;
 echo Select build mode:
 echo;
 echo   (1) make makefiles
-echo   (2) clean
-echo   (3) build
-echo   (4) rebuild
+echo   (2) build
+echo   (3) rebuild
+echo   (4) clean
 echo   (5) run
 echo   (6) build doc
 echo   (7) setup
-echo   (8) all
+::echo   (8) all
 echo   (q) quit
 choice /C 12345678q /N
 :: value "0" is reserved!
@@ -66,29 +62,29 @@ if %errorlevel%==8 goto cmd_all
 if %errorlevel%==7 goto cmd_setup
 if %errorlevel%==6 goto cmd_build_doc
 if %errorlevel%==5 goto cmd_run
-if %errorlevel%==4 goto cmd_rebuild
-if %errorlevel%==3 goto cmd_build
-if %errorlevel%==2 goto cmd_clean
+if %errorlevel%==4 goto cmd_clean
+if %errorlevel%==3 goto cmd_rebuild
+if %errorlevel%==2 goto cmd_build
 if %errorlevel%==1 goto cmd_make_makefiles
 GOTO the_end
 
 :cmd_make_makefiles
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_makefiles || goto the_error
 goto the_end
 
 :cmd_clean
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_clean || goto the_error
 goto the_end
 
 :cmd_build
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_rebuild
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 goto the_end
@@ -104,22 +100,22 @@ goto the_end
 goto menu
 
 :cmd_build_doc
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_doc || goto the_error
 goto the_end
 
 :cmd_setup
-	%~dp0.\_stopwatch start build
+	%~dp0_stopwatch start build
 	call :make_setup || goto the_error
 goto the_end
 
 :cmd_all
-	%~dp0.\_stopwatch start build
-	call :make_clean 		|| goto the_error
-	call :make_makefiles 	|| goto the_error
-	call :make_build 		|| goto the_error
-	call :make_doc   		|| goto the_error
-	call :make_setup 		|| goto the_error
+	::%~dp0_stopwatch start build
+	::call :make_clean 		|| goto the_error
+	::call :make_makefiles 	|| goto the_error
+	::call :make_build 		|| goto the_error
+	::call :make_doc   		|| goto the_error
+	::call :make_setup 		|| goto the_error
 goto the_end
 
 ::-------------------------------
@@ -162,7 +158,7 @@ exit /b 0
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
 	::call ::make_doc || exit /b %errorlevel%
-	::call %~dp0.\_copy_files.cmd -release || exit /b %errorlevel%
+	::call %~dp0_copy_files.cmd -release || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -182,7 +178,7 @@ exit /b 0
 :make_doc
 	echo;
 	echo -- building doc
-	call %~dp0.\_build_doc.cmd || exit /b %errorlevel%
+	call "%~dp0_build_doc.cmd" %BASE_DIR% || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -209,6 +205,6 @@ goto menu
 :the_end
 echo.
 echo SUCCESS
-%~dp0.\_stopwatch stop build "Time Elapsed: {1}"
+%~dp0_stopwatch stop build "Time Elapsed: {1}"
 pause
 goto menu

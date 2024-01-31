@@ -1,19 +1,19 @@
 :: Please configure paths first!
 @echo off
-IF [%1] == [] (
+if [%1] == [] (
 	echo Fehlende Argumente: _create_env_cfg.cmd x86/x64 [outputDir]
 	exit /b 1
 )
 
-IF [%1] == [x86] (SET ARCH=x86) ELSE IF [%1] == [x64] (SET ARCH=x64)
-IF [%2] == [] (SET DIR=.) ELSE (SET DIR=%1)
+if [%1] == [x86] (set ARCH=x86) else if [%1] == [x64] (set ARCH=x64)
+if [%2] == [] (set DIR=.) else (set DIR=%1)
 
-SET LOCAL_CONFIG=%DIR%\_env_cfg-%ARCH%.cmd
+set LOCAL_CONFIG=%DIR%\_env_cfg-%ARCH%.cmd
 
-IF EXIST "%LOCAL_CONFIG%" (
-  CALL "%LOCAL_CONFIG%"
+if EXIST "%LOCAL_CONFIG%" (
+  call "%LOCAL_CONFIG%"
   echo;
-) ELSE (
+) else (
   echo @echo off>"%LOCAL_CONFIG%"
   echo set QTDIR=C:\dev\inst\qt\qt-4.8.7-%ARCH%-msvc2017>>"%LOCAL_CONFIG%"
   echo set PATH=%%PATH%%;%%QTDIR%%\bin;C:\dev\inst\jom_1_1_3>>"%LOCAL_CONFIG%"
