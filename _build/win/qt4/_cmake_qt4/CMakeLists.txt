@@ -68,13 +68,18 @@ ${BASE_DIR}/base/view_vertical_single.ui
 ${BASE_DIR}/base/qrc_ipponboard.cpp
 )
 
-
 include_directories(base ${BOOST_DIR} ${XMLQUERY} )
 
 # Target Ipponboard: create a binary
 add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 set_target_properties(Ipponboard PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin"
+	if (WIN32)
+		LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+	else()
+		LINK_FLAGS_RELEASE "-mwindows"
+# oder das? -->	SUBSYSTEM_LINKER_OPTIONS "-mwindows"
+	endif()
 )
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
@@ -88,24 +93,26 @@ set_target_properties(Ipponboard_Debug PROPERTIES
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
 if(WIN32)
-set(CMAKE_SUPPRESS_REGENERATION true)
+	set(CMAKE_SUPPRESS_REGENERATION true)
 
-# Target Ipponboard
-add_custom_command(TARGET Ipponboard POST_BUILD
-	COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
-)
+	# Target Ipponboard
+	add_custom_command(TARGET Ipponboard POST_BUILD
+		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
+	)
 
-# Target Ipponboard_Debug
-add_custom_command(TARGET Ipponboard_Debug POST_BUILD
-	COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
-)
+	# Target Ipponboard_Debug
+	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
+		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
+	)
 
-# Target setup
-add_custom_target(setup
-	COMMAND call "../_build_doc.cmd" ${BASE_DIR}
-	COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/bin ${BASE_DIR}/setup/setup.iss 
-)
-endif (WIN32)
+	# Target setup
+	add_custom_target(setup
+		COMMAND call "../_build_doc.cmd" ${BASE_DIR}
+		COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/bin ${BASE_DIR}/setup/setup.iss 
+	)
+else()
+	# TODO Linux
+endif ()
 
 # compile Testsuites
 add_subdirectory(${BASE_DIR}/test/cmake_qt4 ${BASE_DIR}/test/_build_cmake_qt4)

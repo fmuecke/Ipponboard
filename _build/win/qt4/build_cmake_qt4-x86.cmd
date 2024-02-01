@@ -11,6 +11,6 @@ rcc.exe -name ipponboard %BASE_DIR%\base\ipponboard.qrc -o %BASE_DIR%\base\qrc_i
 
 :: now build
 cmake -S "_cmake_qt4" -B "_build_cmake_qt4" -G "Visual Studio 17 2022" -A Win32
-cmake --build _build_cmake_qt4 --config Release --target Ipponboard
+cmake --build _build_cmake_qt4 --config Release --target Ipponboard 
 cmake --build _build_cmake_qt4 --target setup 
 pause
