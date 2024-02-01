@@ -1,8 +1,16 @@
 @echo off
 setlocal
 
-set BASE_DIR=%~dp0.
-set OUTPUT_DIR=%BASE_DIR%\..\bin
+if [%1] == [] (
+	echo Fehlendes Argument: _build_doc.cmd BASE_DIR
+	exit /b 1
+) else (
+	set BASE_DIR=%1
+	echo BASE_DIR=%BASE_DIR%
+)
+
+set OUTPUT_DIR=%BASE_DIR%\bin
+set BASE_DIR=%BASE_DIR%/doc
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 
 :: checking for pandoc

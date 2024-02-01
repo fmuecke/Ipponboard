@@ -33,10 +33,10 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 1. git clone https://gitlab.com/r_bernhard/Ipponboard.git
 2. Create versioninfo.h:
 	a: cd Ipponboard\base
-	b: edit in "create_versioninfo.cmd" the variable values of VER1, VER2, VER3 (e.g. major release/minor release/feature release).
+	b: edit in "_create_versioninfo.cmd" the variable values of VER1, VER2, VER3 (e.g. major release/minor release/feature release).
 		TAG contains the git tag we´re planning for this version. 
 		VER4 contains the build number of the product (do not edit this variable)
-	c: execute "create_versioninfo.cmd" all the time before building a release!
+	c: execute "_create_versioninfo.cmd" all the time before building a release!
 
 ## compile
 ### Using build_qmake_qt4-x86.cmd
@@ -67,7 +67,7 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 	execute "all"
 	quit
 
-Note: In copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
+Note: In _copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
 
 ### Using vcproj
 Create a VStudio project and solution file. You can use this for compiling or develop the source code in Visual Studio 

@@ -20,6 +20,7 @@ base/Ipponboard.rc
 base/Ipponboard_team.rc
 base/versioninfo.h
 base/pch.h.cpp
+base/qrc_ipponboard.cpp
 doc/Anleitung.aux
 doc/Anleitung.log
 doc/Anleitung.out
@@ -29,7 +30,7 @@ doc/manual.aux
 doc/manual.log
 doc/manual.out
 doc/manual.pdf
-env_cfg*.bat
+_env_cfg*.cmd
 ipch/
 lib/*
 ui*.h
