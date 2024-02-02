@@ -30,7 +30,7 @@ if not exist "%QTDIR%\bin\qmake.exe" (
 setlocal
 
 set BASE_DIR=%~dp0..\..\..
-call "%BASE_DIR%\base\_create_versioninfo.cmd"
+call _create_versioninfo.cmd %BASE_DIR%\base
 
 if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
 

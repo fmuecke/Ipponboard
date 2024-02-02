@@ -4,7 +4,7 @@ call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build
 call _create_env_cfg.cmd x86 || exit /b %errorlevel%
 
 set BASE_DIR=%~dp0..\..\..
-call "%BASE_DIR%\base\_create_versioninfo.cmd"
+call _create_versioninfo.cmd %BASE_DIR%\base
 
 :: Create the QT resource file
 rcc.exe -name ipponboard %BASE_DIR%\base\ipponboard.qrc -o %BASE_DIR%\base\qrc_ipponboard.cpp || exit /b %errorlevel%

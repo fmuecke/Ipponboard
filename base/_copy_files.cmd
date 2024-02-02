@@ -1,13 +1,3 @@
-::---------------------------------------------------------
-:: Copyright 2018 Florian Muecke. All rights reserved.
-:: Use of this source code is governed by a BSD-style license that can be
-:: found in the LICENSE.txt file.
-::---------------------------------------------------------
-@echo off
-setlocal
-REM -- language file
-::call %~dp0..\env_cfg.bat
-
 set ROOT=%~dp0..
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1

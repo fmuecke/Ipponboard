@@ -1,10 +1,17 @@
-::---------------------------------------------------------
-:: Copyright 2018 Florian Muecke. All rights reserved.
-:: Use of this source code is governed by a BSD-style license that can be
-:: found in the LICENSE.txt file.
-::---------------------------------------------------------
 ::@echo off
 setlocal
+
+if [%1] == [] (
+	echo Fehlendes Argument: _create_versioninfo.cmd BASE_DIR
+	exit /b 1
+) else (
+	set BASE_DIR=%1
+)
+
+echo set versioninfo file in %BASE_DIR%
+
+pushd "%BASE_DIR%"
+
 :: --> CHANGE VERSION HERE:
 SET VER1=2
 SET VER2=0
@@ -12,23 +19,21 @@ SET VER3=0
 SET TAG=
 :: that's it. <--
 
-rem hg parents --template "{rev}:{node|short}" > ..\base\.revision
-git log -1 --format=%%h > %~dp0..\base\.revision
-SET /P REV=<%~dp0..\base\.revision
+git log -1 --format=%%h > .revision
+SET /P REV=<.revision
 
-rem hg parents --template {date^|localdate^|isodate} > ..\base\.date
-git log -1 --format=%%ci > %~dp0..\base\.date
-SET /P REV_DATE=<%~dp0..\base\.date
+git log -1 --format=%%ci > .date
+SET /P REV_DATE=<.date
 
-SET FILENAME_NO_EXT=%~dp0..\base\versioninfo
-IF NOT EXIST %~dp0..\base\.buildnr (
+SET FILENAME_NO_EXT=versioninfo
+IF NOT EXIST .buildnr (
 	SET VER4=0
 ) ELSE (
-	SET /P VER4=<%~dp0..\base\.buildnr
+	SET /P VER4=<.buildnr
 	IF NOT EXIST %FILENAME_NO_EXT%.h SET /A VER4+=1 >nul
 	)
 )
-echo %VER4% >%~dp0..\base\.buildnr
+echo %VER4% >.buildnr
 
 IF EXIST %FILENAME_NO_EXT%.h (
 	echo --^> version info up to date: %VER1%.%VER2%.%VER3%.%VER4%
@@ -73,7 +78,7 @@ move %FILENAME_NO_EXT%.tmp %FILENAME_NO_EXT%.h>nul
 :: --
 :: Update RC file
 :: --
-SET RC_FILE=%~dp0..\base\Ipponboard.rc
+SET RC_FILE=Ipponboard.rc
 ECHO //>%RC_FILE%
 ECHO // FILE IS GENERATED - DO NOT CHANGE!!>>%RC_FILE%
 ECHO //>>%RC_FILE%
@@ -118,3 +123,5 @@ ECHO         VALUE "Translation", 0x400, 1200>>%RC_FILE%
 ECHO     END>>%RC_FILE%
 ECHO END>>%RC_FILE%
 ECHO /////////////////////////////////////////////////////////////////////////////>>%RC_FILE%
+
+popd
