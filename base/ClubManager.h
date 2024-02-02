@@ -32,7 +32,7 @@ public:
 	void UpdateClub(unsigned int index, const Ipponboard::Club& club);
 	void RemoveClub(unsigned int index);
 	void SortClubs();
-	int ClubCount() const { return m_Clubs.size(); }
+	size_t ClubCount() const { return m_Clubs.size(); }
 
 private:
 	void LoadClubs_();

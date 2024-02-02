@@ -102,9 +102,10 @@ if(WIN32)
 
 	# Target Ipponboard_Debug
 	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
+		COMMAND call "../_env_cfg-x64.cmd"
 		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
 	)
-
+	
 	# Target setup
 	add_custom_target(setup
 		COMMAND call "../_build_doc.cmd" ${BASE_DIR}

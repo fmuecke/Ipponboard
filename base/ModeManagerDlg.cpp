@@ -42,7 +42,7 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
 
 			if (mode.id == currentModeId)
 			{
-				pos = i;
+				pos = (int)i;
 			}
 		}
 

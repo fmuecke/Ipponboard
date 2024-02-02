@@ -3,7 +3,8 @@ set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
 if defined RELEASE (set DEST=%ROOT%\bin\Release) else (set DEST=%ROOT%\bin\Debug)
 
-echo Copying files to %DEST% ...
+echo Copying files to %DEST% using QTDIR=%QTDIR% ...
+
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul

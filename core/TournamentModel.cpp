@@ -90,7 +90,7 @@ TournamentModel::~TournamentModel()
 //=========================================================
 //QModelIndex TournamentModel::parent(const QModelIndex& /*child*/) const
 //=========================================================
-//{
+//{size_t
 //	return QModelIndex();
 //}
 
@@ -98,7 +98,7 @@ TournamentModel::~TournamentModel()
 int TournamentModel::rowCount(const QModelIndex& parent) const
 //=========================================================
 {
-	return (parent.isValid() && parent.column() != 0) ? 0 : m_nRows;
+	return (parent.isValid() && parent.column() != 0) ? 0 : (int)m_nRows;
 }
 
 //=========================================================
@@ -441,7 +441,7 @@ void TournamentModel::SetDataChanged()
 //=========================================================
 {
 	QModelIndex idxStart = this->index(0, 0);
-	QModelIndex idxEnd = this->index(eCol_MAX - 1, m_nRows - 1);
+	QModelIndex idxEnd = this->index(eCol_MAX - 1, (int)m_nRows - 1);
 
 	emit dataChanged(idxStart, idxEnd);
 }

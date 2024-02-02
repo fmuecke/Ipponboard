@@ -143,7 +143,7 @@ public:
 
 	void ClearFightsAndResetTimers();
 	void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
-	void SetFight(unsigned int tournament_index, unsigned int fight_index,
+	void SetFight(unsigned int tournament_index, size_t fight_index,
 				  const QString& weight, const QString& first_player_name,
 				  const QString& first_player_club, const QString& second_player_name,
 				  const QString& second_player_club, int yuko1 = -1,

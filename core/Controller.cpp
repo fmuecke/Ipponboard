@@ -981,7 +981,7 @@ void Controller::SetClub(Ipponboard::FighterEnum who, const QString& clubName)
 
 //=========================================================
 void Controller::SetFight(
-	unsigned int round_index, unsigned int fight_index,
+	unsigned int round_index, size_t fight_index,
 	const QString& weight,
 	const QString& first_player_name, const QString& first_player_club,
 	const QString& second_player_name, const QString& second_player_club,

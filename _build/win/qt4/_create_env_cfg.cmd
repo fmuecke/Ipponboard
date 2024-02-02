@@ -1,14 +1,13 @@
 :: Please configure paths first!
 @echo off
 if [%1] == [] (
-	echo Fehlende Argumente: _create_env_cfg.cmd x86/x64 [outputDir]
+	echo Fehlende Argumente: _create_env_cfg.cmd x86/x64
 	exit /b 1
 )
 
 if [%1] == [x86] (set ARCH=x86) else if [%1] == [x64] (set ARCH=x64)
-if [%2] == [] (set DIR=.) else (set DIR=%1)
 
-set LOCAL_CONFIG=%DIR%\_env_cfg-%ARCH%.cmd
+set LOCAL_CONFIG=_env_cfg-%ARCH%.cmd
 
 if EXIST "%LOCAL_CONFIG%" (
   call "%LOCAL_CONFIG%"
