@@ -77,7 +77,6 @@ set_target_properties(Ipponboard PROPERTIES
 		LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 	else()
 		LINK_FLAGS_RELEASE "-mwindows"
-# oder das? -->	SUBSYSTEM_LINKER_OPTIONS "-mwindows"
 	endif()
 )
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
@@ -90,7 +89,6 @@ set_target_properties(Ipponboard_Debug PROPERTIES
 	OUTPUT_NAME Ipponboard_Debug
 	DEBUG_POSTFIX _d
 	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin"
-	#ENV{QTDIR} "c:/dev/inst/qt/qt-4.8.7-x64-msvc2017"
 )
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
