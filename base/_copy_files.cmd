@@ -1,9 +1,12 @@
+echo off
+setlocal
+
 set ROOT=%~dp0..
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
 if defined RELEASE (set DEST=%ROOT%\bin\Release) else (set DEST=%ROOT%\bin\Debug)
 
-echo Copying files to %DEST% using QTDIR=%QTDIR% ...
+echo Copying files to %DEST% using QTDIR=%QTDIR%
 
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
@@ -26,24 +29,20 @@ if defined RELEASE (
 	copy /Y "%QTDIR%\bin\QtNetwork4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\bin\QtXmlPatterns4.dll" "%DEST%">nul || exit /b 1
 
-	copy /Y "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\14.29.30133\x64\Microsoft.VC142.CRT\msvcp140.dll" "%DEST%">nul
-	copy /Y "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\14.29.30133\x64\Microsoft.VC142.CRT\vcruntime140.dll" "%DEST%">nul
-	::copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x86\Microsoft.VC143.CRT\msvcp140.dll" "%DEST%">nul
-	::copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x86\Microsoft.VC143.CRT\vcruntime140.dll" "%DEST%">nul 
-	copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT\msvcp140.dll" "%DEST%">nul
-	copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT\vcruntime140.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x86%\msvcp140.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x86%\vcruntime140.dll" "%DEST%">nul 
+	copy /Y "%REDIST_DIR_x64%\msvcp140.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x64%\vcruntime140.dll" "%DEST%">nul
 ) else (
 	copy /Y "%QTDIR%\bin\QtCored4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\bin\QtGuid4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\bin\QtNetworkd4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\bin\QtXmlPatternsd4.dll" "%DEST%">nul || exit /b 1
 
-	copy /Y "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\14.29.30133\debug_nonredist\x64\Microsoft.VC142.DebugCRT\msvcp140d.dll" "%DEST%">nul 
-	copy /Y "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\14.29.30133\debug_nonredist\x64\Microsoft.VC142.DebugCRT\vcruntime140d.dll" "%DEST%">nul
-	::copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" "%DEST%">nul
-	::copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" "%DEST%">nul
-	copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\debug_nonredist\x64\Microsoft.VC143.DebugCRT\msvcp140d.dll" "%DEST%">nul
-	copy /Y "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\debug_nonredist\x64\Microsoft.VC143.DebugCRT\vcruntime140d.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x86d%\msvcp140d.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x86d%\vcruntime140d.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x64d%\msvcp140d.dll" "%DEST%">nul
+	copy /Y "%REDIST_DIR_x64d%\vcruntime140d.dll" "%DEST%">nul
 )
 
 REM -- doc
@@ -69,5 +68,5 @@ REM if not exist "%DEST%\Ipponboard.exe" (
 	REM pause
 	REM exit 1
 REM )
-
+endlocal
 exit /b 0

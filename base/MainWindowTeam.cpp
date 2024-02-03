@@ -378,7 +378,7 @@ void MainWindowTeam::update_club_views()
 	m_pUi->comboBox_club_home->clear();
 	m_pUi->comboBox_club_guest->clear();
 
-	for (int i = 0; i < m_pClubManager->ClubCount(); ++i)
+	for (int i = 0; i < (int)m_pClubManager->ClubCount(); ++i)
 	{
 		Ipponboard::Club club;
 		m_pClubManager->GetClub(i, club);

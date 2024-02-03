@@ -4,17 +4,13 @@ cmake_minimum_required(VERSION 3.13)
 project(Ipponboard VERSION 2.0.0 LANGUAGES C CXX) 
 message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 
-find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
-
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")
-set (BOOST_DIR C:/dev/inst/boost_1_82_0)
-set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
-
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+#####################################################
 # compile Ipponboard
+#####################################################
 set (BASE_DIR ../../../..)
 set( SOURCES
 ${BASE_DIR}/core/Controller.cpp ${BASE_DIR}/core/Controller.h
@@ -68,9 +64,12 @@ ${BASE_DIR}/base/view_vertical_single.ui
 ${BASE_DIR}/base/qrc_ipponboard.cpp
 )
 
+set(BOOST_DIR C:/dev/inst/boost_1_82_0)
 include_directories(base ${BOOST_DIR} ${XMLQUERY} )
 
+#####################################################
 # Target Ipponboard: create a binary
+#####################################################
 add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 set_target_properties(Ipponboard PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin"
@@ -83,30 +82,42 @@ set_target_properties(Ipponboard PROPERTIES
 )
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
+#####################################################
 # Target Ipponboard_Debug: create a debug binary
+#####################################################
 add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 set_target_properties(Ipponboard_Debug PROPERTIES
 	OUTPUT_NAME Ipponboard_Debug
 	DEBUG_POSTFIX _d
 	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin"
+	#ENV{QTDIR} "c:/dev/inst/qt/qt-4.8.7-x64-msvc2017"
 )
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
 if(WIN32)
-	set(CMAKE_SUPPRESS_REGENERATION true)
+	set(CMAKE_SUPPRESS_REGENERATION true)	
+	set (CMAKE_PREFIX_PATH "$ENV{QTDIR}")
+	set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
 
-	# Target Ipponboard
+	message(STATUS "Using QTDIR=$ENV{QTDIR}")
+	find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
+
+	#####################################################
+	# custom commands
+	#####################################################
+	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
+		# the following environment variable is needed, if using VStudio GUI (solution)
+		#COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
+		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
+	)
+	
 	add_custom_command(TARGET Ipponboard POST_BUILD
 		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
 	)
 
-	# Target Ipponboard_Debug
-	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
-		COMMAND call "../_env_cfg-x64.cmd"
-		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
-	)
-	
+	#####################################################
 	# Target setup
+	#####################################################
 	add_custom_target(setup
 		COMMAND call "../_build_doc.cmd" ${BASE_DIR}
 		COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/bin ${BASE_DIR}/setup/setup.iss 

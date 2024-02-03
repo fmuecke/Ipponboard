@@ -13,11 +13,16 @@ if EXIST "%LOCAL_CONFIG%" (
   call "%LOCAL_CONFIG%"
   echo;
 ) else (
+  echo create file=%LOCAL_CONFIG%
   echo @echo off>"%LOCAL_CONFIG%"
   echo set QTDIR=C:\dev\inst\qt\qt-4.8.7-%ARCH%-msvc2017>>"%LOCAL_CONFIG%"
   echo set PATH=%%PATH%%;%%QTDIR%%\bin;C:\dev\inst\jom_1_1_3>>"%LOCAL_CONFIG%"
   echo set QMAKESPEC=%%QTDIR%%\mkspecs\win32-msvc2017>>"%LOCAL_CONFIG%"
   echo set BOOST_DIR=C:\dev\inst\boost_1_82_0>>"%LOCAL_CONFIG%"
   echo set INNO_DIR=C:\dev\inst\InnoSetup6>>"%LOCAL_CONFIG%"
-  CALL "%LOCAL_CONFIG%"
+  echo set REDIST_DIR_x86=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33135\x86\Microsoft.VC143.CRT>>"%LOCAL_CONFIG%"
+  echo set REDIST_DIR_x64=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33135\x64\Microsoft.VC143.CRT>>"%LOCAL_CONFIG%"
+  echo set REDIST_DIR_x86d=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33135\debug_nonredist\x86\Microsoft.VC143.DebugCRT>>"%LOCAL_CONFIG%"
+  echo set REDIST_DIR_x64d=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33135\debug_nonredist\x64\Microsoft.VC143.DebugCRT>>"%LOCAL_CONFIG%"
+ CALL "%LOCAL_CONFIG%"
 )

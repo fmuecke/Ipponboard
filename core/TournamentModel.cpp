@@ -121,7 +121,7 @@ QVariant TournamentModel::data(const QModelIndex& index, int role) const
 	{
 	case Qt::EditRole:
 	case Qt::DisplayRole:
-		if (index.row() < m_nRows &&
+		if (index.row() < (int)m_nRows &&
 				index.column() >= 0 &&
 				index.column() < eCol_MAX)
 		{
@@ -296,7 +296,7 @@ bool TournamentModel::setData(const QModelIndex& index,
 
 	bool result(false);
 
-	if (index.row() < m_nRows &&
+	if (index.row() < (int)m_nRows &&
 			index.column() >= 0 &&
 			index.column() < eCol_MAX)
 	{
@@ -453,7 +453,7 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalWins() const
 	int wins1(0);
 	int wins2(0);
 
-	for (int i(0); i < m_nRows; ++i)
+	for (int i(0); i < (int)m_nRows; ++i)
 	{
 		wins1 += m_pTournamentRound->at(i).HasWon(Ipponboard::FighterEnum::First);
 		wins2 += m_pTournamentRound->at(i).HasWon(Ipponboard::FighterEnum::Second);
@@ -469,7 +469,7 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 	int score1(0);
 	int score2(0);
 
-	for (int i(0); i < m_nRows; ++i)
+	for (int i(0); i < (int)m_nRows; ++i)
 	{
 		score1 += m_pTournamentRound->at(i).GetScorePoints(Ipponboard::FighterEnum::First);
 		score2 += m_pTournamentRound->at(i).GetScorePoints(Ipponboard::FighterEnum::Second);

@@ -30,7 +30,7 @@ if not exist "%QTDIR%\bin\qmake.exe" (
 setlocal
 
 set BASE_DIR=%~dp0..\..\..
-call _create_versioninfo.cmd %BASE_DIR%\base
+call _create_versioninfo.cmd %BASE_DIR%\base || exit /b %errorlevel%
 
 if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
 
@@ -133,9 +133,12 @@ exit /b 0
 	rd /Q /S "%BIN_DIR%" >nul 2>&1
 	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
 
+	call :make_makefiles
 	call :clean test || exit /b %errorlevel%
 	call :clean base || exit /b %errorlevel%
 	call :clean GamepadDemo || exit /b %errorlevel%
+	
+	call %~dp0_create_versioninfo.cmd %BASE_DIR%\base || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------

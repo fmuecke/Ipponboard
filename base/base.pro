@@ -118,7 +118,6 @@ HEADERS = pch.h \
 
 
 SOURCES = Main.cpp \
-    Main.cpp \
     MainWindow.cpp \
     MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \
