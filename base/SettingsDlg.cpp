@@ -4,7 +4,9 @@
 
 #include "SettingsDlg.h"
 #include "ui_SettingsDlg.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/ControllerConfig.h"
 #include "../core/Rules.h"
 
@@ -26,9 +28,11 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 
 	if (m_edition == EditionType::Team)
 	{
+#ifdef _WITH_GAMEPAD_
 		ui->comboBox_next->setEnabled(true);
 		ui->comboBox_prev->setEnabled(true);
 		ui->comboBox_pause->setEnabled(true);
+#endif
 
 		ui->comboBox_mat->setEnabled(false);
 		ui->label_home->setEnabled(true);
@@ -52,6 +56,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->text_color_first->SetText(tr("FIRST FIGHTER"));
 	ui->text_color_second->SetText(tr("SECOND FIGHTER"));
 
+#ifdef _WITH_GAMEPAD_
 	// build button text map
 	m_buttonTexts[FMlib::Gamepad::eButton1] = "button 1";
 	m_buttonTexts[FMlib::Gamepad::eButton2] = "button 2";
@@ -96,6 +101,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_second_holding->addItems(buttons);
 	ui->comboBox_hansokumake_first->addItems(buttons);
 	ui->comboBox_hansokumake_second->addItems(buttons);
+#endif
 
 	// num screens
 	int screens = QApplication::desktop()->numScreens();
@@ -177,7 +183,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	modifierVals << "Alt+Shift";
 	modifierVals << "Ctrl+Alt+Shift";
 
-	//FIXME: enable this when keyboard acces is customizable
+	//FIXME: enable this when keyboard access is customizable
 	//for (int i = 0; i < ui->tableWidget_keys->rowCount(); ++i)
 	//{
 	//	QComboBox* pCombo = new QComboBox();
@@ -377,6 +383,7 @@ void SettingsDlg::on_buttonBox_rejected()
 	reject();
 }
 
+#ifdef _WITH_GAMEPAD_
 void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 {
 	Q_ASSERT(pConfig);
@@ -451,7 +458,7 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 		pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
 	}
 }
-
+#endif
 
 //---------------------------------------------------------
 void SettingsDlg::changeEvent(QEvent* e)

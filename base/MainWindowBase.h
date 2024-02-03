@@ -33,11 +33,13 @@ class ScoreScreen;
 }
 class QSettings;
 
+#ifdef _WITH_GAMEPAD_
 namespace FMlib
 {
 class Gamepad;
 }
 typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
+#endif
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -147,7 +149,9 @@ protected slots:
 	//void on_actionReset_Scores_triggered();
 	void on_actionPreferences_triggered();
 	void on_button_reset_clicked();
+#ifdef _WITH_GAMEPAD_
 	void EvaluateInput();
+#endif
 	void on_actionLang_English_triggered(bool);
 	void on_actionLang_Deutsch_triggered(bool);
 	void on_actionLang_Dutch_triggered(bool);
@@ -165,7 +169,9 @@ protected slots:
 
 
 protected:
+#ifdef _WITH_GAMEPAD_
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+#endif
 
 	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
 	std::shared_ptr<Ipponboard::View> m_pSecondaryView;
@@ -180,7 +186,9 @@ protected:
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
+#ifdef _WITH_GAMEPAD_
 	PGamepad m_pGamepad;
+#endif
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_

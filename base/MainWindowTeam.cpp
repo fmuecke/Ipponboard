@@ -19,7 +19,9 @@
 #include "../core/ControllerConfig.h"
 #include "../core/Tournament.h"
 #include "../core/TournamentModel.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 #include "../Widgets/ScaledText.h"
@@ -54,7 +56,9 @@ static const char* const mode = "Mode";
 static const char* const host = "Host";
 }
 
+#ifdef _WITH_GAMEPAD_
 using namespace FMlib;
+#endif
 using namespace Ipponboard;
 
 namespace { bool initialized = false; }
@@ -670,6 +674,7 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 	UpdateButtonText_();
 }
 
+#ifdef _WITH_GAMEPAD_
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
 	// back
@@ -691,6 +696,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 
 	return false;
 }
+#endif
 
 void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 {

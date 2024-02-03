@@ -14,7 +14,9 @@
 #include "../core/ControllerConfig.h"
 #include "../core/Fighter.h"
 #include "../core/TournamentModel.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 #include "../Widgets/ScaledText.h"
@@ -40,7 +42,9 @@ namespace StrTags
 static const char* const edition = "Basic Edition";
 }
 
+#ifdef _WITH_GAMEPAD_
 using namespace FMlib;
+#endif
 using namespace Ipponboard;
 
 MainWindow::MainWindow(QWidget* parent)

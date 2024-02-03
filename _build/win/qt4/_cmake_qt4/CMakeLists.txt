@@ -89,11 +89,12 @@ set_target_properties(Ipponboard_Debug PROPERTIES
 	OUTPUT_NAME Ipponboard_Debug
 	DEBUG_POSTFIX _d
 	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin"
+	COMPILE_FLAGS -D_WITH_GAMEPAD_
 )
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
 if(WIN32)
-	set(CMAKE_SUPPRESS_REGENERATION true)	
+	set (CMAKE_SUPPRESS_REGENERATION true)	
 	set (CMAKE_PREFIX_PATH "$ENV{QTDIR}")
 	set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
 
@@ -105,7 +106,7 @@ if(WIN32)
 	#####################################################
 	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
 		# the following environment variable is needed, if using VStudio GUI (solution)
-		#COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
+		COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
 		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
 	)
 	
@@ -126,4 +127,4 @@ endif ()
 
 # compile Testsuites
 add_subdirectory(${BASE_DIR}/test/cmake_qt4 ${BASE_DIR}/test/_build_cmake_qt4)
-add_subdirectory(${BASE_DIR}/GamepadDemo/cmake_qt4 ${BASE_DIR}/GamepadDemo/_build_cmake_qt4)
+#add_subdirectory(${BASE_DIR}/GamepadDemo/cmake_qt4 ${BASE_DIR}/GamepadDemo/_build_cmake_qt4)

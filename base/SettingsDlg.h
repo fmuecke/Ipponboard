@@ -19,7 +19,9 @@ class SettingsDlg;
 namespace Ipponboard
 {
 
+#ifdef _WITH_GAMEPAD_
 struct ControllerConfig;
+#endif
 
 class SettingsDlg : public QDialog
 {
@@ -52,8 +54,10 @@ public:
 	QString GetGuestLabel() const;
 	QString GetGongFile() const;
 
+#ifdef _WITH_GAMEPAD_
 	void SetControllerConfig(const ControllerConfig* pConfig);
 	void GetControllerConfig(ControllerConfig* pConfig);
+#endif
 
 protected:
 	void changeEvent(QEvent* e);
