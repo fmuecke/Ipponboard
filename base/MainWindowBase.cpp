@@ -11,7 +11,9 @@
 #include "../core/Enums.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/Rules.h"
 #include "../util/path_helpers.h"
 
@@ -27,7 +29,9 @@
 #include <QTimer>
 #include <QStyle>
 
+#ifdef _WITH_GAMEPAD_
 using namespace FMlib;
+#endif
 using namespace Ipponboard;
 using Point = Score::Point;
 
@@ -44,7 +48,9 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_secondScreenNo(0)
 	, m_secondScreenSize()
 	, m_controllerCfg()
+#ifdef _WITH_GAMEPAD_
 	, m_pGamepad(new Gamepad)
+#endif
 {
 }
 
@@ -83,10 +89,12 @@ void MainWindowBase::Init()
 
 	change_lang(true);
 
+#ifdef _WITH_GAMEPAD_
 	// Init gamepad
 	QTimer* m_pTimer = new QTimer;
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
 	m_pTimer->start(75);
+#endif
 
 	update_statebar();
 
@@ -598,6 +606,7 @@ void MainWindowBase::read_settings()
 	}
 	settings.endGroup();
 
+#ifdef _WITH_GAMEPAD_
 	settings.beginGroup(str_tag_Input);
 	{
 		m_controllerCfg.button_hajime_mate =
@@ -647,6 +656,7 @@ void MainWindowBase::read_settings()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 	}
 	settings.endGroup();
+#endif
 
 	settings.beginGroup(str_tag_Sounds);
 	{
@@ -736,7 +746,9 @@ void MainWindowBase::on_actionPreferences_triggered()
 	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
 	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
 	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
+#ifdef _WITH_GAMEPAD_
 	dlg.SetControllerConfig(&m_controllerCfg);
+#endif
 	dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
 	dlg.SetGongFile(m_pController->GetGongFile());
 
@@ -752,13 +764,14 @@ void MainWindowBase::on_actionPreferences_triggered()
 		m_secondScreenNo = dlg.GetSelectedScreen();
 		m_secondScreenSize = dlg.GetSize();
 
+#ifdef _WITH_GAMEPAD_
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
-
+#endif
 		m_MatLabel = dlg.GetMatLabel();
 		m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
 
@@ -814,6 +827,7 @@ void MainWindowBase::show_hide_view() const
 	isAlreadyCalled = false;
 }
 
+#ifdef _WITH_GAMEPAD_
 void MainWindowBase::EvaluateInput()
 {
 	if (Gamepad::eState_ok != m_pGamepad->GetState())
@@ -973,6 +987,7 @@ void MainWindowBase::EvaluateInput()
 		}
 	}
 }
+#endif
 
 void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)
 {

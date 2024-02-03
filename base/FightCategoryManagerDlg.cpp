@@ -109,7 +109,7 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 void FightCategoryManagerDlg::load_values()
 //---------------------------------------------------------
 {
-	for (int i(0); i < m_pClassMgr->CategoryCount(); ++i)
+	for (int i(0); i < (int)m_pClassMgr->CategoryCount(); ++i)
 	{
 		Ipponboard::FightCategory classItem;
 		m_pClassMgr->GetCategory(i, classItem);

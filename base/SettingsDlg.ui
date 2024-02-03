@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>459</width>
-    <height>566</height>
+    <width>517</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,7 +39,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_general">
       <attribute name="icon">
@@ -738,6 +738,9 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_gamepad">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <attribute name="icon">
        <iconset resource="ipponboard.qrc">
         <normaloff>:/res/icons/controller.png</normaloff>:/res/icons/controller.png</iconset>
@@ -840,7 +843,7 @@
           <item row="0" column="1" colspan="2">
            <widget class="QComboBox" name="comboBox_hajime_mate">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -1099,6 +1102,11 @@
         <widget class="QTableWidget" name="tableWidget_keys">
          <property name="enabled">
           <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>

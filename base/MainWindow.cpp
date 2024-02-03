@@ -14,7 +14,9 @@
 #include "../core/ControllerConfig.h"
 #include "../core/Fighter.h"
 #include "../core/TournamentModel.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 #include "../Widgets/ScaledText.h"
@@ -40,7 +42,9 @@ namespace StrTags
 static const char* const edition = "Basic Edition";
 }
 
+#ifdef _WITH_GAMEPAD_
 using namespace FMlib;
+#endif
 using namespace Ipponboard;
 
 MainWindow::MainWindow(QWidget* parent)
@@ -62,7 +66,7 @@ void MainWindow::Init()
 	MainWindowBase::Init();
 
 	// init tournament classes (if there are none present)
-	for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
+	for (int i(0); i < (int)m_pCategoryManager->CategoryCount(); ++i)
 	{
 		FightCategory t("");
 		m_pCategoryManager->GetCategory(i, t);
@@ -86,7 +90,7 @@ void MainWindow::on_actionManageClasses_triggered()
 
 		m_pUi->comboBox_weight_class->clear();
 
-		for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
+		for (int i(0); i < (int)m_pCategoryManager->CategoryCount(); ++i)
 		{
 			FightCategory t("");
 			m_pCategoryManager->GetCategory(i, t);

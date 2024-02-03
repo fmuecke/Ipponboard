@@ -116,7 +116,9 @@ private slots:
 	//void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
 	void on_actionReset_Scores_triggered();
+#ifdef _WITH_GAMEPAD_
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
+#endif
 
 private:
 	void update_weights(QString const& weightString);
