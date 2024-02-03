@@ -25,6 +25,9 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui(new Ui::SettingsDlg)
 {
 	ui->setupUi(this);
+#ifdef _WITH_GAMEPAD_
+	ui->tab_gamepad->setEnabled(true);
+#endif
 
 	if (m_edition == EditionType::Team)
 	{
