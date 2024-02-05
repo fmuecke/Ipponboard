@@ -29,10 +29,10 @@ if not exist "%QTDIR%\bin\qmake.exe" (
 
 setlocal
 
-set BASE_DIR=%~dp0..\..\..
+set BASE_DIR=%~dp0..\..
 call _create_versioninfo.cmd %BASE_DIR%\base || exit /b %errorlevel%
 
-if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\bin\Debug) else (set BIN_DIR=%BASE_DIR%\bin\Release)
+if "%2"=="debug" (set BIN_DIR=%BASE_DIR%\_build\bin\Debug) else (set BIN_DIR=%BASE_DIR%\_build\bin\Release)
 
 :menu
 ::cls

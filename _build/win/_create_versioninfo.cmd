@@ -9,16 +9,14 @@ if [%1] == [] (
 )
 
 echo set versioninfo file in %BASE_DIR%
-echo PATH=%PATH%
-pause
 
 pushd "%BASE_DIR%"
 
 :: --> CHANGE VERSION HERE:
 SET VER1=2
-SET VER2=0
+SET VER2=1
 SET VER3=0
-SET TAG=
+SET TAG=Win_Linux
 :: that's it. <--
 
 git log -1 --format=%%h > .revision

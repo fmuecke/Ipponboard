@@ -36,7 +36,6 @@ lib/*
 ui*.h
 *.ilk
 *.obj
-/**/bin/**/*.*
 *.autosave
 *.opensdf
 i18n/*.qm
@@ -48,9 +47,8 @@ Makefile
 /**/Makefile
 /**/debug/*
 /**/release/*
-_build/build_output/*
 _output/
-bin/
 setup/Output/
 GamepadDemo/ui_gamepaddemo.h
-_build_cmake
+/_build/_build_cmake_qt4
+/_build/bin/

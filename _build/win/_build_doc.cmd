@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 setlocal
 
 if [%1] == [] (
@@ -9,8 +9,8 @@ if [%1] == [] (
 	echo BASE_DIR=%BASE_DIR%
 )
 
-set OUTPUT_DIR=%BASE_DIR%\bin
-set BASE_DIR=%BASE_DIR%/doc
+set OUTPUT_DIR=%BASE_DIR%\_build\bin
+set BASE_DIR=%BASE_DIR%\doc
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 
 :: checking for pandoc
