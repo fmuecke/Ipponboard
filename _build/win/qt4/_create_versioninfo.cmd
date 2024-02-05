@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 setlocal
 
 if [%1] == [] (
@@ -9,6 +9,8 @@ if [%1] == [] (
 )
 
 echo set versioninfo file in %BASE_DIR%
+echo PATH=%PATH%
+pause
 
 pushd "%BASE_DIR%"
 

@@ -4,8 +4,8 @@
 
 #include "ModeManagerDlg.h"
 #include "ui_ModeManagerDlg.h"
-#include "..\core\Enums.h"
-#include "..\core\Rules.h"
+#include "../core/Enums.h"
+#include "../core/Rules.h"
 
 #include <QComboBox>
 #include <QStringList>
@@ -111,7 +111,7 @@ void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString& s)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.listTemplate = s;
 }
 
@@ -122,7 +122,7 @@ void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int /*i*/)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.rules = m_pUi->comboBox_rules->currentText();
 }
 
@@ -143,7 +143,7 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.weightsAreDoubled = checked;
 	update_fights_per_round(mode);
 }
@@ -155,13 +155,13 @@ void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
 		return;
 	}
 
-	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
+    auto mode = GetMode(m_pUi->comboBox_mode->currentIndex());
 	mode.SetOption(TournamentMode::str_Option_AllSubscoresCount, checked);
 }
 
 void ModeManagerDlg::on_toolButton_add_clicked()
 {
-	TournamentMode& mode = TournamentMode::Default();
+    TournamentMode mode = TournamentMode::Default();
 	mode.title = tr("*new*");
 	mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 
@@ -207,7 +207,7 @@ void ModeManagerDlg::on_spinBox_rounds_valueChanged(int i)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.nRounds = i;
 	update_fights_per_round(mode);
 }
@@ -219,7 +219,7 @@ void ModeManagerDlg::on_spinBox_fightTimeMinutes_valueChanged(int i)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.fightTimeInSeconds = i * 60 + m_pUi->spinBox_fightTimeSeconds->value();
 }
 
@@ -230,7 +230,7 @@ void ModeManagerDlg::on_spinBox_fightTimeSeconds_valueChanged(int i)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.fightTimeInSeconds = m_pUi->spinBox_fightTimeMinutes->value() * 60 + i;
 }
 
@@ -241,7 +241,7 @@ void ModeManagerDlg::on_lineEdit_weights_textChanged(const QString& s)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.weights = s;
 	update_fights_per_round(mode);
 }
@@ -253,7 +253,7 @@ void ModeManagerDlg::on_lineEdit_title_textChanged(const QString& s)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.title = s;
 	m_pUi->comboBox_mode->setItemText(m_currentIndex, mode.Description());
 }
@@ -265,7 +265,7 @@ void ModeManagerDlg::on_lineEdit_subtitle_textChanged(const QString& s)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 	mode.subTitle = s;
 	m_pUi->comboBox_mode->setItemText(m_currentIndex, mode.Description());
 }
@@ -277,7 +277,7 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+    auto mode = GetMode(m_currentIndex);
 
 	if (s.isEmpty() || TournamentMode::ExtractFightTimeOverrides(s, mode.fightTimeOverrides))
 	{
@@ -300,7 +300,7 @@ void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
 										 .arg(mode.FightsPerRound()));
 }
 
-Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
+Ipponboard::TournamentMode ModeManagerDlg::GetMode(int i)
 {
 	QString id = m_pUi->comboBox_mode->itemData(i).toString();
 
@@ -312,5 +312,5 @@ Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
 		}
 	}
 
-	return std::move(TournamentMode());
+    return std::move(TournamentMode());
 }

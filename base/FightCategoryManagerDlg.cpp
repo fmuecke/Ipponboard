@@ -4,7 +4,7 @@
 
 #include "FightCategoryManagerDlg.h"
 #include "ui_FightCategoryManagerDlg.h"
-#include "..\util\path_helpers.h"
+#include "../util/path_helpers.h"
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QRegExp>

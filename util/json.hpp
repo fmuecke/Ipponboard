@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "jsoncpp\json.h"
+#include "jsoncpp/json.h"
 //#include "jsoncpp\json.cpp"
 
 #include <filesystem>
@@ -26,7 +26,7 @@ namespace fm
 			{
 			}
 
-			virtual const char * what() const override
+            virtual const char * what() const noexcept override
 			{
 				return m_message.c_str();
 			}

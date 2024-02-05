@@ -6,7 +6,7 @@
 #include "ui_MainWindowTeam.h"
 
 #include "ScoreScreen.h"
-#include "../base/ComboboxDelegate.h"
+//#include "../base/ComboboxDelegate.h"
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
@@ -103,7 +103,7 @@ void MainWindowTeam::Init()
 							  QCoreApplication::tr("Error reading mode configurations"),
 							  errMsg);
 
-		throw std::exception("Initialization failed!");
+        throw std::runtime_error("Initialization failed!");
 	}
 
 	SetModes(modes);
@@ -604,9 +604,9 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	// final score
 	auto wins2nd = m_pController->GetRoundCount() > 1 ?
-				   m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0, 0);
+                   m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair((unsigned)0, (unsigned)0);
 	auto score2nd = m_pController->GetRoundCount() > 1 ?
-					m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0, 0);
+                    m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair((unsigned)0, (unsigned)0);
 	auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
 	auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
 
@@ -706,7 +706,7 @@ void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 void MainWindowTeam::on_actionManageModes_triggered()
 {
 	QStringList templates = get_list_templates();
-	ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
+    ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
 
 	if (dlg.exec() == QDialog::Accepted)
 	{
@@ -722,7 +722,7 @@ void MainWindowTeam::on_actionManageModes_triggered()
 		}
 
 		m_pUi->comboBox_mode->clear();
-		SetModes(dlg.Result());
+        SetModes(dlg.Result());
 
 		for (auto const & mode : m_modes)
 		{

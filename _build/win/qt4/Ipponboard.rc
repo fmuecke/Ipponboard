@@ -1,0 +1,40 @@
+//
+// FILE IS GENERATED - DO NOT CHANGE!!
+//
+#include <winver.h>
+#pragma code_page(1252)
+101 ICON "images/ipponboard.ico"
+/////////////////////////////////////////////////////////////////////////////
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 2,0,0,0   
+PRODUCTVERSION 2,0,0,0   
+FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+FILEFLAGS 0x1L
+#else
+FILEFLAGS 0x0L
+#endif
+FILEOS 0x40004L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040004b0"
+        BEGIN
+            VALUE "CompanyName", "ESC feat. Florian Mücke"
+            VALUE "FileDescription", "Ipponboard"
+            VALUE "FileVersion", "2.0.0.0  "
+            VALUE "InternalName", "Ipponboard.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2010-.2024 ESC and Florian Mücke"
+            VALUE "OriginalFilename", "Ipponboard.exe"
+            VALUE "ProductName", "Ipponboard"
+            VALUE "ProductVersion", "2.0.0-%TAG%"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x400, 1200
+    END
+END
+/////////////////////////////////////////////////////////////////////////////

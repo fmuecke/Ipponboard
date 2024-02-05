@@ -35,7 +35,7 @@ public:
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
 	static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
 
-	void SetModes(Ipponboard::TournamentMode::List& modes)
+    void SetModes(Ipponboard::TournamentMode::List modes)
 	{
 		m_modes.swap(modes);
 	}
@@ -143,7 +143,7 @@ private:
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
-	Ipponboard::TournamentMode::List m_modes;
+    Ipponboard::TournamentMode::List m_modes;
 	QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 

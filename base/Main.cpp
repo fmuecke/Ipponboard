@@ -16,7 +16,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QLocale>
-#include <QtextCodec>
+#include <QTextCodec>
 
 
 
@@ -30,7 +30,9 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
-	UNREFERENCED_PARAMETER(app);
+#ifdef _WIN32
+    UNREFERENCED_PARAMETER(app);
+#endif
 
 	if (langStr == QString("en"))
 	{
