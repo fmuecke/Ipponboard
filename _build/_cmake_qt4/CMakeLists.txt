@@ -88,11 +88,11 @@ if (WIN32)
 		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
 	)
 else()
-add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-set_target_properties(Ipponboard PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-	LINK_FLAGS_RELEASE "-mwindows"
-)
+	add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+	set_target_properties(Ipponboard PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
+		LINK_FLAGS_RELEASE "-mwindows"
+	)
 endif()
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
@@ -125,7 +125,7 @@ if (WIN32)
 else()
 	add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 	set_target_properties(Ipponboard_Debug PROPERTIES
-		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 		OUTPUT_NAME Ipponboard_Debug
 		DEBUG_POSTFIX _d
 		#LINK_FLAGS_RELEASE "-mwindows"

@@ -149,11 +149,11 @@ To reconfigure the path, run `make confclean`, change the setting and rerun nmak
 
 ### Using cmake
 1. compile sources
-	a: cd _build/linux/qt4
-	b: QT4-64: cmake -S "_cmake_qt4" -B "./_build_cmake"
+	a: cd _build/linux
+	b: QT4-64: cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
 	c: Build Targets:
-			- Release Build: cmake --build _build_cmake --config Release --target Ipponboard
-			- Debug Build: cmake --build _build_cmake --config Debug --target Ipponboard_Debug
-			- (IpponboardTest: cmake --build _build_cmake --target IpponboardTest)
-			- (GamepadDemo: cmake --build _build_cmake --target GamepadDemo)
-			- Make Setup: cmake --build _build_cmake --target make-setup	2. create resources, e.g. language files, icons (TODO)
+			- Release Build: cmake --build ../_build_cmake_qt4 --config Release --target Ipponboard
+			- Debug Build: cmake --build ../_build_cmake_qt4 --config Debug --target Ipponboard_Debug
+			- (IpponboardTest: cmake --build ../_build_cmake_qt4 --target IpponboardTest)
+			- (GamepadDemo: cmake --build ../_build_cmake_qt4 --target GamepadDemo)
+			- Make Setup: cmake --build ../_build_cmake_qt4 --target make-setup	2. create resources, e.g. language files, icons (TODO)
