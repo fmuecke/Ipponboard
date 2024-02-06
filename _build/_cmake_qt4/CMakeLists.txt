@@ -6,12 +6,6 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 
-if(WIN32)
-	message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
-else()
-	set (QTDIR "/usr/lib/x86_64-linux-gnu/qt4")	
-endif()
-
 set (BASE_DIR ../..)
 
 #####################################################
@@ -70,6 +64,7 @@ ${BASE_DIR}/base/qrc_ipponboard.cpp
 )
 
 if(WIN32)
+	message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 	set(BOOST_DIR C:/dev/inst/boost_1_82_0)
 else()
 	set(BOOST_DIR /usr/include/boost)
@@ -80,35 +75,62 @@ include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
 #####################################################
 # Target Ipponboard: create a binary
 #####################################################
-add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-set_target_properties(Ipponboard PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-	if (WIN32)
+if (WIN32)
+	add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+	set_target_properties(Ipponboard PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 		LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 		CMAKE_SUPPRESS_REGENERATION true	
 		COMPILE_FLAGS -D_WITH_GAMEPAD_
-	else()
-		LINK_FLAGS_RELEASE "-mwindows"
-	endif()
+	)
+
+	add_custom_command(TARGET Ipponboard POST_BUILD
+		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
+	)
+else()
+add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+set_target_properties(Ipponboard PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+	LINK_FLAGS_RELEASE "-mwindows"
 )
+endif()
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
 #####################################################
 # Target Ipponboard_Debug: create a debug binary
 #####################################################
-add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-set_target_properties(Ipponboard_Debug PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-	OUTPUT_NAME Ipponboard_Debug
-	DEBUG_POSTFIX _d
-
-	#if (WIN32)
+if (WIN32)
+	add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+	set_target_properties(Ipponboard_Debug PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+		OUTPUT_NAME Ipponboard_Debug
+		DEBUG_POSTFIX _d
 		#LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 		#CMAKE_SUPPRESS_REGENERATION true	
-	#else()
-	#	LINK_FLAGS_RELEASE "-mwindows"
-	#endif()
-)
+	)
+
+	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
+		# the following environment variable is needed, if using VStudio GUI (solution)
+		COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
+		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
+	)
+
+	#####################################################
+	# Target setup
+	#####################################################
+	add_custom_target(setup
+			COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
+			COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
+	)
+else()
+	add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+	set_target_properties(Ipponboard_Debug PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+		OUTPUT_NAME Ipponboard_Debug
+		DEBUG_POSTFIX _d
+		#LINK_FLAGS_RELEASE "-mwindows"
+	)
+endif()
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
 set (CMAKE_PREFIX_PATH "$ENV{QTDIR}")
@@ -121,26 +143,6 @@ find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
 #add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
 #	COMMAND rcc -name ipponboard "%BASE_DIR%/base/ipponboard.qrc" -o "%BASE_DIR%/base/qrc_ipponboard.cpp"
 #)
-
-if (WIN32)
-	add_custom_command(TARGET Ipponboard_Debug POST_BUILD
-		# the following environment variable is needed, if using VStudio GUI (solution)
-		COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
-		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
-	)
-		
-	add_custom_command(TARGET Ipponboard POST_BUILD
-		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
-	)
-
-	#####################################################
-	# Target setup
-	#####################################################
-	add_custom_target(setup
-			COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
-			COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
-	)
-endif()
 
 #####################################################
 # Target run ALL

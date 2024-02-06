@@ -1,17 +1,17 @@
 #!/usr/bin/bash
-set -x
+#set -x
 
 if [ -z "$1" ]
 then
 	echo Fehlendes Argument: _create_versioninfo.cmd BASE_DIR
 	exit 1
 else
-	BASE_DIR=$1
+	_base_dir=$1
 fi
 
-echo set versioninfo file in $BASE_DIR
+echo set versioninfo file in $_base_dir
 
-pushd "$BASE_DIR"
+pushd "$_base_dir"
 
 # --> CHANGE VERSION HERE:
 VER1=2
@@ -31,97 +31,98 @@ if [ ! -f ".buildnr" ]
 then
 	VER4=0
 else
-	VER4=<.buildnr
+	VER4=$(<.buildnr)
 	if [ ! -f $FILENAME_NO_EXT.h ] 
-	then VER4+=1 > nul 
+	then 
+		((VER4++))
 	fi
 fi
 echo $VER4 >.buildnr
 
 if [ -f $FILENAME_NO_EXT.h ]
 then
-	echo --^> version info up to date: $VER1.$VER2.$VER3.$VER4
-	goto :eof
-fi
 
-IPPONBOARD_VERSION=$VER1.$VER2.$VER3.$VER4
+	IPPONBOARD_VERSION=$VER1.$VER2.$VER3.$VER4
 
-# write template
-echo //>$FILENAME_NO_EXT.tmp
-echo // THIS FILE IS GENERATED - DO NOT MODIFY!>>$FILENAME_NO_EXT.tmp
-echo //>>$FILENAME_NO_EXT.tmp
-echo "#ifndef BASE__VERSIONINFO_H_">>$FILENAME_NO_EXT.tmp
-echo "#define BASE__VERSIONINFO_H_">>$FILENAME_NO_EXT.tmp
-echo namespace VersionInfo>>$FILENAME_NO_EXT.tmp
-echo {>>$FILENAME_NO_EXT.tmp
-echo 	const char* const Revision = \"$REV\";>>$FILENAME_NO_EXT.tmp
-echo 	const char* const Date = \"$REV_DATE\";>>$FILENAME_NO_EXT.tmp
-echo 	const char* const CopyrightYear = TODO;>>$FILENAME_NO_EXT.tmp
-echo 	const char* const VersionStrShort = \"$VER1.$VER2.$VER3\";>>$FILENAME_NO_EXT.tmp
-echo 	const char* const VersionStrFull = \"$VER1.$VER2.$VER3.$VER4\";>>$FILENAME_NO_EXT.tmp
-if [ -z "$TAG" ] 
-then 
-	echo 	const char* const VersionStr = \"$VER1.$VER2.$VER3\";>>$FILENAME_NO_EXT.tmp
-else
-	echo 	const char* const VersionStr = \"$VER1.$VER2.$VER3-$TAG\";>>$FILENAME_NO_EXT.tmp
-fi
+	# write template
+	echo "//"															>$FILENAME_NO_EXT.tmp
+	echo "// THIS FILE IS GENERATED - DO NOT MODIFY!"						>>$FILENAME_NO_EXT.tmp
+	echo "//"															>>$FILENAME_NO_EXT.tmp
+	echo "#ifndef BASE__VERSIONINFO_H_"									>>$FILENAME_NO_EXT.tmp
+	echo "#define BASE__VERSIONINFO_H_"									>>$FILENAME_NO_EXT.tmp
+	echo "namespace VersionInfo"											>>$FILENAME_NO_EXT.tmp
+	echo "{"																>>$FILENAME_NO_EXT.tmp
+	echo "	const char* const Revision = \"$REV\";"						>>$FILENAME_NO_EXT.tmp
+	echo "	const char* const Date = \"$REV_DATE\";"						>>$FILENAME_NO_EXT.tmp
+	echo "	const char* const CopyrightYear = \"TODO\";"					>>$FILENAME_NO_EXT.tmp
+	echo "	const char* const VersionStrShort = \"$VER1.$VER2.$VER3\";"	>>$FILENAME_NO_EXT.tmp
+	echo "	const char* const VersionStrFull = \"$VER1.$VER2.$VER3.$VER4\";">>$FILENAME_NO_EXT.tmp
+	if [ -z "$TAG" ] 
+	then 
+		echo "	const char* const VersionStr = \"$VER1.$VER2.$VER3\";"		>>$FILENAME_NO_EXT.tmp
+	else	
+		echo "	const char* const VersionStr = \"$VER1.$VER2.$VER3-$TAG\";">>$FILENAME_NO_EXT.tmp
+	fi
+	echo "}"																>>$FILENAME_NO_EXT.tmp
+	echo "#endif  // BASE__VERSIONINFO_H_" 								>>$FILENAME_NO_EXT.tmp
 
-echo }>>$FILENAME_NO_EXT.tmp
-echo "#endif  // BASE__VERSIONINFO_H_" >>$FILENAME_NO_EXT.tmp
-
-echo -^> generating version info header
-# generate header file
-rm $FILENAME_NO_EXT.h>nul 2>&1
-mv $FILENAME_NO_EXT.tmp $FILENAME_NO_EXT.h>nul
-
+	echo generating version info header
+	rm $FILENAME_NO_EXT.h  2>&1
+	mv $FILENAME_NO_EXT.tmp $FILENAME_NO_EXT.h 2>&1
+	
+	
 # --
 # Update RC file
 # --
 RC_FILE=Ipponboard.rc
-echo // >$RC_FILE
-echo // FILE IS GENERATED - DO NOT CHANGE!!>>$RC_FILE
-echo // >>$RC_FILE
-echo "#include ^<winver.h^>" >>$RC_FILE
-echo "# pragma code_page(1252)" >>$RC_FILE
-echo 101 ICON "images/ipponboard.ico">>$RC_FILE
-echo /////////////////////////////////////////////////////////////////////////////>>$RC_FILE
-echo VS_VERSION_INFO VERSIONINFO>>$RC_FILE
-echo FILEVERSION $VER1,$VER2,$VER3,$VER4 >>$RC_FILE
-echo PRODUCTVERSION $VER1,$VER2,$VER3,$VER4 >>$RC_FILE
-echo FILEFLAGSMASK 0x3fL>>$RC_FILE
-echo "#ifdef _DEBUG" >>$RC_FILE
-echo FILEFLAGS 0x1L>>$RC_FILE
-echo "#else" >>$RC_FILE
-echo FILEFLAGS 0x0L>>$RC_FILE
-echo "#endif" >>$RC_FILE
-echo FILEOS 0x40004L>>$RC_FILE
-echo FILETYPE 0x1L>>$RC_FILE
-echo FILESUBTYPE 0x0L>>$RC_FILE
-echo BEGIN>>$RC_FILE
-echo     BLOCK "StringFileInfo">>$RC_FILE
-echo     BEGIN>>$RC_FILE
-echo         BLOCK "040004b0">>$RC_FILE
-echo         BEGIN>>$RC_FILE
-echo             VALUE \"CompanyName\", \"ESC feat. Florian Mücke\">>$RC_FILE
-echo             VALUE \"FileDescription\", \"Ipponboard\">>$RC_FILE
-echo             VALUE \"FileVersion\", \"$VER1.$VER2.$VER3.$VER4\">>$RC_FILE
-echo             VALUE \"InternalName\", \"Ipponboard.exe\">>$RC_FILE
-echo             VALUE \"LegalCopyright\", \"Copyright \(C\) 2010- TODO ESC and Florian Mücke\">>$RC_FILE
-echo             VALUE \"OriginalFilename\", \"Ipponboard.exe\">>$RC_FILE
-echo             VALUE \"ProductName\", \"Ipponboard\">>$RC_FILE
-if [ -z "$TAG" ]
-then
-	echo             VALUE \"ProductVersion\", "$VER1.$VER2.$VER3">>$RC_FILE
+echo "//"																				>$RC_FILE
+echo "// FILE IS GENERATED - DO NOT CHANGE!!"												>>$RC_FILE
+echo "//"																				>>$RC_FILE
+#echo "#include ^<winver.h^>"																>>$RC_FILE
+#echo "#pragma code_page(1252)"															>>$RC_FILE
+echo "101 ICON images/ipponboard.ico"														>>$RC_FILE
+echo "/////////////////////////////////////////////////////////////////////////////"			>>$RC_FILE
+echo "VS_VERSION_INFO VERSIONINFO"														>>$RC_FILE
+echo "FILEVERSION $VER1,$VER2,$VER3,$VER4" 												>>$RC_FILE
+echo "PRODUCTVERSION $VER1,$VER2,$VER3,$VER4"												>>$RC_FILE
+#echo "FILEFLAGSMASK 0x3fL"																>>$RC_FILE
+#echo "#ifdef _DEBUG"																		>>$RC_FILE
+#echo "FILEFLAGS 0x1L"																	>>$RC_FILE
+#echo "#else"																				>>$RC_FILE
+#echo "FILEFLAGS 0x0L"																	>>$RC_FILE
+#echo "#endif"																			>>$RC_FILE
+#echo "FILEOS 0x40004L"																	>>$RC_FILE
+#echo "FILETYPE 0x1L"																		>>$RC_FILE
+#echo "FILESUBTYPE 0x0L"																	>>$RC_FILE
+#echo BEGIN																				>>$RC_FILE
+#echo     BLOCK "StringFileInfo"																>>$RC_FILE
+#echo     BEGIN																			>>$RC_FILE
+#echo         BLOCK "040004b0"																>>$RC_FILE
+#echo         BEGIN																			>>$RC_FILE
+#echo             VALUE "CompanyName", "ESC feat. Florian Mücke"									>>$RC_FILE
+#echo             VALUE "FileDescription", "Ipponboard"												>>$RC_FILE
+#echo             VALUE "FileVersion", "$VER1.$VER2.$VER3.$VER4"									>>$RC_FILE
+#echo             VALUE "InternalName", "Ipponboard.exe"											>>$RC_FILE
+#echo             VALUE "LegalCopyright", "Copyright (C) ESC and Florian Mücke"						>>$RC_FILE
+#echo             VALUE "OriginalFilename", "Ipponboard.exe"										>>$RC_FILE
+#echo             VALUE "ProductName", "Ipponboard"												>>$RC_FILE
+#if "$TAG"=="" (
+echo             VALUE "ProductVersion", "$VER1.$VER2.$VER3"										>>$RC_FILE
+#) else (
+#echo             VALUE "ProductVersion", "$VER1.$VER2.$VER3-$TAG"								>>$RC_FILE
+#)
+#echo         END																			>>$RC_FILE
+#echo     END																				>>$RC_FILE
+#echo     BLOCK "VarFileInfo"																>>$RC_FILE
+#echo     BEGIN																			>>$RC_FILE
+#echo         VALUE "Translation", 0x400, 1200													>>$RC_FILE
+#echo     END																				>>$RC_FILE
+#echo END																				>>$RC_FILE
+echo /////////////////////////////////////////////////////////////////////////////										>>$RC_FILE
+
+	
 else
-	echo             VALUE \"ProductVersion\", "$VER1.$VER2.$VER3-$TAG">>$RC_FILE
+	echo version info up to date: $VER1.$VER2.$VER3.$VER4
 fi
-echo         END>>$RC_FILE
-echo     END>>$RC_FILE
-echo     BLOCK \"VarFileInfo\">>$RC_FILE
-echo     BEGIN>>$RC_FILE
-echo         "VALUE \"Translation\", 0x400, 1200" >>$RC_FILE
-echo     END>>$RC_FILE
-echo END>>$RC_FILE
-echo /////////////////////////////////////////////////////////////////////////////>>$RC_FILE
 
 popd
