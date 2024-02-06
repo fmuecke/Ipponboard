@@ -28,14 +28,14 @@ CONFIG(debug, release|debug) {
 	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lshell32
-	DESTDIR = ../bin/Debug
+	DESTDIR = ../_build/bin/Debug
 }
 
 CONFIG(release, release|debug) {
     prebuildhook.target = Makefile.Release
 	TARGET = Ipponboard
     QMAKE_LIBS += -lshell32
-	DESTDIR = ../bin/Release
+	DESTDIR = ../_build/bin/Release
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
@@ -55,10 +55,10 @@ contains(COMPILER, mingw) {
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS /MP /std:c++17
     DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501
+    DEFINES += WIN32 _WIN32_WINNT=0x0501 _WITH_GAMEPAD_
 
     # remove unneccessary output files
-    #QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib>nul 
+    #QMAKE_POST_LINK += del /Q ../_build/bin/$${TARGET}.exp ../_build/bin/$${TARGET}.lib>nul 
 }
 
 CONFIG(debug, release|debug) {

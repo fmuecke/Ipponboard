@@ -1,10 +1,10 @@
-echo off
+@echo off
 setlocal
 
 set ROOT=%~dp0..
 set THIRDPARTY=..\..\3rdParty
 if "%1"=="-release" set RELEASE=1
-if defined RELEASE (set DEST=%ROOT%\bin\Release) else (set DEST=%ROOT%\bin\Debug)
+if defined RELEASE (set DEST=%ROOT%\_build\bin\Release) else (set DEST=%ROOT%\_build\bin\Debug)
 
 echo Copying files to %DEST% using QTDIR=%QTDIR%
 

@@ -1,14 +1,14 @@
-# Prerequisites
+# Prerequisites for Windows build
 
 Ipponboard requires the following libraries and tools to get built: 
 - [Microsoft Visual Studio C++] (last used: VS 2022 a.k.a VC17.8.3). Do not use BuildTools, because it is not much smaller and the IDE is missing! 
 - [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported) --> TODO: migrate to QT5
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.82.0) --> TODO: remove Boost dependencies
-- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 6.2.2)
+- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 6.2.2)i l
 - optional: pandoc to build the manual (last used: 3.1.5)
 - optional: use jom instead of nmake to compile parallel with multiple cores (https://download.qt.io/official_releases/jom/) (last used 1.1.4)
 
-## Build QT4 for your developement platform
+## Build QT4 for your development platform
 As there are no longer any official download sources for QT4 libraries that can be used on current operating systems (e.g. Windows 10), 
 these must be generated from the sources for the target system. 
 
@@ -91,7 +91,7 @@ Via CMakelist we can do
 			- Make Setup: cmake --build _build_cmake --target make-setup	2. create resources, e.g. language files, icons (TODO)
 	2. create documentation
 	3. create installer
-	Execute the file "build_cmake_qt4-x64.cmd" and you will find a Setup-File of Ipponboard in the bin-folder.
+	Execute the file `build_cmake_qt4-x86.cmd` or `build_cmake_qt4-x64.cmd` and you will find a Setup-File of Ipponboard in the bin-folder.
 
 ## Configure Visual Studio Build Tools
 
@@ -119,3 +119,41 @@ Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars
 1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
 2. Insert path in the QtCreator debugger options (tab *CDB paths*): e.g. `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
+
+
+# Prerequisites for Linux build
+sudo apt install g++
+sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxrandr-dev libxrender-dev
+
+## Build QT4 for your development platform
+As there are no longer any official download sources for QT4 libraries that can be used on current operating systems , 
+these must be generated from the sources for the target system. 
+
+1. Download `qt-everywhere-opensource-src-4.8.7.tar.gz` from https://download.qt.io/archive/qt/4.8/4.8.7/ 
+2. unpack the sources to: ~/dev/src/qt/qt-src-4.8.7 and change into the created directory
+3. run configure. Create debug and release dlls with gcc platform 
+	for 64bit: ./configure -debug-and-release -prefix ~/dev/inst/qt/qt-4.8.7-x64-gcc -opensource -confirm-license -nomake examples -nomake tests -shared -no-qt3support -platform linux-g++-64
+4. compile and install:
+	a: make
+	b: make install	
+
+Note: The default directory in QT is defined by "configure -prefix <path>" and created by "make install". 
+This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, 
+it is recommended that the QT installation is executed as described here. 
+To reconfigure the path, run `make confclean`, change the setting and rerun nmake.
+
+#  checkout and setup sources
+1. git clone https://gitlab.com/r_bernhard/Ipponboard.git
+2. Create versioninfo.h
+3. Create qrc_ipponboard.cpp: cd base; rcc -name ipponboard ipponboard.qrc -o qrc_ipponboard.cpp
+
+### Using cmake
+1. compile sources
+	a: cd _build/linux
+	b: QT4-64: cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
+	c: Build Targets:
+			- Release Build: cmake --build ../_build_cmake_qt4 --config Release --target Ipponboard
+			- Debug Build: cmake --build ../_build_cmake_qt4 --config Debug --target Ipponboard_Debug
+			- (IpponboardTest: cmake --build ../_build_cmake_qt4 --target IpponboardTest)
+			- (GamepadDemo: cmake --build ../_build_cmake_qt4 --target GamepadDemo)
+			- Make Setup: cmake --build ../_build_cmake_qt4 --target make-setup	2. create resources, e.g. language files, icons (TODO)

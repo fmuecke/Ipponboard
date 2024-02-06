@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "countdown.h"
-#include "ui_countdown.h"
+#include "Countdown.h"
+#include "ui_Countdown.h"
 
 Countdown::Countdown(int secs, QWidget* parent)
 	: QDialog(parent)

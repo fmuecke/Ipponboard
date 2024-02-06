@@ -110,7 +110,7 @@ void ClubManager::SortClubs()
 void ClubManager::LoadClubs_()
 //---------------------------------------------------------
 {
-	auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
+    auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
 
 	if (QFile::exists(config.c_str()))
 	{
