@@ -96,7 +96,6 @@ else()
     add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
         set_target_properties(Ipponboard PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
-            LINK_FLAGS_RELEASE "-mwindows"
         )
 endif()
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
