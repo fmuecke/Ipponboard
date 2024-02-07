@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.6)
-cmake_minimum_required(VERSION 3.6)
 
 project(Ipponboard VERSION 2.0.0 LANGUAGES C CXX) 
 set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 
@@ -88,11 +89,15 @@ if (WIN32)
 		COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
 	)
 else()
-	add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-	set_target_properties(Ipponboard PROPERTIES
-		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
-		LINK_FLAGS_RELEASE "-mwindows"
-	)
+    if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.1.0)
+        message(FATAL_ERROR "Require at least gcc-9.1.0")
+    endif()
+
+    add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+        set_target_properties(Ipponboard PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
+            LINK_FLAGS_RELEASE "-mwindows"
+        )
 endif()
 target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
@@ -105,7 +110,7 @@ if (WIN32)
 		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 		OUTPUT_NAME Ipponboard_Debug
 		DEBUG_POSTFIX _d
-		#LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+		#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 		#CMAKE_SUPPRESS_REGENERATION true	
 	)
 
@@ -123,12 +128,16 @@ if (WIN32)
 			COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
 	)
 else()
-	add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+    if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.1.0)
+        message(FATAL_ERROR "Require at least gcc-9.1.0")
+    endif()
+
+    add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 	set_target_properties(Ipponboard_Debug PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 		OUTPUT_NAME Ipponboard_Debug
 		DEBUG_POSTFIX _d
-		#LINK_FLAGS_RELEASE "-mwindows"
+		#LINK_FLAGS_DEBUG "-mwindows"
 	)
 endif()
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
