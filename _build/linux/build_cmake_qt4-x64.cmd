@@ -26,7 +26,7 @@ echo BASE_DIR=$BASE_DIR
 source _create_versioninfo.linux $BASE_DIR/base
 
 # Create the QT resource file
-#rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponboard.cpp 
+rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponboard.cpp 
 
 # now build
 cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
