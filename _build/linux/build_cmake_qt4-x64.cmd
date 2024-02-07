@@ -34,12 +34,12 @@ cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
 #CC=/usr/local/bin/gcc CXX=/usr/local/bin/g++ cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
 
 # compile
-cmake --build ../_build_cmake_qt4 --config Debug --target Ipponboard_Debug
-#cmake --build ../_build_cmake_qt4 --config Release --target Ipponboard
+#cmake --build ../_build_cmake_qt4 --config Debug --target Ipponboard_Debug
+cmake --build ../_build_cmake_qt4 --config Release --target Ipponboard
 
 # build
-#source _copy_files ../.. -release
-source _copy_files ../.. -debug
+source _copy_files ../.. -release
+#source _copy_files ../.. -debug
 #cmake --build ../_build_cmake_qt4 --target setup
 
 echo hit any key to finish

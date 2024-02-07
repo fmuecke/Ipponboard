@@ -122,7 +122,7 @@ Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars
 
 
 # Prerequisites for Linux build
-sudo apt install g++ (the minimum gcc-version is gcc 11)
+sudo apt install g++ (the minimum gcc-version is gcc 11.1.0, because c++-17 is needed)
 sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxrandr-dev libxrender-dev
 
 ## Build QT4 for your development platform
