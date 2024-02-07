@@ -16,7 +16,8 @@ then
 else
   echo create file=$LOCAL_CONFIG
   echo QTDIR="/usr/lib/x86_64-linux-gnu/qt4">>"$LOCAL_CONFIG"
-  source "$LOCAL_CONFIG"
+  echo adapt the values and restart this script
+  exit
 fi
 
 PWD=$(pwd)

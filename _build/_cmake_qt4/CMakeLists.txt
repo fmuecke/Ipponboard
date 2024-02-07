@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.6)
 
 project(Ipponboard VERSION 2.0.0 LANGUAGES C CXX) 
 set (CMAKE_CXX_STANDARD 17)
@@ -137,7 +137,7 @@ set (CMAKE_PREFIX_PATH "$ENV{QTDIR}")
 set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
 
 message(STATUS "Using QTDIR=$ENV{QTDIR}")
-find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
+find_package(Qt4 4.8.5 REQUIRED QtCore QtGui QtXmlPatterns)
 
 # create the qt resource file
 #add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
