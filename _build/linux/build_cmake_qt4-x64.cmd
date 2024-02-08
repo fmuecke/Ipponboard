@@ -17,7 +17,7 @@ else
   echo create file=$LOCAL_CONFIG
   echo QTDIR="/usr/lib/x86_64-linux-gnu/qt4">>"$LOCAL_CONFIG"
   echo adapt the values and restart this script
-  exit
+  exit 1
 fi
 
 PWD=$(pwd)
@@ -32,8 +32,8 @@ rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponbo
 #############
 # build Release
 #############
-cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -D CMAKE_BUILD_TYPE=Release 
-#CC=/usr/local/bin/gcc CXX=/usr/local/bin/g++ cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
+#cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -D CMAKE_BUILD_TYPE=Release
+CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
 cmake --build ../_build_cmake_qt4 --target Ipponboard
 source _copy_files ../.. -release
 
