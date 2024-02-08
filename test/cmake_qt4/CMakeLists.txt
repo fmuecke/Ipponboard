@@ -29,5 +29,6 @@ target_link_libraries(IpponboardTest Qt4::QtCore)
 # Add other data to the destination directory
 #file(COPY ${TESTDATA} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 add_custom_command(TARGET ${PROJECT_NAME} 
-					POST_BUILD
-					COMMAND ${CMAKE_COMMAND} -E copy_directory ../TestData $<TARGET_FILE_DIR:${PROJECT_NAME}>/TestData)
+                    POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../TestData $<TARGET_FILE_DIR:${PROJECT_NAME}>/TestData
+)

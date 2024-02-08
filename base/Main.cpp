@@ -41,10 +41,9 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
 	if (langStr == QString("de") || langStr == QString("nl"))
 	{
-		const QString& langPath =
-			QCoreApplication::applicationDirPath() + QString("/lang");
+        const QString& langPath = QCoreApplication::applicationDirPath() + QString("/lang");
 
-		if (translator.load(langStr, langPath))
+        if (translator.load(langStr, langPath, QString(), QString("qm")))
 		{
 			app.installTranslator(&translator);
 		}

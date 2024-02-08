@@ -93,6 +93,8 @@ else()
         message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
     endif()
 
+    set(CMAKE_BUILD_TYPE Release)
+
     add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
         set_target_properties(Ipponboard PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
@@ -131,13 +133,14 @@ else()
         message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
     endif()
 
+    set(CMAKE_BUILD_TYPE Debug)
+
     add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 	set_target_properties(Ipponboard_Debug PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 		OUTPUT_NAME Ipponboard_Debug
 		DEBUG_POSTFIX _d
-		#LINK_FLAGS_DEBUG "-mwindows"
-	)
+        )
 endif()
 target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 

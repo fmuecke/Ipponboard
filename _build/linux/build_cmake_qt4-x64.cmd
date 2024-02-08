@@ -29,24 +29,28 @@ source _create_versioninfo.linux $BASE_DIR/base
 # Create the QT resource file
 rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponboard.cpp 
 
-#############
-# build Release
-#############
-#cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -D CMAKE_BUILD_TYPE=Release
+################
+# make makefiles
+################
+#cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
 CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
+exit 0
+
+###############
+# build Release
+###############
 cmake --build ../_build_cmake_qt4 --target Ipponboard
 source _copy_files ../.. -release
 
 ############
 # build Debug
 ############
-#cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -D CMAKE_BUILD_TYPE=Debug 
 #cmake --build ../_build_cmake_qt4 --target Ipponboard_Debug
 #source _copy_files ../.. -debug
 
-####
+#####
 # all
-####
+#####
 #cmake --build ../_build_cmake_qt4 --target setup
 
 echo hit any key to finish
