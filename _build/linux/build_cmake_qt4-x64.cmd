@@ -10,12 +10,15 @@ function pause(){
 ################
 LOCAL_CONFIG=_env_cfg-x64
 
-if [ -f "$LOCAL_CONFIG" ] 
+if [ -f $LOCAL_CONFIG ] 
 then
-  source "$LOCAL_CONFIG"
+  source $LOCAL_CONFIG
+  echo using QTDIR=$QTDIR
 else
   echo create file=$LOCAL_CONFIG
-  echo QTDIR="/usr/lib/x86_64-linux-gnu/qt4">>"$LOCAL_CONFIG"
+  echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-x64-gcc">>$LOCAL_CONFIG
+  #echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-x64-gcc/bin;$PATH;">>$LOCAL_CONFIG
+ 
   echo adapt the values and restart this script
   exit 1
 fi

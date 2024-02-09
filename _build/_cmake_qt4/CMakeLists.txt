@@ -7,6 +7,14 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 
+set (CMAKE_PREFIX_PATH $ENV{QTDIR})
+set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib )
+set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
+
+message(STATUS "Using CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}, CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH} XMLQUERY=${XMLQUERY}")
+
+find_package(Qt4 4.8.5 REQUIRED QtCore QtGui QtXmlPatterns)
+
 set (BASE_DIR ../..)
 
 #####################################################
@@ -143,12 +151,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	endif()
 	target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 endif()
-
-set (CMAKE_PREFIX_PATH "$ENV{QTDIR}")
-set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
-
-message(STATUS "Using QTDIR=$ENV{QTDIR}")
-find_package(Qt4 4.8.5 REQUIRED QtCore QtGui QtXmlPatterns)
 
 # create the qt resource file
 #add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
