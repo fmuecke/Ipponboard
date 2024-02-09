@@ -33,14 +33,15 @@ rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponbo
 # make makefiles
 ################
 #cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
-CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
-exit 0
+#CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Release
+CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Debug
+#exit 0
 
 ###############
 # build Release
 ###############
-cmake --build ../_build_cmake_qt4 --target Ipponboard
-source _copy_files ../.. -release
+#cmake --build ../_build_cmake_qt4 --target Ipponboard
+#source _copy_files ../.. -release
 
 ############
 # build Debug
