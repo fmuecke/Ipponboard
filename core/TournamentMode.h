@@ -13,7 +13,7 @@
 #include <vector>
 
 class QSettings;
-class IpponboardTest;
+struct IpponboardTest;
 
 namespace Ipponboard
 {
@@ -66,8 +66,7 @@ public:
 	static bool ExtractFightTimeOverrides(QString const& overridesString, OverridesList& overrides);
 
 private:
-        friend IpponboardTest;
-	static bool parse_current_group(
+		static bool parse_current_group(
 		QSettings const& config,
 		TournamentMode& tm,
 		QString& errorMsg);
