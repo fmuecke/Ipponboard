@@ -120,16 +120,14 @@ Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars
 2. Insert path in the QtCreator debugger options (tab *CDB paths*): e.g. `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
 
-
-# Prerequisites for Linux build
+# Prerequisites for QT build
 ## Debian based
-sudo apt install g++ (the minimum gcc-version is gcc 11.1.0, because c++-17 is needed)
 sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxrandr-dev libxrender-dev
 
 ## Redhat based
 sudo yum -y install fontconfig-devel freetype-devel libX11-devel libXcursor-devel libXext-devel libXfixes-devel libXft-devel libXi-devel libXrandr-devel libXrender-devel
 
-## Build QT4 for your development platform
+# Build QT4 for your development platform
 As there are no longer any official download sources for QT4 libraries that can be used on current operating systems,
 these must be generated from the sources for the target system. 
 
@@ -150,7 +148,15 @@ Note: The default directory in QT is defined by "configure -prefix <path>" and c
 This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, it is recommended that the QT installation is executed as described here.
 To reconfigure the path, run `nmake confclean`, change the setting and rerun nmake.
 
-#  Ipponboard:
+# Prerequisites for Ipponboard build
+## Debian based
+sudo apt install g++ (the minimum gcc-version is gcc 11.1.0, because c++-17 is needed) cmake libboost-all-dev
+
+## Redhat based
+sudo yum install g++ cmake boost boost-devel
+Use IDE: sudo yum install qt-creator qt6-designer gdb
+
+# Ipponboard
 ## Checkout and setup sources
 git clone https://gitlab.com/r_bernhard/Ipponboard.git
 
