@@ -82,7 +82,7 @@ Via CMakelist we can do
 		- Inclusion of CMakelists.txt in the Ipponboard source directory --> cmake_qt4 for QT4-compile and cnake_qt5 for QT5, that contain the CMakeLists.txt
 		- QT4-32: cmake -S "cmake_qt4" -B "./_build_cmake" -G "Visual Studio 17 2022" -A Win32 
 		- QT4-64: cmake -S "cmake_qt4" -B "./_build_cmake" -G "Visual Studio 17 2022" -A x64
-		- QT5-64: cmake -S "cmake_qt5" -B "./_build_cmake" -G "Visual Studio 17 2022" -A x64  
+		- QT5-64: cmake -S "cmake_qt5" -B "./_build_cmake" -G "Visual Studio 17 2022" -A x64
 		- Build Targets:
 			- Release Build: cmake --build _build_cmake --config Release --target Ipponboard
 			- Debug Build: cmake --build _build_cmake --config Debug --target Ipponboard_Debug
@@ -122,38 +122,37 @@ Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars
 
 
 # Prerequisites for Linux build
+## Debian based
 sudo apt install g++ (the minimum gcc-version is gcc 11.1.0, because c++-17 is needed)
 sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxrandr-dev libxrender-dev
 
+## Redhat based
+sudo yum -y install fontconfig-devel freetype-devel libX11-devel libXcursor-devel libXext-devel libXfixes-devel libXft-devel libXi-devel libXrandr-devel libXrender-devel
+
 ## Build QT4 for your development platform
-As there are no longer any official download sources for QT4 libraries that can be used on current operating systems , 
+As there are no longer any official download sources for QT4 libraries that can be used on current operating systems,
 these must be generated from the sources for the target system. 
 
 1. Download `qt-everywhere-opensource-src-4.8.7.tar.gz` from https://download.qt.io/archive/qt/4.8/4.8.7/ 
 2. unpack the sources to: ~/dev/src/qt/qt-src-4.8.7 and change into the created directory
-3. run configure. Create debug and release dlls with gcc platform 
-	for 64bit: ./configure -debug-and-release -prefix ~/dev/inst/qt/qt-4.8.7-x64-gcc -opensource -confirm-license -nomake examples -nomake tests -shared -no-qt3support -platform linux-g++-64
-4. compile and install:
-	a: make
-	b: make install	
+3. run configure. Create debug and release dlls with gcc platform
+	for 64bit: ./configure -debug-and-release -prefix ~/dev/inst/qt/qt-4.8.7-x64-gcc -opensource -confirm-license -nomake examples -nomake tests -nomake demos -no-openssl -shared -no-qt3support -platform linux-g++-64
+4. Patching the errors:
+	a: dialogs/qprintdialog_unix.cpp:281:19: error: ‘class Ui::QPrintPropertiesWidget’ has no member named ‘cupsPropertiesPage’
+  281 |     delete widget.cupsPropertiesPage; --> edit the file src/corelib/global/qglobal.h and line 2500 replace the break by a continue
+	b: ./3rdparty/javascriptcore/JavaScriptCore/wtf/TypeTraits.h:173:69: error: ‘std::tr1’ has not been declared --> Add in mkspecs/linux-g++-64/qmake.conf: QMAKE_CXXFLAGS = $$QMAKE_CFLAGS -std=gnu++98
+	c: messagemodel.cpp:186:61: error: ordered comparison of pointer with integer zero (‘MessageItem*’ and ‘int’) --> fix messagemodel.cpp:186 to: if (c->findMessage(m->text(), m->comment()))
+5. compile and install:
+	a: gmake
+	b: gmake install
 
 Note: The default directory in QT is defined by "configure -prefix <path>" and created by "make install". 
-This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, 
-it is recommended that the QT installation is executed as described here. 
-To reconfigure the path, run `make confclean`, change the setting and rerun nmake.
+This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, it is recommended that the QT installation is executed as described here.
+To reconfigure the path, run `nmake confclean`, change the setting and rerun nmake.
 
-#  checkout and setup sources
-1. git clone https://gitlab.com/r_bernhard/Ipponboard.git
-2. Create versioninfo.h
-3. Create qrc_ipponboard.cpp: cd base; rcc -name ipponboard ipponboard.qrc -o qrc_ipponboard.cpp
+#  Ipponboard:
+## Checkout and setup sources
+git clone https://gitlab.com/r_bernhard/Ipponboard.git
 
-### Using cmake
-1. compile sources
-	a: cd _build/linux
-	b: QT4-64: cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4"
-	c: Build Targets:
-			- Release Build: cmake --build ../_build_cmake_qt4 --config Release --target Ipponboard
-			- Debug Build: cmake --build ../_build_cmake_qt4 --config Debug --target Ipponboard_Debug
-			- (IpponboardTest: cmake --build ../_build_cmake_qt4 --target IpponboardTest)
-			- (GamepadDemo: cmake --build ../_build_cmake_qt4 --target GamepadDemo)
-			- Make Setup: cmake --build ../_build_cmake_qt4 --target make-setup	2. create resources, e.g. language files, icons (TODO)
+## build the application
+execute _build/linux/build_cmake_qt4-x64.cmd (in future this script will be improved)

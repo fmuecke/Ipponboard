@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>517</width>
-    <height>578</height>
+    <width>661</width>
+    <height>734</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,7 +23,7 @@
    <string>Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ipponboard.qrc">
+   <iconset>
     <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
   </property>
   <property name="sizeGripEnabled">
@@ -39,11 +39,11 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_general">
       <attribute name="icon">
-       <iconset resource="ipponboard.qrc">
+       <iconset>
         <normaloff>:/res/icons/settings.png</normaloff>:/res/icons/settings.png</iconset>
       </attribute>
       <attribute name="title">
@@ -242,7 +242,7 @@
                <string>Play</string>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/play.png</normaloff>:/res/icons/play.png</iconset>
               </property>
               <property name="toolButtonStyle">
@@ -402,7 +402,7 @@
                <string notr="true"/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_fg.png</normaloff>:/res/icons/color_fg.png</iconset>
               </property>
               <property name="autoDefault">
@@ -437,7 +437,7 @@
                <string notr="true"/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_bg.png</normaloff>:/res/icons/color_bg.png</iconset>
               </property>
               <property name="autoDefault">
@@ -500,7 +500,7 @@
                <string notr="true"/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_fg.png</normaloff>:/res/icons/color_fg.png</iconset>
               </property>
               <property name="autoDefault">
@@ -535,7 +535,7 @@
                <string notr="true"/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_bg.png</normaloff>:/res/icons/color_bg.png</iconset>
               </property>
               <property name="autoDefault">
@@ -597,7 +597,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_fg.png</normaloff>:/res/icons/color_fg.png</iconset>
               </property>
               <property name="autoDefault">
@@ -635,7 +635,7 @@
                <string notr="true"/>
               </property>
               <property name="icon">
-               <iconset resource="ipponboard.qrc">
+               <iconset>
                 <normaloff>:/res/icons/color_bg.png</normaloff>:/res/icons/color_bg.png</iconset>
               </property>
               <property name="flat">
@@ -742,7 +742,7 @@
        <bool>false</bool>
       </property>
       <attribute name="icon">
-       <iconset resource="ipponboard.qrc">
+       <iconset>
         <normaloff>:/res/icons/controller.png</normaloff>:/res/icons/controller.png</iconset>
       </attribute>
       <attribute name="title">
@@ -1091,7 +1091,7 @@
        <bool>true</bool>
       </property>
       <attribute name="icon">
-       <iconset resource="ipponboard.qrc">
+       <iconset>
         <normaloff>:/res/icons/keyboard.png</normaloff>:/res/icons/keyboard.png</iconset>
       </attribute>
       <attribute name="title">
@@ -1153,11 +1153,11 @@
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
          </attribute>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>20</number>
-         </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
           <number>15</number>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>20</number>
          </attribute>
          <attribute name="verticalHeaderStretchLastSection">
           <bool>false</bool>
@@ -1501,8 +1501,6 @@
   <tabstop>tableWidget_keys</tabstop>
   <tabstop>buttonBox_3</tabstop>
  </tabstops>
- <resources>
-  <include location="ipponboard.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

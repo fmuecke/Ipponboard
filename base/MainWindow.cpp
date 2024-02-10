@@ -408,7 +408,7 @@ void MainWindow::read_specific_settings(QSettings& settings)
 {
 	settings.beginGroup(EditionNameShort());
 	{
-		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
+        m_MatLabel = settings.value(str_tag_MatLabel, "ESC Siershahn").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
 
