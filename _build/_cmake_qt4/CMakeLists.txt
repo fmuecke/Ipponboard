@@ -97,6 +97,14 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		add_custom_command(TARGET Ipponboard POST_BUILD
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release 
 		)
+
+		#####################################################
+		# Target setup
+		#####################################################
+		add_custom_target(setup
+				COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
+				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
+		)
 	else()
 		if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 			message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
@@ -128,14 +136,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			# the following environment variable is needed, if using VStudio GUI (solution)
 			COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
-		)
-
-		#####################################################
-		# Target setup
-		#####################################################
-		add_custom_target(setup
-				COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
-				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
 		)
 	else()
 		if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)

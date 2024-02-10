@@ -16,7 +16,7 @@ pushd "%BASE_DIR%"
 SET VER1=2
 SET VER2=1
 SET VER3=0
-SET TAG=Win_Linux
+SET TAG=pre
 :: that's it. <--
 
 git log -1 --format=%%h > .revision
