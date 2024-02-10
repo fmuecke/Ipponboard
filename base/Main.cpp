@@ -47,10 +47,10 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 		{
 			app.installTranslator(&translator);
 		}
-        //else
-        //{
-        //	LangNotFound(langStr);
-        //}
+        else
+        {
+            LangNotFound(langStr);
+        }
 	}
 }
 

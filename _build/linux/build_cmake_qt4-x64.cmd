@@ -44,8 +44,8 @@ rcc -name ipponboard $BASE_DIR/base/ipponboard.qrc -o $BASE_DIR/base/qrc_ipponbo
 # build Debug
 ############
 CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Debug
-#cmake --build ../_build_cmake_qt4 --target Ipponboard_Debug
-#source _copy_files ../.. -debug
+cmake --build ../_build_cmake_qt4 --target Ipponboard_Debug
+source _copy_files ../.. -debug
 
 echo hit any key to finish
 pause

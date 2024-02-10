@@ -27,19 +27,18 @@ mkdir -p $DEST/sounds
 cp $ROOT/base/sounds/buzzer.wav $DEST/sounds || exit 1
 
 echo  QT and C++ runtimes
-if [ "$2" == '-release' ]
-then
-	cp $QTDIR/../libQtCore.so $DEST|| exit 1
-	cp $QTDIR/../libQtGui.so $DEST|| exit 1
-	cp $QTDIR/../libQtNetwork.so $DEST|| exit 1
-	cp $QTDIR/../libQtXmlPatterns.so $DEST|| exit 1
-else
-	# TODO: change to debug library
-	cp $QTDIR/../libQtCore.so $DEST|| exit 1
-	cp $QTDIR/../libQtGui.so $DEST|| exit 1
-	cp $QTDIR/../libQtNetwork.so $DEST|| exit 1
-	cp $QTDIR/../libQtXmlPatterns.so $DEST|| exit 1
-fi
+#if [ "$2" == '-release' ]
+#then
+	cp $QTDIR/lib/libQtCore.so $DEST|| exit 1
+	cp $QTDIR/lib/libQtGui.so $DEST|| exit 1
+	cp $QTDIR/lib/libQtNetwork.so $DEST|| exit 1
+	cp $QTDIR/lib/libQtXmlPatterns.so $DEST|| exit 1
+#else
+#	cp $QTDIR/lib/libQtCore.so $DEST|| exit 1
+#	cp $QTDIR/lib/libQtGui.so $DEST|| exit 1
+#	cp $QTDIR/lib/libQtNetwork.so $DEST|| exit 1
+#	cp $QTDIR/lib/libQtXmlPatterns.so $DEST|| exit 1
+#fi
 
 echo  Categories and modes
 cp $ROOT/base/categories.json $DEST|| exit 1

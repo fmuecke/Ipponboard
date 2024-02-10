@@ -20,7 +20,7 @@ namespace Ipponboard
 
 class TournamentMode
 {
-	friend struct IpponboardTest;
+    friend IpponboardTest;
 
 public:
 	TournamentMode();
