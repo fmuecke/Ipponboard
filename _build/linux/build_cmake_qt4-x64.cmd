@@ -93,6 +93,7 @@ function clean {
 function run {
   if [ ! -z "$BIN_DIR" ]
   then
+    echo switching to directory [$BIN_DIR]...
     pushd "$BIN_DIR"
     LD_LIBRARY_PATH=. ./Ipponboard
     popd

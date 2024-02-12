@@ -126,8 +126,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-			OUTPUT_NAME Ipponboard_Debug
-			#DEBUG_POSTFIX _d
+			OUTPUT_NAME Ipponboard
 			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			#CMAKE_SUPPRESS_REGENERATION true	
 		)
@@ -145,8 +144,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 			set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
-			OUTPUT_NAME Ipponboard_Debug
-			#DEBUG_POSTFIX _d
+			OUTPUT_NAME Ipponboard
 		)
 	endif()
 	target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
