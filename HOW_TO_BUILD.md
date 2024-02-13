@@ -25,11 +25,11 @@ this (e.g. https://github.com/scharsig/Qt or https://github.com/raikantasahu/Qt)
 	a: nmake
 	b: nmake install	
 
-Note: The default directory in QT is defined by "configure -prefix <path>" and created by "nmake install". 
+Note: The default directory in QT is defined by "configure -prefix \<path\>" and created by "nmake install". 
 This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, it is recommended that the QT installation is executed as described here. 
 To reconfigure the path, run "nmake confclean", change the setting and rerun nmake.
 
-##  checkout and setup sources
+##  Checkout and setup sources
 1. git clone https://gitlab.com/r_bernhard/Ipponboard.git
 2. Create versioninfo.h:
 	a: cd Ipponboard\base
@@ -38,7 +38,7 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 		VER4 contains the build number of the product (do not edit this variable)
 	c: execute "_create_versioninfo.cmd" all the time before building a release!
 
-## compile
+## Compile
 ### Using build_qmake_qt4-x86.cmd
 1. The first run of `build_qmake_qt4-x86.cmd` will create a file to configure the paths to the above libraries
 	- build_qmake_qt4-x86.cmd
@@ -144,9 +144,9 @@ these must be generated from the sources for the target system.
 	a: gmake
 	b: gmake install
 
-Note: The default directory in QT is defined by "configure -prefix <path>" and created by "make install". 
+Note: The default directory in QT is defined by "configure -prefix \<path\>" and created by "make install". 
 This also implicitly defines the QT INCLUDE- and LIB-Directory. To ensure that no such path dependency has to be included in the Ipponboard, it is recommended that the QT installation is executed as described here.
-To reconfigure the path, run `nmake confclean`, change the setting and rerun nmake.
+To reconfigure the path, run `gmake confclean`, change the setting and rerun gmake.
 
 # Prerequisites for Ipponboard build
 ## Debian based
@@ -161,4 +161,4 @@ Use IDE: sudo yum install qt-creator qt6-designer gdb
 git clone https://gitlab.com/r_bernhard/Ipponboard.git
 
 ## build the application
-execute _build/linux/build_cmake_qt4-x64.cmd (in future this script will be improved)
+execute ./_build/linux/build_cmake_qt4-x64.cmd (in future this script will be improved)
