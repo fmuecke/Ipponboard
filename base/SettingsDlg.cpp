@@ -16,6 +16,7 @@
 #include <QDir>
 #include <QSound>
 #include <QColorDialog>
+#include <QMessageBox>
 
 using namespace Ipponboard;
 
@@ -484,7 +485,10 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
 	QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
-	QSound::play(path);
+    if(QSound::isAvailable())
+        QSound::play(path);
+    else
+        QMessageBox::information(this, QCoreApplication::applicationName(), tr("No sound device found"));
 }
 
 void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(
