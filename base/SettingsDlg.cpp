@@ -14,9 +14,14 @@
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
-#include <QSound>
 #include <QColorDialog>
 #include <QMessageBox>
+#ifdef _WIN32
+#include <QSound>
+#endif
+#ifdef __linux__
+#include <QProcess>
+#endif
 
 using namespace Ipponboard;
 
@@ -485,10 +490,15 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
 	QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
+#ifdef _WIN32
     if(QSound::isAvailable())
         QSound::play(path);
     else
         QMessageBox::information(this, QCoreApplication::applicationName(), tr("No sound device found"));
+#endif
+#ifdef __linux__
+    QProcess::startDetached("/usr/bin/aplay", QStringList() << path);
+#endif
 }
 
 void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(
