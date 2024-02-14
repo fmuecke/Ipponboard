@@ -106,9 +106,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
 		)
 	else()
-		if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
-			message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
-		endif()
+		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
+		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
+		#endif()
 
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 		set_target_properties(Ipponboard PROPERTIES
@@ -137,9 +137,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
 		)
 	else()
-		if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
-			message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
-		endif()
+		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
+		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
+		#endif()
 
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
 			set_target_properties(Ipponboard_Debug PROPERTIES
