@@ -102,7 +102,7 @@ function run {
   echo run finished, hit enter to continue
 }
 
-##############
+#####################
 function make_tests {
   # TODO
   cmake --build ../_build_cmake_qt4 --target IpponboardTest || exit 1
@@ -112,6 +112,16 @@ function make_tests {
   popd
 
   echo make_tests finished, hit enter to continue
+}
+
+####################
+function translate {
+    pushd $BASE_DIR
+    lupdate base core Widgets -locations relative -no-recursive -ts i18n/de.ts -ts i18n/nl.ts
+    linguist i18n/de.ts i18n/nl.ts
+    lrelease -compress i18n/de.ts -qm i18n/de.qm
+    lrelease -compress i18n/nl.ts -qm i18n/nl.qm
+    popd
 }
 
 ###############
@@ -129,7 +139,8 @@ function menu {
   echo "  6) Build Debug"
   echo "  7) Clean"
   echo "  8) Run"
-  echo "  t) Make Tests"
+  echo "  9) Make Tests"
+  echo "  t) Make Translations"
   echo "  q) Quit"
 
   read n
@@ -142,7 +153,8 @@ function menu {
     6) build_debug;pause;clear;menu;;
     7) clean;pause;clear;menu;;
     8) run;pause;clear;menu;;
-    t) make_tests;pause;clear;menu;;
+    9) make_tests;pause;clear;menu;;
+    t) translate;pause;clear;menu;;
     q) quit;;
     *) clear;menu;;
   esac
