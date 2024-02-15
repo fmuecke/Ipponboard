@@ -131,29 +131,29 @@ function quit {
 ###############
 function menu {
   echo "select the operation ************"
+  echo "  a) Build All Release"
   echo "  1) Make QT resource file"
   echo "  2) Make Release Makefiles"
   echo "  3) Build Release"
-  echo "  4) Build All Release"
-  echo "  5) Make Debug Makefiles"
-  echo "  6) Build Debug"
-  echo "  7) Clean"
-  echo "  8) Run"
-  echo "  9) Make Tests"
+  echo "  4) Make Debug Makefiles"
+  echo "  5) Build Debug"
+  echo "  6) Clean"
+  echo "  7) Run"
+  echo "  8) Make Tests"
   echo "  t) Make Translations"
   echo "  q) Quit"
 
   read n
   case $n in
+    a) build_all_release;pause;clear;menu;;
     1) make_qt_res;pause;clear;menu;;
     2) make_release;pause;clear;menu;;
     3) build_release;pause;clear;menu;;
-    4) build_all_release;pause;clear;menu;;
-    5) make_debug;pause;clear;menu;;
-    6) build_debug;pause;clear;menu;;
-    7) clean;pause;clear;menu;;
-    8) run;pause;clear;menu;;
-    9) make_tests;pause;clear;menu;;
+    4) make_debug;pause;clear;menu;;
+    5) build_debug;pause;clear;menu;;
+    6) clean;pause;clear;menu;;
+    7) run;pause;clear;menu;;
+    8) make_tests;pause;clear;menu;;
     t) translate;pause;clear;menu;;
     q) quit;;
     *) clear;menu;;
@@ -164,6 +164,7 @@ function menu {
 # main block
 #####################################################################################################################
 create_env
+BIN_DIR=$BASE_DIR/_build/bin
 
 PWD=$(pwd)
 BASE_DIR=$PWD/../..
