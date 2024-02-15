@@ -728,7 +728,7 @@ void Controller::Gong() const
     if(QSound::isAvailable())
         QSound::play(m_gongFile);
     else
-        QMessageBox::information(this, QCoreApplication::applicationName(), tr("No sound device found"));
+        QMessageBox::information(0, tr("Error"), tr("No sound device found"));
 #endif
 #ifdef __linux__
     QProcess::startDetached("/usr/bin/aplay", QStringList() << m_gongFile);

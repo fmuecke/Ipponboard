@@ -494,7 +494,7 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
     if(QSound::isAvailable())
         QSound::play(path);
     else
-        QMessageBox::information(this, QCoreApplication::applicationName(), tr("No sound device found"));
+        QMessageBox::information(this, tr("Error"), tr("No sound device found"));
 #endif
 #ifdef __linux__
     QProcess::startDetached("/usr/bin/aplay", QStringList() << path);

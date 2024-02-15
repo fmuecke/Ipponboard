@@ -26,6 +26,7 @@ function create_env {
 
 ######################
 function make_qt_res {
+  echo --[make_qt_res]--
   source _create_versioninfo.linux $BASE_DIR/base || exit 1
 
   # Create the QT resource file
@@ -36,6 +37,7 @@ function make_qt_res {
 
 #######################
 function make_release {
+  echo --[make_release]--
   CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Release || exit 1
 
   echo make_release finished, hit enter to continue
@@ -43,6 +45,7 @@ function make_release {
 
 ########################
 function build_release {
+  echo --[build_release]--
   cmake --build ../_build_cmake_qt4 --target Ipponboard || exit 1
   source _copy_files ../.. -release || exit 1
   BIN_DIR=$BASE_DIR/_build/bin/Release
@@ -54,6 +57,7 @@ function build_release {
 
 ######################
 function build_all_release {
+  echo --[build_all_release]--
   make_qt_res
   make_release
   build_release
@@ -63,6 +67,7 @@ function build_all_release {
 
 #####################
 function make_debug {
+  echo --[make_debug]--
   CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Debug || exit 1
 
   echo make_debug finished, hit enter to continue
@@ -71,6 +76,7 @@ function make_debug {
 
 ######################
 function build_debug {
+  echo --[build_debug]--
   cmake --build ../_build_cmake_qt4 --target Ipponboard_Debug || exit 1
   source _copy_files ../.. -debug || exit 1
   BIN_DIR=$BASE_DIR/_build/bin/Debug
@@ -80,6 +86,7 @@ function build_debug {
 
 ################
 function clean {
+  echo --[make_clean]--
   if [ ! -z "$BIN_DIR" ]
   then
     rm -rf ../_build_cmake_qt4
@@ -91,6 +98,7 @@ function clean {
 
 ##############
 function run {
+  echo --[run]--
   if [ ! -z "$BIN_DIR" ]
   then
     echo switching to directory [$BIN_DIR]...
@@ -104,7 +112,7 @@ function run {
 
 #####################
 function make_tests {
-  # TODO
+  echo --[make_tests]--
   cmake --build ../_build_cmake_qt4 --target IpponboardTest || exit 1
 
   pushd ../_build_cmake_qt4/test
@@ -116,12 +124,13 @@ function make_tests {
 
 ####################
 function translate {
-    pushd $BASE_DIR
-    lupdate base core Widgets -locations relative -no-recursive -ts i18n/de.ts -ts i18n/nl.ts
-    linguist i18n/de.ts i18n/nl.ts
-    lrelease -compress i18n/de.ts -qm i18n/de.qm
-    lrelease -compress i18n/nl.ts -qm i18n/nl.qm
-    popd
+  echo --[make_translation]--
+  pushd $BASE_DIR
+  lupdate base core Widgets -locations relative -no-recursive -ts i18n/de.ts -ts i18n/nl.ts
+  linguist i18n/de.ts i18n/nl.ts
+  lrelease -compress i18n/de.ts -qm i18n/de.qm
+  lrelease -compress i18n/nl.ts -qm i18n/nl.qm
+  popd
 }
 
 ###############
