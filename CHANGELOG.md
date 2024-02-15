@@ -1,7 +1,10 @@
 # *Ipponboard* - Version History 
 <small>by Florian Mücke and ESC</small>
 
-## Version 2.0.0 (2024-xx-yy)
+## Version 2.1.0 (2024-02-yy)
+- Organized source code so that it compiles without Gamepad-support under Linux,
+
+## Version 2.0.0 (2024-01-yy)
 - changed the build environment to Visual Studio 2022 and update the production tools to versions available in 2023/24
 
 ## Version 2.x (2023-xx-yy)

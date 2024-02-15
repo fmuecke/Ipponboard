@@ -13,11 +13,17 @@
 #include "Rules.h"
 
 #include <QTimer>
-#include <QSound>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <algorithm>
 #include <functional>
+
+#ifdef _WIN32
+#include <QSound>
+#endif
+#ifdef __linux__
+#include <QProcess>
+#endif
 
 using namespace Ipponboard;
 using Point = Score::Point;
@@ -718,7 +724,15 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
-	QSound::play(m_gongFile);
+#ifdef _WIN32
+    if(QSound::isAvailable())
+        QSound::play(m_gongFile);
+    else
+        QMessageBox::information(this, QCoreApplication::applicationName(), tr("No sound device found"));
+#endif
+#ifdef __linux__
+    QProcess::startDetached("/usr/bin/aplay", QStringList() << m_gongFile);
+#endif
 }
 
 //=========================================================

@@ -10,11 +10,10 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <QFileInfo>
 
 namespace fm
 {
-    namespace fs = std::filesystem;
-
     namespace Json
 	{
 		using ::Json::Value;
@@ -73,7 +72,8 @@ namespace fm
 
 		static Json::Value ReadFile(const char * const & file)
 		{
-			if (!fs::exists(fs::path(file)))
+            QFileInfo fileInfo((QFile(file)));
+            if (!fileInfo.exists())
 			{
 				throw FileNotFoundException(file);
 			}
