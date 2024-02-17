@@ -46,11 +46,12 @@ function make_release {
 ########################
 function build_release {
   echo --[build_release]--
+  make_tests || exit 1
+
   cmake --build ../_build_cmake_qt4 --target Ipponboard || exit 1
   source _copy_files ../.. -release || exit 1
   BIN_DIR=$BASE_DIR/_build/bin/Release
 
-  make_tests
 
   echo build_release finished, hit enter to continue
 }
@@ -58,6 +59,7 @@ function build_release {
 ######################
 function build_all_release {
   echo --[build_all_release]--
+  clean
   make_qt_res
   make_release
   build_release
@@ -116,10 +118,15 @@ function make_tests {
   cmake --build ../_build_cmake_qt4 --target IpponboardTest || exit 1
 
   pushd ../_build_cmake_qt4/test
-  ./IpponboardTest
-  popd
-
-  echo make_tests finished, hit enter to continue
+  if ./IpponboardTest
+  then
+    popd
+    echo make_tests sucessfully finished
+  else
+    popd
+    echo make_tests with errors, exiting build
+    exit 1
+  fi
 }
 
 ####################
@@ -174,7 +181,7 @@ function menu {
 #####################################################################################################################
 if [ -z "$1" ]
 then
-	echo Fehlendes Argument: build_cmake_qt4.cmd \<x32\|x86\>
+	echo Fehlendes Argument: build_cmake_qt4.cmd \<x32\|x64\>
 	exit 1
 else
 	arch=$1

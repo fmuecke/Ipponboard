@@ -1,6 +1,6 @@
 if [  $# -lt 2  ]
 then
-	echo Fehlende Argumente: copy_files BASE_DIR debug\|release
+	echo Fehlende Argumente: copy_files BASE_DIR \<debug\|release\>
 	exit 1
 fi
 

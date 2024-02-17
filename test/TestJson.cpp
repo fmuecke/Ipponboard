@@ -10,8 +10,8 @@ TEST_CASE("JSON read file")
 {
 	try
 	{
-		auto value1 = fm::Json::ReadFile("TestData\\utf8_with_bom.json");
-		auto value2 = fm::Json::ReadFile("TestData\\utf8.json");
+        auto value1 = fm::Json::ReadFile("TestData/utf8_with_bom.json");
+        auto value2 = fm::Json::ReadFile("TestData/utf8.json");
 
 		REQUIRE(value1.toStyledString() == value2.toStyledString());
 	}
@@ -33,7 +33,7 @@ TEST_CASE("JSON read string")
 	try
 	{
 		auto value1 = fm::Json::ReadString(str);
-		auto value2 = fm::Json::ReadFile("TestData\\utf8.json");
+        auto value2 = fm::Json::ReadFile("TestData/utf8.json");
 
 		REQUIRE(value1.toStyledString() == value2.toStyledString());
 	}

@@ -31,4 +31,5 @@ target_link_libraries(IpponboardTest Qt4::QtCore)
 add_custom_command(TARGET ${PROJECT_NAME} 
                     POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../TestData $<TARGET_FILE_DIR:${PROJECT_NAME}>/TestData
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../base/templates $<TARGET_FILE_DIR:${PROJECT_NAME}>/templates
 )
