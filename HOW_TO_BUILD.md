@@ -39,11 +39,11 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 	c: execute "_create_versioninfo.cmd" all the time before building a release!
 
 ## Compile
-### Using build_qmake_qt4-x86.cmd
-1. The first run of `build_qmake_qt4-x86.cmd` will create a file to configure the paths to the above libraries
-	- build_qmake_qt4-x86.cmd
-	- Please configure paths in "env_cfg-x86.bat" first!
-	-  Attention: Whenever you change a path in "build_qmake_qt4-x86.cmd", you must delete the file "env_cfg-x86.bat" and rerun "build_qmake_qt4-x86.cmd"!
+### Using __deprecated__build_qmake_qt4-x86.cmd (will not supported anymore)
+1. The first run of `__deprecated__build_qmake_qt4-x86.cmd` will create a file to configure the paths to the above libraries
+	- __deprecated__build_qmake_qt4-x86.cmd
+	- Please configure paths in "_env_cfg-x86.bat" first!
+	-  Attention: Whenever you change a path in "__deprecated__build_qmake_qt4-x86.cmd", you must delete the file "env_cfg-x86.bat" and rerun "build_qmake_qt4-x86.cmd"!
 
 2. Modify those according to your environment. After that you may try building ;)...
 - execute "build_qmake_qt4-x86.cmd" again
@@ -69,7 +69,7 @@ To reconfigure the path, run "nmake confclean", change the setting and rerun nma
 
 Note: In _copy_files.cmd we only deploy 64bit redistributables --> TODO: make it variable
 
-### Using vcproj
+### Using vcproj (will not supported anymore)
 Create a VStudio project and solution file. You can use this for compiling or develop the source code in Visual Studio 
 	1. make_vcproj.cmd
 	2. nmake
@@ -109,9 +109,9 @@ Start the Developer Command Prompt, e.g. by starting a custom batch file `vcvars
    
 ## Using *QtCreator* to build Ipponboard
 
-1. Download and install [QCreator](https://www.qt.io/product/development-tools)
+1. Download and install QtCreator
 2. Configure the Qt environment
-3. Open `Ipponboard.pro` with QtCreator
+3. Open `Ipponboard.pro` or the CMakefileList.txt with QtCreator
 4. add `BOOST_DIR` to the environment variables of the project
 
 ### Configuring CDB Debugger
