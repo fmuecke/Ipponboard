@@ -161,4 +161,4 @@ Use IDE: sudo yum install qt-creator qt6-designer gdb
 git clone https://gitlab.com/r_bernhard/Ipponboard.git
 
 ## build the application
-execute ./_build/linux/build_cmake_qt4-x64.cmd (in future this script will be improved)
+execute ./_build/linux/build_cmake_qt4.cmd \<x32\|x64\>
