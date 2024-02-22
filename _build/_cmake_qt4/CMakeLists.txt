@@ -105,6 +105,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		add_custom_target(setup
 				COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
 				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss 
+
+		target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 		)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
@@ -115,8 +117,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		set_target_properties(Ipponboard PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
 		)
+
+		target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns X11 Xrandr)
 	endif()
-	target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 endif()
 
 #####################################################
@@ -137,6 +140,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug 
 		)
+
+		target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
@@ -147,8 +152,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 			OUTPUT_NAME Ipponboard
 		)
+
+		target_link_libraries(Ipponboard Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns X11 Xrandr)
 	endif()
-	target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 endif()
 
 # create the qt resource file
