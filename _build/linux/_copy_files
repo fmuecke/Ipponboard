@@ -15,6 +15,9 @@ fi
 
 echo Copying files to $DEST using QTDIR=$QTDIR
 
+echo  icons
+cp $ROOT/base/images/ipponboard*.ico $DEST || exit 1
+
 echo  languages
 mkdir -p $DEST/lang
 "$QTDIR/bin/lrelease" -compress -silent $ROOT/i18n/de.ts -qm $ROOT/i18n/de.qm || exit 1
@@ -24,7 +27,7 @@ cp $ROOT/i18n/nl.qm $DEST/lang || exit 1
 
 echo  sounds
 mkdir -p $DEST/sounds
-cp $ROOT/base/sounds/buzzer.wav $DEST/sounds || exit 1
+cp $ROOT/base/sounds/*.wav $DEST/sounds || exit 1
 
 echo  QT and C++ runtimes
 cp $QTDIR/lib/libQtCore.so.4 $DEST|| exit 1
