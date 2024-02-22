@@ -16,7 +16,8 @@ fi
 echo Copying files to $DEST using QTDIR=$QTDIR
 
 echo  icons
-cp $ROOT/base/images/ipponboard*.ico $DEST || exit 1
+mkdir -p $DEST/ico
+cp $ROOT/base/images/ipponboard*.ico $DEST/ico || exit 1
 
 echo  languages
 mkdir -p $DEST/lang

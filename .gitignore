@@ -30,7 +30,7 @@ doc/manual.aux
 doc/manual.log
 doc/manual.out
 doc/manual.pdf
-**_env_cfg*.cmd
+**_env_cfg*
 ipch/
 lib/*
 ui*.h
