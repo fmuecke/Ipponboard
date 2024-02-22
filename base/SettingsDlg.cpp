@@ -16,12 +16,16 @@
 #include <QDir>
 #include <QColorDialog>
 #include <QMessageBox>
+
 #ifdef _WIN32
 #include <QSound>
 #endif
 #ifdef __linux__
 #include <QProcess>
 #endif
+
+// must be included at last, because of Xlib.h conflicts with QT!
+#include "../util/screen_helpers.h"
 
 using namespace Ipponboard;
 
@@ -113,11 +117,10 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 #endif
 
 	// num screens
-	int screens = QApplication::desktop()->numScreens();
-
-	for (int i(1); i <= screens; ++i)
+    const int screens = ScreenHelpers::getInstance()->numScreens();
+    for (int i(1); i <= screens; ++i)
 	{
-		QRect res = QApplication::desktop()->screenGeometry(i - 1);
+        QRect res = ScreenHelpers::getInstance()->getScreenGeometry(i - 1);
 
 		ui->comboBox_screen->addItem(
 			QString("%1 (%2x%3)").arg(
@@ -127,7 +130,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 			));
 	}
 
-	QDir dir(QDir::currentPath() + "/sounds");
+    QDir dir(QDir::currentPath() + "/sounds");
 	QStringList nameFilters;
 	nameFilters << "*.wav";
 	dir.setNameFilters(nameFilters);
@@ -219,25 +222,31 @@ SettingsDlg::~SettingsDlg()
 }
 
 
-void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions)
+void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions, const QPoint& position)
 {
-	Q_ASSERT(screen < ui->comboBox_screen->count());
+    Q_ASSERT(screen < ui->comboBox_screen->count());
 	ui->comboBox_screen->setCurrentIndex(screen);
 
-	if (dimensions.isNull())
+    if (dimensions.isNull() && position.isNull() && ui->comboBox_screen->count() != 1)
 	{
 		ui->checkBox_secondary_view_custom_size->setChecked(false);
-	}
+    }
 	else
 	{
 		ui->checkBox_secondary_view_custom_size->setChecked(true);
-		ui->lineEdit_fixedsize_width->setText(
-			QString::number(dimensions.width()));
-		ui->lineEdit_fixedsize_height->setText(
-			QString::number(dimensions.height()));
-		ui->lineEdit_fixedsize_width->setEnabled(true);
-		ui->lineEdit_fixedsize_height->setEnabled(true);
-	}
+        ui->lineEdit_screen_width->setToolTip("1280");
+        ui->lineEdit_screen_height->setToolTip("720");
+
+        ui->lineEdit_screen_width->setText(QString::number(dimensions.width()));
+        ui->lineEdit_screen_height->setText(QString::number(dimensions.height()));
+        ui->lineEdit_screen_width->setEnabled(true);
+        ui->lineEdit_screen_height->setEnabled(true);
+
+        ui->lineEdit_screen_posX->setText(QString::number(position.x()));
+        ui->lineEdit_screen_posY->setText(QString::number(position.y()));
+        ui->lineEdit_screen_posX->setEnabled(true);
+        ui->lineEdit_screen_posY->setEnabled(true);
+    }
 }
 
 void SettingsDlg::SetInfoHeaderSettings(const QFont& font,
@@ -309,12 +318,20 @@ int SettingsDlg::GetSelectedScreen() const
 	return ui->comboBox_screen->currentIndex();
 }
 
-QSize SettingsDlg::GetSize() const
+QSize SettingsDlg::GetSecondScreenSize() const
 {
 	QSize s;
-	s.setWidth(ui->lineEdit_fixedsize_width->text().toInt());
-	s.setHeight(ui->lineEdit_fixedsize_height->text().toInt());
+    s.setWidth(ui->lineEdit_screen_width->text().toInt());
+    s.setHeight(ui->lineEdit_screen_height->text().toInt());
 	return s;
+}
+
+QPoint SettingsDlg::GetSecondScreenPos() const
+{
+    QPoint p;
+    p.setX(ui->lineEdit_screen_posX->text().toInt());
+    p.setY(ui->lineEdit_screen_posY->text().toInt());
+    return p;
 }
 
 QFont SettingsDlg::GetInfoHeaderFont() const
@@ -636,15 +653,14 @@ void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
 
 void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(bool checked)
 {
-	ui->lineEdit_fixedsize_width->setEnabled(checked);
-	ui->lineEdit_fixedsize_height->setEnabled(checked);
+    ui->lineEdit_screen_width->setEnabled(checked);
+    ui->lineEdit_screen_height->setEnabled(checked);
+    ui->lineEdit_screen_posX->setEnabled(checked);
+    ui->lineEdit_screen_posY->setEnabled(checked);
+
 	ui->label_screen_width->setEnabled(checked);
 	ui->label_screen_height->setEnabled(checked);
-
-	if (!checked)
-	{
-		ui->lineEdit_fixedsize_width->setText("0");
-		ui->lineEdit_fixedsize_height->setText("0");
-	}
+    ui->label_screen_posX->setEnabled(checked);
+    ui->label_screen_posY->setEnabled(checked);
 }
 

@@ -48,6 +48,7 @@ static const char* const str_tag_size = "size";
 static const char* const str_tag_pos = "pos";
 static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
+static const char* const str_tag_SecondScreenPos = "SecondScreenPos";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
@@ -183,6 +184,7 @@ protected:
 	QFont m_FighterNameFont;
 	int m_secondScreenNo;
 	QSize m_secondScreenSize;
+    QPoint m_secondScreenPos;
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:

@@ -54,7 +54,7 @@ Controller::Controller()
 	, m_pTimerHold(0)
 	, m_pTimeMain(0)
 	, m_pTimeHold(0)
-	, m_Tori(FighterEnum::None)
+    , m_Tori(FighterEnum::Nobody)
 	, m_isSonoMama(false)
 	, m_roundTime(0, 0, 0, 0)
 	, m_options(0)
@@ -321,7 +321,7 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 FighterEnum Controller::GetLead() const
 //=========================================================
 {
-	FighterEnum winner(FighterEnum::None);
+    FighterEnum winner(FighterEnum::Nobody);
 
 	switch (m_State)
 	{
@@ -402,7 +402,7 @@ void Controller::reset_timers()
 
 	m_pTimerHold->stop();
 	reset_timer_value(eTimer_Hold);
-	m_Tori = FighterEnum::None;
+    m_Tori = FighterEnum::Nobody;
 
 	m_isSonoMama = false;
 }
@@ -432,7 +432,7 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 		m_pTimeHold->setHMS(0, 0, 0, 0);
 
 		if (!m_pTimerHold->isActive())
-			m_Tori = FighterEnum::None;
+            m_Tori = FighterEnum::Nobody;
 	}
 }
 
@@ -791,7 +791,7 @@ void Controller::reset_fight()
 	m_pTimerHold->stop();
 	m_pTimerMain->stop();
 	m_pTimeHold->setHMS(0, 0, 0, 0);
-	m_Tori = FighterEnum::None;
+    m_Tori = FighterEnum::Nobody;
 
 	// just clear the score, not the names
 	get_score(FighterEnum::First) = Score();
