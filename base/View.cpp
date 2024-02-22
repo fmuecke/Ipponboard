@@ -276,7 +276,7 @@ void View::UpdateView()
 
 	const FighterEnum holder(m_pController->GetLastHolder());
 
-	if (FighterEnum::None == holder && is_secondary())
+    if (FighterEnum::Nobody == holder && is_secondary())
 	{
 		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
 	}
@@ -480,7 +480,7 @@ void View::mousePressEvent(QMouseEvent* event)
 {
 	Q_ASSERT(m_pController && "IBController not set!");
 
-	FighterEnum whos(FighterEnum::None);
+    FighterEnum whos(FighterEnum::Nobody);
 	EAction action(eAction_NONE);
 	const bool doRevoke = event->button() & Qt::RightButton;
 
@@ -651,7 +651,7 @@ void View::setOsaekomiSecond_()
 void View::resetMainTimerValue_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::None, true/*doRevoke*/);
+    m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true/*doRevoke*/);
 }
 
 //=========================================================
@@ -971,7 +971,7 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 	ui->image_sand_clock->SetBgColor(Qt::black);
 
 	// no one holding?
-	if (FighterEnum::None == holder)
+    if (FighterEnum::Nobody == holder)
 	{
 		if (is_secondary())
 		{

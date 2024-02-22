@@ -42,6 +42,7 @@ ${BASE_DIR}/util/array_helpers.h
 ${BASE_DIR}/util/json.hpp
 ${BASE_DIR}/util/jsoncpp/json.cpp
 ${BASE_DIR}/util/path_helpers.h
+${BASE_DIR}/util/screen_helpers.h
 ${BASE_DIR}/Widgets/Countdown.cpp ${BASE_DIR}/Widgets/Countdown.h ${BASE_DIR}/Widgets/Countdown.ui
 ${BASE_DIR}/Widgets/ScaledImage.cpp ${BASE_DIR}/Widgets/ScaledImage.h
 ${BASE_DIR}/Widgets/ScaledText.cpp ${BASE_DIR}/Widgets/ScaledText.h

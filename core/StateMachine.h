@@ -50,8 +50,8 @@ public:
 	struct Reset {};
 	struct Finish {};
 
-	struct Hajime_Mate	{ enum { type = eTimer_Main }; };
-	struct Osaekomi_Toketa { enum { type = eTimer_Hold }; };
+    struct Hajime_Mate	{ enum { type = eTimer_Main }; };
+    struct Osaekomi_Toketa { enum { type = eTimer_Hold }; };
 
 	template<typename T>
 	struct PointEvent

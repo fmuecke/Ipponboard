@@ -38,7 +38,7 @@ function make_qt_res {
 #######################
 function make_release {
   echo --[make_release]--
-  CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Release || exit 1
+  CC=$(which gcc) CXX=$(which g++) LDFLAGS="-lX11 -lXrandr" cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Release || exit 1
 
   echo make_release finished, hit enter to continue
 }
@@ -70,7 +70,7 @@ function build_all_release {
 #####################
 function make_debug {
   echo --[make_debug]--
-  CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Debug || exit 1
+  CC=$(which gcc) CXX=$(which g++) LDFLAGS="-lX11 -lXrandr" cmake -S "../_cmake_qt4" -B "../_build_cmake_qt4" -DCMAKE_BUILD_TYPE=Debug || exit 1
 
   echo make_debug finished, hit enter to continue
 }

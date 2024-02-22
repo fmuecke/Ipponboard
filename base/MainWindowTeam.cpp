@@ -16,15 +16,12 @@
 #include "../base/View.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
-#include "../core/ControllerConfig.h"
-#include "../core/Tournament.h"
 #include "../core/TournamentModel.h"
 #ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
 #endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
-#include "../Widgets/ScaledText.h"
 
 #include <QClipboard>
 #include <QColorDialog>
@@ -49,6 +46,9 @@
 #include <QUrl>
 
 #include <functional>
+
+// must be included at last, because of Xlib.h conflicts with QT!
+#include "../util/screen_helpers.h"
 
 namespace StrTags
 {
@@ -810,13 +810,12 @@ void MainWindowTeam::on_button_pause_clicked()
 	else
 	{
 		update_score_screen();
-		const int nScreens(QApplication::desktop()->numScreens());
+        const int nScreens= ScreenHelpers::getInstance()->numScreens();
 
 		if (nScreens > 0 && nScreens > m_secondScreenNo)
 		{
 			// move to second screen
-			QRect screenres =
-				QApplication::desktop()->screenGeometry(m_secondScreenNo);
+            QRect screenres = ScreenHelpers::getInstance()->getScreenGeometry(m_secondScreenNo);
 			m_pScoreScreen->move(QPoint(screenres.x(), screenres.y()));
 		}
 
@@ -858,7 +857,7 @@ void MainWindowTeam::on_button_next_clicked()
 	m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
-	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
