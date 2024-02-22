@@ -7,6 +7,8 @@
 #ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
 #endif
+#include "../core/ControllerConfig.h"
+#include "../core/Rules.h"
 
 #include <QStringList>
 #include <QDesktopWidget>
@@ -20,9 +22,10 @@
 #endif
 #ifdef __linux__
 #include <QProcess>
+#endif
+
 // must be included at last, because of Xlib.h conflicts with QT!
 #include "../util/screen_helpers.h"
-#endif
 
 using namespace Ipponboard;
 

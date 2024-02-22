@@ -87,7 +87,7 @@ include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
 #####################################################
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
 	if (WIN32)
-		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
 		set_target_properties(Ipponboard PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
@@ -124,7 +124,7 @@ endif()
 #####################################################
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	if (WIN32)
-		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard

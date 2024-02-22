@@ -1,15 +1,15 @@
 #ifndef X11_HELPERS_H
 #define X11_HELPERS_H
 
-#ifdef __linux__
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QList>
 #include <QRect>
 
-#include <QTextStream>
+#ifdef __linux__
 #include<X11/Xlib.h>
 #include<X11/extensions/Xrandr.h>
+#endif
 
 class ScreenHelpers
 {
@@ -82,6 +82,5 @@ protected:
 private:
     QList<QRect> m_screenResolutionsList;
 };
-#endif
 #endif // X11_HELPERS_H
 

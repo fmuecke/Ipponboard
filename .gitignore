@@ -30,7 +30,7 @@ doc/manual.aux
 doc/manual.log
 doc/manual.out
 doc/manual.pdf
-_env_cfg*.cmd
+**_env_cfg*.cmd
 ipch/
 lib/*
 ui*.h
@@ -52,3 +52,4 @@ setup/Output/
 GamepadDemo/ui_gamepaddemo.h
 /_build/_build_cmake_qt4
 /_build/bin/
+/_build/_cmake_qt4/CMakeLists.txt.user

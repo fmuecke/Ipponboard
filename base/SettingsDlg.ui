@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>686</width>
+    <width>708</width>
     <height>734</height>
    </rect>
   </property>
@@ -116,9 +116,6 @@
             <property name="toolTip">
              <string/>
             </property>
-            <property name="toolTipDuration">
-             <number>-1</number>
-            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -150,12 +147,6 @@
            <widget class="QLineEdit" name="lineEdit_screen_height">
             <property name="enabled">
              <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string/>
-            </property>
-            <property name="toolTipDuration">
-             <number>-1</number>
             </property>
             <property name="text">
              <string>0</string>
