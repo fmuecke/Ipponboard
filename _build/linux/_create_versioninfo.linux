@@ -12,9 +12,9 @@ pushd "$_base_dir"
 
 # --> CHANGE VERSION HERE:
 VER1=2
-VER2=1
+VER2=2
 VER3=0
-TAG=Win_Linux
+TAG=pre
 # that's it. <--
 
 git log -1 --format=%h > .revision
