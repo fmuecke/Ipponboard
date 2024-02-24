@@ -11,8 +11,8 @@ function create_env_qt4 {
     echo using QTDIR=$QTDIR
   else
     echo create file=$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc">>$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">>$LOCAL_CONFIG
+    echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc">$LOCAL_CONFIG
+    echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
@@ -77,7 +77,7 @@ function build_release {
 ################################
 function build_all_release {
   echo --[build_all_release]--
-  clean
+  #clean
   make_qt_res
   make_release
   build_release

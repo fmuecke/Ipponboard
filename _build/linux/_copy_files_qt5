@@ -1,6 +1,24 @@
-echo  QT and C++ runtimes
-cp $QTDIR/lib/libQt5Widgets.so.5 $DEST|| exit 1
-cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST|| exit 1
-cp $QTDIR/lib/libQt5PrintSupport.so.5 $DEST|| exit 1
-cp $QTDIR/lib/libQt5Multimedia.so.5 $DEST|| exit 1
+#########################
+function create_qt_conf {
+  QT_CONF=$DEST/qt.conf
+  echo [Paths]>$QT_CONF
+  echo Prefix=./qt5>$QT_CONF
 
+  IPPONBOARD_STARTER=$DEST/startIpponboard.sh
+  echo #/bin/bash>IPPONBOARD_STARTER
+  echo LD_LIBRARY_PATH=./qt5 ./Ipponboard>$IPPONBOARD_STARTER
+  chmod 755 $IPPONBOARD_STARTER
+}
+
+
+echo  QT and C++ runtimes
+create_qt_conf
+mkdir -p $DEST/qt5
+cp $QTDIR/lib/libQt5Widgets.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5PrintSupport.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5Multimedia.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5Gui.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5Core.so.5 $DEST/qt5|| exit 1
+cp $QTDIR/lib/libQt5Network.so.5 $DEST/qt5|| exit 1
+cp -r $QTDIR/plugins/platforms $DEST
