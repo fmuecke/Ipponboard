@@ -85,19 +85,21 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS})
 include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
 include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
 
+#add_compile_options(-D__QT5__ -fPIC -fpermissive -Wall -Weffc++ -pedantic)
+add_compile_options(-D__QT5__ -fPIC -fpermissive)
+
 #####################################################
 # Target Ipponboard: create a binary
 #####################################################
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
 	if (WIN32)
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
-                target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
-                set_target_properties(Ipponboard PROPERTIES
-					RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-					LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
-					CMAKE_SUPPRESS_REGENERATION true
-					COMPILE_FLAGS -D_WITH_GAMEPAD_
-                )
+			set_target_properties(Ipponboard PROPERTIES
+				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+				LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+				CMAKE_SUPPRESS_REGENERATION true
+				COMPILE_FLAGS -D_WITH_GAMEPAD_
+			)
 
 		add_custom_command(TARGET Ipponboard POST_BUILD
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release
@@ -119,7 +121,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		#endif()
 
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-			target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
 			set_target_properties(Ipponboard PROPERTIES
 				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
 			)
@@ -135,10 +136,10 @@ endif()
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	if (WIN32)
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
-			target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
 			set_target_properties(Ipponboard_Debug PROPERTIES
 				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 				OUTPUT_NAME Ipponboard
+				COMPILE_FLAGS -D_WITH_GAMEPAD_
 				#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 				#CMAKE_SUPPRESS_REGENERATION true
 	)
@@ -157,7 +158,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		#endif()
 
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-			target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
+			#target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
 			set_target_properties(Ipponboard_Debug PROPERTIES
 				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 				OUTPUT_NAME Ipponboard

@@ -49,8 +49,13 @@ FighterManagerDlg::FighterManagerDlg(
 	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
+#ifdef __QT5__
     ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
     ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
+#elif __QT4__
+    ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
+#endif
 
 	populate_view();
 }

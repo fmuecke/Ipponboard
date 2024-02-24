@@ -82,6 +82,9 @@ endif()
 
 include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
 
+#add_compile_options(-D__QT4__ -D__WITH_X11__ -Wall -Weffc++ -pedantic)
+add_compile_options(-D__QT4__ -D__WITH_X11__)
+
 #####################################################
 # Target Ipponboard: create a binary
 #####################################################
@@ -131,6 +134,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard
+			COMPILE_FLAGS -D_WITH_GAMEPAD_
 			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			#CMAKE_SUPPRESS_REGENERATION true	
 		)

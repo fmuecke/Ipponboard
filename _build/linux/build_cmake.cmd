@@ -31,7 +31,6 @@ function create_env_qt5 {
     echo create file=$LOCAL_CONFIG
     echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
     echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
-    e#cho export LD_LIBRARY_PATH=/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/lib:$LD_LIBRARY_PATH>>$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
