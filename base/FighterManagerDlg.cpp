@@ -49,8 +49,8 @@ FighterManagerDlg::FighterManagerDlg(
 	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-	ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
-	ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
 	populate_view();
 }
@@ -386,8 +386,8 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 
 			// due to duplicate entry
 			qDebug("removed changed entry due to duplicate: %s %s",
-				   changedFighter.first_name.toAscii().data(),
-				   changedFighter.last_name.toAscii().data());
+                   changedFighter.first_name.toLatin1().data(),
+                   changedFighter.last_name.toLatin1().data());
 		}
 	}
 }

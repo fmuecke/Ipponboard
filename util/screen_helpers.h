@@ -5,6 +5,7 @@
 #include <QDesktopWidget>
 #include <QList>
 #include <QRect>
+#include <QScreen>
 
 #ifdef __linux__
 #include<X11/Xlib.h>
@@ -33,7 +34,7 @@ public:
 
 #ifdef __linux__
         // if the QT function doesnt work under Linux, try a X11 solution
-        if (QApplication::desktop()->numScreens() < 2)
+        if (QGuiApplication::screens().count() < 2)
         {
             Display *display = XOpenDisplay(NULL);
             Window root = RootWindow(display, 0);
@@ -60,7 +61,7 @@ public:
         if (m_screenResolutionsList.size() > 1)
             return   m_screenResolutionsList.size();
         else
-            return QApplication::desktop()->numScreens();
+            return QGuiApplication::screens().count();
     }
 
     const QRect getScreenGeometry(int screen_no=-1)
@@ -73,7 +74,7 @@ public:
                 return m_screenResolutionsList.at(screen_no);
         }
         else
-            return QApplication::desktop()->availableGeometry(screen_no);
+            return QGuiApplication::screens().at(screen_no)->availableGeometry();
     }
 
 protected:

@@ -31,6 +31,7 @@ function create_env_qt5 {
     echo create file=$LOCAL_CONFIG
     echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
     echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
+    echo export LD_LIBRARY_PATH=/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/lib:$LD_LIBRARY_PATH>>$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
@@ -96,7 +97,7 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-if [[ -z ARCH ]] || [[ -z QT_VERSION ]]; then
+if [[ -z $ARCH ]] || [[ -z $QT_VERSION ]]; then
   usage
   exit 1
 fi

@@ -94,7 +94,7 @@ namespace SimpleCsvFile
 			QTextStream outStream(&file);
 			Q_FOREACH(QString const& line, data)
 			{
-				outStream << line << endl;
+                outStream << line << Qt::endl;
 			}
 		}
 

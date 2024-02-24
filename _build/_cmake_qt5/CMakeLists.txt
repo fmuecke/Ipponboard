@@ -9,11 +9,10 @@ set (CMAKE_AUTOUIC ON)
 
 set (CMAKE_PREFIX_PATH $ENV{QTDIR})
 set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib )
-set (XMLQUERY $ENV{QTDIR}/include/QtXmlPatterns)
 
-message(STATUS "Using CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}, CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH} XMLQUERY=${XMLQUERY}")
+message(STATUS "Using CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}, CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}")
 
-find_package(Qt5 5.15.2 REQUIRED Core Gui XmlPatterns)
+find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport REQUIRED)
 
 set (BASE_DIR ../..)
 
@@ -80,7 +79,10 @@ else()
 	set(BOOST_DIR /usr/include/boost)
 endif()
 
-include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
+include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} )
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
+include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
 
 #####################################################
 # Target Ipponboard: create a binary
@@ -88,12 +90,13 @@ include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
 	if (WIN32)
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
-		set_target_properties(Ipponboard PROPERTIES
+                target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
+                set_target_properties(Ipponboard PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			CMAKE_SUPPRESS_REGENERATION true
-			COMPILE_FLAGS -D_WITH_GAMEPAD_
-		)
+                        COMPILE_FLAGS -D_WITH_GAMEPAD_
+                )
 
 		add_custom_command(TARGET Ipponboard POST_BUILD
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -release
@@ -107,18 +110,19 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss
 		)
 
-		target_link_libraries(Ipponboard QtCore QtGui QtXmlPatterns)
+                target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
 		#endif()
 
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-		set_target_properties(Ipponboard PROPERTIES
+                target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
+                set_target_properties(Ipponboard PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
-		)
+                )
 
-		target_link_libraries(Ipponboard QtCore QtGui QtXmlPatterns X11 Xrandr)
+                target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport X11 Xrandr)
 	endif()
 endif()
 
@@ -128,33 +132,35 @@ endif()
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	if (WIN32)
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
-		set_target_properties(Ipponboard_Debug PROPERTIES
+                target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
+                set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard
-			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+                        #LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			#CMAKE_SUPPRESS_REGENERATION true
 		)
 
 		add_custom_command(TARGET Ipponboard_Debug POST_BUILD
 			# the following environment variable is needed, if using VStudio GUI (solution)
-			COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-4.8.7-x64-msvc2017"
+			COMMAND set QTDIR="c:\\dev\\inst\\qt\\qt-5.15.2-x64-msvc2017"
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug
 		)
 
-		target_link_libraries(Ipponboard_Debug QtCore QtGui QtXmlPatterns)
+                target_link_libraries(Ipponboard_Debug PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
 		#endif()
 
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-		set_target_properties(Ipponboard_Debug PROPERTIES
+                target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
+                set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 			OUTPUT_NAME Ipponboard
-		)
+                )
 
-		target_link_libraries(Ipponboard_Debug QtCore QtGui QtXmlPatterns X11 Xrandr)
-	endif()
+                target_link_libraries(Ipponboard_Debug PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport X11 Xrandr)
+endif()
 endif()
 
 # create the qt resource file

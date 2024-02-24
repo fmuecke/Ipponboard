@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 project(IpponboardTest VERSION 2.2.0 LANGUAGES C CXX)
 message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 
-find_package(Qt5 5.15.2 REQUIRED Core)
+find_package(Qt5 5.15.2 COMPONENTS Core REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_PREFIX_PATH "$ENV{QTDIR}")

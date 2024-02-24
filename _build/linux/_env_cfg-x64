@@ -1,2 +1,0 @@
-export QTDIR=/home/ralf/dev/inst/qt/qt-5.15.2-x64-gcc-dbg
-export PATH=/home/ralf/dev/inst/qt/qt-5.15.2-x64-gcc-dbg/bin:/home/ralf/perl5/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ralf/bin
