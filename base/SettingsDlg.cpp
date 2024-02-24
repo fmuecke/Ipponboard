@@ -7,8 +7,8 @@
 #ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
 #endif
-#include "../core/ControllerConfig.h"
-#include "../core/Rules.h"
+//#include "../core/ControllerConfig.h"
+//#include "../core/Rules.h"
 
 #include <QStringList>
 #include <QDesktopWidget>
@@ -21,7 +21,11 @@
 #include <QSound>
 #endif
 #ifdef __linux__
+#ifdef __QT4__
 #include <QProcess>
+#else
+#include <QSound>
+#endif
 #endif
 
 // must be included at last, because of Xlib.h conflicts with QT!
@@ -514,7 +518,11 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
         QMessageBox::information(this, tr("Error"), tr("No sound device found"));
 #endif
 #ifdef __linux__
-    QProcess::startDetached("/usr/bin/aplay", QStringList() << path);
+#ifdef __QT4__
+        QProcess::startDetached("/usr/bin/aplay", QStringList() << path);
+#else
+    QSound::play(path);
+#endif
 #endif
 }
 

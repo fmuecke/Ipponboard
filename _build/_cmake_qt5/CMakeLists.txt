@@ -12,7 +12,7 @@ set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib )
 
 message(STATUS "Using CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}, CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}")
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport REQUIRED)
+find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
 
 set (BASE_DIR ../..)
 
@@ -84,9 +84,11 @@ include_directories(${BASE_DIR}/Widgets )
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
 include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
+include_directories(${Qt5Multimedia_INCLUDE_DIRS})
 
-#add_compile_options(-D__QT5__ -fPIC -fpermissive -Wall -Weffc++ -pedantic)
-add_compile_options(-D__QT5__ -fPIC -fpermissive)
+
+#add_compile_options(-fPIC -fpermissive -Wall -Weffc++ -pedantic)
+add_compile_options(-fPIC -fpermissive)
 
 #####################################################
 # Target Ipponboard: create a binary
@@ -114,7 +116,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		)
 
 		target_include_directories(Ipponboard PRIVATE ${BOOST_DIR})
-		target_link_libraries(Ipponboard PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport)
+                target_link_libraries(Ipponboard PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
@@ -126,7 +128,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 			)
 
 		target_include_directories(Ipponboard PRIVATE ${BOOST_DIR})
-		target_link_libraries(Ipponboard PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport)
+                target_link_libraries(Ipponboard PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 	endif()
 endif()
 
@@ -151,7 +153,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		)
 
 		target_include_directories(Ipponboard_Debug PRIVATE ${BOOST_DIR})
-		target_link_libraries(Ipponboard_Debug PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport)
+                target_link_libraries(Ipponboard_Debug PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
@@ -165,7 +167,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			)
 
 		target_include_directories(Ipponboard_Debug PRIVATE ${BOOST_DIR})
-		target_link_libraries(Ipponboard_Debug PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport)
+                target_link_libraries(Ipponboard_Debug PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 endif()
 endif()
 
