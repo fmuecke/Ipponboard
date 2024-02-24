@@ -181,5 +181,5 @@ endif()
 #)
 
 # compile Testsuites
-add_subdirectory(${BASE_DIR}/test/cmake_qt5 ${BASE_DIR}/_build/_build_cmake_qt5/test)
-#add_subdirectory(${BASE_DIR}/GamepadDemo/cmake_qt5 ${BASE_DIR}/_build/_build_cmake_qt5/GamepadDemo)
+add_subdirectory(${BASE_DIR}/test/_cmake_qt5 ${BASE_DIR}/_build/_build_cmake_qt5/test)
+#add_subdirectory(${BASE_DIR}/GamepadDemo/_cmake_qt5 ${BASE_DIR}/_build/_build_cmake_qt5/GamepadDemo)

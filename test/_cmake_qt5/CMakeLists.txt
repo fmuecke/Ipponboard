@@ -24,7 +24,8 @@ set( SOURCES
 
 # Link the binary
 add_executable(IpponboardTest ${SOURCES} )
-target_link_libraries(IpponboardTest Core)
+target_compile_options(IpponboardTest PRIVATE -fPIC)
+target_link_libraries(IpponboardTest Qt5::Core)
 
 # Add other data to the destination directory
 #file(COPY ${TESTDATA} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
