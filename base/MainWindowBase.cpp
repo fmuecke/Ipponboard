@@ -748,6 +748,9 @@ void MainWindowBase::on_actionPreferences_triggered()
 	dlg.SetFighterNameFont(m_FighterNameFont);
 	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
 	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
+
+    if (ScreenHelpers::getInstance()->numScreens() <= m_secondScreenNo)
+        m_secondScreenNo = 0;
     dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize, m_secondScreenPos);
 #ifdef _WITH_GAMEPAD_
 	dlg.SetControllerConfig(&m_controllerCfg);

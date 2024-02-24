@@ -59,20 +59,18 @@ public:
     const int numScreens()
     {
         if (m_screenResolutionsList.size() > 1)
-            return   m_screenResolutionsList.size();
+            return m_screenResolutionsList.size();
         else
             return QGuiApplication::screens().count();
     }
 
     const QRect getScreenGeometry(int screen_no=-1)
     {
+        if (screen_no == -1)
+            screen_no = 0;
+
         if (m_screenResolutionsList.size() > 1)
-        {
-            if (screen_no == -1)
-                return m_screenResolutionsList.first();
-            else
-                return m_screenResolutionsList.at(screen_no);
-        }
+            return m_screenResolutionsList.at(screen_no);
         else
             return QGuiApplication::screens().at(screen_no)->availableGeometry();
     }
