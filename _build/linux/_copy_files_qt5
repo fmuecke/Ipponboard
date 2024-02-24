@@ -1,0 +1,5 @@
+echo  QT and C++ runtimes
+cp $QTDIR/lib/libQt5Widgets.so.5 $DEST|| exit 1
+cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST|| exit 1
+cp $QTDIR/lib/libQt5PrintSupport.so.5 $DEST|| exit 1
+

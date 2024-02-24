@@ -79,7 +79,8 @@ else()
 	set(BOOST_DIR /usr/include/boost)
 endif()
 
-include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} )
+# common include directories
+include_directories(${BASE_DIR}/Widgets )
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
 include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
@@ -92,10 +93,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
                 target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
                 set_target_properties(Ipponboard PROPERTIES
-			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
-			CMAKE_SUPPRESS_REGENERATION true
-                        COMPILE_FLAGS -D_WITH_GAMEPAD_
+					RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+					LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+					CMAKE_SUPPRESS_REGENERATION true
+					COMPILE_FLAGS -D_WITH_GAMEPAD_
                 )
 
 		add_custom_command(TARGET Ipponboard POST_BUILD
@@ -106,23 +107,25 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 		# Target setup
 		#####################################################
 		add_custom_target(setup
-				COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
-				COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss
+			COMMAND call "../win/_build_doc.cmd" ${BASE_DIR}
+			COMMAND cmd /c "%INNO_DIR%/iscc.exe" /Q /O${BASE_DIR}/_build/bin ${BASE_DIR}/setup/setup.iss
 		)
 
-                target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
+		target_include_directories(Ipponboard PRIVATE ${BOOST_DIR})
+		target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
 		#endif()
 
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-                target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
-                set_target_properties(Ipponboard PROPERTIES
-			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
-                )
+			target_compile_options(Ipponboard PRIVATE -fPIC -fpermissive)
+			set_target_properties(Ipponboard PROPERTIES
+				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Release"
+			)
 
-                target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport X11 Xrandr)
+		target_include_directories(Ipponboard PRIVATE ${BOOST_DIR})
+		target_link_libraries(Ipponboard PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport X11 Xrandr)
 	endif()
 endif()
 
@@ -132,13 +135,13 @@ endif()
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	if (WIN32)
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
-                target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
-                set_target_properties(Ipponboard_Debug PROPERTIES
-			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
-			OUTPUT_NAME Ipponboard
-                        #LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
-			#CMAKE_SUPPRESS_REGENERATION true
-		)
+			target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
+			set_target_properties(Ipponboard_Debug PROPERTIES
+				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
+				OUTPUT_NAME Ipponboard
+				#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+				#CMAKE_SUPPRESS_REGENERATION true
+	)
 
 		add_custom_command(TARGET Ipponboard_Debug POST_BUILD
 			# the following environment variable is needed, if using VStudio GUI (solution)
@@ -146,20 +149,22 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 			COMMAND call "${BASE_DIR}/base/_copy_files.cmd" -debug
 		)
 
-                target_link_libraries(Ipponboard_Debug PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
+		target_include_directories(Ipponboard_Debug PRIVATE ${BOOST_DIR})
+		target_link_libraries(Ipponboard_Debug PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport)
 	else()
 		#if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.1.0)
 		#	message(FATAL_ERROR "Require at least gcc-11.1.0, because c++-17 is needed")
 		#endif()
 
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
-                target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
-                set_target_properties(Ipponboard_Debug PROPERTIES
-			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
-			OUTPUT_NAME Ipponboard
-                )
+			target_compile_options(Ipponboard_Debug PRIVATE -fPIC -fpermissive)
+			set_target_properties(Ipponboard_Debug PROPERTIES
+				RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
+				OUTPUT_NAME Ipponboard
+			)
 
-                target_link_libraries(Ipponboard_Debug PRIVATE Qt5Widgets Qt5XmlPatterns Qt5PrintSupport X11 Xrandr)
+		target_include_directories(Ipponboard_Debug PRIVATE ${BOOST_DIR})
+		target_link_libraries(Ipponboard_Debug PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport X11 Xrandr)
 endif()
 endif()
 

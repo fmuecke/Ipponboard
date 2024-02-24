@@ -29,8 +29,8 @@ function build_release {
 
   cmake --build ../_build_cmake_$QT_VERSION --target Ipponboard || exit 1
   source _copy_files ../.. -release || exit 1
+  source _copy_files_$QT_VERSION ../.. -release || exit 1
   BIN_DIR=$BASE_DIR/_build/bin/Release
-
 
   echo build_release finished, hit enter to continue
 }
