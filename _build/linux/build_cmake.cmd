@@ -11,8 +11,8 @@ function create_env_qt4 {
     echo using QTDIR=$QTDIR
   else
     echo create file=$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc">$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">$LOCAL_CONFIG
+    echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc">>$LOCAL_CONFIG
+    echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">>$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
@@ -23,14 +23,34 @@ function create_env_qt4 {
 function create_env_qt5 {
   LOCAL_CONFIG=_env_cfg-$ARCH
 
-  if [ -f $LOCAL_CONFIG ]
-  then
+  if [ -f $LOCAL_CONFIG ]; then
     source $LOCAL_CONFIG
     echo using QTDIR=$QTDIR
   else
     echo create file=$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">$LOCAL_CONFIG
+
+    echo \# local qt path>>$LOCAL_CONFIG
+    echo \#export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
+    echo \#export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
+    echo >>$LOCAL_CONFIG
+
+    echo \# debian qt path>>$LOCAL_CONFIG
+    if [ $ARCH == "x64" ]; then
+        echo export QTDIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
+        echo export PATH="/usr/lib/x86_64-linux-gnu/qt5/bin:$PATH">>$LOCAL_CONFIG
+    elif [ $ARCH == "x32" ]; then
+        echo export QTDIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
+        echo export PATH="/usr/lib/i386-linux-gnu/qt5/bin:$PATH">>$LOCAL_CONFIG
+    fi
+    echo >>$LOCAL_CONFIG
+
+    if [ $ARCH == "x64" ]; then
+        echo \# redhat qt path>>$LOCAL_CONFIG
+        echo \#export QTDIR="/usr/lib64">>$LOCAL_CONFIG
+        echo \#export PATH="/usr/lib64/bin:$PATH">>$LOCAL_CONFIG
+    fi
+
+    echo >>$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
@@ -69,7 +89,6 @@ function build_release {
   cmake --build ../_build_cmake_$QT_VERSION --target Ipponboard || exit 1
   source _copy_files ../.. -release || exit 1
   source _copy_files_$QT_VERSION ../.. -release || exit 1
-  #deploy_qt_local
 
   BIN_DIR=$BASE_DIR/_build/bin/Release
 }
