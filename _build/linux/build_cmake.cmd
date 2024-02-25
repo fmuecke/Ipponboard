@@ -34,17 +34,17 @@ function create_env_qt5 {
     echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
     echo >>$LOCAL_CONFIG
 
-    echo \# debian qt path>>$LOCAL_CONFIG
-    if [ $ARCH == "x64" ]; then
-        echo export QT_OS_DIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
-    elif [ $ARCH == "x32" ]; then
-        echo export QT_OS_DIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
-    fi
-    echo >>$LOCAL_CONFIG
-
-    if [ $ARCH == "x64" ]; then
-        echo \# redhat qt path>>$LOCAL_CONFIG
-        echo \#export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
+    if [ $DIST == "deb" ]; then
+        if [ $ARCH == "x64" ]; then
+            echo export QT_OS_DIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
+        elif [ $ARCH == "x32" ]; then
+            echo export QT_OS_DIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
+        fi
+    elif [ $DIST == "rh" ]; then
+        if [ $ARCH == "x64" ]; then
+            echo \# redhat qt path>>$LOCAL_CONFIG
+            echo \#export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
+        fi
     fi
 
     echo >>$LOCAL_CONFIG
@@ -192,6 +192,10 @@ function quit {
 
 ###############
 function menu {
+  echo "Architecture: $ARCH"
+  echo "Qt-Version: $QT_VERSION"
+  echo "Distribution: $DIST"
+  echo
   echo "Select the operation"
   echo "  a) Build All Release"
   echo "  b) Build All Release without QT-Libraries"
@@ -226,7 +230,7 @@ function menu {
 
 ##################
 function usage() {
-    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5>"
+    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5> --dist <deb|rh>"
     exit 1
 }
 
@@ -243,6 +247,10 @@ while [[ "$#" -gt 0 ]]; do
       QT_VERSION="$2"
       shift
       ;;
+    --dist)
+      DIST="$2"
+      shift
+      ;;
     *)
       echo "Ungültige Option: $1"
       usage
@@ -251,7 +259,7 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-if [[ -z $ARCH ]] || [[ -z $QT_VERSION ]]; then
+if [ -z $ARCH ] || [ -z $QT_VERSION ] || [ -z "$DIST" ]; then
   usage
   exit 1
 fi
