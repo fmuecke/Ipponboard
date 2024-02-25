@@ -1,24 +1,42 @@
 #########################
-function create_qt_conf {
+function deploy_qt_local {
+  # qt.conf
+  echo deploy qt.conf
   QT_CONF=$DEST/qt.conf
   echo [Paths]>$QT_CONF
-  echo Prefix=./qt5>$QT_CONF
+  echo # local deployment
+  echo Prefix=./qt5>>$QT_CONF
 
+  # start script
+  echo deploy start script
   IPPONBOARD_STARTER=$DEST/startIpponboard.sh
   echo #/bin/bash>IPPONBOARD_STARTER
   echo LD_LIBRARY_PATH=./qt5 ./Ipponboard>$IPPONBOARD_STARTER
   chmod 755 $IPPONBOARD_STARTER
+
+  # qt5 libraries and plugins
+  echo deploy QT5 libraries and plugins
+  mkdir -p $DEST/qt5
+  cp $QTDIR/lib/libQt5Widgets.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5PrintSupport.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5Multimedia.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5Gui.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5Core.so.5 $DEST/qt5|| exit 1
+  cp $QTDIR/lib/libQt5Network.so.5 $DEST/qt5|| exit 1
+  cp -r $QTDIR/plugins/platforms $DEST
 }
 
+#########################
+function deploy_without_qt {
+  echo # debian based deployment
+  QT_CONF=$DEST/qt.conf
+  echo [Paths]>$QT_CONF
+  echo # local deployment
+  echo Prefix=/usr/lib/x86_64-linux-gnu>>$QT_CONF
 
-echo  QT and C++ runtimes
-create_qt_conf
-mkdir -p $DEST/qt5
-cp $QTDIR/lib/libQt5Widgets.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5PrintSupport.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5Multimedia.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5Gui.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5Core.so.5 $DEST/qt5|| exit 1
-cp $QTDIR/lib/libQt5Network.so.5 $DEST/qt5|| exit 1
-cp -r $QTDIR/plugins/platforms $DEST
+  IPPONBOARD_STARTER=$DEST/startIpponboard.sh
+  echo #/bin/bash>IPPONBOARD_STARTER
+  echo LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms ./Ipponboard>$IPPONBOARD_STARTER
+  chmod 755 $IPPONBOARD_STARTER
+}

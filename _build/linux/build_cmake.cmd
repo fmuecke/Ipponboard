@@ -29,8 +29,8 @@ function create_env_qt5 {
     echo using QTDIR=$QTDIR
   else
     echo create file=$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
+    echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">$LOCAL_CONFIG
+    echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">$LOCAL_CONFIG
 
     echo adapt the values and restart this script
     exit 0
@@ -53,7 +53,7 @@ function make_qt_res {
   echo make_qt_res finished, hit enter to continue
 }
 
-###########################
+#######################
 function make_release {
   echo --[make_release]--
   CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_$QT_VERSION" -B "../_build_cmake_$QT_VERSION" -DCMAKE_BUILD_TYPE=Release || exit 1
@@ -61,7 +61,7 @@ function make_release {
   echo make_release finished, hit enter to continue
 }
 
-############################
+########################
 function build_release {
   echo --[build_release]--
   make_tests || exit 1
@@ -69,23 +69,34 @@ function build_release {
   cmake --build ../_build_cmake_$QT_VERSION --target Ipponboard || exit 1
   source _copy_files ../.. -release || exit 1
   source _copy_files_$QT_VERSION ../.. -release || exit 1
-  BIN_DIR=$BASE_DIR/_build/bin/Release
+  #deploy_qt_local
 
-  echo build_release finished, hit enter to continue
+  BIN_DIR=$BASE_DIR/_build/bin/Release
 }
 
-################################
+####################################
 function build_all_release {
   echo --[build_all_release]--
   #clean
   make_qt_res
   make_release
   build_release
+  deploy_without_qt
 
   echo build_all_release finished, hit enter to continue
 }
 
-#########################
+####################################
+function build_all_release_with_qt {
+  echo --[build_all_release_with_qt]--
+
+  build_all_release
+  deploy_qt_local
+
+  echo build_all_release_with_qt finished, hit enter to continue
+}
+
+#####################
 function make_debug {
   echo --[make_debug]--
   CC=$(which gcc) CXX=$(which g++) cmake -S "../_cmake_$QT_VERSION" -B "../_build_cmake_$QT_VERSION" -DCMAKE_BUILD_TYPE=Debug || exit 1
@@ -94,17 +105,17 @@ function make_debug {
 }
 
 
-##########################
+######################
 function build_debug {
   echo --[build_debug]--
   cmake --build ../_build_cmake_$QT_VERSION --target Ipponboard_Debug || exit 1
   source _copy_files ../.. -debug || exit 1
-  BIN_DIR=$BASE_DIR/_build/bin/Debug
 
+  BIN_DIR=$BASE_DIR/_build/bin/Debug
   echo build_debug finished, hit enter to continue
 }
 
-####################
+################
 function clean {
   echo --[make_clean]--
   if [ ! -z "$BIN_DIR" ]
@@ -130,7 +141,7 @@ function run {
   echo run finished, hit enter to continue
 }
 
-#########################
+#####################
 function make_tests {
   echo --[make_tests]--
   cmake --build ../_build_cmake_$QT_VERSION --target IpponboardTest || exit 1
@@ -167,6 +178,7 @@ function quit {
 function menu {
   echo "Select the operation"
   echo "  a) Build All Release"
+  echo "  b) Build All Release without QT-Libraries"
   echo "  1) Make QT resource file"
   echo "  2) Make Release Makefiles"
   echo "  3) Build Release"
@@ -180,7 +192,8 @@ function menu {
 
   read n
   case $n in
-    a) build_all_release;pause;clear;menu;;
+    a) build_all_release_with_qt;pause;clear;menu;;
+    b) build_all_release;pause;clear;menu;;
     1) make_qt_res;pause;clear;menu;;
     2) make_release;pause;clear;menu;;
     3) build_release;pause;clear;menu;;
@@ -195,7 +208,7 @@ function menu {
   esac
 }
 
-#################
+##################
 function usage() {
     echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5>"
     exit 1
