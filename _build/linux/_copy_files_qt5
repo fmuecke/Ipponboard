@@ -1,10 +1,10 @@
-#########################
+##########################
 function deploy_qt_local {
   # qt.conf
   echo deploy qt.conf
   QT_CONF=$DEST/qt.conf
   echo [Paths]>$QT_CONF
-  echo # local deployment
+  echo # local deployment>>$QT_CONF
   echo Prefix=./qt5>>$QT_CONF
 
   # start script
@@ -27,16 +27,28 @@ function deploy_qt_local {
   cp -r $QTDIR/plugins/platforms $DEST
 }
 
-#########################
+############################
 function deploy_without_qt {
   echo # debian based deployment
   QT_CONF=$DEST/qt.conf
+
   echo [Paths]>$QT_CONF
-  echo # local deployment
+  echo # Ubuntu based deployment>>$QT_CONF
+  echo # Please execute "sudo apt install libqt5xmlpatterns5 libqt5multimedia5 libxcb1"
   echo Prefix=/usr/lib/x86_64-linux-gnu>>$QT_CONF
+
+  echo # Redhat based deployment>>$QT_CONF
+  echo # Please execute "sudo yum install qt5-qtxmlpatterns qt5-qtmultimedia xcb-util"
+  echo #Prefix=/usr/lib64>>$QT_CONF
 
   IPPONBOARD_STARTER=$DEST/startIpponboard.sh
   echo #/bin/bash>IPPONBOARD_STARTER
-  echo LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms ./Ipponboard>$IPPONBOARD_STARTER
+
+  echo # Ubuntu based deployment>>$IPPONBOARD_STARTER
+  echo LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms ./Ipponboard>>$IPPONBOARD_STARTER
+
+  echo # Redhat based deployment>>$IPPONBOARD_STARTER
+  echo #LD_LIBRARY_PATH=/usr/lib64 QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib64/qt5/plugins/platforms ./Ipponboard>>$IPPONBOARD_STARTER
+
   chmod 755 $IPPONBOARD_STARTER
 }
