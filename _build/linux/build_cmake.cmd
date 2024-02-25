@@ -5,15 +5,13 @@
 function create_env_qt4 {
   LOCAL_CONFIG=_env_cfg-$ARCH
 
-  if [ -f $LOCAL_CONFIG ]
-  then
+  if [ -f $LOCAL_CONFIG ]; then
     source $LOCAL_CONFIG
     echo using QTDIR=$QTDIR
   else
     echo create file=$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc">>$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">>$LOCAL_CONFIG
-
+    echo export QTDIR="~//dev/inst/qt/qt-4.8.7-$ARCH-gcc">>$LOCAL_CONFIG
+    echo export PATH="~//dev/inst/qt/qt-4.8.7-$ARCH-gcc/bin:$PATH">>$LOCAL_CONFIG
     echo adapt the values and restart this script
     exit 0
   fi
@@ -29,29 +27,37 @@ function create_env_qt5 {
   else
     echo create file=$LOCAL_CONFIG
 
-    echo \# local qt path>>$LOCAL_CONFIG
-    echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
-    echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
-    echo >>$LOCAL_CONFIG
-
     if [ $DIST == "deb" ]; then
-        if [ $ARCH == "x64" ]; then
-            echo \# debian qt path>>$LOCAL_CONFIG
-            echo export QT_OS_DIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
-        elif [ $ARCH == "x32" ]; then
-            echo export QT_OS_DIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
-        fi
+      echo \# debian qt path>>$LOCAL_CONFIG
+      if [ $ARCH == "x64" ]; then
+        QT_OS_DIR="/usr/lib/x86_64-linux-gnu"
+      elif [ $ARCH == "x32" ]; then
+        QT_OS_DIR="/usr/lib/i386-linux-gnu"
+      fi
     elif [ $DIST == "rh" ]; then
-        if [ $ARCH == "x64" ]; then
-            echo \# redhat qt path>>$LOCAL_CONFIG
-            echo export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
-        fi
+      echo \# redhat qt path>>$LOCAL_CONFIG
+      if [ $ARCH == "x64" ]; then
+          QT_OS_DIR="/usr/lib64"
+      fi
+    fi
+    echo export QT_OS_DIR=$QT_OS_DIR>>$LOCAL_CONFIG
+
+    if [ "$QT_DEFAULT_DIR" == true ]; then
+      echo export QTDIR="$QT_OS_DIR">>$LOCAL_CONFIG
+      echo export PATH="$QT_OS_DIR/qt5/bin:$PATH">>$LOCAL_CONFIG
+    else
+      echo \# local qt path>>$LOCAL_CONFIG
+      echo export QTDIR="~/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
+      echo export PATH="~/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
     fi
 
-    echo >>$LOCAL_CONFIG
-
-    echo adapt the values and restart this script
-    exit 0
+    if [ "$AUTOBUILD" == true ]; then
+      source $LOCAL_CONFIG
+      echo using QTDIR=$QTDIR
+    else
+      echo adapt the values and restart this script
+      exit 0
+    fi
   fi
 }
 
@@ -194,8 +200,9 @@ function quit {
 ###############
 function menu {
   echo "Architecture: $ARCH"
-  echo "Qt-Version: $QT_VERSION"
+  echo "Qt-Version:   $QT_VERSION"
   echo "Distribution: $DIST"
+  echo "Autobuild:    $AUTOBUILD"
   echo
   echo "Select the operation"
   echo "  a) Build All Release"
@@ -231,13 +238,19 @@ function menu {
 
 ##################
 function usage() {
-    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5> --dist <deb|rh>"
+    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5> --dist <deb|rh> [--with_QT_default_dir] [--autobuild]"
     exit 1
 }
 
 ############################################################################################################
 # main block
 ############################################################################################################
+ARCH=""
+QT_VERSION=""
+DIST=""
+QT_DEFAULT_DIR=false
+AUTOBUILD=false
+
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --arch)
@@ -251,6 +264,12 @@ while [[ "$#" -gt 0 ]]; do
     --dist)
       DIST="$2"
       shift
+      ;;
+    --with_QT_default_dir)
+      QT_DEFAULT_DIR=true
+      ;;
+    --autobuild)
+      AUTOBUILD=true
       ;;
     *)
       echo "Ungültige Option: $1"
@@ -274,4 +293,17 @@ BASE_DIR=$PWD/../..
 echo BASE_DIR=$BASE_DIR
 
 clear
-menu
+if [ "$AUTOBUILD" == true ]; then
+  echo "Architecture: $ARCH"
+  echo "Qt-Version:   $QT_VERSION"
+  echo "Distribution: $DIST"
+  echo "Autobuild starting ..."
+  clean
+  make_qt_res
+  make_release
+  build_release
+  deploy_without_qt
+  echo ... autobuild finished.
+else
+  menu
+fi
