@@ -21,9 +21,9 @@ cp $ROOT/base/images/ipponboard*.ico $DEST/ico || exit 1
 
 echo  languages
 mkdir -p $DEST/lang
-"$QTDIR/bin/lrelease" -compress -silent $ROOT/i18n/de.ts -qm $ROOT/i18n/de.qm || exit 1
+"lrelease" -compress -silent $ROOT/i18n/de.ts -qm $ROOT/i18n/de.qm || exit 1
 cp $ROOT/i18n/de.qm $DEST/lang || exit 1
-"$QTDIR/bin/lrelease" -compress -silent $ROOT/i18n/nl.ts -qm $ROOT/i18n/nl.qm || exit 1
+"lrelease" -compress -silent $ROOT/i18n/nl.ts -qm $ROOT/i18n/nl.qm || exit 1
 cp $ROOT/i18n/nl.qm $DEST/lang || exit 1
 
 echo  sounds
