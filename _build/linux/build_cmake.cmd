@@ -36,6 +36,7 @@ function create_env_qt5 {
 
     if [ $DIST == "deb" ]; then
         if [ $ARCH == "x64" ]; then
+            echo \# debian qt path>>$LOCAL_CONFIG
             echo export QT_OS_DIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
         elif [ $ARCH == "x32" ]; then
             echo export QT_OS_DIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
@@ -43,7 +44,7 @@ function create_env_qt5 {
     elif [ $DIST == "rh" ]; then
         if [ $ARCH == "x64" ]; then
             echo \# redhat qt path>>$LOCAL_CONFIG
-            echo \#export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
+            echo export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
         fi
     fi
 
@@ -90,7 +91,7 @@ function build_release {
   BIN_DIR=$BASE_DIR/_build/bin/Release
 }
 
-####################################
+############################
 function build_all_release {
   echo --[build_all_release]--
   #clean
@@ -234,9 +235,9 @@ function usage() {
     exit 1
 }
 
-################################################################################################################
+############################################################################################################
 # main block
-################################################################################################################
+############################################################################################################
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --arch)
