@@ -30,12 +30,6 @@ echo  sounds
 mkdir -p $DEST/sounds
 cp $ROOT/base/sounds/*.wav $DEST/sounds || exit 1
 
-echo  QT and C++ runtimes
-cp $QTDIR/lib/libQtCore.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtGui.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtNetwork.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtXmlPatterns.so.4 $DEST|| exit 1
-
 echo  Categories and modes
 cp $ROOT/base/categories.json $DEST|| exit 1
 cp $ROOT/base/TournamentModes.ini $DEST|| exit 1

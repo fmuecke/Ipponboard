@@ -4,13 +4,13 @@
 
 #include "MainWindow.h"
 #include "MainWindowTeam.h"
-#include "../core/TournamentMode.h"
+//#include "../core/TournamentMode.h"
 #include "SplashScreen.h"
 #include "versioninfo.h"
 #include "UpdateChecker.h"
 #include "../util/path_helpers.h"
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QTranslator>
 #include <QMessageBox>
 #include <QSettings>

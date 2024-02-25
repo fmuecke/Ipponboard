@@ -428,7 +428,7 @@ void MainWindowBase::write_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -513,7 +513,7 @@ void MainWindowBase::read_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -683,7 +683,7 @@ void MainWindowBase::load_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+            fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 
 	QString errorMsg;
 
@@ -706,7 +706,7 @@ void MainWindowBase::save_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+            fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 	QString errorMsg;
 
 	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
@@ -748,6 +748,9 @@ void MainWindowBase::on_actionPreferences_triggered()
 	dlg.SetFighterNameFont(m_FighterNameFont);
 	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
 	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
+
+    if (ScreenHelpers::getInstance()->numScreens() <= m_secondScreenNo)
+        m_secondScreenNo = 0;
     dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize, m_secondScreenPos);
 #ifdef _WITH_GAMEPAD_
 	dlg.SetControllerConfig(&m_controllerCfg);

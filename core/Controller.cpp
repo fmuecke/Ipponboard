@@ -22,7 +22,11 @@
 #include <QSound>
 #endif
 #ifdef __linux__
+#ifdef __QT4__
 #include <QProcess>
+#else
+#include <QSound>
+#endif
 #endif
 
 using namespace Ipponboard;
@@ -731,7 +735,11 @@ void Controller::Gong() const
         QMessageBox::information(0, tr("Error"), tr("No sound device found"));
 #endif
 #ifdef __linux__
+#ifdef __QT4__
     QProcess::startDetached("/usr/bin/aplay", QStringList() << m_gongFile);
+#else
+    QSound::play(m_gongFile);
+#endif
 #endif
 }
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(Ipponboard VERSION 2.0.0 LANGUAGES C CXX) 
+project(Ipponboard VERSION 2.1.0 LANGUAGES C CXX)
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
@@ -82,6 +82,9 @@ endif()
 
 include_directories(${BASE_DIR}/Widgets ${BOOST_DIR} ${XMLQUERY} )
 
+#add_compile_options(-D__QT4__ -D__WITH_X11__ -Wall -Weffc++ -pedantic)
+add_compile_options(-D__QT4__ -D__WITH_X11__)
+
 #####################################################
 # Target Ipponboard: create a binary
 #####################################################
@@ -131,6 +134,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard
+			COMPILE_FLAGS -D_WITH_GAMEPAD_
 			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			#CMAKE_SUPPRESS_REGENERATION true	
 		)
@@ -170,5 +174,5 @@ endif()
 #)
 
 # compile Testsuites
-add_subdirectory(${BASE_DIR}/test/cmake_qt4 ${BASE_DIR}/_build/_build_cmake_qt4/test)
-#add_subdirectory(${BASE_DIR}/GamepadDemo/cmake_qt4 ${BASE_DIR}/_build/_build_cmake_qt4/GamepadDemo)
+add_subdirectory(${BASE_DIR}/test/_cmake_qt4 ${BASE_DIR}/_build/_build_cmake_qt4/test)
+#add_subdirectory(${BASE_DIR}/GamepadDemo/_cmake_qt4 ${BASE_DIR}/_build/_build_cmake_qt4/GamepadDemo)
