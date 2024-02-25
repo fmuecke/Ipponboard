@@ -15,7 +15,7 @@ function deploy_qt_local {
   chmod 755 $IPPONBOARD_STARTER
 
   # qt5 libraries and plugins
-  echo deploy QT5 libraries and plugins
+  echo deploying QT5 libraries and plugins, please wait...
   mkdir -p $DEST/qt5
   cp $QTDIR/lib/libQt5Widgets.so.5 $DEST/qt5|| exit 1
   cp $QTDIR/lib/libQt5XmlPatterns.so.5 $DEST/qt5|| exit 1
@@ -39,11 +39,11 @@ function deploy_without_qt {
   echo \# Redhat based deployment>>$QT_CONF
   echo \# Please execute \"sudo yum install qt5-qtxmlpatterns qt5-qtmultimedia xcb-util\">>$QT_CONF
 
-  echo Prefix=$QTDIR>>$QT_CONF
+  echo Prefix=$QT_OS_DIR>>$QT_CONF
   echo >>$QT_CONF
 
   IPPONBOARD_STARTER=$DEST/startIpponboard.sh
   echo \#/bin/bash>IPPONBOARD_STARTER
-  echo LD_LIBRARY_PATH=$QTDIR QT_QPA_PLATFORM_PLUGIN_PATH=$QTDIR/qt5/plugins/platforms ./Ipponboard>>$IPPONBOARD_STARTER
+  echo LD_LIBRARY_PATH=$QT_OS_DIR QT_QPA_PLATFORM_PLUGIN_PATH=$QT_OS_DIR/qt5/plugins/platforms ./Ipponboard>>$IPPONBOARD_STARTER
   chmod 755 $IPPONBOARD_STARTER
 }

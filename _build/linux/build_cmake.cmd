@@ -30,24 +30,21 @@ function create_env_qt5 {
     echo create file=$LOCAL_CONFIG
 
     echo \# local qt path>>$LOCAL_CONFIG
-    echo \#export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
-    echo \#export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
+    echo export QTDIR="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg">>$LOCAL_CONFIG
+    echo export PATH="/home/ralf/dev/inst/qt/qt-5.15.2-$ARCH-gcc-dbg/bin:$PATH">>$LOCAL_CONFIG
     echo >>$LOCAL_CONFIG
 
     echo \# debian qt path>>$LOCAL_CONFIG
     if [ $ARCH == "x64" ]; then
-        echo export QTDIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
-        echo export PATH="/usr/lib/x86_64-linux-gnu/qt5/bin:$PATH">>$LOCAL_CONFIG
+        echo export QT_OS_DIR="/usr/lib/x86_64-linux-gnu">>$LOCAL_CONFIG
     elif [ $ARCH == "x32" ]; then
-        echo export QTDIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
-        echo export PATH="/usr/lib/i386-linux-gnu/qt5/bin:$PATH">>$LOCAL_CONFIG
+        echo export QT_OS_DIR="/usr/lib/i386-linux-gnu">>$LOCAL_CONFIG
     fi
     echo >>$LOCAL_CONFIG
 
     if [ $ARCH == "x64" ]; then
         echo \# redhat qt path>>$LOCAL_CONFIG
-        echo \#export QTDIR="/usr/lib64">>$LOCAL_CONFIG
-        echo \#export PATH="/usr/lib64/bin:$PATH">>$LOCAL_CONFIG
+        echo \#export QT_OS_DIR="/usr/lib64">>$LOCAL_CONFIG
     fi
 
     echo >>$LOCAL_CONFIG

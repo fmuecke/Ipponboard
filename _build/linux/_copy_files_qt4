@@ -1,5 +1,12 @@
-echo  QT and C++ runtimes
-cp $QTDIR/lib/libQtCore.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtGui.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtNetwork.so.4 $DEST|| exit 1
-cp $QTDIR/lib/libQtXmlPatterns.so.4 $DEST|| exit 1
+function deploy_qt_local {
+	echo  QT and C++ runtimes
+	cp $QTDIR/lib/libQtCore.so.4 $DEST|| exit 1
+	cp $QTDIR/lib/libQtGui.so.4 $DEST|| exit 1
+	cp $QTDIR/lib/libQtNetwork.so.4 $DEST|| exit 1
+	cp $QTDIR/lib/libQtXmlPatterns.so.4 $DEST|| exit 1
+}
+
+############################
+function deploy_without_qt {
+	echo
+}
