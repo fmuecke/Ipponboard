@@ -9,7 +9,9 @@
 
 #ifdef __linux__
 #include<X11/Xlib.h>
+#ifdef __QT4__
 #include<X11/extensions/Xrandr.h>
+#endif
 #endif
 
 class ScreenHelpers
