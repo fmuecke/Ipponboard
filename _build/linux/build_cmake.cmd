@@ -197,6 +197,20 @@ function quit {
   exit 0
 }
 
+############################
+function make_tgz {
+  ARCHIVE_NAME=Ipponboard_"$QT_VERSION"_"$DIST"-"$ARCH"
+  OLD_FOLDER=$(basename "$BIN_DIR")
+
+  pushd "$BIN_DIR/.."
+
+  mv $OLD_FOLDER $ARCHIVE_NAME
+  tar -zcvf $ARCHIVE_NAME.tgz $ARCHIVE_NAME
+  rm -rf $ARCHIVE_NAME
+
+  popd
+}
+
 ###############
 function menu {
   echo "Architecture: $ARCH"
@@ -242,9 +256,9 @@ function usage() {
     exit 1
 }
 
-############################################################################################################
+#####################################################################################################
 # main block
-############################################################################################################
+#####################################################################################################
 ARCH=""
 QT_VERSION=""
 DIST=""
@@ -303,6 +317,7 @@ if [ "$AUTOBUILD" == true ]; then
   make_release
   build_release
   deploy_without_qt
+  make_tgz
   echo ... autobuild finished.
 else
   menu
