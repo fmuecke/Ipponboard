@@ -11,11 +11,15 @@ build-job:       # This job runs in the build stage, which runs first.
     - cd _build/linux
     - ./build_cmake.cmd --arch x64 --qt qt5 --dist rh --with_QT_default_dir --autobuild
     - echo "Compile complete."
+rules:
+    - changes:
+        - "*.cpp"
+        - "*.h"
   artifacts:
     name: Ipponboard_binary
     paths:
       - _build/bin
-    expire_in: 90 days
+    expire_in: 2 days
 
 #unit-test-job:   # This job runs in the test stage.
 #  stage: test    # It only starts when the job in the build stage completes successfully.
