@@ -3,7 +3,7 @@ stages:          # List of stages for jobs, and their order of execution
 #  - test
 #  - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
+build-rocky93-x64:       # This job runs in the build stage, which runs first.
   stage: build
   image: rbernhardmtb/buildenv_rocky93-qt5
   script:
@@ -16,7 +16,7 @@ build-job:       # This job runs in the build stage, which runs first.
       - "*.cpp"
       - "*.h"
   artifacts:
-    name: Ipponboard_binary
+    name: Ipponboard_rocky-9.3-x64
     paths:
       - _build/bin
     expire_in: 2 days
