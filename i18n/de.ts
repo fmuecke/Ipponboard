@@ -362,7 +362,7 @@
         <translation>Nachname</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+194"/>
         <source>Select CSV file with fighters</source>
         <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
     </message>
@@ -398,7 +398,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+408"/>
+        <location filename="../core/Controller.cpp" line="+418"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
@@ -407,11 +407,21 @@ Mögliche Spezifikatorens sind: %1</translation>
         <source>Second</source>
         <translation>Zweiter</translation>
     </message>
+    <message>
+        <location line="+317"/>
+        <source>Error</source>
+        <translation>Fehler</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>No sound device found</source>
+        <translation>Keine Audioausgabe gefunden</translation>
+    </message>
 </context>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+60"/>
+        <location filename="../base/SettingsDlg.cpp" line="+73"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -421,7 +431,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>ZWEITER KÄMPFER</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+145"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -431,9 +441,14 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+283"/>
+        <location line="+298"/>
         <source>No sound device found</source>
         <translation>Keine Audioausgabe gefunden</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Error</source>
+        <translation>Fehler</translation>
     </message>
 </context>
 <context>
@@ -848,7 +863,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+300"/>
+        <location filename="../base/MainWindowBase.cpp" line="+302"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
@@ -858,7 +873,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+727"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -874,7 +889,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-718"/>
+        <location line="-724"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -883,7 +898,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+330"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+337"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
@@ -946,7 +961,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnis anzeigen</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Hide results</source>
         <translation>Ergebnis verstecken</translation>
     </message>
@@ -1684,12 +1699,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Vielen Dank!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1344"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1350"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+615"/>
+        <location line="+622"/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
@@ -1811,17 +1826,17 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
         <location line="+27"/>
-        <location line="+705"/>
+        <location line="+1076"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-1070"/>
         <source>Secondary View</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+425"/>
         <location line="+195"/>
         <source>bold</source>
         <translation>fett</translation>
@@ -1852,7 +1867,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Abspielen</translation>
     </message>
     <message>
-        <location line="+519"/>
+        <location line="+876"/>
         <source>Next fight</source>
         <translation>Nächster Kampf</translation>
     </message>
@@ -1867,12 +1882,12 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Pause-Bildschirm</translation>
     </message>
     <message>
-        <location line="+421"/>
+        <location line="-285"/>
         <source>Reset Hold Time</source>
         <translation>Haltegriff-Reset</translation>
     </message>
     <message>
-        <location line="-231"/>
+        <location line="+475"/>
         <source>Invert X axis</source>
         <translation>X-Achse invertieren</translation>
     </message>
@@ -1887,7 +1902,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Y-Achse invertieren</translation>
     </message>
     <message>
-        <location line="-746"/>
+        <location line="-1103"/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>
@@ -1967,7 +1982,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Schriften und Farben</translation>
     </message>
     <message>
-        <location line="+380"/>
+        <location line="+737"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
@@ -1979,13 +1994,13 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 (benötigt zwei Knöpfe)</translation>
     </message>
     <message>
-        <location line="+38"/>
-        <location line="+328"/>
+        <location line="-340"/>
+        <location line="+378"/>
         <source>Hajime/Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
     <message>
-        <location line="-274"/>
+        <location line="+54"/>
         <location line="+94"/>
         <source>Osaekomi/Toketa</source>
         <translation>Osaekomi/Toketa</translation>
@@ -2008,22 +2023,21 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Achsen für die Wertungen: X/Y</translation>
     </message>
     <message>
-        <location line="-606"/>
+        <location line="-963"/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
     </message>
     <message>
-        <location line="-259"/>
         <source>Size</source>
-        <translation>Auflösung</translation>
+        <translation type="obsolete">Auflösung</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-287"/>
         <source>Screen</source>
         <translation>Bildschirm</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+20"/>
         <source>Use custom size</source>
         <translation>Eigene Größe verwenden</translation>
     </message>
@@ -2033,17 +2047,17 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Breite</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+35"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+216"/>
         <source>Guest Label</source>
         <translation>&quot;Gast&quot;-Beschriftung</translation>
     </message>
     <message>
-        <location line="+546"/>
+        <location line="+903"/>
         <source>First Fighter</source>
         <translation>Erster Kämpfer</translation>
     </message>
@@ -2063,12 +2077,30 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Achsen für die Wertungen: Z/R</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="-660"/>
         <source>Keyboard</source>
         <translation>Tastatur</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="-643"/>
+        <location line="+32"/>
+        <location line="+32"/>
+        <location line="+32"/>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <location line="-45"/>
+        <source>posX</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>posY</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+634"/>
         <source>Next</source>
         <translation>Nächster</translation>
     </message>

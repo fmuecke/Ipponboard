@@ -362,7 +362,7 @@
         <translation>Achternaam</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+194"/>
         <source>Select CSV file with fighters</source>
         <translation>Selecteer CSV-bestand met de Deelnemers</translation>
     </message>
@@ -398,7 +398,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+408"/>
+        <location filename="../core/Controller.cpp" line="+418"/>
         <source>First</source>
         <translation>Eerste</translation>
     </message>
@@ -407,11 +407,21 @@ Geldige velden zijn: %1</translation>
         <source>Second</source>
         <translation>Tweede</translation>
     </message>
+    <message>
+        <location line="+317"/>
+        <source>Error</source>
+        <translation>Fout</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>No sound device found</source>
+        <translation>Geen audio-uitgang gevonden</translation>
+    </message>
 </context>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+60"/>
+        <location filename="../base/SettingsDlg.cpp" line="+73"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -421,7 +431,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tweede Deelnemer</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+145"/>
         <source>Ok</source>
         <translation>OK</translation>
     </message>
@@ -431,9 +441,14 @@ Geldige velden zijn: %1</translation>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="+283"/>
+        <location line="+298"/>
         <source>No sound device found</source>
         <translation>Geen audio-uitgang gevonden</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Error</source>
+        <translation>Fout</translation>
     </message>
 </context>
 <context>
@@ -852,7 +867,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+300"/>
+        <location filename="../base/MainWindowBase.cpp" line="+302"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
@@ -862,7 +877,7 @@ Geldige velden zijn: %1</translation>
         <translation>/User-Manual.html</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+727"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -878,7 +893,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-718"/>
+        <location line="-724"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
@@ -887,7 +902,7 @@ Geldige velden zijn: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+330"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+337"/>
         <source>Home</source>
         <translation>Thuis</translation>
     </message>
@@ -950,7 +965,7 @@ Geldige velden zijn: %1</translation>
         <translation>Toon resultaten</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Hide results</source>
         <translation>Resultaten verbergen</translation>
     </message>
@@ -1693,12 +1708,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Veel dank!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1344"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1350"/>
         <source>Error reading mode configurations</source>
         <translation>Fout bij lezen van modusconfiguraties</translation>
     </message>
     <message>
-        <location line="+615"/>
+        <location line="+622"/>
         <source>Error writing mode configurations</source>
         <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
@@ -1819,27 +1834,26 @@ Restoring defaults.</source>
     </message>
     <message>
         <location line="+27"/>
-        <location line="+705"/>
+        <location line="+1076"/>
         <source>General</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-1070"/>
         <source>Secondary View</source>
         <translation>Tweede Scherm</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>Size</source>
-        <translation>Grootte</translation>
+        <translation type="obsolete">Grootte</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>Screen</source>
         <translation>Scherm</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+20"/>
         <source>Use custom size</source>
         <translation>Gebruik aangepast grootte</translation>
     </message>
@@ -1849,12 +1863,12 @@ Restoring defaults.</source>
         <translation>breedte</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+35"/>
         <source>Height</source>
         <translation>Hoogte</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+93"/>
         <source>Mat</source>
         <translation>Mat</translation>
     </message>
@@ -1975,7 +1989,7 @@ Restoring defaults.</source>
         <translation>Italic</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+437"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
@@ -2002,13 +2016,13 @@ Restoring defaults.</source>
         <translation>Volgende Wedstrijd</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <location line="+328"/>
+        <location line="-358"/>
+        <location line="+378"/>
         <source>Hajime/Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
     <message>
-        <location line="-280"/>
+        <location line="+48"/>
         <source>First Fighter</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -2066,12 +2080,30 @@ Restoring defaults.</source>
         <translation>Assen gebruikt voor punten: Z/R</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="-660"/>
         <source>Keyboard</source>
         <translation>Toetsenbord</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="-643"/>
+        <location line="+32"/>
+        <location line="+32"/>
+        <location line="+32"/>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <location line="-45"/>
+        <source>posX</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>posY</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+634"/>
         <source>Next</source>
         <translation>Volgende</translation>
     </message>
