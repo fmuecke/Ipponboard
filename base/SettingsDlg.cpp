@@ -7,7 +7,7 @@
 #ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
 #endif
-//#include "../core/ControllerConfig.h"
+#include "../core/ControllerConfig.h"
 //#include "../core/Rules.h"
 
 #include <QStringList>

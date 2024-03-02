@@ -14,7 +14,7 @@ pushd "%BASE_DIR%"
 
 :: --> CHANGE VERSION HERE:
 SET VER1=2
-SET VER2=1
+SET VER2=2
 SET VER3=0
 SET TAG=
 :: that's it. <--

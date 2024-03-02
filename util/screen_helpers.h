@@ -33,14 +33,14 @@ public:
     void init()
     {
         m_screenResolutionsList.clear();
-
+#ifdef __linux__
 #ifdef __WITH_X11__
         // if the QT function doesnt work under Linux, try a X11 solution
 #ifdef __QT4__
         if (QApplication::desktop()->numScreens() < 2)
 #else
         if (QGuiApplication::screens().count() < 2)
-#endif
+#endif // __QT4__
         {
             Display *display = XOpenDisplay(NULL);
             Window root = RootWindow(display, 0);
@@ -59,7 +59,8 @@ public:
                 }
             }
         }
-#endif
+#endif // __WITH_X11__
+#endif // __linux__
     }
 
     const int numScreens()
@@ -71,7 +72,7 @@ public:
             return QApplication::desktop()->numScreens();
 #else
             return QGuiApplication::screens().count();
-#endif
+#endif // __QT4__
     }
 
     const QRect getScreenGeometry(int screen_no=-1)
@@ -86,7 +87,7 @@ public:
             return QApplication::desktop()->availableGeometry(screen_no);
 #else
             return QGuiApplication::screens().at(screen_no)->availableGeometry();
-#endif
+#endif // __QT4__
     }
 
 protected:

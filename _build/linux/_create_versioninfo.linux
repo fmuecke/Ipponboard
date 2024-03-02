@@ -14,7 +14,7 @@ pushd "$_base_dir"
 VER1=2
 VER2=2
 VER3=0
-TAG=pre
+TAG=
 # that's it. <--
 
 git log -1 --format=%h > .revision
