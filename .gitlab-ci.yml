@@ -7,7 +7,7 @@ build-rocky93-x64:       # This job runs in the build stage, which runs first.
   stage: build
   image: rbernhardmtb/buildenv_rocky93-qt5
   script:
-    - echo "Compiling the code..."
+    - echo "Compiling the code for rocky93-x64 ..."
     - cd _build/linux
     - ./build_cmake.cmd --arch x64 --qt qt5 --dist rh --with_QT_default_dir --autobuild
     - echo "Compile complete."
@@ -18,6 +18,27 @@ build-rocky93-x64:       # This job runs in the build stage, which runs first.
       - "*.ts"
   artifacts:
     name: Ipponboard_rocky-9.3-x64
+    paths:
+      - _build/bin
+    expire_in: 2 days
+
+build-ubuntu-x64:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: gitlab/gitlab-runner:latest
+  script:
+    - apt-get -a update
+    - sudo apt -y install g++ gdb cmake libboost-all-dev qtxmlpatterns5-dev-tools qtmultimedia5-dev qttools5-dev-tools
+    - echo "Compiling the code for ubuntu-x64 ..."
+    - cd _build/linux
+    - ./build_cmake.cmd --arch x64 --qt qt5 --dist deb --with_QT_default_dir --autobuild
+    - echo "Compile complete."
+  rules:
+    - changes:
+      - "*.cpp"
+      - "*.h"
+      - "*.ts"
+  artifacts:
+    name: Ipponboard_ubuntu-x64
     paths:
       - _build/bin
     expire_in: 2 days
