@@ -31,7 +31,7 @@ build-ubuntu-x64:       # This job runs in the build stage, which runs first.
     - echo "Setup build environment ..."
     - export DEBIAN_FRONTEND=noninteractive
     - apt -y update
-    - apt -y install g++ gdb cmake libboost-all-dev qtxmlpatterns5-dev-tools qtmultimedia5-dev qttools5-dev-tools git bash
+    - apt -y install g++ gdb cmake libboost-all-dev libqt5xmlpatterns5-dev-tools qtmultimedia5-dev qttools5-dev-tools git bash
     - echo "Compiling the code for ubuntu-x64 ..."
     - cd _build/linux
     - ./build_cmake.cmd --arch x64 --qt qt5 --dist deb --with_QT_default_dir --autobuild
