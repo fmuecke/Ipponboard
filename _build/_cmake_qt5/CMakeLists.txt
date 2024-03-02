@@ -12,7 +12,7 @@ set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib )
 
 message(STATUS "Using CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}, CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}")
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
+find_package(Qt5 5.12.8 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
 
 set (BASE_DIR ../..)
 
