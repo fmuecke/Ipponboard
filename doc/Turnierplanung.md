@@ -61,12 +61,22 @@ classDiagram
     class Mannschaft{
         +Teilnehmer[] Teilnehmer
     }
+
+    class GewichtsklassenEinstellungen{
+        +string Name
+        +byte Kampfdauer
+        +string SonstigesJSON
+    }
+
     class Gewichtsklasse{
         +string name
         +int MaxGewicht
         +int MinGewicht
+        +GewichtsklassenEinstellungen: Einstellungen
         +Teilnehmer[] GemeldeteTeilnehmer : Es erscheinen nicht unbedingt alle
     }
+    Gewichtsklasse --|> GewichtsklassenEinstellungen
+
     class Teilnehmer{
         +Gewicht Gewicht
         +Gewichtsklasse GewichtsklasseAngedachte
@@ -83,9 +93,12 @@ classDiagram
     Teilnehmer --|> TeilnehmerBase
     Mannschaft --|> TeilnehmerBase
 
+    class Listensystem { 
+        +string Name
+    }
     class KampfListe {
         +string Name
-        +string ListenSystem
+        +ListenSystem System
         +Gewichtsklasse Gewichtsklasse
         +TeilnehmerBase[] Teilnehmer
         +Begegnungen[] Begegnungen
@@ -93,6 +106,7 @@ classDiagram
     KampfListe *-- Begegnung
     KampfListe --> TeilnehmerBase
     KampfListe --> Gewichtsklasse
+    KampfListe --> Listensystem
 
     class Punkte {
         +byte Ippon
