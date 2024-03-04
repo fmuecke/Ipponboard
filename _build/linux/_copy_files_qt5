@@ -12,7 +12,7 @@ function deploy_qt_local {
     echo deploy start script
     IPPONBOARD_STARTER=$DEST/startIpponboard.sh
     echo \#/bin/bash>$IPPONBOARD_STARTER
-    echo LD_LIBRARY_PATH=./qt5 ./Ipponboard>>$IPPONBOARD_STARTER
+    echo LD_LIBRARY_PATH=./qt5 QT_QPA_PLATFORM_PLUGIN_PATH=./qt5/plugins/platforms ./Ipponboard>>$IPPONBOARD_STARTER
     chmod 755 $IPPONBOARD_STARTER
 
     # qt5 libraries and plugins
@@ -25,7 +25,7 @@ function deploy_qt_local {
     cp $QTDIR/lib/libQt5Gui.so.5 $DEST/qt5|| exit 1
     cp $QTDIR/lib/libQt5Core.so.5 $DEST/qt5|| exit 1
     cp $QTDIR/lib/libQt5Network.so.5 $DEST/qt5|| exit 1
-    cp -r $QTDIR/plugins/platforms $DEST
+    cp -r $QTDIR/plugins/platforms $DEST/qt5/plugins
 }
 
 ############################

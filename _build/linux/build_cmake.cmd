@@ -100,7 +100,7 @@ function build_release {
 ############################
 function build_all_release {
   echo --[build_all_release]--
-  #clean
+  clean
   make_qt_res
   make_release
   build_release
