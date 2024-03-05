@@ -23,6 +23,8 @@ Könnte auch voll automatisiert erfolgen nach Identifizierung des gemeldeten Tei
 * **Kampfliste**: Könnte ausgedruckt werden wie bisher -> manuelles ausfüllen und manuelles abtippen. Könnte als Datei über Netzwerk/Internet synchronisiert werden. Könnte über eine Datenbank synchronisiert werden. Könnte per http Server Client bzw. Ipponboard-Instanzen-Netzwerk synchronisiert werden. Könnte über zentralen Public Server synchronisiert werden.
 * **Urkunden**: Könnte manuell erstell werden wie bisher. Könnte automatisch auf Basis der fertigen Wettkampflisten erstellt werden und gedruckt werden. 
 
+## Architektur-Modell
+In der Datei 'architecture-model.c4' ist ein Architektur-Moell enhalten, welches mit Hilfe der C4-Beschreibungssprache erstellt wurde. Diese Datei kann mit der "LikeC4"-Extension für Visual Studio Code angesehen und bearbeitet werden. Gleiches ist über folgende URL möglich: [https://likec4.dev/playground/](https://likec4.dev/playground/).
 
 ## Modell zur Datenhaltung über den Turnierablauf durch Ipponboard
 ```mermaid
