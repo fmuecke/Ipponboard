@@ -145,8 +145,8 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 //	QFontDatabase fontDb;
 //	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
 
-	SetInfoHeaderFont(QFont("Calibri", 12, QFont::Bold, false));
-	SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
+    SetInfoHeaderFont(QFont("Calibri", 12, QFont::Bold, false));
+    SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
 
 	ui->text_mat->SetColor(m_InfoTextColor, m_InfoTextBgColor);
 	ui->text_weight->SetColor(m_InfoTextColor, m_InfoTextBgColor);

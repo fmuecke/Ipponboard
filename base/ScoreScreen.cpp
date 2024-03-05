@@ -29,8 +29,8 @@ ScoreScreen::ScoreScreen(QWidget* parent)
 	ui->text_dummy1_second->SetText("");
 	ui->text_dummy2_second->SetText("");
 
-	SetTextFont(QFont("Arial", 12, QFont::Normal, false));
-	SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
+    SetTextFont(QFont("Arial", 12, QFont::Normal, false));
+    SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
 
 	//ui->text_club_home->setAlignment(Qt::AlignRight);
 	//ui->text_club_guest->setAlignment(Qt::AlignLeft);
