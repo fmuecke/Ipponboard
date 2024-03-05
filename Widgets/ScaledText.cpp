@@ -119,7 +119,8 @@ void ScaledText::Redraw()
 
 void ScaledText::paintEvent(QPaintEvent* event)
 {
-	QPainter painter(this);
+
+    QPainter painter(this);
 	painter.save();
 
 	// erase background
@@ -137,7 +138,7 @@ void ScaledText::paintEvent(QPaintEvent* event)
 			painter.translate(width() / 2.0, height() / 2.0);
 
 			QTextLine line = m_pLayout->lineAt(0);
-			line.setLeadingIncluded(false);
+            line.setLeadingIncluded(false);
 
 			const QRectF rect = line.naturalTextRect();
 			Q_ASSERT(rect == m_pLayout->boundingRect());
@@ -151,20 +152,20 @@ void ScaledText::paintEvent(QPaintEvent* event)
 			{
 				if (eSize_full == m_textSize)
 				{
-					h -= line.descent() * 2 + 0.5;
-				}
+                    h -= line.descent() * 2 - 0.5;
+                }
 				else if (eSize_uppercase == m_textSize)
 				{
-					h -= line.descent() + 2;
-					adjust_y = -line.descent() / 2.5;
+                    h -= line.descent();
+                    adjust_y = -line.descent() / 2.5;
 				}
 				else
 				{
-					//adjust_y = line.descent()/2.0;
+                    //adjust_y = line.descent()/2.0;
 				}
 			}
 
-			const qreal zoom = std::min<qreal>(width() / w, height() / h);
+            const qreal zoom = std::min<qreal>(width() / w, height() / h);
 
 			if (m_rotate)
 				painter.rotate(-60.0);

@@ -88,9 +88,15 @@ Controller::~Controller()
 {
 	m_views.clear();
 	m_goldenScoreViews.clear();
-	//delete m_pTimeHold;
-	//delete m_pTimeMain;
-	delete m_pSM;
+
+    if (m_pTimeHold)
+        delete m_pTimeHold;
+
+    if (m_pTimeMain)
+        delete m_pTimeMain;
+
+    if (m_pSM)
+        delete m_pSM;
 }
 
 //=========================================================
@@ -144,7 +150,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_currentFight = 0;
 
 	// set time and update views
-	SetRoundTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
+    SetRoundTime(QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight)));
 }
 
 //=========================================================
@@ -658,11 +664,11 @@ void Controller::SetGoldenScore(bool isGS)
 
 	if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetGoldenScoreTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetGoldenScoreTime());
 	}
 	else
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetRemainingTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetRemainingTime());
 	}
 
 	update_views();
@@ -811,7 +817,7 @@ void Controller::reset_fight()
 	fight.SetGoldenScore(false);
 	fight.is_saved = false;
 	fight.rules = m_rules;
-	m_roundTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+    m_roundTime = QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight));
 	*m_pTimeMain = m_roundTime;
 
 	update_views();
@@ -853,11 +859,11 @@ int Controller::get_time(ETimer t) const
 {
 	if (eTimer_Hold == t)
 	{
-		return -m_pTimeHold->secsTo(QTime(0, 0, 0, 0));
+        return -m_pTimeHold->secsTo(QTime(0,0,0,0));
 	}
 	else
 	{
-		return m_pTimeMain->secsTo(QTime(0, 0, 0, 0));
+        return m_pTimeMain->secsTo(QTime(0,0,0,0));
 	}
 }
 
@@ -931,17 +937,17 @@ void Controller::SetCurrentFight(unsigned int index)
 {
 	// now set pointer to next fight
 	m_currentFight = index;
-	*m_pTimeHold = QTime();
-	m_roundTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+    *m_pTimeHold = QTime(0,0,0,0);
+    m_roundTime = QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight));
 
 	//FIXME: check this block
 	if (current_fight().IsGoldenScore())
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetGoldenScoreTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetGoldenScoreTime());
 	}
 	else
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetRemainingTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetRemainingTime());
 	}
 
 	// update state
@@ -1223,13 +1229,13 @@ void Controller::update_main_time()
 	{
 		*m_pTimeMain = m_pTimeMain->addSecs(-1);
 
-		const bool isTimeUp = QTime(0, 0, 0, 0).secsTo(*m_pTimeMain) <= 0;
+        const bool isTimeUp = QTime(0,0,0,0).secsTo(*m_pTimeMain) <= 0;
 
 		// correct time again
-		const int secsTo(QTime(0, 0, 0, 0).secsTo(*m_pTimeMain));
+        const int secsTo(QTime(0,0,0,0).secsTo(*m_pTimeMain));
 
 		if (secsTo < 0 || *m_pTimeMain > m_roundTime)
-			m_pTimeMain->setHMS(0, 0, 0, 0);
+            m_pTimeMain->setHMS(0,0,0,0);
 
 		if (eState_TimerRunning == m_State)
 		{
