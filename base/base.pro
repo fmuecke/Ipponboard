@@ -55,7 +55,7 @@ contains(COMPILER, mingw) {
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS /MP /std:c++17
     DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501 _WITH_GAMEPAD_
+    DEFINES += WIN32 _WIN32_WINNT=0x0501 _WITH_GAMEPAD_ __QT4__
 
     # remove unneccessary output files
     #QMAKE_POST_LINK += del /Q ../_build/bin/$${TARGET}.exp ../_build/bin/$${TARGET}.lib>nul 
@@ -90,7 +90,6 @@ HEADERS = pch.h \
     FighterManagerDlg.h \
     ../util/array_helpers.h \
     ../util/path_helpers.h \
-    ../widgets/Countdown.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp \
@@ -137,7 +136,6 @@ SOURCES = Main.cpp \
     SplashScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
-    ../widgets/Countdown.cpp \
 	../core/Controller.cpp \
 	../core/FightCategory.cpp \
 	../core/Fighter.cpp \
@@ -163,7 +161,6 @@ FORMS = MainWindow.ui \
     FighterManagerDlg.ui \
     view_horizontal.ui \
     SplashScreen.ui \
-    ../widgets/Countdown.ui
 
 OTHER_FILES += \
     TournamentModes.ini
