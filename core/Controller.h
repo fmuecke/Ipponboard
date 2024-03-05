@@ -76,7 +76,7 @@ public:
 	void SetRoundTime(const QString& value);
 	QString GetFightTimeString() const;
 	int GetFightDuration(QString const& weight) const;
-	void SetRoundTime(const QTime& time);
+    void SetRoundTime(const QTime& time);
 	void OverrideRoundTimeOfFightMode(int fightTimeSecs);
 	//FIXME: int GetRound() const;
 	void SetWeightClass(QString const& c);
