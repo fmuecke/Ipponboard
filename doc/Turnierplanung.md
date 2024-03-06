@@ -26,6 +26,62 @@ Könnte auch voll automatisiert erfolgen nach Identifizierung des gemeldeten Tei
 ## Architektur-Modell
 In der Datei 'architecture-model.c4' ist ein Architektur-Moell enhalten, welches mit Hilfe der C4-Beschreibungssprache erstellt wurde. Diese Datei kann mit der "LikeC4"-Extension für Visual Studio Code angesehen und bearbeitet werden. Gleiches ist über folgende URL möglich: [https://likec4.dev/playground/](https://likec4.dev/playground/).
 
+## Möglichen Anzeigen des Ipponboards
+
+```mermaid
+---
+title: Ipponboard Anzeigen
+---
+
+stateDiagram-v2
+    weighting: Während dem Wiegen
+    [*] --> weighting
+    state weighting {
+        a0: Altsklassen x,y bitte zum wiegen
+        a1: Eigene Nachricht
+        a0 --> a1
+        note right of a1
+          Wie: Es fehlen 5 gemeldete Jodokas zum wiegen
+          oder
+          Die Judokas aus Bad Ems bitte noch zum wiegen 
+        end note
+    }
+    weighting --> warmup
+    warmup: Zwischen Wiegen und Beginn der Kämpfe
+    state warmup {
+        b1: Wiegen beendet, bitte wärmt euch auf
+        b1 --> b2
+        b2:Hier starten in Kürze die Kämpfe der Listen x,y,z...
+    }
+    
+    warmup --> fighting
+    fighting: Während der Kampfaustragung 
+    state fighting {
+        [*] --> c0
+        c0: Anzeige der nächsten Gewichtsklasse
+        c1: Anzeige der nächsten Kämpfe
+        c2: Punkteanzeige der aktuellen Begegnung
+        c3: Päsentation des Siegers, damit dieser bestätigen kann
+        c4: Anzeige Verletzungsbedingte Pause
+        c0 --> c1
+        state if_ill <<choice>>
+        c1 --> c2
+        c2 --> if_ill
+        if_ill --> c3 : Wenn alles gut geht
+        if_ill --> c4 : Wenn verletzt
+        c4 --> c2
+        c3 --> c0
+    }
+    fighting --> ceremony
+    ceremony: Vor und während Siegerehrung
+    state ceremony {
+        d0: Verweis auf die Siegerehrung
+        d1: GGf. Anzeige von Kampfstatistik, Siegern, Vereinswertung oä.
+        d0 --> d1
+    }
+    ceremony --> [*]
+```
+
 ## Modell zur Datenhaltung über den Turnierablauf durch Ipponboard
 ```mermaid
 ---
