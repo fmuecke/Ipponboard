@@ -1,4 +1,4 @@
-function deploy_qt_local {
+function deploy_qt_standalone {
 	echo  QT and C++ runtimes
 	cp $QTDIR/lib/libQtCore.so.4 $DEST|| exit 1
 	cp $QTDIR/lib/libQtGui.so.4 $DEST|| exit 1

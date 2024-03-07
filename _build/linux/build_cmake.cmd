@@ -61,11 +61,6 @@ function create_env_qt5 {
   fi
 }
 
-#################
-function pause(){
-   read -p "$*"
-}
-
 ######################
 function make_qt_res {
   echo --[make_qt_res]--
@@ -114,7 +109,7 @@ function build_all_release_with_qt {
   echo --[build_all_release_with_qt]--
 
   build_all_release
-  deploy_qt_local
+  deploy_qt_standalone
 
   echo build_all_release_with_qt finished, hit enter to continue
 }
@@ -192,12 +187,7 @@ function translate {
   popd
 }
 
-###############
-function quit {
-  exit 0
-}
-
-############################
+###################
 function make_tgz {
   ARCHIVE_NAME=Ipponboard_"$QT_VERSION"_"$DIST"-"$ARCH"
   OLD_FOLDER=$(basename "$BIN_DIR")
@@ -209,6 +199,16 @@ function make_tgz {
   rm -rf $ARCHIVE_NAME
 
   popd
+}
+
+#################
+function pause(){
+   read -p "$*"
+}
+
+###############
+function quit {
+  exit 0
 }
 
 ###############
@@ -234,8 +234,8 @@ function menu {
 
   read n
   case $n in
-    a) build_all_release_with_qt;pause;clear;menu;;
-    b) build_all_release;pause;clear;menu;;
+    a) build_all_release_with_qt;make_tgz;pause;clear;menu;;
+    b) build_all_release;make_tgz;pause;clear;menu;;
     1) make_qt_res;pause;clear;menu;;
     2) make_release;pause;clear;menu;;
     3) build_release;pause;clear;menu;;
@@ -252,7 +252,7 @@ function menu {
 
 ##################
 function usage() {
-    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5> --dist <deb|rh> [--with_QT_default_dir] [--autobuild]"
+    echo "Verwendung: $0 --arch <x32|x64> --qt <qt4|qt5> --dist <deb|rh> [--use_QT_default_dir] [--autobuild]"
     exit 1
 }
 
@@ -279,7 +279,7 @@ while [[ "$#" -gt 0 ]]; do
       DIST="$2"
       shift
       ;;
-    --with_QT_default_dir)
+    --use_QT_default_dir)
       QT_DEFAULT_DIR=true
       ;;
     --autobuild)
