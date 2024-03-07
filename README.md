@@ -48,6 +48,9 @@ More information about usage and configuration is described within the manual:
 - Ipponboard can be used free of charge.
 - Donations are welcome and keep the project alive.
 
+# Download Releases
+See [Download Releases](https://raspi4.merzweiler.de/nextcloud/s/Tcjjn974GW6ybyf). Login with "ipnbrd".
+
 # Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
