@@ -4,6 +4,13 @@ function deploy_qt_standalone {
 	cp $QTDIR/lib/libQtGui.so.4 $DEST|| exit 1
 	cp $QTDIR/lib/libQtNetwork.so.4 $DEST|| exit 1
 	cp $QTDIR/lib/libQtXmlPatterns.so.4 $DEST|| exit 1
+
+    # start script
+    echo deploy start script
+    IPPONBOARD_STARTER=$DEST/startIpponboard.sh
+    echo \#/bin/bash>$IPPONBOARD_STARTER
+    echo LD_LIBRARY_PATH=. ./Ipponboard>>$IPPONBOARD_STARTER
+    chmod 755 $IPPONBOARD_STARTER
 }
 
 ############################

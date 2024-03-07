@@ -199,6 +199,8 @@ function make_tgz {
   rm -rf $ARCHIVE_NAME
 
   popd
+
+  echo make_tgz finished, hit enter to continue
 }
 
 #################
