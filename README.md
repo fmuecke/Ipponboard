@@ -49,7 +49,7 @@ More information about usage and configuration is described within the manual:
 - Donations are welcome and keep the project alive.
 
 # Download Releases
-See [Download Releases](https://raspi4.merzweiler.de/nextcloud/s/Tcjjn974GW6ybyf). Login with "ipnbrd".
+See [Download Releases](https://raspi4.merzweiler.de/nextcloud/s/Tcjjn974GW6ybyf). Login with "ippnBord".
 
 # Contributing
 
