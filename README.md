@@ -31,12 +31,14 @@ I would be happy if they were incorporated into the original project.
 - Customizable mat signal and label
 - Customizable colors (instead of the default blue and white)
 
-# Getting started
+# Download Releases
+You can download and install the latest version from [Download Releases](https://raspi4.merzweiler.de/nextcloud/s/Tcjjn974GW6ybyf). Login with "ippnBord".
 
-You can download and install the latest version from https://gitlab.com/r_bernhard/Ipponboard or build Ipponboard from source.
+# Getting started
+You can build Ipponboard from source from [Gitlab Ipponboard](https://gitlab.com/r_bernhard/Ipponboard).
 
 Basic requirements to get started:
-- Computer/laptop with Windows operating system (primary view)
+- Computer/laptop with Windows, Redhat- or Debian-Linux operating system (primary view)
 - A big computer or TV screen (secondary view)
 
 More information about usage and configuration is described within the manual:
@@ -44,15 +46,9 @@ More information about usage and configuration is described within the manual:
 - [English manual](doc/USER_MANUAL-EN.md)
 
 # How much does it cost?
-
 - Ipponboard can be used free of charge.
-- Donations are welcome and keep the project alive.
-
-# Download Releases
-See [Download Releases](https://raspi4.merzweiler.de/nextcloud/s/Tcjjn974GW6ybyf). Login with "ippnBord".
 
 # Contributing
-
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
 
 # Contact
