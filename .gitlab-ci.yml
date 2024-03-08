@@ -9,7 +9,7 @@ build-rocky93-x64:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code for rocky93-x64 ..."
     - cd _build/linux
-    - ./build_cmake.cmd --arch x64 --qt qt5 --dist rh --with_QT_default_dir --autobuild
+    - ./build_cmake.cmd --arch x64 --qt qt5 --dist rh --use_QT_default_dir --autobuild
     - echo "Compile complete."
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
