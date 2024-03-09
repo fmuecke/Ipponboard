@@ -1,7 +1,11 @@
 # *Ipponboard* - Version History 
 <small>by Florian Mücke and ESC</small>
 
-## Version 2.1.0 (2024-02-yy)
+## Version 2.2.0 (2024-03-yy)
+- migrate code to QT5
+- wip
+
+## Version 2.1.0 (2024-02-22)
 - Organized source code so that it compiles without Gamepad-support under Linux,
 
 ## Version 2.0.0 (2024-01-yy)

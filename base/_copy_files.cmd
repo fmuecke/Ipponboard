@@ -18,7 +18,7 @@ copy /Y "%ROOT%\i18n\nl.qm" "%DEST%\lang">nul || exit /b 1
 
 echo  sounds
 if not exist "%DEST%\sounds" mkdir "%DEST%\sounds">nul
-copy /Y "%ROOT%\base\sounds\buzzer.wav" "%DEST%\sounds">nul || exit /b 1
+copy /Y "%ROOT%\base\sounds\*.wav" "%DEST%\sounds">nul || exit /b 1
 copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 :: if errorlevel 1 exit /b 1
 

@@ -16,7 +16,7 @@ if EXIST "%LOCAL_CONFIG%" (
   echo create file=%LOCAL_CONFIG%
   echo @echo off>"%LOCAL_CONFIG%"
   echo set QTDIR=C:\dev\inst\qt\qt-4.8.7-%ARCH%-msvc2017>>"%LOCAL_CONFIG%"
-  echo set PATH=C:\dev\inst\qt\qt-4.8.7-%ARCH%-msvc2017\bin;C:\dev\inst\jom_1_1_3;%%PATH%%>>"%LOCAL_CONFIG%"
+  echo set PATH=%%PATH%%;C:\dev\inst\qt\qt-4.8.7-%ARCH%-msvc2017\bin;C:\dev\inst\jom_1_1_3>>"%LOCAL_CONFIG%"
   echo set QMAKESPEC=C:\dev\inst\qt\qt-4.8.7-x64-msvc2017\mkspecs\win32-msvc2017>>"%LOCAL_CONFIG%"
   echo set BOOST_DIR=C:\dev\inst\boost_1_82_0>>"%LOCAL_CONFIG%"
   echo set INNO_DIR=C:\dev\inst\InnoSetup6>>"%LOCAL_CONFIG%"

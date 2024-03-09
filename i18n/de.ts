@@ -98,14 +98,6 @@
     </message>
 </context>
 <context>
-    <name>Countdown</name>
-    <message>
-        <location filename="../Widgets/Countdown.ui" line="+23"/>
-        <source>Please update your version...</source>
-        <translation>Bitte Version updaten...</translation>
-    </message>
-</context>
-<context>
     <name>DonationLabel</name>
     <message>
         <location filename="../base/DonationManager.cpp" line="+24"/>
@@ -398,7 +390,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+418"/>
+        <location filename="../core/Controller.cpp" line="+424"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
