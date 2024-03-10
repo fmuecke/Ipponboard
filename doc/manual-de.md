@@ -18,7 +18,7 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 
 **Ipponboard Quellcode**
 
-- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) im [Repository https://gitlab.com/r_bernhard/Ipponboard](https://gitlab.com/r_bernhard/Ipponboard) bei Gitlab.
+- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) bei [Gitlab](https://gitlab.com/r_bernhard/Ipponboard).
 
 **Drittanbieterkomponenten (3rd party components)**
 
@@ -59,7 +59,7 @@ Um die Wettkampfanzeige nutzen zu können gelten folgende Hard- und Softwareanfo
 		über den Fernseher wiedergegeben werden)
 
 ## Änderungshistorie
-Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](Changes.html)
+Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/CHANGELOG.md)
 
 ## Feedback
 > *Eure Meinung zählt!*
