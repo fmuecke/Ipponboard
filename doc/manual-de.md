@@ -7,8 +7,6 @@
   
 Ipponboard wurde geschrieben und entwickelt von Florian Mücke und wird überarbeitet von ESC.
 
-*Copyright © 2009-today Florian Mücke.*
-   
 **Ipponboard Binaries**
 
 > **Ipponboard darf frei auf beliebig vielen Rechnern verwendet und das
@@ -80,8 +78,8 @@ Ecke bestimmt noch nicht perfekt. *Bitte helft mit es zu verbessern!*
 Fragen oder Verbesserungsvorschläge können an die folgenden Stellen gerichtet werden:
 
 - Homepage: <https://ipponboard.koe-judo.de> 
-- Probleme und Bugtracker: [https://github.com/fmuecke/Ipponboard/issues](https://github.com/fmuecke/Ipponboard/issues)  
-- E-Mail: [ipponboardinfo ât gmail.com](mailto:ipponboardinfo@gmail.com)  
+- Probleme und Bugtracker: [https://gitlab.com/r_bernhard/Ipponboard/-/issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
+- E-Mail: [r_bernhard ât gmx.de](mailto:r_bernhard@gmx.de)  
 
 
 # Funktionsweise & Einstellungen
