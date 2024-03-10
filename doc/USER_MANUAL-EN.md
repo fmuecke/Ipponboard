@@ -98,7 +98,7 @@ or other corner it is not perfect yet. *Please help us to improve it!
 Questions or suggestions for improvement may be directed to:
 
 - Issues and bug tracker: [Issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
-- [E-Mail] (mailto:r_bernhard@gmx.de)  
+- [E-Mail](mailto:r_bernhard@gmx.de)  
 
 # Operation & Settings
 
