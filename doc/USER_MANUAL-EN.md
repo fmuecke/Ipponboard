@@ -31,7 +31,7 @@
 
 ## License terms
   
-Ipponboard was written and developed by Florian Mücke.
+Ipponboard was written and developed by Florian Mücke and will be continued by ESC.
 
 ### Ipponboard binaries
 
@@ -41,7 +41,7 @@ Ipponboard was written and developed by Florian Mücke.
 ### Ipponboard source code
 
 - The Ipponboard source code was released under a BSD-like license in 2020.
-- Check the [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) in https://gitlab.com/r_bernhard/Ipponboard repository.
+- Check the [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) at[Gitlab](https://gitlab.com/r_bernhard/Ipponboard).
 
 ### Third-party components
 
@@ -80,9 +80,7 @@ To use the competition display the following hardware and software requirements 
   - loudspeaker for the mat signal (but can also be played via audio cable via the TV)
 
 ## Version history
-
-- The latest version of this manual can be found on the [Gitlab](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/doc/USER_MANUAL-EN.md). 
-- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/CHANGELOG.md)
+ Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/CHANGELOG.md)
 
 ## Feedback & contact
 
@@ -99,8 +97,8 @@ or other corner it is not perfect yet. *Please help us to improve it!
 
 Questions or suggestions for improvement may be directed to:
 
-- Issues and bug tracker: [Gitlab](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
-- E-Mail: [r_bernhard ât gmx.de](mailto:r_bernhard@gmx.de)  
+- Issues and bug tracker: [Issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
+- [E-Mail] (mailto:r_bernhard@gmx.de)  
 
 # Operation & Settings
 
