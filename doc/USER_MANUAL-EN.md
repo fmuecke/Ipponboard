@@ -100,7 +100,7 @@ or other corner it is not perfect yet. *Please help us to improve it!
 Questions or suggestions for improvement may be directed to:
 
 - Issues and bug tracker: [Gitlab](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
-- E-Mail: [r_bernhard ât gmail.com](mailto:r_bernhard@gmx.de)  
+- E-Mail: [r_bernhard ât gmx.de](mailto:r_bernhard@gmx.de)  
 
 # Operation & Settings
 
