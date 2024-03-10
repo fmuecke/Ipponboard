@@ -32,7 +32,6 @@
 ## License terms
   
 Ipponboard was written and developed by Florian Mücke.
-Copyright © 2009-today Florian Mücke
 
 ### Ipponboard binaries
 
@@ -82,8 +81,8 @@ To use the competition display the following hardware and software requirements 
 
 ## Version history
 
-- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/manual-en.md). 
-- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](Changes.html)
+- The latest version of this manual can be found on the [Gitlab](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/doc/USER_MANUAL-EN.md). 
+- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/CHANGELOG.md)
 
 ## Feedback & contact
 
@@ -100,9 +99,8 @@ or other corner it is not perfect yet. *Please help us to improve it!
 
 Questions or suggestions for improvement may be directed to:
 
-- Homepage: <https://ipponboard.koe-judo.de> 
-- Issues and bug tracker: [https://github.com/fmuecke/Ipponboard/issues](https://github.com/fmuecke/Ipponboard/issues)  
-- E-Mail: [ipponboardinfo ât gmail.com](mailto:ipponboardinfo@gmail.com)  
+- Issues and bug tracker: [Gitlab](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
+- E-Mail: [r_bernhard ât gmail.com](mailto:r_bernhard@gmx.de)  
 
 # Operation & Settings
 
