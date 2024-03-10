@@ -1,5 +1,5 @@
 % *Ipponboard* Wettkampfanzeige
-% **Version 2.0.0**
+% **Version 2.2.0**
 
 # Allgemeines zu *Ipponboard*
 
@@ -18,7 +18,7 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 
 **Ipponboard Quellcode**
 
-- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.md) im [Repository https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard) auf github.
+- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) im [Repository https://gitlab.com/r_bernhard/Ipponboard](https://gitlab.com/r_bernhard/Ipponboard) bei Gitlab.
 
 **Drittanbieterkomponenten (3rd party components)**
 
@@ -77,9 +77,8 @@ Ecke bestimmt noch nicht perfekt. *Bitte helft mit es zu verbessern!*
 
 Fragen oder Verbesserungsvorschläge können an die folgenden Stellen gerichtet werden:
 
-- Homepage: <https://ipponboard.koe-judo.de> 
-- Probleme und Bugtracker: [https://gitlab.com/r_bernhard/Ipponboard/-/issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
-- E-Mail: [r_bernhard ât gmx.de](mailto:r_bernhard@gmx.de)  
+- Probleme und Bugtracker: [Issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
+- [E-Mail](mailto:r_bernhard@gmx.de)  
 
 
 # Funktionsweise & Einstellungen
