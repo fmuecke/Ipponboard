@@ -49,7 +49,7 @@ FightCategoryManagerDlg::~FightCategoryManagerDlg()
 void FightCategoryManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-    TRACE(2, "FightCategoryManagerDlg::changeEvent()");
+    TRACE(2, "FightCategoryManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QDialog::changeEvent(e);
 
 	switch (e->type())

@@ -12,7 +12,7 @@
 
 bool VersionComparer::IsVersionLess(std::string const& version1, std::string const& version2)
 {
-    TRACE(2, "VersionComparer::IsVersionLess(version1=%s, version2=%2)", version1, version2);
+    TRACE(2, "VersionComparer::IsVersionLess(version1=%s, version2=%s)", version1.c_str(), version2.c_str());
     //return semver::Version(version1) < semver::Version(version2);
 
 	QStringList onlineVer = QString(version2.c_str()).split('.');

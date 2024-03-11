@@ -48,7 +48,7 @@ ScoreScreen::~ScoreScreen()
 void ScoreScreen::SetClubs(const QString& first, const QString& second)
 //---------------------------------------------------------
 {
-    TRACE(2, "ScoreScreen::SetClubs(first=%s, second=%2)", first.toUtf8().data(), second.toUtf8().data());
+    TRACE(2, "ScoreScreen::SetClubs(first=%s, second=%s)", first.toUtf8().data(), second.toUtf8().data());
     ui->club_first->SetText(first);
 	ui->club_second->SetText(second);
 }
@@ -58,7 +58,7 @@ void ScoreScreen::SetLogos(const QString& fileNameFirst,
 						   const QString& fileNameSecond)
 //---------------------------------------------------------
 {
-    TRACE(2, "ScoreScreen::SetLogos(fileNameFirst=%s, fileNameSecond=%2)", fileNameFirst.toUtf8().data(), fileNameSecond.toUtf8().data());
+    TRACE(2, "ScoreScreen::SetLogos(fileNameFirst=%s, fileNameSecond=%s)", fileNameFirst.toUtf8().data(), fileNameSecond.toUtf8().data());
     ui->logo_first->UpdateImage(fileNameFirst);
 	ui->logo_second->UpdateImage(fileNameSecond);
 }
@@ -98,7 +98,7 @@ void ScoreScreen::SetDigitFont(const QFont& font)
 void ScoreScreen::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-    TRACE(2, "ScoreScreen::changeEvent()");
+    TRACE(2, "ScoreScreen::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QWidget::changeEvent(e);
 
 	switch (e->type())

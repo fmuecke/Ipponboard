@@ -124,13 +124,13 @@ QString MainWindowBase::GetFighterFileName() const
 
 void MainWindowBase::UpdateView()
 {
-    TRACE(2, "MainWindowBase::UpdateView()");
+    TRACE(4, "MainWindowBase::UpdateView()");
     update_views();
 }
 
 void MainWindowBase::changeEvent(QEvent* e)
 {
-    TRACE(2, "MainWindowBase::changeEvent()");
+    TRACE(2, "MainWindowBase::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QMainWindow::changeEvent(e);
 
 	switch (e->type())
@@ -748,7 +748,7 @@ void MainWindowBase::save_fighters()
 
 void MainWindowBase::update_views()
 {
-    TRACE(2, "MainWindowBase::update_views()");
+    TRACE(4, "MainWindowBase::update_views()");
     m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
 }

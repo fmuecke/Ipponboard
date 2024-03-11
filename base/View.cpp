@@ -170,7 +170,7 @@ View::~View()
 void View::UpdateView()
 //=========================================================
 {
-    TRACE(2, "View::UpdateView()");
+    TRACE(4, "View::UpdateView()");
     Q_ASSERT(m_pController && "Controller not set!");
 
 	if (m_pController->GetRules()->GetMaxShidoCount() < 3)
@@ -484,7 +484,7 @@ void View::SetShowInfoHeader(bool show)
 void View::paintEvent(QPaintEvent* /*event*/)
 //=========================================================
 {
-    TRACE(2, "View::paintEvent()");
+    TRACE(6, "View::paintEvent()");
     Q_ASSERT(m_pController && "IBController not set!");
 }
 
@@ -717,7 +717,7 @@ void View::blink()
 void View::update_ippon(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    TRACE(2, "View::update_ippon()");
+    TRACE(4, "View::update_ippon()");
     auto digit_ippon = ui->text_ippon_first;
 	auto digit_wazaari = ui->text_wazaari_first;
 	auto digit_yuko = ui->text_yuko_first;
@@ -834,7 +834,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 void View::update_wazaari(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    TRACE(2, "View::update_wazaari()");
+    TRACE(4, "View::update_wazaari()");
     ScaledText* digit(ui->text_wazaari_first);
 
 	if (FighterEnum::Second == who)
@@ -849,7 +849,7 @@ void View::update_wazaari(Ipponboard::FighterEnum who) const
 void View::update_yuko(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    TRACE(2, "View::update_yuko()");
+    TRACE(4, "View::update_yuko()");
     ScaledText* digit(ui->text_yuko_first);
 
 	if (FighterEnum::Second == who)
@@ -863,7 +863,7 @@ void View::update_yuko(Ipponboard::FighterEnum who) const
 void View::update_shido(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    TRACE(2, "View::update_shido()");
+    TRACE(4, "View::update_shido()");
     ScaledImage* pImage1(0);
 	ScaledImage* pImage2(0);
 	ScaledImage* pImage3(0);
@@ -895,7 +895,7 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 void View::update_hansokumake(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-    TRACE(2, "View::update_hansokumake()");
+    TRACE(4, "View::update_hansokumake()");
     ScaledImage* pImage(ui->image_hansokumake_first);
 
 	if (FighterEnum::Second == who)
@@ -920,7 +920,7 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 void View::update_team_score() const
 //=========================================================
 {
-    TRACE(2, "View::update_team_score()");
+    TRACE(4, "View::update_team_score()");
     if (m_Edition == EditionType::Team)
 	{
 		if (is_secondary())
@@ -955,7 +955,7 @@ void View::update_team_score() const
 void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 //=========================================================
 {
-    TRACE(2, "View::update_hold_clock()");
+    TRACE(4, "View::update_hold_clock()");
     const QString value(m_pController->GetTimeText(eTimer_Hold));
     const FighterEnum first = GVF(FighterEnum::First);
     const FighterEnum second = GVF(FighterEnum::Second);
@@ -1067,7 +1067,7 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 Ipponboard::FighterEnum View::GVF(const Ipponboard::FighterEnum f) const
 //=========================================================
 {
-    TRACE(2, "View::GVF()");
+    TRACE(4, "View::GVF()");
     if (!is_secondary())
 	{
 		return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
@@ -1080,7 +1080,7 @@ Ipponboard::FighterEnum View::GVF(const Ipponboard::FighterEnum f) const
 bool View::is_secondary() const
 //=========================================================
 {
-    TRACE(2, "View::is_secondary()");
+    TRACE(4, "View::is_secondary()");
     return eTypeSecondary == m_Type;
 }
 
@@ -1088,7 +1088,7 @@ bool View::is_secondary() const
 const QColor& View::get_color(const ColorType t) const
 //=========================================================
 {
-    TRACE(2, "View::get_color()");
+    TRACE(6, "View::get_color()");
     const bool doSwap(eTypePrimary == m_Type);
 
 	switch (t)
@@ -1116,7 +1116,7 @@ const QColor& View::get_color(const ColorType t) const
 void View::update_colors()
 //=========================================================
 {
-    TRACE(2, "View::update_colors()");
+    TRACE(4, "View::update_colors()");
     ui->text_score_team_first_label->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_score_team_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->dummy_first->SetBgColor(get_color(firstBg));
@@ -1154,7 +1154,7 @@ void View::update_colors()
 void View::show_golden_score(bool show)
 //=========================================================
 {
-    TRACE(2, "View::show_golden_score()");
+    TRACE(4, "View::show_golden_score()");
     ScaledImage* pWidgetGS(ui->image_golden_score);
 
 	if (show)

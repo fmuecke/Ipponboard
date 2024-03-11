@@ -121,7 +121,7 @@ Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 // May throw exception!
 Ipponboard::FightCategoryList FightCategoryParser::ParseJsonString(std::string const& jsonString)
 {
-    TRACE(2, "FightCategoryParser::ParseJsonString(jsonString=%s)", jsonString);
+    TRACE(2, "FightCategoryParser::ParseJsonString(jsonString=%s)", jsonString.c_str());
     auto json = fm::Json::ReadString(jsonString);
 	return ParseJson(json);
 }

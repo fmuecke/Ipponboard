@@ -17,6 +17,9 @@
 
 #endif
 
+#include <QEvent>
+#include <QMetaEnum>
+
 ///////////////////////////////////////////////////////////////////////////////
 // Debugger
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,6 +57,21 @@ extern short g_nDebug;
         syslog(LOG_INFO, ##fmt);\
 }
 */
+
+class DebugHelpers
+{
+public:
+    // Gives human-readable event type information.
+    static QString QEventToString(const QEvent* event)
+    {
+        QString name;
+        static int eventEnumIndex = QEvent::staticMetaObject.indexOfEnumerator("Type");
+        if (event)
+            name = QEvent::staticMetaObject.enumerator(eventEnumIndex).valueToKey(event->type());
+        return name;
+    }
+};
+
 #ifdef _DEBUG
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)

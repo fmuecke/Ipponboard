@@ -292,7 +292,7 @@ void SettingsDlg::SetTextColorsSecond(const QColor& color, const QColor& backgro
 
 void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString const& guest)
 {
-    TRACE(2, "SettingsDlg::SetLabels(mat=%s, home=%2, guest=%s)", mat.toUtf8().data(), home.toUtf8().data(), guest.toUtf8().data());
+    TRACE(2, "SettingsDlg::SetLabels(mat=%s, home=%s, guest=%s)", mat.toUtf8().data(), home.toUtf8().data(), guest.toUtf8().data());
     const int index = ui->comboBox_mat->findText(mat);
 
 	if (-1 != index)
@@ -523,7 +523,7 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 void SettingsDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-    TRACE(2, "SettingsDlg::changeEvent()");
+    TRACE(2, "SettingsDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QDialog::changeEvent(e);
 
 	switch (e->type())

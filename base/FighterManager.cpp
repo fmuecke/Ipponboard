@@ -92,7 +92,7 @@ bool Ipponboard::FighterManager::IsFormatSatisfying(const QString& formatStr)
 // Format string must be at least "satisfying" to be processed
 bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString& sep)
 {
-    TRACE(2, "FighterManager::DetermineSeparator(str=%s, sep=%s)", str.toUtf8().data(), sep.toUtf8().data());
+    TRACE(2, "FighterManager::DetermineSeparator(str=%s)", str.toUtf8().data());
     if (!IsFormatSatisfying(str))
 	{
 		return false;

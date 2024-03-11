@@ -42,7 +42,7 @@ bool UpdateChecker::CheckForNewerVersion()
 
 	try
 	{
-        query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml")); // TODO
+        query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml")); // TODO: Wenn offline, dauert die Abfrage zu lange und die Anwendung startet nicht
 	}
 	catch (...)
 	{

@@ -22,6 +22,7 @@
 #include <boost/filesystem.hpp>
 #endif
 
+#include "debug.h"
 #include <string>
 
 namespace fm
@@ -137,6 +138,7 @@ const std::string GetSettingsFilePath(const char* fileName)
 #else
 const std::string GetSettingsFilePath(const char* fileName)
 {
+    TRACE(2, "GetSettingsFilePath(fileName=%s)", fileName);
     std::string filePath(fileName);
 
     // TODO

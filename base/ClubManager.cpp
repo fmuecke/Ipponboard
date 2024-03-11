@@ -58,7 +58,7 @@ bool ClubManager::GetClub(int index, Ipponboard::Club& club) const
 QString ClubManager::GetLogo(const QString& clubName) const
 //---------------------------------------------------------
 {
-    TRACE(2, "ClubManager::GetLogo(%s)", clubName.toUtf8().data());
+    TRACE(2, "ClubManager::GetLogo(clubName=%s)", clubName.toUtf8().data());
     for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
 		if (clubName == m_Clubs.at(i).name)
@@ -72,7 +72,7 @@ QString ClubManager::GetLogo(const QString& clubName) const
 QString ClubManager::GetAddress(const QString& clubName) const
 //---------------------------------------------------------
 {
-    TRACE(2, "ClubManager::GetAddress(%s)", clubName.toUtf8().data());
+    TRACE(2, "ClubManager::GetAddress(clubName=%s)", clubName.toUtf8().data());
     for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
 		if (clubName == m_Clubs.at(i).name)

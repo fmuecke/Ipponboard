@@ -88,7 +88,7 @@ void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QStri
 void FighterManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-    TRACE(2, "FighterManagerDlg::changeEvent()");
+    TRACE(2, "FighterManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QDialog::changeEvent(e);
 
 	switch (e->type())

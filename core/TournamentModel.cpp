@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "TournamentModel.h"
 #include "Enums.h"
 #include "../util/helpers.hpp"
@@ -24,7 +25,8 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	, m_pEditWins(0)
 	, m_pEditScore(0)
 {
-	m_HeaderData[eCol_weight] = tr("Weight");
+    TRACE(2, "TournamentModel::TournamentModel()");
+    m_HeaderData[eCol_weight] = tr("Weight");
 	m_HeaderData[eCol_name1] = tr("Firstname Lastname");
 	m_HeaderData[eCol_yuko1] = "Y";
 	m_HeaderData[eCol_wazaari1] = "W";
@@ -70,7 +72,9 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 //=========================================================
 TournamentModel::~TournamentModel()
 //=========================================================
-{}
+{
+    TRACE(2, "TournamentModel::~TournamentModel()");
+}
 
 //=========================================================
 //QModelIndex TournamentModel::index(int row,
@@ -98,21 +102,24 @@ TournamentModel::~TournamentModel()
 int TournamentModel::rowCount(const QModelIndex& parent) const
 //=========================================================
 {
-	return (parent.isValid() && parent.column() != 0) ? 0 : (int)m_nRows;
+    TRACE(2, "TournamentModel::rowCount()");
+    return (parent.isValid() && parent.column() != 0) ? 0 : (int)m_nRows;
 }
 
 //=========================================================
 int TournamentModel::columnCount(const QModelIndex& parent) const
 //=========================================================
 {
-	return parent.isValid() ? 0 : eCol_MAX;
+    TRACE(2, "TournamentModel::columnCount()");
+    return parent.isValid() ? 0 : eCol_MAX;
 }
 
 //=========================================================
 QVariant TournamentModel::data(const QModelIndex& index, int role) const
 //=========================================================
 {
-	Q_ASSERT(m_pTournamentRound);
+    TRACE(2, "TournamentModel::data()");
+    Q_ASSERT(m_pTournamentRound);
 
 	if (!index.isValid())
 		return QVariant();
@@ -263,7 +270,8 @@ QVariant TournamentModel::headerData(
 	int role) const
 //=========================================================
 {
-	if (role == Qt::DisplayRole)
+    TRACE(2, "TournamentModel::headerData()");
+    if (role == Qt::DisplayRole)
 	{
 		if (Qt::Vertical == orientation)
 			return QString::number(section + 1);
@@ -287,7 +295,8 @@ bool TournamentModel::setData(const QModelIndex& index,
 							  int role)
 //=========================================================
 {
-	if (!index.isValid() ||
+    TRACE(2, "TournamentModel::setData()");
+    if (!index.isValid() ||
 			(flags(index) & Qt::ItemIsEditable) == 0 ||
 			role != Qt::EditRole)
 	{
@@ -407,7 +416,8 @@ bool TournamentModel::setData(const QModelIndex& index,
 Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 //=========================================================
 {
-	if (!index.isValid())
+    TRACE(2, "TournamentModel::flags()");
+    if (!index.isValid())
 	{
         return Qt::ItemFlags();
 	}
@@ -428,7 +438,8 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 QSize TournamentModel::span(const QModelIndex& index) const
 //=========================================================
 {
-	if (index.column() == 2 && index.row() == 5)
+    TRACE(2, "TournamentModel::span()");
+    if (index.column() == 2 && index.row() == 5)
 	{
 		return QSize(1, 2);
 	}
@@ -440,7 +451,8 @@ QSize TournamentModel::span(const QModelIndex& index) const
 void TournamentModel::SetDataChanged()
 //=========================================================
 {
-	QModelIndex idxStart = this->index(0, 0);
+    TRACE(2, "TournamentModel::SetDataChanged()");
+    QModelIndex idxStart = this->index(0, 0);
 	QModelIndex idxEnd = this->index(eCol_MAX - 1, (int)m_nRows - 1);
 
 	emit dataChanged(idxStart, idxEnd);
@@ -450,7 +462,8 @@ void TournamentModel::SetDataChanged()
 std::pair<unsigned, unsigned> TournamentModel::GetTotalWins() const
 //=========================================================
 {
-	int wins1(0);
+    TRACE(2, "TournamentModel::GetTotalWins()");
+    int wins1(0);
 	int wins2(0);
 
 	for (int i(0); i < (int)m_nRows; ++i)
@@ -466,7 +479,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalWins() const
 std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 //=========================================================
 {
-	int score1(0);
+    TRACE(2, "TournamentModel::GetTotalScore()");
+    int score1(0);
 	int score2(0);
 
 	for (int i(0); i < (int)m_nRows; ++i)
@@ -480,7 +494,8 @@ std::pair<unsigned, unsigned> TournamentModel::GetTotalScore() const
 
 QString TournamentModel::display_string(bool isFightSaved, int number)
 {
-	if (isFightSaved || number != 0)
+    TRACE(2, "TournamentModel::display_string()");
+    if (isFightSaved || number != 0)
 	{
 		return QString::number(number);
 	}

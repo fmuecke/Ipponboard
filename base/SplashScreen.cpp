@@ -66,7 +66,7 @@ void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 
 void SplashScreen::changeEvent(QEvent* e)
 {
-    TRACE(2, "SplashScreen::changeEvent()");
+    TRACE(4, "SplashScreen::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QWidget::changeEvent(e);
 
 	switch (e->type())

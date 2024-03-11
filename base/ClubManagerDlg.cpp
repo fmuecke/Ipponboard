@@ -59,7 +59,7 @@ ClubManagerDlg::~ClubManagerDlg()
 void ClubManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-    TRACE(2, "ClubManagerDlg::changeEvent()");
+    TRACE(2, "ClubManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
     QDialog::changeEvent(e);
 
 	switch (e->type())

@@ -206,7 +206,7 @@ void FightCategoryMgr::save_categories()
 bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 //---------------------------------------------------------
 {
-    TRACE(2, "FightCategoryMgr::CategoriesFromString(s=%s)", s);
+    TRACE(2, "FightCategoryMgr::CategoriesFromString(s=%s)", s.c_str());
     try
 	{
 		auto cats = FightCategoryParser::ParseJsonString(s);
