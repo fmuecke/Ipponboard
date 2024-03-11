@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
@@ -52,16 +53,19 @@ MainWindow::MainWindow(QWidget* parent)
 	, m_pUi(new Ui::MainWindow)
 	, m_pCategoryManager()
 {
-	m_pUi->setupUi(this);
+    TRACE(2, "MainWindow::MainWindow()");
+    m_pUi->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
+    TRACE(2, "MainWindow::~MainWindow()");
 }
 
 void MainWindow::Init()
 {
-	m_pCategoryManager.reset(new FightCategoryMgr());
+    TRACE(2, "MainWindow::Init()");
+    m_pCategoryManager.reset(new FightCategoryMgr());
 
 	MainWindowBase::Init();
 
@@ -81,7 +85,8 @@ void MainWindow::Init()
 
 void MainWindow::on_actionManageClasses_triggered()
 {
-	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
+    TRACE(2, "MainWindow::on_actionManageClasses_triggered()");
+    FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 
 	if (QDialog::Accepted == dlg.exec())
 	{
@@ -112,7 +117,8 @@ void MainWindow::on_actionManageClasses_triggered()
 
 void MainWindow::on_actionManageFighters_triggered()
 {
-	MainWindowBase::on_actionManageFighters_triggered();
+    TRACE(2, "MainWindow::on_actionManageFighters_triggered()");
+    MainWindowBase::on_actionManageFighters_triggered();
 
 	FighterManagerDlg dlg(m_fighterManager, this);
 	dlg.exec();
@@ -120,7 +126,8 @@ void MainWindow::on_actionManageFighters_triggered()
 
 void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 {
-	update_fighter_name_completer(s);
+    TRACE(2, "MainWindow::on_comboBox_weight_currentIndexChanged(s=%s)", s.toUtf8().data());
+    update_fighter_name_completer(s);
 
 	m_pPrimaryView->SetWeight(s);
 	m_pSecondaryView->SetWeight(s);
@@ -130,21 +137,24 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 
 void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
 {
-	update_fighters(s);
+    TRACE(2, "MainWindow::on_comboBox_name_first_currentIndexChanged(s=%s)", s.toUtf8().data());
+    update_fighters(s);
 
 	m_pController->SetFighterName(FighterEnum::First, s);
 }
 
 void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
 {
-	update_fighters(s);
+    TRACE(2, "MainWindow::on_comboBox_name_second_currentIndexChanged(s=%s)", s.toUtf8().data());
+    update_fighters(s);
 
 	m_pController->SetFighterName(FighterEnum::Second, s);
 }
 
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 {
-	const QString name = m_pUi->comboBox_weight_class->currentText();
+    TRACE(2, "MainWindow::on_comboBox_name_second_currentIndexChanged(checked=%d)", checked);
+    const QString name = m_pUi->comboBox_weight_class->currentText();
 	FightCategory t(name);
 	m_pCategoryManager->GetCategory(name, t);
 
@@ -171,7 +181,8 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 {
-	FightCategory category(s);
+    TRACE(2, "MainWindow::on_comboBox_weight_class_currentIndexChanged(s=%s)", s.toUtf8().data());
+    FightCategory category(s);
 	m_pCategoryManager->GetCategory(s, category);
 
 	// add weights
@@ -192,7 +203,8 @@ void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
 
 void MainWindow::update_fighter_name_completer(const QString& weight)
 {
-	// filter fighters for suitable
+    TRACE(2, "MainWindow::update_fighter_name_completer(weight=%s)", weight.toUtf8().data());
+    // filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
 	for (const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
@@ -216,7 +228,8 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
 void MainWindow::update_fighters(const QString& s)
 {
-	if (s.isEmpty())
+    TRACE(2, "MainWindow::update_fighters(s=%s)", s.toUtf8().data());
+    if (s.isEmpty())
 		return;
 
 	QString firstName = s;
@@ -244,7 +257,8 @@ void MainWindow::update_fighters(const QString& s)
 
 void MainWindow::update_statebar()
 {
-	MainWindowBase::update_statebar();
+    TRACE(2, "MainWindow::update_statebar()");
+    MainWindowBase::update_statebar();
 
 //    if (Gamepad::eState_ok != m_pGamepad->GetState())
 //    {
@@ -273,7 +287,8 @@ void MainWindow::update_statebar()
 
 void MainWindow::attach_primary_view()
 {
-	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
+    TRACE(2, "MainWindow::attach_primary_view()");
+    QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
 
 	if (widget)
 	{
@@ -283,12 +298,14 @@ void MainWindow::attach_primary_view()
 
 void MainWindow::retranslate_Ui()
 {
-	m_pUi->retranslateUi(this);
+    TRACE(2, "MainWindow::retranslate_Ui()");
+    m_pUi->retranslateUi(this);
 }
 
 void MainWindow::ui_check_language_items()
 {
-	m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
+    TRACE(2, "MainWindow::ui_check_language_items()");
+    m_pUi->actionLang_Deutsch->setChecked("de" == m_Language);
 	m_pUi->actionLang_English->setChecked("en" == m_Language);
 	m_pUi->actionLang_Dutch->setChecked("nl" == m_Language);
 
@@ -297,7 +314,8 @@ void MainWindow::ui_check_language_items()
 
 void MainWindow::ui_check_rules_items()
 {
-	auto rules = m_pController->GetRules();
+    TRACE(2, "MainWindow::ui_check_rules_items()");
+    auto rules = m_pController->GetRules();
 	m_pUi->actionRulesClassic->setChecked(rules->IsOfType<ClassicRules>());
 	m_pUi->actionRules2013->setChecked(rules->IsOfType<Rules2013>());
 	m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
@@ -331,20 +349,23 @@ void MainWindow::ui_check_rules_items()
 
 void MainWindow::ui_check_show_secondary_view(bool checked) const
 {
-	m_pUi->actionShow_SecondaryView->setChecked(checked);
+    TRACE(2, "MainWindow::ui_check_show_secondary_view(checked=%d)", checked);
+    m_pUi->actionShow_SecondaryView->setChecked(checked);
 	m_pUi->toolButton_viewSecondaryScreen->setChecked(checked);
 }
 
 void MainWindow::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-	MainWindowBase::on_actionAutoAdjustPoints_toggled(checked);
+    TRACE(2, "MainWindow::on_actionAutoAdjustPoints_toggled(checked=%d)", checked);
+    MainWindowBase::on_actionAutoAdjustPoints_toggled(checked);
 
 	ui_update_used_options();
 }
 
 void MainWindow::ui_update_used_options()
 {
-	QString text;
+    TRACE(2, "MainWindow::ui_update_used_options()");
+    QString text;
 
 	if (m_pController->IsAutoAdjustPoints())
 	{
@@ -361,7 +382,8 @@ void MainWindow::ui_update_used_options()
 
 void MainWindow::on_actionViewInfoBar_toggled(bool checked)
 {
-	for (int i = 0; i < m_pUi->horizontalLayout_infoBar->count(); ++i)
+    TRACE(2, "MainWindow::on_actionViewInfoBar_toggled(checked=%d)", checked);
+    for (int i = 0; i < m_pUi->horizontalLayout_infoBar->count(); ++i)
 	{
 		auto item = m_pUi->horizontalLayout_infoBar->itemAt(i)->widget();
 
@@ -390,12 +412,14 @@ void MainWindow::on_actionViewInfoBar_toggled(bool checked)
 
 void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
 {
-	on_actionShow_SecondaryView_triggered();
+    TRACE(2, "MainWindow::on_toolButton_viewSecondaryScreen_toggled()");
+    on_actionShow_SecondaryView_triggered();
 }
 
 void MainWindow::write_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionNameShort());
+    TRACE(2, "MainWindow::write_specific_settings()");
+    settings.beginGroup(EditionNameShort());
 	{
 		settings.remove("");
 		settings.setValue(str_tag_MatLabel, m_MatLabel);
@@ -406,7 +430,8 @@ void MainWindow::write_specific_settings(QSettings& settings)
 
 void MainWindow::read_specific_settings(QSettings& settings)
 {
-	settings.beginGroup(EditionNameShort());
+    TRACE(2, "MainWindow::read_specific_settings()");
+    settings.beginGroup(EditionNameShort());
 	{
         m_MatLabel = settings.value(str_tag_MatLabel, "ESC Siershahn").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
@@ -421,6 +446,7 @@ void MainWindow::read_specific_settings(QSettings& settings)
 
 void MainWindow::UpdateGoldenScoreView()
 {
-	m_pUi->checkBox_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
+    TRACE(2, "MainWindow::UpdateGoldenScoreView()");
+    m_pUi->checkBox_golden_score->setEnabled(m_pController->GetRules()->IsOption_OpenEndGoldenScore());
 	m_pUi->checkBox_golden_score->setChecked(m_pController->IsGoldenScore());
 }

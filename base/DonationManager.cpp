@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "DonationManager.h"
 
 #include <random>
@@ -10,15 +11,17 @@
 #include <QApplication>
 #include "../util/array_helpers.h"
 
-char const* const DonationManager::DonationUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
+char const* const DonationManager::DonationUrl = ""; // "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ"; TODO
 
 DonationManager::DonationManager()
 {
+    TRACE(2, "DonationManager::DonationManager()");
 }
 
 QString DonationManager::GetDonationLabel()
 {
-	static const char* const DonationLabels[] =
+    TRACE(2, "DonationManager::GetDonationLabel()");
+    static const char* const DonationLabels[] =
 	{
 		QT_TRANSLATE_NOOP("DonationLabel", "Contribute"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks! Please don't stop!"),
@@ -48,5 +51,6 @@ QString DonationManager::GetDonationLabel()
 
 void DonationManager::OpenUrl()
 {
-	QDesktopServices::openUrl(QUrl(DonationUrl));
+    TRACE(2, "DonationManager::OpenUrl()");
+    QDesktopServices::openUrl(QUrl(DonationUrl));
 }

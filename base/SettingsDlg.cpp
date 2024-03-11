@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "SettingsDlg.h"
 #include "ui_SettingsDlg.h"
 #ifdef _WITH_GAMEPAD_
@@ -38,7 +39,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	m_edition(edition),
 	ui(new Ui::SettingsDlg)
 {
-	ui->setupUi(this);
+    TRACE(2, "SettingsDlg::SettingsDlg()");
+    ui->setupUi(this);
 #ifdef _WITH_GAMEPAD_
 	ui->tab_gamepad->setEnabled(true);
 #endif
@@ -222,12 +224,14 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 
 SettingsDlg::~SettingsDlg()
 {
-	delete ui;
+    TRACE(2, "SettingsDlg::~SettingsDlg()");
+    delete ui;
 }
 
 
 void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions, const QPoint& position)
 {
+    TRACE(2, "SettingsDlg::SetScreensSettings()");
     Q_ASSERT(screen < ui->comboBox_screen->count());
 	ui->comboBox_screen->setCurrentIndex(screen);
 
@@ -257,7 +261,8 @@ void SettingsDlg::SetInfoHeaderSettings(const QFont& font,
 										const QColor& color,
 										const QColor& background)
 {
-	ui->fontComboBox_infoHeader->setCurrentFont(font);
+    TRACE(2, "SettingsDlg::SetInfoHeaderSettings()");
+    ui->fontComboBox_infoHeader->setCurrentFont(font);
 	ui->text_text_sample->SetFontAndColor(font, color, background);
 	ui->checkBox_text_bold->setChecked(font.bold());
 	ui->checkBox_text_italic->setChecked(font.italic());
@@ -265,7 +270,8 @@ void SettingsDlg::SetInfoHeaderSettings(const QFont& font,
 
 void SettingsDlg::SetFighterNameFont(const QFont& font)
 {
-	ui->fontComboBox_fighters->setCurrentFont(font);
+    TRACE(2, "SettingsDlg::SetFighterNameFont()");
+    ui->fontComboBox_fighters->setCurrentFont(font);
 	ui->checkBox_fighters_bold->setChecked(font.bold());
 	ui->checkBox_fighters_italic->setChecked(font.italic());
 	ui->text_color_first->SetFont(font);
@@ -274,17 +280,20 @@ void SettingsDlg::SetFighterNameFont(const QFont& font)
 
 void SettingsDlg::SetTextColorsFirst(const QColor& color, const QColor& background)
 {
-	ui->text_color_first->SetColor(color, background);
+    TRACE(2, "SettingsDlg::SetTextColorsFirst()");
+    ui->text_color_first->SetColor(color, background);
 }
 
 void SettingsDlg::SetTextColorsSecond(const QColor& color, const QColor& background)
 {
-	ui->text_color_second->SetColor(color, background);
+    TRACE(2, "SettingsDlg::SetTextColorsSecond()");
+    ui->text_color_second->SetColor(color, background);
 }
 
 void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString const& guest)
 {
-	const int index = ui->comboBox_mat->findText(mat);
+    TRACE(2, "SettingsDlg::SetLabels(mat=%s, home=%2, guest=%s)", mat.toUtf8().data(), home.toUtf8().data(), guest.toUtf8().data());
+    const int index = ui->comboBox_mat->findText(mat);
 
 	if (-1 != index)
 	{
@@ -303,7 +312,8 @@ void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString con
 
 void SettingsDlg::SetGongFile(const QString& path)
 {
-	int pos = path.lastIndexOf('/', -1);
+    TRACE(2, "SettingsDlg::SetGongFile(path=%s)", path.toUtf8().data());
+    int pos = path.lastIndexOf('/', -1);
 	QString filename;
 
 	if (-1 != pos)
@@ -319,12 +329,14 @@ void SettingsDlg::SetGongFile(const QString& path)
 
 int SettingsDlg::GetSelectedScreen() const
 {
-	return ui->comboBox_screen->currentIndex();
+    TRACE(2, "SettingsDlg::GetSelectedScreen()");
+    return ui->comboBox_screen->currentIndex();
 }
 
 QSize SettingsDlg::GetSecondScreenSize() const
 {
-	QSize s;
+    TRACE(2, "SettingsDlg::GetSecondScreenSize()");
+    QSize s;
     s.setWidth(ui->lineEdit_screen_width->text().toInt());
     s.setHeight(ui->lineEdit_screen_height->text().toInt());
 	return s;
@@ -332,6 +344,7 @@ QSize SettingsDlg::GetSecondScreenSize() const
 
 QPoint SettingsDlg::GetSecondScreenPos() const
 {
+    TRACE(2, "SettingsDlg::GetSecondScreenPos()");
     QPoint p;
     p.setX(ui->lineEdit_screen_posX->text().toInt());
     p.setY(ui->lineEdit_screen_posY->text().toInt());
@@ -340,7 +353,8 @@ QPoint SettingsDlg::GetSecondScreenPos() const
 
 QFont SettingsDlg::GetInfoHeaderFont() const
 {
-	QFont f = ui->fontComboBox_infoHeader->currentFont();
+    TRACE(2, "SettingsDlg::GetInfoHeaderFont()");
+    QFont f = ui->fontComboBox_infoHeader->currentFont();
 	f.setBold(ui->checkBox_text_bold->isChecked());
 	f.setItalic(ui->checkBox_text_italic->isChecked());
 	return f;
@@ -348,7 +362,8 @@ QFont SettingsDlg::GetInfoHeaderFont() const
 
 QFont SettingsDlg::GetFighterNameFont() const
 {
-	QFont f = ui->fontComboBox_fighters->currentFont();
+    TRACE(2, "SettingsDlg::GetFighterNameFont()");
+    QFont f = ui->fontComboBox_fighters->currentFont();
 	f.setBold(ui->checkBox_fighters_bold->isChecked());
 	f.setItalic(ui->checkBox_fighters_italic->isChecked());
 	return f;
@@ -356,67 +371,80 @@ QFont SettingsDlg::GetFighterNameFont() const
 
 QColor SettingsDlg::GetInfoTextColor() const
 {
-	return ui->text_text_sample->GetColor();
+    TRACE(2, "SettingsDlg::GetInfoTextColor()");
+    return ui->text_text_sample->GetColor();
 }
 
 QColor SettingsDlg::GetTextColorFirst() const
 {
-	return ui->text_color_first->GetColor();
+    TRACE(2, "SettingsDlg::GetTextColorFirst()");
+    return ui->text_color_first->GetColor();
 }
 
 QColor SettingsDlg::GetTextColorSecond() const
 {
-	return ui->text_color_second->GetColor();
+    TRACE(2, "SettingsDlg::GetTextColorSecond()");
+    return ui->text_color_second->GetColor();
 }
 
 QColor SettingsDlg::GetInfoTextBgColor() const
 {
-	return ui->text_text_sample->GetBgColor();
+    TRACE(2, "SettingsDlg::GetInfoTextBgColor()");
+    return ui->text_text_sample->GetBgColor();
 }
 QColor SettingsDlg::GetTextBgColorFirst() const
 {
-	return ui->text_color_first->GetBgColor();
+    TRACE(2, "SettingsDlg::GetTextBgColorFirst()");
+    return ui->text_color_first->GetBgColor();
 }
 QColor SettingsDlg::GetTextBgColorSecond() const
 {
-	return ui->text_color_second->GetBgColor();
+    TRACE(2, "SettingsDlg::GetTextBgColorSecond()");
+    return ui->text_color_second->GetBgColor();
 }
 
 QString SettingsDlg::GetMatLabel() const
 {
-	return ui->comboBox_mat->currentText();
+    TRACE(2, "SettingsDlg::GetMatLabel()");
+    return ui->comboBox_mat->currentText();
 }
 
 QString SettingsDlg::GetHomeLabel() const
 {
-	return ui->lineEdit_labelHome->text();
+    TRACE(2, "SettingsDlg::GetHomeLabel()");
+    return ui->lineEdit_labelHome->text();
 }
 
 QString SettingsDlg::GetGuestLabel() const
 {
-	return ui->lineEdit_labelGuest->text();
+    TRACE(2, "SettingsDlg::GetGuestLabel()");
+    return ui->lineEdit_labelGuest->text();
 }
 
 QString SettingsDlg::GetGongFile() const
 {
-	QString path = QDir::currentPath() + "/sounds/";
+    TRACE(2, "SettingsDlg::GetGongFile()");
+    QString path = QDir::currentPath() + "/sounds/";
 	return path + ui->comboBox_sound_time_ends->currentText();
 }
 
 void SettingsDlg::on_buttonBox_accepted()
 {
-	accept();
+    TRACE(2, "SettingsDlg::on_buttonBox_accepted()");
+    accept();
 }
 
 void SettingsDlg::on_buttonBox_rejected()
 {
-	reject();
+    TRACE(2, "SettingsDlg::on_buttonBox_rejected()");
+    reject();
 }
 
 #ifdef _WITH_GAMEPAD_
 void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 {
-	Q_ASSERT(pConfig);
+    TRACE(2, "SettingsDlg::SetControllerConfig()");
+    Q_ASSERT(pConfig);
 
 	if (pConfig)
 	{
@@ -442,7 +470,8 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 
 void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 {
-	Q_ASSERT(pConfig);
+    TRACE(2, "SettingsDlg::GetControllerConfig()");
+    Q_ASSERT(pConfig);
 
 	if (pConfig)
 	{
@@ -494,7 +523,8 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 void SettingsDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-	QDialog::changeEvent(e);
+    TRACE(2, "SettingsDlg::changeEvent()");
+    QDialog::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -509,7 +539,8 @@ void SettingsDlg::changeEvent(QEvent* e)
 
 void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
-	QString path = QDir::currentPath() + "/sounds/" +
+    TRACE(2, "SettingsDlg::on_toolButton_play_gong_pressed()");
+    QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
 #ifdef _WIN32
     if(QSound::isAvailable())
@@ -526,18 +557,18 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 #endif
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(
-	QFont f)
+void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(QFont f)
 {
-	f.setBold(ui->checkBox_text_bold->isChecked());
+    TRACE(2, "SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged()");
+    f.setBold(ui->checkBox_text_bold->isChecked());
 	f.setItalic(ui->checkBox_text_italic->isChecked());
 	ui->text_text_sample->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(
-	QFont f)
+void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(QFont f)
 {
-	f.setBold(ui->checkBox_fighters_bold->isChecked());
+    TRACE(2, "SettingsDlg::on_fontComboBox_fighters_currentFontChanged()");
+    f.setBold(ui->checkBox_fighters_bold->isChecked());
 	f.setItalic(ui->checkBox_fighters_italic->isChecked());
 	ui->text_color_first->SetFont(f);
 	ui->text_color_second->SetFont(f);
@@ -545,7 +576,8 @@ void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_pressed()
 {
-	QColor col(ui->text_text_sample->GetColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_color_pressed()");
+    QColor col(ui->text_text_sample->GetColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -554,7 +586,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_pressed()
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_pressed()
 {
-	QColor col(ui->text_text_sample->GetBgColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_background_pressed()");
+    QColor col(ui->text_text_sample->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -563,7 +596,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_pressed()
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_first_pressed()
 {
-	QColor col(ui->text_color_first->GetColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_color_first_pressed()");
+    QColor col(ui->text_color_first->GetColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -572,7 +606,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_first_pressed()
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_first_pressed()
 {
-	QColor col(ui->text_color_first->GetBgColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_background_first_pressed()");
+    QColor col(ui->text_color_first->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -581,7 +616,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_first_pressed()
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_second_pressed()
 {
-	QColor col(ui->text_color_second->GetColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_color_second_pressed()");
+    QColor col(ui->text_color_second->GetColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -590,7 +626,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_second_pressed()
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
 {
-	QColor col(ui->text_color_second->GetBgColor());
+    TRACE(2, "SettingsDlg::on_toolButton_text_background_second_pressed()");
+    QColor col(ui->text_color_second->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
 	if (col.isValid())
@@ -599,7 +636,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
 
 void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
 {
-	QFont f = ui->text_text_sample->font();
+    TRACE(2, "SettingsDlg::on_checkBox_text_bold_toggled(checked=%d)", checked);
+    QFont f = ui->text_text_sample->font();
 	f.setBold(checked);
 	ui->text_text_sample->SetFont(f);
 
@@ -607,14 +645,16 @@ void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
 
 void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
 {
-	QFont f = ui->text_text_sample->font();
+    TRACE(2, "SettingsDlg::on_checkBox_text_italic_toggled(checked=%d)", checked);
+    QFont f = ui->text_text_sample->font();
 	f.setItalic(checked);
 	ui->text_text_sample->SetFont(f);
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
 {
-	QFont f = ui->text_color_first->font();
+    TRACE(2, "SettingsDlg::on_checkBox_fighters_bold_toggled(checked=%d)", checked);
+    QFont f = ui->text_color_first->font();
 	f.setBold(checked);
 	ui->text_color_first->SetFont(f);
 	ui->text_color_second->SetFont(f);
@@ -622,7 +662,8 @@ void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
 
 void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
 {
-	QFont f = ui->text_color_first->font();
+    TRACE(2, "SettingsDlg::on_checkBox_fighters_italic_toggled(checked=%d)", checked);
+    QFont f = ui->text_color_first->font();
 	f.setItalic(checked);
 	ui->text_color_first->SetFont(f);
 	ui->text_color_second->SetFont(f);
@@ -630,14 +671,16 @@ void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
 
 void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)
 {
-	ui->text_text_sample->SetText(text);
+    TRACE(2, "SettingsDlg::on_comboBox_mat_editTextChanged(text=%s)", text.toUtf8().data());
+    ui->text_text_sample->SetText(text);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int SettingsDlg::get_button_from_text(const QString& text) const
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-	ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
+    TRACE(2, "SettingsDlg::get_button_from_text(text=%s)", text.toUtf8().data());
+    ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
 
 	while (iter != m_buttonTexts.end())
 	{
@@ -655,12 +698,14 @@ int SettingsDlg::get_button_from_text(const QString& text) const
 void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-	int index = pCombo->findText(m_buttonTexts[buttonId]);
+    TRACE(2, "SettingsDlg::set_button_value()");
+    int index = pCombo->findText(m_buttonTexts[buttonId]);
 	pCombo->setCurrentIndex(index);
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(bool checked)
 {
+    TRACE(2, "SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(checked=%d)", checked);
     ui->lineEdit_screen_width->setEnabled(checked);
     ui->lineEdit_screen_height->setEnabled(checked);
     ui->lineEdit_screen_posX->setEnabled(checked);

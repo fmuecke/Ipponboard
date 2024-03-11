@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "UpdateChecker.h"
 #include "versioninfo.h"
 #include "VersionComparer.h"
@@ -16,11 +17,13 @@
 
 UpdateChecker::UpdateChecker()
 {
+    TRACE(2, "UpdateChecker::UpdateChecker()");
 }
 
 QString GetXmlValue(QXmlQuery query, QString xPath)
 {
-	QString value;
+    TRACE(2, "GetXmlValue()");
+    QString value;
 	query.setQuery(xPath);
 
 	if (query.isValid())
@@ -34,11 +37,12 @@ QString GetXmlValue(QXmlQuery query, QString xPath)
 
 bool UpdateChecker::CheckForNewerVersion()
 {
-	QXmlQuery query;
+    TRACE(2, "UpdateChecker::CheckForNewerVersion()");
+    QXmlQuery query;
 
 	try
 	{
-		query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml"));
+        query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml")); // TODO
 	}
 	catch (...)
 	{

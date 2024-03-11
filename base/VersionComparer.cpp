@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "VersionComparer.h"
 //#include "../util/semver/semantic_version.h"
 //#include "../util/semver/semantic_version_v2.cpp"
@@ -11,8 +12,8 @@
 
 bool VersionComparer::IsVersionLess(std::string const& version1, std::string const& version2)
 {
-	//return semver::Version(version1) < semver::Version(version2);
-
+    TRACE(2, "VersionComparer::IsVersionLess(version1=%s, version2=%2)", version1, version2);
+    //return semver::Version(version1) < semver::Version(version2);
 
 	QStringList onlineVer = QString(version2.c_str()).split('.');
 	QStringList buildVer = QString(version1.c_str()).split('.');

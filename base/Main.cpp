@@ -22,7 +22,7 @@
 
 void LangNotFound(const QString& fileName)
 {
-    TRACE(2, "LangNotFound(%s)", fileName.toUtf8().data());
+    TRACE(2, "LangNotFound(fileName=%s)", fileName.toUtf8().data());
 
     QMessageBox::critical(nullptr,
 						  QCoreApplication::applicationName(),
@@ -32,7 +32,7 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
-    TRACE(2, "SetTranslation(%s)", langStr.toUtf8().data());
+    TRACE(2, "SetTranslation(langStr=%s)", langStr.toUtf8().data());
 
 #ifdef _WIN32
     UNREFERENCED_PARAMETER(app);

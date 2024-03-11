@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "DonationManager.h"
 #include "SplashScreen.h"
 #include "ui_SplashScreen.h"
@@ -14,7 +15,8 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::SplashScreen)
 {
-	ui->setupUi(this);
+    TRACE(2, "SplashScreen::SplashScreen()");
+    ui->setupUi(this);
 
 //	const int days_left = data.date.daysTo(QDate::currentDate());
 //	ui->label_valid->setText(
@@ -51,18 +53,21 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 
 SplashScreen::~SplashScreen()
 {
-	delete ui;
+    TRACE(2, "SplashScreen::~SplashScreen()");
+    delete ui;
 }
 
 void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 {
-	//"image: url(:/res/images/logo.png);"
+    TRACE(2, "SplashScreen::SetImageStyleSheet()");
+    //"image: url(:/res/images/logo.png);"
 	//ui->widget_image->setStyleSheet(text);
 }
 
 void SplashScreen::changeEvent(QEvent* e)
 {
-	QWidget::changeEvent(e);
+    TRACE(2, "SplashScreen::changeEvent()");
+    QWidget::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -77,20 +82,24 @@ void SplashScreen::changeEvent(QEvent* e)
 
 void SplashScreen::on_commandLinkButton_startSingleVersion_pressed()
 {
-	accept();
+    TRACE(2, "SplashScreen::on_commandLinkButton_startSingleVersion_pressed()");
+    accept();
 }
 
 void SplashScreen::on_commandLinkButton_startTeamVersion_pressed()
 {
-	done(QDialog::Accepted + 1);
+    TRACE(2, "SplashScreen::on_commandLinkButton_startTeamVersion_pressed()");
+    done(QDialog::Accepted + 1);
 }
 
 void SplashScreen::on_commandLinkButton_donate_pressed()
 {
-	DonationManager::OpenUrl();
+    TRACE(2, "SplashScreen::on_commandLinkButton_donate_pressed()");
+    DonationManager::OpenUrl();
 }
 
 //void SplashScreen::on_commandLinkButton_cancel_pressed()
 //{
+//  TRACE(2, "SplashScreen::on_commandLinkButton_cancel_pressed()");
 //	reject();
 //}

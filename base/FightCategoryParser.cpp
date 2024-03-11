@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FightCategoryParser.h"
 #include "../util/qt_helpers.hpp"
 #include "../util/json.hpp"
@@ -17,12 +18,14 @@ static const char* const GoldenScoreTime = "GoldenScoreTimeInSecs";
 
 FightCategoryParser::FightCategoryParser()
 {
+    TRACE(2, "FightCategoryParser::FightCategoryParser()");
 
 }
 
 void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryList const& categories)
 {
-	QSettings settings(file, QSettings::IniFormat);
+    TRACE(2, "FightCategoryParser::ToIniFile(file=%s)", file);
+    QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
 	settings.clear();
 
@@ -40,7 +43,8 @@ void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryL
 
 Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(const char* file)
 {
-	QSettings settings(file, QSettings::IniFormat);
+    TRACE(2, "FightCategoryParser::ParseIniFile(file=%s)", file);
+    QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
 
 	Ipponboard::FightCategoryList categories;
@@ -79,7 +83,8 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(const char* file
 
 std::string FightCategoryParser::ToJsonString(Ipponboard::FightCategoryList const& categories)
 {
-	fm::Json::Value jsonCategories;
+    TRACE(2, "FightCategoryParser::ToJsonString()");
+    fm::Json::Value jsonCategories;
 
 	for (Ipponboard::FightCategory const & cat : categories)
 	{
@@ -97,7 +102,8 @@ std::string FightCategoryParser::ToJsonString(Ipponboard::FightCategoryList cons
 
 Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 {
-	Ipponboard::FightCategoryList categories;
+    TRACE(2, "FightCategoryParser::ParseJson()");
+    Ipponboard::FightCategoryList categories;
 
 	for (fm::Json::Value const & jsonCat : json)
 	{
@@ -115,14 +121,16 @@ Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 // May throw exception!
 Ipponboard::FightCategoryList FightCategoryParser::ParseJsonString(std::string const& jsonString)
 {
-	auto json = fm::Json::ReadString(jsonString);
+    TRACE(2, "FightCategoryParser::ParseJsonString(jsonString=%s)", jsonString);
+    auto json = fm::Json::ReadString(jsonString);
 	return ParseJson(json);
 }
 
 // May throw exception!
 Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const char* file)
 {
-	auto json = fm::Json::ReadFile(file);
+    TRACE(2, "FightCategoryParser::ParseJsonFile(file=%s)", file);
+    auto json = fm::Json::ReadFile(file);
 	return ParseJson(json);
 }
 

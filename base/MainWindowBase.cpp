@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "MainWindowBase.h"
 
 #include "View.h"
@@ -55,14 +56,17 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_pGamepad(new Gamepad)
 #endif
 {
+    TRACE(2, "MainWindowBase::MainWindowBase()");
 }
 
 MainWindowBase::~MainWindowBase()
 {
+    TRACE(2, "MainWindowBase::~MainWindowBase()");
 }
 
 void MainWindowBase::Init()
 {
+    TRACE(2, "MainWindowBase::Init()");
     setWindowTitle(
 		QCoreApplication::applicationName() + " v" +
 		QCoreApplication::applicationVersion());
@@ -108,22 +112,26 @@ void MainWindowBase::Init()
 
 QString MainWindowBase::GetConfigFileName() const
 {
-	return "Ipponboard.ini";
+    TRACE(2, "MainWindowBase::GetConfigFileName()");
+    return "Ipponboard.ini";
 }
 
 QString MainWindowBase::GetFighterFileName() const
 {
-	return QString("Fighters%1.csv").arg(EditionNameShort());
+    TRACE(2, "MainWindowBase::GetFighterFileName()");
+    return QString("Fighters%1.csv").arg(EditionNameShort());
 }
 
 void MainWindowBase::UpdateView()
 {
-	update_views();
+    TRACE(2, "MainWindowBase::UpdateView()");
+    update_views();
 }
 
 void MainWindowBase::changeEvent(QEvent* e)
 {
-	QMainWindow::changeEvent(e);
+    TRACE(2, "MainWindowBase::changeEvent()");
+    QMainWindow::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -138,7 +146,8 @@ void MainWindowBase::changeEvent(QEvent* e)
 
 void MainWindowBase::closeEvent(QCloseEvent* event)
 {
-	write_settings();
+    TRACE(2, "MainWindowBase::closeEvent()");
+    write_settings();
 	save_fighters();
 
 	if (m_pSecondaryView)
@@ -151,7 +160,8 @@ void MainWindowBase::closeEvent(QCloseEvent* event)
 
 void MainWindowBase::keyPressEvent(QKeyEvent* event)
 {
-	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
+    TRACE(2, "MainWindowBase::keyPressEvent()");
+    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 
 	switch (event->key())
 	{
@@ -297,7 +307,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 {
-	QMessageBox::about(
+    TRACE(2, "MainWindowBase::on_actionAbout_Ipponboard_triggered()");
+    QMessageBox::about(
 		this,
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
@@ -319,30 +330,35 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 
 void MainWindowBase::on_actionUser_Manual_triggered()
 {
-	QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
+    TRACE(2, "MainWindowBase::on_actionUser_Manual_triggered()");
+    QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-	m_pController->SetAutoAdjustPoints(checked);
+    TRACE(2, "MainWindowBase::on_actionAutoAdjustPoints_toggled(checked=%d)",checked);
+    m_pController->SetAutoAdjustPoints(checked);
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
-	QUrl url("https://ipponboard.koe-judo.de");
+    TRACE(2, "MainWindowBase::on_actionVisit_Project_Homepage_triggered()");
+    QUrl url("https://TODO.de"); // QUrl url("https://ipponboard.koe-judo.de"); // TODO
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("https://github.com/fmuecke/Ipponboard/issues");
+    TRACE(2, "MainWindowBase::on_actionOnline_Feedback_triggered()");
+    QUrl url("https://github.com/fmuecke/Ipponboard/issues");
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::change_lang(bool beQuiet)
 {
-	ui_check_language_items();
+    TRACE(2, "MainWindowBase::change_lang(beQuiet=%d)", beQuiet);
+    ui_check_language_items();
 
 	if (!beQuiet)
 	{
@@ -353,7 +369,8 @@ void MainWindowBase::change_lang(bool beQuiet)
 
 void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_Deutsch_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "de";
 		change_lang();
@@ -362,7 +379,8 @@ void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 
 void MainWindowBase::on_actionLang_English_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_English_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "en";
 		change_lang();
@@ -372,7 +390,8 @@ void MainWindowBase::on_actionLang_English_triggered(bool val)
 
 void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_Dutch_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "nl";
 		change_lang();
@@ -381,7 +400,8 @@ void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 
 void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRulesClassic_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<ClassicRules>());
 		ui_check_rules_items();
@@ -390,7 +410,8 @@ void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2013_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2013_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2013>());
 		ui_check_rules_items();
@@ -399,7 +420,8 @@ void MainWindowBase::on_actionRules2013_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2017_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2017_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2017>());
 		ui_check_rules_items();
@@ -408,7 +430,8 @@ void MainWindowBase::on_actionRules2017_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2017U15_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2017U15>());
 		ui_check_rules_items();
@@ -417,7 +440,8 @@ void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2018_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2018_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2018>());
 		ui_check_rules_items();
@@ -426,7 +450,8 @@ void MainWindowBase::on_actionRules2018_triggered(bool checked)
 
 void MainWindowBase::write_settings()
 {
-	QString iniFile(
+    TRACE(2, "MainWindowBase::write_settings()");
+    QString iniFile(
 		QString::fromStdString(
             fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
@@ -511,7 +536,8 @@ void MainWindowBase::write_settings()
 
 void MainWindowBase::read_settings()
 {
-	QString iniFile(
+    TRACE(2, "MainWindowBase::read_settings()");
+    QString iniFile(
 		QString::fromStdString(
             fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
@@ -681,7 +707,8 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-	QString csvFile(
+    TRACE(2, "MainWindowBase::load_fighters()");
+    QString csvFile(
 		QString::fromStdString(
             fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 
@@ -704,7 +731,8 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-	QString csvFile(
+    TRACE(2, "MainWindowBase::save_fighters()");
+    QString csvFile(
 		QString::fromStdString(
             fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 	QString errorMsg;
@@ -720,18 +748,21 @@ void MainWindowBase::save_fighters()
 
 void MainWindowBase::update_views()
 {
-	m_pPrimaryView->UpdateView();
+    TRACE(2, "MainWindowBase::update_views()");
+    m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
 }
 
 void MainWindowBase::on_actionTest_Gong_triggered()
 {
-	m_pController->Gong();
+    TRACE(2, "MainWindowBase::on_actionTest_Gong_triggered()");
+    m_pController->Gong();
 }
 
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
-	show_hide_view();
+    TRACE(2, "MainWindowBase::on_actionShow_SecondaryView_triggered()");
+    show_hide_view();
 
 	if (m_pSecondaryView->isVisible())
 	{
@@ -740,7 +771,8 @@ void MainWindowBase::on_actionShow_SecondaryView_triggered()
 
 void MainWindowBase::on_actionPreferences_triggered()
 {
-	SettingsDlg dlg(Edition(), this);
+    TRACE(2, "MainWindowBase::on_actionPreferences_triggered()");
+    SettingsDlg dlg(Edition(), this);
 	dlg.SetInfoHeaderSettings(m_pPrimaryView->GetInfoHeaderFont(),
 							  m_pPrimaryView->GetInfoTextColor(),
 							  m_pPrimaryView->GetInfoTextBgColor());
@@ -796,7 +828,8 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::show_hide_view() const
 {
-	static bool isAlreadyCalled = false;
+    TRACE(2, "MainWindowBase::show_hide_view()");
+    static bool isAlreadyCalled = false;
 
 	if (isAlreadyCalled)
 	{
@@ -999,31 +1032,36 @@ void MainWindowBase::EvaluateInput()
 
 void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetInfoTextColor(color, bgColor);
+    TRACE(2, "MainWindowBase::update_info_text_color()");
+    m_pPrimaryView->SetInfoTextColor(color, bgColor);
 	m_pSecondaryView->SetInfoTextColor(color, bgColor);
 }
 
 void MainWindowBase::update_text_color_first(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetTextColorFirst(color, bgColor);
+    TRACE(2, "MainWindowBase::update_text_color_first()");
+    m_pPrimaryView->SetTextColorFirst(color, bgColor);
 	m_pSecondaryView->SetTextColorFirst(color, bgColor);
 }
 
 void MainWindowBase::update_text_color_second(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetTextColorSecond(color, bgColor);
+    TRACE(2, "MainWindowBase::update_text_color_second()");
+    m_pPrimaryView->SetTextColorSecond(color, bgColor);
 	m_pSecondaryView->SetTextColorSecond(color, bgColor);
 }
 
 void MainWindowBase::update_fighter_name_font(const QFont& font)
 {
-	m_FighterNameFont = font;
+    TRACE(2, "MainWindowBase::update_fighter_name_font()");
+    m_FighterNameFont = font;
 	m_pPrimaryView->SetFighterNameFont(font);
 	m_pSecondaryView->SetFighterNameFont(font);
 }
 
 void MainWindowBase::on_button_reset_clicked()
 {
+    TRACE(2, "MainWindowBase::update_fighter_name_font()");
 //	QMessageBox::StandardButton answer =
 //		QMessageBox::question( this,
 //							   tr("Reset"),
@@ -1037,13 +1075,15 @@ void MainWindowBase::on_button_reset_clicked()
 
 void MainWindowBase::on_action_Info_Header_triggered(bool val)
 {
-	m_pPrimaryView->SetShowInfoHeader(val);
+    TRACE(2, "MainWindowBase::on_action_Info_Header_triggered(val=%d)", val);
+    m_pPrimaryView->SetShowInfoHeader(val);
 	m_pSecondaryView->SetShowInfoHeader(val);
 }
 
 void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 {
-	bool ok(false);
+    TRACE(2, "MainWindowBase::on_actionSet_Hold_Timer_triggered()");
+    bool ok(false);
 	const int seconds = QInputDialog::getInt(
 							this,
 							tr("Set Value"),
@@ -1062,7 +1102,8 @@ void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 
 void MainWindowBase::on_actionSet_Main_Timer_triggered()
 {
-	// Note: this is implemented in the view as well!
+    TRACE(2, "MainWindowBase::on_actionSet_Main_Timer_triggered()");
+    // Note: this is implemented in the view as well!
 
 //	if( m_pController->GetCurrentState() == eState_SonoMama ||
 //		m_pController->GetCurrentState() == eState_TimerStopped )
@@ -1085,15 +1126,18 @@ void MainWindowBase::on_actionSet_Main_Timer_triggered()
 
 void MainWindowBase::update_statebar()
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::update_statebar()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 
 void MainWindowBase::write_specific_settings(QSettings&)
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::write_specific_settings()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 
 void MainWindowBase::read_specific_settings(QSettings&)
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::read_specific_settings()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
