@@ -42,6 +42,7 @@ ${BASE_DIR}/util/json.hpp
 ${BASE_DIR}/util/jsoncpp/json.cpp
 ${BASE_DIR}/util/path_helpers.h
 ${BASE_DIR}/util/screen_helpers.h
+${BASE_DIR}/util/debug.h
 ${BASE_DIR}/Widgets/ScaledImage.cpp ${BASE_DIR}/Widgets/ScaledImage.h
 ${BASE_DIR}/Widgets/ScaledText.cpp ${BASE_DIR}/Widgets/ScaledText.h
 ${BASE_DIR}/base/AddFighterDlg.cpp ${BASE_DIR}/base/AddFighterDlg.h ${BASE_DIR}/base/AddFighterDlg.ui

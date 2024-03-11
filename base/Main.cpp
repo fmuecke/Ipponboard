@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "MainWindow.h"
 #include "MainWindowTeam.h"
 //#include "../core/TournamentMode.h"
@@ -19,10 +20,11 @@
 #include <QTextCodec>
 
 
-
 void LangNotFound(const QString& fileName)
 {
-	QMessageBox::critical(nullptr,
+    TRACE(2, "LangNotFound(%s)", fileName.toUtf8().data());
+
+    QMessageBox::critical(nullptr,
 						  QCoreApplication::applicationName(),
 						  "Unable to read language file: " + fileName +
 						  "\nThe default language is being used.");
@@ -30,6 +32,8 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
+    TRACE(2, "SetTranslation(%s)", langStr.toUtf8().data());
+
 #ifdef _WIN32
     UNREFERENCED_PARAMETER(app);
 #endif
@@ -56,7 +60,9 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
 int ShowSplashScreen()
 {
-	auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
+    TRACE(2, "ShowSplashScreen()");
+
+    auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
 	auto t2 = QCoreApplication::tr("Judo is part of our lives.");
 	auto t3 = QCoreApplication::tr("Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was intended to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.");
 	auto t4 = QCoreApplication::tr("Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.");
@@ -100,13 +106,27 @@ int ShowSplashScreen()
 	return dlgResult;
 }
 
+short g_nDebug = 1;
+
 int main(int argc, char* argv[])
 {
-	QApplication a(argc, argv);
+    TRACE(2, "Starting Ipponboard...");
+
+    // parse command line
+    for (int i = 1; i < argc; ++i)
+    {
+        QString arg = QString::fromUtf8(argv[i]);
+
+        // "-debug" increments the trace level, deault value is 1. Can be used multiple times, eg.g. "-debug -debug"
+        if (arg == "-debug")
+            ++g_nDebug;
+    }
+
+    QApplication a(argc, argv);
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
 	QCoreApplication::setOrganizationName("ESC feat. Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
+    //QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
 
 	// read language code
@@ -162,5 +182,6 @@ int main(int argc, char* argv[])
 
 	pMainWnd->show();
 
+    TRACE(2, "...Ipponboard stopped");
 	return a.exec();
 }

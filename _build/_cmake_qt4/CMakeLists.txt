@@ -43,6 +43,7 @@ ${BASE_DIR}/util/json.hpp
 ${BASE_DIR}/util/jsoncpp/json.cpp
 ${BASE_DIR}/util/path_helpers.h
 ${BASE_DIR}/util/screen_helpers.h
+${BASE_DIR}/util/debug.h
 ${BASE_DIR}/Widgets/ScaledImage.cpp ${BASE_DIR}/Widgets/ScaledImage.h
 ${BASE_DIR}/Widgets/ScaledText.cpp ${BASE_DIR}/Widgets/ScaledText.h
 ${BASE_DIR}/base/AddFighterDlg.cpp ${BASE_DIR}/base/AddFighterDlg.h ${BASE_DIR}/base/AddFighterDlg.ui
@@ -133,7 +134,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard
-			COMPILE_FLAGS -D_WITH_GAMEPAD_
+                        COMPILE_FLAGS -D_WITH_GAMEPAD_ -D_DEBUG
 			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			#CMAKE_SUPPRESS_REGENERATION true	
 		)
@@ -154,7 +155,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 			OUTPUT_NAME Ipponboard
-		)
+                        COMPILE_FLAGS -D_DEBUG
+                )
 
 		target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns X11 Xrandr)
 	endif()
