@@ -189,7 +189,12 @@ function translate {
 
 ###################
 function make_tgz {
-  ARCHIVE_NAME=Ipponboard_"$QT_VERSION"_"$DIST"-"$ARCH"
+  TAG=$(git describe --tags --exact-match)
+  if [ -z "$TAG" ];then
+    ARCHIVE_NAME=Ipponboard-"$REV"_"$QT_VERSION"_"$DIST"-"$ARCH"
+  else
+    ARCHIVE_NAME=Ipponboard-"$TAG"_"$QT_VERSION"_"$DIST"-"$ARCH"
+  fi
   OLD_FOLDER=$(basename "$BIN_DIR")
 
   pushd "$BIN_DIR/.."
