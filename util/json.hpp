@@ -8,7 +8,7 @@
 #include "jsoncpp/json.h"
 //#include "jsoncpp\json.cpp"
 
-#include <filesystem>
+//#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <QFileInfo>
@@ -116,7 +116,7 @@ namespace fm
 
         static void WriteFile(const char * const & file, std::string const& str, bool writeBom = true)
 		{
-            TRACE(2, "WriteFile(file=%s str=%s, writeBom=%d)", file, str, writeBom);
+            TRACE(2, "WriteFile(file=%s, str=%s, writeBom=%d)", file, str.c_str(), writeBom);
             try
 			{
 				std::ofstream t(file, std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);

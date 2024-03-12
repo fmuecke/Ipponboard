@@ -91,11 +91,12 @@ add_compile_options(-D__QT4__ -D__WITH_X11__)
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
 	if (WIN32)
 		add_executable(Ipponboard ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
+		target_compile_options(Ipponboard PRIVATE -D_WITH_GAMEPAD_)
 		set_target_properties(Ipponboard PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 			CMAKE_SUPPRESS_REGENERATION true	
-			COMPILE_FLAGS -D_WITH_GAMEPAD_
+			#COMPILE_FLAGS -D_WITH_GAMEPAD_
 		)
 
 		add_custom_command(TARGET Ipponboard POST_BUILD
@@ -131,11 +132,11 @@ endif()
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	if (WIN32)
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/gamepad/gamepad.h ${BASE_DIR}/base/Ipponboard.rc)
+		target_compile_options(Ipponboard_Debug PRIVATE -D_WITH_GAMEPAD_ -D_DEBUG)
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin"
 			OUTPUT_NAME Ipponboard
-                        COMPILE_FLAGS -D_WITH_GAMEPAD_ -D_DEBUG
-			#LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+			LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE"
 			#CMAKE_SUPPRESS_REGENERATION true	
 		)
 
@@ -152,11 +153,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		#endif()
 
 		add_executable(Ipponboard_Debug ${SOURCES} ${BASE_DIR}/base/Ipponboard.rc)
+		target_compile_options(Ipponboard_Debug PRIVATE -D_DEBUG)
 		set_target_properties(Ipponboard_Debug PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/_build/bin/Debug"
 			OUTPUT_NAME Ipponboard
-                        COMPILE_FLAGS -D_DEBUG
-                )
+		)
 
 		target_link_libraries(Ipponboard_Debug Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns X11 Xrandr)
 	endif()

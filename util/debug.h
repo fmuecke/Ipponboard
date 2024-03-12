@@ -6,14 +6,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef _DEBUG
 
-#include <iostream>
 #include <cstdio>
-#include <cstdlib>
+
+#ifdef __linux__
 #include <syslog.h>
-#include <cassert>
 #include <sys/time.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#endif
 
 #endif
 
@@ -77,6 +77,7 @@ public:
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 // TRACE[<level>, <file>:<line>]:<text>, trace message to cerr
+#ifdef __linux__
 #define TRACE(lvl, fmt...)\
 {\
         if (g_nDebug >= lvl)\
@@ -88,14 +89,26 @@ public:
                 tm=localtime(&tv.tv_sec);\
                 pid_t tid = (pid_t) syscall (SYS_gettid);\
                 fprintf(stdout, "[%02d:%02d:%02d.%03lu][tid=%d] TRACE[%s:%d]: ", tm->tm_hour, tm->tm_min, tm->tm_sec, tv.tv_usec/1000, tid, __FILENAME__, __LINE__);\
-                fprintf(stdout, ##fmt);\
+                fprintf(stdout,##fmt);\
                 fprintf(stdout,"\n");\
                 fflush(stdout);\
         }\
 }
+#else
+#define TRACE(lvl, ...)\
+{\
+        if (g_nDebug >= lvl)\
+    {\
+            fprintf(stdout, "TRACE[%s:%d]: ",  __FILENAME__, __LINE__);\
+            fprintf(stdout, __VA_ARGS__);\
+            fprintf(stdout,"\n");\
+            fflush(stdout);\
+    }\
+}
+#endif
 
 // ASSERT
-#define ASSERT(logicalExpression, fmt...)\
+#define ASSERT(logicalExpression, ...)\
 {\
         if (!(logicalExpression))\
         {\
@@ -103,7 +116,7 @@ public:
                 buffer2[DEBUG_BUFFER],\
                 buffer[DEBUG_BUFFER*3];\
                 sprintf(buffer1, "ASSERT[%s:%d]: ", __FILENAME__, __LINE__);\
-                sprintf(buffer2, ##fmt);\
+                sprintf(buffer2, #__VA_ARGS__);\
                 strcpy(buffer, buffer1);\
                 strcat(buffer, buffer2);\
                 fprintf(stderr, "%s\n", buffer);\
@@ -111,8 +124,8 @@ public:
         }\
 }
 #else
-#define ASSERT(logicalExpression, fmt...) // empty definition
-#define TRACE(lvl, fmt...) // empty definition
+#define ASSERT(logicalExpression, ...) // empty definition
+#define TRACE(lvl, ...) // empty definition
 #endif
 
 #endif // __DEBUG_H_
