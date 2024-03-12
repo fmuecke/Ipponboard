@@ -64,10 +64,10 @@ private:
 
 	// specific methods
 	void update_club_views();
-	void UpdateFightNumber_();
-	void UpdateButtonText_();
+	void UpdateFightNumber();
+	void UpdateButtonText();
 	void update_score_screen();
-	void WriteScoreToHtml_();
+	void WriteScoreToHtml();
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
 	//void update_fighter_name_completer(const QString& weight);

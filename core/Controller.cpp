@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "Controller.h"
 #include "iView.h"
 #include "iGoldenScoreView.h"
@@ -66,7 +67,9 @@ Controller::Controller()
 	, m_labelGuest("GUEST")
 //=========================================================
 {
-	m_pSM = new IpponboardSM();
+    TRACE(2, "Controller::Controller()");
+
+    m_pSM = new IpponboardSM();
 	m_pSM->SetCore(this);
 	m_pTimerMain = new QTimer(this);
 	m_pTimerHold = new QTimer(this);
@@ -86,7 +89,8 @@ Controller::Controller()
 Controller::~Controller()
 //=========================================================
 {
-	m_views.clear();
+    TRACE(2, "Controller::~Controller()");
+    m_views.clear();
 	m_goldenScoreViews.clear();
 
     if (m_pTimeHold)
@@ -103,7 +107,8 @@ Controller::~Controller()
 void Controller::InitTournament(TournamentMode const& mode)
 //=========================================================
 {
-	m_TournamentModels.clear();
+    TRACE(2, "Controller::InitTournament()");
+    m_TournamentModels.clear();
 	m_Tournament.clear();
 
 	m_mode = mode;
@@ -157,7 +162,8 @@ void Controller::InitTournament(TournamentMode const& mode)
 int Controller::GetScore(FighterEnum whos, Score::Point point) const
 //=========================================================
 {
-	int value(0);
+    TRACE(6, "Controller::GetScore()");
+    int value(0);
 	const Score& score = get_score(whos);
 
 	switch (point)
@@ -198,7 +204,8 @@ int Controller::GetScore(FighterEnum whos, Score::Point point) const
 void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 //=========================================================
 {
-	if (doRevoke)
+    TRACE(2, "Controller::DoAction()");
+    if (doRevoke)
 	{
 		switch (action)
 		{
@@ -331,6 +338,7 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 FighterEnum Controller::GetLead() const
 //=========================================================
 {
+    TRACE(2, "Controller::GetLead()");
     FighterEnum winner(FighterEnum::Nobody);
 
 	switch (m_State)
@@ -396,13 +404,15 @@ FighterEnum Controller::GetLead() const
 Ipponboard::FighterEnum Controller::GetLastHolder() const
 //=========================================================
 {
-	return m_Tori;
+    TRACE(4, "Controller::GetLastHolder()");
+    return m_Tori;
 }
 
 //=========================================================
 void Controller::reset_timers()
 {
-	m_State = eState_TimerStopped;
+    TRACE(2, "Controller::reset_timers()");
+    m_State = eState_TimerStopped;
 
 	Q_ASSERT(m_pTimeMain);
 	Q_ASSERT(m_pTimeHold);
@@ -420,7 +430,8 @@ void Controller::reset_timers()
 void Controller::reset()
 //=========================================================
 {
-	ClearFightsAndResetTimers();
+    TRACE(2, "Controller::reset()");
+    ClearFightsAndResetTimers();
 	SetFight(0, 0, "-XX", tr("First"), "", tr("Second"), "");
 
 	update_views();
@@ -430,7 +441,8 @@ void Controller::reset()
 void Controller::reset_timer_value(Ipponboard::ETimer timer)
 //=========================================================
 {
-	// Note:
+    TRACE(2, "Controller::reset_timer_value()");
+    // Note:
 	//  just reset values - nothing more, nothing less
 
 	if (eTimer_Main == timer)
@@ -450,7 +462,8 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 QString Controller::GetTimeText(ETimer timer) const
 //=========================================================
 {
-	QString ret;
+    TRACE(4, "Controller::GetTimeText()");
+    QString ret;
 
 	switch (timer)
 	{
@@ -475,7 +488,8 @@ QString Controller::GetTimeText(ETimer timer) const
 QString Controller::GetFighterName(FighterEnum who) const
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(2, "Controller::GetFighterName()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
 				   ->at(m_currentFight).GetFighter(who).name;
@@ -495,7 +509,8 @@ QString Controller::GetFighterName(FighterEnum who) const
 QString Controller::GetFighterLastName(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(4, "Controller::GetFighterLastName()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
 				   ->at(m_currentFight).GetFighter(who).name;
@@ -515,7 +530,8 @@ QString Controller::GetFighterLastName(Ipponboard::FighterEnum who) const
 QString Controller::GetFighterFirstName(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(4, "Controller::GetFighterFirstName()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	QString name = m_Tournament[m_currentRound]
 				   ->at(m_currentFight).GetFighter(who).name;
@@ -539,7 +555,8 @@ QString Controller::GetFighterFirstName(Ipponboard::FighterEnum who) const
 QString Controller::GetFighterClub(FighterEnum who) const
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(2, "Controller::GetFighterClub()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
 		   ->at(m_currentFight).GetFighter(who).club;
@@ -549,7 +566,8 @@ QString Controller::GetFighterClub(FighterEnum who) const
 QString const& Controller::GetWeight() const
 //=========================================================
 {
-	return m_Tournament[m_currentRound]
+    TRACE(2, "Controller::GetWeight()");
+    return m_Tournament[m_currentRound]
 		   ->at(m_currentFight).weight;
 }
 
@@ -557,14 +575,16 @@ QString const& Controller::GetWeight() const
 QString Controller::GetMessage() const
 //=========================================================
 {
-	return m_Message;
+    TRACE(2, "Controller::GetMessage()");
+    return m_Message;
 }
 
 //=========================================================
 int Controller::GetTeamScore(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	int score(0);
+    TRACE(2, "Controller::GetTeamScore()");
+    int score(0);
 
 	for (size_t round(0); round < m_Tournament.size(); ++round)
 	{
@@ -584,7 +604,8 @@ int Controller::GetTeamScore(Ipponboard::FighterEnum who) const
 void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
 //=========================================================
 {
-	if (eState_TimerStopped == m_State ||
+    TRACE(2, "Controller::SetTimerValue()");
+    if (eState_TimerStopped == m_State ||
 			eState_SonoMama == m_State)
 	{
 		if (eTimer_Main == timer)
@@ -610,14 +631,16 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
 void Controller::SetRoundTime(const QString& value)
 //=========================================================
 {
-	SetRoundTime(QTime::fromString(value, "m:ss"));
+    TRACE(2, "Controller::SetRoundTime()");
+    SetRoundTime(QTime::fromString(value, "m:ss"));
 }
 
 //=========================================================
 void Controller::SetRoundTime(QTime const& time)
 //=========================================================
 {
-	m_roundTime = time;
+    TRACE(2, "Controller::SetRoundTime()");
+    m_roundTime = time;
 	*m_pTimeMain = time;
 
 	update_views();
@@ -625,20 +648,23 @@ void Controller::SetRoundTime(QTime const& time)
 
 void Controller::OverrideRoundTimeOfFightMode(int fightTimeSecs)
 {
-	m_mode.fightTimeInSeconds = fightTimeSecs;
+    TRACE(2, "Controller::OverrideRoundTimeOfFightMode()");
+    m_mode.fightTimeInSeconds = fightTimeSecs;
 }
 
 //=========================================================
 QString Controller::GetFightTimeString() const
 //=========================================================
 {
-	return m_roundTime.toString("m:ss");  //FIXME: use main time value instead
+    TRACE(2, "Controller::GetFightTimeString()");
+    return m_roundTime.toString("m:ss");  //FIXME: use main time value instead
 }
 
 //=========================================================
 //int Controller::GetRound() const
 //=========================================================
 //{
+//    TRACE(2, "Controller::GetRound()");
 //    return m_currentRound * 10 + m_currentFight + 1;
 //}
 
@@ -646,21 +672,24 @@ QString Controller::GetFightTimeString() const
 int Controller::GetFightDuration(QString const& weight) const
 //=========================================================
 {
-	return m_mode.GetFightDuration(weight);
+    TRACE(2, "Controller::GetFightDuration(weight=%s)", weight.toUtf8().data());
+    return m_mode.GetFightDuration(weight);
 }
 
 //=========================================================
 void Controller::SetWeightClass(QString const& c)
 //=========================================================
 {
-	m_weight_class = c;
+    TRACE(2, "Controller::SetWeightClass(c=%s)", c.toUtf8().data());
+    m_weight_class = c;
 }
 
 //=========================================================
 void Controller::SetGoldenScore(bool isGS)
 //=========================================================
 {
-	current_fight().SetGoldenScore(isGS);
+    TRACE(2, "Controller::SetGoldenScore(isGT=%d)", isGS);
+    current_fight().SetGoldenScore(isGS);
 
 	if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
 	{
@@ -676,12 +705,14 @@ void Controller::SetGoldenScore(bool isGS)
 
 std::shared_ptr<AbstractRules> Controller::GetRules() const
 {
-	return m_rules;
+    TRACE(4, "Controller::GetRules()");
+    return m_rules;
 }
 
 void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 {
-	m_rules = rules;
+    TRACE(2, "Controller::SetRules()");
+    m_rules = rules;
 
 	for (auto const & pRound : m_Tournament)
 	{
@@ -694,19 +725,22 @@ void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 
 bool Controller::IsAutoAdjustPoints() const
 {
-	return m_isAutoAdjustPoints;
+    TRACE(2, "Controller::IsAutoAdjustPoints()");
+    return m_isAutoAdjustPoints;
 }
 
 void Controller::SetAutoAdjustPoints(bool isActive)
 {
-	m_isAutoAdjustPoints = isActive;
+    TRACE(4, "Controller::SetAutoAdjustPoints()");
+    m_isAutoAdjustPoints = isActive;
 }
 
 //=========================================================
 void Controller::SetOption(EOption option, bool isSet)
 //=========================================================
 {
-	m_options.set(option, isSet);
+    TRACE(2, "Controller::SetOption(option=%d, isSet=%d)", option, isSet);
+    m_options.set(option, isSet);
 
 	// TODO: remove maybe
 	if (eOption_AllSubscoresCount == option)
@@ -719,14 +753,16 @@ void Controller::SetOption(EOption option, bool isSet)
 bool Controller::GetOption(EOption option) const
 //=========================================================
 {
-	return m_options.test(option);
+    TRACE(2, "Controller::GetOption(option=%d)", option);
+    return m_options.test(option);
 }
 
 //=========================================================
 void Controller::SetLabels(const QString& home, const QString& guest)
 //=========================================================
 {
-	m_labelHome = home;
+    TRACE(2, "Controller::SetLabels(home=%s, guest=%s)", home.toUtf8().data(), guest.toUtf8().data());
+    m_labelHome = home;
 	m_labelGuest = guest;
 }
 
@@ -734,6 +770,7 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
+    TRACE(2, "Controller::Gong()");
 #ifdef _WIN32
     if(QSound::isAvailable())
         QSound::play(m_gongFile);
@@ -753,21 +790,24 @@ void Controller::Gong() const
 void Controller::RegisterView(IView* pView)
 //=========================================================
 {
-	m_views.insert(pView);
+    TRACE(2, "Controller::RegisterView()");
+    m_views.insert(pView);
 
 	// do not call UpdateViews here as views may not have been fully created
 }
 
 void Controller::RegisterView(IGoldenScoreView* pView)
 {
-	m_goldenScoreViews.insert(pView);
+    TRACE(2, "Controller::RegisterView()");
+    m_goldenScoreViews.insert(pView);
 }
 
 //=========================================================
 void Controller::start_timer(ETimer t)
 //=========================================================
 {
-	if (eTimer_Main == t)
+    TRACE(2, "Controller::start_timer(ETimer=%d)", t);
+    if (eTimer_Main == t)
 	{
 		m_pTimerMain->start(1000);
 	}
@@ -781,7 +821,8 @@ void Controller::start_timer(ETimer t)
 void Controller::stop_timer(ETimer t)
 //=========================================================
 {
-	m_pTimerHold->stop();
+    TRACE(2, "Controller::stop_timer(ETimer=%d)", t);
+    m_pTimerHold->stop();
 
 	if (eTimer_Main == t)
 	{
@@ -793,7 +834,8 @@ void Controller::stop_timer(ETimer t)
 void Controller::save_fight()
 //=========================================================
 {
-	auto elapsed = is_golden_score() ? m_pTimeMain->secsTo(QTime()) : m_pTimeMain->secsTo(m_roundTime);
+    TRACE(2, "Controller::save_fight()");
+    auto elapsed = is_golden_score() ? m_pTimeMain->secsTo(QTime()) : m_pTimeMain->secsTo(m_roundTime);
 	current_fight().SetSecondsElapsed(elapsed);
 	current_fight().is_saved = true;
 }
@@ -802,7 +844,8 @@ void Controller::save_fight()
 void Controller::reset_fight()
 //=========================================================
 {
-	m_pTimerHold->stop();
+    TRACE(2, "Controller::reset_fight()");
+    m_pTimerHold->stop();
 	m_pTimerMain->stop();
 	m_pTimeHold->setHMS(0, 0, 0, 0);
     m_Tori = FighterEnum::Nobody;
@@ -827,7 +870,8 @@ void Controller::reset_fight()
 void Controller::reset_timer(ETimer t)
 //=========================================================
 {
-	// called by statemachine
+    TRACE(2, "Controller::reset_timer(t=%d)", t);
+    // called by statemachine
 
 	reset_timer_value(t);
 	update_views();
@@ -837,7 +881,8 @@ void Controller::reset_timer(ETimer t)
 Score& Controller::get_score(FighterEnum who)
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(2, "Controller::get_score()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
 		   ->at(m_currentFight).GetScore(who);
@@ -847,7 +892,8 @@ Score& Controller::get_score(FighterEnum who)
 Score const& Controller::get_score(FighterEnum who) const
 //=========================================================
 {
-	Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
+    TRACE(4, "Controller::get_score()");
+    Q_ASSERT(who == FighterEnum::First || who == FighterEnum::Second);
 
 	return m_Tournament[m_currentRound]
 		   ->at(m_currentFight).GetScore(who);
@@ -857,7 +903,8 @@ Score const& Controller::get_score(FighterEnum who) const
 int Controller::get_time(ETimer t) const
 //=========================================================
 {
-	if (eTimer_Hold == t)
+    TRACE(2, "Controller::get_time(t=%d)", t);
+    if (eTimer_Hold == t)
 	{
         return -m_pTimeHold->secsTo(QTime(0,0,0,0));
 	}
@@ -871,21 +918,24 @@ int Controller::get_time(ETimer t) const
 bool Controller::is_sonomama() const
 //=========================================================
 {
-	return m_isSonoMama;
+    TRACE(2, "Controller::is_sonomama()");
+    return m_isSonoMama;
 }
 
 //=========================================================
 bool Controller::is_golden_score() const
 //=========================================================
 {
-	return current_fight().IsGoldenScore();
+    TRACE(4, "Controller::is_golden_score()");
+    return current_fight().IsGoldenScore();
 }
 
 //=========================================================
 void Controller::NextFight()
 //=========================================================
 {
-	// move to Stopped state
+    TRACE(2, "Controller::NextFight()");
+    // move to Stopped state
 	// (will stop all timers and thus save the current fight)
 	m_pSM->process_event(IpponboardSM_::Finish());
 
@@ -910,7 +960,8 @@ void Controller::NextFight()
 void Controller::PrevFight()
 //=========================================================
 {
-	// move to Stopped state
+    TRACE(2, "Controller::PrevFight()");
+    // move to Stopped state
 	// (will stop all timers and thus save the current fight)
 	m_pSM->process_event(IpponboardSM_::Finish());
 
@@ -935,7 +986,8 @@ void Controller::PrevFight()
 void Controller::SetCurrentFight(unsigned int index)
 //=========================================================
 {
-	// now set pointer to next fight
+    TRACE(2, "Controller::SetCurrentFight(index=%u)", index);
+    // now set pointer to next fight
 	m_currentFight = index;
     *m_pTimeHold = QTime(0,0,0,0);
     m_roundTime = QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight));
@@ -961,7 +1013,8 @@ void Controller::SetCurrentFight(unsigned int index)
 void Controller::SetCurrentRound(unsigned int index)
 //=========================================================
 {
-	if (index < static_cast<unsigned int>(GetRoundCount()))
+    TRACE(2, "Controller::SetCurrentRound(index=%u)", index);
+    if (index < static_cast<unsigned int>(GetRoundCount()))
 	{
 		m_currentRound = index;
 		update_views();
@@ -972,7 +1025,8 @@ void Controller::SetCurrentRound(unsigned int index)
 void Controller::ClearFightsAndResetTimers()
 //=========================================================
 {
-	reset_timers();
+    TRACE(2, "Controller::ClearFightsAndResetTimers()");
+    reset_timers();
 
 	for (unsigned int round(0); round < m_Tournament.size(); ++round)
 	{
@@ -993,7 +1047,8 @@ void Controller::ClearFightsAndResetTimers()
 void Controller::SetClub(Ipponboard::FighterEnum who, const QString& clubName)
 //=========================================================
 {
-	Q_ASSERT(who == Ipponboard::FighterEnum::First ||
+    TRACE(2, "Controller::SetClub(clubName=%s)", clubName.toUtf8().data());
+    Q_ASSERT(who == Ipponboard::FighterEnum::First ||
 			 who == Ipponboard::FighterEnum::Second);
 
 	for (unsigned int round(0); round < m_Tournament.size(); ++round)
@@ -1017,7 +1072,9 @@ void Controller::SetFight(
 	int yuko2, int wazaari2, int ippon2, int shido2, int hansokumake2)
 //=========================================================
 {
-	Ipponboard::Fight fight;
+    TRACE(2, "Controller::SetClub(weight=%s, first_player_name=%s, second_player_name=%s)", weight.toUtf8().data(), first_player_name.toUtf8().data(), second_player_name.toUtf8().data());
+
+    Ipponboard::Fight fight;
 	fight.weight = weight;
 	fight.SetSecondsElapsed(0);
 	fight.rules = m_rules;
@@ -1108,7 +1165,8 @@ Ipponboard::Fight const& Controller::GetFight(
 	unsigned int fight_index) const
 //=========================================================
 {
-	return m_Tournament[round_index]->at(fight_index);
+    TRACE(2, "Controller::GetFight()");
+    return m_Tournament[round_index]->at(fight_index);
 }
 
 //=========================================================
@@ -1116,9 +1174,8 @@ void Controller::SetFighterName(Ipponboard::FighterEnum whos,
 								const QString& name)
 //=========================================================
 {
-	m_Tournament[m_currentRound]
-	->at(m_currentFight).fighters[whos].name = name;
-
+    TRACE(2, "Controller::SetFighterName(name=%s)", name.toUtf8().data());
+    m_Tournament[m_currentRound]->at(m_currentFight).fighters[whos].name = name;
 	update_views();
 }
 
@@ -1126,7 +1183,8 @@ void Controller::SetFighterName(Ipponboard::FighterEnum whos,
 void Controller::SetWeights(QStringList const& weights)
 //=========================================================
 {
-	if (weights.count() == GetFightCount())
+    TRACE(2, "Controller::SetWeights()");
+    if (weights.count() == GetFightCount())
 	{
 		for (int round(0); round < GetRoundCount(); ++round)
 		{
@@ -1168,7 +1226,8 @@ void Controller::SetWeights(QStringList const& weights)
 void Controller::CopyAndSwitchGuestFighters()
 //=========================================================
 {
-	if (m_Tournament.size() != 2)
+    TRACE(2, "Controller::CopyAndSwitchGuestFighters()");
+    if (m_Tournament.size() != 2)
 	{
 		throw std::exception(); // FIXME: use correct exception!
 	}
@@ -1197,7 +1256,8 @@ void Controller::CopyAndSwitchGuestFighters()
 PTournamentModel Controller::GetTournamentScoreModel(int which)
 //=========================================================
 {
-	if ((size_t)which < m_TournamentModels.size() && which > 0)
+    TRACE(2, "Controller::GetTournamentScoreModel()");
+    if (((size_t)which) < m_TournamentModels.size() && which > 0)
 		return m_TournamentModels[which];
 
 	return m_TournamentModels[0];
@@ -1207,21 +1267,24 @@ PTournamentModel Controller::GetTournamentScoreModel(int which)
 void Controller::SetGongFile(const QString& s)
 //=========================================================
 {
-	m_gongFile = s;
+    TRACE(2, "Controller::SetGongFile(s=%s)", s.toUtf8().data());
+    m_gongFile = s;
 }
 
 //=========================================================
 QString const& Controller::GetGongFile() const
 //=========================================================
 {
-	return m_gongFile;
+    TRACE(2, "Controller::GetGongFile()");
+    return m_gongFile;
 }
 
 //=========================================================
 void Controller::update_main_time()
 //=========================================================
 {
-	if (m_rules->IsOption_OpenEndGoldenScore() && is_golden_score())
+    TRACE(2, "Controller::update_main_time()");
+    if (m_rules->IsOption_OpenEndGoldenScore() && is_golden_score())
 	{
 		*m_pTimeMain = m_pTimeMain->addSecs(1);
 	}
@@ -1257,7 +1320,8 @@ void Controller::update_main_time()
 void Controller::update_hold_time()
 //=========================================================
 {
-	if (eState_Holding != m_State)
+    TRACE(2, "Controller::update_hold_time()");
+    if (eState_Holding != m_State)
 		return;
 
 	*m_pTimeHold = m_pTimeHold->addSecs(1);
@@ -1282,7 +1346,8 @@ void Controller::update_hold_time()
 void Controller::update_views() const
 //=========================================================
 {
-	for (auto const & pView : m_views)
+    TRACE(2, "Controller::update_views()");
+    for (auto const & pView : m_views)
 	{
 		pView->UpdateView();
 	}

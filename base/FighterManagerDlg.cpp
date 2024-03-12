@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FighterManagerDlg.h"
 #include "ui_FighterManagerDlg.h"
 
@@ -29,7 +30,8 @@ FighterManagerDlg::FighterManagerDlg(
 	, m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
 //---------------------------------------------------------
 {
-	ui->setupUi(this);
+    TRACE(2, "FighterManagerDlg::FighterManagerDlg()");
+    ui->setupUi(this);
 
 	// hide settings buton
 	//TODO: improove!
@@ -64,14 +66,16 @@ FighterManagerDlg::FighterManagerDlg(
 FighterManagerDlg::~FighterManagerDlg()
 //---------------------------------------------------------
 {
-	delete ui;
+    TRACE(2, "FighterManagerDlg::~FighterManagerDlg()");
+    delete ui;
 }
 
 //---------------------------------------------------------
 void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QString& value)
 //---------------------------------------------------------
 {
-	if (column >= 0 && column < eColumn_MAX)
+    TRACE(2, "FighterManager::SetFilter()");
+    if (column >= 0 && column < eColumn_MAX)
 	{
 		m_filter = std::make_pair(column, value);
 		ui->treeWidget_fighters->hideColumn(m_filter.first);
@@ -84,7 +88,8 @@ void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QStri
 void FighterManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-	QDialog::changeEvent(e);
+    TRACE(2, "FighterManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
+    QDialog::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -101,7 +106,8 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 void FighterManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-	AddFighterDlg dlg(this);
+    TRACE(2, "FighterManagerDlg::on_pushButton_add_pressed()");
+    AddFighterDlg dlg(this);
 
 	QStringList clubs;
 
@@ -145,7 +151,8 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 void FighterManagerDlg::populate_view()
 //---------------------------------------------------------
 {
-	ui->treeWidget_fighters->clear();
+    TRACE(2, "FighterManagerDlg::populate_view()");
+    ui->treeWidget_fighters->clear();
 
 	const bool hasFilter = !m_filter.second.isEmpty();
 
@@ -234,7 +241,8 @@ void FighterManagerDlg::populate_view()
 void FighterManagerDlg::on_pushButton_import_pressed()
 //---------------------------------------------------------
 {
-	const QString fileName = QFileDialog::getOpenFileName(this,
+    TRACE(2, "FighterManagerDlg::on_pushButton_import_pressed()");
+    const QString fileName = QFileDialog::getOpenFileName(this,
 							 tr("Select CSV file with fighters"),
 							 QCoreApplication::applicationDirPath(),
 							 tr("CSV files (*.csv);;Text files (*.txt)"), nullptr, QFileDialog::ReadOnly);
@@ -271,7 +279,8 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 void FighterManagerDlg::on_pushButton_export_pressed()
 //---------------------------------------------------------
 {
-	const QString fileName = QFileDialog::getSaveFileName(this,
+    TRACE(2, "FighterManagerDlg::on_pushButton_export_pressed()");
+    const QString fileName = QFileDialog::getSaveFileName(this,
 							 tr("Name CSV file to store fighters in"),
 							 QCoreApplication::applicationDirPath(),
 							 tr("CSV files (*.csv);;Text files (*.txt)"));
@@ -304,7 +313,8 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 void FighterManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-	auto selectedItems = ui->treeWidget_fighters->selectedItems();
+    TRACE(2, "FighterManagerDlg::on_pushButton_remove_pressed()");
+    auto selectedItems = ui->treeWidget_fighters->selectedItems();
 
 	//QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
 
@@ -332,7 +342,8 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 	QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
-	if (pItem)
+    TRACE(2, "FighterManagerDlg::on_treeWidget_fighters_itemChanged()");
+    if (pItem)
 	{
 		QString firstName = pItem->text(eColumn_firstName);
 		QString lastName = pItem->text(eColumn_lastName);
@@ -399,13 +410,15 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 
 void FighterManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column)
 {
-	m_tmpData = item->text(column);
+    TRACE(2, "FighterManagerDlg::on_treeWidget_fighters_itemClicked()");
+    m_tmpData = item->text(column);
 	qDebug("data: %s", m_tmpData.toLatin1().data());
 }
 
 void FighterManagerDlg::on_pushButton_settings_pressed()
 {
-	bool ok(false);
+    TRACE(2, "FighterManagerDlg::on_pushButton_settings_pressed()");
+    bool ok(false);
 	QString dlgTitle = tr("Specify import/export format");
 	QString dlgMsg = tr("Use valid specifiers and some kind of separator (;,:|/ etc.)"
 						"\nValid specifiers are: %1")

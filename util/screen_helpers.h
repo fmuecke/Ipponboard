@@ -1,6 +1,7 @@
 #ifndef X11_HELPERS_H
 #define X11_HELPERS_H
 
+#include "debug.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QList>
@@ -19,11 +20,13 @@ class ScreenHelpers
 public:
     ScreenHelpers()
     {
+        TRACE(4, "ScreenHelpers::ScreenHelpers()");
         init();
     }
 
     static ScreenHelpers* getInstance()
     {
+        TRACE(4, "ScreenHelpers::getInstance()");
         if(s_pInstance==NULL)
             s_pInstance = new ScreenHelpers();
 
@@ -32,6 +35,7 @@ public:
 
     void init()
     {
+        TRACE(4, "ScreenHelpers::init()");
         m_screenResolutionsList.clear();
 #ifdef __linux__
 #ifdef __WITH_X11__
@@ -65,6 +69,7 @@ public:
 
     const int numScreens()
     {
+        TRACE(2, "ScreenHelpers::numScreens()");
         if (m_screenResolutionsList.size() > 1)
             return m_screenResolutionsList.size();
         else

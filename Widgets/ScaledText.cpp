@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "ScaledText.h"
 #include <QtGui>
 #include <algorithm>
@@ -19,14 +20,16 @@ ScaledText::ScaledText(QWidget* pParent)
 	, m_isVisible(true)
 	, m_rotate(false)
 {
-	SetText("ScaledText");
+    TRACE(6, "ScaledText::ScaledText()");
+    SetText("ScaledText");
 }
 
 void ScaledText::SetText(const QString& text,
 						 ETextSize size,
 						 bool rotate)
 {
-	set_size(size);
+    TRACE(6, "ScaledText::SetText(text=%s)", text.toUtf8().data());
+    set_size(size);
 
 	if (eSize_uppercase == m_textSize)
 		m_Text = text.toUpper();
@@ -42,7 +45,8 @@ void ScaledText::SetText(const QString& text,
 
 void ScaledText::SetFont(const QFont& font)
 {
-	this->setFont(font);
+    TRACE(6, "ScaledText::SetFont()");
+    this->setFont(font);
 	update_text_metrics();
 
 	Redraw();
@@ -51,14 +55,16 @@ void ScaledText::SetFont(const QFont& font)
 void ScaledText::SetFontAndColor(const QFont& font, const QColor& textColor,
 								 const QColor& bgColor)
 {
-	SetFont(font);
+    TRACE(2, "ScaledText::SetFontAndColor()");
+    SetFont(font);
 	SetColor(textColor, bgColor);
 }
 
 
 void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 {
-	m_TextColor = textColor;
+    TRACE(6, "ScaledText::SetColor()");
+    m_TextColor = textColor;
 	m_BGColor = bgColor;
 
 	Redraw();
@@ -66,33 +72,39 @@ void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 
 void ScaledText::SetColor(const QColor& textColor)
 {
-	SetColor(textColor, m_BGColor);
+    TRACE(6, "ScaledText::SetColor()");
+    SetColor(textColor, m_BGColor);
 }
 
 const QColor& ScaledText::GetColor() const
 {
-	return m_TextColor;
+    TRACE(2, "ScaledText::GetColor()");
+    return m_TextColor;
 }
 
 const QColor& ScaledText::GetBgColor() const
 {
-	return m_BGColor;
+    TRACE(2, "ScaledText::GetBgColor()");
+    return m_BGColor;
 }
 
 void ScaledText::set_size(ETextSize size)
 {
-	Q_ASSERT(size < eSize_MAX && size >= 0);
+    TRACE(6, "ScaledText::set_size(size=%d)",size);
+    Q_ASSERT(size < eSize_MAX && size >= 0);
 	m_textSize = size;
 }
 
 ScaledText::ETextSize ScaledText::GetSize() const
 {
-	return m_textSize;
+    TRACE(2, "ScaledText::GetSize()");
+    return m_textSize;
 }
 
 void ScaledText::SetBlinking(bool blink, int delay)
 {
-	if (blink && -1 != m_timerId && delay == m_timerDelay)
+    TRACE(4, "ScaledText::SetBlinking(blink=%d, delay=%d)", blink, delay);
+    if (blink && -1 != m_timerId && delay == m_timerDelay)
 		return;
 
 	// kill old timer
@@ -109,17 +121,19 @@ void ScaledText::SetBlinking(bool blink, int delay)
 
 bool ScaledText::IsBlinking() const
 {
-	return (m_timerId != -1);
+    TRACE(2, "ScaledText::IsBlinking()");
+    return (m_timerId != -1);
 }
 
 void ScaledText::Redraw()
 {
-	update();
+    TRACE(6, "ScaledText::Redraw()");
+    update();
 }
 
 void ScaledText::paintEvent(QPaintEvent* event)
 {
-
+    TRACE(6, "ScaledText::paintEvent()");
     QPainter painter(this);
 	painter.save();
 
@@ -194,14 +208,16 @@ void ScaledText::paintEvent(QPaintEvent* event)
 
 void ScaledText::timerEvent(QTimerEvent* /*event*/)
 {
-	m_isVisible = !m_isVisible;
+    TRACE(2, "ScaledText::timerEvent()");
+    m_isVisible = !m_isVisible;
 
 	Redraw();
 }
 
 void ScaledText::update_text_metrics()
 {
-	const QFont& currentFont = this->font();
+    TRACE(6, "ScaledText::update_text_metrics()");
+    const QFont& currentFont = this->font();
 
 	delete m_pLayout;
 	m_pLayout = new QTextLayout(m_Text, currentFont);

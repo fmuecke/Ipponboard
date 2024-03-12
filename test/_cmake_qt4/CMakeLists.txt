@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(IpponboardTest VERSION 2.0.0 LANGUAGES C CXX) 
+project(IpponboardTest VERSION 2.2.0 LANGUAGES C CXX) 
 message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 
 find_package(Qt4 4.8.5 REQUIRED QtCore)

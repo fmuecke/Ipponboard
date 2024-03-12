@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "ScoreScreen.h"
 #include "ui_ScoreScreen.h"
 
@@ -11,7 +12,8 @@ ScoreScreen::ScoreScreen(QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui::ScoreScreen)
 {
-	ui->setupUi(this);
+    TRACE(2, "ScoreScreen::ScoreScreen()");
+    ui->setupUi(this);
 
 	ui->club_first->SetColor(Qt::white, Qt::blue);
 	ui->score_first->SetColor(Qt::white, Qt::blue);
@@ -38,14 +40,16 @@ ScoreScreen::ScoreScreen(QWidget* parent)
 
 ScoreScreen::~ScoreScreen()
 {
-	delete ui;
+    TRACE(2, "ScoreScreen::~ScoreScreen()");
+    delete ui;
 }
 
 //---------------------------------------------------------
 void ScoreScreen::SetClubs(const QString& first, const QString& second)
 //---------------------------------------------------------
 {
-	ui->club_first->SetText(first);
+    TRACE(2, "ScoreScreen::SetClubs(first=%s, second=%s)", first.toUtf8().data(), second.toUtf8().data());
+    ui->club_first->SetText(first);
 	ui->club_second->SetText(second);
 }
 
@@ -54,7 +58,8 @@ void ScoreScreen::SetLogos(const QString& fileNameFirst,
 						   const QString& fileNameSecond)
 //---------------------------------------------------------
 {
-	ui->logo_first->UpdateImage(fileNameFirst);
+    TRACE(2, "ScoreScreen::SetLogos(fileNameFirst=%s, fileNameSecond=%s)", fileNameFirst.toUtf8().data(), fileNameSecond.toUtf8().data());
+    ui->logo_first->UpdateImage(fileNameFirst);
 	ui->logo_second->UpdateImage(fileNameSecond);
 }
 
@@ -62,7 +67,8 @@ void ScoreScreen::SetLogos(const QString& fileNameFirst,
 void ScoreScreen::SetScore(int scoreFirst, int scoreSecond)
 //---------------------------------------------------------
 {
-	ui->score_first->SetText(QString::number(scoreFirst));
+    TRACE(2, "ScoreScreen::SetScore()");
+    ui->score_first->SetText(QString::number(scoreFirst));
 	ui->score_second->SetText(QString::number(scoreSecond));
 }
 
@@ -70,7 +76,8 @@ void ScoreScreen::SetScore(int scoreFirst, int scoreSecond)
 void ScoreScreen::SetTextFont(const QFont& font)
 //---------------------------------------------------------
 {
-	m_textFont = font;
+    TRACE(2, "ScoreScreen::SetTextFont()");
+    m_textFont = font;
 
 	ui->club_first->setFont(m_textFont);
 	ui->club_second->setFont(m_textFont);
@@ -80,7 +87,8 @@ void ScoreScreen::SetTextFont(const QFont& font)
 void ScoreScreen::SetDigitFont(const QFont& font)
 //---------------------------------------------------------
 {
-	m_digitFont = font;
+    TRACE(2, "ScoreScreen::SetDigitFont()");
+    m_digitFont = font;
 
 	ui->score_first->setFont(m_digitFont);
 	ui->score_second->setFont(m_digitFont);
@@ -90,7 +98,8 @@ void ScoreScreen::SetDigitFont(const QFont& font)
 void ScoreScreen::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-	QWidget::changeEvent(e);
+    TRACE(2, "ScoreScreen::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
+    QWidget::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -108,7 +117,8 @@ void ScoreScreen::changeEvent(QEvent* e)
 void ScoreScreen::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 //---------------------------------------------------------
 {
-	ui->logo_first->SetBgColor(bgColor);
+    TRACE(2, "ScoreScreen::SetTextColorFirst()");
+    ui->logo_first->SetBgColor(bgColor);
 	ui->club_first->SetColor(color, bgColor);
 	ui->score_first->SetColor(color, bgColor);
 	ui->text_dummy1_first->SetColor(color, bgColor);
@@ -121,7 +131,8 @@ void ScoreScreen::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 void ScoreScreen::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 //---------------------------------------------------------
 {
-	ui->logo_second->SetBgColor(bgColor);
+    TRACE(2, "ScoreScreen::SetTextColorSecond()");
+    ui->logo_second->SetBgColor(bgColor);
 	ui->club_second->SetColor(color, bgColor);
 	ui->score_second->SetColor(color, bgColor);
 	ui->text_dummy1_second->SetColor(color, bgColor);

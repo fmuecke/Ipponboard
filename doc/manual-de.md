@@ -5,7 +5,7 @@
 
 ## Lizenzbedingungen
   
-Ipponboard wurde geschrieben und entwickelt von Florian Mücke und wird überarbeitet von ESC.
+Ipponboard wurde geschrieben und entwickelt von Florian Mücke und wird überarbeitet von ESV.
 
 **Ipponboard Binaries**
 

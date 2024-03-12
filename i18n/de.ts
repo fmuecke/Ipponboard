@@ -77,7 +77,7 @@
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/ClubManagerDlg.cpp" line="+196"/>
+        <location filename="../base/ClubManagerDlg.cpp" line="+208"/>
         <source>Select Club Emblem</source>
         <translation>Vereinslogo auswählen</translation>
     </message>
@@ -100,7 +100,7 @@
 <context>
     <name>DonationLabel</name>
     <message>
-        <location filename="../base/DonationManager.cpp" line="+24"/>
+        <location filename="../base/DonationManager.cpp" line="+27"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
         <translation>Ipponboard rockt! Bitte hör nicht auf!</translation>
     </message>
@@ -249,7 +249,7 @@
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+28"/>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+30"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -259,7 +259,7 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+42"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Neue Kategorie hinzufügen</translation>
@@ -276,7 +276,7 @@
         <translation>Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+139"/>
         <source>This name is already taken!</source>
         <translation>Dieser Name ist bereits vergeben!</translation>
     </message>
@@ -334,7 +334,7 @@
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+40"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="+42"/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
@@ -354,13 +354,13 @@
         <translation>Nachname</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+200"/>
         <source>Select CSV file with fighters</source>
         <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+37"/>
+        <location line="+38"/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV-Dateien (*.csv);;Textdateien (*.txt)</translation>
     </message>
@@ -370,7 +370,7 @@
         <translation>CSV-Datei angeben, in denen die Kämpferdaten gespeichert werden sollen</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+138"/>
         <source>Specify import/export format</source>
         <translation>Format für Im-/Export festlegen</translation>
     </message>
@@ -390,7 +390,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+424"/>
+        <location filename="../core/Controller.cpp" line="+435"/>
         <source>First</source>
         <translation>Erster</translation>
     </message>
@@ -400,7 +400,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zweiter</translation>
     </message>
     <message>
-        <location line="+317"/>
+        <location line="+343"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
@@ -413,7 +413,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+73"/>
+        <location filename="../base/SettingsDlg.cpp" line="+75"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -433,7 +433,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+298"/>
+        <location line="+327"/>
         <source>No sound device found</source>
         <translation>Keine Audioausgabe gefunden</translation>
     </message>
@@ -446,22 +446,22 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+503"/>
+        <location filename="../base/View.cpp" line="+518"/>
         <source>Set time</source>
         <translation>Zeit setzen</translation>
     </message>
     <message>
-        <location line="+167"/>
+        <location line="+171"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location line="-164"/>
+        <location line="-168"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+165"/>
+        <location line="+169"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
@@ -847,7 +847,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+351"/>
+        <location filename="../base/MainWindow.cpp" line="+372"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -855,33 +855,33 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+302"/>
+        <location filename="../base/MainWindowBase.cpp" line="+313"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>/User-Manual.html</source>
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+727"/>
-        <location line="+24"/>
+        <location line="+755"/>
+        <location line="+25"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-24"/>
         <source>Set value to (ss):</source>
         <translation>Ändere Wert in (ss):</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Set value to (m:ss):</source>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-724"/>
+        <location line="-749"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -890,7 +890,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+337"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+348"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
@@ -901,13 +901,13 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gast</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+92"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+100"/>
         <source> (saved)</source>
         <translation> (gespeichert)</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+1137"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+64"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+69"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -917,7 +917,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+94"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -948,7 +948,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Show results</source>
         <translation>Ergebnis anzeigen</translation>
     </message>
@@ -958,7 +958,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location line="+187"/>
+        <location line="+195"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
@@ -973,7 +973,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>PDF-Datei (*.pdf);;HTML-Datei (*.html)</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
@@ -988,7 +988,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Sie müssen die %1 Klassen getrennt durch &apos;;&apos; angeben!</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+76"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
@@ -998,7 +998,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
@@ -1013,7 +1013,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>There is nothing to paste!</source>
         <translation>Es gibt nichts zum Einfügen!</translation>
     </message>
@@ -1033,7 +1033,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Die Zwischenablage entählt mehr Daten als eingefügt werden können!</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+123"/>
         <source>Ipponboard fight list %1</source>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
@@ -1564,12 +1564,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+165"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+175"/>
         <source>*new*</source>
         <translation>*neu*</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Remove item</source>
         <translation>Eintrag entfernen</translation>
     </message>
@@ -1592,7 +1592,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/UpdateChecker.cpp" line="+54"/>
+        <location filename="../base/UpdateChecker.cpp" line="+58"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1627,7 +1627,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../base/Main.cpp" line="+59"/>
+        <location filename="../base/Main.cpp" line="+65"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -1635,10 +1635,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <location line="+1"/>
         <source>Judo is part of our lives.</source>
         <translation>Judo ist Teil unseres Lebens.</translation>
-    </message>
-    <message>
-        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation type="obsolete">Weil Ipponboard nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen ist wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1649,10 +1645,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <location line="+1"/>
         <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
         <translation>Weil Ipponboard nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen ist, wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
-    </message>
-    <message>
-        <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
-        <translation type="obsolete">Diese Version kann uneingeschränkt verwendet werden. Die Weitergabe in unveränderter Form ist erlaubt.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1675,28 +1667,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>oder durch anerkennende Spenden</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>For more see the</source>
-        <translation>Mehr hierzu auf der </translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Ipponboard project on GitHub</source>
-        <translatorcomment>Ipponboard-Projekt auf GitHub</translatorcomment>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Thank you very much!</source>
-        <translation>Vielen Dank!</translation>
-    </message>
-    <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1350"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1409"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+622"/>
+        <location line="+647"/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
@@ -1704,14 +1680,14 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
-        <location line="+32"/>
-        <location line="+21"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+188"/>
+        <location line="+34"/>
+        <location line="+22"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="-55"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1719,7 +1695,7 @@ Restoring defaults.</source>
         <translation>Fehler beim Laden der Wettkampfkategorien: %1 Stelle Standards wieder her.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+34"/>
         <source>Unable to parse fight categories:
 %1
 
@@ -1730,30 +1706,30 @@ Restoring defaults.</source>
 Die Standardwerte werden geladen.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>Unable to write fight categories:
 %1</source>
         <translation>Die Kampfkategorien können nicht geschrieben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+146"/>
+        <location filename="../base/FighterManager.cpp" line="+153"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
         <translation>Formatspezifikation enthält Vor- und Nachname nicht: %1</translation>
     </message>
     <message>
         <location line="-15"/>
-        <location line="+63"/>
+        <location line="+64"/>
         <source>Format specifier has invalid separator: %1</source>
         <translation>Formatspzifikation enthält ungültigen Trenner: %1</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-17"/>
         <source>Imported %1 new fighters.</source>
         <translation>%1 neue Kämpfer importiert.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Format specifier does not meet criteria: %1</source>
         <translation>Formatspezifikation erfüllt Kriterien nicht: %1</translation>
     </message>
@@ -1761,20 +1737,6 @@ Die Standardwerte werden geladen.</translation>
         <location line="+61"/>
         <source>Successfully exported %1 fighters.</source>
         <translation>%1 Kämper erfolgreich exportiert.</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1</source>
-        <translation type="obsolete">Datei %1 kann nicht geöffnet werden</translation>
-    </message>
-    <message>
-        <source>Error parsing file %1:
-line %2 has %3 items instead of %4 like in the previous lines</source>
-        <translation type="obsolete">Fehler beim Parsen der Datei %1:
-Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1 for writing</source>
-        <translation type="obsolete">Kann Datei %1 nicht zum Schreiben öffnen</translation>
     </message>
 </context>
 <context>
@@ -2018,10 +1980,6 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <location line="-963"/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Auflösung</translation>
     </message>
     <message>
         <location line="-287"/>
@@ -2314,7 +2272,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="+27"/>
+        <location filename="../core/TournamentModel.cpp" line="+29"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>

@@ -3,7 +3,7 @@ call _env_cfg-x86.cmd
 
 pushd ..\..
 
-"lupdate" base core widgets -locations relative -no-recursive -ts i18n\de.ts -ts i18n\nl.ts
+"lupdate -noobsolete" base core widgets -locations relative -no-recursive -ts i18n\de.ts -ts i18n\nl.ts
 
 pause
 

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FighterManager.h"
 #include "../util/SimpleCsvFile.hpp"
 
@@ -28,7 +29,8 @@ const std::array<char const* const, 5> FighterManager::Specifiers =
 
 QString FighterManager::DefaultExportFormat()
 {
-	QString ret;
+    TRACE(2, "FighterManager::DefaultExportFormat()");
+    QString ret;
 
 	for (char const * const s : Specifiers)
 	{
@@ -47,11 +49,13 @@ QString FighterManager::DefaultExportFormat()
 FighterManager::FighterManager()
 	: m_fighters()
 {
+    TRACE(2, "FighterManager::FighterManager()");
 }
 
 QString FighterManager::GetSpecifiererDescription()
 {
-	QString retVal;
+    TRACE(2, "FighterManager::GetSpecifiererDescription()");
+    QString retVal;
 
 	for (char const * const s : Specifiers)
 	{
@@ -81,13 +85,15 @@ QString FighterManager::GetSpecifiererDescription()
 // firstname and lastname
 bool Ipponboard::FighterManager::IsFormatSatisfying(const QString& formatStr)
 {
-	return formatStr.contains(str_FIRSTNAME) && formatStr.contains(str_LASTNAME);
+    TRACE(2, "FighterManager::IsFormatSatisfying(formatStr=%s)", formatStr.toUtf8().data());
+    return formatStr.contains(str_FIRSTNAME) && formatStr.contains(str_LASTNAME);
 }
 
 // Format string must be at least "satisfying" to be processed
 bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString& sep)
 {
-	if (!IsFormatSatisfying(str))
+    TRACE(2, "FighterManager::DetermineSeparator(str=%s)", str.toUtf8().data());
+    if (!IsFormatSatisfying(str))
 	{
 		return false;
 	}
@@ -122,7 +128,8 @@ bool FighterManager::ImportFighters(
 	QString const& formatStr,
 	QString& errorMsg)
 {
-	errorMsg.clear();
+    TRACE(2, "FighterManager::ImportFighters(fileName=%s, formatStr=%s)", fileName.toUtf8().data(), formatStr.toUtf8().data());
+    errorMsg.clear();
 
 	QString sep;
 
@@ -185,7 +192,8 @@ bool FighterManager::ExportFighters(
 	QString const& formatStr,
 	QString& errorMsg)
 {
-	errorMsg.clear();
+    TRACE(2, "FighterManager::ExportFighters(fileName=%s, formatStr=%s)", fileName.toUtf8().data(), formatStr.toUtf8().data());
+    errorMsg.clear();
 
 	QString sep;
 
@@ -268,12 +276,14 @@ bool FighterManager::ExportFighters(
 
 bool FighterManager::AddFighter(Fighter f)
 {
-	return m_fighters.insert(f).second;
+    TRACE(2, "FighterManager::AddFighter()");
+    return m_fighters.insert(f).second;
 }
 
 bool FighterManager::RemoveFighter(Fighter f)
 {
-	auto iter = std::find(begin(m_fighters), end(m_fighters), f);
+    TRACE(2, "FighterManager::RemoveFighter()");
+    auto iter = std::find(begin(m_fighters), end(m_fighters), f);
 
 	if (iter == end(m_fighters))
 	{
@@ -287,7 +297,8 @@ bool FighterManager::RemoveFighter(Fighter f)
 
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
-	QStringList ret;
+    TRACE(2, "FighterManager::GetClubFighterNames(club=%s)", club.toUtf8().data());
+    QStringList ret;
 	std::for_each(begin(m_fighters), end(m_fighters),
 				  [&](Ipponboard::Fighter const & f)
 	{

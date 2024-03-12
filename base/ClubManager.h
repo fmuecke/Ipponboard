@@ -35,8 +35,8 @@ public:
 	size_t ClubCount() const { return m_Clubs.size(); }
 
 private:
-	void LoadClubs_();
-	void SaveClubs_();
+	void LoadClubs();
+	void SaveClubs();
 
 	ClubList m_Clubs;
 };

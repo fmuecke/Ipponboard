@@ -77,7 +77,7 @@
         <translation>Adres</translation>
     </message>
     <message>
-        <location filename="../base/ClubManagerDlg.cpp" line="+196"/>
+        <location filename="../base/ClubManagerDlg.cpp" line="+208"/>
         <source>Select Club Emblem</source>
         <translation>Selecteer Clubembleem</translation>
     </message>
@@ -100,7 +100,7 @@
 <context>
     <name>DonationLabel</name>
     <message>
-        <location filename="../base/DonationManager.cpp" line="+24"/>
+        <location filename="../base/DonationManager.cpp" line="+27"/>
         <source>Ipponboard rocks! Please don&apos;t stop!</source>
         <translation>Ipponboard rocks! Stop alsjeblieft niet!</translation>
     </message>
@@ -249,7 +249,7 @@
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+28"/>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+30"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -259,7 +259,7 @@
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+42"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Nieuwe categorie toevoegen</translation>
@@ -276,7 +276,7 @@
         <translation>Deze categorie bestaat reeds. Kies een andere naam aub.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+139"/>
         <source>This name is already taken!</source>
         <translation>Deze naam is reeds in gebruik!</translation>
     </message>
@@ -334,7 +334,7 @@
         <translation>&amp;Verwijderen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+40"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="+42"/>
         <source>Club/Team</source>
         <translation>Club/team</translation>
     </message>
@@ -354,13 +354,13 @@
         <translation>Achternaam</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+200"/>
         <source>Select CSV file with fighters</source>
         <translation>Selecteer CSV-bestand met de Deelnemers</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+37"/>
+        <location line="+38"/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV Bestanden (*.csv);;Tekst Bestanden (*.txt)</translation>
     </message>
@@ -370,7 +370,7 @@
         <translation>Naam CSV bestand om Deelnemers in op te slaan</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+138"/>
         <source>Specify import/export format</source>
         <translation>Specifieer het Importeer/Exporteer formaat</translation>
     </message>
@@ -390,7 +390,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::Controller</name>
     <message>
-        <location filename="../core/Controller.cpp" line="+424"/>
+        <location filename="../core/Controller.cpp" line="+435"/>
         <source>First</source>
         <translation>Eerste</translation>
     </message>
@@ -400,7 +400,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tweede</translation>
     </message>
     <message>
-        <location line="+317"/>
+        <location line="+343"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
@@ -413,7 +413,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+73"/>
+        <location filename="../base/SettingsDlg.cpp" line="+75"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -433,7 +433,7 @@ Geldige velden zijn: %1</translation>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="+298"/>
+        <location line="+327"/>
         <source>No sound device found</source>
         <translation>Geen audio-uitgang gevonden</translation>
     </message>
@@ -446,7 +446,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::View</name>
     <message>
-        <location filename="../base/View.cpp" line="+503"/>
+        <location filename="../base/View.cpp" line="+518"/>
         <source>Set time</source>
         <translation>Tijd Instellen</translation>
     </message>
@@ -456,7 +456,7 @@ Geldige velden zijn: %1</translation>
         <translation>Herstellen</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+168"/>
         <source>Set Value</source>
         <translation>Waarde Instellen</translation>
     </message>
@@ -624,10 +624,6 @@ Geldige velden zijn: %1</translation>
         <location line="+3"/>
         <source>Report a Bug</source>
         <translation>Meld een bug</translation>
-    </message>
-    <message>
-        <source>Provide Feedback</source>
-        <translation type="obsolete">Geef feedback</translation>
     </message>
     <message>
         <location line="-138"/>
@@ -851,7 +847,7 @@ Geldige velden zijn: %1</translation>
         <translation>Gebruik IJF 2018-regels</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+351"/>
+        <location filename="../base/MainWindow.cpp" line="+372"/>
         <source>Auto adjust points</source>
         <translation>Auto aanpassen punten</translation>
     </message>
@@ -859,33 +855,33 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+302"/>
+        <location filename="../base/MainWindowBase.cpp" line="+313"/>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>/User-Manual.html</source>
         <translation>/User-Manual.html</translation>
     </message>
     <message>
-        <location line="+727"/>
-        <location line="+24"/>
+        <location line="+755"/>
+        <location line="+25"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-24"/>
         <source>Set value to (ss):</source>
         <translation>Tijd instellen naar (ss):</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Set value to (m:ss):</source>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-724"/>
+        <location line="-749"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
@@ -894,7 +890,7 @@ Geldige velden zijn: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+151"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+337"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+348"/>
         <source>Home</source>
         <translation>Thuis</translation>
     </message>
@@ -905,13 +901,13 @@ Geldige velden zijn: %1</translation>
         <translation>Gasten</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+92"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+100"/>
         <source> (saved)</source>
         <translation> (opslaaned)</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui" line="+1137"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+64"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+69"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
@@ -921,7 +917,7 @@ Geldige velden zijn: %1</translation>
         <translation>Volgende</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+94"/>
         <source>File open error</source>
         <translation>Bestand open fout</translation>
     </message>
@@ -952,7 +948,7 @@ Geldige velden zijn: %1</translation>
         <translation>Volledige scoretabel echt resetten?</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Show results</source>
         <translation>Toon resultaten</translation>
     </message>
@@ -962,7 +958,7 @@ Geldige velden zijn: %1</translation>
         <translation>Resultaten verbergen</translation>
     </message>
     <message>
-        <location line="+187"/>
+        <location line="+195"/>
         <source>Export file to...</source>
         <translation>Bestand exporteren naar ...</translation>
     </message>
@@ -977,7 +973,7 @@ Geldige velden zijn: %1</translation>
         <translation></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <source>Set Weights</source>
         <translation>Gewichten instellen</translation>
     </message>
@@ -992,7 +988,7 @@ Geldige velden zijn: %1</translation>
         <translation>U moet%1 gewichtsklassen opgeven, gescheiden door &apos;;&apos;!</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+76"/>
         <source>Set Value</source>
         <translation>Waarde Instellen</translation>
     </message>
@@ -1002,7 +998,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
@@ -1017,7 +1013,7 @@ Geldige velden zijn: %1</translation>
         <translation>Klaren</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>There is nothing to paste!</source>
         <translation>Er is niets om te plakken!</translation>
     </message>
@@ -1037,7 +1033,7 @@ Geldige velden zijn: %1</translation>
         <translation>Er zijn meer gegevens beschikbaar op het klembord die kunnen worden geplakt!</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+123"/>
         <source>Ipponboard fight list %1</source>
         <translation>Ipponboard-gevechtslijst %1</translation>
     </message>
@@ -1269,10 +1265,6 @@ Geldige velden zijn: %1</translation>
         <location line="+112"/>
         <source>Report a Bug</source>
         <translation>Meld een bug</translation>
-    </message>
-    <message>
-        <source>Provide Feedback</source>
-        <translation type="obsolete">Geef feedback</translation>
     </message>
     <message>
         <location line="+164"/>
@@ -1574,12 +1566,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Alle subscores tellen</translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+165"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+175"/>
         <source>*new*</source>
         <translation>*nieuwe*</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Remove item</source>
         <translation>Verwijder voorwerp</translation>
     </message>
@@ -1602,7 +1594,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/UpdateChecker.cpp" line="+54"/>
+        <location filename="../base/UpdateChecker.cpp" line="+58"/>
         <source>en</source>
         <translation></translation>
     </message>
@@ -1637,7 +1629,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../base/Main.cpp" line="+59"/>
+        <location filename="../base/Main.cpp" line="+65"/>
         <source>the score board for judoka by judoka</source>
         <translation>het scorebord voor judoka door judoka</translation>
     </message>
@@ -1645,10 +1637,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <location line="+1"/>
         <source>Judo is part of our lives.</source>
         <translation>Judo maakt deel uit van ons leven.</translation>
-    </message>
-    <message>
-        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation type="obsolete">Daarom is Ipponboard niet alleen een eenvoudig Judo-weergaveprogramma, maar met passie ontwikkeld door judoka voor judoka. Het is ontwikkeld om niet alleen de mensen aan de tijdopnemerstafel te ondersteunen, maar ook voor de trainers, het publiek en de jagers zelf.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1659,10 +1647,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <location line="+1"/>
         <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
         <translation>Ipponboard is niet alleen duidelijk leesbaar maar ook revolutionair eenvoudig en intuïtief in gebruik. Daarom wordt het gewaardeerd door clubs en organisaties over de hele wereld en wordt het al vele jaren gebruikt bij grote kampioenschappen.</translation>
-    </message>
-    <message>
-        <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
-        <translation type="obsolete">Deze versie kan zonder beperking worden gebruikt. Kopiëren in ongewijzigde vorm is toegestaan.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1685,27 +1669,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>of door het geven van dankbare donaties</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>For more see the</source>
-        <translation>Voor meer zie de</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Ipponboard project on GitHub</source>
-        <translation>Ipponboard project op GitHub</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Thank you very much!</source>
-        <translation>Veel dank!</translation>
-    </message>
-    <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1350"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1409"/>
         <source>Error reading mode configurations</source>
         <translation>Fout bij lezen van modusconfiguraties</translation>
     </message>
     <message>
-        <location line="+622"/>
+        <location line="+647"/>
         <source>Error writing mode configurations</source>
         <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
@@ -1713,20 +1682,20 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
-        <location line="+32"/>
-        <location line="+21"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+188"/>
+        <location line="+34"/>
+        <location line="+22"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+131"/>
-        <location line="+63"/>
+        <location filename="../base/FighterManager.cpp" line="+138"/>
+        <location line="+64"/>
         <source>Format specifier has invalid separator: %1</source>
         <translation>Het formaat heeft een verkeerd scheidingsteken:%1</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-49"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
         <translation>Het formaat bevat geen voornaam en achternaam: %1</translation>
     </message>
@@ -1736,7 +1705,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>%1 nieuwe deelnemers geimporeerd.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Format specifier does not meet criteria: %1</source>
         <translation>Het formaat bestaat niet uit dezelfde criteria: %1</translation>
     </message>
@@ -1746,21 +1715,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Succesvol %1 deelnemers geëxporteerd.</translation>
     </message>
     <message>
-        <source>Unable to open file %1</source>
-        <translation type="obsolete">Kan het bestand %1 niet openen</translation>
-    </message>
-    <message>
-        <source>Error parsing file %1:
-line %2 has %3 items instead of %4 like in the previous lines</source>
-        <translation type="obsolete">Fout tijdens het ontleden van bestand %1:
-Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1 for writing</source>
-        <translation type="obsolete">Kan bestand %1 niet openen om weg te bewerken</translation>
-    </message>
-    <message>
-        <location filename="../base/FightCategoryManager.cpp" line="-52"/>
+        <location filename="../base/FightCategoryManager.cpp" line="-55"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1771,7 +1726,7 @@ Restoring defaults.</source>
 Standaardwaarden herstellen.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+34"/>
         <source>Unable to parse fight categories:
 %1
 
@@ -1779,7 +1734,7 @@ Restoring defaults.</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>Unable to write fight categories:
 %1</source>
         <translation></translation>
@@ -1834,10 +1789,6 @@ Restoring defaults.</source>
         <location line="-1070"/>
         <source>Secondary View</source>
         <translation>Tweede Scherm</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Grootte</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -2322,7 +2273,7 @@ Restoring defaults.</source>
 <context>
     <name>TournamentModel</name>
     <message>
-        <location filename="../core/TournamentModel.cpp" line="+27"/>
+        <location filename="../core/TournamentModel.cpp" line="+29"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>

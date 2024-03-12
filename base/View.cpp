@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "View.h"
 #include "ui_view_horizontal.h"
 #include "../core/Rules.h"
@@ -45,7 +46,8 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	, m_pBlinkTimer(0)
 //=========================================================
 {
-	// init widgets
+    TRACE(2, "View::View()");
+    // init widgets
 	ui->setupUi(this);
 	ui->image_shido1_second->UpdateImage(":res/images/off.png");
 	ui->image_shido2_second->UpdateImage(":res/images/off.png");
@@ -152,14 +154,15 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->text_weight->SetColor(m_InfoTextColor, m_InfoTextBgColor);
 
 	m_pBlinkTimer = new QTimer(this);
-	connect(m_pBlinkTimer, SIGNAL(timeout()), this, SLOT(blink_()));
+    connect(m_pBlinkTimer, SIGNAL(timeout()), this, SLOT(blink()));
 }
 
 //=========================================================
 View::~View()
 //=========================================================
 {
-	m_pController = 0;
+    TRACE(2, "View::~View()");
+    m_pController = 0;
 	delete ui;
 }
 
@@ -167,7 +170,8 @@ View::~View()
 void View::UpdateView()
 //=========================================================
 {
-	Q_ASSERT(m_pController && "Controller not set!");
+    TRACE(4, "View::UpdateView()");
+    Q_ASSERT(m_pController && "Controller not set!");
 
 	if (m_pController->GetRules()->GetMaxShidoCount() < 3)
 	{
@@ -239,16 +243,16 @@ void View::UpdateView()
 	// fighter names
 	//
 	ui->text_lastname_first->SetText(
-		m_pController->GetFighterLastName(GVF_(FighterEnum::First)),
+        m_pController->GetFighterLastName(GVF(FighterEnum::First)),
 		ScaledText::eSize_uppercase);
 	ui->text_lastname_second->SetText(
-		m_pController->GetFighterLastName(GVF_(FighterEnum::Second)),
+        m_pController->GetFighterLastName(GVF(FighterEnum::Second)),
 		ScaledText::eSize_uppercase);
 	ui->text_firstname_first->SetText(
-		m_pController->GetFighterFirstName(GVF_(FighterEnum::First)),
+        m_pController->GetFighterFirstName(GVF(FighterEnum::First)),
 		ScaledText::eSize_uppercase);
 	ui->text_firstname_second->SetText(
-		m_pController->GetFighterFirstName(GVF_(FighterEnum::Second)),
+        m_pController->GetFighterFirstName(GVF(FighterEnum::Second)),
 		ScaledText::eSize_uppercase);
 
 	// first score
@@ -353,7 +357,8 @@ void View::UpdateView()
 void View::SetInfoHeaderFont(const QFont& font)
 //=========================================================
 {
-	m_InfoHeaderFont = font;
+    TRACE(2, "View::SetInfoHeaderFont()");
+    m_InfoHeaderFont = font;
 
 	ui->text_weight->SetFont(font);
 	ui->text_mat->SetFont(font);
@@ -369,7 +374,8 @@ void View::SetInfoHeaderFont(const QFont& font)
 void View::SetFighterNameFont(const QFont& font)
 //=========================================================
 {
-	m_FighterNameFont = font;
+    TRACE(2, "View::SetFighterNameFont()");
+    m_FighterNameFont = font;
 
 	ui->text_lastname_second->setAlignment(Qt::AlignLeft);
 	ui->text_firstname_second->setAlignment(Qt::AlignLeft);
@@ -386,7 +392,8 @@ void View::SetFighterNameFont(const QFont& font)
 void View::SetDigitFont(const QFont& font)
 //=========================================================
 {
-	m_DigitFont = font;
+    TRACE(2, "View::SetDigitFont()");
+    m_DigitFont = font;
 
 	ui->text_main_clock->SetFont(font);
 	ui->text_ippon_first->SetFont(font);
@@ -410,7 +417,8 @@ void View::SetDigitFont(const QFont& font)
 void View::SetInfoTextColor(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-	m_InfoTextColor = color;
+    TRACE(2, "View::SetInfoTextColor()");
+    m_InfoTextColor = color;
 	m_InfoTextBgColor = bgColor;
 
 	ui->text_mat->SetColor(color, bgColor);
@@ -422,7 +430,8 @@ void View::SetInfoTextColor(const QColor& color, const QColor& bgColor)
 void View::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-	m_TextColorFirst = color;
+    TRACE(2, "View::SetTextColorFirst()");
+    m_TextColorFirst = color;
 	m_TextBgColorFirst = bgColor;
 
 	update_colors();
@@ -432,7 +441,8 @@ void View::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 void View::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 //=========================================================
 {
-	m_TextColorSecond = color;
+    TRACE(2, "View::SetTextColorSecond()");
+    m_TextColorSecond = color;
 	m_TextBgColorSecond = bgColor;
 
 	update_colors();
@@ -443,7 +453,8 @@ void View::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 void View::SetMainClockColor(const QColor& running, const QColor& stopped)
 //=========================================================
 {
-	m_MainClockColorRunning = running;
+    TRACE(2, "View::SetMainClockColor()");
+    m_MainClockColorRunning = running;
 	m_MainClockColorStopped = stopped;
 
 	// colors are set automatically depending on current state
@@ -453,7 +464,8 @@ void View::SetMainClockColor(const QColor& running, const QColor& stopped)
 void View::Reset()
 //=========================================================
 {
-	ui->text_hold_clock_first->SetColor(Qt::gray, Qt::black);
+    TRACE(2, "View::Reset()");
+    ui->text_hold_clock_first->SetColor(Qt::gray, Qt::black);
 	ui->text_hold_clock_second->SetColor(Qt::gray, Qt::black);
 	ui->image_sand_clock->SetBgColor(Qt::black);
 }
@@ -462,7 +474,8 @@ void View::Reset()
 void View::SetShowInfoHeader(bool show)
 //=========================================================
 {
-	m_showInfoHeader = show;
+    TRACE(2, "View::SetShowInfoHeader(show=%d)", show);
+    m_showInfoHeader = show;
 
 	UpdateView();
 }
@@ -471,14 +484,16 @@ void View::SetShowInfoHeader(bool show)
 void View::paintEvent(QPaintEvent* /*event*/)
 //=========================================================
 {
-	Q_ASSERT(m_pController && "IBController not set!");
+    TRACE(6, "View::paintEvent()");
+    Q_ASSERT(m_pController && "IBController not set!");
 }
 
 //=========================================================
 void View::mousePressEvent(QMouseEvent* event)
 //=========================================================
 {
-	Q_ASSERT(m_pController && "IBController not set!");
+    TRACE(2, "View::mousePressEvent()");
+    Q_ASSERT(m_pController && "IBController not set!");
 
     FighterEnum whos(FighterEnum::Nobody);
 	EAction action(eAction_NONE);
@@ -501,10 +516,10 @@ void View::mousePressEvent(QMouseEvent* event)
 				QAction* item(0);
 
 				item = menu.addAction(tr("Set time"));
-				connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()));
+                connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue()));
 
 				item = menu.addAction(tr("Reset"));
-				connect(item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue_()));
+                connect(item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue()));
 
 				menu.exec(QCursor::pos());
 
@@ -524,7 +539,7 @@ void View::mousePressEvent(QMouseEvent* event)
 				whos = FighterEnum::First;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-						GVF_(FighterEnum::First) != m_pController->GetLead())
+                        GVF(FighterEnum::First) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
@@ -545,7 +560,7 @@ void View::mousePressEvent(QMouseEvent* event)
 				whos = FighterEnum::Second;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-						GVF_(FighterEnum::Second) != m_pController->GetLead())
+                        GVF(FighterEnum::Second) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
@@ -629,36 +644,40 @@ void View::mousePressEvent(QMouseEvent* event)
 		//}
 	}
 
-	whos = GVF_(whos); // get correct fighter for display
+    whos = GVF(whos); // get correct fighter for display
 	m_pController->DoAction(action, whos, doRevoke);
 }
 
 //=========================================================
-void View::setOsaekomiFirst_()
+void View::setOsaekomiFirst()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false/*doRevoke*/);
+    TRACE(2, "View::setOsaekomiFirst()");
+    m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false/*doRevoke*/);
 }
 
 //=========================================================
-void View::setOsaekomiSecond_()
+void View::setOsaekomiSecond()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false/*doRevoke*/);
+    TRACE(2, "View::setOsaekomiSecond()");
+    m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false/*doRevoke*/);
 }
 
 //=========================================================
-void View::resetMainTimerValue_()
+void View::resetMainTimerValue()
 //=========================================================
 {
+    TRACE(2, "View::resetMainTimerValue()");
     m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true/*doRevoke*/);
 }
 
 //=========================================================
-void View::setMainTimerValue_()
+void View::setMainTimerValue()
 //=========================================================
 {
-	// Note: this is implemented in the MainWindowBase as well!
+    TRACE(2, "View::setMainTimerValue()");
+    // Note: this is implemented in the MainWindowBase as well!
 
 	//if( m_pController->GetCurrentState() == eState_SonoMama ||
 	//  m_pController->GetCurrentState() == eState_TimerStopped )
@@ -681,10 +700,11 @@ void View::setMainTimerValue_()
 }
 
 //=========================================================
-void View::blink_()
+void View::blink()
 //=========================================================
 {
-	m_drawIppon = !m_drawIppon;
+    TRACE(6, "View::blink()");
+    m_drawIppon = !m_drawIppon;
 
 	if (is_secondary())
 	{
@@ -697,7 +717,8 @@ void View::blink_()
 void View::update_ippon(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	auto digit_ippon = ui->text_ippon_first;
+    TRACE(4, "View::update_ippon()");
+    auto digit_ippon = ui->text_ippon_first;
 	auto digit_wazaari = ui->text_wazaari_first;
 	auto digit_yuko = ui->text_yuko_first;
 	auto wazaariLabel = ui->text_wazaari_desc1;
@@ -716,7 +737,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 		uke = FighterEnum::First;
 	}
 
-	const int score = m_pController->GetScore(GVF_(who), Point::Ippon);
+    const int score = m_pController->GetScore(GVF(who), Point::Ippon);
 
 	if (score != 0)
 	{
@@ -769,7 +790,7 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 	}
 	else
 	{
-		const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
+        const int score_uke = m_pController->GetScore(GVF(uke), Point::Ippon);
 
 		if (m_pBlinkTimer->isActive() &&  0 == score_uke)
 		{
@@ -813,12 +834,13 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 void View::update_wazaari(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledText* digit(ui->text_wazaari_first);
+    TRACE(4, "View::update_wazaari()");
+    ScaledText* digit(ui->text_wazaari_first);
 
 	if (FighterEnum::Second == who)
 		digit = ui->text_wazaari_second;
 
-	const int score = m_pController->GetScore(GVF_(who), Point::Wazaari);
+    const int score = m_pController->GetScore(GVF(who), Point::Wazaari);
 	//digit->setDigitCount( score > 9 ? 2 : 1 );
 	digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
@@ -827,12 +849,13 @@ void View::update_wazaari(Ipponboard::FighterEnum who) const
 void View::update_yuko(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledText* digit(ui->text_yuko_first);
+    TRACE(4, "View::update_yuko()");
+    ScaledText* digit(ui->text_yuko_first);
 
 	if (FighterEnum::Second == who)
 		digit = ui->text_yuko_second;
 
-	const int score = m_pController->GetScore(GVF_(who), Point::Yuko);
+    const int score = m_pController->GetScore(GVF(who), Point::Yuko);
 	digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
 
@@ -840,7 +863,8 @@ void View::update_yuko(Ipponboard::FighterEnum who) const
 void View::update_shido(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledImage* pImage1(0);
+    TRACE(4, "View::update_shido()");
+    ScaledImage* pImage1(0);
 	ScaledImage* pImage2(0);
 	ScaledImage* pImage3(0);
 
@@ -857,7 +881,7 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 		pImage3 = ui->image_shido3_second;
 	}
 
-	const int score = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score = m_pController->GetScore(GVF(who), Point::Shido);
 	const auto imageOn = ":res/images/on.png";
 	const auto imageOff = ":res/images/off.png";
 	const auto imageEmpty = ":res/images/off_empty.png";
@@ -871,15 +895,16 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 void View::update_hansokumake(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledImage* pImage(ui->image_hansokumake_first);
+    TRACE(4, "View::update_hansokumake()");
+    ScaledImage* pImage(ui->image_hansokumake_first);
 
 	if (FighterEnum::Second == who)
 	{
 		pImage = ui->image_hansokumake_second;
 	}
 
-	const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
-	const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score_hansokumake = m_pController->GetScore(GVF(who), Point::Hansokumake);
+    const int score_shido = m_pController->GetScore(GVF(who), Point::Shido);
 
 	if (score_hansokumake > 0 || score_shido == m_pController->GetRules()->GetMaxShidoCount() + 1)
 	{
@@ -895,7 +920,8 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 void View::update_team_score() const
 //=========================================================
 {
-	if (m_Edition == EditionType::Team)
+    TRACE(4, "View::update_team_score()");
+    if (m_Edition == EditionType::Team)
 	{
 		if (is_secondary())
 		{
@@ -909,11 +935,11 @@ void View::update_team_score() const
 		}
 
 		ui->text_score_team_first->SetText(
-			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::First))),
+            QString::number(m_pController->GetTeamScore(GVF(FighterEnum::First))),
 			ScaledText::eSize_full);
 
 		ui->text_score_team_second->SetText(
-			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::Second))),
+            QString::number(m_pController->GetTeamScore(GVF(FighterEnum::Second))),
 			ScaledText::eSize_full);
 	}
 	else
@@ -929,9 +955,10 @@ void View::update_team_score() const
 void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 //=========================================================
 {
-	const QString value(m_pController->GetTimeText(eTimer_Hold));
-	const FighterEnum first = GVF_(FighterEnum::First);
-	const FighterEnum second = GVF_(FighterEnum::Second);
+    TRACE(4, "View::update_hold_clock()");
+    const QString value(m_pController->GetTimeText(eTimer_Hold));
+    const FighterEnum first = GVF(FighterEnum::First);
+    const FighterEnum second = GVF(FighterEnum::Second);
 
 	struct ColorPair
 	{
@@ -986,22 +1013,22 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 	// set spectial hold states
 	if (eHoldState_on == state)
 	{
-		pClocks[GVF_(holder)]->SetColor(
+        pClocks[GVF(holder)]->SetColor(
 			hold_clock_colors[eHoldState_on][holder].fg,
 			hold_clock_colors[eHoldState_on][holder].bg);
 
-		pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
+        pClocks[GVF(holder)]->SetText(value, ScaledText::eSize_full);
 
 		ui->image_sand_clock->SetBgColor(
 			hold_clock_colors[eHoldState_on][holder].bg);
 	}
 	else if (eHoldState_pause == state)
 	{
-		pClocks[GVF_(holder)]->SetColor(
+        pClocks[GVF(holder)]->SetColor(
 			hold_clock_colors[eHoldState_pause][holder].fg,
 			hold_clock_colors[eHoldState_pause][holder].bg);
 
-		pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
+        pClocks[GVF(holder)]->SetText(value, ScaledText::eSize_full);
 
 		ui->image_sand_clock->SetBgColor(
 			hold_clock_colors[eHoldState_on][holder].bg);
@@ -1037,10 +1064,11 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 }
 
 //=========================================================
-Ipponboard::FighterEnum View::GVF_(const Ipponboard::FighterEnum f) const
+Ipponboard::FighterEnum View::GVF(const Ipponboard::FighterEnum f) const
 //=========================================================
 {
-	if (!is_secondary())
+    TRACE(4, "View::GVF()");
+    if (!is_secondary())
 	{
 		return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
 	}
@@ -1052,14 +1080,16 @@ Ipponboard::FighterEnum View::GVF_(const Ipponboard::FighterEnum f) const
 bool View::is_secondary() const
 //=========================================================
 {
-	return eTypeSecondary == m_Type;
+    TRACE(4, "View::is_secondary()");
+    return eTypeSecondary == m_Type;
 }
 
 //=========================================================
 const QColor& View::get_color(const ColorType t) const
 //=========================================================
 {
-	const bool doSwap(eTypePrimary == m_Type);
+    TRACE(6, "View::get_color()");
+    const bool doSwap(eTypePrimary == m_Type);
 
 	switch (t)
 	{
@@ -1086,7 +1116,8 @@ const QColor& View::get_color(const ColorType t) const
 void View::update_colors()
 //=========================================================
 {
-	ui->text_score_team_first_label->SetColor(get_color(firstFg), get_color(firstBg));
+    TRACE(4, "View::update_colors()");
+    ui->text_score_team_first_label->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->text_score_team_first->SetColor(get_color(firstFg), get_color(firstBg));
 	ui->dummy_first->SetBgColor(get_color(firstBg));
 	ui->image_hansokumake_first->SetBgColor(get_color(firstBg));
@@ -1123,7 +1154,8 @@ void View::update_colors()
 void View::show_golden_score(bool show)
 //=========================================================
 {
-	ScaledImage* pWidgetGS(ui->image_golden_score);
+    TRACE(4, "View::show_golden_score()");
+    ScaledImage* pWidgetGS(ui->image_golden_score);
 
 	if (show)
 		ui->horizontalLayout_bottom->setStretchFactor(pWidgetGS, 1);
