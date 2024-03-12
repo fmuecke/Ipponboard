@@ -626,10 +626,6 @@ Geldige velden zijn: %1</translation>
         <translation>Meld een bug</translation>
     </message>
     <message>
-        <source>Provide Feedback</source>
-        <translation type="obsolete">Geef feedback</translation>
-    </message>
-    <message>
         <location line="-138"/>
         <source>About Ipponboard</source>
         <translation>Over Ipponboard</translation>
@@ -1271,10 +1267,6 @@ Geldige velden zijn: %1</translation>
         <translation>Meld een bug</translation>
     </message>
     <message>
-        <source>Provide Feedback</source>
-        <translation type="obsolete">Geef feedback</translation>
-    </message>
-    <message>
         <location line="+164"/>
         <source>Auto Adjust Points</source>
         <translation>Auto aanpassen punten</translation>
@@ -1647,10 +1639,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Judo maakt deel uit van ons leven.</translation>
     </message>
     <message>
-        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation type="obsolete">Daarom is Ipponboard niet alleen een eenvoudig Judo-weergaveprogramma, maar met passie ontwikkeld door judoka voor judoka. Het is ontwikkeld om niet alleen de mensen aan de tijdopnemerstafel te ondersteunen, maar ook voor de trainers, het publiek en de jagers zelf.</translation>
-    </message>
-    <message>
         <location line="+1"/>
         <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was intended to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
         <translation>Daarom is Ipponboard niet alleen een eenvoudig Judo-weergaveprogramma, maar met passie ontwikkeld door judoka voor judoka. Het is ontwikkeld om niet alleen de mensen aan de tijdopnemerstafel te ondersteunen, maar ook voor de trainers, het publiek en de jagers zelf.</translation>
@@ -1659,10 +1647,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <location line="+1"/>
         <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
         <translation>Ipponboard is niet alleen duidelijk leesbaar maar ook revolutionair eenvoudig en intuïtief in gebruik. Daarom wordt het gewaardeerd door clubs en organisaties over de hele wereld en wordt het al vele jaren gebruikt bij grote kampioenschappen.</translation>
-    </message>
-    <message>
-        <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
-        <translation type="obsolete">Deze versie kan zonder beperking worden gebruikt. Kopiëren in ongewijzigde vorm is toegestaan.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1683,19 +1667,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <location line="+1"/>
         <source>or by giving appreciative donations</source>
         <translation>of door het geven van dankbare donaties</translation>
-    </message>
-    <message>
-        <source>For more see the</source>
-        <translation type="obsolete">Voor meer zie de</translation>
-    </message>
-    <message>
-        <source>Ipponboard project on GitHub</source>
-        <translation type="obsolete">Ipponboard project op GitHub</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Thank you very much!</source>
-        <translation>Veel dank!</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="-1409"/>
@@ -1742,20 +1713,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <location line="+61"/>
         <source>Successfully exported %1 fighters.</source>
         <translation>Succesvol %1 deelnemers geëxporteerd.</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1</source>
-        <translation type="obsolete">Kan het bestand %1 niet openen</translation>
-    </message>
-    <message>
-        <source>Error parsing file %1:
-line %2 has %3 items instead of %4 like in the previous lines</source>
-        <translation type="obsolete">Fout tijdens het ontleden van bestand %1:
-Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1 for writing</source>
-        <translation type="obsolete">Kan bestand %1 niet openen om weg te bewerken</translation>
     </message>
     <message>
         <location filename="../base/FightCategoryManager.cpp" line="-55"/>
@@ -1832,10 +1789,6 @@ Restoring defaults.</source>
         <location line="-1070"/>
         <source>Secondary View</source>
         <translation>Tweede Scherm</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Grootte</translation>
     </message>
     <message>
         <location line="+9"/>

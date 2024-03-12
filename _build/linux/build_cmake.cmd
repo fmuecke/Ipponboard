@@ -180,7 +180,7 @@ function make_tests {
 function translate {
   echo --[make_translation]--
   pushd $BASE_DIR
-  lupdate base core Widgets -locations relative -no-recursive -ts i18n/de.ts -ts i18n/nl.ts
+  lupdate -noobsolete base core Widgets -locations relative -no-recursive -ts i18n/de.ts -ts i18n/nl.ts
   linguist i18n/de.ts i18n/nl.ts
   lrelease -compress i18n/de.ts -qm i18n/de.qm
   lrelease -compress i18n/nl.ts -qm i18n/nl.qm

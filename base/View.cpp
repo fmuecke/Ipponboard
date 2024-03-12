@@ -703,7 +703,7 @@ void View::setMainTimerValue()
 void View::blink()
 //=========================================================
 {
-    TRACE(2, "View::blink()");
+    TRACE(6, "View::blink()");
     m_drawIppon = !m_drawIppon;
 
 	if (is_secondary())

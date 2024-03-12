@@ -1637,10 +1637,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Judo ist Teil unseres Lebens.</translation>
     </message>
     <message>
-        <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was developed to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
-        <translation type="obsolete">Weil Ipponboard nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen ist wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
-    </message>
-    <message>
         <location line="+1"/>
         <source>Therefore, Ipponboard is not just a simple Judo display program, but developed with passion by judoka for judoka. It was intended to not just support the people at the timekeeper table, but also for the trainers, the audience and the fighters themselves.</source>
         <translation>Deshalb ist Ipponboard nicht nur ein einfaches Judo-Anzeigeprogramm, sondern mit Leidenschaft von Judoka für Judoka entwickelt. Es soll nicht nur die Leute am Zeitnehmertisch unterstützen, sondern auch die Trainer, das Publikum und die Kämpfer selbst.</translation>
@@ -1649,10 +1645,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <location line="+1"/>
         <source>Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. Therefore, it is appreciated by clubs and organizations around the world and has been used for many years at major championships.</source>
         <translation>Weil Ipponboard nicht nur besonders klar ablesbar, sondern auch revolutionär einfach und intuitiv zu bedienen ist, wird es von Vereinen und Organisationen auf der ganzen Welt geschätzt und seit Jahren auch auf großen Meisterschaften eingesetzt.</translation>
-    </message>
-    <message>
-        <source>This version can be used without restriction. Copying in unchanged form is permitted.</source>
-        <translation type="obsolete">Diese Version kann uneingeschränkt verwendet werden. Die Weitergabe in unveränderter Form ist erlaubt.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1673,15 +1665,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <location line="+1"/>
         <source>or by giving appreciative donations</source>
         <translation>oder durch anerkennende Spenden</translation>
-    </message>
-    <message>
-        <source>For more see the</source>
-        <translation type="obsolete">Mehr hierzu auf der </translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Thank you very much!</source>
-        <translation>Vielen Dank!</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.cpp" line="-1409"/>
@@ -1754,20 +1737,6 @@ Die Standardwerte werden geladen.</translation>
         <location line="+61"/>
         <source>Successfully exported %1 fighters.</source>
         <translation>%1 Kämper erfolgreich exportiert.</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1</source>
-        <translation type="obsolete">Datei %1 kann nicht geöffnet werden</translation>
-    </message>
-    <message>
-        <source>Error parsing file %1:
-line %2 has %3 items instead of %4 like in the previous lines</source>
-        <translation type="obsolete">Fehler beim Parsen der Datei %1:
-Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
-    </message>
-    <message>
-        <source>Unable to open file %1 for writing</source>
-        <translation type="obsolete">Kann Datei %1 nicht zum Schreiben öffnen</translation>
     </message>
 </context>
 <context>
@@ -2011,10 +1980,6 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <location line="-963"/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Auflösung</translation>
     </message>
     <message>
         <location line="-287"/>
