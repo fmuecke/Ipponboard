@@ -83,8 +83,8 @@ int ShowSplashScreen()
 	//auto t11 = QCoreApplication::tr("Ipponboard project on GitHub");
 	auto t12 = QCoreApplication::tr("Thank you very much!");
 
-	text += QString("%10 <a href=\"https://gitlab.com/r_bernhard/Ipponboard">%11</a>."
-						"<p><em>%12</em></p></body></html>").arg(t10, t11, t12);
+	text += QString("%10 <a href=\"https://gitlab.com/r_bernhard/Ipponboard\">%11</a>."
+						"<p><em>%12</em></p></body></html>").arg(/*t10, t11,*/ t12);
 
 	SplashScreen::Data splashData;
 	splashData.text = text;
