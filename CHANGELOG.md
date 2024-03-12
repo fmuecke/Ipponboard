@@ -1,5 +1,5 @@
 # *Ipponboard* - Version History 
-<small>by Florian Mücke and ESC</small>
+<small>by Florian Mücke and ESV</small>
 
 ## Version 2.2.0 (2024-03-yy)
 - migrate code to QT5

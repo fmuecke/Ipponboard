@@ -103,11 +103,11 @@ ECHO     BLOCK "StringFileInfo">>%RC_FILE%
 ECHO     BEGIN>>%RC_FILE%
 ECHO         BLOCK "040004b0">>%RC_FILE%
 ECHO         BEGIN>>%RC_FILE%
-ECHO             VALUE "CompanyName", "ESC feat. Florian Mücke">>%RC_FILE%
+ECHO             VALUE "CompanyName", "ESV feat. Florian Mücke">>%RC_FILE%
 ECHO             VALUE "FileDescription", "Ipponboard">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% ESC and Florian Mücke">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% ESV and Florian Mücke">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
 if "%TAG%"=="" (

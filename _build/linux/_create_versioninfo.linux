@@ -99,11 +99,11 @@ then
 	#echo     BEGIN																			>>$RC_FILE
 	#echo         BLOCK "040004b0"															>>$RC_FILE
 	#echo         BEGIN																		>>$RC_FILE
-	#echo             VALUE "CompanyName", "ESC feat. Florian Mücke"						>>$RC_FILE
+	#echo             VALUE "CompanyName", "ESV feat. Florian Mücke"						>>$RC_FILE
 	#echo             VALUE "FileDescription", "Ipponboard"									>>$RC_FILE
 	#echo             VALUE "FileVersion", "$VER1.$VER2.$VER3.$VER4"						>>$RC_FILE
 	#echo             VALUE "InternalName", "Ipponboard.exe"								>>$RC_FILE
-	#echo             VALUE "LegalCopyright", "Copyright (C) ESC and Florian Mücke"			>>$RC_FILE
+	#echo             VALUE "LegalCopyright", "Copyright (C) ESV and Florian Mücke"			>>$RC_FILE
 	#echo             VALUE "OriginalFilename", "Ipponboard.exe"							>>$RC_FILE
 	#echo             VALUE "ProductName", "Ipponboard"										>>$RC_FILE
 	#if "$TAG"=="" (

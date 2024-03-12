@@ -93,7 +93,7 @@ bool UpdateChecker::CheckForNewerVersion()
 			{
 				if (!QDesktopServices::openUrl(QUrl(infoUrl)))
 				{
-					return QDesktopServices::openUrl(QUrl("https://ipponboard.koe-judo.de"));
+					return QDesktopServices::openUrl(QUrl("https://ipponboard.koe-judo.de")); // TODO
 				}
 
 				return true;
