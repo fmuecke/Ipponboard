@@ -16,8 +16,6 @@
 #include <QSound>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <algorithm>
-#include <functional>
 
 using namespace Ipponboard;
 using Point = Score::Point;
@@ -42,12 +40,12 @@ Controller::Controller()
 	, m_TournamentModels()
 	, m_currentRound(0)
 	, m_currentFight(0)
-	, m_pSM(0)
+    , m_pSM(nullptr)
 	, m_State(eState_TimerStopped)
-	, m_pTimerMain(0)
-	, m_pTimerHold(0)
-	, m_pTimeMain(0)
-	, m_pTimeHold(0)
+    , m_pTimerMain(nullptr)
+    , m_pTimerHold(nullptr)
+    , m_pTimeMain(nullptr)
+    , m_pTimeHold(nullptr)
 	, m_Tori(FighterEnum::None)
 	, m_isSonoMama(false)
 	, m_roundTime(0, 0, 0, 0)
@@ -56,7 +54,7 @@ Controller::Controller()
 	, m_labelGuest("GUEST")
 //=========================================================
 {
-	m_pSM = new IpponboardSM();
+    m_pSM = std::make_unique<IpponboardSM>();
 	m_pSM->SetCore(this);
 	m_pTimerMain = new QTimer(this);
 	m_pTimerHold = new QTimer(this);
@@ -78,9 +76,9 @@ Controller::~Controller()
 {
 	m_views.clear();
 	m_goldenScoreViews.clear();
-	//delete m_pTimeHold;
-	//delete m_pTimeMain;
-	delete m_pSM;
+    //delete m_pTimeHold; --> --> deleted via parent-child reationship
+    //delete m_pTimeMain; --> deleted via parent-child reationship
+    //delete m_pSM; --> deleted via smart ptr
 }
 
 //=========================================================

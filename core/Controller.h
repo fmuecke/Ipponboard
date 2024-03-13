@@ -195,7 +195,7 @@ private:
 	int m_currentRound;
 	int m_currentFight;
 
-	Ipponboard::IpponboardSM* m_pSM;
+    std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
 	Ipponboard::EState m_State;
 	QTimer* m_pTimerMain;
 	QTimer* m_pTimerHold;
