@@ -5,6 +5,7 @@ Ipponboard requires the following libraries and tools to get built:
 - [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported)
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.59)
 - [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 5.0)
+- [jom](https://download.qt.io/official_releases/jom/) (also included in QCreator)
 - optional: pandoc to build the manual
 
 The first run of `build.cmd` will create a file to configure the paths to the above libraries
