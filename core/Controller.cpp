@@ -46,7 +46,7 @@ Controller::Controller()
     , m_pTimerHold(nullptr)
     , m_pTimeMain(nullptr)
     , m_pTimeHold(nullptr)
-	, m_Tori(FighterEnum::None)
+    , m_Tori(FighterEnum::Nobody)
 	, m_isSonoMama(false)
 	, m_roundTime(0, 0, 0, 0)
 	, m_options(0)
@@ -58,8 +58,8 @@ Controller::Controller()
 	m_pSM->SetCore(this);
 	m_pTimerMain = new QTimer(this);
 	m_pTimerHold = new QTimer(this);
-	m_pTimeMain = new QTime();
-	m_pTimeHold = new QTime();
+	m_pTimeMain = new QTime(0,0,0,0);
+	m_pTimeHold = new QTime(0,0,0,0);
 
 	InitTournament(m_mode);
 
@@ -132,7 +132,7 @@ void Controller::InitTournament(TournamentMode const& mode)
 	m_currentFight = 0;
 
 	// set time and update views
-	SetRoundTime(QTime().addSecs(m_mode.GetFightDuration(current_fight().weight)));
+    SetRoundTime(QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight)));
 }
 
 //=========================================================
@@ -313,7 +313,7 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
 FighterEnum Controller::GetLead() const
 //=========================================================
 {
-	FighterEnum winner(FighterEnum::None);
+    FighterEnum winner(FighterEnum::Nobody);
 
 	switch (m_State)
 	{
@@ -394,7 +394,7 @@ void Controller::reset_timers()
 
 	m_pTimerHold->stop();
 	reset_timer_value(eTimer_Hold);
-	m_Tori = FighterEnum::None;
+    m_Tori = FighterEnum::Nobody;
 
 	m_isSonoMama = false;
 }
@@ -424,7 +424,7 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 		m_pTimeHold->setHMS(0, 0, 0, 0);
 
 		if (!m_pTimerHold->isActive())
-			m_Tori = FighterEnum::None;
+            m_Tori = FighterEnum::Nobody;
 	}
 }
 
@@ -646,11 +646,11 @@ void Controller::SetGoldenScore(bool isGS)
 
 	if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetGoldenScoreTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetGoldenScoreTime());
 	}
 	else
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetRemainingTime());
+        *m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetRemainingTime());
 	}
 
 	update_views();
@@ -763,7 +763,7 @@ void Controller::stop_timer(ETimer t)
 void Controller::save_fight()
 //=========================================================
 {
-	auto elapsed = is_golden_score() ? m_pTimeMain->secsTo(QTime()) : m_pTimeMain->secsTo(m_roundTime);
+	auto elapsed = is_golden_score() ? m_pTimeMain->secsTo(QTime(0,0,0,0)) : m_pTimeMain->secsTo(m_roundTime);
 	current_fight().SetSecondsElapsed(elapsed);
 	current_fight().is_saved = true;
 }
@@ -775,7 +775,7 @@ void Controller::reset_fight()
 	m_pTimerHold->stop();
 	m_pTimerMain->stop();
 	m_pTimeHold->setHMS(0, 0, 0, 0);
-	m_Tori = FighterEnum::None;
+    m_Tori = FighterEnum::Nobody;
 
 	// just clear the score, not the names
 	get_score(FighterEnum::First) = Score();
@@ -787,7 +787,7 @@ void Controller::reset_fight()
 	fight.SetGoldenScore(false);
 	fight.is_saved = false;
 	fight.rules = m_rules;
-	m_roundTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+	m_roundTime = QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight));
 	*m_pTimeMain = m_roundTime;
 
 	update_views();
@@ -907,17 +907,17 @@ void Controller::SetCurrentFight(unsigned int index)
 {
 	// now set pointer to next fight
 	m_currentFight = index;
-	*m_pTimeHold = QTime();
-	m_roundTime = QTime().addSecs(m_mode.GetFightDuration(current_fight().weight));
+	*m_pTimeHold = QTime(0,0,0,0);
+	m_roundTime = QTime(0,0,0,0).addSecs(m_mode.GetFightDuration(current_fight().weight));
 
 	//FIXME: check this block
 	if (current_fight().IsGoldenScore())
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetGoldenScoreTime());
+		*m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetGoldenScoreTime());
 	}
 	else
 	{
-		*m_pTimeMain = QTime().addSecs(current_fight().GetRemainingTime());
+		*m_pTimeMain = QTime(0,0,0,0).addSecs(current_fight().GetRemainingTime());
 	}
 
 	// update state

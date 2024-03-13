@@ -177,7 +177,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	modifierVals << "Alt+Shift";
 	modifierVals << "Ctrl+Alt+Shift";
 
-	//FIXME: enable this when keyboard acces is customizable
+	//FIXME: enable this when keyboard access is customizable
 	//for (int i = 0; i < ui->tableWidget_keys->rowCount(); ++i)
 	//{
 	//	QComboBox* pCombo = new QComboBox();

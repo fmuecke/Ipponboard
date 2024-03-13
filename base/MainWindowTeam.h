@@ -35,7 +35,7 @@ public:
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
 	static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
 
-	void SetModes(Ipponboard::TournamentMode::List& modes)
+	void SetModes(Ipponboard::TournamentMode::List modes)
 	{
 		m_modes.swap(modes);
 	}

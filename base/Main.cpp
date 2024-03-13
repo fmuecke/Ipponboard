@@ -10,7 +10,7 @@
 #include "UpdateChecker.h"
 #include "../util/path_helpers.h"
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QTranslator>
 #include <QMessageBox>
 #include <QSettings>
@@ -39,8 +39,7 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
 	if (langStr == QString("de") || langStr == QString("nl"))
 	{
-		const QString& langPath =
-			QCoreApplication::applicationDirPath() + QString("/lang");
+		const QString& langPath = QCoreApplication::applicationDirPath() + QString("/lang");
 
 		if (translator.load(langStr, langPath))
 		{

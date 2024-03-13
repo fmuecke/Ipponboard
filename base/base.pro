@@ -54,9 +54,10 @@ QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
 win32-g++: COMPILER = mingw
 win32-msvc2013: COMPILER = msvc
 win32-msvc2015: COMPILER = msvc
+win32-msvc2017: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-	QMAKE_CXXFLAGS += -std=c++11
+	QMAKE_CXXFLAGS += -std=c++17
 	# get rid of some nasty boost warnings
     QMAKE_CXXFLAGS += -Wno-unused-local-typedef
 }
@@ -67,7 +68,7 @@ contains(COMPILER, msvc) {
     DEFINES += WIN32 _WIN32_WINNT=0x0501
 
     # remove unneccessary output files
-    #QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib>nul 
+    #QMAKE_POST_LINK += del /Q ../bin/$${TARGET}.exp ../bin/$${TARGET}.lib>nul 
 }
 
 CONFIG(debug, release|debug) {
@@ -127,7 +128,6 @@ HEADERS = pch.h \
 
 
 SOURCES = Main.cpp \
-    Main.cpp \
     MainWindow.cpp \
     MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \

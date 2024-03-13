@@ -99,7 +99,7 @@ void MainWindowTeam::Init()
 							  QCoreApplication::tr("Error reading mode configurations"),
 							  errMsg);
 
-		throw std::exception("Initialization failed!");
+        throw std::runtime_error("Initialization failed!");
 	}
 
 	SetModes(modes);
@@ -852,7 +852,7 @@ void MainWindowTeam::on_button_next_clicked()
 	m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
-	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)

@@ -35,7 +35,7 @@ struct IpponboardTest
 
 TEST_CASE("Test_parse_current_group")
 {
-	QSettings config("TestData\\TournamentModes-test.ini", QSettings::IniFormat, nullptr);
+	QSettings config("TestData/TournamentModes-test.ini", QSettings::IniFormat, nullptr);
 	QStringList groups;
 	groups
 			<< "basic"

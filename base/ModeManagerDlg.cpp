@@ -4,8 +4,8 @@
 
 #include "ModeManagerDlg.h"
 #include "ui_ModeManagerDlg.h"
-#include "..\core\Enums.h"
-#include "..\core\Rules.h"
+#include "../core/Enums.h"
+#include "../core/Rules.h"
 
 #include <QComboBox>
 #include <QStringList>

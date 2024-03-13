@@ -5,7 +5,7 @@
 #ifndef WIDGETS__SCALEDIMAGE_H_
 #define WIDGETS__SCALEDIMAGE_H_
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QImage>
 #include <QResizeEvent>
 

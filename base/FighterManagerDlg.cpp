@@ -386,8 +386,8 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
 
 			// due to duplicate entry
 			qDebug("removed changed entry due to duplicate: %s %s",
-				   changedFighter.first_name.toAscii().data(),
-				   changedFighter.last_name.toAscii().data());
+                   changedFighter.first_name.toLatin1().data(),
+                   changedFighter.last_name.toLatin1().data());
 		}
 	}
 }

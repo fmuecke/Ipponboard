@@ -68,12 +68,12 @@ void MainWindowBase::Init()
 
 	// Setup views
 	m_pPrimaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypePrimary));
+		new View(m_pController->GetIController(), Edition(), View::eTypePrimary));
 
 	attach_primary_view();
 
 	m_pSecondaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypeSecondary));
+		new View(m_pController->GetIController(), Edition(), View::eTypeSecondary));
 
 	// clear data
 	m_pController->ClearFightsAndResetTimers();
@@ -146,14 +146,14 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	switch (event->key())
 	{
 	case Qt::Key_Space:
-		m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::FighterEnum::None);
+        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 		qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
 		break;
 
 	case Qt::Key_Backspace:
 		if (isCtrlPressed)
 		{
-			m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::FighterEnum::None);
+            m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 			qDebug() << "Action [ Reset ] was triggered by keyboard";
 		}
 
@@ -162,15 +162,13 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Left:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::FighterEnum::First != m_pController->GetLead())
+					FighterEnum::First != m_pController->GetLead())
 			{
-				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::FighterEnum::First);
+				m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
 			}
 			else
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::FighterEnum::First);
+				m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
@@ -181,15 +179,13 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Right:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::FighterEnum::Second != m_pController->GetLead())
+					FighterEnum::Second != m_pController->GetLead())
 			{
-				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::FighterEnum::Second);
+				m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
 			}
 			else
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::FighterEnum::Second);
+				m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
@@ -200,16 +196,14 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Down:
 		//if (isCtrlPressed)
 		{
-			m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-									Ipponboard::FighterEnum::None,
-									true);
+            m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true);
 			qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
 		}
 		break;
 
 	case Qt::Key_F5:
-		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::FighterEnum::First,
+		m_pController->DoAction(eAction_Ippon,
+								FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter1, revoke="
 				 << isCtrlPressed
@@ -217,8 +211,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F6:
-		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::FighterEnum::First,
+		m_pController->DoAction(eAction_Wazaari,
+								FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter1, revoke="
 				 << isCtrlPressed
@@ -226,8 +220,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F7:
-		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::FighterEnum::First,
+		m_pController->DoAction(eAction_Yuko,
+								FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter1, revoke="
 				 << isCtrlPressed
@@ -235,8 +229,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F8:
-		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::FighterEnum::First,
+		m_pController->DoAction(eAction_Shido,
+								FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter1, revoke="
 				 << isCtrlPressed
@@ -244,8 +238,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F9:
-		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::FighterEnum::Second,
+		m_pController->DoAction(eAction_Ippon,
+								FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter2, revoke="
 				 << isCtrlPressed
@@ -253,8 +247,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F10:
-		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::FighterEnum::Second,
+		m_pController->DoAction(eAction_Wazaari,
+								FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter2, revoke="
 				 << isCtrlPressed
@@ -262,8 +256,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F11:
-		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::FighterEnum::Second,
+		m_pController->DoAction(eAction_Yuko,
+								FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter2, revoke="
 				 << isCtrlPressed
@@ -271,8 +265,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F12:
-		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::FighterEnum::Second,
+		m_pController->DoAction(eAction_Shido,
+								FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter2, revoke="
 				 << isCtrlPressed
@@ -418,7 +412,7 @@ void MainWindowBase::write_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -502,7 +496,7 @@ void MainWindowBase::read_settings()
 {
 	QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -518,8 +512,7 @@ void MainWindowBase::read_settings()
 		//resize(settings.value(str_tag_size, size()).toSize());
 		move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
 		m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
-		m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
-											QSize(0, 0)).toSize();
+		m_secondScreenSize = settings.value(str_tag_SecondScreenSize, QSize(0, 0)).toSize();
 		update_statebar();
 	}
 	settings.endGroup();
@@ -670,7 +663,7 @@ void MainWindowBase::load_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+            fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 
 	QString errorMsg;
 
@@ -693,7 +686,7 @@ void MainWindowBase::save_fighters()
 {
 	QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+			fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 	QString errorMsg;
 
 	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
@@ -830,7 +823,7 @@ void MainWindowBase::EvaluateInput()
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
-		m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::None);
+        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
@@ -869,7 +862,7 @@ void MainWindowBase::EvaluateInput()
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
-		m_pController->DoAction(eAction_ResetAll, FighterEnum::None);
+        m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 	}
 
 	// hansokumake fighter1
@@ -1007,8 +1000,8 @@ void MainWindowBase::on_button_reset_clicked()
 //							   tr("Really reset current fight?"),
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
-	m_pController->DoAction(Ipponboard::eAction_ResetAll,
-							Ipponboard::FighterEnum::None,
+	m_pController->DoAction(eAction_ResetAll,
+                        FighterEnum::Nobody,
 							false);
 }
 
