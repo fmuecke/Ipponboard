@@ -13,7 +13,7 @@ namespace Ipponboard
 
 enum  FighterEnum
 {
-	None = -1,
+    Nobody = -1,
 	First = 0,
 	Second = 1,
 	_MAX

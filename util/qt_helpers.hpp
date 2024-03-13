@@ -20,7 +20,7 @@ namespace fm
 
         static QString from_utf8_str(std::string const& str)
         {
-            return QString::fromUtf8(str.c_str(), str.length());
+            return QString::fromUtf8(str.c_str(), (int)str.length());
         }
 
     }

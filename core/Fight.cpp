@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "Fight.h"
 
 using namespace Ipponboard;
@@ -10,7 +11,8 @@ Fight::Fight()
 	: weight("-")
 	, rules(new ClassicRules)
 {
-	scores[0] = Score();
+    TRACE(2, "Fight::Fight()");
+    scores[0] = Score();
 	scores[1] = Score();
 
 	fighters[0] = SimpleFighter();
@@ -21,22 +23,33 @@ Fight::Fight()
 
 int Fight::GetSecondsElapsed() const
 {
-	return seconds_elapsed;
+    TRACE(2, "Fight::GetSecondsElapsed()");
+    return seconds_elapsed;
 }
 
 void Fight::SetSecondsElapsed(int s)
 {
-	//SetGoldenScore(s < 0);
+    TRACE(2, "Fight::SetSecondsElapsed()");
+    //SetGoldenScore(s < 0);
 	seconds_elapsed = s;
 }
 
-int Fight::GetRoundSeconds() const { return round_time_seconds; }
+int Fight::GetRoundSeconds() const
+{
+    TRACE(2, "Fight::GetRoundSeconds()");
+    return round_time_seconds;
+}
 
-void Fight::SetRoundTime(int secs) { round_time_seconds = secs; }
+void Fight::SetRoundTime(int secs)
+{
+    TRACE(2, "Fight::SetRoundTime()");
+    round_time_seconds = secs;
+}
 
 int Fight::GetRemainingTime() const
 {
-	if (IsGoldenScore())
+    TRACE(2, "Fight::GetRemainingTime()");
+    if (IsGoldenScore())
 	{
 		return 0;
 	}
@@ -46,7 +59,8 @@ int Fight::GetRemainingTime() const
 
 int Fight::GetGoldenScoreTime() const
 {
-	if (IsGoldenScore() && seconds_elapsed < 0)
+    TRACE(2, "Fight::GetGoldenScoreTime()");
+    if (IsGoldenScore() && seconds_elapsed < 0)
 	{
 		return -seconds_elapsed;
 	}
@@ -57,7 +71,8 @@ int Fight::GetGoldenScoreTime() const
 
 QString Fight::GetTotalTimeElapsedString() const
 {
-	// get time display
+    TRACE(2, "Fight::GetTotalTimeElapsedString()");
+    // get time display
 	auto elapsed = IsGoldenScore() ? -seconds_elapsed + round_time_seconds : seconds_elapsed;
 
 	int minutes = elapsed / 60;
@@ -71,7 +86,8 @@ QString Fight::GetTotalTimeElapsedString() const
 
 bool Fight::SetElapsedFromTotalTime(QString s)
 {
-	int secs = 0;
+    TRACE(2, "Fight::SetElapsedFromTotalTime(s=%s)", s.toUtf8().data());
+    int secs = 0;
 	auto parts = s.split(":");
 
 	if (parts.size() > 1)
@@ -101,7 +117,8 @@ bool Fight::SetElapsedFromTotalTime(QString s)
 
 QString Fight::GetTimeRemainingString() const
 {
-	// get time display
+    TRACE(2, "Fight::GetTimeRemainingString()");
+    // get time display
 	auto isGoldenScore = seconds_elapsed < 0;
 
 	auto time_remaining = isGoldenScore ? GetGoldenScoreTime() : GetRemainingTime();
@@ -117,11 +134,12 @@ QString Fight::GetTimeRemainingString() const
 
 bool Fight::HasWon(FighterEnum who) const
 {
-	//unused: const FighterEnum other = GetUkeFromTori(who);
+    TRACE(2, "Fight::HasWon()");
+    //unused: const FighterEnum other = GetUkeFromTori(who);
 
 	auto result = rules->CompareScore(*this);
 
-	if (who == FighterEnum::First && result < 0 || who == FighterEnum::Second && result > 0)
+    if ((who == FighterEnum::First && result < 0) || (who == FighterEnum::Second && result > 0))
 	{
 		return true;
 	}
@@ -131,7 +149,8 @@ bool Fight::HasWon(FighterEnum who) const
 
 int Fight::GetScorePoints(FighterEnum who) const
 {
-	const FighterEnum other = GetUkeFromTori(who);
+    TRACE(2, "Fight::GetScorePoints()");
+    const FighterEnum other = GetUkeFromTori(who);
 
 	if (HasWon(who))
 	{

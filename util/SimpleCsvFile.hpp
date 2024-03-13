@@ -5,6 +5,7 @@
 #ifndef _UTIL_SIMPLECSVFILE_HPP
 #define _UTIL_SIMPLECSVFILE_HPP
 
+#include "debug.h"
 #include <QFile>
 #include <QObject>  // needed for tr()
 #include <QString>
@@ -24,6 +25,7 @@ namespace SimpleCsvFile
             std::vector<QStringList>& readData,
             QString& errorMsg)
     {
+        TRACE(2, "ReadItems(fileName=%s)", fileName.toUtf8().data());
         errorMsg.clear();
 
         QFile file(fileName);
@@ -75,6 +77,7 @@ namespace SimpleCsvFile
             QStringList const& data,
             QString& errorMsg)
     {
+        TRACE(2, "WriteData(fileName=%s)", fileName.toUtf8().data());
         errorMsg.clear();
 
         QFile file(fileName);
@@ -94,7 +97,11 @@ namespace SimpleCsvFile
 			QTextStream outStream(&file);
 			Q_FOREACH(QString const& line, data)
 			{
-				outStream << line << endl;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+                outStream << line << endl;
+#else
+                outStream << line << Qt::endl;
+#endif
 			}
 		}
 

@@ -20,7 +20,7 @@ namespace Ipponboard
 
 class TournamentMode
 {
-	friend struct IpponboardTest;
+    friend IpponboardTest;
 
 public:
 	TournamentMode();
@@ -66,7 +66,7 @@ public:
 	static bool ExtractFightTimeOverrides(QString const& overridesString, OverridesList& overrides);
 
 private:
-	static bool parse_current_group(
+		static bool parse_current_group(
 		QSettings const& config,
 		TournamentMode& tm,
 		QString& errorMsg);

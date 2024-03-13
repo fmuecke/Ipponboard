@@ -19,7 +19,9 @@ class SettingsDlg;
 namespace Ipponboard
 {
 
+#ifdef _WITH_GAMEPAD_
 struct ControllerConfig;
+#endif
 
 class SettingsDlg : public QDialog
 {
@@ -28,7 +30,7 @@ public:
 	SettingsDlg(EditionType edition, QWidget* parent = 0);
 	~SettingsDlg();
 
-	void SetScreensSettings(int screen, const QSize& dimensions); // zero dimensions means auto size
+    void SetScreensSettings(int screen, const QSize& dimensions,const QPoint& position); // zero dimensions means auto size
 	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
 							   const QColor& background);
 	void SetFighterNameFont(const QFont& font);
@@ -38,8 +40,9 @@ public:
 	void SetGongFile(const QString& path);
 
 	int GetSelectedScreen() const;
-	QSize GetSize() const;
-	QFont GetInfoHeaderFont() const;
+    QSize GetSecondScreenSize() const;
+    QPoint GetSecondScreenPos() const;
+    QFont GetInfoHeaderFont() const;
 	QFont GetFighterNameFont() const;
 	QColor GetInfoTextColor() const;
 	QColor GetTextColorFirst() const;
@@ -52,8 +55,10 @@ public:
 	QString GetGuestLabel() const;
 	QString GetGongFile() const;
 
+#ifdef _WITH_GAMEPAD_
 	void SetControllerConfig(const ControllerConfig* pConfig);
 	void GetControllerConfig(ControllerConfig* pConfig);
+#endif
 
 protected:
 	void changeEvent(QEvent* e);

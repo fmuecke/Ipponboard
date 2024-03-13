@@ -1,5 +1,15 @@
 # *Ipponboard* - Version History 
-<small>by Florian Mücke</small>
+<small>by Florian Mücke and ESV</small>
+
+## Version 2.2.0 (2024-03-yy)
+- migrate code to QT5
+- wip
+
+## Version 2.1.0 (2024-02-22)
+- Organized source code so that it compiles without Gamepad-support under Linux,
+
+## Version 2.0.0 (2024-01-yy)
+- changed the build environment to Visual Studio 2022 and update the production tools to versions available in 2023/24
 
 ## Version 2.x (2023-xx-yy)
 

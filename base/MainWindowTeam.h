@@ -35,7 +35,7 @@ public:
 	virtual const char* EditionNameShort() const final	{ return "Team"; }
 	static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
 
-	void SetModes(Ipponboard::TournamentMode::List& modes)
+    void SetModes(Ipponboard::TournamentMode::List modes)
 	{
 		m_modes.swap(modes);
 	}
@@ -64,10 +64,10 @@ private:
 
 	// specific methods
 	void update_club_views();
-	void UpdateFightNumber_();
-	void UpdateButtonText_();
+	void UpdateFightNumber();
+	void UpdateButtonText();
 	void update_score_screen();
-	void WriteScoreToHtml_();
+	void WriteScoreToHtml();
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
 	//void update_fighter_name_completer(const QString& weight);
@@ -116,7 +116,9 @@ private slots:
 	//void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
 	void on_actionReset_Scores_triggered();
+#ifdef _WITH_GAMEPAD_
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
+#endif
 
 private:
 	void update_weights(QString const& weightString);
@@ -141,7 +143,7 @@ private:
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;
 	QStringList m_FighterNamesGuest;
-	Ipponboard::TournamentMode::List m_modes;
+    Ipponboard::TournamentMode::List m_modes;
 	QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 

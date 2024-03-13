@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FightCategoryManagerDlg.h"
 #include "ui_FightCategoryManagerDlg.h"
-#include "..\util\path_helpers.h"
+#include "../util/path_helpers.h"
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QRegExp>
@@ -21,7 +22,8 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 	, m_pClassMgr(pMgr)
 //---------------------------------------------------------
 {
-	ui->setupUi(this);
+    TRACE(2, "FightCategoryManagerDlg::FightCategoryManagerDlg()");
+    ui->setupUi(this);
 
 	// NOTE: This is nasty workaround for the standard buttons not
 	// beeing translated (separate translator would be required)
@@ -39,14 +41,16 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 FightCategoryManagerDlg::~FightCategoryManagerDlg()
 //---------------------------------------------------------
 {
-	delete ui;
+    TRACE(2, "FightCategoryManagerDlg::~FightCategoryManagerDlg()");
+    delete ui;
 }
 
 //---------------------------------------------------------
 void FightCategoryManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-	QDialog::changeEvent(e);
+    TRACE(2, "FightCategoryManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
+    QDialog::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -63,7 +67,8 @@ void FightCategoryManagerDlg::changeEvent(QEvent* e)
 void FightCategoryManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-	bool ok(false);
+    TRACE(2, "FightCategoryManagerDlg::on_pushButton_add_pressed()");
+    bool ok(false);
 	QString name = QInputDialog::getText(this,
 										 tr("Add new category"),
 										 tr("Enter the name of the new category"),
@@ -109,7 +114,8 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 void FightCategoryManagerDlg::load_values()
 //---------------------------------------------------------
 {
-	for (int i(0); i < m_pClassMgr->CategoryCount(); ++i)
+    TRACE(2, "FightCategoryManagerDlg::load_values()");
+    for (int i(0); i < (int)m_pClassMgr->CategoryCount(); ++i)
 	{
 		Ipponboard::FightCategory classItem;
 		m_pClassMgr->GetCategory(i, classItem);
@@ -131,7 +137,8 @@ void FightCategoryManagerDlg::load_values()
 void FightCategoryManagerDlg::on_buttonBox_accepted()
 //---------------------------------------------------------
 {
-	// do not restore old values
+    TRACE(2, "FightCategoryManagerDlg::on_buttonBox_accepted()");
+    // do not restore old values
 	//TODO: ? accept();
 }
 
@@ -139,7 +146,8 @@ void FightCategoryManagerDlg::on_buttonBox_accepted()
 void FightCategoryManagerDlg::on_buttonBox_rejected()
 //---------------------------------------------------------
 {
-	// restore old values
+    TRACE(2, "FightCategoryManagerDlg::on_buttonBox_rejected()");
+    // restore old values
 	//TODO: ? reject();
 
 	m_pClassMgr->CategoriesFromString(m_originalClasses);
@@ -149,7 +157,8 @@ void FightCategoryManagerDlg::on_buttonBox_rejected()
 void FightCategoryManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-	QTreeWidgetItem* pItem = ui->treeWidget_classes->currentItem();
+    TRACE(2, "FightCategoryManagerDlg::on_pushButton_remove_pressed()");
+    QTreeWidgetItem* pItem = ui->treeWidget_classes->currentItem();
 
 	if (pItem)
 	{
@@ -167,7 +176,8 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 	QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
-	bool matches(false);
+    TRACE(2, "FightCategoryManagerDlg::on_treeWidget_classes_itemChanged()");
+    bool matches(false);
 
 	FightCategory cat(pItem->text(eColumn_Name));
 	cat.SetRoundTime(pItem->text(eColumn_Time));

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FightCategoryManager.h"
 #include <QObject>
 
@@ -24,14 +25,16 @@ FightCategoryMgr::FightCategoryMgr()
 	: m_Categories()
 //---------------------------------------------------------
 {
-	load_categories();
+    TRACE(2, "FightCategoryMgr::FightCategoryMgr()");
+    load_categories();
 }
 
 //---------------------------------------------------------
 FightCategoryMgr::~FightCategoryMgr()
 //---------------------------------------------------------
 {
-	save_categories();
+    TRACE(2, "FightCategoryMgr::~FightCategoryMgr()");
+    save_categories();
 }
 
 //---------------------------------------------------------
@@ -39,7 +42,8 @@ bool FightCategoryMgr::GetCategory(int index,
 								   Ipponboard::FightCategory& t) const
 //---------------------------------------------------------
 {
-	try
+    TRACE(2, "FightCategoryMgr::GetCategory()");
+    try
 	{
 		t = m_Categories.at(index);
 	}
@@ -56,7 +60,9 @@ bool FightCategoryMgr::GetCategory(QString const& name,
 								   Ipponboard::FightCategory& c) const
 //---------------------------------------------------------
 {
-	FightCategoryList::const_iterator iter =
+    TRACE(2, "FightCategoryMgr::GetCategory(name=%s)", name.toUtf8().data());
+
+    FightCategoryList::const_iterator iter =
 		std::find(m_Categories.begin(), m_Categories.end(), name);
 
 	if (iter != m_Categories.end())
@@ -73,7 +79,8 @@ bool FightCategoryMgr::GetCategory(QString const& name,
 bool FightCategoryMgr::HasCategory(QString const& name) const
 //---------------------------------------------------------
 {
-	// We could use the new cpp0x lambda expression for that
+    TRACE(2, "FightCategoryMgr::HasCategory(name=%s)", name.toUtf8().data());
+    // We could use the new cpp0x lambda expression for that
 	// or use operator overloading...
 	//
 	// return std::find_if( m_Classes.begin(), m_Classes.end(),
@@ -88,7 +95,8 @@ bool FightCategoryMgr::HasCategory(QString const& name) const
 void FightCategoryMgr::AddCategory(Ipponboard::FightCategory const& t)
 //---------------------------------------------------------
 {
-	m_Categories.push_back(t);
+    TRACE(2, "FightCategoryMgr::AddCategory()");
+    m_Categories.push_back(t);
 }
 
 
@@ -96,7 +104,8 @@ void FightCategoryMgr::AddCategory(Ipponboard::FightCategory const& t)
 void FightCategoryMgr::AddCategory(QString const& name)
 //---------------------------------------------------------
 {
-	FightCategory t(name);
+    TRACE(2, "FightCategoryMgr::AddCategory(name=%s)", name.toUtf8().data());
+    FightCategory t(name);
 	AddCategory(t);
 }
 
@@ -104,7 +113,8 @@ void FightCategoryMgr::AddCategory(QString const& name)
 void FightCategoryMgr::UpdateCategory(const Ipponboard::FightCategory& t)
 //---------------------------------------------------------
 {
-	if (t.ToString().isEmpty())
+    TRACE(2, "FightCategoryMgr::UpdateCategory()");
+    if (t.ToString().isEmpty())
 		return;
 
 	FightCategoryList::iterator iter =
@@ -121,7 +131,8 @@ void FightCategoryMgr::RenameCategory(QString const& oldName,
 									  QString const& newName)
 //---------------------------------------------------------
 {
-	FightCategoryList::iterator iter =
+    TRACE(2, "FightCategoryMgr::RenameCategory(oldName=%s, newName=%s)", oldName.toUtf8().data(), newName.toUtf8().data());
+    FightCategoryList::iterator iter =
 		std::find(m_Categories.begin(), m_Categories.end(), oldName);
 
 	Q_ASSERT(iter != m_Categories.end() && "Critical: weight class not in list!");
@@ -135,7 +146,8 @@ void FightCategoryMgr::RenameCategory(QString const& oldName,
 void FightCategoryMgr::RemoveCategory(QString const& name)
 //---------------------------------------------------------
 {
-	FightCategoryList::iterator iter =
+    TRACE(2, "FightCategoryMgr::RemoveCategory(name=%s)", name.toUtf8().data());
+    FightCategoryList::iterator iter =
 		std::find(m_Categories.begin(), m_Categories.end(), name);
 
 	if (iter == m_Categories.end())
@@ -148,7 +160,8 @@ void FightCategoryMgr::RemoveCategory(QString const& name)
 void FightCategoryMgr::load_categories()
 //---------------------------------------------------------
 {
-	auto configFile {fm::GetSettingsFilePath(str_configFileName)};
+    TRACE(2, "FightCategoryMgr::load_categories()");
+    auto configFile {fm::GetSettingsFilePath(str_configFileName)};
 	auto legacyFile {fm::GetSettingsFilePath(str_fileName)};
 
 	try
@@ -184,7 +197,8 @@ void FightCategoryMgr::load_categories()
 void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
-	std::string filePath {fm::GetSettingsFilePath(str_configFileName)};
+    TRACE(2, "FightCategoryMgr::save_categories()");
+    std::string filePath {fm::GetSettingsFilePath(str_configFileName)};
 	FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
 }
 
@@ -192,7 +206,8 @@ void FightCategoryMgr::save_categories()
 bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 //---------------------------------------------------------
 {
-	try
+    TRACE(2, "FightCategoryMgr::CategoriesFromString(s=%s)", s.c_str());
+    try
 	{
 		auto cats = FightCategoryParser::ParseJsonString(s);
 
@@ -218,7 +233,8 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 //---------------------------------------------------------
 {
-	try
+    TRACE(2, "FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()");
+    try
 	{
 		return FightCategoryParser::ToJsonString(m_Categories);
 	}
@@ -237,7 +253,8 @@ std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 void FightCategoryMgr::load_default_categories()
 //--------------------------------------------------------
 {
-	m_Categories.clear();
+    TRACE(2, "FightCategoryMgr::load_default_categories()");
+    m_Categories.clear();
 
 	FightCategory t("M");
 	t.SetWeights("-60;-66;-73;-81;-90;-100;+100");

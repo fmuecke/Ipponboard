@@ -49,7 +49,7 @@ public:
 		m_nRows = rows;
 		endResetModel();
 	}
-	int GetNumRows() const { return m_nRows; }
+	size_t GetNumRows() const { return m_nRows; }
 
 	/* QAbstractTableModel (required) */
 	int rowCount(const QModelIndex& parent) const;
@@ -81,7 +81,7 @@ private:
 
 	Ipponboard::PTournamentRound m_pTournamentRound;
 	TournamentModel* m_pIntermediateModel;
-	int m_nRows;
+	size_t m_nRows;
 	QString m_HeaderData[eCol_MAX];
 	int m_HeaderSizes[eCol_MAX];
 	QLineEdit* m_pEditWins;

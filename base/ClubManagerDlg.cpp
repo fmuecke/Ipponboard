@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "ClubManagerDlg.h"
 #include "ui_ClubManagerDlg.h"
 #include "ClubManager.h"
@@ -20,7 +21,8 @@ ClubManagerDlg::ClubManagerDlg(
 	, m_SelectedClub(-1)
 //---------------------------------------------------------
 {
-	ui->setupUi(this);
+    TRACE(2, "ClubManagerDlg::ClubManagerDlg()");
+    ui->setupUi(this);
 
 	Q_ASSERT(m_pClubMgr);
 
@@ -45,7 +47,8 @@ ClubManagerDlg::ClubManagerDlg(
 ClubManagerDlg::~ClubManagerDlg()
 //---------------------------------------------------------
 {
-	// we need to resort the clubs because there might be
+    TRACE(2, "ClubManagerDlg::~ClubManagerDlg()");
+    // we need to resort the clubs because there might be
 	// new ones
 	m_pClubMgr->SortClubs();
 
@@ -56,7 +59,8 @@ ClubManagerDlg::~ClubManagerDlg()
 void ClubManagerDlg::changeEvent(QEvent* e)
 //---------------------------------------------------------
 {
-	QDialog::changeEvent(e);
+    TRACE(2, "ClubManagerDlg::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
+    QDialog::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -73,7 +77,8 @@ void ClubManagerDlg::changeEvent(QEvent* e)
 void ClubManagerDlg::select_club(int index)
 //---------------------------------------------------------
 {
-	m_SelectedClub = index;
+    TRACE(2, "ClubManagerDlg::select_club()");
+    m_SelectedClub = index;
 
 	if (m_SelectedClub != -1)
 	{
@@ -95,7 +100,8 @@ void ClubManagerDlg::select_club(int index)
 void ClubManagerDlg::update_ui()
 //---------------------------------------------------------
 {
-	const QString fileName = ui->lineEdit_logoFile->text();
+    TRACE(2, "ClubManagerDlg::update_ui()");
+    const QString fileName = ui->lineEdit_logoFile->text();
 	QPalette palette(ui->lineEdit_logoFile->palette());
 
 	if (QFile::exists(fileName))
@@ -129,7 +135,8 @@ void ClubManagerDlg::update_ui()
 void ClubManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-	// add empty club
+    TRACE(2, "ClubManagerDlg::on_pushButton_add_pressed()");
+    // add empty club
 	Ipponboard::Club club("--> new <--", "clubs\\default.png");
 	m_pClubMgr->AddClub(club);
 	ui->comboBox_club->addItem(club.name);
@@ -144,7 +151,8 @@ void ClubManagerDlg::on_pushButton_add_pressed()
 void ClubManagerDlg::on_pushButton_save_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
+    TRACE(2, "ClubManagerDlg::on_pushButton_save_pressed()");
+    if (m_SelectedClub < 0)
 		return;
 
 	Ipponboard::Club club;
@@ -163,7 +171,8 @@ void ClubManagerDlg::on_pushButton_save_pressed()
 void ClubManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
+    TRACE(2, "ClubManagerDlg::on_pushButton_remove_pressed()");
+    if (m_SelectedClub < 0)
 		return;
 
 	m_pClubMgr->RemoveClub(m_SelectedClub);
@@ -174,7 +183,8 @@ void ClubManagerDlg::on_pushButton_remove_pressed()
 void ClubManagerDlg::on_comboBox_club_currentIndexChanged(int index)
 //---------------------------------------------------------
 {
-	select_club(index);
+    TRACE(2, "ClubManagerDlg::on_comboBox_club_currentIndexChanged()");
+    select_club(index);
 	update_ui();
 }
 
@@ -182,14 +192,16 @@ void ClubManagerDlg::on_comboBox_club_currentIndexChanged(int index)
 void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& /*fileName*/)
 //---------------------------------------------------------
 {
-	update_ui();
+    TRACE(2, "ClubManagerDlg::on_lineEdit_logoFile_textEdited()");
+    update_ui();
 }
 
 //---------------------------------------------------------
 void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
+    TRACE(2, "ClubManagerDlg::on_pushButton_browseLogo_pressed()");
+    if (m_SelectedClub < 0)
 		return;
 
 	QString fileName = QFileDialog::getOpenFileName(this,

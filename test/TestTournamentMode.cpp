@@ -35,9 +35,14 @@ struct IpponboardTest
 
 TEST_CASE("Test_parse_current_group")
 {
-	QSettings config("TestData\\TournamentModes-test.ini", QSettings::IniFormat, nullptr);
+    //const QString& iniFile = QDir::currentPath() + "/TestData/TournamentModes-test.ini";
+    QSettings config("TestData/TournamentModes-test.ini", QSettings::IniFormat);
+    //QString filename = config.fileName();
+    //QStringList keys = config.allKeys();
+    //QStringList childgroups = config.childGroups();
+
 	QStringList groups;
-	groups
+    groups
 			<< "basic"
 			<< "with_weights_doubled"
 			<< "with_time_overrides"

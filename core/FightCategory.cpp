@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "FightCategory.h"
 #include <QTime>
 
@@ -9,26 +10,29 @@ using namespace Ipponboard;
 
 QStringList FightCategory::GetWeightsList() const
 {
-	return QString::fromStdString(weights).split(';');
+    TRACE(2, "FightCategory::GetWeightsList()");
+    return QString::fromStdString(weights).split(';');
 }
 
 QString FightCategory::GetRoundTimeStr() const
 {
-	return QTime().addSecs(round_time_secs).toString("m:ss");
+    TRACE(2, "FightCategory::GetRoundTimeStr()");
+    return QTime(0,0,0,0).addSecs(round_time_secs).toString("m:ss");
 }
 QString FightCategory::GetGoldenScoreTimeStr() const
 {
-	return QTime().addSecs(golden_score_time_secs).toString("m:ss");
+    TRACE(2, "FightCategory::GetGoldenScoreTimeStr()");
+    return QTime(0,0,0,0).addSecs(golden_score_time_secs).toString("m:ss");
 }
 
 void FightCategory::SetRoundTime(QString const& str)
 {
-	round_time_secs =
-		QTime().secsTo(QTime::fromString(str, "m:ss"));
+    TRACE(2, "FightCategory::SetRoundTime(str=%s)", str.toUtf8().data());
+    round_time_secs = QTime().secsTo(QTime::fromString(str, "m:ss"));
 }
 
 void FightCategory::SetGoldenScoreTime(QString const& str)
 {
-	golden_score_time_secs =
-		QTime().secsTo(QTime::fromString(str, "m:ss"));
+    TRACE(2, "FightCategory::SetRoundTime(str=%s)", str.toUtf8().data());
+    golden_score_time_secs = QTime().secsTo(QTime::fromString(str, "m:ss"));
 }

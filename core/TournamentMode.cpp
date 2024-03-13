@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "TournamentMode.h"
 #include "Rules.h"
 
@@ -38,6 +39,7 @@ TournamentMode::TournamentMode()
 	, fightTimeInSeconds(240)
 	, weightsAreDoubled(false)
 {
+    TRACE(2, "TournamentMode::TournamentMode()");
 }
 
 bool TournamentMode::ReadModes(
@@ -45,7 +47,9 @@ bool TournamentMode::ReadModes(
 	TournamentMode::List& modes,
 	QString& errorMsg)
 {
-	errorMsg.clear();
+    TRACE(2, "TournamentMode::ReadModes(filename=%s)", filename.toUtf8().data());
+
+    errorMsg.clear();
 
 	QFile file(filename);
 
@@ -94,7 +98,8 @@ bool TournamentMode::ReadModes(
 
 bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List const& modes, QString& errorMsg)
 {
-	errorMsg.clear();
+    TRACE(2, "TournamentMode::WriteModes(filename=%s)", filename.toUtf8().data());
+    errorMsg.clear();
 
 	QFile file(filename);
 
@@ -130,7 +135,8 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
 
 TournamentMode TournamentMode::Default()
 {
-	TournamentMode mode;
+    TRACE(2, "TournamentMode::Default()");
+    TournamentMode mode;
 
 	mode.id = QUuid::createUuid().toString();
 	mode.id = mode.id.mid(1, mode.id.length() - 2);  // remove "{}"
@@ -147,17 +153,20 @@ TournamentMode TournamentMode::Default()
 
 bool TournamentMode::operator<(TournamentMode const& other) const
 {
-	return Description() < other.Description();
+    TRACE(2, "TournamentMode::operator<()");
+    return Description() < other.Description();
 }
 
 QString TournamentMode::Description() const
 {
-	return subTitle.isEmpty() ? title : QString("%1 - %2").arg(title, subTitle);
+    TRACE(2, "TournamentMode::Description()");
+    return subTitle.isEmpty() ? title : QString("%1 - %2").arg(title, subTitle);
 }
 
 int TournamentMode::FightsPerRound() const
 {
-	if (weights.isEmpty())
+    TRACE(2, "TournamentMode::FightsPerRound()");
+    if (weights.isEmpty())
 	{
 		return 1;
 	}
@@ -168,7 +177,8 @@ int TournamentMode::FightsPerRound() const
 
 int TournamentMode::GetFightDuration(const QString& weight) const
 {
-	for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
+    TRACE(2, "TournamentMode::GetFightDuration(weight=%s)", weight.toUtf8().data());
+    for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
 	{
 		if (weight.contains(it->first))
 		{
@@ -181,7 +191,8 @@ int TournamentMode::GetFightDuration(const QString& weight) const
 
 bool TournamentMode::IsOptionSet(QString const& option) const
 {
-	if (options.isEmpty())
+    TRACE(2, "TournamentMode::IsOptionSet(option=%s)", option.toUtf8().data());
+    if (options.isEmpty())
 	{
 		return false;
 	}
@@ -191,7 +202,8 @@ bool TournamentMode::IsOptionSet(QString const& option) const
 
 void TournamentMode::SetOption(QString const& option, bool checked)
 {
-	if (checked)
+    TRACE(2, "TournamentMode::SetOption(option=%s, checked=%d)", option.toUtf8().data(),checked);
+    if (checked)
 	{
 		if (!options.contains(option))
 		{
@@ -213,7 +225,8 @@ void TournamentMode::SetOption(QString const& option, bool checked)
 
 QString TournamentMode::GetFightTimeOverridesString() const
 {
-	QString ret;
+    TRACE(2, "TournamentMode::GetFightTimeOverridesString()");
+    QString ret;
 
 	for (auto const & p : fightTimeOverrides)
 	{
@@ -230,7 +243,8 @@ QString TournamentMode::GetFightTimeOverridesString() const
 
 bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, OverridesList& overrides)
 {
-	if (!std::regex_match(overridesString.toStdString(), std::regex("(\\w+:\\d+;)*(\\w+:\\d+)$")))
+    TRACE(2, "TournamentMode::ExtractFightTimeOverrides(overridesString=%s)", overridesString.toUtf8().data());
+    if (!std::regex_match(overridesString.toStdString(), std::regex("(\\w+:\\d+;)*(\\w+:\\d+)$")))
 	{
 		return false;
 	}
@@ -259,7 +273,8 @@ bool TournamentMode::parse_current_group(
 	TournamentMode& mode,
 	QString& errorMsg)
 {
-	if (!verify_child_keys(config.childKeys(), errorMsg))
+    TRACE(2, "TournamentMode::parse_current_group()");
+    if (!verify_child_keys(config.childKeys(), errorMsg))
 	{
 		errorMsg = QString("Error in section [%1]: %2").arg(config.group(), errorMsg);
 		return false;
@@ -351,7 +366,8 @@ bool TournamentMode::parse_current_group(
 
 bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& errorMsg)
 {
-	QStringList mandatoryKeys;
+    TRACE(2, "TournamentMode::verify_child_keys()");
+    QStringList mandatoryKeys;
 	mandatoryKeys
 			<< str_Title
 			<< str_Weights
