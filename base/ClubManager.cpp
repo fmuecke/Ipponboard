@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "ClubManager.h"
 #include "ClubParser.h"
 #include "../util/path_helpers.h"
@@ -23,7 +24,8 @@ ClubManager::ClubManager()
 	: m_Clubs()
 //---------------------------------------------------------
 {
-	LoadClubs_();
+    TRACE(2, "ClubManager::ClubManager()");
+    LoadClubs();
 	SortClubs();
 }
 
@@ -31,14 +33,16 @@ ClubManager::ClubManager()
 ClubManager::~ClubManager()
 //---------------------------------------------------------
 {
-	SaveClubs_();
+    TRACE(2, "ClubManager::~ClubManager()");
+    SaveClubs();
 }
 
 //---------------------------------------------------------
 bool ClubManager::GetClub(int index, Ipponboard::Club& club) const
 //---------------------------------------------------------
 {
-	try
+    TRACE(2, "ClubManager::GetClub()");
+    try
 	{
 		club = m_Clubs.at(index);
 	}
@@ -54,7 +58,8 @@ bool ClubManager::GetClub(int index, Ipponboard::Club& club) const
 QString ClubManager::GetLogo(const QString& clubName) const
 //---------------------------------------------------------
 {
-	for (unsigned i(0); i < m_Clubs.size(); ++i)
+    TRACE(2, "ClubManager::GetLogo(clubName=%s)", clubName.toUtf8().data());
+    for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
 		if (clubName == m_Clubs.at(i).name)
 			return m_Clubs.at(i).logoFile;
@@ -67,7 +72,8 @@ QString ClubManager::GetLogo(const QString& clubName) const
 QString ClubManager::GetAddress(const QString& clubName) const
 //---------------------------------------------------------
 {
-	for (unsigned i(0); i < m_Clubs.size(); ++i)
+    TRACE(2, "ClubManager::GetAddress(clubName=%s)", clubName.toUtf8().data());
+    for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
 		if (clubName == m_Clubs.at(i).name)
 			return m_Clubs.at(i).address;
@@ -80,21 +86,24 @@ QString ClubManager::GetAddress(const QString& clubName) const
 void ClubManager::AddClub(const Ipponboard::Club& club)
 //---------------------------------------------------------
 {
-	m_Clubs.push_back(club);
+    TRACE(2, "ClubManager::AddClub()");
+    m_Clubs.push_back(club);
 }
 
 //---------------------------------------------------------
 void ClubManager::UpdateClub(unsigned int index, const Ipponboard::Club& club)
 //---------------------------------------------------------
 {
-	m_Clubs.at(index) = club;
+    TRACE(2, "ClubManager::UpdateClub()");
+    m_Clubs.at(index) = club;
 }
 
 //---------------------------------------------------------
 void ClubManager::RemoveClub(unsigned int index)
 //---------------------------------------------------------
 {
-	Q_ASSERT(index < m_Clubs.size() && index >= 0);
+    TRACE(2, "ClubManager::RemoveClub()");
+    Q_ASSERT(index < m_Clubs.size() && index >= 0);
 
 	m_Clubs.erase(m_Clubs.begin() + index);
 }
@@ -103,14 +112,16 @@ void ClubManager::RemoveClub(unsigned int index)
 void ClubManager::SortClubs()
 //---------------------------------------------------------
 {
-	std::sort(m_Clubs.begin(), m_Clubs.end());
+    TRACE(2, "ClubManager::SortClubs()");
+    std::sort(m_Clubs.begin(), m_Clubs.end());
 }
 
 //---------------------------------------------------------
-void ClubManager::LoadClubs_()
+void ClubManager::LoadClubs()
 //---------------------------------------------------------
 {
-	auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
+    TRACE(2, "ClubManager::LoadClubs()");
+    auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
 
 	if (QFile::exists(config.c_str()))
 	{
@@ -132,10 +143,11 @@ void ClubManager::LoadClubs_()
 }
 
 //---------------------------------------------------------
-void ClubManager::SaveClubs_()
+void ClubManager::SaveClubs()
 //---------------------------------------------------------
 {
-	if (m_Clubs.empty())
+    TRACE(2, "ClubManager::SaveClubs()");
+    if (m_Clubs.empty())
 	{
 		return;
 	}

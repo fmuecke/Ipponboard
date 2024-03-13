@@ -2,16 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "MainWindowBase.h"
 
 #include "View.h"
 #include "DonationManager.h"
 #include "../core/Controller.h"
-#include "../core/Fighter.h"
 #include "../core/Enums.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
+#ifdef _WITH_GAMEPAD_
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/Rules.h"
 #include "../util/path_helpers.h"
 
@@ -27,7 +29,12 @@
 #include <QTimer>
 #include <QStyle>
 
+// must be included at last, because of Xlib.h conflicts with QT!
+#include "../util/screen_helpers.h"
+
+#ifdef _WITH_GAMEPAD_
 using namespace FMlib;
+#endif
 using namespace Ipponboard;
 using Point = Score::Point;
 
@@ -35,7 +42,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	: QMainWindow(parent)
 	, m_pPrimaryView()
 	, m_pSecondaryView()
-	, m_pController(new Ipponboard::Controller())
+    , m_pController(new Controller())
 	, m_fighterManager()
 	, m_Language("en")
 	, m_MatLabel("  Ipponboard   ")
@@ -43,37 +50,42 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
 	, m_secondScreenNo(0)
 	, m_secondScreenSize()
+    , m_secondScreenPos()
 	, m_controllerCfg()
+#ifdef _WITH_GAMEPAD_
 	, m_pGamepad(new Gamepad)
+#endif
 {
+    TRACE(2, "MainWindowBase::MainWindowBase()");
 }
 
 MainWindowBase::~MainWindowBase()
 {
+    TRACE(2, "MainWindowBase::~MainWindowBase()");
 }
 
 void MainWindowBase::Init()
 {
-	setWindowTitle(
+    TRACE(2, "MainWindowBase::Init()");
+    setWindowTitle(
 		QCoreApplication::applicationName() + " v" +
 		QCoreApplication::applicationVersion());
 
 	setWindowFlags(Qt::Window);
 	//setWindowState(Qt::WindowMaximized);
 	// instead, center window
-	this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
-										  QApplication::desktop()->availableGeometry()));
+    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), ScreenHelpers::getInstance()->getScreenGeometry()));
 
 	load_fighters();
 
 	// Setup views
 	m_pPrimaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypePrimary));
+        new View(m_pController->GetIController(), Edition(), View::eTypePrimary));
 
 	attach_primary_view();
 
 	m_pSecondaryView.reset(
-		new Ipponboard::View(m_pController->GetIController(), Edition(), Ipponboard::View::eTypeSecondary));
+        new View(m_pController->GetIController(), Edition(), View::eTypeSecondary));
 
 	// clear data
 	m_pController->ClearFightsAndResetTimers();
@@ -83,10 +95,12 @@ void MainWindowBase::Init()
 
 	change_lang(true);
 
+#ifdef _WITH_GAMEPAD_
 	// Init gamepad
 	QTimer* m_pTimer = new QTimer;
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
 	m_pTimer->start(75);
+#endif
 
 	update_statebar();
 
@@ -98,22 +112,26 @@ void MainWindowBase::Init()
 
 QString MainWindowBase::GetConfigFileName() const
 {
-	return "Ipponboard.ini";
+    TRACE(2, "MainWindowBase::GetConfigFileName()");
+    return "Ipponboard.ini";
 }
 
 QString MainWindowBase::GetFighterFileName() const
 {
-	return QString("Fighters%1.csv").arg(EditionNameShort());
+    TRACE(2, "MainWindowBase::GetFighterFileName()");
+    return QString("Fighters%1.csv").arg(EditionNameShort());
 }
 
 void MainWindowBase::UpdateView()
 {
-	update_views();
+    TRACE(4, "MainWindowBase::UpdateView()");
+    update_views();
 }
 
 void MainWindowBase::changeEvent(QEvent* e)
 {
-	QMainWindow::changeEvent(e);
+    TRACE(2, "MainWindowBase::changeEvent(e=%s)", DebugHelpers::QEventToString(e).toUtf8().data());
+    QMainWindow::changeEvent(e);
 
 	switch (e->type())
 	{
@@ -128,7 +146,8 @@ void MainWindowBase::changeEvent(QEvent* e)
 
 void MainWindowBase::closeEvent(QCloseEvent* event)
 {
-	write_settings();
+    TRACE(2, "MainWindowBase::closeEvent()");
+    write_settings();
 	save_fighters();
 
 	if (m_pSecondaryView)
@@ -141,19 +160,20 @@ void MainWindowBase::closeEvent(QCloseEvent* event)
 
 void MainWindowBase::keyPressEvent(QKeyEvent* event)
 {
-	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
+    TRACE(2, "MainWindowBase::keyPressEvent()");
+    const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 
 	switch (event->key())
 	{
 	case Qt::Key_Space:
-		m_pController->DoAction(Ipponboard::eAction_Hajime_Mate, Ipponboard::FighterEnum::None);
+        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 		qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
 		break;
 
 	case Qt::Key_Backspace:
 		if (isCtrlPressed)
 		{
-			m_pController->DoAction(Ipponboard::eAction_ResetAll, Ipponboard::FighterEnum::None);
+            m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 			qDebug() << "Action [ Reset ] was triggered by keyboard";
 		}
 
@@ -162,15 +182,15 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Left:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::FighterEnum::First != m_pController->GetLead())
+                    FighterEnum::First != m_pController->GetLead())
 			{
-				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::FighterEnum::First);
+                m_pController->DoAction(eAction_SetOsaekomi,
+                                        FighterEnum::First);
 			}
 			else
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::FighterEnum::First);
+                m_pController->DoAction(eAction_OsaeKomi_Toketa,
+                                        FighterEnum::First);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
@@ -181,15 +201,15 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Right:
 		{
 			if (eState_Holding == m_pController->GetCurrentState() &&
-					Ipponboard::FighterEnum::Second != m_pController->GetLead())
+                    FighterEnum::Second != m_pController->GetLead())
 			{
-				m_pController->DoAction(Ipponboard::eAction_SetOsaekomi,
-										Ipponboard::FighterEnum::Second);
+                m_pController->DoAction(eAction_SetOsaekomi,
+                                        FighterEnum::Second);
 			}
 			else
 			{
-				m_pController->DoAction(Ipponboard::eAction_OsaeKomi_Toketa,
-										Ipponboard::FighterEnum::Second);
+                m_pController->DoAction(eAction_OsaeKomi_Toketa,
+                                        FighterEnum::Second);
 			}
 
 			qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
@@ -200,16 +220,16 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Down:
 		//if (isCtrlPressed)
 		{
-			m_pController->DoAction(Ipponboard::eAction_ResetOsaeKomi,
-									Ipponboard::FighterEnum::None,
+            m_pController->DoAction(eAction_ResetOsaeKomi,
+                                    FighterEnum::Nobody,
 									true);
 			qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
 		}
 		break;
 
 	case Qt::Key_F5:
-		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::FighterEnum::First,
+        m_pController->DoAction(eAction_Ippon,
+                                FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter1, revoke="
 				 << isCtrlPressed
@@ -217,8 +237,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F6:
-		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::FighterEnum::First,
+        m_pController->DoAction(eAction_Wazaari,
+                                FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter1, revoke="
 				 << isCtrlPressed
@@ -226,8 +246,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F7:
-		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::FighterEnum::First,
+        m_pController->DoAction(eAction_Yuko,
+                                FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter1, revoke="
 				 << isCtrlPressed
@@ -235,8 +255,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F8:
-		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::FighterEnum::First,
+        m_pController->DoAction(eAction_Shido,
+                                FighterEnum::First,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter1, revoke="
 				 << isCtrlPressed
@@ -244,8 +264,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F9:
-		m_pController->DoAction(Ipponboard::eAction_Ippon,
-								Ipponboard::FighterEnum::Second,
+        m_pController->DoAction(eAction_Ippon,
+                                FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Ippon for fighter2, revoke="
 				 << isCtrlPressed
@@ -253,8 +273,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F10:
-		m_pController->DoAction(Ipponboard::eAction_Wazaari,
-								Ipponboard::FighterEnum::Second,
+        m_pController->DoAction(eAction_Wazaari,
+                                FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Wazaari for fighter2, revoke="
 				 << isCtrlPressed
@@ -262,8 +282,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F11:
-		m_pController->DoAction(Ipponboard::eAction_Yuko,
-								Ipponboard::FighterEnum::Second,
+        m_pController->DoAction(eAction_Yuko,
+                                FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Yuko for fighter2, revoke="
 				 << isCtrlPressed
@@ -271,8 +291,8 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 		break;
 
 	case Qt::Key_F12:
-		m_pController->DoAction(Ipponboard::eAction_Shido,
-								Ipponboard::FighterEnum::Second,
+        m_pController->DoAction(eAction_Shido,
+                                FighterEnum::Second,
 								isCtrlPressed);
 		qDebug() << "Action [ Shido for fighter2, revoke="
 				 << isCtrlPressed
@@ -287,15 +307,16 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
 void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 {
-	QMessageBox::about(
+    TRACE(2, "MainWindowBase::on_actionAbout_Ipponboard_triggered()");
+    QMessageBox::about(
 		this,
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
  				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.<br>For third party licenses see the User Manual.</p>"
-				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
-				"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
-				"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
+				//"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
+				//"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
+				//"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
 				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
 				"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
 				"PARTICULAR PURPOSE.</p>"
@@ -309,30 +330,35 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 
 void MainWindowBase::on_actionUser_Manual_triggered()
 {
-	QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
+    TRACE(2, "MainWindowBase::on_actionUser_Manual_triggered()");
+    QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 {
-	m_pController->SetAutoAdjustPoints(checked);
+    TRACE(2, "MainWindowBase::on_actionAutoAdjustPoints_toggled(checked=%d)",checked);
+    m_pController->SetAutoAdjustPoints(checked);
 }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
-	QUrl url("https://ipponboard.koe-judo.de");
+    TRACE(2, "MainWindowBase::on_actionVisit_Project_Homepage_triggered()");
+    QUrl url("https://ipponboard.koe-judo.de"); // TODO
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::on_actionOnline_Feedback_triggered()
 {
-	QUrl url("https://github.com/fmuecke/Ipponboard/issues");
+    TRACE(2, "MainWindowBase::on_actionOnline_Feedback_triggered()");
+    QUrl url("https://github.com/fmuecke/Ipponboard/issues");
 	QDesktopServices::openUrl(url);
 }
 
 void MainWindowBase::change_lang(bool beQuiet)
 {
-	ui_check_language_items();
+    TRACE(2, "MainWindowBase::change_lang(beQuiet=%d)", beQuiet);
+    ui_check_language_items();
 
 	if (!beQuiet)
 	{
@@ -343,7 +369,8 @@ void MainWindowBase::change_lang(bool beQuiet)
 
 void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_Deutsch_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "de";
 		change_lang();
@@ -352,7 +379,8 @@ void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 
 void MainWindowBase::on_actionLang_English_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_English_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "en";
 		change_lang();
@@ -362,7 +390,8 @@ void MainWindowBase::on_actionLang_English_triggered(bool val)
 
 void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 {
-	if (val)
+    TRACE(2, "MainWindowBase::on_actionLang_Dutch_triggered(val=%d)", val);
+    if (val)
 	{
 		m_Language = "nl";
 		change_lang();
@@ -371,7 +400,8 @@ void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 
 void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRulesClassic_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<ClassicRules>());
 		ui_check_rules_items();
@@ -380,7 +410,8 @@ void MainWindowBase::on_actionRulesClassic_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2013_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2013_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2013>());
 		ui_check_rules_items();
@@ -389,7 +420,8 @@ void MainWindowBase::on_actionRules2013_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2017_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2017_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2017>());
 		ui_check_rules_items();
@@ -398,7 +430,8 @@ void MainWindowBase::on_actionRules2017_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2017U15_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2017U15>());
 		ui_check_rules_items();
@@ -407,7 +440,8 @@ void MainWindowBase::on_actionRules2017U15_triggered(bool checked)
 
 void MainWindowBase::on_actionRules2018_triggered(bool checked)
 {
-	if (checked)
+    TRACE(2, "MainWindowBase::on_actionRules2018_triggered(checked=%d)", checked);
+    if (checked)
 	{
 		m_pController->SetRules(std::make_shared<Rules2018>());
 		ui_check_rules_items();
@@ -416,9 +450,10 @@ void MainWindowBase::on_actionRules2018_triggered(bool checked)
 
 void MainWindowBase::write_settings()
 {
-	QString iniFile(
+    TRACE(2, "MainWindowBase::write_settings()");
+    QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -431,7 +466,8 @@ void MainWindowBase::write_settings()
 		settings.setValue(str_tag_size, size());
 		settings.setValue(str_tag_pos, pos());
 		settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
-		settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
+        settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
+        settings.setValue(str_tag_SecondScreenPos, m_secondScreenPos);
 	}
 	settings.endGroup();
 
@@ -500,9 +536,10 @@ void MainWindowBase::write_settings()
 
 void MainWindowBase::read_settings()
 {
-	QString iniFile(
+    TRACE(2, "MainWindowBase::read_settings()");
+    QString iniFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetConfigFileName().toAscii())));
+            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -518,8 +555,8 @@ void MainWindowBase::read_settings()
 		//resize(settings.value(str_tag_size, size()).toSize());
 		move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
 		m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
-		m_secondScreenSize = settings.value(str_tag_SecondScreenSize,
-											QSize(0, 0)).toSize();
+        m_secondScreenSize = settings.value(str_tag_SecondScreenSize, QSize(0, 0)).toSize();
+        m_secondScreenPos = settings.value(str_tag_SecondScreenPos, QPoint(0,0)).toPoint();
 		update_statebar();
 	}
 	settings.endGroup();
@@ -598,6 +635,7 @@ void MainWindowBase::read_settings()
 	}
 	settings.endGroup();
 
+#ifdef _WITH_GAMEPAD_
 	settings.beginGroup(str_tag_Input);
 	{
 		m_controllerCfg.button_hajime_mate =
@@ -647,11 +685,12 @@ void MainWindowBase::read_settings()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 	}
 	settings.endGroup();
+#endif
 
 	settings.beginGroup(str_tag_Sounds);
 	{
 		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
-								   "sounds/buzzer1.wav").toString());
+                                   "sounds/buzzer.wav").toString());
 	}
 	settings.endGroup();
 
@@ -668,9 +707,10 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-	QString csvFile(
+    TRACE(2, "MainWindowBase::load_fighters()");
+    QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+            fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 
 	QString errorMsg;
 
@@ -691,9 +731,10 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-	QString csvFile(
+    TRACE(2, "MainWindowBase::save_fighters()");
+    QString csvFile(
 		QString::fromStdString(
-			fm::GetSettingsFilePath(GetFighterFileName().toAscii())));
+            fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
 	QString errorMsg;
 
 	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
@@ -707,18 +748,21 @@ void MainWindowBase::save_fighters()
 
 void MainWindowBase::update_views()
 {
-	m_pPrimaryView->UpdateView();
+    TRACE(4, "MainWindowBase::update_views()");
+    m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
 }
 
 void MainWindowBase::on_actionTest_Gong_triggered()
 {
-	m_pController->Gong();
+    TRACE(2, "MainWindowBase::on_actionTest_Gong_triggered()");
+    m_pController->Gong();
 }
 
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
-	show_hide_view();
+    TRACE(2, "MainWindowBase::on_actionShow_SecondaryView_triggered()");
+    show_hide_view();
 
 	if (m_pSecondaryView->isVisible())
 	{
@@ -727,7 +771,8 @@ void MainWindowBase::on_actionShow_SecondaryView_triggered()
 
 void MainWindowBase::on_actionPreferences_triggered()
 {
-	SettingsDlg dlg(Edition(), this);
+    TRACE(2, "MainWindowBase::on_actionPreferences_triggered()");
+    SettingsDlg dlg(Edition(), this);
 	dlg.SetInfoHeaderSettings(m_pPrimaryView->GetInfoHeaderFont(),
 							  m_pPrimaryView->GetInfoTextColor(),
 							  m_pPrimaryView->GetInfoTextBgColor());
@@ -735,8 +780,13 @@ void MainWindowBase::on_actionPreferences_triggered()
 	dlg.SetFighterNameFont(m_FighterNameFont);
 	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
 	dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(), m_pPrimaryView->GetTextBgColorSecond());
-	dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
+
+    if (ScreenHelpers::getInstance()->numScreens() <= m_secondScreenNo)
+        m_secondScreenNo = 0;
+    dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize, m_secondScreenPos);
+#ifdef _WITH_GAMEPAD_
 	dlg.SetControllerConfig(&m_controllerCfg);
+#endif
 	dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
 	dlg.SetGongFile(m_pController->GetGongFile());
 
@@ -750,15 +800,17 @@ void MainWindowBase::on_actionPreferences_triggered()
 		update_text_color_second(dlg.GetTextColorSecond(), dlg.GetTextBgColorSecond());
 
 		m_secondScreenNo = dlg.GetSelectedScreen();
-		m_secondScreenSize = dlg.GetSize();
+        m_secondScreenSize = dlg.GetSecondScreenSize();
+        m_secondScreenPos = dlg.GetSecondScreenPos();
 
+#ifdef _WITH_GAMEPAD_
 		dlg.GetControllerConfig(&m_controllerCfg);
 		// apply settings to gamepad
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
-
+#endif
 		m_MatLabel = dlg.GetMatLabel();
 		m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
 
@@ -776,7 +828,8 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::show_hide_view() const
 {
-	static bool isAlreadyCalled = false;
+    TRACE(2, "MainWindowBase::show_hide_view()");
+    static bool isAlreadyCalled = false;
 
 	if (isAlreadyCalled)
 	{
@@ -787,21 +840,22 @@ void MainWindowBase::show_hide_view() const
 
 	if (m_pSecondaryView->isHidden())
 	{
-		const int nScreens(QApplication::desktop()->numScreens());
+        const int nScreens = ScreenHelpers::getInstance()->numScreens();
 
 		if (nScreens > 0 && nScreens > m_secondScreenNo)
 		{
-			auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
+            auto screenRes = ScreenHelpers::getInstance()->getScreenGeometry(m_secondScreenNo);
 			m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
 		}
 
-		if (m_secondScreenSize.isNull())
+        if (m_secondScreenSize.isNull() || m_secondScreenPos.isNull())
 		{
 			m_pSecondaryView->showFullScreen();
 		}
 		else
 		{
-			m_pSecondaryView->resize(m_secondScreenSize);
+            m_pSecondaryView->move(m_secondScreenPos);
+            m_pSecondaryView->resize(m_secondScreenSize);
 			m_pSecondaryView->show();
 		}
 	}
@@ -814,6 +868,7 @@ void MainWindowBase::show_hide_view() const
 	isAlreadyCalled = false;
 }
 
+#ifdef _WITH_GAMEPAD_
 void MainWindowBase::EvaluateInput()
 {
 	if (Gamepad::eState_ok != m_pGamepad->GetState())
@@ -830,7 +885,7 @@ void MainWindowBase::EvaluateInput()
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
-		m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::None);
+        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
@@ -869,7 +924,7 @@ void MainWindowBase::EvaluateInput()
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
 		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
-		m_pController->DoAction(eAction_ResetAll, FighterEnum::None);
+        m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 	}
 
 	// hansokumake fighter1
@@ -973,54 +1028,62 @@ void MainWindowBase::EvaluateInput()
 		}
 	}
 }
+#endif
 
 void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetInfoTextColor(color, bgColor);
+    TRACE(2, "MainWindowBase::update_info_text_color()");
+    m_pPrimaryView->SetInfoTextColor(color, bgColor);
 	m_pSecondaryView->SetInfoTextColor(color, bgColor);
 }
 
 void MainWindowBase::update_text_color_first(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetTextColorFirst(color, bgColor);
+    TRACE(2, "MainWindowBase::update_text_color_first()");
+    m_pPrimaryView->SetTextColorFirst(color, bgColor);
 	m_pSecondaryView->SetTextColorFirst(color, bgColor);
 }
 
 void MainWindowBase::update_text_color_second(const QColor& color, const QColor& bgColor)
 {
-	m_pPrimaryView->SetTextColorSecond(color, bgColor);
+    TRACE(2, "MainWindowBase::update_text_color_second()");
+    m_pPrimaryView->SetTextColorSecond(color, bgColor);
 	m_pSecondaryView->SetTextColorSecond(color, bgColor);
 }
 
 void MainWindowBase::update_fighter_name_font(const QFont& font)
 {
-	m_FighterNameFont = font;
+    TRACE(2, "MainWindowBase::update_fighter_name_font()");
+    m_FighterNameFont = font;
 	m_pPrimaryView->SetFighterNameFont(font);
 	m_pSecondaryView->SetFighterNameFont(font);
 }
 
 void MainWindowBase::on_button_reset_clicked()
 {
+    TRACE(2, "MainWindowBase::update_fighter_name_font()");
 //	QMessageBox::StandardButton answer =
 //		QMessageBox::question( this,
 //							   tr("Reset"),
 //							   tr("Really reset current fight?"),
 //							   QMessageBox::No | QMessageBox::Yes );
 //	if( QMessageBox::Yes == answer )
-	m_pController->DoAction(Ipponboard::eAction_ResetAll,
-							Ipponboard::FighterEnum::None,
+    m_pController->DoAction(eAction_ResetAll,
+                            FighterEnum::Nobody,
 							false);
 }
 
 void MainWindowBase::on_action_Info_Header_triggered(bool val)
 {
-	m_pPrimaryView->SetShowInfoHeader(val);
+    TRACE(2, "MainWindowBase::on_action_Info_Header_triggered(val=%d)", val);
+    m_pPrimaryView->SetShowInfoHeader(val);
 	m_pSecondaryView->SetShowInfoHeader(val);
 }
 
 void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 {
-	bool ok(false);
+    TRACE(2, "MainWindowBase::on_actionSet_Hold_Timer_triggered()");
+    bool ok(false);
 	const int seconds = QInputDialog::getInt(
 							this,
 							tr("Set Value"),
@@ -1039,7 +1102,8 @@ void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 
 void MainWindowBase::on_actionSet_Main_Timer_triggered()
 {
-	// Note: this is implemented in the view as well!
+    TRACE(2, "MainWindowBase::on_actionSet_Main_Timer_triggered()");
+    // Note: this is implemented in the view as well!
 
 //	if( m_pController->GetCurrentState() == eState_SonoMama ||
 //		m_pController->GetCurrentState() == eState_TimerStopped )
@@ -1062,15 +1126,18 @@ void MainWindowBase::on_actionSet_Main_Timer_triggered()
 
 void MainWindowBase::update_statebar()
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::update_statebar()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 
 void MainWindowBase::write_specific_settings(QSettings&)
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::write_specific_settings()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }
 
 void MainWindowBase::read_specific_settings(QSettings&)
 {
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
+    TRACE(2, "MainWindowBase::read_specific_settings()");
+    qDebug() << "virtual function not implemented: " << __FUNCTION__;
 }

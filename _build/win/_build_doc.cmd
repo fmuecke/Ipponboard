@@ -1,8 +1,16 @@
-@echo off
+::@echo off
 setlocal
 
-set BASE_DIR=%~dp0.
-set OUTPUT_DIR=%BASE_DIR%\..\bin
+if [%1] == [] (
+	echo Fehlendes Argument: _build_doc.cmd BASE_DIR
+	exit /b 1
+) else (
+	set BASE_DIR=%1
+	echo BASE_DIR=%BASE_DIR%
+)
+
+set OUTPUT_DIR=%BASE_DIR%\_build\bin
+set BASE_DIR=%BASE_DIR%\doc
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 
 :: checking for pandoc
@@ -24,3 +32,5 @@ pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%
 
 echo copying license files...
 robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\Licenses" >nul || exit /b %errorlevel%
+
+endlocal

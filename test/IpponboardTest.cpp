@@ -4,6 +4,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include "../util/catch2/catch.hpp"
+short g_nDebug = 1;
 
 /*
 int main(int argc, char *argv[])

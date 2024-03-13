@@ -1,0 +1,44 @@
+if [  $# -lt 2  ]
+then
+	echo Fehlende Argumente: copy_files BASE_DIR \<debug\|release\>
+	exit 1
+fi
+
+ROOT=$1
+
+if [ "$2" == '-release' ]
+then
+	DEST=$ROOT/_build/bin/Release
+else
+	DEST=$ROOT/_build/bin/Debug
+fi
+
+echo Copying files to $DEST using QTDIR=$QTDIR
+
+echo  icons
+mkdir -p $DEST/ico
+cp $ROOT/base/images/ipponboard*.ico $DEST/ico || exit 1
+
+echo  languages
+mkdir -p $DEST/lang
+"lrelease" -compress -silent $ROOT/i18n/de.ts -qm $ROOT/i18n/de.qm || exit 1
+cp $ROOT/i18n/de.qm $DEST/lang || exit 1
+"lrelease" -compress -silent $ROOT/i18n/nl.ts -qm $ROOT/i18n/nl.qm || exit 1
+cp $ROOT/i18n/nl.qm $DEST/lang || exit 1
+
+echo  sounds
+mkdir -p $DEST/sounds
+cp $ROOT/base/sounds/*.wav $DEST/sounds || exit 1
+
+echo  Categories and modes
+cp $ROOT/base/categories.json $DEST|| exit 1
+cp $ROOT/base/TournamentModes.ini $DEST|| exit 1
+
+echo  Clubs
+mkdir -p $DEST/clubs
+cp $ROOT/base/clubs.json $DEST|| exit 1
+cp $ROOT/base/clubs/*.png $DEST/clubs|| exit 1
+
+echo  Templates
+mkdir -p $DEST/templates|| exit 1
+cp $ROOT/base/templates/* $DEST/templates|| exit 1

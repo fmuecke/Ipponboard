@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "Score.h"
 #include "Rules.h"
 
@@ -11,7 +12,8 @@ using namespace Ipponboard;
 Score& Score::Add(Point point)
 //=========================================================
 {
-	++_points[static_cast<int>(point)];
+    TRACE(2, "Score::Add()");
+    ++_points[static_cast<int>(point)];
 
 	correct_points();
 
@@ -22,7 +24,8 @@ Score& Score::Add(Point point)
 Score& Score::Remove(Point point)
 //=========================================================
 {
-	--_points[static_cast<int>(point)];
+    TRACE(2, "Score::Remove()");
+    --_points[static_cast<int>(point)];
 
 	correct_points();
 
@@ -33,7 +36,8 @@ Score& Score::Remove(Point point)
 Score& Score::SetValue(Ipponboard::Score::Point point, int value)
 //=========================================================
 {
-	if (value >= 0)
+    TRACE(2, "Score::SetValue()");
+    if (value >= 0)
 	{
 		_points[static_cast<int>(point)] = value;
 
@@ -47,7 +51,8 @@ Score& Score::SetValue(Ipponboard::Score::Point point, int value)
 void Score::Clear()
 //=========================================================
 {
-	for (auto i = 0; i < static_cast<int>(Point::_MAX); ++i)
+    TRACE(4, "Score::Clear()");
+    for (auto i = 0; i < static_cast<int>(Point::_MAX); ++i)
 	{
 		_points[i] = 0;
 	}
@@ -55,7 +60,8 @@ void Score::Clear()
 
 void Score::correct_point(Score::Point p)
 {
-	switch (p)
+    TRACE(2, "Score::correct_point()");
+    switch (p)
 	{
 	case Point::Ippon:
 		if (Value(Point::Ippon) > 1)
@@ -107,7 +113,8 @@ void Score::correct_point(Score::Point p)
 
 void Score::correct_points()
 {
-	correct_point(Point::Ippon);
+    TRACE(2, "Score::correct_points()");
+    correct_point(Point::Ippon);
 	correct_point(Point::Wazaari);
 	correct_point(Point::Yuko);
 	correct_point(Point::Hansokumake);

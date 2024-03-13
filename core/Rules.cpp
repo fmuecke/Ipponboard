@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "Rules.h"
 #include "Fight.h"
 
@@ -14,11 +15,14 @@ const char* const Rules2013::StaticName = "IJF-2013";
 const char* const ClassicRules::StaticName = "Classic";
 
 AbstractRules::AbstractRules()
-{}
+{
+    TRACE(2, "AbstractRules::AbstractRules()");
+}
 
 int Ipponboard::AbstractRules::CompareScore(const Fight& f) const
 {
-	using Point = Score::Point;
+    TRACE(2, "AbstractRules::CompareScore()");
+    using Point = Score::Point;
 
 	auto lhs = f.GetScore(FighterEnum::First);
 	auto rhs = f.GetScore(FighterEnum::Second);

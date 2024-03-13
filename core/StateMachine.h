@@ -50,8 +50,8 @@ public:
 	struct Reset {};
 	struct Finish {};
 
-	struct Hajime_Mate	{ enum { type = eTimer_Main }; };
-	struct Osaekomi_Toketa { enum { type = eTimer_Hold }; };
+    struct Hajime_Mate	{ enum { type = eTimer_Main }; };
+    struct Osaekomi_Toketa { enum { type = eTimer_Hold }; };
 
 	template<typename T>
 	struct PointEvent
@@ -62,21 +62,21 @@ public:
 	};
 
 	struct ippon_type
-	{ enum { type = Ipponboard::Score::Point::Ippon, revoke = false }; };
+    { enum { type = (short) Ipponboard::Score::Point::Ippon, revoke = false }; };
 	struct wazaari_type
-	{ enum { type = Ipponboard::Score::Point::Wazaari, revoke = false }; };
+    { enum { type = (short) Ipponboard::Score::Point::Wazaari, revoke = false }; };
 	struct yuko_type
-	{ enum { type = Ipponboard::Score::Point::Yuko, revoke = false }; };
+    { enum { type = (short) Ipponboard::Score::Point::Yuko, revoke = false }; };
 	struct shido_type
-	{ enum { type = Ipponboard::Score::Point::Shido, revoke = false }; };
+    { enum { type = (short) Ipponboard::Score::Point::Shido, revoke = false }; };
 	struct hansokumake_type
-	{ enum { type = Ipponboard::Score::Point::Hansokumake, revoke = false }; };
+    { enum { type = (short) Ipponboard::Score::Point::Hansokumake, revoke = false }; };
 	struct revoke_ippon_type
-	{ enum { type = Ipponboard::Score::Point::Ippon, revoke = true }; };
+    { enum { type = (short) Ipponboard::Score::Point::Ippon, revoke = true }; };
 	struct revoke_wazaari_type
-	{ enum { type = Ipponboard::Score::Point::Wazaari, revoke = true }; };
+    { enum { type = (short) Ipponboard::Score::Point::Wazaari, revoke = true }; };
 	struct revoke_yuko_type
-	{ enum { type = Ipponboard::Score::Point::Yuko, revoke = true }; };
+    { enum { type = (short) Ipponboard::Score::Point::Yuko, revoke = true }; };
 	struct revoke_shido_hm_type	{};
 
 	typedef PointEvent<ippon_type	   > Ippon;

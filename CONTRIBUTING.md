@@ -14,7 +14,7 @@ I want you to be able contribute your ideas and input that you're exited about. 
 
 ## Submitting changes
 
-Please use [pull requests](http://help.github.com/pull-requests/) with a clear list of what you've done.
+Please use pull requests with a clear list of what you've done.
 Please follow our coding conventions (below) and make sure all of your commits are atomic (one feature per commit).
 
 Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
@@ -31,3 +31,4 @@ Start reading our code and you'll get the hang of it. We optimize for readabilit
 
 Thanks! ❤️ ❤️ ❤️
 Florian Mücke
+and ESV

@@ -1,14 +1,12 @@
 % *Ipponboard* Wettkampfanzeige
-% **Version 1.6**
+% **Version 2.2.0**
 
 # Allgemeines zu *Ipponboard*
 
 ## Lizenzbedingungen
   
-Ipponboard wurde geschrieben und entwickelt von Florian Mücke.
+Ipponboard wurde geschrieben und entwickelt von Florian Mücke und wird überarbeitet von ESV.
 
-*Copyright © 2009-today Florian Mücke.*
-   
 **Ipponboard Binaries**
 
 > **Ipponboard darf frei auf beliebig vielen Rechnern verwendet und das
@@ -20,7 +18,7 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 
 **Ipponboard Quellcode**
 
-- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://github.com/fmuecke/Ipponboard/blob/master/LICENSE.md) im [Repository https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard) auf github.
+- Die Lizenzbedingungen für den Quellcode findest du im [LICENSE file](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/LICENSE.txt) bei [Gitlab](https://gitlab.com/r_bernhard/Ipponboard).
 
 **Drittanbieterkomponenten (3rd party components)**
 
@@ -61,7 +59,7 @@ Um die Wettkampfanzeige nutzen zu können gelten folgende Hard- und Softwareanfo
 		über den Fernseher wiedergegeben werden)
 
 ## Änderungshistorie
-Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](Changes.html)
+Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](https://gitlab.com/r_bernhard/Ipponboard/-/blob/main/CHANGELOG.md)
 
 ## Feedback
 > *Eure Meinung zählt!*
@@ -79,9 +77,8 @@ Ecke bestimmt noch nicht perfekt. *Bitte helft mit es zu verbessern!*
 
 Fragen oder Verbesserungsvorschläge können an die folgenden Stellen gerichtet werden:
 
-- Homepage: <https://ipponboard.koe-judo.de> 
-- Probleme und Bugtracker: [https://github.com/fmuecke/Ipponboard/issues](https://github.com/fmuecke/Ipponboard/issues)  
-- E-Mail: [ipponboardinfo ât gmail.com](mailto:ipponboardinfo@gmail.com)  
+- Probleme und Bugtracker: [Issues](https://gitlab.com/r_bernhard/Ipponboard/-/issues)  
+- [E-Mail](mailto:r_bernhard@gmx.de)  
 
 
 # Funktionsweise & Einstellungen

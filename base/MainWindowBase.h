@@ -33,11 +33,13 @@ class ScoreScreen;
 }
 class QSettings;
 
+#ifdef _WITH_GAMEPAD_
 namespace FMlib
 {
 class Gamepad;
 }
 typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
+#endif
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -46,6 +48,7 @@ static const char* const str_tag_size = "size";
 static const char* const str_tag_pos = "pos";
 static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
+static const char* const str_tag_SecondScreenPos = "SecondScreenPos";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
@@ -147,7 +150,9 @@ protected slots:
 	//void on_actionReset_Scores_triggered();
 	void on_actionPreferences_triggered();
 	void on_button_reset_clicked();
+#ifdef _WITH_GAMEPAD_
 	void EvaluateInput();
+#endif
 	void on_actionLang_English_triggered(bool);
 	void on_actionLang_Deutsch_triggered(bool);
 	void on_actionLang_Dutch_triggered(bool);
@@ -165,7 +170,9 @@ protected slots:
 
 
 protected:
+#ifdef _WITH_GAMEPAD_
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+#endif
 
 	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
 	std::shared_ptr<Ipponboard::View> m_pSecondaryView;
@@ -177,10 +184,13 @@ protected:
 	QFont m_FighterNameFont;
 	int m_secondScreenNo;
 	QSize m_secondScreenSize;
+    QPoint m_secondScreenPos;
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
+#ifdef _WITH_GAMEPAD_
 	PGamepad m_pGamepad;
+#endif
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_

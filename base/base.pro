@@ -24,27 +24,18 @@ INCLUDEPATH += $$quote($$(BOOST_DIR))
 QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
     ../lib
 
-DESTDIR = ../bin
-
-#----------------------------------------------------------
-# Create our custom prebuild target for the release build
-#----------------------------------------------------------
-prebuild.commands = create_versioninfo.cmd
-QMAKE_EXTRA_TARGETS += prebuild
-# Hook our prebuild target in between qmake's Makefile update and the actual project target.
-QMAKE_EXTRA_TARGETS += prebuildhook
-prebuildhook.depends = prebuild
-
 CONFIG(debug, release|debug) {
 	prebuildhook.target = Makefile.Debug
     TARGET = Ipponboard_d
     QMAKE_LIBS += -lshell32
+	DESTDIR = ../_build/bin/Debug
 }
 
 CONFIG(release, release|debug) {
     prebuildhook.target = Makefile.Release
 	TARGET = Ipponboard
     QMAKE_LIBS += -lshell32
+	DESTDIR = ../_build/bin/Release
 }
 
 QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
@@ -53,9 +44,10 @@ QMAKE_LFLAGS += /SUBSYSTEM:WINDOWS,5.01
 win32-g++: COMPILER = mingw
 win32-msvc2013: COMPILER = msvc
 win32-msvc2015: COMPILER = msvc
+win32-msvc2017: COMPILER = msvc
 
 contains(COMPILER, mingw) {
-	QMAKE_CXXFLAGS += -std=c++11
+	QMAKE_CXXFLAGS += -std=c++17
 	# get rid of some nasty boost warnings
     QMAKE_CXXFLAGS += -Wno-unused-local-typedef
 }
@@ -63,20 +55,20 @@ contains(COMPILER, mingw) {
 contains(COMPILER, msvc) {
     QMAKE_CXX += /FS /MP /std:c++17
     DEFINES += "WINVER=0x0501"
-    DEFINES += WIN32 _WIN32_WINNT=0x0501
+    DEFINES += WIN32 _WIN32_WINNT=0x0501 _WITH_GAMEPAD_ __QT4__
 
     # remove unneccessary output files
-    #QMAKE_POST_LINK += del /Q ..\\bin\\$${TARGET}.exp ..\\bin\\$${TARGET}.lib>nul 
+    #QMAKE_POST_LINK += del /Q ../_build/bin/$${TARGET}.exp ../_build/bin/$${TARGET}.lib>nul 
 }
 
 CONFIG(debug, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += call copy_files.cmd
+    QMAKE_POST_LINK += call _copy_files.cmd
 }
 
 CONFIG(release, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += call copy_files.cmd -release
+    QMAKE_POST_LINK += call _copy_files.cmd -release
 }
 
 HEADERS = pch.h \
@@ -98,7 +90,6 @@ HEADERS = pch.h \
     FighterManagerDlg.h \
     ../util/array_helpers.h \
     ../util/path_helpers.h \
-    ../widgets/Countdown.h \
     ../widgets/ScaledImage.h \
     ../widgets/ScaledText.h \
     ../util/SimpleCsvFile.hpp \
@@ -126,7 +117,6 @@ HEADERS = pch.h \
 
 
 SOURCES = Main.cpp \
-    Main.cpp \
     MainWindow.cpp \
     MainWindowTeam.cpp \
     ../util/jsoncpp/json.cpp \
@@ -146,7 +136,6 @@ SOURCES = Main.cpp \
     SplashScreen.cpp \
     ../widgets/ScaledImage.cpp \
     ../widgets/ScaledText.cpp \
-    ../widgets/Countdown.cpp \
 	../core/Controller.cpp \
 	../core/FightCategory.cpp \
 	../core/Fighter.cpp \
@@ -172,7 +161,6 @@ FORMS = MainWindow.ui \
     FighterManagerDlg.ui \
     view_horizontal.ui \
     SplashScreen.ui \
-    ../widgets/Countdown.ui
 
 OTHER_FILES += \
     TournamentModes.ini

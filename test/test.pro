@@ -7,10 +7,10 @@ CONFIG += console
 TARGET = IpponboardTest
 DESTDIR = bin
 
-#INCLUDEPATH += $$quote($$(BOOST_DIR))
+INCLUDEPATH += $$quote($$(BOOST_DIR))
 
-#QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
-#    ../lib
+QMAKE_LIBDIR += $$quote($$(BOOST_DIR)/stage/lib) \
+    ../lib
 
 HEADERS =
 SOURCES = \
@@ -27,7 +27,8 @@ OTHER_FILES += \
     TestData/utf8.json \
     TestData/utf8_with_bom.json
 
-QMAKE_CXXFLAGS += -EHsc /std:c++17
+#QMAKE_CXXFLAGS += -EHsc /std:c++17
+QMAKE_CXX += /FS /MP /std:c++17
 
 MY_QTBINDIR=$$[QT_INSTALL_BINS]
 

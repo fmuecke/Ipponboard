@@ -59,8 +59,8 @@ public:
 	}
 
 protected:
-	void paintEvent(QPaintEvent* event);
-	void timerEvent(QTimerEvent* event);
+    void paintEvent(QPaintEvent* event);
+    void timerEvent(QTimerEvent* event);
 
 private:
 	void set_size(ETextSize size);

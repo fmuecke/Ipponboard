@@ -1,0 +1,110 @@
+specification {
+  element actor
+  element system
+  element application
+  element browser
+  element restapi
+  element controller  
+  element component
+  element saas
+}
+
+model {
+  visitor = actor 'Besucher' {
+    description 'Möchte dem Turnier beiwohnen'
+    style { shape person}
+  }
+  visitor -> hallScreen
+  visitor -> ipponboard
+
+  participant = actor 'TeilnehmerIn' {
+    description 'Möchte gewongen werden und kämpfen'
+    style { shape person}
+  }
+  participant -> hallScreen
+  participant -> ipponboard
+
+  trainer = actor 'Trainer extern' {
+    style { shape person}
+  }
+  trainer -> hallScreen
+  trainer -> organiser 'Übergabe der Teilnehmerdaten'
+  trainer -> registerSite 'Erstellung der Meldedatei'
+
+  tournamentSystem = system 'Wettkampf IT' {
+    registerSite = saas 'Anmeldewebsite'{
+      style {shape browser} }
+
+    hallScreen = component 'Hallenanzeige' {
+      description 'Eine für alle sichbare Leinwand oder App, welche den Fortschritt und die nächsten Kämpfe anzeigt'
+      style {
+        shape mobile
+      }}
+    hallScreen -> syncServer
+
+    weightInput = application 'Waagen Dateneingaben' {
+      description 'Übernahme des konkreten Gewichts der TeilnehmerInnen'
+      style { shape browser }
+    }
+    weightInput -> syncServer
+
+    ipponboard = application 'Ipponboards' {
+      description 'Eine Punktetafel für Begegnungen am Kampfrichtertisch'
+      style { shape browser }
+    }
+    ipponboard -> syncServer 'liefert Ergebnisse'
+    syncServer -> ipponboard 'bekommt Kampflisten'
+
+    tournamentApp = application 'Tourniermanagement Software' {
+      description 'Startet Turnier, verteilt Kampflisten, beendet Turnier, druckt Urkunden'
+      style { shape browser }
+    }
+    tournamentApp -> syncServer
+    tournamentApp -> printer
+    listApp = application 'Listenanwendung' {
+      style { shape browser }
+    }
+    listApp -> syncServer
+    listApp -> printer
+    printer = component 'Drucker' {
+      description 'Druckt Listen und Urkunden'
+    }
+
+    syncServer = restapi 'Synchronisierungs Server' {
+      description ''
+    }
+
+    organiser = actor 'Veranstalter' {
+      style { shape person}
+    }
+    organiser -> listApp 'Bedient Listenerstellung'
+    organiser -> participant 'Übergibt Urkunden'
+    organiser -> trainer 'Übergibt Statistik'
+    organiser -> tournamentApp
+
+    tableReferee = actor 'Tischbesetzung' {
+      description 'Bedient ipponboard auf Kampfrichterweisung'
+      style { shape person}
+    }
+    tableReferee -> ipponboard 'bedient'
+
+    scaleOperator = actor 'Waagenbesetzung' {
+      description 'Wiegt Teilnehmende und übergibt Gewichtsdaten'
+      style { shape person}
+    }
+    scaleOperator -> weightInput
+  }
+
+
+
+}
+
+views {
+  view index{
+    include *
+  }
+  view ts of tournamentSystem {
+    title 'Turniersoftware'
+    include *
+  }
+}

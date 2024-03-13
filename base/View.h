@@ -69,12 +69,12 @@ protected:
 	void mousePressEvent(QMouseEvent* event);
 
 private slots:
-	void setOsaekomiFirst_();
-	void setOsaekomiSecond_();
+	void setOsaekomiFirst();
+	void setOsaekomiSecond();
 	//void yoshi_();
-	void resetMainTimerValue_();
-	void setMainTimerValue_();
-	void blink_();
+	void resetMainTimerValue();
+	void setMainTimerValue();
+	void blink();
 
 private:
 	void update_ippon(Ipponboard::FighterEnum) const;
@@ -84,7 +84,7 @@ private:
 	void update_hansokumake(Ipponboard::FighterEnum) const;
 	void update_team_score() const;
 	void update_hold_clock(const FighterEnum holder, EHoldState state) const;
-	Ipponboard::FighterEnum GVF_(const Ipponboard::FighterEnum f) const; // GetViewFighter
+	Ipponboard::FighterEnum GVF(const Ipponboard::FighterEnum f) const; // GetViewFighter
 	bool is_secondary() const;
 	const QColor& get_color(const ColorType t) const;
 	void update_colors();

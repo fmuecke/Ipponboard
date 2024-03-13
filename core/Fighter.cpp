@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../util/debug.h"
 #include "Fighter.h"
 
 using namespace Ipponboard;
@@ -14,4 +15,5 @@ Fighter::Fighter(QString const& firstName,
 	, weight()
 	, category()
 {
+    TRACE(2, "Fighter::Fighter()");
 }
