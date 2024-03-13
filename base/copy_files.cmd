@@ -8,6 +8,12 @@ setlocal
 REM -- language file
 call %~dp0..\env_cfg.bat
 
+if not defined VCToolsRedistDir (
+	echo "VCToolsRedistDir not defined, starting VS developer command line..." 
+	call "%MSVC_CMD%"
+)
+if "%VCToolsRedistDir%"=="" echo "VCToolsRedistDir still not defined" && exit /b 1
+
 set ROOT=%~dp0..\
 set DEST=%ROOT%\bin
 set THIRDPARTY=..\..\3rdParty
@@ -30,19 +36,25 @@ copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST%\sounds">nul
 
 echo  QT and C^+^+ runtimes
 if defined RELEASE (
+if not exist "%QTDIR%\QtCore4.dll" echo not found: "%QTDIR%\QtCore4.dll" && exit /b 1
 	copy /Y "%QTDIR%\QtCore4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtGui4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtNetwork4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtXmlPatterns4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\msvcp140.dll" "%DEST%">nul || exit /b 1
-	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\vcruntime140.dll" "%DEST%">nul || exit /b 1
+	if not exist "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" echo not found: "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" && exit /b 1
+	copy /Y "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" "%DEST%">nul || exit /b 1
+	if not exist "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" echo not found: "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" && exit /b 1
+	copy /Y "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" "%DEST%">nul || exit /b 1
 ) else (
+	if not exist "%QTDIR%\QtCored4.dll" echo %QTDIR%\QtCored4.dll not found && exit /b 1
 	copy /Y "%QTDIR%\QtCored4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtGuid4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtNetworkd4.dll" "%DEST%">nul || exit /b 1
 	copy /Y "%QTDIR%\QtXmlPatternsd4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\debug_nonredist\x86\Microsoft.VC140.DebugCRT\\msvcp140d.dll" "%DEST%">nul || exit /b 1
-	copy /Y "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\debug_nonredist\x86\Microsoft.VC140.DebugCRT\vcruntime140d.dll" "%DEST%">nul || exit /b 1
+	if not exist "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" echo not found: "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" && exit /b 1
+	copy /Y "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" "%DEST%">nul || exit /b 1
+	if not exist "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" echo not found: "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" && exit /b 1
+	copy /Y "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" "%DEST%">nul || exit /b 1
 )
 
 REM -- doc
