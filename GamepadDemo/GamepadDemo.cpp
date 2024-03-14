@@ -13,9 +13,9 @@ using namespace FMlib;
 
 GamepadDemo::GamepadDemo(QWidget* parent)
 	: QMainWindow(parent)
-	, ui(new Ui::GamepadDemo)
-	, m_pSBarText(0)
-	, m_pTimer(0)
+	, ui(new Ui::GamepadDemo())
+	, m_pSBarText(nullptr)
+	, m_pTimer(nullptr)
 	, m_pGamepad(new Gamepad)
 {
 	ui->setupUi(this);
@@ -36,7 +36,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 	ui->image_button_10->UpdateImage(":images/off.png");
 	ui->image_button_11->UpdateImage(":images/off.png");
 	ui->image_button_12->UpdateImage(":images/off.png");
-	QTimer* m_pTimer = new QTimer;
+	m_pTimer = new QTimer(this);
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GetData()));
 
 	if (Gamepad::eState_ok != m_pGamepad->GetState())
@@ -57,7 +57,11 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 
 GamepadDemo::~GamepadDemo()
 {
-	delete ui;
+	// clean up member objects
+	// ui --> unique_ptr
+	// m_pGamepad --> unique_ptr
+	// m_pTime --> killed via object hierarchy
+	// m_pSBarText --> killed via object hierarchy
 }
 
 void GamepadDemo::changeEvent(QEvent* e)

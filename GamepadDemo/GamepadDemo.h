@@ -19,8 +19,6 @@ namespace FMlib
 class Gamepad;
 }
 
-typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
-
 class GamepadDemo : public QMainWindow
 {
 	Q_OBJECT
@@ -37,10 +35,10 @@ private slots:
 	void GetData();
 
 private:
-	Ui::GamepadDemo* ui;
+    std::unique_ptr<Ui::GamepadDemo> ui;
 	QLabel* m_pSBarText;
 	QTimer* m_pTimer;
-	PGamepad m_pGamepad;
+    std::unique_ptr<FMlib::Gamepad> m_pGamepad;
 };
 
 #endif  // GAMEPADDEMO__GAMEPADDEMO_H_
