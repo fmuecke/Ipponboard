@@ -1,6 +1,5 @@
 <p style="font-size:3em;text-align:center">Ipponboard</p>
 <p style="font-style:italic;text-align:center">The 🥋Judo Score Board</p>
-<p style="font-size:2em;font-weight:bold">User Manual</p>
 
 ## Content
 
@@ -83,7 +82,7 @@ To use the competition display the following hardware and software requirements 
 ## Version history
 
 - The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/manual-en.md). 
-- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](Changes.html)
+- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](CHANGELOG.html)
 
 ## Feedback & contact
 

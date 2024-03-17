@@ -1,5 +1,6 @@
-# *Ipponboard* - Version History 
-<small>by Florian Mücke</small>
+% Ipponboard Changelog
+
+For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version 2.x (2023-xx-yy)
 
@@ -9,7 +10,7 @@
 
 ## Version 2.0 (2021-01-10)
 
-**Ipponboard is now open source**; changed license to BSD-2-clause. See https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt
+**Ipponboard is now open source**; changed license to BSD-2-clause. See [https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt](https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt)
 
 ## Version 1.10-beta (2018-01-14)
 
