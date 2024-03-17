@@ -26,15 +26,14 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 
 Ipponboard verwendet folgende Drittanbieterkomponenten, die unter den angegebenen Arten lizensiert sind. Dies jeweiligen Lizenzdateien sind zudem im Ordner `Licenses` des Ipponboard-Installationspfades abgelegt.
 
-- Qt Framework, [www.qtproject.org](http://www.qtproject.org), [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP)
+- Qt Framework, [www.qtproject.org](http://www.qtproject.org), [LGPL](licenses/Qt4/LICENSE.LGPL), [LGPL Exception](licenses/Qt4/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt4/.LICENSE-DESKTOP), [Qt v4.8.7 src](https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip), [Patch für MSVC 14+](licenses/Qt4/PATCH-qt4.8.7_with_msvc14x.diff), [Instructions - How to build](licenses/Qt4/HOW_TO_BUILD-qt4.8.7-msvc14x.txt)
 - Boost C++ libraries, [www.boost.org](http://www.boost.org), [Boost Software License](licenses/boost/LICENSE_1_0.txt), 
 - Microsoft Visual C++ CRT, [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
 - JsonCpp, [github.com](https://github.com/open-source-parsers/jsoncpp), [MIT License](licenses/jasoncpp/LICENSE)
 - Sounddateien: Public Domain 2003
 - FamFam Flag icons, [www.famfamfam.com](http://www.famfamfam.com/archive/flag-icons-released/), [by Mark James Public Domain](licenses/flags/readme.txt)
 - Fugue Icons, [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/), [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/), [copyright.txt](licenses/Fugue-iconset/copyright_fugue.txt), [README.txt](licenses/Fugue-iconset/README.txt)
-- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)
-
+<!--- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)-->
 
 ## Danksagung
 

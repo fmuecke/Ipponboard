@@ -48,7 +48,7 @@ Copyright © 2009-today Florian Mücke
 
 Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
-- [Qt Framework](http://www.qtproject.org) &rarr; [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP)
+- [Qt Framework](http://www.qtproject.org) &rarr; [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP), [Qt v4.8.7 src](https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip), [Patch für MSVC 14+](licenses/Qt4/PATCH-qt4.8.7_with_msvc14x.diff), [Instructions - How to build](licenses/Qt4/HOW_TO_BUILD-qt4.8.7-msvc14x.txt)
 - [Boost C++ libraries](http://www.boost.org) &rarr; [Boost Software License](licenses/boost/LICENSE_1_0.txt)
 - Microsoft Visual C++ CRT &rarr; [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
 - [JsonCpp](https://github.com/open-source-parsers/jsoncpp) by Baptiste Lepilleur &rarr; [MIT License](licenses/jasoncpp/LICENSE)

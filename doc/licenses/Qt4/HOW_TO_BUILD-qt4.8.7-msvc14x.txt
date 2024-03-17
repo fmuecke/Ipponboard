@@ -1,0 +1,37 @@
+===================================
+How to build Qt 4.8.7 with MS VC14x
+===================================
+
+In order to build qt 4.8.7 (latest version of 4.x branch) for Microsoft Visual C++ you need to:
+
+1. obtain the source code
+2. apply the patch
+3. build Qt
+
+---------------------
+1. Obtain source code 
+---------------------
+
+Full source is available here (checked 2024-03-17):
+
+    https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip
+
+
+------------------
+2. Apply the patch
+------------------
+
+Copy and apply the patch file `PATCH-qt4.8.7_with_msvc14x.diff` in the root directory of the source code.
+You can use git or some other tool for that:
+
+    git apply --stat PATCH-qt4.8.7_with_msvc14x.diff
+	
+-----------
+3. Build Qt
+-----------
+
+Start the MSVC developer command prompt, switch to the Qt source directory and use something like this:
+
+    configure -make nmake -platform win32-msvc2015 -opensource -confirm-license -opengl desktop -nomake examples -nomake tests
+
+    nmake
