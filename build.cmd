@@ -78,36 +78,36 @@ GOTO the_end
 goto menu
 
 :cmd_all
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 	call :make_setup || goto the_error
 goto the_end
 
 :cmd_build_doc
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_doc || goto the_error
 goto the_end
 
 :cmd_setup
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_setup || goto the_error
 goto the_end
 
 
 :cmd_build
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_rebuild
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_clean
-	%BASE_DIR%\_build\stopwatch start build
+	%BASE_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 goto the_end
 
@@ -143,7 +143,7 @@ exit /b 0
 :make_doc
 	echo;
 	echo -- building doc
-	call "%BASE_DIR%\doc\build_doc.cmd" || exit /b %errorlevel%
+	call "%BASE_DIR%\_build\win\_build_doc.cmd" %BASE_DIR%\doc || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -188,6 +188,6 @@ goto menu
 :the_end
 echo.
 echo SUCCESS
-%BASE_DIR%\_build\stopwatch stop build "Time Elapsed: {1}"
+%BASE_DIR%\_build\win\stopwatch.exe stop build "Time Elapsed: {1}"
 pause
 goto menu
