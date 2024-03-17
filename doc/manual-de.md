@@ -1,7 +1,29 @@
-% *Ipponboard* Wettkampfanzeige
-% **Version 1.6**
+<p style="font-size:3em;text-align:center">Ipponboard</p>
+<p style="font-style:italic;text-align:center">Die 🥋Judo-Wettkampfanzeige</p>
 
-# Allgemeines zu *Ipponboard*
+## Inhalt
+
+- **[Allgemeines](#allgemeines)**
+  - [Lizenzbedingungen](#lizenzbedingungen)
+  - [Danksagung](#danksagung)
+  - [Systemvoraussetzungen](#systemvoraussetzungen)
+  - [Änderungshistorie](#änderungshistorie)
+  - [Feedback & Kontakt](#feedback)
+- **[Funktionsweise und Einstellungen](#funktionsweise-und-einstellungen)**
+  - [Anzeigen](#anzeigen)
+    - [Primäre Anzeige](#primäre-anzeige)
+    - [Sekundäre (externe) Anzeige](#sekundäre-externe-anzeige)
+  - [Programmeinstellungen](#programmeinstellungen)
+- **[Steuerung](#steuerung)**
+  - [Funktionsweise der Steuerung](#funktionsweise-der-steuerung)
+    - [Maus-Steuerung](#maus-steuerung)
+	- [Gamepad-Steuerung](#gamepad-steuerung)
+- **[Besonderheiten](#besonderheiten)**
+  - [Sono-mama/Yoshi](#sono-mamayoshi)
+- **[Hilfestellung / Troubleshooting](#hilfestellung-troubleshooting)**
+  - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+  
+# Allgemeines
 
 ## Lizenzbedingungen
   
@@ -60,7 +82,7 @@ Um die Wettkampfanzeige nutzen zu können gelten folgende Hard- und Softwareanfo
 		über den Fernseher wiedergegeben werden)
 
 ## Änderungshistorie
-Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](Changes.html)
+Informationen über die Inhalte (Änderungen, Bugfixes) der letzten Versionen finden sich auf folgender Seite: [Changes](CHANGELOG.html)
 
 ## Feedback
 > *Eure Meinung zählt!*
@@ -83,7 +105,7 @@ Fragen oder Verbesserungsvorschläge können an die folgenden Stellen gerichtet 
 - E-Mail: [ipponboardinfo ât gmail.com](mailto:ipponboardinfo@gmail.com)  
 
 
-# Funktionsweise & Einstellungen
+# Funktionsweise und Einstellungen
 
 Ipponboard ist ein fortschrittliches Anzeigesystem für die Verwaltung von Kampfzeit und  -punkten, das speziell für den Judowettkampf entwickelt wurde. Bei der Entwicklung wurde und wird auf die folgenden Punkte besonderes Augenmerk gelegt:
   
@@ -297,11 +319,9 @@ Für *Sono-mama* muss man während eines Haltegriffs Matte drücken. Die Haltegr
 ![](images/Ablaufdiagramm.jpg)
 
 
-# Anhang
+# Hilfestellung / Troubleshooting
 
-## Hilfestellung zu gängigen Problemen (Troubleshooting)
-
-### Computer für Zweischirmbetrieb vorbereiten {#Anhang_DualView}
+## Computer für Zweischirmbetrieb vorbereiten {#Anhang_DualView}
 
 Beim der Konfiguration des zweiten Bildschirms am Computer sind folgende Punkte unbedingt zu beachten:
 
