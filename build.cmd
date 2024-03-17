@@ -5,12 +5,12 @@
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
-SET BASE_DIR=%~dp0
-SET BASE_DIR=%BASE_DIR:~0,-1%
-SET BIN_DIR=%BASE_DIR%\_build\bin
+SET ROOT_DIR=%~dp0
+SET ROOT_DIR=%ROOT_DIR:~0,-1%
+SET BIN_DIR=%ROOT_DIR%\_build\bin
 IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
 
-call "%BASE_DIR%\_build\win\init_env_cfg.cmd" || exit /b %errorlevel%
+call "%ROOT_DIR%\_build\win\init_env_cfg.cmd" || exit /b %errorlevel%
 
 rem check for compiler
 call "%MSVC_CMD%"
@@ -78,36 +78,36 @@ GOTO the_end
 goto menu
 
 :cmd_all
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 	call :make_setup || goto the_error
 goto the_end
 
 :cmd_build_doc
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_doc || goto the_error
 goto the_end
 
 :cmd_setup
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_setup || goto the_error
 goto the_end
 
 
 :cmd_build
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_rebuild
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 	call :make_build || goto the_error
 goto the_end
 
 :cmd_clean
-	%BASE_DIR%\_build\win\stopwatch.exe start build
+	%ROOT_DIR%\_build\win\stopwatch.exe start build
 	call :make_clean || goto the_error
 goto the_end
 
@@ -116,13 +116,13 @@ goto the_end
 	echo;
 	echo --[clean]--
 	rd /Q /S "%BIN_DIR%" >nul 2>&1
-	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
-	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
+	rd /Q /S "%ROOT_DIR%\lib" >nul 2>&1
+	if exist "%ROOT_DIR%\base\versioninfo.h" del "%ROOT_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
 	:: the following call is expected to fail in some situations - hence no error checking
 	jom /S /L clean>nul 2>&1 
 	call :generate_makefiles || exit /b %errorlevel%
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
-	::if exist "%BASE_DIR%\base\versioninfo.h" echo Created %BASE_DIR%\base\versioninfo.h
+	::if exist "%ROOT_DIR%\base\versioninfo.h" echo Created %ROOT_DIR%\base\versioninfo.h
 exit /b 0
 
 ::-------------------------------
@@ -130,20 +130,20 @@ exit /b 0
 	echo;
 	echo --[build]--
 	call :compile test debug || exit /b %errorlevel%
-		pushd "%BASE_DIR%\test\bin"
+		pushd "%ROOT_DIR%\test\bin"
 		IpponboardTest.exe & popd 
 		if errorlevel 1 exit /b 1
 	call :compile base || exit /b %errorlevel%
 	call :compile GamepadDemo || exit /b %errorlevel%
 	call ::make_doc || exit /b %errorlevel%
-	call "%BASE_DIR%\base\copy_files.cmd" -release || exit /b %errorlevel%
+	call "%ROOT_DIR%\_build\win\copy_files.cmd" %ROOT_DIR% -release || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
 :make_doc
 	echo;
 	echo -- building doc
-	call "%BASE_DIR%\_build\win\_build_doc.cmd" %BASE_DIR%\doc || exit /b %errorlevel%
+	call "%ROOT_DIR%\_build\win\_build_doc.cmd" %ROOT_DIR%\doc || exit /b %errorlevel%
 exit /b 0
 
 ::-------------------------------
@@ -155,15 +155,15 @@ exit /b 0
 		exit /b 1
 	)
 	
-	"%INNO_DIR%\iscc.exe" /Q /O"%BASE_DIR%\_output" "%BASE_DIR%\setup\setup.iss" || exit /b %errorlevel%
-	dir /OD "%BASE_DIR%\_output"
+	"%INNO_DIR%\iscc.exe" /Q /O"%ROOT_DIR%\_output" "%ROOT_DIR%\setup\setup.iss" || exit /b %errorlevel%
+	dir /OD "%ROOT_DIR%\_output"
 exit /b 0
 
 
 :compile
 	echo;
 	echo -- Compiling %1
-	pushd %BASE_DIR%\%1
+	pushd %ROOT_DIR%\%1
 	if "%2"=="debug" (
 		jom /L /S /F Makefile.Debug || exit /b %errorlevel%
 	) else (
@@ -188,6 +188,6 @@ goto menu
 :the_end
 echo.
 echo SUCCESS
-%BASE_DIR%\_build\win\stopwatch.exe stop build "Time Elapsed: {1}"
+%ROOT_DIR%\_build\win\stopwatch.exe stop build "Time Elapsed: {1}"
 pause
 goto menu
