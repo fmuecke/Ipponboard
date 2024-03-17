@@ -10,7 +10,6 @@
 #include <QString>
 #include <QTime>
 #include <QStringList>
-#include <vector>
 #include <string>
 #include <memory>
 

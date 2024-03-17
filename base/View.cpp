@@ -42,7 +42,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	, m_category("")
 	, m_drawIppon(false)
 	, m_showInfoHeader(true)
-	, m_pBlinkTimer(0)
+    , m_pBlinkTimer(nullptr)
 //=========================================================
 {
 	// init widgets
@@ -159,7 +159,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 View::~View()
 //=========================================================
 {
-	m_pController = 0;
+    m_pController = nullptr;
 	delete ui;
 }
 
@@ -498,7 +498,7 @@ void View::mousePressEvent(QMouseEvent* event)
 			if (doRevoke)   // right click!
 			{
 				QMenu menu;
-				QAction* item(0);
+                QAction* item(nullptr);
 
 				item = menu.addAction(tr("Set time"));
 				connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()));
@@ -840,9 +840,9 @@ void View::update_yuko(Ipponboard::FighterEnum who) const
 void View::update_shido(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledImage* pImage1(0);
-	ScaledImage* pImage2(0);
-	ScaledImage* pImage3(0);
+    ScaledImage* pImage1(nullptr);
+    ScaledImage* pImage2(nullptr);
+    ScaledImage* pImage3(nullptr);
 
 	if (FighterEnum::First == who)
 	{

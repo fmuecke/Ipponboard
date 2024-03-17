@@ -6,10 +6,8 @@
 #define TEAM_EDITION_MAINWINDOW_H_
 
 #include "../base/MainWindowBase.h"
-#include "../core/Fighter.h"
 #include "../core/Fight.h"
 #include "../core/TournamentMode.h"
-#include "../util/helpers.hpp"
 
 #include <memory>
 

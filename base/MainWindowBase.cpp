@@ -7,7 +7,6 @@
 #include "View.h"
 #include "DonationManager.h"
 #include "../core/Controller.h"
-#include "../core/Fighter.h"
 #include "../core/Enums.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"

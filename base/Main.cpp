@@ -19,7 +19,6 @@
 #include <QtextCodec>
 
 
-
 void LangNotFound(const QString& fileName)
 {
 	QMessageBox::critical(nullptr,

@@ -11,18 +11,14 @@
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
 #include "ModeManagerDlg.h"
-//#include "../base/FightCategoryManager.h"
-//#include "../base/FightCategoryManagerDlg.h"
 #include "../base/View.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
-#include "../core/Tournament.h"
 #include "../core/TournamentModel.h"
 #include "../gamepad/gamepad.h"
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
-#include "../Widgets/ScaledText.h"
 
 #include <QClipboard>
 #include <QColorDialog>
@@ -45,8 +41,6 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QUrl>
-
-#include <functional>
 
 namespace StrTags
 {

@@ -23,7 +23,7 @@ class AddFighterDlg : public QDialog
 	Q_OBJECT
 
 public:
-	explicit AddFighterDlg(QWidget* parent = 0);
+    explicit AddFighterDlg(QWidget* parent = nullptr);
 	~AddFighterDlg();
 
 	void SetClubs(QStringList clubs);

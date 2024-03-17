@@ -9,15 +9,9 @@
 #include "../base/FightCategoryManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
 #include "../base/View.h"
-#include "../base/versioninfo.h"
 #include "../core/Controller.h"
-#include "../core/ControllerConfig.h"
+
 #include "../core/Fighter.h"
-#include "../core/TournamentModel.h"
-#include "../gamepad/gamepad.h"
-#include "../util/path_helpers.h"
-#include "../Widgets/ScaledImage.h"
-#include "../Widgets/ScaledText.h"
 
 #include <QColorDialog>
 #include <QComboBox>
@@ -33,7 +27,6 @@
 #include <QSettings>
 #include <QTimer>
 #include <QUrl>
-#include <functional>
 
 namespace StrTags
 {

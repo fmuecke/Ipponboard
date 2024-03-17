@@ -5,12 +5,11 @@
 #include "FightCategoryManager.h"
 #include <QObject>
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <stdexcept>
 #include <algorithm>
 #include <QMessageBox>
 #include <QFile>
+
 #include "../util/path_helpers.h"
 #include "FightCategoryParser.h"
 
@@ -41,7 +40,7 @@ bool FightCategoryMgr::GetCategory(int index,
 {
 	try
 	{
-		t = m_Categories.at(index);
+        t = m_Categories.at(static_cast<size_t>(index));
 	}
 	catch (std::out_of_range&)
 	{
@@ -171,7 +170,7 @@ void FightCategoryMgr::load_categories()
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0,
+        QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
 										  QString::fromStdString(e.what()))));
@@ -203,7 +202,7 @@ bool FightCategoryMgr::CategoriesFromString(std::string const& s)
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0,
+        QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
 										  QString::fromStdString(e.what()))));
@@ -224,7 +223,7 @@ std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0,
+        QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
 										  QString::fromStdString(e.what()))));

@@ -52,3 +52,4 @@ _output/
 ipponboard.VC.*
 bin/
 setup/Output/
+.qtc_clangd/

@@ -3,8 +3,6 @@
 // found in the LICENSE.txt file.
 
 #include "VersionComparer.h"
-//#include "../util/semver/semantic_version.h"
-//#include "../util/semver/semantic_version_v2.cpp"
 
 #include <QString>
 #include <QStringList>

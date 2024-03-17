@@ -7,8 +7,7 @@
 
 #include "FighterManager.h"
 #include "AddFighterDlg.h"
-#include "../core/fighter.h"
-//#include "../util/path_helpers.h"
+#include "../core/Fighter.h"
 
 #include <QInputDialog>
 #include <QFileDialog>
@@ -306,15 +305,12 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 	//if (pItem)
 	for (QTreeWidgetItem * pItem : selectedItems)
 	{
-		Ipponboard::Fighter currentFighter(
-			pItem->text(eColumn_firstName),
-			pItem->text(eColumn_lastName));
+        Ipponboard::Fighter currentFighter(pItem->text(eColumn_firstName), pItem->text(eColumn_lastName));
 		currentFighter.club = pItem->text(eColumn_club);
 		currentFighter.weight = pItem->text(eColumn_weight);
 		//TODO: currentFighter.category = pItem->text(eColumn_category);
 
-		ui->treeWidget_fighters->takeTopLevelItem(
-			ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+        ui->treeWidget_fighters->takeTopLevelItem(ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
 		m_manager.RemoveFighter(currentFighter);
 
@@ -420,7 +416,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 
 	if (isValidSeparator)
 	{
-		dataParts = data.split(separator);
+        dataParts = data.split(separator);
 	}
 
 	// at least 3 parts must be set (first, last, ...)
