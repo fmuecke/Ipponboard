@@ -142,7 +142,7 @@ TournamentMode TournamentMode::Default()
 	//mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 	mode.rules = RulesFactory::GetDefaultName();
 
-	return std::move(mode);
+	return mode;
 }
 
 bool TournamentMode::operator<(TournamentMode const& other) const

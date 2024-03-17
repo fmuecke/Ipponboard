@@ -59,8 +59,8 @@ public:
 private:
 
 	std::string name;
-	int round_time_secs;
-	int golden_score_time_secs;
+	int round_time_secs{ 0 };
+	int golden_score_time_secs{ 0 };
 	std::string weights;
 };
 
@@ -69,4 +69,4 @@ typedef std::vector<FightCategory> FightCategoryList;
 
 } // namespace Ipponboard
 
-#endif  // BASE__FIGHTCATEGORY_H_
+#endif	// BASE__FIGHTCATEGORY_H_
