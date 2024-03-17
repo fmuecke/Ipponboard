@@ -30,7 +30,7 @@ DESTDIR = ../bin
 # Create our custom prebuild target for the release build
 #----------------------------------------------------------
 
-prebuild.commands = $$quote($$PWD/create_versioninfo.cmd)
+prebuild.commands = $$quote($$PWD/../_build/win/create_versioninfo.cmd $$PWD)
 QMAKE_EXTRA_TARGETS += prebuild
 # Hook our prebuild target in between qmake's Makefile update and the actual project target.
 QMAKE_EXTRA_TARGETS += prebuildhook
@@ -73,12 +73,12 @@ contains(COMPILER, msvc) {
 
 CONFIG(debug, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += $$quote($$PWD/copy_files.cmd)
+    QMAKE_POST_LINK += $$quote($$PWD/../_build/win/copy_files.cmd)
 }
 
 CONFIG(release, release|debug) {
 	# copy all needed files to destdir
-    QMAKE_POST_LINK += $$quote($$PWD/copy_files.cmd) -release
+    QMAKE_POST_LINK += $$quote($$PWD/../_build/win/copy_files.cmd) -release
 }
 
 HEADERS = pch.h \
