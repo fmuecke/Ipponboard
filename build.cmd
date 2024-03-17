@@ -5,27 +5,12 @@
 ::---------------------------------------------------------
 @echo off
 SETLOCAL
-SET LOCAL_CONFIG=env_cfg.bat
-
-IF EXIST "%LOCAL_CONFIG%" (
-  CALL "%LOCAL_CONFIG%"
-  echo;
-) ELSE (
-  echo @echo off>"%LOCAL_CONFIG%"
-  echo set QTDIR=c:\devtools\qt\qt-4.8.7-vc14\bin\>>"%LOCAL_CONFIG%"
-  echo set QMAKESPEC=win32-msvc2015>>"%LOCAL_CONFIG%"
-  echo set BOOST_DIR=c:\devtools\boost_1_81_0>>"%LOCAL_CONFIG%"
-  echo set "MSVC_CMD=C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars32.bat">>"%LOCAL_CONFIG%"
-  echo set INNO_DIR=c:\devtools\inno setup 5>>"%LOCAL_CONFIG%"
-  rem echo set PATH=%QTDIR%;%PATH%>>%LOCAL_CONFIG%
-  echo Please configure paths in "%LOCAL_CONFIG%" first!
-  pause
-  exit /b 1
-)
-
-SET BASE_DIR=%~dp0.
-SET BIN_DIR=%BASE_DIR%\bin
+SET BASE_DIR=%~dp0
+SET BASE_DIR=%BASE_DIR:~0,-1%
+SET BIN_DIR=%BASE_DIR%\_build\bin
 IF NOT EXIST "%BIN_DIR%" mkdir "%BIN_DIR%"
+
+call "%BASE_DIR%\_build\win\init_env_cfg.cmd" || exit /b %errorlevel%
 
 rem check for compiler
 call "%MSVC_CMD%"
@@ -133,8 +118,8 @@ goto the_end
 	rd /Q /S "%BIN_DIR%" >nul 2>&1
 	rd /Q /S "%BASE_DIR%\lib" >nul 2>&1
 	if exist "%BASE_DIR%\base\versioninfo.h" del "%BASE_DIR%\base\versioninfo.h" >nul || exit /b %errorlevel%
-	::if NOT exist "%BASE_DIR%\base\versioninfo.h" echo Removed %BASE_DIR%\base\versioninfo.h
-	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
+	:: the following call is expected to fail in some situations - hence no error checking
+	jom /S /L clean>nul 2>&1 
 	call :generate_makefiles || exit /b %errorlevel%
 	jom /S /L clean>nul 2>&1 || exit /b %errorlevel%
 	::if exist "%BASE_DIR%\base\versioninfo.h" echo Created %BASE_DIR%\base\versioninfo.h
@@ -190,7 +175,7 @@ exit /b 0
 
 :generate_makefiles
 	echo -- Creating makefiles
-	"%QTDIR%"\qmake -recursive || exit /b %errorlevel%
+	"%QTDIR%\qmake.exe" -recursive || exit /b %errorlevel%
 exit /b 0
 
 
