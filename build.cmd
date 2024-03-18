@@ -28,7 +28,7 @@ IF NOT EXIST "%BOOST_DIR%\boost" (
 	exit /b 1
 )
 
-IF NOT EXIST "%QTDIR%\qmake.exe" (
+IF NOT EXIST "%QTDIR%\bin\qmake.exe" (
 	ECHO Can't find qmake.exe. Please specify "QTDIR".
 	pause
 	exit /b 1
@@ -175,7 +175,7 @@ exit /b 0
 
 :generate_makefiles
 	echo -- Creating makefiles
-	"%QTDIR%\qmake.exe" -recursive || exit /b %errorlevel%
+	"%QTDIR%\bin\qmake.exe" -recursive || exit /b %errorlevel%
 exit /b 0
 
 
