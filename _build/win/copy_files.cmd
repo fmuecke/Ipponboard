@@ -30,9 +30,9 @@ echo Copying files...
 echo  languages
 rem (mkdir is recursive) if not exist "%DEST%" mkdir "%DEST%">nul
 if not exist "%DEST%\lang" mkdir "%DEST%\lang">nul
-"%QTDIR%\lrelease" -compress -silent %ROOT_DIR%\i18n\de.ts -qm %ROOT_DIR%\i18n\de.qm || exit /b 1
+"%QTDIR%\bin\lrelease" -compress -silent %ROOT_DIR%\i18n\de.ts -qm %ROOT_DIR%\i18n\de.qm || exit /b 1
 copy /Y "%ROOT_DIR%\i18n\de.qm" "%DEST%\lang">nul || exit /b 1
-"%QTDIR%\lrelease" -compress -silent %ROOT_DIR%\i18n\nl.ts -qm %ROOT_DIR%\i18n\nl.qm || exit /b 1
+"%QTDIR%\bin\lrelease" -compress -silent %ROOT_DIR%\i18n\nl.ts -qm %ROOT_DIR%\i18n\nl.qm || exit /b 1
 copy /Y "%ROOT_DIR%\i18n\nl.qm" "%DEST%\lang">nul || exit /b 1
 
 echo  sounds
@@ -43,21 +43,21 @@ copy /Y "%ROOT_DIR%\base\sounds\buzzer.wav" "%DEST%\sounds">nul || exit /b 1
 
 echo  QT and C^+^+ runtimes
 if defined RELEASE (
-if not exist "%QTDIR%\QtCore4.dll" echo not found: "%QTDIR%\QtCore4.dll" && exit /b 1
-	copy /Y "%QTDIR%\QtCore4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtGui4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtNetwork4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtXmlPatterns4.dll" "%DEST%">nul || exit /b 1
+if not exist "%QTDIR%\bin\QtCore4.dll" echo not found: "%QTDIR%\bin\QtCore4.dll" && exit /b 1
+	copy /Y "%QTDIR%\bin\QtCore4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtGui4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtNetwork4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtXmlPatterns4.dll" "%DEST%">nul || exit /b 1
 	if not exist "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" echo not found: "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" && exit /b 1
 	copy /Y "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\msvcp140.dll" "%DEST%">nul || exit /b 1
 	if not exist "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" echo not found: "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" && exit /b 1
 	copy /Y "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\vcruntime140.dll" "%DEST%">nul || exit /b 1
 ) else (
-	if not exist "%QTDIR%\QtCored4.dll" echo %QTDIR%\QtCored4.dll not found && exit /b 1
-	copy /Y "%QTDIR%\QtCored4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtGuid4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtNetworkd4.dll" "%DEST%">nul || exit /b 1
-	copy /Y "%QTDIR%\QtXmlPatternsd4.dll" "%DEST%">nul || exit /b 1
+	if not exist "%QTDIR%\bin\QtCored4.dll" echo %QTDIR%\bin\QtCored4.dll not found && exit /b 1
+	copy /Y "%QTDIR%\bin\QtCored4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtGuid4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtNetworkd4.dll" "%DEST%">nul || exit /b 1
+	copy /Y "%QTDIR%\bin\QtXmlPatternsd4.dll" "%DEST%">nul || exit /b 1
 	if not exist "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" echo not found: "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" && exit /b 1
 	copy /Y "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\msvcp140d.dll" "%DEST%">nul || exit /b 1
 	if not exist "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" echo not found: "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\vcruntime140d.dll" && exit /b 1
