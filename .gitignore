@@ -56,3 +56,4 @@ setup/Output/
 ui*.h
 build-GamepadDemo-*/
 qrc_*.cpp
+/**/build-**/*
