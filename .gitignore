@@ -57,3 +57,5 @@ ui*.h
 build-GamepadDemo-*/
 qrc_*.cpp
 /**/build-**/*
+_build/bin-debug/
+*.user

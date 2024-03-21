@@ -2,14 +2,15 @@
 # You may attempt to use it for building too, by modifying this file here.
 cmake_minimum_required(VERSION 3.5)
 
-project(GamepadDemo VERSION 2.0.0  LANGUAGES C CXX)
-message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
-
+project(GamepadDemo VERSION 2.0.0 LANGUAGES C CXX)
+message(STATUS "Using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION} SDK")
 find_package(Qt4 4.8.7 REQUIRED QtCore QtGui)
 
 if(NOT DEFINED ENV{QTDIR})
     message(FATAL_ERROR "QTDIR not defined")
 endif()
+
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -22,6 +23,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
 set(OUTPUT_DIR ${ROOT_DIR}/_build/bin)
+set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_build/bin-debug)
 
 set(SOURCES
     Main.cpp
@@ -35,7 +37,7 @@ set(SOURCES
 if (WIN32)
     add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
     set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
 		RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
         COMPILE_FLAGS "/Zc:wchar_t- /MP"
         CMAKE_SUPPRESS_REGENERATION true
@@ -47,15 +49,14 @@ endif()
 
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui)
 
-
 # Copy Qt dlls to the output directory
 # TODO: fix copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
 #message("current build type: " ${CMAKE_BUILD_TYPE})
 #message("current configuration: " ${CONFIG})
 #if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "copying Qt debug libraries to ${OUTPUT_DIR}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCored4.dll $ENV{QTDIR}/bin/QtGuid4.dll ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E echo "copying Qt debug libraries to ${OUTPUT_DIR_DEBUG}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCored4.dll $ENV{QTDIR}/bin/QtGuid4.dll ${OUTPUT_DIR_DEBUG}
     )
 #else()
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
@@ -63,5 +64,3 @@ target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCore4.dll $ENV{QTDIR}/bin/QtGui4.dll ${OUTPUT_DIR}
     )
 #endif()
-
-
