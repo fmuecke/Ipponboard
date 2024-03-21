@@ -69,5 +69,3 @@ void ComboBoxDelegate::SetItems(QStringList const& items)
 {
 	m_items = items;
 }
-
-__BASE_COMBOBOXDELEGATE_H
