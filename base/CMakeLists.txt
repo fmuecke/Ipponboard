@@ -1,19 +1,26 @@
 # Created by and for Qt Creator This file was created for editing the project sources only.
 # You may attempt to use it for building too, by modifying this file here.
-
 cmake_minimum_required(VERSION 3.5)
-project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
-message(STATUS "using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
 
+project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
 find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
 
-if(NOT DEFINED ENV{QTDIR})
-    message(FATAL_ERROR "QTDIR not defined")
+if(WIN32)
+	if(NOT DEFINED ENV{QTDIR})
+		message(FATAL_ERROR "QTDIR not defined")
+	endif()
+	if(NOT DEFINED ENV{BOOST_DIR})
+		message(FATAL_ERROR "BOOST_DIR not defined")
+	endif()
+	set(BOOST_DIR "$ENV{BOOST_DIR}")
+else()
+	set(BOOST_DIR /usr/include/boost)
 endif()
-if(NOT DEFINED ENV{BOOST_DIR})
-    message(FATAL_ERROR "BOOST_DIR not defined")
-endif()
+		
+message(STATUS "Using: QTDIR = $ENV{QTDIR}")
+message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
 
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -25,19 +32,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
 set(OUTPUT_DIR ${ROOT_DIR}/_build/bin)
+set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_build/bin-debug)
+
+message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
+message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR}")
 
 set(SOURCES
-    AddFighterDlg.cpp
+    pch.cpp
+	pch.h
+	AddFighterDlg.cpp
     AddFighterDlg.h
-    #categories.json
-    #categories.xml
     Club.h
     ClubManager.cpp
     ClubManager.h
     ClubManagerDlg.cpp
     ClubManagerDlg.h
     ClubParser.h
-    #clubs.json
     ComboBoxDelegate.cpp
     ComboBoxDelegate.h
     DonationManager.cpp
@@ -73,7 +83,6 @@ set(SOURCES
     ../core/ControllerConfig.h
     ../core/Rules.h
     ipponboard.qrc
-    Ipponboard.rc
     Main.cpp
     MainWindow.cpp
     MainWindow.h
@@ -83,7 +92,6 @@ set(SOURCES
     MainWindowTeam.h
     ModeManagerDlg.cpp
     ModeManagerDlg.h
-    pch.h
     #qrc_ipponboard.cpp
     ScoreScreen.cpp
     ScoreScreen.h
@@ -91,7 +99,6 @@ set(SOURCES
     SettingsDlg.h
     SplashScreen.cpp
     SplashScreen.h
-    #TournamentModes.ini
     #ui_AddFighterDlg.h
     #ui_ClubManagerDlg.h
     #ui_Countdown.h
@@ -147,26 +154,31 @@ set(FORMS
     ../widgets/Countdown.ui
 )
 
-add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES} ${FORMS})
+set(OTHER
+    Ipponboard.rc
+    TournamentModes.ini
+    categories.json
+    #categories.xml
+    clubs.json
+)
+
+source_group("UI Forms" FILES ${FORMS})
+source_group("Other Files" FILES ${OTHER})
+
+add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}
-            RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
     COMPILE_FLAGS "/Zc:wchar_t- /MP"
     CMAKE_SUPPRESS_REGENERATION true
 )
 
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE $ENV{BOOST_DIR})
+target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${BOOST_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
 
-# Copy Qt dlls to the output directory
-# TODO: fix copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
-#message("current build type: " ${CMAKE_BUILD_TYPE})
-#message("current configuration: " ${CONFIG})
-#if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "copying Qt debug-AND-release libraries to ${OUTPUT_DIR}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCored4.dll $ENV{QTDIR}/bin/QtGuid4.dll $ENV{QTDIR}/bin/QtNetworkd4.dll $ENV{QTDIR}/bin/QtXmlPatternsd4.dll ${OUTPUT_DIR}
-       COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCore4.dll $ENV{QTDIR}/bin/QtGui4.dll $ENV{QTDIR}/bin/QtNetwork4.dll $ENV{QTDIR}/bin/QtXmlPatterns4.dll ${OUTPUT_DIR}
-    )
-#else()
-#endif()
+# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
+# therefore logic handled in separate batch file
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+	COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" ${OUTPUT_DIR} $<CONFIG>
+)
