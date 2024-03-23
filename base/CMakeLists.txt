@@ -3,11 +3,21 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
-find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
+set(CMAKE_PREFIX_PATH $ENV{QT5DIR})
+set(CMAKE_LIBRARY_PATH $ENV{QT5DIR}/lib )
+#find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
+find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
+
+#find_package(Qt5Core REQUIRED)
+#find_package(Qt5Gui REQUIRED)
+#find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5XmlPatterns REQUIRED)
+#find_package(Qt5PrintSupport REQUIRED)
+#find_package(Qt5Multimedia REQUIRED)
 
 if(WIN32)
-	if(NOT DEFINED ENV{QTDIR})
-		message(FATAL_ERROR "QTDIR not defined")
+	if(NOT DEFINED ENV{QT5DIR})
+		message(FATAL_ERROR "QT5DIR not defined")
 	endif()
 	if(NOT DEFINED ENV{BOOST_DIR})
 		message(FATAL_ERROR "BOOST_DIR not defined")
@@ -17,7 +27,7 @@ else()
 	set(BOOST_DIR /usr/include/boost)
 endif()
 		
-message(STATUS "Using: QTDIR = $ENV{QTDIR}")
+message(STATUS "Using: QT5DIR = $ENV{QT5DIR}")
 message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
@@ -36,8 +46,8 @@ message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR}")
 
 set(SOURCES
-    pch.cpp
-	pch.h
+    #pch.cpp
+	#pch.h
 	AddFighterDlg.cpp
     AddFighterDlg.h
     Club.h
@@ -163,6 +173,13 @@ set(OTHER
 source_group("UI Forms" FILES ${FORMS})
 source_group("Other Files" FILES ${OTHER})
 
+#include_directories(${Qt5Core_INCLUDE_DIRS})
+#include_directories(${Qt5Gui_INCLUDE_DIRS})
+#include_directories(${Qt5Widgets_INCLUDE_DIRS})
+#include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
+#include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
+#include_directories(${Qt5Multimedia_INCLUDE_DIRS})
+
 add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
@@ -171,12 +188,13 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     CMAKE_SUPPRESS_REGENERATION true
 )
 
-target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
+#target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${BOOST_DIR})
-target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+#target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 
 # copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
 # therefore logic handled in separate batch file
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-	COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" ${OUTPUT_DIR} $<CONFIG>
+	COMMAND call "${ROOT_DIR}/_build/win/copy_files-qt5.cmd" ${OUTPUT_DIR} $<CONFIG>
 )

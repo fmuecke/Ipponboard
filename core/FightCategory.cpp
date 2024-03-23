@@ -23,12 +23,10 @@ QString FightCategory::GetGoldenScoreTimeStr() const
 
 void FightCategory::SetRoundTime(QString const& str)
 {
-	round_time_secs =
-		QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
+	round_time_secs = QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
 }
 
 void FightCategory::SetGoldenScoreTime(QString const& str)
 {
-	golden_score_time_secs =
-		QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
+	golden_score_time_secs = QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
 }
