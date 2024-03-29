@@ -38,16 +38,7 @@
    <property name="spacing">
     <number>3</number>
    </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
@@ -131,7 +122,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
-         <normaloff>:/res/images/btn_donate_EN_s.gif</normaloff>:/res/images/btn_donate_EN_s.gif</iconset>
+         <normaloff>:/res/images/btn_donate_EN_s.png</normaloff>:/res/images/btn_donate_EN_s.png</iconset>
        </property>
        <property name="iconSize">
         <size>
