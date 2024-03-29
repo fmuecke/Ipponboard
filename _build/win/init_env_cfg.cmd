@@ -15,15 +15,6 @@ if exist "%LOCAL_CONFIG%" (
   echo set "MSVC_DIR=C:\Program Files\Microsoft Visual Studio\2022\Professional\VC" >> "%LOCAL_CONFIG%"
   echo set "MSVC_CMD=%%MSVC_DIR%%\Auxiliary\Build\vcvars32.bat" >> "%LOCAL_CONFIG%"
   echo set "INNO_DIR=c:\devtools\inno setup 5" >> "%LOCAL_CONFIG%"
-  
-  echo echo Using: IPPONBOARD_ROOT_DIR=%%IPPONBOARD_ROOT_DIR%% >> "%LOCAL_CONFIG%"
-  echo echo Using: QMAKESPEC=%%QMAKESPEC%% >> "%LOCAL_CONFIG%"
-  echo echo Using: QTDIR=%%QTDIR%% >> "%LOCAL_CONFIG%"
-  echo echo Using: BOOST_DIR=%%BOOST_DIR%% >> "%LOCAL_CONFIG%"
-  echo echo Using: MSVC_DIR=%%MSVC_DIR%% >> "%LOCAL_CONFIG%"
-  echo echo Using: MSVC_CMD=%%MSVC_CMD%% >> "%LOCAL_CONFIG%"
-  echo echo Using: INNO_DIR=%%INNO_DIR%% >> "%LOCAL_CONFIG%"
-  
   echo Please configure dependency paths in "%LOCAL_CONFIG%" first!
   pause
   exit /b 1
