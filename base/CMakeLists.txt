@@ -3,10 +3,24 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
-set(CMAKE_PREFIX_PATH $ENV{QT5DIR})
-set(CMAKE_LIBRARY_PATH $ENV{QT5DIR}/lib )
-#find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
-find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
+
+if(USE_QT5)
+	if(NOT DEFINED ENV{QT5DIR})
+		message(FATAL_ERROR "QT5DIR not defined")
+	endif()
+	message(STATUS "Using: QT5DIR = $ENV{QT5DIR}")
+	set(CMAKE_PREFIX_PATH $ENV{QT5DIR})
+	set(CMAKE_LIBRARY_PATH $ENV{QT5DIR}/lib)
+	find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
+else()
+	if(NOT DEFINED ENV{QT4DIR})
+		message(FATAL_ERROR "QT4DIR not defined")
+	endif()
+	message(STATUS "Using: QT4DIR = $ENV{QT4DIR}")
+	set(CMAKE_PREFIX_PATH $ENV{QT4DIR})
+	set(CMAKE_LIBRARY_PATH $ENV{QT4DIR}/lib)
+	find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
+endif()
 
 #find_package(Qt5Core REQUIRED)
 #find_package(Qt5Gui REQUIRED)
@@ -16,9 +30,6 @@ find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia R
 #find_package(Qt5Multimedia REQUIRED)
 
 if(WIN32)
-	if(NOT DEFINED ENV{QT5DIR})
-		message(FATAL_ERROR "QT5DIR not defined")
-	endif()
 	if(NOT DEFINED ENV{BOOST_DIR})
 		message(FATAL_ERROR "BOOST_DIR not defined")
 	endif()
@@ -26,8 +37,6 @@ if(WIN32)
 else()
 	set(BOOST_DIR /usr/include/boost)
 endif()
-		
-message(STATUS "Using: QT5DIR = $ENV{QT5DIR}")
 message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
@@ -190,11 +199,18 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 
 #target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${BOOST_DIR})
-#target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
-
-# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
-# therefore logic handled in separate batch file
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-	COMMAND call "${ROOT_DIR}/_build/win/copy_files-qt5.cmd" ${OUTPUT_DIR} $<CONFIG>
-)
+if(USE_QT5)
+	target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+	# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
+	# therefore logic handled in separate batch file
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+		COMMAND call "${ROOT_DIR}/_build/win/copy_files-qt5.cmd" ${OUTPUT_DIR} $<CONFIG>
+	)
+else()
+	target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+	# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
+	# therefore logic handled in separate batch file
+	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+		COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" ${OUTPUT_DIR} $<CONFIG>
+	)
+endif()
