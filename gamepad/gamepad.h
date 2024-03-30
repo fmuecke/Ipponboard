@@ -139,22 +139,23 @@ public:
 		return m_state;
 	}
 
-#if WINVER > 0x0501
-	inline const wchar_t* GetProductName() const
-	{
-		size_t size = strlen(m_caps.szPname)+1;
-		wchar_t* unicode_product_name = new wchar_t[size];
-		size_t convertedChars = 0;
-		mbstowcs_s(&convertedChars, unicode_product_name, size, m_caps.szPname, size-1);
-
-		return unicode_product_name;
-	}
-#else		
-	inline const wchar_t* GetProductName() const
+//TODO: use proper unicode handling
+//#if WINVER > 0x0501
+//	inline const wchar_t* GetProductName() const
+//	{
+//		size_t size = strlen(m_caps.szPname)+1;
+//		wchar_t* unicode_product_name = new wchar_t[size];  //TODO: fix memory leak
+//		size_t convertedChars = 0;
+//		mbstowcs_s(&convertedChars, unicode_product_name, size, m_caps.szPname, size-1);
+//
+//		return unicode_product_name;
+//	}
+//#else		
+	inline const char* GetProductName() const
 	{
 		return m_caps.szPname;
 	}
-#endif
+//#endif
 
 	inline WORD GetMId() const
 	{
@@ -599,11 +600,12 @@ private:
 
 	unsigned int m_currentId;
 	std::bitset<eAxis_MAX> m_invertedAxes;
-#if WINVER > 0x0501
+
+//#if WINVER > 0x0501
+//	JOYCAPSW m_caps;
+//#else		
 	JOYCAPSA m_caps;
-#else		
-	JOYCAPSW m_caps;
-#endif
+//#endif
 
 	JOYINFOEX m_data;
 	JOYINFOEX m_lastData;

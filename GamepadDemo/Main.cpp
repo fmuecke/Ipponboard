@@ -3,7 +3,7 @@
 // found in the LICENSE.txt file.
 
 #include "GamepadDemo.h"
-#include <QtGui/QApplication>
+#include <QApplication>
 
 int main(int argc, char* argv[])
 {

@@ -1,13 +1,24 @@
-# Created by and for Qt Creator This file was created for editing the project sources only.
-# You may attempt to use it for building too, by modifying this file here.
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.28)
+project(GamepadDemo VERSION 2.2.0 LANGUAGES C CXX)
 
-project(GamepadDemo VERSION 2.0.0 LANGUAGES C CXX)
-message(STATUS "Using: ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION} SDK")
-find_package(Qt4 4.8.7 REQUIRED QtCore QtGui)
+option(USE_QT5 "Use Qt5 for the build" OFF)
 
-if(NOT DEFINED ENV{QTDIR})
-    message(FATAL_ERROR "QTDIR not defined")
+if(USE_QT5)
+	if(NOT DEFINED ENV{QT5DIR})
+		message(FATAL_ERROR "QT5DIR not defined")
+	endif()
+	message(STATUS "Using: QT5DIR = $ENV{QT5DIR}")
+	set(CMAKE_PREFIX_PATH $ENV{QT5DIR})
+	set(CMAKE_LIBRARY_PATH $ENV{QT5DIR}/lib)
+	find_package(Qt5 5.12.9 COMPONENTS Core Gui Widgets REQUIRED)	
+else()
+	if(NOT DEFINED ENV{QT4DIR})
+		message(FATAL_ERROR "QT4DIR not defined")
+	endif()
+	message(STATUS "Using: QT4DIR = $ENV{QT4DIR}")
+	set(CMAKE_PREFIX_PATH $ENV{QT4DIR})
+	set(CMAKE_LIBRARY_PATH $ENV{QT4DIR}/lib)
+	find_package(Qt4 4.8.7 REQUIRED QtCore QtGui)
 endif()
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
@@ -20,45 +31,48 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
-set(OUTPUT_DIR ${ROOT_DIR}/_build/bin)
-set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_build/bin-debug)
+set(OUTPUT_DIR ${ROOT_DIR}/_bin/GamepadDemo-Release)
+set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/GamepadDemo-Debug)
 
 set(SOURCES
     Main.cpp
-    GamepadDemo.cpp GamepadDemo.h
+    GamepadDemo.cpp
+	GamepadDemo.h
     ../gamepad/gamepad.h
-    ../Widgets/ScaledImage.cpp ../Widgets/ScaledImage.h
+    ../Widgets/ScaledImage.cpp
+    ../Widgets/ScaledImage.h
     GamepadDemo.ui
-    res.qrc off.png on.png
+    res.qrc
+    off.png
+    on.png
 )
 
-if (WIN32)
-    add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
-    set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
-		RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
-        COMPILE_FLAGS "/Zc:wchar_t- /MP"
-        CMAKE_SUPPRESS_REGENERATION true
-    )
+add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
+	RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
+	COMPILE_FLAGS "/Zc:wchar_t- /MP"
+	CMAKE_SUPPRESS_REGENERATION true
+)
+
+if(USE_QT5)
+    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets)
 else()
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
-    add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
+    target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui)
 endif()
 
-target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui)
-
-# Copy Qt dlls to the output directory
-# TODO: fix copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
-#message("current build type: " ${CMAKE_BUILD_TYPE})
-#message("current configuration: " ${CONFIG})
-#if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+# copy Qt runtime dlls
+if(USE_QT5)
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "copying Qt debug libraries to ${OUTPUT_DIR_DEBUG}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCored4.dll $ENV{QTDIR}/bin/QtGuid4.dll ${OUTPUT_DIR_DEBUG}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
     )
-#else()
+else()
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "copying Qt release libraries to ${OUTPUT_DIR}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/QtCore4.dll $ENV{QTDIR}/bin/QtGui4.dll ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtGui4.dll,QtGuid4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
     )
-#endif()
+endif()

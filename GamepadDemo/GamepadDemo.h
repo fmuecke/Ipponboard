@@ -35,10 +35,10 @@ private slots:
 	void GetData();
 
 private:
-    std::unique_ptr<Ui::GamepadDemo> ui;
+	std::unique_ptr<Ui::GamepadDemo> ui;
 	QLabel* m_pSBarText;
 	QTimer* m_pTimer;
-    std::unique_ptr<FMlib::Gamepad> m_pGamepad;
+	std::unique_ptr<FMlib::Gamepad> m_pGamepad;
 };
 
 #endif  // GAMEPADDEMO__GAMEPADDEMO_H_
