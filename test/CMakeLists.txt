@@ -6,21 +6,16 @@ option(USE_QT5 "Use Qt5 for the build" OFF)
 
 project(Test-Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
 
+if(NOT DEFINED ENV{QTDIR})
+	message(FATAL_ERROR "QTDIR not defined")
+endif()
+message(STATUS "Using: QTDIR = $ENV{QTDIR}")
+set(CMAKE_PREFIX_PATH $ENV{QTDIR})
+set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib)
+
 if(USE_QT5)
-	if(NOT DEFINED ENV{QT5DIR})
-		message(FATAL_ERROR "QT5DIR not defined")
-	endif()
-	message(STATUS "Using: QT5DIR = $ENV{QT5DIR}")
-	set(CMAKE_PREFIX_PATH $ENV{QT5DIR})
-	set(CMAKE_LIBRARY_PATH $ENV{QT5DIR}/lib)
 	find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
 else()
-	if(NOT DEFINED ENV{QT4DIR})
-		message(FATAL_ERROR "QT4DIR not defined")
-	endif()
-	message(STATUS "Using: QT4DIR = $ENV{QT4DIR}")
-	set(CMAKE_PREFIX_PATH $ENV{QT4DIR})
-	set(CMAKE_LIBRARY_PATH $ENV{QT4DIR}/lib)
 	find_package(Qt4 4.8.7 REQUIRED QtCore)
 endif()
 
@@ -72,10 +67,10 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMA
 # copy Qt runtime dlls
 if(USE_QT5)
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
 	)
 else()
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
 	)
 endif()

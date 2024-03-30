@@ -18,7 +18,7 @@ if defined CLEAN (
 )
 
 echo Creating makefiles...
-cmake -S "%IPPONBOARD_ROOT_DIR%\base" -B "%IPPONBOARD_ROOT_DIR%\_build\build-Ipponboard" -G "Visual Studio 17 2022" -A Win32 -DUSE_QT5=OFF || exit /b %errorlevel%
+cmake -S "%IPPONBOARD_ROOT_DIR%\base" -B "%IPPONBOARD_ROOT_DIR%\_build\build-Ipponboard" -G "Visual Studio 17 2022" -A Win32 -DUSE_QT5=%USE_QT5% || exit /b %errorlevel%
 
 echo Building makefiles...
 cmake --build "%IPPONBOARD_ROOT_DIR%\_build\build-Ipponboard" --config %CONFIG% %CLEAN%
