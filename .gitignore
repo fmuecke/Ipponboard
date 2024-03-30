@@ -61,3 +61,4 @@ _build/bin-debug/
 *.user
 _build/bin-test/
 _build/bin-test-debug/
+_bin/
