@@ -1,6 +1,8 @@
 # Created by and for Qt Creator This file was created for editing the project sources only.
 # You may attempt to use it for building too, by modifying this file here.
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.28)
+
+option(USE_QT5 "Use Qt5 for the build" OFF)
 
 project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
 
@@ -22,13 +24,6 @@ else()
 	find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
 endif()
 
-#find_package(Qt5Core REQUIRED)
-#find_package(Qt5Gui REQUIRED)
-#find_package(Qt5Widgets REQUIRED)
-#find_package(Qt5XmlPatterns REQUIRED)
-#find_package(Qt5PrintSupport REQUIRED)
-#find_package(Qt5Multimedia REQUIRED)
-
 if(WIN32)
 	if(NOT DEFINED ENV{BOOST_DIR})
 		message(FATAL_ERROR "BOOST_DIR not defined")
@@ -40,6 +35,7 @@ endif()
 message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -48,8 +44,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
-set(OUTPUT_DIR ${ROOT_DIR}/_build/bin)
-set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_build/bin-debug)
+set(OUTPUT_DIR ${ROOT_DIR}/_bin/Release)
+set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Debug)
 
 message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR}")
@@ -182,13 +178,6 @@ set(OTHER
 source_group("UI Forms" FILES ${FORMS})
 source_group("Other Files" FILES ${OTHER})
 
-#include_directories(${Qt5Core_INCLUDE_DIRS})
-#include_directories(${Qt5Gui_INCLUDE_DIRS})
-#include_directories(${Qt5Widgets_INCLUDE_DIRS})
-#include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
-#include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
-#include_directories(${Qt5Multimedia_INCLUDE_DIRS})
-
 add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
@@ -199,18 +188,33 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
 
 #target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${BOOST_DIR})
+
+# copy file data 
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+	COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>" $<CONFIG>
+)
+
+# copy Qt dlls
 if(USE_QT5)
 	target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
-	# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
-	# therefore logic handled in separate batch file
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND call "${ROOT_DIR}/_build/win/copy_files-qt5.cmd" ${OUTPUT_DIR} $<CONFIG>
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT5DIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
 	)
 else()
 	target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
-	# copying of Qt dlls according to configuration (does not work RELIABLY with multi config generators)
-	# therefore logic handled in separate batch file
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" ${OUTPUT_DIR} $<CONFIG>
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtGui4.dll,QtGuid4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtNetwork4.dll,QtNetworkd4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QT4DIR}/bin/$<IF:$<CONFIG:Release>,QtXmlPatterns4.dll,QtXmlPatternsd4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
 	)
 endif()
+
