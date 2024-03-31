@@ -565,7 +565,11 @@ QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
 void MainWindowTeam::WriteScoreToHtml_()
 {
 	QString modeText = get_full_mode_title(m_currentMode);
-	QString templateFile = get_template_file(m_currentMode);
+    QString templateFile = get_template_file(m_currentMode);
+#if QT_VERSION >= 0x050000
+    // as the rendering was changed with Qt5 we need to prepare the templates a little differently
+    templateFile.replace(".html", "-qt5.html");
+#endif
 	const QString filePath(
 		fm::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 
@@ -601,9 +605,9 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	// final score
 	auto wins2nd = m_pController->GetRoundCount() > 1 ?
-				   m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0, 0);
+                       m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair<unsigned int, unsigned int>(0, 0);
 	auto score2nd = m_pController->GetRoundCount() > 1 ?
-					m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0, 0);
+                    m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair<unsigned int, unsigned int>(0, 0);
 	auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
 	auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
 
@@ -653,7 +657,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
 							  ", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
-	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
+    m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
 }
 
 void MainWindowTeam::on_actionReset_Scores_triggered()
@@ -1027,12 +1031,13 @@ void MainWindowTeam::on_actionExport_triggered()
 		{
             QPrinter printer(QPrinter::HighResolution);
 #if QT_VERSION >= 0x050000
-            //TODO: fix margins (actual header margin is way to big)
+            //TODO: fix margins? (printable area is somehow smaller than with Qt4...)
             //TODO: use QPdfWriter?
+            printer.setFullPage(true);
             printer.setPageOrientation(QPageLayout::Landscape);
             printer.setOutputFormat(QPrinter::PdfFormat);
             printer.setPageSize(QPageSize(QPageSize::A4));
-            printer.setPageMargins(QMarginsF(15,10,15,5), QPageLayout::Millimeter);
+            printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
 #else
             printer.setOrientation(QPrinter::Landscape);
             printer.setOutputFormat(QPrinter::PdfFormat);
