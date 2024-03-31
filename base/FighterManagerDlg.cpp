@@ -48,7 +48,7 @@ FighterManagerDlg::FighterManagerDlg(
 	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-#if QT_VERSION_MAJOR >= 5
+#if QT_VERSION >= 0x050000
     ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
     ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
 #else
@@ -407,7 +407,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 						"\nValid specifiers are: %1")
 					 .arg(Ipponboard::FighterManager::GetSpecifiererDescription());
 
-	QString data = QInputDialog::getText(this,
+    QString inputString = QInputDialog::getText(this,
 										 dlgTitle,
 										 dlgMsg,
 										 QLineEdit::Normal,
@@ -415,13 +415,13 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 										 &ok);
 
 	QString separator;
-	bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(data, separator);
+    bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
 
 	QStringList dataParts;
 
 	if (isValidSeparator)
 	{
-        dataParts = data.split(separator);
+        dataParts = inputString.split(separator);
 	}
 
 	// at least 3 parts must be set (first, last, ...)
@@ -431,23 +431,23 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 							  tr(""),
 							  tr("Invalid format. Please correct your input."));
 
-		data = QInputDialog::getText(this,
+        inputString = QInputDialog::getText(this,
 									 dlgTitle,
 									 dlgMsg,
 									 QLineEdit::Normal,
-									 data,
+                                     inputString,
 									 &ok);
 		isValidSeparator =
-			Ipponboard::FighterManager::DetermineSeparator(data, separator);
+            Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
 
 		if (isValidSeparator)
 		{
-			dataParts = data.split(separator);
+            dataParts = inputString.split(separator);
 		}
 	}
 
 	if (ok && isValidSeparator)
 	{
-		m_formatStr = data;
+        m_formatStr = inputString;
 	}
 }
