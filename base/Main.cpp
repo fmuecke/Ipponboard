@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
 	QApplication a(argc, argv);
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-	QCoreApplication::setOrganizationName("Florian Mücke");
+    QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
 	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
 
