@@ -89,7 +89,7 @@ void MainWindowTeam::Init()
 
 	if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
 	{
-		QMessageBox::critical(0,
+        QMessageBox::critical(nullptr,
 							  QCoreApplication::tr("Error reading mode configurations"),
 							  errMsg);
 
@@ -150,7 +150,7 @@ void MainWindowTeam::Init()
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 #endif
 	// make name columns auto-resizable
-#if QT_VERSION_MAJOR >= 5
+#if QT_VERSION >= 0x050000
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
@@ -805,25 +805,7 @@ void MainWindowTeam::on_button_pause_clicked()
 	else
 	{
 		update_score_screen();
-		const int nScreens(QApplication::desktop()->numScreens());
-
-		if (nScreens > 0 && nScreens > m_secondScreenNo)
-		{
-			// move to second screen
-			QRect screenres =
-				QApplication::desktop()->screenGeometry(m_secondScreenNo);
-			m_pScoreScreen->move(QPoint(screenres.x(), screenres.y()));
-		}
-
-		if (m_secondScreenSize.isNull())
-		{
-			m_pScoreScreen->showFullScreen();
-		}
-		else
-		{
-			m_pScoreScreen->resize(m_secondScreenSize);
-			m_pScoreScreen->show();
-		}
+        reset_second_screen_pos();
 
 		m_pUi->button_pause->setText(tr("Hide results"));
 	}
@@ -995,9 +977,16 @@ void MainWindowTeam::on_actionPrint_triggered()
 	WriteScoreToHtml_();
 
 	QPrinter printer(QPrinter::HighResolution);
+#if QT_VERSION >= 0x050000
+    //TODO: fix margins (actual header margin is too big); preview crashed last time
+    printer.setPageOrientation(QPageLayout::Landscape);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageMargins(QMarginsF(15,10,15,5), QPageLayout::Millimeter);
+#else
 	printer.setOrientation(QPrinter::Landscape);
 	printer.setPaperSize(QPrinter::A4);
 	printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
+#endif
 	QPrintPreviewDialog preview(&printer, this);
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(Print(QPrinter*)));
 	preview.exec();
@@ -1036,11 +1025,20 @@ void MainWindowTeam::on_actionExport_triggered()
 		}
 		else
 		{
-			QPrinter printer(QPrinter::HighResolution);
-			printer.setOrientation(QPrinter::Landscape);
-			printer.setOutputFormat(QPrinter::PdfFormat);
-			printer.setPaperSize(QPrinter::A4);
-			printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
+            QPrinter printer(QPrinter::HighResolution);
+#if QT_VERSION >= 0x050000
+            //TODO: fix margins (actual header margin is way to big)
+            //TODO: use QPdfWriter?
+            printer.setPageOrientation(QPageLayout::Landscape);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPageSize(QPageSize(QPageSize::A4));
+            printer.setPageMargins(QMarginsF(15,10,15,5), QPageLayout::Millimeter);
+#else
+            printer.setOrientation(QPrinter::Landscape);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPaperSize(QPrinter::A4);
+            printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
+#endif
 			printer.setOutputFileName(fileName);
 			QTextEdit edit(m_htmlScore, this);
 			edit.document()->print(&printer);
@@ -1267,8 +1265,8 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 
 	for (QModelIndex index : selection)
 	{
-		auto data = pTableView->model()->data(index, Qt::DisplayRole);
-		selectedText += data.toString() + '\n';
+        auto text = pTableView->model()->data(index, Qt::DisplayRole);
+        selectedText += text.toString() + '\n';
 	}
 
 	if (!selectedText.isEmpty())

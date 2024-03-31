@@ -25,6 +25,9 @@
 #include <QUrl>
 #include <QTimer>
 #include <QStyle>
+#if QT_VERSION >= 0x050000
+#include <QScreen>
+#endif
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -60,8 +63,14 @@ void MainWindowBase::Init()
 	setWindowFlags(Qt::Window);
 	//setWindowState(Qt::WindowMaximized);
 	// instead, center window
-	this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(),
-										  QApplication::desktop()->availableGeometry()));
+
+#if QT_VERSION >= 0x050000
+    auto rect = QGuiApplication::screens().first()->availableGeometry();
+#else
+    auto rect = QApplication::desktop()->availableGeometry();
+#endif
+
+    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), rect));
 
 	load_fighters();
 
@@ -766,6 +775,34 @@ void MainWindowBase::on_actionPreferences_triggered()
 	}
 }
 
+void MainWindowBase::reset_second_screen_pos() const
+{
+#if QT_VERSION >= 0x050000
+    const auto nScreens = QGuiApplication::screens().size();
+    if (nScreens > 0 && nScreens > m_secondScreenNo)
+    {
+        auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
+        m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
+    }
+#else
+    const int nScreens(QApplication::desktop()->numScreens());
+    if (nScreens > 0 && nScreens > m_secondScreenNo)
+    {
+        auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
+        m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
+    }
+#endif
+    if (m_secondScreenSize.isNull())
+    {
+        m_pSecondaryView->showFullScreen();
+    }
+    else
+    {
+        m_pSecondaryView->resize(m_secondScreenSize);
+        m_pSecondaryView->show();
+    }
+}
+
 void MainWindowBase::show_hide_view() const
 {
 	static bool isAlreadyCalled = false;
@@ -779,23 +816,7 @@ void MainWindowBase::show_hide_view() const
 
 	if (m_pSecondaryView->isHidden())
 	{
-		const int nScreens(QApplication::desktop()->numScreens());
-
-		if (nScreens > 0 && nScreens > m_secondScreenNo)
-		{
-			auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
-			m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
-		}
-
-		if (m_secondScreenSize.isNull())
-		{
-			m_pSecondaryView->showFullScreen();
-		}
-		else
-		{
-			m_pSecondaryView->resize(m_secondScreenSize);
-			m_pSecondaryView->show();
-		}
+        reset_second_screen_pos();
 	}
 	else
 	{

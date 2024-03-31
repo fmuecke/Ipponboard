@@ -484,16 +484,16 @@ void View::mousePressEvent(QMouseEvent* event)
 	EAction action(eAction_NONE);
 	const bool doRevoke = event->button() & Qt::RightButton;
 
-	ScaledImage* child = dynamic_cast<ScaledImage*>(childAt(event->pos()));
+    ScaledImage* imageChild = dynamic_cast<ScaledImage*>(childAt(event->pos()));
 
-	if (!child)
+    if (!imageChild)
 	{
-		ScaledText* child = dynamic_cast<ScaledText*>(childAt(event->pos()));
+        ScaledText* textChild = dynamic_cast<ScaledText*>(childAt(event->pos()));
 
-		if (!child)
+        if (!textChild)
 			return;
 
-		if (child == ui->text_main_clock)
+        if (textChild == ui->text_main_clock)
 		{
 			if (doRevoke)   // right click!
 			{
@@ -513,7 +513,7 @@ void View::mousePressEvent(QMouseEvent* event)
 
 			action = eAction_Hajime_Mate;
 		}
-		else if (child == ui->text_hold_clock_first)
+        else if (textChild == ui->text_hold_clock_first)
 		{
 			if (doRevoke)   // right click!
 			{
@@ -534,7 +534,7 @@ void View::mousePressEvent(QMouseEvent* event)
 				}
 			}
 		}
-		else if (child == ui->text_hold_clock_second)
+        else if (textChild == ui->text_hold_clock_second)
 		{
 			if (doRevoke)   // right click!
 			{
@@ -555,32 +555,32 @@ void View::mousePressEvent(QMouseEvent* event)
 				}
 			}
 		}
-		else if (child == ui->text_ippon_second)
+        else if (textChild == ui->text_ippon_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Ippon;
 		}
-		else if (child == ui->text_ippon_first)
+        else if (textChild == ui->text_ippon_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Ippon;
 		}
-		else if (child == ui->text_wazaari_second)
+        else if (textChild == ui->text_wazaari_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Wazaari;
 		}
-		else if (child == ui->text_wazaari_first)
+        else if (textChild == ui->text_wazaari_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Wazaari;
 		}
-		else if (child == ui->text_yuko_second)
+        else if (textChild == ui->text_yuko_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Yuko;
 		}
-		else if (child == ui->text_yuko_first)
+        else if (textChild == ui->text_yuko_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Yuko;
@@ -593,31 +593,31 @@ void View::mousePressEvent(QMouseEvent* event)
 	}
 	else
 	{
-		if (child == ui->image_shido1_second)
+        if (imageChild == ui->image_shido1_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
-		else if (child == ui->image_shido3_second ||
-				 child == ui->image_shido2_second ||
-				 child == ui->image_shido1_second)
+        else if (imageChild == ui->image_shido3_second ||
+                 imageChild == ui->image_shido2_second ||
+                 imageChild == ui->image_shido1_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
-		else if (child == ui->image_shido3_first ||
-				 child == ui->image_shido2_first ||
-				 child == ui->image_shido1_first)
+        else if (imageChild == ui->image_shido3_first ||
+                 imageChild == ui->image_shido2_first ||
+                 imageChild == ui->image_shido1_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Shido;
 		}
-		else if (child == ui->image_hansokumake_second)
+        else if (imageChild == ui->image_hansokumake_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Hansokumake;
 		}
-		else if (child == ui->image_hansokumake_first)
+        else if (imageChild == ui->image_hansokumake_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Hansokumake;

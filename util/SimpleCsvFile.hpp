@@ -94,7 +94,7 @@ namespace SimpleCsvFile
 			QTextStream outStream(&file);
 			Q_FOREACH(QString const& line, data)
 			{
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#if QT_VERSION < 0x050000
 				outStream << line << endl;
 #else
                 outStream << line << Qt::endl;
