@@ -25,6 +25,7 @@
   - [Sono-mama/Yoshi](#sono-mamayoshi)
 - **[Troubleshooting](#troubleshooting)**
   - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+  - [Command line parameters](#command-line-parameters)
 
 # General
 
@@ -310,5 +311,18 @@ When configuring the second screen on the computer, the following points must be
 - *Turn off interference*
 
    Please make sure that the computer does not automatically go to sleep (standby) automatically goes to sleep (standby) or the screen saver turns on. screen saver turns on. This can be avoided with newer newer computer models by switching them to presentation mode. presentation mode.
+
+## Command line parameters
+
+```
+Usage: Ipponboard.exe [options]
+
+Options:
+  -?, -h, --help  Displays help on commandline options.
+  --help-all      Displays help including Qt specific options.
+  -v, --version   Displays version information.
+  --mode <mode>   Selects starting mode: single|team|ask.
+```
+
 
 [Back to the top &uarr;](#content)

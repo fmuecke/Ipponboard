@@ -17,7 +17,9 @@
 #include <QFile>
 #include <QLocale>
 #include <QtextCodec>
-
+#if QT_VERSION >= 0x050000
+#include <QCommandLineParser>
+#endif
 
 void LangNotFound(const QString& fileName)
 {
@@ -106,6 +108,22 @@ int main(int argc, char* argv[])
 	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
 
+#if QT_VERSION >= 0x050000
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    QCommandLineOption modeOption(QStringList() << "mode", "Selects starting mode: single|team|ask.", "mode", "ask");
+    parser.addOption(modeOption);
+    parser.process(a);
+    QString mode = parser.value(modeOption);
+    QStringList validModes { "single", "team", "ask" };
+    if (!validModes.contains(mode))
+    {
+        parser.showHelp(ERROR_INVALID_PARAMETER);
+    }
+#endif
+
 	// read language code
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
@@ -127,21 +145,37 @@ int main(int argc, char* argv[])
 
 	if (UpdateChecker::CheckForNewerVersion())
 	{
-		return 0;
+        return NO_ERROR;
 	}
 
-	auto dlgResult = ShowSplashScreen();
+    int dlgResult {0};
 
-	if (dlgResult == 0)
-	{
-		return 0;
-	}
+#if QT_VERSION >= 0x050000
+    if (mode == "ask")
+    {
+        dlgResult = ShowSplashScreen();
+    }
+    else if (mode == "single")
+    {
+        dlgResult = QDialog::Accepted;
+    }
+    else if (mode == "team")
+    {
+        dlgResult = QDialog::Accepted + 1;
+    }
+#else
+    dlgResult = ShowSplashScreen();
+#endif
+    if (dlgResult == 0)
+    {
+        return NO_ERROR;
+    }
 
-	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
+    std::unique_ptr<MainWindowBase> pMainWnd {nullptr};
 
 	if (dlgResult == QDialog::Accepted + 1)
 	{
-		pMainWnd = std::make_unique<MainWindowTeam>();
+        pMainWnd = std::make_unique<MainWindowTeam>();
 	}
 	else
 	{
@@ -154,7 +188,7 @@ int main(int argc, char* argv[])
 	}
 	catch (std::exception const&)
 	{
-		return 0;
+        return NO_ERROR;
 	}
 
 	pMainWnd->show();

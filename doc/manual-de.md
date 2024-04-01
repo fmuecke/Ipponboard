@@ -21,7 +21,8 @@
 - **[Besonderheiten](#besonderheiten)**
   - [Sono-mama/Yoshi](#sono-mamayoshi)
 - **[Hilfestellung / Troubleshooting](#hilfestellung-troubleshooting)**
-  - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+  - [Computer für Zweischirmbetrieb vorbereiten](#computer-für-zweischirmbetrieb-vorbereiten)
+  - [Kommandozeilenparameter](#Kommandozeilenparameter)
   
 # Allgemeines
 
@@ -321,7 +322,7 @@ Für *Sono-mama* muss man während eines Haltegriffs Matte drücken. Die Haltegr
 
 # Hilfestellung / Troubleshooting
 
-## Computer für Zweischirmbetrieb vorbereiten {#Anhang_DualView}
+## Computer für Zweischirmbetrieb vorbereiten
 
 Beim der Konfiguration des zweiten Bildschirms am Computer sind folgende Punkte unbedingt zu beachten:
 
@@ -332,3 +333,18 @@ Beim der Konfiguration des zweiten Bildschirms am Computer sind folgende Punkte 
 -   *Störungen abschalten*
 
     Bitte darauf achten, dass sich der Computer während der Benutzung nicht automatisch Schlafen legt (Standby) oder sich der Bildschirmschoner einschaltet. Dies kann bei neueren Computermodellen vermieden werden, indem man diese in den Präsentationsmodus schaltet.
+
+## Kommandozeilenparameter
+
+```
+Usage: Ipponboard.exe [options]
+
+Options:
+  -?, -h, --help  Displays help on commandline options.
+  --help-all      Displays help including Qt specific options.
+  -v, --version   Displays version information.
+  --mode <mode>   Selects starting mode: single|team|ask.
+```
+
+
+[Zurück zum Anfang &uarr;](#inhalt)
