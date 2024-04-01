@@ -199,12 +199,10 @@ void View::UpdateView()
 
 	update_colors();
 
-	//
-	// weight class
-	//
 	ui->text_mat->SetText(m_mat, ScaledText::eSize_normal);
 
-	if (m_Edition == EditionType::Team)
+    // display weight class
+    if (m_Edition == EditionType::Team)
 	{
 		QString infoText/*(tr("Fight ").toUpper())*/;
 		//infoText += QString::number(m_pController->GetRound()) + ": ";
@@ -216,10 +214,10 @@ void View::UpdateView()
 		QString infoText(m_category);
 
 		if (!infoText.isEmpty())
-			infoText += " / ";
+            infoText += "  ";
 
-		infoText += m_weight;//.toUpper();
-		ui->text_weight->SetText(infoText + "KG", ScaledText::eSize_full);
+        infoText += m_weight + "kg";//.toUpper();
+        ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
 	}
 
 	if (m_showInfoHeader)
