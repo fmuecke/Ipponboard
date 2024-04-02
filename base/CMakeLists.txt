@@ -208,6 +208,10 @@ if(USE_QT5)
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
 		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/printsupport"		
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/printsupport"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/styles"		
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/styles"
 	)
 else()
 	target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
