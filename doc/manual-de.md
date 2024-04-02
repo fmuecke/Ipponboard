@@ -49,7 +49,9 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 
 Ipponboard verwendet folgende Drittanbieterkomponenten, die unter den angegebenen Arten lizensiert sind. Dies jeweiligen Lizenzdateien sind zudem im Ordner `Licenses` des Ipponboard-Installationspfades abgelegt.
 
-- Qt Framework, [www.qtproject.org](http://www.qtproject.org), [LGPL](licenses/Qt4/LICENSE.LGPL), [LGPL Exception](licenses/Qt4/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt4/.LICENSE-DESKTOP), [Qt v4.8.7 src](https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip), [Patch für MSVC 14+](licenses/Qt4/PATCH-qt4.8.7_with_msvc14x.diff), [Instructions - How to build](licenses/Qt4/HOW_TO_BUILD-qt4.8.7-msvc14x.txt)
+- Qt Framework, [www.qtproject.org](http://www.qtproject.org)
+  - Qt4 (wo anwendbar): [LGPL](licenses/Qt4/LICENSE.LGPL), [LGPL Exception](licenses/Qt4/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt4/.LICENSE-DESKTOP), [Qt v4.8.7 src](https://download.qt.io/archive/qt/5.15/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip), [Patch für MSVC 14+](licenses/Qt4/PATCH-qt4.8.7_with_msvc14x.diff), [Instructions - How to build](licenses/Qt4/HOW_TO_BUILD-qt4.8.7-msvc14x.txt)
+  - Qt5 (wo anwendbar): lizensiert unter [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT), Quellcode kann bezogen werden von [https://download.qt.io/archive/qt/5.15/](https://download.qt.io/archive/qt/5.15/), Code wurde nicht modifiziert
 - Boost C++ libraries, [www.boost.org](http://www.boost.org), [Boost Software License](licenses/boost/LICENSE_1_0.txt), 
 - Microsoft Visual C++ CRT, [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
 - JsonCpp, [github.com](https://github.com/open-source-parsers/jsoncpp), [MIT License](licenses/jasoncpp/LICENSE)
