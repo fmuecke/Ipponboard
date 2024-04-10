@@ -25,13 +25,11 @@ QWidget* ComboBoxDelegate::createEditor(
 
 	if (!currentData.isEmpty())
 	{
-		int index = 0;
-
-		for (; index < m_items.size(); ++index)
+        for (int pos=0; pos < m_items.size(); ++pos)
 		{
-			if (m_items[index] == currentData)
+            if (m_items[pos] == currentData)
 			{
-				editor->setCurrentIndex(index);
+                editor->setCurrentIndex(pos);
 				break;
 			}
 		}

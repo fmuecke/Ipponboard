@@ -5,13 +5,9 @@
 #include "ClubManager.h"
 #include "ClubParser.h"
 #include "../util/path_helpers.h"
-#include "../util/json.hpp"
-#include "../util/qt_helpers.hpp"
 #include <QFile>
 #include <QMessageBox>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
 
 
 using namespace Ipponboard;
@@ -126,7 +122,7 @@ void ClubManager::LoadClubs_()
 		}
 		catch (std::exception const& e)
 		{
-			QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+            QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
 		}
 	}
 }
@@ -149,7 +145,7 @@ void ClubManager::SaveClubs_()
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0, QString("Internal error"), QString::fromStdString(e.what()));
+        QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
 	}
 
 }

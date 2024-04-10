@@ -6,7 +6,6 @@
 #include "ui_SettingsDlg.h"
 #include "../gamepad/gamepad.h"
 #include "../core/ControllerConfig.h"
-#include "../core/Rules.h"
 
 #include <QStringList>
 #include <QDesktopWidget>

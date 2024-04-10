@@ -31,13 +31,13 @@ public:
 	explicit View(IController* pController,
 				  EditionType edition,
 				  EType type,
-				  QWidget* parent = 0);
-	virtual ~View();
+                  QWidget* parent = nullptr);
+    virtual ~View() override;
 
 	// --- IScoreView ---
-	void UpdateView();
-	void Reset();
-	void SetShowInfoHeader(bool show);
+    void UpdateView() override;
+    void Reset() override;
+    void SetShowInfoHeader(bool show) override;
 
 	// others
 	void SetMessageText(Ipponboard::FighterEnum who, const QString& msg) const;
@@ -65,8 +65,8 @@ public:
 
 protected:
 	//void changeEvent( QEvent* event );
-	void paintEvent(QPaintEvent* event);
-	void mousePressEvent(QMouseEvent* event);
+    void paintEvent(QPaintEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 private slots:
 	void setOsaekomiFirst_();

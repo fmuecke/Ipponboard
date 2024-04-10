@@ -19,7 +19,7 @@ class ScaledText : public QWidget
 	Q_OBJECT
 
 public:
-	explicit ScaledText(QWidget* pParent = 0);
+    explicit ScaledText(QWidget* pParent = nullptr);
 //	explicit ScaledText( const QFont& font, QWidget* pParent = 0 );
 
 	enum ETextSize
