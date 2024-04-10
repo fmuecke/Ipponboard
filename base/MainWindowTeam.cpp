@@ -566,10 +566,6 @@ void MainWindowTeam::WriteScoreToHtml_()
 {
 	QString modeText = get_full_mode_title(m_currentMode);
     QString templateFile = get_template_file(m_currentMode);
-#if QT_VERSION >= 0x050000
-    // as the rendering was changed with Qt5 we need to prepare the templates a little differently
-    templateFile.replace(".html", "-qt5.html");
-#endif
 	const QString filePath(
 		fm::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 

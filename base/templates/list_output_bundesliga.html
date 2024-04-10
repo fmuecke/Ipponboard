@@ -5,16 +5,15 @@
 <title>Ipponboard: Wettkampfliste Bundesliga</title>
 </head>
 
-<body style="font-family:Century Gothic,Arial;font-size:11pt;padding:0;margin:0">
-<img src="templates/djb-logo.png" alt="Deutscher Judo Bund" align="right" width="66">
-<div style="font-family: Century Gothic,Arial; font-size: 16pt; font-weight: bold;">
-<center>%TITLE%</center>
-</div>
+<body style="font-family:sans-serif; font-size:9pt;padding:0;margin:0">
+<img src="templates/djb-logo.png" alt="Deutscher Judo Bund" align="right" height="66">
+<div style="font-size:16pt; font-weight:bold;"><center>%TITLE%</center></div>
 <br/>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
+
+<table border="0" width="100%">
 <tr>
-	<td width="8%"><b>Ausrichter:</b></td><td colspan="5">%HOST%</td>
+	<td width="8%"><b>Ausrichter:</b></td><td colspan="3">%HOST%</td>
 </tr>
 <tr>
 	<td width="8%"><b>Ort:</b></td><td>%LOCATION%</td>
@@ -22,7 +21,7 @@
 </tr>
 </table>
 <br/>
-<table border="1" width="100%" cellspacing="0" cellpadding="2">
+<table border="1" width="100%" cellspacing="0" cellpadding="2" style="border-collapse: collapse; border-color: black">
 <tr>
 	<th bgcolor="#FFFF80" colspan="2"> Vereine:</th>
 	<td colspan="8" align="center">%HOME%</td>
@@ -38,18 +37,18 @@
 	<th bgcolor="#FFFF80">Y</th>
 	<th bgcolor="#FFFF80" style="color:red">S</th>
 	<th bgcolor="#FFFF80" style="color:red">H</th>
-	<th bgcolor="#FFFF80">Sieg</th>
-	<th bgcolor="#FFFF80">UB</th>
+	<th bgcolor="#FFFF80" width="5%">Sieg</th>
+	<th bgcolor="#FFFF80" width="3%">UB</th>
 	<th bgcolor="#FFFF80" width="25%">Vorname Nachname</th>
 	<th bgcolor="#FFFF80">I</th>
 	<th bgcolor="#FFFF80">W</th>
 	<th bgcolor="#FFFF80">Y</th>
 	<th bgcolor="#FFFF80" style="color:red">S</th>
 	<th bgcolor="#FFFF80" style="color:red">H</th>
-	<th bgcolor="#FFFF80">Sieg</th>
-	<th bgcolor="#FFFF80">UB</th>
-	<th bgcolor="#FFFF80" width="5%">Restzeit</th>
-	<th bgcolor="#FFFF80" width="5%">Zeit</th>
+	<th bgcolor="#FFFF80" width="5%">Sieg</th>
+	<th bgcolor="#FFFF80" width="3%">UB</th>
+	<th bgcolor="#FFFF80" width="6%">Restzeit</th>
+	<th bgcolor="#FFFF80" width="6%">Zeit</th>
 </tr>
 %FIRST_ROUND%
 <tr><th bgcolor="#FFFF80" colspan="8">Zwischenstand nach 1. Runde:</th>
@@ -77,12 +76,10 @@
 </tr>
 </table>
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<hr height="1px" style="margin:0;padding:0"/>
+<br/><br/><br/><br/>
+
+<hr height="1px" style="margin:0; padding:0"/>
+
 <table width="100%" cellspacing="0">
 <tr>
 	<td width="25%" align="center">Wettkampfende (Uhrzeit)</td>
@@ -91,5 +88,6 @@
 	<td width="25%" align="center">Hauptkampfrichter</td>
 </tr>
 </table>
+
 </body>
 </html>
