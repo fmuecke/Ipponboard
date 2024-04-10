@@ -109,6 +109,7 @@ namespace fm
 			}
 		}
 
+    /* UNUSED functions
         static void WriteFile(const char * const & file, std::string const& str, bool writeBom = true)
 		{
 			try
@@ -154,6 +155,7 @@ namespace fm
 			result.clear();
 			return true;
 		}
-	}
+    */
+    }
 }
 

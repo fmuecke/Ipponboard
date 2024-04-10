@@ -12,11 +12,9 @@
 #include "TournamentMode.h"
 #include "TournamentModel.h"
 #include "StateMachine.h"
-#include "../util/helpers.hpp"
 
 #include <QObject>
 #include <QTime>
-#include <utility>
 #include <set>
 #include <vector>
 #include <bitset>

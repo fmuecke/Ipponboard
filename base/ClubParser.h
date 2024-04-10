@@ -87,6 +87,7 @@ static void ToIniFile(const char* filePath, Ipponboard::ClubList const& clubs)
 	}
 }
 
+/*
 static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& clubs)
 {
 	fm::Json::Value jsonClubs;
@@ -103,6 +104,7 @@ static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& 
 
 	fm::Json::WriteFile(filePath, jsonClubs);
 }
+*/
 
 }
 

@@ -137,6 +137,7 @@ set(SOURCES
     View.cpp
     View.h
     ../util/jsoncpp/json.cpp
+	../util/qt_helpers.hpp
     ../widgets/ScaledImage.cpp
     ../widgets/ScaledText.cpp
     ../widgets/Countdown.cpp
