@@ -982,10 +982,11 @@ void MainWindowTeam::on_actionPrint_triggered()
 
 	QPrinter printer(QPrinter::HighResolution);
 #if QT_VERSION >= 0x050000
-    //TODO: fix margins (actual header margin is too big); preview crashed last time
-    printer.setPageOrientation(QPageLayout::Landscape);
+    //TODO: fix margins (actual header margin is too big)
     printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageOrientation(QPageLayout::Landscape);
     printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
+    //printer.setFullPage(true);
 #else
 	printer.setOrientation(QPrinter::Landscape);
 	printer.setPaperSize(QPrinter::A4);
