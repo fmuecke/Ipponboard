@@ -775,37 +775,37 @@ void MainWindowBase::on_actionPreferences_triggered()
 	}
 }
 
-void MainWindowBase::reset_second_screen_pos() const
+void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {
 #if QT_VERSION >= 0x050000
     const auto nScreens = QGuiApplication::screens().size();
     if (nScreens > 0 && nScreens > m_secondScreenNo)
     {
         auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
-        m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
+        pView->move(QPoint(screenRes.x(), screenRes.y()));
     }
 #else
     const int nScreens(QApplication::desktop()->numScreens());
     if (nScreens > 0 && nScreens > m_secondScreenNo)
     {
         auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
-        m_pSecondaryView->move(QPoint(screenRes.x(), screenRes.y()));
+		pView->move(QPoint(screenRes.x(), screenRes.y()));
     }
 #endif
     if (m_secondScreenSize.isNull())
     {
-        m_pSecondaryView->showFullScreen();
+		pView->showFullScreen();
     }
     else
     {
-        m_pSecondaryView->resize(m_secondScreenSize);
-        m_pSecondaryView->show();
+		pView->resize(m_secondScreenSize);
+		pView->show();
     }
 }
 
 void MainWindowBase::show_hide_view() const
 {
-	static bool isAlreadyCalled = false;
+	static bool isAlreadyCalled = false;  // this line will only be called once!
 
 	if (isAlreadyCalled)
 	{
@@ -816,7 +816,7 @@ void MainWindowBase::show_hide_view() const
 
 	if (m_pSecondaryView->isHidden())
 	{
-        reset_second_screen_pos();
+        update_screen_visibility(m_pSecondaryView.get());
 	}
 	else
 	{

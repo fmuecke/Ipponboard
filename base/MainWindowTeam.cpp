@@ -805,7 +805,7 @@ void MainWindowTeam::on_button_pause_clicked()
 	else
 	{
 		update_score_screen();
-        reset_second_screen_pos();
+		update_screen_visibility(m_pScoreScreen.get());
 
 		m_pUi->button_pause->setText(tr("Hide results"));
 	}
