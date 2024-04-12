@@ -256,13 +256,15 @@ public:
 
 	bool WasPressed(EButton b) const
 	{
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		if (b > eButton32)
 		{
-			if (button_code[b] == m_data.dwPOV &&
-					m_data.dwPOV != m_lastData.dwPOV)
-			{
-				return true;
-			}
+            if (button_code[b] == m_data.dwPOV && 
+				m_data.dwPOV != m_lastData.dwPOV)
+            {
+                return true;
+            }
 
 			return false;
 		}
@@ -273,14 +275,16 @@ public:
 
 	bool WasReleased(EButton b) const
 	{
-		assert(b <= eButton32);
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		return (m_lastData.dwButtons & button_code[b]) > 0 &&
 			   (m_data.dwButtons & button_code[b]) == 0;
 	}
 
 	bool IsPressed(EButton b) const
 	{
-		assert(b <= eButton32);
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		return (m_data.dwButtons & button_code[b]) > 0;
 	}
 
