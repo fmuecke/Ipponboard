@@ -16,12 +16,6 @@
 namespace fm
 {
 
-template<typename T, int size>
-inline int ArrayLength(T(&)[size])
-{
-    return size;
-}
-
 template<typename T>
 inline bool IsOptionSet(T data, T option)
 {

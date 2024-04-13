@@ -5,6 +5,7 @@
 #include "TournamentModel.h"
 #include "Enums.h"
 #include "../util/helpers.hpp"
+#include "../util/array_helpers.h"
 
 #include <QSize>
 
@@ -268,7 +269,7 @@ QVariant TournamentModel::headerData(
 		if (Qt::Vertical == orientation)
 			return QString::number(section + 1);
 
-		if (section < fm::ArrayLength(m_HeaderData))
+		if (section < static_cast<int>(fm::array_size(m_HeaderData)))
 			return m_HeaderData[section];
 	}
 
