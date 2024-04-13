@@ -141,7 +141,7 @@ p, li { white-space: pre-wrap; }
      <item row="1" column="0">
       <widget class="QCommandLinkButton" name="commandLinkButton_startSingleVersion">
        <property name="text">
-        <string>Ok, start Single Tournament</string>
+        <string>start Single Tournament</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -161,7 +161,7 @@ p, li { white-space: pre-wrap; }
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>Ok, start Team Tournament</string>
+        <string>start Team Tournament</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
