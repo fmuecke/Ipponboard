@@ -132,9 +132,9 @@ void MainWindowTeam::Init()
 	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
 	// set fighter comboboxes
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Münz"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmalhans"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rucksack"));
 #if 0
 	auto cbxFightersHome = new ComboBoxDelegate(this);
 	cbxFightersHome->SetItems(m_FighterNamesHome);
@@ -768,27 +768,27 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
 	//m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
 	//m_pController->InitTournament(*iter);
 	//update_weights("-90;+90;-73;-66;-81");
-	//m_pController->SetFight(0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
-	//m_pController->SetFight(0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
-	//m_pController->SetFight(0, 3, "+90", "Jürgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV Königsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
-	//m_pController->SetFight(0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV Königsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Oliver Salz", "TSV Brunnstadt",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 1, "-90", "Max Grünert", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
+	//m_pController->SetFight(0, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
+	//m_pController->SetFight(0, 3, "+90", "Hans Neumeier", "TG Eierstatt", "Anderas Mader", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 4, "-73", "Bogdan Mahl", "TG Eierstatt", "Christopher Benka", "TSV Brunnstadt"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
+	//m_pController->SetFight(0, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 6, "-66", "Thomas Keil", "TG Eierstatt", "Arthur Sichelstein", "TSV Brunnstadt",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 7, "-66", "Werner Bogner", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 8, "-81", "Hans Schmieder", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 	////  Y  W  I  S  H  Y  W  I  S  H
-	//m_pController->SetFight(1, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian Kürten", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV Königsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 3, "+90", "Jürgen Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
-	//m_pController->SetFight(1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
-	//m_pController->SetFight(1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV Königsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 6, "-66", "Jörg Herzog", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	//m_pController->SetFight(1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV Königsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	//m_pController->SetFight(1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 1, "-90", "Max Grunert", "TG Eierstatt", "Florian Kütz", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Andreas Mader", "TSV Brunnstadt",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 3, "+90", "Hans Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
+	//m_pController->SetFight(1, 4, "-73", "Christian Feigl", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
+	//m_pController->SetFight(1, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Christopher Beier", "TSV Brunnstadt",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 6, "-66", "Adam Herzog", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	//m_pController->SetFight(1, 7, "-66", "Maxim Selwitschka", "TG Eierstatt", "Jonas Alwetter", "TSV Brunnstadt",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 8, "-81", "Piotr Makaritsch", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	//m_pController->SetFight(1, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
 	////m_pController->SetCurrentFight(0);
 
 	//m_pUi->tableView_tournament_list1->viewport()->update();
