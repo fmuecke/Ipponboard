@@ -1265,7 +1265,7 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 
 	QString selectedText;
 
-	for (QModelIndex index : selection)
+	for (const QModelIndex& index : selection)
 	{
         auto text = pTableView->model()->data(index, Qt::DisplayRole);
         selectedText += text.toString() + '\n';
@@ -1359,7 +1359,7 @@ void MainWindowTeam::clear_cell_content(QTableView* pTableView)
 		}
 	}
 
-	for (QModelIndex index : selection)
+	for (const QModelIndex& index : selection)
 	{
 		pTableView->model()->setData(index, "", Qt::EditRole);
 	}
