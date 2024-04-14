@@ -1,18 +1,8 @@
-# Created by and for Qt Creator This file was created for editing the project sources only.
-# You may attempt to use it for building too, by modifying this file here.
+# This file is referenced by ../CMakeLists.txt
 cmake_minimum_required(VERSION 3.28)
 
-option(USE_QT5 "Use Qt5 for the build" OFF)
-
-project(Ipponboard VERSION 2.2.0 LANGUAGES C CXX)
-
-
-if(NOT DEFINED ENV{QTDIR})
-	message(FATAL_ERROR "QTDIR not defined")
-endif()
-message(STATUS "Using: QTDIR = $ENV{QTDIR}")
-set(CMAKE_PREFIX_PATH $ENV{QTDIR})
-set(CMAKE_LIBRARY_PATH $ENV{QTDIR}/lib)
+# CMake configuration for Ipponboard main application
+set(APP_NAME Ipponboard)
 
 if(USE_QT5)
 	find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
@@ -20,36 +10,18 @@ else()
 	find_package(Qt4 4.8.7 REQUIRED QtCore QtGui QtXmlPatterns)
 endif()
 
-if(WIN32)
-	if(NOT DEFINED ENV{BOOST_DIR})
-		message(FATAL_ERROR "BOOST_DIR not defined")
-	endif()
-	set(BOOST_DIR "$ENV{BOOST_DIR}")
-else()
-	set(BOOST_DIR /usr/include/boost)
-endif()
-message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
-
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
 if(USE_QT5)
-    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Release-Qt5)
-    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Debug-Qt5)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug)
 else()
-    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Release-Qt4)
-    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Debug-Qt4)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release-Qt4)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug-Qt4)
 endif()
-
-message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
-message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR}")
+message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 
 set(SOURCES
     #pch.cpp
@@ -180,47 +152,49 @@ set(OTHER
 source_group("UI Forms" FILES ${FORMS})
 source_group("Other Files" FILES ${OTHER})
 
-add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+add_executable(${APP_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${APP_NAME})
+
+set_target_properties(${APP_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
     COMPILE_FLAGS "/Zc:wchar_t- /MP /W4"
     CMAKE_SUPPRESS_REGENERATION true
 )
 
-#target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE pch.h)
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${BOOST_DIR})
+#target_precompile_headers(${APP_NAME} PRIVATE pch.h)
+target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 
-# copy file data 
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-	COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>" $<CONFIG>
+# Copy data files
+add_custom_command(TARGET ${APP_NAME} POST_BUILD
+	COMMAND call "${ROOT_DIR}/_build/win/copy_files.cmd" "$<TARGET_FILE_DIR:${APP_NAME}>" $<CONFIG>
 )
 
-# copy Qt dlls
+# Copy required Qt runtime dlls
 if(USE_QT5)
-	target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/platforms"
-		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/printsupport"		
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/printsupport"
-		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/styles"		
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/plugins/styles"
+	target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+	add_custom_command(TARGET ${APP_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+		COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
 	)
 else()
-	target_link_libraries(${CMAKE_PROJECT_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
-	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,QtGui4.dll,QtGuid4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,QtNetwork4.dll,QtNetworkd4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different $ENV{QTDIR}/bin/$<IF:$<CONFIG:Release>,QtXmlPatterns4.dll,QtXmlPatternsd4.dll> "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
+	target_link_libraries(${APP_NAME} Qt4::QtCore Qt4::QtGui Qt4::QtXmlPatterns)
+	add_custom_command(TARGET ${APP_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,QtCore4.dll,QtCored4.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,QtGui4.dll,QtGuid4.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,QtNetwork4.dll,QtNetworkd4.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,QtXmlPatterns4.dll,QtXmlPatternsd4.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
 	)
 endif()
 

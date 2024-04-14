@@ -39,9 +39,9 @@ echo Copying files...
 echo - languages
 rem (mkdir is recursive) if not exist "%DEST_DIR%" mkdir "%DEST_DIR%">nul
 if not exist "%DEST_DIR%\lang" mkdir "%DEST_DIR%\lang">nul
-"%QT5DIR%\bin\lrelease" -compress -silent %IPPONBOARD_ROOT_DIR%\i18n\de.ts -qm %IPPONBOARD_ROOT_DIR%\i18n\de.qm || exit /b 1
+"%QTDIR%\bin\lrelease" -compress -silent %IPPONBOARD_ROOT_DIR%\i18n\de.ts -qm %IPPONBOARD_ROOT_DIR%\i18n\de.qm || exit /b 1
 copy /Y "%IPPONBOARD_ROOT_DIR%\i18n\de.qm" "%DEST_DIR%\lang">nul || exit /b 1
-"%QT5DIR%\bin\lrelease" -compress -silent %IPPONBOARD_ROOT_DIR%\i18n\nl.ts -qm %IPPONBOARD_ROOT_DIR%\i18n\nl.qm || exit /b 1
+"%QTDIR%\bin\lrelease" -compress -silent %IPPONBOARD_ROOT_DIR%\i18n\nl.ts -qm %IPPONBOARD_ROOT_DIR%\i18n\nl.qm || exit /b 1
 copy /Y "%IPPONBOARD_ROOT_DIR%\i18n\nl.qm" "%DEST_DIR%\lang">nul || exit /b 1
 
 echo - sounds
@@ -50,22 +50,13 @@ copy /Y "%IPPONBOARD_ROOT_DIR%\base\sounds\buzzer.wav" "%DEST_DIR%\sounds">nul |
 :: copy /Y "%THIRDPARTY%\sounds\*.wav" "%DEST_DIR%\sounds">nul
 :: if errorlevel 1 exit /b 1
 
-echo - QT and C^+^+ runtimes
-::set "qtFiles=Qt5Core.dll Qt5Gui.dll Qt5Multimedia.dll Qt5Network.dll Qt5PrintSupport.dll Qt5Widgets.dll Qt5XmlPatterns.dll"
-::set "qtDebugFiles=Qt5Cored.dll Qt5Guid.dll Qt5Multimediad.dll Qt5Networkd.dll Qt5PrintSupportd.dll Qt5Widgetsd.dll Qt5XmlPatternsd.dll"
-::set "qtPluginFiles=qwindows.dll" 
-::set "qtDebugPluginFiles=qwindowsd.dll"
+echo - msvc runtimes
 set "vcRedistFiles=msvcp140.dll vcruntime140.dll"
 set "vcRedistDebugFiles=msvcp140d.dll vcruntime140d.dll"
-::mkdir "%DEST_DIR%\plugins\platforms" > nul
 
 if "%RELEASE%"=="1" (
-	rem ::for %%F in (%qtFiles%) do (copy /Y "%QT5DIR%\bin\%%F" "%DEST_DIR%" >nul || exit /b 1)
-	rem ::for %%F in (%qtPluginFiles%) do (copy /Y "%QT5DIR%\plugins\platforms\%%F" "%DEST_DIR%\plugins\platforms" >nul || exit /b 1)
 	for %%F in (%vcRedistFiles%) do (copy /Y "%VCToolsRedistDir%x86\Microsoft.VC143.CRT\%%F" "%DEST_DIR%">nul || exit /b 1)
 ) else (
-	rem ::for %%F in (%qtDebugFiles%) do (copy /Y "%QT5DIR%\bin\%%F" "%DEST_DIR%" >nul || exit /b 1) 
-	rem ::for %%F in (%qtDebugPluginFiles%) do (copy /Y "%QT5DIR%\plugins\platforms\%%F" "%DEST_DIR%\plugins\platforms" >nul || exit /b 1)
 	for %%F in (%vcRedistDebugFiles%) do (copy /Y "%VCToolsRedistDir%debug_nonredist\x86\Microsoft.VC143.DebugCRT\%%F" "%DEST_DIR%">nul || exit /b 1)
 )
 
