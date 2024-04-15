@@ -19,6 +19,8 @@
 #include <QtextCodec>
 #if QT_VERSION >= 0x050000
 #include <QCommandLineParser>
+#include <QDebug>
+#include <QTextStream>
 #endif
 
 void LangNotFound(const QString& fileName)
@@ -99,14 +101,62 @@ int ShowSplashScreen()
 	return dlgResult;
 }
 
+#if QT_VERSION >= 0x050000
+void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString &msg)
+{
+    Q_UNUSED(context)
+    QString logLevel;
+    switch (type)
+    {
+    case QtDebugMsg:
+        logLevel = "DBUG";
+        break;
+    case QtInfoMsg:
+        logLevel = "INFO";
+        break;
+    case QtWarningMsg:
+        logLevel = "WARN";
+        break;
+    case QtCriticalMsg:
+        logLevel = "CRIT";
+        break;
+    case QtFatalMsg:
+        logLevel = "FATL";
+        break;
+    }
+
+    QString logMsg = QString("%1 %2 %3").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(logLevel).arg(msg);
+
+    QFile logFile(QCoreApplication::applicationName() + ".log");
+    if (logFile.open(QIODevice::WriteOnly | QIODevice::Append))
+    {
+        QTextStream out(&logFile);
+        out << logMsg << Qt::endl;
+    }
+}
+#endif
+
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
+#if QT_VERSION >= 0x050000
+    // Open the log file and truncate existing content
+    QFile logFile(QCoreApplication::applicationName() + ".log");
+    if (logFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        logFile.close(); // Close file after truncating
+    }
+
+    qInstallMessageHandler(CustomMessageHandler);
+
+#endif
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
     QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
 	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
 	QCoreApplication::setApplicationName("Ipponboard");
+
+    qInfo() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
 
 #if QT_VERSION >= 0x050000
     QCommandLineParser parser;
