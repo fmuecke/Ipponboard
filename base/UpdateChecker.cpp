@@ -13,6 +13,8 @@
 #include <QXmlQuery>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QElapsedTimer>
+#include <QDebug>
 
 UpdateChecker::UpdateChecker()
 {
@@ -34,24 +36,33 @@ QString GetXmlValue(QXmlQuery query, QString xPath)
 
 bool UpdateChecker::CheckForNewerVersion()
 {
+    qInfo() << "Checking for updated version...";
 	QXmlQuery query;
 
+	QElapsedTimer timer;
+	timer.start();		
 	try
 	{
         query.setFocus(QUrl("http://ipponboard.koe-judo.de/files/current_version.xml")); // TODO: Wenn offline, dauert die Abfrage zu lange und die Anwendung startet nicht
 	}
 	catch (...)
 	{
+		qint64 elapsedTime = timer.elapsed();
+		qDebug() << "checking took:" << elapsedTime << "ms";
+
 		return false;
 	}
 
-	auto version = GetXmlValue(query, "Ipponboard/Version/text()");
+    auto onlineVersion = GetXmlValue(query, "Ipponboard/Version/text()");
 
-	if (!version.isEmpty())
+    if (!onlineVersion.isEmpty())
 	{
-		if (VersionComparer::IsVersionLess(VersionInfo::VersionStr, version.toStdString()))
+        qDebug() << "online version string:" << onlineVersion << "(current:" << QString(VersionInfo::VersionStr) + ")";
+        if (VersionComparer::IsVersionLess(VersionInfo::VersionStr, onlineVersion.toStdString()))
 		{
-			auto lang = QCoreApplication::tr("en");
+            qInfo() << "newer version" << onlineVersion << "available";
+
+            auto lang = QCoreApplication::tr("en");
 			lang = lang == "de" ? "de" : "en";
 			auto changes = GetXmlValue(query, "Ipponboard/Changes[@lang='" + lang + "']/text()");
 
@@ -63,7 +74,7 @@ bool UpdateChecker::CheckForNewerVersion()
 			QString msg = QString("<p>%1 %2</p>")
 						  .arg(
 							  QCoreApplication::tr("Version %1 available").arg(
-								  QString("<b>%1</b>").arg(version)))
+                                  QString("<b>%1</b>").arg(onlineVersion)))
 						  .arg(changes);
 
 			auto downloadUrl = GetXmlValue(query, "Ipponboard/DownloadUrl/text()");
@@ -92,10 +103,25 @@ bool UpdateChecker::CheckForNewerVersion()
 					return QDesktopServices::openUrl(QUrl("https://ipponboard.koe-judo.de"));
 				}
 
-				return true;
+                qint64 elapsedTime = timer.elapsed();
+                qDebug() << "checking took " << elapsedTime << "ms";
+                return true;
 			}
 		}
+        else
+        {
+            if (VersionComparer::IsVersionLess(onlineVersion.toStdString(), VersionInfo::VersionStr))
+            {
+                qInfo() << "current version" << VersionInfo::VersionStr << "is newer than online version" << onlineVersion;
+            }
+            else
+            {
+                qInfo() << "no newer version available";
+            }
+        }
 	}
 
-	return false;
+    qint64 elapsedTime = timer.elapsed();
+    qDebug() << "checking took " << elapsedTime << "ms";
+    return false;
 }
