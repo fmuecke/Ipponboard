@@ -20,7 +20,7 @@ QString DonationManager::GetDonationLabel()
 {
 	static const char* const DonationLabels[] =
 	{
-		QT_TRANSLATE_NOOP("DonationLabel", "Contribute")
+		QT_TRANSLATE_NOOP("DonationLabel", "Contribute"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks!"),
 		QT_TRANSLATE_NOOP("DonationLabel", "It really saves my day"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Donate a beer (or two)"),
