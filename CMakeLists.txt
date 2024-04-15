@@ -2,34 +2,45 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
+# Define variables for the required MSVC runtime libraries
+if(MSVC)
+	include(InstallRequiredSystemLibraries)
+	if(NOT DEFINED MSVC_REDIST_DIR)
+		message(FATAL_ERROR "MSVC_REDIST_DIR not defined. See InstallRequiredSystemLibraries.cmake in Visual Studio installation.")
+	endif()
+endif()
+
 # Read variables from config
 file(STRINGS "env_cfg.bat" CONFIG_OUTPUT)
 
 # Process each line to extract variables
 string(REPLACE "\n" ";" CONFIG_LINES "${CONFIG_OUTPUT}")
 foreach(line ${CONFIG_LINES})
-    string(REGEX MATCH "^set \"([^=]+)=(.*)\"" _ ${line})
-    if (CMAKE_MATCH_1 AND CMAKE_MATCH_2)	
-      set(CFG_${CMAKE_MATCH_1} ${CMAKE_MATCH_2})
+	string(REGEX MATCH "^set \"([^=]+)=(.*)\"" _ ${line})
+	if (CMAKE_MATCH_1 AND CMAKE_MATCH_2)	
+	  set(CFG_${CMAKE_MATCH_1} ${CMAKE_MATCH_2})
 	  #message(${CMAKE_MATCH_1}=${CMAKE_MATCH_2})
 	endif()
 endforeach()
 
-# Only do these if this is the main project, and not if it is included through add_subdirectory
-#if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-#endif()
-
 option(USE_QT5 "Use Qt5 for the build" ON)
 message(STATUS "Using QT5: ${USE_QT5}")
-
-# Check if QTDIR is configured
-if(NOT DEFINED CFG_QTDIR)
-    message(FATAL_ERROR "QTDIR not defined")
+if(USE_QT5)
+	# Check if QTDIR is configured
+	if(NOT DEFINED CFG_QTDIR)
+		message(FATAL_ERROR "QTDIR not configured in env_cfg.bat")
+	endif()
+	set(QTDIR ${CFG_QTDIR})
+else()
+	# Check if QTDIR is configured
+	if(NOT DEFINED CFG_QT4DIR)
+		message(FATAL_ERROR "QT4DIR not configured in env_cfg.bat")
+	endif()
+	set(QTDIR ${CFG_QT4DIR})
 endif()
-set(QTDIR ${CFG_QTDIR})
-message(STATUS "Using: QTDIR = ${CFG_QTDIR}")
-set(CMAKE_PREFIX_PATH ${CFG_QTDIR})
-set(CMAKE_LIBRARY_PATH ${CFG_QTDIR}/lib)
+message(STATUS "Using: QTDIR = ${QTDIR}")
+set(CMAKE_PREFIX_PATH ${QTDIR})
+set(CMAKE_LIBRARY_PATH ${QTDIR}/lib)
 
 # Check if BOOST_DIR is configured
 if(WIN32)
@@ -48,7 +59,7 @@ if(WIN32)
 		message(FATAL_ERROR "INNO_DIR not configured in env_cfg.bat")
 	endif()
 	set(INNO_DIR ${CFG_INNO_DIR})
-    message(STATUS "Using: INNO_DIR = ${INNO_DIR}")
+	message(STATUS "Using: INNO_DIR = ${INNO_DIR}")
 endif()
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
