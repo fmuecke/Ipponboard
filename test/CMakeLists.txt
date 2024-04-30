@@ -5,9 +5,10 @@ cmake_minimum_required(VERSION 3.28)
 set(APP_NAME IpponboardTest)
 
 if(USE_QT5)
-	find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
+    find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
 else()
-	find_package(Qt4 4.8.7 REQUIRED QtCore)
+    find_package(Qt4 4.8.7 REQUIRED QtCore)
+endif()
 endif()
 
 set(CMAKE_AUTOUIC OFF)
@@ -15,22 +16,22 @@ set(CMAKE_AUTOMOC OFF)
 set(CMAKE_AUTORCC OFF)
 
 if(USE_QT5)
-	set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
-	set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)
 else()
-	set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release-Qt4)
-	set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug-Qt4)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release-Qt4)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug-Qt4)
 endif()
 message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 
 set(SOURCES
-	IpponboardTest.cpp
-	TestFight.cpp
-	TestJson.cpp
-	TestRules.cpp
-	TestScore.cpp
-	TestTournamentMode.cpp
-	TestVersionComparer.cpp
+    IpponboardTest.cpp
+    TestFight.cpp
+    TestJson.cpp
+    TestRules.cpp
+    TestScore.cpp
+    TestTournamentMode.cpp
+    TestVersionComparer.cpp
 )
 
 add_executable(${APP_NAME} ${SOURCES})
@@ -43,7 +44,7 @@ if (WIN32)
         CMAKE_SUPPRESS_REGENERATION true
     )
 else()
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endif()
 
 # Copy testdata
