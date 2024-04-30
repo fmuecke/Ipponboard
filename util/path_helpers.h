@@ -9,13 +9,6 @@
 #	include <Windows.h>
 #	include <Shlobj.h>
 //#	pragma comment(lib,"Shell32.lib")
-#else
-#	error "not implemented"
-#endif
-
-// c++0x workaround
-#if _MSC_VER < 1600
-#define nullptr NULL
 #endif
 
 #if 0
@@ -30,6 +23,7 @@ namespace fm
 namespace
 {
 
+#ifdef _WIN32
 enum EShellFolderType
 {
 	// http://msdn.microsoft.com/en-us/library/bb762494(v=vs.85).aspx
@@ -106,15 +100,16 @@ const std::string GetShellFolder(EShellFolderType what)
 
 	return ret;
 }
-
 const std::string GetCommonAppData()
 {
 	return GetShellFolder(eShellFolderType_COMMON_APPDATA);
 }
+#endif
 
 const std::string GetSettingsFilePath(const char* fileName)
 {
-	// (1) use file in common app data
+#if _WIN32
+    // (1) use file in common app data
 	// (2) create file or error
 	std::string filePath(fileName);
 
@@ -140,7 +135,12 @@ const std::string GetSettingsFilePath(const char* fileName)
 	}
 
 	return filePath;
+#else
+    //TODO: implement proper file path handling for linux
+    return fileName;
+#endif
 }
+
 
 } // anonymous namespace
 } // namespace fmu

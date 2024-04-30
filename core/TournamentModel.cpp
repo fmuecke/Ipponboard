@@ -410,7 +410,7 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 {
 	if (!index.isValid())
 	{
-        return Qt::ItemFlags::QFlags();
+        return Qt::ItemFlags();
 	}
 
 	if (index.column() == eCol_won1 ||

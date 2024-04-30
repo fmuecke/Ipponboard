@@ -10,7 +10,9 @@
 #include "../core/Enums.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
+#ifdef _WIN32
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/Rules.h"
 #include "../util/path_helpers.h"
 
@@ -46,7 +48,9 @@ MainWindowBase::MainWindowBase(QWidget* parent)
 	, m_secondScreenNo(0)
 	, m_secondScreenSize()
 	, m_controllerCfg()
-	, m_pGamepad(new Gamepad)
+#ifdef _WIN32
+    , m_pGamepad(new Gamepad)
+#endif
 {
 }
 
@@ -91,11 +95,12 @@ void MainWindowBase::Init()
 
 	change_lang(true);
 
-	// Init gamepad
+#ifdef _WIN32
+    // Init gamepad
 	QTimer* m_pTimer = new QTimer;
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
 	m_pTimer->start(75);
-
+#endif
 	update_statebar();
 
 	m_pController->RegisterView(m_pPrimaryView.get());
@@ -599,7 +604,8 @@ void MainWindowBase::read_settings()
 	}
 	settings.endGroup();
 
-	settings.beginGroup(str_tag_Input);
+#ifdef _WIN32
+    settings.beginGroup(str_tag_Input);
 	{
 		m_controllerCfg.button_hajime_mate =
 			settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
@@ -648,7 +654,7 @@ void MainWindowBase::read_settings()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
 	}
 	settings.endGroup();
-
+#endif
 	settings.beginGroup(str_tag_Sounds);
 	{
 		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
@@ -754,12 +760,13 @@ void MainWindowBase::on_actionPreferences_triggered()
 		m_secondScreenSize = dlg.GetSize();
 
 		dlg.GetControllerConfig(&m_controllerCfg);
-		// apply settings to gamepad
+#ifdef _WIN32
+        // apply settings to gamepad
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
-
+#endif
 		m_MatLabel = dlg.GetMatLabel();
 		m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
 
@@ -829,7 +836,8 @@ void MainWindowBase::show_hide_view() const
 
 void MainWindowBase::EvaluateInput()
 {
-	if (Gamepad::eState_ok != m_pGamepad->GetState())
+#ifdef _WIN32
+    if (Gamepad::eState_ok != m_pGamepad->GetState())
 	{
 		return;
 	}
@@ -985,6 +993,7 @@ void MainWindowBase::EvaluateInput()
 			m_pController->DoAction(eAction_Shido, FighterEnum::Second);
 		}
 	}
+#endif
 }
 
 void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)

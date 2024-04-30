@@ -16,11 +16,20 @@
 #include <QSettings>
 #include <QFile>
 #include <QLocale>
-#include <QtextCodec>
+//#include <QtextCodec>
 #if QT_VERSION >= 0x050000
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QTextStream>
+#endif
+
+#ifndef _WIN32
+#ifndef NO_ERROR
+#define NO_ERROR 0
+#endif
+#ifndef ERROR_INVALID_PARAMETER
+#define ERROR_INVALID_PARAMETER 1
+#endif
 #endif
 
 void LangNotFound(const QString& fileName)
@@ -33,7 +42,7 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
-	UNREFERENCED_PARAMETER(app);
+    Q_UNUSED(app);
 
 	if (langStr == QString("en"))
 	{
@@ -131,7 +140,11 @@ void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, con
     if (logFile.open(QIODevice::WriteOnly | QIODevice::Append))
     {
         QTextStream out(&logFile);
+#if QT_VERSION >= 0x050D00        
         out << logMsg << Qt::endl;
+#else
+        out << logMsg << ::endl;
+#endif
     }
 }
 #endif
