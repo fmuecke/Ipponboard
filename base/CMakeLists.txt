@@ -25,8 +25,8 @@ message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 
 set(SOURCES
     #pch.cpp
-	#pch.h
-	AddFighterDlg.cpp
+    #pch.h
+    AddFighterDlg.cpp
     AddFighterDlg.h
     Club.h
     ClubManager.cpp
@@ -50,9 +50,9 @@ set(SOURCES
     FighterManagerDlg.h
     ../util/array_helpers.h
     ../util/path_helpers.h
-    ../widgets/Countdown.h
-    ../widgets/ScaledImage.h
-    ../widgets/ScaledText.h
+    ../Widgets/Countdown.h
+    ../Widgets/ScaledImage.h
+    ../Widgets/ScaledText.h
     ../util/SimpleCsvFile.hpp
     ../core/Controller.h
     ../core/Enums.h
@@ -109,10 +109,10 @@ set(SOURCES
     View.cpp
     View.h
     ../util/jsoncpp/json.cpp
-	../util/qt_helpers.hpp
-    ../widgets/ScaledImage.cpp
-    ../widgets/ScaledText.cpp
-    ../widgets/Countdown.cpp
+    ../util/qt_helpers.hpp
+    ../Widgets/ScaledImage.cpp
+    ../Widgets/ScaledText.cpp
+    ../Widgets/Countdown.cpp
     ../core/Controller.cpp
     ../core/FightCategory.cpp
     ../core/Fighter.cpp
@@ -138,7 +138,7 @@ set(FORMS
     view_horizontal.ui
     view_vertical_single.ui
     view_vertical_team.ui
-    ../widgets/Countdown.ui
+    ../Widgets/Countdown.ui
 )
 
 set(OTHER
