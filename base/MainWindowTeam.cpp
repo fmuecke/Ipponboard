@@ -16,7 +16,9 @@
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
 #include "../core/TournamentModel.h"
+#ifdef _WIN32
 #include "../gamepad/gamepad.h"
+#endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 
@@ -673,7 +675,8 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
-	// back
+#ifdef _WIN32
+    // back
 	if (pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_prev)))
 	{
 		on_button_prev_clicked();
@@ -689,6 +692,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 		// --> handle update views outside of this function
 		return true;
 	}
+#endif
 
 	return false;
 }

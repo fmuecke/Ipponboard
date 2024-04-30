@@ -181,7 +181,9 @@ protected:
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
+#ifdef _WIN32
 	PGamepad m_pGamepad;
+#endif
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_
