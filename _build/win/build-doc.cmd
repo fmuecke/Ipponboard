@@ -9,7 +9,7 @@ if "%BASE_DIR%" == "" (
 ) 
 echo Using: BASE_DIR=%BASE_DIR%
 
-set OUTPUT_DIR=%~dp0..\bin
+set OUTPUT_DIR=%~dp0..\..\_bin\Ipponboard-Release
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 echo Using: OUTPUT_DIR=%OUTPUT_DIR%
 
@@ -21,14 +21,12 @@ if errorlevel 1 (
   exit /b 1
 )
 
-echo creating Anleitung.html...
-pandoc -s "%BASE_DIR%\manual-de.md" -o "%OUTPUT_DIR%\Anleitung.html" --metadata=title:Anleitung --css="%BASE_DIR%\Ipponboard.css" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
-
-echo creating Manual.html...
+echo Creating Docs...
+pandoc -s "%BASE_DIR%\USER_MANUAL-DE.md" -o "%OUTPUT_DIR%\Anleitung.html" --metadata=title:Anleitung --css="%BASE_DIR%\Ipponboard.css" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
 pandoc -s "%BASE_DIR%\USER_MANUAL-EN.md" -o "%OUTPUT_DIR%\User-Manual.html" --metadata=title:"User Manual" --css="%BASE_DIR%\Ipponboard.css" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
-
-echo creating CHANGELOG.html...
 pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%BASE_DIR%\Ipponboard.css" --self-contained || exit /b %errorlevel%
 
-echo copying license files...
-robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\Licenses" >nul || exit /b %errorlevel%
+echo Copying license files...
+robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\licenses" >nul || exit /b %errorlevel%
+
+pause
