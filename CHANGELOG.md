@@ -3,6 +3,7 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version 2.x (2023-xx-yy)
+- (mod): Using InnoSetup 6 install engine: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
 - (new): tournament mode can be selected via command line switch (skips splash screen)
   - "--mode team" directly starts team tournament mode
   - "--mode single" directly starts in single tournament mode

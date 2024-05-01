@@ -1,0 +1,15 @@
+** Ipponboard v2.x **
+
+As of December 2020, Ipponboard is open source: https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt.
+
+It may be used and copied without restrictions and free of charge.
+
+You can contribute to its development by
+
+  - giving feedback, wishes, and suggestions
+  - participating in the development
+  - providing donations for a coffee or a pizza
+
+See project site https://github.com/fmuecke/Ipponboard for further information.
+
+Thank you very much!

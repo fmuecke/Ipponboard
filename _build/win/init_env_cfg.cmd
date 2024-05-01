@@ -13,7 +13,7 @@ if exist "%LOCAL_CONFIG%" (
   echo set "QT4DIR=c:\devtools\qt\qt-4.8.7-vc14" >> "%LOCAL_CONFIG%"
   echo set "QTDIR=c:\devtools\qt5\5.15.2\msvc2019" >> "%LOCAL_CONFIG%"  
   echo set "BOOST_DIR=c:\devtools\boost_1_81_0" >> "%LOCAL_CONFIG%"
-  echo set "INNO_DIR=c:\devtools\inno setup 5" >> "%LOCAL_CONFIG%"
+  echo set "INNO_DIR=c:\Program Files (x86)\Inno Setup 6\" >> "%LOCAL_CONFIG%"
   echo Please configure dependency paths in "%LOCAL_CONFIG%" first!
   pause
   exit /b 1
