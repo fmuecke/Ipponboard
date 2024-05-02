@@ -48,9 +48,7 @@ Copyright © 2009-today Florian Mücke
 
 Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
-- [Qt Framework](http://www.qtproject.org) 
-  - Qt4 (where applicable): [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP), [Qt v4.8.7 src](https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip), [Patch für MSVC 14+](licenses/Qt4/PATCH-qt4.8.7_with_msvc14x.diff), [Instructions - How to build](licenses/Qt4/HOW_TO_BUILD-qt4.8.7-msvc14x.txt)
-  - Qt5 (where applicable): licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT),source can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/), no modifications were made
+- [Qt Framework](http://www.qtproject.org), Qt5 licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT),source can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/), no modifications were made
 - [Boost C++ libraries](http://www.boost.org) &rarr; [Boost Software License](licenses/boost/LICENSE_1_0.txt)
 - Microsoft Visual C++ CRT &rarr; [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
 - [JsonCpp](https://github.com/open-source-parsers/jsoncpp) by Baptiste Lepilleur &rarr; [MIT License](licenses/jasoncpp/LICENSE)
@@ -84,7 +82,7 @@ To use the competition display the following hardware and software requirements 
 
 ## Version history
 
-- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/manual-en.md). 
+- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/USER_MANUAL_EN.md). 
 - Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](CHANGELOG.html)
 
 ## Feedback & contact
