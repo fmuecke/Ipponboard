@@ -112,12 +112,6 @@ public:
 	};
 
 	Gamepad()
-		: m_currentId(0)
-		, m_invertedAxes()
-		//, m_caps
-		//, m_data
-		, m_state(eState_unknown)
-		, m_hwnd(NULL)
 	{
 		reset();
 		Init();
@@ -135,27 +129,14 @@ public:
 	/// reads capabilities
 	EState Init()
 	{
-		m_state = EState(::joyGetDevCaps(0, &m_caps, sizeof(JOYCAPS)));
+        m_state = EState(::joyGetDevCapsW(0, &m_caps, sizeof(JOYCAPSW)));
 		return m_state;
 	}
 
-//TODO: use proper unicode handling
-//#if WINVER > 0x0501
-//	inline const wchar_t* GetProductName() const
-//	{
-//		size_t size = strlen(m_caps.szPname)+1;
-//		wchar_t* unicode_product_name = new wchar_t[size];  //TODO: fix memory leak
-//		size_t convertedChars = 0;
-//		mbstowcs_s(&convertedChars, unicode_product_name, size, m_caps.szPname, size-1);
-//
-//		return unicode_product_name;
-//	}
-//#else		
-	inline const char* GetProductName() const
-	{
-		return m_caps.szPname;
-	}
-//#endif
+    inline const wchar_t* GetProductName() const
+    {
+        return m_caps.szPname;
+    }
 
 	inline WORD GetMId() const
 	{
@@ -537,7 +518,7 @@ public:
 
 			if (eState_ok == s)
 			{
-				m_hwnd = NULL;
+                m_hwnd = nullptr;
 				ret = true;
 			}
 		}
@@ -551,7 +532,7 @@ private:
 	{
 		m_invertedAxes.reset();
 
-		memset(&m_caps, 0, sizeof(JOYCAPS));
+        memset(&m_caps, 0, sizeof(JOYCAPSW));
 		memset(&m_data, 0, sizeof(JOYINFOEX));
 		m_data.dwSize = sizeof(JOYINFOEX);
 		m_data.dwFlags = JOY_RETURNALL;
@@ -602,19 +583,14 @@ private:
 		31500	// eButton_pov_left_fwd
 	};
 
-	unsigned int m_currentId;
-	std::bitset<eAxis_MAX> m_invertedAxes;
+    unsigned int m_currentId{0};
+    std::bitset<eAxis_MAX> m_invertedAxes{0};
 
-//#if WINVER > 0x0501
-//	JOYCAPSW m_caps;
-//#else		
-	JOYCAPSA m_caps;
-//#endif
-
-	JOYINFOEX m_data;
-	JOYINFOEX m_lastData;
-	EState m_state;
-	HWND m_hwnd;
+    JOYCAPSW m_caps{0};
+    JOYINFOEX m_data{0};
+    JOYINFOEX m_lastData{0};
+    EState m_state{eState_unknown};
+    HWND m_hwnd{nullptr};
 };
 
 } //namespace FMlib

@@ -91,7 +91,7 @@ void GamepadDemo::UpdateCapabilities()
 
 	vals.clear();
 	vals.append("Product name");
-	vals.append(m_pGamepad->GetProductName());
+    vals.append(QString::fromWCharArray(m_pGamepad->GetProductName()));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
