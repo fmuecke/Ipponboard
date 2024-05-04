@@ -299,7 +299,7 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 		tr("About %1").arg(QCoreApplication::applicationName()),
 		QString("<h3>%1 v%2</h3>"
 				"<p>Build: %3, Revision: %4</p>"
- 				"<p>&copy; 2010-%5 Florian M&uuml;cke. All rights reserved.<br>For third party licenses see the User Manual.</p>"
+ 				"<p>&copy; 2010-%5 Florian M&uuml;cke &amp; contributors. All rights reserved.<br>For third party licenses see the User Manual.</p>"
 				"<p><a href=\"https://ipponboard.koe-judo.de\">ipponboard.koe-judo.de</a> and <a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
 				"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
 				"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
