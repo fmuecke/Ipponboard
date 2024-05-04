@@ -3,7 +3,15 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version 2.x (2023-xx-yy)
+- (new): Linux build
 - (mod): Using InnoSetup 6 install engine: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
+- (mod): updated to Qt5 (Qt4 is out-of-support since May 2015)
+  - requires at least Windows Vista to run
+- (internal) switched internal build system to CMAKE for better compatibility regagding different build environments
+- (mod): updated bjv logo
+- (fix): fixed several smaller errors and compiler warnings
+  - improved layout calculation of scaled texts
+  - replaced reference to obsolete website
 - (new): tournament mode can be selected via command line switch (skips splash screen)
   - "--mode team" directly starts team tournament mode
   - "--mode single" directly starts in single tournament mode

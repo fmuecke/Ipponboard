@@ -40,23 +40,60 @@ You must ensure that you use the same compiler version that was used to build th
 ### MSVC v140 using Visual Studio 2019
 
 1. Make sure the build tools are installed.
-2. Start the VC140 Developer Command Prompt
+2. Start the VC140 Native Developer Command Prompt
    e.g. by starting a custom batch file `vc14.cmd` that calls `vcvarsall.bat` or specify the `-vcvars_ver=14.0` parameter manually:
    ```batch
    @echo off
    title Visual Studio Command Shell
    %comspec% /k "c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.0
    ```
+   
+#### Ubuntu
+
+Install required libraries:
+
+    sudo apt-get -y install libpulse-mainloop-glib0
 
 ## Using *QtCreator* to build Ipponboard
 
-1. Download and install [QCreator](https://www.qt.io/product/development-tools)
+1. Download and install [QCreator](https://github.com/qt-creator/qt-creator/releases/)
 2. Configure the Qt environment
-3. Open `Ipponboard.pro` with QtCreator
-4. add `BOOST_DIR` to the environment variables of the project
+3. Open `base/CmakeLists.txt` with QtCreator
+4. be sure that `QTDIR` points to the respective Qt installation
+6. add `BOOST_DIR` to the environment variables of the project
+5. define boolean key `USE_QT5=ON` if you want to use Qt5 (use Qt4 otherwise)
 
 ### Configuring CDB Debugger
 
 1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
 2. Insert path in the QtCreator debugger options (tab *CDB paths*): e.g. `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
+
+
+### Building Qt on Ubuntu (WSL)
+
+1. get `qt-erverywhere-opensource-src-5.15...tar.xz`
+2. extract archive: 
+    `tar xf /mnt/c/Users/fmuec/Downloads/qt-everywhere-opensource-src-5.15.13.tar.xz`
+3. configure
+     `./configure -prefix /usr/local/Qt5.15.13 -opensource -confirm-license -shared -silent -nomake examples -nomake tests -no-dbus -skip qtdoc`
+4. compile & link
+   `gmake -j8`
+5. install
+    `sudo gmake install`
+	
+	
+### Building Qt on Windows 11
+
+1. Install Python2
+    `winget install python.python.2`
+1. get `qt-erverywhere-opensource-src-5.15.13.zip`
+1. extract archive
+1. configure
+     1. Open x86 Native Tools Command Prompt for Visual Studio
+ 	 1. Add to environment path before running `configure.bat`: `set PATH=c:\Python27;%PATH%`
+     1. `configure -prefix Qt5.15.13 -opensource -confirm-license -platform win32-msvc -debug-and-release -shared -silent -nomake examples -nomake tests -no-dbus -schannel -mp`
+1. compile & link
+   `jom`
+1. install
+   `jom install`
