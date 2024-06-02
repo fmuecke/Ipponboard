@@ -17,7 +17,7 @@ using Ipponboard::Score;
 using Ipponboard::FighterEnum;
 using Point = Ipponboard::Score::Point;
 
-TEST_CASE("Fighter with less Shidos wins if points are equal (rules 2013)")
+TEST_CASE("[Fight] Fighter with less Shidos wins if points are equal (rules 2013)")
 {
 	auto score = Score().Add(Point::Yuko).Add(Point::Yuko);
 	auto scoreWithShido = Score(score).Add(Point::Shido);
@@ -53,7 +53,7 @@ TEST_CASE("Fighter with less Shidos wins if points are equal (rules 2013)")
 	REQUIRE(fight.HasWon(first));
 }
 
-TEST_CASE("Validate score points (subscore)")
+TEST_CASE("[Fight] Validate score points (subscore)")
 {
 	auto first = FighterEnum::First;
 	auto second = FighterEnum::Second;
@@ -95,7 +95,7 @@ TEST_CASE("Validate score points (subscore)")
 	REQUIRE(f5.GetScorePoints(second) == 0);
 }
 
-TEST_CASE("TimeRemaining accounts for golden score")
+TEST_CASE("[Fight] TimeRemaining accounts for golden score")
 {
 	Fight f;
 	f.SetRoundTime(240);
@@ -104,7 +104,7 @@ TEST_CASE("TimeRemaining accounts for golden score")
 	REQUIRE(f.GetTimeRemainingString().toStdString() == "-1:05");
 }
 
-TEST_CASE("TimeFaught accounts for golden score")
+TEST_CASE("[Fight] TimeFaught accounts for golden score")
 {
 	Fight f;
 	f.SetRoundTime(240);
@@ -113,7 +113,7 @@ TEST_CASE("TimeFaught accounts for golden score")
 	REQUIRE(f.GetTotalTimeElapsedString().toStdString() == "5:05");
 }
 
-TEST_CASE("time string with Golden Score is propertly converted")
+TEST_CASE("[Fight] time string with Golden Score is propertly converted")
 {
 	Fight f;
 	f.SetRoundTime(240);
@@ -125,7 +125,7 @@ TEST_CASE("time string with Golden Score is propertly converted")
 	REQUIRE(f.GetTotalTimeElapsedString().toStdString() == "14:20");
 }
 
-TEST_CASE("rules2017: score points will return 1 for shido won in golden score only")
+TEST_CASE("[Fight] rules2017: score points will return 1 for shido won in golden score only")
 {
 	Fight f;
 	f.rules = std::make_shared<Ipponboard::Rules2017>();
@@ -145,7 +145,7 @@ TEST_CASE("rules2017: score points will return 1 for shido won in golden score o
 	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 1);
 }
 
-TEST_CASE("rules2017: no one has won if points are equal and shidos aren't in golden score")
+TEST_CASE("[Fight] rules2017: no one has won if points are equal and shidos aren't in golden score")
 {
 	auto score1 = Score().Add(Point::Yuko).Add(Point::Shido);
 	auto score2 = Score().Add(Point::Yuko);
