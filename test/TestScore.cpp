@@ -19,7 +19,7 @@ bool IsScoreLess(std::shared_ptr<Ipponboard::AbstractRules> pRules, Score const&
 	return pRules->CompareScore(f) > 0;
 }
 
-TEST_CASE("Shido rules for fights")
+TEST_CASE("[Score] Shido rules for fights")
 {
 	auto empty = Score();
 	auto shido = Score().Add(Point::Shido);
@@ -70,7 +70,7 @@ TEST_CASE("Shido rules for fights")
 //	REQUIRE_FALSE(two.IsLess(one));
 //}
 
-TEST_CASE("Each fighter can have Hansokumake")
+TEST_CASE("[Score] Each fighter can have Hansokumake")
 {
 	Score score1;
 	Score score2;
@@ -94,7 +94,7 @@ TEST_CASE("Each fighter can have Hansokumake")
 	REQUIRE_FALSE(IsScoreLess(rules2013, score2, score1));
 }
 
-TEST_CASE("is awasette ippon")
+TEST_CASE("[Score] is awasette ippon")
 {
 	Score score;
 	auto classicRules = std::make_shared<Ipponboard::ClassicRules>();
@@ -135,7 +135,7 @@ TEST_CASE("is awasette ippon")
 	*/
 }
 
-TEST_CASE("rules 2017: only first shido does not count")
+TEST_CASE("[Score] rules 2017: only first shido does not count")
 {
 	auto rules = std::make_shared<Ipponboard::Rules2017>();
 
@@ -149,7 +149,7 @@ TEST_CASE("rules 2017: only first shido does not count")
 	REQUIRE_FALSE(IsScoreLess(rules, s1, Score()));  // as yuko has to be added manually
 }
 
-TEST_CASE("rules 2017: first shido does count in golden score")
+TEST_CASE("[Score] rules 2017: first shido does count in golden score")
 {
 	auto rules = std::make_shared<Ipponboard::Rules2017>();
 

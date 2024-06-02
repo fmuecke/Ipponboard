@@ -6,7 +6,7 @@
 #include "../util/json.hpp"
 #include "../util/jsoncpp/json.cpp"
 
-TEST_CASE("JSON read file")
+TEST_CASE("[json] read file")
 {
 	try
 	{
@@ -21,12 +21,12 @@ TEST_CASE("JSON read file")
 	}
 }
 
-TEST_CASE("JSON write file")
+TEST_CASE("[json] write file")
 {
 
 }
 
-TEST_CASE("JSON read string")
+TEST_CASE("[json] read string")
 {
 	auto str = "[{\"string\": \"Florian Mücke\", \"int\": 300, \"double\": 3.1415, 	\"array\": [1,2,3,4,5] }]";
 
