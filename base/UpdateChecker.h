@@ -7,7 +7,6 @@
 
 #include <QString>
 
-class QXmlQuery;
 
 class UpdateChecker
 {
@@ -26,13 +25,10 @@ public:
 		QString changes_en;
 	};
 
-	static QXmlQuery get_version_document_DEPRECATED(QString url);
 	static QString get_version_document(QString url);
-	static current_version parse_version_document_DEPRECATED(QXmlQuery document);
 	static current_version parse_version_document(QString jsonDoc);
 	static QString format_version_message(current_version onlineVersion, QString lang);
 
-	static const QString VersionDocumentUrl_DEPRECATED;
 	static const QString VersionDocumentUrl;
 	static const QString ProjectReleasesUrl;
 };

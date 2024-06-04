@@ -10,8 +10,7 @@
 #include <QMessageBox>
 #include <QString>
 #include <QStringList>
-#include <QXmlQuery>
-#include <QUrl>
+//#include <QUrl>
 #include <QDesktopServices>
 #include <QElapsedTimer>
 #include <QDebug>
@@ -23,26 +22,11 @@
 #include <QJsonArray>
 #include <QFile>
 
-const QString UpdateChecker::VersionDocumentUrl_DEPRECATED = "https://ipponboard.koe-judo.de/files/current_version.xml";
 const QString UpdateChecker::VersionDocumentUrl = "https://api.github.com/repos/fmuecke/Ipponboard/releases/latest";
 const QString UpdateChecker::ProjectReleasesUrl = "https://github.com/fmuecke/Ipponboard/releases";
 
 UpdateChecker::UpdateChecker()
 {
-}
-
-QString GetXmlValue_DEPRECATED(QXmlQuery query, QString xPath)
-{
-	QString value;
-	query.setQuery(xPath);
-
-	if (query.isValid())
-	{
-		query.evaluateTo(&value);
-		return value.trimmed();
-	}
-
-	return value;
 }
 
 QString GetJsonValue(QJsonObject obj, QString path)
@@ -105,13 +89,6 @@ QString GetJsonValue(QJsonObject obj, QString path)
 	return value;
 }
 
-QXmlQuery UpdateChecker::get_version_document_DEPRECATED(QString url)
-{
-	QXmlQuery query;
-	query.setFocus(QUrl(url));
-	return query;
-}
-
 QString UpdateChecker::get_version_document(QString url)
 {
 	// if path does not start with http, assume it is a local file. This is for testing purposes
@@ -149,17 +126,6 @@ QString UpdateChecker::get_version_document(QString url)
 
 	reply->deleteLater();
 	return jsonDocument;
-}
-
-UpdateChecker::current_version UpdateChecker::parse_version_document_DEPRECATED(QXmlQuery query)
-{
-	UpdateChecker::current_version versionInfo;
-	versionInfo.version = GetXmlValue_DEPRECATED(query, "Ipponboard/Version/text()");
-	versionInfo.infoUrl = ProjectReleasesUrl;
-	versionInfo.downloadUrl = GetXmlValue_DEPRECATED(query, "Ipponboard/DownloadUrl/text()");
-	versionInfo.changes_de = GetXmlValue_DEPRECATED(query, "Ipponboard/Changes[@lang='de']/text()");
-	versionInfo.changes_en = GetXmlValue_DEPRECATED(query, "Ipponboard/Changes[@lang='en']/text()");
-	return versionInfo;
 }
 
 UpdateChecker::current_version UpdateChecker::parse_version_document(QString jsonDoc)
