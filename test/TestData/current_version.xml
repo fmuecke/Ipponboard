@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ipponboard>
+  <Version>1.10.0-beta</Version>
+  <InfoUrl>http://www.ipponboard.info/</InfoUrl>
+  <DownloadUrl>https://bitbucket.org/ipponboard/ipponboard_release/downloads/Ipponboard-1.10.0-beta-setup.exe</DownloadUrl>
+  <Changes lang="de">Unterstützung der IJF 2018 Regeln</Changes>
+  <Changes lang="en">Support for IJF-2018 rules</Changes>
+</Ipponboard>
