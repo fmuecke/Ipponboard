@@ -16,33 +16,13 @@ struct QApplicationFixture {
     char* argv[1] = { nullptr };
 
     QApplicationFixture() {
-        app = new QApplication(argc, argv); // Setup
+        app = new QApplication(argc, argv); // required for QXmlQuery and QNetworkAccessManager
     }
 
     ~QApplicationFixture() {
         delete app; // Cleanup
     }
 };
-
-TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] parse version document (legacy xml)")
-{
-    auto info = UpdateChecker::parse_version_document_DEPRECATED(UpdateChecker::get_version_document_DEPRECATED("TestData/current_version.xml"));
-    REQUIRE_FALSE(info.version.isEmpty());
-}
-
-TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] get online version document (legacy xml)")
-{
-    auto start = std::chrono::high_resolution_clock::now();
-
-    auto query = UpdateChecker::get_version_document_DEPRECATED(UpdateChecker::VersionDocumentUrl_DEPRECATED);
-    query.setQuery("Ipponboard");
-    REQUIRE(query.isValid());
-
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> elapsed = end - start;
-    INFO("retrieving version data took " << elapsed.count() << "ms");
-    CHECK(elapsed.count() <= 500);
-}
 
 TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] get online version document (github json)")
 {
