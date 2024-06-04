@@ -7,55 +7,66 @@
 #include <QString>
 #include <QStringList>
 
-bool VersionComparer::IsVersionLess(std::string const& version1, std::string const& version2)
+VersionComparer::SemVer VersionComparer::SemVer::FromString(std::string const& version)
+{
+	SemVer semver;
+	QStringList parts = QString(version.c_str()).split('-'); // split prerelease from version
+
+	QStringList versionParts = parts[0].split('.'); // split version strings
+	
+	// ensure we have at least 3 parts
+	while (versionParts.count() < 3) versionParts.append("0");
+	semver.major = versionParts[0].startsWith("v") ? versionParts[0].mid(1).toInt() : versionParts[0].toInt();
+	semver.minor = versionParts[1].toInt();
+	semver.patch = versionParts[2].toInt();
+
+	if (parts.count() > 1)
+	{
+		semver.prerelease = parts[1].toStdString();
+	}
+
+	return semver;
+}
+
+bool VersionComparer::IsVersionLess(std::string const& lhs, std::string const& rhs)
 {
 	//return semver::Version(version1) < semver::Version(version2);
 
+	if (lhs == rhs) return false;
+	if (lhs.empty() || rhs.empty()) return false;
 
-	QStringList onlineVer = QString(version2.c_str()).split('.');
-	QStringList buildVer = QString(version1.c_str()).split('.');
+	SemVer lhsSemVer = SemVer::FromString(lhs);
+	SemVer rhsSemVer = SemVer::FromString(rhs);
 
-	while (onlineVer.length() < 3) onlineVer.append("0");
-
-	while (buildVer.length() < 3) buildVer.append("0");
-
-	if ((onlineVer[0].toInt() > buildVer[0].toInt()))
+	if (lhsSemVer.major < rhsSemVer.major)
 	{
 		return true;
 	}
-	else if (onlineVer[0].toInt() == buildVer[0].toInt())
+	else if (lhsSemVer.major == rhsSemVer.major)
 	{
-		if (onlineVer[1].toInt() > buildVer[1].toInt())
+		if (lhsSemVer.minor < rhsSemVer.minor)
 		{
 			return true;
 		}
-		else if ((onlineVer[1].toInt() == buildVer[1].toInt()))
+		else if (lhsSemVer.minor == rhsSemVer.minor)
 		{
-			auto patchVer1 = buildVer[2].split('-');
-			auto patchVer2 = onlineVer[2].split('-');
-
-			if (patchVer1[0].toInt() < patchVer2[0].toInt())
+			if (lhsSemVer.patch < rhsSemVer.patch)
 			{
 				return true;
 			}
-
-			if (patchVer1[0].toInt() > patchVer2[0].toInt())
+			else if (lhsSemVer.patch == rhsSemVer.patch)
 			{
-				return false;
-			}
-
-			auto preRelease1 = patchVer1.count() > 1 ? patchVer1[1] : QString();
-			auto preRelease2 = patchVer2.count() > 1 ? patchVer2[1] : QString();
-
-			if (!preRelease1.isEmpty())
-			{
-				if (preRelease2.isEmpty())
+				if (lhsSemVer.prerelease.empty())
+				{
+					return false;
+				}
+				else if (rhsSemVer.prerelease.empty())
 				{
 					return true;
 				}
 				else
 				{
-					return preRelease1 < preRelease2;  // alphanum comparison
+					return lhsSemVer.prerelease < rhsSemVer.prerelease;
 				}
 			}
 		}

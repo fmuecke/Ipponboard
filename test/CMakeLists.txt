@@ -17,6 +17,8 @@ if(LINUX)
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
     include_directories(${Qt5Multimedia_INCLUDE_DIRS})
     add_compile_options(-fPIC -fpermissive)
+else()
+    include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
 endif()
 
 set(CMAKE_AUTOUIC OFF)
@@ -39,6 +41,7 @@ set(SOURCES
     TestRules.cpp
     TestScore.cpp
     TestTournamentMode.cpp
+    TestUpdateChecker.cpp
     TestVersionComparer.cpp
 )
 
@@ -72,9 +75,17 @@ if(MSVC)
 
     # Copy required QT runtime dlls
     if(USE_QT5)
-        target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets)
+        target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns)
         add_custom_command(TARGET ${APP_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
         )
     else()
         target_link_libraries(${APP_NAME} PRIVATE Qt4::QtCore)
