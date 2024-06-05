@@ -1,5 +1,5 @@
 @echo off
-call env_cfg.bat
+call %~dp0..\env_cfg.bat
 
 "%QTDIR%\bin\lupdate" base core widgets -locations relative -no-recursive -ts i18n\de.ts -ts i18n\nl.ts
 
