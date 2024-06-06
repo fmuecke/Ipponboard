@@ -5,8 +5,6 @@ on:
     branches: [ "use_qt5" ]
   #pull_request:
 #    branches: [ "main" ]
-env:
-  ENV_CFG: ${{ github.workspace }}/env_cfg.bat
 
 jobs:
   build:
@@ -14,7 +12,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
+    
+   - name: Install boost
+     uses: MarkusJx/install-boost@v2.4.5
+     id: install-boost
+     with:
+         # REQUIRED: Specify the required boost version
+         # A list of supported versions can be found here:
+         # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
+         boost_version: 1.81.0
+         # OPTIONAL: Specify a custon install location
+         #boost_install_dir: C:\some_directory
+         platform_version: 2019
+         toolset: msvc
+         
     - name: Install Qt5
       uses: jurplel/install-qt-action@v3
       with:
@@ -31,7 +42,10 @@ jobs:
       run: |
         echo set "IPPONBOARD_ROOT_DIR=${{ github.workspace }}" > %ENV_CFG%
         echo set "QTDIR=%QT_PATH%" >> %ENV_CFG%
-        echo set "BOOST_DIR=%QT_PATH%" >> %ENV_CFG%
+        echo set "BOOST_DIR=%BOOST_DIR%" >> %ENV_CFG%
+      env:
+        ENV_CFG: ${{ github.workspace }}/env_cfg.bat
+        BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
     - name: Build
       shell: cmd
