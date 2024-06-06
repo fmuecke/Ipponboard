@@ -21,7 +21,7 @@ else()
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/${APP_NAME}-Release-Qt4)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/${APP_NAME}-Debug-Qt4)
 endif()
-message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+#message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 
 set(SOURCES
     Main.cpp
