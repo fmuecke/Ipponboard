@@ -27,7 +27,6 @@ jobs:
         archives: 'qtxmlpatterns qttranslation qtbase'
 
     - name: Init variables
-    - name: Build
       shell: cmd
       run: |
         echo set "IPPONBOARD_ROOT_DIR=${{ github.workspace }}" > %ENV_CFG%
