@@ -31,7 +31,7 @@ else()
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release-Qt4)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug-Qt4)
 endif()
-message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+#message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 
 set(SOURCES
     #pch.cpp
