@@ -1,0 +1,39 @@
+name: Qt5 CI
+
+on:
+  push:
+    branches: [ "use_qt5" ]
+  #pull_request:
+#    branches: [ "main" ]
+env:
+  ENV_CFG: ${{ github.workspace }}/env_cfg.bat
+
+jobs:
+  build:
+    runs-on: windwos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Qt5
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==3.1*'
+        version: '5.15.2'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win32_msvc2019'
+        tools: 'tools_cmake'
+        archives: 'qtxmlpatterns qttranslation qtbase'
+
+    - name: Init variables
+    - name: Build
+      shell: cmd
+      run: |
+        echo set "IPPONBOARD_ROOT_DIR=${{ github.workspace }}" > %ENV_CFG%
+        echo set "QTDIR=%QT_PATH%" >> %ENV_CFG%
+        echo set "BOOST_DIR=%QT_PATH%" >> %ENV_CFG%
+
+    - name: Build
+      shell: cmd
+      run: scripts/build-ALL.cmd release
