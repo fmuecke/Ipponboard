@@ -1,0 +1,56 @@
+name: Qt5 CI
+
+on:
+  push:
+    branches: [ "use_qt5" ]
+  pull_request:
+    branches: [ "use_qt5" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+   - name: Install boost
+     uses: MarkusJx/install-boost@v2.4.5
+     id: install-boost
+     with:
+         # REQUIRED: Specify the required boost version
+         # A list of supported versions can be found here:
+         # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
+         platform: linux
+         boost_version: 1.81.0
+         # OPTIONAL: Specify a custon install location
+         #boost_install_dir: C:\some_directory
+         platform_version: 18.04
+         toolset: gcc
+         arch: x64
+         
+    - name: Install Qt5
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==3.1*'
+        version: '5.15.2'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        tools: 'tools_cmake'
+        archives: 'qtxmlpatterns qttranslation qtbase'
+
+    - name: Init variables
+      shell: cmd
+      run: |
+        echo set "IPPONBOARD_ROOT_DIR=${{ github.workspace }}" > %ENV_CFG%
+        echo set "QTDIR=%QT_PATH%" >> %ENV_CFG%
+        echo set "BOOST_DIR=%BOOST_DIR%" >> %ENV_CFG%
+      env:
+        ENV_CFG: ${{ github.workspace }}/env_cfg.bat
+        BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+
+    - name: Build
+      shell: cmd
+      run: |
+        cmake -S "$IPPONBOARD_ROOT_DIR" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=Release || exit 1
+        cmake --build "_build/Ipponboard-Linux" --config Release --targe Ipponboard-Test || exit 1
