@@ -56,5 +56,6 @@ jobs:
     - name: Build
       shell: bash
       run: |
+        scripts/create-versioninfo.sh ../base || exit 1
         cmake -S "$IPPONBOARD_ROOT_DIR" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=Release || exit 1
         cmake --build "_build/Ipponboard-Linux" --config Release --targe Ipponboard-Test || exit 1
