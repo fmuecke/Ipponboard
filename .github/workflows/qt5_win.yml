@@ -3,8 +3,8 @@ name: Qt5 CI
 on:
   push:
     branches: [ "use_qt5" ]
-  #pull_request:
-#    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-   - name: Install boost
-     uses: MarkusJx/install-boost@v2.4.5
-     id: install-boost
-     with:
+    - name: Install boost
+      uses: MarkusJx/install-boost@v2.4.5
+      id: install-boost
+      with:
          # REQUIRED: Specify the required boost version
          # A list of supported versions can be found here:
          # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
