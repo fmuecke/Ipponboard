@@ -4,8 +4,6 @@
 *.filters
 *.ilk
 *.log
-*.log
-*.log
 *.obj
 *.opensdf
 *.orig
@@ -31,12 +29,7 @@
 /**/release/*
 Makefile
 _bin/
-_build/Ipponboard-linux/
-_build/_build_cmake_qt4
-_build/build_output/*
-_build/linux-Debug/
-_build/linux-ipponboard-Desktop*
-_build/linux/
+_build/
 _output/
 base/.buildnr
 base/.date
@@ -45,7 +38,6 @@ base/Ipponboard.rc
 base/Ipponboard_team.rc
 base/pch.h.cpp
 base/versioninfo.h
-bin/
 build-GamepadDemo-*/
 doc/*.aux
 doc/*.out
