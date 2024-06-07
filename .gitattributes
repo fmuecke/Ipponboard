@@ -1,1 +1,10 @@
+# Ensure all text files use Windows (CRLF) line endings
+#* text=auto eol=crlf
+
+# Override for files that should always have Unix (LF) line endings
 *.sh text eol=lf
+
+# Exclude build directories
+_build/** binary
+_bin/** binary
+_output/** binary
