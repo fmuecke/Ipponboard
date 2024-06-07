@@ -48,7 +48,7 @@ jobs:
       run: |
         echo 'set "IPPONBOARD_ROOT_DIR=$IPPONBOARD_ROOT_DIR"' > $ENV_CFG
         echo 'set "QTDIR=$QT_PATH"' >> $ENV_CFG
-        echo 'set "BOOST_DIR=$BOOST_DIR"' >> $ENV_CFG
+        echo 'set "LINUX_BOOST_DIR=$BOOST_DIR"' >> $ENV_CFG
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
         BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
