@@ -62,7 +62,6 @@ set(SOURCES
     FighterManagerDlg.h
     ../util/array_helpers.h
     ../util/path_helpers.h
-    ../Widgets/Countdown.h
     ../Widgets/ScaledImage.h
     ../Widgets/ScaledText.h
     ../util/SimpleCsvFile.hpp
@@ -97,19 +96,6 @@ set(SOURCES
     SettingsDlg.h
     SplashScreen.cpp
     SplashScreen.h
-    #ui_AddFighterDlg.h
-    #ui_ClubManagerDlg.h
-    #ui_Countdown.h
-    #ui_FightCategoryManagerDlg.h
-    #ui_FighterManagerDlg.h
-    #ui_MainWindow.h
-    #ui_MainWindowTeam.h
-    #ui_ModeManagerDlg.h
-    #ui_ScoreScreen.h
-    #ui_SettingsDlg.h
-    #ui_SplashScreen.h
-    #ui_view_horizontal.h
-    #ui_view_vertical_single.h
     OnlineVersionChecker.cpp
     OnlineVersionChecker.h
     VersionComparer.cpp
@@ -124,7 +110,6 @@ set(SOURCES
     ../util/qt_helpers.hpp
     ../Widgets/ScaledImage.cpp
     ../Widgets/ScaledText.cpp
-    ../Widgets/Countdown.cpp
     ../core/Controller.cpp
     ../core/FightCategory.cpp
     ../core/Fighter.cpp
@@ -150,7 +135,6 @@ set(FORMS
     view_horizontal.ui
     view_vertical_single.ui
     view_vertical_team.ui
-    ../Widgets/Countdown.ui
 )
 
 set(OTHER
