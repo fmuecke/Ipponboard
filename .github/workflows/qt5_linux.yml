@@ -64,7 +64,7 @@ jobs:
       shell: bash
       run: |
         cd ./_bin/Test-Release
-        IpponboardTest
+        ./IpponboardTest
 
     - name: Build Ipponboard
       shell: bash
