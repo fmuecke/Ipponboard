@@ -110,8 +110,8 @@ set(SOURCES
     #ui_SplashScreen.h
     #ui_view_horizontal.h
     #ui_view_vertical_single.h
-    UpdateChecker.cpp
-    UpdateChecker.h
+    OnlineVersionChecker.cpp
+    OnlineVersionChecker.h
     VersionComparer.cpp
     VersionComparer.h
     ../core/iGoldenScoreView.h

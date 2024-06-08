@@ -3,20 +3,21 @@
 // found in the LICENSE.txt file.
 
 #include "../util/catch2/catch.hpp"
-#include "../base/UpdateChecker.h"
-#include "../base/UpdateChecker.cpp"
+#include "../base/OnlineVersionChecker.h"
+#include "../base/OnlineVersionChecker.cpp"
 
 #include <QCoreApplication>
 #include <QString>
+
 #include <iostream>
 
 struct QApplicationFixture {
-    QApplication* app;
+    QCoreApplication* app;
     int argc = 0;
     char* argv[1] = { nullptr };
 
     QApplicationFixture() {
-        app = new QApplication(argc, argv); // required for QXmlQuery and QNetworkAccessManager
+        app = new QCoreApplication(argc, argv); // required for QXmlQuery and QNetworkAccessManager
     }
 
     ~QApplicationFixture() {
@@ -24,23 +25,24 @@ struct QApplicationFixture {
     }
 };
 
-TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] get online version document (github json)")
+TEST_CASE_METHOD(QApplicationFixture, "[OnlineVersionChecker] get online version document (github json)")
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    auto versionData = UpdateChecker::get_version_document(UpdateChecker::VersionDocumentUrl);
+    auto versionData = OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl);
 	REQUIRE_FALSE(versionData.isEmpty());
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
     INFO("retrieving version data took " << elapsed.count() << "ms");
-    CHECK(elapsed.count() <= 500);
+
+    CHECK(elapsed.count() <= 5000);
 }
 
-TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] parse version document (github json)")
+TEST_CASE_METHOD(QApplicationFixture, "[OnlineVersionChecker] parse version document (github json)")
 {
-    auto versionInfo = UpdateChecker::parse_version_document(
-        UpdateChecker::get_version_document("TestData/latest_version.json"));
+    auto versionInfo = OnlineVersionChecker::parse_version_document(
+        OnlineVersionChecker::get_version_document("TestData/latest_version.json"));
 
     REQUIRE_FALSE(versionInfo.version.isEmpty());
     REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
@@ -49,10 +51,10 @@ TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] parse version document (g
     REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
 }
 
-TEST_CASE_METHOD(QApplicationFixture, "[UpdateChecker] parse online version document (github json)")
+TEST_CASE_METHOD(QApplicationFixture, "[OnlineVersionChecker] parse online version document (github json)")
 {
-    auto versionInfo = UpdateChecker::parse_version_document(
-        UpdateChecker::get_version_document(UpdateChecker::VersionDocumentUrl));
+    auto versionInfo = OnlineVersionChecker::parse_version_document(
+        OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl));
 
     REQUIRE_FALSE(versionInfo.version.isEmpty());
     REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());

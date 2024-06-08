@@ -7,10 +7,12 @@
 //#include "../core/TournamentMode.h"
 #include "SplashScreen.h"
 #include "versioninfo.h"
-#include "UpdateChecker.h"
+#include "OnlineVersionChecker.h"
 #include "../util/path_helpers.h"
 
 #include <QApplication>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QTranslator>
 #include <QMessageBox>
 #include <QSettings>
@@ -206,10 +208,38 @@ int main(int argc, char* argv[])
 	QTranslator translator;  // Note: this object needs to remain in scope.
 	SetTranslation(a, translator, langStr);
 
-	if (UpdateChecker::CheckForNewerVersion())
+	auto onlineVersion = OnlineVersionChecker::CheckOnlineVersion();
+	if (onlineVersion.state == OnlineVersionChecker::State::NewerAvailable)
 	{
-        return NO_ERROR;
-	}
+		// format message
+		QString changes = QString(": <br><br><tt>%1</tt><br>").arg(QCoreApplication::tr("en") == "de" ? onlineVersion.changes_de : onlineVersion.changes_en);
+		changes.replace("\n", "<br>");
+
+		QString msg = QString("<p>%1 %2</p>")
+			.arg(QCoreApplication::tr("Version %1 available (currently using: %2)").arg(QString("<b>%1</b>").arg(onlineVersion.version)).arg(QCoreApplication::applicationVersion()))
+			.arg(changes);
+
+		msg += QString("<p>%1</p>").arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
+
+		// show message box
+		auto result = QMessageBox::information(
+			nullptr,
+			QCoreApplication::tr("Ipponboard - New Version Available"),
+			msg,
+			QCoreApplication::tr("Download"),
+			QCoreApplication::tr("Visit Homepage"),
+			QCoreApplication::tr("Cancel"),
+			0, 2);
+
+		if (result == 0) // download
+		{
+			return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
+		}
+		else if (result == 1) // visit homepage
+		{
+			return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
+		}
+	}	
 
     int dlgResult {0};
 
