@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.28)
 set(APP_NAME IpponboardTest)
 
 if(USE_QT5)
-    find_package(Qt5 5.12.9 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia Network REQUIRED)
+    find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia Network REQUIRED)
 else()
     find_package(Qt4 4.8.7 REQUIRED QtCore)
 endif()
