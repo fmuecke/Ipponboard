@@ -52,9 +52,9 @@ jobs:
       shell: bash
       run: scripts/create-versioninfo.sh $IPPONBOARD_ROOT_DIR/base
 
-    - name: Create makefile (clean first)
+    - name: Create makefile
       shell: bash
-      run: cmake -S "$IPPONBOARD_ROOT_DIR" -B "_build/Ipponboard-Linux" --clean-first -DCMAKE_BUILD_TYPE=Release
+      run: cmake -S "$IPPONBOARD_ROOT_DIR" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=Release
 
     - name: Build Tests
       shell: bash
