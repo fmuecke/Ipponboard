@@ -3,8 +3,8 @@
 // found in the LICENSE.txt file.
 
 #include "DonationManager.h"
-#include "splashscreen.h"
-#include "ui_splashscreen.h"
+#include "SplashScreen.h"
+#include "ui_SplashScreen.h"
 #include "versioninfo.h"
 
 #include <algorithm>

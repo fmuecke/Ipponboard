@@ -4,11 +4,11 @@
 
 #include "DonationManager.h"
 
-#include <random>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QApplication>
 #include "../util/array_helpers.h"
+#include <random>
 
 char const* const DonationManager::DonationUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
 
