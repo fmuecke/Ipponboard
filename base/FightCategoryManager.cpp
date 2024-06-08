@@ -3,15 +3,16 @@
 // found in the LICENSE.txt file.
 
 #include "FightCategoryManager.h"
-#include <QObject>
 
-#include <stdexcept>
-#include <algorithm>
+#include <QObject>
 #include <QMessageBox>
 #include <QFile>
 
 #include "../util/path_helpers.h"
 #include "FightCategoryParser.h"
+
+#include <stdexcept>
+#include <algorithm>
 
 using namespace Ipponboard;
 
