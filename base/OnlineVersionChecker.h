@@ -7,27 +7,34 @@
 
 #include <QString>
 
-
-class UpdateChecker
+class OnlineVersionChecker
 {
 public:
 
-	UpdateChecker();
+	OnlineVersionChecker();
 
-	static bool CheckForNewerVersion();
+	enum class State
+	{
+		Empty = 0,
+		UpToDate,
+		NewerAvailable,
+		NewerThanOnlineAvailable
+	};
 
-	struct current_version
+	struct OnlineVersion
 	{
 		QString version;
 		QString infoUrl;
 		QString downloadUrl;
 		QString changes_de;
 		QString changes_en;
+		State state;
 	};
 
+	static OnlineVersion CheckOnlineVersion();
+
 	static QString get_version_document(QString url);
-	static current_version parse_version_document(QString jsonDoc);
-	static QString format_version_message(current_version onlineVersion, QString lang);
+	static OnlineVersion parse_version_document(QString jsonDoc);
 
 	static const QString VersionDocumentUrl;
 	static const QString ProjectReleasesUrl;

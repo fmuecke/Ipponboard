@@ -5,17 +5,17 @@ cmake_minimum_required(VERSION 3.28)
 set(APP_NAME IpponboardTest)
 
 if(USE_QT5)
-    find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia Network REQUIRED)
+    find_package(Qt5 5.15.2 COMPONENTS Core XmlPatterns Network Widgets REQUIRED)
 else()
     find_package(Qt4 4.8.7 REQUIRED QtCore)
 endif()
 
 if(LINUX)
     # common include directories
-    include_directories(${Qt5Widgets_INCLUDE_DIRS})
-    include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
+    #include_directories(${Qt5Widgets_INCLUDE_DIRS})
+    #include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
-    include_directories(${Qt5Multimedia_INCLUDE_DIRS})
+    #include_directories(${Qt5Multimedia_INCLUDE_DIRS})
     add_compile_options(-fPIC -fpermissive)
 else()
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
@@ -43,7 +43,7 @@ set(SOURCES
     TestRules.cpp
     TestScore.cpp
     TestTournamentMode.cpp
-    TestUpdateChecker.cpp
+    TestOnlineVersionChecker.cpp
     TestVersionComparer.cpp
 )
 
@@ -96,5 +96,5 @@ if(MSVC)
         )
     endif()
 else()
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::Network Qt5::Multimedia)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::XmlPatterns Qt5::Network Qt5::Core)
 endif()
