@@ -78,9 +78,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 # Configure c++ language support
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(LINUX)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add targets
 add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)

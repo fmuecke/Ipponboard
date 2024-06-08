@@ -31,7 +31,9 @@ else()
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release-Qt4)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug-Qt4)
 endif()
-#message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+if(LINUX)
+    message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+endif()
 
 set(SOURCES
     #pch.cpp
@@ -173,7 +175,7 @@ if(MSVC)
         CMAKE_SUPPRESS_REGENERATION true
     )
 else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+    set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endif()
 
 #target_precompile_headers(${APP_NAME} PRIVATE pch.h)
