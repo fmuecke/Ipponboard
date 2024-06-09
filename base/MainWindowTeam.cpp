@@ -6,7 +6,7 @@
 #include "ui_MainWindowTeam.h"
 
 #include "ScoreScreen.h"
-#include "../base/ComboboxDelegate.h"
+#include "../base/ComboBoxDelegate.h"
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
