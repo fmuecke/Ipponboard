@@ -1,63 +1,96 @@
+function Check-cmake {
+    $cmake = Get-Command cmake -ErrorAction SilentlyContinue
+    if ($cmake -eq $null) {
+        Write-Host "CMake not found. Please install CMake and make sure it is in the PATH."
+        exit 1
+    }
+}
+
 function Init-Environment {
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Read-Env-Cfg
     $global:BUILD_DIR="$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
     $global:CONFIG="release"
+    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
 }
 
-# read settings from env_cfg.cmd file. The settings are in the format "set VAR=VALUE"
+# Read settings from env_cfg.cmd file. The settings are in the format "set VAR=VALUE"
 function Read-Env-Cfg {
 	$env_cfg = Get-Content .\env_cfg.bat
 	foreach ($line in $env_cfg) {
-		if ($line -match '^set "(.*)=(.*)$"') {
+        if ($line -match '^set "(.*)=(.*)"\s*$') {
             Set-Variable -Name $matches[1] -Value $matches[2] -Scope Global
+            Write-Host "Setting $($matches[1]) to $($matches[2])"
 		}
 	}
 }
 
 function Show-Menu {
-    $BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\$CONFIG"
-    $TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
-
     Clear-Host
-    Write-Host ""
-    Write-Host "Current config:  $CONFIG"
-    Write-Host ""
-    Write-Host "  QTDIR     : $QTDIR"
-    Write-Host "  BOOST_DIR : $BOOST_DIR"
-    Write-Host "  ROOT_DIR  : $IPPONBOARD_ROOT_DIR"
-    Write-Host "  BUILD_DIR : $BUILD_DIR"
-    Write-Host "  BIN_DIR   : $BIN_DIR"
-    Write-Host "  INNO_DIR  : $INNO_DIR"
-    Write-Host ""
-    Write-Host "Select build mode:"
-    Write-Host ""
-    #Write-Host "  (1) Create makefiles"
-    Write-Host "  (2) Build"
-    Write-Host "  (7) Build doc"
-    Write-Host "  (8) Build setup"
-    Write-Host "  (c) Clean ALL"
-    Write-Host "  (s) Switch build config (d/r)"
-    Write-Host "  (t) Translate resources"
-    Write-Host "  (q) Quit"
-    Write-Host ""
+
+    $menu = @"
+
+    Current config ($CONFIG):
+
+        QTDIR     : $QTDIR
+        BOOST_DIR : $BOOST_DIR
+        ROOT_DIR  : $IPPONBOARD_ROOT_DIR
+        BUILD_DIR : $BUILD_DIR
+        BIN_DIR   : $BIN_DIR
+        INNO_DIR  : $INNO_DIR
+
+    Select build mode:
+
+        (1) clean ALL
+        (2) create makefiles
+        (3) tests only
+        (4) build all
+        (5) run Ipponboard
+        (6) build doc
+        (7) translate resources
+        (8) build setup
+        (9) clean build with setup (release)
+        (s) switch debug/release
+        (q) quit
+"@
+
+    Write-Host $menu
 }
 
-function Main {
+# write a function that takes another function from this scruipt as a parameter and calls it and measures the time it took
+function Execute-And-Measure {
+    param (
+        [scriptblock]$function
+    )
+
+    $start = Get-Date
+    & $function
+    $end = Get-Date
+    $elapsed = $end - $start
+    $formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
+    Write-Host "Elapsed time: $formattedTime"
+    Pause
+}
+
+function MainLoop {
     Init-Environment
 
     do {
         Show-Menu
         $choice = [System.Console]::ReadKey($true).KeyChar
         switch ($choice) {
-            #'1' { Create-makefiles }
-            '2' { Build-ALL }
-            '7' { Build-Doc }
-            '8' { Build-Setup }
-            'c' { Clean-Builds }
+            '1' { Execute-And-Measure ${function:Clean-All} }
+            '2' { Execute-And-Measure ${function:Create-Makefiles} }
+            '3' { Execute-And-Measure ${function:Build-and-run-tests} }
+            '4' { Execute-And-Measure ${function:Build-ALL} }
+            '5' { Execute-And-Measure ${function:Run} }
+            '6' { Execute-And-Measure ${function:Build-Doc} }
+            '7' { Execute-And-Measure ${function:Translate-Resources} }
+            '8' { Execute-And-Measure ${function:Build-Setup} }
+            '9' { Execute-And-Measure ${function:CleanBuildWithSetup} }
             's' { Switch-Config }
-            't' { Translate-Resources }
             'q' { break }
             default { Write-Host "Invalid choice" }
         }
@@ -65,29 +98,99 @@ function Main {
 }
 
 function Clean-All {
-    Remove-Directory -Path $BUILD_DIR -Recursive > $null
-    Remove-Directory -Path $BIN_DIR -Recursive > $null
-    Remove-Directory -Path $TEST_BIN_DIR -Recursive > $null
-    pause
+    # remove _bin and _build directories
+    $dirs = "$IPPONBOARD_ROOT_DIR\_bin", "$IPPONBOARD_ROOT_DIR\_build", "$IPPONBOARD_ROOT_DIR\_output"
+    foreach ($item in $dirs) {
+        Write-Host "Removing $item"
+        if (Test-Path $item) {
+            Remove-Item -Path $item -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+
+    Write-Host "Removing versioninfo.h"
+    Remove-Item -Path "$IPPONBOARD_ROOT_DIR\base\versioninfo.h" -ErrorAction SilentlyContinue
+}
+
+function Create-Makefiles {
+    & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
+    if ($LASTEXITCODE -ne 0) { return $false }
+    
+    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 17 2022" -A Win32 --fresh
+    return ($LASTEXITCODE -eq 0)
+}
+
+function Run-Tests {
+    $exe = "$TEST_BIN_DIR\IpponboardTest.exe"
+    if (-not (Test-Path $exe)) {
+        Write-Host "Test app not found: $exe"
+        return $false
+    }
+    Set-Location $TEST_BIN_DIR
+    & "$exe"
+    $success = ($LASTEXITCODE -eq 0)
+    Set-Location -Path $PSScriptRoot
+    return $success
+}
+
+function Build-and-run-tests {
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
+    if ($LASTEXITCODE -ne 0) { return $false }
+
+    return Run-Tests
 }
 
 function Build-ALL {
-    #& .\scripts\create-versioninfo.cmd $IPPONBOARD_ROOT_DIR\base   --> called in build-ALL.cmd script
-    #if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    & .\scripts\build-ALL.cmd $CONFIG
-    #if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    pause
+    cmake --build "$BUILD_DIR" --config $CONFIG
+    if ($LASTEXITCODE -ne 0) { return $false }
+    
+    # build all targets
+    cmake --build "$BUILD_DIR" --config $CONFIG --target GamepadDemo
+    if ($LASTEXITCODE -ne 0) { return $false }
+
+    # run tests
+    return Run-Tests
+}
+
+function Run {
+    $app = "$BIN_DIR\Ipponboard.exe"
+    if (-not (Test-Path $app)) {
+        Write-Host "Application not found: $app"
+        return $false
+    }
+    Set-Location $BIN_DIR
+    & "$app"
+    $success = ($LASTEXITCODE -eq 0)
+    Set-Location -Path $PSScriptRoot
+    return $success
+}
+
+function CleanBuildWithSetup {
+    Clean-All
+
+    if ($CONFIG -ne "release") { Switch-Config }
+
+    Create-Makefiles
+    if ($LASTEXITCODE -ne 0) { return $false }
+
+    Build-ALL
+    if ($LASTEXITCODE -ne 0) { return $false }
+
+    Build-Doc
+    if ($LASTEXITCODE -ne 0) { return $false }
+
+    #Translate-Resources
+    Build-Setup
+    return ($LASTEXITCODE -eq 0)
 }
 
 function Build-Doc {
-	& .\scripts\build-doc.cmd
-    if ($LASTEXITCODE -ne 0) { 
-        Write-Error "build-doc returned with error" 
-        pause
-    }
+    & .\scripts\build-doc.cmd
+    return ($LASTEXITCODE -eq 0)
 }
 
 function Build-Setup {
+    & .\scripts\build-setup.cmd
+    return ($LASTEXITCODE -eq 0)
 }
 
 function Switch-Config {
@@ -96,17 +199,20 @@ function Switch-Config {
     } else {
         $global:CONFIG = "release"
     }
+
+    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
 }
 
 function Translate-Resources {
-	& .\scripts\translate.cmd
-    pause
-
+    & .\scripts\translate.cmd
+    return ($LASTEXITCODE -eq 0)
 }
 
-
+# Main
 try {
-    Main
+    Check-cmake
+    MainLoop
 } catch {
     Write-Host "An error occurred: $_"
     exit 1
