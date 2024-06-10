@@ -8,5 +8,3 @@ pause
 "%QTDIR%\bin\linguist" i18n\de.ts i18n\nl.ts
 "%QTDIR%\bin\lrelease" -compress i18n\de.ts -qm i18n\de.qm
 "%QTDIR%\bin\lrelease" -compress i18n\nl.ts -qm i18n\nl.qm
-
-pause

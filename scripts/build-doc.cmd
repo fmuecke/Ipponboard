@@ -29,4 +29,3 @@ pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%
 echo Copying license files...
 robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\licenses" >nul || exit /b %errorlevel%
 echo done.
-pause
