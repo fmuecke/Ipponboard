@@ -2,37 +2,44 @@
 
 Ipponboard requires the following libraries and tools to get built: 
 - [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2015/2017 a.k.a VC14)
-- [Qt library](https://www.qt.io/) (last used: 4.8.7; 5.x not yet supported)
-- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.59)
-- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 5.0)
-- [jom](https://download.qt.io/official_releases/jom/) (also included in QCreator)
+- [Qt library](https://www.qt.io/) (last used: 5.15.x; 6.x not yet supported)
+- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
+- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 6.0)
 - optional: pandoc to build the manual
 
-The first run of `build.cmd` will create a file to configure the paths to the above libraries
-    > build.cmd
+The first run of `build.ps1` will create a file to configure the paths to the above libraries
+
+    > build.ps1
 	Please configure paths in "env_cfg.bat" first!
     Press any key to continue . . .
 
 Modify those according to your environment. After that you may try building ;)...
 
-    > build.cmd
-	Current config:
+    > build.ps1
+    Current config (debug):
 
-      QMAKESPEC : win32-msvc2015
-      QTDIR     : c:\devtools\qt\qt-4.8.7-vc14\bin
-      BOOST_DIR : c:\devtools\boost_1_59_0
-    
+        QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
+        BOOST_DIR : c:\devtools\boost_1_81_0
+        ROOT_DIR  : c:\dev\_cpp\Ipponboard
+        BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
+        BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
+        INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
+
     Select build mode:
-    
-      (1) clean
-      (2) build
-      (3) rebuild
-      (4) setup
-      (5) run
-      (6) build doc
-      (9) all
-      (q) quit
 
+        (1) clean ALL
+        (2) create makefiles
+        (3) tests only
+        (4) build all
+        (5) run Ipponboard
+        (6) build doc
+        (7) translate resources
+        (8) build setup
+        (9) clean build with setup (release)
+        (s) switch debug/release
+        (q) quit
+		
+		
 ## Configure Visual Studio Build Tools
 
 You must ensure that you use the same compiler version that was used to build the Qt libraries to build Ipponboard to avoid runtime problems.
@@ -53,6 +60,21 @@ You must ensure that you use the same compiler version that was used to build th
 Install required libraries:
 
     sudo apt-get -y install libpulse-mainloop-glib0
+
+#### install qt
+
+1. Get aqt ([another qt installer](https://github.com/miurahr/aqtinstall))
+   ```
+   pip install -U pip
+   pip install aqtinstall
+   ```
+1. Get latest Qt version
+   
+   Check https://ddalcino.github.io/aqt-list-server/ and get install command:
+   ```
+   aqt install-qt linux desktop 5.15.2 gcc_64
+   aqt install-tool linux desktop tools_cmake
+   ```
 
 ## Using *QtCreator* to build Ipponboard
 

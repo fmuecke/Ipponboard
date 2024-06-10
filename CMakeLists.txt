@@ -25,31 +25,12 @@ endforeach()
 
 # Check if QTDIR is configured
 if(MSVC)
-    option(USE_QT5 "Use Qt5 for the build" ON)
-    message(STATUS "Using QT5: ${USE_QT5}")
-    if(USE_QT5)
-        # Check if QTDIR is configured
-        if(NOT DEFINED CFG_QTDIR)
-            message(FATAL_ERROR "QTDIR not configured in env_cfg.bat")
-        endif()
-        set(QTDIR ${CFG_QTDIR})
-    else()
-        # Check if QTDIR is configured
-        if(NOT DEFINED CFG_QT4DIR)
-            message(FATAL_ERROR "QT4DIR not configured in env_cfg.bat")
-        endif()
-        set(QTDIR ${CFG_QT4DIR})
+    if(NOT DEFINED CFG_QTDIR)
+        message(FATAL_ERROR "QTDIR not configured in env_cfg.bat")
     endif()
+    set(QTDIR ${CFG_QTDIR})
 else()
     set(USE_QT5 ON)
-
-    #find_package(Qt5 COMPONENTS Core REQUIRED)
-    #get_target_property(QT_CORE_LIBRARY Qt5::Core LOCATION)
-    #get_filename_component(QT_BASE_DIR "${QT_CORE_LIBRARY}" DIRECTORY)
-    #get_filename_component(QT_BASE_DIR "${QT_BASE_DIR}" DIRECTORY)
-    #set(QTDIR ${QT_BASE_DIR})
-
-    # Check if QTDIR is configured
     if(NOT DEFINED CFG_LINUX_QTDIR)
         message(FATAL_ERROR "LINUX_QTDIR not configured in env_cfg.bat")
     endif()
