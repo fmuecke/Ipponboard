@@ -12,6 +12,7 @@ jobs:
     
     env:
       ROOT_DIR: ${{ github.workspace }}
+      CONFIG: Release
 
     steps:
     - uses: actions/checkout@v4
@@ -43,33 +44,32 @@ jobs:
       shell: bash
       run: |
         echo 'set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}"' > ${{ env.ENV_CFG }}
-        echo 'set "LINUX_QTDIR=${{ env.QTDIR }}"' >> ${{ env.ENV_CFG }}
-        echo 'set "LINUX_BOOST_DIR=${{ env.BOOST_DIR }}"' >>${{ env.ENV_CFG }}
+        echo 'set "LINUX_QTDIR=${{ env.Qt5_DIR }}"' >> ${{ env.ENV_CFG }}
+        echo 'set "LINUX_BOOST_DIR=${{ env.BOOST_DIR }}/include"' >>${{ env.ENV_CFG }}
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
-        QTDIR: ${{ steps.install-qt.outputs.qt_dir }}
         BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
-    - name: Create Version Info
+    - name: Create version info
       shell: bash
-      run: scripts/create-versioninfo.sh $IPPONBOARD_ROOT_DIR/base
+      run: scripts/create-versioninfo.sh ${{ env.ROOT_DIR }}/base
 
     - name: Create makefile
       shell: bash
-      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=Release
+      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=${{env.CONFIG}}
 
     - name: Build Tests
       shell: bash
-      run: cmake --build "_build/Ipponboard-Linux" --config Release --target IpponboardTest -j4
+      run: cmake --build "_build/Ipponboard-Linux" --config ${{env.CONFIG}} --target IpponboardTest -j4
 
     - name: Run tests
       shell: bash
       continue-on-error: true
       run: |
-        cd ./_bin/Test-Release
+        cd ./_bin/Test-${{env.CONFIG}}
         ./IpponboardTest
 
     - name: Build Ipponboard
       shell: bash
-      run: cmake --build "_build/Ipponboard-Linux" --config Release --target Ipponboard -j4
+      run: cmake --build "_build/Ipponboard-Linux" --config ${{env.CONFIG}} --target Ipponboard -j4
   

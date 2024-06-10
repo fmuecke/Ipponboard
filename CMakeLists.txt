@@ -51,7 +51,7 @@ else()
 
     # Check if QTDIR is configured
     if(NOT DEFINED CFG_LINUX_QTDIR)
-        message(FATAL_ERROR "QTDIR not configured in env_cfg.bat")
+        message(FATAL_ERROR "LINUX_QTDIR not configured in env_cfg.bat")
     endif()
     set(QTDIR ${CFG_LINUX_QTDIR})
 endif()
