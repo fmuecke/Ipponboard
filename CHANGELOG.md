@@ -15,7 +15,6 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (new): tournament mode can be selected via command line switch (skips splash screen)
   - "--mode team" directly starts team tournament mode
   - "--mode single" directly starts in single tournament mode
-- (mod): added experimental support for Qt5 (source code repo)
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add
