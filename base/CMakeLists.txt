@@ -17,6 +17,8 @@ if(LINUX)
     include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
     include_directories(${Qt5Multimedia_INCLUDE_DIRS})
+    include_directories(${BOOST_DIR})
+    
     add_compile_options(-fPIC -fpermissive)
 endif()
 
