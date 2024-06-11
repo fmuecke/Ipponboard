@@ -27,9 +27,7 @@
 #include <QUrl>
 #include <QTimer>
 #include <QStyle>
-#if QT_VERSION >= 0x050000
 #include <QScreen>
-#endif
 
 using namespace FMlib;
 using namespace Ipponboard;
@@ -68,12 +66,7 @@ void MainWindowBase::Init()
 	//setWindowState(Qt::WindowMaximized);
 	// instead, center window
 
-#if QT_VERSION >= 0x050000
     auto rect = QGuiApplication::screens().first()->availableGeometry();
-#else
-    auto rect = QApplication::desktop()->availableGeometry();
-#endif
-
     this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), rect));
 
 	load_fighters();
@@ -784,21 +777,13 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {
-#if QT_VERSION >= 0x050000
     const auto nScreens = QGuiApplication::screens().size();
     if (nScreens > 0 && nScreens > m_secondScreenNo)
     {
         auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
         pView->move(QPoint(screenRes.x(), screenRes.y()));
     }
-#else
-    const int nScreens(QApplication::desktop()->numScreens());
-    if (nScreens > 0 && nScreens > m_secondScreenNo)
-    {
-        auto screenRes = QApplication::desktop()->screenGeometry(m_secondScreenNo);
-		pView->move(QPoint(screenRes.x(), screenRes.y()));
-    }
-#endif
+
     if (m_secondScreenSize.isNull())
     {
 		pView->showFullScreen();

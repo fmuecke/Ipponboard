@@ -19,11 +19,9 @@
 #include <QFile>
 #include <QLocale>
 //#include <QtextCodec>
-#if QT_VERSION >= 0x050000
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QTextStream>
-#endif
 
 #ifndef _WIN32
 #ifndef NO_ERROR
@@ -112,7 +110,6 @@ int ShowSplashScreen()
 	return dlgResult;
 }
 
-#if QT_VERSION >= 0x050000
 void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString &msg)
 {
     Q_UNUSED(context)
@@ -142,20 +139,14 @@ void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, con
     if (logFile.open(QIODevice::WriteOnly | QIODevice::Append))
     {
         QTextStream out(&logFile);
-#if QT_VERSION >= 0x050D00        
         out << logMsg << Qt::endl;
-#else
-        out << logMsg << ::endl;
-#endif
     }
 }
-#endif
 
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
-#if QT_VERSION >= 0x050000
     // Open the log file and truncate existing content
     QFile logFile(QCoreApplication::applicationName() + ".log");
     if (logFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
@@ -165,7 +156,6 @@ int main(int argc, char* argv[])
 
     qInstallMessageHandler(CustomMessageHandler);
 
-#endif
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
     QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
 	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
@@ -173,7 +163,6 @@ int main(int argc, char* argv[])
 
     qInfo() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
 
-#if QT_VERSION >= 0x050000
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
@@ -187,7 +176,6 @@ int main(int argc, char* argv[])
     {
         parser.showHelp(ERROR_INVALID_PARAMETER);
     }
-#endif
 
 	// read language code
 	QString langStr = QLocale::system().name();
@@ -243,7 +231,6 @@ int main(int argc, char* argv[])
 
     int dlgResult {0};
 
-#if QT_VERSION >= 0x050000
     if (mode == "ask")
     {
         dlgResult = ShowSplashScreen();
@@ -256,9 +243,6 @@ int main(int argc, char* argv[])
     {
         dlgResult = QDialog::Accepted + 1;
     }
-#else
-    dlgResult = ShowSplashScreen();
-#endif
     if (dlgResult == 0)
     {
         return NO_ERROR;

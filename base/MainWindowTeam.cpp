@@ -152,17 +152,10 @@ void MainWindowTeam::Init()
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 #endif
 	// make name columns auto-resizable
-#if QT_VERSION >= 0x050000
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-#else
-	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-#endif
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -981,17 +974,11 @@ void MainWindowTeam::on_actionPrint_triggered()
 	WriteScoreToHtml_();
 
 	QPrinter printer(QPrinter::HighResolution);
-#if QT_VERSION >= 0x050000
     //TODO: fix margins (actual header margin is too big)
     printer.setPageSize(QPageSize(QPageSize::A4));
     printer.setPageOrientation(QPageLayout::Landscape);
     printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
     //printer.setFullPage(true);
-#else
-	printer.setOrientation(QPrinter::Landscape);
-	printer.setPaperSize(QPrinter::A4);
-	printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
-#endif
 	QPrintPreviewDialog preview(&printer, this);
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(Print(QPrinter*)));
 	preview.exec();
@@ -1031,7 +1018,6 @@ void MainWindowTeam::on_actionExport_triggered()
 		else
 		{
             QPrinter printer(QPrinter::HighResolution);
-#if QT_VERSION >= 0x050000
             //TODO: fix margins? (printable area is somehow smaller than with Qt4...)
             //TODO: use QPdfWriter?
             printer.setFullPage(true);
@@ -1039,12 +1025,6 @@ void MainWindowTeam::on_actionExport_triggered()
             printer.setOutputFormat(QPrinter::PdfFormat);
             printer.setPageSize(QPageSize(QPageSize::A4));
             printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
-#else
-            printer.setOrientation(QPrinter::Landscape);
-            printer.setOutputFormat(QPrinter::PdfFormat);
-            printer.setPaperSize(QPrinter::A4);
-            printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
-#endif
 			printer.setOutputFileName(fileName);
 			QTextEdit edit(m_htmlScore, this);
 			edit.document()->print(&printer);
