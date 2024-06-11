@@ -143,10 +143,6 @@ function Build-ALL {
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
-    # build all targets
-    cmake --build "$BUILD_DIR" --config $CONFIG --target GamepadDemo
-    if ($LASTEXITCODE -ne 0) { return $false }
-
     # run tests
     return Run-Tests
 }
