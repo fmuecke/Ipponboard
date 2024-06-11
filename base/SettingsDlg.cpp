@@ -13,9 +13,7 @@
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
-#if QT_VERSION >= 0x050000
 #include <QScreen>
-#endif
 #include <QSound>
 #include <QColorDialog>
 
@@ -103,19 +101,11 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_hansokumake_second->addItems(buttons);
 
 	// num screens
-#if QT_VERSION >= 0x050000
     int numScreens = QGuiApplication::screens().count();
-#else
-    int numScreens = QApplication::desktop()->numScreens();
-#endif
 
     for (int i(1); i <= numScreens; ++i)
 	{
-#if QT_VERSION >= 0x050000
         QRect res = QGuiApplication::screens().at(i - 1)->availableGeometry();
-#else
-        QRect res = QApplication::desktop()->screenGeometry(i - 1);
-#endif
 
 		ui->comboBox_screen->addItem(
 			QString("%1 (%2x%3)").arg(
