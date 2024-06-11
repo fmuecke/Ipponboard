@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
 
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
     QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
-	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
+	QCoreApplication::setOrganizationDomain("github.com/fmuecke/Ipponboard");
 	QCoreApplication::setApplicationName("Ipponboard");
 
     qInfo() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
