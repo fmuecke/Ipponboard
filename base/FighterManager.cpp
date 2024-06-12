@@ -49,7 +49,7 @@ FighterManager::FighterManager()
 {
 }
 
-QString FighterManager::GetSpecifiererDescription()
+QString FighterManager::GetSpecifierDescription()
 {
 	QString retVal;
 
