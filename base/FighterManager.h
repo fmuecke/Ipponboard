@@ -31,7 +31,7 @@ public:
 
 	static const std::array<char const* const, 5> Specifiers;
 
-	static QString GetSpecifiererDescription();
+	static QString GetSpecifierDescription();
 	//static bool IsValidSpecifier(QString const& str);
 	static bool IsFormatSatisfying(QString const& formatStr);
 	static bool DetermineSeparator(QString const& str, QString& sep);

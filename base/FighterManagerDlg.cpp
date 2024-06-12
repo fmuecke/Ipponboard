@@ -400,7 +400,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 	QString dlgTitle = tr("Specify import/export format");
 	QString dlgMsg = tr("Use valid specifiers and some kind of separator (;,:|/ etc.)"
 						"\nValid specifiers are: %1")
-					 .arg(Ipponboard::FighterManager::GetSpecifiererDescription());
+					 .arg(Ipponboard::FighterManager::GetSpecifierDescription());
 
     QString inputString = QInputDialog::getText(this,
 										 dlgTitle,
