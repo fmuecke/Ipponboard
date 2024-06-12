@@ -292,7 +292,7 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 
 QStringList MainWindowTeam::get_list_templates()
 {
-	QDir dir(TournamentMode::TemplateDirName());
+	QDir dir(TournamentMode::str_TemplateDirName);
 	QStringList filters;
 	filters.append("*.html");
 	return dir.entryList(filters, QDir::Files, QDir::Name);
@@ -1395,7 +1395,7 @@ QString MainWindowTeam::get_template_file(QString const& modeId) const
 
 	if (iter != end(m_modes))
 	{
-		return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
+		return QString("%1/%2").arg(TournamentMode::str_TemplateDirName, iter->listTemplate);
 	}
 
 	return QString();

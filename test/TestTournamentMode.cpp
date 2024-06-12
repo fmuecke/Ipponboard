@@ -21,7 +21,7 @@ struct IpponboardTest
 		errorMsg.clear();
 
 		config.beginGroup(group);
-		bool readSuccess = TournamentMode::parse_current_group(config, tm, errorMsg);
+		bool readSuccess = TournamentMode::parse_current_group(config, tm, "TestData", errorMsg);
 		config.endGroup();
 		return readSuccess;
 	}
@@ -83,7 +83,5 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 	success = IpponboardTest::parse_group(config, "no_fight_time", errorMsg);
 	INFO(errorMsg.toStdString());
 	REQUIRE_FALSE(success);
-
-	//QCOMPARE(str.toUpper(), QString("HELLO"));
 }
 

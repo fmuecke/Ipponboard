@@ -29,7 +29,7 @@ public:
 	typedef std::vector<std::pair<QString, int>> OverridesList;
 
 	// ascii strings
-	static const char* TemplateDirName() { return "templates"; }
+	static QString const& str_TemplateDirName;
 	static QString const& str_Title;
 	static QString const& str_SubTitle;
 	static QString const& str_Weights;
@@ -69,6 +69,7 @@ private:
 	static bool parse_current_group(
 		QSettings const& config,
 		TournamentMode& tm,
+		QString templateDir,
 		QString& errorMsg);
 
 	static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
