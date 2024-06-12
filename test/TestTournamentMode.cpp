@@ -7,6 +7,7 @@
 #include "../core/TournamentMode.cpp"
 
 #include <QString>
+#include <QDir>
 #include <iostream>
 
 using namespace Ipponboard;
@@ -14,19 +15,13 @@ using namespace Ipponboard;
 struct IpponboardTest
 {
 
-	static bool parse_group(QSettings& config, QString const& group)
+	static bool parse_group(QSettings& config, QString const& group, QString& errorMsg)
 	{
 		TournamentMode tm;
+		errorMsg.clear();
 
 		config.beginGroup(group);
-		QString errorMsg;
 		bool readSuccess = TournamentMode::parse_current_group(config, tm, errorMsg);
-
-		if (!readSuccess)
-		{
-			//std::cout << "--> Error in 'parse_group': " << errorMsg.toStdString() << std::endl;
-		}
-
 		config.endGroup();
 		return readSuccess;
 	}
@@ -35,7 +30,8 @@ struct IpponboardTest
 
 TEST_CASE("[TournamentMode] Test_parse_current_group")
 {
-	QSettings config("TestData/TournamentModes-test.ini", QSettings::IniFormat, nullptr);
+	const QString& iniFile = QDir::currentPath() + "/TestData/TournamentModes-test.ini";
+	QSettings config(iniFile, QSettings::IniFormat);
 	QStringList groups;
 	groups
 			<< "basic"
@@ -50,15 +46,43 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 
 	REQUIRE(groups.count() == config.childGroups().count());
 
-	REQUIRE(IpponboardTest::parse_group(config, "basic"));
-	REQUIRE(IpponboardTest::parse_group(config, "with_weights_doubled"));
-	REQUIRE(IpponboardTest::parse_group(config, "with_time_overrides"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "template_not_found"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_title"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_weights"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_rounds"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_template"));
-	REQUIRE_FALSE(IpponboardTest::parse_group(config, "no_fight_time"));
+	QString errorMsg;
+
+	bool success = IpponboardTest::parse_group(config, "basic", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE(success);
+
+	success = IpponboardTest::parse_group(config, "with_weights_doubled", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE(success);
+
+	success = IpponboardTest::parse_group(config, "with_time_overrides", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE(success);
+
+	success = IpponboardTest::parse_group(config, "template_not_found", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
+
+	success = IpponboardTest::parse_group(config, "no_title", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
+
+	success = IpponboardTest::parse_group(config, "no_weights", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
+
+	success = IpponboardTest::parse_group(config, "no_rounds", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
+
+	success = IpponboardTest::parse_group(config, "no_template", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
+
+	success = IpponboardTest::parse_group(config, "no_fight_time", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE_FALSE(success);
 
 	//QCOMPARE(str.toUpper(), QString("HELLO"));
 }
