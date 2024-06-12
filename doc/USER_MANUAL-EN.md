@@ -46,15 +46,36 @@ Copyright © 2009-today Florian Mücke
 
 ### Third-party components
 
-Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
-- [Qt Framework](http://www.qtproject.org), Qt5 licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT),source can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/), no modifications were made
-- [Boost C++ libraries](http://www.boost.org) &rarr; [Boost Software License](licenses/boost/LICENSE_1_0.txt)
-- Microsoft Visual C++ CRT &rarr; [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
-- [JsonCpp](https://github.com/open-source-parsers/jsoncpp) by Baptiste Lepilleur &rarr; [MIT License](licenses/jasoncpp/LICENSE)
-- Sound files &rarr; public domain 2003
-- [FamFam Flag icons](http://www.famfamfam.com/archive/flag-icons-released/) by Mark James &rarr; [public domain](licenses/flags/readme.txt)
-- [Fugue Icons](http://p.yusukekamiyamane.com/) by Yusuke Kamiyamane &rarr; [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/), [copyright.txt](licenses/Fugue-iconset/copyright_fugue.txt), [README.txt](licenses/Fugue-iconset/README.txt)
+Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `licenses` folder of the Ipponboard installation path.
+
+- **[Qt Framework](http://www.qtproject.org)**
+  - Licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT).
+  - Source code can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/).
+  - No modifications were made to the Qt source code.
+  - This application dynamically links to the Qt libraries. You have the freedom to replace the Qt libraries used by this application with your own modified versions.
+  - For more details, refer to the [LGPL v3](licenses/Qt5/LICENSE) license text included in the `licenses` folder or available online at [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
+
+- **[Boost C++ libraries](http://www.boost.org)**
+  - Licensed under [Boost Software License](licenses/boost/LICENSE_1_0.txt).
+
+- **Microsoft Visual C++ CRT**
+  - Licensed under [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt).
+
+- **[JsonCpp](https://github.com/open-source-parsers/jsoncpp)** by Baptiste Lepilleur
+  - Licensed under [MIT License](licenses/jsoncpp/LICENSE).
+
+- **Sound files**
+  - public domain 2003
+
+- **[FamFam Flag icons](http://www.famfamfam.com/archive/flag-icons-released/)** by Mark James
+  - Licensed as [public domain](licenses/flags/readme.txt)
+
+- **[Fugue Icons](http://p.yusukekamiyamane.com/)** by Yusuke Kamiyamane
+  - Licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+  - most files [copyrighted by Yusuke Kamiyamane](licenses/Fugue-iconset/copyright_fugue.txt)
+  - some other files have [different copyright owner](licenses/Fugue-iconset/README.txt)
+
 <!--- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)-->
 
 ## Acknowledgements
