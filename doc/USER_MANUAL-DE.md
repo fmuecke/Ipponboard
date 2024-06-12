@@ -28,9 +28,9 @@
 
 ## Lizenzbedingungen
   
-Ipponboard wurde geschrieben und entwickelt von Florian Mücke.
+Ipponboard wurde entwickelt von Florian Mücke.
 
-*Copyright © 2009-today Florian Mücke.*
+*Copyright © 2009-today Florian Mücke und einige [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md).*
    
 **Ipponboard Binaries**
 

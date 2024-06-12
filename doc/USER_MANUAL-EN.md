@@ -32,7 +32,8 @@
 ## License terms
   
 Ipponboard was written and developed by Florian Mücke.
-Copyright © 2009-today Florian Mücke
+
+_Copyright © 2009-today Florian Mücke and [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md)._
 
 ### Ipponboard binaries
 
