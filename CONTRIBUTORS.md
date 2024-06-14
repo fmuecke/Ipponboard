@@ -1,4 +1,4 @@
-# Contributors
+# Ipponboard Contributors
 
 We would like to express our gratitude to the following individuals who have contributed to the Ipponboard project.
 Your contributions, whether big or small, are greatly appreciated!
