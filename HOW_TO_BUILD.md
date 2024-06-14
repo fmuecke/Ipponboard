@@ -1,121 +1,193 @@
-# Prerequisites
+# How to build Ipponboard
 
-Ipponboard requires the following libraries and tools to get built: 
-- [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2015/2017 a.k.a VC14)
-- [Qt library](https://www.qt.io/) (last used: 5.15.x; 6.x not yet supported)
+To build Ipponboard, there are currently two recommended development platforms:
+
+Build system | Compiler | Target system
+-- | -- | --
+Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2017/2019/2022 a.k.a VC14) | Windows 7 and higher, 32 Bit
+Linux (Ubuntu/WSL) | gcc 11 | Linux 64-Bit (experimental)
+
+> Note: Support for Linux builds is still experimental and may lack some features (sound, printing, gamepad).
+
+## Prerequisites
+
+Ipponboard requires the following libraries and tools to be built: 
+
+- [Qt framework](https://www.qt.io/) (last used: 5.15.x; 6.x not yet supported)
+- [CMake](https://cmake.org) (last used: 3.29.x)
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
-- [Inno Setup](https://jrsoftware.org/isinfo.php) (last used: 6.0)
-- optional: pandoc to build the manual
+- [Pandoc](https://pandoc.org/) to build the HTML manual
+- [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
 
-The first run of `build.ps1` will create a file to configure the paths to the above libraries
+For compilation and configuration of the Qt framework, see the section [Building Qt](#building-qt).
 
-    > build.ps1
-	Please configure paths in "env_cfg.bat" first!
-    Press any key to continue . . .
+## Building on Windows 10/11
 
-Modify those according to your environment. After that you may try building ;)...
+1. Install _Visual Studio_
+2. Install `cmake` and make sure it's available via `%PATH%`
+3. [Build Qt5 framework](#building-qt5-on-windows-1011)
+4. Install _Boost_
+5. Install _Pandoc_ and make sure it's available via `%PATH%`
+6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from Windows PowerShell
 
-    > build.ps1
-    Current config (debug):
+### Building Qt5 on Windows 10/11
 
-        QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
-        BOOST_DIR : c:\devtools\boost_1_81_0
-        ROOT_DIR  : c:\dev\_cpp\Ipponboard
-        BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
-        BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
-        INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
+1. Install Python2 <br>
+    `winget install python.python.2`
 
-    Select build mode:
+2. Get `qt-erverywhere-opensource-src-5.15.*.zip` from https://download.qt.io/official_releases/qt/5.15/
 
-        (1) clean ALL
-        (2) create makefiles
-        (3) tests only
-        (4) build all
-        (5) run Ipponboard
-        (6) build doc
-        (7) translate resources
-        (8) build setup
-        (9) clean build with setup (release)
-        (s) switch debug/release
-        (q) quit
-		
-		
-## Configure Visual Studio Build Tools
+3. Extract archive
 
-You must ensure that you use the same compiler version that was used to build the Qt libraries to build Ipponboard to avoid runtime problems.
+4. Configure
 
-### MSVC v140 using Visual Studio 2019
+    1. Open x86 Native Tools Command Prompt for Visual Studio
 
-1. Make sure the build tools are installed.
-2. Start the VC140 Native Developer Command Prompt
-   e.g. by starting a custom batch file `vc14.cmd` that calls `vcvarsall.bat` or specify the `-vcvars_ver=14.0` parameter manually:
-   ```batch
-   @echo off
-   title Visual Studio Command Shell
-   %comspec% /k "c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.0
-   ```
-   
-#### Ubuntu
+    2. Add to environment path before running `configure.bat`: `set PATH=c:\Python27;%PATH%`
 
-Install required libraries:
+    3. `.\configure -prefix Qt5.15.13 -opensource -confirm-license -platform win32-msvc -debug-and-release -shared -silent -nomake examples -nomake tests -no-dbus -schannel -mp`
 
-    sudo apt-get -y install libpulse-mainloop-glib0
+5. Compile & link <br>
+    `jom`
 
-#### install qt
+6. Install in prefix path directory <br>
+    `jom install`
+
+----
+
+## Building on Linux/Ubuntu/WSL 🐧
+
+1. Install development tools (if needed) <br>
+
+    ```
+    sudo apt update
+    sudo apt install build-essential
+    ```
+
+2. [Build Qt5 framework](#building-qt5-on-ubuntu-wsl) or [use aqt to install Qt5 libraries](#installing-qt5-on-ubuntu-wsl-using-aqt)
+
+3. Install _Boost_:
+    1. Download the recent version from https://www.boost.org
+    2. Extract the archive (no build required as only headers are used)
+    3. Specify the path in `env.cfg` (see [build.sh](#run-buildps1-resp-buildsh))
+
+4. Install _Pandoc_ 
+
+5. [Run `./build.sh` from bash](#run-buildps1-resp-buildsh)
+
+
+### Building Qt5 on Ubuntu (WSL)
+
+Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtime library references (see https://bugreports.qt.io/browse/QTBUG-115146, https://gist.github.com/seyedmmousavi/b1f6681eb37f3edbe3dcabb6e89c5d43)
+
+1. Get `qt-erverywhere-opensource-src-5.15.*.tar.xz` from https://download.qt.io/official_releases/qt/5.15/
+
+2. Extract the archive: 
+
+    ```
+    tar xf /mnt/c/Users/fmuec/Downloads/qt-everywhere-opensource-src-5.15.*.tar.xz
+    ```
+
+3. Install dependencies (required for audio, printing, and PDF export):
+
+    ```
+    sudo apt get install gperf pkg-config bison flex libdbus-1-dev libasound2-dev libcups2-dev libpulse-dev bison flex
+    ```
+
+    TODO: ??? sudo apt install libpulse-mainloop-glib0
+    libnss3-dev nodejs python2 
+
+4. Configure Qt build
+
+    ```
+    ./configure -prefix /usr/local/Qt5.15.13 -opensource -confirm-license -shared -silent -nomake examples -nomake tests -skip qtdoc -skip qtwebengine -openssl-runtime -cups
+    ```
+
+5. Compile & link
+
+    ```
+    gmake -jX
+    ```
+
+    with X being the number of your processor cores
+
+6. Install
+
+    ```
+    sudo gmake install
+    ```
+
+### Installing Qt5 on Ubuntu (WSL) using `aqt`
 
 1. Get aqt ([another qt installer](https://github.com/miurahr/aqtinstall))
-   ```
-   pip install -U pip
-   pip install aqtinstall
-   ```
-1. Get latest Qt version
-   
-   Check https://ddalcino.github.io/aqt-list-server/ and get install command:
-   ```
-   aqt install-qt linux desktop 5.15.2 gcc_64
-   aqt install-tool linux desktop tools_cmake
-   ```
 
-## Using *QtCreator* to build Ipponboard
+    ```
+    pip install -U pip
+    pip install aqtinstall
+    ```
+
+2. Get the latest Qt version
+
+    Check https://ddalcino.github.io/aqt-list-server/ and get the install command:
+
+    ```
+    aqt install-qt linux desktop 5.15.2 gcc_64
+    aqt install-tool linux desktop tools_cmake
+    ```
+
+## Using *QtCreator* to develop Ipponboard
 
 1. Download and install [QCreator](https://github.com/qt-creator/qt-creator/releases/)
 2. Configure the Qt environment
 3. Open `base/CmakeLists.txt` with QtCreator
-4. be sure that `QTDIR` points to the respective Qt installation
-6. add `BOOST_DIR` to the environment variables of the project
-5. define boolean key `USE_QT5=ON` if you want to use Qt5 (use Qt4 otherwise)
+4. Make sure that `QTDIR` points to the respective Qt installation
+5. Add `BOOST_DIR` to the environment variables of the project
+6. Define the boolean key `USE_QT5=ON` if you want to use Qt5 (use Qt4 otherwise)
 
 ### Configuring CDB Debugger
 
 1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
-2. Insert path in the QtCreator debugger options (tab *CDB paths*): e.g. `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
+2. Insert the path in the QtCreator debugger options (tab *CDB paths*): e.g., `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
 
 
-### Building Qt on Ubuntu (WSL)
+## Appendix
 
-1. get `qt-erverywhere-opensource-src-5.15...tar.xz`
-2. extract archive: 
-    `tar xf /mnt/c/Users/fmuec/Downloads/qt-everywhere-opensource-src-5.15.13.tar.xz`
-3. configure
-     `./configure -prefix /usr/local/Qt5.15.13 -opensource -confirm-license -shared -silent -nomake examples -nomake tests -no-dbus -skip qtdoc`
-4. compile & link
-   `gmake -j8`
-5. install
-    `sudo gmake install`
-	
-	
-### Building Qt on Windows 11
+### Run `build.ps1` resp. `build.sh`
 
-1. Install Python2
-    `winget install python.python.2`
-1. get `qt-erverywhere-opensource-src-5.15.13.zip`
-1. extract archive
-1. configure
-     1. Open x86 Native Tools Command Prompt for Visual Studio
- 	 1. Add to environment path before running `configure.bat`: `set PATH=c:\Python27;%PATH%`
-     1. `configure -prefix Qt5.15.13 -opensource -confirm-license -platform win32-msvc -debug-and-release -shared -silent -nomake examples -nomake tests -no-dbus -schannel -mp`
-1. compile & link
-   `jom`
-1. install
-   `jom install`
+The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
+
+```
+> build.ps1
+Please configure paths in "env_cfg.bat" first!
+Press any key to continue . . .
+```
+
+Modify those according to your environment. After that, you may try building ;)... 
+
+```
+> build.ps1
+Current config (debug):
+
+     QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
+     BOOST_DIR : c:\devtools\boost_1_81_0
+     ROOT_DIR  : c:\dev\_cpp\Ipponboard
+     BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
+     BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
+     INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
+
+Select build mode:
+
+     (1) clean ALL
+     (2) create makefiles
+     (3) tests only
+     (4) build all
+     (5) run Ipponboard
+     (6) build doc
+     (7) translate resources
+     (8) build setup
+     (9) clean build with setup (release)
+     (s) switch debug/release
+     (q) quit
+```
+
