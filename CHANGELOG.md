@@ -3,11 +3,10 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version 2.x (2023-xx-yy)
-- (new): Linux build
-- (mod): Using InnoSetup 6 install engine: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
-- (mod): updated to Qt5 (Qt4 is out-of-support since May 2015)
-  - requires at least Windows Vista to run
-- (internal) switched internal build system to CMAKE for better compatibility regagding different build environments
+- (new): experimental support for Linux builds (no sound, printing or gamepad so far)
+- (mod): Updated InnoSetup installation engine to v6.x: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
+- (mod): updated to Qt5 (Qt4 is out-of-support since May 2015) --> requires at least Windows Vista to run
+- (internal) switched internal build system to CMAKE for better compatibility regarding different build environments
 - (mod): updated bjv logo
 - (fix): fixed several smaller errors and compiler warnings
   - improved layout calculation of scaled texts
@@ -16,7 +15,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
   - "--mode team" directly starts team tournament mode
   - "--mode single" directly starts in single tournament mode
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
-- (mod): simplified adding new fighters in the fighter manager
+- (mod): simplified adding new fighters in the fighter manager (TODO merge branch)
   - use *del* key to remove and *ins* key to add
 
 ## Version 2.0 (2021-01-10; 3158e7af7289af1e8bbb30cf8a8e919cdaf6e507)
