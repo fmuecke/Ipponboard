@@ -148,8 +148,9 @@ function build_all {
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG -j"$NUM_CORES" || return 1
 
-    run_tests
-    return $?
+    run_tests || return $?
+    build_doc || return $?
+    return 0
 }
 
 function run {
@@ -174,9 +175,13 @@ function build_doc {
 
     echo "Creating Docs..."
     BASE_DIR="$IPPONBOARD_ROOT_DIR/doc"
-    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --metadata=title:Anleitung --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || exit $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --metadata=title:"User Manual" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || exit $?
-    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --css="$BASE_DIR/Ipponboard.css" --self-contained || exit $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --metadata=title:Anleitung --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --metadata=title:"User Manual" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --css="$BASE_DIR/Ipponboard.css" --self-contained || return $?
+
+    echo "Copying license files..."
+    cp -r "$BASE_DIR/licenses" "$BIN_DIR/licenses" || return $?
+    echo "done."
     return 0
 }
 
