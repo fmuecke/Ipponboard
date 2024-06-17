@@ -116,7 +116,7 @@ function Create-Makefiles {
     if ($LASTEXITCODE -ne 0) { return $false }
     
     cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 17 2022" -A Win32 --fresh
-    return ($LASTEXITCODE -eq 0)
+    if ($LASTEXITCODE -ne 0) { return $false }
 }
 
 function Run-Tests {
@@ -136,15 +136,19 @@ function Build-and-run-tests {
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
 
-    return Run-Tests
+    $success = Run-Tests
+    return $success
 }
 
 function Build-ALL {
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
-    # run tests
-    return Run-Tests
+    $success = Run-Tests
+    if (-not $success) { return $false }
+
+    $success = Build-Doc
+    return $success
 }
 
 function Run {
@@ -165,18 +169,15 @@ function CleanBuildWithSetup {
 
     if ($CONFIG -ne "release") { Switch-Config }
 
-    Create-Makefiles
-    if ($LASTEXITCODE -ne 0) { return $false }
+    $success = Create-Makefiles
+    if (-not $success) { return $false }
 
-    Build-ALL
-    if ($LASTEXITCODE -ne 0) { return $false }
-
-    Build-Doc
-    if ($LASTEXITCODE -ne 0) { return $false }
+    $success = Build-ALL
+    if (-not $success) { return $false }
 
     #Translate-Resources
-    Build-Setup
-    return ($LASTEXITCODE -eq 0)
+    $success = Build-Setup
+    return $success
 }
 
 function Build-Doc {
