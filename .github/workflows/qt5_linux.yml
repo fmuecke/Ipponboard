@@ -2,9 +2,9 @@ name: Qt5 Linux CI
 
 on:
   push:
-    branches: [ "use_qt5" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "use_qt5" ]
+    branches: [ "main" ]
 
 jobs:
   build:
