@@ -21,6 +21,47 @@ Ipponboard requires the following libraries and tools to be built:
 
 For compilation and configuration of the Qt framework, see the section [Building Qt](#building-qt).
 
+## Run `build.ps1` resp. `build.sh`
+
+Note: Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
+
+The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
+
+```
+> build.ps1
+Please configure paths in "env_cfg.bat" first!
+Press any key to continue . . .
+```
+
+Modify those according to your environment. After that, you may try building ;)... 
+
+```
+> build.ps1
+Current config (debug):
+
+     QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
+     BOOST_DIR : c:\devtools\boost_1_81_0
+     ROOT_DIR  : c:\dev\_cpp\Ipponboard
+     BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
+     BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
+     INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
+
+Select build mode:
+
+     (1) clean ALL
+     (2) create makefiles
+     (3) tests only
+     (4) build all
+     (5) run Ipponboard
+     (6) build doc
+     (7) translate resources
+     (8) build setup
+     (9) clean build with setup (release)
+     (s) switch debug/release
+     (q) quit
+```
+
+
 ## Building on Windows 10/11
 
 1. Install _Visual Studio_
@@ -57,12 +98,6 @@ For compilation and configuration of the Qt framework, see the section [Building
 
 ## Building on Linux/Ubuntu/WSL 🐧
 
-1. Install development tools (if needed) <br>
-
-    ```
-    sudo apt update
-    sudo apt install build-essential
-    ```
 
 2. [Build Qt5 framework](#building-qt5-on-ubuntu-wsl) or [use aqt to install Qt5 libraries](#installing-qt5-on-ubuntu-wsl-using-aqt)
 
@@ -78,17 +113,25 @@ For compilation and configuration of the Qt framework, see the section [Building
 
 ### Building Qt5 on Ubuntu (WSL)
 
-Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtime library references (see https://bugreports.qt.io/browse/QTBUG-115146, https://gist.github.com/seyedmmousavi/b1f6681eb37f3edbe3dcabb6e89c5d43)
+1. Install development tools (if needed) <br>
+
+    ```
+    sudo apt-get update
+    sudo apt-get install build-essential libgl1-mesa-dev libgstreamer-gl1.0-0 libpulse-dev libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxkbcommon-x11-0 libxcb-xkb-dev -y
+    ```
 
 1. Get `qt-erverywhere-opensource-src-5.15.*.tar.xz` from https://download.qt.io/official_releases/qt/5.15/
 
-2. Extract the archive: 
+    _Note:_ Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtime library references (see https://bugreports.qt.io/browse/QTBUG-115146, https://gist.github.com/seyedmmousavi/b1f6681eb37f3edbe3dcabb6e89c5d43)
+
+
+1. Extract the archive: 
 
     ```
     tar xf /mnt/c/Users/fmuec/Downloads/qt-everywhere-opensource-src-5.15.*.tar.xz
     ```
 
-3. Install dependencies (required for audio, printing, and PDF export):
+1. Install dependencies (required for audio, printing, and PDF export):
 
     ```
     sudo apt get install gperf pkg-config bison flex libdbus-1-dev libasound2-dev libcups2-dev libpulse-dev bison flex
@@ -97,13 +140,13 @@ Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtim
     TODO: ??? sudo apt install libpulse-mainloop-glib0
     libnss3-dev nodejs python2 
 
-4. Configure Qt build
+1. Configure Qt build
 
     ```
     ./configure -prefix /usr/local/Qt5.15.13 -opensource -confirm-license -shared -silent -nomake examples -nomake tests -skip qtdoc -skip qtwebengine -openssl-runtime -cups
     ```
 
-5. Compile & link
+1. Compile & link
 
     ```
     gmake -jX
@@ -111,7 +154,7 @@ Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtim
 
     with X being the number of your processor cores
 
-6. Install
+1. Install
 
     ```
     sudo gmake install
@@ -149,45 +192,4 @@ Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtim
 1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
 2. Insert the path in the QtCreator debugger options (tab *CDB paths*): e.g., `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
-
-
-## Appendix
-
-### Run `build.ps1` resp. `build.sh`
-
-The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
-
-```
-> build.ps1
-Please configure paths in "env_cfg.bat" first!
-Press any key to continue . . .
-```
-
-Modify those according to your environment. After that, you may try building ;)... 
-
-```
-> build.ps1
-Current config (debug):
-
-     QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
-     BOOST_DIR : c:\devtools\boost_1_81_0
-     ROOT_DIR  : c:\dev\_cpp\Ipponboard
-     BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
-     BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
-     INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
-
-Select build mode:
-
-     (1) clean ALL
-     (2) create makefiles
-     (3) tests only
-     (4) build all
-     (5) run Ipponboard
-     (6) build doc
-     (7) translate resources
-     (8) build setup
-     (9) clean build with setup (release)
-     (s) switch debug/release
-     (q) quit
-```
 
