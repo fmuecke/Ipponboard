@@ -1,3 +1,5 @@
+[![Linux CI build](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml/badge.svg)](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml)
+
 # Content
 
 - [Why it's *so* cool!](#why-its-so-cool)

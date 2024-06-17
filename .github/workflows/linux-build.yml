@@ -1,4 +1,4 @@
-name: Qt5 Linux CI
+name: Linux CI build
 
 on:
   push:
