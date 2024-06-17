@@ -30,6 +30,7 @@ function init_environment {
     export BUILD_DIR="$IPPONBOARD_ROOT_DIR/_build/Ipponboard-Linux"
     export BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Ipponboard-$CONFIG"
     export TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Test-$CONFIG"
+    export OUTPUT_DIR="$IPPONBOARD_ROOT_DIR/_output"
 }
 
 function read_env_cfg {
@@ -60,8 +61,8 @@ function show_menu {
         (5) run Ipponboard
         (6) build doc
         (7) translate resources
-        (8) make tgz
-        (9) clean build with tgz (release only)
+        (8) make archive
+        (9) clean build; make archive (release only)
         (s) switch debug/release
         (q) quit
     "
@@ -93,8 +94,8 @@ function main_loop {
             '5') execute_and_measure run ;;
             '6') execute_and_measure build_doc ;;
             '7') execute_and_measure translate_resources ;;
-            '8') execute_and_measure make_tgz ;;
-            '9') execute_and_measure clean_build_with_setup ;;
+            '8') execute_and_measure make_archive ;;
+            '9') execute_and_measure clean_build_with_archive ;;
             's') switch_config ;;
             'q') break ;;
             *) echo "Invalid choice" ;;
@@ -104,7 +105,7 @@ function main_loop {
 
 function clean_all {
     # remove _bin and _build directories
-    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$IPPONBOARD_ROOT_DIR/_build" "$IPPONBOARD_ROOT_DIR/_output")
+    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$IPPONBOARD_ROOT_DIR/_build" "$OUTPUT_DIR")
     for item in "${dirs[@]}"; do
         echo "Removing $item"
         if [ -d "$item" ]; then
@@ -187,33 +188,42 @@ function build_doc {
 
 function translate_resources {
     echo "not iplemented yet"
-    return 1
+    read -p "Press enter to continue"
+
+    mkdir -p "$BIN_DIR/lang"
+    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/de.ts" -qm "$BIN_DIR/lang/de.qm" || return $?
+    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/nl.ts" -qm "$BIN_DIR/lang/nl.qm" || return $?
+    return 0
 }
 
-function make_tgz {
-    echo "not implemented yet"
-    return 1
-    #  TAG=$(git describe --tags --exact-match)
-    #  if [ -z "$TAG" ];then
-    #    ARCHIVE_NAME=Ipponboard-"$REV"_"$QT_VERSION"_"$DIST"-"$ARCH"
-    #  else
-    #    ARCHIVE_NAME=Ipponboard-"$TAG"_"$QT_VERSION"_"$DIST"-"$ARCH"
-    #  fi
-    #  OLD_FOLDER=$(basename "$BIN_DIR")
-    #
-    #  pushd "$BIN_DIR/.."
-    #
-    #  mv $OLD_FOLDER $ARCHIVE_NAME
-    #  tar -zcvf $ARCHIVE_NAME.tgz $ARCHIVE_NAME
-    #  rm -rf $ARCHIVE_NAME
-    #
-    #  popd
-    #
+function make_archive {
+    ARCH=$(uname -m)
+    SYSTEM=$(uname -s)
+    RELEASE=$(uname -r)
+    
+    # Ipponboard-Release-Linux-x86_64-5.15.153.1-microsoft-standard-WSL2
+    ARCHIVE_NAME="$OUTPUT_DIR/Ipponboard-$SYSTEM-$ARCH-$RELEASE-$CONFIG.7z"
+    if [ -f "$ARCHIVE_NAME" ]; then
+        rm "$ARCHIVE_NAME"
+    fi
+    echo "Creating archive $ARCHIVE_NAME"
+    7z a "$ARCHIVE_NAME" "$BIN_DIR/*" -bso0 -bsp1 || return $?
+    ARCHIVESIZE=$(du -b "$ARCHIVE_NAME" | awk '{print $1}')
+    echo "Archive created with $ARCHIVESIZE bytes"
+    return $?
 }
 
-function clean_build_with_setup {
-    echo "not implemented yet"
-    return 1
+function clean_build_with_archive {
+    
+    if [ "$CONFIG" != "release" ]; then
+        switch_config
+    fi
+    clean_all || return $?
+    create_makefiles || return $?
+    build_all || return $?
+    make_archive || return $?
+    
+    return 0
 }
 
 function switch_config {
