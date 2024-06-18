@@ -9,13 +9,6 @@
 #	include <Windows.h>
 #	include <Shlobj.h>
 //#	pragma comment(lib,"Shell32.lib")
-#else
-#	error "not implemented"
-#endif
-
-// c++0x workaround
-#if _MSC_VER < 1600
-#define nullptr NULL
 #endif
 
 #include <string>
@@ -27,31 +20,7 @@ namespace fm
 namespace
 {
 
-enum EShellFolderType_DEPRECATED
-{
-	// http://msdn.microsoft.com/en-us/library/bb762494(v=vs.85).aspx
-	eShellFolderType_ADMINTOOLS = CSIDL_ADMINTOOLS,
-	//eShellFolderType_APPDATA
-	eShellFolderType_COMMON_APPDATA = CSIDL_COMMON_APPDATA
-	//eShellFolderType_COMMON_DOCUMENTS
-	//eShellFolderType_DESKTOP
-	//eShellFolderType_LOCAL_APPDATA
-};
-
-const std::string GetShellFolder_DEPRECATED(EShellFolderType_DEPRECATED what)
-{
-#ifndef _WIN32
-	// TODO: handle other platforms (when needed)
-#error "not implemented yet"
-#endif
-	std::string ret;
-	char folder[MAX_PATH + 1] = {0};
-
-	if (S_OK == ::SHGetFolderPathA(0, what, 0, /*SHGFP_TYPE_CURRENT*/0, folder))
-		ret.assign(folder);
-
-	return ret;
-}
+#ifdef _WIN32
 
 struct KnownFolders
 {
@@ -90,13 +59,13 @@ private:
 		return result;
 	}
 };
-
+#endif
 
 const std::string GetSettingsFilePath(const char* fileName)
 {
+#ifdef _WIN32
 	// (1) use file in common app data
 	// (2) create file or error
-	//std::string filePath(fileName);
 
 	std::filesystem::path basePath{ KnownFolders::get_LocalAppData() };
 	if (!std::filesystem::exists(basePath))
@@ -111,9 +80,14 @@ const std::string GetSettingsFilePath(const char* fileName)
 	}
 
 	return configPath.append(fileName).string();
+
+#else
+    //TODO: implement proper file path handling for linux
+    return fileName;
+#endif
 }
 
 } // anonymous namespace
-}
+} // namespace fmu
 
 #endif  // UTIL__PATH_HELPERS_H_

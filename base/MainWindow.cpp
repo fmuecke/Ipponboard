@@ -9,15 +9,9 @@
 #include "../base/FightCategoryManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
 #include "../base/View.h"
-#include "../base/versioninfo.h"
 #include "../core/Controller.h"
-#include "../core/ControllerConfig.h"
+
 #include "../core/Fighter.h"
-#include "../core/TournamentModel.h"
-#include "../gamepad/gamepad.h"
-#include "../util/path_helpers.h"
-#include "../Widgets/ScaledImage.h"
-#include "../Widgets/ScaledText.h"
 
 #include <QColorDialog>
 #include <QComboBox>
@@ -33,7 +27,6 @@
 #include <QSettings>
 #include <QTimer>
 #include <QUrl>
-#include <functional>
 
 namespace StrTags
 {
@@ -153,16 +146,16 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 	{
 		if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
 		{
-			m_pController->SetRoundTime(QTime());
+			m_pController->SetRoundTime(QTime(0,0,0,0));
 		}
 		else
 		{
-			m_pController->SetRoundTime(QTime().addSecs(t.GetGoldenScoreTime()));
+			m_pController->SetRoundTime(QTime(0,0,0,0).addSecs(t.GetGoldenScoreTime()));
 		}
 	}
 	else
 	{
-		m_pController->SetRoundTime(QTime().addSecs(t.GetRoundTime()));
+		m_pController->SetRoundTime(QTime(0,0,0,0).addSecs(t.GetRoundTime()));
 	}
 }
 
@@ -401,7 +394,7 @@ void MainWindow::read_specific_settings(QSettings& settings)
 {
 	settings.beginGroup(EditionNameShort());
 	{
-		m_MatLabel = settings.value(str_tag_MatLabel, "  www.ipponboard.info   ").toString(); // value is also in settings dialog!
+        m_MatLabel = settings.value(str_tag_MatLabel, "Ipponboard").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
 

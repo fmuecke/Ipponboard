@@ -3,16 +3,19 @@
 // found in the LICENSE.txt file.
 
 #include "FightCategoryManager.h"
+
 #include <QObject>
+
+#include <QMessageBox>
+#include <QFile>
+
+#include "../util/path_helpers.h"
+#include "FightCategoryParser.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <QMessageBox>
-#include <QFile>
-#include "../util/path_helpers.h"
-#include "FightCategoryParser.h"
 
 using namespace Ipponboard;
 
@@ -41,7 +44,7 @@ bool FightCategoryMgr::GetCategory(int index,
 {
 	try
 	{
-		t = m_Categories.at(index);
+        	t = m_Categories.at(static_cast<size_t>(index));
 	}
 	catch (std::out_of_range&)
 	{
@@ -171,7 +174,7 @@ void FightCategoryMgr::load_categories()
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(0,
+		QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
 										  QString::fromStdString(e.what()))));
@@ -195,14 +198,14 @@ void FightCategoryMgr::CategoriesFromString_UNUSED(std::string const& s) // thro
 	try
 	{
 		auto cats = FightCategoryParser::ParseJsonString(s);
-		throw std::exception("fromString failed");
+		throw std::runtime_error("fromString failed");
 		m_Categories.clear();
 		for (auto const & cat : cats)
 		{
 			AddCategory(cat);
 		}
 	}
-	catch (std::exception const&)
+	catch (std::runtime_error const&)
 	{
 		throw; // re-throw
 	}
@@ -214,10 +217,10 @@ std::string FightCategoryMgr::CategoriesToString_UNUSED() // throws std::excepti
 {
 	try
 	{
-		throw std::exception("toString failed");
+		throw std::runtime_error("toString failed");
 		return FightCategoryParser::ToJsonString(m_Categories);
 	}
-	catch (std::exception const&)
+	catch (std::runtime_error const&)
 	{
 		throw; // re-throw
 	}

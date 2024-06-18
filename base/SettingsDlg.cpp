@@ -4,14 +4,16 @@
 
 #include "SettingsDlg.h"
 #include "ui_SettingsDlg.h"
+#ifdef _WIN32
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/ControllerConfig.h"
-#include "../core/Rules.h"
 
 #include <QStringList>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
+#include <QScreen>
 #include <QSound>
 #include <QColorDialog>
 
@@ -52,7 +54,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->text_color_first->SetText(tr("FIRST FIGHTER"));
 	ui->text_color_second->SetText(tr("SECOND FIGHTER"));
 
-	// build button text map
+#ifdef _WIN32
+    // build button text map
 	m_buttonTexts[FMlib::Gamepad::eButton1] = "button 1";
 	m_buttonTexts[FMlib::Gamepad::eButton2] = "button 2";
 	m_buttonTexts[FMlib::Gamepad::eButton3] = "button 3";
@@ -74,7 +77,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	m_buttonTexts[FMlib::Gamepad::eButton_pov_right_back] = "POV right back";
 	m_buttonTexts[FMlib::Gamepad::eButton_pov_left_back] = "POV left back";
 	m_buttonTexts[FMlib::Gamepad::eButton_pov_left_fwd] = "POV left fwd";
-
+#endif
 	QStringList buttons;
 	ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
 
@@ -98,11 +101,11 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_hansokumake_second->addItems(buttons);
 
 	// num screens
-	int screens = QApplication::desktop()->numScreens();
+    int numScreens = QGuiApplication::screens().count();
 
-	for (int i(1); i <= screens; ++i)
+    for (int i(1); i <= numScreens; ++i)
 	{
-		QRect res = QApplication::desktop()->screenGeometry(i - 1);
+        QRect res = QGuiApplication::screens().at(i - 1)->availableGeometry();
 
 		ui->comboBox_screen->addItem(
 			QString("%1 (%2x%3)").arg(
@@ -177,7 +180,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	modifierVals << "Alt+Shift";
 	modifierVals << "Ctrl+Alt+Shift";
 
-	//FIXME: enable this when keyboard acces is customizable
+	//FIXME: enable this when keyboard access is customizable
 	//for (int i = 0; i < ui->tableWidget_keys->rowCount(); ++i)
 	//{
 	//	QComboBox* pCombo = new QComboBox();

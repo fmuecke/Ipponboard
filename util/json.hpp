@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "jsoncpp\json.h"
+#include "jsoncpp/json.h"
 //#include "jsoncpp\json.cpp"
 
 #include <filesystem>
@@ -26,7 +26,7 @@ namespace fm
 			{
 			}
 
-			virtual const char * what() const override
+            virtual const char * what() const noexcept override
 			{
 				return m_message.c_str();
 			}
@@ -53,7 +53,9 @@ namespace fm
         {
             // skip byte-order-mark
             auto content = str;
-            if (str[0] == (char)0xEF && str[1] == (char)0xBB && str[2] == (char)0xBF)
+            if (str[0] == static_cast<char>(0xEF) &&
+                str[1] == static_cast<char>(0xBB) &&
+                str[2] == static_cast<char>(0xBF))
             {
                 content = str.substr(3);
             }
@@ -86,7 +88,9 @@ namespace fm
 			auto content = buffer.str();
 			buffer.clear();
 
-			if (content[0] == (char)0xEF && content[1] == (char)0xBB && content[2] == (char)0xBF)
+            if (content[0] == static_cast<char>(0xEF) &&
+                content[1] == static_cast<char>(0xBB) &&
+                content[2] == static_cast<char>(0xBF))
 			{
 				content = content.substr(3);
 			}
@@ -105,6 +109,7 @@ namespace fm
 			}
 		}
 
+    /* UNUSED functions
         static void WriteFile(const char * const & file, std::string const& str, bool writeBom = true)
 		{
 			try
@@ -114,7 +119,9 @@ namespace fm
 				{
 					if (writeBom)
 					{
-						t << (char)0xEF << (char)0xBB << (char)0xBF;
+                        t << static_cast<char>(0xEF)
+                          << static_cast<char>(0xBB)
+                          << static_cast<char>(0xBF);
 					}
 
                     t << str;
@@ -148,6 +155,7 @@ namespace fm
 			result.clear();
 			return true;
 		}
-	}
+    */
+    }
 }
 

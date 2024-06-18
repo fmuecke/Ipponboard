@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -13,16 +13,16 @@ using namespace FMlib;
 
 GamepadDemo::GamepadDemo(QWidget* parent)
 	: QMainWindow(parent)
-	, ui(new Ui::GamepadDemo)
-	, m_pSBarText(0)
-	, m_pTimer(0)
+	, ui(new Ui::GamepadDemo())
+	, m_pSBarText(nullptr)
+	, m_pTimer(nullptr)
 	, m_pGamepad(new Gamepad)
 {
 	ui->setupUi(this);
 	m_pSBarText = new QLabel;
 	m_pSBarText->setText("-");
 	ui->statusBar->addWidget(m_pSBarText, 1);
-	ui->label_copyRight->setText(QString("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
+	ui->label_copyRight->setText(QString::fromUtf8("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 
 	ui->image_button_1->UpdateImage(":images/off.png");
 	ui->image_button_2->UpdateImage(":images/off.png");
@@ -36,7 +36,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 	ui->image_button_10->UpdateImage(":images/off.png");
 	ui->image_button_11->UpdateImage(":images/off.png");
 	ui->image_button_12->UpdateImage(":images/off.png");
-	QTimer* m_pTimer = new QTimer;
+	m_pTimer = new QTimer(this);
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GetData()));
 
 	if (Gamepad::eState_ok != m_pGamepad->GetState())
@@ -57,7 +57,11 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 
 GamepadDemo::~GamepadDemo()
 {
-	delete ui;
+	// clean up member objects
+	// ui --> unique_ptr
+	// m_pGamepad --> unique_ptr
+	// m_pTime --> killed via object hierarchy
+	// m_pSBarText --> killed via object hierarchy
 }
 
 void GamepadDemo::changeEvent(QEvent* e)
@@ -87,7 +91,7 @@ void GamepadDemo::UpdateCapabilities()
 
 	vals.clear();
 	vals.append("Product name");
-	vals.append(QString::fromWCharArray(m_pGamepad->GetProductName()));
+    vals.append(QString::fromWCharArray(m_pGamepad->GetProductName()));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
@@ -244,10 +248,10 @@ void GamepadDemo::GetData()
 	ui->lineEdit_pov->setText(QString::number(m_pGamepad->GetPOV()));
 
 	ui->lineEdit_degrees_1->setText(
-		QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + "°");
+		QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + QString::fromUtf8("°"));
 
 	ui->lineEdit_degrees_2->setText(
-		QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + "°");
+		QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + QString::fromUtf8("°"));
 
 	UpdateButtonState(Gamepad::eButton1);
 	UpdateButtonState(Gamepad::eButton2);

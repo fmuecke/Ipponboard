@@ -1,5 +1,6 @@
-# *Ipponboard* - Version History 
-<small>by Florian Mücke</small>
+% Ipponboard Changelog
+
+For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version 2.x (2023-xx-yy)
 
@@ -16,35 +17,50 @@
 - (new): added fighter manager description to the manual (single tournament)
 - (new): added demo fighters `FighterList-Demo.csv`
 
-## Version 2.0 (2021-01-10)
 
-**Ipponboard is now open source**; changed license to BSD-2-clause. See https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt
+## Version 2.2 (2024-06-18)
 
-## Version 1.10-beta (2018-01-14)
+- (new): experimental support for Linux builds (no sound, printing or gamepad so far)
+- (mod): Updated InnoSetup installation engine to v6.x: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
+- (mod): updated to Qt5 (Qt4 is out-of-support since May 2015) --> requires at least Windows Vista to run
+- (internal) switched internal build system to CMAKE for better compatibility regarding different build environments
+- (mod): updated bjv logo
+- (fix): fixed several smaller errors and compiler warnings
+  - improved layout calculation of scaled texts
+  - replaced reference to obsolete website
+- (new): tournament mode can be selected via command line switch (skips splash screen)
+  - "--mode team" directly starts team tournament mode
+  - "--mode single" directly starts in single tournament mode
+
+## Version 2.0 (2021-01-10; 3158e7af7289af1e8bbb30cf8a8e919cdaf6e507)
+
+**Ipponboard is now open source**; changed license to BSD-2-clause. See [https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt](https://github.com/fmuecke/Ipponboard/blob/main/LICENSE.txt)
+
+## Version 1.10-beta (2018-01-14; de62239)
 
 - (new): support for IJF-2018 rules
 - (new): includes German manual (still work in progress)
 - (mod): updated Dutch translation (google translate)
 - known issues: you can add more than two wazaari
 
-## Version 1.9-beta2 (2017-07-03)
+## Version 1.9-beta2 (2017-07-03; 01a8c09)
 
 - (fix): resetting main timer to correct value after switching fight classes or using Golden Score
 - (fix): starting timer is not only possible if points are equal (Golden Score mode)
 - (new): team tournament now supports Golden Score 
 
-## Version 1.8-beta3 (2017-03-25)
+## Version 1.8-beta3 (2017-03-25; 1e6f077)
 
 - (fix): URL for issue tracke does not lead to 404
 - (fix): auto adjust settings is being restored properly
 
-## Version 1.8-beta2 (2017-03-19)
+## Version 1.8-beta2 (2017-03-19; 0b7d45f)
 
 - (new): team tournament mode with current IJF rules: rules can now be configured via the mode manager
 - (mod): automatically adjusting points is no longer a mode specific setting but a general program option
 - (fix): added missing files: categories.json, clubs.json, TournamentModes.ini
 
-## Version 1.7-beta3 (2017-03-06)
+## Version 1.7-beta3 (2017-03-06; 613fc26)
 
 - (new): separate mode for new U15 matches (which allows four shidos)
 
@@ -72,14 +88,14 @@
 - (fix): improved German and English translation
 - (fix): fixed a potential crash during initialization of manual fighter import
 
-## Version 1.5.1 (2015-03-13)
+## Version 1.5.1 (2015-03-13; ebafa46)
 
 - (new): empty fights/unassigned fighters are shown as "--" on the board and in the lists (issue \#31 & \#11)
 - (mod): path to club logos is stored releative to the program folder instead of using an absolute path (Team Edition only) (issue \#9)
 - (fix): mode manager did show wrong values / did overwrite other items (issue \#40)
 - (fix): improved wording in German translation (issue \#23)
 
-## Version 1.5 (2015-02-22)
+## Version 1.5 (2015-02-22; 92d01f2)
 
 - (new): made team edition available freely
 - (new): Dutch localization for basic edition (thanks to Jan D'haene)
@@ -88,7 +104,7 @@
 - (mod): removed one-year restrictions for team edition
 - (fix): fixed some Windows XP compatibility issues
 
-## Version 1.4 (2014-04-13)
+## Version 1.4 (2014-04-13; a2f23e1)
 
 *Team edition valid until 01/2015**
     
@@ -102,7 +118,7 @@
 - (fix): translation (DE) was missing in some parts of the basic edition
 - (fix): removed empty Open/Save command from menu
 
-## Version 1.3.3 (2014-03-26)
+## Version 1.3.3 (2014-03-26; 844c934)
 
 **Team edition valid until 01/2015**
   
@@ -127,7 +143,7 @@
 - (new): redesigned some parts of the UI
   - re-worked visualization of saved fights
 
-## Version 1.2.2 (2014-02-07)
+## Version 1.2.2 (2014-02-07; 611be16)
 
 **Team edition valid until 01/2014**
   
@@ -140,9 +156,7 @@
 - (mod): all primer leagues use IJF rules of 2013 per default all others don't
 - (fix): single shidos did lead to a wrong result in the score and subscore (2013 rules only, issue \#27)
 
-## Version 1.2
-
-2013-01-19
+## Version 1.2 (2013-01-19; ec3fa44)
 
 - (new): implemented new IJF rules of 2013
   - Penalties(1): Shidos do not give points to the other fighter (except forth Shido = Hasokumake). At the end of the fight, if scoring is equal, the one with less Shido wins. (issue \#18)
@@ -162,15 +176,11 @@
   dimension input fields for manual setting when unchecked
 - (fix): don't allow invalid times like "-1:22" to be set for main timer
 
-## Version 1.0.1
-
-2012-09-08
+## Version 1.0.1 (2012-09-08)
 
 - (mod): removed time limitation
 
-## Version 1.0
-
-2012-01-22
+## Version 1.0 (2012-01-22; 7b453af)
 
 - (new): optimized GUI
 - (new): separate osaekomi controls for each fighter (this greatly improves mouse handling!)

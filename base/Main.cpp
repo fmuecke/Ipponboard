@@ -1,24 +1,36 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
 #include "MainWindow.h"
 #include "MainWindowTeam.h"
-#include "../core/TournamentMode.h"
+//#include "../core/TournamentMode.h"
 #include "SplashScreen.h"
 #include "versioninfo.h"
-#include "UpdateChecker.h"
+#include "OnlineVersionChecker.h"
 #include "../util/path_helpers.h"
 
-#include <QtGui/QApplication>
+#include <QApplication>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QTranslator>
 #include <QMessageBox>
 #include <QSettings>
 #include <QFile>
 #include <QLocale>
-#include <QtextCodec>
+//#include <QtextCodec>
+#include <QCommandLineParser>
+#include <QDebug>
+#include <QTextStream>
 
-
+#ifndef _WIN32
+#ifndef NO_ERROR
+#define NO_ERROR 0
+#endif
+#ifndef ERROR_INVALID_PARAMETER
+#define ERROR_INVALID_PARAMETER 1
+#endif
+#endif
 
 void LangNotFound(const QString& fileName)
 {
@@ -30,7 +42,7 @@ void LangNotFound(const QString& fileName)
 
 void SetTranslation(QApplication& app, QTranslator& translator, QString const& langStr)
 {
-	UNREFERENCED_PARAMETER(app);
+    Q_UNUSED(app);
 
 	if (langStr == QString("en"))
 	{
@@ -39,8 +51,7 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
 	if (langStr == QString("de") || langStr == QString("nl"))
 	{
-		const QString& langPath =
-			QCoreApplication::applicationDirPath() + QString("/lang");
+		const QString& langPath = QCoreApplication::applicationDirPath() + QString("/lang");
 
 		if (translator.load(langStr, langPath))
 		{
@@ -99,14 +110,72 @@ int ShowSplashScreen()
 	return dlgResult;
 }
 
+void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString &msg)
+{
+    Q_UNUSED(context)
+    QString logLevel;
+    switch (type)
+    {
+    case QtDebugMsg:
+        logLevel = "DBUG";
+        break;
+    case QtInfoMsg:
+        logLevel = "INFO";
+        break;
+    case QtWarningMsg:
+        logLevel = "WARN";
+        break;
+    case QtCriticalMsg:
+        logLevel = "CRIT";
+        break;
+    case QtFatalMsg:
+        logLevel = "FATL";
+        break;
+    }
+
+    QString logMsg = QString("%1 %2 %3").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(logLevel).arg(msg);
+
+    QFile logFile(QCoreApplication::applicationName() + ".log");
+    if (logFile.open(QIODevice::WriteOnly | QIODevice::Append))
+    {
+        QTextStream out(&logFile);
+        out << logMsg << Qt::endl;
+    }
+}
+
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
+    // Open the log file and truncate existing content
+    QFile logFile(QCoreApplication::applicationName() + ".log");
+    if (logFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        logFile.close(); // Close file after truncating
+    }
+
+    qInstallMessageHandler(CustomMessageHandler);
+
 	QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-	QCoreApplication::setOrganizationName("Florian Mücke");
-	QCoreApplication::setOrganizationDomain("ipponboard.koe-judo.de");
+    QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
+	QCoreApplication::setOrganizationDomain("github.com/fmuecke/Ipponboard");
 	QCoreApplication::setApplicationName("Ipponboard");
+
+    qInfo() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
+
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    QCommandLineOption modeOption(QStringList() << "mode", "Selects starting mode: single|team|ask.", "mode", "ask");
+    parser.addOption(modeOption);
+    parser.process(a);
+    QString mode = parser.value(modeOption);
+    QStringList validModes { "single", "team", "ask" };
+    if (!validModes.contains(mode))
+    {
+        parser.showHelp(ERROR_INVALID_PARAMETER);
+    }
 
 	// read language code
 	QString langStr = QLocale::system().name();
@@ -127,23 +196,63 @@ int main(int argc, char* argv[])
 	QTranslator translator;  // Note: this object needs to remain in scope.
 	SetTranslation(a, translator, langStr);
 
-	if (UpdateChecker::CheckForNewerVersion())
+	auto onlineVersion = OnlineVersionChecker::CheckOnlineVersion();
+	if (onlineVersion.state == OnlineVersionChecker::State::NewerAvailable)
 	{
-		return 0;
-	}
+		// format message
+		QString changes = QString(": <br><br><tt>%1</tt><br>").arg(QCoreApplication::tr("en") == "de" ? onlineVersion.changes_de : onlineVersion.changes_en);
+		changes.replace("\n", "<br>");
 
-	auto dlgResult = ShowSplashScreen();
+		QString msg = QString("<p>%1 %2</p>")
+			.arg(QCoreApplication::tr("Version %1 available (currently using: %2)").arg(QString("<b>%1</b>").arg(onlineVersion.version)).arg(QCoreApplication::applicationVersion()))
+			.arg(changes);
 
-	if (dlgResult == 0)
-	{
-		return 0;
-	}
+		msg += QString("<p>%1</p>").arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
 
-	std::unique_ptr<MainWindowBase> pMainWnd = nullptr;
+		// show message box
+		auto result = QMessageBox::information(
+			nullptr,
+			QCoreApplication::tr("Ipponboard - New Version Available"),
+			msg,
+			QCoreApplication::tr("Download"),
+			QCoreApplication::tr("Visit Homepage"),
+			QCoreApplication::tr("Cancel"),
+			0, 2);
+
+		if (result == 0) // download
+		{
+			return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
+		}
+		else if (result == 1) // visit homepage
+		{
+			return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
+		}
+	}	
+
+    int dlgResult {0};
+
+    if (mode == "ask")
+    {
+        dlgResult = ShowSplashScreen();
+    }
+    else if (mode == "single")
+    {
+        dlgResult = QDialog::Accepted;
+    }
+    else if (mode == "team")
+    {
+        dlgResult = QDialog::Accepted + 1;
+    }
+    if (dlgResult == 0)
+    {
+        return NO_ERROR;
+    }
+
+    std::unique_ptr<MainWindowBase> pMainWnd {nullptr};
 
 	if (dlgResult == QDialog::Accepted + 1)
 	{
-		pMainWnd = std::make_unique<MainWindowTeam>();
+        pMainWnd = std::make_unique<MainWindowTeam>();
 	}
 	else
 	{
@@ -156,7 +265,7 @@ int main(int argc, char* argv[])
 	}
 	catch (std::exception const&)
 	{
-		return 0;
+        return NO_ERROR;
 	}
 
 	pMainWnd->show();

@@ -13,7 +13,7 @@
 using namespace Ipponboard;
 using Point = Score::Point;
 
-TEST_CASE("Rulesfactory creates correct rule object")
+TEST_CASE("[Rules] Rulesfactory creates correct rule object")
 {
 	auto rules = RulesFactory::Create(ClassicRules::StaticName);
 	REQUIRE(strcmp(rules->Name(), ClassicRules::StaticName) == 0);
@@ -31,7 +31,7 @@ TEST_CASE("Rulesfactory creates correct rule object")
 	REQUIRE(strcmp(rules->Name(), Rules2018::StaticName) == 0);
 }
 
-TEST_CASE("Default rules are IJF-2018")
+TEST_CASE("[Rules] Default rules are IJF-2018")
 {
 	auto rules = RulesFactory::Create("");
 	REQUIRE(strcmp(rules->Name(), Rules2018::StaticName) == 0);

@@ -4,11 +4,11 @@
 
 #include "DonationManager.h"
 
-#include <random>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QApplication>
 #include "../util/array_helpers.h"
+#include <random>
 
 char const* const DonationManager::DonationUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
 
@@ -21,20 +21,19 @@ QString DonationManager::GetDonationLabel()
 	static const char* const DonationLabels[] =
 	{
 		QT_TRANSLATE_NOOP("DonationLabel", "Contribute"),
-		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks! Please don't stop!"),
+		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks!"),
 		QT_TRANSLATE_NOOP("DonationLabel", "It really saves my day"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Donate a beer (or two)"),
-		QT_TRANSLATE_NOOP("DonationLabel", "Tournaments are less work now"),
+		QT_TRANSLATE_NOOP("DonationLabel", "Buy me a coffee"),
+		QT_TRANSLATE_NOOP("DonationLabel", "Buy me a pizza"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Best score board ever!"),
 		QT_TRANSLATE_NOOP("DonationLabel", "I really love Ipponboard!"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Support future development"),
-		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard is really great"),
-		QT_TRANSLATE_NOOP("DonationLabel", "Show my appreciation and donate a buck"),
-		QT_TRANSLATE_NOOP("DonationLabel", "There are still features missing..."),
-		QT_TRANSLATE_NOOP("DonationLabel", "There is still some development to do..."),
-		QT_TRANSLATE_NOOP("DonationLabel", "Please fix my bug..."),
+		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard is awesome!"),
+		QT_TRANSLATE_NOOP("DonationLabel", "Show me appreciation and donate a buck"),
+		QT_TRANSLATE_NOOP("DonationLabel", "I want more features!"),
+		QT_TRANSLATE_NOOP("DonationLabel", "Please fix this bug..."),
 		QT_TRANSLATE_NOOP("DonationLabel", "Please keep Ipponboard alive!"),
-		QT_TRANSLATE_NOOP("DonationLabel", "I need more features"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Thanks for investing your time!"), // yes,
 		QT_TRANSLATE_NOOP("DonationLabel", "Thanks for investing your time!")
 	};

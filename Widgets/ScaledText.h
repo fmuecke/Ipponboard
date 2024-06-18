@@ -19,7 +19,7 @@ class ScaledText : public QWidget
 	Q_OBJECT
 
 public:
-	explicit ScaledText(QWidget* pParent = 0);
+    explicit ScaledText(QWidget* pParent = nullptr);
 //	explicit ScaledText( const QFont& font, QWidget* pParent = 0 );
 
 	enum ETextSize
@@ -59,8 +59,8 @@ public:
 	}
 
 protected:
-	void paintEvent(QPaintEvent* event);
-	void timerEvent(QTimerEvent* event);
+    void paintEvent(QPaintEvent* event) override;
+    void timerEvent(QTimerEvent* event) override;
 
 private:
 	void set_size(ETextSize size);
@@ -75,7 +75,7 @@ private:
 	int m_timerDelay;
 	ETextSize m_textSize;
 	bool m_isVisible;
-	bool m_rotate;
+    bool m_isRotated;
 };
 
 

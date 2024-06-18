@@ -4,8 +4,8 @@
 
 #include "ModeManagerDlg.h"
 #include "ui_ModeManagerDlg.h"
-#include "..\core\Enums.h"
-#include "..\core\Rules.h"
+#include "../core/Enums.h"
+#include "../core/Rules.h"
 
 #include <QComboBox>
 #include <QStringList>
@@ -30,6 +30,8 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
 
 	m_pUi->comboBox_rules->clear();
 	m_pUi->comboBox_rules->addItems(RulesFactory::GetNames());
+
+    m_DefaultMode = TournamentMode::Default();
 
 	if (!m_dialogData.empty())
 	{
@@ -161,7 +163,7 @@ void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
 
 void ModeManagerDlg::on_toolButton_add_clicked()
 {
-	TournamentMode& mode = TournamentMode::Default();
+    auto mode = m_DefaultMode;
 	mode.title = tr("*new*");
 	mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 
@@ -312,5 +314,5 @@ Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
 		}
 	}
 
-	return std::move(TournamentMode());
+    return m_DefaultMode;
 }

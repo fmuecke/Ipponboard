@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "scaledtext.h"
+#include "ScaledText.h"
 #include <QtGui>
+#include <QtDebug>
 #include <algorithm>
 
 ScaledText::ScaledText(QWidget* pParent)
@@ -12,12 +13,12 @@ ScaledText::ScaledText(QWidget* pParent)
 	, m_TextColor(Qt::color1)  // normal foreground
 	, m_BGColor(Qt::transparent)  // normal background (transparent)
 	, m_Alignment(Qt::AlignCenter)
-	, m_pLayout(0)
+    , m_pLayout(nullptr)
 	, m_timerId(-1)
 	, m_timerDelay(0)
 	, m_textSize(eSize_normal)
 	, m_isVisible(true)
-	, m_rotate(false)
+    , m_isRotated(false)
 {
 	SetText("ScaledText");
 }
@@ -33,7 +34,7 @@ void ScaledText::SetText(const QString& text,
 	else
 		m_Text = text;
 
-	m_rotate = rotate;
+    m_isRotated = rotate;
 
 	update_text_metrics();
 
@@ -127,9 +128,9 @@ void ScaledText::paintEvent(QPaintEvent* event)
 
 	if (m_isVisible)
 	{
-		painter.setRenderHint(QPainter::TextAntialiasing);
+        painter.setRenderHint(QPainter::TextAntialiasing);
 
-		if (0 != m_pLayout)
+        if (m_pLayout)
 		{
 			painter.setPen(m_TextColor);
 
@@ -139,50 +140,75 @@ void ScaledText::paintEvent(QPaintEvent* event)
 			QTextLine line = m_pLayout->lineAt(0);
 			line.setLeadingIncluded(false);
 
-			const QRectF rect = line.naturalTextRect();
-			Q_ASSERT(rect == m_pLayout->boundingRect());
+            const QRectF textRect = line.naturalTextRect();
+            Q_ASSERT(textRect == m_pLayout->boundingRect());
 
-			qreal w = m_rotate ? rect.height() : rect.width();
-			qreal h = m_rotate ? rect.width() : rect.height();
+            auto w = textRect.width();
+            auto h = textRect.height();
+            qreal adjust_y{0};
 
-			qreal adjust_y(0);
-
-			if (!m_rotate)
+            if (!m_isRotated)
 			{
-				if (eSize_full == m_textSize)
+                /*
+                    |    <-- Ascent
+                    |    <-- Ascent
+                    |    <-- Ascent
+                    |    <-- Ascent
+                    |--- <-- Baseline
+                    |    <-- Descent
+                    |    <-- Descent
+
+                    height = ascent + descent
+                    example: height=19, ascent=15, descent=4
+                */
+
+                if (eSize_full == m_textSize || eSize_uppercase == m_textSize)
 				{
-					h -= line.descent() * 2 + 0.5;
-				}
-				else if (eSize_uppercase == m_textSize)
-				{
-					h -= line.descent() + 2;
-					adjust_y = -line.descent() / 2.5;
-				}
+                    //qDebug() << "rect.width:" << textRect.width() << " rect.height:" << textRect.height() << "descent:" << line.descent() << "ascent:" << line.ascent();
+
+                    // remove descent space
+                    h = line.ascent();     // h => 15
+
+                    // make extra ascent space a little smaller (almost never used)
+                    h -= line.descent() / 2.0;  // h => 13
+
+                    // calc vertical adjustment
+                    adjust_y -= line.descent() / line.ascent();  // 4/15 => 0,266
+                }
 				else
 				{
-					//adjust_y = line.descent()/2.0;
+                    adjust_y = line.descent() / line.ascent();
 				}
-			}
+            }
 
-			const qreal zoom = std::min<qreal>(width() / w, height() / h);
+            // consider that italic text is a little wider than normal text
+            const qreal italicFactor = this->fontInfo().italic() ? 1.03 : 1.0;
+            qreal zoomFactor{0};
 
-			if (m_rotate)
-				painter.rotate(-60.0);
+            if (m_isRotated)
+            {
+                painter.rotate(-60.0);
+                zoomFactor = std::min<qreal>(width() / h, height() / italicFactor / w);
+            }
+            else
+            {
+                zoomFactor = std::min<qreal>(width() / italicFactor / w, height() / h);
+            }
 
-			QPointF center = rect.center();
+            QPointF center = textRect.center();
 
-			if (Qt::AlignLeft == m_Alignment)
+            if (Qt::AlignLeft == m_Alignment)
 			{
-				center.setX(width() / 2.0 / zoom);
+                center.setX(width() / 2.0 / italicFactor / zoomFactor);
 			}
 			else if (Qt::AlignRight == m_Alignment)
 			{
-				center.setX(-width() / 2.0 / zoom + center.x() * 2);
+                center.setX(-width() / 2.0 / italicFactor / zoomFactor + center.x() * 2);
 			}
 
-			center.setY(center.y() + adjust_y);
+            center.setY(center.y() + adjust_y);
 
-			painter.scale(zoom, zoom);
+            painter.scale(zoomFactor, zoomFactor);
 			line.draw(&painter, -center);
 		}
 	}

@@ -1,6 +1,5 @@
 <p style="font-size:3em;text-align:center">Ipponboard</p>
 <p style="font-style:italic;text-align:center">The 🥋Judo Score Board</p>
-<p style="font-size:2em;font-weight:bold">User Manual</p>
 
 ## Content
 
@@ -27,13 +26,15 @@
   - [Sono-mama/Yoshi](#sono-mamayoshi)
 - **[Troubleshooting](#troubleshooting)**
   - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
+  - [Command line parameters](#command-line-parameters)
 
 # General
 
 ## License terms
   
 Ipponboard was written and developed by Florian Mücke.
-Copyright © 2009-today Florian Mücke
+
+_Copyright © 2009-today Florian Mücke and [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md)._
 
 ### Ipponboard binaries
 
@@ -47,15 +48,36 @@ Copyright © 2009-today Florian Mücke
 
 ### Third-party components
 
-Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `Licenses` folder of the Ipponboard installation path.
 
-- [Qt Framework](http://www.qtproject.org) &rarr; [LGPL](licenses/Qt/LICENSE.LGPL), [LGPL Exception](licenses/Qt/LGPL_EXCEPTION.txt), [Qt License Agreement](licenses/Qt/.LICENSE-DESKTOP)
-- [Boost C++ libraries](http://www.boost.org) &rarr; [Boost Software License](licenses/boost/LICENSE_1_0.txt)
-- Microsoft Visual C++ CRT &rarr; [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt)
-- [JsonCpp](https://github.com/open-source-parsers/jsoncpp) by Baptiste Lepilleur &rarr; [MIT License](licenses/jasoncpp/LICENSE)
-- Sound files &rarr; public domain 2003
-- [FamFam Flag icons](http://www.famfamfam.com/archive/flag-icons-released/) by Mark James &rarr; [public domain](licenses/flags/readme.txt)
-- [Fugue Icons](http://p.yusukekamiyamane.com/) by Yusuke Kamiyamane &rarr; [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/), [copyright.txt](licenses/Fugue-iconset/copyright_fugue.txt), [README.txt](licenses/Fugue-iconset/README.txt)
+Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `licenses` folder of the Ipponboard installation path.
+
+- **[Qt Framework](http://www.qtproject.org)**
+  - Licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT).
+  - Source code can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/).
+  - No modifications were made to the Qt source code.
+  - This application dynamically links to the Qt libraries. You have the freedom to replace the Qt libraries used by this application with your own modified versions.
+  - For more details, refer to the [LGPL v3](licenses/Qt5/LICENSE) license text included in the `licenses` folder or available online at [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
+
+- **[Boost C++ libraries](http://www.boost.org)**
+  - Licensed under [Boost Software License](licenses/boost/LICENSE_1_0.txt).
+
+- **Microsoft Visual C++ CRT**
+  - Licensed under [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt).
+
+- **[JsonCpp](https://github.com/open-source-parsers/jsoncpp)** by Baptiste Lepilleur
+  - Licensed under [MIT License](licenses/jsoncpp/LICENSE).
+
+- **Sound files**
+  - public domain 2003
+
+- **[FamFam Flag icons](http://www.famfamfam.com/archive/flag-icons-released/)** by Mark James
+  - Licensed as [public domain](licenses/flags/readme.txt)
+
+- **[Fugue Icons](http://p.yusukekamiyamane.com/)** by Yusuke Kamiyamane
+  - Licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+  - most files [copyrighted by Yusuke Kamiyamane](licenses/Fugue-iconset/copyright_fugue.txt)
+  - some other files have [different copyright owner](licenses/Fugue-iconset/README.txt)
+
 <!--- Tinytoml, [tinytoml](https://github.com/mayah/tinytoml), [BSD 2-clause](licenses/tinytoml/LICENSE)-->
 
 ## Acknowledgements
@@ -83,8 +105,8 @@ To use the competition display the following hardware and software requirements 
 
 ## Version history
 
-- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/manual-en.md). 
-- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](Changes.html)
+- The latest version of this manual can be found on the [GitHub](https://github.com/fmuecke/Ipponboard/blob/main/doc/USER_MANUAL_EN.md). 
+- Information about the changes (changes, bugfixes) of the latest versions can be found on the following page: [Changes](CHANGELOG.html)
 
 ## Feedback & contact
 
@@ -334,5 +356,18 @@ When configuring the second screen on the computer, the following points must be
 - *Turn off interference*
 
    Please make sure that the computer does not automatically go to sleep (standby) automatically goes to sleep (standby) or the screen saver turns on. screen saver turns on. This can be avoided with newer newer computer models by switching them to presentation mode. presentation mode.
+
+## Command line parameters
+
+```
+Usage: Ipponboard.exe [options]
+
+Options:
+  -?, -h, --help  Displays help on commandline options.
+  --help-all      Displays help including Qt specific options.
+  -v, --version   Displays version information.
+  --mode <mode>   Selects starting mode: single|team|ask.
+```
+
 
 [Back to the top &uarr;](#content)

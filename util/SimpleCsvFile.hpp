@@ -41,7 +41,7 @@ namespace SimpleCsvFile
         errorMsg.clear();
         QTextStream in(data, QIODevice::ReadOnly);
 
-        in.setCodec("UTF-8");
+        in.setCodec("UTF-8"); //TODO: check if needed with Qt5
 
         int lineNo = 1; // 1-based :)
         int requiredValuesPerLine = 0;

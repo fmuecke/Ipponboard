@@ -5,6 +5,8 @@
 #include "../util/catch2/catch.hpp"
 #include "../util/path_helpers.h"
 
+#ifdef _WIN32
+
 TEST_CASE("GetSettingsFilePath: returns back empty filename")
 {
 	auto path = fm::GetSettingsFilePath("");
@@ -33,3 +35,5 @@ TEST_CASE("KnowFolders: LocalAppData returns valid path ")
 	auto pos = folder.find("AppData\\Local");
 	REQUIRE(pos != folder.npos);
 }
+
+#endif

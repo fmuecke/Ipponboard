@@ -102,7 +102,7 @@ bool FighterManager::AddFighters(QString const& csvFile, QString& errorMsg)
 	for (unsigned int i=1; i<data.size(); ++i)
 	{
 		auto line = data[i];
-		if (line.count() != Specifiers.size())
+		if (line.count() != static_cast<int>(Specifiers.size()))
 		{
 			errorMsg = QObject::tr("Line %1 of file %2 has %3 fields but should have %4.").arg(i).arg(csvFile).arg(line.count()).arg(Specifiers.size());
 			return false;
@@ -144,7 +144,7 @@ bool FighterManager::SaveFighters(QString const& csvFile, QString& errorMsg)
 		return false;
 	}
 
-    qDebug("Successfully saved %i fighters to %s.", m_fighters.size(), csvFile.toStdString().c_str());
+    qDebug("Successfully saved %i fighters to %s.", static_cast<int>(m_fighters.size()), csvFile.toStdString().c_str());
 	return true;
 }
 

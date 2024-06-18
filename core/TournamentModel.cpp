@@ -5,6 +5,7 @@
 #include "TournamentModel.h"
 #include "Enums.h"
 #include "../util/helpers.hpp"
+#include "../util/array_helpers.h"
 
 #include <QSize>
 
@@ -268,7 +269,7 @@ QVariant TournamentModel::headerData(
 		if (Qt::Vertical == orientation)
 			return QString::number(section + 1);
 
-		if (section < fm::ArrayLength(m_HeaderData))
+		if (section < static_cast<int>(fm::array_size(m_HeaderData)))
 			return m_HeaderData[section];
 	}
 
@@ -409,7 +410,7 @@ Qt::ItemFlags TournamentModel::flags(const QModelIndex& index) const
 {
 	if (!index.isValid())
 	{
-		return 0;
+        return Qt::ItemFlags();
 	}
 
 	if (index.column() == eCol_won1 ||

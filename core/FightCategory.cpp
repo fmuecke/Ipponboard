@@ -14,21 +14,19 @@ QStringList FightCategory::GetWeightsList() const
 
 QString FightCategory::GetRoundTimeStr() const
 {
-	return QTime().addSecs(round_time_secs).toString("m:ss");
+	return QTime(0,0,0,0).addSecs(round_time_secs).toString("m:ss");
 }
 QString FightCategory::GetGoldenScoreTimeStr() const
 {
-	return QTime().addSecs(golden_score_time_secs).toString("m:ss");
+	return QTime(0,0,0,0).addSecs(golden_score_time_secs).toString("m:ss");
 }
 
 void FightCategory::SetRoundTime(QString const& str)
 {
-	round_time_secs =
-		QTime().secsTo(QTime::fromString(str, "m:ss"));
+	round_time_secs = QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
 }
 
 void FightCategory::SetGoldenScoreTime(QString const& str)
 {
-	golden_score_time_secs =
-		QTime().secsTo(QTime::fromString(str, "m:ss"));
+	golden_score_time_secs = QTime(0,0,0,0).secsTo(QTime::fromString(str, "m:ss"));
 }

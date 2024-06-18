@@ -15,7 +15,7 @@
 #include <QRegExp>
 #include <QPlainTextEdit>
 #include <QDesktopServices>
-#include <QUrl>
+//#include <QUrl>
 
 #include <filesystem>
 
@@ -30,7 +30,7 @@ FighterManagerDlg::FighterManagerDlg(
 	, m_filter()
 {
 	ui->setupUi(this);
-    ui->label_FighterFile->setText(m_manager.defaultCsvFile);
+   	ui->label_FighterFile->setText(m_manager.defaultCsvFile);
 
 	// set columns
 	auto headerItem = ui->treeWidget_fighters->headerItem();
@@ -46,9 +46,8 @@ FighterManagerDlg::FighterManagerDlg(
 	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-	ui->treeWidget_fighters->header()->setResizeMode(eColumn_firstName, QHeaderView::Stretch);
-	ui->treeWidget_fighters->header()->setResizeMode(eColumn_lastName, QHeaderView::Stretch);
-
+ 	ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
+	ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
 	populate_view();
 }
 
@@ -70,7 +69,7 @@ void FighterManagerDlg::SetFilter(FighterManagerDlg::EColumn column, const QStri
 
 Ipponboard::Fighter FighterManagerDlg::itemToFighter(QTreeWidgetItem* pItem) const
 {
-	if (!pItem) throw std::exception("treeitem is null");
+	if (!pItem) throw std::runtime_error("treeitem is null");
 
 	Ipponboard::Fighter f(pItem->text(eColumn_firstName), pItem->text(eColumn_lastName));
 

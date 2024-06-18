@@ -8,12 +8,14 @@
 #include <QString>
 #include <QStringList>
 #include <QFile>
+#include <QDir>
 #include <QUuid>
 #include <QSettings>
 #include <regex>
 
 using namespace Ipponboard;
 
+QString const& TournamentMode::str_TemplateDirName("templates");
 QString const& TournamentMode::str_Title("Title");
 QString const& TournamentMode::str_SubTitle("SubTitle");
 QString const& TournamentMode::str_Weights("Weights");
@@ -72,7 +74,7 @@ bool TournamentMode::ReadModes(
 		TournamentMode mode;
 
 		config.beginGroup(group);
-		bool readSuccess = parse_current_group(config, mode, errorMsg);
+		bool readSuccess = parse_current_group(config, mode, str_TemplateDirName, errorMsg);
 		config.endGroup();
 
 		if (!readSuccess)
@@ -142,7 +144,7 @@ TournamentMode TournamentMode::Default()
 	//mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 	mode.rules = RulesFactory::GetDefaultName();
 
-	return std::move(mode);
+	return mode;
 }
 
 bool TournamentMode::operator<(TournamentMode const& other) const
@@ -257,6 +259,7 @@ bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, O
 bool TournamentMode::parse_current_group(
 	QSettings const& config,
 	TournamentMode& mode,
+	QString templateDir,
 	QString& errorMsg)
 {
 	if (!verify_child_keys(config.childKeys(), errorMsg))
@@ -294,12 +297,12 @@ bool TournamentMode::parse_current_group(
 	}
 	else
 	{
-		QString templateFile = QString("%1/%2").arg(TemplateDirName(), mode.listTemplate);
+		QString templateFile = QDir(templateDir).filePath(mode.listTemplate);
 		QFile listTemplate(templateFile);
 
 		if (!listTemplate.exists())
 		{
-			errorMsg = QString("The list template for [%2] is not valid: \"%1\"")
+			errorMsg = QString("The list template for [%2] could not be found: \"%1\"")
 					   .arg(templateFile, config.group());
 
 			return false;

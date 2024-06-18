@@ -1,3 +1,5 @@
+[![Linux CI build](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml/badge.svg)](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml)
+
 # Content
 
 - [Why it's *so* cool!](#why-its-so-cool)
@@ -42,9 +44,10 @@ More information about usage and configuration is described within the manual:
 
 # Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt)
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt). <br>
+Please acknowledge all the different contributors in [CONTRIBUTORS.md](CONTRIBUTORS.md) - without them Ipponboard would not have been possible.
 
 # Contact
 - source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
-- latest news and downloads: ipponboard.koe-judo.de
-- contact the author (Florian Mücke): i p p o n b a o r d i n f o AT g m a i l DOT c o m
+- latest news and downloads: here on github
+- contact the author (Florian Mücke): i p p o n b o a r d i n f o AT g m a i l DOT c o m

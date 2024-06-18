@@ -121,6 +121,7 @@ protected:
 	virtual void load_fighters();
 	virtual void save_fighters();
 	virtual void update_views();
+    virtual void update_screen_visibility(QWidget* pView) const;
 	virtual void update_statebar();
 	virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
 	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
@@ -180,7 +181,9 @@ protected:
 	Ipponboard::ControllerConfig m_controllerCfg;
 
 private:
+#ifdef _WIN32
 	PGamepad m_pGamepad;
+#endif
 };
 
 #endif  // BASE__MAINWINDOW_BASE_H_

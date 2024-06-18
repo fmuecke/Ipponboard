@@ -7,6 +7,8 @@
 
 #pragma once
 
+#ifdef _WIN32
+
 #include <bitset>
 #include <cmath>
 #include <cassert>
@@ -112,12 +114,6 @@ public:
 	};
 
 	Gamepad()
-		: m_currentId(0)
-		, m_invertedAxes()
-		//, m_caps
-		//, m_data
-		, m_state(eState_unknown)
-		, m_hwnd(NULL)
 	{
 		reset();
 		Init();
@@ -135,14 +131,14 @@ public:
 	/// reads capabilities
 	EState Init()
 	{
-		m_state = EState(::joyGetDevCaps(0, &m_caps, sizeof(JOYCAPS)));
+        m_state = EState(::joyGetDevCapsW(0, &m_caps, sizeof(JOYCAPSW)));
 		return m_state;
 	}
 
-	inline const wchar_t* GetProductName() const
-	{
-		return m_caps.szPname;
-	}
+    inline const wchar_t* GetProductName() const
+    {
+        return m_caps.szPname;
+    }
 
 	inline WORD GetMId() const
 	{
@@ -243,13 +239,15 @@ public:
 
 	bool WasPressed(EButton b) const
 	{
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		if (b > eButton32)
 		{
-			if (button_code[b] == m_data.dwPOV &&
-					m_data.dwPOV != m_lastData.dwPOV)
-			{
-				return true;
-			}
+            if (button_code[b] == m_data.dwPOV && 
+				m_data.dwPOV != m_lastData.dwPOV)
+            {
+                return true;
+            }
 
 			return false;
 		}
@@ -260,14 +258,16 @@ public:
 
 	bool WasReleased(EButton b) const
 	{
-		assert(b <= eButton32);
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		return (m_lastData.dwButtons & button_code[b]) > 0 &&
 			   (m_data.dwButtons & button_code[b]) == 0;
 	}
 
 	bool IsPressed(EButton b) const
 	{
-		assert(b <= eButton32);
+		if (b < 0 || b >= sizeof(button_code) / sizeof(button_code[0])) return false;  // invalid button (check for out of bounds)
+
 		return (m_data.dwButtons & button_code[b]) > 0;
 	}
 
@@ -520,7 +520,7 @@ public:
 
 			if (eState_ok == s)
 			{
-				m_hwnd = NULL;
+                m_hwnd = nullptr;
 				ret = true;
 			}
 		}
@@ -534,7 +534,7 @@ private:
 	{
 		m_invertedAxes.reset();
 
-		memset(&m_caps, 0, sizeof(JOYCAPS));
+        memset(&m_caps, 0, sizeof(JOYCAPSW));
 		memset(&m_data, 0, sizeof(JOYINFOEX));
 		m_data.dwSize = sizeof(JOYINFOEX);
 		m_data.dwFlags = JOY_RETURNALL;
@@ -585,15 +585,18 @@ private:
 		31500	// eButton_pov_left_fwd
 	};
 
-	unsigned int m_currentId;
-	std::bitset<eAxis_MAX> m_invertedAxes;
-	JOYCAPSW m_caps;
-	JOYINFOEX m_data;
-	JOYINFOEX m_lastData;
-	EState m_state;
-	HWND m_hwnd;
+    unsigned int m_currentId{0};
+    std::bitset<eAxis_MAX> m_invertedAxes{0};
+
+    JOYCAPSW m_caps{0};
+    JOYINFOEX m_data{0};
+    JOYINFOEX m_lastData{0};
+    EState m_state{eState_unknown};
+    HWND m_hwnd{nullptr};
 };
 
 } //namespace FMlib
+
+#endif // _WIN32
 
 #endif  // FMLIB_GAMEPAD_H_

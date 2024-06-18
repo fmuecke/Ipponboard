@@ -1,0 +1,75 @@
+name: Linux CI build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    env:
+      ROOT_DIR: ${{ github.workspace }}
+      CONFIG: Release
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install boost
+      uses: MarkusJx/install-boost@v2.4.5
+      id: install-boost
+      with:
+         boost_version: 1.81.0
+         platform_version: 20.04
+         toolset: gcc
+         arch: aarch64
+
+    - name: Install Qt5
+      uses: jurplel/install-qt-action@v3
+      id: install-qt
+      with:
+        aqtversion: '==3.1.*'
+        version: '5.15.2'
+        cache: 'true'
+        cache-key-prefix: 'install-qt-action'        
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        #tools: 'tools_cmake'
+        #archives: 'qtxmlpatterns qttranslation qtmultimedia qtbase icu '
+
+    - name: Init variables
+      shell: bash
+      run: |
+        echo 'set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}"' > ${{ env.ENV_CFG }}
+        echo 'set "LINUX_QTDIR=${{ env.Qt5_DIR }}"' >> ${{ env.ENV_CFG }}
+        echo 'set "LINUX_BOOST_DIR=${{ env.BOOST_DIR }}/include"' >>${{ env.ENV_CFG }}
+      env:
+        ENV_CFG: ${{ github.workspace }}/env_cfg.bat
+        BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+
+    - name: Create version info
+      shell: bash
+      run: scripts/create-versioninfo.sh ${{ env.ROOT_DIR }}/base
+
+    - name: Create makefile
+      shell: bash
+      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=${{env.CONFIG}}
+
+    - name: Build Tests
+      shell: bash
+      run: cmake --build "_build/Ipponboard-Linux" --config ${{env.CONFIG}} --target IpponboardTest -j4
+
+    - name: Run tests
+      shell: bash
+      continue-on-error: true
+      run: |
+        cd ./_bin/Test-${{env.CONFIG}}
+        ./IpponboardTest
+
+    - name: Build Ipponboard
+      shell: bash
+      run: cmake --build "_build/Ipponboard-Linux" --config ${{env.CONFIG}} --target Ipponboard -j4
+  

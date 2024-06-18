@@ -2173,7 +2173,10 @@ Value::Value(const Value& other)
 		if (other.value_.string_)
 		{
 			value_.string_ = duplicateStringValue(other.value_.string_);
+#pragma warning (push)
+#pragma warning (disable: 4463)
 			allocated_ = true;
+#pragma warning (pop)
 		}
 		else
 		{

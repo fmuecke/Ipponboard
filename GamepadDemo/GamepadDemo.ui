@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>684</width>
-    <height>406</height>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GamepadDemo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,3">
     <item>
      <widget class="QGroupBox" name="groupBox_caps">
       <property name="title">
@@ -42,7 +42,7 @@
           <bool>false</bool>
          </property>
          <property name="headerHidden">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="expandsOnDoubleClick">
           <bool>false</bool>
@@ -51,22 +51,25 @@
           <number>2</number>
          </property>
          <attribute name="headerVisible">
-          <bool>false</bool>
+          <bool>true</bool>
          </attribute>
          <attribute name="headerDefaultSectionSize">
           <number>110</number>
+         </attribute>
+         <attribute name="headerShowSortIndicator" stdset="0">
+          <bool>false</bool>
          </attribute>
          <attribute name="headerStretchLastSection">
           <bool>true</bool>
          </attribute>
          <column>
           <property name="text">
-           <string notr="true">1</string>
+           <string notr="true">Property</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string notr="true">2</string>
+           <string notr="true">Value</string>
           </property>
          </column>
         </widget>
@@ -792,7 +795,7 @@
      <x>0</x>
      <y>0</y>
      <width>684</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

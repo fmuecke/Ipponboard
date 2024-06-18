@@ -3,8 +3,8 @@
 // found in the LICENSE.txt file.
 
 #include "DonationManager.h"
-#include "splashscreen.h"
-#include "ui_splashscreen.h"
+#include "SplashScreen.h"
+#include "ui_SplashScreen.h"
 #include "versioninfo.h"
 
 #include <algorithm>
@@ -16,36 +16,9 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
 {
 	ui->setupUi(this);
 
-//	const int days_left = data.date.daysTo(QDate::currentDate());
-//	ui->label_valid->setText(
-//			"- " + QString::number( days_left ) +
-//			" " + tr("days left") + " -");
-
 	ui->textBrowser_eula->setHtml(data.text);
 	ui->label_info->setText(data.info);
-	//ui->labelCopyright->setText(QString("© %1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 	ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
-
-	/*std::vector<QCommandLinkButton*> buttons =
-	{
-	    ui->commandLinkButton_donate,
-	    ui->commandLinkButton_startSingleVersion,
-	    ui->commandLinkButton_startTeamVersion
-	};
-
-	buttons.erase(
-	        remove_if(
-	              begin(buttons),
-	              end(buttons),
-	              [](QCommandLinkButton* b) { return !b->isEnabled(); }),
-	        end(buttons));
-
-	auto r = qrand() % buttons.size();
-	buttons[r]->setFocus();
-	buttons[r]->setDefault(true);
-
-	//ui->commandLinkButton_donate->setFocus();
-	*/
 
 	setWindowFlags(Qt::Window);
 }

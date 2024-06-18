@@ -11,18 +11,16 @@
 #include "../base/ClubManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
 #include "ModeManagerDlg.h"
-//#include "../base/FightCategoryManager.h"
-//#include "../base/FightCategoryManagerDlg.h"
 #include "../base/View.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
-#include "../core/Tournament.h"
 #include "../core/TournamentModel.h"
+#ifdef _WIN32
 #include "../gamepad/gamepad.h"
+#endif
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
-#include "../Widgets/ScaledText.h"
 
 #include <QClipboard>
 #include <QColorDialog>
@@ -45,8 +43,6 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QUrl>
-
-#include <functional>
 
 namespace StrTags
 {
@@ -95,11 +91,11 @@ void MainWindowTeam::Init()
 
 	if (!Ipponboard::TournamentMode::ReadModes(MainWindowTeam::ModeConfigurationFileName(), modes, errMsg))
 	{
-		QMessageBox::critical(0,
+        QMessageBox::critical(nullptr,
 							  QCoreApplication::tr("Error reading mode configurations"),
 							  errMsg);
 
-		throw std::exception("Initialization failed!");
+        throw std::runtime_error("Initialization failed!");
 	}
 
 	SetModes(modes);
@@ -138,9 +134,9 @@ void MainWindowTeam::Init()
 	//m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
 	// set fighter comboboxes
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Mücke"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmied"));
-	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rupp"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Florian Münz"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmalhans"));
+	//m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rucksack"));
 #if 0
 	auto cbxFightersHome = new ComboBoxDelegate(this);
 	cbxFightersHome->SetItems(m_FighterNamesHome);
@@ -156,10 +152,10 @@ void MainWindowTeam::Init()
 	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
 #endif
 	// make name columns auto-resizable
-	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list1->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-	m_pUi->tableView_tournament_list2->horizontalHeader()->setResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -296,7 +292,7 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 
 QStringList MainWindowTeam::get_list_templates()
 {
-	QDir dir(TournamentMode::TemplateDirName());
+	QDir dir(TournamentMode::str_TemplateDirName);
 	QStringList filters;
 	filters.append("*.html");
 	return dir.entryList(filters, QDir::Files, QDir::Name);
@@ -563,7 +559,7 @@ QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
 void MainWindowTeam::WriteScoreToHtml_()
 {
 	QString modeText = get_full_mode_title(m_currentMode);
-	QString templateFile = get_template_file(m_currentMode);
+    QString templateFile = get_template_file(m_currentMode);
 	const QString filePath(
 		fm::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
 
@@ -599,9 +595,9 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	// final score
 	auto wins2nd = m_pController->GetRoundCount() > 1 ?
-				   m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair(0, 0);
+                       m_pController->GetTournamentScoreModel(1)->GetTotalWins() : std::make_pair<unsigned int, unsigned int>(0, 0);
 	auto score2nd = m_pController->GetRoundCount() > 1 ?
-					m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair(0, 0);
+                    m_pController->GetTournamentScoreModel(1)->GetTotalScore() : std::make_pair<unsigned int, unsigned int>(0, 0);
 	auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
 	auto totalScore = std::make_pair(score1st.first + score2nd.first, score1st.second + score2nd.second);
 
@@ -651,7 +647,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 	const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
 							  ", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
-	m_htmlScore.replace("</body>", "<small><center>" + copyright + "</center></small></body>");
+    m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
 }
 
 void MainWindowTeam::on_actionReset_Scores_triggered()
@@ -671,7 +667,8 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
-	// back
+#ifdef _WIN32
+    // back
 	if (pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_prev)))
 	{
 		on_button_prev_clicked();
@@ -687,6 +684,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 		// --> handle update views outside of this function
 		return true;
 	}
+#endif
 
 	return false;
 }
@@ -766,27 +764,27 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
 	//m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
 	//m_pController->InitTournament(*iter);
 	//update_weights("-90;+90;-73;-66;-81");
-	//m_pController->SetFight(0, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Oliver Sach", "TSV Königsbrunn",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 1, "-90", "Stefan Grünert", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
-	//m_pController->SetFight(0, 2, "+90", "Andreas Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
-	//m_pController->SetFight(0, 3, "+90", "Jürgen Neumeier", "TG Landshut", "Anderas Mayer", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 4, "-73", "Benny Mahl", "TG Landshut", "Christopher Benka", "TSV Königsbrunn"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
-	//m_pController->SetFight(0, 5, "-73", "Josef Sellmaier", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 6, "-66", "Alexander Keil", "TG Landshut", "Arthur Sipple", "TSV Königsbrunn",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 7, "-66", "Dominic Bogner", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 8, "-81", "Sebastian Schmieder", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
-	//m_pController->SetFight(0, 9, "-81", "Rainer Neumaier", "TG Landshut", "Georg Benka", "TSV Königsbrunn",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Oliver Salz", "TSV Brunnstadt",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 1, "-90", "Max Grünert", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
+	//m_pController->SetFight(0, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
+	//m_pController->SetFight(0, 3, "+90", "Hans Neumeier", "TG Eierstatt", "Anderas Mader", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 4, "-73", "Bogdan Mahl", "TG Eierstatt", "Christopher Benka", "TSV Brunnstadt"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
+	//m_pController->SetFight(0, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 6, "-66", "Thomas Keil", "TG Eierstatt", "Arthur Sichelstein", "TSV Brunnstadt",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 7, "-66", "Werner Bogner", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 8, "-81", "Hans Schmieder", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
+	//m_pController->SetFight(0, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 	////  Y  W  I  S  H  Y  W  I  S  H
-	//m_pController->SetFight(1, 0, "-90", "Sebastian Hölzl", "TG Landshut", "Marc Schäfer", "TSV Königsbrunn",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 1, "-90", "Stefan Grunert", "TG Landshut", "Florian Kürten", "TSV Königsbrunn",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 2, "+90", "Andreas Neumaier", "TG Landshut", "Andreas Mayer", "TSV Königsbrunn",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 3, "+90", "Jürgen Neumaier", "TG Landshut", "Daniel Nussbächer", "TSV Königsbrunn",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
-	//m_pController->SetFight(1, 4, "-73", "Matthias Feigl", "TG Landshut", "Jan-Michael König", "TSV Königsbrunn",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
-	//m_pController->SetFight(1, 5, "-73", "Josef Sellmaier", "TG Landshut", "Christopher Benka", "TSV Königsbrunn",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 6, "-66", "Jörg Herzog", "TG Landshut", "Thomas Schaller", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	//m_pController->SetFight(1, 7, "-66", "Alex Selwitschka", "TG Landshut", "Jonas Allinger", "TSV Königsbrunn",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
-	//m_pController->SetFight(1, 8, "-81", "Eugen Makaritsch", "TG Landshut", "Georg Benka", "TSV Königsbrunn",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-	//m_pController->SetFight(1, 9, "-81", "Rainer Neumaier", "TG Landshut", "Gerhard Wessinger", "TSV Königsbrunn",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 1, "-90", "Max Grunert", "TG Eierstatt", "Florian Kütz", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Andreas Mader", "TSV Brunnstadt",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 3, "+90", "Hans Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
+	//m_pController->SetFight(1, 4, "-73", "Christian Feigl", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
+	//m_pController->SetFight(1, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Christopher Beier", "TSV Brunnstadt",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 6, "-66", "Adam Herzog", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	//m_pController->SetFight(1, 7, "-66", "Maxim Selwitschka", "TG Eierstatt", "Jonas Alwetter", "TSV Brunnstadt",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
+	//m_pController->SetFight(1, 8, "-81", "Piotr Makaritsch", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	//m_pController->SetFight(1, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
 	////m_pController->SetCurrentFight(0);
 
 	//m_pUi->tableView_tournament_list1->viewport()->update();
@@ -803,25 +801,7 @@ void MainWindowTeam::on_button_pause_clicked()
 	else
 	{
 		update_score_screen();
-		const int nScreens(QApplication::desktop()->numScreens());
-
-		if (nScreens > 0 && nScreens > m_secondScreenNo)
-		{
-			// move to second screen
-			QRect screenres =
-				QApplication::desktop()->screenGeometry(m_secondScreenNo);
-			m_pScoreScreen->move(QPoint(screenres.x(), screenres.y()));
-		}
-
-		if (m_secondScreenSize.isNull())
-		{
-			m_pScoreScreen->showFullScreen();
-		}
-		else
-		{
-			m_pScoreScreen->resize(m_secondScreenSize);
-			m_pScoreScreen->show();
-		}
+		update_screen_visibility(m_pScoreScreen.get());
 
 		m_pUi->button_pause->setText(tr("Hide results"));
 	}
@@ -851,7 +831,7 @@ void MainWindowTeam::on_button_next_clicked()
 	m_pController->NextFight();
 
 	// reset osaekomi view (to reset active colors of previous fight)
-	m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::None, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
@@ -993,9 +973,11 @@ void MainWindowTeam::on_actionPrint_triggered()
 	WriteScoreToHtml_();
 
 	QPrinter printer(QPrinter::HighResolution);
-	printer.setOrientation(QPrinter::Landscape);
-	printer.setPaperSize(QPrinter::A4);
-	printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
+    //TODO: fix margins (actual header margin is too big)
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageOrientation(QPageLayout::Landscape);
+    printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
+    //printer.setFullPage(true);
 	QPrintPreviewDialog preview(&printer, this);
 	connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(Print(QPrinter*)));
 	preview.exec();
@@ -1034,11 +1016,14 @@ void MainWindowTeam::on_actionExport_triggered()
 		}
 		else
 		{
-			QPrinter printer(QPrinter::HighResolution);
-			printer.setOrientation(QPrinter::Landscape);
-			printer.setOutputFormat(QPrinter::PdfFormat);
-			printer.setPaperSize(QPrinter::A4);
-			printer.setPageMargins(15, 10, 15, 5, QPrinter::Millimeter);
+            QPrinter printer(QPrinter::HighResolution);
+            //TODO: fix margins? (printable area is somehow smaller than with Qt4...)
+            //TODO: use QPdfWriter?
+            printer.setFullPage(true);
+            printer.setPageOrientation(QPageLayout::Landscape);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPageSize(QPageSize(QPageSize::A4));
+            printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
 			printer.setOutputFileName(fileName);
 			QTextEdit edit(m_htmlScore, this);
 			edit.document()->print(&printer);
@@ -1263,10 +1248,10 @@ void MainWindowTeam::copy_cell_content(QTableView* pTableView)
 
 	QString selectedText;
 
-	for (QModelIndex index : selection)
+	for (const QModelIndex& index : selection)
 	{
-		auto data = pTableView->model()->data(index, Qt::DisplayRole);
-		selectedText += data.toString() + '\n';
+        auto text = pTableView->model()->data(index, Qt::DisplayRole);
+        selectedText += text.toString() + '\n';
 	}
 
 	if (!selectedText.isEmpty())
@@ -1357,7 +1342,7 @@ void MainWindowTeam::clear_cell_content(QTableView* pTableView)
 		}
 	}
 
-	for (QModelIndex index : selection)
+	for (const QModelIndex& index : selection)
 	{
 		pTableView->model()->setData(index, "", Qt::EditRole);
 	}
@@ -1409,7 +1394,7 @@ QString MainWindowTeam::get_template_file(QString const& modeId) const
 
 	if (iter != end(m_modes))
 	{
-		return QString("%1/%2").arg(TournamentMode::TemplateDirName(), iter->listTemplate);
+		return QString("%1/%2").arg(TournamentMode::str_TemplateDirName, iter->listTemplate);
 	}
 
 	return QString();

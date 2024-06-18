@@ -12,11 +12,9 @@
 #include "TournamentMode.h"
 #include "TournamentModel.h"
 #include "StateMachine.h"
-#include "../util/helpers.hpp"
 
 #include <QObject>
 #include <QTime>
-#include <utility>
 #include <set>
 #include <vector>
 #include <bitset>
@@ -195,7 +193,7 @@ private:
 	int m_currentRound;
 	int m_currentFight;
 
-	Ipponboard::IpponboardSM* m_pSM;
+    std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
 	Ipponboard::EState m_State;
 	QTimer* m_pTimerMain;
 	QTimer* m_pTimerHold;
