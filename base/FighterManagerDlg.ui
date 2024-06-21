@@ -151,12 +151,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_openFolder">
+      <widget class="QToolButton" name="toolButton_openFile">
        <property name="statusTip">
-        <string>open folder</string>
+        <string>Open the file with the default application</string>
        </property>
        <property name="text">
-        <string notr="true">...</string>
+        <string notr="true">Open File</string>
        </property>
        <property name="checkable">
         <bool>false</bool>

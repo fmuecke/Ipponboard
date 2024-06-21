@@ -6,6 +6,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 
 - (mod): WindowsXP is no longer supported!
 - (new): default fighter file can be saved and re-loaded directly from within fighter manager dialog
+- (new): loaded fighter file can opended with the default application for csv files (e.g. Excel)
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add

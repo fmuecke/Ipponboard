@@ -17,8 +17,6 @@
 #include <QDesktopServices>
 //#include <QUrl>
 
-#include <filesystem>
-
 //using namespace Ipponboard;
 
 FighterManagerDlg::FighterManagerDlg(
@@ -124,11 +122,12 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
 }
 
-void FighterManagerDlg::on_toolButton_openFolder_pressed()
+void FighterManagerDlg::on_toolButton_openFile_pressed()
 {
-    auto path = std::filesystem::path(m_manager.defaultCsvFile.toStdString());
-    QDesktopServices::openUrl(QUrl(("file:///" + path.parent_path().string()).c_str()));
+	auto path = QDir(m_manager.defaultCsvFile).absolutePath();
+	QDesktopServices::openUrl(QUrl("file:///" + path));  // Will open the file using the default application (e.g. Excel)
 }
+
 
 void FighterManagerDlg::on_toolButton_reload_pressed()
 {
