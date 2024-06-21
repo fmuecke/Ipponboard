@@ -149,6 +149,7 @@ if(MSVC)
         COMPILE_FLAGS "/Zc:wchar_t- /MP /W4"
         CMAKE_SUPPRESS_REGENERATION true
     )
+    target_compile_definitions(${APP_NAME} PRIVATE _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING)
 else()
     set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endif()
