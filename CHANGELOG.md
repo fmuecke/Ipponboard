@@ -6,11 +6,11 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 
 - (mod): WindowsXP is no longer supported!
 - (new): default fighter file can be saved and re-loaded directly from within fighter manager dialog
-- (new): loaded fighter file can opended with the default application for csv files (e.g. Excel)
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager
   - use *del* key to remove and *ins* key to add
 - (new): fighter lists are stored in UTF-8 with byte-order-mark (so they can be opened and edited in Excel right away)
+- (new): current fighter list can opended with the default application for csv files (e.g. Excel)
 - (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
 - (fix): Team Edition does not create `Fighter*.csv` any longer as it was not used
 - (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)

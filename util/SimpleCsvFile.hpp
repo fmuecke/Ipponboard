@@ -146,6 +146,7 @@ namespace SimpleCsvFile
         QByteArray result{};
         if (EncodeValues(itemData, separator, result, errorMsg))
         {
+            result.prepend("\xEF\xBB\xBF"); // Write utf-8 byte order mark 
             file.write(result);
             file.close();
             return true;

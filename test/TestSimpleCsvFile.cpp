@@ -151,18 +151,19 @@ TEST_CASE("ParseData: UTF8-BOM is ignored")
 	REQUIRE(result[1].at(0) == "one");
 }
 
-TEST_CASE("EncodeValues: encode in UTF-8")
+TEST_CASE("[SimpleCsvFile] EncodeValues: encode in UTF-8")
 {
-	std::vector<QStringList> data{ QStringList{ "Mücke" } };
+	std::vector<QStringList> data{ QStringList{ "MÃ¼cke" } };
 
 	QByteArray resultData;
 	QString errorMsg;
 	REQUIRE(csv::EncodeValues(data, ",", resultData, errorMsg) == true);
 	REQUIRE(errorMsg == "");
-	REQUIRE(resultData == QString(u8"Mücke\n"));
+	auto expected = QByteArray::fromStdString("MÃ¼cke\n");
+	REQUIRE(resultData == expected);
 }
 
-TEST_CASE("EncodeValues: no values is invalid")
+TEST_CASE("[SimpleCsvFile] EncodeValues: no values is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
@@ -171,7 +172,7 @@ TEST_CASE("EncodeValues: no values is invalid")
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("EncodeValues: empty value is invalid")
+TEST_CASE("[SimpleCsvFile] EncodeValues: empty value is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
@@ -181,7 +182,7 @@ TEST_CASE("EncodeValues: empty value is invalid")
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("EncodeValues: value containing empty value is invalid")
+TEST_CASE("[SimpleCsvFile] EncodeValues: value containing empty value is invalid")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values;
@@ -191,7 +192,7 @@ TEST_CASE("EncodeValues: value containing empty value is invalid")
 	REQUIRE(errorMsg == "no values");
 }
 
-TEST_CASE("EncodeValues: single value")
+TEST_CASE("[SimpleCsvFile] EncodeValues: single value")
 {
 	QByteArray resultData;
 	std::vector<QStringList> values{ QStringList{ "one" } };
@@ -202,7 +203,7 @@ TEST_CASE("EncodeValues: single value")
 	REQUIRE(expectedData == resultData);
 }
 
-TEST_CASE("EncodeValues: items must have same number of values")
+TEST_CASE("[SimpleCsvFile] EncodeValues: items must have same number of values")
 {
 	QStringList firstItem{ "one" };
 	QStringList secondItem{ "one" };
@@ -219,7 +220,7 @@ TEST_CASE("EncodeValues: items must have same number of values")
 	REQUIRE(errorMsg == "item at index 1 has fewer values as required by the first item");
 }
 
-TEST_CASE("EncodeValues: valid data case")
+TEST_CASE("[SimpleCsvFile] EncodeValues: valid data case")
 {
 	QByteArray const expectedData{ "abc,def\none,two\n" };
 	
@@ -233,7 +234,7 @@ TEST_CASE("EncodeValues: valid data case")
 	REQUIRE(expectedData == resultData);
 }
 
-TEST_CASE("values containing separator are not allowed")
+TEST_CASE("[SimpleCsvFile] values containing separator are not allowed")
 {
 	std::vector<QStringList> values{ QStringList{"a,s"} };
 
@@ -247,4 +248,17 @@ TEST_CASE("values containing separator are not allowed")
 	REQUIRE(errorMsg == "");
 }
 
+TEST_CASE("[SimpleCsvFile] Write: writes utf-8 byte order mark (important for Excel)")
+{
+	QString const fileName{ "test.csv" };
+	std::vector<QStringList> data{ QStringList{ "one" } };
+	QString errorMsg;
+	REQUIRE(csv::Write(fileName, data, ";", errorMsg) == true);
+	REQUIRE(errorMsg.isEmpty() == true);
 
+	QFile file(fileName);
+	REQUIRE(file.open(QIODevice::ReadOnly));
+	QByteArray const bom{ file.read(3) };
+	file.close();
+	REQUIRE((bom[0] == '\xEF' && bom[1] == '\xBB' && bom[2] == '\xBF'));
+}
