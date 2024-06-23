@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
+    <width>587</width>
     <height>405</height>
    </rect>
   </property>
@@ -71,7 +71,7 @@
      </column>
      <column>
       <property name="text">
-       <string>GS</string>
+       <string>GS Time</string>
       </property>
       <property name="toolTip">
        <string>Golden Score Time</string>
@@ -82,10 +82,10 @@
      </column>
      <column>
       <property name="text">
-       <string>Weights</string>
+       <string>Weight Classes</string>
       </property>
       <property name="toolTip">
-       <string>The weight classes (comma separated)</string>
+       <string>The weight classes (separated by semicolons)</string>
       </property>
      </column>
     </widget>

@@ -68,7 +68,7 @@ void MainWindow::Init()
 	m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 }
 
-void MainWindow::on_actionManageClasses_triggered()
+void MainWindow::on_actionManageCategories_triggered()
 {
 	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 
