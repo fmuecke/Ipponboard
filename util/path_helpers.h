@@ -11,10 +11,8 @@
 //#	pragma comment(lib,"Shell32.lib")
 #endif
 
-#if 0
-#include <boost/filesystem.hpp>
-#endif
-
+#include <QFile>
+#include <QDir>
 #include <string>
 
 namespace fm
@@ -24,123 +22,71 @@ namespace
 {
 
 #ifdef _WIN32
-enum EShellFolderType
-{
-	// http://msdn.microsoft.com/en-us/library/bb762494(v=vs.85).aspx
-	eShellFolderType_ADMINTOOLS = CSIDL_ADMINTOOLS,
-	//eShellFolderType_ALTSTARTUP
-	//eShellFolderType_APPDATA
-	//eShellFolderType_BITBUCKET
-	//eShellFolderType_CDBURN_AREA
-	//eShellFolderType_COMMON_ADMINTOOLS
-	//eShellFolderType_COMMON_ALTSTARTUP
-	eShellFolderType_COMMON_APPDATA = CSIDL_COMMON_APPDATA
-									  //eShellFolderType_COMMON_DESKTOPDIRECTORY
-									  //eShellFolderType_COMMON_DOCUMENTS
-									  //eShellFolderType_COMMON_FAVORITES
-									  //eShellFolderType_COMMON_MUSIC
-									  //eShellFolderType_COMMON_OEM_LINKS
-									  //eShellFolderType_COMMON_PICTURES
-									  //eShellFolderType_COMMON_PROGRAMS
-									  //eShellFolderType_COMMON_STARTMENU
-									  //eShellFolderType_COMMON_STARTUP
-									  //eShellFolderType_COMMON_TEMPLATES
-									  //eShellFolderType_COMMON_VIDEO
-									  //eShellFolderType_COMPUTERSNEARME
-									  //eShellFolderType_CONNECTIONS
-									  //eShellFolderType_CONTROLS
-									  //eShellFolderType_COOKIES
-									  //eShellFolderType_DESKTOP
-									  //eShellFolderType_DESKTOPDIRECTORY
-									  //eShellFolderType_DRIVES
-									  //eShellFolderType_FAVORITES
-									  //eShellFolderType_FONTS
-									  //eShellFolderType_HISTORY
-									  //eShellFolderType_INTERNET
-									  //eShellFolderType_INTERNET_CACHE
-									  //eShellFolderType_LOCAL_APPDATA
-									  //eShellFolderType_MYDOCUMENTS
-									  //eShellFolderType_MYMUSIC
-									  //eShellFolderType_MYPICTURES
-									  //eShellFolderType_MYVIDEO
-									  //eShellFolderType_NETHOOD
-									  //eShellFolderType_NETWORK
-									  //eShellFolderType_PERSONAL
-									  //eShellFolderType_PRINTERS
-									  //eShellFolderType_PRINTHOOD
-									  //eShellFolderType_PROFILE
-									  //eShellFolderType_PROGRAM_FILES
-									  //eShellFolderType_PROGRAM_FILESX86
-									  //eShellFolderType_PROGRAM_FILES_COMMON
-									  //eShellFolderType_PROGRAM_FILES_COMMONX86
-									  //eShellFolderType_PROGRAMS
-									  //eShellFolderType_RECENT
-									  //eShellFolderType_RESOURCES
-									  //eShellFolderType_RESOURCES_LOCALIZED
-									  //eShellFolderType_SENDTO
-									  //eShellFolderType_STARTMENU
-									  //eShellFolderType_STARTUP
-									  //eShellFolderType_SYSTEM
-									  //eShellFolderType_SYSTEMX86
-									  //eShellFolderType_TEMPLATES
-									  //eShellFolderType_WINDOWS
-};
 
-const std::string GetShellFolder(EShellFolderType what)
+struct KnownFolders
 {
-#ifndef _WIN32
-	// TODO: handle other platforms (when needed)
-#error "not implemented yet"
+	// reference: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
+
+	static QString get_AppDataDesktop() { return get_folder(FOLDERID_AppDataDesktop); }
+	static QString get_AppDataDocuments() { return get_folder(FOLDERID_AppDataDocuments); }
+	static QString get_AppDataProgramData() { return get_folder(FOLDERID_AppDataProgramData); }
+	static QString get_ApplicationShortcuts() { return get_folder(FOLDERID_ApplicationShortcuts); }
+	static QString get_Desktop() { return get_folder(FOLDERID_Desktop); }
+	static QString get_Documents() { return get_folder(FOLDERID_Documents); }
+	static QString get_DocumentsLibrary() { return get_folder(FOLDERID_DocumentsLibrary); }
+	static QString get_Downloads() { return get_folder(FOLDERID_Downloads); }
+	static QString get_LocalAppData() { return get_folder(FOLDERID_LocalAppData); }
+	static QString get_LocalAppDataLow() { return get_folder(FOLDERID_LocalAppDataLow); }
+	static QString get_Profile() { return get_folder(FOLDERID_Profile); }
+	static QString get_ProgramData() { return get_folder(FOLDERID_ProgramData); }
+	static QString get_ProgramFiles() { return get_folder(FOLDERID_ProgramFiles); }
+#ifdef _WIN64
+static QString get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
 #endif
-	std::string ret;
-	char folder[MAX_PATH + 1] = {0};
+	static QString get_ProgramFilesX86() { return get_folder(FOLDERID_ProgramFilesX86); }
+	static QString get_RoamingAppData() { return get_folder(FOLDERID_RoamingAppData); }
+	static QString get_ProgramFilesCommon() { return get_folder(FOLDERID_ProgramFilesCommon); }
 
-	if (S_OK == ::SHGetFolderPathA(0, what, 0, /*SHGFP_TYPE_CURRENT*/0, folder))
-		ret.assign(folder);
-
-	return ret;
-}
-const std::string GetCommonAppData()
-{
-	return GetShellFolder(eShellFolderType_COMMON_APPDATA);
-}
-#endif
-
-const std::string GetSettingsFilePath(const char* fileName)
-{
-#if _WIN32
-    // (1) use file in common app data
-	// (2) create file or error
-	std::string filePath(fileName);
-
-	filePath.assign(GetCommonAppData() + "\\Ipponboard\\");
-	filePath.append(fileName);
-#if 0
-
-	// Unfortunately this did not link anymore with vc2010/Qt4.8.2/boost 1.50
-	if (!boost::filesystem::exists(filePath))
-#else
-	// so we need to go plain Win32
-#	ifndef _WIN32
-	// TODO: handle other platforms (when needed)
-#	error "not implemented yet"
-#	endif
-	const DWORD dwAttrib = ::GetFileAttributesA(filePath.c_str());
-
-	if (dwAttrib == INVALID_FILE_ATTRIBUTES ||
-			(dwAttrib & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY)
-#endif
+private:
+	static QString get_folder(GUID folderId)
 	{
-		filePath.assign(fileName);
+		PWSTR folder{ nullptr };
+		QString result;
+		if (SUCCEEDED(::SHGetKnownFolderPath(folderId, 0, nullptr, &folder)))
+		{
+			result = QDir::toNativeSeparators(QString::fromWCharArray(folder));
+		}
+		::CoTaskMemFree(folder);
+		return result;
+	}
+};
+#endif
+
+const QString GetSettingsFilePath(const char* fileName)
+{
+#ifdef _WIN32
+	// (1) use file in common app data
+	// (2) create file or error
+
+	QString basePath = KnownFolders::get_LocalAppData();
+	QDir baseDir(basePath);
+	if (!baseDir.exists())
+	{
+		return fileName;
 	}
 
-	return filePath;
+	QString configPath = baseDir.filePath("Ipponboard");
+	if (!QDir(configPath).exists() && !baseDir.mkpath(configPath))
+	{
+		return fileName;
+	}
+
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
 #else
-    //TODO: implement proper file path handling for linux
-    return fileName;
+	//TODO: implement proper file path handling for linux
+	return fileName;
 #endif
 }
-
 
 } // anonymous namespace
 } // namespace fmu

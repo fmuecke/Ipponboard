@@ -153,19 +153,19 @@ void FightCategoryMgr::load_categories()
 
 	try
 	{
-		if (QFile::exists(configFile.c_str()))
+		if (QFile::exists(configFile))
 		{
-			m_Categories = FightCategoryParser::ParseIniFile(configFile.c_str());
+			m_Categories = FightCategoryParser::ParseIniFile(configFile);
 		}
 		else
 		{
-			if (!QFile::exists(legacyFile.c_str()))
+			if (!QFile::exists(legacyFile))
 			{
 				load_default_categories();
 			}
 			else
 			{
-				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile.c_str());
+				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile);
 			}
 		}
 	}
@@ -184,8 +184,8 @@ void FightCategoryMgr::load_categories()
 void FightCategoryMgr::save_categories()
 //---------------------------------------------------------
 {
-	std::string filePath {fm::GetSettingsFilePath(str_configFileName)};
-	FightCategoryParser::ToIniFile(filePath.c_str(), m_Categories);
+	auto filePath {fm::GetSettingsFilePath(str_configFileName)};
+	FightCategoryParser::ToIniFile(filePath, m_Categories);
 }
 
 //---------------------------------------------------------
