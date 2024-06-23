@@ -20,11 +20,11 @@ public:
 	static Ipponboard::FightCategoryList ParseJsonString(std::string const& categories);
 
 	//> legacy (old format)
-	static Ipponboard::FightCategoryList ParseJsonFile(const char* file);
+	static Ipponboard::FightCategoryList ParseJsonFile(const QString& file);
 
 	// Qt settings format
-	static Ipponboard::FightCategoryList ParseIniFile(const char* file);
-	static void ToIniFile(const char* file, Ipponboard::FightCategoryList const& categories);
+	static Ipponboard::FightCategoryList ParseIniFile(const QString& file);
+	static void ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories);
 };
 
 #endif // FIGHTCATEGORYPARSER_H

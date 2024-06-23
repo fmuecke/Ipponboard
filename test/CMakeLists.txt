@@ -37,6 +37,7 @@ set(SOURCES
     TestScore.cpp
     TestTournamentMode.cpp
     TestOnlineVersionChecker.cpp
+    Test-path_helpers.cpp
     TestVersionComparer.cpp
 )
 
@@ -46,7 +47,7 @@ if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
         RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
-        COMPILE_FLAGS "/Zc:wchar_t- /MP"
+        COMPILE_FLAGS "/MP"
         CMAKE_SUPPRESS_REGENERATION true
     )
 else()

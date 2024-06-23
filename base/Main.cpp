@@ -181,9 +181,7 @@ int main(int argc, char* argv[])
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
 
-	const QString ini(QString::fromStdString(fm::GetSettingsFilePath("Ipponboard.ini")));
-
-	QSettings settings(ini, QSettings::IniFormat, &a);
+	QSettings settings(fm::GetSettingsFilePath("Ipponboard.ini"), QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
 
 	if (settings.contains(str_tag_Language))

@@ -9,6 +9,7 @@
 #include "../util/json.hpp"
 #include "../util/qt_helpers.hpp"
 
+#include <QString>
 #include <QSettings>
 #include <QStringList>
 
@@ -21,11 +22,11 @@ static const char* Address = "Address";
 static const char* LogoFile = "LogoFile";
 }
 
-static Ipponboard::ClubList ParseJsonFile(const char* filePath)
+static Ipponboard::ClubList ParseJsonFile(QString filePath)
 {
 	Ipponboard::ClubList clubs;
 
-	auto const& jsonClubs = fm::Json::ReadFile(filePath);
+	auto const& jsonClubs = fm::Json::ReadFile(filePath.toStdString().c_str());
 
 	for (auto const & jsonClub : jsonClubs)
 	{
@@ -40,7 +41,7 @@ static Ipponboard::ClubList ParseJsonFile(const char* filePath)
 	return clubs;
 }
 
-static Ipponboard::ClubList ParseIniFile(const char* filePath)
+static Ipponboard::ClubList ParseIniFile(QString filePath)
 {
 	QSettings settings(filePath, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
@@ -71,7 +72,7 @@ static Ipponboard::ClubList ParseIniFile(const char* filePath)
 	return clubs;
 }
 
-static void ToIniFile(const char* filePath, Ipponboard::ClubList const& clubs)
+static void ToIniFile(QString filePath, Ipponboard::ClubList const& clubs)
 {
 	QSettings settings(filePath, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");

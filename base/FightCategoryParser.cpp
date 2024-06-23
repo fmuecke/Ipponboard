@@ -20,7 +20,7 @@ FightCategoryParser::FightCategoryParser()
 
 }
 
-void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryList const& categories)
+void FightCategoryParser::ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories)
 {
 	QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
@@ -38,7 +38,7 @@ void FightCategoryParser::ToIniFile(const char* file, Ipponboard::FightCategoryL
 	}
 }
 
-Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(const char* file)
+Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& file)
 {
 	QSettings settings(file, QSettings::IniFormat);
 	settings.setIniCodec("UTF-8");
@@ -120,9 +120,9 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseJsonString(std::string c
 }
 
 // May throw exception!
-Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const char* file)
+Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const QString& file)
 {
-	auto json = fm::Json::ReadFile(file);
+	auto json = fm::Json::ReadFile(file.toStdString().c_str());
 	return ParseJson(json);
 }
 

@@ -561,8 +561,7 @@ void MainWindowTeam::WriteScoreToHtml_()
 {
 	QString modeText = get_full_mode_title(m_currentMode);
     QString templateFile = get_template_file(m_currentMode);
-	const QString filePath(
-		fm::GetSettingsFilePath(templateFile.toStdString().c_str()).c_str());
+	const QString filePath(fm::GetSettingsFilePath(templateFile.toStdString().c_str()));
 
 	QFile file(filePath);
 
