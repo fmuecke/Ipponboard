@@ -57,7 +57,7 @@ protected slots:
 	//virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 	/* specific private slots */
-	void on_actionManageClasses_triggered(); //TODO: rename to categories
+	void on_actionManageCategories_triggered();
 	void on_comboBox_weight_currentIndexChanged(const QString&);
 	void on_comboBox_name_second_currentIndexChanged(const QString&);
 	void on_comboBox_name_first_currentIndexChanged(const QString&);
