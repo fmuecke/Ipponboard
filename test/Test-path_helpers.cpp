@@ -10,21 +10,24 @@
 TEST_CASE("GetSettingsFilePath: returns back empty filename")
 {
 	auto path = fm::GetSettingsFilePath("");
-	REQUIRE_FALSE(path.empty());
-	REQUIRE(path.find("\\Ipponboard\\") == path.size() - 12);
+	REQUIRE_FALSE(path.isEmpty());
+	INFO(path.toStdString());
+	REQUIRE(path.indexOf("\\Ipponboard") == path.size() - 11);
 }
 
 TEST_CASE("GetSettingsFilePath: returns a non empty value")
 {
 	auto path = fm::GetSettingsFilePath("somefile.ext");
-	REQUIRE_FALSE(path.empty());
-	REQUIRE(path.find("\\Ipponboard\\somefile.ext") != std::string::npos );
+	REQUIRE_FALSE(path.isEmpty());
+	INFO(path.toStdString());
+	REQUIRE(path.indexOf("\\Ipponboard\\somefile.ext") != -1 );
 }
 
 TEST_CASE("KnowFolders: Desktop returns path to desktop")
 {
 	auto folder = fm::KnownFolders::get_Desktop();
-	auto pos = folder.find("Desktop");
+	auto pos = folder.indexOf("Desktop");
+	INFO(folder.toStdString());
 	REQUIRE(pos == folder.size() - 7);
 }
 
@@ -32,8 +35,9 @@ TEST_CASE("KnowFolders: Desktop returns path to desktop")
 TEST_CASE("KnowFolders: LocalAppData returns valid path ")
 {
 	auto folder = fm::KnownFolders::get_LocalAppData();
-	auto pos = folder.find("AppData\\Local");
-	REQUIRE(pos != folder.npos);
+	INFO(folder.toStdString());
+	auto pos = folder.indexOf("AppData\\Local");
+	REQUIRE(pos != -1);
 }
 
 #endif

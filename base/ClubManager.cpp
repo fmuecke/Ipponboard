@@ -108,9 +108,9 @@ void ClubManager::LoadClubs_()
 {
 	auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
 
-	if (QFile::exists(config.c_str()))
+	if (QFile::exists(config))
 	{
-		m_Clubs = ClubParser::ParseIniFile(config.c_str());
+		m_Clubs = ClubParser::ParseIniFile(config);
 	}
 	else
 	{
@@ -118,7 +118,7 @@ void ClubManager::LoadClubs_()
 		try
 		{
 			auto legacyConfig = fm::GetSettingsFilePath(str_legacy_filename_club_definitions);
-			m_Clubs = ClubParser::ParseJsonFile(legacyConfig.c_str());
+			m_Clubs = ClubParser::ParseJsonFile(legacyConfig);
 		}
 		catch (std::exception const& e)
 		{
@@ -141,7 +141,7 @@ void ClubManager::SaveClubs_()
 
 	try
 	{
-		ClubParser::ToIniFile(filePath.c_str(), m_Clubs);
+		ClubParser::ToIniFile(filePath, m_Clubs);
 	}
 	catch (std::exception const& e)
 	{

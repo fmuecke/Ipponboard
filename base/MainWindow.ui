@@ -246,7 +246,7 @@
        </spacer>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="label_category">
         <property name="text">
          <string>Category</string>
         </property>
@@ -255,7 +255,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Weight</string>
+         <string>Weight Class</string>
         </property>
        </widget>
       </item>
@@ -569,7 +569,7 @@
     </property>
     <addaction name="actionVereine"/>
     <addaction name="actionManageFighters"/>
-    <addaction name="actionManageClasses"/>
+    <addaction name="actionManageCategories"/>
     <addaction name="separator"/>
     <addaction name="actionSet_Hold_Timer"/>
     <addaction name="actionSet_Main_Timer"/>
@@ -745,13 +745,9 @@
     <string>Print</string>
    </property>
   </action>
-  <action name="actionManageClasses">
-   <property name="icon">
-    <iconset resource="ipponboard.qrc">
-     <normaloff>:/res/icons/category.png</normaloff>:/res/icons/category.png</iconset>
-   </property>
+  <action name="actionManageCategories">
    <property name="text">
-    <string>Fight Categories</string>
+    <string>Categories</string>
    </property>
    <property name="toolTip">
     <string>Manage fight categories</string>

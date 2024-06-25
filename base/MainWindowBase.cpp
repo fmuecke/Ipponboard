@@ -10,7 +10,9 @@
 #include "../core/Enums.h"
 #include "../base/versioninfo.h"
 #include "../base/SettingsDlg.h"
+#ifdef _WIN32
 #include "../gamepad/gamepad.h"
+#endif
 #include "../core/Rules.h"
 #include "../util/path_helpers.h"
 
@@ -414,10 +416,7 @@ void MainWindowBase::on_actionRules2018_triggered(bool checked)
 
 void MainWindowBase::write_settings()
 {
-	QString iniFile(
-		QString::fromStdString(
-            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
-
+	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
 
@@ -498,9 +497,7 @@ void MainWindowBase::write_settings()
 
 void MainWindowBase::read_settings()
 {
-	QString iniFile(
-		QString::fromStdString(
-            fm::GetSettingsFilePath(GetConfigFileName().toLatin1())));
+	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
 
 	QSettings settings(iniFile, QSettings::IniFormat, this);
 	//TODO: settings.setIniCodec("UTF-8");
@@ -666,7 +663,7 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-	QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
+	QString csvFile(fm::GetSettingsFilePath(GetFighterFileName().toLatin1()));
 
 	QString errorMsg;
 	m_fighterManager.defaultCsvFile = csvFile;
@@ -684,7 +681,7 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-	//QString csvFile(QString::fromStdString(fm::GetSettingsFilePath(GetFighterFileName().toLatin1())));
+	//QString csvFile(fm::GetSettingsFilePath(GetFighterFileName().toLatin1()));
 	QString errorMsg;
 	if (!m_fighterManager.SaveFighters(m_fighterManager.defaultCsvFile, errorMsg))
 	{
