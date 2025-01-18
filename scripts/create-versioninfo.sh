@@ -17,9 +17,9 @@ echo "Using: BASE_DIR=$BASE_DIR"
 
 # --> CHANGE VERSION HERE:
 VER1=2
-VER2=2
+VER2=3
 VER3=0
-TAG=""
+TAG="experimental"
 # that's it. <--
 
 REV=$(git log -1 --format=%h)

@@ -2,7 +2,10 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
-## Version 2.x (2023-xx-yy)
+## Version 2.2-experimental (2025-01-18)
+- (new): added IJF 2025 rules which re-introduced yuko
+
+## Version 2.2-internal (2023-xx-yy)
 - (fix): consistenly named labels for categories and classes
 - (new): experimental support for Linux builds (no sound, printing or gamepad so far)
 - (mod): Updated InnoSetup installation engine to v6.x: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
