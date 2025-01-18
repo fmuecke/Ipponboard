@@ -414,6 +414,15 @@ void MainWindowBase::on_actionRules2018_triggered(bool checked)
 	}
 }
 
+void MainWindowBase::on_actionRules2025_triggered(bool checked)
+{
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<Rules2025>());
+		ui_check_rules_items();
+	}
+}
+
 void MainWindowBase::write_settings()
 {
 	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));

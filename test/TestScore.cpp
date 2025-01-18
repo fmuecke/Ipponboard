@@ -101,11 +101,13 @@ TEST_CASE("[Score] is awasette ippon")
 	auto rules2013 = std::make_shared<Ipponboard::Rules2013>();
 	auto rules2017 = std::make_shared<Ipponboard::Rules2017>();
 	auto rules2018 = std::make_shared<Ipponboard::Rules2018>();
+	auto rules2025 = std::make_shared<Ipponboard::Rules2025>();
 
 	REQUIRE_FALSE(classicRules->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2018->IsAwaseteIppon(score));
+	REQUIRE_FALSE(rules2025->IsAwaseteIppon(score));
 
 	score.Add(Score::Point::Wazaari);
 
@@ -113,6 +115,7 @@ TEST_CASE("[Score] is awasette ippon")
 	REQUIRE_FALSE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2018->IsAwaseteIppon(score));
+	REQUIRE_FALSE(rules2025->IsAwaseteIppon(score));
 
 	score.Add(Score::Point::Wazaari);
 
@@ -120,6 +123,7 @@ TEST_CASE("[Score] is awasette ippon")
 	REQUIRE(rules2013->IsAwaseteIppon(score));
 	REQUIRE_FALSE(rules2017->IsAwaseteIppon(score));
 	REQUIRE(rules2018->IsAwaseteIppon(score));
+	REQUIRE(rules2025->IsAwaseteIppon(score));
 
 	//TODO
 	//FIXME
@@ -163,4 +167,30 @@ TEST_CASE("[Score] rules 2017: first shido does count in golden score")
 
 	f.GetScore(FighterEnum::First).Add(Point::Shido);
 	REQUIRE(rules->CompareScore(f) > 0);
+}
+
+TEST_CASE("[Score] rules 2025: yuko is always less than wazaari")
+{
+	auto rules = std::make_shared<Ipponboard::Rules2025>();
+
+	Score yukoScore, wazaariScore; 
+	yukoScore.Add(Point::Yuko);
+	INFO("empty score is less than yuko");
+	REQUIRE(IsScoreLess(rules, Score(), yukoScore));
+
+	wazaariScore.Add(Point::Wazaari);
+	INFO("yuko is less than wazaari");
+	REQUIRE(IsScoreLess(rules, yukoScore, wazaariScore));
+
+	yukoScore.Add(Point::Yuko);
+	yukoScore.Add(Point::Yuko);
+	INFO("3 yuko is less than wazaari");
+	REQUIRE(IsScoreLess(rules, yukoScore, wazaariScore));
+
+	for (int i = 0; i < 97; ++i)
+	{
+		yukoScore.Add(Point::Yuko);
+	}
+	INFO("100 yuko is less than wazaari");
+	REQUIRE(IsScoreLess(rules, yukoScore, wazaariScore));
 }

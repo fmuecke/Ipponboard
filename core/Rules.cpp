@@ -7,6 +7,7 @@
 
 using namespace Ipponboard;
 
+const char* const Rules2025::StaticName = "IJF-2025";
 const char* const Rules2018::StaticName = "IJF-2018";
 const char* const Rules2017::StaticName = "IJF-2017";
 const char* const Rules2017U15::StaticName = "IJF-2017 U15";
