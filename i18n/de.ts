@@ -595,6 +595,14 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location line="+304"/>
+        <source>IJF Rules 2025</source>
+        <translation>2025er IJF Regeln</translation>
+    </message>
+    <message>
+        <source>Use IJF 2025 rules</source>
+        <translation>2025er IJF Regeln verwenden</translation>
+    </message>
+    <message>
         <source>User Manual</source>
         <translation>Anleitung</translation>
     </message>

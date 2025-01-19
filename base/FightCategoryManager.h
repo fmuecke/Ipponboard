@@ -23,7 +23,7 @@ class FightCategoryMgr
 {
 	//Q_OBJECT
 public:
-	static const char* const str_fileName;
+	static const char* const str_legacyConfigFileName;
 	static const char* const str_configFileName;
 
 	FightCategoryMgr();

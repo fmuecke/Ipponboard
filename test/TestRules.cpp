@@ -34,10 +34,10 @@ TEST_CASE("[Rules] Rulesfactory creates correct rule object")
 	REQUIRE(strcmp(rules->Name(), Rules2025::StaticName) == 0);
 }
 
-TEST_CASE("[Rules] Default rules are IJF-2018")
+TEST_CASE("[Rules] Default rules are IJF-2025")
 {
 	auto rules = RulesFactory::Create("");
-	REQUIRE(strcmp(rules->Name(), Rules2018::StaticName) == 0);
+	REQUIRE(strcmp(rules->Name(), Rules2025::StaticName) == 0);
 }
 
 TEST_CASE("[Rules] String list contains all rules")

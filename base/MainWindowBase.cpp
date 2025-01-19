@@ -427,6 +427,7 @@ void MainWindowBase::write_settings()
 {
 	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
 	QSettings settings(iniFile, QSettings::IniFormat, this);
+	qInfo() << "Writing settings to " << iniFile;
 	//TODO: settings.setIniCodec("UTF-8");
 
 	settings.beginGroup(str_tag_Main);
@@ -507,8 +508,8 @@ void MainWindowBase::write_settings()
 void MainWindowBase::read_settings()
 {
 	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
-
 	QSettings settings(iniFile, QSettings::IniFormat, this);
+	qInfo() << "Reading settings from " << iniFile;
 	//TODO: settings.setIniCodec("UTF-8");
 
 	// MainWindow

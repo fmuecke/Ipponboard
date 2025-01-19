@@ -11,8 +11,10 @@
 //#	pragma comment(lib,"Shell32.lib")
 #endif
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QDir>
+#include <QDebug>
 #include <string>
 
 namespace fm
@@ -64,6 +66,13 @@ private:
 
 const QString GetSettingsFilePath(const char* fileName)
 {
+#define EXPERIMENTAL 1
+
+#ifdef EXPERIMENTAL 
+	// use current application directory
+	QString configPath = QCoreApplication::applicationDirPath();
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+#else
 #ifdef _WIN32
 	// (1) use file in common app data
 	// (2) create file or error
@@ -72,6 +81,7 @@ const QString GetSettingsFilePath(const char* fileName)
 	QDir baseDir(basePath);
 	if (!baseDir.exists())
 	{
+		qInfo() << "Using settings file path: " << basePath;
 		return fileName;
 	}
 
@@ -81,10 +91,8 @@ const QString GetSettingsFilePath(const char* fileName)
 		return fileName;
 	}
 
-	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
-#else
-	//TODO: implement proper file path handling for linux
-	return fileName;
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));	
+#endif
 #endif
 }
 
