@@ -4,27 +4,27 @@
 <context>
     <name>AddFighterDlg</name>
     <message>
-        <location filename="../base/AddFighterDlg.ui" line="+17"/>
+        <location filename="../base/AddFighterDlg.ui"/>
         <source>Add Fighter</source>
         <translation>Kämpfer hinzufügen</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>First name</source>
         <translation>Vorname</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Last name</source>
         <translation>Nachname</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
@@ -32,47 +32,47 @@
 <context>
     <name>ClubManagerDlg</name>
     <message>
-        <location filename="../base/ClubManagerDlg.ui" line="+14"/>
+        <location filename="../base/ClubManagerDlg.ui"/>
         <source>Manage Clubs</source>
         <translation>Vereinsverwaltung</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location/>
         <source>Details</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Logo</source>
         <translation>Wappen</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -218,42 +218,42 @@
 <context>
     <name>FightCategoryManagerDlg</name>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.ui" line="+14"/>
+        <location filename="../base/FightCategoryManagerDlg.ui"/>
         <source>Manage Fight Categories</source>
         <translation>Kategorien verwalten</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>The name of the category</source>
         <translation>Der Name der Kategorie (Altersklasse)</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Round Time</source>
         <translation>Rundenzeit</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>GS Time</source>
         <translation>GS Zeit</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Weight Classes</source>
         <translation>Gewichtsklassen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>The weight classes (separated by semicolons)</source>
         <translation>die Gewichtsklassen (Strichpunkt-separiert)</translation>
     </message>
@@ -262,7 +262,7 @@
         <translation type="vanished">GS</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location/>
         <source>Golden Score Time</source>
         <translation>Golden-Score Zeit</translation>
     </message>
@@ -275,22 +275,22 @@
         <translation type="vanished">Die Gewichtsklassen (getrennt durch Kommas)</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location/>
         <source>Add a new category</source>
         <translation>Neue Kategorie hinzufügen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Remove the currently selected weight class</source>
         <translation>Entfernt die gerade ausgewählte Kategorie</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -330,52 +330,52 @@
 <context>
     <name>FighterManagerDlg</name>
     <message>
-        <location filename="../base/FighterManagerDlg.ui" line="+14"/>
+        <location filename="../base/FighterManagerDlg.ui"/>
         <source>Manage Fighters</source>
         <translation>Kämpferverwaltung</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location/>
         <source>Import fighters</source>
         <translation>Kämpfer importieren</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Export fighters</source>
         <translation>Kämpfer exportieren</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>E&amp;xport</source>
         <translation>E&amp;xportieren</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Settings for import/export</source>
         <translation>Einstellungen für Im-/Export</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location/>
         <source>Add a new fighter</source>
         <translation>Neuen Kämpfer hinzufügen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Remove the currently selected weight class</source>
         <translation>Entfernt die gerade ausgewählte Kategorie</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>Entfe&amp;rnen</translation>
     </message>
@@ -449,7 +449,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+54"/>
+        <location filename="../base/SettingsDlg.cpp" line="+55"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -495,12 +495,12 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../base/MainWindow.ui" line="+30"/>
+        <location filename="../base/MainWindow.ui"/>
         <source>Ipponboard</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+349"/>
+        <location/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -509,23 +509,22 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation type="vanished">Klasse</translation>
     </message>
     <message>
-        <location line="-261"/>
+        <location/>
         <source>Display secondary screen</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+516"/>
+        <location/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="-465"/>
+        <location/>
         <source>Options:</source>
         <translation>Optionen:</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>/</source>
         <translation>/</translation>
     </message>
@@ -534,317 +533,317 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation type="vanished">Gewicht</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location/>
         <source>Activate Golden Score</source>
         <translation>Golden-Score einschalten</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Golden Score</source>
         <translation>Golden-Score</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Rules</source>
         <translation>Regeln</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
     <message>
-        <location line="+304"/>
+        <location/>
         <source>IJF Rules 2025</source>
         <translation>2025er IJF Regeln</translation>
     </message>
     <message>
+        <location/>
         <source>Use IJF 2025 rules</source>
         <translation>2025er IJF Regeln verwenden</translation>
     </message>
     <message>
+        <location/>
         <source>User Manual</source>
         <translation>Anleitung</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-292"/>
+        <location/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die sekundäre Anzeige an/aus</translation>
     </message>
     <message>
-        <location line="+211"/>
+        <location/>
         <source>Auto Adjust Points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>IJF Rules 2017</source>
         <translation>2017er IJF Regeln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use IJF 2017 rules</source>
         <translation>2017er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>IJF Rules 2013</source>
         <translation>2013er IJF Regeln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use IJF 2013 rules</source>
         <translation>2013er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Classic Rules</source>
         <translation>Klassische Regeln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use classic rules</source>
         <translation>Klassisches Regelwerk verwenden</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Info Bar</source>
         <translation>Info-Zeile</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Shows/hides the info bar which dispays the current options and rules.</source>
         <translation>Zeigt/versteckt die Info-Zeile mit den Optionen und aktiven Regeln.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>IJF Rules 2017 (U15)</source>
         <translation>2017er IJF Regeln (U15)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use IJF 2017 rules (U15)</source>
         <translation>2017er IJF Regeln verwenden (U15)</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>IJF Rules 2018</source>
         <translation>2018er IJF Regeln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use IJF 2018 rules</source>
         <translation>2018er IJF Regeln verwenden</translation>
     </message>
     <message>
-        <location line="-639"/>
+        <location/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Signal</source>
         <translation>Signal</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location/>
         <source>Reset all clocks and scores</source>
         <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>&amp;About</source>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>&amp;View</source>
         <translation>&amp;Anzeige</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location/>
         <source>&amp;Manage</source>
         <translation>&amp;Verwaltung</translation>
     </message>
     <message>
-        <location line="-123"/>
+        <location/>
         <source>First Fighter (first last)</source>
         <translation>Erster Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
-        <location line="-188"/>
+        <location/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Weight Class</source>
         <translation>Gewichtsklasse</translation>
     </message>
     <message>
-        <location line="+203"/>
+        <location/>
         <source>Second Fighter (first last)</source>
         <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location/>
         <source>Leave Ipponboard</source>
         <translation>Ipponboard verlassen</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location/>
         <source>Visit Homepage</source>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Select Font</source>
         <translation>Schriftart wählen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Select Color</source>
         <translation>Farbe wählen</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location line="+58"/>
+        <location/>
         <source>Clubs</source>
         <translation>Vereine</translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location/>
         <source>Manage Clubs</source>
         <translation>Vereinsverwaltung</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Change Background</source>
         <translation>Hintergrund ändern</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Play Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Plays the mat signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location/>
         <source>Categories</source>
         <translation>Kategorien</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <location line="+3"/>
+        <location/>
         <source>Report a Bug</source>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location/>
         <source>Set the hold timer to a certain value</source>
         <translation>Um die Haltegriffzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Set the main timer to a certain value</source>
         <translation>Um die Kampfzeit auf einen bestimmten Wert zu setzen</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Controller</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Load Demo Data</source>
         <translation>Beispielwerte laden</translation>
     </message>
@@ -853,47 +852,47 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation type="vanished">Kategorien</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location/>
         <source>Manage fight categories</source>
         <translation>Kategorien und Gewichtsklassen verwalten</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Set Main Timer</source>
         <translation>Kampfzeit setzen</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location line="-85"/>
+        <location/>
         <source>Fighters</source>
         <translation>Kämpfer</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Manage fighters</source>
         <translation>Kämpferverwaltung</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location line="-73"/>
+        <location/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+340"/>
+        <location filename="../base/MainWindow.cpp" line="+345"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -935,13 +934,13 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowTeam</name>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+151"/>
+        <location filename="../base/MainWindowTeam.ui"/>
         <location filename="../base/MainWindowTeam.cpp" line="+322"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <location filename="../base/MainWindowTeam.cpp" line="+1"/>
         <source>Guest</source>
         <translation>Gast</translation>
@@ -952,7 +951,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation> (gespeichert)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1137"/>
+        <location filename="../base/MainWindowTeam.ui"/>
         <location filename="../base/MainWindowTeam.cpp" line="+64"/>
         <source>Save</source>
         <translation>Speichern</translation>
@@ -963,7 +962,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+90"/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -983,7 +982,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+62"/>
+        <location filename="../base/MainWindowTeam.ui"/>
         <location filename="../base/MainWindowTeam.cpp" line="+10"/>
         <source>Reset Scores</source>
         <translation>Tabelle zurücksetzten</translation>
@@ -1084,406 +1083,402 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ipponboard Kämpferliste %1</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1331"/>
+        <location filename="../base/MainWindowTeam.ui"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location/>
         <source>List (Ctrl+1)</source>
         <translation>Liste (Strg+1)</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>List</source>
         <translation>Liste</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Host</source>
         <translation>Ausrichter</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Edit home team</source>
         <translation>Heim-Mannschaft bearbeiten</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Location</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Edit guest team</source>
         <translation>Gast-Mannschaft bearbeiten</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Weights</source>
         <translation>Gewichtsklassen</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location/>
         <source>Score after 1st round:</source>
         <translation>Punktestand nach 1ter Runde:</translation>
     </message>
     <message>
-        <location line="+41"/>
-        <location line="+225"/>
+        <location/>
         <source>(Wins)</source>
         <translation>(Siege)</translation>
     </message>
     <message>
-        <location line="-181"/>
-        <location line="+237"/>
+        <location/>
         <source>(Sub score)</source>
         <translation>(Unterbewertung)</translation>
     </message>
     <message>
-        <location line="-214"/>
+        <location/>
         <source>Copy &amp;&amp; switch guest</source>
         <translation>Kopieren (und Gäste tauschen)</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location/>
         <source>Final score:</source>
         <translation>Endstand:</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location/>
         <source>Score board (Ctrl+2)</source>
         <translation>Punktetafel (Strg+2)</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Board</source>
         <translation>Anzeigetafel</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location/>
         <source>Show result screen (F4)</source>
         <translation>Zwischenstand anzeigen (F4)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Show Results</source>
         <translation>Ergebnis anzeigen</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location/>
         <source>Round</source>
         <translation>Runde</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location/>
         <source>Fight</source>
         <translation>Kampf</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>1/10</source>
         <translation>1/10</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location/>
         <source>Re-load previous fight data (Note: the current data will be saved)</source>
         <translation>Daten des vorherigen Kampfes laden (Hinweis: die aktuellen Daten werden gespeichert)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Previous</source>
         <translation>Vorheriger</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>Continue with next fight (current data will be saved)</source>
         <translation>Mit dem nächsten Kampf fortfahren (aktueller Punktestand wird gespeichert)</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location/>
         <source>Toggle Golden Score mode</source>
         <translation>Golden Score umschalten</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Golden Score</source>
         <translation>Golden-Score</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location/>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
         <translation>Setzt den aktuellen Punktestand und alle Uhren zurück (Ctrl + Backspace)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>View</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location/>
         <source>Manage</source>
         <translation>Verwaltung</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Timers</source>
         <translation>Zeitnehmer</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+O</source>
         <translation>Strg+O</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Ctrl+S</source>
         <translation>Strg+S</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>End Ipponboard</source>
         <translation>Ipponboard beenden</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+Q</source>
         <translation>Strg+Q</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Visit Homepage</source>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location/>
         <source>Report a Bug</source>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location/>
         <source>Auto Adjust Points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
     <message>
-        <location line="-271"/>
+        <location/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
     <message>
-        <location line="+280"/>
+        <location/>
         <source>User Manual</source>
         <translation>Anleitung</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location line="-271"/>
+        <location/>
         <source>Show Secondary View</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die sekundäre Anzeige an/aus</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Clubs</source>
         <translation>Vereine</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Manage Clubs</source>
         <translation>Vereinsverwaltung</translation>
     </message>
     <message>
-        <location line="+17"/>
-        <location line="+3"/>
+        <location/>
         <source>Play Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Plays the mat signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Controller</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Load Demo Data</source>
         <translation>Beispielwerte laden</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <location line="+3"/>
+        <location/>
         <source>Results as PDF</source>
         <translation>Ergebnisliste als PDF</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location/>
         <source>Set Hold Timer</source>
         <translation>Haltegriffzeit setzen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Set the hold timer to a certain value</source>
         <translation>Setzt die Haltegriffzeit auf einen bestimmten Wert</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Set Main Timer</source>
         <translation>Kampfzeit setzen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Set the main timer to a certain value</source>
         <translation>Setzt die Haltegriffzeit auf einen bestimmten Wert</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Toggles the info header (mat and category/weight class) on and off</source>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Set Round Time</source>
         <translation>Rundenzeit setzen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Set round time for all fights</source>
         <translation>Rundenzeit für alle Kämpfe setzen</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Switch to Score Table</source>
         <translation>Zur Tabelle wechseln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Swith to Score Control</source>
         <translation>Zum Bedienfeld wechseln</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+2</source>
         <translation>Ctrll+2</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Fighters</source>
         <translation>Kämpfer</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Import Fighters</source>
         <translation>Kämpfer importieren</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Modes</source>
         <translation>Modusverwaltung</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Manage tournament modes</source>
         <translation>Die Wettkampfmodi verwalten</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
@@ -1491,75 +1486,72 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>ModeManagerDlg</name>
     <message>
-        <location filename="../base/ModeManagerDlg.ui" line="+14"/>
+        <location filename="../base/ModeManagerDlg.ui"/>
         <source>Mode Management</source>
         <translation>Modusverwaltung</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <location line="+11"/>
+        <location/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>Title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Subtitle</source>
         <translation>Untertitel</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <location line="+191"/>
-        <location line="+22"/>
+        <location/>
         <source>The fight duration in seconds</source>
         <translation>Die Kampfzeit in Sekunden</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location/>
         <source>Template</source>
         <translation>Vorlage</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Weights</source>
         <translation>Gewichtsklassen</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Indicates that all weights will be used two times</source>
         <translation>Gibt an, dass alle Gewichtsklassen doppelt belegt sind</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source># Rounds</source>
         <translation># Runden</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>FIGHTS_PER_ROUND</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>The fight duration</source>
         <translation>Die Kampfzeit in Minuten und Sekunden</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>min</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>sec</source>
         <translation>Sek</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location/>
         <source>The overrides should be something like this:
 &quot;U12:120;U15:180;U18:240&quot;
 (&lt;identifier&gt;:&lt;time in seconds&gt;;&lt;identifier&gt;...)
@@ -1570,42 +1562,42 @@ Note: the time must be specified in seconds alone</source>
 Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location/>
         <source>Weights count twice</source>
         <translation>Klassen doppelt belegt</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location/>
         <source>Fight Time</source>
         <translation>Kampfzeit</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>Enables to specify overrides for the fight time for certain categories. E.g. &quot;U12:120;U15:180;U18:240&quot;</source>
         <translation>Erlaubt es die Kampfzeit für bestimmte Gewichtsklassen zu überschreiben: z.B. &quot;U12:120;U15:180;U18:240&quot;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use overrides</source>
         <translation>Ausnahmen verwenden</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location/>
         <source>Rules</source>
         <translation>Regeln</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Sub-scores are valued even if the fight is lost</source>
         <translation>Unterbewertungen werden auch für verlorene Kämpfe mitgezählt</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>All sub-scores count</source>
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
@@ -1638,7 +1630,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+203"/>
+        <location filename="../base/Main.cpp" line="+201"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1672,7 +1664,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="-150"/>
+        <location line="-148"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -1736,17 +1728,17 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Vielen Dank!</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+117"/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Version %1 verfügbar (aktuell in Verwendung: %2)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1331"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1330"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+615"/>
+        <location line="+614"/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
@@ -1830,7 +1822,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>ScoreScreen</name>
     <message>
-        <location filename="../base/ScoreScreen.ui" line="+14"/>
+        <location filename="../base/ScoreScreen.ui"/>
         <source>Form</source>
         <translation>Mannschaftswertung</translation>
     </message>
@@ -1838,7 +1830,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>ScoreViewHorizontal</name>
     <message>
-        <location filename="../base/view_horizontal.ui" line="+17"/>
+        <location filename="../base/view_horizontal.ui"/>
         <source>IpponBoard View</source>
         <translation>Anzeigetafel</translation>
     </message>
@@ -1846,7 +1838,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>ScoreViewVerticalSingle</name>
     <message>
-        <location filename="../base/view_vertical_single.ui" line="+17"/>
+        <location filename="../base/view_vertical_single.ui"/>
         <source>IpponBoard View</source>
         <translation>Anzeigetafel</translation>
     </message>
@@ -1854,7 +1846,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>ScoreViewVerticalTeam</name>
     <message>
-        <location filename="../base/view_vertical_team.ui" line="+17"/>
+        <location filename="../base/view_vertical_team.ui"/>
         <source>IpponBoard View</source>
         <translation>Anzeigetafel</translation>
     </message>
@@ -1862,461 +1854,439 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.ui" line="+23"/>
+        <location filename="../base/SettingsDlg.ui"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+27"/>
-        <location line="+702"/>
+        <location/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location line="-696"/>
+        <location/>
         <source>Secondary View</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
     <message>
-        <location line="+411"/>
-        <location line="+195"/>
+        <location/>
         <source>bold</source>
         <translation>fett</translation>
     </message>
     <message>
-        <location line="-188"/>
-        <location line="+195"/>
+        <location/>
         <source>italic</source>
         <translation>kursiv</translation>
     </message>
     <message>
-        <location line="-270"/>
-        <location line="+98"/>
-        <location line="+97"/>
+        <location/>
         <source>Sets the foreground color</source>
         <translation>Setzt die Vordergrundfarbe</translation>
     </message>
     <message>
-        <location line="-160"/>
-        <location line="+98"/>
-        <location line="+100"/>
+        <location/>
         <source>Sets the background color</source>
         <translation>Setzt die Hintergrundfarbe</translation>
     </message>
     <message>
-        <location line="-390"/>
+        <location/>
         <source>Play</source>
         <translation>Abspielen</translation>
     </message>
     <message>
-        <location line="+516"/>
+        <location/>
         <source>Next fight</source>
         <translation>Nächster Kampf</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location/>
         <source>Prev fight</source>
         <translation>Vorheriger Kampf</translation>
     </message>
     <message>
-        <location line="-38"/>
+        <location/>
         <source>Pause screen</source>
         <translation>Pause-Bildschirm</translation>
     </message>
     <message>
-        <location line="+416"/>
+        <location/>
         <source>Reset Hold Time</source>
         <translation>Haltegriff-Reset</translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location/>
         <source>Invert X axis</source>
         <translation>X-Achse invertieren</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location/>
         <source>Invert R axis</source>
         <translation>R-Achse invertieren</translation>
     </message>
     <message>
-        <location line="-81"/>
+        <location/>
         <source>Invert Y axis</source>
         <translation>Y-Achse invertieren</translation>
     </message>
     <message>
-        <location line="-743"/>
+        <location/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>
     <message>
-        <location line="+138"/>
+        <location/>
         <source>Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location/>
         <source>Mat 1</source>
         <translation>Matte 1</translation>
     </message>
     <message>
-        <location line="-50"/>
+        <location/>
         <source>The text that is shown above the score for the &quot;home&quot; side</source>
         <translation>Beschriftung für die &quot;Heim&quot;-Seite</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Home Label</source>
         <translation>&quot;Heim&quot;-Beschriftung</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location/>
         <source>Mat Label</source>
         <translation>Mattenbeschriftung</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location/>
         <source>Mat 2</source>
         <translation>Matte 2</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 3</source>
         <translation>Matte 3</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 4</source>
         <translation>Matte 4</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 5</source>
         <translation>Matte 5</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 6</source>
         <translation>Matte 6</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 7</source>
         <translation>Matte 7</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 8</source>
         <translation>Matte 8</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 9</source>
         <translation>Matte 9</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mat 10</source>
         <translation>Matte 10</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location/>
         <source>Fonts &amp;&amp; Colors</source>
         <translation>Schriften und Farben</translation>
     </message>
     <message>
-        <location line="+377"/>
+        <location/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location/>
         <source>Reset all
 (two buttons needed)</source>
         <translation>Alles zurücksetzen
 (benötigt zwei Knöpfe)</translation>
     </message>
     <message>
-        <location line="+38"/>
-        <location line="+323"/>
+        <location/>
         <source>Hajime/Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
     <message>
-        <location line="-269"/>
-        <location line="+94"/>
+        <location/>
         <source>Osaekomi/Toketa</source>
         <translation>Osaekomi/Toketa</translation>
     </message>
     <message>
-        <location line="-67"/>
-        <location line="+84"/>
+        <location/>
         <source>Reset hold time</source>
         <translation>Haltezeit-Reset</translation>
     </message>
     <message>
-        <location line="-77"/>
-        <location line="+94"/>
+        <location/>
         <source>Hansokumake</source>
         <translation>Hansokumake</translation>
     </message>
     <message>
-        <location line="-77"/>
+        <location/>
         <source>Axes used for points: X/Y</source>
         <translation>Achsen für die Wertungen: X/Y</translation>
     </message>
     <message>
-        <location line="-603"/>
+        <location/>
         <source>The text that is shown above the score for the &quot;guest&quot; side</source>
         <translation>Beschriftung für die &quot;Gast&quot;-Seite</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location/>
         <source>Size</source>
         <translation>Auflösung</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Screen</source>
         <translation>Bildschirm</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location/>
         <source>Use custom size</source>
         <translation>Eigene Größe verwenden</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location/>
         <source>Guest Label</source>
         <translation>&quot;Gast&quot;-Beschriftung</translation>
     </message>
     <message>
-        <location line="+543"/>
+        <location/>
         <source>First Fighter</source>
         <translation>Erster Kämpfer</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location/>
         <source>Second Fighter</source>
         <translation>Zweiter Kämpfer</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location/>
         <source>Invert Z axis</source>
         <translation>Z-Achse invertieren</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Axes used for points: Z/R</source>
         <translation>Achsen für die Wertungen: Z/R</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location/>
         <source>Keyboard</source>
         <translation>Tastatur</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location/>
         <source>Next</source>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Prev</source>
         <translation>Vorheriger</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Result Screen</source>
         <translation>Zwischenstand-Anzeige</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>+/- Ippon (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Wazaari (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Yuko (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Shido (blue)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Ippon (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Wazaari (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Yuko (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>+/- Shido (white)</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location/>
         <source>Space</source>
         <translation>Leertaste</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location line="+10"/>
+        <location/>
         <source>Ctrl + Alt</source>
         <translation>Ctrl + Alt</translation>
     </message>
     <message>
-        <location line="-5"/>
-        <location line="+35"/>
+        <location/>
         <source>Right</source>
         <translation>Rechts</translation>
     </message>
     <message>
-        <location line="-25"/>
-        <location line="+20"/>
+        <location/>
         <source>Left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location/>
         <source>F4</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location line="+20"/>
+        <location/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location/>
         <source>Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Down</source>
         <translation>Runter</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location line="+10"/>
-        <location line="+10"/>
-        <location line="+10"/>
-        <location line="+10"/>
-        <location line="+10"/>
-        <location line="+10"/>
-        <location line="+10"/>
+        <location/>
         <source>Ctrl (for revoke)</source>
         <translation>Ctrl (zum Zurücknehmen)</translation>
     </message>
     <message>
-        <location line="-65"/>
+        <location/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F6</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F7</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F8</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F9</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>F11</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location/>
         <source>The keyboard shortcuts can not be changed in this version (yet).</source>
         <translation>Die Tasten können in der aktuellen Version (noch) nicht geändet werden.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location/>
         <source>Extended</source>
         <translation>Erweitert</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Format specifier for fighter import and export</source>
         <translation>Formatspezifikation for den Kämpferim- und -export</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Fighter import/export format</source>
         <translation>Format für Kämpferim-/-export</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>club;firstname;lastname;weight</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-253"/>
+        <location/>
         <source>Reset all</source>
         <translation>Reset (ALLES)</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Osaekomi/Toketa (blue)</source>
         <translation>Osaekomi/Toketa (Blau)</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Osaekomi/Toketa (white)</source>
         <translation>Osaekomi/Toketa (Weiß)</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location/>
         <source>Modifier</source>
         <translation>Modifizierer</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Key</source>
         <translation>Taste</translation>
     </message>
@@ -2324,17 +2294,17 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <location filename="../base/SplashScreen.ui" line="+22"/>
+        <location filename="../base/SplashScreen.ui"/>
         <source>Welcome to Ipponboard!</source>
         <translation>Willkommen bei Ipponboard!</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location/>
         <source>start Single Tournament</source>
         <translation>Einzelwettkampf starten</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>start Team Tournament</source>
         <translation>Mannschaftswettkampf starten</translation>
     </message>
@@ -2343,7 +2313,7 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation type="vanished">OK, Einzelmodus starten</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location/>
         <source>I want to show my support as Ipponboard is really helpful.</source>
         <translation></translation>
     </message>
