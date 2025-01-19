@@ -20,7 +20,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2024 Florian Mücke "
+#define MyAppCopyright "2010-2025 Florian Mücke "
 #define MyAppAuthor "Florian Mücke"
 
 ; NOTE: The value of AppId uniquely identifies this application.

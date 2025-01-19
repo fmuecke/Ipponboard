@@ -262,7 +262,7 @@ public:
 		}
 
 		// default
-		return std::make_shared<Rules2018>();
+		return std::make_shared<Rules2025>();
 	}
 
 	static QStringList GetNames()
@@ -281,7 +281,7 @@ public:
 
 	static QString GetDefaultName()
 	{
-		return Rules2018::StaticName;
+		return Rules2025::StaticName;
 	}
 };
 } // namespace

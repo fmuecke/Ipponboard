@@ -878,6 +878,10 @@ Geldige velden zijn: %1</translation>
         <source>Use IJF 2017 rules (U15)</source>
         <translation>Gebruik IJF 2017 regels (U15)</translation>
     </message>
+        <source>IJF Rules 2025</source>
+        <translation>IJF Regels 2025</translation>
+        <source>Use IJF 2025 rules</source>
+        <translation>Gebruik IJF 2025-regels</translation>
     <message>
         <location line="+8"/>
         <source>IJF Rules 2018</source>
