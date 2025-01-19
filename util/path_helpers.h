@@ -11,7 +11,7 @@
 //#	pragma comment(lib,"Shell32.lib")
 #endif
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QFile>
 #include <QDir>
 #include <QDebug>
