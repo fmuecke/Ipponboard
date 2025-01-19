@@ -16,6 +16,7 @@
 #include <QScreen>
 #include <QSound>
 #include <QColorDialog>
+#include <QDebug>
 
 using namespace Ipponboard;
 
@@ -477,6 +478,7 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
 	QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
+	qDebug() << "Playing sound from file:" << path;
 	QSound::play(path);
 }
 
