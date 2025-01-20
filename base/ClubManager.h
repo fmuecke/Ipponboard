@@ -17,7 +17,7 @@ class ClubManager
 {
 	//Q_OBJECT
 public:
-	static const char* const str_legacy_filename_club_definitions;
+	static const char* const str_legacy_filename_club_definitions; // used prior to version 1.10
 	static const char* const str_clubs_settingsFile;
 
 	ClubManager();

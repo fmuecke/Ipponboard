@@ -16,7 +16,7 @@
 
 using namespace Ipponboard;
 
-const char* const FightCategoryMgr::str_legacyConfigFileName = "categories.json";
+const char* const FightCategoryMgr::str_legacyConfigFileName = "categories.json"; // used prior to version 1.10
 const char* const FightCategoryMgr::str_configFileName = "categories.config";
 
 //---------------------------------------------------------
