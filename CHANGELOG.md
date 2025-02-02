@@ -2,6 +2,8 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+- (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
+
 ## Version 2.3-experimental (2025-01-19)
 - (new): added IJF-2025 rules which re-introduced yuko
 - (mod): usign IJF-2025 rules for per default

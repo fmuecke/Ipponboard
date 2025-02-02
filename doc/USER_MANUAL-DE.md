@@ -66,7 +66,7 @@ Ipponboard verwendet die folgenden Komponenten von Drittanbietern, die unter den
   - Lizenziert unter [MIT License](licenses/jsoncpp/LICENSE).
 
 - **Sounddateien**
-  - Public Domain 2003
+  - Erstellt für Ipponboard aus unterschiedlichen Quellen; siehe [Attribution.txt](sounds/attribution.txt)
 
 - **[FamFam Flag Icons](http://www.famfamfam.com/archive/flag-icons-released/)** von Mark James
   - Lizenziert als [Public Domain](licenses/flags/readme.txt)
