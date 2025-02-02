@@ -36,7 +36,7 @@ Basic requirements to get started:
 - A big computer or TV screen
 
 More information about usage and configuration is described within the manual:
-- [German manual](doc/manual-de.md)
+- [German manual](doc/USER_MANUAL-DE.md)
 - [English manual](doc/USER_MANUAL-EN.md)
 
 # How much does it cost?
