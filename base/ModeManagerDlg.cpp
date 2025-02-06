@@ -66,6 +66,8 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
 		return;
 	}
 
+	m_currentIndex = i;
+
 	auto const& mode = GetMode(i);
 	m_pUi->lineEdit_title->setText(mode.title);
 	m_pUi->lineEdit_subtitle->setText(mode.subTitle);
@@ -102,8 +104,6 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
 	}
 
 	m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
-
-	m_currentIndex = i;
 }
 
 void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString& s)
