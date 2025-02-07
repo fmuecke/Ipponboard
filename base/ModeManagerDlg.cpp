@@ -163,7 +163,7 @@ void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
 
 void ModeManagerDlg::on_toolButton_add_clicked()
 {
-    auto mode = m_DefaultMode;
+    auto mode = TournamentMode::Default();
 	mode.title = tr("*new*");
 	mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 
