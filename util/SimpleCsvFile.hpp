@@ -10,6 +10,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
+#include <QDebug>
 
 #include <vector>
 
@@ -26,10 +27,12 @@ namespace SimpleCsvFile
     {
         errorMsg.clear();
 
+        qInfo() << "Reading items from:" << fileName;
         QFile file(fileName);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             errorMsg = QObject::tr("Unable to open file %1").arg(fileName);
+            qWarning() << errorMsg;
             return false;
         }
 
@@ -57,6 +60,7 @@ namespace SimpleCsvFile
                         .arg(QString::number(itemsPerLine))
                         .arg(QString::number(splittedLine.length()));
 
+                qWarning() << errorMsg;
                 return false;
             }
 
@@ -77,10 +81,12 @@ namespace SimpleCsvFile
     {
         errorMsg.clear();
 
+        qInfo() << "Writing data to:" << fileName;
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
         {
             errorMsg = QObject::tr("Unable to open file %1 for writing").arg(fileName);
+            qWarning() << errorMsg;
             return false;
         }
 
