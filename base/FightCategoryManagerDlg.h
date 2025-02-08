@@ -35,13 +35,10 @@ private:
 
 	Ui::FightCategoryManagerDlg* ui;
 	Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
-	std::string m_originalClasses;
 	//Ipponboard::WeightClass m_currentClass;
 
 private slots:
 	void on_treeWidget_classes_itemChanged(QTreeWidgetItem* item, int column);
-	void on_buttonBox_rejected();
-	void on_buttonBox_accepted();
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
 };

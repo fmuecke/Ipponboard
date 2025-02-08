@@ -206,7 +206,7 @@ void View::UpdateView()
 	{
 		QString infoText/*(tr("Fight ").toUpper())*/;
 		//infoText += QString::number(m_pController->GetRound()) + ": ";
-		infoText += m_pController->GetWeight() + "kg";
+		infoText += m_pController->GetWeight();
 		ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
 	}
 	else
@@ -216,7 +216,7 @@ void View::UpdateView()
 		if (!infoText.isEmpty())
             infoText += "  ";
 
-        infoText += m_weight + "kg";//.toUpper();
+        infoText += m_weight;//.toUpper();
         ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
 	}
 

@@ -31,6 +31,9 @@ public:
 
 	typedef std::shared_ptr<FightCategoryMgr> Ptr;
 
+	void LoadCategories();
+	void SaveCategories();
+
 	bool GetCategory(int index, FightCategory& t) const;
 	bool GetCategory(QString const& name, FightCategory& t) const;
 
@@ -47,8 +50,6 @@ public:
 	std::string ConvertCategoriesToString_WITH_GUI_ERROR();
 
 private:
-	void load_categories();
-	void save_categories();
 	void load_default_categories();
 
 	FightCategoryList m_Categories;

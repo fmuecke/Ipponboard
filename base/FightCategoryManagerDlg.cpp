@@ -29,8 +29,6 @@ FightCategoryManagerDlg::FightCategoryManagerDlg(
 
 	Q_ASSERT(m_pClassMgr);
 
-	m_originalClasses = m_pClassMgr->ConvertCategoriesToString_WITH_GUI_ERROR();
-
 	load_values();
 }
 
@@ -87,6 +85,10 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 	if (ok)
 	{
 		m_pClassMgr->AddCategory(name);
+		Ipponboard::FightCategory cat;
+		m_pClassMgr->GetCategory(name, cat);
+		cat.SetGoldenScoreTime(0);
+		cat.SetRoundTime(240);
 
 		// update combobox
 		QStringList contents;
@@ -98,9 +100,9 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 		pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 		ui->treeWidget_classes->addTopLevelItem(pItem);
-		pItem->setText(eColumn_Time, "...");
-		pItem->setText(eColumn_GS, "...");
-		pItem->setText(eColumn_Weights, "...");
+		pItem->setText(eColumn_Time, cat.GetRoundTimeStr());
+		pItem->setText(eColumn_GS, cat.GetGoldenScoreTimeStr());
+		pItem->setText(eColumn_Weights, "");
 	}
 }
 
@@ -127,24 +129,6 @@ void FightCategoryManagerDlg::load_values()
 }
 
 //---------------------------------------------------------
-void FightCategoryManagerDlg::on_buttonBox_accepted()
-//---------------------------------------------------------
-{
-	// do not restore old values
-	//TODO: ? accept();
-}
-
-//---------------------------------------------------------
-void FightCategoryManagerDlg::on_buttonBox_rejected()
-//---------------------------------------------------------
-{
-	// restore old values
-	//TODO: ? reject();
-
-	m_pClassMgr->CategoriesFromString(m_originalClasses);
-}
-
-//---------------------------------------------------------
 void FightCategoryManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
@@ -167,7 +151,7 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 //---------------------------------------------------------
 {
 	bool matches(false);
-
+	
 	FightCategory cat(pItem->text(eColumn_Name));
 	cat.SetRoundTime(pItem->text(eColumn_Time));
 	cat.SetGoldenScoreTime(pItem->text(eColumn_GS));
@@ -232,8 +216,8 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 	}
 	else if (column == eColumn_Weights)
 	{
-		QRegExp regex("([-+]{0,1}[0-9]{1,3}[;])*[-+]{0,1}[0-9]{1,3}");
-		matches = regex.exactMatch(pItem->text(eColumn_Weights));
+		//no regex check to enable creating custom groups instead of weight classes
+		matches = true;
 	}
 
 	QBrush brush(pItem->foreground(column));

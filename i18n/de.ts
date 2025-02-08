@@ -295,6 +295,16 @@
         <translation>Entfernen</translation>
     </message>
     <message>
+        <location/>
+        <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
+        <translation>0:00 Golden Score Zeit bedeutet kein Zeitlimit im Golden Score (oder es gibt keinen Golden Score)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Input weight classes/groups seperated by ";"</source>
+        <translation>Gewichtsklassen/Gruppen getrennt durch ";" eingeben</translation>
+    </message>
+    <message>
         <location filename="../base/FightCategoryManagerDlg.cpp" line="+27"/>
         <source>Ok</source>
         <translation>Ok</translation>

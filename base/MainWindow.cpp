@@ -70,10 +70,15 @@ void MainWindow::Init()
 
 void MainWindow::on_actionManageCategories_triggered()
 {
+	//save categories before editing
+	m_pCategoryManager->SaveCategories();
+
 	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 
 	if (QDialog::Accepted == dlg.exec())
 	{
+		m_pCategoryManager->SaveCategories();
+
 		QString currentClass =
 			m_pUi->comboBox_weight_class->currentText();
 
@@ -96,6 +101,11 @@ void MainWindow::on_actionManageCategories_triggered()
 
 		m_pUi->comboBox_weight_class->setCurrentIndex(index);
 		on_comboBox_weight_class_currentIndexChanged(currentClass);
+	}
+	else
+	{
+		//load old categories to discard changes
+		m_pCategoryManager->LoadCategories();
 	}
 }
 
