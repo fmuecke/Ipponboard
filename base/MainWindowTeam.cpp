@@ -154,8 +154,6 @@ void MainWindowTeam::Init()
 	// make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -905,6 +903,9 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 			m_pController->GetTournamentScoreModel(0).get());
 
 		m_pUi->tableView_tournament_list2->selectRow(0);
+
+		m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+		m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 		m_pUi->tableView_tournament_list2->show();
 		m_pUi->label_final_score->show();
