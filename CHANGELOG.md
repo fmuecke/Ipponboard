@@ -2,6 +2,8 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+- (mod): added and updated TournamentModes to current weight and age classes
+- (fix): tournament mode data were overwritten when switching through the modes
 - (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
 
 ## Version 2.3-experimental (2025-01-19)
