@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QMessageBox>
 #include <QFile>
+#include <QDebug>
 
 #include "../util/path_helpers.h"
 #include "FightCategoryParser.h"
@@ -155,22 +156,26 @@ void FightCategoryMgr::LoadCategories()
 	{
 		if (QFile::exists(configFile))
 		{
+			qInfo() << "Reading categories from config:" << configFile;
 			m_Categories = FightCategoryParser::ParseIniFile(configFile);
 		}
 		else
 		{
 			if (!QFile::exists(legacyFile))
 			{
+				qInfo() << "Loading default categories";
 				load_default_categories();
 			}
 			else
 			{
+				qInfo() << "Reading categories from legacy config:" << legacyFile;
 				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile);
 			}
 		}
 	}
 	catch (std::exception const& e)
 	{
+		qWarning() << "Error loading categories, restoring defaults";
         QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
@@ -184,6 +189,7 @@ void FightCategoryMgr::LoadCategories()
 void FightCategoryMgr::SaveCategories()
 //---------------------------------------------------------
 {
+	qInfo() << "Saving categories to:" << str_configFileName;
 	auto filePath {fm::GetSettingsFilePath(str_configFileName)};
 	FightCategoryParser::ToIniFile(filePath, m_Categories);
 }
