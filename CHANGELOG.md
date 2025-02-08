@@ -2,6 +2,7 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+- (mod): updated single tournament weight and age classes
 - (mod): weight classes can now be any string and have to include kg to support the use of groups instead of weights for youth tournaments
 - (fix): categories are now saved correctly and not duplicated when aborting the CategoryManager
 - (mod): added and updated TournamentModes to current weight and age classes
