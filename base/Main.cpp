@@ -181,6 +181,7 @@ int main(int argc, char* argv[])
 	QString langStr = QLocale::system().name();
 	langStr.truncate(langStr.lastIndexOf('_'));
 
+	qInfo() << "Reading settings from: " << fm::GetSettingsFilePath("Ipponboard.ini");
 	QSettings settings(fm::GetSettingsFilePath("Ipponboard.ini"), QSettings::IniFormat, &a);
 	settings.beginGroup(str_tag_Main);
 

@@ -56,6 +56,7 @@ bool TournamentMode::ReadModes(
 	if (!file.exists())
 	{
 		errorMsg = QString("%1 not found!").arg(filename);
+		qWarning() << errorMsg;
 		return false;
 	}
 
