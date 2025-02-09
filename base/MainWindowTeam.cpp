@@ -73,6 +73,33 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 MainWindowTeam::~MainWindowTeam()
 {}
 
+
+void MainWindowTeam::LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode)
+{
+	m_pUi->comboBox_mode->clear();
+	m_modes.swap(modes);
+
+	for (auto const & mode : m_modes)
+	{
+		m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
+	}
+
+	initialized = true;
+
+	auto index = m_pUi->comboBox_mode->findData(QVariant(selectedMode));
+	index = index == -1 ? 0 : index;
+
+	if (index != m_pUi->comboBox_mode->currentIndex())
+	{
+		m_pUi->comboBox_mode->setCurrentIndex(index);
+	}
+	else
+	{
+		// re-trigger event, so that dependent controls are updated
+		on_comboBox_mode_currentIndexChanged(index);
+	}
+}
+
 void MainWindowTeam::Init()
 {
 	m_pClubManager.reset(new Ipponboard::ClubManager());
@@ -98,32 +125,7 @@ void MainWindowTeam::Init()
         throw std::runtime_error("Initialization failed!");
 	}
 
-	SetModes(modes);
-
-	// load modes
-	for (auto const & mode : m_modes)
-	{
-		m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
-	}
-
-	initialized = true;
-
-	int modeIndex = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
-
-	if (-1 == modeIndex)
-	{
-		modeIndex = 0;
-	}
-
-	if (m_pUi->comboBox_mode->currentIndex() != modeIndex)
-	{
-		m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
-	}
-	else
-	{
-		// be sure to trigger
-		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
-	}
+	LoadModes(modes, m_currentMode);
 
 	//
 	// setup data
@@ -154,8 +156,6 @@ void MainWindowTeam::Init()
 	// make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
-    m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 	// TEMP: hide weight cotrol
 //	m_pUi->label_weight->hide();
@@ -697,6 +697,7 @@ void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
 void MainWindowTeam::on_actionManageModes_triggered()
 {
 	QStringList templates = get_list_templates();
+
 	ModeManagerDlg dlg(m_modes, templates, m_currentMode, this);
 
 	if (dlg.exec() == QDialog::Accepted)
@@ -712,25 +713,7 @@ void MainWindowTeam::on_actionManageModes_triggered()
 			return;
 		}
 
-		m_pUi->comboBox_mode->clear();
-		SetModes(dlg.Result());
-
-		for (auto const & mode : m_modes)
-		{
-			m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
-		}
-
-		auto pos = m_pUi->comboBox_mode->findData(QVariant(m_currentMode));
-		pos = pos == -1 ? 0 : pos;
-
-		if (pos != m_pUi->comboBox_mode->currentIndex())
-		{
-			m_pUi->comboBox_mode->setCurrentIndex(pos);
-		}
-		else
-		{
-			on_comboBox_mode_currentIndexChanged(pos);
-		}
+		LoadModes(dlg.Result(), m_currentMode); // will trigger re-initialization of all mode data!
 	}
 }
 
@@ -905,6 +888,9 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 			m_pController->GetTournamentScoreModel(0).get());
 
 		m_pUi->tableView_tournament_list2->selectRow(0);
+
+		m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name1, QHeaderView::Stretch);
+		m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(TournamentModel::eCol_name2, QHeaderView::Stretch);
 
 		m_pUi->tableView_tournament_list2->show();
 		m_pUi->label_final_score->show();

@@ -2307,14 +2307,12 @@ Restoring defaults.</source>
         <translation>Welkom bij Ipponboard!</translation>
     </message>
     <message>
-        <location/>
         <source>start Single Tournament</source>
-        <translation>Start individuele competitie</translation>
+        <translation type="vanished">Start individuele competitie</translation>
     </message>
     <message>
-        <location/>
         <source>start Team Tournament</source>
-        <translation>Start teamcompetitie</translation>
+        <translation type="vanished">Start teamcompetitie</translation>
     </message>
     <message>
         <source>Ok, start Single Tournament</source>
@@ -2328,6 +2326,26 @@ Restoring defaults.</source>
     <message>
         <source>Ok, start Team Tournament</source>
         <translation type="vanished">Ok, start teamtoernooi</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(1) start Single Tournament</source>
+        <translation>(1) Start individuele competitie</translation>
+    </message>
+    <message>
+        <location/>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(2) start Team Tournament</source>
+        <translation>(2) Start teamcompetitie</translation>
+    </message>
+    <message>
+        <location/>
+        <source>2</source>
+        <translation>2</translation>
     </message>
 </context>
 <context>

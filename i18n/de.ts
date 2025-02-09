@@ -2309,14 +2309,12 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Willkommen bei Ipponboard!</translation>
     </message>
     <message>
-        <location/>
         <source>start Single Tournament</source>
-        <translation>Einzelwettkampf starten</translation>
+        <translation type="vanished">Einzelwettkampf starten</translation>
     </message>
     <message>
-        <location/>
         <source>start Team Tournament</source>
-        <translation>Mannschaftswettkampf starten</translation>
+        <translation type="vanished">Mannschaftswettkampf starten</translation>
     </message>
     <message>
         <source>Ok, start Single Tournament</source>
@@ -2330,6 +2328,26 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     <message>
         <source>Ok, start Team Tournament</source>
         <translation type="vanished">OK, Mannschaftsmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(1) start Single Tournament</source>
+        <translation>(1) Einzelmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(2) start Team Tournament</source>
+        <translation>(2) Mannschaftsmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>2</source>
+        <translation>2</translation>
     </message>
 </context>
 <context>

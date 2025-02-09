@@ -12,6 +12,7 @@
 #include <QUuid>
 #include <QSettings>
 #include <regex>
+#include <QDebug>
 
 using namespace Ipponboard;
 
@@ -48,12 +49,14 @@ bool TournamentMode::ReadModes(
 	QString& errorMsg)
 {
 	errorMsg.clear();
+	qInfo() << "Reading tournament modes from:" << filename;
 
 	QFile file(filename);
 
 	if (!file.exists())
 	{
 		errorMsg = QString("%1 not found!").arg(filename);
+		qWarning() << errorMsg;
 		return false;
 	}
 
@@ -64,6 +67,7 @@ bool TournamentMode::ReadModes(
 	if (groups.isEmpty())
 	{
 		errorMsg = QString("%1 does not contain any mode definitions!").arg(filename);
+		qWarning() << errorMsg;
 		return false;
 	}
 
@@ -80,6 +84,7 @@ bool TournamentMode::ReadModes(
 		if (!readSuccess)
 		{
 			errorMsg = QString("Error parsing file %1. %2").arg(filename, errorMsg);
+			qWarning() << errorMsg;
 			return false;
 		}
 
@@ -98,11 +103,13 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
 {
 	errorMsg.clear();
 
+	qInfo() << "Writing tournament modes to:" << filename;
 	QFile file(filename);
 
 	if (file.exists() && !file.remove())
 	{
 		errorMsg = QString("Can not write to %1!").arg(filename);
+		qWarning() << errorMsg;
 		return false;
 	}
 
