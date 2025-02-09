@@ -22,7 +22,7 @@ Your contributions, whether big or small, are greatly appreciated!
 
 Thank you to all the wonderful people who have contributed via GitHub!
 
-[Contributors on GitHub](https://github.com/yourusername/ipponboard/graphs/contributors)
+[Ipponboard GitHub contributors](https://github.com/fmuecke/Ipponboard/graphs/contributors)
 
 ---
 
