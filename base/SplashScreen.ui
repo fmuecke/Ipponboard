@@ -38,7 +38,16 @@
    <property name="spacing">
     <number>3</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -141,11 +150,14 @@ p, li { white-space: pre-wrap; }
      <item row="1" column="0">
       <widget class="QCommandLinkButton" name="commandLinkButton_startSingleVersion">
        <property name="text">
-        <string>start Single Tournament</string>
+        <string>(1) start Single Tournament</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
          <normaloff>:/res/images/logo.png</normaloff>:/res/images/logo.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>1</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
@@ -161,11 +173,14 @@ p, li { white-space: pre-wrap; }
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>start Team Tournament</string>
+        <string>(2) start Team Tournament</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
          <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>2</string>
        </property>
        <property name="checkable">
         <bool>false</bool>

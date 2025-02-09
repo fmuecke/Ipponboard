@@ -2,6 +2,7 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+- (new): added shortcuts to start single or team mode from splashscreen (1, 2)
 - (fix): fixed a crash when Team Edition was started with a TournamentMode with only one round
 - (mod): added and updated TournamentModes to current weight and age classes
 - (fix): tournament mode data were overwritten when switching through the modes
