@@ -301,8 +301,8 @@
     </message>
     <message>
         <location/>
-        <source>Input weight classes/groups seperated by ";"</source>
-        <translation>Gewichtsklassen/Gruppen getrennt durch ";" eingeben</translation>
+        <source>Input weight classes/groups seperated by &quot;;&quot;</source>
+        <translation>Gewichtsklassen/Gruppen getrennt durch &quot;;&quot; eingeben</translation>
     </message>
     <message>
         <location filename="../base/FightCategoryManagerDlg.cpp" line="+27"/>

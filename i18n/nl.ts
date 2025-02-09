@@ -326,6 +326,16 @@
         <source>This name is already taken!</source>
         <translation>Deze naam is reeds in gebruik!</translation>
     </message>
+    <message>
+        <location filename="../base/FightCategoryManagerDlg.ui"/>
+        <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
+        <translation>0:00 Golden Score tijd betekent geen tijdslimiet in de Golden Score (of er is geen Golden Score)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Input weight classes/groups seperated by &quot;;&quot;</source>
+        <translation>Voer gewichtsklassen/groepen in, gescheiden door “;”</translation>
+    </message>
 </context>
 <context>
     <name>FighterManagerDlg</name>

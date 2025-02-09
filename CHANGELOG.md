@@ -2,14 +2,15 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+## Version 2.4.0 (2025-02-09)
+- (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
+- (new): added shortcuts to start single or team mode from splashscreen (1, 2)
 - (mod): updated single tournament weight and age classes
 - (mod): weight classes can now be any string and have to include kg to support the use of groups instead of weights for youth tournaments
-- (fix): categories are now saved correctly and not duplicated when aborting the CategoryManager
-- (new): added shortcuts to start single or team mode from splashscreen (1, 2)
-- (fix): fixed a crash when Team Edition was started with a TournamentMode with only one round
 - (mod): added and updated TournamentModes to current weight and age classes
+- (fix): categories are now saved correctly and not duplicated when aborting the CategoryManager
+- (fix): fixed a crash when Team Edition was started with a TournamentMode with only one round
 - (fix): tournament mode data were overwritten when switching through the modes
-- (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
 
 ## Version 2.3-experimental (2025-01-19)
 - (new): added IJF-2025 rules which re-introduced yuko

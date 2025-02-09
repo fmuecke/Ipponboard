@@ -16,9 +16,9 @@ echo Using: BASE_DIR=%BASE_DIR%
 
 :: --> CHANGE VERSION HERE:
 SET VER1=2
-SET VER2=3
+SET VER2=4
 SET VER3=0
-SET TAG=experimental
+SET "TAG="
 :: that's it. <--
 
 git log -1 --format=%%h > %BASE_DIR%\.revision
