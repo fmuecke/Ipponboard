@@ -77,24 +77,6 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& f
 }
 
 
-std::string FightCategoryParser::ToJsonString(Ipponboard::FightCategoryList const& categories)
-{
-	fm::Json::Value jsonCategories;
-
-	for (Ipponboard::FightCategory const & cat : categories)
-	{
-		fm::Json::Value jsonCat;
-		jsonCat["name"] = fm::qt::to_utf8_str(cat.ToString());
-		jsonCat["round_time_secs"] = cat.GetRoundTime();
-		jsonCat["golden_score_time_secs"] = cat.GetGoldenScoreTime();
-		jsonCat["weights"] = fm::qt::to_utf8_str(cat.GetWeights());
-
-		jsonCategories.append(jsonCat);
-	}
-
-	return jsonCategories.toStyledString();
-}
-
 Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 {
 	Ipponboard::FightCategoryList categories;
@@ -110,13 +92,6 @@ Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 	}
 
 	return categories;
-}
-
-// May throw exception!
-Ipponboard::FightCategoryList FightCategoryParser::ParseJsonString(std::string const& jsonString)
-{
-	auto json = fm::Json::ReadString(jsonString);
-	return ParseJson(json);
 }
 
 // May throw exception!

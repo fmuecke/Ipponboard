@@ -46,9 +46,6 @@ public:
 	void RemoveCategory(QString const& name);
 	int CategoryCount() const { return m_Categories.size(); }
 
-	bool CategoriesFromString(std::string const& s);
-	std::string ConvertCategoriesToString_WITH_GUI_ERROR();
-
 private:
 	void load_default_categories();
 

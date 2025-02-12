@@ -194,51 +194,6 @@ void FightCategoryMgr::SaveCategories()
 	FightCategoryParser::ToIniFile(filePath, m_Categories);
 }
 
-//---------------------------------------------------------
-bool FightCategoryMgr::CategoriesFromString(std::string const& s)
-//---------------------------------------------------------
-{
-	try
-	{
-		auto cats = FightCategoryParser::ParseJsonString(s);
-
-		for (auto const & cat : cats)
-		{
-			AddCategory(cat);
-		}
-	}
-	catch (std::exception const& e)
-	{
-        QMessageBox::critical(nullptr,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to parse fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
-
-		return false;
-	}
-
-	return true;
-}
-
-//---------------------------------------------------------
-std::string FightCategoryMgr::ConvertCategoriesToString_WITH_GUI_ERROR()
-//---------------------------------------------------------
-{
-	try
-	{
-		return FightCategoryParser::ToJsonString(m_Categories);
-	}
-	catch (std::exception const& e)
-	{
-        QMessageBox::critical(nullptr,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to write fight categories:\n%1").arg(
-										  QString::fromStdString(e.what()))));
-	}
-
-	return std::string();
-}
-
 //--------------------------------------------------------
 void FightCategoryMgr::load_default_categories()
 //--------------------------------------------------------
