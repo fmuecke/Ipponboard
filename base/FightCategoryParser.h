@@ -13,12 +13,6 @@ class FightCategoryParser
 public:
 	FightCategoryParser();
 
-	//> for internal storage
-	static std::string ToJsonString(Ipponboard::FightCategoryList const& categories);
-
-	//> for internal storage
-	static Ipponboard::FightCategoryList ParseJsonString(std::string const& categories);
-
 	//> legacy (old format)
 	static Ipponboard::FightCategoryList ParseJsonFile(const QString& file);
 
