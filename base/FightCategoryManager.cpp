@@ -5,9 +5,9 @@
 #include "FightCategoryManager.h"
 
 #include <QObject>
-
 #include <QMessageBox>
 #include <QFile>
+#include <QDebug>
 
 #include "../util/path_helpers.h"
 #include "FightCategoryParser.h"
@@ -15,11 +15,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 #include <algorithm>
 
 using namespace Ipponboard;
 
-const char* const FightCategoryMgr::str_fileName = "categories.json";
+const char* const FightCategoryMgr::str_legacyConfigFileName = "categories.json"; // used prior to version 1.10
 const char* const FightCategoryMgr::str_configFileName = "categories.config";
 
 //---------------------------------------------------------
@@ -27,14 +28,14 @@ FightCategoryMgr::FightCategoryMgr()
 	: m_Categories()
 //---------------------------------------------------------
 {
-	load_categories();
+	LoadCategories();
 }
 
 //---------------------------------------------------------
 FightCategoryMgr::~FightCategoryMgr()
 //---------------------------------------------------------
 {
-	save_categories();
+	SaveCategories();
 }
 
 //---------------------------------------------------------
@@ -44,7 +45,7 @@ bool FightCategoryMgr::GetCategory(int index,
 {
 	try
 	{
-        	t = m_Categories.at(static_cast<size_t>(index));
+        t = m_Categories.at(static_cast<size_t>(index));
 	}
 	catch (std::out_of_range&)
 	{
@@ -148,33 +149,37 @@ void FightCategoryMgr::RemoveCategory(QString const& name)
 }
 
 //---------------------------------------------------------
-void FightCategoryMgr::load_categories()
+void FightCategoryMgr::LoadCategories()
 //---------------------------------------------------------
 {
 	auto configFile {fm::GetSettingsFilePath(str_configFileName)};
-	auto legacyFile {fm::GetSettingsFilePath(str_fileName)};
+	auto legacyFile {fm::GetSettingsFilePath(str_legacyConfigFileName)};
 
 	try
 	{
 		if (QFile::exists(configFile))
 		{
+			qInfo() << "Reading categories from config:" << configFile;
 			m_Categories = FightCategoryParser::ParseIniFile(configFile);
 		}
 		else
 		{
 			if (!QFile::exists(legacyFile))
 			{
+				qInfo() << "Loading default categories";
 				load_default_categories();
 			}
 			else
 			{
+				qInfo() << "Reading categories from legacy config:" << legacyFile;
 				m_Categories = FightCategoryParser::ParseJsonFile(legacyFile);
 			}
 		}
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(nullptr,
+		qWarning() << "Error loading categories, restoring defaults";
+        QMessageBox::critical(nullptr,
 							  QString(QObject::tr("Error")),
 							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
 										  QString::fromStdString(e.what()))));
@@ -184,9 +189,10 @@ void FightCategoryMgr::load_categories()
 }
 
 //---------------------------------------------------------
-void FightCategoryMgr::save_categories()
+void FightCategoryMgr::SaveCategories()
 //---------------------------------------------------------
 {
+	qInfo() << "Saving categories to:" << str_configFileName;
 	auto filePath {fm::GetSettingsFilePath(str_configFileName)};
 	FightCategoryParser::ToIniFile(filePath, m_Categories);
 }
@@ -235,74 +241,62 @@ void FightCategoryMgr::load_default_categories()
 	m_Categories.clear();
 
 	FightCategory t("M");
-	t.SetWeights("-60;-66;-73;-81;-90;-100;+100");
+	t.SetWeights("-60kg;-66kg;-73kg;-81kg;-90kg;-100kg;+100kg");
 	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("MU21");
+	t.SetWeights("-60kg;-66kg;-73kg;-81kg;-90kg;-100kg;+100kg");
+	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("MU18");
+	t.SetWeights("-46kg;-50kg;-55kg;-60kg;-66kg;-73kg;-81kg;-90kg;+90kg");
+	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("MU15");
+	t.SetWeights("-34kg;-37kg;-40kg;-43kg;-46kg;-50kg;-55kg;-60kg;-66kg;+66kg");
+	t.SetRoundTime(3 * 60);
 	t.SetGoldenScoreTime(3 * 60);
 	AddCategory(t);
 
-	t = FightCategory("MU20");
-	t.SetWeights("-55;-60;-66;-73;-81;-90;-100;+100");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("MU19");
-	t.SetWeights("-55;-60;-66;-73;-81;-90;-100;+100");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("MU17");
-	t.SetWeights("-43;-46;-50;-55;-60;-66;-73;-81;-90;+90");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("MU16");
-	t.SetWeights("-40;-43;-46;-50;-55;-60;-66;-73;-81;+81");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("MU14");
-	t.SetWeights("-31;-34;-37;-40;-43;-46;-50;-55;-60;+60");
+	t = FightCategory("MU13");
+	t.SetWeights("-28kg;-31kg;-34kg;-37kg;-40kg;-43kg;-46kg;-50kg;-55kg;+55kg");
 	t.SetRoundTime(3 * 60);
-	t.SetGoldenScoreTime(90);
+	t.SetGoldenScoreTime(0);
 	AddCategory(t);
 
 	t = FightCategory("F");
-	t.SetWeights("-48;-52;-57;-63;-70;-78;+78");
+	t.SetWeights("-48kg;-52kg;-57kg;-63kg;-70kg;-78kg;+78kg");
 	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("FU21");
+	t.SetWeights("-48kg;-52kg;-57kg;-63kg;-70kg;-78kg;+78kg");
+	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("FU18");
+	t.SetWeights("-40kg;-44kg;-48kg;-52kg;-57kg;-63kg;-70kg;-78kg;+78kg");
+	t.SetRoundTime(4 * 60);
+	t.SetGoldenScoreTime(0);
+	AddCategory(t);
+
+	t = FightCategory("FU15");
+	t.SetWeights("-33kg;-36kg;-40kg;-44kg;-48kg;-52kg;-57kg;-63kg;+63kg");
+	t.SetRoundTime(3 * 60);
 	t.SetGoldenScoreTime(3 * 60);
 	AddCategory(t);
 
-	t = FightCategory("FU20");
-	t.SetWeights("-44;-48;-52;-57;-63;-70;-78;+78");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("FU19");
-	t.SetWeights("-44;-48;-52;-57;-63;-70;-78;+78");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("FU17");
-	t.SetWeights("-40;-44;-48;-52;-57;-63;-70;-78;+78");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("FU16");
-	t.SetWeights("-40;-44;-48;-52;-57;-63;-70;+70");
-	t.SetRoundTime(4 * 60);
-	t.SetGoldenScoreTime(2 * 60);
-	AddCategory(t);
-
-	t = FightCategory("FU14");
-	t.SetWeights("-30;-33;-36;-40;-44;-48;-52;-57;-63;+63");
+	t = FightCategory("FU13");
+	t.SetWeights("-27kg;-30kg;-33kg;-36kg;-40kg;-44kg;-48kg;-52kg;-57kg;+57kg");
 	t.SetRoundTime(3 * 60);
-	t.SetGoldenScoreTime(90);
+	t.SetGoldenScoreTime(0);
 	AddCategory(t);
 }

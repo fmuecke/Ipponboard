@@ -17,7 +17,7 @@ echo "Using: BASE_DIR=$BASE_DIR"
 
 # --> CHANGE VERSION HERE:
 VER1=2
-VER2=2
+VER2=4
 VER3=0
 TAG=""
 # that's it. <--

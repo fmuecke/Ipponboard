@@ -150,8 +150,10 @@ bool FighterManager::SaveFighters(QString const& csvFile, QString& errorMsg)
 
 Ipponboard::Fighter FighterManager::AddNewFighter()
 {
-	auto id = rand();
+    auto id = m_fighters.size(); // use the number of entries as pseudo identifier
 	Ipponboard::Fighter f(QString("first_name_%1").arg(id), QString("last_name_%1").arg(id));
+    f.weight = "*";
+    f.category = "*";
 
 	AddFighter(f);
 
@@ -225,7 +227,8 @@ FighterManager::FighterList FighterManager::Filter(FighterManager::FighterList c
 
 	for (auto const& f : fighters)
 	{
-		if ((f.*pMember) == value || (f.*pMember).isEmpty())
+        //if ((f.*pMember) == value || (f.*pMember).isEmpty() || (f.*pMember) == "*") // TODO: add specifying tests first
+        if ((f.*pMember) == value || (f.*pMember).isEmpty())
 		{
 			resultSet.insert(f);
 		}

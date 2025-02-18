@@ -70,11 +70,16 @@ void MainWindow::Init()
 
 void MainWindow::on_actionManageCategories_triggered()
 {
+	//save categories before editing
+	m_pCategoryManager->SaveCategories();
+
 	FightCategoryManagerDlg dlg(m_pCategoryManager, this);
 
 	if (QDialog::Accepted == dlg.exec())
 	{
-		auto category = m_pUi->comboBox_category->currentText();
+        m_pCategoryManager->SaveCategories();
+		
+        auto category = m_pUi->comboBox_category->currentText();
 
 		m_pUi->comboBox_category->clear();
 
@@ -95,6 +100,11 @@ void MainWindow::on_actionManageCategories_triggered()
 
 		m_pUi->comboBox_category->setCurrentIndex(index);
 		on_comboBox_category_currentIndexChanged(category);
+	}
+	else
+	{
+		//load old categories to discard changes
+		m_pCategoryManager->LoadCategories();
 	}
 }
 
@@ -190,8 +200,9 @@ void MainWindow::update_fighter_name_completer(const QString& weight, const QStr
 
 	for (auto const& f : filteredFighters)
 	{
-		auto first = QString(f.first_name).replace(' ', '_');
-		auto last = QString(f.last_name).replace(' ', '_');
+		// TODO: normalization needed?
+		//auto first = QString(f.first_name).replace(' ', '_');
+		//auto last = QString(f.last_name).replace(' ', '_');
 
 		auto fullName =  QString("%1 %2").arg(first, last);
 		m_CurrentFighterNames.push_back(fullName);
@@ -289,6 +300,7 @@ void MainWindow::ui_check_rules_items()
 	m_pUi->actionRules2017->setChecked(rules->IsOfType<Rules2017>());
 	m_pUi->actionRules2017U15->setChecked(rules->IsOfType<Rules2017U15>());
 	m_pUi->actionRules2018->setChecked(rules->IsOfType<Rules2018>());
+	m_pUi->actionRules2025->setChecked(rules->IsOfType<Rules2025>());
 
 	if (rules->IsOfType<ClassicRules>())
 	{
@@ -309,6 +321,10 @@ void MainWindow::ui_check_rules_items()
 	else if (rules->IsOfType<Rules2018>())
 	{
 		m_pUi->label_usedRules->setText(m_pUi->actionRules2018->text());
+	}
+	else if (rules->IsOfType<Rules2025>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2025->text());
 	}
 
 	m_pPrimaryView->UpdateView();

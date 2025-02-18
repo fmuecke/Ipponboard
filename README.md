@@ -1,5 +1,7 @@
 [![Linux CI build](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml/badge.svg)](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml)
 
+[What's 🆕?](CHANGELOG.md) 
+
 # Content
 
 - [Why it's *so* cool!](#why-its-so-cool)
@@ -34,7 +36,7 @@ Basic requirements to get started:
 - A big computer or TV screen
 
 More information about usage and configuration is described within the manual:
-- [German manual](doc/manual-de.md)
+- [German manual](doc/USER_MANUAL-DE.md)
 - [English manual](doc/USER_MANUAL-EN.md)
 
 # How much does it cost?

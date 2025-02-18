@@ -2,26 +2,38 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
-## Version 2.x (2023-xx-yy)
+## Version 2.5-beta (2025-02-yy)
+- (new): completely rewrote fighter manager for single tournament
+  - (new) default fighter file can be saved and re-loaded directly from within fighter manager dialog
+  - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
+  - (mod): simplified adding new fighters in the fighter manager
+    - use *del* key to remove and *ins* key to add
+  - (new): fighter lists are stored in UTF-8 with byte-order-mark (so they can be opened and edited in Excel right away)
+  - (new): current fighter list can opended with the default application for csv files (e.g. Excel)
+  - (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
+  - (fix): Team Edition does not create `Fighter*.csv` any longer as it was not used
+  - (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)
+  - (mod): spaces and underscores in fighter properties are trimmed and converted to simple spaces
+  - (new): added fighter manager description to the manual (single tournament)
+  - (new): added demo fighters `FighterList-Demo.csv`
+
+## Version 2.4.0 (2025-02-09)
+- (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
+- (new): added shortcuts to start single or team mode from splashscreen (1, 2)
+- (mod): updated single tournament weight and age classes
+- (mod): weight classes can now be any string and have to include kg to support the use of groups instead of weights for youth tournaments
+- (mod): added and updated TournamentModes to current weight and age classes
+- (fix): categories are now saved correctly and not duplicated when aborting the CategoryManager
+- (fix): fixed a crash when Team Edition was started with a TournamentMode with only one round
+- (fix): tournament mode data were overwritten when switching through the modes
+
+## Version 2.3-experimental (2025-01-19)
+- (new): added IJF-2025 rules which re-introduced yuko
+- (mod): usign IJF-2025 rules for per default
+
+## Version 2.2-internal (2024-06-18)
 - (fix): consistenly named labels for categories and classes
-- (mod): WindowsXP is no longer supported!
-- (new): default fighter file can be saved and re-loaded directly from within fighter manager dialog
-- (fix): single tournament: fighter lists are reloaded after opening the fighter manager
-- (mod): simplified adding new fighters in the fighter manager
-  - use *del* key to remove and *ins* key to add
-- (new): fighter lists are stored in UTF-8 with byte-order-mark (so they can be opened and edited in Excel right away)
-- (new): current fighter list can opended with the default application for csv files (e.g. Excel)
-- (mod): removed customizable column layout for fighter import/export to simplify program code (single tournament)
-- (fix): Team Edition does not create `Fighter*.csv` any longer as it was not used
-- (new): fighter list is filtered by category in addition to the weight for the fighter combobox (single tournament)
-- (mod): spaces and underscores in fighter properties are trimmed and converted to simple spaces
-- (new): added fighter manager description to the manual (single tournament)
-- (new): added demo fighters `FighterList-Demo.csv`
-
-
-## Version 2.2 (2024-06-18)
-
-- (new): experimental support for Linux builds (no sound, printing or gamepad so far)
+- (new): experimental support for Linux builds (no printing or gamepad so far)
 - (mod): Updated InnoSetup installation engine to v6.x: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
 - (mod): updated to Qt5 (Qt4 is out-of-support since May 2015) --> requires at least Windows Vista to run
 - (internal) switched internal build system to CMAKE for better compatibility regarding different build environments
@@ -32,6 +44,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (new): tournament mode can be selected via command line switch (skips splash screen)
   - "--mode team" directly starts team tournament mode
   - "--mode single" directly starts in single tournament mode
+- (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 
 ## Version 2.0 (2021-01-10; 3158e7af7289af1e8bbb30cf8a8e919cdaf6e507)
 

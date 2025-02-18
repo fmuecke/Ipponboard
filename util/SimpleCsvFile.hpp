@@ -10,6 +10,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
+#include <QDebug>
 
 #include <vector>
 
@@ -61,6 +62,7 @@ namespace SimpleCsvFile
                     QObject::tr("line %1 has fewer values as required by the first line").arg(QString::number(lineNo)) :
                     QObject::tr("line %1 has more values as required by the first line").arg(QString::number(lineNo));
                 result.clear();
+                qWarning() << errorMsg;
                 return false;
             }
 
@@ -93,6 +95,7 @@ namespace SimpleCsvFile
                     QObject::tr("item at index %1 has fewer values as required by the first item").arg(QString::number(index)) :
                     QObject::tr("item at index %1 has more values as required by the first item").arg(QString::number(index));
 
+                qWarning() << errorMsg;                
                 return false;
             }
 
@@ -123,6 +126,7 @@ namespace SimpleCsvFile
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             errorMsg = QObject::tr("Unable to open file %1").arg(fileName);
+            qWarning() << errorMsg;
             return false;
         }
 
@@ -136,10 +140,12 @@ namespace SimpleCsvFile
     {
         errorMsg.clear();
 
+        qInfo() << "Writing data to:" << fileName;
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly|QIODevice::Text))
         {
             errorMsg = QObject::tr("Unable to open file %1 for writing").arg(fileName);
+            qWarning() << errorMsg;
             return false;
         }
 

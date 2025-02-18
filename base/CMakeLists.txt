@@ -131,9 +131,7 @@ set(FORMS
 set(OTHER
     Ipponboard.rc
     TournamentModes.ini
-    categories.json
-    #categories.xml
-    clubs.json
+	clubs.config
 )
 
 source_group("UI Forms" FILES ${FORMS})
@@ -159,9 +157,8 @@ target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 
 # Copy data files
 add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.json" "$<TARGET_FILE_DIR:${APP_NAME}>"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/TournamentModes.ini" "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.json" "$<TARGET_FILE_DIR:${APP_NAME}>"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "$<TARGET_FILE_DIR:${APP_NAME}>/clubs"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "$<TARGET_FILE_DIR:${APP_NAME}>/templates"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/sounds" "$<TARGET_FILE_DIR:${APP_NAME}>/sounds"
@@ -202,6 +199,8 @@ if(MSVC)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
         COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
     )
 else()
     # Compile and copy translation files

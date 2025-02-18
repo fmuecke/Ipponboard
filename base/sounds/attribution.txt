@@ -1,0 +1,29 @@
+- applause.wav: 
+  -- original by peridactyloptrix 
+  -- https://freesound.org/s/196094/ 
+  -- License: [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/)
+- bell.wav: 
+  -- original by [SPANAC](https://www.freesoundslibrary.com/author/spanac/) 
+  -- License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- boxing-bell-double.wav: 
+  -- created for Ipponboard; original sample by Benboncan 
+  -- https://freesound.org/s/66952/ 
+  -- License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) 
+- clapping.wav: 
+  -- original by uair01 
+  -- https://freesound.org/s/89285/ 
+  -- License: [Attribution 3.0](http://creativecommons.org/licenses/by/3.0/)
+- gong.wav: 
+  -- original by soundkid96 
+  -- https://freesound.org/s/152800/ 
+  -- License: [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/)
+- horn.wav:
+  -- original by Joseph SARDIN 
+  -- https://bigsoundbank.com/pneumatic-horn-double-1-s1830.html
+- metal-bowl.wav: 
+  -- original by itinerantmonk108 
+  -- https://freesound.org/s/719418/ 
+  -- License: [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/)
+- the-end.wav: 
+  -- created by FM with samples from Joseph Sardin and SPANAC 
+  -- License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)

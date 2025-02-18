@@ -197,6 +197,35 @@ public:
 	virtual int GetMaxWazaariCount() const final { return 2; }
 };
 
+class Rules2025 : public AbstractRules
+{
+public:
+	Rules2025() {}
+
+	static const char* const StaticName;
+	virtual const char* Name() const final { return StaticName; }
+	virtual bool IsOption_ShidoScoreCounts() const final { return false; }
+	virtual bool IsOption_HasYuko() const final { return true; }
+	virtual bool IsOption_AwaseteIppon() const { return true; }
+	virtual int GetMaxShidoCount() const final { return 2; }
+
+	virtual int GetOsaekomiValue(Score::Point p) const final
+	{
+		switch (p)
+		{
+		case Score::Point::Ippon: return 20;
+
+		case Score::Point::Wazaari: return 10;
+
+		case Score::Point::Yuko: return 5;
+
+		default: return -1;
+		}
+	}
+
+	virtual int GetMaxWazaariCount() const final { return 2; }
+};
+
 class RulesFactory
 {
 public:
@@ -227,14 +256,20 @@ public:
 			return std::make_shared<Rules2018>();
 		}
 
+		if (name == Rules2025::StaticName)
+		{
+			return std::make_shared<Rules2025>();
+		}
+
 		// default
-		return std::make_shared<Rules2018>();
+		return std::make_shared<Rules2025>();
 	}
 
 	static QStringList GetNames()
 	{
 		auto result = QStringList();
 
+		result.push_back(Rules2025::StaticName);
 		result.push_back(Rules2018::StaticName);
 		result.push_back(Rules2017::StaticName);
 		result.push_back(Rules2017U15::StaticName);
@@ -246,7 +281,7 @@ public:
 
 	static QString GetDefaultName()
 	{
-		return Rules2018::StaticName;
+		return Rules2025::StaticName;
 	}
 };
 } // namespace

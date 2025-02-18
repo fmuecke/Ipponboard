@@ -4,24 +4,29 @@
 <context>
     <name>AddFighterDlg</name>
     <message>
+        <location filename="../base/AddFighterDlg.ui"/>
         <source>Add Fighter</source>
-        <translation type="vanished">Kämpfer hinzufügen</translation>
+        <translation>Kämpfer hinzufügen</translation>
     </message>
     <message>
+        <location/>
         <source>Club/Team</source>
-        <translation type="vanished">Verein/Mannschaft</translation>
+        <translation>Verein/Mannschaft</translation>
     </message>
     <message>
+        <location/>
         <source>First name</source>
-        <translation type="vanished">Vorname</translation>
+        <translation>Vorname</translation>
     </message>
     <message>
+        <location/>
         <source>Last name</source>
-        <translation type="vanished">Nachname</translation>
+        <translation>Nachname</translation>
     </message>
     <message>
+        <location/>
         <source>Weight</source>
-        <translation type="vanished">Gewicht</translation>
+        <translation>Gewicht</translation>
     </message>
 </context>
 <context>
@@ -290,16 +295,27 @@
         <translation>Entfernen</translation>
     </message>
     <message>
+        <location/>
+        <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
+        <translation>0:00 Golden Score Zeit bedeutet kein Zeitlimit im Golden Score (oder es gibt keinen Golden Score)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Input weight classes/groups seperated by &quot;;&quot;</source>
+        <translation>Gewichtsklassen/Gruppen getrennt durch &quot;;&quot; eingeben</translation>
+    </message>
+    <message>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+27"/>
         <source>Ok</source>
-        <translation type="vanished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Cancel</source>
-        <translation type="vanished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+65"/>
-        <location line="+13"/>
+        <location/>
         <source>Add new category</source>
         <translation>Neue Kategorie hinzufügen</translation>
     </message>
@@ -310,11 +326,12 @@
         <translation>Geben Sie den Namen der neuen Kategorie ein</translation>
     </message>
     <message>
+        <location/>
         <source>This category already exists. Please choose an other name.</source>
-        <translation type="vanished">Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
+        <translation>Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location/>
         <source>This name is already taken!</source>
         <translation>Dieser Name ist bereits vergeben!</translation>
     </message>
@@ -342,6 +359,7 @@
         <translation>Kämpfer importieren</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Import</source>
         <translation type="vanished">&amp;Importieren</translation>
     </message>
@@ -351,10 +369,12 @@
         <translation>Kämpfer exportieren</translation>
     </message>
     <message>
+        <location/>
         <source>E&amp;xport</source>
         <translation type="vanished">E&amp;xportieren</translation>
     </message>
     <message>
+        <location/>
         <source>Settings for import/export</source>
         <translation type="vanished">Einstellungen für Im-/Export</translation>
     </message>
@@ -364,6 +384,7 @@
         <translation>Neuen Kämpfer hinzufügen</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Add</source>
         <translation type="vanished">&amp;Hinzufügen</translation>
     </message>
@@ -373,11 +394,12 @@
         <translation>Entfernt die gerade ausgewählte Kategorie</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Remove</source>
         <translation type="vanished">Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+35"/>
+        <location filename="../base/FighterManagerDlg.cpp"/>
         <source>Club/Team</source>
         <translation>Verein/Mannschaft</translation>
     </message>
@@ -397,13 +419,12 @@
         <translation>Nachname</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location/>
         <source>Select CSV file with fighters</source>
         <translation>CSV-Datei mit Kämpferdaten auswählen</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <location line="+23"/>
+        <location/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV-Dateien (*.csv);;Textdateien (*.txt)</translation>
     </message>
@@ -413,16 +434,19 @@
         <translation>CSV-Datei angeben, in denen die Kämpferdaten gespeichert werden sollen</translation>
     </message>
     <message>
+        <location/>
         <source>Specify import/export format</source>
-        <translation type="vanished">Format für Im-/Export festlegen</translation>
+        <translation>Format für Im-/Export festlegen</translation>
     </message>
     <message>
+        <location/>
         <source>Use valid specifiers and some kind of separator (;,:|/ etc.)
 Valid specifiers are: %1</source>
-        <translation type="vanished">Bitte gültige Spezifiatoren und beliebige Separatoren (;,:|/ etc.) verwenden.
+        <translation>Bitte gültige Spezifiatoren und beliebige Separatoren (;,:|/ etc.) verwenden.
 Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
+        <location/>
         <source>Invalid format. Please correct your input.</source>
         <translation type="vanished">Ungültiges Format. Bitte Eingaben korrigieren.</translation>
     </message>
@@ -492,37 +516,37 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kämpfer aus Datei erneut laden</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="-231"/>
+        <location filename="../base/FighterManagerDlg.cpp"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location/>
         <source>Successfully read fighters from %1</source>
         <translation>Kämpfer erfolgreich aus %1 gelesen</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Successfully updated %1</source>
         <translation>%1 erfolgreich aktualisiert</translation>
     </message>
     <message>
-        <location line="+121"/>
+        <location/>
         <source>Successfully saved %1 fighters to %2.</source>
         <translation>%1 Kämpfer erfolgreich in %2 gespeichert.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>Really remove fighter &quot;%1 %2&quot;?</source>
         <translation>Wirklich Kämpfer &quot;%1 %2&quot; entfernen?</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Really remove the %1 selected fighters?</source>
         <translation>Die gewählten %1 Kämpfer wirklich entfernen?</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location/>
         <source>The new entry is identical to an already existing one and was therefore discarded: %1 %2</source>
         <translation>Der neue Eintrag entspricht einem bereits vorhandenem und wurde daher verworfen: %1 %2</translation>
     </message>
@@ -543,7 +567,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+54"/>
+        <location filename="../base/SettingsDlg.cpp"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
@@ -688,6 +712,16 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location/>
+        <source>IJF Rules 2025</source>
+        <translation>2025er IJF Regeln</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use IJF 2025 rules</source>
+        <translation>2025er IJF Regeln verwenden</translation>
+    </message>
+    <message>
+        <location/>
         <source>User Manual</source>
         <translation>Anleitung</translation>
     </message>
@@ -807,8 +841,9 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>&amp;Verwaltung</translation>
     </message>
     <message>
+        <location/>
         <source>First Fighter (first last)</source>
-        <translation type="vanished">Erster Kämpfer (Vorname Nachname)</translation>
+        <translation>Erster Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
         <location/>
@@ -821,8 +856,9 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gewichtsklasse</translation>
     </message>
     <message>
+        <location/>
         <source>Second Fighter (first last)</source>
-        <translation type="vanished">Zweiter Kämpfer (Vorname Nachname)</translation>
+        <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
         <location/>
@@ -974,7 +1010,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+337"/>
+        <location filename="../base/MainWindow.cpp"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -1007,8 +1043,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+703"/>
-        <location line="+24"/>
+        <location/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
     </message>
@@ -1023,7 +1058,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-700"/>
+        <location/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -1043,7 +1078,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gast</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+91"/>
+        <location filename="../base/MainWindowTeam.cpp"/>
         <source> (saved)</source>
         <translation> (gespeichert)</translation>
     </message>
@@ -1059,7 +1094,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Nächster</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location/>
         <source>File open error</source>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
@@ -1727,7 +1762,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+201"/>
+        <location filename="../base/Main.cpp"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1761,7 +1796,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -1825,17 +1860,17 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Vielen Dank!</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Version %1 verfügbar (aktuell in Verwendung: %2)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1329"/>
+        <location filename="../base/MainWindowTeam.cpp"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+613"/>
+        <location/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
@@ -1843,12 +1878,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+178"/>
+        <location filename="../base/FightCategoryManager.cpp"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location/>
         <source>Unable to load fight categories:
 %1
 
@@ -1860,37 +1895,39 @@ Restoring defaults.</source>
 %1
 
 Restoring defaults.</source>
-        <translation type="vanished">Die Kampfkategorien können nicht geparst werden:
+        <translation>Die Kampfkategorien können nicht geparst werden:
 %1
 
 Die Standardwerte werden geladen.</translation>
     </message>
     <message>
+        <location line="+21"/>
         <source>Unable to write fight categories:
 %1</source>
-        <translation type="vanished">Die Kampfkategorien können nicht geschrieben werden:
+        <translation>Die Kampfkategorien können nicht geschrieben werden:
 %1</translation>
     </message>
     <message>
+        <location filename="../base/FighterManager.cpp" line="+146"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
-        <translation type="vanished">Formatspezifikation enthält Vor- und Nachname nicht: %1</translation>
+        <translation>Formatspezifikation enthält Vor- und Nachname nicht: %1</translation>
     </message>
     <message>
         <source>Format specifier has invalid separator: %1</source>
-        <translation type="vanished">Formatspzifikation enthält ungültigen Trenner: %1</translation>
+        <translation>Formatspzifikation enthält ungültigen Trenner: %1</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+119"/>
+        <location/>
         <source>Imported %1 new fighters.</source>
         <translation>%1 neue Kämpfer importiert.</translation>
     </message>
     <message>
         <source>Format specifier does not meet criteria: %1</source>
-        <translation type="vanished">Formatspezifikation erfüllt Kriterien nicht: %1</translation>
+        <translation>Formatspezifikation erfüllt Kriterien nicht: %1</translation>
     </message>
     <message>
         <source>Successfully exported %1 fighters.</source>
-        <translation type="vanished">%1 Kämper erfolgreich exportiert.</translation>
+        <translation>%1 Kämper erfolgreich exportiert.</translation>
     </message>
     <message>
         <source>Unable to open file %1</source>
@@ -2358,16 +2395,24 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Die Tasten können in der aktuellen Version (noch) nicht geändet werden.</translation>
     </message>
     <message>
+        <location/>
         <source>Extended</source>
-        <translation type="vanished">Erweitert</translation>
+        <translation>Erweitert</translation>
     </message>
     <message>
+        <location/>
         <source>Format specifier for fighter import and export</source>
-        <translation type="vanished">Formatspezifikation for den Kämpferim- und -export</translation>
+        <translation>Formatspezifikation for den Kämpferim- und -export</translation>
     </message>
     <message>
+        <location/>
         <source>Fighter import/export format</source>
-        <translation type="vanished">Format für Kämpferim-/-export</translation>
+        <translation>Format für Kämpferim-/-export</translation>
+    </message>
+    <message>
+        <location/>
+        <source>club;firstname;lastname;weight</source>
+        <translation></translation>
     </message>
     <message>
         <location/>
@@ -2424,6 +2469,26 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     <message>
         <source>Ok, start Team Tournament</source>
         <translation type="vanished">OK, Mannschaftsmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(1) start Single Tournament</source>
+        <translation>(1) Einzelmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(2) start Team Tournament</source>
+        <translation>(2) Mannschaftsmodus starten</translation>
+    </message>
+    <message>
+        <location/>
+        <source>2</source>
+        <translation>2</translation>
     </message>
 </context>
 <context>

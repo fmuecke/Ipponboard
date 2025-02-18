@@ -18,6 +18,7 @@
 .qmake.stash
 .qtc_clangd/
 .vs/
+.vscode/
 /**/CMakeFiles/
 /**/GamepadDemo_autogen/
 /**/Makefile

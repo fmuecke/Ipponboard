@@ -547,6 +547,7 @@
      <property name="title">
       <string>Rules</string>
      </property>
+     <addaction name="actionRules2025"/>
      <addaction name="actionRules2018"/>
      <addaction name="actionRules2017"/>
      <addaction name="actionRules2017U15"/>
@@ -913,6 +914,17 @@
    </property>
    <property name="toolTip">
     <string>Use IJF 2017 rules (U15)</string>
+   </property>
+  </action>
+  <action name="actionRules2025">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>IJF Rules 2025</string>
+   </property>
+   <property name="toolTip">
+    <string>Use IJF 2025 rules</string>
    </property>
   </action>
   <action name="actionRules2018">

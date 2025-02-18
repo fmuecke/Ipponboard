@@ -49,8 +49,6 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
 		}
 
 		m_pUi->comboBox_mode->setCurrentIndex(pos);
-		m_currentIndex = pos;
-		on_comboBox_mode_currentIndexChanged(m_currentIndex);
 	}
 }
 
@@ -60,13 +58,9 @@ ModeManagerDlg::~ModeManagerDlg()
 
 void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
 {
-	// init fnished?
-	if (!is_initialized())
-	{
-		return;
-	}
+	m_currentIndex = i; // --> has_Mode() = true
 
-	auto const& mode = GetMode(i);
+	auto const& mode = GetCurrentMode();
 	m_pUi->lineEdit_title->setText(mode.title);
 	m_pUi->lineEdit_subtitle->setText(mode.subTitle);
 	m_pUi->lineEdit_weights->setText(mode.weights);
@@ -102,35 +96,33 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
 	}
 
 	m_pUi->checkBox_allSubscoresCount->setChecked(mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
-
-	m_currentIndex = i;
 }
 
 void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString& s)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.listTemplate = s;
 }
 
 void ModeManagerDlg::on_comboBox_rules_currentIndexChanged(int /*i*/)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.rules = m_pUi->comboBox_rules->currentText();
 }
 
 void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
@@ -140,30 +132,30 @@ void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
 
 void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.weightsAreDoubled = checked;
 	update_fights_per_round(mode);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_pUi->comboBox_mode->currentIndex());
+	auto& mode = GetCurrentMode();
 	mode.SetOption(TournamentMode::str_Option_AllSubscoresCount, checked);
 }
 
 void ModeManagerDlg::on_toolButton_add_clicked()
 {
-    auto mode = m_DefaultMode;
+    auto mode = TournamentMode::Default();
 	mode.title = tr("*new*");
 	mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 
@@ -195,7 +187,6 @@ void ModeManagerDlg::on_toolButton_remove_clicked()
 		{
 			m_dialogData.erase(pos);
 			m_pUi->comboBox_mode->removeItem(m_currentIndex);
-			m_currentIndex = m_pUi->comboBox_mode->currentIndex();
 		}
 
 		m_pUi->toolButton_remove->setEnabled(m_pUi->comboBox_mode->count() > 1);
@@ -204,82 +195,82 @@ void ModeManagerDlg::on_toolButton_remove_clicked()
 
 void ModeManagerDlg::on_spinBox_rounds_valueChanged(int i)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.nRounds = i;
 	update_fights_per_round(mode);
 }
 
 void ModeManagerDlg::on_spinBox_fightTimeMinutes_valueChanged(int i)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.fightTimeInSeconds = i * 60 + m_pUi->spinBox_fightTimeSeconds->value();
 }
 
 void ModeManagerDlg::on_spinBox_fightTimeSeconds_valueChanged(int i)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.fightTimeInSeconds = m_pUi->spinBox_fightTimeMinutes->value() * 60 + i;
 }
 
 void ModeManagerDlg::on_lineEdit_weights_textChanged(const QString& s)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.weights = s;
 	update_fights_per_round(mode);
 }
 
 void ModeManagerDlg::on_lineEdit_title_textChanged(const QString& s)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.title = s;
 	m_pUi->comboBox_mode->setItemText(m_currentIndex, mode.Description());
 }
 
 void ModeManagerDlg::on_lineEdit_subtitle_textChanged(const QString& s)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 	mode.subTitle = s;
 	m_pUi->comboBox_mode->setItemText(m_currentIndex, mode.Description());
 }
 
 void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
 {
-	if (!is_initialized())
+	if (!has_Mode())
 	{
 		return;
 	}
 
-	auto& mode = GetMode(m_currentIndex);
+	auto& mode = GetCurrentMode();
 
 	if (s.isEmpty() || TournamentMode::ExtractFightTimeOverrides(s, mode.fightTimeOverrides))
 	{
@@ -294,12 +285,10 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
 void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
 {
 	auto text = mode.nRounds > 1 ?
-				QString("%1 fights total, %2 per round") :
-				QString("%1 fights total");
+				QString("%1 fights total, %2 per round").arg(mode.FightsPerRound()*mode.nRounds) :
+				QString("%1 fights total").arg(mode.FightsPerRound());
 
-	m_pUi->label_fightsPerRound->setText(text
-										 .arg(mode.FightsPerRound()*mode.nRounds)
-										 .arg(mode.FightsPerRound()));
+	m_pUi->label_fightsPerRound->setText(text);
 }
 
 Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)

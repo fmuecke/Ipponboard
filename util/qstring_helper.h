@@ -13,9 +13,7 @@ namespace
 {
 	inline QString NormalizeSpaces(QString const& s)
 		{
-			QString ret = s;
-			ret.replace('_', ' ');
-			ret = ret.trimmed();
+            QString ret = s.trimmed();
 
 			// trim multiple spaces
 			while (ret.contains("  ")) ret.replace("  ", " ");

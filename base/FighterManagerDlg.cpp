@@ -15,6 +15,7 @@
 #include <QRegExp>
 #include <QPlainTextEdit>
 #include <QDesktopServices>
+#include <QDebug>
 //#include <QUrl>
 
 //using namespace Ipponboard;
@@ -180,8 +181,7 @@ void FighterManagerDlg::populate_view()
 		ui->label_filterinfo->hide();
 	}
 
-	std::for_each(begin(m_manager.m_fighters), end(m_manager.m_fighters),
-				  [&](Ipponboard::Fighter const & f)
+    for (auto const& f : m_manager.m_fighters)
 	{
 		bool skipItem = true;
 
@@ -230,12 +230,11 @@ void FighterManagerDlg::populate_view()
 		if (!skipItem)
 		{
 			auto contents = fighterToItemData(f);
-			QTreeWidgetItem* pItem =
-				new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+            QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 			pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 			ui->treeWidget_fighters->addTopLevelItem(pItem);
 		}
-	});
+    }
 }
 
 void FighterManagerDlg::on_pushButton_import_pressed()
@@ -382,5 +381,5 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
 void FighterManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column)
 {
 	m_currentCellData = item->text(column);
-	qDebug("data: %s", m_currentCellData.toLatin1().data());
+    qDebug("current cell value: %s", m_currentCellData.toLatin1().data());
 }

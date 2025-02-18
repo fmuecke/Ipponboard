@@ -4,24 +4,29 @@
 <context>
     <name>AddFighterDlg</name>
     <message>
+        <location filename="../base/AddFighterDlg.ui" line="+17"/>
         <source>Add Fighter</source>
-        <translation type="vanished">Deelnemer Toevoegen</translation>
+        <translation>Deelnemer Toevoegen</translation>
     </message>
     <message>
+        <location line="+11"/>
         <source>Club/Team</source>
-        <translation type="vanished">Club/Team</translation>
+        <translation>Club/Team</translation>
     </message>
     <message>
+        <location line="+10"/>
         <source>First name</source>
-        <translation type="vanished">Voornaam</translation>
+        <translation>Voornaam</translation>
     </message>
     <message>
+        <location line="+10"/>
         <source>Last name</source>
-        <translation type="vanished">Achternaam</translation>
+        <translation>Achternaam</translation>
     </message>
     <message>
+        <location line="+10"/>
         <source>Weight</source>
-        <translation type="vanished">Gewicht</translation>
+        <translation>Gewicht</translation>
     </message>
 </context>
 <context>
@@ -290,15 +295,17 @@
         <translation>Verwijderen</translation>
     </message>
     <message>
+        <location filename="../base/FightCategoryManagerDlg.cpp" line="+27"/>
         <source>Ok</source>
-        <translation type="vanished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Cancel</source>
-        <translation type="vanished">Annuleren</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManagerDlg.cpp" line="+65"/>
+        <location line="+39"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Nieuwe categorie toevoegen</translation>
@@ -310,11 +317,12 @@
         <translation>Geef de naam van de nieuwe categorie</translation>
     </message>
     <message>
+        <location line="-4"/>
         <source>This category already exists. Please choose an other name.</source>
-        <translation type="vanished">Deze categorie bestaat reeds. Kies een andere naam aub.</translation>
+        <translation>Deze categorie bestaat reeds. Kies een andere naam aub.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+134"/>
         <source>This name is already taken!</source>
         <translation>Deze naam is reeds in gebruik!</translation>
     </message>
@@ -322,6 +330,11 @@
         <location filename="../base/FightCategoryManagerDlg.ui"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live Edit&lt;/span&gt;: All changes are immediate! They may trigger reloading of the score board.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Live bewerken&lt;/span&gt;: Alle wijzigingen worden onmiddellijk doorgevoerd! Het scorebord wordt mogelijk opnieuw geladen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../base/FightCategoryManagerDlg.ui"/>
+        <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
+        <translation>0:00 Golden Score tijd betekent geen tijdslimiet in de Golden Score (of er is geen Golden Score)</translation>
     </message>
     <message>
         <location filename="../base/FightCategoryManagerDlg.cpp" line="-118"/>
@@ -342,8 +355,9 @@
         <translation>Importeer Deelnemers</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Import</source>
-        <translation type="vanished">&amp;Importeren</translation>
+        <translation>&amp;Importeren</translation>
     </message>
     <message>
         <location/>
@@ -351,12 +365,14 @@
         <translation>Exporteer Deelnemers</translation>
     </message>
     <message>
+        <location/>
         <source>E&amp;xport</source>
-        <translation type="vanished">&amp;Exporteer</translation>
+        <translation>&amp;Exporteer</translation>
     </message>
     <message>
+        <location/>
         <source>Settings for import/export</source>
-        <translation type="vanished">Instellingen voor Importeren/Exporteren</translation>
+        <translation>Instellingen voor Importeren/Exporteren</translation>
     </message>
     <message>
         <location/>
@@ -364,8 +380,9 @@
         <translation>Een nieuwe deelnemer toevoegen</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;Toevoegen</translation>
+        <translation>&amp;Toevoegen</translation>
     </message>
     <message>
         <location/>
@@ -373,11 +390,12 @@
         <translation>Verwijder de huidige geselecteerde gewichtsklasse</translation>
     </message>
     <message>
+        <location/>
         <source>&amp;Remove</source>
-        <translation type="vanished">&amp;Verwijderen</translation>
+        <translation>&amp;Verwijderen</translation>
     </message>
     <message>
-        <location filename="../base/FighterManagerDlg.cpp" line="+35"/>
+        <location filename="../base/FighterManagerDlg.cpp" line="+39"/>
         <source>Club/Team</source>
         <translation>Club/team</translation>
     </message>
@@ -397,13 +415,13 @@
         <translation>Achternaam</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+189"/>
         <source>Select CSV file with fighters</source>
         <translation>Selecteer CSV-bestand met de Deelnemers</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+23"/>
+        <location line="+37"/>
         <source>CSV files (*.csv);;Text files (*.txt)</source>
         <translation>CSV Bestanden (*.csv);;Tekst Bestanden (*.txt)</translation>
     </message>
@@ -413,16 +431,19 @@
         <translation>Naam CSV bestand om Deelnemers in op te slaan</translation>
     </message>
     <message>
+        <location line="+131"/>
         <source>Specify import/export format</source>
-        <translation type="vanished">Specifieer het Importeer/Exporteer formaat</translation>
+        <translation>Specifieer het Importeer/Exporteer formaat</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Use valid specifiers and some kind of separator (;,:|/ etc.)
 Valid specifiers are: %1</source>
-        <translation type="vanished">Gebruik geldige velden en mogelijke scheidigstekens (;,:|/ enz.)
+        <translation>Gebruik geldige velden en mogelijke scheidigstekens (;,:|/ enz.)
 Geldige velden zijn: %1</translation>
     </message>
     <message>
+        <location line="+26"/>
         <source>Invalid format. Please correct your input.</source>
         <translation type="vanished">Incorrect formaat. Corrigeer uw ingave aub.</translation>
     </message>
@@ -543,7 +564,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>Ipponboard::SettingsDlg</name>
     <message>
-        <location filename="../base/SettingsDlg.cpp" line="+54"/>
+        <location filename="../base/SettingsDlg.cpp" line="+55"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
@@ -622,12 +643,14 @@ Geldige velden zijn: %1</translation>
         <translation>Herstel</translation>
     </message>
     <message>
+        <location/>
         <source>Second Fighter (first last)</source>
-        <translation type="vanished">Tweede Deelnemer (Voornaam Achternaam)</translation>
+        <translation>Tweede Deelnemer (Voornaam Achternaam)</translation>
     </message>
     <message>
+        <location/>
         <source>First Fighter (first last)</source>
-        <translation type="vanished">Eerste Deelnemer (Voornaam Achternaam)</translation>
+        <translation>Eerste Deelnemer (Voornaam Achternaam)</translation>
     </message>
     <message>
         <location/>
@@ -969,6 +992,11 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location/>
+        <source>Use IJF 2025 rules</source>
+        <translation>Gebruik IJF 2025-regels</translation>
+    </message>
+    <message>
+        <location/>
         <source>IJF Rules 2018</source>
         <translation>IJF Regels 2018</translation>
     </message>
@@ -978,9 +1006,14 @@ Geldige velden zijn: %1</translation>
         <translation>Gebruik IJF 2018-regels</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+337"/>
+        <location filename="../base/MainWindow.cpp" line="+340"/>
         <source>Auto adjust points</source>
         <translation>Auto aanpassen punten</translation>
+    </message>
+    <message>
+        <location filename="../base/MainWindow.ui"/>
+        <source>IJF Rules 2025</source>
+        <translation>IJF Regels 2025</translation>
     </message>
     <message>
         <location filename="../base/MainWindow.ui"/>
@@ -1011,7 +1044,7 @@ Geldige velden zijn: %1</translation>
         <translation>/User-Manual.html</translation>
     </message>
     <message>
-        <location line="+703"/>
+        <location line="+721"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -1027,7 +1060,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-700"/>
+        <location line="-718"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
@@ -1047,7 +1080,7 @@ Geldige velden zijn: %1</translation>
         <translation>Gasten</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+91"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+92"/>
         <source> (saved)</source>
         <translation> (opslaaned)</translation>
     </message>
@@ -1839,12 +1872,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Versie %1 beschikbaar (momenteel gebruikt: %2)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1329"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1331"/>
         <source>Error reading mode configurations</source>
         <translation>Fout bij lezen van modusconfiguraties</translation>
     </message>
     <message>
-        <location line="+613"/>
+        <location line="+615"/>
         <source>Error writing mode configurations</source>
         <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
@@ -1852,30 +1885,37 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+178"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
+        <location line="+32"/>
+        <location line="+21"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
+        <location filename="../base/FighterManager.cpp" line="+131"/>
+        <location line="+63"/>
         <source>Format specifier has invalid separator: %1</source>
-        <translation type="vanished">Het formaat heeft een verkeerd scheidingsteken:%1</translation>
+        <translation>Het formaat heeft een verkeerd scheidingsteken:%1</translation>
     </message>
     <message>
+        <location line="-48"/>
         <source>Format specifier does not contain firstname and lastname: %1</source>
-        <translation type="vanished">Het formaat bevat geen voornaam en achternaam: %1</translation>
+        <translation>Het formaat bevat geen voornaam en achternaam: %1</translation>
     </message>
     <message>
-        <location filename="../base/FighterManager.cpp" line="+119"/>
+        <location line="+32"/>
         <source>Imported %1 new fighters.</source>
         <translation>%1 nieuwe deelnemers geimporeerd.</translation>
     </message>
     <message>
+        <location line="+24"/>
         <source>Format specifier does not meet criteria: %1</source>
-        <translation type="vanished">Het formaat bestaat niet uit dezelfde criteria: %1</translation>
+        <translation>Het formaat bestaat niet uit dezelfde criteria: %1</translation>
     </message>
     <message>
+        <location line="+61"/>
         <source>Successfully exported %1 fighters.</source>
-        <translation type="vanished">Succesvol %1 deelnemers geëxporteerd.</translation>
+        <translation>Succesvol %1 deelnemers geëxporteerd.</translation>
     </message>
     <message>
         <source>Unable to open file %1</source>
@@ -1892,7 +1932,7 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
         <translation type="obsolete">Kan bestand %1 niet openen om weg te bewerken</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+1"/>
+        <location filename="../base/FightCategoryManager.cpp" line="-52"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1901,6 +1941,20 @@ Restoring defaults.</source>
 %1
 
 Standaardwaarden herstellen.</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Unable to parse fight categories:
+%1
+
+Restoring defaults.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Unable to write fight categories:
+%1</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../base/FighterManager.cpp" line="-44"/>
@@ -2379,20 +2433,24 @@ Standaardwaarden herstellen.</translation>
         <translation>De toetsen kunnen in deze versie (nog) niet gewijzigd worden.</translation>
     </message>
     <message>
+        <location/>
         <source>Extended</source>
-        <translation type="vanished">Uitgebreid</translation>
+        <translation>Uitgebreid</translation>
     </message>
     <message>
+        <location/>
         <source>Format specifier for fighter import and export</source>
-        <translation type="vanished">Specifieer formaat voor importeren en exporteren van deelnemers</translation>
+        <translation>Specifieer formaat voor importeren en exporteren van deelnemers</translation>
     </message>
     <message>
+        <location/>
         <source>Fighter import/export format</source>
-        <translation type="vanished">Formaat Importeren/Exporteren Deelnemers</translation>
+        <translation>Formaat Importeren/Exporteren Deelnemers</translation>
     </message>
     <message>
+        <location/>
         <source>club;firstname;lastname;weight</source>
-        <translation type="vanished">club;voornaam;achternaam;gewicht</translation>
+        <translation>club;voornaam;achternaam;gewicht</translation>
     </message>
 </context>
 <context>
@@ -2405,12 +2463,12 @@ Standaardwaarden herstellen.</translation>
     <message>
         <location/>
         <source>start Single Tournament</source>
-        <translation>Start individuele competitie</translation>
+        <translation type="vanished">Start individuele competitie</translation>
     </message>
     <message>
         <location/>
         <source>start Team Tournament</source>
-        <translation>Start teamcompetitie</translation>
+        <translation type="vanished">Start teamcompetitie</translation>
     </message>
     <message>
         <source>Ok, start Single Tournament</source>
@@ -2424,6 +2482,26 @@ Standaardwaarden herstellen.</translation>
     <message>
         <source>Ok, start Team Tournament</source>
         <translation type="vanished">Ok, start teamtoernooi</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(1) start Single Tournament</source>
+        <translation>(1) Start individuele competitie</translation>
+    </message>
+    <message>
+        <location/>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <location/>
+        <source>(2) start Team Tournament</source>
+        <translation>(2) Start teamcompetitie</translation>
+    </message>
+    <message>
+        <location/>
+        <source>2</source>
+        <translation>2</translation>
     </message>
 </context>
 <context>

@@ -5,6 +5,7 @@
 #include "../util/catch2/catch.hpp"
 #include "../util/path_helpers.h"
 
+#ifndef EXPERIMENTAL
 #ifdef _WIN32
 
 TEST_CASE("GetSettingsFilePath: returns back empty filename")
@@ -40,4 +41,5 @@ TEST_CASE("KnowFolders: LocalAppData returns valid path ")
 	REQUIRE(pos != -1);
 }
 
+#endif
 #endif

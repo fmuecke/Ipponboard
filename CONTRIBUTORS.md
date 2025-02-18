@@ -7,7 +7,8 @@ Your contributions, whether big or small, are greatly appreciated!
 
 - **[Florian Mücke](https://github.com/fmuecke)** - Main Developer, original idea realization
 - **Ralf Bernhard** - Initial Linux port, initiative for migration to cmake/Qt5, [Ipponboard fork](https://gitlab.com/r_bernhard/Ipponboard)
-- **[Rainer Bamberger](https://github.com/reinerBa)** - ideas and collaboration
+- **[Rainer Bamberger](https://github.com/mahartwig)** - several fixes and improvements
+- **[Manuel Hartwig]()
 
 ## Special Contributors
 
@@ -22,7 +23,7 @@ Your contributions, whether big or small, are greatly appreciated!
 
 Thank you to all the wonderful people who have contributed via GitHub!
 
-[Contributors on GitHub](https://github.com/yourusername/ipponboard/graphs/contributors)
+[Ipponboard GitHub contributors](https://github.com/fmuecke/Ipponboard/graphs/contributors)
 
 ---
 

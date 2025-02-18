@@ -20,7 +20,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2024 Florian Mücke "
+#define MyAppCopyright "2010-2025 Florian Mücke "
 #define MyAppAuthor "Florian Mücke"
 
 
@@ -91,8 +91,7 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 [Files]
 Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\GamepadDemo-Release\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\_bin\Ipponboard-Release\categories.json"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\_bin\Ipponboard-Release\clubs.json"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
 Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion

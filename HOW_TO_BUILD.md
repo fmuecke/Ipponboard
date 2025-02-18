@@ -13,7 +13,8 @@ Linux (Ubuntu/WSL) | gcc 11 | Linux 64-Bit (experimental)
 
 Ipponboard requires the following libraries and tools to be built: 
 
-- [Qt framework](https://www.qt.io/) (last used: 5.15.x; 6.x not yet supported)
+- [Qt framework](https://www.qt.io/) (required: 5.15.13 or newer; 6.x not yet supported)
+  - versions < 5.15.13 can be used to compile, however not all tests are working properly because of missing fixes in the ssl library
 - [CMake](https://cmake.org) (last used: 3.29.x)
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
@@ -23,7 +24,9 @@ For compilation and configuration of the Qt framework, see the section [Building
 
 ## Run `build.ps1` resp. `build.sh`
 
-Note: Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
+_Note:_ Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
+Be sure to enable powershell script execution on windows via `Set-ExecutionPolicy -ExecutionPolicy Unrestricted` in an admin console.
+
 
 The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
 

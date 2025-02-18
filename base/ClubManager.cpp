@@ -11,7 +11,7 @@
 
 
 using namespace Ipponboard;
-const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json";
+const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json";  // used up to version 1.10
 const char* const ClubManager::str_clubs_settingsFile = "clubs.config";
 
 //---------------------------------------------------------
@@ -111,10 +111,12 @@ void ClubManager::LoadClubs_()
 	if (QFile::exists(config))
 	{
 		m_Clubs = ClubParser::ParseIniFile(config);
+				
 	}
 	else
 	{
 		// load legacy settings for conversion
+		qWarning() << QString("%1 missing. Trying to load legacy %2").arg(str_clubs_settingsFile).arg(str_legacy_filename_club_definitions);
 		try
 		{
 			auto legacyConfig = fm::GetSettingsFilePath(str_legacy_filename_club_definitions);

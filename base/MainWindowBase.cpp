@@ -414,10 +414,20 @@ void MainWindowBase::on_actionRules2018_triggered(bool checked)
 	}
 }
 
+void MainWindowBase::on_actionRules2025_triggered(bool checked)
+{
+	if (checked)
+	{
+		m_pController->SetRules(std::make_shared<Rules2025>());
+		ui_check_rules_items();
+	}
+}
+
 void MainWindowBase::write_settings()
 {
 	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
 	QSettings settings(iniFile, QSettings::IniFormat, this);
+	qInfo() << "Writing settings to " << iniFile;
 	//TODO: settings.setIniCodec("UTF-8");
 
 	settings.beginGroup(str_tag_Main);
@@ -498,8 +508,8 @@ void MainWindowBase::write_settings()
 void MainWindowBase::read_settings()
 {
 	QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
-
 	QSettings settings(iniFile, QSettings::IniFormat, this);
+	qInfo() << "Reading settings from " << iniFile;
 	//TODO: settings.setIniCodec("UTF-8");
 
 	// MainWindow
@@ -645,8 +655,7 @@ void MainWindowBase::read_settings()
 #endif
 	settings.beginGroup(str_tag_Sounds);
 	{
-		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends,
-								   "sounds/buzzer1.wav").toString());
+		m_pController->SetGongFile(settings.value(str_tag_sound_time_ends, "sounds/gong.wav").toString());
 	}
 	settings.endGroup();
 
