@@ -114,13 +114,12 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 void FighterManagerDlg::on_pushButton_add_pressed()
 {
 	auto f = m_manager.AddNewFighter();
+    qDebug() << "adding new fighter" << f.first_name << f.last_name << "(list has" << m_manager.m_fighters.size() << "items)";
 	auto contents = fighterToItemData(f);
 
-	QTreeWidgetItem* pItem =
-		new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+    QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 	pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 	ui->treeWidget_fighters->addTopLevelItem(pItem);
-
 }
 
 void FighterManagerDlg::on_toolButton_openFile_pressed()
@@ -190,32 +189,23 @@ void FighterManagerDlg::populate_view()
 			switch (m_filter.first)
 			{
 			case eColumn_firstName:
-				if (m_filter.second == f.first_name)
-					skipItem = false;
-
+                if (m_filter.second == f.first_name) skipItem = false;
 				break;
 
 			case eColumn_lastName:
-				if (m_filter.second == f.last_name)
-					skipItem = false;
-
+                if (m_filter.second == f.last_name) skipItem = false;
 				break;
 
 			case eColumn_club:
-				if (m_filter.second == f.club)
-					skipItem = false;
-
+                if (m_filter.second == f.club) skipItem = false;
 				break;
 
 			case eColumn_weight:
-				if (m_filter.second == f.weight)
-					skipItem = false;
-
+                if (m_filter.second == f.weight) skipItem = false;
 				break;
 
 			case eColumn_category:
-				if (m_filter.second == f.category)
-					skipItem = false;
+                if (m_filter.second == f.category) skipItem = false;
 				break;
 
 			default:
@@ -306,6 +296,7 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 		removeItems = true;
 	}
 
+    qDebug() << "removing" << selectedItems.count() << "from fighter list (list has" << m_manager.m_fighters.size() << "items)";
 	if (removeItems)
 	{
 		for (QTreeWidgetItem * pItem : selectedItems)
@@ -313,12 +304,11 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 			auto fighter = itemToFighter(pItem);
 			m_manager.RemoveFighter(fighter);
 
-			ui->treeWidget_fighters->takeTopLevelItem(
-				ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
-
+            ui->treeWidget_fighters->takeTopLevelItem(ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 			delete pItem;
 		}
 	}
+    qDebug() << "items removed. List now has" << m_manager.m_fighters.size() << "items";
 }
 
 void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pItem, int column)
@@ -329,32 +319,36 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
 
 		// clone item and get original value
 		Ipponboard::Fighter originalFighterData(updatedFighterData);
-		qDebug("enum value: %i", column);
 
 		switch (column)
 		{
 		case eColumn_firstName:
-			originalFighterData.first_name = m_currentCellData;
+            qDebug() << "column firstname changed from" << m_currentCellData << "to" <<originalFighterData.first_name;
+            originalFighterData.first_name = m_currentCellData;
 			break;
 
 		case eColumn_lastName:
-			originalFighterData.last_name = m_currentCellData;
+            qDebug() << "column lastname changed from" << m_currentCellData << "to" <<originalFighterData.last_name;
+            originalFighterData.last_name = m_currentCellData;
 			break;
 
 		case eColumn_club:
-			originalFighterData.club = m_currentCellData;
+            qDebug() << "column club changed from" << m_currentCellData << "to" << originalFighterData.club;
+            originalFighterData.club = m_currentCellData;
 			break;
 
 		case eColumn_weight:
-			originalFighterData.weight = m_currentCellData;
+            qDebug() << "column weight changed from" << m_currentCellData << "to" << originalFighterData.weight;
+            originalFighterData.weight = m_currentCellData;
 			break;
 
 		case eColumn_category:
-			originalFighterData.category = m_currentCellData;
+            qDebug() << "column category changed from" << m_currentCellData << "to" << originalFighterData.category;
+            originalFighterData.category = m_currentCellData;
 			break;
 
 		default:
-			qDebug("ERROR: invalid enum value: %i", column);
+            qDebug("ERROR: invalid column: %i", column);
 			break;
 		}
 
