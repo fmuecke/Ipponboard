@@ -718,6 +718,7 @@ QJsonDocument MainWindowTeam::CreateTournamentSaveFile_()
 			fightobj.insert("SecondsElapsed", fight.GetSecondsElapsed());
 			fightobj.insert("RoundTimeSeconds", fight.GetRoundSeconds());
 			fightobj.insert("IsGoldenScore", fight.IsGoldenScore());
+			fightobj.insert("IsSaved", fight.is_saved);
 
 			QJsonObject fighter1obj = QJsonObject();
 			fighter1obj.insert("Name", fight.GetFighter(FighterEnum::First).name);
@@ -829,6 +830,7 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 			newfight.SetSecondsElapsed(fightobj["SecondsElapsed"].toInt());
 			newfight.SetRoundTime(fightobj["RoundTimeSeconds"].toInt());
 			newfight.SetGoldenScore(fightobj["IsGoldenScore"].toBool());
+			newfight.is_saved = fightobj["IsSaved"].toBool();
 
 			QJsonObject fighter1obj = fightobj["FirstFighter"].toObject();
 			newfight.fighters[0].name = fighter1obj["Name"].toString();
