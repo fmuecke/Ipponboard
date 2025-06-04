@@ -58,11 +58,14 @@ private:
 	virtual void update_views() override;
 
 	// specific methods
+	void update_window_title();
 	void update_club_views();
 	void UpdateFightNumber_();
 	void UpdateButtonText_();
 	void update_score_screen();
 	void WriteScoreToHtml_();
+	QJsonDocument CreateTournamentSaveFile_();
+	int ParseTournamentSaveFile_(QJsonDocument& save);
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
 	//void update_fighter_name_completer(const QString& weight);
@@ -99,6 +102,10 @@ private slots:
 	void on_comboBox_club_host_currentIndexChanged(const QString& s);
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
+	void on_actionNew_triggered();
+	void on_actionSave_File_triggered();
+	void on_actionSave_File_As_triggered();
+	void on_actionOpen_File_triggered();
 	void on_actionPrint_triggered();
 	void on_actionExport_triggered();
 	void on_button_golden_score_toggled(bool);
@@ -132,6 +139,7 @@ private:
 	QString m_htmlScore;
 	QString m_currentMode;
 	QString m_host;
+	QString m_saveFilePath;
 
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;

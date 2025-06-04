@@ -961,12 +961,6 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation> (gespeichert)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+64"/>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
         <location filename="../base/MainWindowTeam.cpp" line="+1"/>
         <source>Next</source>
         <translation>Nächster</translation>
@@ -1013,9 +1007,29 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+1"/>
+        <source>Open file...</source>
+        <translation>Datei öffnen...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Save file to...</source>
+        <translation>Datei speichern...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Save file as...</source>
+        <translation>Datei speichern als...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>JSON File (*.json)</source>
+        <translation>JSON-Datei (*.json)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1026,6 +1040,66 @@ Mögliche Spezifikatorens sind: %1</translation>
         <location line="+1"/>
         <source>PDF File (*.pdf);;HTML File (*.html)</source>
         <translation>PDF-Datei (*.pdf);;HTML-Datei (*.html)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Saved!</source>
+        <translation>Gespeichert!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The match was saved successfully!</source>
+        <translation>Die Begegnung wurde erfolgreich gespeichert!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The match could not be saved!</source>
+        <translation>Die Begegnung konnte nicht gespeichert werden!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Discard tournament?</source>
+        <translation>Begegnung verwerfen?</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This will discard any unsaved changes from your current tournament. Proceed?</source>
+        <translation>Alle ungespeicherten Änderungen werden verworfen. Fortfahren?</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>File could not be opened!</source>
+        <translation>Datei konnte nicht geöffnet werden!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error while parsing JSON!</source>
+        <translation>Fehler JSON Format!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>File Version mismatch</source>
+        <translation>Dateiversionsunterschied</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+    <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. If you want to try to load this file anyway, open it with an editor and set the FileVersion to \"1.0\".</source>
+        <translation>Diese Datei wurde mit einer neueren Version von Ipponboard gespeichert und könnte nicht kompatibel sein. Wenn Sie diese Datei trotzdem laden möchten, öffnen Sie diese im Editor und setzen Sie die FileVersion auf \"1.0\".</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Success!</source>
+        <translation>Speichern erfolgreich!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The match was loaded successfully!</source>
+        <translation>Die Begegnung wurde erfolgreich geladen!</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error while parsing data!</source>
+        <translation>Fehler beim verarbeiten der Daten!</translation>
     </message>
     <message>
         <location line="+49"/>
@@ -1096,6 +1170,26 @@ Mögliche Spezifikatorens sind: %1</translation>
         <location filename="../base/MainWindowTeam.ui"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
+    </message>
+        <message>
+        <location/>
+        <source>New</source>
+        <translation>Neu</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open...</source>
+        <translation>Öffnen...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save As...</source>
+        <translation>Speichern als...</translation>
     </message>
     <message>
         <location/>
