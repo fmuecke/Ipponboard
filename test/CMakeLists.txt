@@ -40,6 +40,8 @@ set(SOURCES
     TestOnlineVersionChecker.cpp
     Test-path_helpers.cpp
     TestVersionComparer.cpp
+    TestStateMachine.cpp
+    TestTournamentModel.cpp
 )
 
 set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
@@ -95,7 +97,6 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
-
 
 
 
