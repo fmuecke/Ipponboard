@@ -17,7 +17,7 @@ else()
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
 endif()
 
-set(CMAKE_AUTOUIC OFF)
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC OFF)
 
@@ -42,12 +42,17 @@ set(SOURCES
     TestVersionComparer.cpp
     TestStateMachine.cpp
     TestTournamentModel.cpp
+    TestView.cpp
+    ../base/View.cpp
+    ../Widgets/ScaledImage.cpp
+    ../Widgets/ScaledText.cpp
+    ../base/view_horizontal.ui
 )
 
 set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
 target_link_libraries(${APP_NAME} PRIVATE IpponboardCore)
-target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
+target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR} ${ROOT_DIR}/base ${ROOT_DIR}/Widgets)
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -97,8 +102,6 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
-
-
 
 
 

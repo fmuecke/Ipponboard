@@ -80,6 +80,11 @@ const QColor& ScaledText::GetBgColor() const
 	return m_BGColor;
 }
 
+const QString& ScaledText::GetText() const
+{
+	return m_Text;
+}
+
 void ScaledText::set_size(ETextSize size)
 {
 	Q_ASSERT(size < eSize_MAX && size >= 0);

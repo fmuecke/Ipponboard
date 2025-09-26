@@ -1,17 +1,17 @@
 #pragma once
 
-#include <QCoreApplication>
+#include <QApplication>
 
-inline QCoreApplication& ensure_qt_app()
+inline QApplication& ensure_qt_app()
 {
-    if (QCoreApplication::instance())
+    if (auto* instance = qobject_cast<QApplication*>(QCoreApplication::instance()))
     {
-        return *QCoreApplication::instance();
+        return *instance;
     }
 
     static int argc = 0;
     static char appName[] = "test";
     static char* argv[] = { appName, nullptr };
-    static QCoreApplication app(argc, argv);
+    static QApplication app(argc, argv);
     return app;
 }
