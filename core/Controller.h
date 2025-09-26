@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -92,6 +92,9 @@ public:
 	void SetLabels(QString const& home, QString const& guest);
 
 	void Gong() const;
+	// Allows tests to advance timers deterministically without relying on QTimer events.
+	void AdvanceTimerTicks(Ipponboard::ETimer timer, int ticks = 1);
+
 
 	IController const* GetIController() const { return this; }
 	IController* GetIController() { return this; }
@@ -217,3 +220,4 @@ private:
 } // namespace Ipponboard
 
 #endif  // BASE__CONTROLLER_H_
+

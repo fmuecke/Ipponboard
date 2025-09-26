@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -13,7 +13,9 @@
 #include "Rules.h"
 
 #include <QTimer>
+#ifndef QT_NO_SOUND
 #include <QSound>
+#endif
 #include <QFileInfo>
 #include <QMessageBox>
 
@@ -716,9 +718,39 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
+#ifndef QT_NO_SOUND
+	if (m_gongFile.isEmpty())
+	{
+		return;
+	}
+
 	QSound::play(m_gongFile);
+#else
+	Q_UNUSED(m_gongFile);
+#endif
 }
 
+//=========================================================
+void Controller::AdvanceTimerTicks(Ipponboard::ETimer timer, int ticks)
+//=========================================================
+{
+	if (ticks <= 0)
+	{
+		return;
+	}
+
+	for (int i = 0; i < ticks; ++i)
+	{
+		if (timer == eTimer_Main)
+		{
+			update_main_time();
+		}
+		else if (timer == eTimer_Hold)
+		{
+			update_hold_time();
+		}
+	}
+}
 //=========================================================
 void Controller::RegisterView(IView* pView)
 //=========================================================
@@ -1262,3 +1294,6 @@ void Controller::update_views() const
 		pView->UpdateGoldenScoreView();
 	}
 }
+
+
+

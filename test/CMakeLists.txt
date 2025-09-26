@@ -18,7 +18,7 @@ else()
 endif()
 
 set(CMAKE_AUTOUIC OFF)
-set(CMAKE_AUTOMOC OFF)
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC OFF)
 
 if(WIN32)
@@ -33,15 +33,23 @@ set(SOURCES
     IpponboardTest.cpp
     TestFight.cpp
     TestJson.cpp
+    TestController.cpp
     TestRules.cpp
     TestScore.cpp
     TestTournamentMode.cpp
     TestOnlineVersionChecker.cpp
     Test-path_helpers.cpp
     TestVersionComparer.cpp
+    ../core/Controller.cpp
+    ../core/StateMachine.cpp
+    ../core/TournamentModel.cpp
+    ../core/Fighter.cpp
 )
 
+set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
+target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
+target_compile_definitions(${APP_NAME} PRIVATE QT_NO_SOUND)
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -88,3 +96,15 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
+
+
+
+
+
+
+
+
+
+
+
+
