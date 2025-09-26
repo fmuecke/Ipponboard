@@ -73,6 +73,26 @@ TEST_CASE("[StateMachine] Wazaari below match point keeps timers running")
     REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerRunning);
 }
 
+TEST_CASE("[StateMachine] Wazaari match point stops the fight")
+{
+    StateMachineFixture fixture;
+    fixture.core.set_time(eTimer_Main, 90);
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.core.mutable_score(FighterEnum::First).SetValue(
+        Score::Point::Wazaari,
+        fixture.core.GetRules()->GetMaxWazaariCount() - 1);
+    fixture.core.clear_timer_events();
+
+    fixture.process(IpponboardSM_::Wazaari(FighterEnum::First));
+
+    REQUIRE(fixture.core.mutable_score(FighterEnum::First).Wazaari() ==
+            fixture.core.GetRules()->GetMaxWazaariCount());
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
+    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerStopped);
+}
+
 TEST_CASE("[StateMachine] Wazaari blocked when awasete is disabled and max reached")
 {
     StateMachineFixture fixture;
