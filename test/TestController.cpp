@@ -1,17 +1,16 @@
 #include "../util/catch2/catch.hpp"
-#include "../core/Controller.h"
 #include "../core/Enums.h"
+#include "ControllerTestHelpers.h"
 
 #include <QTime>
-#include "TestQtApp.h"
 
 using namespace Ipponboard;
+using namespace TestSupport;
 
 TEST_CASE("[Controller] Main timer stops when fight time elapses")
 {
-    ensure_qt_app();
-
-    Controller controller;
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
     controller.SetRoundTime(QTime(0, 0, 3));
 
     REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
@@ -29,9 +28,8 @@ TEST_CASE("[Controller] Main timer stops when fight time elapses")
 
 TEST_CASE("[Controller] Golden score wazaari revocation")
 {
-    ensure_qt_app();
-
-    Controller controller;
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
     controller.SetRoundTime(QTime(0, 0, 3));
     controller.SetGoldenScore(true);
 
@@ -55,9 +53,8 @@ TEST_CASE("[Controller] Golden score wazaari revocation")
 
 TEST_CASE("[Controller] Hold scoring awards points over time")
 {
-    ensure_qt_app();
-
-    Controller controller;
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
     controller.SetRoundTime(QTime(0, 3, 0));
 
     controller.DoAction(eAction_Hajime_Mate);
@@ -78,6 +75,5 @@ TEST_CASE("[Controller] Hold scoring awards points over time")
     REQUIRE(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 1);
     REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
 }
-
 
 
