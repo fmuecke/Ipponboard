@@ -313,6 +313,14 @@ void MainWindowBase::on_actionUser_Manual_triggered()
 	QDesktopServices::openUrl(url);
 }
 
+void MainWindowBase::on_actionView_Logfile_triggered()
+{
+	QUrl url(QCoreApplication::applicationDirPath() + tr("/Ipponboard.log"));
+	QDesktopServices::openUrl(url);
+
+	// TODO: open log file in Log Window
+}
+
 void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
 {
 	m_pController->SetAutoAdjustPoints(checked);
