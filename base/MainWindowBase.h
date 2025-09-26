@@ -162,6 +162,7 @@ protected slots:
 	void on_actionVisit_Project_Homepage_triggered();
 	void on_actionAbout_Ipponboard_triggered();
 	void on_actionUser_Manual_triggered();
+	void on_actionView_Logfile_triggered();
 	virtual void on_actionManageFighters_triggered() {}
 	virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
