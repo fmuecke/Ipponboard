@@ -45,6 +45,7 @@ public:
 
 	const QColor& GetColor() const;
 	const QColor& GetBgColor() const;
+	const QString& GetText() const;
 
 	ETextSize GetSize() const;
 
