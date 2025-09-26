@@ -74,6 +74,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add targets
+add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
 add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
 add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
 if(MSVC)
