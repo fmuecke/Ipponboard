@@ -104,15 +104,6 @@ set(SOURCES
     ../util/qt_helpers.hpp
     ../Widgets/ScaledImage.cpp
     ../Widgets/ScaledText.cpp
-    ../core/Controller.cpp
-    ../core/FightCategory.cpp
-    ../core/Fighter.cpp
-    ../core/Fight.cpp
-    ../core/Score.cpp
-    ../core/StateMachine.cpp
-    ../core/TournamentMode.cpp
-    ../core/TournamentModel.cpp
-    ../core/Rules.cpp
 )
 
 set(FORMS
@@ -187,7 +178,7 @@ if(MSVC)
     )
 
     # Copy Qt5 runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+    target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
@@ -213,5 +204,7 @@ else()
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
     )
     
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+    target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 endif()
+
+

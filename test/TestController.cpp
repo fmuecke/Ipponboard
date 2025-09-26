@@ -27,6 +27,32 @@ TEST_CASE("[Controller] Main timer stops when fight time elapses")
     REQUIRE(controller.GetTimeText(eTimer_Main) == QStringLiteral("0:00"));
 }
 
+TEST_CASE("[Controller] Golden score wazaari revocation")
+{
+    ensure_qt_app();
+
+    Controller controller;
+    controller.SetRoundTime(QTime(0, 0, 3));
+    controller.SetGoldenScore(true);
+
+    controller.DoAction(eAction_Hajime_Mate);
+    REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
+
+    controller.DoAction(eAction_Wazaari, FighterEnum::First);
+    REQUIRE(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 1);
+    REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
+
+    controller.DoAction(eAction_Wazaari, FighterEnum::First, true);
+    REQUIRE(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 0);
+    REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
+
+    controller.DoAction(eAction_Hajime_Mate);
+    REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
+
+    controller.AdvanceTimerTicks(eTimer_Main, 1);
+    REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
+}
+
 TEST_CASE("[Controller] Hold scoring awards points over time")
 {
     ensure_qt_app();

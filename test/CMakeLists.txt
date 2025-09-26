@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Ipponboard tests
 set(APP_NAME IpponboardTest)
 
-find_package(Qt5 5.15.2 COMPONENTS Core XmlPatterns Network Widgets REQUIRED)
+find_package(Qt5 5.15.2 COMPONENTS Core XmlPatterns Network Widgets Multimedia REQUIRED)
 
 if(LINUX)
     # common include directories
@@ -40,16 +40,12 @@ set(SOURCES
     TestOnlineVersionChecker.cpp
     Test-path_helpers.cpp
     TestVersionComparer.cpp
-    ../core/Controller.cpp
-    ../core/StateMachine.cpp
-    ../core/TournamentModel.cpp
-    ../core/Fighter.cpp
 )
 
 set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
+target_link_libraries(${APP_NAME} PRIVATE IpponboardCore)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
-target_compile_definitions(${APP_NAME} PRIVATE QT_NO_SOUND)
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -79,23 +75,27 @@ if(MSVC)
     )
 
     # Copy required QT runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::Multimedia)
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
         COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
         COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
     )
 else()
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::XmlPatterns Qt5::Network Qt5::Core)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::XmlPatterns Qt5::Network Qt5::Core Qt5::Multimedia)
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
+
 
 
 
