@@ -37,7 +37,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
 	ui->image_button_11->UpdateImage(":images/off.png");
 	ui->image_button_12->UpdateImage(":images/off.png");
 	m_pTimer = new QTimer(this);
-	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GetData()));
+	connect(m_pTimer, &QTimer::timeout, this, &GamepadDemo::GetData);
 
 	if (Gamepad::eState_ok != m_pGamepad->GetState())
 	{

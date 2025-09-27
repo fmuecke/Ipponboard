@@ -12,7 +12,6 @@
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QRegExp>
 #include <QPlainTextEdit>
 
 //using namespace Ipponboard;

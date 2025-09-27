@@ -152,7 +152,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->text_weight->SetColor(m_InfoTextColor, m_InfoTextBgColor);
 
 	m_pBlinkTimer = new QTimer(this);
-	connect(m_pBlinkTimer, SIGNAL(timeout()), this, SLOT(blink_()));
+	connect(m_pBlinkTimer, &QTimer::timeout, this, &View::blink_);
 }
 
 //=========================================================
@@ -499,10 +499,10 @@ void View::mousePressEvent(QMouseEvent* event)
                 QAction* item(nullptr);
 
 				item = menu.addAction(tr("Set time"));
-				connect(item, SIGNAL(triggered()), this, SLOT(setMainTimerValue_()));
+				connect(item, &QAction::triggered, this, [this]() { setMainTimerValue_(); });
 
 				item = menu.addAction(tr("Reset"));
-				connect(item, SIGNAL(triggered()), this, SLOT(resetMainTimerValue_()));
+				connect(item, &QAction::triggered, this, [this]() { resetMainTimerValue_(); });
 
 				menu.exec(QCursor::pos());
 

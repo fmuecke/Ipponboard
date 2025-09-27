@@ -13,9 +13,9 @@
 #include "Rules.h"
 
 #include <QTimer>
-#ifndef QT_NO_SOUND
-#include <QSound>
-#endif
+#include <QSoundEffect>
+#include <QUrl>
+#include <QCoreApplication>
 #include <QFileInfo>
 #include <QMessageBox>
 
@@ -68,14 +68,31 @@ Controller::Controller()
 	reset();
 	m_pSM->start();
 
-	connect(m_pTimerMain, SIGNAL(timeout()), this, SLOT(update_main_time()));
-	connect(m_pTimerHold, SIGNAL(timeout()), this, SLOT(update_hold_time()));
+	connect(m_pTimerMain, &QTimer::timeout, this, &Controller::update_main_time);
+	connect(m_pTimerHold, &QTimer::timeout, this, &Controller::update_hold_time);
+
+	if (auto* app = QCoreApplication::instance())
+	{
+		connect(app, &QCoreApplication::aboutToQuit, this, [this]() {
+			if (m_gongEffect)
+			{
+				m_gongEffect->stop();
+				m_gongEffect->setSource(QUrl());
+				m_gongEffect.reset();
+			}
+		});
+	}
 }
 
 //=========================================================
 Controller::~Controller()
 //=========================================================
 {
+	if (m_gongEffect)
+	{
+		m_gongEffect->stop();
+		m_gongEffect->setSource(QUrl());
+	}
 	m_views.clear();
 	m_goldenScoreViews.clear();
     //delete m_pTimeHold; --> --> deleted via parent-child reationship
@@ -718,16 +735,26 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
-#ifndef QT_NO_SOUND
 	if (m_gongFile.isEmpty())
 	{
 		return;
 	}
 
-	QSound::play(m_gongFile);
-#else
-	Q_UNUSED(m_gongFile);
-#endif
+    if (!m_gongEffect)
+    {
+        m_gongEffect = std::make_unique<QSoundEffect>();
+    }
+
+    auto* effect = m_gongEffect.get();
+    effect->stop();
+    const auto source = QUrl::fromLocalFile(m_gongFile);
+    if (effect->source() != source)
+    {
+        effect->setSource(source);
+    }
+    effect->setLoopCount(1);
+    effect->setVolume(1.0f);
+    effect->play();
 }
 
 //=========================================================

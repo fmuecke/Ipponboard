@@ -73,6 +73,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F02)
+
 # Add targets
 add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
 add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)

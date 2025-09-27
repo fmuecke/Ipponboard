@@ -90,9 +90,9 @@ void MainWindowBase::Init()
 
 #ifdef _WIN32
     // Init gamepad
-	QTimer* m_pTimer = new QTimer;
-	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(EvaluateInput()));
-	m_pTimer->start(75);
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &MainWindowBase::EvaluateInput);
+	timer->start(75);
 #endif
 	update_statebar();
 
