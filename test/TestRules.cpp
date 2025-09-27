@@ -55,7 +55,7 @@ TEST_CASE("[Rules] String list contains all rules")
 TEST_CASE("[Rules] 2025: osaekomi values")
 {
 	auto rules = std::make_shared<Rules2025>();
-
+	
 	INFO("ippon is gained after 20 seconds")
 	REQUIRE(rules->GetOsaekomiValue(Score::Point::Ippon) == 20);
 

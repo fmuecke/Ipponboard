@@ -7,8 +7,8 @@
 
 // workaround for final not being present in gcc < 4.7
 #if defined(__GNUG__) && __GNUC_MINOR__ < 7
-#define final
-#define override
+#define final 
+#define override 
 #elif defined(_MSC_VER) && _MSC_VER <= 1600
 #define final sealed
 #endif
@@ -16,8 +16,12 @@
 namespace fm
 {
 
-template <typename T> inline bool IsOptionSet(T data, T option) { return (data & option) == option; }
+template<typename T>
+inline bool IsOptionSet(T data, T option)
+{
+    return (data & option) == option;
+}
 
-} // namespace fm
+} // namespace
 
-#endif // UTIL__HELPERS_H_
+#endif  // UTIL__HELPERS_H_

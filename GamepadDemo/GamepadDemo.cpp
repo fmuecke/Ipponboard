@@ -12,7 +12,11 @@
 using namespace FMlib;
 
 GamepadDemo::GamepadDemo(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::GamepadDemo()), m_pSBarText(nullptr), m_pTimer(nullptr), m_pGamepad(new Gamepad)
+	: QMainWindow(parent)
+	, ui(new Ui::GamepadDemo())
+	, m_pSBarText(nullptr)
+	, m_pTimer(nullptr)
+	, m_pGamepad(new Gamepad)
 {
 	ui->setupUi(this);
 	m_pSBarText = new QLabel;
@@ -66,9 +70,12 @@ void GamepadDemo::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange: ui->retranslateUi(this); break;
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-	default: break;
+	default:
+		break;
 	}
 }
 
@@ -84,7 +91,7 @@ void GamepadDemo::UpdateCapabilities()
 
 	vals.clear();
 	vals.append("Product name");
-	vals.append(QString::fromWCharArray(m_pGamepad->GetProductName()));
+    vals.append(QString::fromWCharArray(m_pGamepad->GetProductName()));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
@@ -110,19 +117,19 @@ void GamepadDemo::UpdateCapabilities()
 	vals.clear();
 	vals.append("Polling frequency");
 	vals.append(QString::number(m_pGamepad->GetPollingFreq().first) + ".." +
-	            QString::number(m_pGamepad->GetPollingFreq().second));
+				QString::number(m_pGamepad->GetPollingFreq().second));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
 	vals.append("Range of X axis");
 	vals.append(QString::number(m_pGamepad->GetRangeX().first) + ".." +
-	            QString::number(m_pGamepad->GetRangeX().second));
+				QString::number(m_pGamepad->GetRangeX().second));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
 	vals.append("Range of Y axis");
 	vals.append(QString::number(m_pGamepad->GetRangeY().first) + ".." +
-	            QString::number(m_pGamepad->GetRangeY().second));
+				QString::number(m_pGamepad->GetRangeY().second));
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
 	vals.clear();
@@ -131,9 +138,12 @@ void GamepadDemo::UpdateCapabilities()
 	if (m_pGamepad->HasAxisZ())
 	{
 		vals.append(QString::number(m_pGamepad->GetRangeZ().first) + ".." +
-		            QString::number(m_pGamepad->GetRangeZ().second));
+					QString::number(m_pGamepad->GetRangeZ().second));
 	}
-	else { vals.append("not supported"); }
+	else
+	{
+		vals.append("not supported");
+	}
 
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
@@ -143,9 +153,12 @@ void GamepadDemo::UpdateCapabilities()
 	if (m_pGamepad->HasAxisR())
 	{
 		vals.append(QString::number(m_pGamepad->GetRangeR().first) + ".." +
-		            QString::number(m_pGamepad->GetRangeR().second));
+					QString::number(m_pGamepad->GetRangeR().second));
 	}
-	else { vals.append("not supported"); }
+	else
+	{
+		vals.append("not supported");
+	}
 
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
@@ -155,9 +168,12 @@ void GamepadDemo::UpdateCapabilities()
 	if (m_pGamepad->HasAxisU())
 	{
 		vals.append(QString::number(m_pGamepad->GetRangeU().first) + ".." +
-		            QString::number(m_pGamepad->GetRangeU().second));
+					QString::number(m_pGamepad->GetRangeU().second));
 	}
-	else { vals.append("not supported"); }
+	else
+	{
+		vals.append("not supported");
+	}
 
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
@@ -167,11 +183,15 @@ void GamepadDemo::UpdateCapabilities()
 	if (m_pGamepad->HasAxisV())
 	{
 		vals.append(QString::number(m_pGamepad->GetRangeV().first) + ".." +
-		            QString::number(m_pGamepad->GetRangeV().second));
+					QString::number(m_pGamepad->GetRangeV().second));
 	}
-	else { vals.append("not supported"); }
+	else
+	{
+		vals.append("not supported");
+	}
 
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
+
 
 	vals.clear();
 	vals.append("Point-of-view");
@@ -186,7 +206,10 @@ void GamepadDemo::UpdateCapabilities()
 		else
 			vals.append("unknown");
 	}
-	else { vals.append("not supported"); }
+	else
+	{
+		vals.append("not supported");
+	}
 
 	ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 }
@@ -195,7 +218,8 @@ void GamepadDemo::GetData()
 {
 	m_pGamepad->ReadData();
 
-	if (Gamepad::eState_ok != m_pGamepad->GetState()) return;
+	if (Gamepad::eState_ok != m_pGamepad->GetState())
+		return;
 
 	m_pSBarText->setText("controller found");
 
@@ -223,9 +247,11 @@ void GamepadDemo::GetData()
 	ui->lineEdit_v_axis->setText(QString::number(m_pGamepad->GetVPos()));
 	ui->lineEdit_pov->setText(QString::number(m_pGamepad->GetPOV()));
 
-	ui->lineEdit_degrees_1->setText(QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + QString::fromUtf8("°"));
+	ui->lineEdit_degrees_1->setText(
+		QString::number(m_pGamepad->GetAngleXY(), 'g', 3) + QString::fromUtf8("°"));
 
-	ui->lineEdit_degrees_2->setText(QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + QString::fromUtf8("°"));
+	ui->lineEdit_degrees_2->setText(
+		QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) + QString::fromUtf8("°"));
 
 	UpdateButtonState(Gamepad::eButton1);
 	UpdateButtonState(Gamepad::eButton2);
@@ -249,31 +275,56 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
 
 	switch (button)
 	{
-	case Gamepad::eButton1: pImage = ui->image_button_1; break;
+	case Gamepad::eButton1:
+		pImage = ui->image_button_1;
+		break;
 
-	case Gamepad::eButton2: pImage = ui->image_button_2; break;
+	case Gamepad::eButton2:
+		pImage = ui->image_button_2;
+		break;
 
-	case Gamepad::eButton3: pImage = ui->image_button_3; break;
+	case Gamepad::eButton3:
+		pImage = ui->image_button_3;
+		break;
 
-	case Gamepad::eButton4: pImage = ui->image_button_4; break;
+	case Gamepad::eButton4:
+		pImage = ui->image_button_4;
+		break;
 
-	case Gamepad::eButton5: pImage = ui->image_button_5; break;
+	case Gamepad::eButton5:
+		pImage = ui->image_button_5;
+		break;
 
-	case Gamepad::eButton6: pImage = ui->image_button_6; break;
+	case Gamepad::eButton6:
+		pImage = ui->image_button_6;
+		break;
 
-	case Gamepad::eButton7: pImage = ui->image_button_7; break;
+	case Gamepad::eButton7:
+		pImage = ui->image_button_7;
+		break;
 
-	case Gamepad::eButton8: pImage = ui->image_button_8; break;
+	case Gamepad::eButton8:
+		pImage = ui->image_button_8;
+		break;
 
-	case Gamepad::eButton9: pImage = ui->image_button_9; break;
+	case Gamepad::eButton9:
+		pImage = ui->image_button_9;
+		break;
 
-	case Gamepad::eButton10: pImage = ui->image_button_10; break;
+	case Gamepad::eButton10:
+		pImage = ui->image_button_10;
+		break;
 
-	case Gamepad::eButton11: pImage = ui->image_button_11; break;
+	case Gamepad::eButton11:
+		pImage = ui->image_button_11;
+		break;
 
-	case Gamepad::eButton12: pImage = ui->image_button_12; break;
+	case Gamepad::eButton12:
+		pImage = ui->image_button_12;
+		break;
 
-	default: break;
+	default:
+		break;
 	}
 
 	if (pImage)
@@ -283,4 +334,5 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
 		else
 			pImage->UpdateImage(":images/off.png");
 	}
+
 }

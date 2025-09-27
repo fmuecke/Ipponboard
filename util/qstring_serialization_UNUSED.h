@@ -17,14 +17,17 @@ namespace boost
 namespace serialization
 {
 
-template <class Archive> inline void save(Archive& ar, const QString& s, const unsigned int /*version*/)
+
+template<class Archive>
+inline void save(Archive& ar, const QString& s, const unsigned int /*version*/)
 {
 	using boost::serialization::make_nvp;
 	std::string str = s.toStdString();
 	ar << make_nvp("value", str);
 }
 
-template <class Archive> inline void load(Archive& ar, QString& s, const unsigned int /*version*/)
+template<class Archive>
+inline void load(Archive& ar, QString& s, const unsigned int /*version*/)
 {
 	using boost::serialization::make_nvp;
 
@@ -33,7 +36,8 @@ template <class Archive> inline void load(Archive& ar, QString& s, const unsigne
 	s = QString::fromStdString(stdStr);
 }
 
-template <class Archive> inline void serialize(Archive& ar, QString& s, const unsigned int file_version)
+template<class Archive>
+inline void serialize(Archive& ar, QString& s, const unsigned int file_version)
 {
 	boost::serialization::split_free(ar, s, file_version);
 }
@@ -41,4 +45,4 @@ template <class Archive> inline void serialize(Archive& ar, QString& s, const un
 } // namespace serialization
 } // namespace boost
 
-#endif // UTIL__QSTRING_SERIALIZATION_H_
+#endif  // UTIL__QSTRING_SERIALIZATION_H_
