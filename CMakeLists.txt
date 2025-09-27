@@ -75,8 +75,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add targets
 add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
-add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
+add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)
 add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
+add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
 if(MSVC)
 add_subdirectory(GamepadDemo ${CMAKE_BINARY_DIR}/build-GamepadDemo)
 endif()
