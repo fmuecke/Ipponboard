@@ -36,6 +36,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Ensure clang-format
+        shell: pwsh
+        run: |
+          if (-not (Get-Command clang-format -ErrorAction SilentlyContinue)) {
+              if (Get-Command choco -ErrorAction SilentlyContinue) {
+                  choco install llvm --version=14.0.6 -y --no-progress
+              } else {
+                  throw "clang-format not found. Install LLVM clang-format 14 on the runner."
+              }
+          }
+
+      - name: Check formatting
+        shell: pwsh
+        run: ./scripts/check-format.ps1
+
       - name: Configure CMake
         run: cmake -B ${{ env.build }}
 
