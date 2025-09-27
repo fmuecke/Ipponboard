@@ -6,8 +6,8 @@
 #define UTIL__PATH_HELPERS_H_
 
 #ifdef _WIN32
-#	include <Windows.h>
-#	include <Shlobj.h>
+#include <Windows.h>
+#include <Shlobj.h>
 //#	pragma comment(lib,"Shell32.lib")
 #endif
 
@@ -43,13 +43,13 @@ struct KnownFolders
 	static QString get_ProgramData() { return get_folder(FOLDERID_ProgramData); }
 	static QString get_ProgramFiles() { return get_folder(FOLDERID_ProgramFiles); }
 #ifdef _WIN64
-static QString get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
+	static QString get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
 #endif
 	static QString get_ProgramFilesX86() { return get_folder(FOLDERID_ProgramFilesX86); }
 	static QString get_RoamingAppData() { return get_folder(FOLDERID_RoamingAppData); }
 	static QString get_ProgramFilesCommon() { return get_folder(FOLDERID_ProgramFilesCommon); }
 
-private:
+  private:
 	static QString get_folder(GUID folderId)
 	{
 		PWSTR folder{ nullptr };
@@ -68,7 +68,7 @@ const QString GetSettingsFilePath(const char* fileName)
 {
 #define EXPERIMENTAL 1
 
-#ifdef EXPERIMENTAL 
+#ifdef EXPERIMENTAL
 	// use current application directory
 	QString configPath = QCoreApplication::applicationDirPath();
 	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
@@ -86,17 +86,14 @@ const QString GetSettingsFilePath(const char* fileName)
 	}
 
 	QString configPath = baseDir.filePath("Ipponboard");
-	if (!QDir(configPath).exists() && !baseDir.mkpath(configPath))
-	{
-		return fileName;
-	}
+	if (!QDir(configPath).exists() && !baseDir.mkpath(configPath)) { return fileName; }
 
-	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));	
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
 #endif
 #endif
 }
 
 } // anonymous namespace
-} // namespace fmu
+} // namespace fm
 
-#endif  // UTIL__PATH_HELPERS_H_
+#endif // UTIL__PATH_HELPERS_H_

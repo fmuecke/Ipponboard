@@ -15,7 +15,7 @@ using Point = Score::Point;
 
 bool IsScoreLess(std::shared_ptr<Ipponboard::AbstractRules> pRules, Score const& lhs, Score const& rhs)
 {
-	Fight f { lhs, rhs };
+	Fight f{ lhs, rhs };
 	return pRules->CompareScore(f) > 0;
 }
 
@@ -150,7 +150,7 @@ TEST_CASE("[Score] rules 2017: only first shido does not count")
 	REQUIRE_FALSE(IsScoreLess(rules, s1, Score()));
 
 	s1.Add(Point::Shido);
-	REQUIRE_FALSE(IsScoreLess(rules, s1, Score()));  // as yuko has to be added manually
+	REQUIRE_FALSE(IsScoreLess(rules, s1, Score())); // as yuko has to be added manually
 }
 
 TEST_CASE("[Score] rules 2017: first shido does count in golden score")
@@ -173,7 +173,7 @@ TEST_CASE("[Score] rules 2025: yuko is always less than wazaari")
 {
 	auto rules = std::make_shared<Ipponboard::Rules2025>();
 
-	Score yukoScore, wazaariScore; 
+	Score yukoScore, wazaariScore;
 	yukoScore.Add(Point::Yuko);
 	INFO("empty score is less than yuko");
 	REQUIRE(IsScoreLess(rules, Score(), yukoScore));
@@ -187,10 +187,7 @@ TEST_CASE("[Score] rules 2025: yuko is always less than wazaari")
 	INFO("3 yuko is less than wazaari");
 	REQUIRE(IsScoreLess(rules, yukoScore, wazaariScore));
 
-	for (int i = 0; i < 97; ++i)
-	{
-		yukoScore.Add(Point::Yuko);
-	}
+	for (int i = 0; i < 97; ++i) { yukoScore.Add(Point::Yuko); }
 	INFO("100 yuko is less than wazaari");
 	REQUIRE(IsScoreLess(rules, yukoScore, wazaariScore));
 }

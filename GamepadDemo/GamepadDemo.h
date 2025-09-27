@@ -22,23 +22,23 @@ class Gamepad;
 class GamepadDemo : public QMainWindow
 {
 	Q_OBJECT
-public:
+  public:
 	GamepadDemo(QWidget* parent = 0);
 	~GamepadDemo();
 
-protected:
+  protected:
 	void changeEvent(QEvent* e);
 	void UpdateButtonState(unsigned button) const;
 	void UpdateCapabilities();
 
-private slots:
+  private slots:
 	void GetData();
 
-private:
+  private:
 	std::unique_ptr<Ui::GamepadDemo> ui;
 	QLabel* m_pSBarText;
 	QTimer* m_pTimer;
 	std::unique_ptr<FMlib::Gamepad> m_pGamepad;
 };
 
-#endif  // GAMEPADDEMO__GAMEPADDEMO_H_
+#endif // GAMEPADDEMO__GAMEPADDEMO_H_

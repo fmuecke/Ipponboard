@@ -15,45 +15,44 @@
 
 TEST_CASE("[OnlineVersionChecker] get online version document (github json)")
 {
-    ensure_qt_app();
+	ensure_qt_app();
 
-    auto start = std::chrono::high_resolution_clock::now();
+	auto start = std::chrono::high_resolution_clock::now();
 
-    auto versionData = OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl);
+	auto versionData = OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl);
 	REQUIRE_FALSE(versionData.isEmpty());
 
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> elapsed = end - start;
-    INFO("retrieving version data took " << elapsed.count() << "ms");
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double, std::milli> elapsed = end - start;
+	INFO("retrieving version data took " << elapsed.count() << "ms");
 
-    CHECK(elapsed.count() <= 5000);
+	CHECK(elapsed.count() <= 5000);
 }
 
 TEST_CASE("[OnlineVersionChecker] parse version document (github json)")
 {
-    ensure_qt_app();
+	ensure_qt_app();
 
-    auto versionInfo = OnlineVersionChecker::parse_version_document(
-        OnlineVersionChecker::get_version_document(
-            QString::fromStdString(ippn_test_data_string("latest_version.json"))));
+	auto versionInfo = OnlineVersionChecker::parse_version_document(OnlineVersionChecker::get_version_document(
+	    QString::fromStdString(ippn_test_data_string("latest_version.json"))));
 
-    REQUIRE_FALSE(versionInfo.version.isEmpty());
-    REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
-    REQUIRE_FALSE(versionInfo.changes_en.isEmpty());
-    REQUIRE_FALSE(versionInfo.changes_de.isEmpty());
-    REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
+	REQUIRE_FALSE(versionInfo.version.isEmpty());
+	REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
+	REQUIRE_FALSE(versionInfo.changes_en.isEmpty());
+	REQUIRE_FALSE(versionInfo.changes_de.isEmpty());
+	REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
 }
 
 TEST_CASE("[OnlineVersionChecker] parse online version document (github json)")
 {
-    ensure_qt_app();
+	ensure_qt_app();
 
-    auto versionInfo = OnlineVersionChecker::parse_version_document(
-        OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl));
+	auto versionInfo = OnlineVersionChecker::parse_version_document(
+	    OnlineVersionChecker::get_version_document(OnlineVersionChecker::VersionDocumentUrl));
 
-    REQUIRE_FALSE(versionInfo.version.isEmpty());
-    REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
-    REQUIRE_FALSE(versionInfo.changes_en.isEmpty());
-    REQUIRE_FALSE(versionInfo.changes_de.isEmpty());
-    REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
+	REQUIRE_FALSE(versionInfo.version.isEmpty());
+	REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
+	REQUIRE_FALSE(versionInfo.changes_en.isEmpty());
+	REQUIRE_FALSE(versionInfo.changes_de.isEmpty());
+	REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
 }
