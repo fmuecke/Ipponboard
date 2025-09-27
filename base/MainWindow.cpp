@@ -36,12 +36,17 @@ static const char* const edition = "Basic Edition";
 using namespace FMlib;
 using namespace Ipponboard;
 
-MainWindow::MainWindow(QWidget* parent) : MainWindowBase(parent), m_pUi(new Ui::MainWindow), m_pCategoryManager()
+MainWindow::MainWindow(QWidget* parent)
+	: MainWindowBase(parent)
+	, m_pUi(new Ui::MainWindow)
+	, m_pCategoryManager()
 {
 	m_pUi->setupUi(this);
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow()
+{
+}
 
 void MainWindow::Init()
 {
@@ -74,7 +79,8 @@ void MainWindow::on_actionManageCategories_triggered()
 	{
 		m_pCategoryManager->SaveCategories();
 
-		QString currentClass = m_pUi->comboBox_weight_class->currentText();
+		QString currentClass =
+			m_pUi->comboBox_weight_class->currentText();
 
 		m_pUi->comboBox_weight_class->clear();
 
@@ -149,11 +155,17 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 	{
 		if (m_pController->GetRules()->IsOption_OpenEndGoldenScore())
 		{
-			m_pController->SetRoundTime(QTime(0, 0, 0, 0));
+			m_pController->SetRoundTime(QTime(0,0,0,0));
 		}
-		else { m_pController->SetRoundTime(QTime(0, 0, 0, 0).addSecs(t.GetGoldenScoreTime())); }
+		else
+		{
+			m_pController->SetRoundTime(QTime(0,0,0,0).addSecs(t.GetGoldenScoreTime()));
+		}
 	}
-	else { m_pController->SetRoundTime(QTime(0, 0, 0, 0).addSecs(t.GetRoundTime())); }
+	else
+	{
+		m_pController->SetRoundTime(QTime(0,0,0,0).addSecs(t.GetRoundTime()));
+	}
 }
 
 void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
@@ -182,11 +194,12 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 	// filter fighters for suitable
 	m_CurrentFighterNames.clear();
 
-	for (const Ipponboard::Fighter& f : m_fighterManager.m_fighters)
+	for (const Ipponboard::Fighter & f : m_fighterManager.m_fighters)
 	{
 		if (f.weight == weight || f.weight.isEmpty())
 		{
-			const QString fullName = QString("%1 %2").arg(f.first_name, f.last_name);
+			const QString fullName =
+				QString("%1 %2").arg(f.first_name, f.last_name);
 
 			m_CurrentFighterNames.push_back(fullName);
 		}
@@ -202,7 +215,8 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
 void MainWindow::update_fighters(const QString& s)
 {
-	if (s.isEmpty()) return;
+	if (s.isEmpty())
+		return;
 
 	QString firstName = s;
 	QString lastName;
@@ -231,39 +245,45 @@ void MainWindow::update_statebar()
 {
 	MainWindowBase::update_statebar();
 
-	//    if (Gamepad::eState_ok != m_pGamepad->GetState())
-	//    {
-	//        m_pUi->label_controller_state->setText(tr("No controller detected!"));
-	//    }
-	//    else
-	//    {
-	//        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
-	//        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
-	//    }
+//    if (Gamepad::eState_ok != m_pGamepad->GetState())
+//    {
+//        m_pUi->label_controller_state->setText(tr("No controller detected!"));
+//    }
+//    else
+//    {
+//        QString controllerName = QString::fromWCharArray(m_pGamepad->GetProductName());
+//        m_pUi->label_controller_state->setText(tr("Using controller %1").arg(controllerName));
+//    }
 	ui_check_rules_items();
 
-	//    if (m_pController->GetOption(eOption_Use2013Rules))
-	//    {
-	//        m_pUi->actionRulesClassic->setChecked(false);
-	//        m_pUi->actionRules2013->setChecked(true);
-	//        m_pUi->actionRules2017->setChecked(false);
-	//    }
-	//    else
-	//    {
-	//        m_pUi->actionRulesClassic->setChecked(true);
-	//        m_pUi->actionRules2013->setChecked(false);
-	//        m_pUi->actionRules2017->setChecked(false);
-	//    }
+//    if (m_pController->GetOption(eOption_Use2013Rules))
+//    {
+//        m_pUi->actionRulesClassic->setChecked(false);
+//        m_pUi->actionRules2013->setChecked(true);
+//        m_pUi->actionRules2017->setChecked(false);
+//    }
+//    else
+//    {
+//        m_pUi->actionRulesClassic->setChecked(true);
+//        m_pUi->actionRules2013->setChecked(false);
+//        m_pUi->actionRules2017->setChecked(false);
+//    }
 }
 
 void MainWindow::attach_primary_view()
 {
 	QWidget* widget = dynamic_cast<QWidget*>(m_pPrimaryView.get());
 
-	if (widget) { m_pUi->verticalLayout_3->insertWidget(0, widget, 0); }
+	if (widget)
+	{
+		m_pUi->verticalLayout_3->insertWidget(0, widget, 0);
+	}
 }
 
-void MainWindow::retranslate_Ui() { m_pUi->retranslateUi(this); }
+void MainWindow::retranslate_Ui()
+{
+	m_pUi->retranslateUi(this);
+}
 
 void MainWindow::ui_check_language_items()
 {
@@ -284,12 +304,30 @@ void MainWindow::ui_check_rules_items()
 	m_pUi->actionRules2018->setChecked(rules->IsOfType<Rules2018>());
 	m_pUi->actionRules2025->setChecked(rules->IsOfType<Rules2025>());
 
-	if (rules->IsOfType<ClassicRules>()) { m_pUi->label_usedRules->setText(m_pUi->actionRulesClassic->text()); }
-	else if (rules->IsOfType<Rules2013>()) { m_pUi->label_usedRules->setText(m_pUi->actionRules2013->text()); }
-	else if (rules->IsOfType<Rules2017>()) { m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text()); }
-	else if (rules->IsOfType<Rules2017U15>()) { m_pUi->label_usedRules->setText(m_pUi->actionRules2017U15->text()); }
-	else if (rules->IsOfType<Rules2018>()) { m_pUi->label_usedRules->setText(m_pUi->actionRules2018->text()); }
-	else if (rules->IsOfType<Rules2025>()) { m_pUi->label_usedRules->setText(m_pUi->actionRules2025->text()); }
+	if (rules->IsOfType<ClassicRules>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRulesClassic->text());
+	}
+	else if (rules->IsOfType<Rules2013>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2013->text());
+	}
+	else if (rules->IsOfType<Rules2017>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2017->text());
+	}
+	else if (rules->IsOfType<Rules2017U15>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2017U15->text());
+	}
+	else if (rules->IsOfType<Rules2018>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2018->text());
+	}
+	else if (rules->IsOfType<Rules2025>())
+	{
+		m_pUi->label_usedRules->setText(m_pUi->actionRules2025->text());
+	}
 
 	m_pPrimaryView->UpdateView();
 	m_pSecondaryView->UpdateView();
@@ -312,10 +350,17 @@ void MainWindow::ui_update_used_options()
 {
 	QString text;
 
-	if (m_pController->IsAutoAdjustPoints()) { text += tr("Auto adjust points"); }
-	else { text = "-"; }
+	if (m_pController->IsAutoAdjustPoints())
+	{
+		text += tr("Auto adjust points");
+	}
+	else
+	{
+		text = "-";
+	}
 
 	m_pUi->label_usedOptions->setText(text);
+
 }
 
 void MainWindow::on_actionViewInfoBar_toggled(bool checked)
@@ -326,16 +371,31 @@ void MainWindow::on_actionViewInfoBar_toggled(bool checked)
 
 		if (item)
 		{
-			if (checked) { item->show(); }
-			else { item->hide(); }
+			if (checked)
+			{
+				item->show();
+			}
+			else
+			{
+				item->hide();
+			}
 		}
 	}
 
-	if (checked) { m_pUi->line_infoBar->show(); }
-	else { m_pUi->line_infoBar->hide(); }
+	if (checked)
+	{
+		m_pUi->line_infoBar->show();
+	}
+	else
+	{
+		m_pUi->line_infoBar->hide();
+	}
 }
 
-void MainWindow::on_toolButton_viewSecondaryScreen_toggled() { on_actionShow_SecondaryView_triggered(); }
+void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
+{
+	on_actionShow_SecondaryView_triggered();
+}
 
 void MainWindow::write_specific_settings(QSettings& settings)
 {
@@ -352,7 +412,7 @@ void MainWindow::read_specific_settings(QSettings& settings)
 {
 	settings.beginGroup(EditionNameShort());
 	{
-		m_MatLabel = settings.value(str_tag_MatLabel, "Ipponboard").toString(); // value is also in settings dialog!
+        m_MatLabel = settings.value(str_tag_MatLabel, "Ipponboard").toString(); // value is also in settings dialog!
 		m_pPrimaryView->SetMat(m_MatLabel);
 		m_pSecondaryView->SetMat(m_MatLabel);
 

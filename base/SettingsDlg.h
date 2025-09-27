@@ -25,12 +25,13 @@ struct ControllerConfig;
 class SettingsDlg : public QDialog
 {
 	Q_OBJECT
-  public:
+public:
 	SettingsDlg(EditionType edition, QWidget* parent = 0);
 	~SettingsDlg();
 
 	void SetScreensSettings(int screen, const QSize& dimensions); // zero dimensions means auto size
-	void SetInfoHeaderSettings(const QFont& font, const QColor& color, const QColor& background);
+	void SetInfoHeaderSettings(const QFont& font, const QColor& color,
+							   const QColor& background);
 	void SetFighterNameFont(const QFont& font);
 	void SetTextColorsFirst(const QColor& color, const QColor& background);
 	void SetTextColorsSecond(const QColor& color, const QColor& background);
@@ -55,21 +56,21 @@ class SettingsDlg : public QDialog
 	void SetControllerConfig(const ControllerConfig* pConfig);
 	void GetControllerConfig(ControllerConfig* pConfig);
 
-  protected:
+protected:
 	void changeEvent(QEvent* e);
 
-  private:
+private:
 	int get_button_from_text(const QString& text) const;
 	void set_button_value(QComboBox* pCombo, int buttonId);
 
-  private:
+private:
 	EditionType m_edition;
 	Ui::SettingsDlg* ui;
 	typedef std::map<int, QString> ButtonTextMap;
 	ButtonTextMap m_buttonTexts;
-	QSoundEffect m_previewEffect;
+    QSoundEffect m_previewEffect;
 
-  private slots:
+private slots:
 	void on_comboBox_mat_editTextChanged(QString);
 	void on_checkBox_fighters_italic_toggled(bool checked);
 	void on_checkBox_fighters_bold_toggled(bool checked);
@@ -79,8 +80,8 @@ class SettingsDlg : public QDialog
 	void on_toolButton_text_color_second_pressed();
 	void on_toolButton_text_background_first_pressed();
 	void on_toolButton_text_color_first_pressed();
-	void on_toolButton_text_background_pressed(); //TODO: somehow the buttons stay pressed...
-	void on_toolButton_text_color_pressed();      //TODO: somehow the buttons stay pressed...
+	void on_toolButton_text_background_pressed();	//TODO: somehow the buttons stay pressed...
+	void on_toolButton_text_color_pressed();		//TODO: somehow the buttons stay pressed...
 	void on_fontComboBox_infoHeader_currentFontChanged(QFont f);
 	void on_fontComboBox_fighters_currentFontChanged(QFont f);
 	void on_toolButton_play_gong_pressed();
@@ -90,4 +91,4 @@ class SettingsDlg : public QDialog
 };
 
 } // namespace Ipponboard
-#endif // BASE__SETTINGSDLG_H_
+#endif  // BASE__SETTINGSDLG_H_

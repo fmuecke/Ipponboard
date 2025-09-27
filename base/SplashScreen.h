@@ -17,7 +17,7 @@ class SplashScreen : public QDialog
 {
 	Q_OBJECT
 
-  public:
+public:
 	struct Data
 	{
 		QDate date;
@@ -30,16 +30,16 @@ class SplashScreen : public QDialog
 
 	void SetImageStyleSheet(QString const& text);
 
-  protected:
+protected:
 	void changeEvent(QEvent* e);
 
-  private:
+private:
 	Ui::SplashScreen* ui;
 
-  private slots:
+private slots:
 	void on_commandLinkButton_startSingleVersion_pressed();
 	void on_commandLinkButton_startTeamVersion_pressed();
 	void on_commandLinkButton_donate_pressed();
 };
 
-#endif // WIDGETS__SPLASHSCREEN_H_
+#endif  // WIDGETS__SPLASHSCREEN_H_

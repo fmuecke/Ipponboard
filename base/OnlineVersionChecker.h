@@ -9,7 +9,8 @@
 
 class OnlineVersionChecker
 {
-  public:
+public:
+
 	OnlineVersionChecker();
 
 	enum class State

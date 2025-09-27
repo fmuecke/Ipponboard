@@ -11,34 +11,34 @@ namespace Ipponboard
 struct ControllerConfig
 {
 	ControllerConfig()
-	    : button_hajime_mate(-1),
-	      button_reset(-1),
-	      button_reset_2(-1),
-	      button_next(-1),
-	      button_prev(-1),
-	      button_pause(-1),
-	      button_osaekomi_toketa_first(-1),
-	      button_osaekomi_toketa_second(-1),
-	      button_reset_hold_first(-1),
-	      button_reset_hold_second(-1),
-	      button_hansokumake_first(-1),
-	      button_hansokumake_second(-1),
-	      axis_inverted_X(false),
-	      axis_inverted_Y(false),
-	      axis_inverted_R(false),
-	      axis_inverted_Z(false),
-	      key_hajime_mate(-1),
-	      key_reset(-1),
-	      key_reset_2(-1),
-	      key_next(-1),
-	      key_prev(-1),
-	      key_pause(-1),
-	      key_osaekomi_toketa_first(-1),
-	      key_osaekomi_toketa_second(-1),
-	      key_reset_hold_first(-1),
-	      key_reset_hold_second(-1),
-	      key_hansokumake_first(-1),
-	      key_hansokumake_second(-1)
+		: button_hajime_mate(-1)
+		, button_reset(-1)
+		, button_reset_2(-1)
+		, button_next(-1)
+		, button_prev(-1)
+		, button_pause(-1)
+		, button_osaekomi_toketa_first(-1)
+		, button_osaekomi_toketa_second(-1)
+		, button_reset_hold_first(-1)
+		, button_reset_hold_second(-1)
+		, button_hansokumake_first(-1)
+		, button_hansokumake_second(-1)
+		, axis_inverted_X(false)
+		, axis_inverted_Y(false)
+		, axis_inverted_R(false)
+		, axis_inverted_Z(false)
+		, key_hajime_mate(-1)
+		, key_reset(-1)
+		, key_reset_2(-1)
+		, key_next(-1)
+		, key_prev(-1)
+		, key_pause(-1)
+		, key_osaekomi_toketa_first(-1)
+		, key_osaekomi_toketa_second(-1)
+		, key_reset_hold_first(-1)
+		, key_reset_hold_second(-1)
+		, key_hansokumake_first(-1)
+		, key_hansokumake_second(-1)
 	{}
 
 	int button_hajime_mate;
@@ -73,6 +73,6 @@ struct ControllerConfig
 	int key_hansokumake_second;
 };
 
-} // namespace Ipponboard
+} // namespace ipponboard
 
-#endif // BASE__CONTROLLERCONFIG_H_
+#endif  // BASE__CONTROLLERCONFIG_H_

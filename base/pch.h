@@ -31,10 +31,11 @@
 #include <boost/utility.hpp>
 #include "../core/MsmIncludes.h"
 
+
 //
 // QT
 //
-#pragma warning(disable : 4127) // conditional expression is constant
+#pragma warning (disable: 4127)  // conditional expression is constant
 #include <QObject>
 #include <QString>
 #include <QApplication>
@@ -76,13 +77,14 @@
 #include <QMouseEvent>
 #include <QFile>
 #include <QDir>
-#pragma warning(default : 4127)
+#pragma warning (default: 4127)
 
 //
 // custom
 //
 //#include "../util/qstring_serialization.h"
 
+
 #endif // __cplusplus
 
-#endif // BASE__PCH_H_
+#endif  // BASE__PCH_H_

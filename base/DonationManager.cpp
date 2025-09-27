@@ -10,14 +10,16 @@
 #include "../util/array_helpers.h"
 #include <random>
 
-char const* const DonationManager::DonationUrl =
-    "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
+char const* const DonationManager::DonationUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4A2XEMB9PPGJ";
 
-DonationManager::DonationManager() {}
+DonationManager::DonationManager()
+{
+}
 
 QString DonationManager::GetDonationLabel()
 {
-	static const char* const DonationLabels[] = {
+	static const char* const DonationLabels[] =
+	{
 		QT_TRANSLATE_NOOP("DonationLabel", "Contribute"),
 		QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks!"),
 		QT_TRANSLATE_NOOP("DonationLabel", "It really saves my day"),
@@ -43,4 +45,7 @@ QString DonationManager::GetDonationLabel()
 	return QCoreApplication::instance()->translate("DonationLabel", DonationLabels[distribution(generator)]);
 }
 
-void DonationManager::OpenUrl() { QDesktopServices::openUrl(QUrl(DonationUrl)); }
+void DonationManager::OpenUrl()
+{
+	QDesktopServices::openUrl(QUrl(DonationUrl));
+}
