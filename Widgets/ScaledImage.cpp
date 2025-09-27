@@ -17,16 +17,6 @@ QString normalizeResourcePath(const QString& fileName)
         return fileName;
     }
 
-    if (fileName.startsWith(QStringLiteral(":res/")))
-    {
-        return QStringLiteral(":/res/") + fileName.mid(5);
-    }
-
-    if (fileName.startsWith(QStringLiteral(":")) && !fileName.startsWith(QStringLiteral(":/")))
-    {
-        return QStringLiteral(":/") + fileName.mid(2);
-    }
-
     return fileName;
 }
 } // namespace
@@ -34,7 +24,7 @@ QString normalizeResourcePath(const QString& fileName)
 ScaledImage::ScaledImage(QWidget* pParent)
     : QWidget(pParent), m_Size(0, 0), m_BGColor(Qt::transparent) // normal background (transparent)
 {
-    UpdateImage(QStringLiteral(":/res/images/off.png"));
+    UpdateImage(QStringLiteral(":/images/off.png"));
 }
 
 void ScaledImage::UpdateImage(const QString& fileName)

@@ -4,36 +4,44 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Gamepad Demo
 set(APP_NAME GamepadDemo)
 
-find_package(Qt5 5.12.9 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt5 5.15.2 COMPONENTS Core Gui Widgets Gamepad REQUIRED)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(OUTPUT_DIR ${ROOT_DIR}/_bin/${APP_NAME}-Release)
-set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/${APP_NAME}-Debug)
-#message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+if(WIN32)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/${APP_NAME}-Release)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/${APP_NAME}-Debug)
+else()
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/${APP_NAME}-${CMAKE_BUILD_TYPE})
+endif()
 
 set(SOURCES
     Main.cpp
     GamepadDemo.cpp
-	GamepadDemo.h
-    ../gamepad/gamepad.h
-    ../Widgets/ScaledImage.cpp
-    ../Widgets/ScaledImage.h
+    GamepadDemo.h
     GamepadDemo.ui
     res.qrc
+    ../Widgets/ScaledImage.cpp
+    ../Widgets/ScaledImage.h
     off.png
     on.png
 )
 
-add_executable(${APP_NAME} WIN32 ${SOURCES})
-set_target_properties(${APP_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
-    COMPILE_FLAGS "/MP /W4"
-    CMAKE_SUPPRESS_REGENERATION true
-)
+if(WIN32)
+    add_executable(${APP_NAME} WIN32 ${SOURCES})
+    set_target_properties(${APP_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR_DEBUG}
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
+        CMAKE_SUPPRESS_REGENERATION true
+    )
+else()
+    add_executable(${APP_NAME} ${SOURCES})
+    set_target_properties(${APP_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}
+    )
+endif()
 
 # Copy msvc runtime dlls
 if(MSVC)
@@ -49,12 +57,21 @@ if(MSVC)
 endif()
 
 # Copy required runtime dlls
-target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets)
-add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    # Copy Qt5 runtime dlls
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+target_link_libraries(${APP_NAME}
+    PRIVATE
+        IpponboardGamepad
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
+        Qt5::Gamepad
 )
+
+if(WIN32)
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+    )
+endif()
