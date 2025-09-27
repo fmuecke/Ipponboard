@@ -117,3 +117,68 @@ TEST_CASE("[Controller] PrevFight wraps to previous round")
     CHECK(controller.GetCurrentRound() == 0);
     CHECK(controller.GetCurrentFight() == 0);
 }
+
+TEST_CASE("[Controller] Save fight persists elapsed time and saved flag")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initTournament(1, { QStringLiteral("-60") });
+
+    controller.SetRoundTime(QTime(0, 0, 3));
+    controller.DoAction(eAction_Hajime_Mate);
+    controller.AdvanceTimerTicks(eTimer_Main, 2);
+
+    controller.DoAction(eAction_ResetMainTimer);
+
+    const auto& fight = controller.GetFight(0, 0);
+    CHECK(fight.is_saved);
+    CHECK(fight.GetSecondsElapsed() == 2);
+}
+
+TEST_CASE("[Controller] Reset fight clears scores and timers")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initTournament(1, { QStringLiteral("-60") });
+
+    controller.DoAction(eAction_Wazaari, FighterEnum::First);
+    controller.DoAction(eAction_Shido, FighterEnum::Second);
+    controller.SetRoundTime(QTime(0, 1, 0));
+
+    controller.DoAction(eAction_Hajime_Mate);
+    controller.AdvanceTimerTicks(eTimer_Main, 5);
+    controller.DoAction(eAction_ResetMainTimer);
+    controller.DoAction(eAction_ResetMainTimer);
+
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 0);
+    CHECK(controller.GetScore(FighterEnum::Second, Score::Point::Shido) == 0);
+    CHECK(controller.GetTimeText(eTimer_Main) == QStringLiteral("1:00"));
+    CHECK(controller.GetTimeText(eTimer_Hold) == QStringLiteral("00"));
+}
+
+TEST_CASE("[Controller] Open ended golden score increments main timer")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initTournament(1, { QStringLiteral("-60") });
+
+    controller.SetGoldenScore(true);
+    controller.DoAction(eAction_Hajime_Mate);
+
+    controller.AdvanceTimerTicks(eTimer_Main, 3);
+
+    CHECK(controller.GetTimeText(eTimer_Main) == QStringLiteral("0:03"));
+    CHECK(controller.GetCurrentState() == eState_TimerRunning);
+}
+
+TEST_CASE("[Controller] Auto adjust points option toggles")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+
+    CHECK(controller.IsAutoAdjustPoints());
+    controller.SetAutoAdjustPoints(false);
+    CHECK_FALSE(controller.IsAutoAdjustPoints());
+    controller.SetAutoAdjustPoints(true);
+    CHECK(controller.IsAutoAdjustPoints());
+}
