@@ -4,6 +4,31 @@
 
 #include "ScaledImage.h"
 #include <QPainter>
+#include <QFile>
+#include <QDebug>
+
+namespace
+{
+QString normalizeResourcePath(const QString& fileName)
+{
+    if (fileName.startsWith(QStringLiteral(":/")))
+    {
+        return fileName;
+    }
+
+    if (fileName.startsWith(QStringLiteral(":res/")))
+    {
+        return QStringLiteral(":/res/") + fileName.mid(5);
+    }
+
+    if (fileName.startsWith(QStringLiteral(":")) && !fileName.startsWith(QStringLiteral(":/")))
+    {
+        return QStringLiteral(":/") + fileName.mid(2);
+    }
+
+    return fileName;
+}
+}
 
 
 ScaledImage::ScaledImage(QWidget* pParent)
@@ -11,12 +36,21 @@ ScaledImage::ScaledImage(QWidget* pParent)
 	, m_Size(0, 0)
 	, m_BGColor(Qt::transparent)    // normal background (transparent)
 {
-	m_Image.load("off.png");
+	UpdateImage(QStringLiteral(":/res/images/off.png"));
 }
 
 void ScaledImage::UpdateImage(const QString& fileName)
 {
-	m_Image.load(fileName);
+	const QString normalized = normalizeResourcePath(fileName);
+	QImage newImage;
+
+	if (!newImage.load(normalized))
+	{
+		qWarning() << "ScaledImage: failed to load" << normalized;
+		return;
+	}
+
+	m_Image = std::move(newImage);
 	update();
 }
 
