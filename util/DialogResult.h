@@ -8,19 +8,18 @@
 namespace fm
 {
 
-template <typename T>
-class DialogResult
+template <typename T> class DialogResult
 {
-public:
-	explicit DialogResult(T const& data) : m_dialogData(data) {}
-	virtual ~DialogResult() {}
+  public:
+    explicit DialogResult(T const& data) : m_dialogData(data) {}
+    virtual ~DialogResult() {}
 
-	virtual T Result() const { return m_dialogData; }
+    virtual T Result() const { return m_dialogData; }
 
-protected:
-	T m_dialogData;
+  protected:
+    T m_dialogData;
 };
 
-}
+} // namespace fm
 
-#endif  // UTIL__DIALOGRESULT_H_
+#endif // UTIL__DIALOGRESULT_H_

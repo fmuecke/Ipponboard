@@ -3,13 +3,14 @@
 // found in the LICENSE.txt file.
 
 #include "GamepadDemo.h"
+
 #include <QApplication>
 
 int main(int argc, char* argv[])
 {
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-	GamepadDemo w;
-	w.show();
-	return a.exec();
+    GamepadDemo w;
+    w.show();
+    return a.exec();
 }

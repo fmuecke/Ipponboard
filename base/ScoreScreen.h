@@ -17,29 +17,28 @@ namespace Ipponboard
 
 class ScoreScreen : public QWidget
 {
-	Q_OBJECT
-public:
-	explicit ScoreScreen(QWidget* parent = 0);
-	~ScoreScreen();
+    Q_OBJECT
+  public:
+    explicit ScoreScreen(QWidget* parent = 0);
+    ~ScoreScreen();
 
-	void SetClubs(const QString& first, const QString& second);
-	void SetLogos(const QString& fileNameFirst, const QString& fileNameSecond);
-	void SetScore(int scoreFirst, int scoreSecond);
-	void SetTextFont(const QFont& font);
-	void SetDigitFont(const QFont& font);
+    void SetClubs(const QString& first, const QString& second);
+    void SetLogos(const QString& fileNameFirst, const QString& fileNameSecond);
+    void SetScore(int scoreFirst, int scoreSecond);
+    void SetTextFont(const QFont& font);
+    void SetDigitFont(const QFont& font);
 
-	void SetTextColorFirst(const QColor& color, const QColor& bgColor);
-	void SetTextColorSecond(const QColor& color, const QColor& bgColor);
+    void SetTextColorFirst(const QColor& color, const QColor& bgColor);
+    void SetTextColorSecond(const QColor& color, const QColor& bgColor);
 
+  protected:
+    void changeEvent(QEvent* e);
 
-protected:
-	void changeEvent(QEvent* e);
-
-private:
-	Ui::ScoreScreen* ui;
-	QFont m_textFont;
-	QFont m_digitFont;
+  private:
+    Ui::ScoreScreen* ui;
+    QFont m_textFont;
+    QFont m_digitFont;
 };
 
 } // namespace Ipponboard
-#endif  // TEAMTOURNAMENT__SCORESCREEN_H_
+#endif // TEAMTOURNAMENT__SCORESCREEN_H_

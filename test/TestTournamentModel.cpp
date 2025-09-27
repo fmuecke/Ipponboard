@@ -1,5 +1,4 @@
 #include "../util/catch2/catch.hpp"
-
 #include "ControllerTestHelpers.h"
 
 using namespace Ipponboard;
@@ -18,7 +17,7 @@ TournamentMode simple_mode()
     mode.weightsAreDoubled = false;
     return mode;
 }
-}
+} // namespace
 
 TEST_CASE("[TournamentModel] Aggregates wins and score across fights")
 {
@@ -27,43 +26,9 @@ TEST_CASE("[TournamentModel] Aggregates wins and score across fights")
 
     fixture.controller.InitTournament(mode);
 
-    fixture.controller.SetFight(
-        0,
-        0,
-        "-60",
-        "Alice",
-        "",
-        "Bob",
-        "",
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0);
+    fixture.controller.SetFight(0, 0, "-60", "Alice", "", "Bob", "", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
-    fixture.controller.SetFight(
-        0,
-        1,
-        "-73",
-        "Carol",
-        "",
-        "Dave",
-        "",
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0);
+    fixture.controller.SetFight(0, 1, "-73", "Carol", "", "Dave", "", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 
     auto model = fixture.controller.GetTournamentScoreModel();
 
@@ -84,23 +49,7 @@ TEST_CASE("[TournamentModel] Data returns fight details for display role")
     fixture.controller.InitTournament(mode);
 
     fixture.controller.SetFight(
-        0,
-        0,
-        "-60",
-        "Alice",
-        "Club A",
-        "Bob",
-        "Club B",
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0);
+        0, 0, "-60", "Alice", "Club A", "Bob", "Club B", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
     auto model = fixture.controller.GetTournamentScoreModel();
 
@@ -112,4 +61,3 @@ TEST_CASE("[TournamentModel] Data returns fight details for display role")
     REQUIRE(model->data(nameIdx, Qt::DisplayRole).toString() == "Alice");
     REQUIRE(model->data(wazaariIdx, Qt::DisplayRole).toString() == "1");
 }
-

@@ -1,5 +1,5 @@
-#include "../util/catch2/catch.hpp"
 #include "../core/Enums.h"
+#include "../util/catch2/catch.hpp"
 #include "ControllerTestHelpers.h"
 
 #include <QTime>
@@ -75,5 +75,3 @@ TEST_CASE("[Controller] Hold scoring awards points over time")
     REQUIRE(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 1);
     REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
 }
-
-

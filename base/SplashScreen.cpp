@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "DonationManager.h"
 #include "SplashScreen.h"
+
+#include "DonationManager.h"
 #include "ui_SplashScreen.h"
 #include "versioninfo.h"
 
@@ -11,57 +12,56 @@
 using namespace std;
 
 SplashScreen::SplashScreen(Data const& data, QWidget* parent)
-	: QDialog(parent)
-	, ui(new Ui::SplashScreen)
+    : QDialog(parent), ui(new Ui::SplashScreen)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 
-	ui->textBrowser_eula->setHtml(data.text);
-	ui->label_info->setText(data.info);
-	ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
+    ui->textBrowser_eula->setHtml(data.text);
+    ui->label_info->setText(data.info);
+    ui->commandLinkButton_donate->setText(DonationManager::GetDonationLabel());
 
-	setWindowFlags(Qt::Window);
+    setWindowFlags(Qt::Window);
 }
 
 SplashScreen::~SplashScreen()
 {
-	delete ui;
+    delete ui;
 }
 
 void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 {
-	//"image: url(:/res/images/logo.png);"
-	//ui->widget_image->setStyleSheet(text);
+    //"image: url(:/res/images/logo.png);"
+    //ui->widget_image->setStyleSheet(text);
 }
 
 void SplashScreen::changeEvent(QEvent* e)
 {
-	QWidget::changeEvent(e);
+    QWidget::changeEvent(e);
 
-	switch (e->type())
-	{
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
+    switch (e->type())
+    {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
 
-	default:
-		break;
-	}
+    default:
+        break;
+    }
 }
 
 void SplashScreen::on_commandLinkButton_startSingleVersion_pressed()
 {
-	accept();
+    accept();
 }
 
 void SplashScreen::on_commandLinkButton_startTeamVersion_pressed()
 {
-	done(QDialog::Accepted + 1);
+    done(QDialog::Accepted + 1);
 }
 
 void SplashScreen::on_commandLinkButton_donate_pressed()
 {
-	DonationManager::OpenUrl();
+    DonationManager::OpenUrl();
 }
 
 //void SplashScreen::on_commandLinkButton_cancel_pressed()
