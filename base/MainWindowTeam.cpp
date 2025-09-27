@@ -4,6 +4,7 @@
 
 #include "MainWindowTeam.h"
 
+#include "../Widgets/ScaledImage.h"
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/ComboBoxDelegate.h"
@@ -13,14 +14,11 @@
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
 #include "../core/TournamentModel.h"
+#include "../gamepad/Gamepad.h"
+#include "../util/path_helpers.h"
 #include "ModeManagerDlg.h"
 #include "ScoreScreen.h"
 #include "ui_MainWindowTeam.h"
-#ifdef _WIN32
-#include "../gamepad/gamepad.h"
-#endif
-#include "../Widgets/ScaledImage.h"
-#include "../util/path_helpers.h"
 
 #include <QClipboard>
 #include <QColorDialog>

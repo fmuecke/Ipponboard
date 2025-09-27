@@ -79,10 +79,9 @@ endif()
 
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F02)
 # Add targets
+add_subdirectory(gamepad ${CMAKE_BINARY_DIR}/build-Gamepad)
 add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
 add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)
 add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
 add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
-if(MSVC)
 add_subdirectory(GamepadDemo ${CMAKE_BINARY_DIR}/build-GamepadDemo)
-endif()

@@ -10,7 +10,7 @@ C. State Machine Clarity: the Boost.MSM table in core/StateMachine.h:220 is hard
 
 D. Qt Abstraction: base/View.cpp mixes narration logic (GVF_ swaps) with direct widget manipulations. Extract a presenter or view-model that transforms controller state into a simple struct; the QWidget then just renders it. This reduces Qt test coupling and clarifies the fighter-swapping behaviour.
 
-E. Shared UI Utilities: Widgets/ScaledText.cpp and ScaledImage.cpp are duplicated for app and tests. Package them into a small library (with headers installed via target_include_directories) so they aren’t recompiled manually and their APIs (e.g., new GetText()) stay consistent.
+E. Shared UI Utilities: Widgets/ScaledText.cpp and ScaledImage.cpp are duplicated for app and tests. Package them into a small library (with headers installed via target_include_directories) so they aren’t recompiled manually and their APIs (e.g., new GetText()) stay consistent. Also evaluate moving lightweight Qt helpers such as `ComboBoxDelegate`, `ScoreScreen`, and `SplashScreen` into the same module once the initial widget lib exists.
 
 F. ✅ Modernise Qt Usage: audited remaining modules; legacy SIGNAL/SLOT, QRegExp, and QSound usages have been replaced with Qt6-ready APIs across core/base/widgets/gamepad/util/test.
 

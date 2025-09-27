@@ -6,7 +6,7 @@
 
 #include "ui_SettingsDlg.h"
 #ifdef _WIN32
-#include "../gamepad/gamepad.h"
+#include "../gamepad/Gamepad.h"
 #endif
 #include "../core/ControllerConfig.h"
 

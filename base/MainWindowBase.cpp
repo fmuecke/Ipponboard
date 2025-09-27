@@ -8,13 +8,11 @@
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
 #include "../core/Enums.h"
+#include "../core/Rules.h"
+#include "../gamepad/Gamepad.h"
+#include "../util/path_helpers.h"
 #include "DonationManager.h"
 #include "View.h"
-#ifdef _WIN32
-#include "../gamepad/gamepad.h"
-#endif
-#include "../core/Rules.h"
-#include "../util/path_helpers.h"
 
 #include <QApplication>
 #include <QDebug>

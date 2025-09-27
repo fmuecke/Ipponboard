@@ -5,10 +5,107 @@
 #include "GamepadDemo.h"
 
 #include "../base/versioninfo.h"
-#include "../gamepad/gamepad.h"
-#include "ui_gamepaddemo.h"
+#include "../gamepad/Gamepad.h"
+#include "ui_GamepadDemo.h"
 
+#include <QDebug>
+#include <QStringList>
 #include <QTimer>
+#include <array>
+
+namespace
+{
+using ButtonInfo = std::pair<FMlib::Gamepad::EButton, const char*>;
+
+bool isGamepadDebugEnabled()
+{
+    static const bool enabled = qEnvironmentVariableIsSet("IPPONBOARD_DEBUG_GAMEPAD");
+    return enabled;
+}
+
+void logGamepadDiagnostics(const FMlib::Gamepad& gamepad)
+{
+    if (!isGamepadDebugEnabled())
+    {
+        return;
+    }
+
+    static const std::array<ButtonInfo, 20> kButtons = {
+        { { FMlib::Gamepad::eButton1, "Btn1" },
+          { FMlib::Gamepad::eButton2, "Btn2" },
+          { FMlib::Gamepad::eButton3, "Btn3" },
+          { FMlib::Gamepad::eButton4, "Btn4" },
+          { FMlib::Gamepad::eButton5, "Btn5" },
+          { FMlib::Gamepad::eButton6, "Btn6" },
+          { FMlib::Gamepad::eButton7, "Btn7" },
+          { FMlib::Gamepad::eButton8, "Btn8" },
+          { FMlib::Gamepad::eButton9, "Select" },
+          { FMlib::Gamepad::eButton10, "Start" },
+          { FMlib::Gamepad::eButton11, "L3" },
+          { FMlib::Gamepad::eButton12, "R3" },
+          { FMlib::Gamepad::eButton13, "DPadUp" },
+          { FMlib::Gamepad::eButton14, "DPadRight" },
+          { FMlib::Gamepad::eButton15, "DPadDown" },
+          { FMlib::Gamepad::eButton16, "DPadLeft" },
+          { FMlib::Gamepad::eButton17, "Center" },
+          { FMlib::Gamepad::eButton18, "Guide" },
+          { FMlib::Gamepad::eButton_pov_fwd, "POV_Up" },
+          { FMlib::Gamepad::eButton_pov_back, "POV_Down" } }
+    };
+
+    static std::array<bool, kButtons.size()> s_lastButtons{};
+    static bool s_initialised = false;
+
+    QStringList buttonChanges;
+    for (std::size_t i = 0; i < kButtons.size(); ++i)
+    {
+        const bool pressed = gamepad.IsPressed(kButtons[i].first);
+        if (!s_initialised || pressed != s_lastButtons[i])
+        {
+            buttonChanges.push_back(QStringLiteral("%1=%2")
+                                        .arg(QString::fromLatin1(kButtons[i].second))
+                                        .arg(pressed ? QStringLiteral("1") : QStringLiteral("0")));
+            s_lastButtons[i] = pressed;
+        }
+    }
+
+    const auto axes =
+        std::array<unsigned, 6>{ gamepad.GetXPos(), gamepad.GetYPos(), gamepad.GetZPos(),
+                                 gamepad.GetRPos(), gamepad.GetUPos(), gamepad.GetVPos() };
+    static std::array<unsigned, 6> s_lastAxes{ axes };
+    QStringList axisChanges;
+    for (std::size_t i = 0; i < axes.size(); ++i)
+    {
+        if (!s_initialised || s_lastAxes[i] != axes[i])
+        {
+            axisChanges.push_back(QStringLiteral("Axis%1=%2")
+                                      .arg(static_cast<int>(i))
+                                      .arg(static_cast<int>(axes[i])));
+            s_lastAxes[i] = axes[i];
+        }
+    }
+
+    const unsigned pov = gamepad.GetPOV();
+    static unsigned s_lastPov = pov;
+    if (!s_initialised || s_lastPov != pov)
+    {
+        qInfo().nospace() << "Gamepad POV=" << pov;
+        s_lastPov = pov;
+    }
+
+    if (!buttonChanges.isEmpty())
+    {
+        qInfo().noquote() << "Gamepad buttons:" << buttonChanges.join(QLatin1String(", "));
+    }
+
+    if (!axisChanges.isEmpty())
+    {
+        qInfo().noquote() << "Gamepad axes:" << axisChanges.join(QLatin1String(", "));
+    }
+
+    s_initialised = true;
+}
+} // namespace
 
 using namespace FMlib;
 
@@ -26,18 +123,19 @@ GamepadDemo::GamepadDemo(QWidget* parent)
     ui->label_copyRight->setText(
         QString::fromUtf8("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 
-    ui->image_button_1->UpdateImage(":images/off.png");
-    ui->image_button_2->UpdateImage(":images/off.png");
-    ui->image_button_3->UpdateImage(":images/off.png");
-    ui->image_button_4->UpdateImage(":images/off.png");
-    ui->image_button_5->UpdateImage(":images/off.png");
-    ui->image_button_6->UpdateImage(":images/off.png");
-    ui->image_button_7->UpdateImage(":images/off.png");
-    ui->image_button_8->UpdateImage(":images/off.png");
-    ui->image_button_9->UpdateImage(":images/off.png");
-    ui->image_button_10->UpdateImage(":images/off.png");
-    ui->image_button_11->UpdateImage(":images/off.png");
-    ui->image_button_12->UpdateImage(":images/off.png");
+    constexpr auto kOffImage = ":/images/off.png";
+    ui->image_button_1->UpdateImage(kOffImage);
+    ui->image_button_2->UpdateImage(kOffImage);
+    ui->image_button_3->UpdateImage(kOffImage);
+    ui->image_button_4->UpdateImage(kOffImage);
+    ui->image_button_5->UpdateImage(kOffImage);
+    ui->image_button_6->UpdateImage(kOffImage);
+    ui->image_button_7->UpdateImage(kOffImage);
+    ui->image_button_8->UpdateImage(kOffImage);
+    ui->image_button_9->UpdateImage(kOffImage);
+    ui->image_button_10->UpdateImage(kOffImage);
+    ui->image_button_11->UpdateImage(kOffImage);
+    ui->image_button_12->UpdateImage(kOffImage);
     m_pTimer = new QTimer(this);
     connect(m_pTimer, &QTimer::timeout, this, &GamepadDemo::GetData);
 
@@ -218,6 +316,7 @@ void GamepadDemo::UpdateCapabilities()
 void GamepadDemo::GetData()
 {
     m_pGamepad->ReadData();
+    logGamepadDiagnostics(*m_pGamepad);
 
     if (Gamepad::eState_ok != m_pGamepad->GetState())
         return;
@@ -331,8 +430,8 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
     if (pImage)
     {
         if (m_pGamepad->IsPressed(Gamepad::EButton(button)))
-            pImage->UpdateImage(":images/on.png");
+            pImage->UpdateImage(QStringLiteral(":/images/on.png"));
         else
-            pImage->UpdateImage(":images/off.png");
+            pImage->UpdateImage(QStringLiteral(":/images/off.png"));
     }
 }
