@@ -13,8 +13,8 @@
 #include "../core/Rules.cpp"
 
 using Ipponboard::Fight;
-using Ipponboard::Score;
 using Ipponboard::FighterEnum;
+using Ipponboard::Score;
 using Point = Ipponboard::Score::Point;
 
 TEST_CASE("[Fight] Fighter with less Shidos wins if points are equal (rules 2013)")
@@ -23,7 +23,7 @@ TEST_CASE("[Fight] Fighter with less Shidos wins if points are equal (rules 2013
 	auto scoreWithShido = Score(score).Add(Point::Shido);
 	auto scoreWithThreeShido = Score(score).Add(Point::Shido).Add(Point::Shido).Add(Point::Shido);
 
-	Fight fight { score, score };
+	Fight fight{ score, score };
 	fight.rules = std::make_shared<Ipponboard::Rules2013>();
 
 	auto first = FighterEnum::First;
@@ -68,28 +68,28 @@ TEST_CASE("[Fight] Validate score points (subscore)")
 
 	auto IpponScore = Score().Add(Point::Ippon);
 
-	Fight f1 { emptyScore, shidoScore };
+	Fight f1{ emptyScore, shidoScore };
 	f1.rules = std::make_shared<Ipponboard::Rules2013>();
 	REQUIRE(f1.GetScorePoints(first) == 1);
 	REQUIRE(f1.GetScorePoints(second) == 0);
 
-	Fight f2 { yukoScore, yukoWithShidoScore };
+	Fight f2{ yukoScore, yukoWithShidoScore };
 	f2.rules = std::make_shared<Ipponboard::Rules2013>();
 	REQUIRE(f2.GetScorePoints(first) == 1);
 	REQUIRE(f2.GetScorePoints(second) == 0);
 
 	// Hikewake
-	Fight f3 { twoYukoScore, twoYukoScore };
+	Fight f3{ twoYukoScore, twoYukoScore };
 	f3.rules = std::make_shared<Ipponboard::Rules2013>();
 	REQUIRE(f3.GetScorePoints(first) == 0);
 	REQUIRE(f3.GetScorePoints(second) == 0);
 
-	Fight f4 { yukoScore, twoYukoScore };
+	Fight f4{ yukoScore, twoYukoScore };
 	f4.rules = std::make_shared<Ipponboard::Rules2013>();
 	REQUIRE(f4.GetScorePoints(first) == 0);
 	REQUIRE(f4.GetScorePoints(second) == 5);
 
-	Fight f5 { twoYukoWithShidoScore, twoYukoWithTwoShidoScore };
+	Fight f5{ twoYukoWithShidoScore, twoYukoWithTwoShidoScore };
 	f5.rules = std::make_shared<Ipponboard::Rules2013>();
 	REQUIRE(f5.GetScorePoints(first) == 1);
 	REQUIRE(f5.GetScorePoints(second) == 0);
@@ -149,7 +149,7 @@ TEST_CASE("[Fight] rules2017: no one has won if points are equal and shidos aren
 {
 	auto score1 = Score().Add(Point::Yuko).Add(Point::Shido);
 	auto score2 = Score().Add(Point::Yuko);
-	Fight fight { score1, score2 };
+	Fight fight{ score1, score2 };
 	fight.rules = std::make_shared<Ipponboard::Rules2017>();
 
 	auto first = FighterEnum::First;

@@ -22,7 +22,7 @@ TEST_CASE("GetSettingsFilePath: returns a non empty value")
 	auto path = fm::GetSettingsFilePath("somefile.ext");
 	REQUIRE_FALSE(path.isEmpty());
 	INFO(path.toStdString());
-	REQUIRE(path.indexOf("\\Ipponboard\\somefile.ext") != -1 );
+	REQUIRE(path.indexOf("\\Ipponboard\\somefile.ext") != -1);
 }
 
 TEST_CASE("KnowFolders: Desktop returns path to desktop")
@@ -32,7 +32,6 @@ TEST_CASE("KnowFolders: Desktop returns path to desktop")
 	INFO(folder.toStdString());
 	REQUIRE(pos == folder.size() - 7);
 }
-
 
 TEST_CASE("KnowFolders: LocalAppData returns valid path ")
 {
