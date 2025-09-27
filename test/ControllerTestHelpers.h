@@ -29,6 +29,15 @@ struct ControllerFixture
     QCoreApplication& app;
     Ipponboard::Controller controller;
 
+    void initTournament(int rounds, const QStringList& weights)
+    {
+        Ipponboard::TournamentMode mode;
+        mode.nRounds = rounds;
+        mode.weights = weights.join(';');
+        mode.fightTimeInSeconds = 30;
+        controller.InitTournament(mode);
+    }
+
     void startFight() { controller.DoAction(Ipponboard::eAction_Hajime_Mate); }
 
     void advanceMainTime(int ticks)

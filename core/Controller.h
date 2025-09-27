@@ -11,6 +11,8 @@
 #include "Tournament.h"
 #include "TournamentMode.h"
 #include "TournamentModel.h"
+#include "TournamentNavigator.h"
+#include "TournamentRepository.h"
 #include "iController.h"
 #include "iControllerCore.h"
 
@@ -123,19 +125,19 @@ class Controller : public QObject, public IController, public IControllerCore
 
   public:
     // --- other functions ---
-    int GetFightCount() const { return static_cast<int>(m_Tournament.at(0)->size()); }
+    int GetFightCount() const { return static_cast<int>(m_navigator.fightCount()); }
 
-    int GetRoundCount() const { return static_cast<int>(m_Tournament.size()); }
+    int GetRoundCount() const { return static_cast<int>(m_navigator.roundCount()); }
 
     void NextFight();
     void PrevFight();
     void SetCurrentFight(unsigned int index);
 
-    int GetCurrentFight() const { return m_currentFight; }
+    int GetCurrentFight() const { return static_cast<int>(m_navigator.currentFight()); }
 
     void SetCurrentRound(unsigned int index);
 
-    int GetCurrentRound() const { return m_currentRound; }
+    int GetCurrentRound() const { return static_cast<int>(m_navigator.currentRound()); }
 
     void ClearFightsAndResetTimers();
     void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
@@ -177,19 +179,19 @@ class Controller : public QObject, public IController, public IControllerCore
 
     inline Ipponboard::Fight& current_fight()
     {
-        return m_Tournament.at(m_currentRound)->at(m_currentFight);
+        return m_Tournament.at(m_navigator.currentRound())->at(m_navigator.currentFight());
     }
 
     inline Ipponboard::Fight const& current_fight() const
     {
-        return m_Tournament.at(m_currentRound)->at(m_currentFight);
+        return m_Tournament.at(m_navigator.currentRound())->at(m_navigator.currentFight());
     }
 
     Ipponboard::TournamentMode m_mode;
     Ipponboard::Tournament m_Tournament;
     std::vector<std::shared_ptr<TournamentModel>> m_TournamentModels;
-    int m_currentRound;
-    int m_currentFight;
+    TournamentNavigator m_navigator;
+    TournamentRepository m_repository;
 
     std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
     Ipponboard::EState m_State;
@@ -211,6 +213,7 @@ class Controller : public QObject, public IController, public IControllerCore
     mutable std::unique_ptr<QSoundEffect> m_gongEffect;
     void reset_timers();
     std::shared_ptr<AbstractRules> m_rules;
+    void applyFightChange();
 };
 } // namespace Ipponboard
 

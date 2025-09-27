@@ -1,9 +1,10 @@
 A. ✅ Modularise CMake: completed by introducing dedicated `IpponboardCore`, `IpponboardWidgets`, and `IpponboardUi` libraries that the app/tests now consume.
 
 B. Controller Decomposition:
-   1. Characterise fight navigation (`NextFight`/`PrevFight`, round transitions, golden-score resets) with unit tests so regressions surface.
-   2. Extract a `TournamentNavigator` (round/fight index management + view updates) from `Controller` once tests are in place.
-   3. Move persistence helpers (`save_fight`, `reset_fight`, `ClearFightsAndResetTimers`) behind a repository-like seam so controller focuses on orchestration.
+   ✅ Characterised fight navigation (`NextFight`/`PrevFight`) with unit tests covering round transitions and golden-score resets.
+   ✅ Introduced `TournamentNavigator` to own round/fight indices and drive controller updates.
+   ✅ Added `TournamentRepository` to manage fight persistence (`save`, `reset`, `clear`) and called from controller.
+   Next: evaluate remaining responsibilities (view fan-out, rules/options plumbing) for similar extraction.
 
 C. State Machine Clarity: the Boost.MSM table in core/StateMachine.h:220 is hard to reason about. Introduce named transition helpers or wrap MSM events in a thin façade so guard/action ordering becomes explicit, easing future rule tweaks.
 
