@@ -10,6 +10,7 @@ set(CORE_SOURCES
     FightCategory.cpp
     Fighter.cpp
     Rules.cpp
+    TimerService.cpp
     Score.cpp
     StateMachine.cpp
     TournamentModel.cpp
@@ -23,5 +24,4 @@ set_target_properties(IpponboardCore PROPERTIES
 
 target_include_directories(IpponboardCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${BOOST_DIR})
 target_link_libraries(IpponboardCore PUBLIC Qt5::Core Qt5::XmlPatterns Qt5::Multimedia Qt5::Widgets)
-
 

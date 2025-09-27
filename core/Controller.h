@@ -7,6 +7,7 @@
 
 #include "Score.h"
 #include "StateMachine.h"
+#include "TimerService.h"
 #include "Tournament.h"
 #include "TournamentMode.h"
 #include "TournamentModel.h"
@@ -21,7 +22,6 @@
 #include <vector>
 
 // forwards
-class QTimer;
 class QSoundEffect;
 //class TournamentModel;
 
@@ -193,10 +193,9 @@ class Controller : public QObject, public IController, public IControllerCore
 
     std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
     Ipponboard::EState m_State;
-    QTimer* m_pTimerMain;
-    QTimer* m_pTimerHold;
-    QTime* m_pTimeMain;
-    QTime* m_pTimeHold; // needed when side is not chosen yet
+    TimerService m_timerService;
+    QTime m_mainTime;
+    QTime m_holdTime; // needed when side is not chosen yet
     Ipponboard::FighterEnum m_Tori;
     std::set<IView*> m_views;
     std::set<IGoldenScoreView*> m_goldenScoreViews;
