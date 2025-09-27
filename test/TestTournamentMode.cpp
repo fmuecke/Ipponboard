@@ -9,6 +9,7 @@
 #include <QString>
 #include <QDir>
 #include <iostream>
+#include "TestDataPath.h"
 
 using namespace Ipponboard;
 
@@ -21,7 +22,8 @@ struct IpponboardTest
 		errorMsg.clear();
 
 		config.beginGroup(group);
-		bool readSuccess = TournamentMode::parse_current_group(config, tm, "TestData", errorMsg);
+		static const QString templateDir = QString::fromStdString(ippn_test_data_root().string());
+		bool readSuccess = TournamentMode::parse_current_group(config, tm, templateDir, errorMsg);
 		config.endGroup();
 		return readSuccess;
 	}
@@ -30,7 +32,7 @@ struct IpponboardTest
 
 TEST_CASE("[TournamentMode] Test_parse_current_group")
 {
-	const QString& iniFile = QDir::currentPath() + "/TestData/TournamentModes-test.ini";
+	const auto iniFile = QString::fromStdString(ippn_test_data_path("TournamentModes-test.ini").string());
 	QSettings config(iniFile, QSettings::IniFormat);
 	QStringList groups;
 	groups
@@ -84,4 +86,3 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 	INFO(errorMsg.toStdString());
 	REQUIRE_FALSE(success);
 }
-

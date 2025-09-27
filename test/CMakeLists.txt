@@ -45,6 +45,7 @@ set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
 target_link_libraries(${APP_NAME} PRIVATE IpponboardUi)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
+target_compile_definitions(${APP_NAME} PRIVATE IPPON_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/TestData")
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -94,7 +95,6 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
-
 
 
 

@@ -9,6 +9,7 @@
 #include <QCoreApplication>
 #include "TestQtApp.h"
 #include <QString>
+#include "TestDataPath.h"
 
 #include <iostream>
 
@@ -33,7 +34,8 @@ TEST_CASE("[OnlineVersionChecker] parse version document (github json)")
     ensure_qt_app();
 
     auto versionInfo = OnlineVersionChecker::parse_version_document(
-        OnlineVersionChecker::get_version_document("TestData/latest_version.json"));
+        OnlineVersionChecker::get_version_document(
+            QString::fromStdString(ippn_test_data_string("latest_version.json"))));
 
     REQUIRE_FALSE(versionInfo.version.isEmpty());
     REQUIRE_FALSE(versionInfo.infoUrl.isEmpty());
