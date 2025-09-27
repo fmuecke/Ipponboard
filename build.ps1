@@ -16,6 +16,11 @@ function Init-Environment {
     $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
 }
 
+function Invoke-ClangFormatCheck {
+    & "$PSScriptRoot\scripts\check-format.ps1"
+    return ($LASTEXITCODE -eq 0)
+}
+
 # Read settings from env_cfg.cmd file. The settings are in the format "set VAR=VALUE"
 function Read-Env-Cfg {
 	$env_cfg = Get-Content .\env_cfg.bat
@@ -133,6 +138,7 @@ function Run-Tests {
 }
 
 function Build-and-run-tests {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
 
@@ -141,6 +147,7 @@ function Build-and-run-tests {
 }
 
 function Build-ALL {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
