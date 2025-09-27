@@ -72,6 +72,10 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+ 
+if (MSVC)
+    add_compile_options(/MP)
+endif()
 
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F02)
 
