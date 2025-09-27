@@ -17,25 +17,28 @@ class QSettings;
 class QString;
 class QPoint;
 
-namespace Ui { class MainWindowTeam; }
+namespace Ui
+{
+class MainWindowTeam;
+}
 
 class MainWindowTeam : public MainWindowBase
 {
 	Q_OBJECT
-public:
+  public:
 	explicit MainWindowTeam(QWidget* parent = nullptr);
 	virtual ~MainWindowTeam();
 
 	virtual void Init() final;
 
-	virtual EditionType Edition() const final			{ return EditionType::Team; }
-	virtual const char* EditionName() const final		{ return "Team Edition"; }
-	virtual const char* EditionNameShort() const final	{ return "Team"; }
+	virtual EditionType Edition() const final { return EditionType::Team; }
+	virtual const char* EditionName() const final { return "Team Edition"; }
+	virtual const char* EditionNameShort() const final { return "Team"; }
 	static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
 
 	void LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode);
 
-protected:
+  protected:
 	virtual void UpdateGoldenScoreView() final;
 	//virtual void changeEvent(QEvent* e) override;
 	virtual void closeEvent(QCloseEvent* event) override;
@@ -49,7 +52,7 @@ protected:
 	}
 	virtual void ui_check_show_secondary_view(bool checked) const final;
 
-private:
+  private:
 	static QStringList get_list_templates();
 	void update_info_text_color(const QColor& color, const QColor& bgColor) override;
 	void update_text_color_first(const QColor& color, const QColor& bgColor) override;
@@ -71,7 +74,7 @@ private:
 	/* base class slot overrides */
 	virtual void on_actionManageFighters_triggered() override;
 
-private slots:
+  private slots:
 	void on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos);
 	void on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos);
 	void on_actionScore_Control_triggered();
@@ -113,13 +116,10 @@ private slots:
 	void on_actionReset_Scores_triggered();
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
-private:
+  private:
 	void update_weights(QString const& weightString);
-	void on_tableView_customContextMenuRequested(QTableView* pTableView,
-			QPoint const& pos,
-			const char* copySlot,
-			const char* pasteSlot,
-			const char* clearSlot);
+	void on_tableView_customContextMenuRequested(QTableView* pTableView, QPoint const& pos, const char* copySlot,
+	                                             const char* pasteSlot, const char* clearSlot);
 	void copy_cell_content(QTableView* pTableView);
 	void paste_cell_content(QTableView* pTableView);
 	void clear_cell_content(QTableView* pTableView);
@@ -140,4 +140,4 @@ private:
 	QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 
-#endif  // TEAM_EDITION_MAINWINDOW_H_
+#endif // TEAM_EDITION_MAINWINDOW_H_

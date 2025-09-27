@@ -12,12 +12,8 @@
 using namespace Ipponboard;
 
 //---------------------------------------------------------
-ClubManagerDlg::ClubManagerDlg(
-	std::shared_ptr<ClubManager> pMgr, QWidget* parent)
-	: QDialog(parent)
-	, ui(new Ui::ClubManagerDlg)
-	, m_pClubMgr(pMgr)
-	, m_SelectedClub(-1)
+ClubManagerDlg::ClubManagerDlg(std::shared_ptr<ClubManager> pMgr, QWidget* parent)
+    : QDialog(parent), ui(new Ui::ClubManagerDlg), m_pClubMgr(pMgr), m_SelectedClub(-1)
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
@@ -60,12 +56,9 @@ void ClubManagerDlg::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
+	case QEvent::LanguageChange: ui->retranslateUi(this); break;
 
-	default:
-		break;
+	default: break;
 	}
 }
 
@@ -110,19 +103,19 @@ void ClubManagerDlg::update_ui()
 	}
 
 	ui->lineEdit_logoFile->setPalette(palette);
-//	if( 0 == m_pClubMgr->ClubCount() )
-//	{
-//		ui->pushButton_remove->setEnabled(false);
-//		ui->pushButton_update->setEnabled(false);
-//		ui->lineEdit_name->clear();
-//		ui->lineEdit_name->setEnabled(false);
-//	}
-//	else
-//	{
-//		ui->lineEdit_name->setEnabled(true);
-//		ui->pushButton_remove->setEnabled(true);
-//		ui->pushButton_update->setEnabled(true);
-//	}
+	//	if( 0 == m_pClubMgr->ClubCount() )
+	//	{
+	//		ui->pushButton_remove->setEnabled(false);
+	//		ui->pushButton_update->setEnabled(false);
+	//		ui->lineEdit_name->clear();
+	//		ui->lineEdit_name->setEnabled(false);
+	//	}
+	//	else
+	//	{
+	//		ui->lineEdit_name->setEnabled(true);
+	//		ui->pushButton_remove->setEnabled(true);
+	//		ui->pushButton_update->setEnabled(true);
+	//	}
 }
 
 //---------------------------------------------------------
@@ -144,8 +137,7 @@ void ClubManagerDlg::on_pushButton_add_pressed()
 void ClubManagerDlg::on_pushButton_save_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
-		return;
+	if (m_SelectedClub < 0) return;
 
 	Ipponboard::Club club;
 	club.name = ui->lineEdit_name->text();
@@ -163,8 +155,7 @@ void ClubManagerDlg::on_pushButton_save_pressed()
 void ClubManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
-		return;
+	if (m_SelectedClub < 0) return;
 
 	m_pClubMgr->RemoveClub(m_SelectedClub);
 	ui->comboBox_club->removeItem(m_SelectedClub);
@@ -189,15 +180,14 @@ void ClubManagerDlg::on_lineEdit_logoFile_textEdited(QString const& /*fileName*/
 void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 //---------------------------------------------------------
 {
-	if (m_SelectedClub < 0)
-		return;
+	if (m_SelectedClub < 0) return;
 
 	QString fileName = QFileDialog::getOpenFileName(this,
-					   tr("Select Club Emblem"),
-					   ui->lineEdit_logoFile->text(),
-					   tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
-					   nullptr,
-					   QFileDialog::ReadOnly);
+	                                                tr("Select Club Emblem"),
+	                                                ui->lineEdit_logoFile->text(),
+	                                                tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
+	                                                nullptr,
+	                                                QFileDialog::ReadOnly);
 
 	if (!fileName.isEmpty())
 	{
@@ -205,9 +195,7 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
 
 		if (icon.availableSizes().empty())
 		{
-			QMessageBox::critical(this,
-								  tr("Unsupported Image Type"),
-								  tr("The specified image could not be loaded!"));
+			QMessageBox::critical(this, tr("Unsupported Image Type"), tr("The specified image could not be loaded!"));
 		}
 		else
 		{

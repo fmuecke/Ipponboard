@@ -34,51 +34,45 @@ using namespace Ipponboard;
 using Point = Score::Point;
 
 MainWindowBase::MainWindowBase(QWidget* parent)
-	: QMainWindow(parent)
-	, m_pPrimaryView()
-	, m_pSecondaryView()
-	, m_pController(new Ipponboard::Controller())
-	, m_fighterManager()
-	, m_Language("en")
-	, m_MatLabel("  Ipponboard   ")
-	, m_weights()
-	, m_FighterNameFont("Calibri", 12, QFont::Bold, false)
-	, m_secondScreenNo(0)
-	, m_secondScreenSize()
-	, m_controllerCfg()
+    : QMainWindow(parent),
+      m_pPrimaryView(),
+      m_pSecondaryView(),
+      m_pController(new Ipponboard::Controller()),
+      m_fighterManager(),
+      m_Language("en"),
+      m_MatLabel("  Ipponboard   "),
+      m_weights(),
+      m_FighterNameFont("Calibri", 12, QFont::Bold, false),
+      m_secondScreenNo(0),
+      m_secondScreenSize(),
+      m_controllerCfg()
 #ifdef _WIN32
-    , m_pGamepad(new Gamepad)
+      ,
+      m_pGamepad(new Gamepad)
 #endif
-{
-}
+{}
 
-MainWindowBase::~MainWindowBase()
-{
-}
+MainWindowBase::~MainWindowBase() {}
 
 void MainWindowBase::Init()
 {
-	setWindowTitle(
-		QCoreApplication::applicationName() + " v" +
-		QCoreApplication::applicationVersion());
+	setWindowTitle(QCoreApplication::applicationName() + " v" + QCoreApplication::applicationVersion());
 
 	setWindowFlags(Qt::Window);
 	//setWindowState(Qt::WindowMaximized);
 	// instead, center window
 
-    auto rect = QGuiApplication::screens().first()->availableGeometry();
-    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), rect));
+	auto rect = QGuiApplication::screens().first()->availableGeometry();
+	this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), rect));
 
 	load_fighters();
 
 	// Setup views
-	m_pPrimaryView.reset(
-		new View(m_pController->GetIController(), Edition(), View::eTypePrimary));
+	m_pPrimaryView.reset(new View(m_pController->GetIController(), Edition(), View::eTypePrimary));
 
 	attach_primary_view();
 
-	m_pSecondaryView.reset(
-		new View(m_pController->GetIController(), Edition(), View::eTypeSecondary));
+	m_pSecondaryView.reset(new View(m_pController->GetIController(), Edition(), View::eTypeSecondary));
 
 	// clear data
 	m_pController->ClearFightsAndResetTimers();
@@ -89,7 +83,7 @@ void MainWindowBase::Init()
 	change_lang(true);
 
 #ifdef _WIN32
-    // Init gamepad
+	// Init gamepad
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &MainWindowBase::EvaluateInput);
 	timer->start(75);
@@ -102,20 +96,11 @@ void MainWindowBase::Init()
 	m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
 }
 
-QString MainWindowBase::GetConfigFileName() const
-{
-	return "Ipponboard.ini";
-}
+QString MainWindowBase::GetConfigFileName() const { return "Ipponboard.ini"; }
 
-QString MainWindowBase::GetFighterFileName() const
-{
-	return QString("Fighters%1.csv").arg(EditionNameShort());
-}
+QString MainWindowBase::GetFighterFileName() const { return QString("Fighters%1.csv").arg(EditionNameShort()); }
 
-void MainWindowBase::UpdateView()
-{
-	update_views();
-}
+void MainWindowBase::UpdateView() { update_views(); }
 
 void MainWindowBase::changeEvent(QEvent* e)
 {
@@ -123,12 +108,9 @@ void MainWindowBase::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange:
-		retranslate_Ui();
-		break;
+	case QEvent::LanguageChange: retranslate_Ui(); break;
 
-	default:
-		break;
+	default: break;
 	}
 }
 
@@ -137,10 +119,7 @@ void MainWindowBase::closeEvent(QCloseEvent* event)
 	write_settings();
 	save_fighters();
 
-	if (m_pSecondaryView)
-	{
-		m_pSecondaryView->close();
-	}
+	if (m_pSecondaryView) { m_pSecondaryView->close(); }
 
 	event->accept();
 }
@@ -152,159 +131,117 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 	switch (event->key())
 	{
 	case Qt::Key_Space:
-        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
+		m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 		qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
 		break;
 
 	case Qt::Key_Backspace:
 		if (isCtrlPressed)
 		{
-            m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
+			m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 			qDebug() << "Action [ Reset ] was triggered by keyboard";
 		}
 
 		break;
 
-	case Qt::Key_Left:
+	case Qt::Key_Left: {
+		if (eState_Holding == m_pController->GetCurrentState() && FighterEnum::First != m_pController->GetLead())
 		{
-			if (eState_Holding == m_pController->GetCurrentState() &&
-					FighterEnum::First != m_pController->GetLead())
-			{
-				m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
-			}
-			else
-			{
-				m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
-			}
-
-			qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
+			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
 		}
+		else { m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First); }
 
-		break;
+		qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
+	}
 
-	case Qt::Key_Right:
+	break;
+
+	case Qt::Key_Right: {
+		if (eState_Holding == m_pController->GetCurrentState() && FighterEnum::Second != m_pController->GetLead())
 		{
-			if (eState_Holding == m_pController->GetCurrentState() &&
-					FighterEnum::Second != m_pController->GetLead())
-			{
-				m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
-			}
-			else
-			{
-				m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
-			}
-
-			qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
+			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
 		}
+		else { m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second); }
 
-		break;
+		qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
+	}
+
+	break;
 
 	case Qt::Key_Down:
 		//if (isCtrlPressed)
 		{
-            m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true);
+			m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true);
 			qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
 		}
 		break;
 
 	case Qt::Key_F5:
-		m_pController->DoAction(eAction_Ippon,
-								FighterEnum::First,
-								isCtrlPressed);
-		qDebug() << "Action [ Ippon for fighter1, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Ippon, FighterEnum::First, isCtrlPressed);
+		qDebug() << "Action [ Ippon for fighter1, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F6:
-		m_pController->DoAction(eAction_Wazaari,
-								FighterEnum::First,
-								isCtrlPressed);
-		qDebug() << "Action [ Wazaari for fighter1, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Wazaari, FighterEnum::First, isCtrlPressed);
+		qDebug() << "Action [ Wazaari for fighter1, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F7:
-		m_pController->DoAction(eAction_Yuko,
-								FighterEnum::First,
-								isCtrlPressed);
-		qDebug() << "Action [ Yuko for fighter1, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Yuko, FighterEnum::First, isCtrlPressed);
+		qDebug() << "Action [ Yuko for fighter1, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F8:
-		m_pController->DoAction(eAction_Shido,
-								FighterEnum::First,
-								isCtrlPressed);
-		qDebug() << "Action [ Shido for fighter1, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Shido, FighterEnum::First, isCtrlPressed);
+		qDebug() << "Action [ Shido for fighter1, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F9:
-		m_pController->DoAction(eAction_Ippon,
-								FighterEnum::Second,
-								isCtrlPressed);
-		qDebug() << "Action [ Ippon for fighter2, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Ippon, FighterEnum::Second, isCtrlPressed);
+		qDebug() << "Action [ Ippon for fighter2, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F10:
-		m_pController->DoAction(eAction_Wazaari,
-								FighterEnum::Second,
-								isCtrlPressed);
-		qDebug() << "Action [ Wazaari for fighter2, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Wazaari, FighterEnum::Second, isCtrlPressed);
+		qDebug() << "Action [ Wazaari for fighter2, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F11:
-		m_pController->DoAction(eAction_Yuko,
-								FighterEnum::Second,
-								isCtrlPressed);
-		qDebug() << "Action [ Yuko for fighter2, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Yuko, FighterEnum::Second, isCtrlPressed);
+		qDebug() << "Action [ Yuko for fighter2, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
 	case Qt::Key_F12:
-		m_pController->DoAction(eAction_Shido,
-								FighterEnum::Second,
-								isCtrlPressed);
-		qDebug() << "Action [ Shido for fighter2, revoke="
-				 << isCtrlPressed
-				 << "] was triggered by keyboard";
+		m_pController->DoAction(eAction_Shido, FighterEnum::Second, isCtrlPressed);
+		qDebug() << "Action [ Shido for fighter2, revoke=" << isCtrlPressed << "] was triggered by keyboard";
 		break;
 
-	default:
-		QMainWindow::keyPressEvent(event);
-		break;
+	default: QMainWindow::keyPressEvent(event); break;
 	}
 }
 
 void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 {
 	QMessageBox::about(
-		this,
-		tr("About %1").arg(QCoreApplication::applicationName()),
-		QString("<h3>%1 v%2</h3>"
-				"<p>Build: %3, Revision: %4</p>"
- 				"<p>&copy; 2010-%5 Florian M&uuml;cke &amp; contributors. All rights reserved.<br>For third party licenses see the User Manual.</p>"
-				"<p><a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
-				"<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can contribute</a> and help Ipponboard improve. "
-				"Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
-				"<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
-				"INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
-				"PARTICULAR PURPOSE.</p>"
-			   ).arg(QCoreApplication::applicationName(),
-					 QCoreApplication::applicationVersion(),
-					 VersionInfo::Date,
-					 VersionInfo::Revision,
-					 VersionInfo::CopyrightYear,
-					 DonationManager::DonationUrl));
+	    this,
+	    tr("About %1").arg(QCoreApplication::applicationName()),
+	    QString("<h3>%1 v%2</h3>"
+	            "<p>Build: %3, Revision: %4</p>"
+	            "<p>&copy; 2010-%5 Florian M&uuml;cke &amp; contributors. All rights reserved.<br>For third party "
+	            "licenses see the User Manual.</p>"
+	            "<p><a href=\"https://github.com/fmuecke/Ipponboard\">github.com/fmuecke/Ipponboard</a></p>"
+	            "<p>Read how <a href=\"https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTING.md\">you can "
+	            "contribute</a> and help Ipponboard improve. "
+	            "Please keep Ipponboard alive with <a href=\"%6\">a little donation.</a></p>"
+	            "<p>This program is provided AS IS with NO WARRANTY OF ANY KIND, "
+	            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "
+	            "PARTICULAR PURPOSE.</p>")
+	        .arg(QCoreApplication::applicationName(),
+	             QCoreApplication::applicationVersion(),
+	             VersionInfo::Date,
+	             VersionInfo::Revision,
+	             VersionInfo::CopyrightYear,
+	             DonationManager::DonationUrl));
 }
 
 void MainWindowBase::on_actionUser_Manual_triggered()
@@ -321,10 +258,7 @@ void MainWindowBase::on_actionView_Logfile_triggered()
 	// TODO: open log file in Log Window
 }
 
-void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked)
-{
-	m_pController->SetAutoAdjustPoints(checked);
-}
+void MainWindowBase::on_actionAutoAdjustPoints_toggled(bool checked) { m_pController->SetAutoAdjustPoints(checked); }
 
 void MainWindowBase::on_actionVisit_Project_Homepage_triggered()
 {
@@ -344,8 +278,9 @@ void MainWindowBase::change_lang(bool beQuiet)
 
 	if (!beQuiet)
 	{
-		QMessageBox::information(this, QCoreApplication::applicationName(),
-								 tr("Please restart the application so that the change can take effect."));
+		QMessageBox::information(this,
+		                         QCoreApplication::applicationName(),
+		                         tr("Please restart the application so that the change can take effect."));
 	}
 }
 
@@ -366,7 +301,6 @@ void MainWindowBase::on_actionLang_English_triggered(bool val)
 		change_lang();
 	}
 }
-
 
 void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
 {
@@ -569,8 +503,7 @@ void MainWindowBase::read_settings()
 		QColor fgColor = m_pSecondaryView->GetInfoTextColor();
 		QColor bgColor = m_pSecondaryView->GetInfoTextBgColor();
 
-		if (settings.contains(str_tag_InfoTextColor))
-			fgColor = settings.value(str_tag_InfoTextColor).value<QColor>();
+		if (settings.contains(str_tag_InfoTextColor)) fgColor = settings.value(str_tag_InfoTextColor).value<QColor>();
 
 		if (settings.contains(str_tag_InfoTextBgColor))
 			bgColor = settings.value(str_tag_InfoTextBgColor).value<QColor>();
@@ -580,8 +513,7 @@ void MainWindowBase::read_settings()
 		fgColor = m_pSecondaryView->GetTextColorFirst();
 		bgColor = m_pSecondaryView->GetTextBgColorFirst();
 
-		if (settings.contains(str_tag_TextColorFirst))
-			fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
+		if (settings.contains(str_tag_TextColorFirst)) fgColor = settings.value(str_tag_TextColorFirst).value<QColor>();
 
 		if (settings.contains(str_tag_TextBgColorFirst))
 			bgColor = settings.value(str_tag_TextBgColorFirst).value<QColor>();
@@ -611,43 +543,38 @@ void MainWindowBase::read_settings()
 	settings.endGroup();
 
 #ifdef _WIN32
-    settings.beginGroup(str_tag_Input);
+	settings.beginGroup(str_tag_Input);
 	{
 		m_controllerCfg.button_hajime_mate =
-			settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
+		    settings.value(str_tag_buttonHajimeMate, Gamepad::eButton_pov_back).toInt();
 
-		m_controllerCfg.button_next =
-			settings.value(str_tag_buttonNext, Gamepad::eButton10).toInt();
+		m_controllerCfg.button_next = settings.value(str_tag_buttonNext, Gamepad::eButton10).toInt();
 
-		m_controllerCfg.button_prev =
-			settings.value(str_tag_buttonPrev, Gamepad::eButton9).toInt();
+		m_controllerCfg.button_prev = settings.value(str_tag_buttonPrev, Gamepad::eButton9).toInt();
 
-		m_controllerCfg.button_pause =
-			settings.value(str_tag_buttonPause, Gamepad::eButton2).toInt();
+		m_controllerCfg.button_pause = settings.value(str_tag_buttonPause, Gamepad::eButton2).toInt();
 
-		m_controllerCfg.button_reset =
-			settings.value(str_tag_buttonReset, Gamepad::eButton1).toInt();
+		m_controllerCfg.button_reset = settings.value(str_tag_buttonReset, Gamepad::eButton1).toInt();
 
-		m_controllerCfg.button_reset_2 =
-			settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
+		m_controllerCfg.button_reset_2 = settings.value(str_tag_buttonReset2, Gamepad::eButton4).toInt();
 
 		m_controllerCfg.button_reset_hold_first =
-			settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
+		    settings.value(str_tag_buttonResetHoldFirst, Gamepad::eButton6).toInt();
 
 		m_controllerCfg.button_reset_hold_second =
-			settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
+		    settings.value(str_tag_buttonResetHoldSecond, Gamepad::eButton8).toInt();
 
 		m_controllerCfg.button_osaekomi_toketa_first =
-			settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
+		    settings.value(str_tag_buttonFirstHolding, Gamepad::eButton5).toInt();
 
 		m_controllerCfg.button_osaekomi_toketa_second =
-			settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
+		    settings.value(str_tag_buttonSecondHolding, Gamepad::eButton7).toInt();
 
 		m_controllerCfg.button_hansokumake_first =
-			settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
+		    settings.value(str_tag_buttonHansokumakeFirst, Gamepad::eButton11).toInt();
 
 		m_controllerCfg.button_hansokumake_second =
-			settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
+		    settings.value(str_tag_buttonHansokumakeSecond, Gamepad::eButton12).toInt();
 
 		m_controllerCfg.axis_inverted_X = settings.value(str_tag_invertX, false).toBool();
 		m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
@@ -692,10 +619,7 @@ void MainWindowBase::load_fighters()
 
 	if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
 	{
-		QMessageBox::critical(
-			this,
-			QCoreApplication::applicationName(),
-			errorMsg);
+		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 	}
 }
 
@@ -706,10 +630,7 @@ void MainWindowBase::save_fighters()
 
 	if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
 	{
-		QMessageBox::critical(
-			this,
-			QCoreApplication::applicationName(),
-			errorMsg);
+		QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
 	}
 }
 
@@ -719,26 +640,20 @@ void MainWindowBase::update_views()
 	m_pSecondaryView->UpdateView();
 }
 
-void MainWindowBase::on_actionTest_Gong_triggered()
-{
-	m_pController->Gong();
-}
+void MainWindowBase::on_actionTest_Gong_triggered() { m_pController->Gong(); }
 
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
 	show_hide_view();
 
-	if (m_pSecondaryView->isVisible())
-	{
-	}
+	if (m_pSecondaryView->isVisible()) {}
 }
 
 void MainWindowBase::on_actionPreferences_triggered()
 {
 	SettingsDlg dlg(Edition(), this);
-	dlg.SetInfoHeaderSettings(m_pPrimaryView->GetInfoHeaderFont(),
-							  m_pPrimaryView->GetInfoTextColor(),
-							  m_pPrimaryView->GetInfoTextBgColor());
+	dlg.SetInfoHeaderSettings(
+	    m_pPrimaryView->GetInfoHeaderFont(), m_pPrimaryView->GetInfoTextColor(), m_pPrimaryView->GetInfoTextBgColor());
 
 	dlg.SetFighterNameFont(m_FighterNameFont);
 	dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(), m_pPrimaryView->GetTextBgColorFirst());
@@ -762,7 +677,7 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 		dlg.GetControllerConfig(&m_controllerCfg);
 #ifdef _WIN32
-        // apply settings to gamepad
+		// apply settings to gamepad
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
@@ -785,43 +700,31 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {
-    const auto nScreens = QGuiApplication::screens().size();
-    if (nScreens > 0 && nScreens > m_secondScreenNo)
-    {
-        auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
-        pView->move(QPoint(screenRes.x(), screenRes.y()));
-    }
+	const auto nScreens = QGuiApplication::screens().size();
+	if (nScreens > 0 && nScreens > m_secondScreenNo)
+	{
+		auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
+		pView->move(QPoint(screenRes.x(), screenRes.y()));
+	}
 
-    if (m_secondScreenSize.isNull())
-    {
-		pView->showFullScreen();
-    }
-    else
-    {
+	if (m_secondScreenSize.isNull()) { pView->showFullScreen(); }
+	else
+	{
 		pView->resize(m_secondScreenSize);
 		pView->show();
-    }
+	}
 }
 
 void MainWindowBase::show_hide_view() const
 {
-	static bool isAlreadyCalled = false;  // this line will only be called once!
+	static bool isAlreadyCalled = false; // this line will only be called once!
 
-	if (isAlreadyCalled)
-	{
-		return;
-	}
+	if (isAlreadyCalled) { return; }
 
-	isAlreadyCalled = true;  // prevents recursive calls (TODO: implement better)
+	isAlreadyCalled = true; // prevents recursive calls (TODO: implement better)
 
-	if (m_pSecondaryView->isHidden())
-	{
-        update_screen_visibility(m_pSecondaryView.get());
-	}
-	else
-	{
-		m_pSecondaryView->hide();
-	}
+	if (m_pSecondaryView->isHidden()) { update_screen_visibility(m_pSecondaryView.get()); }
+	else { m_pSecondaryView->hide(); }
 
 	ui_check_show_secondary_view(!m_pSecondaryView->isHidden());
 	isAlreadyCalled = false;
@@ -830,21 +733,15 @@ void MainWindowBase::show_hide_view() const
 void MainWindowBase::EvaluateInput()
 {
 #ifdef _WIN32
-    if (Gamepad::eState_ok != m_pGamepad->GetState())
-	{
-		return;
-	}
+	if (Gamepad::eState_ok != m_pGamepad->GetState()) { return; }
 
 	m_pGamepad->ReadData();
 
-	if (EvaluateSpecificInput(m_pGamepad.get()))
-	{
-		return;
-	}
+	if (EvaluateSpecificInput(m_pGamepad.get())) { return; }
 
 	if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hajime_mate)))
 	{
-        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
+		m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_reset_hold_first)))
 	{
@@ -856,55 +753,43 @@ void MainWindowBase::EvaluateInput()
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
 	{
-		if (eState_Holding == m_pController->GetCurrentState() &&
-				FighterEnum::First != m_pController->GetLead())
+		if (eState_Holding == m_pController->GetCurrentState() && FighterEnum::First != m_pController->GetLead())
 		{
 			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
 		}
-		else
-		{
-			m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
-		}
+		else { m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First); }
 	}
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
 	{
-		if (eState_Holding == m_pController->GetCurrentState() &&
-				FighterEnum::Second != m_pController->GetLead())
+		if (eState_Holding == m_pController->GetCurrentState() && FighterEnum::Second != m_pController->GetLead())
 		{
 			m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
 		}
-		else
-		{
-			m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
-		}
+		else { m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second); }
 	}
 	// reset
-	else if (
-		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
-		m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
+	else if (m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset)) &&
+	         m_pGamepad->IsPressed(Gamepad::EButton(m_controllerCfg.button_reset_2)))
 	{
-        m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
+		m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
 	}
 
 	// hansokumake fighter1
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_first)))
 	{
-		const bool revoke(m_pController->GetScore(
-							  FighterEnum::First, Point::Hansokumake) != 0);
+		const bool revoke(m_pController->GetScore(FighterEnum::First, Point::Hansokumake) != 0);
 		m_pController->DoAction(eAction_Hansokumake, FighterEnum::First, revoke);
 	}
 	// hansokumake fighter2
 	else if (m_pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_hansokumake_second)))
 	{
-		const bool revoke(m_pController->GetScore(
-							  FighterEnum::Second, Point::Hansokumake) != 0);
+		const bool revoke(m_pController->GetScore(FighterEnum::Second, Point::Hansokumake) != 0);
 		m_pController->DoAction(eAction_Hansokumake, FighterEnum::Second, revoke);
-
 	}
 	else
 	{
 		// TODO: don't calc this every time...
-		float sections[8][2] = {{0}};
+		float sections[8][2] = { { 0 } };
 		float angle = 360.0f;
 		float deadSpace = 2.0f;
 		float angle_adjustment = 5.0f;
@@ -1016,15 +901,13 @@ void MainWindowBase::update_fighter_name_font(const QFont& font)
 
 void MainWindowBase::on_button_reset_clicked()
 {
-//	QMessageBox::StandardButton answer =
-//		QMessageBox::question( this,
-//							   tr("Reset"),
-//							   tr("Really reset current fight?"),
-//							   QMessageBox::No | QMessageBox::Yes );
-//	if( QMessageBox::Yes == answer )
-	m_pController->DoAction(eAction_ResetAll,
-                        FighterEnum::Nobody,
-							false);
+	//	QMessageBox::StandardButton answer =
+	//		QMessageBox::question( this,
+	//							   tr("Reset"),
+	//							   tr("Really reset current fight?"),
+	//							   QMessageBox::No | QMessageBox::Yes );
+	//	if( QMessageBox::Yes == answer )
+	m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody, false);
 }
 
 void MainWindowBase::on_action_Info_Header_triggered(bool val)
@@ -1036,49 +919,38 @@ void MainWindowBase::on_action_Info_Header_triggered(bool val)
 void MainWindowBase::on_actionSet_Hold_Timer_triggered()
 {
 	bool ok(false);
-	const int seconds = QInputDialog::getInt(
-							this,
-							tr("Set Value"),
-							tr("Set value to (ss):"),
-							0,	// value
-							0,	// min
-							59,	// max
-							1,	// step
-							&ok);
+	const int seconds = QInputDialog::getInt(this,
+	                                         tr("Set Value"),
+	                                         tr("Set value to (ss):"),
+	                                         0,  // value
+	                                         0,  // min
+	                                         59, // max
+	                                         1,  // step
+	                                         &ok);
 
-	if (ok)
-	{
-		m_pController->SetTimerValue(eTimer_Hold, QString::number(seconds));
-	}
+	if (ok) { m_pController->SetTimerValue(eTimer_Hold, QString::number(seconds)); }
 }
 
 void MainWindowBase::on_actionSet_Main_Timer_triggered()
 {
 	// Note: this is implemented in the view as well!
 
-//	if( m_pController->GetCurrentState() == eState_SonoMama ||
-//		m_pController->GetCurrentState() == eState_TimerStopped )
+	//	if( m_pController->GetCurrentState() == eState_SonoMama ||
+	//		m_pController->GetCurrentState() == eState_TimerStopped )
 	{
 		bool ok(false);
-		const QString time = QInputDialog::getText(
-								 this,
-								 tr("Set Value"),
-								 tr("Set value to (m:ss):"),
-								 QLineEdit::Normal,
-								 m_pController->GetTimeText(eTimer_Main),
-								 &ok);
+		const QString time = QInputDialog::getText(this,
+		                                           tr("Set Value"),
+		                                           tr("Set value to (m:ss):"),
+		                                           QLineEdit::Normal,
+		                                           m_pController->GetTimeText(eTimer_Main),
+		                                           &ok);
 
-		if (ok)
-		{
-			m_pController->SetTimerValue(eTimer_Main, time);
-		}
+		if (ok) { m_pController->SetTimerValue(eTimer_Main, time); }
 	}
 }
 
-void MainWindowBase::update_statebar()
-{
-	qDebug() << "virtual function not implemented: " << __FUNCTION__;
-}
+void MainWindowBase::update_statebar() { qDebug() << "virtual function not implemented: " << __FUNCTION__; }
 
 void MainWindowBase::write_specific_settings(QSettings&)
 {

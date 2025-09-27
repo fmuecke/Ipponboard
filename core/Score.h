@@ -15,8 +15,7 @@ class AbstractRules;
 
 class Score
 {
-public:
-
+  public:
 	enum class Point
 	{
 		Ippon = 0,
@@ -27,10 +26,7 @@ public:
 		_MAX
 	};
 
-	Score()
-	{
-		Clear();
-	}
+	Score() { Clear(); }
 
 	Score& Add(Point point);
 	Score& Remove(Point point);
@@ -45,13 +41,13 @@ public:
 	bool Hansokumake() const { return Value(Point::Hansokumake) != 0; }
 	void Clear();
 
-protected:
+  protected:
 	virtual void correct_point(Point p);
 
-private:
+  private:
 	void correct_points();
 
 	int _points[static_cast<int>(Point::_MAX)];
 };
-} // namespace ipponboard
-#endif  // BASE__SCORE_H_
+} // namespace Ipponboard
+#endif // BASE__SCORE_H_

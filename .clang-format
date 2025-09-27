@@ -5,7 +5,7 @@ UseTab: ForIndentation
 ColumnLimit: 120
 PointerAlignment: Left
 DerivePointerAlignment: false
-AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortFunctionsOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
 AllowShortEnumsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: WithoutElse
@@ -16,6 +16,10 @@ NamespaceIndentation: None
 SortIncludes: false
 IncludeBlocks: Preserve
 AlignAfterOpenBracket: Align
+AlignOperands: Align
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ReflowComments: false
+BinPackArguments: false
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterNamespace: true
@@ -23,10 +27,11 @@ BraceWrapping:
   AfterStruct: true
   AfterEnum: true
   AfterFunction: true
-  AfterControlStatement: false
-  BeforeElse: false
-  BeforeCatch: false
+  AfterControlStatement: true
+  BeforeElse: true
+  BeforeCatch: true
   IndentBraces: false
   SplitEmptyFunction: false
-  SplitEmptyRecord: false
+  SplitEmptyRecord: true
   SplitEmptyNamespace: false
+Cpp11BracedListStyle: false

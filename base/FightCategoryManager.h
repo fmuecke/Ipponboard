@@ -22,7 +22,7 @@ namespace Ipponboard
 class FightCategoryMgr
 {
 	//Q_OBJECT
-public:
+  public:
 	static const char* const str_legacyConfigFileName;
 	static const char* const str_configFileName;
 
@@ -46,7 +46,7 @@ public:
 	void RemoveCategory(QString const& name);
 	int CategoryCount() const { return m_Categories.size(); }
 
-private:
+  private:
 	void load_default_categories();
 
 	FightCategoryList m_Categories;
@@ -54,4 +54,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif  // BASE__FIGHTCATEGORYMANAGER_H_
+#endif // BASE__FIGHTCATEGORYMANAGER_H_

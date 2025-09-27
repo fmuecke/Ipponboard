@@ -21,15 +21,12 @@ class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::Tourn
 {
 	Q_OBJECT
 
-public:
-	explicit ModeManagerDlg(
-		Ipponboard::TournamentMode::List const& modes,
-		QStringList const& templates,
-		QString const& currentModeId,
-		QWidget* parent = 0);
+  public:
+	explicit ModeManagerDlg(Ipponboard::TournamentMode::List const& modes, QStringList const& templates,
+	                        QString const& currentModeId, QWidget* parent = 0);
 	~ModeManagerDlg();
 
-private slots:
+  private slots:
 	// comboBoxes
 	void on_comboBox_mode_currentIndexChanged(int i);
 	void on_comboBox_template_currentIndexChanged(QString const& s);
@@ -51,14 +48,14 @@ private slots:
 	void on_lineEdit_subtitle_textChanged(QString const& s);
 	void on_lineEdit_timeOverrides_textChanged(QString const& s);
 
-private:
+  private:
 	void update_fights_per_round(Ipponboard::TournamentMode const& mode);
-	bool has_Mode() const { return m_currentIndex != -1;  }
+	bool has_Mode() const { return m_currentIndex != -1; }
 
 	Ipponboard::TournamentMode& GetMode(int i);
 	Ipponboard::TournamentMode& GetCurrentMode() { return GetMode(m_currentIndex); }
-    Ipponboard::TournamentMode m_DefaultMode{};
-	std::shared_ptr<Ui::ModeManagerDlg> m_pUi;  //TODO: use unique_ptr
+	Ipponboard::TournamentMode m_DefaultMode{};
+	std::shared_ptr<Ui::ModeManagerDlg> m_pUi; //TODO: use unique_ptr
 	int m_currentIndex;
 };
 

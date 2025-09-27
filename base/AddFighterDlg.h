@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-
 #ifndef ADDFIGHTERDLG_H
 #define ADDFIGHTERDLG_H
 
@@ -22,14 +21,14 @@ class AddFighterDlg : public QDialog
 {
 	Q_OBJECT
 
-public:
-    explicit AddFighterDlg(QWidget* parent = nullptr);
+  public:
+	explicit AddFighterDlg(QWidget* parent = nullptr);
 	~AddFighterDlg();
 
 	void SetClubs(QStringList clubs);
 	Ipponboard::Fighter GetFighter() const;
 
-private:
+  private:
 	Ui::AddFighterDlg* ui;
 };
 

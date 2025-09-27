@@ -21,8 +21,7 @@ const char* const FightCategoryMgr::str_legacyConfigFileName = "categories.json"
 const char* const FightCategoryMgr::str_configFileName = "categories.config";
 
 //---------------------------------------------------------
-FightCategoryMgr::FightCategoryMgr()
-	: m_Categories()
+FightCategoryMgr::FightCategoryMgr() : m_Categories()
 //---------------------------------------------------------
 {
 	LoadCategories();
@@ -36,13 +35,12 @@ FightCategoryMgr::~FightCategoryMgr()
 }
 
 //---------------------------------------------------------
-bool FightCategoryMgr::GetCategory(int index,
-								   Ipponboard::FightCategory& t) const
+bool FightCategoryMgr::GetCategory(int index, Ipponboard::FightCategory& t) const
 //---------------------------------------------------------
 {
 	try
 	{
-        t = m_Categories.at(static_cast<size_t>(index));
+		t = m_Categories.at(static_cast<size_t>(index));
 	}
 	catch (std::out_of_range&)
 	{
@@ -53,12 +51,10 @@ bool FightCategoryMgr::GetCategory(int index,
 }
 
 //---------------------------------------------------------
-bool FightCategoryMgr::GetCategory(QString const& name,
-								   Ipponboard::FightCategory& c) const
+bool FightCategoryMgr::GetCategory(QString const& name, Ipponboard::FightCategory& c) const
 //---------------------------------------------------------
 {
-	FightCategoryList::const_iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), name);
+	FightCategoryList::const_iterator iter = std::find(m_Categories.begin(), m_Categories.end(), name);
 
 	if (iter != m_Categories.end())
 	{
@@ -68,7 +64,6 @@ bool FightCategoryMgr::GetCategory(QString const& name,
 
 	return false;
 }
-
 
 //---------------------------------------------------------
 bool FightCategoryMgr::HasCategory(QString const& name) const
@@ -80,10 +75,8 @@ bool FightCategoryMgr::HasCategory(QString const& name) const
 	// return std::find_if( m_Classes.begin(), m_Classes.end(),
 	//		[name](TournamentClass t)->bool { return t.name == name; }
 
-	return std::find(m_Categories.begin(), m_Categories.end(), name)
-		   != m_Categories.end();
+	return std::find(m_Categories.begin(), m_Categories.end(), name) != m_Categories.end();
 }
-
 
 //---------------------------------------------------------
 void FightCategoryMgr::AddCategory(Ipponboard::FightCategory const& t)
@@ -91,7 +84,6 @@ void FightCategoryMgr::AddCategory(Ipponboard::FightCategory const& t)
 {
 	m_Categories.push_back(t);
 }
-
 
 //---------------------------------------------------------
 void FightCategoryMgr::AddCategory(QString const& name)
@@ -105,29 +97,24 @@ void FightCategoryMgr::AddCategory(QString const& name)
 void FightCategoryMgr::UpdateCategory(const Ipponboard::FightCategory& t)
 //---------------------------------------------------------
 {
-	if (t.ToString().isEmpty())
-		return;
+	if (t.ToString().isEmpty()) return;
 
-	FightCategoryList::iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), t.ToString());
+	FightCategoryList::iterator iter = std::find(m_Categories.begin(), m_Categories.end(), t.ToString());
 
-	if (iter == m_Categories.end())
-		Q_ASSERT(!"Critical: weight class not in list!");
+	if (iter == m_Categories.end()) Q_ASSERT(!"Critical: weight class not in list!");
 
 	*iter = t;
 }
 
 //---------------------------------------------------------
-void FightCategoryMgr::RenameCategory(QString const& oldName,
-									  QString const& newName)
+void FightCategoryMgr::RenameCategory(QString const& oldName, QString const& newName)
 //---------------------------------------------------------
 {
-	FightCategoryList::iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), oldName);
+	FightCategoryList::iterator iter = std::find(m_Categories.begin(), m_Categories.end(), oldName);
 
 	Q_ASSERT(iter != m_Categories.end() && "Critical: weight class not in list!");
-	Q_ASSERT(std::find(m_Categories.begin(), m_Categories.end(), newName) == m_Categories.end()
-			 && "Critical: new name already in list!");
+	Q_ASSERT(std::find(m_Categories.begin(), m_Categories.end(), newName) == m_Categories.end() &&
+	         "Critical: new name already in list!");
 
 	iter->Rename(newName);
 }
@@ -136,11 +123,9 @@ void FightCategoryMgr::RenameCategory(QString const& oldName,
 void FightCategoryMgr::RemoveCategory(QString const& name)
 //---------------------------------------------------------
 {
-	FightCategoryList::iterator iter =
-		std::find(m_Categories.begin(), m_Categories.end(), name);
+	FightCategoryList::iterator iter = std::find(m_Categories.begin(), m_Categories.end(), name);
 
-	if (iter == m_Categories.end())
-		Q_ASSERT(!"Critical: weight class not in list!");
+	if (iter == m_Categories.end()) Q_ASSERT(!"Critical: weight class not in list!");
 
 	m_Categories.erase(iter);
 }
@@ -149,8 +134,8 @@ void FightCategoryMgr::RemoveCategory(QString const& name)
 void FightCategoryMgr::LoadCategories()
 //---------------------------------------------------------
 {
-	auto configFile {fm::GetSettingsFilePath(str_configFileName)};
-	auto legacyFile {fm::GetSettingsFilePath(str_legacyConfigFileName)};
+	auto configFile{ fm::GetSettingsFilePath(str_configFileName) };
+	auto legacyFile{ fm::GetSettingsFilePath(str_legacyConfigFileName) };
 
 	try
 	{
@@ -176,10 +161,10 @@ void FightCategoryMgr::LoadCategories()
 	catch (std::exception const& e)
 	{
 		qWarning() << "Error loading categories, restoring defaults";
-        QMessageBox::critical(nullptr,
-							  QString(QObject::tr("Error")),
-							  QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.").arg(
-										  QString::fromStdString(e.what()))));
+		QMessageBox::critical(nullptr,
+		                      QString(QObject::tr("Error")),
+		                      QString(QObject::tr("Unable to load fight categories:\n%1\n\nRestoring defaults.")
+		                                  .arg(QString::fromStdString(e.what()))));
 
 		load_default_categories();
 	}
@@ -190,7 +175,7 @@ void FightCategoryMgr::SaveCategories()
 //---------------------------------------------------------
 {
 	qInfo() << "Saving categories to:" << str_configFileName;
-	auto filePath {fm::GetSettingsFilePath(str_configFileName)};
+	auto filePath{ fm::GetSettingsFilePath(str_configFileName) };
 	FightCategoryParser::ToIniFile(filePath, m_Categories);
 }
 

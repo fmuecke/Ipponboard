@@ -36,7 +36,7 @@ class Controller : public QObject, public IController, public IControllerCore
 {
 	Q_OBJECT
 
-public:
+  public:
 	static const char* const msg_Ippon;
 	static const char* const msg_WazariAwaseteIppon;
 	static const char* const msg_Wazaari;
@@ -58,7 +58,8 @@ public:
 	void RegisterView(IView* pView);
 	void RegisterView(IGoldenScoreView* pView);
 	int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const;
-	void DoAction(Ipponboard::EAction action, Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool doRevoke = false);
+	void DoAction(Ipponboard::EAction action, Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First,
+	              bool doRevoke = false);
 	Ipponboard::EState GetCurrentState() const { return m_State; }
 	Ipponboard::FighterEnum GetLead() const;
 	Ipponboard::FighterEnum GetLastHolder() const;
@@ -95,12 +96,11 @@ public:
 	// Allows tests to advance timers deterministically without relying on QTimer events.
 	void AdvanceTimerTicks(Ipponboard::ETimer timer, int ticks = 1);
 
-
 	IController const* GetIController() const { return this; }
 	IController* GetIController() { return this; }
 
 	// --- IControllerCore ---
-private:
+  private:
 	void start_timer(ETimer t) final;
 	void stop_timer(ETimer t) final;
 	void save_fight() final;
@@ -114,43 +114,29 @@ private:
 	bool is_option(Ipponboard::EOption option) const final { return GetOption(option); } // TODO: use GetOption!
 	bool is_auto_adjust() const final { return IsAutoAdjustPoints(); }
 
-public:
+  public:
 	// --- other functions ---
-	int GetFightCount() const
-	{
-		return static_cast<int>(m_Tournament.at(0)->size());
-	}
+	int GetFightCount() const { return static_cast<int>(m_Tournament.at(0)->size()); }
 
-	int GetRoundCount() const
-	{
-		return static_cast<int>(m_Tournament.size());
-	}
+	int GetRoundCount() const { return static_cast<int>(m_Tournament.size()); }
 
 	void NextFight();
 	void PrevFight();
 	void SetCurrentFight(unsigned int index);
 
-	int GetCurrentFight() const
-	{
-		return m_currentFight;
-	}
+	int GetCurrentFight() const { return m_currentFight; }
 
 	void SetCurrentRound(unsigned int index);
 
-	int GetCurrentRound() const
-	{
-		return m_currentRound;
-	}
+	int GetCurrentRound() const { return m_currentRound; }
 
 	void ClearFightsAndResetTimers();
 	void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
-	void SetFight(unsigned int tournament_index, unsigned int fight_index,
-				  const QString& weight, const QString& first_player_name,
-				  const QString& first_player_club, const QString& second_player_name,
-				  const QString& second_player_club, int yuko1 = -1,
-				  int wazaari1 = -1, int ippon1 = -1, int shido1 = -1,
-				  int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1,
-				  int ippon2 = -1, int shido2 = -1, int hansokumake2 = -1);
+	void SetFight(unsigned int tournament_index, unsigned int fight_index, const QString& weight,
+	              const QString& first_player_name, const QString& first_player_club, const QString& second_player_name,
+	              const QString& second_player_club, int yuko1 = -1, int wazaari1 = -1, int ippon1 = -1,
+	              int shido1 = -1, int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1, int ippon2 = -1,
+	              int shido2 = -1, int hansokumake2 = -1);
 	Ipponboard::Fight const& GetFight(unsigned int tournament_index, unsigned int fight_index) const;
 	void SetFighterName(Ipponboard::FighterEnum whos, const QString& name);
 
@@ -161,11 +147,11 @@ public:
 	void SetGongFile(const QString&);
 	QString const& GetGongFile() const;
 
-private slots:
+  private slots:
 	void update_main_time();
 	void update_hold_time();
 
-private:
+  private:
 	//	void AddPoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
 	//	void RemovePoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
 	//	void StartStopTimer_( Ipponboard::ETimer timer );
@@ -180,10 +166,7 @@ private:
 	void reset();
 	void reset_timer_value(Ipponboard::ETimer timer);
 
-	inline Ipponboard::Fight& current_fight()
-	{
-		return m_Tournament.at(m_currentRound)->at(m_currentFight);
-	}
+	inline Ipponboard::Fight& current_fight() { return m_Tournament.at(m_currentRound)->at(m_currentFight); }
 
 	inline Ipponboard::Fight const& current_fight() const
 	{
@@ -192,11 +175,11 @@ private:
 
 	Ipponboard::TournamentMode m_mode;
 	Ipponboard::Tournament m_Tournament;
-	std::vector<std::shared_ptr<TournamentModel> > m_TournamentModels;
+	std::vector<std::shared_ptr<TournamentModel>> m_TournamentModels;
 	int m_currentRound;
 	int m_currentFight;
 
-    std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
+	std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
 	Ipponboard::EState m_State;
 	QTimer* m_pTimerMain;
 	QTimer* m_pTimerHold;
@@ -211,7 +194,7 @@ private:
 	QTime m_roundTime;
 	QString m_weight_class;
 	std::bitset<eOption_MAX> m_options;
-	bool m_isAutoAdjustPoints { true };
+	bool m_isAutoAdjustPoints{ true };
 	QString m_labelHome;
 	QString m_labelGuest;
 	mutable std::unique_ptr<QSoundEffect> m_gongEffect;
@@ -220,5 +203,4 @@ private:
 };
 } // namespace Ipponboard
 
-#endif  // BASE__CONTROLLER_H_
-
+#endif // BASE__CONTROLLER_H_

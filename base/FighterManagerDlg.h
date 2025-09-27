@@ -10,20 +10,22 @@
 #include <QTreeWidgetItem>
 
 // forwards
-namespace Ui { class FighterManagerDlg; }
+namespace Ui
+{
+class FighterManagerDlg;
+}
 namespace Ipponboard
 {
 class Fighter;
 class FighterManager;
-}
+} // namespace Ipponboard
 class QListWidgetItem;
-
 
 class FighterManagerDlg : public QDialog
 {
 	Q_OBJECT
 
-public:
+  public:
 	enum EColumn
 	{
 		eColumn_club = 0,
@@ -34,19 +36,16 @@ public:
 		eColumn_MAX
 	};
 
-	explicit FighterManagerDlg(
-		Ipponboard::FighterManager& manager,
-		QWidget* parent = nullptr);
+	explicit FighterManagerDlg(Ipponboard::FighterManager& manager, QWidget* parent = nullptr);
 
 	virtual ~FighterManagerDlg();
 
 	void SetFilter(EColumn column, QString const& value);
 
-protected:
+  protected:
 	void changeEvent(QEvent* e);
 
-
-private slots:
+  private slots:
 	void on_treeWidget_fighters_itemChanged(QTreeWidgetItem* item, int column);
 	void on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column);
 	void on_pushButton_import_pressed();
@@ -57,7 +56,7 @@ private slots:
 	void on_pushButton_add_pressed();
 	void on_pushButton_settings_pressed();
 
-private:
+  private:
 	void populate_view();
 
 	Ui::FighterManagerDlg* ui;
