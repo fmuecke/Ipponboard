@@ -1,37 +1,38 @@
-BasedOnStyle: LLVM
+BasedOnStyle: Microsoft
 IndentWidth: 4
 TabWidth: 4
-UseTab: ForIndentation
+#UseTab: ForIndentation
 ColumnLimit: 120
+SortIncludes: true
+IncludeBlocks: Regroup #Preserve
 PointerAlignment: Left
 DerivePointerAlignment: false
-AllowShortFunctionsOnASingleLine: All
-AllowShortBlocksOnASingleLine: Always
-AllowShortEnumsOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: WithoutElse
-AllowShortLoopsOnASingleLine: true
-AllowShortCaseLabelsOnASingleLine: true
-SpaceBeforeParens: ControlStatements
-NamespaceIndentation: None
-SortIncludes: false
-IncludeBlocks: Preserve
-AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: Inline
+#AllowShortBlocksOnASingleLine: Always
+#AllowShortEnumsOnASingleLine: true
+#AllowShortIfStatementsOnASingleLine: WithoutElse
+#AllowShortLoopsOnASingleLine: true
+#AllowShortCaseLabelsOnASingleLine: true
+#SpaceBeforeParens: ControlStatements
+#NamespaceIndentation: None
+#AlignAfterOpenBracket: Align
 AlignOperands: Align
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ReflowComments: false
 BinPackArguments: false
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterNamespace: true
-  AfterClass: true
-  AfterStruct: true
-  AfterEnum: true
-  AfterFunction: true
-  AfterControlStatement: true
-  BeforeElse: true
-  BeforeCatch: true
-  IndentBraces: false
-  SplitEmptyFunction: false
-  SplitEmptyRecord: true
-  SplitEmptyNamespace: false
+BreakBeforeBraces: Allman
+#BreakBeforeBraces: Custom
+#BraceWrapping:
+#  AfterNamespace: true
+#  AfterClass: true
+#  AfterStruct: true
+#  AfterEnum: true
+#  AfterFunction: true
+#  AfterControlStatement: true
+#  BeforeElse: true
+#  BeforeCatch: true
+#  IndentBraces: false
+#  SplitEmptyFunction: false
+#  SplitEmptyRecord: true
+#  SplitEmptyNamespace: false
 Cpp11BracedListStyle: false
