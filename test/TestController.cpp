@@ -1,4 +1,5 @@
 #include "../core/Enums.h"
+#include "../core/Rules.h"
 #include "../util/catch2/catch.hpp"
 #include "ControllerTestHelpers.h"
 
@@ -77,6 +78,74 @@ TEST_CASE("[Controller] Hold scoring awards points over time")
     REQUIRE(controller.GetCurrentState() == eState_TimerStopped);
 }
 
+TEST_CASE("[Controller] Auto adjust hold respects active rule thresholds")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    auto rules = std::make_shared<Ipponboard::Rules2025>();
+    controller.SetRules(rules);
+    controller.SetAutoAdjustPoints(true);
+
+    fixture.startFight();
+    fixture.beginHold(FighterEnum::First);
+
+    const auto yukoAt = rules->GetOsaekomiValue(Score::Point::Yuko);
+    const auto wazaariAt = rules->GetOsaekomiValue(Score::Point::Wazaari);
+    const auto ipponAt = rules->GetOsaekomiValue(Score::Point::Ippon);
+
+    REQUIRE(yukoAt > 0);
+    REQUIRE(wazaariAt > yukoAt);
+    REQUIRE(ipponAt > wazaariAt);
+
+    fixture.advanceHoldTime(yukoAt - 1);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Yuko) == 0);
+
+    fixture.advanceHoldTime(1);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Yuko) == 1);
+    CHECK(controller.GetCurrentState() == eState_Holding);
+
+    fixture.advanceHoldTime(wazaariAt - yukoAt);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Yuko) == 0);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 1);
+    CHECK(controller.GetCurrentState() == eState_Holding);
+
+    fixture.advanceHoldTime(ipponAt - wazaariAt);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 0);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 1);
+    CHECK(controller.GetCurrentState() == eState_TimerStopped);
+}
+
+TEST_CASE("[Controller] Auto adjust second hold delivers awasete ippon")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    auto rules = std::make_shared<Ipponboard::Rules2025>();
+    controller.SetRules(rules);
+    controller.SetAutoAdjustPoints(true);
+
+    fixture.startFight();
+    fixture.beginHold(FighterEnum::First);
+
+    const auto wazaariAt = rules->GetOsaekomiValue(Score::Point::Wazaari);
+    REQUIRE(wazaariAt > 0);
+
+    fixture.advanceHoldTime(wazaariAt);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 1);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 0);
+    CHECK(controller.GetCurrentState() == eState_Holding);
+
+    controller.DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
+    CHECK(controller.GetCurrentState() == eState_TimerRunning);
+    controller.DoAction(eAction_ResetOsaeKomi, FighterEnum::First, true);
+
+    fixture.beginHold(FighterEnum::First);
+    fixture.advanceHoldTime(wazaariAt);
+
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 2);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 1);
+    CHECK(controller.GetCurrentState() == eState_TimerStopped);
+}
+
 TEST_CASE("[Controller] NextFight advances across rounds")
 {
     ControllerFixture fixture;
@@ -128,11 +197,35 @@ TEST_CASE("[Controller] Save fight persists elapsed time and saved flag")
     controller.DoAction(eAction_Hajime_Mate);
     controller.AdvanceTimerTicks(eTimer_Main, 2);
 
-    controller.DoAction(eAction_ResetMainTimer);
+    controller.NextFight();
 
     const auto& fight = controller.GetFight(0, 0);
     CHECK(fight.is_saved);
     CHECK(fight.GetSecondsElapsed() == 2);
+}
+
+TEST_CASE("[Controller] Reset main timer restores clock only")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initTournament(1, { QStringLiteral("-60") });
+
+    controller.DoAction(eAction_Wazaari, FighterEnum::First);
+    controller.DoAction(eAction_Shido, FighterEnum::Second);
+    controller.SetRoundTime(QTime(0, 1, 0));
+
+    controller.DoAction(eAction_Hajime_Mate);
+    controller.AdvanceTimerTicks(eTimer_Main, 5);
+    controller.DoAction(eAction_Hajime_Mate);
+    controller.DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true);
+
+    const auto mainTime = controller.GetTimeText(eTimer_Main);
+    const auto holdTime = controller.GetTimeText(eTimer_Hold);
+
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 1);
+    CHECK(controller.GetScore(FighterEnum::Second, Score::Point::Shido) == 1);
+    CHECK(mainTime == QStringLiteral("1:00"));
+    CHECK(holdTime == QStringLiteral("00"));
 }
 
 TEST_CASE("[Controller] Reset fight clears scores and timers")
@@ -145,15 +238,15 @@ TEST_CASE("[Controller] Reset fight clears scores and timers")
     controller.DoAction(eAction_Shido, FighterEnum::Second);
     controller.SetRoundTime(QTime(0, 1, 0));
 
-    controller.DoAction(eAction_Hajime_Mate);
-    controller.AdvanceTimerTicks(eTimer_Main, 5);
-    controller.DoAction(eAction_ResetMainTimer);
-    controller.DoAction(eAction_ResetMainTimer);
+    controller.DoAction(eAction_ResetAll);
+
+    const auto resetMain = controller.GetTimeText(eTimer_Main);
+    const auto resetHold = controller.GetTimeText(eTimer_Hold);
 
     CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 0);
     CHECK(controller.GetScore(FighterEnum::Second, Score::Point::Shido) == 0);
-    CHECK(controller.GetTimeText(eTimer_Main) == QStringLiteral("1:00"));
-    CHECK(controller.GetTimeText(eTimer_Hold) == QStringLiteral("00"));
+    CHECK(resetMain == QStringLiteral("0:30"));
+    CHECK(resetHold == QStringLiteral("00"));
 }
 
 TEST_CASE("[Controller] Open ended golden score increments main timer")
