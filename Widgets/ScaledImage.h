@@ -13,7 +13,7 @@ class ScaledImage : public QWidget
 {
 	Q_OBJECT
 
-  public:
+public:
 	explicit ScaledImage(QWidget* parent = 0);
 
 	void UpdateImage(const QString& fileName);
@@ -21,10 +21,10 @@ class ScaledImage : public QWidget
 	void paintEvent(QPaintEvent* pEvent);
 	void resizeEvent(QResizeEvent* pEvent);
 
-  private: //Data
+private: //Data
 	QImage m_Image;
 	QSize m_Size;
 	QColor m_BGColor;
 };
 
-#endif // WIDGETS__SCALEDIMAGE_H_
+#endif  // WIDGETS__SCALEDIMAGE_H_

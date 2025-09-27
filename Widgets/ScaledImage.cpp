@@ -11,21 +11,30 @@ namespace
 {
 QString normalizeResourcePath(const QString& fileName)
 {
-	if (fileName.startsWith(QStringLiteral(":/"))) { return fileName; }
+    if (fileName.startsWith(QStringLiteral(":/")))
+    {
+        return fileName;
+    }
 
-	if (fileName.startsWith(QStringLiteral(":res/"))) { return QStringLiteral(":/res/") + fileName.mid(5); }
+    if (fileName.startsWith(QStringLiteral(":res/")))
+    {
+        return QStringLiteral(":/res/") + fileName.mid(5);
+    }
 
-	if (fileName.startsWith(QStringLiteral(":")) && !fileName.startsWith(QStringLiteral(":/")))
-	{
-		return QStringLiteral(":/") + fileName.mid(2);
-	}
+    if (fileName.startsWith(QStringLiteral(":")) && !fileName.startsWith(QStringLiteral(":/")))
+    {
+        return QStringLiteral(":/") + fileName.mid(2);
+    }
 
-	return fileName;
+    return fileName;
 }
-} // namespace
+}
+
 
 ScaledImage::ScaledImage(QWidget* pParent)
-    : QWidget(pParent), m_Size(0, 0), m_BGColor(Qt::transparent) // normal background (transparent)
+	: QWidget(pParent)
+	, m_Size(0, 0)
+	, m_BGColor(Qt::transparent)    // normal background (transparent)
 {
 	UpdateImage(QStringLiteral(":/res/images/off.png"));
 }
@@ -58,7 +67,8 @@ void ScaledImage::paintEvent(QPaintEvent* event)
 	QPoint centerPoint(0, 0);
 
 	// Scale new image
-	QImage scaledImage = m_Image.scaled(m_Size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QImage scaledImage = m_Image.scaled(
+							 m_Size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 	// Calculate image center position into screen
 	centerPoint.setX((m_Size.width() - scaledImage.width()) / 2);

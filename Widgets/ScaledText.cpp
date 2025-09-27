@@ -8,24 +8,24 @@
 #include <algorithm>
 
 ScaledText::ScaledText(QWidget* pParent)
-    : QWidget(pParent),
-      m_Text(),
-      m_TextColor(Qt::color1) // normal foreground
-      ,
-      m_BGColor(Qt::transparent) // normal background (transparent)
-      ,
-      m_Alignment(Qt::AlignCenter),
-      m_pLayout(nullptr),
-      m_timerId(-1),
-      m_timerDelay(0),
-      m_textSize(eSize_normal),
-      m_isVisible(true),
-      m_isRotated(false)
+	: QWidget(pParent)
+	, m_Text()
+	, m_TextColor(Qt::color1)  // normal foreground
+	, m_BGColor(Qt::transparent)  // normal background (transparent)
+	, m_Alignment(Qt::AlignCenter)
+    , m_pLayout(nullptr)
+	, m_timerId(-1)
+	, m_timerDelay(0)
+	, m_textSize(eSize_normal)
+	, m_isVisible(true)
+    , m_isRotated(false)
 {
 	SetText("ScaledText");
 }
 
-void ScaledText::SetText(const QString& text, ETextSize size, bool rotate)
+void ScaledText::SetText(const QString& text,
+						 ETextSize size,
+						 bool rotate)
 {
 	set_size(size);
 
@@ -34,7 +34,7 @@ void ScaledText::SetText(const QString& text, ETextSize size, bool rotate)
 	else
 		m_Text = text;
 
-	m_isRotated = rotate;
+    m_isRotated = rotate;
 
 	update_text_metrics();
 
@@ -49,11 +49,13 @@ void ScaledText::SetFont(const QFont& font)
 	Redraw();
 }
 
-void ScaledText::SetFontAndColor(const QFont& font, const QColor& textColor, const QColor& bgColor)
+void ScaledText::SetFontAndColor(const QFont& font, const QColor& textColor,
+								 const QColor& bgColor)
 {
 	SetFont(font);
 	SetColor(textColor, bgColor);
 }
+
 
 void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 {
@@ -63,13 +65,25 @@ void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
 	Redraw();
 }
 
-void ScaledText::SetColor(const QColor& textColor) { SetColor(textColor, m_BGColor); }
+void ScaledText::SetColor(const QColor& textColor)
+{
+	SetColor(textColor, m_BGColor);
+}
 
-const QColor& ScaledText::GetColor() const { return m_TextColor; }
+const QColor& ScaledText::GetColor() const
+{
+	return m_TextColor;
+}
 
-const QColor& ScaledText::GetBgColor() const { return m_BGColor; }
+const QColor& ScaledText::GetBgColor() const
+{
+	return m_BGColor;
+}
 
-const QString& ScaledText::GetText() const { return m_Text; }
+const QString& ScaledText::GetText() const
+{
+	return m_Text;
+}
 
 void ScaledText::set_size(ETextSize size)
 {
@@ -77,25 +91,37 @@ void ScaledText::set_size(ETextSize size)
 	m_textSize = size;
 }
 
-ScaledText::ETextSize ScaledText::GetSize() const { return m_textSize; }
+ScaledText::ETextSize ScaledText::GetSize() const
+{
+	return m_textSize;
+}
 
 void ScaledText::SetBlinking(bool blink, int delay)
 {
-	if (blink && -1 != m_timerId && delay == m_timerDelay) return;
+	if (blink && -1 != m_timerId && delay == m_timerDelay)
+		return;
 
 	// kill old timer
-	if (-1 != m_timerId) killTimer(m_timerId);
+	if (-1 != m_timerId)
+		killTimer(m_timerId);
 
 	m_timerId = -1;
 	m_timerDelay = delay;
 	m_isVisible = true;
 
-	if (blink) m_timerId = startTimer(delay);
+	if (blink)
+		m_timerId = startTimer(delay);
 }
 
-bool ScaledText::IsBlinking() const { return (m_timerId != -1); }
+bool ScaledText::IsBlinking() const
+{
+	return (m_timerId != -1);
+}
 
-void ScaledText::Redraw() { update(); }
+void ScaledText::Redraw()
+{
+	update();
+}
 
 void ScaledText::paintEvent(QPaintEvent* event)
 {
@@ -107,9 +133,9 @@ void ScaledText::paintEvent(QPaintEvent* event)
 
 	if (m_isVisible)
 	{
-		painter.setRenderHint(QPainter::TextAntialiasing);
+        painter.setRenderHint(QPainter::TextAntialiasing);
 
-		if (m_pLayout)
+        if (m_pLayout)
 		{
 			painter.setPen(m_TextColor);
 
@@ -119,16 +145,16 @@ void ScaledText::paintEvent(QPaintEvent* event)
 			QTextLine line = m_pLayout->lineAt(0);
 			line.setLeadingIncluded(false);
 
-			const QRectF textRect = line.naturalTextRect();
-			Q_ASSERT(textRect == m_pLayout->boundingRect());
+            const QRectF textRect = line.naturalTextRect();
+            Q_ASSERT(textRect == m_pLayout->boundingRect());
 
-			auto w = textRect.width();
-			auto h = textRect.height();
-			qreal adjust_y{ 0 };
+            auto w = textRect.width();
+            auto h = textRect.height();
+            qreal adjust_y{0};
 
-			if (!m_isRotated)
+            if (!m_isRotated)
 			{
-				/*
+                /*
                     |    <-- Ascent
                     |    <-- Ascent
                     |    <-- Ascent
@@ -141,44 +167,53 @@ void ScaledText::paintEvent(QPaintEvent* event)
                     example: height=19, ascent=15, descent=4
                 */
 
-				if (eSize_full == m_textSize || eSize_uppercase == m_textSize)
+                if (eSize_full == m_textSize || eSize_uppercase == m_textSize)
 				{
-					//qDebug() << "rect.width:" << textRect.width() << " rect.height:" << textRect.height() << "descent:" << line.descent() << "ascent:" << line.ascent();
+                    //qDebug() << "rect.width:" << textRect.width() << " rect.height:" << textRect.height() << "descent:" << line.descent() << "ascent:" << line.ascent();
 
-					// remove descent space
-					h = line.ascent(); // h => 15
+                    // remove descent space
+                    h = line.ascent();     // h => 15
 
-					// make extra ascent space a little smaller (almost never used)
-					h -= line.descent() / 2.0; // h => 13
+                    // make extra ascent space a little smaller (almost never used)
+                    h -= line.descent() / 2.0;  // h => 13
 
-					// calc vertical adjustment
-					adjust_y -= line.descent() / line.ascent(); // 4/15 => 0,266
+                    // calc vertical adjustment
+                    adjust_y -= line.descent() / line.ascent();  // 4/15 => 0,266
+                }
+				else
+				{
+                    adjust_y = line.descent() / line.ascent();
 				}
-				else { adjust_y = line.descent() / line.ascent(); }
-			}
+            }
 
-			// consider that italic text is a little wider than normal text
-			const qreal italicFactor = this->fontInfo().italic() ? 1.03 : 1.0;
-			qreal zoomFactor{ 0 };
+            // consider that italic text is a little wider than normal text
+            const qreal italicFactor = this->fontInfo().italic() ? 1.03 : 1.0;
+            qreal zoomFactor{0};
 
-			if (m_isRotated)
+            if (m_isRotated)
+            {
+                painter.rotate(-60.0);
+                zoomFactor = std::min<qreal>(width() / h, height() / italicFactor / w);
+            }
+            else
+            {
+                zoomFactor = std::min<qreal>(width() / italicFactor / w, height() / h);
+            }
+
+            QPointF center = textRect.center();
+
+            if (Qt::AlignLeft == m_Alignment)
 			{
-				painter.rotate(-60.0);
-				zoomFactor = std::min<qreal>(width() / h, height() / italicFactor / w);
+                center.setX(width() / 2.0 / italicFactor / zoomFactor);
 			}
-			else { zoomFactor = std::min<qreal>(width() / italicFactor / w, height() / h); }
-
-			QPointF center = textRect.center();
-
-			if (Qt::AlignLeft == m_Alignment) { center.setX(width() / 2.0 / italicFactor / zoomFactor); }
 			else if (Qt::AlignRight == m_Alignment)
 			{
-				center.setX(-width() / 2.0 / italicFactor / zoomFactor + center.x() * 2);
+                center.setX(-width() / 2.0 / italicFactor / zoomFactor + center.x() * 2);
 			}
 
-			center.setY(center.y() + adjust_y);
+            center.setY(center.y() + adjust_y);
 
-			painter.scale(zoomFactor, zoomFactor);
+            painter.scale(zoomFactor, zoomFactor);
 			line.draw(&painter, -center);
 		}
 	}

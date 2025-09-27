@@ -10,29 +10,29 @@
 
 namespace fm
 {
-namespace qt
-{
-inline std::string to_utf8_str(QString const& qStr)
-{
+    namespace qt
+    {
+        inline std::string to_utf8_str(QString const& qStr)
+        {
 #if QT_VERSION >= 0x050000
-	return qStr.toStdString();
+            return qStr.toStdString();
 #else
-	auto byteArray = qStr.toUtf8();
-	std::string result(byteArray.constData(), byteArray.length());
-	return result;
+            auto byteArray = qStr.toUtf8();
+            std::string result(byteArray.constData(), byteArray.length());
+            return result;
 #endif
-}
+        }
 
-inline QString from_utf8_str(std::string const& str)
-{
+        inline QString from_utf8_str(std::string const& str)
+        {
 #if QT_VERSION >= 0x050000
-	return QString::fromStdString(str);
+            return QString::fromStdString(str);
 #else
-	return QString::fromUtf8(str.c_str(), str.length());
+            return QString::fromUtf8(str.c_str(), str.length());
 #endif
-}
+        }
 
-} // namespace qt
-} // namespace fm
+    }
+}
 
 #endif // FM_QT_HELPERS_H

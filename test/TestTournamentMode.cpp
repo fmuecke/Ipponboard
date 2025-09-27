@@ -27,6 +27,7 @@ struct IpponboardTest
 		config.endGroup();
 		return readSuccess;
 	}
+
 };
 
 TEST_CASE("[TournamentMode] Test_parse_current_group")
@@ -34,15 +35,16 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 	const auto iniFile = QString::fromStdString(ippn_test_data_path("TournamentModes-test.ini").string());
 	QSettings config(iniFile, QSettings::IniFormat);
 	QStringList groups;
-	groups << "basic"
-	       << "with_weights_doubled"
-	       << "with_time_overrides"
-	       << "template_not_found"
-	       << "no_title"
-	       << "no_weights"
-	       << "no_rounds"
-	       << "no_template"
-	       << "no_fight_time";
+	groups
+			<< "basic"
+			<< "with_weights_doubled"
+			<< "with_time_overrides"
+			<< "template_not_found"
+			<< "no_title"
+			<< "no_weights"
+			<< "no_rounds"
+			<< "no_template"
+			<< "no_fight_time";
 
 	REQUIRE(groups.count() == config.childGroups().count());
 
