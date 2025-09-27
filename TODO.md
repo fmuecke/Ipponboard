@@ -1,6 +1,9 @@
 A. ✅ Modularise CMake: completed by introducing dedicated `IpponboardCore`, `IpponboardWidgets`, and `IpponboardUi` libraries that the app/tests now consume.
 
-B. Controller Decomposition: timer scheduling/audio now routed through `TimerService`; next steps are extracting tournament navigation and persistence helpers.
+B. Controller Decomposition:
+   1. Characterise fight navigation (`NextFight`/`PrevFight`, round transitions, golden-score resets) with unit tests so regressions surface.
+   2. Extract a `TournamentNavigator` (round/fight index management + view updates) from `Controller` once tests are in place.
+   3. Move persistence helpers (`save_fight`, `reset_fight`, `ClearFightsAndResetTimers`) behind a repository-like seam so controller focuses on orchestration.
 
 C. State Machine Clarity: the Boost.MSM table in core/StateMachine.h:220 is hard to reason about. Introduce named transition helpers or wrap MSM events in a thin façade so guard/action ordering becomes explicit, easing future rule tweaks.
 
@@ -12,7 +15,10 @@ F. ✅ Modernise Qt Usage: audited remaining modules; legacy SIGNAL/SLOT, QRegEx
 
 F2. Qt Thread Storage shutdown noise: investigate the lingering `QThreadStorage ... destroyed` warning that appears after tests to confirm no latent lifecycle issues before moving to Qt6.
 
-G. Testing Strategy: broaden coverage around the controller/tournament flows by reusing the fixtures. For UI, favour presenter-level tests that assert plain structs rather than widget hierarchies—reduces the need for full QWidget builds during unit runs.
+G. Testing Strategy:
+   1. Extend controller fixture tests to cover fight navigation, save/reset flows, and option toggles (auto-adjust, open-ended GS) so refactors stay safe.
+   2. Add characterisation tests for `TournamentModel` sorting/filtering and the score view presenters before touching their internals.
+   3. For UI-heavy dialogs, prefer presenter/adapter tests (e.g., `SettingsDlg` sound preview, `ClubManagerDlg` file handling) instead of QWidget assertions.
 
 H. ✅ Coding Conventions: `.clang-format` and refreshed naming guidance now live in the repo. Next push is enforcing RAII/[[nodiscard]] rules per core/Score.h style and untangling `../` includes via target dirs.
 
