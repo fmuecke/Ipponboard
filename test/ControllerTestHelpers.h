@@ -1,17 +1,16 @@
 #pragma once
 
 #include "../core/Controller.h"
-#include "../core/StateMachine.h"
+#include "../core/Enums.h"
+#include "../core/Fight.h"
 #include "../core/Rules.h"
+#include "../core/Score.h"
+#include "../core/StateMachine.h"
 #include "../core/TournamentMode.h"
 #include "../core/TournamentModel.h"
-#include "../core/Fight.h"
-#include "../core/Score.h"
-#include "../core/Enums.h"
 #include "TestQtApp.h"
 
 #include <QTime>
-
 #include <initializer_list>
 #include <memory>
 #include <set>
@@ -22,9 +21,7 @@ namespace TestSupport
 
 struct ControllerFixture
 {
-    ControllerFixture()
-        : app(ensure_qt_app())
-        , controller()
+    ControllerFixture() : app(ensure_qt_app()), controller()
     {
         controller.SetRoundTime(QTime(0, 0, 30));
     }
@@ -32,10 +29,7 @@ struct ControllerFixture
     QCoreApplication& app;
     Ipponboard::Controller controller;
 
-    void startFight()
-    {
-        controller.DoAction(Ipponboard::eAction_Hajime_Mate);
-    }
+    void startFight() { controller.DoAction(Ipponboard::eAction_Hajime_Mate); }
 
     void advanceMainTime(int ticks)
     {
@@ -55,7 +49,12 @@ struct ControllerFixture
 
 struct RecordingControllerCore : public Ipponboard::IControllerCore
 {
-    enum class TimerEventType { Start, Stop, Reset };
+    enum class TimerEventType
+    {
+        Start,
+        Stop,
+        Reset
+    };
 
     struct TimerEvent
     {
@@ -64,9 +63,7 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
     };
 
     RecordingControllerCore()
-        : time_values{0, 0}
-        , scores{}
-        , rules(std::make_shared<Ipponboard::Rules2018>())
+        : time_values{ 0, 0 }, scores{}, rules(std::make_shared<Ipponboard::Rules2018>())
     {
         scores[0].Clear();
         scores[1].Clear();
@@ -74,27 +71,21 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
 
     void start_timer(Ipponboard::ETimer timer) override
     {
-        timer_events.push_back({TimerEventType::Start, timer});
+        timer_events.push_back({ TimerEventType::Start, timer });
     }
 
     void stop_timer(Ipponboard::ETimer timer) override
     {
-        timer_events.push_back({TimerEventType::Stop, timer});
+        timer_events.push_back({ TimerEventType::Stop, timer });
     }
 
-    void save_fight() override
-    {
-        fight_saved = true;
-    }
+    void save_fight() override { fight_saved = true; }
 
-    void reset_fight() override
-    {
-        fight_reset = true;
-    }
+    void reset_fight() override { fight_reset = true; }
 
     void reset_timer(Ipponboard::ETimer timer) override
     {
-        timer_events.push_back({TimerEventType::Reset, timer});
+        timer_events.push_back({ TimerEventType::Reset, timer });
         time_values[static_cast<int>(timer)] = 0;
     }
 
@@ -113,50 +104,26 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
         return time_values[static_cast<int>(timer)];
     }
 
-    bool is_sonomama() const override
-    {
-        return sonomama;
-    }
+    bool is_sonomama() const override { return sonomama; }
 
-    bool is_golden_score() const override
-    {
-        return golden_score;
-    }
+    bool is_golden_score() const override { return golden_score; }
 
-    bool is_option(Ipponboard::EOption option) const override
-    {
-        return options.count(option) != 0;
-    }
+    bool is_option(Ipponboard::EOption option) const override { return options.count(option) != 0; }
 
-    bool is_auto_adjust() const override
-    {
-        return auto_adjust;
-    }
+    bool is_auto_adjust() const override { return auto_adjust; }
 
-    std::shared_ptr<Ipponboard::AbstractRules> GetRules() const override
-    {
-        return rules;
-    }
+    std::shared_ptr<Ipponboard::AbstractRules> GetRules() const override { return rules; }
 
     void set_time(Ipponboard::ETimer timer, int seconds)
     {
         time_values[static_cast<int>(timer)] = seconds;
     }
 
-    void set_sonomama(bool value)
-    {
-        sonomama = value;
-    }
+    void set_sonomama(bool value) { sonomama = value; }
 
-    void set_golden_score(bool value)
-    {
-        golden_score = value;
-    }
+    void set_golden_score(bool value) { golden_score = value; }
 
-    void set_auto_adjust(bool value)
-    {
-        auto_adjust = value;
-    }
+    void set_auto_adjust(bool value) { auto_adjust = value; }
 
     void set_rules(std::shared_ptr<Ipponboard::AbstractRules> new_rules)
     {
@@ -173,10 +140,7 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
         return scores[static_cast<int>(who)];
     }
 
-    void clear_timer_events()
-    {
-        timer_events.clear();
-    }
+    void clear_timer_events() { timer_events.clear(); }
 
     void clear_observations()
     {
@@ -198,15 +162,15 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
     }
 
     std::vector<TimerEvent> timer_events;
-    bool fight_saved { false };
-    bool fight_reset { false };
+    bool fight_saved{ false };
+    bool fight_reset{ false };
 
-private:
+  private:
     int time_values[2];
     Ipponboard::Score scores[static_cast<int>(Ipponboard::FighterEnum::_MAX)];
-    bool sonomama { false };
-    bool golden_score { false };
-    bool auto_adjust { true };
+    bool sonomama{ false };
+    bool golden_score{ false };
+    bool auto_adjust{ true };
     std::set<Ipponboard::EOption> options;
     std::shared_ptr<Ipponboard::AbstractRules> rules;
 };
@@ -219,11 +183,7 @@ struct StateMachineFixture
         machine.start();
     }
 
-    template <typename Event>
-    void process(Event const& event)
-    {
-        machine.process_event(event);
-    }
+    template <typename Event> void process(Event const& event) { machine.process_event(event); }
 
     RecordingControllerCore core;
     Ipponboard::IpponboardSM machine;

@@ -6,19 +6,20 @@
 #define FIGHTCATEGORYPARSER_H
 
 #include "../core/FightCategory.h"
+
 #include <string>
 
 class FightCategoryParser
 {
-public:
-	FightCategoryParser();
+  public:
+    FightCategoryParser();
 
-	//> legacy (old format)
-	static Ipponboard::FightCategoryList ParseJsonFile(const QString& file);
+    //> legacy (old format)
+    static Ipponboard::FightCategoryList ParseJsonFile(const QString& file);
 
-	// Qt settings format
-	static Ipponboard::FightCategoryList ParseIniFile(const QString& file);
-	static void ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories);
+    // Qt settings format
+    static Ipponboard::FightCategoryList ParseIniFile(const QString& file);
+    static void ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories);
 };
 
 #endif // FIGHTCATEGORYPARSER_H

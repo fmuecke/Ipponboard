@@ -5,8 +5,8 @@
 #ifndef GAMEPADDEMO__GAMEPADDEMO_H_
 #define GAMEPADDEMO__GAMEPADDEMO_H_
 
-#include <QMainWindow>
 #include <QLabel>
+#include <QMainWindow>
 #include <memory>
 
 namespace Ui
@@ -21,24 +21,24 @@ class Gamepad;
 
 class GamepadDemo : public QMainWindow
 {
-	Q_OBJECT
-public:
-	GamepadDemo(QWidget* parent = 0);
-	~GamepadDemo();
+    Q_OBJECT
+  public:
+    GamepadDemo(QWidget* parent = 0);
+    ~GamepadDemo();
 
-protected:
-	void changeEvent(QEvent* e);
-	void UpdateButtonState(unsigned button) const;
-	void UpdateCapabilities();
+  protected:
+    void changeEvent(QEvent* e);
+    void UpdateButtonState(unsigned button) const;
+    void UpdateCapabilities();
 
-private slots:
-	void GetData();
+  private slots:
+    void GetData();
 
-private:
-	std::unique_ptr<Ui::GamepadDemo> ui;
-	QLabel* m_pSBarText;
-	QTimer* m_pTimer;
-	std::unique_ptr<FMlib::Gamepad> m_pGamepad;
+  private:
+    std::unique_ptr<Ui::GamepadDemo> ui;
+    QLabel* m_pSBarText;
+    QTimer* m_pTimer;
+    std::unique_ptr<FMlib::Gamepad> m_pGamepad;
 };
 
-#endif  // GAMEPADDEMO__GAMEPADDEMO_H_
+#endif // GAMEPADDEMO__GAMEPADDEMO_H_
