@@ -17,7 +17,7 @@ F. ✅ Modernise Qt Usage: audited remaining modules; legacy SIGNAL/SLOT, QRegEx
 F2. Qt Thread Storage shutdown noise: investigate the lingering `QThreadStorage ... destroyed` warning that appears after tests to confirm no latent lifecycle issues before moving to Qt6.
 
 G. Testing Strategy:
-   1. Extend controller fixture tests to cover fight navigation, save/reset flows, and option toggles (auto-adjust, open-ended GS) so refactors stay safe.
+   ✅ Extended controller fixture tests to cover fight navigation, save/reset flows, and option toggles.
    2. Add characterisation tests for `TournamentModel` sorting/filtering and the score view presenters before touching their internals.
    3. For UI-heavy dialogs, prefer presenter/adapter tests (e.g., `SettingsDlg` sound preview, `ClubManagerDlg` file handling) instead of QWidget assertions.
 
