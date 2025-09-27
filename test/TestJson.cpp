@@ -5,13 +5,17 @@
 #include "../util/catch2/catch.hpp"
 #include "../util/json.hpp"
 #include "../util/jsoncpp/json.cpp"
+#include "TestDataPath.h"
 
 TEST_CASE("[json] read file")
 {
 	try
 	{
-        auto value1 = fm::Json::ReadFile("TestData/utf8_with_bom.json");
-        auto value2 = fm::Json::ReadFile("TestData/utf8.json");
+        const auto fileWithBom = ippn_test_data_string("utf8_with_bom.json");
+        const auto fileUtf8 = ippn_test_data_string("utf8.json");
+
+        auto value1 = fm::Json::ReadFile(fileWithBom.c_str());
+        auto value2 = fm::Json::ReadFile(fileUtf8.c_str());
 
 		REQUIRE(value1.toStyledString() == value2.toStyledString());
 	}
@@ -33,7 +37,8 @@ TEST_CASE("[json] read string")
 	try
 	{
 		auto value1 = fm::Json::ReadString(str);
-        auto value2 = fm::Json::ReadFile("TestData/utf8.json");
+        const auto fileUtf8 = ippn_test_data_string("utf8.json");
+        auto value2 = fm::Json::ReadFile(fileUtf8.c_str());
 
 		REQUIRE(value1.toStyledString() == value2.toStyledString());
 	}
@@ -42,4 +47,3 @@ TEST_CASE("[json] read string")
 		REQUIRE(e.what() == 0);
 	}
 }
-

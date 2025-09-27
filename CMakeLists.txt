@@ -78,7 +78,6 @@ if (MSVC)
 endif()
 
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F02)
-
 # Add targets
 add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
 add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)

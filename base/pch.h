@@ -29,11 +29,7 @@
 // boost
 //
 #include <boost/utility.hpp>
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS		// needed for msm
-#define BOOST_MPL_LIMIT_VECTOR_SIZE	50			// needed for msm
-#define BOOST_MPL_LIMIT_MAP_SIZE		50			// needed for msm
-#include <boost/msm/back/state_machine.hpp>
-#include <boost/msm/front/state_machine_def.hpp>
+#include "../core/MsmIncludes.h"
 
 
 //

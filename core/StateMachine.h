@@ -5,9 +5,9 @@
 #ifndef BASE__STATEMACHINE_H_
 #define BASE__STATEMACHINE_H_
 
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#define BOOST_MPL_LIMIT_VECTOR_SIZE	50
-#define BOOST_MPL_LIMIT_MAP_SIZE	50
+#pragma warning (disable: 4512 4127 4100) // warning C4512: assignment operator could not be generated, C4100: unreferenced formal parameter
+#include "MsmIncludes.h"
+#pragma warning (default: 4512 4127 4100)
 
 // workaround for following error:
 //   boost/type_traits/detail/has_binary_operator.hp(50): Parse error at "BOOST_JOIN"
@@ -15,10 +15,6 @@
 
 #include <iostream>
 #include <string>
-#pragma warning (disable: 4512 4127 4100) // warning C4512: assignment operator could not be generated, C4100: unreferenced formal parameter
-#include <boost/msm/back/state_machine.hpp>
-#include <boost/msm/front/state_machine_def.hpp>
-#pragma warning (default: 4512 4127 4100)
 #include "Enums.h"
 #include "Score.h"
 #include "iControllerCore.h"
