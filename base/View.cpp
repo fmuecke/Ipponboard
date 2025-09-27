@@ -13,6 +13,12 @@
 #include <QFontDatabase>
 #include <QMenu>
 #include <QInputDialog>
+#include <QResource>
+
+static const int resourceInitialized = []() {
+    Q_INIT_RESOURCE(ipponboard);
+    return 0;
+}();
 
 using namespace Ipponboard;
 using Point = Score::Point;
