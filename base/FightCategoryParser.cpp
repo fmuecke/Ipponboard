@@ -13,9 +13,12 @@ namespace Tags
 static const char* const Weights = "Weights";
 static const char* const RoundTime = "RoundTimeInSecs";
 static const char* const GoldenScoreTime = "GoldenScoreTimeInSecs";
-} // namespace Tags
+}
 
-FightCategoryParser::FightCategoryParser() {}
+FightCategoryParser::FightCategoryParser()
+{
+
+}
 
 void FightCategoryParser::ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories)
 {
@@ -23,7 +26,7 @@ void FightCategoryParser::ToIniFile(const QString& file, Ipponboard::FightCatego
 	settings.setIniCodec("UTF-8");
 	settings.clear();
 
-	for (auto const& cat : categories)
+	for (auto const & cat : categories)
 	{
 		settings.beginGroup(cat.ToString());
 		{
@@ -42,7 +45,7 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& f
 
 	Ipponboard::FightCategoryList categories;
 
-	for (auto const& group : settings.childGroups())
+	for (auto const & group : settings.childGroups())
 	{
 		Ipponboard::FightCategory cat(group);
 		settings.beginGroup(group);
@@ -73,11 +76,12 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& f
 	return categories;
 }
 
+
 Ipponboard::FightCategoryList ParseJson(Json::Value const& json)
 {
 	Ipponboard::FightCategoryList categories;
 
-	for (fm::Json::Value const& jsonCat : json)
+	for (fm::Json::Value const & jsonCat : json)
 	{
 		Ipponboard::FightCategory cat(fm::qt::from_utf8_str(jsonCat["name"].asString()));
 		cat.SetRoundTime(jsonCat["round_time_secs"].asInt());
@@ -96,3 +100,4 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const QString& 
 	auto json = fm::Json::ReadFile(file.toStdString().c_str());
 	return ParseJson(json);
 }
+

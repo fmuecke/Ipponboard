@@ -30,7 +30,7 @@ class Controller;
 class ClubManager;
 class FightCategoryMgr;
 class ScoreScreen;
-} // namespace Ipponboard
+}
 class QSettings;
 
 namespace FMlib
@@ -91,7 +91,7 @@ static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
 class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ipponboard::IGoldenScoreView
 {
 	Q_OBJECT
-  public:
+public:
 	explicit MainWindowBase(QWidget* parent = nullptr);
 	virtual ~MainWindowBase();
 
@@ -109,9 +109,9 @@ class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ippo
 	virtual void SetShowInfoHeader(bool /*show*/) {}
 
 	/* IGoldenScoreView */
-	virtual void UpdateGoldenScoreView(){};
+	virtual void UpdateGoldenScoreView() {};
 
-  protected:
+protected:
 	virtual void changeEvent(QEvent*) override;
 	virtual void closeEvent(QCloseEvent*) override;
 	virtual void keyPressEvent(QKeyEvent*) override;
@@ -121,7 +121,7 @@ class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ippo
 	void load_fighters();
 	void save_fighters();
 	virtual void update_views();
-	virtual void update_screen_visibility(QWidget* pView) const;
+    virtual void update_screen_visibility(QWidget* pView) const;
 	virtual void update_statebar();
 	virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
 	virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
@@ -133,13 +133,13 @@ class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ippo
 	virtual void ui_check_rules_items() = 0;
 	virtual void ui_check_show_secondary_view(bool checked) const = 0;
 
-  private:
+private:
 	virtual void write_specific_settings(QSettings& settings);
 	virtual void read_specific_settings(QSettings& settings);
 	void change_lang(bool beQuiet = false);
 	void show_hide_view() const;
 
-  protected slots:
+protected slots:
 	void on_actionSet_Main_Timer_triggered();
 	void on_actionSet_Hold_Timer_triggered();
 	void on_action_Info_Header_triggered(bool checked);
@@ -166,7 +166,8 @@ class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ippo
 	virtual void on_actionManageFighters_triggered() {}
 	virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
-  protected:
+
+protected:
 	virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
 
 	std::shared_ptr<Ipponboard::View> m_pPrimaryView;
@@ -181,10 +182,10 @@ class MainWindowBase : public QMainWindow, public Ipponboard::IView, public Ippo
 	QSize m_secondScreenSize;
 	Ipponboard::ControllerConfig m_controllerCfg;
 
-  private:
+private:
 #ifdef _WIN32
 	PGamepad m_pGamepad;
 #endif
 };
 
-#endif // BASE__MAINWINDOW_BASE_H_
+#endif  // BASE__MAINWINDOW_BASE_H_

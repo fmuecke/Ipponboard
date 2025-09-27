@@ -14,9 +14,9 @@ class IController;
 
 class IGoldenScoreView
 {
-  public:
+public:
 	virtual void UpdateGoldenScoreView() = 0;
 };
 
-} // namespace Ipponboard
-#endif // CORE__IGOLDENSCOREVIEW_H_
+}
+#endif  // CORE__IGOLDENSCOREVIEW_H_

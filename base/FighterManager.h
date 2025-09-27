@@ -18,10 +18,10 @@ namespace Ipponboard
 
 class FighterManager
 {
-  public:
+public:
 	FighterManager();
 	FighterManager(const FighterManager&) = delete;
-	FighterManager& operator=(const FighterManager&) = delete;
+    FighterManager& operator=(const FighterManager&) = delete;
 
 	static char const* const str_FIRSTNAME;
 	static char const* const str_LASTNAME;
@@ -45,11 +45,12 @@ class FighterManager
 	bool RemoveFighter(Ipponboard::Fighter f);
 	QStringList GetClubFighterNames(QString const& filter) const;
 
-	//private:
+//private:
 	std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
-  private:
+private:
+
 };
 
-} // namespace Ipponboard
+}  // namespace Ipponboard
 
 #endif // _BASE_FIGHTERMANAGER_H

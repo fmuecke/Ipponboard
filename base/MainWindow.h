@@ -9,25 +9,22 @@
 #include "../util/helpers.hpp"
 #include <memory>
 
-namespace Ui
-{
-class MainWindow;
-}
+namespace Ui { class MainWindow; }
 
 class MainWindow : public MainWindowBase
 {
 	Q_OBJECT
-  public:
+public:
 	explicit MainWindow(QWidget* parent = nullptr);
 	virtual ~MainWindow();
 
 	virtual void Init() final;
 
-	virtual EditionType Edition() const final { return EditionType::Single; }
-	virtual const char* EditionName() const final { return "Single Edition"; }
-	virtual const char* EditionNameShort() const final { return "Single"; }
+	virtual EditionType Edition() const final			{ return EditionType::Single; }
+	virtual const char* EditionName() const final		{ return "Single Edition"; }
+	virtual const char* EditionNameShort() const final	{ return "Single"; }
 
-  protected:
+protected:
 	virtual void UpdateGoldenScoreView() final;
 	//virtual void changeEvent(QEvent* e) override;
 	//virtual void closeEvent(QCloseEvent* event) override;
@@ -42,7 +39,7 @@ class MainWindow : public MainWindowBase
 	virtual void ui_check_show_secondary_view(bool checked) const final;
 	virtual void ui_update_used_options();
 
-  private:
+private:
 	//void update_info_text_color(const QColor& color, const QColor& bgColor) override;
 	//void update_text_color_first(const QColor& color, const QColor& bgColor) override;
 	//void update_text_color_second(const QColor& color, const QColor& bgColor) override;
@@ -56,7 +53,7 @@ class MainWindow : public MainWindowBase
 	/* base class slot overrides */
 	virtual void on_actionManageFighters_triggered() override;
 
-  protected slots:
+protected slots:
 	//virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
 
 	/* specific private slots */
@@ -67,16 +64,16 @@ class MainWindow : public MainWindowBase
 	void on_checkBox_golden_score_clicked(bool checked);
 	void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
-  private slots:
+private slots:
 	void on_actionAutoAdjustPoints_toggled(bool checked) override;
 	void on_actionViewInfoBar_toggled(bool checked);
 	void on_toolButton_viewSecondaryScreen_toggled();
 
-  private:
+private:
 	/* member */
 	std::unique_ptr<Ui::MainWindow> m_pUi;
 	std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_CurrentFighterNames;
 };
 
-#endif // BASIC_EDITION_MAINWINDOW_H_
+#endif  // BASIC_EDITION_MAINWINDOW_H_

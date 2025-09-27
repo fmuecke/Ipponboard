@@ -8,9 +8,17 @@
 
 using namespace Ipponboard;
 
-AddFighterDlg::AddFighterDlg(QWidget* parent) : QDialog(parent), ui(new Ui::AddFighterDlg) { ui->setupUi(this); }
+AddFighterDlg::AddFighterDlg(QWidget* parent) :
+	QDialog(parent),
+	ui(new Ui::AddFighterDlg)
+{
+	ui->setupUi(this);
+}
 
-AddFighterDlg::~AddFighterDlg() { delete ui; }
+AddFighterDlg::~AddFighterDlg()
+{
+	delete ui;
+}
 
 void AddFighterDlg::SetClubs(QStringList clubs)
 {

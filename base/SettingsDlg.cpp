@@ -21,12 +21,14 @@
 
 using namespace Ipponboard;
 
-SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
-    : QDialog(parent), m_edition(edition), ui(new Ui::SettingsDlg)
+SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
+	QDialog(parent),
+	m_edition(edition),
+	ui(new Ui::SettingsDlg)
 {
 	ui->setupUi(this);
-	m_previewEffect.setParent(this);
-	m_previewEffect.setLoopCount(1);
+    m_previewEffect.setParent(this);
+    m_previewEffect.setLoopCount(1);
 
 	if (m_edition == EditionType::Team)
 	{
@@ -57,7 +59,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
 	ui->text_color_second->SetText(tr("SECOND FIGHTER"));
 
 #ifdef _WIN32
-	// build button text map
+    // build button text map
 	m_buttonTexts[FMlib::Gamepad::eButton1] = "button 1";
 	m_buttonTexts[FMlib::Gamepad::eButton2] = "button 2";
 	m_buttonTexts[FMlib::Gamepad::eButton3] = "button 3";
@@ -103,14 +105,18 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
 	ui->comboBox_hansokumake_second->addItems(buttons);
 
 	// num screens
-	int numScreens = QGuiApplication::screens().count();
+    int numScreens = QGuiApplication::screens().count();
 
-	for (int i(1); i <= numScreens; ++i)
+    for (int i(1); i <= numScreens; ++i)
 	{
-		QRect res = QGuiApplication::screens().at(i - 1)->availableGeometry();
+        QRect res = QGuiApplication::screens().at(i - 1)->availableGeometry();
 
 		ui->comboBox_screen->addItem(
-		    QString("%1 (%2x%3)").arg(QString::number(i), QString::number(res.width()), QString::number(res.height())));
+			QString("%1 (%2x%3)").arg(
+				QString::number(i),
+				QString::number(res.width()),
+				QString::number(res.height())
+			));
 	}
 
 	QDir dir(QDir::currentPath() + "/sounds");
@@ -123,37 +129,37 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
 	// keyboard page
 	QStringList keyVals;
 	keyVals << "<none>";
-	keyVals << "ENTER";        // VK_RETURN
-	keyVals << "BACKSPACE";    // VK_BACK
-	keyVals << "SPACE";        // VK_SPACE
-	keyVals << "TAB";          // VK_TAB
-	keyVals << "INS";          // VK_INSERT
-	keyVals << "DEL";          // VK_DELETE
-	keyVals << "HOME";         // VK_HOME
-	keyVals << "END";          // VK_END
-	keyVals << "PAGE UP";      // VK_PRIOR
-	keyVals << "PAGE DOWN";    // VK_NEXT
-	keyVals << "PAUSE";        // VK_PAUSE
-	keyVals << "LEFT ARROW";   // VK_LEFT
-	keyVals << "UP ARROW";     // VK_UP
-	keyVals << "DOWN ARROW";   // VK_DOWN
-	keyVals << "RIGHT ARROW";  // VK_RIGHT
-	keyVals << "NUMPAD 0";     // VK_NUMPAD0	60	Numeric keypad 0 key
-	keyVals << "NUMPAD 1";     // VK_NUMPAD1	61	Numeric keypad 1 key
-	keyVals << "NUMPAD 2";     // VK_NUMPAD2	62	Numeric keypad 2 key
-	keyVals << "NUMPAD 3";     // VK_NUMPAD3	63	Numeric keypad 3 key
-	keyVals << "NUMPAD 4";     // VK_NUMPAD4	64	Numeric keypad 4 key
-	keyVals << "NUMPAD 5";     // VK_NUMPAD5	65	Numeric keypad 5 key
-	keyVals << "NUMPAD 6";     // VK_NUMPAD6	66	Numeric keypad 6 key
-	keyVals << "NUMPAD 7";     // VK_NUMPAD7	67	Numeric keypad 7 key
-	keyVals << "NUMPAD 8";     // VK_NUMPAD8	68	Numeric keypad 8 key
-	keyVals << "NUMPAD 9";     // VK_NUMPAD9	69	Numeric keypad 9 key
-	keyVals << "NUMPAD *";     // VK_MULTIPLY	6A	Multiply key
-	keyVals << "NUMPAD +";     // VK_ADD	6B	Add key
-	keyVals << "NUMPAD ENTER"; // VK_SEPARATOR	6C	Separator key
-	keyVals << "NUMPAD -";     // VK_SUBTRACT	6D	Subtract key
-	keyVals << "NUMPAD ,";     // VK_DECIMAL	6E	Decimal key
-	keyVals << "NUMPAD %";     // VK_DIVIDE	6F	Divide key
+	keyVals << "ENTER";			// VK_RETURN
+	keyVals << "BACKSPACE";		// VK_BACK
+	keyVals << "SPACE";			// VK_SPACE
+	keyVals << "TAB";			// VK_TAB
+	keyVals << "INS";			// VK_INSERT
+	keyVals << "DEL";			// VK_DELETE
+	keyVals << "HOME";			// VK_HOME
+	keyVals << "END";			// VK_END
+	keyVals << "PAGE UP";		// VK_PRIOR
+	keyVals << "PAGE DOWN";		// VK_NEXT
+	keyVals << "PAUSE";			// VK_PAUSE
+	keyVals << "LEFT ARROW";	// VK_LEFT
+	keyVals << "UP ARROW";		// VK_UP
+	keyVals << "DOWN ARROW";	// VK_DOWN
+	keyVals << "RIGHT ARROW";	// VK_RIGHT
+	keyVals << "NUMPAD 0";		// VK_NUMPAD0	60	Numeric keypad 0 key
+	keyVals << "NUMPAD 1";		// VK_NUMPAD1	61	Numeric keypad 1 key
+	keyVals << "NUMPAD 2";		// VK_NUMPAD2	62	Numeric keypad 2 key
+	keyVals << "NUMPAD 3";		// VK_NUMPAD3	63	Numeric keypad 3 key
+	keyVals << "NUMPAD 4";		// VK_NUMPAD4	64	Numeric keypad 4 key
+	keyVals << "NUMPAD 5";		// VK_NUMPAD5	65	Numeric keypad 5 key
+	keyVals << "NUMPAD 6";		// VK_NUMPAD6	66	Numeric keypad 6 key
+	keyVals << "NUMPAD 7";		// VK_NUMPAD7	67	Numeric keypad 7 key
+	keyVals << "NUMPAD 8";		// VK_NUMPAD8	68	Numeric keypad 8 key
+	keyVals << "NUMPAD 9";		// VK_NUMPAD9	69	Numeric keypad 9 key
+	keyVals << "NUMPAD *";		// VK_MULTIPLY	6A	Multiply key
+	keyVals << "NUMPAD +";		// VK_ADD	6B	Add key
+	keyVals << "NUMPAD ENTER";		// VK_SEPARATOR	6C	Separator key
+	keyVals << "NUMPAD -";		// VK_SUBTRACT	6D	Subtract key
+	keyVals << "NUMPAD ,";		// VK_DECIMAL	6E	Decimal key
+	keyVals << "NUMPAD %";		// VK_DIVIDE	6F	Divide key
 	keyVals << "F1";
 	keyVals << "F2";
 	keyVals << "F3";
@@ -206,23 +212,31 @@ SettingsDlg::~SettingsDlg()
 	delete ui;
 }
 
+
 void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions)
 {
 	Q_ASSERT(screen < ui->comboBox_screen->count());
 	ui->comboBox_screen->setCurrentIndex(screen);
 
-	if (dimensions.isNull()) { ui->checkBox_secondary_view_custom_size->setChecked(false); }
+	if (dimensions.isNull())
+	{
+		ui->checkBox_secondary_view_custom_size->setChecked(false);
+	}
 	else
 	{
 		ui->checkBox_secondary_view_custom_size->setChecked(true);
-		ui->lineEdit_fixedsize_width->setText(QString::number(dimensions.width()));
-		ui->lineEdit_fixedsize_height->setText(QString::number(dimensions.height()));
+		ui->lineEdit_fixedsize_width->setText(
+			QString::number(dimensions.width()));
+		ui->lineEdit_fixedsize_height->setText(
+			QString::number(dimensions.height()));
 		ui->lineEdit_fixedsize_width->setEnabled(true);
 		ui->lineEdit_fixedsize_height->setEnabled(true);
 	}
 }
 
-void SettingsDlg::SetInfoHeaderSettings(const QFont& font, const QColor& color, const QColor& background)
+void SettingsDlg::SetInfoHeaderSettings(const QFont& font,
+										const QColor& color,
+										const QColor& background)
 {
 	ui->fontComboBox_infoHeader->setCurrentFont(font);
 	ui->text_text_sample->SetFontAndColor(font, color, background);
@@ -253,8 +267,14 @@ void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString con
 {
 	const int index = ui->comboBox_mat->findText(mat);
 
-	if (-1 != index) { ui->comboBox_mat->setCurrentIndex(index); }
-	else { ui->comboBox_mat->setEditText(mat); }
+	if (-1 != index)
+	{
+		ui->comboBox_mat->setCurrentIndex(index);
+	}
+	else
+	{
+		ui->comboBox_mat->setEditText(mat);
+	}
 
 	ui->text_text_sample->SetText(mat);
 
@@ -274,10 +294,14 @@ void SettingsDlg::SetGongFile(const QString& path)
 
 	const int index = ui->comboBox_sound_time_ends->findText(filename);
 
-	if (-1 != index) ui->comboBox_sound_time_ends->setCurrentIndex(index);
+	if (-1 != index)
+		ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-int SettingsDlg::GetSelectedScreen() const { return ui->comboBox_screen->currentIndex(); }
+int SettingsDlg::GetSelectedScreen() const
+{
+	return ui->comboBox_screen->currentIndex();
+}
 
 QSize SettingsDlg::GetSize() const
 {
@@ -303,21 +327,48 @@ QFont SettingsDlg::GetFighterNameFont() const
 	return f;
 }
 
-QColor SettingsDlg::GetInfoTextColor() const { return ui->text_text_sample->GetColor(); }
+QColor SettingsDlg::GetInfoTextColor() const
+{
+	return ui->text_text_sample->GetColor();
+}
 
-QColor SettingsDlg::GetTextColorFirst() const { return ui->text_color_first->GetColor(); }
+QColor SettingsDlg::GetTextColorFirst() const
+{
+	return ui->text_color_first->GetColor();
+}
 
-QColor SettingsDlg::GetTextColorSecond() const { return ui->text_color_second->GetColor(); }
+QColor SettingsDlg::GetTextColorSecond() const
+{
+	return ui->text_color_second->GetColor();
+}
 
-QColor SettingsDlg::GetInfoTextBgColor() const { return ui->text_text_sample->GetBgColor(); }
-QColor SettingsDlg::GetTextBgColorFirst() const { return ui->text_color_first->GetBgColor(); }
-QColor SettingsDlg::GetTextBgColorSecond() const { return ui->text_color_second->GetBgColor(); }
+QColor SettingsDlg::GetInfoTextBgColor() const
+{
+	return ui->text_text_sample->GetBgColor();
+}
+QColor SettingsDlg::GetTextBgColorFirst() const
+{
+	return ui->text_color_first->GetBgColor();
+}
+QColor SettingsDlg::GetTextBgColorSecond() const
+{
+	return ui->text_color_second->GetBgColor();
+}
 
-QString SettingsDlg::GetMatLabel() const { return ui->comboBox_mat->currentText(); }
+QString SettingsDlg::GetMatLabel() const
+{
+	return ui->comboBox_mat->currentText();
+}
 
-QString SettingsDlg::GetHomeLabel() const { return ui->lineEdit_labelHome->text(); }
+QString SettingsDlg::GetHomeLabel() const
+{
+	return ui->lineEdit_labelHome->text();
+}
 
-QString SettingsDlg::GetGuestLabel() const { return ui->lineEdit_labelGuest->text(); }
+QString SettingsDlg::GetGuestLabel() const
+{
+	return ui->lineEdit_labelGuest->text();
+}
 
 QString SettingsDlg::GetGongFile() const
 {
@@ -325,9 +376,15 @@ QString SettingsDlg::GetGongFile() const
 	return path + ui->comboBox_sound_time_ends->currentText();
 }
 
-void SettingsDlg::on_buttonBox_accepted() { accept(); }
+void SettingsDlg::on_buttonBox_accepted()
+{
+	accept();
+}
 
-void SettingsDlg::on_buttonBox_rejected() { reject(); }
+void SettingsDlg::on_buttonBox_rejected()
+{
+	reject();
+}
 
 void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 {
@@ -361,29 +418,41 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 
 	if (pConfig)
 	{
-		pConfig->button_hajime_mate = get_button_from_text(ui->comboBox_hajime_mate->currentText());
+		pConfig->button_hajime_mate =
+			get_button_from_text(ui->comboBox_hajime_mate->currentText());
 
-		pConfig->button_reset = get_button_from_text(ui->comboBox_reset->currentText());
+		pConfig->button_reset =
+			get_button_from_text(ui->comboBox_reset->currentText());
 
-		pConfig->button_reset_2 = get_button_from_text(ui->comboBox_reset_2->currentText());
+		pConfig->button_reset_2 =
+			get_button_from_text(ui->comboBox_reset_2->currentText());
 
-		pConfig->button_next = get_button_from_text(ui->comboBox_next->currentText());
+		pConfig->button_next =
+			get_button_from_text(ui->comboBox_next->currentText());
 
-		pConfig->button_prev = get_button_from_text(ui->comboBox_prev->currentText());
+		pConfig->button_prev =
+			get_button_from_text(ui->comboBox_prev->currentText());
 
-		pConfig->button_pause = get_button_from_text(ui->comboBox_pause->currentText());
+		pConfig->button_pause =
+			get_button_from_text(ui->comboBox_pause->currentText());
 
-		pConfig->button_osaekomi_toketa_first = get_button_from_text(ui->comboBox_first_holding->currentText());
+		pConfig->button_osaekomi_toketa_first =
+			get_button_from_text(ui->comboBox_first_holding->currentText());
 
-		pConfig->button_osaekomi_toketa_second = get_button_from_text(ui->comboBox_second_holding->currentText());
+		pConfig->button_osaekomi_toketa_second =
+			get_button_from_text(ui->comboBox_second_holding->currentText());
 
-		pConfig->button_reset_hold_first = get_button_from_text(ui->comboBox_reset_hold_first->currentText());
+		pConfig->button_reset_hold_first =
+			get_button_from_text(ui->comboBox_reset_hold_first->currentText());
 
-		pConfig->button_reset_hold_second = get_button_from_text(ui->comboBox_reset_hold_second->currentText());
+		pConfig->button_reset_hold_second =
+			get_button_from_text(ui->comboBox_reset_hold_second->currentText());
 
-		pConfig->button_hansokumake_first = get_button_from_text(ui->comboBox_hansokumake_first->currentText());
+		pConfig->button_hansokumake_first =
+			get_button_from_text(ui->comboBox_hansokumake_first->currentText());
 
-		pConfig->button_hansokumake_second = get_button_from_text(ui->comboBox_hansokumake_second->currentText());
+		pConfig->button_hansokumake_second =
+			get_button_from_text(ui->comboBox_hansokumake_second->currentText());
 
 		pConfig->axis_inverted_X = ui->checkBox_invert_x_axis->isChecked();
 		pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
@@ -391,6 +460,7 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 		pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
 	}
 }
+
 
 //---------------------------------------------------------
 void SettingsDlg::changeEvent(QEvent* e)
@@ -400,29 +470,35 @@ void SettingsDlg::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange: ui->retranslateUi(this); break;
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-	default: break;
+	default:
+		break;
 	}
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
-	QString path = QDir::currentPath() + "/sounds/" + ui->comboBox_sound_time_ends->currentText();
+	QString path = QDir::currentPath() + "/sounds/" +
+				   ui->comboBox_sound_time_ends->currentText();
 	qDebug() << "Playing sound from file:" << path;
 	m_previewEffect.stop();
 	m_previewEffect.setSource(QUrl::fromLocalFile(path));
 	m_previewEffect.play();
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(QFont f)
+void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(
+	QFont f)
 {
 	f.setBold(ui->checkBox_text_bold->isChecked());
 	f.setItalic(ui->checkBox_text_italic->isChecked());
 	ui->text_text_sample->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(QFont f)
+void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(
+	QFont f)
 {
 	f.setBold(ui->checkBox_fighters_bold->isChecked());
 	f.setItalic(ui->checkBox_fighters_italic->isChecked());
@@ -435,7 +511,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_pressed()
 	QColor col(ui->text_text_sample->GetColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_text_sample->SetColor(col);
+	if (col.isValid())
+		ui->text_text_sample->SetColor(col);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_pressed()
@@ -443,7 +520,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_pressed()
 	QColor col(ui->text_text_sample->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_text_sample->SetColor(ui->text_text_sample->GetColor(), col);
+	if (col.isValid())
+		ui->text_text_sample->SetColor(ui->text_text_sample->GetColor(), col);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_first_pressed()
@@ -451,7 +529,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_first_pressed()
 	QColor col(ui->text_color_first->GetColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_color_first->SetColor(col);
+	if (col.isValid())
+		ui->text_color_first->SetColor(col);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_first_pressed()
@@ -459,7 +538,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_first_pressed()
 	QColor col(ui->text_color_first->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_color_first->SetColor(ui->text_color_first->GetColor(), col);
+	if (col.isValid())
+		ui->text_color_first->SetColor(ui->text_color_first->GetColor(), col);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_color_second_pressed()
@@ -467,7 +547,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_color_second_pressed()
 	QColor col(ui->text_color_second->GetColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_color_second->SetColor(col);
+	if (col.isValid())
+		ui->text_color_second->SetColor(col);
 }
 
 void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
@@ -475,7 +556,8 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
 	QColor col(ui->text_color_second->GetBgColor());
 	col = QColorDialog::getColor(col, this);
 
-	if (col.isValid()) ui->text_color_second->SetColor(ui->text_color_second->GetColor(), col);
+	if (col.isValid())
+		ui->text_color_second->SetColor(ui->text_color_second->GetColor(), col);
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
@@ -483,6 +565,7 @@ void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
 	QFont f = ui->text_text_sample->font();
 	f.setBold(checked);
 	ui->text_text_sample->SetFont(f);
+
 }
 
 void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
@@ -508,7 +591,10 @@ void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
 	ui->text_color_second->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text) { ui->text_text_sample->SetText(text); }
+void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)
+{
+	ui->text_text_sample->SetText(text);
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int SettingsDlg::get_button_from_text(const QString& text) const
@@ -518,7 +604,8 @@ int SettingsDlg::get_button_from_text(const QString& text) const
 
 	while (iter != m_buttonTexts.end())
 	{
-		if (iter->second == text) return iter->first;
+		if (iter->second == text)
+			return iter->first;
 
 		++iter;
 	}
@@ -548,3 +635,4 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
 		ui->lineEdit_fixedsize_height->setText("0");
 	}
 }
+

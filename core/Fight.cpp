@@ -6,7 +6,9 @@
 
 using namespace Ipponboard;
 
-Fight::Fight() : weight("-"), rules(new ClassicRules)
+Fight::Fight()
+	: weight("-")
+	, rules(new ClassicRules)
 {
 	scores[0] = Score();
 	scores[1] = Score();
@@ -17,7 +19,10 @@ Fight::Fight() : weight("-"), rules(new ClassicRules)
 	rules->SetCountSubscores(false);
 }
 
-int Fight::GetSecondsElapsed() const { return seconds_elapsed; }
+int Fight::GetSecondsElapsed() const
+{
+	return seconds_elapsed;
+}
 
 void Fight::SetSecondsElapsed(int s)
 {
@@ -31,17 +36,24 @@ void Fight::SetRoundTime(int secs) { round_time_seconds = secs; }
 
 int Fight::GetRemainingTime() const
 {
-	if (IsGoldenScore()) { return 0; }
+	if (IsGoldenScore())
+	{
+		return 0;
+	}
 
 	return round_time_seconds - seconds_elapsed;
 }
 
 int Fight::GetGoldenScoreTime() const
 {
-	if (IsGoldenScore() && seconds_elapsed < 0) { return -seconds_elapsed; }
+	if (IsGoldenScore() && seconds_elapsed < 0)
+	{
+		return -seconds_elapsed;
+	}
 
 	return 0;
 }
+
 
 QString Fight::GetTotalTimeElapsedString() const
 {
@@ -51,7 +63,10 @@ QString Fight::GetTotalTimeElapsedString() const
 	int minutes = elapsed / 60;
 	int seconds = elapsed % 60;
 
-	return QString("%1:%3%4").arg(QString::number(minutes), seconds < 10 ? "0" : "", QString::number(seconds));
+	return QString("%1:%3%4").arg(
+			   QString::number(minutes),
+			   seconds < 10 ? "0" : "",
+			   QString::number(seconds));
 }
 
 bool Fight::SetElapsedFromTotalTime(QString s)
@@ -64,14 +79,20 @@ bool Fight::SetElapsedFromTotalTime(QString s)
 		secs += parts.at(0).toUInt() * 60;
 		secs += parts.at(1).toUInt();
 	}
-	else { return false; }
+	else
+	{
+		return false;
+	}
 
 	if (secs > round_time_seconds)
 	{
 		secs = round_time_seconds - secs;
 		SetGoldenScore(true);
 	}
-	else { SetGoldenScore(false); }
+	else
+	{
+		SetGoldenScore(false);
+	}
 
 	SetSecondsElapsed(secs);
 
@@ -87,8 +108,11 @@ QString Fight::GetTimeRemainingString() const
 	auto minutes = time_remaining / 60;
 	auto seconds = time_remaining % 60;
 
-	return QString("%1%2:%3%4")
-	    .arg(isGoldenScore ? "-" : "", QString::number(minutes), seconds < 10 ? "0" : "", QString::number(seconds));
+	return QString("%1%2:%3%4").arg(
+			   isGoldenScore ? "-" : "",
+			   QString::number(minutes),
+			   seconds < 10 ? "0" : "",
+			   QString::number(seconds));
 }
 
 bool Fight::HasWon(FighterEnum who) const
@@ -97,7 +121,10 @@ bool Fight::HasWon(FighterEnum who) const
 
 	auto result = rules->CompareScore(*this);
 
-	if (who == FighterEnum::First && result < 0 || who == FighterEnum::Second && result > 0) { return true; }
+	if (who == FighterEnum::First && result < 0 || who == FighterEnum::Second && result > 0)
+	{
+		return true;
+	}
 
 	return false;
 }
@@ -108,7 +135,10 @@ int Fight::GetScorePoints(FighterEnum who) const
 
 	if (HasWon(who))
 	{
-		if (GetScore(who).Ippon() || rules->IsAwaseteIppon(GetScore(who))) { return eScore_Ippon; }
+		if (GetScore(who).Ippon() || rules->IsAwaseteIppon(GetScore(who)))
+		{
+			return eScore_Ippon;
+		}
 
 		// Only the fight deciding point is taken into account!
 		if (GetScore(who).Wazaari() > 0 && GetScore(who).Wazaari() > GetScore(other).Wazaari())
@@ -116,7 +146,10 @@ int Fight::GetScorePoints(FighterEnum who) const
 			return eScore_Wazaari;
 		}
 
-		if (GetScore(who).Yuko() > GetScore(other).Yuko()) { return eScore_Yuko; }
+		if (GetScore(who).Yuko() > GetScore(other).Yuko())
+		{
+			return eScore_Yuko;
+		}
 
 		if ((!rules->IsOption_ShidoAddsPoint() || IsGoldenScore()) && GetScore(who).Shido() < GetScore(other).Shido())
 		{
@@ -127,12 +160,21 @@ int Fight::GetScorePoints(FighterEnum who) const
 	}
 	else
 	{
-		if (!HasWon(other)) { return eScore_Hikewake; }
+		if (!HasWon(other))
+		{
+			return eScore_Hikewake;
+		}
 		else if (rules->IsOption_CountSubscores())
 		{
 			// Special rule for Jugendliga
-			if (GetScore(who).Wazaari() > GetScore(other).Wazaari()) { return eScore_Wazaari; }
-			else if (GetScore(who).Yuko() > GetScore(other).Yuko()) { return eScore_Yuko; }
+			if (GetScore(who).Wazaari() > GetScore(other).Wazaari())
+			{
+				return eScore_Wazaari;
+			}
+			else if (GetScore(who).Yuko() > GetScore(other).Yuko())
+			{
+				return eScore_Yuko;
+			}
 		}
 	}
 

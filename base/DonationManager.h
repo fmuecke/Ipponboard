@@ -9,7 +9,7 @@
 
 class DonationManager
 {
-  public:
+public:
 	static char const* const DonationUrl;
 
 	DonationManager();

@@ -7,7 +7,9 @@
 
 using namespace Ipponboard;
 
-ScoreScreen::ScoreScreen(QWidget* parent) : QWidget(parent), ui(new Ui::ScoreScreen)
+ScoreScreen::ScoreScreen(QWidget* parent)
+	: QWidget(parent)
+	, ui(new Ui::ScoreScreen)
 {
 	ui->setupUi(this);
 
@@ -34,7 +36,10 @@ ScoreScreen::ScoreScreen(QWidget* parent) : QWidget(parent), ui(new Ui::ScoreScr
 	//ui->text_club_guest->setAlignment(Qt::AlignLeft);
 }
 
-ScoreScreen::~ScoreScreen() { delete ui; }
+ScoreScreen::~ScoreScreen()
+{
+	delete ui;
+}
 
 //---------------------------------------------------------
 void ScoreScreen::SetClubs(const QString& first, const QString& second)
@@ -45,7 +50,8 @@ void ScoreScreen::SetClubs(const QString& first, const QString& second)
 }
 
 //---------------------------------------------------------
-void ScoreScreen::SetLogos(const QString& fileNameFirst, const QString& fileNameSecond)
+void ScoreScreen::SetLogos(const QString& fileNameFirst,
+						   const QString& fileNameSecond)
 //---------------------------------------------------------
 {
 	ui->logo_first->UpdateImage(fileNameFirst);
@@ -88,11 +94,15 @@ void ScoreScreen::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange: ui->retranslateUi(this); break;
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-	default: break;
+	default:
+		break;
 	}
 }
+
 
 //---------------------------------------------------------
 void ScoreScreen::SetTextColorFirst(const QColor& color, const QColor& bgColor)
@@ -119,3 +129,4 @@ void ScoreScreen::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 
 	update();
 }
+

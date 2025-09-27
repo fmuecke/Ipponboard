@@ -16,8 +16,8 @@
 #include <QResource>
 
 static const int resourceInitialized = []() {
-	Q_INIT_RESOURCE(ipponboard);
-	return 0;
+    Q_INIT_RESOURCE(ipponboard);
+    return 0;
 }();
 
 using namespace Ipponboard;
@@ -25,31 +25,30 @@ using Point = Score::Point;
 
 //=========================================================
 View::View(IController* pController, EditionType edition, EType type, QWidget* parent)
-    : QWidget(parent),
-      m_Edition(edition),
-      m_Type(type),
-      m_pController(pController),
-      ui(new Ui::ScoreViewHorizontal),
-      m_InfoHeaderFont("Calibri", 12, QFont::Bold, false),
-      m_FighterNameFont("Calibri", 12, QFont::Bold, true),
-      m_DigitFont("Calibri", 12, QFont::Bold, false),
-      m_TextColorFirst(Qt::black),
-      m_TextBgColorFirst(Qt::white),
-      m_TextColorSecond(Qt::white),
-      m_TextBgColorSecond(Qt::blue),
-      m_InfoTextColor(QColor(255, 255, 96)) //Qt::darkFirst
-      ,
-      m_InfoTextBgColor(Qt::black) //Qt::lightGray
-      ,
-      m_MainClockBgColor(Qt::black),
-      m_MainClockColorRunning(Qt::yellow),
-      m_MainClockColorStopped(Qt::red),
-      m_mat(QCoreApplication::applicationName() + " v" + QCoreApplication::applicationVersion()),
-      m_weight(""),
-      m_category(""),
-      m_drawIppon(false),
-      m_showInfoHeader(true),
-      m_pBlinkTimer(nullptr)
+	: QWidget(parent)
+	, m_Edition(edition)
+	, m_Type(type)
+	, m_pController(pController)
+	, ui(new Ui::ScoreViewHorizontal)
+	, m_InfoHeaderFont("Calibri", 12, QFont::Bold, false)
+	, m_FighterNameFont("Calibri", 12, QFont::Bold, true)
+	, m_DigitFont("Calibri", 12, QFont::Bold, false)
+	, m_TextColorFirst(Qt::black)
+	, m_TextBgColorFirst(Qt::white)
+	, m_TextColorSecond(Qt::white)
+	, m_TextBgColorSecond(Qt::blue)
+	, m_InfoTextColor(QColor(255, 255, 96)) //Qt::darkFirst
+	, m_InfoTextBgColor(Qt::black) //Qt::lightGray
+	, m_MainClockBgColor(Qt::black)
+	, m_MainClockColorRunning(Qt::yellow)
+	, m_MainClockColorStopped(Qt::red)
+	, m_mat(QCoreApplication::applicationName() + " v" +
+			QCoreApplication::applicationVersion())
+	, m_weight("")
+	, m_category("")
+	, m_drawIppon(false)
+	, m_showInfoHeader(true)
+    , m_pBlinkTimer(nullptr)
 //=========================================================
 {
 	// init widgets
@@ -149,8 +148,8 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 	ui->image_shido3_second->SetBgColor(bgColor2);
 	ui->image_hansokumake_second->SetBgColor(bgColor2);
 
-	//	QFontDatabase fontDb;
-	//	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
+//	QFontDatabase fontDb;
+//	QFont newFont = fontDb.font("Bonzai", "Normal", 12 );
 
 	SetInfoHeaderFont(QFont("Calibri", 12, QFont::Bold, false));
 	SetDigitFont(QFont("Arial", 12, QFont::Bold, false));
@@ -166,7 +165,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 View::~View()
 //=========================================================
 {
-	m_pController = nullptr;
+    m_pController = nullptr;
 	delete ui;
 }
 
@@ -208,10 +207,10 @@ void View::UpdateView()
 
 	ui->text_mat->SetText(m_mat, ScaledText::eSize_normal);
 
-	// display weight class
-	if (m_Edition == EditionType::Team)
+    // display weight class
+    if (m_Edition == EditionType::Team)
 	{
-		QString infoText /*(tr("Fight ").toUpper())*/;
+		QString infoText/*(tr("Fight ").toUpper())*/;
 		//infoText += QString::number(m_pController->GetRound()) + ": ";
 		infoText += m_pController->GetWeight();
 		ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
@@ -220,10 +219,11 @@ void View::UpdateView()
 	{
 		QString infoText(m_category);
 
-		if (!infoText.isEmpty()) infoText += "  ";
+		if (!infoText.isEmpty())
+            infoText += "  ";
 
-		infoText += m_weight; //.toUpper();
-		ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
+        infoText += m_weight;//.toUpper();
+        ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
 	}
 
 	if (m_showInfoHeader)
@@ -242,14 +242,18 @@ void View::UpdateView()
 	//
 	// fighter names
 	//
-	ui->text_lastname_first->SetText(m_pController->GetFighterLastName(GVF_(FighterEnum::First)),
-	                                 ScaledText::eSize_uppercase);
-	ui->text_lastname_second->SetText(m_pController->GetFighterLastName(GVF_(FighterEnum::Second)),
-	                                  ScaledText::eSize_uppercase);
-	ui->text_firstname_first->SetText(m_pController->GetFighterFirstName(GVF_(FighterEnum::First)),
-	                                  ScaledText::eSize_uppercase);
-	ui->text_firstname_second->SetText(m_pController->GetFighterFirstName(GVF_(FighterEnum::Second)),
-	                                   ScaledText::eSize_uppercase);
+	ui->text_lastname_first->SetText(
+		m_pController->GetFighterLastName(GVF_(FighterEnum::First)),
+		ScaledText::eSize_uppercase);
+	ui->text_lastname_second->SetText(
+		m_pController->GetFighterLastName(GVF_(FighterEnum::Second)),
+		ScaledText::eSize_uppercase);
+	ui->text_firstname_first->SetText(
+		m_pController->GetFighterFirstName(GVF_(FighterEnum::First)),
+		ScaledText::eSize_uppercase);
+	ui->text_firstname_second->SetText(
+		m_pController->GetFighterFirstName(GVF_(FighterEnum::Second)),
+		ScaledText::eSize_uppercase);
 
 	// first score
 	update_ippon(FighterEnum::First);
@@ -270,40 +274,49 @@ void View::UpdateView()
 	//
 	// timers
 	//
-	ui->text_main_clock->SetText(m_pController->GetTimeText(eTimer_Main), ScaledText::eSize_full);
+	ui->text_main_clock->SetText(
+		m_pController->GetTimeText(eTimer_Main),
+		ScaledText::eSize_full);
 
 	const FighterEnum holder(m_pController->GetLastHolder());
-
-	if (FighterEnum::Nobody == holder && is_secondary()) { ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0); }
+    
+    if (FighterEnum::Nobody == holder && is_secondary())
+	{
+		ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
+	}
 
 	switch (m_pController->GetCurrentState())
 	{
-	case eState_TimerRunning: {
-		ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
-		update_hold_clock(holder, eHoldState_pause);
-	}
-	break;
-
-	case eState_TimerStopped: {
-		ui->text_main_clock->SetColor(m_MainClockColorStopped, m_MainClockBgColor);
-		update_hold_clock(holder, eHoldState_pause);
-	}
-	break;
-
-	case eState_Holding: {
-		ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
-		update_hold_clock(holder, eHoldState_on);
-
-		if (is_secondary())
+	case eState_TimerRunning:
 		{
-			ui->layout_info->setStretchFactor(ui->layout_name_first, 3);
-			ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
-			ui->layout_info->setStretchFactor(ui->layout_name_second, 3);
+			ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
+			update_hold_clock(holder, eHoldState_pause);
 		}
-	}
-	break;
+		break;
 
-	default: break;
+	case eState_TimerStopped:
+		{
+			ui->text_main_clock->SetColor(m_MainClockColorStopped, m_MainClockBgColor);
+			update_hold_clock(holder, eHoldState_pause);
+		}
+		break;
+
+	case eState_Holding:
+		{
+			ui->text_main_clock->SetColor(m_MainClockColorRunning, m_MainClockBgColor);
+			update_hold_clock(holder, eHoldState_on);
+
+			if (is_secondary())
+			{
+				ui->layout_info->setStretchFactor(ui->layout_name_first, 3);
+				ui->layout_info->setStretchFactor(ui->layout_osaekomi, 2);
+				ui->layout_info->setStretchFactor(ui->layout_name_second, 3);
+			}
+		}
+		break;
+
+	default:
+		break;
 	}
 
 	// time is up?
@@ -313,25 +326,26 @@ void View::UpdateView()
 	//	// something to do here?
 	//}
 
-	//#ifdef _DEBUG
-	//	QString text;
-	//	switch(m_pController->GetCurrentState())
-	//	{
-	//		case eState_Holding:
-	//			text = "HOLDING";
-	//			break;
-	//		case eState_TimerRunning:
-	//			text = "RUNNING";
-	//			break;
-	//		case eState_TimerStopped:
-	//			text = "STOPPED";
-	//			break;
-	//		default:
-	//			text="OTHER";
-	//	}
-	//	ui->text_lastname_first->SetText(text);
-	//	update();
-	//#endif
+
+//#ifdef _DEBUG
+//	QString text;
+//	switch(m_pController->GetCurrentState())
+//	{
+//		case eState_Holding:
+//			text = "HOLDING";
+//			break;
+//		case eState_TimerRunning:
+//			text = "RUNNING";
+//			break;
+//		case eState_TimerStopped:
+//			text = "STOPPED";
+//			break;
+//		default:
+//			text="OTHER";
+//	}
+//	ui->text_lastname_first->SetText(text);
+//	update();
+//#endif
 
 	// Note: with update() the area is scheduled for a redraw
 	//       while repaint() does this immediately.
@@ -407,6 +421,7 @@ void View::SetInfoTextColor(const QColor& color, const QColor& bgColor)
 	ui->text_weight->SetColor(color, bgColor);
 }
 
+
 //=========================================================
 void View::SetTextColorFirst(const QColor& color, const QColor& bgColor)
 //=========================================================
@@ -426,6 +441,7 @@ void View::SetTextColorSecond(const QColor& color, const QColor& bgColor)
 
 	update_colors();
 }
+
 
 //=========================================================
 void View::SetMainClockColor(const QColor& running, const QColor& stopped)
@@ -467,25 +483,26 @@ void View::mousePressEvent(QMouseEvent* event)
 //=========================================================
 {
 	Q_ASSERT(m_pController && "IBController not set!");
-
-	FighterEnum whos(FighterEnum::Nobody);
+    
+    FighterEnum whos(FighterEnum::Nobody);
 	EAction action(eAction_NONE);
 	const bool doRevoke = event->button() & Qt::RightButton;
 
-	ScaledImage* imageChild = dynamic_cast<ScaledImage*>(childAt(event->pos()));
+    ScaledImage* imageChild = dynamic_cast<ScaledImage*>(childAt(event->pos()));
 
-	if (!imageChild)
+    if (!imageChild)
 	{
-		ScaledText* textChild = dynamic_cast<ScaledText*>(childAt(event->pos()));
+        ScaledText* textChild = dynamic_cast<ScaledText*>(childAt(event->pos()));
 
-		if (!textChild) return;
+        if (!textChild)
+			return;
 
-		if (textChild == ui->text_main_clock)
+        if (textChild == ui->text_main_clock)
 		{
-			if (doRevoke) // right click!
+			if (doRevoke)   // right click!
 			{
 				QMenu menu;
-				QAction* item(nullptr);
+                QAction* item(nullptr);
 
 				item = menu.addAction(tr("Set time"));
 				connect(item, &QAction::triggered, this, [this]() { setMainTimerValue_(); });
@@ -500,9 +517,9 @@ void View::mousePressEvent(QMouseEvent* event)
 
 			action = eAction_Hajime_Mate;
 		}
-		else if (textChild == ui->text_hold_clock_first)
+        else if (textChild == ui->text_hold_clock_first)
 		{
-			if (doRevoke) // right click!
+			if (doRevoke)   // right click!
 			{
 				action = eAction_ResetOsaeKomi;
 			}
@@ -511,16 +528,19 @@ void View::mousePressEvent(QMouseEvent* event)
 				whos = FighterEnum::First;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-				    GVF_(FighterEnum::First) != m_pController->GetLead())
+						GVF_(FighterEnum::First) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
-				else { action = eAction_OsaeKomi_Toketa; }
+				else
+				{
+					action = eAction_OsaeKomi_Toketa;
+				}
 			}
 		}
-		else if (textChild == ui->text_hold_clock_second)
+        else if (textChild == ui->text_hold_clock_second)
 		{
-			if (doRevoke) // right click!
+			if (doRevoke)   // right click!
 			{
 				action = eAction_ResetOsaeKomi;
 			}
@@ -529,39 +549,42 @@ void View::mousePressEvent(QMouseEvent* event)
 				whos = FighterEnum::Second;
 
 				if (eState_Holding == m_pController->GetCurrentState() &&
-				    GVF_(FighterEnum::Second) != m_pController->GetLead())
+						GVF_(FighterEnum::Second) != m_pController->GetLead())
 				{
 					action = eAction_SetOsaekomi;
 				}
-				else { action = eAction_OsaeKomi_Toketa; }
+				else
+				{
+					action = eAction_OsaeKomi_Toketa;
+				}
 			}
 		}
-		else if (textChild == ui->text_ippon_second)
+        else if (textChild == ui->text_ippon_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Ippon;
 		}
-		else if (textChild == ui->text_ippon_first)
+        else if (textChild == ui->text_ippon_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Ippon;
 		}
-		else if (textChild == ui->text_wazaari_second)
+        else if (textChild == ui->text_wazaari_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Wazaari;
 		}
-		else if (textChild == ui->text_wazaari_first)
+        else if (textChild == ui->text_wazaari_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Wazaari;
 		}
-		else if (textChild == ui->text_yuko_second)
+        else if (textChild == ui->text_yuko_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Yuko;
 		}
-		else if (textChild == ui->text_yuko_first)
+        else if (textChild == ui->text_yuko_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Yuko;
@@ -574,29 +597,31 @@ void View::mousePressEvent(QMouseEvent* event)
 	}
 	else
 	{
-		if (imageChild == ui->image_shido1_second)
+        if (imageChild == ui->image_shido1_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
-		else if (imageChild == ui->image_shido3_second || imageChild == ui->image_shido2_second ||
-		         imageChild == ui->image_shido1_second)
+        else if (imageChild == ui->image_shido3_second ||
+                 imageChild == ui->image_shido2_second ||
+                 imageChild == ui->image_shido1_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Shido;
 		}
-		else if (imageChild == ui->image_shido3_first || imageChild == ui->image_shido2_first ||
-		         imageChild == ui->image_shido1_first)
+        else if (imageChild == ui->image_shido3_first ||
+                 imageChild == ui->image_shido2_first ||
+                 imageChild == ui->image_shido1_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Shido;
 		}
-		else if (imageChild == ui->image_hansokumake_second)
+        else if (imageChild == ui->image_hansokumake_second)
 		{
 			whos = FighterEnum::Second;
 			action = eAction_Hansokumake;
 		}
-		else if (imageChild == ui->image_hansokumake_first)
+        else if (imageChild == ui->image_hansokumake_first)
 		{
 			whos = FighterEnum::First;
 			action = eAction_Hansokumake;
@@ -616,21 +641,21 @@ void View::mousePressEvent(QMouseEvent* event)
 void View::setOsaekomiFirst_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false /*doRevoke*/);
+	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false/*doRevoke*/);
 }
 
 //=========================================================
 void View::setOsaekomiSecond_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false /*doRevoke*/);
+	m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false/*doRevoke*/);
 }
 
 //=========================================================
 void View::resetMainTimerValue_()
 //=========================================================
 {
-	m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true/*doRevoke*/);
 }
 
 //=========================================================
@@ -644,14 +669,18 @@ void View::setMainTimerValue_()
 	{
 		bool ok(false);
 		this->setStyleSheet("");
-		const QString time = QInputDialog::getText(this,
-		                                           tr("Set Value"),
-		                                           tr("Set value to (m:ss):"),
-		                                           QLineEdit::Normal,
-		                                           m_pController->GetTimeText(eTimer_Main),
-		                                           &ok);
+		const QString time = QInputDialog::getText(
+								 this,
+								 tr("Set Value"),
+								 tr("Set value to (m:ss):"),
+								 QLineEdit::Normal,
+								 m_pController->GetTimeText(eTimer_Main),
+								 &ok);
 
-		if (ok) { m_pController->SetTimerValue(eTimer_Main, time); }
+		if (ok)
+		{
+			m_pController->SetTimerValue(eTimer_Main, time);
+		}
 	}
 }
 
@@ -697,7 +726,8 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 	{
 		Q_ASSERT(m_pBlinkTimer);
 
-		if (!m_pBlinkTimer->isActive()) m_pBlinkTimer->start(750);
+		if (!m_pBlinkTimer->isActive())
+			m_pBlinkTimer->start(750);
 
 		if (is_secondary())
 		{
@@ -745,7 +775,10 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 	{
 		const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
 
-		if (m_pBlinkTimer->isActive() && 0 == score_uke) { m_pBlinkTimer->stop(); }
+		if (m_pBlinkTimer->isActive() &&  0 == score_uke)
+		{
+			m_pBlinkTimer->stop();
+		}
 
 		digit_ippon->SetBlinking(false);
 
@@ -786,7 +819,8 @@ void View::update_wazaari(Ipponboard::FighterEnum who) const
 {
 	ScaledText* digit(ui->text_wazaari_first);
 
-	if (FighterEnum::Second == who) digit = ui->text_wazaari_second;
+	if (FighterEnum::Second == who)
+		digit = ui->text_wazaari_second;
 
 	const int score = m_pController->GetScore(GVF_(who), Point::Wazaari);
 	//digit->setDigitCount( score > 9 ? 2 : 1 );
@@ -799,7 +833,8 @@ void View::update_yuko(Ipponboard::FighterEnum who) const
 {
 	ScaledText* digit(ui->text_yuko_first);
 
-	if (FighterEnum::Second == who) digit = ui->text_yuko_second;
+	if (FighterEnum::Second == who)
+		digit = ui->text_yuko_second;
 
 	const int score = m_pController->GetScore(GVF_(who), Point::Yuko);
 	digit->SetText(QString::number(score), ScaledText::eSize_full);
@@ -809,9 +844,9 @@ void View::update_yuko(Ipponboard::FighterEnum who) const
 void View::update_shido(Ipponboard::FighterEnum who) const
 //=========================================================
 {
-	ScaledImage* pImage1(nullptr);
-	ScaledImage* pImage2(nullptr);
-	ScaledImage* pImage3(nullptr);
+    ScaledImage* pImage1(nullptr);
+    ScaledImage* pImage2(nullptr);
+    ScaledImage* pImage3(nullptr);
 
 	if (FighterEnum::First == who)
 	{
@@ -842,7 +877,10 @@ void View::update_hansokumake(Ipponboard::FighterEnum who) const
 {
 	ScaledImage* pImage(ui->image_hansokumake_first);
 
-	if (FighterEnum::Second == who) { pImage = ui->image_hansokumake_second; }
+	if (FighterEnum::Second == who)
+	{
+		pImage = ui->image_hansokumake_second;
+	}
 
 	const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
 	const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
@@ -874,11 +912,13 @@ void View::update_team_score() const
 			ui->text_score_team_first_label->SetText(m_pController->GetGuestLabel());
 		}
 
-		ui->text_score_team_first->SetText(QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::First))),
-		                                   ScaledText::eSize_full);
+		ui->text_score_team_first->SetText(
+			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::First))),
+			ScaledText::eSize_full);
 
-		ui->text_score_team_second->SetText(QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::Second))),
-		                                    ScaledText::eSize_full);
+		ui->text_score_team_second->SetText(
+			QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::Second))),
+			ScaledText::eSize_full);
 	}
 	else
 	{
@@ -899,7 +939,9 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 
 	struct ColorPair
 	{
-		ColorPair(QColor f = Qt::lightGray, QColor b = Qt::black) : fg(f), bg(b) {}
+		ColorPair(QColor f = Qt::lightGray, QColor b = Qt::black)
+			: fg(f), bg(b)
+		{}
 
 		QColor fg;
 		QColor bg;
@@ -913,21 +955,27 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 	hold_clock_colors[eHoldState_pause][FighterEnum::First] = ColorPair(Qt::lightGray, m_TextBgColorFirst);
 	hold_clock_colors[eHoldState_pause][FighterEnum::Second] = ColorPair(Qt::darkGray, m_TextBgColorSecond);
 
-	ScaledText* pClocks[2] = { ui->text_hold_clock_first, ui->text_hold_clock_second };
+	ScaledText* pClocks[2] =
+	{
+		ui->text_hold_clock_first,
+		ui->text_hold_clock_second
+	};
 
 	// reset drawing first
-	pClocks[first]->SetColor(hold_clock_colors[eHoldState_off][FighterEnum::First].fg,
-	                         hold_clock_colors[eHoldState_off][FighterEnum::First].bg);
+	pClocks[first]->SetColor(
+		hold_clock_colors[eHoldState_off][FighterEnum::First].fg,
+		hold_clock_colors[eHoldState_off][FighterEnum::First].bg);
 
-	pClocks[second]->SetColor(hold_clock_colors[eHoldState_off][FighterEnum::Second].fg,
-	                          hold_clock_colors[eHoldState_off][FighterEnum::Second].bg);
+	pClocks[second]->SetColor(
+		hold_clock_colors[eHoldState_off][FighterEnum::Second].fg,
+		hold_clock_colors[eHoldState_off][FighterEnum::Second].bg);
 
 	pClocks[first]->SetText("00", ScaledText::eSize_full);
 	pClocks[second]->SetText("00", ScaledText::eSize_full);
 	ui->image_sand_clock->SetBgColor(Qt::black);
 
 	// no one holding?
-	if (FighterEnum::Nobody == holder)
+    if (FighterEnum::Nobody == holder)
 	{
 		if (is_secondary())
 		{
@@ -942,21 +990,25 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 	// set spectial hold states
 	if (eHoldState_on == state)
 	{
-		pClocks[GVF_(holder)]->SetColor(hold_clock_colors[eHoldState_on][holder].fg,
-		                                hold_clock_colors[eHoldState_on][holder].bg);
+		pClocks[GVF_(holder)]->SetColor(
+			hold_clock_colors[eHoldState_on][holder].fg,
+			hold_clock_colors[eHoldState_on][holder].bg);
 
 		pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
 
-		ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][holder].bg);
+		ui->image_sand_clock->SetBgColor(
+			hold_clock_colors[eHoldState_on][holder].bg);
 	}
 	else if (eHoldState_pause == state)
 	{
-		pClocks[GVF_(holder)]->SetColor(hold_clock_colors[eHoldState_pause][holder].fg,
-		                                hold_clock_colors[eHoldState_pause][holder].bg);
+		pClocks[GVF_(holder)]->SetColor(
+			hold_clock_colors[eHoldState_pause][holder].fg,
+			hold_clock_colors[eHoldState_pause][holder].bg);
 
 		pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
 
-		ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][holder].bg);
+		ui->image_sand_clock->SetBgColor(
+			hold_clock_colors[eHoldState_on][holder].bg);
 	}
 	else
 	{
@@ -968,8 +1020,8 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 	if (is_secondary())
 	{
 		ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
-		//		ui->layout_info->setStretchFactor(ui->layout_name_first, 4);
-		//		ui->layout_info->setStretchFactor(ui->layout_name_second, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_name_first, 4);
+//		ui->layout_info->setStretchFactor(ui->layout_name_second, 4);
 
 		if (FighterEnum::First == holder)
 		{
@@ -981,7 +1033,10 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 0);
 			ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 7);
 		}
-		else { Q_ASSERT(false); }
+		else
+		{
+			Q_ASSERT(false);
+		}
 	}
 }
 
@@ -989,7 +1044,10 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 Ipponboard::FighterEnum View::GVF_(const Ipponboard::FighterEnum f) const
 //=========================================================
 {
-	if (!is_secondary()) { return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First; }
+	if (!is_secondary())
+	{
+		return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
+	}
 
 	return f;
 }
@@ -1009,15 +1067,20 @@ const QColor& View::get_color(const ColorType t) const
 
 	switch (t)
 	{
-	case firstFg: return doSwap ? m_TextColorSecond : m_TextColorFirst;
+	case firstFg:
+		return doSwap ? m_TextColorSecond : m_TextColorFirst;
 
-	case firstBg: return doSwap ? m_TextBgColorSecond : m_TextBgColorFirst;
+	case firstBg:
+		return doSwap ? m_TextBgColorSecond : m_TextBgColorFirst;
 
-	case secondFg: return doSwap ? m_TextColorFirst : m_TextColorSecond;
+	case secondFg:
+		return doSwap ? m_TextColorFirst : m_TextColorSecond;
 
-	case secondBg: return doSwap ? m_TextBgColorFirst : m_TextBgColorSecond;
+	case secondBg:
+		return doSwap ? m_TextBgColorFirst : m_TextBgColorSecond;
 
-	default: Q_ASSERT(!"unhandled switch case!");
+	default:
+		Q_ASSERT(!"unhandled switch case!");
 	}
 
 	return m_TextBgColorFirst; // just for debug purpose...

@@ -22,7 +22,7 @@ struct SimpleFighter
 
 class Fight
 {
-  private:
+private:
 	enum
 	{
 		eScore_Ippon = 10,
@@ -34,28 +34,53 @@ class Fight
 		eScore_Lost = 0
 	};
 
-	bool _isGoldenScore{ false };
+	bool _isGoldenScore { false };
 
-  public:
+public:
 	Fight();
 
-	Fight(Score const& first, Score const& second) : scores{ first, second } {}
+	Fight(Score const& first, Score const& second) : scores { first, second }
+	{}
 
-	Score const& GetScore1() const { return scores[0]; }
+	Score const& GetScore1() const
+	{
+		return scores[0];
+	}
 
-	Score& GetScore1() { return scores[0]; }
+	Score& GetScore1()
+	{
+		return scores[0];
+	}
 
-	Score const& GetScore2() const { return scores[1]; }
+	Score const& GetScore2() const
+	{
+		return scores[1];
+	}
 
-	Score& GetScore2() { return scores[1]; }
+	Score& GetScore2()
+	{
+		return scores[1];
+	}
 
-	Score const& GetScore(FighterEnum fighter) const { return scores[static_cast<int>(fighter)]; }
+	Score const& GetScore(FighterEnum fighter) const
+	{
+		return scores[static_cast<int>(fighter)];
+	}
 
-	Score& GetScore(FighterEnum fighter) { return scores[static_cast<int>(fighter)]; }
+	Score& GetScore(FighterEnum fighter)
+	{
+		return scores[static_cast<int>(fighter)];
+	}
 
-	SimpleFighter const& GetFighter(FighterEnum fighter) const { return fighters[static_cast<int>(fighter)]; }
+	SimpleFighter const& GetFighter(FighterEnum fighter) const
+	{
+		return fighters[static_cast<int>(fighter)];
+	}
 
-	SimpleFighter GetFighter(FighterEnum fighter) { return fighters[static_cast<int>(fighter)]; }
+	SimpleFighter GetFighter(FighterEnum fighter)
+	{
+		return fighters[static_cast<int>(fighter)];
+	}
 
 	bool IsGoldenScore() const { return _isGoldenScore; }
 	void SetGoldenScore(bool val) { _isGoldenScore = val; }
@@ -68,15 +93,15 @@ class Fight
 	QString GetTotalTimeElapsedString() const;
 	QString GetTimeRemainingString() const;
 
-  private:
-	Score scores[2]{ Score(), Score() };
-	int seconds_elapsed{ 0 };
-	int round_time_seconds{ 0 };
+private:
+	Score scores[2] { Score(), Score() };
+	int seconds_elapsed { 0 };
+	int round_time_seconds { 0 };
 
-  public:
+public:
 	SimpleFighter fighters[2];
 	QString weight;
-	bool is_saved{ false };
+	bool is_saved { false };
 	std::shared_ptr<AbstractRules> rules; // TODO: this should be removed if possible
 
 	// returns remaining seconds

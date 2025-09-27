@@ -11,10 +11,7 @@
 #include <QTreeWidgetItem>
 
 // forwards
-namespace Ui
-{
-class FightCategoryManagerDlg;
-}
+namespace Ui { class FightCategoryManagerDlg; }
 //class WeightClassManager;
 class QListWidgetItem;
 
@@ -22,32 +19,28 @@ class FightCategoryManagerDlg : public QDialog
 {
 	Q_OBJECT
 
-  public:
-	explicit FightCategoryManagerDlg(Ipponboard::FightCategoryMgr::Ptr pMgr, QWidget* parent = nullptr);
+public:
+	explicit FightCategoryManagerDlg(
+		Ipponboard::FightCategoryMgr::Ptr pMgr,
+		QWidget* parent = nullptr);
 
 	virtual ~FightCategoryManagerDlg();
 
-  protected:
+protected:
 	void changeEvent(QEvent* e);
 
-  private:
-	enum
-	{
-		eColumn_Name = 0,
-		eColumn_Time,
-		eColumn_GS,
-		eColumn_Weights
-	};
+private:
+	enum { eColumn_Name = 0, eColumn_Time, eColumn_GS, eColumn_Weights };
 	void load_values();
 
 	Ui::FightCategoryManagerDlg* ui;
 	Ipponboard::FightCategoryMgr::Ptr m_pClassMgr;
 	//Ipponboard::WeightClass m_currentClass;
 
-  private slots:
+private slots:
 	void on_treeWidget_classes_itemChanged(QTreeWidgetItem* item, int column);
 	void on_pushButton_remove_pressed();
 	void on_pushButton_add_pressed();
 };
 
-#endif // BASE__FIGHTCATEGORYMANAGERDLG_H_
+#endif  // BASE__FIGHTCATEGORYMANAGERDLG_H_

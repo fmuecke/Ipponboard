@@ -9,12 +9,14 @@
 #include <QMessageBox>
 #include <algorithm>
 
+
 using namespace Ipponboard;
-const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json"; // used up to version 1.10
+const char* const ClubManager::str_legacy_filename_club_definitions = "clubs.json";  // used up to version 1.10
 const char* const ClubManager::str_clubs_settingsFile = "clubs.config";
 
 //---------------------------------------------------------
-ClubManager::ClubManager() : m_Clubs()
+ClubManager::ClubManager()
+	: m_Clubs()
 //---------------------------------------------------------
 {
 	LoadClubs_();
@@ -50,7 +52,8 @@ QString ClubManager::GetLogo(const QString& clubName) const
 {
 	for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
-		if (clubName == m_Clubs.at(i).name) return m_Clubs.at(i).logoFile;
+		if (clubName == m_Clubs.at(i).name)
+			return m_Clubs.at(i).logoFile;
 	}
 
 	return QString();
@@ -62,7 +65,8 @@ QString ClubManager::GetAddress(const QString& clubName) const
 {
 	for (unsigned i(0); i < m_Clubs.size(); ++i)
 	{
-		if (clubName == m_Clubs.at(i).name) return m_Clubs.at(i).address;
+		if (clubName == m_Clubs.at(i).name)
+			return m_Clubs.at(i).address;
 	}
 
 	return QString();
@@ -104,13 +108,15 @@ void ClubManager::LoadClubs_()
 {
 	auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
 
-	if (QFile::exists(config)) { m_Clubs = ClubParser::ParseIniFile(config); }
+	if (QFile::exists(config))
+	{
+		m_Clubs = ClubParser::ParseIniFile(config);
+				
+	}
 	else
 	{
 		// load legacy settings for conversion
-		qWarning() << QString("%1 missing. Trying to load legacy %2")
-		                  .arg(str_clubs_settingsFile)
-		                  .arg(str_legacy_filename_club_definitions);
+		qWarning() << QString("%1 missing. Trying to load legacy %2").arg(str_clubs_settingsFile).arg(str_legacy_filename_club_definitions);
 		try
 		{
 			auto legacyConfig = fm::GetSettingsFilePath(str_legacy_filename_club_definitions);
@@ -118,7 +124,7 @@ void ClubManager::LoadClubs_()
 		}
 		catch (std::exception const& e)
 		{
-			QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
+            QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
 		}
 	}
 }
@@ -127,7 +133,10 @@ void ClubManager::LoadClubs_()
 void ClubManager::SaveClubs_()
 //---------------------------------------------------------
 {
-	if (m_Clubs.empty()) { return; }
+	if (m_Clubs.empty())
+	{
+		return;
+	}
 
 	// make an archive
 	auto filePath = fm::GetSettingsFilePath(str_clubs_settingsFile);
@@ -138,6 +147,7 @@ void ClubManager::SaveClubs_()
 	}
 	catch (std::exception const& e)
 	{
-		QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
+        QMessageBox::critical(nullptr, QString("Internal error"), QString::fromStdString(e.what()));
 	}
+
 }

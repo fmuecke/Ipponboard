@@ -30,19 +30,23 @@ QString const& TournamentMode::str_WeightsAreDoubled("WeightsAreDoubled");
 QString const& TournamentMode::str_Option_AllSubscoresCount("AllSubscoresCount");
 
 TournamentMode::TournamentMode()
-    : id("SingeTournament"),
-      title("Single Tournament"),
-      subTitle("Ipponboard"),
-      weights(),
-      listTemplate(),
-      options(),
-      fightTimeOverrides(),
-      nRounds(1),
-      fightTimeInSeconds(240),
-      weightsAreDoubled(false)
-{}
+	: id("SingeTournament")
+	, title("Single Tournament")
+	, subTitle("Ipponboard")
+	, weights()
+	, listTemplate()
+	, options()
+	, fightTimeOverrides()
+	, nRounds(1)
+	, fightTimeInSeconds(240)
+	, weightsAreDoubled(false)
+{
+}
 
-bool TournamentMode::ReadModes(const QString& filename, TournamentMode::List& modes, QString& errorMsg)
+bool TournamentMode::ReadModes(
+	const QString& filename,
+	TournamentMode::List& modes,
+	QString& errorMsg)
 {
 	errorMsg.clear();
 	qInfo() << "Reading tournament modes from:" << filename;
@@ -69,7 +73,7 @@ bool TournamentMode::ReadModes(const QString& filename, TournamentMode::List& mo
 
 	TournamentMode::List _modes;
 
-	for (QString const& group : groups)
+	for (QString const & group : groups)
 	{
 		TournamentMode mode;
 
@@ -112,7 +116,7 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
 	QSettings config(filename, QSettings::IniFormat, nullptr);
 	config.setIniCodec("UTF-8");
 
-	for (auto const& mode : modes)
+	for (auto const & mode : modes)
 	{
 		config.beginGroup(mode.id);
 
@@ -138,7 +142,7 @@ TournamentMode TournamentMode::Default()
 	TournamentMode mode;
 
 	mode.id = QUuid::createUuid().toString();
-	mode.id = mode.id.mid(1, mode.id.length() - 2); // remove "{}"
+	mode.id = mode.id.mid(1, mode.id.length() - 2);  // remove "{}"
 	mode.title = "*new*";
 	mode.weights = "-66;-73;-81;-90;+90";
 	mode.fightTimeInSeconds = 240;
@@ -150,7 +154,10 @@ TournamentMode TournamentMode::Default()
 	return mode;
 }
 
-bool TournamentMode::operator<(TournamentMode const& other) const { return Description() < other.Description(); }
+bool TournamentMode::operator<(TournamentMode const& other) const
+{
+	return Description() < other.Description();
+}
 
 QString TournamentMode::Description() const
 {
@@ -159,7 +166,10 @@ QString TournamentMode::Description() const
 
 int TournamentMode::FightsPerRound() const
 {
-	if (weights.isEmpty()) { return 1; }
+	if (weights.isEmpty())
+	{
+		return 1;
+	}
 
 	const auto nWeights = weights.split(';').count();
 	return weightsAreDoubled ? nWeights * 2 : nWeights;
@@ -169,7 +179,10 @@ int TournamentMode::GetFightDuration(const QString& weight) const
 {
 	for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
 	{
-		if (weight.contains(it->first)) { return it->second; }
+		if (weight.contains(it->first))
+		{
+			return it->second;
+		}
 	}
 
 	return fightTimeInSeconds;
@@ -177,7 +190,10 @@ int TournamentMode::GetFightDuration(const QString& weight) const
 
 bool TournamentMode::IsOptionSet(QString const& option) const
 {
-	if (options.isEmpty()) { return false; }
+	if (options.isEmpty())
+	{
+		return false;
+	}
 
 	return options.contains(option);
 }
@@ -186,11 +202,17 @@ void TournamentMode::SetOption(QString const& option, bool checked)
 {
 	if (checked)
 	{
-		if (!options.contains(option)) { options.append(";").append(option); }
+		if (!options.contains(option))
+		{
+			options.append(";").append(option);
+		}
 	}
 	else
 	{
-		if (options.contains(option)) { options.replace(option, QString()); }
+		if (options.contains(option))
+		{
+			options.replace(option, QString());
+		}
 	}
 
 	options.replace(QStringLiteral(";;"), QStringLiteral(";"));
@@ -202,9 +224,12 @@ QString TournamentMode::GetFightTimeOverridesString() const
 {
 	QString ret;
 
-	for (auto const& p : fightTimeOverrides)
+	for (auto const & p : fightTimeOverrides)
 	{
-		if (!ret.isEmpty()) { ret += ";"; }
+		if (!ret.isEmpty())
+		{
+			ret += ";";
+		}
 
 		ret += QString("%1:%2").arg(p.first, QString::number(p.second));
 	}
@@ -215,14 +240,20 @@ QString TournamentMode::GetFightTimeOverridesString() const
 bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, OverridesList& overrides)
 {
 	static const QRegularExpression overridesPattern(QStringLiteral("^(?:\\w+:\\d+;)*(?:\\w+:\\d+)$"));
-	if (!overridesPattern.match(overridesString).hasMatch()) { return false; }
+	if (!overridesPattern.match(overridesString).hasMatch())
+	{
+		return false;
+	}
 
 	OverridesList result;
 	QStringList splittedTimes = overridesString.split(';');
 
-	for (QString const& s : splittedTimes)
+	for (QString const & s : splittedTimes)
 	{
-		if (!s.contains(':')) { return false; }
+		if (!s.contains(':'))
+		{
+			return false;
+		}
 
 		QStringList override = s.split(':');
 		std::pair<QString, int> overridePair = std::make_pair(override[0], override[1].toUInt());
@@ -233,8 +264,11 @@ bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, O
 	return true;
 }
 
-bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode& mode, QString templateDir,
-                                         QString& errorMsg)
+bool TournamentMode::parse_current_group(
+	QSettings const& config,
+	TournamentMode& mode,
+	QString templateDir,
+	QString& errorMsg)
 {
 	if (!verify_child_keys(config.childKeys(), errorMsg))
 	{
@@ -251,8 +285,7 @@ bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode
 	mode.weights = config.value(TournamentMode::str_Weights).toString();
 	mode.listTemplate = config.value(TournamentMode::str_Template).toString();
 	mode.nRounds = config.value(TournamentMode::str_Rounds).toUInt();
-	mode.nRounds =
-	    mode.nRounds > 2 ? 2 : mode.nRounds; // restrict to two rounds for now as the lists do not handle more
+	mode.nRounds = mode.nRounds > 2 ? 2 : mode.nRounds;  // restrict to two rounds for now as the lists do not handle more
 	mode.fightTimeInSeconds = config.value(TournamentMode::str_FightTimeInSeconds).toUInt();
 	mode.weightsAreDoubled = config.value(TournamentMode::str_WeightsAreDoubled, false).toBool();
 	mode.options = config.value(TournamentMode::str_Options, QString()).toString();
@@ -277,8 +310,8 @@ bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode
 
 		if (!listTemplate.exists())
 		{
-			errorMsg =
-			    QString("The list template for [%2] could not be found: \"%1\"").arg(templateFile, config.group());
+			errorMsg = QString("The list template for [%2] could not be found: \"%1\"")
+					   .arg(templateFile, config.group());
 
 			return false;
 		}
@@ -330,12 +363,22 @@ bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode
 bool TournamentMode::verify_child_keys(QStringList const& childKeys, QString& errorMsg)
 {
 	QStringList mandatoryKeys;
-	mandatoryKeys << str_Title << str_Weights << str_Template << str_Rounds << str_FightTimeInSeconds;
+	mandatoryKeys
+			<< str_Title
+			<< str_Weights
+			<< str_Template
+			<< str_Rounds
+			<< str_FightTimeInSeconds;
 
 	QStringList optionalKeys;
-	optionalKeys << str_SubTitle << str_FightTimeOverrides << str_WeightsAreDoubled << str_Rules << str_Options;
+	optionalKeys
+			<< str_SubTitle
+			<< str_FightTimeOverrides
+			<< str_WeightsAreDoubled
+			<< str_Rules
+			<< str_Options;
 
-	for (QString const& key : childKeys)
+	for (QString const & key : childKeys)
 	{
 		// check manadatory keys
 		auto pos = std::find(mandatoryKeys.begin(), mandatoryKeys.end(), key);

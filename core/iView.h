@@ -14,11 +14,11 @@ class IController;
 
 class IView
 {
-  public:
+public:
 	virtual void UpdateView() = 0;
 	virtual void Reset() = 0;
 	virtual void SetShowInfoHeader(bool show) = 0;
 };
 
-} // namespace Ipponboard
-#endif // CORE__IVIEW_H_
+}
+#endif  // CORE__IVIEW_H_

@@ -17,12 +17,14 @@
 //using namespace Ipponboard;
 
 //---------------------------------------------------------
-FighterManagerDlg::FighterManagerDlg(Ipponboard::FighterManager& manager, QWidget* parent)
-    : QDialog(parent),
-      ui(new Ui::FighterManagerDlg),
-      m_manager(manager),
-      m_filter(),
-      m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
+FighterManagerDlg::FighterManagerDlg(
+	Ipponboard::FighterManager& manager,
+	QWidget* parent)
+	: QDialog(parent)
+	, ui(new Ui::FighterManagerDlg)
+	, m_manager(manager)
+	, m_filter()
+	, m_formatStr(Ipponboard::FighterManager::DefaultExportFormat())
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
@@ -45,8 +47,8 @@ FighterManagerDlg::FighterManagerDlg(Ipponboard::FighterManager& manager, QWidge
 	ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
 	ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-	ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
-	ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName, QHeaderView::Stretch);
+    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
 	populate_view();
 }
@@ -79,9 +81,12 @@ void FighterManagerDlg::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange: ui->retranslateUi(this); break;
+	case QEvent::LanguageChange:
+		ui->retranslateUi(this);
+		break;
 
-	default: break;
+	default:
+		break;
 	}
 }
 
@@ -93,7 +98,10 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
 	QStringList clubs;
 
-	if (m_filter.first == eColumn_club) { clubs.append(m_filter.second); }
+	if (m_filter.first == eColumn_club)
+	{
+		clubs.append(m_filter.second);
+	}
 	else
 	{
 		//FIXME:
@@ -102,7 +110,10 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 
 	dlg.SetClubs(clubs);
 
-	if (dlg.exec() == QDialog::Rejected) { return; }
+	if (dlg.exec() == QDialog::Rejected)
+	{
+		return;
+	}
 
 	Ipponboard::Fighter fighter = dlg.GetFighter();
 	m_manager.m_fighters.insert(fighter);
@@ -117,7 +128,8 @@ void FighterManagerDlg::on_pushButton_add_pressed()
 	contents[eColumn_firstName] = fighter.first_name;
 	contents[eColumn_lastName] = fighter.last_name;
 
-	QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+	QTreeWidgetItem* pItem =
+		new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 	pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 	ui->treeWidget_fighters->addTopLevelItem(pItem);
 }
@@ -132,15 +144,21 @@ void FighterManagerDlg::populate_view()
 
 	if (hasFilter)
 	{
-		const QString filterInfo =
-		    QString("%0: %1").arg(ui->treeWidget_fighters->headerItem()->text(m_filter.first), m_filter.second);
+		const QString filterInfo = QString("%0: %1").arg(
+									   ui->treeWidget_fighters->headerItem()->text(m_filter.first),
+									   m_filter.second);
 
 		ui->label_filterinfo->setText(filterInfo);
 		ui->label_filterinfo->show();
 	}
-	else { ui->label_filterinfo->hide(); }
+	else
+	{
+		ui->label_filterinfo->hide();
+	}
 
-	std::for_each(begin(m_manager.m_fighters), end(m_manager.m_fighters), [&](Ipponboard::Fighter const& f) {
+	std::for_each(begin(m_manager.m_fighters), end(m_manager.m_fighters),
+				  [&](Ipponboard::Fighter const & f)
+	{
 		bool skipItem = true;
 
 		if (hasFilter)
@@ -148,22 +166,26 @@ void FighterManagerDlg::populate_view()
 			switch (m_filter.first)
 			{
 			case eColumn_firstName:
-				if (m_filter.second == f.first_name) skipItem = false;
+				if (m_filter.second == f.first_name)
+					skipItem = false;
 
 				break;
 
 			case eColumn_lastName:
-				if (m_filter.second == f.last_name) skipItem = false;
+				if (m_filter.second == f.last_name)
+					skipItem = false;
 
 				break;
 
 			case eColumn_club:
-				if (m_filter.second == f.club) skipItem = false;
+				if (m_filter.second == f.club)
+					skipItem = false;
 
 				break;
 
 			case eColumn_weight:
-				if (m_filter.second == f.weight) skipItem = false;
+				if (m_filter.second == f.weight)
+					skipItem = false;
 
 				break;
 
@@ -172,10 +194,14 @@ void FighterManagerDlg::populate_view()
 				//		skipItem = false;
 				//	break;
 
-			default: break;
+			default:
+				break;
 			}
 		}
-		else { skipItem = false; }
+		else
+		{
+			skipItem = false;
+		}
 
 		if (!skipItem)
 		{
@@ -189,7 +215,8 @@ void FighterManagerDlg::populate_view()
 			contents[eColumn_firstName] = f.first_name;
 			contents[eColumn_lastName] = f.last_name;
 
-			QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+			QTreeWidgetItem* pItem =
+				new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 			pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 			ui->treeWidget_fighters->addTopLevelItem(pItem);
 		}
@@ -201,11 +228,9 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 //---------------------------------------------------------
 {
 	const QString fileName = QFileDialog::getOpenFileName(this,
-	                                                      tr("Select CSV file with fighters"),
-	                                                      QCoreApplication::applicationDirPath(),
-	                                                      tr("CSV files (*.csv);;Text files (*.txt)"),
-	                                                      nullptr,
-	                                                      QFileDialog::ReadOnly);
+							 tr("Select CSV file with fighters"),
+							 QCoreApplication::applicationDirPath(),
+							 tr("CSV files (*.csv);;Text files (*.txt)"), nullptr, QFileDialog::ReadOnly);
 
 	if (!fileName.isEmpty())
 	{
@@ -216,11 +241,20 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 
 		if (m_manager.ImportFighters(fileName, m_formatStr, errorMsg))
 		{
-			QMessageBox::information(this, QCoreApplication::applicationName(), errorMsg);
+			QMessageBox::information(
+				this,
+				QCoreApplication::applicationName(),
+				errorMsg);
 
 			//TODO?: update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
 		}
-		else { QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg); }
+		else
+		{
+			QMessageBox::critical(
+				this,
+				QCoreApplication::applicationName(),
+				errorMsg);
+		}
 	}
 
 	populate_view();
@@ -231,9 +265,9 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 //---------------------------------------------------------
 {
 	const QString fileName = QFileDialog::getSaveFileName(this,
-	                                                      tr("Name CSV file to store fighters in"),
-	                                                      QCoreApplication::applicationDirPath(),
-	                                                      tr("CSV files (*.csv);;Text files (*.txt)"));
+							 tr("Name CSV file to store fighters in"),
+							 QCoreApplication::applicationDirPath(),
+							 tr("CSV files (*.csv);;Text files (*.txt)"));
 
 	if (!fileName.isEmpty())
 	{
@@ -244,9 +278,18 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 
 		if (m_manager.ExportFighters(fileName, m_formatStr, errorMsg))
 		{
-			QMessageBox::information(this, QCoreApplication::applicationName(), errorMsg);
+			QMessageBox::information(
+				this,
+				QCoreApplication::applicationName(),
+				errorMsg);
 		}
-		else { QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg); }
+		else
+		{
+			QMessageBox::critical(
+				this,
+				QCoreApplication::applicationName(),
+				errorMsg);
+		}
 	}
 }
 
@@ -259,14 +302,14 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 	//QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
 
 	//if (pItem)
-	for (QTreeWidgetItem* pItem : selectedItems)
+	for (QTreeWidgetItem * pItem : selectedItems)
 	{
-		Ipponboard::Fighter currentFighter(pItem->text(eColumn_firstName), pItem->text(eColumn_lastName));
+        Ipponboard::Fighter currentFighter(pItem->text(eColumn_firstName), pItem->text(eColumn_lastName));
 		currentFighter.club = pItem->text(eColumn_club);
 		currentFighter.weight = pItem->text(eColumn_weight);
 		//TODO: currentFighter.category = pItem->text(eColumn_category);
 
-		ui->treeWidget_fighters->takeTopLevelItem(ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+        ui->treeWidget_fighters->takeTopLevelItem(ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
 		m_manager.RemoveFighter(currentFighter);
 
@@ -275,7 +318,8 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
 }
 
 //---------------------------------------------------------
-void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pItem, int column)
+void FighterManagerDlg::on_treeWidget_fighters_itemChanged(
+	QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
 	if (pItem)
@@ -295,11 +339,17 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
 
 		switch (column)
 		{
-		case eColumn_firstName: firstName = m_tmpData; break;
+		case eColumn_firstName:
+			firstName = m_tmpData;
+			break;
 
-		case eColumn_lastName: lastName = m_tmpData; break;
+		case eColumn_lastName:
+			lastName = m_tmpData;
+			break;
 
-		case eColumn_club: club = m_tmpData; break;
+		case eColumn_club:
+			club = m_tmpData;
+			break;
 
 		case eColumn_weight:
 			weight = m_tmpData;
@@ -309,7 +359,9 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
 			// category = m_tmpData;
 			// break;
 
-		default: qDebug("ERROR: invalid enum value: %i", column); break;
+		default:
+			qDebug("ERROR: invalid enum value: %i", column);
+			break;
 		}
 
 		Ipponboard::Fighter originalFighter(firstName, lastName);
@@ -317,16 +369,20 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
 		originalFighter.weight = weight;
 		//TODO: originalFighter.category = category;
 
-		if (!m_manager.RemoveFighter(originalFighter)) { qDebug("error: original fighter not found!"); }
+		if (!m_manager.RemoveFighter(originalFighter))
+		{
+			qDebug("error: original fighter not found!");
+		}
 
 		if (!m_manager.AddFighter(changedFighter))
 		{
-			ui->treeWidget_fighters->takeTopLevelItem(ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+			ui->treeWidget_fighters->takeTopLevelItem(
+				ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
 			// due to duplicate entry
 			qDebug("removed changed entry due to duplicate: %s %s",
-			       changedFighter.first_name.toLatin1().data(),
-			       changedFighter.last_name.toLatin1().data());
+                   changedFighter.first_name.toLatin1().data(),
+                   changedFighter.last_name.toLatin1().data());
 		}
 	}
 }
@@ -342,28 +398,50 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
 	bool ok(false);
 	QString dlgTitle = tr("Specify import/export format");
 	QString dlgMsg = tr("Use valid specifiers and some kind of separator (;,:|/ etc.)"
-	                    "\nValid specifiers are: %1")
-	                     .arg(Ipponboard::FighterManager::GetSpecifierDescription());
+						"\nValid specifiers are: %1")
+					 .arg(Ipponboard::FighterManager::GetSpecifierDescription());
 
-	QString inputString = QInputDialog::getText(this, dlgTitle, dlgMsg, QLineEdit::Normal, m_formatStr, &ok);
+    QString inputString = QInputDialog::getText(this,
+										 dlgTitle,
+										 dlgMsg,
+										 QLineEdit::Normal,
+										 m_formatStr,
+										 &ok);
 
 	QString separator;
-	bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
+    bool isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
 
 	QStringList dataParts;
 
-	if (isValidSeparator) { dataParts = inputString.split(separator); }
+	if (isValidSeparator)
+	{
+        dataParts = inputString.split(separator);
+	}
 
 	// at least 3 parts must be set (first, last, ...)
 	while (ok && (!isValidSeparator || dataParts.size() < 3))
 	{
-		QMessageBox::critical(this, tr(""), tr("Invalid format. Please correct your input."));
+		QMessageBox::critical(this,
+							  tr(""),
+							  tr("Invalid format. Please correct your input."));
 
-		inputString = QInputDialog::getText(this, dlgTitle, dlgMsg, QLineEdit::Normal, inputString, &ok);
-		isValidSeparator = Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
+        inputString = QInputDialog::getText(this,
+									 dlgTitle,
+									 dlgMsg,
+									 QLineEdit::Normal,
+                                     inputString,
+									 &ok);
+		isValidSeparator =
+            Ipponboard::FighterManager::DetermineSeparator(inputString, separator);
 
-		if (isValidSeparator) { dataParts = inputString.split(separator); }
+		if (isValidSeparator)
+		{
+            dataParts = inputString.split(separator);
+		}
 	}
 
-	if (ok && isValidSeparator) { m_formatStr = inputString; }
+	if (ok && isValidSeparator)
+	{
+        m_formatStr = inputString;
+	}
 }

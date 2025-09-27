@@ -20,11 +20,12 @@
 #include <QJsonArray>
 #include <QFile>
 
-const QString OnlineVersionChecker::VersionDocumentUrl =
-    "https://api.github.com/repos/fmuecke/Ipponboard/releases/latest";
+const QString OnlineVersionChecker::VersionDocumentUrl = "https://api.github.com/repos/fmuecke/Ipponboard/releases/latest";
 const QString OnlineVersionChecker::ProjectReleasesUrl = "https://github.com/fmuecke/Ipponboard/releases";
 
-OnlineVersionChecker::OnlineVersionChecker() {}
+OnlineVersionChecker::OnlineVersionChecker()
+{
+}
 
 QString GetJsonValue(QJsonObject obj, QString path)
 {
@@ -42,21 +43,29 @@ QString GetJsonValue(QJsonObject obj, QString path)
 		if (obj.contains(key))
 		{
 			QJsonValue jsonValue = obj.value(key);
-			if (jsonValue.isObject()) { obj = jsonValue.toObject(); }
+			if (jsonValue.isObject())
+			{
+				obj = jsonValue.toObject();
+			}
 			else if (jsonValue.isArray())
 			{
 				QJsonArray jsonArray = jsonValue.toArray();
-				QString arrayIndex =
-				    element.mid(element.indexOf('[') + 1, element.indexOf(']') - element.indexOf('[') - 1);
+				QString arrayIndex = element.mid(element.indexOf('[') + 1, element.indexOf(']') - element.indexOf('[') - 1);
 				int index = arrayIndex.toInt();
-				if (index >= 0 && index < jsonArray.size()) { obj = jsonArray.at(index).toObject(); }
+				if (index >= 0 && index < jsonArray.size())
+				{
+					obj = jsonArray.at(index).toObject();
+				}
 				else
 				{
 					qDebug() << "Invalid array access:" << element;
 					break;
 				}
 			}
-			else if (jsonValue.isString()) { value = jsonValue.toString(); }
+			else if (jsonValue.isString())
+			{
+				value = jsonValue.toString();
+			}
 			else if (jsonValue.isDouble())
 			{
 				// TODO: check if this is correct
@@ -90,12 +99,11 @@ QString OnlineVersionChecker::get_version_document(QString url)
 			return in.readAll();
 		}
 		else
-		{ 
-			// (line break)
-			qDebug() << "Error opening JSON document:" << file.errorString(); 
+		{
+			qDebug() << "Error opening JSON document:" << file.errorString();
 		}
 	}
-
+		
 	QNetworkAccessManager manager;
 	QNetworkRequest request(url);
 	QNetworkReply* reply = manager.get(request);
@@ -105,8 +113,14 @@ QString OnlineVersionChecker::get_version_document(QString url)
 	loop.exec();
 
 	QString jsonDocument;
-	if (reply->error() == QNetworkReply::NoError) { jsonDocument = reply->readAll(); }
-	else { qDebug() << "Error retrieving JSON document:" << reply->errorString(); }
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		jsonDocument = reply->readAll();
+	}
+	else
+	{
+		qDebug() << "Error retrieving JSON document:" << reply->errorString();
+	}
 
 	reply->deleteLater();
 	return jsonDocument;
@@ -143,8 +157,7 @@ OnlineVersionChecker::OnlineVersion OnlineVersionChecker::CheckOnlineVersion()
 	auto onlineVersion = parse_version_document(doc);
 	if (!onlineVersion.version.isEmpty())
 	{
-		qDebug() << "online version string:" << onlineVersion.version
-		         << "( current:" << QString(VersionInfo::VersionStr) << ")";
+		qDebug() << "online version string:" << onlineVersion.version << "( current:" << QString(VersionInfo::VersionStr) << ")";
 		qDebug() << "checking took " << timer.elapsed() << "ms";
 
 		if (VersionComparer::IsVersionLess(VersionInfo::VersionStr, onlineVersion.version.toStdString()))
@@ -156,8 +169,7 @@ OnlineVersionChecker::OnlineVersion OnlineVersionChecker::CheckOnlineVersion()
 		{
 			if (VersionComparer::IsVersionLess(onlineVersion.version.toStdString(), VersionInfo::VersionStr))
 			{
-				qInfo() << "current version" << VersionInfo::VersionStr << "is newer than online version"
-				        << onlineVersion.version;
+				qInfo() << "current version" << VersionInfo::VersionStr << "is newer than online version" << onlineVersion.version;
 				onlineVersion.state = State::NewerThanOnlineAvailable;
 			}
 			else

@@ -10,7 +10,7 @@
 
 class FightCategoryParser
 {
-  public:
+public:
 	FightCategoryParser();
 
 	//> legacy (old format)

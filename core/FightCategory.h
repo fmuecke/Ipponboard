@@ -15,19 +15,30 @@ namespace Ipponboard
 
 class FightCategory
 {
-  public:
+public:
 	// Note: class uses std::string instead of QString for
 	// better serialization support
 	typedef std::vector<std::string> StringList;
 
-	FightCategory() {}
-
-	explicit FightCategory(QString const& new_name)
-	    : name(new_name.toStdString()), round_time_secs(0), golden_score_time_secs(0), weights()
+	FightCategory()
 	{}
 
-	inline bool operator==(std::string const& n) const { return name == n; }
-	inline bool operator==(QString const& n) const { return name == n.toStdString(); }
+	explicit FightCategory(QString const& new_name)
+		: name(new_name.toStdString())
+		, round_time_secs(0)
+		, golden_score_time_secs(0)
+		, weights()
+	{
+	}
+
+	inline bool operator==(std::string const& n) const
+	{
+		return name == n;
+	}
+	inline bool operator==(QString const& n) const
+	{
+		return name == n.toStdString();
+	}
 
 	QString ToString() const { return QString::fromStdString(name); }
 	void Rename(QString const& newName) { name.assign(newName.toStdString()); }
@@ -45,15 +56,17 @@ class FightCategory
 
 	QStringList GetWeightsList() const;
 
-  private:
+private:
+
 	std::string name;
 	int round_time_secs{ 0 };
 	int golden_score_time_secs{ 0 };
 	std::string weights;
 };
 
+
 typedef std::vector<FightCategory> FightCategoryList;
 
 } // namespace Ipponboard
 
-#endif // BASE__FIGHTCATEGORY_H_
+#endif	// BASE__FIGHTCATEGORY_H_
