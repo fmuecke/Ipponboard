@@ -17,10 +17,6 @@ else()
     include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
 endif()
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC OFF)
-
 if(WIN32)
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)
@@ -43,16 +39,12 @@ set(SOURCES
     TestStateMachine.cpp
     TestTournamentModel.cpp
     TestView.cpp
-    ../base/View.cpp
-    ../Widgets/ScaledImage.cpp
-    ../Widgets/ScaledText.cpp
-    ../base/view_horizontal.ui
 )
 
 set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
-target_link_libraries(${APP_NAME} PRIVATE IpponboardCore)
-target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR} ${ROOT_DIR}/base ${ROOT_DIR}/Widgets)
+target_link_libraries(${APP_NAME} PRIVATE IpponboardUi)
+target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -82,7 +74,7 @@ if(MSVC)
     )
 
     # Copy required QT runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::Multimedia)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::Multimedia Qt5::Network)
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
@@ -102,8 +94,6 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
-
-
 
 
 
