@@ -22,7 +22,7 @@
 
 // forwards
 class QTimer;
-class QSound;
+class QSoundEffect;
 //class TournamentModel;
 
 namespace Ipponboard
@@ -214,6 +214,7 @@ private:
 	bool m_isAutoAdjustPoints { true };
 	QString m_labelHome;
 	QString m_labelGuest;
+	mutable std::unique_ptr<QSoundEffect> m_gongEffect;
 	void reset_timers();
 	std::shared_ptr<AbstractRules> m_rules;
 };

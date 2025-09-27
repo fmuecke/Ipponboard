@@ -6,7 +6,7 @@
 #include "ui_FightCategoryManagerDlg.h"
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QPlainTextEdit>
 
 using namespace Ipponboard;
@@ -204,15 +204,10 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 		m_pClassMgr->RenameCategory(old.ToString(), cat.ToString());
 		return;
 	}
-	else if (eColumn_Time == column)
+	else if (eColumn_Time == column || eColumn_GS == column)
 	{
-		QRegExp regex("[1-6]{0,1}[0-9][:][0-5][0-9]");
-		matches = regex.exactMatch(pItem->text(column));
-	}
-	else if (eColumn_GS == column)
-	{
-		QRegExp regex("[1-6]{0,1}[0-9][:][0-5][0-9]");
-		matches = regex.exactMatch(pItem->text(column));
+		static const QRegularExpression timePattern(QStringLiteral("^[1-6]{0,1}[0-9]:[0-5][0-9]$"));
+		matches = timePattern.match(pItem->text(column)).hasMatch();
 	}
 	else if (column == eColumn_Weights)
 	{

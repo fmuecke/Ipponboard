@@ -965,7 +965,7 @@ void MainWindowTeam::on_actionPrint_triggered()
     printer.setPageMargins(QMarginsF(0,0,0,0), QPageLayout::Millimeter);
     //printer.setFullPage(true);
 	QPrintPreviewDialog preview(&printer, this);
-	connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(Print(QPrinter*)));
+	connect(&preview, &QPrintPreviewDialog::paintRequested, this, &MainWindowTeam::Print);
 	preview.exec();
 }
 

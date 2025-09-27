@@ -48,7 +48,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QTimer>
-#include <QSound>
+#include <QSoundEffect>
 #include <QFileInfo>
 #include <QtGui/QApplication>
 #include <QTranslator>

@@ -11,7 +11,7 @@
 #include <QDir>
 #include <QUuid>
 #include <QSettings>
-#include <regex>
+#include <QRegularExpression>
 #include <QDebug>
 
 using namespace Ipponboard;
@@ -215,9 +215,9 @@ void TournamentMode::SetOption(QString const& option, bool checked)
 		}
 	}
 
-	options.replace(";;", ";");
-	options.remove(QRegExp("^;"));
-	options.remove(QRegExp(";$"));
+	options.replace(QStringLiteral(";;"), QStringLiteral(";"));
+	options.remove(QRegularExpression(QStringLiteral("^;")));
+	options.remove(QRegularExpression(QStringLiteral(";$")));
 }
 
 QString TournamentMode::GetFightTimeOverridesString() const
@@ -239,7 +239,8 @@ QString TournamentMode::GetFightTimeOverridesString() const
 
 bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString, OverridesList& overrides)
 {
-	if (!std::regex_match(overridesString.toStdString(), std::regex("(\\w+:\\d+;)*(\\w+:\\d+)$")))
+	static const QRegularExpression overridesPattern(QStringLiteral("^(?:\\w+:\\d+;)*(?:\\w+:\\d+)$"));
+	if (!overridesPattern.match(overridesString).hasMatch())
 	{
 		return false;
 	}

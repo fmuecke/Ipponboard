@@ -14,7 +14,8 @@
 #include <QFile>
 #include <QDir>
 #include <QScreen>
-#include <QSound>
+#include <QSoundEffect>
+#include <QUrl>
 #include <QColorDialog>
 #include <QDebug>
 
@@ -26,6 +27,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui(new Ui::SettingsDlg)
 {
 	ui->setupUi(this);
+    m_previewEffect.setParent(this);
+    m_previewEffect.setLoopCount(1);
 
 	if (m_edition == EditionType::Team)
 	{
@@ -204,6 +207,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 
 SettingsDlg::~SettingsDlg()
 {
+	m_previewEffect.stop();
+	m_previewEffect.setSource(QUrl());
 	delete ui;
 }
 
@@ -479,7 +484,9 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 	QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
 	qDebug() << "Playing sound from file:" << path;
-	QSound::play(path);
+	m_previewEffect.stop();
+	m_previewEffect.setSource(QUrl::fromLocalFile(path));
+	m_previewEffect.play();
 }
 
 void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(

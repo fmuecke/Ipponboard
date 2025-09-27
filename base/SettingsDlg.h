@@ -7,6 +7,7 @@
 
 #include "../core/EditionType.h"
 #include <QDialog>
+#include <QSoundEffect>
 #include <map>
 
 class QComboBox;
@@ -67,6 +68,7 @@ private:
 	Ui::SettingsDlg* ui;
 	typedef std::map<int, QString> ButtonTextMap;
 	ButtonTextMap m_buttonTexts;
+    QSoundEffect m_previewEffect;
 
 private slots:
 	void on_comboBox_mat_editTextChanged(QString);
