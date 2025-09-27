@@ -20,7 +20,7 @@ namespace Tags
 {
 static const char* Address = "Address";
 static const char* LogoFile = "LogoFile";
-}
+} // namespace Tags
 
 static Ipponboard::ClubList ParseJsonFile(QString filePath)
 {
@@ -28,7 +28,7 @@ static Ipponboard::ClubList ParseJsonFile(QString filePath)
 
 	auto const& jsonClubs = fm::Json::ReadFile(filePath.toStdString().c_str());
 
-	for (auto const & jsonClub : jsonClubs)
+	for (auto const& jsonClub : jsonClubs)
 	{
 		Ipponboard::Club club;
 		club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
@@ -48,21 +48,15 @@ static Ipponboard::ClubList ParseIniFile(QString filePath)
 
 	Ipponboard::ClubList clubs;
 
-	for (auto const & group : settings.childGroups())
+	for (auto const& group : settings.childGroups())
 	{
 		settings.beginGroup(group);
 		Ipponboard::Club club;
 		club.name = group;
 
-		if (settings.contains(Tags::Address))
-		{
-			club.address = settings.value(Tags::Address).toString();
-		}
+		if (settings.contains(Tags::Address)) { club.address = settings.value(Tags::Address).toString(); }
 
-		if (settings.contains(Tags::LogoFile))
-		{
-			club.logoFile = settings.value(Tags::LogoFile).toString();
-		}
+		if (settings.contains(Tags::LogoFile)) { club.logoFile = settings.value(Tags::LogoFile).toString(); }
 
 		settings.endGroup();
 
@@ -79,7 +73,7 @@ static void ToIniFile(QString filePath, Ipponboard::ClubList const& clubs)
 
 	settings.clear();
 
-	for (auto const & club : clubs)
+	for (auto const& club : clubs)
 	{
 		settings.beginGroup(club.name);
 		settings.setValue(Tags::Address, club.address);
@@ -107,6 +101,6 @@ static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& 
 }
 */
 
-}
+} // namespace ClubParser
 
 #endif // CLUBPARSER_H

@@ -9,7 +9,7 @@
 
 class VersionComparer
 {
-public:
+  public:
 	struct SemVer
 	{
 		int major{ 0 };
@@ -17,7 +17,7 @@ public:
 		int patch{ 0 };
 		std::string prerelease;
 
-		static SemVer FromString(std::string const& version); 
+		static SemVer FromString(std::string const& version);
 		std::string ToString() const
 		{
 			if (prerelease.empty())

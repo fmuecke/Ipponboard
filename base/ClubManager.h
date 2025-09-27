@@ -16,7 +16,7 @@ namespace Ipponboard
 class ClubManager
 {
 	//Q_OBJECT
-public:
+  public:
 	static const char* const str_legacy_filename_club_definitions; // used prior to version 1.10
 	static const char* const str_clubs_settingsFile;
 
@@ -32,9 +32,9 @@ public:
 	void UpdateClub(unsigned int index, const Ipponboard::Club& club);
 	void RemoveClub(unsigned int index);
 	void SortClubs();
-    int ClubCount() const { return m_Clubs.size(); }
+	int ClubCount() const { return m_Clubs.size(); }
 
-private:
+  private:
 	void LoadClubs_();
 	void SaveClubs_();
 
@@ -43,4 +43,4 @@ private:
 
 } // namespace Ipponboard
 
-#endif  // BASE__CLUBMANAGER_H_
+#endif // BASE__CLUBMANAGER_H_

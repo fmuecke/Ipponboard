@@ -18,7 +18,7 @@ namespace Ipponboard
 class ScoreScreen : public QWidget
 {
 	Q_OBJECT
-public:
+  public:
 	explicit ScoreScreen(QWidget* parent = 0);
 	~ScoreScreen();
 
@@ -31,15 +31,14 @@ public:
 	void SetTextColorFirst(const QColor& color, const QColor& bgColor);
 	void SetTextColorSecond(const QColor& color, const QColor& bgColor);
 
-
-protected:
+  protected:
 	void changeEvent(QEvent* e);
 
-private:
+  private:
 	Ui::ScoreScreen* ui;
 	QFont m_textFont;
 	QFont m_digitFont;
 };
 
 } // namespace Ipponboard
-#endif  // TEAMTOURNAMENT__SCORESCREEN_H_
+#endif // TEAMTOURNAMENT__SCORESCREEN_H_

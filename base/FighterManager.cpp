@@ -5,7 +5,7 @@
 #include "FighterManager.h"
 #include "../util/SimpleCsvFile.hpp"
 
-#include <QObject>  // needed for tr()
+#include <QObject> // needed for tr()
 #include <QStringList>
 #include <algorithm>
 
@@ -17,25 +17,17 @@ char const* const FighterManager::str_CLUB = "@CLUB";
 char const* const FighterManager::str_WEIGHT = "@WEIGHT";
 char const* const FighterManager::str_CATEGORY = "@CATEGORY";
 
-const std::array<char const* const, 5> FighterManager::Specifiers =
-{
-	str_FIRSTNAME,
-	str_LASTNAME,
-	str_CLUB,
-	str_WEIGHT,
-	str_CATEGORY
+const std::array<char const* const, 5> FighterManager::Specifiers = {
+	str_FIRSTNAME, str_LASTNAME, str_CLUB, str_WEIGHT, str_CATEGORY
 };
 
 QString FighterManager::DefaultExportFormat()
 {
 	QString ret;
 
-	for (char const * const s : Specifiers)
+	for (char const* const s : Specifiers)
 	{
-		if (!ret.isEmpty())
-		{
-			ret.append(';');
-		}
+		if (!ret.isEmpty()) { ret.append(';'); }
 
 		ret.append(s);
 	}
@@ -43,22 +35,15 @@ QString FighterManager::DefaultExportFormat()
 	return ret;
 }
 
-
-FighterManager::FighterManager()
-	: m_fighters()
-{
-}
+FighterManager::FighterManager() : m_fighters() {}
 
 QString FighterManager::GetSpecifierDescription()
 {
 	QString retVal;
 
-	for (char const * const s : Specifiers)
+	for (char const* const s : Specifiers)
 	{
-		if (!retVal.isEmpty())
-		{
-			retVal.append(", ");
-		}
+		if (!retVal.isEmpty()) { retVal.append(", "); }
 
 		retVal.append(s);
 	}
@@ -87,10 +72,7 @@ bool Ipponboard::FighterManager::IsFormatSatisfying(const QString& formatStr)
 // Format string must be at least "satisfying" to be processed
 bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString& sep)
 {
-	if (!IsFormatSatisfying(str))
-	{
-		return false;
-	}
+	if (!IsFormatSatisfying(str)) { return false; }
 
 	sep.clear();
 	QString workStr = str.trimmed();
@@ -107,20 +89,14 @@ bool Ipponboard::FighterManager::DetermineSeparator(const QString& str, QString&
 
 	auto nextPos = workStr.indexOf("@", endPos);
 
-	if (-1 == nextPos)
-	{
-		return false;
-	}
+	if (-1 == nextPos) { return false; }
 
 	sep = workStr.mid(endPos, nextPos - endPos);
 
 	return true;
 }
 
-bool FighterManager::ImportFighters(
-	QString const& fileName,
-	QString const& formatStr,
-	QString& errorMsg)
+bool FighterManager::ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg)
 {
 	errorMsg.clear();
 
@@ -128,8 +104,7 @@ bool FighterManager::ImportFighters(
 
 	if (!DetermineSeparator(formatStr, sep))
 	{
-		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
-				   .arg(formatStr);
+		errorMsg = QObject::tr("Format specifier has invalid separator: %1").arg(formatStr);
 		return false;
 	}
 
@@ -143,23 +118,19 @@ bool FighterManager::ImportFighters(
 
 	if (-1 == firstNamePos || -1 == lastNamePos)
 	{
-		errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1")
-				   .arg(formatStr);
+		errorMsg = QObject::tr("Format specifier does not contain firstname and lastname: %1").arg(formatStr);
 		return false;
 	}
 
 	std::vector<QStringList> data;
 
-	if (!fm::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg))
-	{
-		return false;
-	}
+	if (!fm::SimpleCsvFile::ReadItems(fileName, sep, data, errorMsg)) { return false; }
 
 	//NO, don't do it: m_fighters.clear();
 
 	const size_t oldCount = m_fighters.size();
 
-	for (QStringList const & line : data)
+	for (QStringList const& line : data)
 	{
 		QString firstName = line[firstNamePos];
 		QString lastName = line[lastNamePos];
@@ -180,10 +151,7 @@ bool FighterManager::ImportFighters(
 	return true;
 }
 
-bool FighterManager::ExportFighters(
-	QString const& fileName,
-	QString const& formatStr,
-	QString& errorMsg)
+bool FighterManager::ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg)
 {
 	errorMsg.clear();
 
@@ -191,16 +159,14 @@ bool FighterManager::ExportFighters(
 
 	if (!DetermineSeparator(formatStr, sep))
 	{
-		errorMsg = QObject::tr("Format specifier has invalid separator: %1")
-				   .arg(formatStr);
+		errorMsg = QObject::tr("Format specifier has invalid separator: %1").arg(formatStr);
 
 		return false;
 	}
 
 	if (!IsFormatSatisfying(formatStr))
 	{
-		errorMsg = QObject::tr("Format specifier does not meet criteria: %1")
-				   .arg(formatStr);
+		errorMsg = QObject::tr("Format specifier does not meet criteria: %1").arg(formatStr);
 
 		return false;
 	}
@@ -215,37 +181,19 @@ bool FighterManager::ExportFighters(
 
 	QStringList data;
 
-	for (Ipponboard::Fighter const & f : m_fighters)
+	for (Ipponboard::Fighter const& f : m_fighters)
 	{
 		QString line;
 
 		for (int i = 0; i < static_cast<int>(tags.size()); ++i)
 		{
-			if (!line.isEmpty())
-			{
-				line.append(sep);
-			}
+			if (!line.isEmpty()) { line.append(sep); }
 
-			if (i == firstNamePos)
-			{
-				line.append(f.first_name);
-			}
-			else if (i == lastNamePos)
-			{
-				line.append(f.last_name);
-			}
-			else if (i == clubPos)
-			{
-				line.append(f.club);
-			}
-			else if (i == weightPos)
-			{
-				line.append(f.weight);
-			}
-			else if (i == categoryPos)
-			{
-				line.append(f.category);
-			}
+			if (i == firstNamePos) { line.append(f.first_name); }
+			else if (i == lastNamePos) { line.append(f.last_name); }
+			else if (i == clubPos) { line.append(f.club); }
+			else if (i == weightPos) { line.append(f.weight); }
+			else if (i == categoryPos) { line.append(f.category); }
 			else
 			{
 				// empty tag
@@ -255,30 +203,20 @@ bool FighterManager::ExportFighters(
 		data.push_back(line);
 	}
 
-	if (!fm::SimpleCsvFile::WriteData(fileName, data, errorMsg))
-	{
-		return false;
-	}
+	if (!fm::SimpleCsvFile::WriteData(fileName, data, errorMsg)) { return false; }
 
-	errorMsg = QObject::tr("Successfully exported %1 fighters.")
-			   .arg(QString::number(m_fighters.size()));
+	errorMsg = QObject::tr("Successfully exported %1 fighters.").arg(QString::number(m_fighters.size()));
 
 	return true;
 }
 
-bool FighterManager::AddFighter(Fighter f)
-{
-	return m_fighters.insert(f).second;
-}
+bool FighterManager::AddFighter(Fighter f) { return m_fighters.insert(f).second; }
 
 bool FighterManager::RemoveFighter(Fighter f)
 {
 	auto iter = std::find(begin(m_fighters), end(m_fighters), f);
 
-	if (iter == end(m_fighters))
-	{
-		return false;
-	}
+	if (iter == end(m_fighters)) { return false; }
 
 	m_fighters.erase(iter);
 
@@ -288,13 +226,8 @@ bool FighterManager::RemoveFighter(Fighter f)
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
 	QStringList ret;
-	std::for_each(begin(m_fighters), end(m_fighters),
-				  [&](Ipponboard::Fighter const & f)
-	{
-		if (f.club == club)
-		{
-			ret.append(QString("%1 %2").arg(f.first_name, f.last_name));
-		}
+	std::for_each(begin(m_fighters), end(m_fighters), [&](Ipponboard::Fighter const& f) {
+		if (f.club == club) { ret.append(QString("%1 %2").arg(f.first_name, f.last_name)); }
 	});
 
 	return ret;

@@ -6,12 +6,6 @@
 
 using namespace Ipponboard;
 
-Fighter::Fighter(QString const& firstName,
-				 QString const& lastName)
-	: first_name(firstName)
-	, last_name(lastName)
-	, club()
-	, weight()
-	, category()
-{
-}
+Fighter::Fighter(QString const& firstName, QString const& lastName)
+    : first_name(firstName), last_name(lastName), club(), weight(), category()
+{}

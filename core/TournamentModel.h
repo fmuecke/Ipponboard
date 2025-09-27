@@ -13,8 +13,7 @@
 class TournamentModel : public QAbstractTableModel
 {
 	Q_OBJECT
-public:
-
+  public:
 	enum EColumns
 	{
 		eCol_weight = 0,
@@ -66,17 +65,16 @@ public:
 		m_pEditWins = pEditWins;
 		m_pEditScore = pEditScore;
 	}
-	void SetIntermediateModel(TournamentModel* pModel)
-	{ m_pIntermediateModel = pModel; }
+	void SetIntermediateModel(TournamentModel* pModel) { m_pIntermediateModel = pModel; }
 
 	void SetDataChanged();
 
 	std::pair<unsigned, unsigned> GetTotalWins() const;
 	std::pair<unsigned, unsigned> GetTotalScore() const;
 
-private slots:
+  private slots:
 
-private:
+  private:
 	static QString display_string(bool isFightSaved, int number);
 
 	Ipponboard::PTournamentRound m_pTournamentRound;
@@ -90,4 +88,4 @@ private:
 
 typedef std::shared_ptr<TournamentModel> PTournamentModel;
 
-#endif  // BASE__TOURNAMENTMODEL_H_
+#endif // BASE__TOURNAMENTMODEL_H_

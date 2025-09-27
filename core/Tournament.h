@@ -16,10 +16,9 @@ namespace Ipponboard
 {
 
 typedef std::vector<Fight> TournamentRound;
-typedef std::shared_ptr< TournamentRound > PTournamentRound;
-typedef std::vector< PTournamentRound > Tournament;
+typedef std::shared_ptr<TournamentRound> PTournamentRound;
+typedef std::vector<PTournamentRound> Tournament;
 
 } // namespace Ipponboard
 
-
-#endif  // BASE__TOURNAMENT_H_
+#endif // BASE__TOURNAMENT_H_

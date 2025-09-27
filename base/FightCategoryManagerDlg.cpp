@@ -12,12 +12,8 @@
 using namespace Ipponboard;
 
 //---------------------------------------------------------
-FightCategoryManagerDlg::FightCategoryManagerDlg(
-	Ipponboard::FightCategoryMgr::Ptr pMgr,
-	QWidget* parent)
-	: QDialog(parent)
-	, ui(new Ui::FightCategoryManagerDlg)
-	, m_pClassMgr(pMgr)
+FightCategoryManagerDlg::FightCategoryManagerDlg(Ipponboard::FightCategoryMgr::Ptr pMgr, QWidget* parent)
+    : QDialog(parent), ui(new Ui::FightCategoryManagerDlg), m_pClassMgr(pMgr)
 //---------------------------------------------------------
 {
 	ui->setupUi(this);
@@ -47,12 +43,9 @@ void FightCategoryManagerDlg::changeEvent(QEvent* e)
 
 	switch (e->type())
 	{
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
+	case QEvent::LanguageChange: ui->retranslateUi(this); break;
 
-	default:
-		break;
+	default: break;
 	}
 }
 
@@ -61,25 +54,15 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
 	bool ok(false);
-	QString name = QInputDialog::getText(this,
-										 tr("Add new category"),
-										 tr("Enter the name of the new category"),
-										 QLineEdit::Normal,
-										 QString(),
-										 &ok);
+	QString name = QInputDialog::getText(
+	    this, tr("Add new category"), tr("Enter the name of the new category"), QLineEdit::Normal, QString(), &ok);
 
 	while (ok && m_pClassMgr->HasCategory(name))
 	{
-		QMessageBox::critical(this,
-							  tr(""),
-							  tr("This category already exists. Please choose an other name."));
+		QMessageBox::critical(this, tr(""), tr("This category already exists. Please choose an other name."));
 
-		name = QInputDialog::getText(this,
-									 tr("Add new category"),
-									 tr("Enter the name of the new category"),
-									 QLineEdit::Normal,
-									 name,
-									 &ok);
+		name = QInputDialog::getText(
+		    this, tr("Add new category"), tr("Enter the name of the new category"), QLineEdit::Normal, name, &ok);
 	}
 
 	if (ok)
@@ -96,8 +79,7 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
 		contents.append("");
 		contents.append("");
 		contents.append("");
-		QTreeWidgetItem* pItem =
-			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+		QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 		pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 		ui->treeWidget_classes->addTopLevelItem(pItem);
 		pItem->setText(eColumn_Time, cat.GetRoundTimeStr());
@@ -121,8 +103,7 @@ void FightCategoryManagerDlg::load_values()
 		contents.append(classItem.GetGoldenScoreTimeStr());
 		contents.append(classItem.GetWeights());
 
-		QTreeWidgetItem* pItem =
-			new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
+		QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
 		pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 		ui->treeWidget_classes->addTopLevelItem(pItem);
 	}
@@ -136,8 +117,7 @@ void FightCategoryManagerDlg::on_pushButton_remove_pressed()
 
 	if (pItem)
 	{
-		ui->treeWidget_classes->takeTopLevelItem(
-			ui->treeWidget_classes->indexOfTopLevelItem(pItem));
+		ui->treeWidget_classes->takeTopLevelItem(ui->treeWidget_classes->indexOfTopLevelItem(pItem));
 
 		m_pClassMgr->RemoveCategory(pItem->text(eColumn_Name));
 
@@ -146,12 +126,11 @@ void FightCategoryManagerDlg::on_pushButton_remove_pressed()
 }
 
 //---------------------------------------------------------
-void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
-	QTreeWidgetItem* pItem, int column)
+void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
 	bool matches(false);
-	
+
 	FightCategory cat(pItem->text(eColumn_Name));
 	cat.SetRoundTime(pItem->text(eColumn_Time));
 	cat.SetGoldenScoreTime(pItem->text(eColumn_GS));
@@ -164,8 +143,7 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 
 		for (int i(0); i < ui->treeWidget_classes->topLevelItemCount(); ++i)
 		{
-			const QTreeWidgetItem* pCheckItem =
-				ui->treeWidget_classes->topLevelItem(i);
+			const QTreeWidgetItem* pCheckItem = ui->treeWidget_classes->topLevelItem(i);
 
 			if (pCheckItem == pItem)
 			{
@@ -173,8 +151,7 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 
 				// Resetting the name to the old one (below) will trigger
 				// itemChanged!
-				if (old.ToString() == cat.ToString())
-					return;
+				if (old.ToString() == cat.ToString()) return;
 
 				break;
 			}
@@ -183,16 +160,11 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 		// check if we do have more than one class with that name
 		for (int i(0); i < ui->treeWidget_classes->topLevelItemCount(); ++i)
 		{
-			const QTreeWidgetItem* pCheckItem =
-				ui->treeWidget_classes->topLevelItem(i);
+			const QTreeWidgetItem* pCheckItem = ui->treeWidget_classes->topLevelItem(i);
 
-			if (pCheckItem != pItem &&
-					pCheckItem->text(eColumn_Name) == pItem->text(eColumn_Name))
+			if (pCheckItem != pItem && pCheckItem->text(eColumn_Name) == pItem->text(eColumn_Name))
 			{
-				QMessageBox::critical(
-					this,
-					QCoreApplication::applicationName(),
-					tr("This name is already taken!"));
+				QMessageBox::critical(this, QCoreApplication::applicationName(), tr("This name is already taken!"));
 
 				// set previous text
 				pItem->setText(eColumn_Name, old.ToString());
@@ -222,10 +194,7 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(
 		brush.setColor(Qt::black);
 		m_pClassMgr->UpdateCategory(cat);
 	}
-	else
-	{
-		brush.setColor(Qt::red);
-	}
+	else { brush.setColor(Qt::red); }
 
 	pItem->setForeground(column, brush);
 }

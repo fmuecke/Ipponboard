@@ -9,23 +9,27 @@
 #include <memory>
 
 // forwards
-namespace Ui { class ClubManagerDlg; }
-namespace Ipponboard { class ClubManager; }
+namespace Ui
+{
+class ClubManagerDlg;
+}
+namespace Ipponboard
+{
+class ClubManager;
+}
 class QListWidgetItem;
 
 class ClubManagerDlg : public QDialog
 {
 	Q_OBJECT
-public:
-	ClubManagerDlg(
-		std::shared_ptr<Ipponboard::ClubManager> pMgr,
-		QWidget* parent = nullptr);
+  public:
+	ClubManagerDlg(std::shared_ptr<Ipponboard::ClubManager> pMgr, QWidget* parent = nullptr);
 	~ClubManagerDlg();
 
-protected:
+  protected:
 	void changeEvent(QEvent* e);
 
-private:
+  private:
 	void select_club(int index);
 	void update_ui();
 
@@ -33,7 +37,7 @@ private:
 	std::shared_ptr<Ipponboard::ClubManager> m_pClubMgr;
 	int m_SelectedClub;
 
-private slots:
+  private slots:
 	void on_pushButton_browseLogo_pressed();
 	void on_pushButton_save_pressed();
 	void on_lineEdit_logoFile_textEdited(QString const& fileName);
@@ -42,4 +46,4 @@ private slots:
 	void on_pushButton_add_pressed();
 };
 
-#endif  // BASE__CLUBMANAGERDLG_H_
+#endif // BASE__CLUBMANAGERDLG_H_

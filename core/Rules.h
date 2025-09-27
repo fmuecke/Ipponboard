@@ -15,30 +15,18 @@ namespace Ipponboard
 class Fight;
 class AbstractRules
 {
-public:
+  public:
 	AbstractRules();
 
 	virtual const char* Name() const = 0;
 
-	virtual void SetAlwaysAutoAdjustPoints(bool autoAdjust)
-	{
-		_isAlwaysAutoAdjustPoints = autoAdjust;
-	}
+	virtual void SetAlwaysAutoAdjustPoints(bool autoAdjust) { _isAlwaysAutoAdjustPoints = autoAdjust; }
 
-	virtual void SetCountSubscores(bool countSubscores)
-	{
-		_isCountSubscores = countSubscores;
-	}
+	virtual void SetCountSubscores(bool countSubscores) { _isCountSubscores = countSubscores; }
 
-	virtual bool IsOption_AlwaysAutoAdjustPoints() const
-	{
-		return _isAlwaysAutoAdjustPoints;
-	}
+	virtual bool IsOption_AlwaysAutoAdjustPoints() const { return _isAlwaysAutoAdjustPoints; }
 
-	virtual bool IsOption_CountSubscores() const
-	{
-		return _isCountSubscores;
-	}
+	virtual bool IsOption_CountSubscores() const { return _isCountSubscores; }
 
 	virtual bool IsAwaseteIppon(Score const& s) const
 	{
@@ -57,17 +45,16 @@ public:
 	virtual int GetMaxWazaariCount() const { return 2; }
 	virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;
 
-	template<typename T>
-	bool IsOfType() const { return dynamic_cast<const T*>(this) != nullptr; }
+	template <typename T> bool IsOfType() const { return dynamic_cast<const T*>(this) != nullptr; }
 
-private:
-	bool _isAlwaysAutoAdjustPoints { false };
-	bool _isCountSubscores { false };
+  private:
+	bool _isAlwaysAutoAdjustPoints{ false };
+	bool _isCountSubscores{ false };
 };
 
 class ClassicRules : public AbstractRules
 {
-public:
+  public:
 	ClassicRules() {}
 
 	static const char* const StaticName;
@@ -92,7 +79,7 @@ public:
 
 class Rules2013 : public AbstractRules
 {
-public:
+  public:
 	Rules2013() {}
 
 	static const char* const StaticName;
@@ -116,7 +103,7 @@ public:
 
 class Rules2017 : public AbstractRules
 {
-public:
+  public:
 	Rules2017() {}
 
 	static const char* const StaticName;
@@ -144,7 +131,7 @@ public:
 
 class Rules2017U15 : public AbstractRules
 {
-public:
+  public:
 	Rules2017U15() {}
 
 	static const char* const StaticName;
@@ -172,7 +159,7 @@ public:
 
 class Rules2018 : public AbstractRules
 {
-public:
+  public:
 	Rules2018() {}
 
 	static const char* const StaticName;
@@ -199,7 +186,7 @@ public:
 
 class Rules2025 : public AbstractRules
 {
-public:
+  public:
 	Rules2025() {}
 
 	static const char* const StaticName;
@@ -228,38 +215,20 @@ public:
 
 class RulesFactory
 {
-public:
+  public:
 	static std::shared_ptr<AbstractRules> Create(QString name)
 	{
-		if (name == ClassicRules::StaticName)
-		{
-			return std::make_shared<ClassicRules>();
-		}
+		if (name == ClassicRules::StaticName) { return std::make_shared<ClassicRules>(); }
 
-		if (name == Rules2013::StaticName)
-		{
-			return std::make_shared<Rules2013>();
-		}
+		if (name == Rules2013::StaticName) { return std::make_shared<Rules2013>(); }
 
-		if (name == Rules2017U15::StaticName)
-		{
-			return std::make_shared<Rules2017U15>();
-		}
+		if (name == Rules2017U15::StaticName) { return std::make_shared<Rules2017U15>(); }
 
-		if (name == Rules2017::StaticName)
-		{
-			return std::make_shared<Rules2017>();
-		}
+		if (name == Rules2017::StaticName) { return std::make_shared<Rules2017>(); }
 
-		if (name == Rules2018::StaticName)
-		{
-			return std::make_shared<Rules2018>();
-		}
+		if (name == Rules2018::StaticName) { return std::make_shared<Rules2018>(); }
 
-		if (name == Rules2025::StaticName)
-		{
-			return std::make_shared<Rules2025>();
-		}
+		if (name == Rules2025::StaticName) { return std::make_shared<Rules2025>(); }
 
 		// default
 		return std::make_shared<Rules2025>();
@@ -279,10 +248,7 @@ public:
 		return result;
 	}
 
-	static QString GetDefaultName()
-	{
-		return Rules2025::StaticName;
-	}
+	static QString GetDefaultName() { return Rules2025::StaticName; }
 };
-} // namespace
+} // namespace Ipponboard
 #endif // RULESET_H

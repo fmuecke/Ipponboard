@@ -19,10 +19,7 @@ void IpponboardSM_::add_point(HoldTimeEvent const& evt)
 	if (m_pCore->is_auto_adjust())
 	{
 
-		if (pRules->GetOsaekomiValue(Point::Yuko) == evt.secs)
-		{
-			Score_(evt.tori).Add(Point::Yuko);
-		}
+		if (pRules->GetOsaekomiValue(Point::Yuko) == evt.secs) { Score_(evt.tori).Add(Point::Yuko); }
 		else if (pRules->GetOsaekomiValue(Point::Wazaari) == evt.secs)
 		{
 			Score_(evt.tori).Remove(Point::Yuko);
@@ -41,15 +38,15 @@ bool IpponboardSM_::can_add_wazaari(Wazaari const& evt)
 //---------------------------------------------------------
 {
 	return m_pCore->GetRules()->IsOption_AwaseteIppon() ||
-		   Score_(evt.tori).Wazaari() < m_pCore->GetRules()->GetMaxWazaariCount();
+	       Score_(evt.tori).Wazaari() < m_pCore->GetRules()->GetMaxWazaariCount();
 }
 
 //---------------------------------------------------------
 bool IpponboardSM_::wazaari_is_match_point(Wazaari const& evt)
 //---------------------------------------------------------
 {
-	return m_pCore->GetRules()->IsOption_AwaseteIppon()
-		   && Score_(evt.tori).Wazaari() == m_pCore->GetRules()->GetMaxWazaariCount() - 1;
+	return m_pCore->GetRules()->IsOption_AwaseteIppon() &&
+	       Score_(evt.tori).Wazaari() == m_pCore->GetRules()->GetMaxWazaariCount() - 1;
 }
 
 //---------------------------------------------------------
@@ -103,21 +100,18 @@ bool IpponboardSM_::is_sonomama(Osaekomi_Toketa const& /*evt*/)
 bool IpponboardSM_::shido_is_match_point(Shido const& evt)
 //---------------------------------------------------------
 {
-	if (Score_(evt.tori).Shido() == m_pCore->GetRules()->GetMaxShidoCount())
-	{
-		return true;
-	}
+	if (Score_(evt.tori).Shido() == m_pCore->GetRules()->GetMaxShidoCount()) { return true; }
 
 	// Note: new 2013 IJF rule: no points for first three shido
-//    if (m_pCore->GetRules()->IsShidosCountAsPoints())
-//	{
-//		FighterEnum uke = GetUkeFromTori(evt.tori);
+	//    if (m_pCore->GetRules()->IsShidosCountAsPoints())
+	//	{
+	//		FighterEnum uke = GetUkeFromTori(evt.tori);
 
-//        if (Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1)
-//		{
-//			return true;
-//		}
-//	}
+	//        if (Score_(evt.tori).Shido() == 2 && Score_(uke).Wazaari() == 1)
+	//		{
+	//			return true;
+	//		}
+	//	}
 
 	return false;
 }
@@ -129,39 +123,24 @@ bool IpponboardSM_::can_take_shido(Shido const& evt)
 	return Score_(evt.tori).Shido() <= m_pCore->GetRules()->GetMaxShidoCount();
 }
 
-void IpponboardSM_::reset(Reset const& /*evt*/)
-{
-	m_pCore->reset_fight();
-}
+void IpponboardSM_::reset(Reset const& /*evt*/) { m_pCore->reset_fight(); }
 
-void IpponboardSM_::save(Finish const& /*evt*/)
-{
-	m_pCore->save_fight();
-}
+void IpponboardSM_::save(Finish const& /*evt*/) { m_pCore->save_fight(); }
 
-void IpponboardSM_::stop_timer(Osaekomi_Toketa const& /*evt*/)
-{
-	m_pCore->stop_timer(eTimer_Hold);
-}
+void IpponboardSM_::stop_timer(Osaekomi_Toketa const& /*evt*/) { m_pCore->stop_timer(eTimer_Hold); }
 
-void IpponboardSM_::stop_timer(TimeEndedEvent const& /*evt*/)
-{
-	m_pCore->stop_timer(eTimer_Main);
-}
+void IpponboardSM_::stop_timer(TimeEndedEvent const& /*evt*/) { m_pCore->stop_timer(eTimer_Main); }
 
 void IpponboardSM_::stop_timer(Finish const& /*evt*/)
 {
 	// Finish will be created if current fight should be saved
 	// --> stop timers
 	m_pCore->stop_timer(eTimer_Hold);
-	m_pCore->stop_timer(eTimer_Main);   // will save main time
+	m_pCore->stop_timer(eTimer_Main); // will save main time
 	m_pCore->save_fight();
 }
 
-void IpponboardSM_::stop_timer(Hajime_Mate const& /*evt*/)
-{
-	m_pCore->stop_timer(ETimer(Hajime_Mate::type));
-}
+void IpponboardSM_::stop_timer(Hajime_Mate const& /*evt*/) { m_pCore->stop_timer(ETimer(Hajime_Mate::type)); }
 
 void IpponboardSM_::start_timer(Hajime_Mate const& /*evt*/)
 {
@@ -192,10 +171,7 @@ void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 
 		auto maxShidoCount = pRules->GetMaxShidoCount();
 
-		if (maxShidoCount == Score_(evt.tori).Shido())
-		{
-			Score_(uke).Add(Point::Ippon);
-		}
+		if (maxShidoCount == Score_(evt.tori).Shido()) { Score_(uke).Add(Point::Ippon); }
 		else
 		{
 			if (pRules->IsOption_ShidoAddsPoint())
@@ -210,10 +186,7 @@ void IpponboardSM_::add_point(PointEvent<shido_type> const& evt)
 					Score_(uke).Remove(Point::Yuko);
 					Score_(uke).Add(Point::Wazaari);
 				}
-				else if (maxShidoCount > 0 && 1 == Score_(evt.tori).Shido())
-				{
-					Score_(uke).Add(Point::Yuko);
-				}
+				else if (maxShidoCount > 0 && 1 == Score_(evt.tori).Shido()) { Score_(uke).Add(Point::Yuko); }
 			}
 		}
 	}
@@ -238,10 +211,7 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 		{
 			auto maxShidoCount = pRules->GetMaxShidoCount();
 
-			if (maxShidoCount + 1 == Score_(evt.tori).Shido())
-			{
-				Score_(uke).Remove(Point::Ippon);
-			}
+			if (maxShidoCount + 1 == Score_(evt.tori).Shido()) { Score_(uke).Remove(Point::Ippon); }
 			else
 			{
 				if (maxShidoCount > 2 && 4 == Score_(evt.tori).Shido())
@@ -254,10 +224,7 @@ void IpponboardSM_::add_point(PointEvent<revoke_shido_hm_type> const& evt)
 					Score_(uke).Remove(Point::Wazaari);
 					Score_(uke).Add(Point::Yuko);
 				}
-				else if (maxShidoCount > 0 && 2 == Score_(evt.tori).Shido())
-				{
-					Score_(uke).Remove(Point::Yuko);
-				}
+				else if (maxShidoCount > 0 && 2 == Score_(evt.tori).Shido()) { Score_(uke).Remove(Point::Yuko); }
 			}
 		}
 

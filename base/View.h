@@ -14,7 +14,10 @@
 #include "../core/EditionType.h"
 
 // forwards
-namespace Ui { class ScoreViewHorizontal; }
+namespace Ui
+{
+class ScoreViewHorizontal;
+}
 
 class ScaledImage;
 
@@ -24,20 +27,26 @@ namespace Ipponboard
 class View : public QWidget, public IView
 {
 	Q_OBJECT
-public:
-
-	enum EType { eTypePrimary, eTypeSecondary };
-	enum ColorType { firstFg, firstBg, secondFg, secondBg };
-	explicit View(IController* pController,
-				  EditionType edition,
-				  EType type,
-                  QWidget* parent = nullptr);
-    virtual ~View() override;
+  public:
+	enum EType
+	{
+		eTypePrimary,
+		eTypeSecondary
+	};
+	enum ColorType
+	{
+		firstFg,
+		firstBg,
+		secondFg,
+		secondBg
+	};
+	explicit View(IController* pController, EditionType edition, EType type, QWidget* parent = nullptr);
+	virtual ~View() override;
 
 	// --- IScoreView ---
-    void UpdateView() override;
-    void Reset() override;
-    void SetShowInfoHeader(bool show) override;
+	void UpdateView() override;
+	void Reset() override;
+	void SetShowInfoHeader(bool show) override;
 
 	// others
 	void SetMessageText(Ipponboard::FighterEnum who, const QString& msg) const;
@@ -60,15 +69,15 @@ public:
 	void SetTextColorSecond(const QColor& color, const QColor& bgColor);
 	void SetMainClockColor(const QColor& fgColor, const QColor& bgColor);
 	void SetMat(const QString& mat) { m_mat = mat; }
-	void SetWeight(const QString& weight) { m_weight = weight; }  //TODO: move to controller !!
-	void SetCategory(const QString& cat) { m_category = cat; }  //TODO: move to controller !!
+	void SetWeight(const QString& weight) { m_weight = weight; } //TODO: move to controller !!
+	void SetCategory(const QString& cat) { m_category = cat; }   //TODO: move to controller !!
 
-protected:
+  protected:
 	//void changeEvent( QEvent* event );
-    void paintEvent(QPaintEvent* event) override;
-    void mousePressEvent(QMouseEvent* event) override;
+	void paintEvent(QPaintEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
 
-private slots:
+  private slots:
 	void setOsaekomiFirst_();
 	void setOsaekomiSecond_();
 	//void yoshi_();
@@ -76,7 +85,7 @@ private slots:
 	void setMainTimerValue_();
 	void blink_();
 
-private:
+  private:
 	void update_ippon(Ipponboard::FighterEnum) const;
 	void update_wazaari(Ipponboard::FighterEnum) const;
 	void update_yuko(Ipponboard::FighterEnum) const;
@@ -116,4 +125,4 @@ private:
 };
 
 } // namespace Ipponboard
-#endif  // BASE__VIEW_H_
+#endif // BASE__VIEW_H_

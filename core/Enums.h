@@ -11,9 +11,9 @@
 namespace Ipponboard
 {
 
-enum  FighterEnum
+enum FighterEnum
 {
-    Nobody = -1,
+	Nobody = -1,
 	First = 0,
 	Second = 1,
 	_MAX
@@ -71,6 +71,6 @@ enum EOption
 	eOption_MAX
 };
 
-}
+} // namespace Ipponboard
 
-#endif  // BASE__ENUMS_H_
+#endif // BASE__ENUMS_H_

@@ -9,7 +9,6 @@
 #include "Enums.h"
 #include "Score.h"
 
-
 namespace Ipponboard
 {
 
@@ -21,7 +20,7 @@ class IControllerCore
 
 	friend class IpponboardSM_;
 
-private:
+  private:
 	virtual void start_timer(ETimer) = 0;
 	virtual void stop_timer(ETimer) = 0;
 	virtual void save_fight() = 0;
@@ -37,5 +36,5 @@ private:
 	virtual std::shared_ptr<AbstractRules> GetRules() const = 0;
 };
 
-}
-#endif  // BASE__ICONTROLLERCORE_H_
+} // namespace Ipponboard
+#endif // BASE__ICONTROLLERCORE_H_
