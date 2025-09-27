@@ -17,7 +17,6 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QSoundEffect>
-#include <QTimer>
 #include <QUrl>
 
 using namespace Ipponboard;
@@ -45,10 +44,9 @@ Controller::Controller()
       m_currentFight(0),
       m_pSM(nullptr),
       m_State(eState_TimerStopped),
-      m_pTimerMain(nullptr),
-      m_pTimerHold(nullptr),
-      m_pTimeMain(nullptr),
-      m_pTimeHold(nullptr),
+      m_timerService(this),
+      m_mainTime(0, 0, 0, 0),
+      m_holdTime(0, 0, 0, 0),
       m_Tori(FighterEnum::Nobody),
       m_isSonoMama(false),
       m_roundTime(0, 0, 0, 0),
@@ -59,18 +57,14 @@ Controller::Controller()
 {
     m_pSM = std::make_unique<IpponboardSM>();
     m_pSM->SetCore(this);
-    m_pTimerMain = new QTimer(this);
-    m_pTimerHold = new QTimer(this);
-    m_pTimeMain = new QTime(0, 0, 0, 0);
-    m_pTimeHold = new QTime(0, 0, 0, 0);
 
     InitTournament(m_mode);
 
     reset();
     m_pSM->start();
 
-    connect(m_pTimerMain, &QTimer::timeout, this, &Controller::update_main_time);
-    connect(m_pTimerHold, &QTimer::timeout, this, &Controller::update_hold_time);
+    connect(&m_timerService, &TimerService::mainTimeout, this, &Controller::update_main_time);
+    connect(&m_timerService, &TimerService::holdTimeout, this, &Controller::update_hold_time);
 
     if (auto* app = QCoreApplication::instance())
     {
@@ -100,8 +94,6 @@ Controller::~Controller()
     }
     m_views.clear();
     m_goldenScoreViews.clear();
-    //delete m_pTimeHold; --> --> deleted via parent-child reationship
-    //delete m_pTimeMain; --> deleted via parent-child reationship
     //delete m_pSM; --> deleted via smart ptr
 }
 
@@ -409,13 +401,10 @@ void Controller::reset_timers()
 {
     m_State = eState_TimerStopped;
 
-    Q_ASSERT(m_pTimeMain);
-    Q_ASSERT(m_pTimeHold);
-
-    m_pTimerMain->stop();
+    m_timerService.stopTimer(eTimer_Main);
     reset_timer_value(eTimer_Main);
 
-    m_pTimerHold->stop();
+    m_timerService.stopTimer(eTimer_Hold);
     reset_timer_value(eTimer_Hold);
     m_Tori = FighterEnum::Nobody;
 
@@ -440,13 +429,13 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
 
     if (eTimer_Main == timer)
     {
-        *m_pTimeMain = m_roundTime; // FIXME: set to 0 for golden score?
+        m_mainTime = m_roundTime; // FIXME: set to 0 for golden score?
     }
     else if (eTimer_Hold == timer)
     {
-        m_pTimeHold->setHMS(0, 0, 0, 0);
+        m_holdTime.setHMS(0, 0, 0, 0);
 
-        if (!m_pTimerHold->isActive())
+        if (!m_timerService.isActive(eTimer_Hold))
             m_Tori = FighterEnum::Nobody;
     }
 }
@@ -460,12 +449,12 @@ QString Controller::GetTimeText(ETimer timer) const
     switch (timer)
     {
     case eTimer_Main:
-        ret = m_pTimeMain->toString("m:ss");
+        ret = m_mainTime.toString("m:ss");
         ret = ret.isEmpty() ? "0:00" : ret;
         break;
 
     case eTimer_Hold:
-        ret = m_pTimeHold->toString("ss");
+        ret = m_holdTime.toString("ss");
         ret = ret.isEmpty() ? "00" : ret;
         break;
 
@@ -593,12 +582,12 @@ void Controller::SetTimerValue(Ipponboard::ETimer timer, const QString& value)
             // don't allow invalid times like "-1:22"
             if (newTime.isValid())
             {
-                *m_pTimeMain = newTime;
+                m_mainTime = newTime;
             }
         }
         else if (eTimer_Hold == timer)
         {
-            m_pTimeHold->setHMS(0, 0, value.toInt());
+            m_holdTime.setHMS(0, 0, value.toInt());
         }
 
         update_views();
@@ -617,7 +606,7 @@ void Controller::SetRoundTime(QTime const& time)
 //=========================================================
 {
     m_roundTime = time;
-    *m_pTimeMain = time;
+    m_mainTime = time;
 
     update_views();
 }
@@ -663,11 +652,11 @@ void Controller::SetGoldenScore(bool isGS)
 
     if (isGS && GetRules()->IsOption_OpenEndGoldenScore())
     {
-        *m_pTimeMain = QTime(0, 0, 0, 0).addSecs(current_fight().GetGoldenScoreTime());
+        m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetGoldenScoreTime());
     }
     else
     {
-        *m_pTimeMain = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
+        m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
     }
 
     update_views();
@@ -759,22 +748,7 @@ void Controller::Gong() const
 void Controller::AdvanceTimerTicks(Ipponboard::ETimer timer, int ticks)
 //=========================================================
 {
-    if (ticks <= 0)
-    {
-        return;
-    }
-
-    for (int i = 0; i < ticks; ++i)
-    {
-        if (timer == eTimer_Main)
-        {
-            update_main_time();
-        }
-        else if (timer == eTimer_Hold)
-        {
-            update_hold_time();
-        }
-    }
+    m_timerService.advanceTicks(timer, ticks);
 }
 //=========================================================
 void Controller::RegisterView(IView* pView)
@@ -794,25 +768,18 @@ void Controller::RegisterView(IGoldenScoreView* pView)
 void Controller::start_timer(ETimer t)
 //=========================================================
 {
-    if (eTimer_Main == t)
-    {
-        m_pTimerMain->start(1000);
-    }
-    else
-    {
-        m_pTimerHold->start(1000);
-    }
+    m_timerService.startTimer(t);
 }
 
 //=========================================================
 void Controller::stop_timer(ETimer t)
 //=========================================================
 {
-    m_pTimerHold->stop();
+    m_timerService.stopTimer(eTimer_Hold);
 
     if (eTimer_Main == t)
     {
-        m_pTimerMain->stop();
+        m_timerService.stopTimer(eTimer_Main);
     }
 }
 
@@ -820,8 +787,8 @@ void Controller::stop_timer(ETimer t)
 void Controller::save_fight()
 //=========================================================
 {
-    auto elapsed = is_golden_score() ? m_pTimeMain->secsTo(QTime(0, 0, 0, 0))
-                                     : m_pTimeMain->secsTo(m_roundTime);
+    auto elapsed =
+        is_golden_score() ? m_mainTime.secsTo(QTime(0, 0, 0, 0)) : m_mainTime.secsTo(m_roundTime);
     current_fight().SetSecondsElapsed(elapsed);
     current_fight().is_saved = true;
 }
@@ -830,9 +797,9 @@ void Controller::save_fight()
 void Controller::reset_fight()
 //=========================================================
 {
-    m_pTimerHold->stop();
-    m_pTimerMain->stop();
-    m_pTimeHold->setHMS(0, 0, 0, 0);
+    m_timerService.stopTimer(eTimer_Hold);
+    m_timerService.stopTimer(eTimer_Main);
+    m_holdTime.setHMS(0, 0, 0, 0);
     m_Tori = FighterEnum::Nobody;
 
     // just clear the score, not the names
@@ -846,7 +813,7 @@ void Controller::reset_fight()
     fight.is_saved = false;
     fight.rules = m_rules;
     m_roundTime = QTime(0, 0, 0, 0).addSecs(m_mode.GetFightDuration(current_fight().weight));
-    *m_pTimeMain = m_roundTime;
+    m_mainTime = m_roundTime;
 
     update_views();
 }
@@ -885,11 +852,11 @@ int Controller::get_time(ETimer t) const
 {
     if (eTimer_Hold == t)
     {
-        return -m_pTimeHold->secsTo(QTime(0, 0, 0, 0));
+        return -m_holdTime.secsTo(QTime(0, 0, 0, 0));
     }
     else
     {
-        return m_pTimeMain->secsTo(QTime(0, 0, 0, 0));
+        return m_mainTime.secsTo(QTime(0, 0, 0, 0));
     }
 }
 
@@ -963,17 +930,17 @@ void Controller::SetCurrentFight(unsigned int index)
 {
     // now set pointer to next fight
     m_currentFight = index;
-    *m_pTimeHold = QTime(0, 0, 0, 0);
+    m_holdTime = QTime(0, 0, 0, 0);
     m_roundTime = QTime(0, 0, 0, 0).addSecs(m_mode.GetFightDuration(current_fight().weight));
 
     //FIXME: check this block
     if (current_fight().IsGoldenScore())
     {
-        *m_pTimeMain = QTime(0, 0, 0, 0).addSecs(current_fight().GetGoldenScoreTime());
+        m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetGoldenScoreTime());
     }
     else
     {
-        *m_pTimeMain = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
+        m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
     }
 
     // update state
@@ -1244,19 +1211,19 @@ void Controller::update_main_time()
 {
     if (m_rules->IsOption_OpenEndGoldenScore() && is_golden_score())
     {
-        *m_pTimeMain = m_pTimeMain->addSecs(1);
+        m_mainTime = m_mainTime.addSecs(1);
     }
     else
     {
-        *m_pTimeMain = m_pTimeMain->addSecs(-1);
+        m_mainTime = m_mainTime.addSecs(-1);
 
-        const bool isTimeUp = QTime(0, 0, 0, 0).secsTo(*m_pTimeMain) <= 0;
+        const bool isTimeUp = QTime(0, 0, 0, 0).secsTo(m_mainTime) <= 0;
 
         // correct time again
-        const int secsTo(QTime(0, 0, 0, 0).secsTo(*m_pTimeMain));
+        const int secsTo(QTime(0, 0, 0, 0).secsTo(m_mainTime));
 
-        if (secsTo < 0 || *m_pTimeMain > m_roundTime)
-            m_pTimeMain->setHMS(0, 0, 0, 0);
+        if (secsTo < 0 || m_mainTime > m_roundTime)
+            m_mainTime.setHMS(0, 0, 0, 0);
 
         if (eState_TimerRunning == m_State)
         {
@@ -1281,8 +1248,8 @@ void Controller::update_hold_time()
     if (eState_Holding != m_State)
         return;
 
-    *m_pTimeHold = m_pTimeHold->addSecs(1);
-    const int secs = m_pTimeHold->second();
+    m_holdTime = m_holdTime.addSecs(1);
+    const int secs = m_holdTime.second();
 
     if (secs > 0 && (m_rules->GetOsaekomiValue(Score::Point::Yuko) == secs ||
                      m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs ||
