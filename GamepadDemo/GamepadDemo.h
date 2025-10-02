@@ -5,7 +5,6 @@
 #ifndef GAMEPADDEMO__GAMEPADDEMO_H_
 #define GAMEPADDEMO__GAMEPADDEMO_H_
 
-#include <QLabel>
 #include <QMainWindow>
 #include <memory>
 
@@ -36,8 +35,8 @@ class GamepadDemo : public QMainWindow
 
   private:
     std::unique_ptr<Ui::GamepadDemo> ui;
-    QLabel* m_pSBarText;
-    QTimer* m_pTimer;
+    class QLabel* m_pSBarText;
+    class QTimer* m_pTimer;
     std::unique_ptr<FMlib::Gamepad> m_pGamepad;
 };
 

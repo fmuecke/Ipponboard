@@ -12,6 +12,7 @@
 
 namespace FMlib
 {
+
 class Gamepad
 {
   public:
@@ -104,7 +105,9 @@ class Gamepad
         eAxis_MAX
     };
 
-    Gamepad();
+    unsigned static ButtonCode(Gamepad::EButton button);
+
+    Gamepad(std::unique_ptr<class GamepadImpl> impl);
     ~Gamepad();
 
     Gamepad(Gamepad const&) = delete;
@@ -174,8 +177,7 @@ class Gamepad
   private:
     unsigned applyInversion(EAxis axis, unsigned value) const;
 
-    struct Impl;
-    std::unique_ptr<Impl> d;
+    std::unique_ptr<GamepadImpl> m_impl;
     std::bitset<eAxis_MAX> m_invertedAxes{};
 };
 

@@ -10,6 +10,7 @@
 #include "../core/Enums.h"
 #include "../core/Rules.h"
 #include "../gamepad/Gamepad.h"
+#include "../gamepad/GamepadImpl.h"
 #include "../util/path_helpers.h"
 #include "DonationManager.h"
 #include "View.h"
@@ -45,7 +46,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_controllerCfg()
 #ifdef _WIN32
       ,
-      m_pGamepad(new Gamepad)
+      m_pGamepad(new Gamepad(std::make_unique<GamepadImpl>()))
 #endif
 {
 }
@@ -96,20 +97,14 @@ void MainWindowBase::Init()
     m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
 }
 
-QString MainWindowBase::GetConfigFileName() const
-{
-    return "Ipponboard.ini";
-}
+QString MainWindowBase::GetConfigFileName() const { return "Ipponboard.ini"; }
 
 QString MainWindowBase::GetFighterFileName() const
 {
     return QString("Fighters%1.csv").arg(EditionNameShort());
 }
 
-void MainWindowBase::UpdateView()
-{
-    update_views();
-}
+void MainWindowBase::UpdateView() { update_views(); }
 
 void MainWindowBase::changeEvent(QEvent* e)
 {
@@ -691,10 +686,7 @@ void MainWindowBase::update_views()
     m_pSecondaryView->UpdateView();
 }
 
-void MainWindowBase::on_actionTest_Gong_triggered()
-{
-    m_pController->Gong();
-}
+void MainWindowBase::on_actionTest_Gong_triggered() { m_pController->Gong(); }
 
 void MainWindowBase::on_actionShow_SecondaryView_triggered()
 {
