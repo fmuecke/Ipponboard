@@ -25,6 +25,10 @@ static const int resourceInitialized = []()
 using namespace Ipponboard;
 using Point = Score::Point;
 
+constexpr auto kImageOn = ":res/images/on.png";
+constexpr auto kImageOff = ":res/images/off.png";
+constexpr auto kImageEmpty = ":res/images/off_empty.png";
+
 //=========================================================
 View::View(IController* pController, EditionType edition, EType type, QWidget* parent)
     : QWidget(parent),
@@ -56,14 +60,14 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
 {
     // init widgets
     ui->setupUi(this);
-    ui->image_shido1_second->UpdateImage(":res/images/off.png");
-    ui->image_shido2_second->UpdateImage(":res/images/off.png");
-    ui->image_shido3_second->UpdateImage(":res/images/off.png");
-    ui->image_shido1_first->UpdateImage(":res/images/off.png");
-    ui->image_shido2_first->UpdateImage(":res/images/off.png");
-    ui->image_shido3_first->UpdateImage(":res/images/off.png");
-    ui->image_hansokumake_first->UpdateImage(":res/images/off.png");
-    ui->image_hansokumake_second->UpdateImage(":res/images/off.png");
+    ui->image_shido1_second->UpdateImage(kImageOff);
+    ui->image_shido2_second->UpdateImage(kImageOff);
+    ui->image_shido3_second->UpdateImage(kImageOff);
+    ui->image_shido1_first->UpdateImage(kImageOff);
+    ui->image_shido2_first->UpdateImage(kImageOff);
+    ui->image_shido3_first->UpdateImage(kImageOff);
+    ui->image_hansokumake_first->UpdateImage(kImageOff);
+    ui->image_hansokumake_second->UpdateImage(kImageOff);
     ui->image_sand_clock->UpdateImage(":res/images/sand_clock.png");
     ui->dummy_first->UpdateImage(":res/images/off_empty.png");
     ui->dummy_second->UpdateImage(":res/images/off_empty.png");
@@ -853,13 +857,10 @@ void View::update_shido(Ipponboard::FighterEnum who) const
     }
 
     const int score = m_pController->GetScore(GVF_(who), Point::Shido);
-    const auto imageOn = ":res/images/on.png";
-    const auto imageOff = ":res/images/off.png";
-    const auto imageEmpty = ":res/images/off_empty.png";
 
-    pImage3->UpdateImage(score >= 3 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
-    pImage2->UpdateImage(score >= 2 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
-    pImage1->UpdateImage(score >= 1 ? imageOn : eTypePrimary == m_Type ? imageOff : imageEmpty);
+    pImage3->UpdateImage(score >= 3 ? kImageOn : eTypePrimary == m_Type ? kImageOff : kImageEmpty);
+    pImage2->UpdateImage(score >= 2 ? kImageOn : eTypePrimary == m_Type ? kImageOff : kImageEmpty);
+    pImage1->UpdateImage(score >= 1 ? kImageOn : eTypePrimary == m_Type ? kImageOff : kImageEmpty);
 }
 
 //=========================================================
