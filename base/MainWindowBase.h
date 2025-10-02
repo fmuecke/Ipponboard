@@ -37,7 +37,6 @@ namespace FMlib
 {
 class Gamepad;
 }
-typedef std::shared_ptr<FMlib::Gamepad> PGamepad;
 
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
@@ -185,7 +184,7 @@ class MainWindowBase : public QMainWindow,
 
   private:
 #ifdef _WIN32
-    PGamepad m_pGamepad;
+    std::shared_ptr<FMlib::Gamepad> m_pGamepad; // TODO: use unique_ptr
 #endif
 };
 

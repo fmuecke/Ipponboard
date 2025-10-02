@@ -6,6 +6,7 @@
 
 #include "../base/versioninfo.h"
 #include "../gamepad/Gamepad.h"
+#include "../gamepad/GamepadImpl.h"
 #include "ui_GamepadDemo.h"
 
 #include <QDebug>
@@ -109,12 +110,15 @@ void logGamepadDiagnostics(const FMlib::Gamepad& gamepad)
 
 using namespace FMlib;
 
+constexpr const char* kOffImage = ":/images/off.png";
+constexpr const char* kOnImage = ":/images/on.png";
+
 GamepadDemo::GamepadDemo(QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::GamepadDemo()),
       m_pSBarText(nullptr),
       m_pTimer(nullptr),
-      m_pGamepad(new Gamepad)
+      m_pGamepad(new Gamepad(std::make_unique<GamepadImpl>()))
 {
     ui->setupUi(this);
     m_pSBarText = new QLabel;
@@ -123,7 +127,6 @@ GamepadDemo::GamepadDemo(QWidget* parent)
     ui->label_copyRight->setText(
         QString::fromUtf8("© 2010-%1 Florian Mücke").arg(VersionInfo::CopyrightYear));
 
-    constexpr auto kOffImage = ":/images/off.png";
     ui->image_button_1->UpdateImage(kOffImage);
     ui->image_button_2->UpdateImage(kOffImage);
     ui->image_button_3->UpdateImage(kOffImage);
@@ -349,7 +352,6 @@ void GamepadDemo::GetData()
 
     ui->lineEdit_degrees_1->setText(QString::number(m_pGamepad->GetAngleXY(), 'g', 3) +
                                     QString::fromUtf8("°"));
-
     ui->lineEdit_degrees_2->setText(QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) +
                                     QString::fromUtf8("°"));
 
@@ -371,7 +373,7 @@ void GamepadDemo::GetData()
 
 void GamepadDemo::UpdateButtonState(unsigned button) const
 {
-    ScaledImage* pImage(0);
+    ScaledImage* pImage = nullptr;
 
     switch (button)
     {
@@ -429,9 +431,8 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
 
     if (pImage)
     {
-        if (m_pGamepad->IsPressed(Gamepad::EButton(button)))
-            pImage->UpdateImage(QStringLiteral(":/images/on.png"));
-        else
-            pImage->UpdateImage(QStringLiteral(":/images/off.png"));
+        auto updateImage = m_pGamepad->IsPressed(Gamepad::EButton(button)) ? kOnImage : kOffImage;
+
+        pImage->UpdateImage(updateImage);
     }
 }
