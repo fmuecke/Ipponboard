@@ -7,7 +7,7 @@ SortIncludes: true
 IncludeBlocks: Regroup #Preserve
 PointerAlignment: Left
 DerivePointerAlignment: false
-AllowShortFunctionsOnASingleLine: Inline
+AllowShortFunctionsOnASingleLine: All
 #AllowShortBlocksOnASingleLine: Always
 #AllowShortEnumsOnASingleLine: true
 #AllowShortIfStatementsOnASingleLine: WithoutElse
