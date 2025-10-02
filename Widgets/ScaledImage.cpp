@@ -24,7 +24,8 @@ QString normalizeResourcePath(const QString& fileName)
 ScaledImage::ScaledImage(QWidget* pParent)
     : QWidget(pParent), m_Size(0, 0), m_BGColor(Qt::transparent) // normal background (transparent)
 {
-    UpdateImage(QStringLiteral(":/images/off.png"));
+    //UpdateImage(QStringLiteral(":/images/off.png")); --> can't be called, because resources are not necessarily included
+    // TODO: maybe add a default image as member or remove
 }
 
 void ScaledImage::UpdateImage(const QString& fileName)
