@@ -48,7 +48,7 @@ static const char* const mode = "Mode";
 static const char* const host = "Host";
 } // namespace StrTags
 
-using namespace FMlib;
+using namespace GamepadLib;
 using namespace Ipponboard;
 
 namespace
@@ -441,10 +441,7 @@ void MainWindowTeam::attach_primary_view()
     }
 }
 
-void MainWindowTeam::retranslate_Ui()
-{
-    m_pUi->retranslateUi(this);
-}
+void MainWindowTeam::retranslate_Ui() { m_pUi->retranslateUi(this); }
 
 void MainWindowTeam::ui_check_language_items()
 {
@@ -667,7 +664,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
 #ifdef _WIN32
     // back
-    if (pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_prev)))
+    if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_prev)))
     {
         on_button_prev_clicked();
         // TODO: check: is UpdateViews_(); necessary here?
@@ -675,7 +672,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
         return true;
     }
     // next
-    else if (pGamepad->WasPressed(Gamepad::EButton(m_controllerCfg.button_next)))
+    else if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_next)))
     {
         on_button_next_clicked();
         // TODO: check: is UpdateViews_(); necessary here?
@@ -687,10 +684,7 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
     return false;
 }
 
-void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/)
-{
-    update_views();
-}
+void MainWindowTeam::on_tabWidget_currentChanged(int /*index*/) { update_views(); }
 
 void MainWindowTeam::on_actionManageModes_triggered()
 {

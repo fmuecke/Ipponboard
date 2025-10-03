@@ -33,7 +33,7 @@ class ScoreScreen;
 } // namespace Ipponboard
 class QSettings;
 
-namespace FMlib
+namespace GamepadLib
 {
 class Gamepad;
 }
@@ -168,7 +168,7 @@ class MainWindowBase : public QMainWindow,
     virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
   protected:
-    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* /*pGamepad*/) { return false; }
+    virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* /*pGamepad*/) { return false; }
 
     std::shared_ptr<Ipponboard::View> m_pPrimaryView;
     std::shared_ptr<Ipponboard::View> m_pSecondaryView;
@@ -184,7 +184,7 @@ class MainWindowBase : public QMainWindow,
 
   private:
 #ifdef _WIN32
-    std::shared_ptr<FMlib::Gamepad> m_pGamepad; // TODO: use unique_ptr
+    std::unique_ptr<GamepadLib::Gamepad> m_pGamepad; // TODO: use unique_ptr
 #endif
 };
 

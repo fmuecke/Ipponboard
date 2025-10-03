@@ -1,7 +1,7 @@
 
 #ifndef _WIN32 // Linux / Qt implementation
 
-#include "GamepadLinuxImpl.h"
+#include "GamepadLinux.h"
 
 #include "JessTechPadAdapter.h"
 
@@ -11,10 +11,10 @@
 #include <QProcessEnvironment>
 #include <QStringList>
 
-namespace FMlib
+namespace GamepadLib
 {
 
-constexpr std::size_t axisIndex(Gamepad::EAxis axis) { return static_cast<std::size_t>(axis); }
+constexpr std::size_t axisIndex(EAxis axis) { return static_cast<std::size_t>(axis); }
 
 unsigned popcount(std::uint32_t value)
 {
@@ -27,20 +27,20 @@ unsigned popcount(std::uint32_t value)
     return count;
 }
 
-GamepadImpl::GamepadImpl()
+GamepadLinux::GamepadLinux()
 {
-    ranges.fill({ 0u, Gamepad::eMax });
+    ranges.fill({ 0u, Constants::MaxAngle });
     axisSupported.fill(true);
     ensureDebugConnections();
 }
 
-Gamepad::EState GamepadImpl::Init()
+EGamepadState GamepadLinux::Init()
 {
     const auto ids = QGamepadManager::instance()->connectedGamepads();
     if (ids.isEmpty())
     {
         resetState();
-        state = Gamepad::eState_unplugged;
+        state = EGamepadState::unplugged;
         return state;
     }
 
@@ -61,35 +61,32 @@ Gamepad::EState GamepadImpl::Init()
     }
     gamepad = std::make_unique<QGamepad>(deviceId);
     refreshMetadata();
-    state = Gamepad::eState_ok;
+    state = EGamepadState::ok;
     ReadData();
     return state;
 }
 
-const wchar_t* GamepadImpl::ProductName() const
+const wchar_t* GamepadLinux::ProductName() const
 {
     return productName.empty() ? L"" : productName.c_str();
 }
 
-std::uint16_t GamepadImpl::VendorId() const { return vendorId; }
-std::uint16_t GamepadImpl::ProductId() const { return productId; }
-unsigned GamepadImpl::NumButtons() const { return buttonCount; }
-unsigned GamepadImpl::NumAxes() const { return axisCount; }
-Gamepad::UnsignedPair GamepadImpl::PollingFrequency() const { return { 0u, 0u }; }
+std::uint16_t GamepadLinux::VendorId() const { return vendorId; }
+std::uint16_t GamepadLinux::ProductId() const { return productId; }
+unsigned GamepadLinux::NumButtons() const { return buttonCount; }
+unsigned GamepadLinux::NumAxes() const { return axisCount; }
+UnsignedPair GamepadLinux::PollingFrequency() const { return { 0u, 0u }; }
 
-Gamepad::UnsignedPair GamepadImpl::AxisRange(Gamepad::EAxis axis) const
+UnsignedPair GamepadLinux::AxisRange(EAxis axis) const { return ranges[axisIndex(axis)]; }
+
+bool GamepadLinux::HasAxis(EAxis axis) const { return axisSupported[axisIndex(axis)]; }
+
+EPovType GamepadLinux::PovType() const
 {
-    return ranges[axisIndex(axis)];
+    return dpadPresent ? EPovType::discrete : EPovType::no_pov;
 }
 
-bool GamepadImpl::HasAxis(Gamepad::EAxis axis) const { return axisSupported[axisIndex(axis)]; }
-
-Gamepad::EPovType GamepadImpl::PovType() const
-{
-    return dpadPresent ? Gamepad::ePovType_discrete : Gamepad::ePovType_no_pov;
-}
-
-Gamepad::EState GamepadImpl::ReadData()
+EGamepadState GamepadLinux::ReadData()
 {
     updateConnection();
 
@@ -105,18 +102,18 @@ Gamepad::EState GamepadImpl::ReadData()
         buttons = jessTech->Buttons();
         povValue = jessTech->Pov();
         buttonCount = jessTech->ButtonCount();
-        axisCount = Gamepad::eAxis_MAX;
+        axisCount = EAxis::MaxValue;
         dpadPresent = true;
-        ranges.fill({ 0u, Gamepad::eMax });
-        state = Gamepad::eState_ok;
+        ranges.fill({ 0u, Constants::MaxAngle });
+        state = EGamepadState::ok;
         return state;
     }
 
     if (!gamepad)
     {
-        axes.fill(Gamepad::eMid);
+        axes.fill(Constants::MidAngle);
         buttons = 0;
-        povValue = Gamepad::kPovCentered;
+        povValue = Constants::PovCenteredVal;
         return state;
     }
 
@@ -125,36 +122,36 @@ Gamepad::EState GamepadImpl::ReadData()
     axes = sampleAxes();
     buttons = sampleButtons();
     povValue = computePov();
-    state = Gamepad::eState_ok;
+    state = EGamepadState::ok;
     return state;
 }
 
-Gamepad::EState GamepadImpl::StateValue() const { return state; }
+EGamepadState GamepadLinux::StateValue() const { return state; }
 
-unsigned GamepadImpl::AxisValue(Gamepad::EAxis axis) const { return axes[axisIndex(axis)]; }
+unsigned GamepadLinux::AxisValue(EAxis axis) const { return axes[axisIndex(axis)]; }
 
-unsigned GamepadImpl::LastAxisValue(Gamepad::EAxis axis) const { return lastAxes[axisIndex(axis)]; }
+unsigned GamepadLinux::LastAxisValue(EAxis axis) const { return lastAxes[axisIndex(axis)]; }
 
-std::uint32_t GamepadImpl::ButtonsMask() const { return buttons; }
-std::uint32_t GamepadImpl::LastButtonsMask() const { return lastButtons; }
+std::uint32_t GamepadLinux::ButtonsMask() const { return buttons; }
+std::uint32_t GamepadLinux::LastButtonsMask() const { return lastButtons; }
 
-unsigned GamepadImpl::Pov() const { return povValue; }
-unsigned GamepadImpl::LastPov() const { return lastPovValue; }
-int GamepadImpl::PressedCount() const { return static_cast<int>(popcount(buttons)); }
+unsigned GamepadLinux::Pov() const { return povValue; }
+unsigned GamepadLinux::LastPov() const { return lastPovValue; }
+int GamepadLinux::PressedCount() const { return static_cast<int>(popcount(buttons)); }
 
-unsigned GamepadImpl::Threshold() const { return 0; }
-bool GamepadImpl::SetThreshold(unsigned) const { return false; }
+unsigned GamepadLinux::Threshold() const { return 0; }
+bool GamepadLinux::SetThreshold(unsigned) const { return false; }
 
-bool GamepadImpl::Capture(void*, unsigned int, Gamepad::EUpdateAction) { return false; }
-bool GamepadImpl::Release() { return false; }
+bool GamepadLinux::Capture(void*, unsigned int, EUpdateAction) { return false; }
+bool GamepadLinux::Release() { return false; }
 
-bool GamepadImpl::isDebugLoggingEnabled()
+bool GamepadLinux::isDebugLoggingEnabled()
 {
     static const bool enabled = qEnvironmentVariableIsSet("IPPONBOARD_DEBUG_GAMEPAD");
     return enabled;
 }
 
-const char* GamepadImpl::buttonName(QGamepadManager::GamepadButton button)
+const char* GamepadLinux::buttonName(QGamepadManager::GamepadButton button)
 {
     using Button = QGamepadManager::GamepadButton;
     switch (button)
@@ -201,7 +198,7 @@ const char* GamepadImpl::buttonName(QGamepadManager::GamepadButton button)
     }
 }
 
-const char* GamepadImpl::axisName(QGamepadManager::GamepadAxis axis)
+const char* GamepadLinux::axisName(QGamepadManager::GamepadAxis axis)
 {
     using Axis = QGamepadManager::GamepadAxis;
     switch (axis)
@@ -220,7 +217,7 @@ const char* GamepadImpl::axisName(QGamepadManager::GamepadAxis axis)
     }
 }
 
-void GamepadImpl::ensureDebugConnections()
+void GamepadLinux::ensureDebugConnections()
 {
     if (!isDebugLoggingEnabled())
     {
@@ -263,13 +260,13 @@ void GamepadImpl::ensureDebugConnections()
     }
 }
 
-bool GamepadImpl::hasSignificantDelta(double lhs, double rhs)
+bool GamepadLinux::hasSignificantDelta(double lhs, double rhs)
 {
     constexpr double kEpsilon = 0.01;
     return std::fabs(lhs - rhs) > kEpsilon;
 }
 
-void GamepadImpl::debugLogRawState() const
+void GamepadLinux::debugLogRawState() const
 {
     if (!isDebugLoggingEnabled() || !gamepad)
     {
@@ -326,7 +323,7 @@ void GamepadImpl::debugLogRawState() const
     }
 }
 
-void GamepadImpl::resetState()
+void GamepadLinux::resetState()
 {
     gamepad.reset();
     jessTech.reset();
@@ -335,16 +332,16 @@ void GamepadImpl::resetState()
     productId = 0;
     buttonCount = 0;
     axisCount = 0;
-    axes.fill(Gamepad::eMid);
+    axes.fill(Constants::MidAngle);
     lastAxes = axes;
     buttons = 0;
     lastButtons = 0;
-    povValue = Gamepad::kPovCentered;
-    lastPovValue = Gamepad::kPovCentered;
+    povValue = Constants::PovCenteredVal;
+    lastPovValue = Constants::PovCenteredVal;
     dpadPresent = false;
 }
 
-void GamepadImpl::refreshMetadata()
+void GamepadLinux::refreshMetadata()
 {
     if (!gamepad)
     {
@@ -361,10 +358,10 @@ void GamepadImpl::refreshMetadata()
     vendorId = 0;
     productId = 0;
     buttonCount = 16; // default assumption
-    axisCount = Gamepad::eAxis_MAX;
+    axisCount = EAxis::MaxValue;
     dpadPresent = true;
     jessTech.reset();
-    ranges.fill({ 0u, Gamepad::eMax });
+    ranges.fill({ 0u, Constants::MaxAngle });
     axisSupported.fill(true);
 
     const QString deviceName = QString::fromStdWString(productName);
@@ -380,7 +377,7 @@ void GamepadImpl::refreshMetadata()
     }
 }
 
-void GamepadImpl::updateConnection()
+void GamepadLinux::updateConnection()
 {
     auto& mgr = *QGamepadManager::instance();
     const auto ids = mgr.connectedGamepads();
@@ -388,7 +385,7 @@ void GamepadImpl::updateConnection()
     if (deviceId != -1 && !ids.contains(deviceId))
     {
         resetState();
-        state = Gamepad::eState_unplugged;
+        state = EGamepadState::unplugged;
     }
 
     if (!gamepad && !ids.isEmpty())
@@ -399,55 +396,55 @@ void GamepadImpl::updateConnection()
     }
 }
 
-unsigned GamepadImpl::toUnsignedAxis(double value)
+unsigned GamepadLinux::toUnsignedAxis(double value)
 {
     value = std::clamp(value, -1.0, 1.0);
-    return static_cast<unsigned>(((value + 1.0) * 0.5) * Gamepad::eMax + 0.5);
+    return static_cast<unsigned>(((value + 1.0) * 0.5) * Constants::MaxAngle + 0.5);
 }
 
-unsigned GamepadImpl::toUnsignedTrigger(double value)
+unsigned GamepadLinux::toUnsignedTrigger(double value)
 {
     value = std::clamp(value, 0.0, 1.0);
-    return static_cast<unsigned>(value * Gamepad::eMax + 0.5);
+    return static_cast<unsigned>(value * Constants::MaxAngle + 0.5);
 }
 
-std::array<unsigned, Gamepad::eAxis_MAX> GamepadImpl::sampleAxes() const
+std::array<unsigned, EAxis::MaxValue> GamepadLinux::sampleAxes() const
 {
-    std::array<unsigned, Gamepad::eAxis_MAX> result{};
-    result[Gamepad::eAxis_X] = toUnsignedAxis(gamepad->axisLeftX());
-    result[Gamepad::eAxis_Y] = toUnsignedAxis(gamepad->axisLeftY());
-    result[Gamepad::eAxis_Z] = toUnsignedAxis(gamepad->axisRightX());
-    result[Gamepad::eAxis_R] = toUnsignedAxis(gamepad->axisRightY());
-    result[Gamepad::eAxis_U] = toUnsignedTrigger(gamepad->buttonL2());
-    result[Gamepad::eAxis_V] = toUnsignedTrigger(gamepad->buttonR2());
+    std::array<unsigned, EAxis::MaxValue> result{};
+    result[(unsigned)EAxis::X] = toUnsignedAxis(gamepad->axisLeftX());
+    result[(unsigned)EAxis::Y] = toUnsignedAxis(gamepad->axisLeftY());
+    result[(unsigned)EAxis::Z] = toUnsignedAxis(gamepad->axisRightX());
+    result[(unsigned)EAxis::R] = toUnsignedAxis(gamepad->axisRightY());
+    result[(unsigned)EAxis::U] = toUnsignedTrigger(gamepad->buttonL2());
+    result[(unsigned)EAxis::V] = toUnsignedTrigger(gamepad->buttonR2());
     return result;
 }
 
-std::uint32_t GamepadImpl::sampleButtons() const
+std::uint32_t GamepadLinux::sampleButtons() const
 {
     std::uint32_t mask = 0;
-    setButton(mask, Gamepad::eButton1, gamepad->buttonA());
-    setButton(mask, Gamepad::eButton2, gamepad->buttonB());
-    setButton(mask, Gamepad::eButton3, gamepad->buttonX());
-    setButton(mask, Gamepad::eButton4, gamepad->buttonY());
-    setButton(mask, Gamepad::eButton5, gamepad->buttonL1());
-    setButton(mask, Gamepad::eButton6, gamepad->buttonR1());
-    setButton(mask, Gamepad::eButton7, gamepad->buttonL2() > 0.5); // analogue treated as button
-    setButton(mask, Gamepad::eButton8, gamepad->buttonR2() > 0.5);
-    setButton(mask, Gamepad::eButton9, gamepad->buttonSelect());
-    setButton(mask, Gamepad::eButton10, gamepad->buttonStart());
-    setButton(mask, Gamepad::eButton11, gamepad->buttonL3());
-    setButton(mask, Gamepad::eButton12, gamepad->buttonR3());
-    setButton(mask, Gamepad::eButton17, gamepad->buttonCenter());
-    setButton(mask, Gamepad::eButton18, gamepad->buttonGuide());
-    setButton(mask, Gamepad::eButton13, gamepad->buttonUp());
-    setButton(mask, Gamepad::eButton14, gamepad->buttonRight());
-    setButton(mask, Gamepad::eButton15, gamepad->buttonDown());
-    setButton(mask, Gamepad::eButton16, gamepad->buttonLeft());
+    setButton(mask, EButton::button1, gamepad->buttonA());
+    setButton(mask, EButton::button2, gamepad->buttonB());
+    setButton(mask, EButton::button3, gamepad->buttonX());
+    setButton(mask, EButton::button4, gamepad->buttonY());
+    setButton(mask, EButton::button5, gamepad->buttonL1());
+    setButton(mask, EButton::button6, gamepad->buttonR1());
+    setButton(mask, EButton::button7, gamepad->buttonL2() > 0.5); // analogue treated as button
+    setButton(mask, EButton::button8, gamepad->buttonR2() > 0.5);
+    setButton(mask, EButton::button9, gamepad->buttonSelect());
+    setButton(mask, EButton::button10, gamepad->buttonStart());
+    setButton(mask, EButton::button11, gamepad->buttonL3());
+    setButton(mask, EButton::button12, gamepad->buttonR3());
+    setButton(mask, EButton::button17, gamepad->buttonCenter());
+    setButton(mask, EButton::button18, gamepad->buttonGuide());
+    setButton(mask, EButton::button13, gamepad->buttonUp());
+    setButton(mask, EButton::button14, gamepad->buttonRight());
+    setButton(mask, EButton::button15, gamepad->buttonDown());
+    setButton(mask, EButton::button16, gamepad->buttonLeft());
     return mask;
 }
 
-void GamepadImpl::setButton(std::uint32_t& mask, Gamepad::EButton button, bool pressed)
+void GamepadLinux::setButton(std::uint32_t& mask, EButton button, bool pressed)
 {
     if (pressed)
     {
@@ -455,7 +452,7 @@ void GamepadImpl::setButton(std::uint32_t& mask, Gamepad::EButton button, bool p
     }
 }
 
-unsigned GamepadImpl::computePov() const
+unsigned GamepadLinux::computePov() const
 {
     const bool up = gamepad->buttonUp();
     const bool down = gamepad->buttonDown();
@@ -464,7 +461,7 @@ unsigned GamepadImpl::computePov() const
 
     if ((up && down) || (left && right))
     {
-        return Gamepad::kPovCentered;
+        return Constants::PovCenteredVal;
     }
 
     if (up)
@@ -490,9 +487,9 @@ unsigned GamepadImpl::computePov() const
     if (left)
         return 27000;
 
-    return Gamepad::kPovCentered;
+    return Constants::PovCenteredVal;
 }
 
-} // namespace FMlib
+} // namespace GamepadLib
 
 #endif

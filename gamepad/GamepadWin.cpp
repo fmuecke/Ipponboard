@@ -1,8 +1,6 @@
 #if defined(_WIN32)
 
-#include "GamepadWinImpl.h"
-
-#include "IGamepadImpl.h"
+#include "GamepadWin.h"
 
 #include <Windows.h>
 #include <cstring>
@@ -11,16 +9,16 @@
 
 #pragma comment(lib, "Winmm.lib")
 
-namespace FMlib
+namespace GamepadLib
 {
-GamepadImpl::GamepadImpl() { reset(); }
+GamepadWin::GamepadWin() { reset(); }
 
-Gamepad::EState GamepadImpl::Init()
+EGamepadState GamepadWin::Init()
 {
     reset();
     state = toState(::joyGetDevCapsW(currentId, &caps, sizeof(caps)));
 
-    if (state == Gamepad::eState_ok)
+    if (state == EGamepadState::ok)
     {
         productName.assign(caps.szPname);
     }
@@ -32,119 +30,116 @@ Gamepad::EState GamepadImpl::Init()
     return state;
 }
 
-Gamepad::EState GamepadImpl::ReadData()
+EGamepadState GamepadWin::ReadData()
 {
     lastData = data;
     state = toState(::joyGetPosEx(currentId, &data));
     return state;
 }
 
-Gamepad::EState GamepadImpl::StateValue() const { return state; }
+EGamepadState GamepadWin::StateValue() const { return state; }
 
-const wchar_t* GamepadImpl::ProductName() const
+const wchar_t* GamepadWin::ProductName() const
 {
     return productName.empty() ? L"" : productName.c_str();
 }
 
-std::uint16_t GamepadImpl::VendorId() const { return caps.wMid; }
-std::uint16_t GamepadImpl::ProductId() const { return caps.wPid; }
-unsigned GamepadImpl::NumButtons() const { return caps.wNumButtons; }
-unsigned GamepadImpl::NumAxes() const { return caps.wNumAxes; }
+std::uint16_t GamepadWin::VendorId() const { return caps.wMid; }
+std::uint16_t GamepadWin::ProductId() const { return caps.wPid; }
+unsigned GamepadWin::NumButtons() const { return caps.wNumButtons; }
+unsigned GamepadWin::NumAxes() const { return caps.wNumAxes; }
 
-Gamepad::UnsignedPair GamepadImpl::PollingFrequency() const
-{
-    return { caps.wPeriodMin, caps.wPeriodMax };
-}
+UnsignedPair GamepadWin::PollingFrequency() const { return { caps.wPeriodMin, caps.wPeriodMax }; }
 
-Gamepad::UnsignedPair GamepadImpl::AxisRange(Gamepad::EAxis axis) const
+UnsignedPair GamepadWin::AxisRange(EAxis axis) const
 {
     switch (axis)
     {
-    case Gamepad::eAxis_X:
+    case EAxis::X:
         return { caps.wXmin, caps.wXmax };
-    case Gamepad::eAxis_Y:
+    case EAxis::Y:
         return { caps.wYmin, caps.wYmax };
-    case Gamepad::eAxis_Z:
+    case EAxis::Z:
         return { caps.wZmin, caps.wZmax };
-    case Gamepad::eAxis_R:
+    case EAxis::R:
         return { caps.wRmin, caps.wRmax };
-    case Gamepad::eAxis_U:
+    case EAxis::U:
         return { caps.wUmin, caps.wUmax };
-    case Gamepad::eAxis_V:
+    case EAxis::V:
         return { caps.wVmin, caps.wVmax };
     default:
-        return { 0u, Gamepad::eMax };
+        return { 0u, Constants::MaxAngle };
     }
 }
 
-bool GamepadImpl::HasAxis(Gamepad::EAxis axis) const
+bool GamepadWin::HasAxis(EAxis axis) const
 {
     switch (axis)
     {
-    case Gamepad::eAxis_Z:
+    case EAxis::Z:
         return (caps.wCaps & JOYCAPS_HASZ) != 0;
-    case Gamepad::eAxis_R:
+    case EAxis::R:
         return (caps.wCaps & JOYCAPS_HASR) != 0;
-    case Gamepad::eAxis_U:
+    case EAxis::U:
         return (caps.wCaps & JOYCAPS_HASU) != 0;
-    case Gamepad::eAxis_V:
+    case EAxis::V:
         return (caps.wCaps & JOYCAPS_HASV) != 0;
     default:
         return true;
     }
 }
 
-unsigned GamepadImpl::AxisValue(Gamepad::EAxis axis) const
+unsigned GamepadWin::AxisValue(GamepadLib::EAxis axis) const
 {
     switch (axis)
     {
-    case Gamepad::eAxis_X:
+    case EAxis::X:
         return data.dwXpos;
-    case Gamepad::eAxis_Y:
+    case EAxis::Y:
         return data.dwYpos;
-    case Gamepad::eAxis_Z:
+    case EAxis::Z:
         return data.dwZpos;
-    case Gamepad::eAxis_R:
+    case EAxis::R:
         return data.dwRpos;
-    case Gamepad::eAxis_U:
+    case EAxis::U:
         return data.dwUpos;
-    case Gamepad::eAxis_V:
+    case EAxis::V:
         return data.dwVpos;
     default:
         return 0;
     }
 }
 
-unsigned GamepadImpl::LastAxisValue(Gamepad::EAxis axis) const
+unsigned GamepadWin::LastAxisValue(EAxis axis) const
 {
     switch (axis)
     {
-    case Gamepad::eAxis_X:
+    case EAxis::X:
         return lastData.dwXpos;
-    case Gamepad::eAxis_Y:
+    case EAxis::Y:
         return lastData.dwYpos;
-    case Gamepad::eAxis_Z:
+    case EAxis::Z:
         return lastData.dwZpos;
-    case Gamepad::eAxis_R:
+    case EAxis::R:
         return lastData.dwRpos;
-    case Gamepad::eAxis_U:
+    case EAxis::U:
         return lastData.dwUpos;
-    case Gamepad::eAxis_V:
+    case EAxis::V:
         return lastData.dwVpos;
     default:
         return 0;
     }
 }
 
-std::uint32_t GamepadImpl::ButtonsMask() const { return data.dwButtons; }
-std::uint32_t GamepadImpl::LastButtonsMask() const { return lastData.dwButtons; }
+std::uint32_t GamepadWin::ButtonsMask() const { return data.dwButtons; }
+std::uint32_t GamepadWin::LastButtonsMask() const { return lastData.dwButtons; }
 
-unsigned GamepadImpl::Pov() const { return data.dwPOV; }
-unsigned GamepadImpl::LastPov() const { return lastData.dwPOV; }
+unsigned GamepadWin::Pov() const { return data.dwPOV; }
+unsigned GamepadWin::LastPov() const { return lastData.dwPOV; }
 
-int GamepadImpl::PressedCount() const { return static_cast<int>(data.dwButtonNumber); }
+int GamepadWin::PressedCount() const { return static_cast<int>(data.dwButtonNumber); }
 
-unsigned GamepadImpl::Threshold() const
+unsigned GamepadWin::Threshold() const
 {
     unsigned value = 0;
     if (JOYERR_NOERROR != ::joyGetThreshold(currentId, &value))
@@ -154,12 +149,12 @@ unsigned GamepadImpl::Threshold() const
     return value;
 }
 
-bool GamepadImpl::SetThreshold(unsigned thresholdValue) const
+bool GamepadWin::SetThreshold(unsigned thresholdValue) const
 {
     return JOYERR_NOERROR == ::joySetThreshold(currentId, thresholdValue);
 }
 
-bool GamepadImpl::Capture(void* windowHandle, unsigned int period, Gamepad::EUpdateAction when)
+bool GamepadWin::Capture(void* windowHandle, unsigned int period, EUpdateAction when)
 {
     if (hwnd != nullptr)
     {
@@ -172,8 +167,8 @@ bool GamepadImpl::Capture(void* windowHandle, unsigned int period, Gamepad::EUpd
         return false;
     }
 
-    const auto result =
-        ::joySetCapture(targetHwnd, currentId, period, when == Gamepad::update_on_change);
+    const auto result = ::joySetCapture(
+        targetHwnd, currentId, period, when == GamepadLib::EUpdateAction::on_change);
     if (result == JOYERR_NOERROR)
     {
         hwnd = targetHwnd;
@@ -183,7 +178,7 @@ bool GamepadImpl::Capture(void* windowHandle, unsigned int period, Gamepad::EUpd
     return false;
 }
 
-bool GamepadImpl::Release()
+bool GamepadWin::Release()
 {
     if (hwnd == nullptr)
     {
@@ -200,7 +195,7 @@ bool GamepadImpl::Release()
     return false;
 }
 
-void GamepadImpl::reset()
+void GamepadWin::reset()
 {
     productName.clear();
     std::memset(&caps, 0, sizeof(caps));
@@ -208,33 +203,33 @@ void GamepadImpl::reset()
     data.dwSize = sizeof(data);
     data.dwFlags = JOY_RETURNALL;
     lastData = data;
-    state = Gamepad::eState_unknown;
+    state = EGamepadState::unknown;
     hwnd = nullptr;
 }
 
-Gamepad::EState GamepadImpl::toState(unsigned code)
+EGamepadState GamepadWin::toState(unsigned code)
 {
     switch (code)
     {
     case JOYERR_NOERROR:
-        return Gamepad::eState_ok;
+        return EGamepadState::ok;
     case MMSYSERR_NODRIVER:
-        return Gamepad::eState_no_driver;
+        return EGamepadState::no_driver;
     case MMSYSERR_INVALPARAM:
-        return Gamepad::eState_invalid_param;
+        return EGamepadState::invalid_param;
     case MMSYSERR_BADDEVICEID:
-        return Gamepad::eState_bad_device_id;
+        return EGamepadState::bad_device_id;
     case JOYERR_NOCANDO:
-        return Gamepad::eState_no_service;
+        return EGamepadState::no_service;
     case JOYERR_UNPLUGGED:
-        return Gamepad::eState_unplugged;
+        return EGamepadState::unplugged;
     case JOYERR_PARMS:
-        return Gamepad::eState_invalid_id;
+        return EGamepadState::invalid_id;
     default:
-        return Gamepad::eState_unknown;
+        return EGamepadState::unknown;
     }
 }
 
-} // namespace FMlib
+} // namespace GamepadLib
 
 #endif // _WIN32

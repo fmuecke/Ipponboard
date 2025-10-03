@@ -7,9 +7,9 @@ set(SOURCES
 )
 
 if(UNIX AND NOT APPLE)
-    list(APPEND SOURCES JessTechPadAdapterLinux.cpp GamepadLinuxImpl.cpp)
+    list(APPEND SOURCES JessTechPadAdapterLinux.cpp GamepadLinux.cpp)
 else()
-    list(APPEND SOURCES JessTechPadAdapterStub.cpp GamepadWinImpl.cpp)
+    list(APPEND SOURCES JessTechPadAdapterStub.cpp GamepadWin.cpp)
 endif()
 
 add_library(IpponboardGamepad STATIC ${SOURCES})

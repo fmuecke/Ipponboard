@@ -1,6 +1,6 @@
 #if defined(_WIN32)
 
-#include "IGamepadImpl.h"
+#include "Gamepad.h"
 
 #include <Windows.h>
 #include <cstring>
@@ -9,51 +9,51 @@
 
 #pragma comment(lib, "Winmm.lib")
 
-namespace FMlib
+namespace GamepadLib
 {
-class GamepadImpl : public IGamepadImpl
+class GamepadWin : public GamepadBackend
 {
   public:
-    GamepadImpl();
-    ~GamepadImpl() override = default;
+    GamepadWin();
+    ~GamepadWin() override = default;
 
-    Gamepad::EState Init() override;
+    EGamepadState Init() override;
     const wchar_t* ProductName() const override;
     std::uint16_t VendorId() const override;
     std::uint16_t ProductId() const override;
     unsigned NumButtons() const override;
     unsigned NumAxes() const override;
-    Gamepad::UnsignedPair PollingFrequency() const override;
-    Gamepad::UnsignedPair AxisRange(Gamepad::EAxis axis) const override;
-    bool HasAxis(Gamepad::EAxis axis) const override;
-    Gamepad::EState ReadData() override;
-    Gamepad::EState StateValue() const override;
-    unsigned AxisValue(Gamepad::EAxis axis) const override;
-    unsigned LastAxisValue(Gamepad::EAxis axis) const override;
+    UnsignedPair PollingFrequency() const override;
+    UnsignedPair AxisRange(EAxis axis) const override;
+    bool HasAxis(EAxis axis) const override;
+    EGamepadState ReadData() override;
+    EGamepadState StateValue() const override;
+    unsigned AxisValue(EAxis axis) const override;
+    unsigned LastAxisValue(EAxis axis) const override;
     std::uint32_t ButtonsMask() const override;
     std::uint32_t LastButtonsMask() const override;
     unsigned Pov() const override;
     unsigned LastPov() const override;
-    Gamepad::EPovType PovType() const override { return Gamepad::ePovType_no_pov; } // TODO: check this!
+    EPovType PovType() const override { return EPovType::no_pov; } // TODO: check this!
     int PressedCount() const override;
     unsigned Threshold() const override;
     bool SetThreshold(unsigned thresholdValue) const override;
-    bool Capture(void* windowHandle, unsigned int period, Gamepad::EUpdateAction when) override;
+    bool Capture(void* windowHandle, unsigned int period, EUpdateAction when) override;
     bool Release() override;
 
   private:
     void reset();
-    static Gamepad::EState toState(unsigned code);
+    static EGamepadState toState(unsigned code);
 
     unsigned currentId{ 0 };
     std::wstring productName;
     JOYCAPSW caps{};
     JOYINFOEX data{};
     JOYINFOEX lastData{};
-    Gamepad::EState state{ Gamepad::eState_unknown };
+    EGamepadState state{ EGamepadState::unknown };
     HWND hwnd{ nullptr };
 };
 
-} // namespace FMlib
+} // namespace GamepadLib
 
 #endif // _WIN32
