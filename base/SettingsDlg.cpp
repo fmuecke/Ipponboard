@@ -59,27 +59,27 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
 
 #ifdef _WIN32
     // build button text map
-    m_buttonTexts[FMlib::Gamepad::eButton1] = "button 1";
-    m_buttonTexts[FMlib::Gamepad::eButton2] = "button 2";
-    m_buttonTexts[FMlib::Gamepad::eButton3] = "button 3";
-    m_buttonTexts[FMlib::Gamepad::eButton4] = "button 4";
-    m_buttonTexts[FMlib::Gamepad::eButton5] = "button 5";
-    m_buttonTexts[FMlib::Gamepad::eButton6] = "button 6";
-    m_buttonTexts[FMlib::Gamepad::eButton7] = "button 7";
-    m_buttonTexts[FMlib::Gamepad::eButton8] = "button 8";
-    m_buttonTexts[FMlib::Gamepad::eButton9] = "button 9";
-    m_buttonTexts[FMlib::Gamepad::eButton10] = "button 10";
-    m_buttonTexts[FMlib::Gamepad::eButton11] = "button 11";
-    m_buttonTexts[FMlib::Gamepad::eButton12] = "button 12";
+    m_buttonTexts[GamepadLib::EButton::button1] = "button 1";
+    m_buttonTexts[GamepadLib::EButton::button2] = "button 2";
+    m_buttonTexts[GamepadLib::EButton::button3] = "button 3";
+    m_buttonTexts[GamepadLib::EButton::button4] = "button 4";
+    m_buttonTexts[GamepadLib::EButton::button5] = "button 5";
+    m_buttonTexts[GamepadLib::EButton::button6] = "button 6";
+    m_buttonTexts[GamepadLib::EButton::button7] = "button 7";
+    m_buttonTexts[GamepadLib::EButton::button8] = "button 8";
+    m_buttonTexts[GamepadLib::EButton::button9] = "button 9";
+    m_buttonTexts[GamepadLib::EButton::button10] = "button 10";
+    m_buttonTexts[GamepadLib::EButton::button11] = "button 11";
+    m_buttonTexts[GamepadLib::EButton::button12] = "button 12";
     // ! Assure that pov values do not overlap with regular buttons! !
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_fwd] = "POV fwd";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_back] = "POV back";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_left] = "POV left";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_right] = "POV right";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_right_fwd] = "POV right fwd";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_right_back] = "POV right back";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_left_back] = "POV left back";
-    m_buttonTexts[FMlib::Gamepad::eButton_pov_left_fwd] = "POV left fwd";
+    m_buttonTexts[GamepadLib::EButton::button_pov_fwd] = "POV fwd";
+    m_buttonTexts[GamepadLib::EButton::button_pov_back] = "POV back";
+    m_buttonTexts[GamepadLib::EButton::button_pov_left] = "POV left";
+    m_buttonTexts[GamepadLib::EButton::button_pov_right] = "POV right";
+    m_buttonTexts[GamepadLib::EButton::button_pov_right_fwd] = "POV right fwd";
+    m_buttonTexts[GamepadLib::EButton::button_pov_right_back] = "POV right back";
+    m_buttonTexts[GamepadLib::EButton::button_pov_left_back] = "POV left back";
+    m_buttonTexts[GamepadLib::EButton::button_pov_left_fwd] = "POV left fwd";
 #endif
     QStringList buttons;
     ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
@@ -291,10 +291,7 @@ void SettingsDlg::SetGongFile(const QString& path)
         ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-int SettingsDlg::GetSelectedScreen() const
-{
-    return ui->comboBox_screen->currentIndex();
-}
+int SettingsDlg::GetSelectedScreen() const { return ui->comboBox_screen->currentIndex(); }
 
 QSize SettingsDlg::GetSize() const
 {
@@ -320,48 +317,21 @@ QFont SettingsDlg::GetFighterNameFont() const
     return f;
 }
 
-QColor SettingsDlg::GetInfoTextColor() const
-{
-    return ui->text_text_sample->GetColor();
-}
+QColor SettingsDlg::GetInfoTextColor() const { return ui->text_text_sample->GetColor(); }
 
-QColor SettingsDlg::GetTextColorFirst() const
-{
-    return ui->text_color_first->GetColor();
-}
+QColor SettingsDlg::GetTextColorFirst() const { return ui->text_color_first->GetColor(); }
 
-QColor SettingsDlg::GetTextColorSecond() const
-{
-    return ui->text_color_second->GetColor();
-}
+QColor SettingsDlg::GetTextColorSecond() const { return ui->text_color_second->GetColor(); }
 
-QColor SettingsDlg::GetInfoTextBgColor() const
-{
-    return ui->text_text_sample->GetBgColor();
-}
-QColor SettingsDlg::GetTextBgColorFirst() const
-{
-    return ui->text_color_first->GetBgColor();
-}
-QColor SettingsDlg::GetTextBgColorSecond() const
-{
-    return ui->text_color_second->GetBgColor();
-}
+QColor SettingsDlg::GetInfoTextBgColor() const { return ui->text_text_sample->GetBgColor(); }
+QColor SettingsDlg::GetTextBgColorFirst() const { return ui->text_color_first->GetBgColor(); }
+QColor SettingsDlg::GetTextBgColorSecond() const { return ui->text_color_second->GetBgColor(); }
 
-QString SettingsDlg::GetMatLabel() const
-{
-    return ui->comboBox_mat->currentText();
-}
+QString SettingsDlg::GetMatLabel() const { return ui->comboBox_mat->currentText(); }
 
-QString SettingsDlg::GetHomeLabel() const
-{
-    return ui->lineEdit_labelHome->text();
-}
+QString SettingsDlg::GetHomeLabel() const { return ui->lineEdit_labelHome->text(); }
 
-QString SettingsDlg::GetGuestLabel() const
-{
-    return ui->lineEdit_labelGuest->text();
-}
+QString SettingsDlg::GetGuestLabel() const { return ui->lineEdit_labelGuest->text(); }
 
 QString SettingsDlg::GetGongFile() const
 {
@@ -369,15 +339,9 @@ QString SettingsDlg::GetGongFile() const
     return path + ui->comboBox_sound_time_ends->currentText();
 }
 
-void SettingsDlg::on_buttonBox_accepted()
-{
-    accept();
-}
+void SettingsDlg::on_buttonBox_accepted() { accept(); }
 
-void SettingsDlg::on_buttonBox_rejected()
-{
-    reject();
-}
+void SettingsDlg::on_buttonBox_rejected() { reject(); }
 
 void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 {

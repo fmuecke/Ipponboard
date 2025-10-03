@@ -1,3 +1,4 @@
+#include "GamepadTypes.h"
 #include "JessTechPadAdapter.h"
 
 #include <QDebug>
@@ -5,29 +6,20 @@
 #include <QFileInfo>
 #include <QString>
 #include <QtGlobal>
-
 #include <algorithm>
-#include <cmath>
 #include <cerrno>
+#include <cmath>
 #include <cstring>
-
 #include <fcntl.h>
 #include <linux/input.h>
 #include <unistd.h>
 
-namespace FMlib
+namespace GamepadLib
 {
-namespace
-{
-constexpr std::uint32_t buttonMask(Gamepad::EButton button)
-{
-    return 1u << static_cast<unsigned>(button);
-}
 
-constexpr std::size_t axisIndex(Gamepad::EAxis axis)
-{
-    return static_cast<std::size_t>(axis);
-}
+constexpr std::uint32_t buttonMask(EButton button) { return 1u << static_cast<unsigned>(button); }
+
+constexpr std::size_t axisIndex(EAxis axis) { return static_cast<std::size_t>(axis); }
 
 constexpr double kDeadzone = 0.10; // 10% deadzone around the centre
 
@@ -82,8 +74,8 @@ class JessTechPadLinux final : public JessTechPadAdapter
         }
     }
 
-    const std::array<unsigned, Gamepad::eAxis_MAX>& Axes() const override { return m_axes; }
-    const std::array<bool, Gamepad::eAxis_MAX>& AxisSupported() const override
+    const std::array<unsigned, EAxis::MaxValue>& Axes() const override { return m_axes; }
+    const std::array<bool, EAxis::MaxValue>& AxisSupported() const override
     {
         return m_axisSupported;
     }
@@ -93,7 +85,7 @@ class JessTechPadLinux final : public JessTechPadAdapter
     {
         if (m_hatX == 0 && m_hatY == 0)
         {
-            return Gamepad::kPovCentered;
+            return Constants::PovCenteredVal;
         }
 
         if (m_hatY == -1)
@@ -119,7 +111,7 @@ class JessTechPadLinux final : public JessTechPadAdapter
         if (m_hatX == -1)
             return 27000;
 
-        return Gamepad::kPovCentered;
+        return Constants::PovCenteredVal;
     }
 
     unsigned ButtonCount() const override { return 12; }
@@ -127,12 +119,12 @@ class JessTechPadLinux final : public JessTechPadAdapter
   private:
     void reset()
     {
-        m_axes.fill(Gamepad::eMid);
+        m_axes.fill(Constants::MidAngle);
         m_axisSupported.fill(false);
-        m_axisSupported[axisIndex(Gamepad::eAxis_X)] = true;
-        m_axisSupported[axisIndex(Gamepad::eAxis_Y)] = true;
-        m_axisSupported[axisIndex(Gamepad::eAxis_Z)] = true;
-        m_axisSupported[axisIndex(Gamepad::eAxis_R)] = true;
+        m_axisSupported[axisIndex(EAxis::X)] = true;
+        m_axisSupported[axisIndex(EAxis::Y)] = true;
+        m_axisSupported[axisIndex(EAxis::Z)] = true;
+        m_axisSupported[axisIndex(EAxis::R)] = true;
         m_buttons = 0;
         m_hatX = 0;
         m_hatY = 0;
@@ -181,7 +173,7 @@ class JessTechPadLinux final : public JessTechPadAdapter
         const int range = max - min;
         if (range <= 0)
         {
-            return Gamepad::eMid;
+            return Constants::MidAngle;
         }
 
         const double normalized = (static_cast<double>(clamped - min) / static_cast<double>(range));
@@ -199,46 +191,46 @@ class JessTechPadLinux final : public JessTechPadAdapter
         }
 
         const double scaled = (centered + 1.0) * 0.5; // back to [0,1]
-        return static_cast<unsigned>(std::clamp(scaled, 0.0, 1.0) * Gamepad::eMax + 0.5);
+        return static_cast<unsigned>(std::clamp(scaled, 0.0, 1.0) * Constants::MaxAngle + 0.5);
     }
 
-    static Gamepad::EButton mapButton(int code)
+    static EButton mapButton(int code)
     {
         switch (code)
         {
         case BTN_TRIGGER:
-            return Gamepad::eButton1;
+            return EButton::button1;
         case BTN_THUMB:
-            return Gamepad::eButton2;
+            return EButton::button2;
         case BTN_THUMB2:
-            return Gamepad::eButton3;
+            return EButton::button3;
         case BTN_TOP:
-            return Gamepad::eButton4;
+            return EButton::button4;
         case BTN_TOP2:
-            return Gamepad::eButton5;
+            return EButton::button5;
         case BTN_PINKIE:
-            return Gamepad::eButton6;
+            return EButton::button6;
         case BTN_BASE:
-            return Gamepad::eButton7;
+            return EButton::button7;
         case BTN_BASE2:
-            return Gamepad::eButton8;
+            return EButton::button8;
         case BTN_BASE3:
-            return Gamepad::eButton9;
+            return EButton::button9;
         case BTN_BASE4:
-            return Gamepad::eButton10;
+            return EButton::button10;
         case BTN_BASE5:
-            return Gamepad::eButton11;
+            return EButton::button11;
         case BTN_BASE6:
-            return Gamepad::eButton12;
+            return EButton::button12;
         default:
-            return Gamepad::eButton32;
+            return EButton::button32;
         }
     }
 
     void handleKey(int code, bool pressed)
     {
         const auto button = mapButton(code);
-        if (button == Gamepad::eButton32)
+        if (button == EButton::button32)
         {
             return;
         }
@@ -259,16 +251,16 @@ class JessTechPadLinux final : public JessTechPadAdapter
         switch (code)
         {
         case ABS_X:
-            m_axes[axisIndex(Gamepad::eAxis_X)] = scaleAxis(value, 0, 255);
+            m_axes[axisIndex(EAxis::X)] = scaleAxis(value, 0, 255);
             break;
         case ABS_Y:
-            m_axes[axisIndex(Gamepad::eAxis_Y)] = scaleAxis(value, 0, 255);
+            m_axes[axisIndex(EAxis::Y)] = scaleAxis(value, 0, 255);
             break;
         case ABS_Z:
-            m_axes[axisIndex(Gamepad::eAxis_Z)] = scaleAxis(value, 0, 255);
+            m_axes[axisIndex(EAxis::Z)] = scaleAxis(value, 0, 255);
             break;
         case ABS_RZ:
-            m_axes[axisIndex(Gamepad::eAxis_R)] = scaleAxis(value, 0, 255);
+            m_axes[axisIndex(EAxis::R)] = scaleAxis(value, 0, 255);
             break;
         case ABS_HAT0X:
             m_hatX = std::clamp(value, -1, 1);
@@ -282,13 +274,12 @@ class JessTechPadLinux final : public JessTechPadAdapter
     }
 
     int m_fd{ -1 };
-    std::array<unsigned, Gamepad::eAxis_MAX> m_axes{};
-    std::array<bool, Gamepad::eAxis_MAX> m_axisSupported{};
+    std::array<unsigned, EAxis::MaxValue> m_axes{};
+    std::array<bool, EAxis::MaxValue> m_axisSupported{};
     std::uint32_t m_buttons{ 0 };
     int m_hatX{ 0 };
     int m_hatY{ 0 };
 };
-} // namespace
 
 std::unique_ptr<JessTechPadAdapter> CreateJessTechPadAdapter(const QString& deviceName)
 {
@@ -306,4 +297,4 @@ std::unique_ptr<JessTechPadAdapter> CreateJessTechPadAdapter(const QString& devi
     return adapter;
 }
 
-} // namespace FMlib
+} // namespace GamepadLib

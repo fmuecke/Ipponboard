@@ -1,9 +1,11 @@
-// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018-2025 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
 #ifndef GAMEPADDEMO__GAMEPADDEMO_H_
 #define GAMEPADDEMO__GAMEPADDEMO_H_
+
+#include "../gamepad/Gamepad.h"
 
 #include <QMainWindow>
 #include <memory>
@@ -11,11 +13,6 @@
 namespace Ui
 {
 class GamepadDemo;
-}
-
-namespace FMlib
-{
-class Gamepad;
 }
 
 class GamepadDemo : public QMainWindow
@@ -37,7 +34,7 @@ class GamepadDemo : public QMainWindow
     std::unique_ptr<Ui::GamepadDemo> ui;
     class QLabel* m_pSBarText;
     class QTimer* m_pTimer;
-    std::unique_ptr<FMlib::Gamepad> m_pGamepad;
+    std::unique_ptr<GamepadLib::Gamepad> m_pGamepad;
 };
 
 #endif // GAMEPADDEMO__GAMEPADDEMO_H_

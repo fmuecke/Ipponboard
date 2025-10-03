@@ -32,7 +32,7 @@ namespace StrTags
 static const char* const edition = "Basic Edition";
 }
 
-using namespace FMlib;
+using namespace GamepadLib;
 using namespace Ipponboard;
 
 MainWindow::MainWindow(QWidget* parent)
@@ -238,7 +238,7 @@ void MainWindow::update_statebar()
 {
     MainWindowBase::update_statebar();
 
-    //    if (Gamepad::eState_ok != m_pGamepad->GetState())
+    //    if (GamepadLib::EState::ok != m_pGamepad->GetState())
     //    {
     //        m_pUi->label_controller_state->setText(tr("No controller detected!"));
     //    }
@@ -273,10 +273,7 @@ void MainWindow::attach_primary_view()
     }
 }
 
-void MainWindow::retranslate_Ui()
-{
-    m_pUi->retranslateUi(this);
-}
+void MainWindow::retranslate_Ui() { m_pUi->retranslateUi(this); }
 
 void MainWindow::ui_check_language_items()
 {

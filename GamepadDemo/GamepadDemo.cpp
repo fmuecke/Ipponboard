@@ -6,7 +6,6 @@
 
 #include "../base/versioninfo.h"
 #include "../gamepad/Gamepad.h"
-#include "../gamepad/GamepadImpl.h"
 #include "ui_GamepadDemo.h"
 
 #include <QDebug>
@@ -14,9 +13,11 @@
 #include <QTimer>
 #include <array>
 
+using namespace GamepadLib;
+
 namespace
 {
-using ButtonInfo = std::pair<FMlib::Gamepad::EButton, const char*>;
+using ButtonInfo = std::pair<EButton, const char*>;
 
 bool isGamepadDebugEnabled()
 {
@@ -24,7 +25,7 @@ bool isGamepadDebugEnabled()
     return enabled;
 }
 
-void logGamepadDiagnostics(const FMlib::Gamepad& gamepad)
+void logGamepadDiagnostics(const GamepadLib::Gamepad& gamepad)
 {
     if (!isGamepadDebugEnabled())
     {
@@ -32,26 +33,16 @@ void logGamepadDiagnostics(const FMlib::Gamepad& gamepad)
     }
 
     static const std::array<ButtonInfo, 20> kButtons = {
-        { { FMlib::Gamepad::eButton1, "Btn1" },
-          { FMlib::Gamepad::eButton2, "Btn2" },
-          { FMlib::Gamepad::eButton3, "Btn3" },
-          { FMlib::Gamepad::eButton4, "Btn4" },
-          { FMlib::Gamepad::eButton5, "Btn5" },
-          { FMlib::Gamepad::eButton6, "Btn6" },
-          { FMlib::Gamepad::eButton7, "Btn7" },
-          { FMlib::Gamepad::eButton8, "Btn8" },
-          { FMlib::Gamepad::eButton9, "Select" },
-          { FMlib::Gamepad::eButton10, "Start" },
-          { FMlib::Gamepad::eButton11, "L3" },
-          { FMlib::Gamepad::eButton12, "R3" },
-          { FMlib::Gamepad::eButton13, "DPadUp" },
-          { FMlib::Gamepad::eButton14, "DPadRight" },
-          { FMlib::Gamepad::eButton15, "DPadDown" },
-          { FMlib::Gamepad::eButton16, "DPadLeft" },
-          { FMlib::Gamepad::eButton17, "Center" },
-          { FMlib::Gamepad::eButton18, "Guide" },
-          { FMlib::Gamepad::eButton_pov_fwd, "POV_Up" },
-          { FMlib::Gamepad::eButton_pov_back, "POV_Down" } }
+        { { EButton::button1, "Btn1" },          { EButton::button2, "Btn2" },
+          { EButton::button3, "Btn3" },          { EButton::button4, "Btn4" },
+          { EButton::button5, "Btn5" },          { EButton::button6, "Btn6" },
+          { EButton::button7, "Btn7" },          { EButton::button8, "Btn8" },
+          { EButton::button9, "Select" },        { EButton::button10, "Start" },
+          { EButton::button11, "L3" },           { EButton::button12, "R3" },
+          { EButton::button13, "DPadUp" },       { EButton::button14, "DPadRight" },
+          { EButton::button15, "DPadDown" },     { EButton::button16, "DPadLeft" },
+          { EButton::button17, "Center" },       { EButton::button18, "Guide" },
+          { EButton::button_pov_fwd, "POV_Up" }, { EButton::button_pov_back, "POV_Down" } }
     };
 
     static std::array<bool, kButtons.size()> s_lastButtons{};
@@ -108,8 +99,6 @@ void logGamepadDiagnostics(const FMlib::Gamepad& gamepad)
 }
 } // namespace
 
-using namespace FMlib;
-
 constexpr const char* kOffImage = ":/images/off.png";
 constexpr const char* kOnImage = ":/images/on.png";
 
@@ -118,7 +107,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
       ui(new Ui::GamepadDemo()),
       m_pSBarText(nullptr),
       m_pTimer(nullptr),
-      m_pGamepad(new Gamepad(std::make_unique<GamepadImpl>()))
+      m_pGamepad(new Gamepad())
 {
     ui->setupUi(this);
     m_pSBarText = new QLabel;
@@ -142,7 +131,7 @@ GamepadDemo::GamepadDemo(QWidget* parent)
     m_pTimer = new QTimer(this);
     connect(m_pTimer, &QTimer::timeout, this, &GamepadDemo::GetData);
 
-    if (Gamepad::eState_ok != m_pGamepad->GetState())
+    if (GamepadLib::EGamepadState::ok != m_pGamepad->GetState())
     {
         m_pSBarText->setText("no controller found");
         ui->groupBox_caps->setEnabled(false);
@@ -150,8 +139,8 @@ GamepadDemo::GamepadDemo(QWidget* parent)
         return;
     }
 
-    m_pGamepad->SetInverted(Gamepad::eAxis_Y);
-    m_pGamepad->SetInverted(Gamepad::eAxis_Z);
+    m_pGamepad->SetInverted(GamepadLib::EAxis::Y);
+    m_pGamepad->SetInverted(GamepadLib::EAxis::Z);
 
     UpdateCapabilities();
 
@@ -184,7 +173,7 @@ void GamepadDemo::changeEvent(QEvent* e)
 
 void GamepadDemo::UpdateCapabilities()
 {
-    if (Gamepad::eState_ok != m_pGamepad->GetState())
+    if (EGamepadState::ok != m_pGamepad->GetState())
     {
         m_pSBarText->setText("unable to retrieve gamepad capabilities");
     }
@@ -297,13 +286,13 @@ void GamepadDemo::UpdateCapabilities()
 
     vals.clear();
     vals.append("Point-of-view");
-    Gamepad::EPovType povType(m_pGamepad->GetPovType());
+    EPovType povType(m_pGamepad->GetPovType());
 
-    if (Gamepad::ePovType_no_pov != povType)
+    if (EPovType::no_pov != povType)
     {
-        if (Gamepad::ePovType_discrete == povType)
+        if (EPovType::discrete == povType)
             vals.append("discrete");
-        else if (Gamepad::ePovType_continuous == povType)
+        else if (EPovType::continuous == povType)
             vals.append("continuous");
         else
             vals.append("unknown");
@@ -321,7 +310,7 @@ void GamepadDemo::GetData()
     m_pGamepad->ReadData();
     logGamepadDiagnostics(*m_pGamepad);
 
-    if (Gamepad::eState_ok != m_pGamepad->GetState())
+    if (EGamepadState::ok != m_pGamepad->GetState())
         return;
 
     m_pSBarText->setText("controller found");
@@ -355,18 +344,18 @@ void GamepadDemo::GetData()
     ui->lineEdit_degrees_2->setText(QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) +
                                     QString::fromUtf8("°"));
 
-    UpdateButtonState(Gamepad::eButton1);
-    UpdateButtonState(Gamepad::eButton2);
-    UpdateButtonState(Gamepad::eButton3);
-    UpdateButtonState(Gamepad::eButton4);
-    UpdateButtonState(Gamepad::eButton5);
-    UpdateButtonState(Gamepad::eButton6);
-    UpdateButtonState(Gamepad::eButton7);
-    UpdateButtonState(Gamepad::eButton8);
-    UpdateButtonState(Gamepad::eButton9);
-    UpdateButtonState(Gamepad::eButton10);
-    UpdateButtonState(Gamepad::eButton11);
-    UpdateButtonState(Gamepad::eButton12);
+    UpdateButtonState(EButton::button1);
+    UpdateButtonState(EButton::button2);
+    UpdateButtonState(EButton::button3);
+    UpdateButtonState(EButton::button4);
+    UpdateButtonState(EButton::button5);
+    UpdateButtonState(EButton::button6);
+    UpdateButtonState(EButton::button7);
+    UpdateButtonState(EButton::button8);
+    UpdateButtonState(EButton::button9);
+    UpdateButtonState(EButton::button10);
+    UpdateButtonState(EButton::button11);
+    UpdateButtonState(EButton::button12);
 
     //cout << "buttons: " << joyInfo.wButtons << "\n" << endl;
 }
@@ -377,51 +366,51 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
 
     switch (button)
     {
-    case Gamepad::eButton1:
+    case EButton::button1:
         pImage = ui->image_button_1;
         break;
 
-    case Gamepad::eButton2:
+    case EButton::button2:
         pImage = ui->image_button_2;
         break;
 
-    case Gamepad::eButton3:
+    case EButton::button3:
         pImage = ui->image_button_3;
         break;
 
-    case Gamepad::eButton4:
+    case EButton::button4:
         pImage = ui->image_button_4;
         break;
 
-    case Gamepad::eButton5:
+    case EButton::button5:
         pImage = ui->image_button_5;
         break;
 
-    case Gamepad::eButton6:
+    case EButton::button6:
         pImage = ui->image_button_6;
         break;
 
-    case Gamepad::eButton7:
+    case EButton::button7:
         pImage = ui->image_button_7;
         break;
 
-    case Gamepad::eButton8:
+    case EButton::button8:
         pImage = ui->image_button_8;
         break;
 
-    case Gamepad::eButton9:
+    case EButton::button9:
         pImage = ui->image_button_9;
         break;
 
-    case Gamepad::eButton10:
+    case EButton::button10:
         pImage = ui->image_button_10;
         break;
 
-    case Gamepad::eButton11:
+    case EButton::button11:
         pImage = ui->image_button_11;
         break;
 
-    case Gamepad::eButton12:
+    case EButton::button12:
         pImage = ui->image_button_12;
         break;
 
@@ -431,7 +420,7 @@ void GamepadDemo::UpdateButtonState(unsigned button) const
 
     if (pImage)
     {
-        auto updateImage = m_pGamepad->IsPressed(Gamepad::EButton(button)) ? kOnImage : kOffImage;
+        auto updateImage = m_pGamepad->IsPressed(EButton(button)) ? kOnImage : kOffImage;
 
         pImage->UpdateImage(updateImage);
     }

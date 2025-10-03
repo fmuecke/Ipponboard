@@ -58,7 +58,7 @@ class MainWindow : public MainWindowBase
     virtual void on_actionManageFighters_triggered() override;
 
   protected slots:
-    //virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
+    //virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
 
     /* specific private slots */
     void on_actionManageCategories_triggered();

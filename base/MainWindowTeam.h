@@ -114,7 +114,7 @@ class MainWindowTeam : public MainWindowBase
     //void on_comboBox_weight_class_currentIndexChanged(const QString&);
 
     void on_actionReset_Scores_triggered();
-    virtual bool EvaluateSpecificInput(FMlib::Gamepad const* pGamepad) override;
+    virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
 
   private:
     void update_weights(QString const& weightString);
