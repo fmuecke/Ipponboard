@@ -6,20 +6,35 @@
 #define BASE__SETTINGSDLG_H_
 
 #include "../core/EditionType.h"
+#include "RawInputCapture.h"
 
 #include <QDialog>
 #include <QSoundEffect>
+#include <QTimer>
+#include <array>
 #include <map>
+#include <memory>
+#include <optional>
 
 class QComboBox;
+class QLabel;
+class QLineEdit;
+class QPushButton;
 
 namespace Ui
 {
 class SettingsDlg;
 }
 
+namespace GamepadLib
+{
+class Gamepad;
+}
+
 namespace Ipponboard
 {
+
+using RawInputCapture = BasicRawInputCapture<GamepadLib::Gamepad>;
 
 struct ControllerConfig;
 
@@ -55,13 +70,28 @@ class SettingsDlg : public QDialog
 
     void SetControllerConfig(const ControllerConfig* pConfig);
     void GetControllerConfig(ControllerConfig* pConfig);
+    void SetGamepad(GamepadLib::Gamepad* gamepad) noexcept;
 
   protected:
     void changeEvent(QEvent* e);
 
   private:
+    struct RawButtonBinding
+    {
+        QLineEdit* lineEdit;
+        QPushButton* captureButton;
+        int ControllerConfig::*configMember;
+    };
+
     int get_button_from_text(const QString& text) const;
     void set_button_value(QComboBox* pCombo, int buttonId);
+    void initialize_raw_bindings();
+    void start_raw_capture(RawButtonBinding* binding);
+    void finish_raw_capture(std::uint16_t code);
+    void cancel_raw_capture();
+    void update_raw_status(const QString& message);
+    [[nodiscard]] QString format_raw_value(int value) const;
+    void prime_raw_capture();
 
   private:
     EditionType m_edition;
@@ -69,6 +99,13 @@ class SettingsDlg : public QDialog
     typedef std::map<int, QString> ButtonTextMap;
     ButtonTextMap m_buttonTexts;
     QSoundEffect m_previewEffect;
+    QTimer m_rawCaptureTimer;
+    GamepadLib::Gamepad* m_gamepad;
+    std::unique_ptr<RawInputCapture> m_rawCapture;
+
+    std::array<RawButtonBinding, 12> m_rawButtonBindings;
+    RawButtonBinding* m_activeRawBinding;
+    QLabel* m_rawStatusLabel;
 
   private slots:
     void on_comboBox_mat_editTextChanged(QString);
@@ -88,6 +125,7 @@ class SettingsDlg : public QDialog
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
     void on_checkBox_secondary_view_custom_size_toggled(bool checked);
+    void on_raw_capture_timeout();
 };
 
 } // namespace Ipponboard

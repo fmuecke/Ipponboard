@@ -776,6 +776,7 @@ void MainWindowBase::on_actionPreferences_triggered()
     dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
                             m_pPrimaryView->GetTextBgColorSecond());
     dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
+    dlg.SetGamepad(m_pGamepad.get());
     dlg.SetControllerConfig(&m_controllerCfg);
     dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
     dlg.SetGongFile(m_pController->GetGongFile());

@@ -34,6 +34,7 @@ set(SOURCES
     TestScore.cpp
     TestTournamentMode.cpp
     TestInputBindingResolver.cpp
+    TestRawInputCapture.cpp
     TestOnlineVersionChecker.cpp
     Test-path_helpers.cpp
     TestVersionComparer.cpp
@@ -96,7 +97,6 @@ else()
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()
-
 
 
 

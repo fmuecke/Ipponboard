@@ -13,20 +13,36 @@
 #include <QDesktopWidget>
 #include <QDir>
 #include <QFile>
+#include <QIntValidator>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QScreen>
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
-
+#include <limits>
+#include <memory>
 
 using namespace Ipponboard;
 
 SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
-    : QDialog(parent), m_edition(edition), ui(new Ui::SettingsDlg)
+    : QDialog(parent),
+      m_edition(edition),
+      ui(new Ui::SettingsDlg),
+      m_buttonTexts(),
+      m_previewEffect(),
+      m_rawCaptureTimer(this),
+      m_gamepad(nullptr),
+      m_rawCapture(),
+      m_rawButtonBindings{},
+      m_activeRawBinding(nullptr),
+      m_rawStatusLabel(nullptr)
 {
     ui->setupUi(this);
     m_previewEffect.setParent(this);
     m_previewEffect.setLoopCount(1);
+    initialize_raw_bindings();
 
     if (m_edition == EditionType::Team)
     {
@@ -200,10 +216,184 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
 }
 
+void SettingsDlg::initialize_raw_bindings()
+{
+    m_rawCaptureTimer.setInterval(50);
+    m_rawCaptureTimer.setSingleShot(false);
+    connect(&m_rawCaptureTimer, &QTimer::timeout, this, &SettingsDlg::on_raw_capture_timeout);
+
+    auto* validator = new QIntValidator(-1, std::numeric_limits<std::uint16_t>::max(), this);
+
+    m_rawButtonBindings = {
+        RawButtonBinding{ ui->lineEdit_raw_hajime_mate,
+                          ui->pushButton_capture_raw_hajime_mate,
+                          &ControllerConfig::button_hajime_mate_raw },
+        RawButtonBinding{ ui->lineEdit_raw_next,
+                          ui->pushButton_capture_raw_next,
+                          &ControllerConfig::button_next_raw },
+        RawButtonBinding{ ui->lineEdit_raw_prev,
+                          ui->pushButton_capture_raw_prev,
+                          &ControllerConfig::button_prev_raw },
+        RawButtonBinding{ ui->lineEdit_raw_pause,
+                          ui->pushButton_capture_raw_pause,
+                          &ControllerConfig::button_pause_raw },
+        RawButtonBinding{ ui->lineEdit_raw_reset_first,
+                          ui->pushButton_capture_raw_reset_first,
+                          &ControllerConfig::button_reset_raw },
+        RawButtonBinding{ ui->lineEdit_raw_reset_second,
+                          ui->pushButton_capture_raw_reset_second,
+                          &ControllerConfig::button_reset2_raw },
+        RawButtonBinding{ ui->lineEdit_raw_osaekomi_first,
+                          ui->pushButton_capture_raw_osaekomi_first,
+                          &ControllerConfig::button_osaekomi_toketa_first_raw },
+        RawButtonBinding{ ui->lineEdit_raw_osaekomi_second,
+                          ui->pushButton_capture_raw_osaekomi_second,
+                          &ControllerConfig::button_osaekomi_toketa_second_raw },
+        RawButtonBinding{ ui->lineEdit_raw_reset_hold_first,
+                          ui->pushButton_capture_raw_reset_hold_first,
+                          &ControllerConfig::button_reset_hold_first_raw },
+        RawButtonBinding{ ui->lineEdit_raw_reset_hold_second,
+                          ui->pushButton_capture_raw_reset_hold_second,
+                          &ControllerConfig::button_reset_hold_second_raw },
+        RawButtonBinding{ ui->lineEdit_raw_hansokumake_first,
+                          ui->pushButton_capture_raw_hansokumake_first,
+                          &ControllerConfig::button_hansokumake_first_raw },
+        RawButtonBinding{ ui->lineEdit_raw_hansokumake_second,
+                          ui->pushButton_capture_raw_hansokumake_second,
+                          &ControllerConfig::button_hansokumake_second_raw },
+    };
+
+    for (auto& binding : m_rawButtonBindings)
+    {
+        if (binding.lineEdit)
+        {
+            binding.lineEdit->setValidator(validator);
+            binding.lineEdit->setPlaceholderText(tr("-1"));
+        }
+
+        if (binding.captureButton)
+        {
+            SettingsDlg::RawButtonBinding* bindingPtr = &binding;
+            connect(binding.captureButton,
+                    &QPushButton::clicked,
+                    this,
+                    [this, bindingPtr]() { start_raw_capture(bindingPtr); });
+        }
+    }
+
+    m_rawStatusLabel = ui->label_raw_status;
+    update_raw_status(tr("Press Capture to record a button code."));
+}
+
+void SettingsDlg::start_raw_capture(SettingsDlg::RawButtonBinding* binding)
+{
+    if (!binding)
+    {
+        return;
+    }
+
+    if (!m_gamepad)
+    {
+        update_raw_status(tr("No gamepad detected for capture."));
+        return;
+    }
+
+    if (m_activeRawBinding == binding)
+    {
+        cancel_raw_capture();
+        return;
+    }
+
+    cancel_raw_capture();
+
+    m_rawCapture = std::make_unique<RawInputCapture>(*m_gamepad);
+    prime_raw_capture();
+
+    m_activeRawBinding = binding;
+    binding->captureButton->setText(tr("Cancel"));
+    update_raw_status(tr("Press the desired button on the controller."));
+    m_rawCaptureTimer.start();
+}
+
+void SettingsDlg::finish_raw_capture(std::uint16_t code)
+{
+    if (!m_activeRawBinding)
+    {
+        return;
+    }
+
+    if (m_activeRawBinding->lineEdit)
+    {
+        m_activeRawBinding->lineEdit->setText(QString::number(code));
+    }
+
+    if (m_activeRawBinding->captureButton)
+    {
+        m_activeRawBinding->captureButton->setText(tr("Capture"));
+    }
+
+    update_raw_status(tr("Captured raw code %1.").arg(code));
+
+    m_activeRawBinding = nullptr;
+    m_rawCaptureTimer.stop();
+    m_rawCapture.reset();
+}
+
+void SettingsDlg::cancel_raw_capture()
+{
+    if (m_activeRawBinding && m_activeRawBinding->captureButton)
+    {
+        m_activeRawBinding->captureButton->setText(tr("Capture"));
+    }
+
+    const bool hadActiveCapture = m_activeRawBinding != nullptr;
+
+    m_activeRawBinding = nullptr;
+    if (m_rawCaptureTimer.isActive())
+    {
+        m_rawCaptureTimer.stop();
+    }
+    m_rawCapture.reset();
+
+    if (hadActiveCapture)
+    {
+        update_raw_status(tr("Capture cancelled."));
+    }
+}
+
+void SettingsDlg::update_raw_status(const QString& message)
+{
+    if (m_rawStatusLabel)
+    {
+        m_rawStatusLabel->setText(message);
+    }
+}
+
+QString SettingsDlg::format_raw_value(int value) const
+{
+    if (value < 0)
+    {
+        return {};
+    }
+
+    return QString::number(value);
+}
+
+void SettingsDlg::prime_raw_capture()
+{
+    if (!m_rawCapture)
+    {
+        return;
+    }
+
+    m_rawCapture->Prime();
+}
+
 SettingsDlg::~SettingsDlg()
 {
     m_previewEffect.stop();
     m_previewEffect.setSource(QUrl());
+    cancel_raw_capture();
     delete ui;
 }
 
@@ -364,6 +554,17 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
         ui->checkBox_invert_y_axis->setChecked(pConfig->axis_inverted_Y);
         ui->checkBox_invert_r_axis->setChecked(pConfig->axis_inverted_R);
         ui->checkBox_invert_z_axis->setChecked(pConfig->axis_inverted_Z);
+
+        for (const auto& binding : m_rawButtonBindings)
+        {
+            if (!binding.lineEdit)
+            {
+                continue;
+            }
+
+            const int value = pConfig->*(binding.configMember);
+            binding.lineEdit->setText(format_raw_value(value));
+        }
     }
 }
 
@@ -407,6 +608,37 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
         pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
         pConfig->axis_inverted_R = ui->checkBox_invert_r_axis->isChecked();
         pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
+
+        for (const auto& binding : m_rawButtonBindings)
+        {
+            if (!binding.lineEdit)
+            {
+                continue;
+            }
+
+            bool ok = false;
+            const int value = binding.lineEdit->text().toInt(&ok);
+            pConfig->*(binding.configMember) = ok ? value : -1;
+        }
+    }
+}
+
+void SettingsDlg::SetGamepad(GamepadLib::Gamepad* gamepad) noexcept
+{
+    m_gamepad = gamepad;
+
+    if (m_gamepad)
+    {
+        const auto* namePtr = m_gamepad->GetProductName();
+        const QString name = (namePtr && *namePtr != L'\0') ? QString::fromWCharArray(namePtr)
+                                                            : tr("Unknown controller");
+        const QString status = tr("Gamepad ready for capture: %1").arg(name);
+        qInfo() << "Gamepad prepared for raw capture:" << name;
+        update_raw_status(status);
+    }
+    else
+    {
+        update_raw_status(tr("No gamepad detected for capture."));
     }
 }
 
@@ -577,5 +809,22 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
     {
         ui->lineEdit_fixedsize_width->setText("0");
         ui->lineEdit_fixedsize_height->setText("0");
+    }
+}
+
+void SettingsDlg::on_raw_capture_timeout()
+{
+    if (!m_rawCapture || !m_activeRawBinding)
+    {
+        if (m_rawCaptureTimer.isActive())
+        {
+            m_rawCaptureTimer.stop();
+        }
+        return;
+    }
+
+    if (const auto code = m_rawCapture->PollButton())
+    {
+        finish_raw_capture(*code);
     }
 }
