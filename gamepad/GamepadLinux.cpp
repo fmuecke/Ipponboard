@@ -176,6 +176,7 @@ void GamepadLinux::reset()
     m_axisSupported.fill(false);
     m_axisMin.fill(0);
     m_axisMax.fill(0);
+    m_axisCodes.fill(-1);
     m_ranges.fill({ 0u, Constants::MaxAngle });
     m_buttons.clear();
     m_lastButtons.clear();
@@ -269,6 +270,7 @@ void GamepadLinux::queryAxisInfo()
             m_axisMax[idx] = info.maximum;
             m_ranges[idx] = { 0u, Constants::MaxAngle };
             m_axisSupported[idx] = true;
+            m_axisCodes[idx] = code;
             ++counts[idx];
         }
     }
@@ -402,6 +404,16 @@ unsigned GamepadLinux::AxisValue(EAxis axis) const
 unsigned GamepadLinux::LastAxisValue(EAxis axis) const
 {
     return m_lastAxes[static_cast<std::size_t>(axis)];
+}
+
+std::optional<int> GamepadLinux::RawAxisCode(EAxis axis) const
+{
+    const auto idx = static_cast<std::size_t>(axis);
+    if (!m_axisSupported[idx] || m_axisCodes[idx] < 0)
+    {
+        return std::nullopt;
+    }
+    return m_axisCodes[idx];
 }
 
 const std::unordered_set<std::uint16_t>& GamepadLinux::CurrentButtons() const { return m_buttons; }

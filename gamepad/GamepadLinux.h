@@ -33,6 +33,7 @@ class GamepadLinux : public GamepadBackend
     EGamepadState StateValue() const override;
     unsigned AxisValue(EAxis axis) const override;
     unsigned LastAxisValue(EAxis axis) const override;
+    std::optional<int> RawAxisCode(EAxis axis) const override;
     const std::unordered_set<std::uint16_t>& CurrentButtons() const override;
     const std::unordered_set<std::uint16_t>& PreviousButtons() const override;
     unsigned Pov() const override;
@@ -71,6 +72,7 @@ class GamepadLinux : public GamepadBackend
     AxisArray m_axes{};
     AxisArray m_lastAxes{};
     std::array<bool, EAxis::MaxValue> m_axisSupported{};
+    std::array<int, EAxis::MaxValue> m_axisCodes{};
     std::array<int, EAxis::MaxValue> m_axisMin{};
     std::array<int, EAxis::MaxValue> m_axisMax{};
 

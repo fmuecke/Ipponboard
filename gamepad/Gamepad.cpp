@@ -285,6 +285,12 @@ unsigned Gamepad::GetVPos() const { return applyInversion(EAxis::V, m_impl->Axis
 
 unsigned Gamepad::GetPOV() const { return m_impl->Pov(); }
 
+unsigned Gamepad::AxisValueRaw(EAxis axis) const { return m_impl->AxisValue(axis); }
+
+unsigned Gamepad::LastAxisValueRaw(EAxis axis) const { return m_impl->LastAxisValue(axis); }
+
+std::optional<int> Gamepad::RawAxisCode(EAxis axis) const { return m_impl->RawAxisCode(axis); }
+
 EGamepadState Gamepad::ReadData() { return m_impl->ReadData(); }
 
 EGamepadState Gamepad::GetState() const { return m_impl->StateValue(); }
