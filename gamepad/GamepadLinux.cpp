@@ -1,493 +1,510 @@
-
-#ifndef _WIN32 // Linux / Qt implementation
+#ifndef _WIN32
 
 #include "GamepadLinux.h"
 
-#include "JessTechPadAdapter.h"
+#include <fcntl.h>
+#include <linux/input.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
-#include <QDebug>
-#include <QList>
-#include <QObject>
-#include <QProcessEnvironment>
-#include <QStringList>
+#include <algorithm>
+#include <array>
+#include <cerrno>
+#include <cmath>
+#include <cstring>
+#include <filesystem>
+#include <optional>
 
 namespace GamepadLib
 {
-
-constexpr std::size_t axisIndex(EAxis axis) { return static_cast<std::size_t>(axis); }
-
-unsigned popcount(std::uint32_t value)
+namespace
 {
-    unsigned count = 0;
-    while (value != 0)
-    {
-        value &= (value - 1);
-        ++count;
-    }
-    return count;
-}
+constexpr double kDeadzone = 0.10; // 10% deadzone around the centre
 
-GamepadLinux::GamepadLinux()
+const std::array<std::uint16_t, 8> kPovButtonCodes = {
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_fwd)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_right)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_back)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_right_fwd)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_right_back)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_back)),
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_fwd)) };
+
+std::optional<std::string> findJoystickPath()
 {
-    ranges.fill({ 0u, Constants::MaxAngle });
-    axisSupported.fill(true);
-    ensureDebugConnections();
-}
+    namespace fs = std::filesystem;
 
-EGamepadState GamepadLinux::Init()
-{
-    const auto ids = QGamepadManager::instance()->connectedGamepads();
-    if (ids.isEmpty())
+    const fs::path byId{ "/dev/input/by-id" };
+    if (fs::exists(byId))
     {
-        resetState();
-        state = EGamepadState::unplugged;
-        return state;
-    }
-
-    if (isDebugLoggingEnabled())
-    {
-        QStringList idStrings;
-        for (int id : ids)
+        for (const auto& entry : fs::directory_iterator(byId))
         {
-            idStrings.push_back(QString::number(id));
-        }
-        qInfo().noquote() << "[QGamepad info] discovered devices=" << idStrings.join(',');
-    }
-
-    deviceId = ids.first();
-    if (isDebugLoggingEnabled())
-    {
-        qInfo().noquote() << "[QGamepad info] using device=" << deviceId;
-    }
-    gamepad = std::make_unique<QGamepad>(deviceId);
-    refreshMetadata();
-    state = EGamepadState::ok;
-    ReadData();
-    return state;
-}
-
-const wchar_t* GamepadLinux::ProductName() const
-{
-    return productName.empty() ? L"" : productName.c_str();
-}
-
-std::uint16_t GamepadLinux::VendorId() const { return vendorId; }
-std::uint16_t GamepadLinux::ProductId() const { return productId; }
-unsigned GamepadLinux::NumButtons() const { return buttonCount; }
-unsigned GamepadLinux::NumAxes() const { return axisCount; }
-UnsignedPair GamepadLinux::PollingFrequency() const { return { 0u, 0u }; }
-
-UnsignedPair GamepadLinux::AxisRange(EAxis axis) const { return ranges[axisIndex(axis)]; }
-
-bool GamepadLinux::HasAxis(EAxis axis) const { return axisSupported[axisIndex(axis)]; }
-
-EPovType GamepadLinux::PovType() const
-{
-    return dpadPresent ? EPovType::discrete : EPovType::no_pov;
-}
-
-EGamepadState GamepadLinux::ReadData()
-{
-    updateConnection();
-
-    lastAxes = axes;
-    lastButtons = buttons;
-    lastPovValue = povValue;
-
-    if (jessTech && jessTech->Available())
-    {
-        jessTech->Poll();
-        axes = jessTech->Axes();
-        axisSupported = jessTech->AxisSupported();
-        buttons = jessTech->Buttons();
-        povValue = jessTech->Pov();
-        buttonCount = jessTech->ButtonCount();
-        axisCount = EAxis::MaxValue;
-        dpadPresent = true;
-        ranges.fill({ 0u, Constants::MaxAngle });
-        state = EGamepadState::ok;
-        return state;
-    }
-
-    if (!gamepad)
-    {
-        axes.fill(Constants::MidAngle);
-        buttons = 0;
-        povValue = Constants::PovCenteredVal;
-        return state;
-    }
-
-    debugLogRawState();
-
-    axes = sampleAxes();
-    buttons = sampleButtons();
-    povValue = computePov();
-    state = EGamepadState::ok;
-    return state;
-}
-
-EGamepadState GamepadLinux::StateValue() const { return state; }
-
-unsigned GamepadLinux::AxisValue(EAxis axis) const { return axes[axisIndex(axis)]; }
-
-unsigned GamepadLinux::LastAxisValue(EAxis axis) const { return lastAxes[axisIndex(axis)]; }
-
-std::uint32_t GamepadLinux::ButtonsMask() const { return buttons; }
-std::uint32_t GamepadLinux::LastButtonsMask() const { return lastButtons; }
-
-unsigned GamepadLinux::Pov() const { return povValue; }
-unsigned GamepadLinux::LastPov() const { return lastPovValue; }
-int GamepadLinux::PressedCount() const { return static_cast<int>(popcount(buttons)); }
-
-unsigned GamepadLinux::Threshold() const { return 0; }
-bool GamepadLinux::SetThreshold(unsigned) const { return false; }
-
-bool GamepadLinux::Capture(void*, unsigned int, EUpdateAction) { return false; }
-bool GamepadLinux::Release() { return false; }
-
-bool GamepadLinux::isDebugLoggingEnabled()
-{
-    static const bool enabled = qEnvironmentVariableIsSet("IPPONBOARD_DEBUG_GAMEPAD");
-    return enabled;
-}
-
-const char* GamepadLinux::buttonName(QGamepadManager::GamepadButton button)
-{
-    using Button = QGamepadManager::GamepadButton;
-    switch (button)
-    {
-    case Button::ButtonA:
-        return "ButtonA";
-    case Button::ButtonB:
-        return "ButtonB";
-    case Button::ButtonX:
-        return "ButtonX";
-    case Button::ButtonY:
-        return "ButtonY";
-    case Button::ButtonL1:
-        return "ButtonL1";
-    case Button::ButtonR1:
-        return "ButtonR1";
-    case Button::ButtonL2:
-        return "ButtonL2";
-    case Button::ButtonR2:
-        return "ButtonR2";
-    case Button::ButtonSelect:
-        return "ButtonSelect";
-    case Button::ButtonStart:
-        return "ButtonStart";
-    case Button::ButtonL3:
-        return "ButtonL3";
-    case Button::ButtonR3:
-        return "ButtonR3";
-    case Button::ButtonUp:
-        return "ButtonUp";
-    case Button::ButtonDown:
-        return "ButtonDown";
-    case Button::ButtonRight:
-        return "ButtonRight";
-    case Button::ButtonLeft:
-        return "ButtonLeft";
-    case Button::ButtonCenter:
-        return "ButtonCenter";
-    case Button::ButtonGuide:
-        return "ButtonGuide";
-    case Button::ButtonInvalid:
-    default:
-        return "ButtonInvalid";
-    }
-}
-
-const char* GamepadLinux::axisName(QGamepadManager::GamepadAxis axis)
-{
-    using Axis = QGamepadManager::GamepadAxis;
-    switch (axis)
-    {
-    case Axis::AxisLeftX:
-        return "AxisLeftX";
-    case Axis::AxisLeftY:
-        return "AxisLeftY";
-    case Axis::AxisRightX:
-        return "AxisRightX";
-    case Axis::AxisRightY:
-        return "AxisRightY";
-    case Axis::AxisInvalid:
-    default:
-        return "AxisInvalid";
-    }
-}
-
-void GamepadLinux::ensureDebugConnections()
-{
-    if (!isDebugLoggingEnabled())
-    {
-        return;
-    }
-
-    static bool connected = false;
-    if (connected)
-    {
-        return;
-    }
-
-    if (auto* mgr = QGamepadManager::instance())
-    {
-        QObject::connect(mgr,
-                         &QGamepadManager::gamepadButtonPressEvent,
-                         mgr,
-                         [](int device, QGamepadManager::GamepadButton button, double value)
-                         {
-                             qInfo().nospace() << "[QGamepad event] device=" << device << " press "
-                                               << buttonName(button) << " value=" << value;
-                         });
-        QObject::connect(mgr,
-                         &QGamepadManager::gamepadButtonReleaseEvent,
-                         mgr,
-                         [](int device, QGamepadManager::GamepadButton button)
-                         {
-                             qInfo().nospace() << "[QGamepad event] device=" << device
-                                               << " release " << buttonName(button);
-                         });
-        QObject::connect(mgr,
-                         &QGamepadManager::gamepadAxisEvent,
-                         mgr,
-                         [](int device, QGamepadManager::GamepadAxis axis, double value)
-                         {
-                             qInfo().nospace() << "[QGamepad event] device=" << device << " axis "
-                                               << axisName(axis) << " value=" << value;
-                         });
-        connected = true;
-    }
-}
-
-bool GamepadLinux::hasSignificantDelta(double lhs, double rhs)
-{
-    constexpr double kEpsilon = 0.01;
-    return std::fabs(lhs - rhs) > kEpsilon;
-}
-
-void GamepadLinux::debugLogRawState() const
-{
-    if (!isDebugLoggingEnabled() || !gamepad)
-    {
-        return;
-    }
-
-    const auto toDouble = [](auto value) { return static_cast<double>(value); };
-
-    const std::array<double, 22> rawReadings = {
-        toDouble(gamepad->axisLeftX()),    toDouble(gamepad->axisLeftY()),
-        toDouble(gamepad->axisRightX()),   toDouble(gamepad->axisRightY()),
-        toDouble(gamepad->buttonA()),      toDouble(gamepad->buttonB()),
-        toDouble(gamepad->buttonX()),      toDouble(gamepad->buttonY()),
-        toDouble(gamepad->buttonL1()),     toDouble(gamepad->buttonR1()),
-        toDouble(gamepad->buttonL2()),     toDouble(gamepad->buttonR2()),
-        toDouble(gamepad->buttonSelect()), toDouble(gamepad->buttonStart()),
-        toDouble(gamepad->buttonL3()),     toDouble(gamepad->buttonR3()),
-        toDouble(gamepad->buttonUp()),     toDouble(gamepad->buttonRight()),
-        toDouble(gamepad->buttonDown()),   toDouble(gamepad->buttonLeft()),
-        toDouble(gamepad->buttonCenter()), toDouble(gamepad->buttonGuide())
-    };
-
-    static std::array<double, rawReadings.size()> s_lastReadings{};
-    static bool s_initialised = false;
-
-    if (!s_initialised)
-    {
-        s_lastReadings = rawReadings;
-        s_initialised = true;
-    }
-
-    QStringList changes;
-    const std::array<const char*, rawReadings.size()> names = {
-        "axisLeftX",    "axisLeftY",   "axisRightX",   "axisRightY", "buttonA",  "buttonB",
-        "buttonX",      "buttonY",     "buttonL1",     "buttonR1",   "buttonL2", "buttonR2",
-        "buttonSelect", "buttonStart", "buttonL3",     "buttonR3",   "dpadUp",   "dpadRight",
-        "dpadDown",     "dpadLeft",    "buttonCenter", "buttonGuide"
-    };
-
-    for (std::size_t i = 0; i < rawReadings.size(); ++i)
-    {
-        if (!s_initialised || hasSignificantDelta(rawReadings[i], s_lastReadings[i]))
-        {
-            changes.push_back(QStringLiteral("%1=%2")
-                                  .arg(QLatin1String(names[i]))
-                                  .arg(rawReadings[i], 0, 'f', 3));
-            s_lastReadings[i] = rawReadings[i];
+            const auto& path = entry.path();
+            if (!path.has_filename())
+            {
+                continue;
+            }
+            const auto name = path.filename().string();
+            if (name.find("event-joystick") != std::string::npos)
+            {
+                return path.string();
+            }
         }
     }
 
-    if (!changes.isEmpty())
+    const fs::path devInput{ "/dev/input" };
+    if (fs::exists(devInput))
     {
-        qInfo().noquote() << "[QGamepad raw]" << changes.join(QLatin1String(", "));
+        for (const auto& entry : fs::directory_iterator(devInput))
+        {
+            const auto& path = entry.path();
+            if (!path.has_filename())
+            {
+                continue;
+            }
+            const auto name = path.filename().string();
+            if (name.rfind("event", 0) == 0)
+            {
+                return path.string();
+            }
+        }
     }
+
+    return std::nullopt;
 }
 
-void GamepadLinux::resetState()
+std::optional<EAxis> axisFromCode(int code)
 {
-    gamepad.reset();
-    jessTech.reset();
-    productName.clear();
-    vendorId = 0;
-    productId = 0;
-    buttonCount = 0;
-    axisCount = 0;
-    axes.fill(Constants::MidAngle);
-    lastAxes = axes;
-    buttons = 0;
-    lastButtons = 0;
-    povValue = Constants::PovCenteredVal;
-    lastPovValue = Constants::PovCenteredVal;
-    dpadPresent = false;
+    switch (code)
+    {
+    case ABS_X:
+        return EAxis::X;
+    case ABS_Y:
+        return EAxis::Y;
+    case ABS_Z:
+        return EAxis::Z;
+    case ABS_RZ:
+        return EAxis::R;
+    case ABS_RX:
+        return EAxis::U;
+    case ABS_RY:
+        return EAxis::V;
+    default:
+        break;
+    }
+    return std::nullopt;
 }
 
-void GamepadLinux::refreshMetadata()
+unsigned scaleAxis(int value, int min, int max)
 {
-    if (!gamepad)
+    if (max <= min)
     {
-        return;
+        return Constants::MidAngle;
     }
 
-    auto& mgr = *QGamepadManager::instance();
-    productName = mgr.gamepadName(deviceId).toStdWString();
-    if (isDebugLoggingEnabled())
-    {
-        qInfo().noquote() << "[QGamepad info] device=" << deviceId
-                          << " name=" << QString::fromStdWString(productName);
-    }
-    vendorId = 0;
-    productId = 0;
-    buttonCount = 16; // default assumption
-    axisCount = EAxis::MaxValue;
-    dpadPresent = true;
-    jessTech.reset();
-    ranges.fill({ 0u, Constants::MaxAngle });
-    axisSupported.fill(true);
+    value = std::clamp(value, min, max);
+    const double normalized = static_cast<double>(value - min) / static_cast<double>(max - min);
+    double centered = normalized * 2.0 - 1.0; // [-1, 1]
 
-    const QString deviceName = QString::fromStdWString(productName);
-    jessTech = CreateJessTechPadAdapter(deviceName);
-    if (jessTech && jessTech->Available())
+    const double absCentered = std::fabs(centered);
+    if (absCentered <= kDeadzone)
     {
-        buttonCount = jessTech->ButtonCount();
-        axisSupported = jessTech->AxisSupported();
+        centered = 0.0;
     }
     else
     {
-        jessTech.reset();
-    }
-}
-
-void GamepadLinux::updateConnection()
-{
-    auto& mgr = *QGamepadManager::instance();
-    const auto ids = mgr.connectedGamepads();
-
-    if (deviceId != -1 && !ids.contains(deviceId))
-    {
-        resetState();
-        state = EGamepadState::unplugged;
+        const double adjusted = (absCentered - kDeadzone) / (1.0 - kDeadzone);
+        centered = std::copysign(std::clamp(adjusted, 0.0, 1.0), centered);
     }
 
-    if (!gamepad && !ids.isEmpty())
-    {
-        deviceId = ids.first();
-        gamepad = std::make_unique<QGamepad>(deviceId);
-        refreshMetadata();
-    }
+    const double scaled = (centered + 1.0) * 0.5; // back to [0,1]
+    return static_cast<unsigned>(std::clamp(scaled, 0.0, 1.0) * Constants::MaxAngle + 0.5);
 }
 
-unsigned GamepadLinux::toUnsignedAxis(double value)
+unsigned povFromHat(int hatX, int hatY)
 {
-    value = std::clamp(value, -1.0, 1.0);
-    return static_cast<unsigned>(((value + 1.0) * 0.5) * Constants::MaxAngle + 0.5);
-}
-
-unsigned GamepadLinux::toUnsignedTrigger(double value)
-{
-    value = std::clamp(value, 0.0, 1.0);
-    return static_cast<unsigned>(value * Constants::MaxAngle + 0.5);
-}
-
-std::array<unsigned, EAxis::MaxValue> GamepadLinux::sampleAxes() const
-{
-    std::array<unsigned, EAxis::MaxValue> result{};
-    result[(unsigned)EAxis::X] = toUnsignedAxis(gamepad->axisLeftX());
-    result[(unsigned)EAxis::Y] = toUnsignedAxis(gamepad->axisLeftY());
-    result[(unsigned)EAxis::Z] = toUnsignedAxis(gamepad->axisRightX());
-    result[(unsigned)EAxis::R] = toUnsignedAxis(gamepad->axisRightY());
-    result[(unsigned)EAxis::U] = toUnsignedTrigger(gamepad->buttonL2());
-    result[(unsigned)EAxis::V] = toUnsignedTrigger(gamepad->buttonR2());
-    return result;
-}
-
-std::uint32_t GamepadLinux::sampleButtons() const
-{
-    std::uint32_t mask = 0;
-    setButton(mask, EButton::button1, gamepad->buttonA());
-    setButton(mask, EButton::button2, gamepad->buttonB());
-    setButton(mask, EButton::button3, gamepad->buttonX());
-    setButton(mask, EButton::button4, gamepad->buttonY());
-    setButton(mask, EButton::button5, gamepad->buttonL1());
-    setButton(mask, EButton::button6, gamepad->buttonR1());
-    setButton(mask, EButton::button7, gamepad->buttonL2() > 0.5); // analogue treated as button
-    setButton(mask, EButton::button8, gamepad->buttonR2() > 0.5);
-    setButton(mask, EButton::button9, gamepad->buttonSelect());
-    setButton(mask, EButton::button10, gamepad->buttonStart());
-    setButton(mask, EButton::button11, gamepad->buttonL3());
-    setButton(mask, EButton::button12, gamepad->buttonR3());
-    setButton(mask, EButton::button17, gamepad->buttonCenter());
-    setButton(mask, EButton::button18, gamepad->buttonGuide());
-    setButton(mask, EButton::button13, gamepad->buttonUp());
-    setButton(mask, EButton::button14, gamepad->buttonRight());
-    setButton(mask, EButton::button15, gamepad->buttonDown());
-    setButton(mask, EButton::button16, gamepad->buttonLeft());
-    return mask;
-}
-
-void GamepadLinux::setButton(std::uint32_t& mask, EButton button, bool pressed)
-{
-    if (pressed)
-    {
-        mask |= Gamepad::ButtonCode(button);
-    }
-}
-
-unsigned GamepadLinux::computePov() const
-{
-    const bool up = gamepad->buttonUp();
-    const bool down = gamepad->buttonDown();
-    const bool left = gamepad->buttonLeft();
-    const bool right = gamepad->buttonRight();
-
-    if ((up && down) || (left && right))
+    if (hatX == 0 && hatY == 0)
     {
         return Constants::PovCenteredVal;
     }
 
-    if (up)
+    if (hatY == -1)
     {
-        if (right)
+        if (hatX == 0)
+            return 0;
+        if (hatX == 1)
             return 4500;
-        if (left)
-            return 31500;
-        return 0;
+        return 31500;
     }
 
-    if (down)
+    if (hatY == 1)
     {
-        if (right)
+        if (hatX == 0)
+            return 18000;
+        if (hatX == 1)
             return 13500;
-        if (left)
-            return 22500;
-        return 18000;
+        return 22500;
     }
 
-    if (right)
+    if (hatX == 1)
         return 9000;
-    if (left)
+    if (hatX == -1)
         return 27000;
 
     return Constants::PovCenteredVal;
+}
+
+} // namespace
+
+GamepadLinux::GamepadLinux()
+{
+    reset();
+}
+
+GamepadLinux::~GamepadLinux()
+{
+    closeDevice();
+}
+
+void GamepadLinux::reset()
+{
+    closeDevice();
+    m_devicePath.clear();
+    m_productName = L"";
+    m_vendorId = 0;
+    m_productId = 0;
+    m_buttonCount = 0;
+    m_axisCount = 0;
+    m_state = EGamepadState::unknown;
+    m_axes.fill(Constants::MidAngle);
+    m_lastAxes = m_axes;
+    m_axisSupported.fill(false);
+    m_axisMin.fill(0);
+    m_axisMax.fill(0);
+    m_ranges.fill({ 0u, Constants::MaxAngle });
+    m_buttons.clear();
+    m_lastButtons.clear();
+    m_knownButtons.clear();
+    m_hatX = 0;
+    m_hatY = 0;
+    m_pov = Constants::PovCenteredVal;
+    m_lastPov = Constants::PovCenteredVal;
+}
+
+void GamepadLinux::closeDevice()
+{
+    if (m_fd >= 0)
+    {
+        ::close(m_fd);
+        m_fd = -1;
+    }
+}
+
+bool GamepadLinux::openDevice()
+{
+    const auto path = findJoystickPath();
+    if (!path)
+    {
+        return false;
+    }
+
+    const int fd = ::open(path->c_str(), O_RDONLY | O_NONBLOCK);
+    if (fd < 0)
+    {
+        return false;
+    }
+
+    m_fd = fd;
+    m_devicePath = *path;
+    return true;
+}
+
+void GamepadLinux::queryDeviceInfo()
+{
+    if (m_fd < 0)
+    {
+        return;
+    }
+
+    char nameBuf[128]{};
+    if (::ioctl(m_fd, EVIOCGNAME(sizeof(nameBuf)), nameBuf) >= 0)
+    {
+        std::string name(nameBuf);
+        m_productName.assign(name.begin(), name.end());
+    }
+    else
+    {
+        m_productName = L"Linux Gamepad";
+    }
+
+    input_id id{};
+    if (::ioctl(m_fd, EVIOCGID, &id) >= 0)
+    {
+        m_vendorId = id.vendor;
+        m_productId = id.product;
+    }
+    else
+    {
+        m_vendorId = 0;
+        m_productId = 0;
+    }
+}
+
+void GamepadLinux::queryAxisInfo()
+{
+    if (m_fd < 0)
+    {
+        return;
+    }
+
+    std::array<int, EAxis::MaxValue> counts{};
+    for (int code : { ABS_X, ABS_Y, ABS_Z, ABS_RZ, ABS_RX, ABS_RY })
+    {
+        auto axis = axisFromCode(code);
+        if (!axis)
+        {
+            continue;
+        }
+
+        input_absinfo info{};
+        if (::ioctl(m_fd, EVIOCGABS(code), &info) == 0)
+        {
+            const auto idx = static_cast<std::size_t>(*axis);
+            m_axisMin[idx] = info.minimum;
+            m_axisMax[idx] = info.maximum;
+            m_ranges[idx] = { 0u, Constants::MaxAngle };
+            m_axisSupported[idx] = true;
+            ++counts[idx];
+        }
+    }
+
+    m_axisCount = 0;
+    for (bool supported : m_axisSupported)
+    {
+        if (supported)
+        {
+            ++m_axisCount;
+        }
+    }
+}
+
+EGamepadState GamepadLinux::Init()
+{
+    reset();
+
+    if (!openDevice())
+    {
+        m_state = EGamepadState::unplugged;
+        return m_state;
+    }
+
+    queryDeviceInfo();
+    queryAxisInfo();
+    m_state = EGamepadState::ok;
+    ReadData();
+    return m_state;
+}
+
+const wchar_t* GamepadLinux::ProductName() const
+{
+    return m_productName.c_str();
+}
+
+std::uint16_t GamepadLinux::VendorId() const { return m_vendorId; }
+std::uint16_t GamepadLinux::ProductId() const { return m_productId; }
+unsigned GamepadLinux::NumButtons() const { return m_buttonCount; }
+unsigned GamepadLinux::NumAxes() const { return m_axisCount; }
+UnsignedPair GamepadLinux::PollingFrequency() const { return { 0u, 0u }; }
+
+UnsignedPair GamepadLinux::AxisRange(EAxis axis) const
+{
+    return m_ranges[static_cast<std::size_t>(axis)];
+}
+
+bool GamepadLinux::HasAxis(EAxis axis) const
+{
+    return m_axisSupported[static_cast<std::size_t>(axis)];
+}
+
+EGamepadState GamepadLinux::ReadData()
+{
+    if (m_fd < 0)
+    {
+        if (openDevice())
+        {
+            queryDeviceInfo();
+            queryAxisInfo();
+        }
+        else
+        {
+            m_state = EGamepadState::unplugged;
+            return m_state;
+        }
+    }
+
+    m_lastButtons = m_buttons;
+    m_lastAxes = m_axes;
+    m_lastPov = m_pov;
+
+    input_event events[32];
+    bool anyEvent = false;
+
+    while (true)
+    {
+        const auto bytes = ::read(m_fd, events, sizeof(events));
+        if (bytes < 0)
+        {
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+            {
+                break;
+            }
+            if (errno == ENODEV)
+            {
+                closeDevice();
+                m_state = EGamepadState::unplugged;
+                m_buttons.clear();
+                m_axes.fill(Constants::MidAngle);
+                m_pov = Constants::PovCenteredVal;
+                return m_state;
+            }
+            break;
+        }
+        if (bytes == 0)
+        {
+            break;
+        }
+
+        anyEvent = true;
+        const auto count = static_cast<std::size_t>(bytes) / sizeof(input_event);
+        for (std::size_t i = 0; i < count; ++i)
+        {
+            handleEvent(events[i]);
+        }
+    }
+
+    if (anyEvent)
+    {
+        m_state = EGamepadState::ok;
+    }
+
+    for (auto code : kPovButtonCodes)
+    {
+        m_buttons.erase(code);
+    }
+
+    if (m_pov != Constants::PovCenteredVal)
+    {
+        m_buttons.insert(static_cast<std::uint16_t>(m_pov));
+    }
+
+    return m_state;
+}
+
+EGamepadState GamepadLinux::StateValue() const { return m_state; }
+
+unsigned GamepadLinux::AxisValue(EAxis axis) const
+{
+    return m_axes[static_cast<std::size_t>(axis)];
+}
+
+unsigned GamepadLinux::LastAxisValue(EAxis axis) const
+{
+    return m_lastAxes[static_cast<std::size_t>(axis)];
+}
+
+const std::unordered_set<std::uint16_t>& GamepadLinux::CurrentButtons() const
+{
+    return m_buttons;
+}
+
+const std::unordered_set<std::uint16_t>& GamepadLinux::PreviousButtons() const
+{
+    return m_lastButtons;
+}
+
+unsigned GamepadLinux::Pov() const { return m_pov; }
+
+unsigned GamepadLinux::LastPov() const { return m_lastPov; }
+
+EPovType GamepadLinux::PovType() const
+{
+    return EPovType::discrete;
+}
+
+int GamepadLinux::PressedCount() const
+{
+    return static_cast<int>(m_buttons.size());
+}
+
+unsigned GamepadLinux::Threshold() const { return 0; }
+
+bool GamepadLinux::SetThreshold(unsigned) const { return false; }
+
+bool GamepadLinux::Capture(void*, unsigned int, EUpdateAction) { return false; }
+
+bool GamepadLinux::Release() { return false; }
+
+void GamepadLinux::handleEvent(const input_event& ev)
+{
+    switch (ev.type)
+    {
+    case EV_KEY:
+        handleKeyEvent(ev);
+        break;
+    case EV_ABS:
+        handleAbsEvent(ev);
+        break;
+    default:
+        break;
+    }
+}
+
+void GamepadLinux::handleKeyEvent(const input_event& ev)
+{
+    const auto code = static_cast<std::uint16_t>(ev.code);
+    if (ev.value)
+    {
+        m_buttons.insert(code);
+        if (m_knownButtons.insert(code).second)
+        {
+            ++m_buttonCount;
+        }
+    }
+    else
+    {
+        m_buttons.erase(code);
+    }
+}
+
+void GamepadLinux::handleAbsEvent(const input_event& ev)
+{
+    if (ev.code == ABS_HAT0X)
+    {
+        m_hatX = std::clamp(ev.value, -1, 1);
+        updatePov();
+        return;
+    }
+    if (ev.code == ABS_HAT0Y)
+    {
+        m_hatY = std::clamp(ev.value, -1, 1);
+        updatePov();
+        return;
+    }
+
+    if (auto axis = axisFromCode(ev.code))
+    {
+        const auto idx = static_cast<std::size_t>(*axis);
+        if (m_axisSupported[idx])
+        {
+            m_axes[idx] = scaleAxis(ev.value, m_axisMin[idx], m_axisMax[idx]);
+        }
+    }
+}
+
+void GamepadLinux::updatePov()
+{
+    m_pov = povFromHat(m_hatX, m_hatY);
 }
 
 } // namespace GamepadLib

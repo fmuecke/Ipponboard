@@ -1,13 +1,16 @@
-#ifndef _WIN32 // Linux / Qt implementation
+#ifndef _WIN32
 
 #pragma once
 
 #include "Gamepad.h"
 
-#include <QGamepad>
-#include <QGamepadManager>
+#include <linux/input.h>
+
 #include <array>
-#include <memory>
+#include <cstdint>
+#include <optional>
+#include <string>
+#include <unordered_set>
 
 namespace GamepadLib
 {
@@ -16,7 +19,8 @@ class GamepadLinux : public GamepadBackend
 {
   public:
     GamepadLinux();
-    ~GamepadLinux() override = default;
+    ~GamepadLinux() override;
+
     EGamepadState Init() override;
     const wchar_t* ProductName() const override;
     std::uint16_t VendorId() const override;
@@ -30,53 +34,55 @@ class GamepadLinux : public GamepadBackend
     EGamepadState StateValue() const override;
     unsigned AxisValue(EAxis axis) const override;
     unsigned LastAxisValue(EAxis axis) const override;
-    std::uint32_t ButtonsMask() const override;
-    std::uint32_t LastButtonsMask() const override;
+    const std::unordered_set<std::uint16_t>& CurrentButtons() const override;
+    const std::unordered_set<std::uint16_t>& PreviousButtons() const override;
     unsigned Pov() const override;
     unsigned LastPov() const override;
     EPovType PovType() const override;
     int PressedCount() const override;
     unsigned Threshold() const override;
     bool SetThreshold(unsigned value) const override;
-    bool Capture(void* windowHandle, unsigned int period, EUpdateAction when) override;
+    bool Capture(void*, unsigned int, EUpdateAction) override;
     bool Release() override;
 
   private:
-    static bool isDebugLoggingEnabled();
-    static const char* buttonName(QGamepadManager::GamepadButton button);
-    static const char* axisName(QGamepadManager::GamepadAxis axis);
-    static void ensureDebugConnections();
-    static bool hasSignificantDelta(double lhs, double rhs);
-    void debugLogRawState() const;
-    std::array<unsigned, EAxis::MaxValue> sampleAxes() const;
-    std::uint32_t sampleButtons() const;
-    unsigned computePov() const;
-    void resetState();
-    void refreshMetadata();
-    void updateConnection();
+    using AxisArray = std::array<unsigned, EAxis::MaxValue>;
 
-    static unsigned toUnsignedAxis(double value);
-    static unsigned toUnsignedTrigger(double value);
-    static void setButton(std::uint32_t& mask, EButton button, bool pressed);
+    void reset();
+    void closeDevice();
+    bool openDevice();
+    void queryDeviceInfo();
+    void queryAxisInfo();
+    void handleEvent(const input_event& ev);
+    void handleKeyEvent(const input_event& ev);
+    void handleAbsEvent(const input_event& ev);
+    void updatePov();
+    std::optional<std::string> findDevicePath() const;
 
-    int deviceId{ -1 };
-    std::unique_ptr<QGamepad> gamepad;
-    std::unique_ptr<class JessTechPadAdapter> jessTech;
-    std::wstring productName;
-    std::uint16_t vendorId{ 0 };
-    std::uint16_t productId{ 0 };
-    unsigned buttonCount{ 0 };
-    unsigned axisCount{ 0 };
-    EGamepadState state{ EGamepadState::unknown };
-    std::array<UnsignedPair, EAxis::MaxValue> ranges{};
-    std::array<unsigned, EAxis::MaxValue> axes{};
-    std::array<unsigned, EAxis::MaxValue> lastAxes{};
-    std::array<bool, EAxis::MaxValue> axisSupported{};
-    std::uint32_t buttons{ 0 };
-    std::uint32_t lastButtons{ 0 };
-    unsigned povValue{ Constants::PovCenteredVal };
-    unsigned lastPovValue{ Constants::PovCenteredVal };
-    bool dpadPresent{ false };
+    int m_fd{ -1 };
+    std::string m_devicePath;
+    std::wstring m_productName;
+    std::uint16_t m_vendorId{ 0 };
+    std::uint16_t m_productId{ 0 };
+    unsigned m_buttonCount{ 0 };
+    unsigned m_axisCount{ 0 };
+    EGamepadState m_state{ EGamepadState::unknown };
+
+    std::array<UnsignedPair, EAxis::MaxValue> m_ranges{};
+    AxisArray m_axes{};
+    AxisArray m_lastAxes{};
+    std::array<bool, EAxis::MaxValue> m_axisSupported{};
+    std::array<int, EAxis::MaxValue> m_axisMin{};
+    std::array<int, EAxis::MaxValue> m_axisMax{};
+
+    std::unordered_set<std::uint16_t> m_buttons;
+    std::unordered_set<std::uint16_t> m_lastButtons;
+    std::unordered_set<std::uint16_t> m_knownButtons;
+
+    int m_hatX{ 0 };
+    int m_hatY{ 0 };
+    unsigned m_pov{ Constants::PovCenteredVal };
+    unsigned m_lastPov{ Constants::PovCenteredVal };
 };
 
 } // namespace GamepadLib

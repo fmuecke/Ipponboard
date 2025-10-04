@@ -5,40 +5,14 @@
 #else
 #include "GamepadLinux.h"
 #endif
-#include "JessTechPadAdapter.h"
 
 #include <algorithm>
-#include <array>
-#include <bitset>
 #include <cmath>
-#include <cstring>
 #include <string>
+#include <unordered_set>
 
 namespace GamepadLib
 {
-
-constexpr std::array<unsigned, Constants::MaxButtons> makeButtonCodes()
-{
-    std::array<unsigned, Constants::MaxButtons> codes{};
-    for (std::size_t i = 0; i < 32; ++i)
-    {
-        codes[i] = 1u << i;
-    }
-
-    codes[EButton::button_pov_fwd] = 0;
-    codes[EButton::button_pov_right] = 9000;
-    codes[EButton::button_pov_back] = 18000;
-    codes[EButton::button_pov_left] = 27000;
-    codes[EButton::button_pov_right_fwd] = 4500;
-    codes[EButton::button_pov_right_back] = 13500;
-    codes[EButton::button_pov_left_back] = 22500;
-    codes[EButton::button_pov_left_fwd] = 31500;
-
-    return codes;
-}
-
-constexpr auto kButtonCodes = makeButtonCodes();
-
 static std::unique_ptr<GamepadBackend> make_default_backend()
 {
 #if defined(_WIN32)
@@ -50,7 +24,27 @@ static std::unique_ptr<GamepadBackend> make_default_backend()
 
 unsigned Gamepad::ButtonCode(EButton button)
 {
-    return kButtonCodes[static_cast<std::size_t>(button)];
+    switch (button)
+    {
+    case EButton::button_pov_fwd:
+        return 0;
+    case EButton::button_pov_right:
+        return 9000;
+    case EButton::button_pov_back:
+        return 18000;
+    case EButton::button_pov_left:
+        return 27000;
+    case EButton::button_pov_right_fwd:
+        return 4500;
+    case EButton::button_pov_right_back:
+        return 13500;
+    case EButton::button_pov_left_back:
+        return 22500;
+    case EButton::button_pov_left_fwd:
+        return 31500;
+    default:
+        return static_cast<unsigned>(button);
+    }
 }
 
 Gamepad::Gamepad(std::unique_ptr<GamepadBackend> impl)
@@ -108,50 +102,87 @@ bool Gamepad::IsInverted(EAxis axis) const { return m_invertedAxes.test(axis); }
 
 bool Gamepad::WasPressed(EButton button) const
 {
-    const auto code = ButtonCode(button);
-    if (button <= EButton::button32)
-    {
-        return (m_impl->LastButtonsMask() & code) == 0 && (m_impl->ButtonsMask() & code) != 0;
-    }
-
-    if (code == Constants::PovCenteredVal)
-    {
-        return false;
-    }
-
-    return m_impl->LastPov() != code && m_impl->Pov() == code;
+    return WasPressedRaw(static_cast<std::uint16_t>(ButtonCode(button)));
 }
 
 bool Gamepad::WasReleased(EButton button) const
 {
-    const auto code = ButtonCode(button);
-    if (button <= EButton::button32)
-    {
-        return (m_impl->LastButtonsMask() & code) != 0 && (m_impl->ButtonsMask() & code) == 0;
-    }
-
-    if (code == Constants::PovCenteredVal)
-    {
-        return false;
-    }
-
-    return m_impl->LastPov() == code && m_impl->Pov() != code;
+    return WasReleasedRaw(static_cast<std::uint16_t>(ButtonCode(button)));
 }
 
 bool Gamepad::IsPressed(EButton button) const
 {
-    const auto code = ButtonCode(button);
-    if (button <= EButton::button32)
-    {
-        return (m_impl->ButtonsMask() & code) != 0;
-    }
+    return IsPressedRaw(static_cast<std::uint16_t>(ButtonCode(button)));
+}
 
+bool Gamepad::WasPressedRaw(std::uint16_t code) const
+{
     if (code == Constants::PovCenteredVal)
     {
         return false;
     }
 
-    return m_impl->Pov() == code;
+    const auto& previous = m_impl->PreviousButtons();
+    const auto& current = m_impl->CurrentButtons();
+    const bool wasPressed = previous.find(code) != previous.end();
+    const bool isPressed = current.find(code) != current.end();
+
+    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
+        code == 13500 || code == 22500 || code == 31500)
+    {
+        // POV codes are handled separately by comparing the POV angle
+        return m_impl->LastPov() != code && m_impl->Pov() == code;
+    }
+
+    return !wasPressed && isPressed;
+}
+
+bool Gamepad::WasReleasedRaw(std::uint16_t code) const
+{
+    if (code == Constants::PovCenteredVal)
+    {
+        return false;
+    }
+
+    const auto& previous = m_impl->PreviousButtons();
+    const auto& current = m_impl->CurrentButtons();
+    const bool wasPressed = previous.find(code) != previous.end();
+    const bool isPressed = current.find(code) != current.end();
+
+    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
+        code == 13500 || code == 22500 || code == 31500)
+    {
+        return m_impl->LastPov() == code && m_impl->Pov() != code;
+    }
+
+    return wasPressed && !isPressed;
+}
+
+bool Gamepad::IsPressedRaw(std::uint16_t code) const
+{
+    if (code == Constants::PovCenteredVal)
+    {
+        return false;
+    }
+
+    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
+        code == 13500 || code == 22500 || code == 31500)
+    {
+        return m_impl->Pov() == code;
+    }
+
+    const auto& current = m_impl->CurrentButtons();
+    return current.find(code) != current.end();
+}
+
+const std::unordered_set<std::uint16_t>& Gamepad::CurrentButtons() const
+{
+    return m_impl->CurrentButtons();
+}
+
+const std::unordered_set<std::uint16_t>& Gamepad::PreviousButtons() const
+{
+    return m_impl->PreviousButtons();
 }
 
 bool Gamepad::WasSectionEnteredXY(float min, float max) const
@@ -233,7 +264,10 @@ float Gamepad::GetAngleRZ() const
                            Constants::MidAngle);
 }
 
-int Gamepad::PressedCount() const { return m_impl->PressedCount(); }
+int Gamepad::PressedCount() const
+{
+    return static_cast<int>(m_impl->CurrentButtons().size());
+}
 
 unsigned Gamepad::applyInversion(EAxis axis, unsigned value) const
 {

@@ -1,13 +1,14 @@
 #if defined(_WIN32)
 
+#pragma once
+
 #include "Gamepad.h"
 
 #include <Windows.h>
-#include <cstring>
-#include <mmsystem.h>
-#include <string>
 
-#pragma comment(lib, "Winmm.lib")
+#include <cstdint>
+#include <string>
+#include <unordered_set>
 
 namespace GamepadLib
 {
@@ -30,11 +31,11 @@ class GamepadWin : public GamepadBackend
     EGamepadState StateValue() const override;
     unsigned AxisValue(EAxis axis) const override;
     unsigned LastAxisValue(EAxis axis) const override;
-    std::uint32_t ButtonsMask() const override;
-    std::uint32_t LastButtonsMask() const override;
+    const std::unordered_set<std::uint16_t>& CurrentButtons() const override;
+    const std::unordered_set<std::uint16_t>& PreviousButtons() const override;
     unsigned Pov() const override;
     unsigned LastPov() const override;
-    EPovType PovType() const override { return EPovType::no_pov; } // TODO: check this!
+    EPovType PovType() const override;
     int PressedCount() const override;
     unsigned Threshold() const override;
     bool SetThreshold(unsigned thresholdValue) const override;
@@ -43,6 +44,7 @@ class GamepadWin : public GamepadBackend
 
   private:
     void reset();
+    void updateButtonSets();
     static EGamepadState toState(unsigned code);
 
     unsigned currentId{ 0 };
@@ -52,8 +54,11 @@ class GamepadWin : public GamepadBackend
     JOYINFOEX lastData{};
     EGamepadState state{ EGamepadState::unknown };
     HWND hwnd{ nullptr };
+    std::unordered_set<std::uint16_t> m_buttons;
+    std::unordered_set<std::uint16_t> m_lastButtons;
 };
 
 } // namespace GamepadLib
 
 #endif // _WIN32
+
