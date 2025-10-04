@@ -9,6 +9,7 @@
 #include "../base/ClubManagerDlg.h"
 #include "../base/ComboBoxDelegate.h"
 #include "../base/FighterManagerDlg.h"
+#include "../base/InputBindingResolver.h"
 #include "../base/View.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
@@ -663,14 +664,23 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
     // back
-    if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_prev)))
+    const auto wasPressed = [pGamepad](int rawCode, int standardCode)
+    {
+        return ResolveRawFirst(
+            rawCode,
+            standardCode,
+            [pGamepad](std::uint16_t code) { return pGamepad->WasPressedRaw(code); },
+            [pGamepad](GamepadLib::EButton button) { return pGamepad->WasPressed(button); });
+    };
+
+    if (wasPressed(m_controllerCfg.button_prev_raw, m_controllerCfg.button_prev))
     {
         on_button_prev_clicked();
         // TODO: check: is UpdateViews_(); necessary here?
         // --> handle update views outside of this function
         return true;
     }
-    else if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_next)))
+    else if (wasPressed(m_controllerCfg.button_next_raw, m_controllerCfg.button_next))
     {
         on_button_next_clicked();
         // TODO: check: is UpdateViews_(); necessary here?

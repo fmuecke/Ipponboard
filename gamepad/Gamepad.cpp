@@ -264,10 +264,7 @@ float Gamepad::GetAngleRZ() const
                            Constants::MidAngle);
 }
 
-int Gamepad::PressedCount() const
-{
-    return static_cast<int>(m_impl->CurrentButtons().size());
-}
+int Gamepad::PressedCount() const { return static_cast<int>(m_impl->CurrentButtons().size()); }
 
 unsigned Gamepad::applyInversion(EAxis axis, unsigned value) const
 {

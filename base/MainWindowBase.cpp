@@ -4,6 +4,7 @@
 
 #include "MainWindowBase.h"
 
+#include "../base/InputBindingResolver.h"
 #include "../base/SettingsDlg.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
@@ -465,6 +466,40 @@ void MainWindowBase::write_settings()
     }
     settings.endGroup();
 
+    settings.beginGroup(str_tag_InputRaw);
+    {
+        settings.remove("");
+        settings.setValue(str_tag_raw_buttonHajimeMate, m_controllerCfg.button_hajime_mate_raw);
+        settings.setValue(str_tag_raw_buttonNext, m_controllerCfg.button_next_raw);
+        settings.setValue(str_tag_raw_buttonPrev, m_controllerCfg.button_prev_raw);
+        settings.setValue(str_tag_raw_buttonPause, m_controllerCfg.button_pause_raw);
+        settings.setValue(str_tag_raw_buttonReset, m_controllerCfg.button_reset_raw);
+        settings.setValue(str_tag_raw_buttonReset2, m_controllerCfg.button_reset2_raw);
+        settings.setValue(str_tag_raw_buttonFirstHolding,
+                          m_controllerCfg.button_osaekomi_toketa_first_raw);
+        settings.setValue(str_tag_raw_buttonSecondHolding,
+                          m_controllerCfg.button_osaekomi_toketa_second_raw);
+        settings.setValue(str_tag_raw_buttonResetHoldFirst,
+                          m_controllerCfg.button_reset_hold_first_raw);
+        settings.setValue(str_tag_raw_buttonResetHoldSecond,
+                          m_controllerCfg.button_reset_hold_second_raw);
+        settings.setValue(str_tag_raw_buttonHansokumakeFirst,
+                          m_controllerCfg.button_hansokumake_first_raw);
+        settings.setValue(str_tag_raw_buttonHansokumakeSecond,
+                          m_controllerCfg.button_hansokumake_second_raw);
+
+        settings.setValue(str_tag_axisLeftX, m_controllerCfg.axis_left_x);
+        settings.setValue(str_tag_axisLeftY, m_controllerCfg.axis_left_y);
+        settings.setValue(str_tag_axisRightX, m_controllerCfg.axis_right_x);
+        settings.setValue(str_tag_axisRightY, m_controllerCfg.axis_right_y);
+
+        settings.setValue(str_tag_axisLeftInvertX, m_controllerCfg.axis_left_invert_x);
+        settings.setValue(str_tag_axisLeftInvertY, m_controllerCfg.axis_left_invert_y);
+        settings.setValue(str_tag_axisRightInvertX, m_controllerCfg.axis_right_invert_x);
+        settings.setValue(str_tag_axisRightInvertY, m_controllerCfg.axis_right_invert_y);
+    }
+    settings.endGroup();
+
     settings.beginGroup(str_tag_Sounds);
     {
         settings.remove("");
@@ -624,6 +659,44 @@ void MainWindowBase::read_settings()
         m_pGamepad->SetInverted(GamepadLib::EAxis::Y, m_controllerCfg.axis_inverted_Y);
         m_pGamepad->SetInverted(GamepadLib::EAxis::R, m_controllerCfg.axis_inverted_R);
         m_pGamepad->SetInverted(GamepadLib::EAxis::Z, m_controllerCfg.axis_inverted_Z);
+    }
+    settings.endGroup();
+
+    settings.beginGroup(str_tag_InputRaw);
+    {
+        m_controllerCfg.button_hajime_mate_raw =
+            settings.value(str_tag_raw_buttonHajimeMate, -1).toInt();
+        m_controllerCfg.button_next_raw = settings.value(str_tag_raw_buttonNext, -1).toInt();
+        m_controllerCfg.button_prev_raw = settings.value(str_tag_raw_buttonPrev, -1).toInt();
+        m_controllerCfg.button_pause_raw = settings.value(str_tag_raw_buttonPause, -1).toInt();
+        m_controllerCfg.button_reset_raw = settings.value(str_tag_raw_buttonReset, -1).toInt();
+        m_controllerCfg.button_reset2_raw = settings.value(str_tag_raw_buttonReset2, -1).toInt();
+        m_controllerCfg.button_osaekomi_toketa_first_raw =
+            settings.value(str_tag_raw_buttonFirstHolding, -1).toInt();
+        m_controllerCfg.button_reset_hold_first_raw =
+            settings.value(str_tag_raw_buttonResetHoldFirst, -1).toInt();
+        m_controllerCfg.button_hansokumake_first_raw =
+            settings.value(str_tag_raw_buttonHansokumakeFirst, -1).toInt();
+        m_controllerCfg.button_osaekomi_toketa_second_raw =
+            settings.value(str_tag_raw_buttonSecondHolding, -1).toInt();
+        m_controllerCfg.button_reset_hold_second_raw =
+            settings.value(str_tag_raw_buttonResetHoldSecond, -1).toInt();
+        m_controllerCfg.button_hansokumake_second_raw =
+            settings.value(str_tag_raw_buttonHansokumakeSecond, -1).toInt();
+
+        m_controllerCfg.axis_left_x = settings.value(str_tag_axisLeftX, -1).toInt();
+        m_controllerCfg.axis_left_y = settings.value(str_tag_axisLeftY, -1).toInt();
+        m_controllerCfg.axis_right_x = settings.value(str_tag_axisRightX, -1).toInt();
+        m_controllerCfg.axis_right_y = settings.value(str_tag_axisRightY, -1).toInt();
+
+        m_controllerCfg.axis_left_invert_x =
+            settings.value(str_tag_axisLeftInvertX, false).toBool();
+        m_controllerCfg.axis_left_invert_y =
+            settings.value(str_tag_axisLeftInvertY, false).toBool();
+        m_controllerCfg.axis_right_invert_x =
+            settings.value(str_tag_axisRightInvertX, false).toBool();
+        m_controllerCfg.axis_right_invert_y =
+            settings.value(str_tag_axisRightInvertY, false).toBool();
     }
     settings.endGroup();
     settings.beginGroup(str_tag_Sounds);
@@ -799,20 +872,40 @@ void MainWindowBase::EvaluateInput()
         return;
     }
 
-    if (m_pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_hajime_mate)))
+    const auto wasPressed = [this](int rawCode, int standardCode)
+    {
+        return ResolveRawFirst(
+            rawCode,
+            standardCode,
+            [this](std::uint16_t code) { return m_pGamepad->WasPressedRaw(code); },
+            [this](GamepadLib::EButton button) { return m_pGamepad->WasPressed(button); });
+    };
+
+    const auto isPressed = [this](int rawCode, int standardCode)
+    {
+        return ResolveRawFirst(
+            rawCode,
+            standardCode,
+            [this](std::uint16_t code) { return m_pGamepad->IsPressedRaw(code); },
+            [this](GamepadLib::EButton button) { return m_pGamepad->IsPressed(button); });
+    };
+
+    if (wasPressed(m_controllerCfg.button_hajime_mate_raw, m_controllerCfg.button_hajime_mate))
     {
         m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
     }
-    else if (m_pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_reset_hold_first)))
+    else if (wasPressed(m_controllerCfg.button_reset_hold_first_raw,
+                        m_controllerCfg.button_reset_hold_first))
     {
         m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::First, true);
     }
-    else if (m_pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_reset_hold_second)))
+    else if (wasPressed(m_controllerCfg.button_reset_hold_second_raw,
+                        m_controllerCfg.button_reset_hold_second))
     {
         m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Second, true);
     }
-    else if (m_pGamepad->WasPressed(
-                 GamepadLib::EButton(m_controllerCfg.button_osaekomi_toketa_first)))
+    else if (wasPressed(m_controllerCfg.button_osaekomi_toketa_first_raw,
+                        m_controllerCfg.button_osaekomi_toketa_first))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
             FighterEnum::First != m_pController->GetLead())
@@ -824,8 +917,8 @@ void MainWindowBase::EvaluateInput()
             m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
         }
     }
-    else if (m_pGamepad->WasPressed(
-                 GamepadLib::EButton(m_controllerCfg.button_osaekomi_toketa_second)))
+    else if (wasPressed(m_controllerCfg.button_osaekomi_toketa_second_raw,
+                        m_controllerCfg.button_osaekomi_toketa_second))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
             FighterEnum::Second != m_pController->GetLead())
@@ -838,20 +931,22 @@ void MainWindowBase::EvaluateInput()
         }
     }
     // reset
-    else if (m_pGamepad->IsPressed(GamepadLib::EButton(m_controllerCfg.button_reset)) &&
-             m_pGamepad->IsPressed(GamepadLib::EButton(m_controllerCfg.button_reset_2)))
+    else if (isPressed(m_controllerCfg.button_reset_raw, m_controllerCfg.button_reset) &&
+             isPressed(m_controllerCfg.button_reset2_raw, m_controllerCfg.button_reset_2))
     {
         m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
     }
 
     // hansokumake fighter1
-    else if (m_pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_hansokumake_first)))
+    else if (wasPressed(m_controllerCfg.button_hansokumake_first_raw,
+                        m_controllerCfg.button_hansokumake_first))
     {
         const bool revoke(m_pController->GetScore(FighterEnum::First, Point::Hansokumake) != 0);
         m_pController->DoAction(eAction_Hansokumake, FighterEnum::First, revoke);
     }
     // hansokumake fighter2
-    else if (m_pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_hansokumake_second)))
+    else if (wasPressed(m_controllerCfg.button_hansokumake_second_raw,
+                        m_controllerCfg.button_hansokumake_second))
     {
         const bool revoke(m_pController->GetScore(FighterEnum::Second, Point::Hansokumake) != 0);
         m_pController->DoAction(eAction_Hansokumake, FighterEnum::Second, revoke);
