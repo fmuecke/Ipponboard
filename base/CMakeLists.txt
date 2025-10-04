@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Ipponboard main application
 set(APP_NAME Ipponboard)
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia Gamepad REQUIRED)	
+find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
 
 if(LINUX)
     # common include directories
@@ -133,7 +133,6 @@ target_link_libraries(IpponboardUi
         Qt5::XmlPatterns
         Qt5::PrintSupport
         Qt5::Multimedia
-        Qt5::Gamepad
 )
 
 if(WIN32)

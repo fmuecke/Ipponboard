@@ -2,16 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include <array>
 #include <bitset>
 #include <cmath>
 #include <cstdint>
 #include <memory>
+#include <unordered_set>
 #include <utility>
 // Core types are declared here
 #pragma once
 #include "GamepadTypes.h"
-
-#include <array>
 
 namespace GamepadLib
 {
@@ -33,8 +33,8 @@ class GamepadBackend
     virtual EGamepadState StateValue() const = 0;
     virtual unsigned AxisValue(EAxis axis) const = 0;
     virtual unsigned LastAxisValue(EAxis axis) const = 0;
-    virtual std::uint32_t ButtonsMask() const = 0;
-    virtual std::uint32_t LastButtonsMask() const = 0;
+    virtual const std::unordered_set<std::uint16_t>& CurrentButtons() const = 0;
+    virtual const std::unordered_set<std::uint16_t>& PreviousButtons() const = 0;
     virtual unsigned Pov() const = 0;
     virtual unsigned LastPov() const = 0;
     virtual EPovType PovType() const = 0;
@@ -86,6 +86,11 @@ class Gamepad
     bool WasPressed(EButton button) const;
     bool WasReleased(EButton button) const;
     bool IsPressed(EButton button) const;
+    bool WasPressedRaw(std::uint16_t code) const;
+    bool WasReleasedRaw(std::uint16_t code) const;
+    bool IsPressedRaw(std::uint16_t code) const;
+    const std::unordered_set<std::uint16_t>& CurrentButtons() const;
+    const std::unordered_set<std::uint16_t>& PreviousButtons() const;
 
     bool WasSectionEnteredXY(float min, float max) const;
     bool WasSectionEnteredRZ(float min, float max) const;

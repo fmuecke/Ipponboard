@@ -16,7 +16,11 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 - Reliability, ease and straightforward in use
 - Everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
 - Whole fight control can be done by a single person instead of three (clocks, list handling, scores)
-- Thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mous cursor
+- Thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mouse cursor
+
+> **Note**
+>
+> The gamepad backend on Linux currently binds the first joystick exposed under `/dev/input` and ignores additional devices. If you need multi-controller support please file an issue or reach out.
 
 ## Even more features
 

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Gamepad Demo
 set(APP_NAME GamepadDemo)
 
-find_package(Qt5 5.15.2 COMPONENTS Core Gui Widgets Gamepad REQUIRED)
+find_package(Qt5 5.15.2 COMPONENTS Core Gui Widgets REQUIRED)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -63,7 +63,6 @@ target_link_libraries(${APP_NAME}
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
-        Qt5::Gamepad
 )
 
 if(WIN32)
