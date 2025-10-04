@@ -5,7 +5,9 @@
 #include "Gamepad.h"
 
 #include <Windows.h>
+#include <array>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <unordered_set>
 
@@ -30,6 +32,7 @@ class GamepadWin : public GamepadBackend
     EGamepadState StateValue() const override;
     unsigned AxisValue(EAxis axis) const override;
     unsigned LastAxisValue(EAxis axis) const override;
+    std::optional<int> RawAxisCode(EAxis axis) const override;
     const std::unordered_set<std::uint16_t>& CurrentButtons() const override;
     const std::unordered_set<std::uint16_t>& PreviousButtons() const override;
     unsigned Pov() const override;
@@ -55,6 +58,7 @@ class GamepadWin : public GamepadBackend
     HWND hwnd{ nullptr };
     std::unordered_set<std::uint16_t> m_buttons;
     std::unordered_set<std::uint16_t> m_lastButtons;
+    std::array<int, EAxis::MaxValue> m_axisCodes{};
 };
 
 } // namespace GamepadLib

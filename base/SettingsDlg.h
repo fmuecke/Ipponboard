@@ -17,6 +17,7 @@
 #include <optional>
 
 class QComboBox;
+class QCheckBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -83,11 +84,29 @@ class SettingsDlg : public QDialog
         int ControllerConfig::*configMember;
     };
 
+    struct RawAxisBinding
+    {
+        QLineEdit* lineEdit;
+        QPushButton* captureButton;
+        QCheckBox* invertCheckBox;
+        int ControllerConfig::*codeMember;
+        bool ControllerConfig::*invertMember;
+    };
+
+    enum class CaptureMode
+    {
+        None,
+        Button,
+        Axis
+    };
+
     int get_button_from_text(const QString& text) const;
     void set_button_value(QComboBox* pCombo, int buttonId);
     void initialize_raw_bindings();
-    void start_raw_capture(RawButtonBinding* binding);
-    void finish_raw_capture(std::uint16_t code);
+    void start_button_capture(RawButtonBinding* binding);
+    void finish_button_capture(std::uint16_t code);
+    void start_axis_capture(RawAxisBinding* binding);
+    void finish_axis_capture(int code);
     void cancel_raw_capture();
     void update_raw_status(const QString& message);
     [[nodiscard]] QString format_raw_value(int value) const;
@@ -101,10 +120,14 @@ class SettingsDlg : public QDialog
     QSoundEffect m_previewEffect;
     QTimer m_rawCaptureTimer;
     GamepadLib::Gamepad* m_gamepad;
-    std::unique_ptr<RawInputCapture> m_rawCapture;
+    std::unique_ptr<RawInputCapture> m_rawButtonCapture;
+    std::unique_ptr<RawAxisCapture> m_rawAxisCapture;
 
     std::array<RawButtonBinding, 12> m_rawButtonBindings;
-    RawButtonBinding* m_activeRawBinding;
+    std::array<RawAxisBinding, 4> m_rawAxisBindings;
+    CaptureMode m_captureMode;
+    RawButtonBinding* m_activeButtonBinding;
+    RawAxisBinding* m_activeAxisBinding;
     QLabel* m_rawStatusLabel;
 
   private slots:

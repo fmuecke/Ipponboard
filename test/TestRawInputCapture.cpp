@@ -6,6 +6,9 @@
 
 #include "../base/RawInputCapture.h"
 
+#include <algorithm>
+#include <array>
+#include <optional>
 #include <vector>
 
 namespace
@@ -59,6 +62,100 @@ SCENARIO("Raw input capture detects newly pressed buttons")
                 REQUIRE(second.has_value());
                 REQUIRE(*second == 7u);
             }
+        }
+    }
+}
+
+namespace
+{
+struct FakeAxisGamepad
+{
+    using AxisValues = std::array<unsigned, GamepadLib::EAxis::MaxValue>;
+
+    void enqueue(AxisValues values) { m_states.push_back(std::move(values)); }
+
+    void ReadData()
+    {
+        if (m_nextState < m_states.size())
+        {
+            m_current = m_states[m_nextState++];
+        }
+    }
+
+    unsigned AxisValueRaw(GamepadLib::EAxis axis) const
+    {
+        return m_current[static_cast<std::size_t>(axis)];
+    }
+
+    std::optional<int> RawAxisCode(GamepadLib::EAxis axis) const
+    {
+        return static_cast<int>(axis);
+    }
+
+  private:
+    std::vector<AxisValues> m_states;
+    std::size_t m_nextState{ 0 };
+    AxisValues m_current{};
+};
+} // namespace
+
+SCENARIO("Raw axis capture reports the axis with the largest movement")
+{
+    using Capture = Ipponboard::BasicRawAxisCapture<FakeAxisGamepad>;
+
+    GIVEN("neutral and moved axis snapshots")
+    {
+        FakeAxisGamepad gamepad;
+        FakeAxisGamepad::AxisValues neutral{};
+        neutral.fill(GamepadLib::Constants::MidAngle);
+        gamepad.enqueue(neutral);
+
+        auto movedX = neutral;
+        movedX[static_cast<std::size_t>(GamepadLib::EAxis::X)] =
+            GamepadLib::Constants::MidAngle + 6000;
+        gamepad.enqueue(movedX);
+
+        Capture capture(gamepad,
+                        { GamepadLib::EAxis::X, GamepadLib::EAxis::Y, GamepadLib::EAxis::R });
+        capture.Prime();
+
+        WHEN("polling after significant movement")
+        {
+            const auto code = capture.PollAxis();
+
+            THEN("the moved axis is reported")
+            {
+                REQUIRE(code.has_value());
+                REQUIRE(*code == static_cast<int>(GamepadLib::EAxis::X));
+            }
+        }
+    }
+}
+
+SCENARIO("Raw axis capture ignores minor noise")
+{
+    using Capture = Ipponboard::BasicRawAxisCapture<FakeAxisGamepad>;
+
+    GIVEN("axis readings with subtle changes only")
+    {
+        FakeAxisGamepad gamepad;
+        FakeAxisGamepad::AxisValues neutral{};
+        neutral.fill(GamepadLib::Constants::MidAngle);
+        gamepad.enqueue(neutral);
+
+        auto noisy = neutral;
+        noisy[static_cast<std::size_t>(GamepadLib::EAxis::Y)] += 500; // below threshold
+        gamepad.enqueue(noisy);
+
+        Capture capture(gamepad,
+                        { GamepadLib::EAxis::X, GamepadLib::EAxis::Y, GamepadLib::EAxis::R });
+        capture.Prime();
+
+        WHEN("polling after minor noise")
+        {
+            const auto code = capture.PollAxis();
+
+            THEN("no axis is reported") { REQUIRE_FALSE(code.has_value()); }
         }
     }
 }

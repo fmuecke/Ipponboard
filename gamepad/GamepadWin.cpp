@@ -45,6 +45,12 @@ EGamepadState GamepadWin::Init()
     if (state == EGamepadState::ok)
     {
         productName.assign(caps.szPname);
+        m_axisCodes[static_cast<std::size_t>(EAxis::X)] = 0x30;
+        m_axisCodes[static_cast<std::size_t>(EAxis::Y)] = 0x31;
+        m_axisCodes[static_cast<std::size_t>(EAxis::Z)] = HasAxis(EAxis::Z) ? 0x32 : -1;
+        m_axisCodes[static_cast<std::size_t>(EAxis::R)] = HasAxis(EAxis::R) ? 0x33 : -1;
+        m_axisCodes[static_cast<std::size_t>(EAxis::U)] = HasAxis(EAxis::U) ? 0x34 : -1;
+        m_axisCodes[static_cast<std::size_t>(EAxis::V)] = HasAxis(EAxis::V) ? 0x35 : -1;
     }
     else
     {
@@ -157,7 +163,20 @@ unsigned GamepadWin::LastAxisValue(EAxis axis) const
     }
 }
 
-const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const { return m_buttons; }
+std::optional<int> GamepadWin::RawAxisCode(EAxis axis) const
+{
+    const auto idx = static_cast<std::size_t>(axis);
+    if (idx >= m_axisCodes.size() || m_axisCodes[idx] < 0)
+    {
+        return std::nullopt;
+    }
+    return m_axisCodes[idx];
+}
+
+const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const
+{
+    return m_buttons;
+}
 
 const std::unordered_set<std::uint16_t>& GamepadWin::PreviousButtons() const
 {
@@ -248,6 +267,7 @@ void GamepadWin::reset()
     hwnd = nullptr;
     m_buttons.clear();
     m_lastButtons.clear();
+    m_axisCodes.fill(-1);
 }
 
 void GamepadWin::updateButtonSets()

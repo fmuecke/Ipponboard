@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <unordered_set>
 #include <utility>
 // Core types are declared here
@@ -33,6 +34,7 @@ class GamepadBackend
     virtual EGamepadState StateValue() const = 0;
     virtual unsigned AxisValue(EAxis axis) const = 0;
     virtual unsigned LastAxisValue(EAxis axis) const = 0;
+    virtual std::optional<int> RawAxisCode(EAxis axis) const = 0;
     virtual const std::unordered_set<std::uint16_t>& CurrentButtons() const = 0;
     virtual const std::unordered_set<std::uint16_t>& PreviousButtons() const = 0;
     virtual unsigned Pov() const = 0;
@@ -111,6 +113,9 @@ class Gamepad
     unsigned GetUPos() const;
     unsigned GetVPos() const;
     unsigned GetPOV() const;
+    unsigned AxisValueRaw(EAxis axis) const;
+    unsigned LastAxisValueRaw(EAxis axis) const;
+    std::optional<int> RawAxisCode(EAxis axis) const;
 
     EGamepadState ReadData();
     EGamepadState GetState() const;

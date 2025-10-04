@@ -18,11 +18,14 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScreen>
+#include <QSignalBlocker>
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
 #include <limits>
 #include <memory>
+#include <vector>
+
 
 using namespace Ipponboard;
 
@@ -34,9 +37,13 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
       m_previewEffect(),
       m_rawCaptureTimer(this),
       m_gamepad(nullptr),
-      m_rawCapture(),
+      m_rawButtonCapture(),
+      m_rawAxisCapture(),
       m_rawButtonBindings{},
-      m_activeRawBinding(nullptr),
+      m_rawAxisBindings{},
+      m_captureMode(CaptureMode::None),
+      m_activeButtonBinding(nullptr),
+      m_activeAxisBinding(nullptr),
       m_rawStatusLabel(nullptr)
 {
     ui->setupUi(this);
@@ -273,19 +280,91 @@ void SettingsDlg::initialize_raw_bindings()
 
         if (binding.captureButton)
         {
-            SettingsDlg::RawButtonBinding* bindingPtr = &binding;
+            auto* bindingPtr = &binding;
             connect(binding.captureButton,
                     &QPushButton::clicked,
                     this,
-                    [this, bindingPtr]() { start_raw_capture(bindingPtr); });
+                    [this, bindingPtr]() { start_button_capture(bindingPtr); });
         }
     }
 
+    m_rawAxisBindings = {
+        RawAxisBinding{ ui->lineEdit_raw_axis_left_x,
+                        ui->pushButton_capture_raw_axis_left_x,
+                        ui->checkBox_raw_axis_left_x_invert,
+                        &ControllerConfig::axis_left_x,
+                        &ControllerConfig::axis_left_invert_x },
+        RawAxisBinding{ ui->lineEdit_raw_axis_left_y,
+                        ui->pushButton_capture_raw_axis_left_y,
+                        ui->checkBox_raw_axis_left_y_invert,
+                        &ControllerConfig::axis_left_y,
+                        &ControllerConfig::axis_left_invert_y },
+        RawAxisBinding{ ui->lineEdit_raw_axis_right_x,
+                        ui->pushButton_capture_raw_axis_right_x,
+                        ui->checkBox_raw_axis_right_x_invert,
+                        &ControllerConfig::axis_right_x,
+                        &ControllerConfig::axis_right_invert_x },
+        RawAxisBinding{ ui->lineEdit_raw_axis_right_y,
+                        ui->pushButton_capture_raw_axis_right_y,
+                        ui->checkBox_raw_axis_right_y_invert,
+                        &ControllerConfig::axis_right_y,
+                        &ControllerConfig::axis_right_invert_y },
+    };
+
+    for (auto& binding : m_rawAxisBindings)
+    {
+        if (binding.lineEdit)
+        {
+            binding.lineEdit->setValidator(validator);
+            binding.lineEdit->setPlaceholderText(tr("-1"));
+        }
+
+        if (binding.captureButton)
+        {
+            auto* bindingPtr = &binding;
+            connect(binding.captureButton,
+                    &QPushButton::clicked,
+                    this,
+                    [this, bindingPtr]() { start_axis_capture(bindingPtr); });
+        }
+    }
+
+    const auto connectMirror = [this](QCheckBox* source, QCheckBox* mirror)
+    {
+        if (!source || !mirror)
+        {
+            return;
+        }
+
+        connect(source,
+                &QCheckBox::toggled,
+                this,
+                [mirror](bool checked)
+                {
+                    QSignalBlocker blocker(mirror);
+                    mirror->setChecked(checked);
+                });
+
+        connect(mirror,
+                &QCheckBox::toggled,
+                this,
+                [source](bool checked)
+                {
+                    QSignalBlocker blocker(source);
+                    source->setChecked(checked);
+                });
+    };
+
+    connectMirror(ui->checkBox_raw_axis_left_x_invert, ui->checkBox_invert_x_axis);
+    connectMirror(ui->checkBox_raw_axis_left_y_invert, ui->checkBox_invert_y_axis);
+    connectMirror(ui->checkBox_raw_axis_right_x_invert, ui->checkBox_invert_r_axis);
+    connectMirror(ui->checkBox_raw_axis_right_y_invert, ui->checkBox_invert_z_axis);
+
     m_rawStatusLabel = ui->label_raw_status;
-    update_raw_status(tr("Press Capture to record a button code."));
+    update_raw_status(tr("Press Capture to record a button or axis code."));
 }
 
-void SettingsDlg::start_raw_capture(SettingsDlg::RawButtonBinding* binding)
+void SettingsDlg::start_button_capture(RawButtonBinding* binding)
 {
     if (!binding)
     {
@@ -298,7 +377,7 @@ void SettingsDlg::start_raw_capture(SettingsDlg::RawButtonBinding* binding)
         return;
     }
 
-    if (m_activeRawBinding == binding)
+    if (m_captureMode == CaptureMode::Button && m_activeButtonBinding == binding)
     {
         cancel_raw_capture();
         return;
@@ -306,54 +385,134 @@ void SettingsDlg::start_raw_capture(SettingsDlg::RawButtonBinding* binding)
 
     cancel_raw_capture();
 
-    m_rawCapture = std::make_unique<RawInputCapture>(*m_gamepad);
-    prime_raw_capture();
+    m_rawButtonCapture = std::make_unique<RawInputCapture>(*m_gamepad);
+    m_captureMode = CaptureMode::Button;
+    m_activeButtonBinding = binding;
+    if (binding->captureButton)
+    {
+        binding->captureButton->setText(tr("Cancel"));
+    }
 
-    m_activeRawBinding = binding;
-    binding->captureButton->setText(tr("Cancel"));
     update_raw_status(tr("Press the desired button on the controller."));
+    prime_raw_capture();
     m_rawCaptureTimer.start();
 }
 
-void SettingsDlg::finish_raw_capture(std::uint16_t code)
+void SettingsDlg::finish_button_capture(std::uint16_t code)
 {
-    if (!m_activeRawBinding)
+    if (!m_activeButtonBinding)
     {
         return;
     }
 
-    if (m_activeRawBinding->lineEdit)
+    if (m_activeButtonBinding->lineEdit)
     {
-        m_activeRawBinding->lineEdit->setText(QString::number(code));
+        m_activeButtonBinding->lineEdit->setText(QString::number(code));
     }
 
-    if (m_activeRawBinding->captureButton)
+    if (m_activeButtonBinding->captureButton)
     {
-        m_activeRawBinding->captureButton->setText(tr("Capture"));
+        m_activeButtonBinding->captureButton->setText(tr("Capture"));
     }
 
     update_raw_status(tr("Captured raw code %1.").arg(code));
 
-    m_activeRawBinding = nullptr;
+    m_activeButtonBinding = nullptr;
+    m_captureMode = CaptureMode::None;
     m_rawCaptureTimer.stop();
-    m_rawCapture.reset();
+    m_rawButtonCapture.reset();
+}
+
+void SettingsDlg::start_axis_capture(RawAxisBinding* binding)
+{
+    if (!binding)
+    {
+        return;
+    }
+
+    if (!m_gamepad)
+    {
+        update_raw_status(tr("No gamepad detected for capture."));
+        return;
+    }
+
+    if (m_captureMode == CaptureMode::Axis && m_activeAxisBinding == binding)
+    {
+        cancel_raw_capture();
+        return;
+    }
+
+    cancel_raw_capture();
+
+    m_rawAxisCapture =
+        std::make_unique<RawAxisCapture>(*m_gamepad,
+                                         std::vector<GamepadLib::EAxis>{ GamepadLib::EAxis::X,
+                                                                         GamepadLib::EAxis::Y,
+                                                                         GamepadLib::EAxis::R,
+                                                                         GamepadLib::EAxis::Z });
+
+    m_captureMode = CaptureMode::Axis;
+    m_activeAxisBinding = binding;
+    if (binding->captureButton)
+    {
+        binding->captureButton->setText(tr("Cancel"));
+    }
+
+    update_raw_status(tr("Move the desired axis on the controller."));
+    prime_raw_capture();
+    m_rawCaptureTimer.start();
+}
+
+void SettingsDlg::finish_axis_capture(int code)
+{
+    if (!m_activeAxisBinding)
+    {
+        return;
+    }
+
+    if (m_activeAxisBinding->lineEdit)
+    {
+        m_activeAxisBinding->lineEdit->setText(QString::number(code));
+    }
+
+    if (m_activeAxisBinding->captureButton)
+    {
+        m_activeAxisBinding->captureButton->setText(tr("Capture"));
+    }
+
+    update_raw_status(tr("Captured axis code %1.").arg(code));
+
+    m_activeAxisBinding = nullptr;
+    m_captureMode = CaptureMode::None;
+    m_rawCaptureTimer.stop();
+    m_rawAxisCapture.reset();
 }
 
 void SettingsDlg::cancel_raw_capture()
 {
-    if (m_activeRawBinding && m_activeRawBinding->captureButton)
+    const bool hadActiveCapture = m_captureMode != CaptureMode::None;
+
+    if (m_activeButtonBinding && m_activeButtonBinding->captureButton)
     {
-        m_activeRawBinding->captureButton->setText(tr("Capture"));
+        m_activeButtonBinding->captureButton->setText(tr("Capture"));
     }
 
-    const bool hadActiveCapture = m_activeRawBinding != nullptr;
+    if (m_activeAxisBinding && m_activeAxisBinding->captureButton)
+    {
+        m_activeAxisBinding->captureButton->setText(tr("Capture"));
+    }
 
-    m_activeRawBinding = nullptr;
+    m_activeButtonBinding = nullptr;
+    m_activeAxisBinding = nullptr;
+    m_captureMode = CaptureMode::None;
+
     if (m_rawCaptureTimer.isActive())
     {
         m_rawCaptureTimer.stop();
     }
-    m_rawCapture.reset();
+
+    m_rawButtonCapture.reset();
+    m_rawAxisCapture.reset();
 
     if (hadActiveCapture)
     {
@@ -381,12 +540,24 @@ QString SettingsDlg::format_raw_value(int value) const
 
 void SettingsDlg::prime_raw_capture()
 {
-    if (!m_rawCapture)
+    switch (m_captureMode)
     {
-        return;
+    case CaptureMode::Button:
+        if (m_rawButtonCapture)
+        {
+            m_rawButtonCapture->Prime();
+        }
+        break;
+    case CaptureMode::Axis:
+        if (m_rawAxisCapture)
+        {
+            m_rawAxisCapture->Prime();
+        }
+        break;
+    case CaptureMode::None:
+    default:
+        break;
     }
-
-    m_rawCapture->Prime();
 }
 
 SettingsDlg::~SettingsDlg()
@@ -565,6 +736,20 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
             const int value = pConfig->*(binding.configMember);
             binding.lineEdit->setText(format_raw_value(value));
         }
+
+        for (const auto& binding : m_rawAxisBindings)
+        {
+            if (binding.lineEdit)
+            {
+                const int value = pConfig->*(binding.codeMember);
+                binding.lineEdit->setText(format_raw_value(value));
+            }
+
+            if (binding.invertCheckBox)
+            {
+                binding.invertCheckBox->setChecked(pConfig->*(binding.invertMember));
+            }
+        }
     }
 }
 
@@ -619,6 +804,21 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
             bool ok = false;
             const int value = binding.lineEdit->text().toInt(&ok);
             pConfig->*(binding.configMember) = ok ? value : -1;
+        }
+
+        for (const auto& binding : m_rawAxisBindings)
+        {
+            if (binding.lineEdit)
+            {
+                bool ok = false;
+                const int value = binding.lineEdit->text().toInt(&ok);
+                pConfig->*(binding.codeMember) = ok ? value : -1;
+            }
+
+            if (binding.invertCheckBox)
+            {
+                pConfig->*(binding.invertMember) = binding.invertCheckBox->isChecked();
+            }
         }
     }
 }
@@ -814,17 +1014,32 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
 
 void SettingsDlg::on_raw_capture_timeout()
 {
-    if (!m_rawCapture || !m_activeRawBinding)
+    switch (m_captureMode)
     {
+    case CaptureMode::Button:
+        if (m_rawButtonCapture)
+        {
+            if (const auto code = m_rawButtonCapture->PollButton())
+            {
+                finish_button_capture(*code);
+            }
+        }
+        break;
+    case CaptureMode::Axis:
+        if (m_rawAxisCapture)
+        {
+            if (const auto code = m_rawAxisCapture->PollAxis())
+            {
+                finish_axis_capture(*code);
+            }
+        }
+        break;
+    case CaptureMode::None:
+    default:
         if (m_rawCaptureTimer.isActive())
         {
             m_rawCaptureTimer.stop();
         }
-        return;
-    }
-
-    if (const auto code = m_rawCapture->PollButton())
-    {
-        finish_raw_capture(*code);
+        break;
     }
 }
