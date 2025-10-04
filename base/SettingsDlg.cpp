@@ -4,11 +4,9 @@
 
 #include "SettingsDlg.h"
 
-#include "ui_SettingsDlg.h"
-#ifdef _WIN32
-#include "../gamepad/Gamepad.h"
-#endif
 #include "../core/ControllerConfig.h"
+#include "../gamepad/Gamepad.h"
+#include "ui_SettingsDlg.h"
 
 #include <QColorDialog>
 #include <QDebug>
@@ -19,6 +17,7 @@
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
+
 
 using namespace Ipponboard;
 
@@ -57,7 +56,6 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     ui->text_color_first->SetText(tr("FIRST FIGHTER"));
     ui->text_color_second->SetText(tr("SECOND FIGHTER"));
 
-#ifdef _WIN32
     // build button text map
     m_buttonTexts[GamepadLib::EButton::button1] = "button 1";
     m_buttonTexts[GamepadLib::EButton::button2] = "button 2";
@@ -80,7 +78,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     m_buttonTexts[GamepadLib::EButton::button_pov_right_back] = "POV right back";
     m_buttonTexts[GamepadLib::EButton::button_pov_left_back] = "POV left back";
     m_buttonTexts[GamepadLib::EButton::button_pov_left_fwd] = "POV left fwd";
-#endif
+
     QStringList buttons;
     ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
 
