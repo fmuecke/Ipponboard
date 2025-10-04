@@ -42,11 +42,8 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_FighterNameFont("Calibri", 12, QFont::Bold, false),
       m_secondScreenNo(0),
       m_secondScreenSize(),
-      m_controllerCfg()
-#ifdef _WIN32
-      ,
+      m_controllerCfg(),
       m_pGamepad(new Gamepad())
-#endif
 {
 }
 
@@ -82,12 +79,10 @@ void MainWindowBase::Init()
 
     change_lang(true);
 
-#ifdef _WIN32
     // Init gamepad
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindowBase::EvaluateInput);
     timer->start(75);
-#endif
     update_statebar();
 
     m_pController->RegisterView(m_pPrimaryView.get());
@@ -582,7 +577,6 @@ void MainWindowBase::read_settings()
     }
     settings.endGroup();
 
-#ifdef _WIN32
     settings.beginGroup(str_tag_Input);
     {
         m_controllerCfg.button_hajime_mate =
@@ -632,7 +626,6 @@ void MainWindowBase::read_settings()
         m_pGamepad->SetInverted(GamepadLib::EAxis::Z, m_controllerCfg.axis_inverted_Z);
     }
     settings.endGroup();
-#endif
     settings.beginGroup(str_tag_Sounds);
     {
         m_pController->SetGongFile(
@@ -727,13 +720,12 @@ void MainWindowBase::on_actionPreferences_triggered()
         m_secondScreenSize = dlg.GetSize();
 
         dlg.GetControllerConfig(&m_controllerCfg);
-#ifdef _WIN32
         // apply settings to gamepad
         m_pGamepad->SetInverted(GamepadLib::EAxis::X, m_controllerCfg.axis_inverted_X);
         m_pGamepad->SetInverted(GamepadLib::EAxis::Y, m_controllerCfg.axis_inverted_Y);
         m_pGamepad->SetInverted(GamepadLib::EAxis::R, m_controllerCfg.axis_inverted_R);
         m_pGamepad->SetInverted(GamepadLib::EAxis::Z, m_controllerCfg.axis_inverted_Z);
-#endif
+        //#endif
         m_MatLabel = dlg.GetMatLabel();
         m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
 
@@ -795,7 +787,6 @@ void MainWindowBase::show_hide_view() const
 
 void MainWindowBase::EvaluateInput()
 {
-#ifdef _WIN32
     if (GamepadLib::EGamepadState::ok != m_pGamepad->GetState())
     {
         return;
@@ -950,7 +941,6 @@ void MainWindowBase::EvaluateInput()
             m_pController->DoAction(eAction_Shido, FighterEnum::Second);
         }
     }
-#endif
 }
 
 void MainWindowBase::update_info_text_color(const QColor& color, const QColor& bgColor)

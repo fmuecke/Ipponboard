@@ -183,9 +183,7 @@ class MainWindowBase : public QMainWindow,
     Ipponboard::ControllerConfig m_controllerCfg;
 
   private:
-#ifdef _WIN32
-    std::unique_ptr<GamepadLib::Gamepad> m_pGamepad; // TODO: use unique_ptr
-#endif
+    std::unique_ptr<GamepadLib::Gamepad> m_pGamepad;
 };
 
 #endif // BASE__MAINWINDOW_BASE_H_

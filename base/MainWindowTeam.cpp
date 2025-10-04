@@ -662,7 +662,6 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
 
 bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
 {
-#ifdef _WIN32
     // back
     if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_prev)))
     {
@@ -671,7 +670,6 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
         // --> handle update views outside of this function
         return true;
     }
-    // next
     else if (pGamepad->WasPressed(GamepadLib::EButton(m_controllerCfg.button_next)))
     {
         on_button_next_clicked();
@@ -679,7 +677,6 @@ bool MainWindowTeam::EvaluateSpecificInput(const Gamepad* pGamepad)
         // --> handle update views outside of this function
         return true;
     }
-#endif
 
     return false;
 }
