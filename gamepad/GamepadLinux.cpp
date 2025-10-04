@@ -2,18 +2,17 @@
 
 #include "GamepadLinux.h"
 
-#include <fcntl.h>
-#include <linux/input.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
 #include <algorithm>
 #include <array>
 #include <cerrno>
 #include <cmath>
 #include <cstring>
+#include <fcntl.h>
 #include <filesystem>
+#include <linux/input.h>
 #include <optional>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 namespace GamepadLib
 {
@@ -29,7 +28,8 @@ const std::array<std::uint16_t, 8> kPovButtonCodes = {
     static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_right_fwd)),
     static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_right_back)),
     static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_back)),
-    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_fwd)) };
+    static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_fwd))
+};
 
 std::optional<std::string> findJoystickPath()
 {
@@ -157,15 +157,9 @@ unsigned povFromHat(int hatX, int hatY)
 
 } // namespace
 
-GamepadLinux::GamepadLinux()
-{
-    reset();
-}
+GamepadLinux::GamepadLinux() { reset(); }
 
-GamepadLinux::~GamepadLinux()
-{
-    closeDevice();
-}
+GamepadLinux::~GamepadLinux() { closeDevice(); }
 
 void GamepadLinux::reset()
 {
@@ -306,10 +300,7 @@ EGamepadState GamepadLinux::Init()
     return m_state;
 }
 
-const wchar_t* GamepadLinux::ProductName() const
-{
-    return m_productName.c_str();
-}
+const wchar_t* GamepadLinux::ProductName() const { return m_productName.c_str(); }
 
 std::uint16_t GamepadLinux::VendorId() const { return m_vendorId; }
 std::uint16_t GamepadLinux::ProductId() const { return m_productId; }
@@ -413,10 +404,7 @@ unsigned GamepadLinux::LastAxisValue(EAxis axis) const
     return m_lastAxes[static_cast<std::size_t>(axis)];
 }
 
-const std::unordered_set<std::uint16_t>& GamepadLinux::CurrentButtons() const
-{
-    return m_buttons;
-}
+const std::unordered_set<std::uint16_t>& GamepadLinux::CurrentButtons() const { return m_buttons; }
 
 const std::unordered_set<std::uint16_t>& GamepadLinux::PreviousButtons() const
 {
@@ -427,15 +415,9 @@ unsigned GamepadLinux::Pov() const { return m_pov; }
 
 unsigned GamepadLinux::LastPov() const { return m_lastPov; }
 
-EPovType GamepadLinux::PovType() const
-{
-    return EPovType::discrete;
-}
+EPovType GamepadLinux::PovType() const { return EPovType::discrete; }
 
-int GamepadLinux::PressedCount() const
-{
-    return static_cast<int>(m_buttons.size());
-}
+int GamepadLinux::PressedCount() const { return static_cast<int>(m_buttons.size()); }
 
 unsigned GamepadLinux::Threshold() const { return 0; }
 
@@ -502,10 +484,7 @@ void GamepadLinux::handleAbsEvent(const input_event& ev)
     }
 }
 
-void GamepadLinux::updatePov()
-{
-    m_pov = povFromHat(m_hatX, m_hatY);
-}
+void GamepadLinux::updatePov() { m_pov = povFromHat(m_hatX, m_hatY); }
 
 } // namespace GamepadLib
 

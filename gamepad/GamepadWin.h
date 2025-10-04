@@ -5,7 +5,6 @@
 #include "Gamepad.h"
 
 #include <Windows.h>
-
 #include <cstdint>
 #include <string>
 #include <unordered_set>
@@ -61,4 +60,3 @@ class GamepadWin : public GamepadBackend
 } // namespace GamepadLib
 
 #endif // _WIN32
-

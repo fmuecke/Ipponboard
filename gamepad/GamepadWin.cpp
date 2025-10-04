@@ -33,12 +33,9 @@ constexpr std::uint16_t povCode(unsigned pov)
         return Constants::PovCenteredVal;
     }
 }
-}
+} // namespace
 
-GamepadWin::GamepadWin()
-{
-    reset();
-}
+GamepadWin::GamepadWin() { reset(); }
 
 EGamepadState GamepadWin::Init()
 {
@@ -160,17 +157,17 @@ unsigned GamepadWin::LastAxisValue(EAxis axis) const
     }
 }
 
-const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const
-{
-    return m_buttons;
-}
+const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const { return m_buttons; }
 
 const std::unordered_set<std::uint16_t>& GamepadWin::PreviousButtons() const
 {
     return m_lastButtons;
 }
 
-unsigned GamepadWin::Pov() const { return data.dwPOV == JOY_POVCENTERED ? Constants::PovCenteredVal : data.dwPOV; }
+unsigned GamepadWin::Pov() const
+{
+    return data.dwPOV == JOY_POVCENTERED ? Constants::PovCenteredVal : data.dwPOV;
+}
 unsigned GamepadWin::LastPov() const
 {
     return lastData.dwPOV == JOY_POVCENTERED ? Constants::PovCenteredVal : lastData.dwPOV;
@@ -181,10 +178,7 @@ EPovType GamepadWin::PovType() const
     return (caps.wCaps & JOYCAPS_HASPOV) ? EPovType::discrete : EPovType::no_pov;
 }
 
-int GamepadWin::PressedCount() const
-{
-    return static_cast<int>(m_buttons.size());
-}
+int GamepadWin::PressedCount() const { return static_cast<int>(m_buttons.size()); }
 
 unsigned GamepadWin::Threshold() const
 {

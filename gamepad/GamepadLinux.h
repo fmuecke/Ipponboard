@@ -4,10 +4,9 @@
 
 #include "Gamepad.h"
 
-#include <linux/input.h>
-
 #include <array>
 #include <cstdint>
+#include <linux/input.h>
 #include <optional>
 #include <string>
 #include <unordered_set>
