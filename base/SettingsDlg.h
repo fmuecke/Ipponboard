@@ -11,7 +11,7 @@
 #include <QDialog>
 #include <QSoundEffect>
 #include <QTimer>
-#include <array>
+#include <vector>
 #include <map>
 #include <memory>
 #include <optional>
@@ -123,12 +123,11 @@ class SettingsDlg : public QDialog
     std::unique_ptr<RawInputCapture> m_rawButtonCapture;
     std::unique_ptr<RawAxisCapture> m_rawAxisCapture;
 
-    std::array<RawButtonBinding, 12> m_rawButtonBindings;
-    std::array<RawAxisBinding, 4> m_rawAxisBindings;
+    std::vector<RawButtonBinding> m_rawButtonBindings;
+    std::vector<RawAxisBinding> m_rawAxisBindings;
     CaptureMode m_captureMode;
     RawButtonBinding* m_activeButtonBinding;
     RawAxisBinding* m_activeAxisBinding;
-    QLabel* m_rawStatusLabel;
 
   private slots:
     void on_comboBox_mat_editTextChanged(QString);
