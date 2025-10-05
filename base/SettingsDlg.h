@@ -11,10 +11,9 @@
 #include <QDialog>
 #include <QSoundEffect>
 #include <QTimer>
-#include <vector>
-#include <map>
 #include <memory>
 #include <optional>
+#include <vector>
 
 class QComboBox;
 class QCheckBox;
@@ -91,6 +90,7 @@ class SettingsDlg : public QDialog
         QCheckBox* invertCheckBox;
         int ControllerConfig::*codeMember;
         bool ControllerConfig::*invertMember;
+        bool ControllerConfig::*legacyInvertMember;
     };
 
     enum class CaptureMode
@@ -100,8 +100,6 @@ class SettingsDlg : public QDialog
         Axis
     };
 
-    int get_button_from_text(const QString& text) const;
-    void set_button_value(QComboBox* pCombo, int buttonId);
     void initialize_raw_bindings();
     void start_button_capture(RawButtonBinding* binding);
     void finish_button_capture(std::uint16_t code);
@@ -115,8 +113,6 @@ class SettingsDlg : public QDialog
   private:
     EditionType m_edition;
     Ui::SettingsDlg* ui;
-    typedef std::map<int, QString> ButtonTextMap;
-    ButtonTextMap m_buttonTexts;
     QSoundEffect m_previewEffect;
     QTimer m_rawCaptureTimer;
     GamepadLib::Gamepad* m_gamepad;
