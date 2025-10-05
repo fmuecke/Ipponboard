@@ -1,4 +1,4 @@
-// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018-2025 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -25,7 +25,6 @@
 #include <limits>
 #include <memory>
 #include <vector>
-
 
 using namespace Ipponboard;
 
@@ -829,9 +828,22 @@ void SettingsDlg::SetGamepad(GamepadLib::Gamepad* gamepad) noexcept
 
     if (m_gamepad)
     {
+        if (m_gamepad->GetState() != GamepadLib::EGamepadState::ok)
+        {
+            update_raw_status(tr("No gamepad detected for capture."));
+            qInfo() << "No gamepad detected for raw capture.";
+            return;
+        }
+
         const auto* namePtr = m_gamepad->GetProductName();
-        const QString name = (namePtr && *namePtr != L'\0') ? QString::fromWCharArray(namePtr)
-                                                            : tr("Unknown controller");
+        QString name =
+            (namePtr && *namePtr != L'\0') ? QString::fromWCharArray(namePtr) : QString();
+
+        if (name.trimmed().isEmpty())
+        {
+            name = tr("Unnamed controller");
+        }
+
         const QString status = tr("Gamepad ready for capture: %1").arg(name);
         qInfo() << "Gamepad prepared for raw capture:" << name;
         update_raw_status(status);

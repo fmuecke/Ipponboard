@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+﻿// Copyright 2018-2025 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QSettings>
+#include <QString>
 #include <QStyle>
 #include <QTimer>
 #include <QUrl>
@@ -46,6 +47,25 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_controllerCfg(),
       m_pGamepad(new Gamepad())
 {
+    if (m_pGamepad)
+    {
+        const auto state = m_pGamepad->GetState();
+        if (state == GamepadLib::EGamepadState::ok)
+        {
+            const auto* namePtr = m_pGamepad->GetProductName();
+            QString name =
+                (namePtr && *namePtr != L'\0') ? QString::fromWCharArray(namePtr) : QString();
+            if (name.trimmed().isEmpty())
+            {
+                name = tr("Unnamed controller");
+            }
+            qInfo() << "Gamepad detected:" << name;
+        }
+        else
+        {
+            qInfo() << "No gamepad detected (state" << static_cast<int>(state) << ')';
+        }
+    }
 }
 
 MainWindowBase::~MainWindowBase() {}
