@@ -18,7 +18,6 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScreen>
-#include <QSignalBlocker>
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
@@ -32,14 +31,13 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     : QDialog(parent),
       m_edition(edition),
       ui(new Ui::SettingsDlg),
-      m_buttonTexts(),
       m_previewEffect(),
       m_rawCaptureTimer(this),
       m_gamepad(nullptr),
       m_rawButtonCapture(),
       m_rawAxisCapture(),
-      m_rawButtonBindings{},
-      m_rawAxisBindings{},
+      m_rawButtonBindings(),
+      m_rawAxisBindings(),
       m_captureMode(CaptureMode::None),
       m_activeButtonBinding(nullptr),
       m_activeAxisBinding(nullptr)
@@ -51,10 +49,6 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
 
     if (m_edition == EditionType::Team)
     {
-        ui->comboBox_next->setEnabled(true);
-        ui->comboBox_prev->setEnabled(true);
-        ui->comboBox_pause->setEnabled(true);
-
         ui->comboBox_mat->setEnabled(false);
         ui->label_home->setEnabled(true);
         ui->label_guest->setEnabled(true);
@@ -70,57 +64,9 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
         ui->lineEdit_labelGuest->setEnabled(false);
     }
 
-    //TODO: remove comment
-    //ui->tabWidget->removeTab(ui->tabWidget->count() - 1);
-
     ui->text_text_sample->SetText("  Ipponboard   ");
     ui->text_color_first->SetText(tr("FIRST FIGHTER"));
     ui->text_color_second->SetText(tr("SECOND FIGHTER"));
-
-    // build button text map
-    m_buttonTexts[GamepadLib::EButton::button1] = "button 1";
-    m_buttonTexts[GamepadLib::EButton::button2] = "button 2";
-    m_buttonTexts[GamepadLib::EButton::button3] = "button 3";
-    m_buttonTexts[GamepadLib::EButton::button4] = "button 4";
-    m_buttonTexts[GamepadLib::EButton::button5] = "button 5";
-    m_buttonTexts[GamepadLib::EButton::button6] = "button 6";
-    m_buttonTexts[GamepadLib::EButton::button7] = "button 7";
-    m_buttonTexts[GamepadLib::EButton::button8] = "button 8";
-    m_buttonTexts[GamepadLib::EButton::button9] = "button 9";
-    m_buttonTexts[GamepadLib::EButton::button10] = "button 10";
-    m_buttonTexts[GamepadLib::EButton::button11] = "button 11";
-    m_buttonTexts[GamepadLib::EButton::button12] = "button 12";
-    // ! Assure that pov values do not overlap with regular buttons! !
-    m_buttonTexts[GamepadLib::EButton::button_pov_fwd] = "POV fwd";
-    m_buttonTexts[GamepadLib::EButton::button_pov_back] = "POV back";
-    m_buttonTexts[GamepadLib::EButton::button_pov_left] = "POV left";
-    m_buttonTexts[GamepadLib::EButton::button_pov_right] = "POV right";
-    m_buttonTexts[GamepadLib::EButton::button_pov_right_fwd] = "POV right fwd";
-    m_buttonTexts[GamepadLib::EButton::button_pov_right_back] = "POV right back";
-    m_buttonTexts[GamepadLib::EButton::button_pov_left_back] = "POV left back";
-    m_buttonTexts[GamepadLib::EButton::button_pov_left_fwd] = "POV left fwd";
-
-    QStringList buttons;
-    ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
-
-    while (iter != m_buttonTexts.end())
-    {
-        buttons.push_back(iter->second);
-        ++iter;
-    }
-
-    ui->comboBox_next->addItems(buttons);
-    ui->comboBox_prev->addItems(buttons);
-    ui->comboBox_pause->addItems(buttons);
-    ui->comboBox_reset->addItems(buttons);
-    ui->comboBox_reset_2->addItems(buttons);
-    ui->comboBox_reset_hold_first->addItems(buttons);
-    ui->comboBox_reset_hold_second->addItems(buttons);
-    ui->comboBox_hajime_mate->addItems(buttons);
-    ui->comboBox_first_holding->addItems(buttons);
-    ui->comboBox_second_holding->addItems(buttons);
-    ui->comboBox_hansokumake_first->addItems(buttons);
-    ui->comboBox_hansokumake_second->addItems(buttons);
 
     // num screens
     int numScreens = QGuiApplication::screens().count();
@@ -279,6 +225,7 @@ void SettingsDlg::initialize_raw_bindings()
 
         if (binding.captureButton)
         {
+            // Note: capture the index, not the binding reference, so we avoid dangling pointers (no range-based for!).
             connect(binding.captureButton,
                     &QPushButton::clicked,
                     this,
@@ -291,22 +238,26 @@ void SettingsDlg::initialize_raw_bindings()
           ui->pushButton_capture_raw_axis_left_x,
           ui->checkBox_raw_axis_left_x_invert,
           &ControllerConfig::axis_left_x,
-          &ControllerConfig::axis_left_invert_x },
+          &ControllerConfig::axis_left_invert_x,
+          &ControllerConfig::axis_inverted_X }, //TODO: consolidate legacy member
         { ui->lineEdit_raw_axis_left_y,
           ui->pushButton_capture_raw_axis_left_y,
           ui->checkBox_raw_axis_left_y_invert,
           &ControllerConfig::axis_left_y,
-          &ControllerConfig::axis_left_invert_y },
+          &ControllerConfig::axis_left_invert_y,
+          &ControllerConfig::axis_inverted_Y }, //TODO: consolidate legacy member
         { ui->lineEdit_raw_axis_right_x,
           ui->pushButton_capture_raw_axis_right_x,
           ui->checkBox_raw_axis_right_x_invert,
           &ControllerConfig::axis_right_x,
-          &ControllerConfig::axis_right_invert_x },
+          &ControllerConfig::axis_right_invert_x,
+          &ControllerConfig::axis_inverted_R }, //TODO: consolidate legacy member
         { ui->lineEdit_raw_axis_right_y,
           ui->pushButton_capture_raw_axis_right_y,
           ui->checkBox_raw_axis_right_y_invert,
           &ControllerConfig::axis_right_y,
-          &ControllerConfig::axis_right_invert_y },
+          &ControllerConfig::axis_right_invert_y,
+          &ControllerConfig::axis_inverted_Z }, //TODO: consolidate legacy member
     };
 
     for (std::size_t idx = 0; idx < m_rawAxisBindings.size(); ++idx)
@@ -320,43 +271,13 @@ void SettingsDlg::initialize_raw_bindings()
 
         if (binding.captureButton)
         {
+            // Same rationale as the buttons: capture-by-index keeps the binding pointer valid.
             connect(binding.captureButton,
                     &QPushButton::clicked,
                     this,
                     [this, idx]() { start_axis_capture(&m_rawAxisBindings[idx]); });
         }
     }
-
-    const auto connectMirror = [this](QCheckBox* source, QCheckBox* mirror)
-    {
-        if (!source || !mirror)
-        {
-            return;
-        }
-
-        connect(source,
-                &QCheckBox::toggled,
-                this,
-                [mirror](bool checked)
-                {
-                    QSignalBlocker blocker(mirror);
-                    mirror->setChecked(checked);
-                });
-
-        connect(mirror,
-                &QCheckBox::toggled,
-                this,
-                [source](bool checked)
-                {
-                    QSignalBlocker blocker(source);
-                    source->setChecked(checked);
-                });
-    };
-
-    connectMirror(ui->checkBox_raw_axis_left_x_invert, ui->checkBox_invert_x_axis);
-    connectMirror(ui->checkBox_raw_axis_left_y_invert, ui->checkBox_invert_y_axis);
-    connectMirror(ui->checkBox_raw_axis_right_x_invert, ui->checkBox_invert_r_axis);
-    connectMirror(ui->checkBox_raw_axis_right_y_invert, ui->checkBox_invert_z_axis);
 
     update_raw_status(tr("Press Capture to record a button or axis code."));
 }
@@ -705,33 +626,13 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 
     if (pConfig)
     {
-        set_button_value(ui->comboBox_hajime_mate, pConfig->button_hajime_mate);
-        set_button_value(ui->comboBox_reset, pConfig->button_reset);
-        set_button_value(ui->comboBox_reset_2, pConfig->button_reset_2);
-        set_button_value(ui->comboBox_next, pConfig->button_next);
-        set_button_value(ui->comboBox_prev, pConfig->button_prev);
-        set_button_value(ui->comboBox_pause, pConfig->button_pause);
-        set_button_value(ui->comboBox_first_holding, pConfig->button_osaekomi_toketa_first);
-        set_button_value(ui->comboBox_second_holding, pConfig->button_osaekomi_toketa_second);
-        set_button_value(ui->comboBox_reset_hold_first, pConfig->button_reset_hold_first);
-        set_button_value(ui->comboBox_reset_hold_second, pConfig->button_reset_hold_second);
-        set_button_value(ui->comboBox_hansokumake_first, pConfig->button_hansokumake_first);
-        set_button_value(ui->comboBox_hansokumake_second, pConfig->button_hansokumake_second);
-
-        ui->checkBox_invert_x_axis->setChecked(pConfig->axis_inverted_X);
-        ui->checkBox_invert_y_axis->setChecked(pConfig->axis_inverted_Y);
-        ui->checkBox_invert_r_axis->setChecked(pConfig->axis_inverted_R);
-        ui->checkBox_invert_z_axis->setChecked(pConfig->axis_inverted_Z);
-
         for (const auto& binding : m_rawButtonBindings)
         {
-            if (!binding.lineEdit)
+            if (binding.lineEdit)
             {
-                continue;
+                const int value = pConfig->*(binding.configMember);
+                binding.lineEdit->setText(format_raw_value(value));
             }
-
-            const int value = pConfig->*(binding.configMember);
-            binding.lineEdit->setText(format_raw_value(value));
         }
 
         for (const auto& binding : m_rawAxisBindings)
@@ -744,7 +645,12 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 
             if (binding.invertCheckBox)
             {
-                binding.invertCheckBox->setChecked(pConfig->*(binding.invertMember));
+                bool invert = binding.invertMember ? pConfig->*(binding.invertMember) : false;
+                if (!invert && binding.legacyInvertMember)
+                {
+                    invert = pConfig->*(binding.legacyInvertMember);
+                }
+                binding.invertCheckBox->setChecked(invert);
             }
         }
     }
@@ -756,41 +662,6 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 
     if (pConfig)
     {
-        pConfig->button_hajime_mate = get_button_from_text(ui->comboBox_hajime_mate->currentText());
-
-        pConfig->button_reset = get_button_from_text(ui->comboBox_reset->currentText());
-
-        pConfig->button_reset_2 = get_button_from_text(ui->comboBox_reset_2->currentText());
-
-        pConfig->button_next = get_button_from_text(ui->comboBox_next->currentText());
-
-        pConfig->button_prev = get_button_from_text(ui->comboBox_prev->currentText());
-
-        pConfig->button_pause = get_button_from_text(ui->comboBox_pause->currentText());
-
-        pConfig->button_osaekomi_toketa_first =
-            get_button_from_text(ui->comboBox_first_holding->currentText());
-
-        pConfig->button_osaekomi_toketa_second =
-            get_button_from_text(ui->comboBox_second_holding->currentText());
-
-        pConfig->button_reset_hold_first =
-            get_button_from_text(ui->comboBox_reset_hold_first->currentText());
-
-        pConfig->button_reset_hold_second =
-            get_button_from_text(ui->comboBox_reset_hold_second->currentText());
-
-        pConfig->button_hansokumake_first =
-            get_button_from_text(ui->comboBox_hansokumake_first->currentText());
-
-        pConfig->button_hansokumake_second =
-            get_button_from_text(ui->comboBox_hansokumake_second->currentText());
-
-        pConfig->axis_inverted_X = ui->checkBox_invert_x_axis->isChecked();
-        pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
-        pConfig->axis_inverted_R = ui->checkBox_invert_r_axis->isChecked();
-        pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
-
         for (const auto& binding : m_rawButtonBindings)
         {
             if (!binding.lineEdit)
@@ -814,7 +685,15 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 
             if (binding.invertCheckBox)
             {
-                pConfig->*(binding.invertMember) = binding.invertCheckBox->isChecked();
+                const bool isChecked = binding.invertCheckBox->isChecked();
+                if (binding.invertMember)
+                {
+                    pConfig->*(binding.invertMember) = isChecked;
+                }
+                if (binding.legacyInvertMember)
+                {
+                    pConfig->*(binding.legacyInvertMember) = isChecked;
+                }
             }
         }
     }
@@ -983,31 +862,6 @@ void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int SettingsDlg::get_button_from_text(const QString& text) const
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-    ButtonTextMap::const_iterator iter = m_buttonTexts.begin();
-
-    while (iter != m_buttonTexts.end())
-    {
-        if (iter->second == text)
-            return iter->first;
-
-        ++iter;
-    }
-
-    Q_ASSERT(!"element should be in list");
-    return -1;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void Ipponboard::SettingsDlg::set_button_value(QComboBox* pCombo, int buttonId)
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-    int index = pCombo->findText(m_buttonTexts[buttonId]);
-    pCombo->setCurrentIndex(index);
-}
-
 void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(bool checked)
 {
     ui->lineEdit_fixedsize_width->setEnabled(checked);
