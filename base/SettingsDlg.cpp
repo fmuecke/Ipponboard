@@ -42,8 +42,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
       m_rawAxisBindings{},
       m_captureMode(CaptureMode::None),
       m_activeButtonBinding(nullptr),
-      m_activeAxisBinding(nullptr),
-      m_rawStatusLabel(nullptr)
+      m_activeAxisBinding(nullptr)
 {
     ui->setupUi(this);
     m_previewEffect.setParent(this);
@@ -231,46 +230,47 @@ void SettingsDlg::initialize_raw_bindings()
     auto* validator = new QIntValidator(-1, std::numeric_limits<std::uint16_t>::max(), this);
 
     m_rawButtonBindings = {
-        RawButtonBinding{ ui->lineEdit_raw_hajime_mate,
-                          ui->pushButton_capture_raw_hajime_mate,
-                          &ControllerConfig::button_hajime_mate_raw },
-        RawButtonBinding{ ui->lineEdit_raw_next,
-                          ui->pushButton_capture_raw_next,
-                          &ControllerConfig::button_next_raw },
-        RawButtonBinding{ ui->lineEdit_raw_prev,
-                          ui->pushButton_capture_raw_prev,
-                          &ControllerConfig::button_prev_raw },
-        RawButtonBinding{ ui->lineEdit_raw_pause,
-                          ui->pushButton_capture_raw_pause,
-                          &ControllerConfig::button_pause_raw },
-        RawButtonBinding{ ui->lineEdit_raw_reset_first,
-                          ui->pushButton_capture_raw_reset_first,
-                          &ControllerConfig::button_reset_raw },
-        RawButtonBinding{ ui->lineEdit_raw_reset_second,
-                          ui->pushButton_capture_raw_reset_second,
-                          &ControllerConfig::button_reset2_raw },
-        RawButtonBinding{ ui->lineEdit_raw_osaekomi_first,
-                          ui->pushButton_capture_raw_osaekomi_first,
-                          &ControllerConfig::button_osaekomi_toketa_first_raw },
-        RawButtonBinding{ ui->lineEdit_raw_osaekomi_second,
-                          ui->pushButton_capture_raw_osaekomi_second,
-                          &ControllerConfig::button_osaekomi_toketa_second_raw },
-        RawButtonBinding{ ui->lineEdit_raw_reset_hold_first,
-                          ui->pushButton_capture_raw_reset_hold_first,
-                          &ControllerConfig::button_reset_hold_first_raw },
-        RawButtonBinding{ ui->lineEdit_raw_reset_hold_second,
-                          ui->pushButton_capture_raw_reset_hold_second,
-                          &ControllerConfig::button_reset_hold_second_raw },
-        RawButtonBinding{ ui->lineEdit_raw_hansokumake_first,
-                          ui->pushButton_capture_raw_hansokumake_first,
-                          &ControllerConfig::button_hansokumake_first_raw },
-        RawButtonBinding{ ui->lineEdit_raw_hansokumake_second,
-                          ui->pushButton_capture_raw_hansokumake_second,
-                          &ControllerConfig::button_hansokumake_second_raw },
+        { ui->lineEdit_raw_hajime_mate,
+          ui->pushButton_capture_raw_hajime_mate,
+          &ControllerConfig::button_hajime_mate_raw },
+        { ui->lineEdit_raw_next,
+          ui->pushButton_capture_raw_next,
+          &ControllerConfig::button_next_raw },
+        { ui->lineEdit_raw_prev,
+          ui->pushButton_capture_raw_prev,
+          &ControllerConfig::button_prev_raw },
+        { ui->lineEdit_raw_pause,
+          ui->pushButton_capture_raw_pause,
+          &ControllerConfig::button_pause_raw },
+        { ui->lineEdit_raw_reset_first,
+          ui->pushButton_capture_raw_reset_first,
+          &ControllerConfig::button_reset_raw },
+        { ui->lineEdit_raw_reset_second,
+          ui->pushButton_capture_raw_reset_second,
+          &ControllerConfig::button_reset2_raw },
+        { ui->lineEdit_raw_osaekomi_first,
+          ui->pushButton_capture_raw_osaekomi_first,
+          &ControllerConfig::button_osaekomi_toketa_first_raw },
+        { ui->lineEdit_raw_osaekomi_second,
+          ui->pushButton_capture_raw_osaekomi_second,
+          &ControllerConfig::button_osaekomi_toketa_second_raw },
+        { ui->lineEdit_raw_reset_hold_first,
+          ui->pushButton_capture_raw_reset_hold_first,
+          &ControllerConfig::button_reset_hold_first_raw },
+        { ui->lineEdit_raw_reset_hold_second,
+          ui->pushButton_capture_raw_reset_hold_second,
+          &ControllerConfig::button_reset_hold_second_raw },
+        { ui->lineEdit_raw_hansokumake_first,
+          ui->pushButton_capture_raw_hansokumake_first,
+          &ControllerConfig::button_hansokumake_first_raw },
+        { ui->lineEdit_raw_hansokumake_second,
+          ui->pushButton_capture_raw_hansokumake_second,
+          &ControllerConfig::button_hansokumake_second_raw },
     };
 
-    for (auto& binding : m_rawButtonBindings)
+    for (std::size_t idx = 0; idx < m_rawButtonBindings.size(); ++idx)
     {
+        auto& binding = m_rawButtonBindings[idx];
         if (binding.lineEdit)
         {
             binding.lineEdit->setValidator(validator);
@@ -279,39 +279,39 @@ void SettingsDlg::initialize_raw_bindings()
 
         if (binding.captureButton)
         {
-            auto* bindingPtr = &binding;
             connect(binding.captureButton,
                     &QPushButton::clicked,
                     this,
-                    [this, bindingPtr]() { start_button_capture(bindingPtr); });
+                    [this, idx]() { start_button_capture(&m_rawButtonBindings[idx]); });
         }
     }
 
     m_rawAxisBindings = {
-        RawAxisBinding{ ui->lineEdit_raw_axis_left_x,
-                        ui->pushButton_capture_raw_axis_left_x,
-                        ui->checkBox_raw_axis_left_x_invert,
-                        &ControllerConfig::axis_left_x,
-                        &ControllerConfig::axis_left_invert_x },
-        RawAxisBinding{ ui->lineEdit_raw_axis_left_y,
-                        ui->pushButton_capture_raw_axis_left_y,
-                        ui->checkBox_raw_axis_left_y_invert,
-                        &ControllerConfig::axis_left_y,
-                        &ControllerConfig::axis_left_invert_y },
-        RawAxisBinding{ ui->lineEdit_raw_axis_right_x,
-                        ui->pushButton_capture_raw_axis_right_x,
-                        ui->checkBox_raw_axis_right_x_invert,
-                        &ControllerConfig::axis_right_x,
-                        &ControllerConfig::axis_right_invert_x },
-        RawAxisBinding{ ui->lineEdit_raw_axis_right_y,
-                        ui->pushButton_capture_raw_axis_right_y,
-                        ui->checkBox_raw_axis_right_y_invert,
-                        &ControllerConfig::axis_right_y,
-                        &ControllerConfig::axis_right_invert_y },
+        { ui->lineEdit_raw_axis_left_x,
+          ui->pushButton_capture_raw_axis_left_x,
+          ui->checkBox_raw_axis_left_x_invert,
+          &ControllerConfig::axis_left_x,
+          &ControllerConfig::axis_left_invert_x },
+        { ui->lineEdit_raw_axis_left_y,
+          ui->pushButton_capture_raw_axis_left_y,
+          ui->checkBox_raw_axis_left_y_invert,
+          &ControllerConfig::axis_left_y,
+          &ControllerConfig::axis_left_invert_y },
+        { ui->lineEdit_raw_axis_right_x,
+          ui->pushButton_capture_raw_axis_right_x,
+          ui->checkBox_raw_axis_right_x_invert,
+          &ControllerConfig::axis_right_x,
+          &ControllerConfig::axis_right_invert_x },
+        { ui->lineEdit_raw_axis_right_y,
+          ui->pushButton_capture_raw_axis_right_y,
+          ui->checkBox_raw_axis_right_y_invert,
+          &ControllerConfig::axis_right_y,
+          &ControllerConfig::axis_right_invert_y },
     };
 
-    for (auto& binding : m_rawAxisBindings)
+    for (std::size_t idx = 0; idx < m_rawAxisBindings.size(); ++idx)
     {
+        auto& binding = m_rawAxisBindings[idx];
         if (binding.lineEdit)
         {
             binding.lineEdit->setValidator(validator);
@@ -320,11 +320,10 @@ void SettingsDlg::initialize_raw_bindings()
 
         if (binding.captureButton)
         {
-            auto* bindingPtr = &binding;
             connect(binding.captureButton,
                     &QPushButton::clicked,
                     this,
-                    [this, bindingPtr]() { start_axis_capture(bindingPtr); });
+                    [this, idx]() { start_axis_capture(&m_rawAxisBindings[idx]); });
         }
     }
 
@@ -359,7 +358,6 @@ void SettingsDlg::initialize_raw_bindings()
     connectMirror(ui->checkBox_raw_axis_right_x_invert, ui->checkBox_invert_r_axis);
     connectMirror(ui->checkBox_raw_axis_right_y_invert, ui->checkBox_invert_z_axis);
 
-    m_rawStatusLabel = ui->label_raw_status;
     update_raw_status(tr("Press Capture to record a button or axis code."));
 }
 
@@ -521,9 +519,9 @@ void SettingsDlg::cancel_raw_capture()
 
 void SettingsDlg::update_raw_status(const QString& message)
 {
-    if (m_rawStatusLabel)
+    if (ui && ui->label_raw_status)
     {
-        m_rawStatusLabel->setText(message);
+        ui->label_raw_status->setText(message);
     }
 }
 
@@ -1023,7 +1021,6 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
         ui->lineEdit_fixedsize_height->setText("0");
     }
 }
-
 void SettingsDlg::on_raw_capture_timeout()
 {
     switch (m_captureMode)
