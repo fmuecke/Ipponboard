@@ -690,7 +690,13 @@ QJsonDocument MainWindowTeam::CreateTournamentSaveFile_()
 	saveObject.insert("Guest", m_pUi->comboBox_club_guest->currentText());
 	saveObject.insert("CurrentRound", m_pController->GetCurrentRound());
 	saveObject.insert("CurrentFight", m_pController->GetCurrentFight());
-
+	saveObject.insert("FgColorInfoText", (int)MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb());
+	saveObject.insert("BgColorInfoText", (int)MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb());
+	saveObject.insert("FgColorFirst", (int)MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb());
+	saveObject.insert("BgColorFirst", (int)MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb());
+	saveObject.insert("FgColorSecond", (int)MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb());
+	saveObject.insert("BgColorSecond", (int)MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb());
+	
 	TournamentMode curmodeinfo;
 	for (TournamentMode m : m_modes) if (m.id == m_currentMode) curmodeinfo = m;
 	tmodeobj.insert("ID", curmodeinfo.id);
@@ -856,6 +862,10 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 
 	m_pController->SetCurrentRound(saveobject["CurrentRound"].toInt());
 	m_pController->SetCurrentFight(saveobject["CurrentFight"].toInt());
+
+	MainWindowBase::update_info_text_color(QColor::fromRgba(QRgb(saveobject["FgColorInfoText"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorInfoText"].toInt())));
+	MainWindowBase::update_text_color_first(QColor::fromRgba(QRgb(saveobject["FgColorFirst"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorFirst"].toInt())));
+	MainWindowBase::update_text_color_second(QColor::fromRgba(QRgb(saveobject["FgColorSecond"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorSecond"].toInt())));
 
 	return 0;
 }
