@@ -1083,8 +1083,8 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location line="+1"/>
-    <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. If you want to try to load this file anyway, open it with an editor and set the FileVersion to \"1.0\".</source>
-        <translation>Diese Datei wurde mit einer neueren Version von Ipponboard gespeichert und könnte nicht kompatibel sein. Wenn Sie diese Datei trotzdem laden möchten, öffnen Sie diese im Editor und setzen Sie die FileVersion auf \"1.0\".</translation>
+    <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!</source>
+        <translation>Diese Datei wurde mit einer neueren Version von Ipponboard gespeichert und könnte nicht kompatibel sein. Möchten Sie diese Datei trotzdem laden? Das könnte zu einem korruptem Zustand führen!</translation>
     </message>
     <message>
         <location line="+1"/>

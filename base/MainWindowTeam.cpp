@@ -86,7 +86,7 @@ void MainWindowTeam::LoadModes(Ipponboard::TournamentMode::List modes, QString s
 	{
 		m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
 	}
-
+	
 	initialized = true;
 
 	auto index = m_pUi->comboBox_mode->findData(QVariant(selectedMode));
@@ -177,7 +177,7 @@ void MainWindowTeam::Init()
 
 	//m_pUi->button_pause->click();	// we start with pause!
 
-	m_saveFilePath = QDir::currentPath() + "/autosave.json";
+	m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
 	update_window_title();
 }
 
@@ -186,7 +186,7 @@ void MainWindowTeam::update_window_title()
 	setWindowTitle(
 		QCoreApplication::applicationName() + " v" +
 		QCoreApplication::applicationVersion() +
-		(m_saveFilePath == QDir::currentPath() + "/autosave.json" ? "" : " - " + m_saveFilePath.split("/").last()));
+		(m_saveFilePath == QDir::homePath() + "/" + AUTOSAVE_FILENAME ? "" : " - " + QFileInfo(m_saveFilePath).fileName()));
 }
 
 void MainWindowTeam::UpdateGoldenScoreView()
@@ -676,13 +676,13 @@ void MainWindowTeam::WriteScoreToHtml_()
     m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
 }
 
-QJsonDocument MainWindowTeam::CreateTournamentSaveFile_()
+QJsonDocument MainWindowTeam::CreateTournamentSaveFile_() const
 {
 	QJsonObject saveObject = QJsonObject();
 	QJsonObject tmodeobj = QJsonObject();
 
 	//bump file version number after making changes to the save file structure and make sure to have as much compatibility to prev versions as possible
-	saveObject.insert("FileVersion", "1.0");
+	saveObject.insert("FileVersion", SAVEFILE_VERSION);
 	saveObject.insert("Host", m_pUi->comboBox_club_host->currentText());
 	saveObject.insert("Date", m_pUi->dateEdit->text());
 	saveObject.insert("Location", m_pUi->lineEdit_location->text());
@@ -752,20 +752,18 @@ QJsonDocument MainWindowTeam::CreateTournamentSaveFile_()
 	}
 	saveObject.insert("Rounds", tournamentarr);
 	
-	QJsonDocument doc = QJsonDocument();
-	doc.setObject(saveObject);
+	QJsonDocument doc = QJsonDocument(saveObject);
 
 	return doc;
 }
 
-int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
+int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
 {
 	QJsonObject saveobject = doc.object();
 
 	//bump file version number after making changes to the save file structure and make sure to have as much compatibility to prev versions as possible
-	if (saveobject["FileVersion"].toString() != "1.0")
+	if (saveobject["FileVersion"].toString() != SAVEFILE_VERSION && !loadWithIncompatibleVersion)
 	{
-		
 		return 1;
 	}
 	
@@ -787,10 +785,10 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 	m_pUi->comboBox_club_guest->setCurrentText(saveobject["Guest"].toString());
 
 	QJsonObject tmodeobj = saveobject["TournamentMode"].toObject();
-	TournamentMode* curmode = nullptr;
-	for (TournamentMode mode : m_modes) if (mode.id == tmodeobj["ID"].toString()) curmode = &mode;
+	auto curmode = std::find_if(m_modes.begin(), m_modes.end(),
+		[&](const TournamentMode& m) {return m.id == tmodeobj["ID"].toString(); });
 
-	if (curmode != nullptr &&
+	if (curmode != m_modes.end() &&
 		curmode->listTemplate == tmodeobj[curmode->str_Template].toString() &&
 		curmode->weights == tmodeobj[curmode->str_Weights].toString() &&
 		curmode->weightsAreDoubled == tmodeobj[curmode->str_WeightsAreDoubled].toString() &&
@@ -813,8 +811,8 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 		newmode.listTemplate = tmodeobj[newmode.str_Template].toString();
 		newmode.weights = tmodeobj[newmode.str_Weights].toString();
 		newmode.weightsAreDoubled = tmodeobj[newmode.str_WeightsAreDoubled].toBool();
-		newmode.nRounds = tmodeobj[newmode.str_Rounds].toInt();
-		newmode.fightTimeInSeconds = tmodeobj[newmode.str_FightTimeInSeconds].toInt();
+		newmode.nRounds = qBound(0, tmodeobj[newmode.str_Rounds].toInt(), 10);
+		newmode.fightTimeInSeconds = qBound(0, tmodeobj[newmode.str_FightTimeInSeconds].toInt(), 3600);
 		newmode.ExtractFightTimeOverrides(tmodeobj[newmode.str_FightTimeOverrides].toString(), newmode.fightTimeOverrides);
 		newmode.rules = tmodeobj[newmode.str_Rules].toString();
 		newmode.options = tmodeobj[newmode.str_Options].toString();
@@ -833,35 +831,35 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 			QJsonObject fightobj = roundarr.at(fightnr).toObject();
 			Fight newfight = Fight();
 			newfight.weight = fightobj["Weight"].toString();
-			newfight.SetSecondsElapsed(fightobj["SecondsElapsed"].toInt());
-			newfight.SetRoundTime(fightobj["RoundTimeSeconds"].toInt());
+			newfight.SetSecondsElapsed(qBound(0, fightobj["SecondsElapsed"].toInt(), 3600));
+			newfight.SetRoundTime(qBound(0, fightobj["RoundTimeSeconds"].toInt(), 3600));
 			newfight.SetGoldenScore(fightobj["IsGoldenScore"].toBool());
 			newfight.is_saved = fightobj["IsSaved"].toBool();
 
 			QJsonObject fighter1obj = fightobj["FirstFighter"].toObject();
 			newfight.fighters[0].name = fighter1obj["Name"].toString();
 			newfight.fighters[0].club = fighter1obj["Club"].toString();
-			newfight.GetScore1().SetValue(Score::Point::Ippon, fighter1obj["Ippon"].toInt());
-			newfight.GetScore1().SetValue(Score::Point::Wazaari, fighter1obj["Wazaari"].toInt());
-			newfight.GetScore1().SetValue(Score::Point::Yuko, fighter1obj["Yuko"].toInt());
-			newfight.GetScore1().SetValue(Score::Point::Shido, fighter1obj["Shido"].toInt());
-			newfight.GetScore1().SetValue(Score::Point::Hansokumake, fighter1obj["Hansokumake"].toInt());
+			newfight.GetScore1().SetValue(Score::Point::Ippon, qBound(0, fighter1obj["Ippon"].toInt(), 1));
+			newfight.GetScore1().SetValue(Score::Point::Wazaari, qBound(0, fighter1obj["Wazaari"].toInt(), 100));
+			newfight.GetScore1().SetValue(Score::Point::Yuko, qBound(0, fighter1obj["Yuko"].toInt(), 100));
+			newfight.GetScore1().SetValue(Score::Point::Shido, qBound(0, fighter1obj["Shido"].toInt(), 4));
+			newfight.GetScore1().SetValue(Score::Point::Hansokumake, qBound(0, fighter1obj["Hansokumake"].toInt(), 1));
 
 			QJsonObject fighter2obj = fightobj["SecondFighter"].toObject();
 			newfight.fighters[1].name = fighter2obj["Name"].toString();
 			newfight.fighters[1].club = fighter2obj["Club"].toString();
-			newfight.GetScore2().SetValue(Score::Point::Ippon, fighter2obj["Ippon"].toInt());
-			newfight.GetScore2().SetValue(Score::Point::Wazaari, fighter2obj["Wazaari"].toInt());
-			newfight.GetScore2().SetValue(Score::Point::Yuko, fighter2obj["Yuko"].toInt());
-			newfight.GetScore2().SetValue(Score::Point::Shido, fighter2obj["Shido"].toInt());
-			newfight.GetScore2().SetValue(Score::Point::Hansokumake, fighter2obj["Hansokumake"].toInt());
+			newfight.GetScore2().SetValue(Score::Point::Ippon, qBound(0, fighter2obj["Ippon"].toInt(), 1));
+			newfight.GetScore2().SetValue(Score::Point::Wazaari, qBound(0, fighter2obj["Wazaari"].toInt(), 100));
+			newfight.GetScore2().SetValue(Score::Point::Yuko, qBound(0, fighter2obj["Yuko"].toInt(), 100));
+			newfight.GetScore2().SetValue(Score::Point::Shido, qBound(0, fighter2obj["Shido"].toInt(), 4));
+			newfight.GetScore2().SetValue(Score::Point::Hansokumake, qBound(0, fighter2obj["Hansokumake"].toInt(), 100));
 
 			m_pController->SetFight(roundnr, fightnr, newfight);
 		}
 	}
 
-	m_pController->SetCurrentRound(saveobject["CurrentRound"].toInt());
-	m_pController->SetCurrentFight(saveobject["CurrentFight"].toInt());
+	m_pController->SetCurrentRound(qBound(0, saveobject["CurrentRound"].toInt(), 100));
+	m_pController->SetCurrentFight(qBound(0, saveobject["CurrentFight"].toInt(), 100));
 
 	MainWindowBase::update_info_text_color(QColor::fromRgba(QRgb(saveobject["FgColorInfoText"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorInfoText"].toInt())));
 	MainWindowBase::update_text_color_first(QColor::fromRgba(QRgb(saveobject["FgColorFirst"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorFirst"].toInt())));
@@ -872,18 +870,25 @@ int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc)
 
 void MainWindowTeam::on_actionNew_triggered()
 {
-	m_saveFilePath = QDir::currentPath() + "/autosave.json";
+	if (QMessageBox::question(
+		this,
+		tr("Discard tournament?"),
+		tr("This will discard any unsaved changes from your current tournament. Proceed?"),
+		QMessageBox::Yes,
+		QMessageBox::No) == QMessageBox::No) return;
+
+	m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
 	update_window_title();
 	on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
 }
 
 void MainWindowTeam::on_actionSave_File_triggered()
 {
-	if (m_saveFilePath == QDir::currentPath() + "/autosave.json")
+	if (m_saveFilePath == QDir::homePath() + "/" + AUTOSAVE_FILENAME)
 	{
 		QString fileName = QFileDialog::getSaveFileName(this,
 			tr("Save file as..."),
-			tr("autosave"),
+			m_saveFilePath,
 			tr("JSON File (*.json)"));
 		if (fileName == "") return;
 		m_saveFilePath = fileName;
@@ -891,7 +896,7 @@ void MainWindowTeam::on_actionSave_File_triggered()
 	}
 	QFile file = QFile(m_saveFilePath);
 	QJsonDocument doc = CreateTournamentSaveFile_();
-	if (file.open(QIODevice::ReadWrite) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
 	{
 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
 	}
@@ -907,14 +912,14 @@ void MainWindowTeam::on_actionSave_File_As_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
 		tr("Save file to..."),
-		tr("autosave"),
+		m_saveFilePath,
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
 
 	QFile file = QFile(fileName);
 	QJsonDocument doc = CreateTournamentSaveFile_();
-	if (file.open(QIODevice::ReadWrite) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
 	{
 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
 	}
@@ -930,7 +935,7 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
 		tr("Open file..."),
-		tr("autosave"),
+		m_saveFilePath,
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
@@ -955,13 +960,32 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 
 	QJsonParseError err;
 	QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8(), &err);
-	if (err.error) QMessageBox::information(this, "Error while parsing JSON!", err.errorString());
-	switch (ParseTournamentSaveFile_(doc))
+	if (err.error)
 	{
-	case 1:
-		QMessageBox::warning(this, tr("File Version mismatch"), tr("This file was saved with a newer version of Ipponboard and may not be compatible with this version. If you want to try to load this file anyway, open it with an editor and set the FileVersion to \"1.0\"."));
-		break;
+		QMessageBox::warning(this, tr("Error while parsing JSON!"), err.errorString());
+		return;
+	}
+	int result = ParseTournamentSaveFile_(doc);
 
+	if (result == 1)
+	{
+		if (QMessageBox::question(
+			this,
+			tr("File Version mismatch"),
+			tr("This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!"),
+			QMessageBox::Yes,
+			QMessageBox::No) == QMessageBox::Yes)
+		{
+			result = ParseTournamentSaveFile_(doc, true);
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	switch (result)
+	{
 	case 0:
 		m_saveFilePath = fileName;
 		update_window_title();
@@ -970,6 +994,10 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 
 	default:
 		QMessageBox::warning(this, tr("Error!"), tr("Error while parsing data!"));
+		// reset in case of corrupted state after error
+		m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
+		update_window_title();
+		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
 		break;
 	}
 }
@@ -1121,19 +1149,24 @@ void MainWindowTeam::on_button_prev_clicked()
 
 	m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
-
-	// in a try catch to keep the app running just in case saving fails
-	try
+	
+	QFile file = QFile(m_saveFilePath);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		QFile file = QFile(m_saveFilePath);
-		file.open(QIODevice::ReadWrite);
-		file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
-		file.flush();
+		qint64 bytes = file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
+		if (bytes > 0)
+		{
+			qDebug() << "Autosave successful:" << m_saveFilePath;
+		}
+		else
+		{
+			qWarning() << "Autosave failed: write error";
+		}
 		file.close();
 	}
-	catch (...)
+	else
 	{
-
+		qWarning() << "Autosave failed:" << file.errorString();
 	}
 }
 
@@ -1154,18 +1187,24 @@ void MainWindowTeam::on_button_next_clicked()
 	// reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 
-	// in a try catch to keep the app running just in case saving fails
-	try
+	
+	QFile file = QFile(m_saveFilePath);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		QFile file = QFile(m_saveFilePath);
-		file.open(QIODevice::ReadWrite);
-		file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
-		file.flush();
+		qint64 bytes = file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
+		if (bytes > 0)
+		{
+			qDebug() << "Autosave successful:" << m_saveFilePath;
+		}
+		else
+		{
+			qWarning() << "Autosave failed: write error";
+		}
 		file.close();
 	}
-	catch (...)
+	else
 	{
-
+		qWarning() << "Autosave failed:" << file.errorString();
 	}
 }
 

@@ -23,6 +23,9 @@ class MainWindowTeam : public MainWindowBase
 {
 	Q_OBJECT
 public:
+	const QString AUTOSAVE_FILENAME = "ipponboard_autosave.json";
+	const QString SAVEFILE_VERSION = "1.0";
+
 	explicit MainWindowTeam(QWidget* parent = nullptr);
 	virtual ~MainWindowTeam();
 
@@ -64,8 +67,8 @@ private:
 	void UpdateButtonText_();
 	void update_score_screen();
 	void WriteScoreToHtml_();
-	QJsonDocument CreateTournamentSaveFile_();
-	int ParseTournamentSaveFile_(QJsonDocument& save);
+	QJsonDocument CreateTournamentSaveFile_() const;
+	int ParseTournamentSaveFile_(QJsonDocument& save, bool loadWithIncompatibleVersion = false);
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
 	//void update_fighter_name_completer(const QString& weight);
