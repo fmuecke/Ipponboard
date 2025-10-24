@@ -142,7 +142,9 @@ function Build-and-run-tests {
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
 
+    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     $success = Run-Tests
+    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     return $success
 }
 
@@ -151,7 +153,9 @@ function Build-ALL {
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
+    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     $success = Run-Tests
+    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     if (-not $success) { return $false }
 
     $success = Build-Doc
