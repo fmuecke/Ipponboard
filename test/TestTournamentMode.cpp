@@ -4,7 +4,7 @@
 
 #include "../core/TournamentMode.cpp"
 #include "../core/TournamentMode.h"
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 #include "TestDataPath.h"
 
 #include <QDir>

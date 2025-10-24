@@ -1,4 +1,4 @@
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 #include "ControllerTestHelpers.h"
 
 using namespace Ipponboard;

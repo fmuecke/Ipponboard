@@ -2,9 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "catch2/catch.hpp"
-
 #include "../base/RawInputCapture.h"
+#include "../util/catch2/catch_amalgamated.hpp"
 
 #include <algorithm>
 #include <array>
@@ -87,10 +86,7 @@ struct FakeAxisGamepad
         return m_current[static_cast<std::size_t>(axis)];
     }
 
-    std::optional<int> RawAxisCode(GamepadLib::EAxis axis) const
-    {
-        return static_cast<int>(axis);
-    }
+    std::optional<int> RawAxisCode(GamepadLib::EAxis axis) const { return static_cast<int>(axis); }
 
   private:
     std::vector<AxisValues> m_states;

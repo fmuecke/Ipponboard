@@ -41,6 +41,7 @@ set(SOURCES
     TestStateMachine.cpp
     TestTournamentModel.cpp
     TestView.cpp
+    ../util/catch2/catch_amalgamated.cpp
 )
 
 set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)

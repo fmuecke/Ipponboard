@@ -4,7 +4,7 @@
 
 #include "../base/OnlineVersionChecker.cpp"
 #include "../base/OnlineVersionChecker.h"
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 #include "TestDataPath.h"
 #include "TestQtApp.h"
 
@@ -15,16 +15,6 @@
 #include <chrono>
 #include <cstdlib>
 #include <string>
-
-#ifndef SKIP
-// Provide Catch2-like SKIP macro support for the bundled Catch version.
-#define SKIP(message)                                                                              \
-    do                                                                                             \
-    {                                                                                              \
-        WARN(message);                                                                             \
-        return;                                                                                    \
-    } while (false)
-#endif
 
 namespace
 {
@@ -53,7 +43,7 @@ void skip_unless_network_enabled()
     }
     else
     {
-        WARN("Network tests enabled.");
+        INFO("Network tests enabled.");
     }
 }
 } // namespace
