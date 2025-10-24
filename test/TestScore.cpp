@@ -6,7 +6,7 @@
 #include "../core/Fight.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 
 #include <iostream>
 

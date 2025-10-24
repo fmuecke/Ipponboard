@@ -4,7 +4,7 @@
 
 #include "../base/InputBindingResolver.h"
 #include "../gamepad/GamepadTypes.h"
-#include "catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 
 using Ipponboard::ResolveRawFirst;
 

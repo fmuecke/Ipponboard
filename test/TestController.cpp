@@ -1,6 +1,6 @@
 #include "../core/Enums.h"
 #include "../core/Rules.h"
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 #include "ControllerTestHelpers.h"
 
 #include <QStringList>

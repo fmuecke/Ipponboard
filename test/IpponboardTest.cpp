@@ -3,7 +3,7 @@
 // found in the LICENSE.txt file.
 
 #define CATCH_CONFIG_MAIN
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 
 /*
 int main(int argc, char *argv[])

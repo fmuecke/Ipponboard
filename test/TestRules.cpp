@@ -5,7 +5,7 @@
 #include "../core/Enums.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
-#include "../util/catch2/catch.hpp"
+#include "../util/catch2/catch_amalgamated.hpp"
 //#include "../core/Fight.h"
 
 #include <iostream>
@@ -56,12 +56,12 @@ TEST_CASE("[Rules] 2025: osaekomi values")
 {
     auto rules = std::make_shared<Rules2025>();
 
-    INFO("ippon is gained after 20 seconds")
+    INFO("ippon is gained after 20 seconds");
     REQUIRE(rules->GetOsaekomiValue(Score::Point::Ippon) == 20);
 
-    INFO("wazaari is gained after 10 seconds")
+    INFO("wazaari is gained after 10 seconds");
     REQUIRE(rules->GetOsaekomiValue(Score::Point::Wazaari) == 10);
 
-    INFO("yuko is gained after 5 seconds")
+    INFO("yuko is gained after 5 seconds");
     REQUIRE(rules->GetOsaekomiValue(Score::Point::Yuko) == 5);
 }
