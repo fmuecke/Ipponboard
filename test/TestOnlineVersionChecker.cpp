@@ -10,10 +10,57 @@
 
 #include <QCoreApplication>
 #include <QString>
-#include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <chrono>
+#include <cstdlib>
+#include <string>
 
-TEST_CASE("[OnlineVersionChecker] get online version document (github json)")
+#ifndef SKIP
+// Provide Catch2-like SKIP macro support for the bundled Catch version.
+#define SKIP(message)                                                                              \
+    do                                                                                             \
+    {                                                                                              \
+        WARN(message);                                                                             \
+        return;                                                                                    \
+    } while (false)
+#endif
+
+namespace
 {
+[[nodiscard]] bool network_tests_enabled()
+{
+    const char* const rawValue = std::getenv("IPPONBOARD_ENABLE_NETWORK_TESTS");
+    if (rawValue == nullptr || *rawValue == '\0')
+    {
+        return false;
+    }
+
+    std::string value(rawValue);
+    std::transform(value.begin(),
+                   value.end(),
+                   value.begin(),
+                   [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+
+    return value != "0" && value != "false" && value != "off" && value != "no";
+}
+
+void skip_unless_network_enabled()
+{
+    if (!network_tests_enabled())
+    {
+        SKIP("Network tests disabled; set IPPONBOARD_ENABLE_NETWORK_TESTS to enable.");
+    }
+    else
+    {
+        WARN("Network tests enabled.");
+    }
+}
+} // namespace
+
+TEST_CASE("[OnlineVersionChecker] get online version document (github json)", "[network]")
+{
+    skip_unless_network_enabled();
     ensure_qt_app();
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -44,8 +91,9 @@ TEST_CASE("[OnlineVersionChecker] parse version document (github json)")
     REQUIRE_FALSE(versionInfo.downloadUrl.isEmpty());
 }
 
-TEST_CASE("[OnlineVersionChecker] parse online version document (github json)")
+TEST_CASE("[OnlineVersionChecker] parse online version document (github json)", "[network]")
 {
+    skip_unless_network_enabled();
     ensure_qt_app();
 
     auto versionInfo = OnlineVersionChecker::parse_version_document(

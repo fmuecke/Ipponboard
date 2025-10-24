@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
+option(IPPONBOARD_ENABLE_NETWORK_TESTS "Enable tests requiring network access" OFF)
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
     include(InstallRequiredSystemLibraries)
