@@ -92,10 +92,12 @@ enum EButton : uint8_t
 namespace Constants
 {
 static constexpr unsigned MaxButtons = 40;
+static constexpr unsigned PovCodeBase = 50000;
+static constexpr unsigned PovCodeCount = 8;
 static constexpr unsigned MaxAngle = 65535;
 static constexpr unsigned MidAngle = 32767;
 static constexpr unsigned ToleranceVal = 100;
-static constexpr unsigned PovCenteredVal = 0xFFFF;
+static constexpr unsigned PovCenteredVal = 65535;
 } // namespace Constants
 
 } // namespace GamepadLib

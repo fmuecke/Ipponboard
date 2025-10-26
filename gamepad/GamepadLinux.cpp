@@ -31,6 +31,31 @@ const std::array<std::uint16_t, 8> kPovButtonCodes = {
     static_cast<std::uint16_t>(Gamepad::ButtonCode(EButton::button_pov_left_fwd))
 };
 
+std::optional<std::uint16_t> encodePovButton(unsigned pov)
+{
+    switch (pov)
+    {
+    case 0:
+        return Gamepad::ButtonCode(EButton::button_pov_fwd);
+    case 9000:
+        return Gamepad::ButtonCode(EButton::button_pov_right);
+    case 18000:
+        return Gamepad::ButtonCode(EButton::button_pov_back);
+    case 27000:
+        return Gamepad::ButtonCode(EButton::button_pov_left);
+    case 4500:
+        return Gamepad::ButtonCode(EButton::button_pov_right_fwd);
+    case 13500:
+        return Gamepad::ButtonCode(EButton::button_pov_right_back);
+    case 22500:
+        return Gamepad::ButtonCode(EButton::button_pov_left_back);
+    case 31500:
+        return Gamepad::ButtonCode(EButton::button_pov_left_fwd);
+    default:
+        return std::nullopt;
+    }
+}
+
 std::optional<std::string> findJoystickPath()
 {
     namespace fs = std::filesystem;
@@ -386,9 +411,9 @@ EGamepadState GamepadLinux::ReadData()
         m_buttons.erase(code);
     }
 
-    if (m_pov != Constants::PovCenteredVal)
+    if (const auto povCode = encodePovButton(m_pov))
     {
-        m_buttons.insert(static_cast<std::uint16_t>(m_pov));
+        m_buttons.insert(static_cast<std::uint16_t>(*povCode));
     }
 
     return m_state;
