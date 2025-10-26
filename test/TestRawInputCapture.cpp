@@ -201,3 +201,29 @@ SCENARIO("Raw input capture ignores unchanged or centered values")
         }
     }
 }
+
+SCENARIO("Raw input capture reports encoded POV button codes")
+{
+    using Capture = Ipponboard::BasicRawInputCapture<FakeGamepad>;
+
+    GIVEN("a new POV direction is emitted")
+    {
+        FakeGamepad gamepad;
+        gamepad.enqueue({});
+        gamepad.enqueue({ GamepadLib::Constants::PovCodeBase });
+
+        Capture capture(gamepad);
+        capture.Prime();
+
+        WHEN("polling after the POV change")
+        {
+            const auto value = capture.PollButton();
+
+            THEN("the encoded POV button is reported")
+            {
+                REQUIRE(value.has_value());
+                REQUIRE(*value == GamepadLib::Constants::PovCodeBase);
+            }
+        }
+    }
+}

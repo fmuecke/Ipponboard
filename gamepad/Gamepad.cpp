@@ -13,7 +13,36 @@
 
 namespace GamepadLib
 {
-static std::unique_ptr<GamepadBackend> make_default_backend()
+namespace
+{
+constexpr std::uint16_t encode_pov_button(EButton button) noexcept
+{
+    using Constants::PovCodeBase;
+
+    switch (button)
+    {
+    case EButton::button_pov_fwd:
+        return PovCodeBase + 0;
+    case EButton::button_pov_right:
+        return PovCodeBase + 1;
+    case EButton::button_pov_back:
+        return PovCodeBase + 2;
+    case EButton::button_pov_left:
+        return PovCodeBase + 3;
+    case EButton::button_pov_right_fwd:
+        return PovCodeBase + 4;
+    case EButton::button_pov_right_back:
+        return PovCodeBase + 5;
+    case EButton::button_pov_left_back:
+        return PovCodeBase + 6;
+    case EButton::button_pov_left_fwd:
+        return PovCodeBase + 7;
+    default:
+        return Constants::PovCenteredVal;
+    }
+}
+
+std::unique_ptr<GamepadBackend> make_default_backend()
 {
 #if defined(_WIN32)
     return std::make_unique<GamepadWin>();
@@ -21,27 +50,21 @@ static std::unique_ptr<GamepadBackend> make_default_backend()
     return std::make_unique<GamepadLinux>();
 #endif
 }
+} // namespace
 
 unsigned Gamepad::ButtonCode(EButton button)
 {
     switch (button)
     {
     case EButton::button_pov_fwd:
-        return 0;
     case EButton::button_pov_right:
-        return 9000;
     case EButton::button_pov_back:
-        return 18000;
     case EButton::button_pov_left:
-        return 27000;
     case EButton::button_pov_right_fwd:
-        return 4500;
     case EButton::button_pov_right_back:
-        return 13500;
     case EButton::button_pov_left_back:
-        return 22500;
     case EButton::button_pov_left_fwd:
-        return 31500;
+        return encode_pov_button(button);
     default:
         return static_cast<unsigned>(button);
     }
@@ -127,13 +150,6 @@ bool Gamepad::WasPressedRaw(std::uint16_t code) const
     const bool wasPressed = previous.find(code) != previous.end();
     const bool isPressed = current.find(code) != current.end();
 
-    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
-        code == 13500 || code == 22500 || code == 31500)
-    {
-        // POV codes are handled separately by comparing the POV angle
-        return m_impl->LastPov() != code && m_impl->Pov() == code;
-    }
-
     return !wasPressed && isPressed;
 }
 
@@ -149,12 +165,6 @@ bool Gamepad::WasReleasedRaw(std::uint16_t code) const
     const bool wasPressed = previous.find(code) != previous.end();
     const bool isPressed = current.find(code) != current.end();
 
-    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
-        code == 13500 || code == 22500 || code == 31500)
-    {
-        return m_impl->LastPov() == code && m_impl->Pov() != code;
-    }
-
     return wasPressed && !isPressed;
 }
 
@@ -163,12 +173,6 @@ bool Gamepad::IsPressedRaw(std::uint16_t code) const
     if (code == Constants::PovCenteredVal)
     {
         return false;
-    }
-
-    if (code == 0 || code == 9000 || code == 18000 || code == 27000 || code == 4500 ||
-        code == 13500 || code == 22500 || code == 31500)
-    {
-        return m_impl->Pov() == code;
     }
 
     const auto& current = m_impl->CurrentButtons();
