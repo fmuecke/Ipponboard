@@ -131,8 +131,10 @@ function Run-Tests {
         return $false
     }
     Set-Location $TEST_BIN_DIR
+    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
+    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     Set-Location -Path $PSScriptRoot
     return $success
 }
@@ -141,10 +143,7 @@ function Build-and-run-tests {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
-
-    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     $success = Run-Tests
-    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     return $success
 }
 
@@ -153,9 +152,7 @@ function Build-ALL {
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
-    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     $success = Run-Tests
-    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     if (-not $success) { return $false }
 
     $success = Build-Doc
