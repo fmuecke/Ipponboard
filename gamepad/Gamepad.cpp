@@ -253,20 +253,6 @@ unsigned char Gamepad::GetLastSection(EAxis axis1, EAxis axis2) const
     return GetMappedSection(lastX, lastY);
 }
 
-float Gamepad::GetAngle(int x, int y)
-{
-    const auto hypotenuse = std::sqrt(x * x + y * y);
-    constexpr float pi = 3.14159265358979323846f;
-    float angle = std::asin(y / hypotenuse) * 180.0L / pi;
-    angle = x > 0 ? 90.0f - angle : 270.0f + angle;
-
-    if (angle >= 360.0f)
-    {
-        return 0.0f;
-    }
-    return angle;
-}
-
 int Gamepad::PressedCount() const { return static_cast<int>(m_impl->CurrentButtons().size()); }
 
 unsigned Gamepad::applyInversion(EAxis axis, unsigned value) const

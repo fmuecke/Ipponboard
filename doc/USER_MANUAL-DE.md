@@ -309,7 +309,7 @@ Für den weißen Kämpfer sind die Richtungen einfach spiegelverkehrt.
 > werden.
 > 
 > *Tipp:* Um herauszufinden, wie das jeweilige Gampad ausgerichtet ist, kann
-> man das mitgelieferte Programm `GamepadDemo.exe` verwenden. Dort sieht man, 
+> man dies über den Dignostic-Button in den Eigenschaften herausfinden. Dort sieht man, 
 > wie die jeweiligen Achsen ausgerichtet sind und wie die Knöpfe intern
 > nummeriert sind.
 
