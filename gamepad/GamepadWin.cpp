@@ -100,7 +100,7 @@ UnsignedPair GamepadWin::AxisRange(EAxis axis) const
     case EAxis::V:
         return { caps.wVmin, caps.wVmax };
     default:
-        return { 0u, Constants::MaxAngle };
+        return { 0u, Constants::MaxPos };
     }
 }
 
