@@ -68,17 +68,9 @@ class Gamepad
     unsigned GetNumButtons() const;
     unsigned GetNumAxes() const;
     UnsignedPair GetPollingFreq() const;
-    UnsignedPair GetRangeX() const;
-    UnsignedPair GetRangeY() const;
-    UnsignedPair GetRangeZ() const;
-    UnsignedPair GetRangeR() const;
-    UnsignedPair GetRangeU() const;
-    UnsignedPair GetRangeV() const;
+    UnsignedPair GetRange(EAxis axis) const;
 
-    bool HasAxisZ() const;
-    bool HasAxisR() const;
-    bool HasAxisU() const;
-    bool HasAxisV() const;
+    bool HasAxis(EAxis axis) const;
 
     EPovType GetPovType() const;
 
@@ -94,24 +86,15 @@ class Gamepad
     const std::unordered_set<std::uint16_t>& CurrentButtons() const;
     const std::unordered_set<std::uint16_t>& PreviousButtons() const;
 
-    bool WasSectionEnteredXY(float min, float max) const;
-    bool WasSectionEnteredRZ(float min, float max) const;
-    bool WasSectionLeft(float min, float max) const;
-    bool IsInSection(float alpha, float min, float max) const;
+    static unsigned char GetMappedSection(int x, int y);
+    unsigned char GetSection(EAxis axis1, EAxis axis2) const;
+    unsigned char GetLastSection(EAxis axis1, EAxis axis2) const;
 
-    template <class T> T GetAngle(int x, int y, float factor = 0.0f, int max = 0) const;
-
-    float GetAngleXY() const;
-    float GetAngleRZ() const;
+    static float GetAngle(int x, int y);
 
     int PressedCount() const;
 
-    unsigned GetXPos() const;
-    unsigned GetYPos() const;
-    unsigned GetZPos() const;
-    unsigned GetRPos() const;
-    unsigned GetUPos() const;
-    unsigned GetVPos() const;
+    unsigned GetPos(EAxis axis) const;
     unsigned GetPOV() const;
     unsigned AxisValueRaw(EAxis axis) const;
     unsigned LastAxisValueRaw(EAxis axis) const;
@@ -133,24 +116,5 @@ class Gamepad
     std::unique_ptr<GamepadBackend> m_impl;
     std::bitset<EAxis::MaxValue> m_invertedAxes{};
 };
-
-template <class T> inline T Gamepad::GetAngle(int x, int y, float factor, int max) const
-{
-    if (x == 0 && y == 0)
-    {
-        return static_cast<T>(-1);
-    }
-
-    const auto hyp = std::sqrt(static_cast<T>(x) * x + static_cast<T>(y) * y);
-
-    if (hyp * factor < static_cast<float>(max))
-    {
-        return static_cast<T>(-1);
-    }
-
-    T angle = std::asin(static_cast<T>(y) / hyp) * static_cast<T>(180.0L / 3.141592653589793L);
-    angle = x > 0 ? static_cast<T>(90) - angle : static_cast<T>(270) + angle;
-    return angle;
-}
 
 } // namespace GamepadLib

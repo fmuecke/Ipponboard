@@ -97,25 +97,9 @@ unsigned Gamepad::GetNumAxes() const { return m_impl->NumAxes(); }
 
 UnsignedPair Gamepad::GetPollingFreq() const { return m_impl->PollingFrequency(); }
 
-UnsignedPair Gamepad::GetRangeX() const { return m_impl->AxisRange(EAxis::X); }
+UnsignedPair Gamepad::GetRange(EAxis axis) const { return m_impl->AxisRange(axis); }
 
-UnsignedPair Gamepad::GetRangeY() const { return m_impl->AxisRange(EAxis::Y); }
-
-UnsignedPair Gamepad::GetRangeZ() const { return m_impl->AxisRange(EAxis::Z); }
-
-UnsignedPair Gamepad::GetRangeR() const { return m_impl->AxisRange(EAxis::R); }
-
-UnsignedPair Gamepad::GetRangeU() const { return m_impl->AxisRange(EAxis::U); }
-
-UnsignedPair Gamepad::GetRangeV() const { return m_impl->AxisRange(EAxis::V); }
-
-bool Gamepad::HasAxisZ() const { return m_impl->HasAxis(EAxis::Z); }
-
-bool Gamepad::HasAxisR() const { return m_impl->HasAxis(EAxis::R); }
-
-bool Gamepad::HasAxisU() const { return m_impl->HasAxis(EAxis::U); }
-
-bool Gamepad::HasAxisV() const { return m_impl->HasAxis(EAxis::V); }
+bool Gamepad::HasAxis(EAxis axis) const { return m_impl->HasAxis(axis); }
 
 EPovType Gamepad::GetPovType() const { return m_impl->PovType(); }
 
@@ -189,103 +173,108 @@ const std::unordered_set<std::uint16_t>& Gamepad::PreviousButtons() const
     return m_impl->PreviousButtons();
 }
 
-bool Gamepad::WasSectionEnteredXY(float min, float max) const
+unsigned char Gamepad::GetMappedSection(int x, int y)
 {
-    const auto lastX = static_cast<int>(applyInversion(EAxis::X, m_impl->LastAxisValue(EAxis::X)));
-    const auto lastY = static_cast<int>(applyInversion(EAxis::Y, m_impl->LastAxisValue(EAxis::Y)));
-    const auto curX = static_cast<int>(GetXPos());
-    const auto curY = static_cast<int>(GetYPos());
+    /* 
+        Sector layout, mapped to 8 sectors and 0 in between:
 
-    const auto lastAlpha = GetAngle<float>(lastX - static_cast<int>(Constants::MidAngle),
-                                           lastY - static_cast<int>(Constants::MidAngle),
-                                           1.02f,
-                                           Constants::MidAngle);
-    const auto curAlpha = GetAngle<float>(curX - static_cast<int>(Constants::MidAngle),
-                                          curY - static_cast<int>(Constants::MidAngle),
-                                          1.02f,
-                                          Constants::MidAngle);
+             6 6 . 7 7 7 . 8 8
+             6 6 . . 7 . . 8 8
+             . . . . . . . . .
+             4 . . . . . . . 5
+             4 4 . . 0 . . 5 5
+             4 . . . . . . . 5
+     y-axis  . . . . . . . . .
+        ^    1 1 . . 2 . . 3 3
+        |    1 1 . 2 2 2 . 3 3
+        |
+         ----->  x-axis
+    */
 
-    const bool changed =
-        (lastAlpha < 0.0f || curAlpha < 0.0f ||
-         std::fabs(lastAlpha - curAlpha) > static_cast<float>(Constants::ToleranceVal));
-    return changed && IsInSection(curAlpha, min, max);
+    // Lookup table for sectors based on 9x9 grid (stored as [x][y])
+    constexpr unsigned char SectorLUT[9][9] = {
+        { 1, 1, 0, 4, 4, 4, 0, 6, 6 }, { 1, 1, 0, 0, 4, 0, 0, 6, 6 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 2, 0, 0, 0, 0, 0, 0, 0, 7 }, { 2, 2, 0, 0, 0, 0, 0, 7, 7 }, { 2, 0, 0, 0, 0, 0, 0, 0, 7 },
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 3, 3, 0, 0, 5, 0, 0, 8, 8 }, { 3, 3, 0, 5, 5, 5, 0, 8, 8 }
+    };
+
+    constexpr auto max = Constants::MaxPos;
+    auto xVal = 0;
+    if (x > max * 8 / 9)
+        xVal = 8;
+    else if (x > max * 7 / 9)
+        xVal = 7;
+    else if (x > max * 6 / 9)
+        xVal = 6;
+    else if (x > max * 5 / 9)
+        xVal = 5;
+    else if (x > max * 4 / 9)
+        xVal = 4;
+    else if (x > max * 3 / 9)
+        xVal = 3;
+    else if (x > max * 2 / 9)
+        xVal = 2;
+    else if (x > max * 1 / 9)
+        xVal = 1;
+
+    auto yVal = 0;
+    if (y > max * 8 / 9)
+        yVal = 8;
+    else if (y > max * 7 / 9)
+        yVal = 7;
+    else if (y > max * 6 / 9)
+        yVal = 6;
+    else if (y > max * 5 / 9)
+        yVal = 5;
+    else if (y > max * 4 / 9)
+        yVal = 4;
+    else if (y > max * 3 / 9)
+        yVal = 3;
+    else if (y > max * 2 / 9)
+        yVal = 2;
+    else if (y > max * 1 / 9)
+        yVal = 1;
+
+    return SectorLUT[xVal][yVal];
 }
 
-bool Gamepad::WasSectionEnteredRZ(float min, float max) const
+unsigned char Gamepad::GetSection(EAxis axis1, EAxis axis2) const
 {
-    const auto lastR = static_cast<int>(applyInversion(EAxis::R, m_impl->LastAxisValue(EAxis::R)));
-    const auto lastZ = static_cast<int>(applyInversion(EAxis::Z, m_impl->LastAxisValue(EAxis::Z)));
-    const auto curR = static_cast<int>(GetRPos());
-    const auto curZ = static_cast<int>(GetZPos());
-
-    const auto lastAlpha = GetAngle<float>(lastR - static_cast<int>(Constants::MidAngle),
-                                           lastZ - static_cast<int>(Constants::MidAngle),
-                                           1.02f,
-                                           Constants::MidAngle);
-    const auto curAlpha = GetAngle<float>(curR - static_cast<int>(Constants::MidAngle),
-                                          curZ - static_cast<int>(Constants::MidAngle),
-                                          1.02f,
-                                          Constants::MidAngle);
-
-    const bool changed =
-        (lastAlpha < 0.0f || curAlpha < 0.0f ||
-         std::fabs(lastAlpha - curAlpha) > static_cast<float>(Constants::ToleranceVal));
-    return changed && IsInSection(curAlpha, min, max);
+    const auto x = static_cast<int>(GetPos(axis1));
+    const auto y = static_cast<int>(GetPos(axis2));
+    return GetMappedSection(x, y);
 }
 
-bool Gamepad::WasSectionLeft(float, float) const { return false; }
-
-bool Gamepad::IsInSection(float alpha, float min, float max) const
+unsigned char Gamepad::GetLastSection(EAxis axis1, EAxis axis2) const
 {
-    if (min > max)
+    const auto lastX = static_cast<int>(applyInversion(axis1, m_impl->LastAxisValue(axis1)));
+    const auto lastY = static_cast<int>(applyInversion(axis2, m_impl->LastAxisValue(axis2)));
+
+    return GetMappedSection(lastX, lastY);
+}
+
+float Gamepad::GetAngle(int x, int y)
+{
+    const auto hypotenuse = std::sqrt(x * x + y * y);
+    constexpr float pi = 3.14159265358979323846f;
+    float angle = std::asin(y / hypotenuse) * 180.0L / pi;
+    angle = x > 0 ? 90.0f - angle : 270.0f + angle;
+
+    if (angle >= 360.0f)
     {
-        if ((alpha >= min && alpha <= 360.0f) || (alpha > 0.0f && alpha <= max))
-        {
-            return true;
-        }
+        return 0.0f;
     }
-    else if (alpha >= min && alpha <= max)
-    {
-        return true;
-    }
-
-    return false;
-}
-
-float Gamepad::GetAngleXY() const
-{
-    return GetAngle<float>(static_cast<int>(GetXPos()) - static_cast<int>(Constants::MidAngle),
-                           static_cast<int>(GetYPos()) - static_cast<int>(Constants::MidAngle),
-                           1.2f,
-                           Constants::MidAngle);
-}
-
-float Gamepad::GetAngleRZ() const
-{
-    return GetAngle<float>(static_cast<int>(GetRPos()) - static_cast<int>(Constants::MidAngle),
-                           static_cast<int>(GetZPos()) - static_cast<int>(Constants::MidAngle),
-                           1.2f,
-                           Constants::MidAngle);
+    return angle;
 }
 
 int Gamepad::PressedCount() const { return static_cast<int>(m_impl->CurrentButtons().size()); }
 
 unsigned Gamepad::applyInversion(EAxis axis, unsigned value) const
 {
-    return m_invertedAxes.test(axis) ? Constants::MaxAngle - value : value;
+    return m_invertedAxes.test(axis) ? Constants::MaxPos - value : value;
 }
 
-unsigned Gamepad::GetXPos() const { return applyInversion(EAxis::X, m_impl->AxisValue(EAxis::X)); }
-
-unsigned Gamepad::GetYPos() const { return applyInversion(EAxis::Y, m_impl->AxisValue(EAxis::Y)); }
-
-unsigned Gamepad::GetZPos() const { return applyInversion(EAxis::Z, m_impl->AxisValue(EAxis::Z)); }
-
-unsigned Gamepad::GetRPos() const { return applyInversion(EAxis::R, m_impl->AxisValue(EAxis::R)); }
-
-unsigned Gamepad::GetUPos() const { return applyInversion(EAxis::U, m_impl->AxisValue(EAxis::U)); }
-
-unsigned Gamepad::GetVPos() const { return applyInversion(EAxis::V, m_impl->AxisValue(EAxis::V)); }
+unsigned Gamepad::GetPos(EAxis axis) const { return applyInversion(axis, m_impl->AxisValue(axis)); }
 
 unsigned Gamepad::GetPOV() const { return m_impl->Pov(); }
 

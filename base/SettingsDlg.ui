@@ -1113,6 +1113,16 @@
                 </widget>
               </item>
               <item>
+                <widget class="QPushButton" name="pushButton_test_raw_mapping">
+                  <property name="text">
+                    <string>Show pressed buttons</string>
+                  </property>
+                  <property name="checkable">
+                    <bool>true</bool>
+                  </property>
+                </widget>
+              </item>
+              <item>
                 <spacer name="verticalSpacer_raw">
                   <property name="orientation">
                     <enum>Qt::Vertical</enum>

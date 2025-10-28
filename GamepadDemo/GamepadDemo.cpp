@@ -61,9 +61,9 @@ void logGamepadDiagnostics(const GamepadLib::Gamepad& gamepad)
         }
     }
 
-    const auto axes =
-        std::array<unsigned, 6>{ gamepad.GetXPos(), gamepad.GetYPos(), gamepad.GetZPos(),
-                                 gamepad.GetRPos(), gamepad.GetUPos(), gamepad.GetVPos() };
+    const auto axes = std::array<unsigned, 6>{ gamepad.GetPos(EAxis::X), gamepad.GetPos(EAxis::Y),
+                                               gamepad.GetPos(EAxis::Z), gamepad.GetPos(EAxis::R),
+                                               gamepad.GetPos(EAxis::U), gamepad.GetPos(EAxis::V) };
     static std::array<unsigned, 6> s_lastAxes{ axes };
     QStringList axisChanges;
     for (std::size_t i = 0; i < axes.size(); ++i)
@@ -214,23 +214,23 @@ void GamepadDemo::UpdateCapabilities()
 
     vals.clear();
     vals.append("Range of X axis");
-    vals.append(QString::number(m_pGamepad->GetRangeX().first) + ".." +
-                QString::number(m_pGamepad->GetRangeX().second));
+    vals.append(QString::number(m_pGamepad->GetRange(EAxis::X).first) + ".." +
+                QString::number(m_pGamepad->GetRange(EAxis::X).second));
     ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
     vals.clear();
     vals.append("Range of Y axis");
-    vals.append(QString::number(m_pGamepad->GetRangeY().first) + ".." +
-                QString::number(m_pGamepad->GetRangeY().second));
+    vals.append(QString::number(m_pGamepad->GetRange(EAxis::Y).first) + ".." +
+                QString::number(m_pGamepad->GetRange(EAxis::Y).second));
     ui->treeWidget->addTopLevelItem(new QTreeWidgetItem(vals));
 
     vals.clear();
     vals.append("Range of Z axis");
 
-    if (m_pGamepad->HasAxisZ())
+    if (m_pGamepad->HasAxis(EAxis::Z))
     {
-        vals.append(QString::number(m_pGamepad->GetRangeZ().first) + ".." +
-                    QString::number(m_pGamepad->GetRangeZ().second));
+        vals.append(QString::number(m_pGamepad->GetRange(EAxis::Z).first) + ".." +
+                    QString::number(m_pGamepad->GetRange(EAxis::Z).second));
     }
     else
     {
@@ -242,10 +242,10 @@ void GamepadDemo::UpdateCapabilities()
     vals.clear();
     vals.append("Range of rudder axis");
 
-    if (m_pGamepad->HasAxisR())
+    if (m_pGamepad->HasAxis(EAxis::R))
     {
-        vals.append(QString::number(m_pGamepad->GetRangeR().first) + ".." +
-                    QString::number(m_pGamepad->GetRangeR().second));
+        vals.append(QString::number(m_pGamepad->GetRange(EAxis::R).first) + ".." +
+                    QString::number(m_pGamepad->GetRange(EAxis::R).second));
     }
     else
     {
@@ -257,10 +257,10 @@ void GamepadDemo::UpdateCapabilities()
     vals.clear();
     vals.append("Range of U axis");
 
-    if (m_pGamepad->HasAxisU())
+    if (m_pGamepad->HasAxis(EAxis::U))
     {
-        vals.append(QString::number(m_pGamepad->GetRangeU().first) + ".." +
-                    QString::number(m_pGamepad->GetRangeU().second));
+        vals.append(QString::number(m_pGamepad->GetRange(EAxis::U).first) + ".." +
+                    QString::number(m_pGamepad->GetRange(EAxis::U).second));
     }
     else
     {
@@ -272,10 +272,10 @@ void GamepadDemo::UpdateCapabilities()
     vals.clear();
     vals.append("Range of V axis");
 
-    if (m_pGamepad->HasAxisV())
+    if (m_pGamepad->HasAxis(EAxis::V))
     {
-        vals.append(QString::number(m_pGamepad->GetRangeV().first) + ".." +
-                    QString::number(m_pGamepad->GetRangeV().second));
+        vals.append(QString::number(m_pGamepad->GetRange(EAxis::V).first) + ".." +
+                    QString::number(m_pGamepad->GetRange(EAxis::V).second));
     }
     else
     {
@@ -315,34 +315,34 @@ void GamepadDemo::GetData()
 
     m_pSBarText->setText("controller found");
 
-    ui->horizontalSlider_z->setEnabled(m_pGamepad->HasAxisZ());
-    ui->horizontalSlider_r->setEnabled(m_pGamepad->HasAxisR());
-    ui->horizontalSlider_u->setEnabled(m_pGamepad->HasAxisU());
-    ui->horizontalSlider_v->setEnabled(m_pGamepad->HasAxisV());
-    ui->label_axis_z->setEnabled(m_pGamepad->HasAxisZ());
-    ui->label_axis_r->setEnabled(m_pGamepad->HasAxisR());
-    ui->label_axis_u->setEnabled(m_pGamepad->HasAxisU());
-    ui->label_axis_v->setEnabled(m_pGamepad->HasAxisV());
+    ui->horizontalSlider_z->setEnabled(m_pGamepad->HasAxis(EAxis::Z));
+    ui->horizontalSlider_r->setEnabled(m_pGamepad->HasAxis(EAxis::R));
+    ui->horizontalSlider_u->setEnabled(m_pGamepad->HasAxis(EAxis::U));
+    ui->horizontalSlider_v->setEnabled(m_pGamepad->HasAxis(EAxis::V));
+    ui->label_axis_z->setEnabled(m_pGamepad->HasAxis(EAxis::Z));
+    ui->label_axis_r->setEnabled(m_pGamepad->HasAxis(EAxis::R));
+    ui->label_axis_u->setEnabled(m_pGamepad->HasAxis(EAxis::U));
+    ui->label_axis_v->setEnabled(m_pGamepad->HasAxis(EAxis::V));
 
-    ui->horizontalSlider_x->setValue(m_pGamepad->GetXPos());
-    ui->horizontalSlider_y->setValue(m_pGamepad->GetYPos());
-    ui->horizontalSlider_z->setValue(m_pGamepad->GetZPos());
-    ui->horizontalSlider_r->setValue(m_pGamepad->GetRPos());
-    ui->horizontalSlider_u->setValue(m_pGamepad->GetUPos());
-    ui->horizontalSlider_v->setValue(m_pGamepad->GetVPos());
+    ui->horizontalSlider_x->setValue(m_pGamepad->GetPos(EAxis::X));
+    ui->horizontalSlider_y->setValue(m_pGamepad->GetPos(EAxis::Y));
+    ui->horizontalSlider_z->setValue(m_pGamepad->GetPos(EAxis::Z));
+    ui->horizontalSlider_r->setValue(m_pGamepad->GetPos(EAxis::R));
+    ui->horizontalSlider_u->setValue(m_pGamepad->GetPos(EAxis::U));
+    ui->horizontalSlider_v->setValue(m_pGamepad->GetPos(EAxis::V));
 
-    ui->lineEdit_x_axis->setText(QString::number(m_pGamepad->GetXPos()));
-    ui->lineEdit_y_axis->setText(QString::number(m_pGamepad->GetYPos()));
-    ui->lineEdit_z_axis->setText(QString::number(m_pGamepad->GetZPos()));
-    ui->lineEdit_r_axis->setText(QString::number(m_pGamepad->GetRPos()));
-    ui->lineEdit_u_axis->setText(QString::number(m_pGamepad->GetUPos()));
-    ui->lineEdit_v_axis->setText(QString::number(m_pGamepad->GetVPos()));
+    ui->lineEdit_x_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::X)));
+    ui->lineEdit_y_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::Y)));
+    ui->lineEdit_z_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::Z)));
+    ui->lineEdit_r_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::R)));
+    ui->lineEdit_u_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::U)));
+    ui->lineEdit_v_axis->setText(QString::number(m_pGamepad->GetPos(EAxis::V)));
     ui->lineEdit_pov->setText(QString::number(m_pGamepad->GetPOV()));
 
-    ui->lineEdit_degrees_1->setText(QString::number(m_pGamepad->GetAngleXY(), 'g', 3) +
-                                    QString::fromUtf8("°"));
-    ui->lineEdit_degrees_2->setText(QString::number(m_pGamepad->GetAngleRZ(), 'g', 3) +
-                                    QString::fromUtf8("°"));
+    ui->lineEdit_degrees_1->setText(
+        QString::number(m_pGamepad->GetAngle(EAxis::X, EAxis::Y), 'g', 3) + QString::fromUtf8("°"));
+    ui->lineEdit_degrees_2->setText(
+        QString::number(m_pGamepad->GetAngle(EAxis::R, EAxis::Z), 'g', 3) + QString::fromUtf8("°"));
 
     UpdateButtonState(EButton::button1);
     UpdateButtonState(EButton::button2);
