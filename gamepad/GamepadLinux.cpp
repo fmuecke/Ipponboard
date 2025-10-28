@@ -125,7 +125,7 @@ unsigned scaleAxis(int value, int min, int max)
 {
     if (max <= min)
     {
-        return Constants::MidAngle;
+        return Constants::MidPos;
     }
 
     value = std::clamp(value, min, max);
@@ -144,7 +144,7 @@ unsigned scaleAxis(int value, int min, int max)
     }
 
     const double scaled = (centered + 1.0) * 0.5; // back to [0,1]
-    return static_cast<unsigned>(std::clamp(scaled, 0.0, 1.0) * Constants::MaxAngle + 0.5);
+    return static_cast<unsigned>(std::clamp(scaled, 0.0, 1.0) * Constants::MaxPos + 0.5);
 }
 
 unsigned povFromHat(int hatX, int hatY)
@@ -196,13 +196,13 @@ void GamepadLinux::reset()
     m_buttonCount = 0;
     m_axisCount = 0;
     m_state = EGamepadState::unknown;
-    m_axes.fill(Constants::MidAngle);
+    m_axes.fill(Constants::MidPos);
     m_lastAxes = m_axes;
     m_axisSupported.fill(false);
     m_axisMin.fill(0);
     m_axisMax.fill(0);
     m_axisCodes.fill(-1);
-    m_ranges.fill({ 0u, Constants::MaxAngle });
+    m_ranges.fill({ 0u, Constants::MaxPos });
     m_buttons.clear();
     m_lastButtons.clear();
     m_knownButtons.clear();
@@ -293,7 +293,7 @@ void GamepadLinux::queryAxisInfo()
             const auto idx = static_cast<std::size_t>(*axis);
             m_axisMin[idx] = info.minimum;
             m_axisMax[idx] = info.maximum;
-            m_ranges[idx] = { 0u, Constants::MaxAngle };
+            m_ranges[idx] = { 0u, Constants::MaxPos };
             m_axisSupported[idx] = true;
             m_axisCodes[idx] = code;
             ++counts[idx];
@@ -382,7 +382,7 @@ EGamepadState GamepadLinux::ReadData()
                 closeDevice();
                 m_state = EGamepadState::unplugged;
                 m_buttons.clear();
-                m_axes.fill(Constants::MidAngle);
+                m_axes.fill(Constants::MidPos);
                 m_pov = Constants::PovCenteredVal;
                 return m_state;
             }

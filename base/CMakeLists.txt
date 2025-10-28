@@ -25,6 +25,7 @@ set(UI_SOURCES
     DonationManager.cpp
     FightCategoryManager.cpp
     FightCategoryManagerDlg.cpp
+    GamepadSectionMapper.cpp
     FightCategoryParser.cpp
     FighterManager.cpp
     FighterManagerDlg.cpp
@@ -51,6 +52,7 @@ set(UI_HEADERS
     DonationManager.h
     FightCategoryManager.h
     FightCategoryManagerDlg.h
+    GamepadSectionMapper.h
     FighterManager.h
     FighterManagerDlg.h
     MainWindow.h

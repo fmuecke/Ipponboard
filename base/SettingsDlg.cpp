@@ -18,6 +18,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScreen>
+#include <QSignalBlocker>
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
@@ -33,6 +34,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
       ui(new Ui::SettingsDlg),
       m_previewEffect(),
       m_rawCaptureTimer(this),
+      m_rawDiagnosticsTimer(this),
       m_gamepad(nullptr),
       m_rawButtonCapture(),
       m_rawAxisCapture(),
@@ -46,6 +48,9 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     m_previewEffect.setParent(this);
     m_previewEffect.setLoopCount(1);
     initialize_raw_bindings();
+
+    ui->pushButton_test_raw_mapping->setCheckable(true);
+    ui->pushButton_test_raw_mapping->setText(tr("Show pressed buttons"));
 
     if (m_edition == EditionType::Team)
     {
@@ -173,45 +178,61 @@ void SettingsDlg::initialize_raw_bindings()
     m_rawCaptureTimer.setSingleShot(false);
     connect(&m_rawCaptureTimer, &QTimer::timeout, this, &SettingsDlg::on_raw_capture_timeout);
 
+    m_rawDiagnosticsTimer.setInterval(150);
+    m_rawDiagnosticsTimer.setSingleShot(false);
+    connect(&m_rawDiagnosticsTimer, &QTimer::timeout, this, &SettingsDlg::update_raw_diagnostics);
+
     auto* validator = new QIntValidator(-1, std::numeric_limits<std::uint16_t>::max(), this);
 
     m_rawButtonBindings = {
         { ui->lineEdit_raw_hajime_mate,
           ui->pushButton_capture_raw_hajime_mate,
-          &ControllerConfig::button_hajime_mate_raw },
+          &ControllerConfig::button_hajime_mate_raw,
+          tr("Hajime / Mate") },
         { ui->lineEdit_raw_next,
           ui->pushButton_capture_raw_next,
-          &ControllerConfig::button_next_raw },
+          &ControllerConfig::button_next_raw,
+          tr("Next fight") },
         { ui->lineEdit_raw_prev,
           ui->pushButton_capture_raw_prev,
-          &ControllerConfig::button_prev_raw },
+          &ControllerConfig::button_prev_raw,
+          tr("Previous fight") },
         { ui->lineEdit_raw_pause,
           ui->pushButton_capture_raw_pause,
-          &ControllerConfig::button_pause_raw },
+          &ControllerConfig::button_pause_raw,
+          tr("Pause") },
         { ui->lineEdit_raw_reset_first,
           ui->pushButton_capture_raw_reset_first,
-          &ControllerConfig::button_reset_raw },
+          &ControllerConfig::button_reset_raw,
+          tr("Reset button (left)") },
         { ui->lineEdit_raw_reset_second,
           ui->pushButton_capture_raw_reset_second,
-          &ControllerConfig::button_reset2_raw },
+          &ControllerConfig::button_reset2_raw,
+          tr("Reset button (right)") },
         { ui->lineEdit_raw_osaekomi_first,
           ui->pushButton_capture_raw_osaekomi_first,
-          &ControllerConfig::button_osaekomi_toketa_first_raw },
+          &ControllerConfig::button_osaekomi_toketa_first_raw,
+          tr("Osaekomi / Toketa (left)") },
         { ui->lineEdit_raw_osaekomi_second,
           ui->pushButton_capture_raw_osaekomi_second,
-          &ControllerConfig::button_osaekomi_toketa_second_raw },
+          &ControllerConfig::button_osaekomi_toketa_second_raw,
+          tr("Osaekomi / Toketa (right)") },
         { ui->lineEdit_raw_reset_hold_first,
           ui->pushButton_capture_raw_reset_hold_first,
-          &ControllerConfig::button_reset_hold_first_raw },
+          &ControllerConfig::button_reset_hold_first_raw,
+          tr("Reset hold (left)") },
         { ui->lineEdit_raw_reset_hold_second,
           ui->pushButton_capture_raw_reset_hold_second,
-          &ControllerConfig::button_reset_hold_second_raw },
+          &ControllerConfig::button_reset_hold_second_raw,
+          tr("Reset hold (right)") },
         { ui->lineEdit_raw_hansokumake_first,
           ui->pushButton_capture_raw_hansokumake_first,
-          &ControllerConfig::button_hansokumake_first_raw },
+          &ControllerConfig::button_hansokumake_first_raw,
+          tr("Hansokumake (left)") },
         { ui->lineEdit_raw_hansokumake_second,
           ui->pushButton_capture_raw_hansokumake_second,
-          &ControllerConfig::button_hansokumake_second_raw },
+          &ControllerConfig::button_hansokumake_second_raw,
+          tr("Hansokumake (right)") },
     };
 
     for (std::size_t idx = 0; idx < m_rawButtonBindings.size(); ++idx)
@@ -284,6 +305,8 @@ void SettingsDlg::initialize_raw_bindings()
 
 void SettingsDlg::start_button_capture(RawButtonBinding* binding)
 {
+    stop_raw_diagnostics(true);
+
     if (!binding)
     {
         return;
@@ -343,6 +366,8 @@ void SettingsDlg::finish_button_capture(std::uint16_t code)
 
 void SettingsDlg::start_axis_capture(RawAxisBinding* binding)
 {
+    stop_raw_diagnostics(true);
+
     if (!binding)
     {
         return;
@@ -456,26 +481,46 @@ QString SettingsDlg::format_raw_value(int value) const
     return QString::number(value);
 }
 
-void SettingsDlg::prime_raw_capture()
+QString SettingsDlg::describe_pressed_button(std::uint16_t code) const
 {
-    switch (m_captureMode)
+    for (const auto& binding : m_rawButtonBindings)
     {
-    case CaptureMode::Button:
-        if (m_rawButtonCapture)
+        if (!binding.lineEdit)
         {
-            m_rawButtonCapture->Prime();
+            continue;
         }
-        break;
-    case CaptureMode::Axis:
-        if (m_rawAxisCapture)
+
+        bool ok = false;
+        const int value = binding.lineEdit->text().toInt(&ok);
+        if (ok && value == static_cast<int>(code))
         {
-            m_rawAxisCapture->Prime();
+            if (!binding.description.isEmpty())
+            {
+                return tr("%1 (code %2)").arg(binding.description, QString::number(code));
+            }
+
+            return tr("Configured binding (code %1)").arg(code);
         }
-        break;
-    case CaptureMode::None:
-    default:
-        break;
     }
+
+    if (code >= GamepadLib::Constants::PovCodeBase &&
+        code < GamepadLib::Constants::PovCodeBase + GamepadLib::Constants::PovCodeCount)
+    {
+        const int index = static_cast<int>(code - GamepadLib::Constants::PovCodeBase);
+        QStringList povNames;
+        povNames << tr("POV forward") << tr("POV right") << tr("POV back") << tr("POV left")
+                 << tr("POV right-forward") << tr("POV right-back") << tr("POV left-back")
+                 << tr("POV left-forward");
+        return tr("%1 (code %2)").arg(povNames.value(index), QString::number(code));
+    }
+
+    if (code < GamepadLib::Constants::MaxButtons)
+    {
+        return tr("Button %1 (code %2)")
+            .arg(QString::number(static_cast<int>(code) + 1), QString::number(code));
+    }
+
+    return tr("Raw code %1").arg(code);
 }
 
 SettingsDlg::~SettingsDlg()
@@ -483,6 +528,7 @@ SettingsDlg::~SettingsDlg()
     m_previewEffect.stop();
     m_previewEffect.setSource(QUrl());
     cancel_raw_capture();
+    stop_raw_diagnostics(true);
     delete ui;
 }
 
@@ -875,6 +921,48 @@ void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(boo
         ui->lineEdit_fixedsize_height->setText("0");
     }
 }
+void SettingsDlg::prime_raw_capture()
+{
+    switch (m_captureMode)
+    {
+    case CaptureMode::Button:
+        if (m_rawButtonCapture)
+        {
+            m_rawButtonCapture->Prime();
+        }
+        break;
+    case CaptureMode::Axis:
+        if (m_rawAxisCapture)
+        {
+            m_rawAxisCapture->Prime();
+        }
+        break;
+    case CaptureMode::None:
+    default:
+        break;
+    }
+}
+
+void SettingsDlg::stop_raw_diagnostics(bool quiet)
+{
+    if (m_rawDiagnosticsTimer.isActive())
+    {
+        m_rawDiagnosticsTimer.stop();
+    }
+
+    if (ui && ui->pushButton_test_raw_mapping)
+    {
+        QSignalBlocker blocker(ui->pushButton_test_raw_mapping);
+        ui->pushButton_test_raw_mapping->setChecked(false);
+        ui->pushButton_test_raw_mapping->setText(tr("Show pressed buttons"));
+    }
+
+    if (!quiet)
+    {
+        update_raw_status(tr("Diagnostics stopped."));
+    }
+}
+
 void SettingsDlg::on_raw_capture_timeout()
 {
     switch (m_captureMode)
@@ -905,4 +993,147 @@ void SettingsDlg::on_raw_capture_timeout()
         }
         break;
     }
+}
+
+void SettingsDlg::update_raw_diagnostics()
+{
+    if (!m_gamepad || m_gamepad->GetState() != GamepadLib::EGamepadState::ok)
+    {
+        stop_raw_diagnostics();
+        return;
+    }
+
+    m_gamepad->ReadData();
+    const auto& pressed = m_gamepad->CurrentButtons();
+
+    QStringList buttonEntries;
+    buttonEntries.reserve(static_cast<int>(pressed.size()));
+
+    for (const auto code : pressed)
+    {
+        if (code == GamepadLib::Constants::PovCenteredVal)
+        {
+            continue;
+        }
+
+        const auto description = describe_pressed_button(code);
+        if (!description.isEmpty())
+        {
+            buttonEntries.push_back(description);
+        }
+    }
+
+    buttonEntries.sort(Qt::CaseInsensitive);
+
+    QStringList lines;
+    if (buttonEntries.isEmpty())
+    {
+        lines << tr("Buttons: none");
+    }
+    else
+    {
+        lines << tr("Buttons: %1").arg(buttonEntries.join(QStringLiteral(", ")));
+    }
+
+    lines.append(describe_axes_state());
+    update_raw_status(lines.join(QStringLiteral("\n")));
+}
+
+void SettingsDlg::on_pushButton_test_raw_mapping_toggled(bool checked)
+{
+    if (checked)
+    {
+        if (!m_gamepad)
+        {
+            update_raw_status(tr("No gamepad detected for diagnostics."));
+            stop_raw_diagnostics(true);
+            return;
+        }
+
+        if (m_gamepad->GetState() != GamepadLib::EGamepadState::ok)
+        {
+            update_raw_status(tr("Gamepad not ready for diagnostics."));
+            stop_raw_diagnostics(true);
+            return;
+        }
+
+        if (m_captureMode != CaptureMode::None)
+        {
+            update_raw_status(tr("Stop capture before starting diagnostics."));
+            stop_raw_diagnostics(true);
+            return;
+        }
+
+        if (ui && ui->pushButton_test_raw_mapping)
+        {
+            ui->pushButton_test_raw_mapping->setText(tr("Stop diagnostics"));
+        }
+
+        update_raw_diagnostics();
+        m_rawDiagnosticsTimer.start();
+        return;
+    }
+
+    stop_raw_diagnostics();
+}
+
+QStringList SettingsDlg::describe_axes_state() const
+{
+    QStringList result;
+
+    if (!m_gamepad)
+    {
+        return result;
+    }
+
+    const auto& actions = GamepadSectionMapper::Actions();
+
+    using EAxis = GamepadLib::EAxis;
+
+    const auto currSectionXY = m_gamepad->GetSection(EAxis::X, EAxis::Y);
+    QString mapping =
+        currSectionXY == 0 ? tr("Neutral") : describe_section_action(actions[currSectionXY]);
+    result << tr("%1: %2 (X=%4, Y=%6)")
+                  .arg(tr("Left stick"),
+                       mapping,
+                       QString::number(m_gamepad->GetPos(EAxis::X)),
+                       QString::number(m_gamepad->GetPos(EAxis::Y)));
+
+    const auto currSectionRZ = m_gamepad->GetSection(EAxis::R, EAxis::Z);
+    mapping = currSectionRZ == 0 ? tr("Neutral") : describe_section_action(actions[currSectionRZ]);
+    result << tr("%1: %2 (R=%4, Z=%6)")
+                  .arg(tr("Right stick"),
+                       mapping,
+                       QString::number(m_gamepad->GetPos(EAxis::R)),
+                       QString::number(m_gamepad->GetPos(EAxis::Z)));
+
+    return result;
+}
+
+QString SettingsDlg::describe_section_action(
+    const GamepadSectionMapper::SectionAction& action) const
+{
+    QString actionName;
+
+    switch (action.action)
+    {
+    case eAction_Ippon:
+        actionName = tr("Ippon");
+        break;
+    case eAction_Wazaari:
+        actionName = tr("Wazaari");
+        break;
+    case eAction_Yuko:
+        actionName = tr("Yuko");
+        break;
+    case eAction_Shido:
+        actionName = tr("Shido");
+        break;
+    default:
+        actionName = tr("Unknown");
+        break;
+    }
+
+    const QString mode = action.revoke ? tr("revoke") : tr("award");
+    return tr("(%1) %2").arg(mode, actionName);
 }

@@ -190,6 +190,8 @@ class MainWindowBase : public QMainWindow,
 
   protected:
     virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* /*pGamepad*/) { return false; }
+    void set_input_suppressed(bool value) noexcept { m_isInputSuppressed = value; }
+    [[nodiscard]] bool is_input_suppressed() const noexcept { return m_isInputSuppressed; }
 
     std::shared_ptr<Ipponboard::View> m_pPrimaryView;
     std::shared_ptr<Ipponboard::View> m_pSecondaryView;
@@ -205,6 +207,7 @@ class MainWindowBase : public QMainWindow,
 
   private:
     std::unique_ptr<GamepadLib::Gamepad> m_pGamepad;
+    bool m_isInputSuppressed{ false };
 };
 
 #endif // BASE__MAINWINDOW_BASE_H_

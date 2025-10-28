@@ -94,9 +94,9 @@ namespace Constants
 static constexpr unsigned MaxButtons = 40;
 static constexpr unsigned PovCodeBase = 50000;
 static constexpr unsigned PovCodeCount = 8;
-static constexpr unsigned MaxAngle = 65535;
-static constexpr unsigned MidAngle = 32767;
-static constexpr unsigned ToleranceVal = 100;
+static constexpr unsigned MaxPos = 0xFFFF;
+static constexpr unsigned MidPos = 0x7FFF;
+static constexpr float ToleranceVal = 100.0f;
 static constexpr unsigned PovCenteredVal = 65535;
 } // namespace Constants
 

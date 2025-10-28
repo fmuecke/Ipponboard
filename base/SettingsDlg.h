@@ -6,10 +6,13 @@
 #define BASE__SETTINGSDLG_H_
 
 #include "../core/EditionType.h"
+#include "GamepadSectionMapper.h"
 #include "RawInputCapture.h"
 
 #include <QDialog>
 #include <QSoundEffect>
+#include <QString>
+#include <QStringList>
 #include <QTimer>
 #include <memory>
 #include <optional>
@@ -81,6 +84,7 @@ class SettingsDlg : public QDialog
         QLineEdit* lineEdit;
         QPushButton* captureButton;
         int ControllerConfig::*configMember;
+        QString description;
     };
 
     struct RawAxisBinding
@@ -109,12 +113,19 @@ class SettingsDlg : public QDialog
     void update_raw_status(const QString& message);
     [[nodiscard]] QString format_raw_value(int value) const;
     void prime_raw_capture();
+    [[nodiscard]] QString describe_pressed_button(std::uint16_t code) const;
+    void stop_raw_diagnostics(bool quiet = false);
+    void update_raw_diagnostics();
+    [[nodiscard]] QStringList describe_axes_state() const;
+    [[nodiscard]] QString describe_section_action(
+        const GamepadSectionMapper::SectionAction& action) const;
 
   private:
     EditionType m_edition;
     Ui::SettingsDlg* ui;
     QSoundEffect m_previewEffect;
     QTimer m_rawCaptureTimer;
+    QTimer m_rawDiagnosticsTimer;
     GamepadLib::Gamepad* m_gamepad;
     std::unique_ptr<RawInputCapture> m_rawButtonCapture;
     std::unique_ptr<RawAxisCapture> m_rawAxisCapture;
@@ -144,6 +155,7 @@ class SettingsDlg : public QDialog
     void on_buttonBox_accepted();
     void on_checkBox_secondary_view_custom_size_toggled(bool checked);
     void on_raw_capture_timeout();
+    void on_pushButton_test_raw_mapping_toggled(bool checked);
 };
 
 } // namespace Ipponboard

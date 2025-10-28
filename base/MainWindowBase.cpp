@@ -13,6 +13,7 @@
 #include "../gamepad/Gamepad.h"
 #include "../util/path_helpers.h"
 #include "DonationManager.h"
+#include "GamepadSectionMapper.h"
 #include "View.h"
 
 #include <QApplication>
@@ -801,7 +802,12 @@ void MainWindowBase::on_actionPreferences_triggered()
     dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
     dlg.SetGongFile(m_pController->GetGongFile());
 
-    if (QDialog::Accepted == dlg.exec())
+    const bool wasSuppressed = is_input_suppressed();
+    set_input_suppressed(true);
+    const int dialogResult = dlg.exec();
+    set_input_suppressed(wasSuppressed);
+
+    if (QDialog::Accepted == dialogResult)
     {
         m_pPrimaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
         m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
@@ -881,6 +887,11 @@ void MainWindowBase::show_hide_view() const
 
 void MainWindowBase::EvaluateInput()
 {
+    if (is_input_suppressed())
+    {
+        return;
+    }
+
     if (GamepadLib::EGamepadState::ok != m_pGamepad->GetState())
     {
         return;
@@ -974,87 +985,24 @@ void MainWindowBase::EvaluateInput()
     }
     else
     {
-        // TODO: don't calc this every time...
-        float sections[8][2] = { { 0 } };
-        float angle = 360.0f;
-        float deadSpace = 2.0f;
-        float angle_adjustment = 5.0f;
-        sections[0][0] = 360 - 45 / 2 + 1 + deadSpace + angle_adjustment;
-        sections[0][1] = 45 / 2 + 1 - deadSpace + angle_adjustment;
-        angle = sections[0][1];
+        const auto& actions = GamepadSectionMapper::Actions();
 
-        for (int i = 1; i < 8; ++i)
+        const auto lastSectionXY = m_pGamepad->GetLastSection(EAxis::X, EAxis::Y);
+        const auto currSectionXY = m_pGamepad->GetSection(EAxis::X, EAxis::Y);
+        if (lastSectionXY != currSectionXY && currSectionXY != 0)
         {
-            sections[i][0] = angle + 2 * deadSpace;
-            sections[i][1] = angle + 45;
-            angle = sections[i][1];
+            const auto& action = actions[currSectionXY];
+            m_pController->DoAction(action.action, FighterEnum::First, action.revoke);
+            return;
         }
 
-        if (m_pGamepad->WasSectionEnteredXY(sections[0][0], sections[0][1]))
+        const auto lastSectionRZ = m_pGamepad->GetLastSection(EAxis::R, EAxis::Z);
+        const auto currSectionRZ = m_pGamepad->GetSection(EAxis::R, EAxis::Z);
+        if (lastSectionRZ != currSectionRZ && currSectionRZ != 0)
         {
-            m_pController->DoAction(eAction_Ippon, FighterEnum::First);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[1][0], sections[1][1]))
-        {
-            m_pController->DoAction(eAction_Wazaari, FighterEnum::First);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[2][0], sections[2][1]))
-        {
-            m_pController->DoAction(eAction_Yuko, FighterEnum::First);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[3][0], sections[3][1]))
-        {
-            m_pController->DoAction(eAction_Shido, FighterEnum::First, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[4][0], sections[4][1]))
-        {
-            m_pController->DoAction(eAction_Ippon, FighterEnum::First, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[5][0], sections[5][1]))
-        {
-            m_pController->DoAction(eAction_Wazaari, FighterEnum::First, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[6][0], sections[6][1]))
-        {
-            m_pController->DoAction(eAction_Yuko, FighterEnum::First, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredXY(sections[7][0], sections[7][1]))
-        {
-            m_pController->DoAction(eAction_Shido, FighterEnum::First);
-        }
-
-        // evaluate fighter2 actions
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[0][0], sections[0][1]))
-        {
-            m_pController->DoAction(eAction_Ippon, FighterEnum::Second);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[1][0], sections[1][1]))
-        {
-            m_pController->DoAction(eAction_Wazaari, FighterEnum::Second);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[2][0], sections[2][1]))
-        {
-            m_pController->DoAction(eAction_Yuko, FighterEnum::Second);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[3][0], sections[3][1]))
-        {
-            m_pController->DoAction(eAction_Shido, FighterEnum::Second, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[4][0], sections[4][1]))
-        {
-            m_pController->DoAction(eAction_Ippon, FighterEnum::Second, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[5][0], sections[5][1]))
-        {
-            m_pController->DoAction(eAction_Wazaari, FighterEnum::Second, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[6][0], sections[6][1]))
-        {
-            m_pController->DoAction(eAction_Yuko, FighterEnum::Second, true);
-        }
-        else if (m_pGamepad->WasSectionEnteredRZ(sections[7][0], sections[7][1]))
-        {
-            m_pController->DoAction(eAction_Shido, FighterEnum::Second);
+            const auto& action = actions[currSectionRZ];
+            m_pController->DoAction(action.action, FighterEnum::First, action.revoke);
+            return;
         }
     }
 }

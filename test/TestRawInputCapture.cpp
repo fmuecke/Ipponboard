@@ -103,12 +103,12 @@ SCENARIO("Raw axis capture reports the axis with the largest movement")
     {
         FakeAxisGamepad gamepad;
         FakeAxisGamepad::AxisValues neutral{};
-        neutral.fill(GamepadLib::Constants::MidAngle);
+        neutral.fill(GamepadLib::Constants::MidPos);
         gamepad.enqueue(neutral);
 
         auto movedX = neutral;
         movedX[static_cast<std::size_t>(GamepadLib::EAxis::X)] =
-            GamepadLib::Constants::MidAngle + 6000;
+            GamepadLib::Constants::MidPos + 6000;
         gamepad.enqueue(movedX);
 
         Capture capture(gamepad,
@@ -136,7 +136,7 @@ SCENARIO("Raw axis capture ignores minor noise")
     {
         FakeAxisGamepad gamepad;
         FakeAxisGamepad::AxisValues neutral{};
-        neutral.fill(GamepadLib::Constants::MidAngle);
+        neutral.fill(GamepadLib::Constants::MidPos);
         gamepad.enqueue(neutral);
 
         auto noisy = neutral;
