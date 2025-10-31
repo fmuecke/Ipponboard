@@ -49,8 +49,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     m_previewEffect.setLoopCount(1);
     initialize_raw_bindings();
 
-    ui->pushButton_test_raw_mapping->setCheckable(true);
-    ui->pushButton_test_raw_mapping->setText(tr("Show pressed buttons"));
+    ui->toolButton_test_raw_mapping->setCheckable(true);
+    ui->toolButton_test_raw_mapping->setText(tr("Show pressed buttons"));
 
     if (m_edition == EditionType::Team)
     {
@@ -950,11 +950,11 @@ void SettingsDlg::stop_raw_diagnostics(bool quiet)
         m_rawDiagnosticsTimer.stop();
     }
 
-    if (ui && ui->pushButton_test_raw_mapping)
+    if (ui && ui->toolButton_test_raw_mapping)
     {
-        QSignalBlocker blocker(ui->pushButton_test_raw_mapping);
-        ui->pushButton_test_raw_mapping->setChecked(false);
-        ui->pushButton_test_raw_mapping->setText(tr("Show pressed buttons"));
+        QSignalBlocker blocker(ui->toolButton_test_raw_mapping);
+        ui->toolButton_test_raw_mapping->setChecked(false);
+        ui->toolButton_test_raw_mapping->setText(tr("Show pressed buttons"));
     }
 
     if (!quiet)
@@ -1039,7 +1039,7 @@ void SettingsDlg::update_raw_diagnostics()
     update_raw_status(lines.join(QStringLiteral("\n")));
 }
 
-void SettingsDlg::on_pushButton_test_raw_mapping_toggled(bool checked)
+void SettingsDlg::on_toolButton_test_raw_mapping_toggled(bool checked)
 {
     if (checked)
     {
@@ -1064,9 +1064,9 @@ void SettingsDlg::on_pushButton_test_raw_mapping_toggled(bool checked)
             return;
         }
 
-        if (ui && ui->pushButton_test_raw_mapping)
+        if (ui && ui->toolButton_test_raw_mapping)
         {
-            ui->pushButton_test_raw_mapping->setText(tr("Stop diagnostics"));
+            ui->toolButton_test_raw_mapping->setText(tr("Stop diagnostics"));
         }
 
         update_raw_diagnostics();
