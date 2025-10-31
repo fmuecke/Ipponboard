@@ -430,8 +430,6 @@ void MainWindowBase::write_settings()
         settings.remove("");
         settings.setValue(str_tag_Version, VersionInfo::VersionStr);
         settings.setValue(str_tag_Language, m_Language);
-        settings.setValue(str_tag_size, size());
-        settings.setValue(str_tag_pos, pos());
         settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
         settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
     }
@@ -551,8 +549,6 @@ void MainWindowBase::read_settings()
         langStr.truncate(langStr.lastIndexOf('_'));
         m_Language = settings.value(str_tag_Language, langStr).toString();
 
-        //resize(settings.value(str_tag_size, size()).toSize());
-        move(settings.value(str_tag_pos, QPoint(200, 200)).toPoint());
         m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
         m_secondScreenSize = settings.value(str_tag_SecondScreenSize, QSize(0, 0)).toSize();
         update_statebar();
