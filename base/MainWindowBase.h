@@ -21,7 +21,7 @@ namespace Ui
 {
 //class MainWindow;
 //class Frame_Clubs;
-}
+} // namespace Ui
 namespace Ipponboard
 {
 class Fighter;
@@ -41,8 +41,6 @@ class Gamepad;
 static const char* const str_golden_score = "Golden Score";
 static const char* const str_normal_round_time = "Normal";
 static const char* const str_tag_Main = "Main";
-static const char* const str_tag_size = "size";
-static const char* const str_tag_pos = "pos";
 static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
 static const char* const str_tag_MatLabel = "MatLabel";
@@ -131,7 +129,7 @@ class MainWindowBase : public QMainWindow,
     virtual void SetShowInfoHeader(bool /*show*/) {}
 
     /* IGoldenScoreView */
-    virtual void UpdateGoldenScoreView(){};
+    virtual void UpdateGoldenScoreView() {};
 
   protected:
     virtual void changeEvent(QEvent*) override;
