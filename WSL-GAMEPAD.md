@@ -1,7 +1,5 @@
 ## Linux (WSL) Gamepad support
 
-> **_Note:_ Gamepad support on Linux or WSL is still experimental!**
-
 For the Gamepad to work with WSL you need to do the following:
 
 1. Install `usbipd-win`

@@ -7,7 +7,7 @@ Build system | Compiler | Target system
 Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2017/2019/2022 a.k.a VC14) | Windows 7 and higher, 32 Bit
 Linux (Ubuntu/WSL) | gcc 11 | Linux 64-Bit (experimental)
 
-> Note: Support for Linux builds is still experimental and may lack some features (sound, printing, gamepad).
+> Note: Support for Linux builds is still experimental and may lack some features (printing not 100% functional).
 
 ## Prerequisites
 

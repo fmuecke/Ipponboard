@@ -2,6 +2,20 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+
+## Version vNEXT (unreleased)
+- (new): full support for multiple gamepads/controllers with independent mappings and configurations
+  - full Linux support
+  - per-gamepad calibration, deadzone, axis inversion, and section mapping
+  - improved section mapping and deadzone handling (better recognition of ippon/yuko/waza-ari gestures)
+- (new): integrated gamepad diagnostics workflow directly in the settings dialog, replacing the additional `GamepadDemo` application.
+- (fix): main window suppresses controller input while preferences are open to avoid unintended actions.
+- (fix): Timer does not stop on awasete ippon (#88)
+- (new): log file can be accessed via menu (Help -\> Show Log File)
+- (internal): modularized CMake targets, enforced clang-format in CI, upgraded the Catch2 test suite to v3, and broadened controller/gamepad regression coverage.
+- (internal): improved test coverage for state machine and gamepad input handling.
+- (internal): prepared codebase for future enhancements and easier maintenance.
+
 ## Version 2.4.0 (2025-02-09)
 - (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
 - (new): added shortcuts to start single or team mode from splashscreen (1, 2)
