@@ -119,8 +119,9 @@ class MainWindowTeam : public MainWindowBase
   private:
     void update_weights(QString const& weightString);
     void on_tableView_customContextMenuRequested(QTableView* pTableView, QPoint const& pos,
-                                                 const char* copySlot, const char* pasteSlot,
-                                                 const char* clearSlot);
+                                                 void (MainWindowTeam::*copySlot)(),
+                                                 void (MainWindowTeam::*pasteSlot)(),
+                                                 void (MainWindowTeam::*clearSlot)());
     void copy_cell_content(QTableView* pTableView);
     void paste_cell_content(QTableView* pTableView);
     void clear_cell_content(QTableView* pTableView);

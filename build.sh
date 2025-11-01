@@ -140,6 +140,7 @@ function run_tests {
     fi
     pushd "$TEST_BIN_DIR" > /dev/null
     QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
+        QT_LOGGING_RULES=${QT_LOGGING_RULES:-qt.multimedia.symbolsresolver=false} \
         IPPONBOARD_ENABLE_NETWORK_TESTS=${IPPONBOARD_ENABLE_NETWORK_TESTS:-0} ./IpponboardTest
     success=$?
     popd > /dev/null

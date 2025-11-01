@@ -82,7 +82,7 @@ jobs:
       continue-on-error: true
       run: |
         cd ./_bin/Test-${{env.CONFIG}}
-        QT_QPA_PLATFORM=offscreen ./IpponboardTest
+        QT_LOGGING_RULES='qt.multimedia.symbolsresolver=false' QT_QPA_PLATFORM=offscreen ./IpponboardTest
 
     - name: Build Ipponboard
       shell: bash

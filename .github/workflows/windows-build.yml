@@ -92,6 +92,7 @@ jobs:
       continue-on-error: true
       run: |
         set QT_QPA_PLATFORM=offscreen
+        set QT_LOGGING_RULES=qt.multimedia.symbolsresolver=false
         set IPPONBOARD_ENABLE_NETWORK_TESTS=0
         cd ./_bin/Test-${{env.CONFIG}}
         ./IpponboardTest.exe

@@ -168,14 +168,26 @@ void ModeManagerDlg::on_toolButton_add_clicked()
 
 void ModeManagerDlg::on_toolButton_remove_clicked()
 {
-    auto answer =
-        QMessageBox::question(this,
-                              tr("Remove item"),
-                              tr("Really remove \"%1\"?").arg(m_pUi->comboBox_mode->currentText()),
-                              tr("Remove"),
-                              tr("Keep"));
+    QMessageBox msgBox(QMessageBox::Question,
+                       tr("Remove item"),
+                       tr("Really remove \"%1\"?").arg(m_pUi->comboBox_mode->currentText()),
+                       QMessageBox::Yes | QMessageBox::No,
+                       this);
+    msgBox.setDefaultButton(QMessageBox::Yes);
 
-    if (answer == 0)
+    if (auto* yesButton = msgBox.button(QMessageBox::Yes))
+    {
+        yesButton->setText(tr("Remove"));
+    }
+
+    if (auto* noButton = msgBox.button(QMessageBox::No))
+    {
+        noButton->setText(tr("Keep"));
+    }
+
+    const auto answer = msgBox.exec();
+
+    if (answer == QMessageBox::Yes)
     {
         auto id = m_pUi->comboBox_mode->itemData(m_currentIndex).toString();
         auto pos = std::find_if(begin(m_dialogData),
