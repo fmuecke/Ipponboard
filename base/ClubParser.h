@@ -44,7 +44,6 @@ static Ipponboard::ClubList ParseJsonFile(QString filePath)
 static Ipponboard::ClubList ParseIniFile(QString filePath)
 {
     QSettings settings(filePath, QSettings::IniFormat);
-    settings.setIniCodec("UTF-8");
 
     Ipponboard::ClubList clubs;
 
@@ -75,7 +74,6 @@ static Ipponboard::ClubList ParseIniFile(QString filePath)
 static void ToIniFile(QString filePath, Ipponboard::ClubList const& clubs)
 {
     QSettings settings(filePath, QSettings::IniFormat);
-    settings.setIniCodec("UTF-8");
 
     settings.clear();
 

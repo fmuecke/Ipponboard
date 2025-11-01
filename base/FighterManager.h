@@ -7,11 +7,10 @@
 
 #include "../core/Fighter.h"
 
+#include <QString>
+#include <QStringList>
 #include <array>
 #include <set>
-
-class QString;
-class QStringList;
 
 namespace Ipponboard
 {

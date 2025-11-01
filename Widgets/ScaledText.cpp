@@ -4,10 +4,10 @@
 
 #include "ScaledText.h"
 
-#include <QtDebug>
-#include <QtGui>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QTextLayout>
 #include <algorithm>
-
 
 ScaledText::ScaledText(QWidget* pParent)
     : QWidget(pParent),
@@ -65,25 +65,13 @@ void ScaledText::SetColor(const QColor& textColor, const QColor& bgColor)
     Redraw();
 }
 
-void ScaledText::SetColor(const QColor& textColor)
-{
-    SetColor(textColor, m_BGColor);
-}
+void ScaledText::SetColor(const QColor& textColor) { SetColor(textColor, m_BGColor); }
 
-const QColor& ScaledText::GetColor() const
-{
-    return m_TextColor;
-}
+const QColor& ScaledText::GetColor() const { return m_TextColor; }
 
-const QColor& ScaledText::GetBgColor() const
-{
-    return m_BGColor;
-}
+const QColor& ScaledText::GetBgColor() const { return m_BGColor; }
 
-const QString& ScaledText::GetText() const
-{
-    return m_Text;
-}
+const QString& ScaledText::GetText() const { return m_Text; }
 
 void ScaledText::set_size(ETextSize size)
 {
@@ -91,10 +79,7 @@ void ScaledText::set_size(ETextSize size)
     m_textSize = size;
 }
 
-ScaledText::ETextSize ScaledText::GetSize() const
-{
-    return m_textSize;
-}
+ScaledText::ETextSize ScaledText::GetSize() const { return m_textSize; }
 
 void ScaledText::SetBlinking(bool blink, int delay)
 {
@@ -113,15 +98,9 @@ void ScaledText::SetBlinking(bool blink, int delay)
         m_timerId = startTimer(delay);
 }
 
-bool ScaledText::IsBlinking() const
-{
-    return (m_timerId != -1);
-}
+bool ScaledText::IsBlinking() const { return (m_timerId != -1); }
 
-void ScaledText::Redraw()
-{
-    update();
-}
+void ScaledText::Redraw() { update(); }
 
 void ScaledText::paintEvent(QPaintEvent* event)
 {

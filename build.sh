@@ -22,7 +22,7 @@ function init_environment {
 	if [ -f "$LOCAL_CONFIG" ]; then
 		source "$LOCAL_CONFIG"
 	else
-		echo "set \"LINUX_QTDIR=/usr/local/Qt5.15.13\"" >> "$LOCAL_CONFIG"
+		echo "set \"LINUX_QTDIR=\$HOME/Qt/6.9.2/gcc_64\"" >> "$LOCAL_CONFIG"
 		echo "set \"LINUX_BOOST_DIR=/home/user/devtools/boost_1_81_0\"" >> "$LOCAL_CONFIG"
 		echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
 		read -p "Press enter to continue"

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(IpponboardWidgets LANGUAGES CXX)
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_library(IpponboardWidgets STATIC
     ScaledImage.cpp
@@ -22,5 +22,5 @@ target_include_directories(IpponboardWidgets
 
 target_link_libraries(IpponboardWidgets
     PUBLIC
-        Qt5::Widgets
+        Qt6::Widgets
 )

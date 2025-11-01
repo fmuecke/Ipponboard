@@ -16,7 +16,6 @@
 #include <QComboBox>
 #include <QCompleter>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFileDialog>
 #include <QFontDialog>

@@ -60,7 +60,6 @@ bool TournamentMode::ReadModes(const QString& filename, TournamentMode::List& mo
     }
 
     QSettings config(filename, QSettings::IniFormat, nullptr);
-    config.setIniCodec("UTF-8");
     QStringList groups = config.childGroups();
 
     if (groups.isEmpty())
@@ -114,7 +113,6 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
     }
 
     QSettings config(filename, QSettings::IniFormat, nullptr);
-    config.setIniCodec("UTF-8");
 
     for (auto const& mode : modes)
     {

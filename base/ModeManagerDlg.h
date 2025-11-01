@@ -9,9 +9,9 @@
 #include "../util/DialogResult.h"
 
 #include <QDialog>
+#include <QString>
+#include <QStringList>
 #include <memory>
-
-class QStringList;
 
 namespace Ui
 {
