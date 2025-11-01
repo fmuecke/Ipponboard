@@ -91,6 +91,8 @@ jobs:
       shell: cmd
       continue-on-error: true
       run: |
+        set QT_QPA_PLATFORM=offscreen
+        set IPPONBOARD_ENABLE_NETWORK_TESTS=0
         cd ./_bin/Test-${{env.CONFIG}}
         ./IpponboardTest.exe
 

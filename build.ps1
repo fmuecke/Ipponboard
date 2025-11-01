@@ -131,10 +131,14 @@ function Run-Tests {
         return $false
     }
     Set-Location $TEST_BIN_DIR
-    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
+    $env:QT_QPA_PLATFORM = "offscreen"
+    if (-not $env:IPPONBOARD_ENABLE_NETWORK_TESTS) {
+        $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 0
+    }
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
     Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
     Set-Location -Path $PSScriptRoot
     return $success
 }

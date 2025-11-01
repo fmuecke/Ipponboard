@@ -61,6 +61,7 @@ Start implementation **only after** receiving a `GO` or requested changes.
 
 ### 2) Implementation after approval
 
+- Pause before committing: wait for **explicit commit approval** every time, even if earlier steps were green-lit.
 - Write tests first: unit + optionally BDD specs (Gherkin/Approval/Golden).
 - Keep commits small and green.
 - Only refactor with existing test coverage or after adding characterization tests.
@@ -96,8 +97,7 @@ All code and documentation (comments) must use **US English**.
 
 ## Code commits
 
-Ask before committing
-
+- **Never commit without explicit approval for that commit.**
 - Use this enforced fomat:
 
 ```markdown

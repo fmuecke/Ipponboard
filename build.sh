@@ -139,7 +139,8 @@ function run_tests {
         return 1
     fi
     pushd "$TEST_BIN_DIR" > /dev/null
-    IPPONBOARD_ENABLE_NETWORK_TESTS=${IPPONBOARD_ENABLE_NETWORK_TESTS:-0} ./IpponboardTest
+    QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
+        IPPONBOARD_ENABLE_NETWORK_TESTS=${IPPONBOARD_ENABLE_NETWORK_TESTS:-0} ./IpponboardTest
     success=$?
     popd > /dev/null
     return $success
@@ -150,7 +151,7 @@ function build_and_run_tests {
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest -j"$NUM_CORES" || return 1
 
-    IPPONBOARD_ENABLE_NETWORK_TESTS=1 run_tests
+    run_tests
     return $?
 }
 
@@ -159,7 +160,7 @@ function build_all {
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG -j"$NUM_CORES" || return 1
 
-    IPPONBOARD_ENABLE_NETWORK_TESTS=1 run_tests || return $?
+    run_tests || return $?
     build_doc || return $?
     return 0
 }
