@@ -122,6 +122,7 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
 
 void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
 {
+    
     update_fighters(s);
 
     m_pController->SetFighterName(FighterEnum::First, s);
@@ -129,6 +130,7 @@ void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
 
 void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
 {
+    
     update_fighters(s);
 
     m_pController->SetFighterName(FighterEnum::Second, s);
@@ -201,6 +203,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
 
     m_pUi->comboBox_name_first->clear();
     m_pUi->comboBox_name_first->addItems(m_CurrentFighterNames);
+
     m_pUi->comboBox_name_second->clear();
     m_pUi->comboBox_name_second->addItems(m_CurrentFighterNames);
 }
