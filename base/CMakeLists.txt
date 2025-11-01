@@ -190,10 +190,7 @@ if(MSVC)
     )
 
     target_link_libraries(${APP_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${QTDIR}/bin/windeployqt --no-translations --no-system-d3d-compiler $<IF:$<CONFIG:Debug>,--debug,--release> "$<TARGET_FILE:${APP_NAME}>"
-        COMMENT "Deploying Qt runtime for ${APP_NAME}"
-    )
+    ipponboard_add_windeploy(${APP_NAME})
 else()
     # Compile and copy translation files
     add_custom_command(TARGET ${APP_NAME} POST_BUILD

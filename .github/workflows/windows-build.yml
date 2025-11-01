@@ -93,6 +93,8 @@ jobs:
       run: |
         set QT_QPA_PLATFORM=offscreen
         set QT_LOGGING_RULES=qt.multimedia.symbolsresolver=false
+        set QT_QPA_PLATFORM_PLUGIN_PATH=%Qt6_DIR%\plugins\platforms
+        if not defined QT_QPA_FONTDIR set QT_QPA_FONTDIR=%WINDIR%\Fonts
         set IPPONBOARD_ENABLE_NETWORK_TESTS=0
         cd ./_bin/Test-${{env.CONFIG}}
         ./IpponboardTest.exe

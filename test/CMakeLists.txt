@@ -72,12 +72,9 @@ if(MSVC)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x64/Microsoft.VC143.CRT/vcruntime140.dll,/debug_nonredist/x64/Microsoft.VC143.DebugCRT/vcruntime140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
     )
 
-    # Deploy Qt runtime using windeployqt (Windows deployment handled centrally)
+    # Deploy Qt runtime
     target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::Multimedia Qt6::Network Qt6::PrintSupport Qt6::Core)
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${QTDIR}/bin/windeployqt --no-translations --no-system-d3d-compiler $<IF:$<CONFIG:Debug>,--debug,--release> "$<TARGET_FILE:${APP_NAME}>"
-        COMMENT "Deploying Qt runtime for ${APP_NAME}"
-    )
+    ipponboard_add_windeploy(${APP_NAME})
 else()
     target_link_libraries(${APP_NAME} PRIVATE Qt6::Network Qt6::Core Qt6::Multimedia Qt6::Widgets Qt6::PrintSupport)
 #    find_package(OpenSSL REQUIRED)

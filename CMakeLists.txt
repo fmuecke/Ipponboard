@@ -4,6 +4,8 @@ project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
 option(IPPONBOARD_ENABLE_NETWORK_TESTS "Enable tests requiring network access" OFF)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
     if(NOT DEFINED MSVC_REDIST_DIR AND DEFINED ENV{VCToolsRedistDir})
@@ -13,6 +15,7 @@ if(MSVC)
     if(NOT DEFINED MSVC_REDIST_DIR)
         message(FATAL_ERROR "MSVC_REDIST_DIR not defined. See InstallRequiredSystemLibraries.cmake in Visual Studio installation.")
     endif()
+    include(IpponboardDeploy REQUIRED)
 endif()
 
 # Read variables from config

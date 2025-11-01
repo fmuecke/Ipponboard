@@ -132,6 +132,10 @@ function Run-Tests {
     }
     Set-Location $TEST_BIN_DIR
     $env:QT_QPA_PLATFORM = "offscreen"
+    $env:QT_QPA_PLATFORM_PLUGIN_PATH = "$QTDIR\plugins\platforms"
+    if (-not $env:QT_QPA_FONTDIR) {
+        $env:QT_QPA_FONTDIR = "$env:WINDIR\Fonts"
+    }
     if (-not $env:IPPONBOARD_ENABLE_NETWORK_TESTS) {
         $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 0
     }
@@ -139,6 +143,8 @@ function Run-Tests {
     $success = ($LASTEXITCODE -eq 0)
     Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_PLATFORM_PLUGIN_PATH -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_FONTDIR -ErrorAction SilentlyContinue
     Set-Location -Path $PSScriptRoot
     return $success
 }

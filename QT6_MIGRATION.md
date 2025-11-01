@@ -1,81 +1,62 @@
-# Qt 6 Migration Playbook
+# Qt 6 Migration Playbook (Living Document)
 
-## Context & Target
-- **Current state**: Project builds against Qt 5.15.2 via manually managed DLL copies and scripted env setup. All CMake targets use `Qt5::` linkage; documentation and packaging assume Qt 5.
-- **Desired state**: Primary toolchain uses Qt 6.9.2 (`~/Qt/6.9.2/gcc_64` on Linux; matching MSVC kit on Windows). CMake links against Qt 6 targets; runtime bundles Qt 6 plugins; docs reference Qt 6; legacy Qt 5 artefacts removed or archived.
+This checklist tracks the migration from Qt 5.15.x to Qt 6.9.2. Update it as tasks move forward.
 
-## 1. Environment & Tooling Preparation
-- Update `env_cfg.bat` and templates (`scripts/init_env_cfg.cmd`, `build.sh`) to point at Qt 6.9.2 install roots (`LINUX_QTDIR=~/Qt/6.9.2/gcc_64`, Windows kits as appropriate). Ensure `BOOST_DIR` handling still works.
-- Confirm `CMAKE_PREFIX_PATH`/`CMAKE_LIBRARY_PATH` populated via the new `QTDIR`.
-- Verify Qt 6 tool binaries (`lrelease`, `windeployqt`/`macdeployqt`, `qtpaths`) are reachable for build and packaging scripts.
-- Check CI/build agents have Qt 6.9.2 available; plan cache or install steps.
+Legend:
+- `[done]` completed
+- `[todo]` pending
+- `[review]` needs investigation/decision
 
-## 2. CMake & Build System Changes
-- Root `CMakeLists.txt`
-  - Switch `find_package` calls to `Qt6 COMPONENTS ... REQUIRED` and remove the `USE_QT5` option gate.
-  - Audit `QT_DISABLE_DEPRECATED_BEFORE` macro: raise to at least `0x060000` (consider `0x060600` once all API updates are in) to surface deprecated Qt 6 APIs early.
-  - Revisit module list; ensure `Qt6::Network` gets linked where `QNetworkAccessManager` is used (currently only `IpponboardUi`).
-  - Keep `AUTOMOC/AUTOUIC/AUTORCC` unchanged; Qt 6’s CMake API is backward compatible.
-- Subdirectory CMake files (`core/`, `base/`, `Widgets/`, `test/`)
-  - Replace `Qt5::` targets with `Qt6::` equivalents.
-  - Drop the `include_directories(${Qt5..._INCLUDE_DIRS})` blocks—Qt 6 CMake targets propagate include paths.
-  - Remove `XmlPatterns` from component lists; the codebase no longer uses Qt XML Patterns, so the dependency can be dropped outright.
-  - Ensure tests link against `Qt6::Test` only if we adopt it; today they use pure Catch2.
-  - Use generator expressions for runtime path copying sparingly; we will standardize on Qt deployment tooling instead (see §4).
-- Regenerate build system (`cmake --fresh -S . -B _build/Ipponboard-Linux`) after changes.
+## Context and Goal
+- Target toolchain: Qt 6.9.2 (`~/Qt/6.9.2/gcc_64` on Linux; matching MSVC 2022 x64 kit on Windows).
+- Objective: All builds/tests/documentation assume Qt 6; Qt 5 artefacts are removed or archived. Licensing remains compliant with LGPL via dynamic linkage.
 
-## 3. Source Code Updates
-- **Header hygiene**
-  - Remove unused legacy headers (numerous `#include <QDesktopWidget>` and `<QtGui>` in `base/` and `Widgets/` still compile under Qt 5 but are gone or discouraged in Qt 6).
-  - Replace PCH inclusions (`base/pch.h`) with module-specific headers from Qt 6 (e.g., include `<QGuiApplication>` instead of `<QtGui/QApplication>`; drop duplicated includes).
-- **UI/Widgets**
-  - Replace any `QDesktopWidget` usage with `QGuiApplication::primaryScreen()` / `QScreen` (code already uses `QGuiApplication::screens()`; ensure no residual `QApplication::desktop()` calls).
-  - Verify `QPrinter`/`QPrintPreviewDialog` APIs in `MainWindowTeam.cpp`—signatures unchanged in Qt 6.
-- **Multimedia**
-  - Confirm `QSoundEffect` usage aligns with Qt 6 expectations (`setVolume` range is still 0.0–1.0). Ensure build links `Qt6::Multimedia`.
-  - Evaluate runtime plugin needs (WASAPI on Windows, PulseAudio/PipeWire on Linux).
-- **Network**
-  - Ensure `OnlineVersionChecker` includes continue to compile; `QNetworkReply::error()` enum values differ slightly (Qt 6 uses scoped enums). Adjust comparisons if compiler warns.
-- **General**
-  - Watch for API renames (e.g., `Qt::AlignHCenter` now flagged as deprecated alias; prefer `Qt::AlignmentFlag::AlignHCenter`).
-  - Re-run clang-tidy/format after edits to match project style.
+## 1. Environment and Tooling
+- `[done]` `env_cfg.bat`, `scripts/init_env_cfg.cmd`, and `build.sh` default to Qt 6.9.2; Boost handling unchanged.
+- `[done]` Local/Linux tests run headless using `QT_QPA_PLATFORM=offscreen` and suppress the Qt Multimedia PipeWire warning.
+- `[done]` Windows PowerShell/CI runs export `QT_QPA_PLATFORM_PLUGIN_PATH=%QTDIR%\plugins\platforms` and `QT_QPA_FONTDIR=%WINDIR%\Fonts` so headless tests load the offscreen plugin and fonts.
+- `[todo]` Confirm Windows GitHub runners provide Qt 6.9.2 MSVC 2022 x64; add installer/cache step if missing.
+- `[todo]` Document required Qt tools (`lrelease`, `windeployqt`, `qtpaths`) and expected directory layout for contributors.
 
-## 4. Packaging & Deployment
-- **Windows (MSVC 2022, 64 bit)**
-  - Replace manual DLL/plugin copies in `base/CMakeLists.txt` and `test/CMakeLists.txt` by invoking `windeployqt` (Qt 6.9.2 MSVC 2022 x64 kit) during packaging. Ensure `setup/setup.iss` consumes the `windeployqt` output rather than hard-coded Qt files.
-  - Update GitHub workflows to run `windeployqt` as part of the release pipeline, keeping runtime bundles aligned with the chosen Qt version.
-- **Linux**
-  - Do not bundle Qt—document Qt 6.9.2 runtime as a prerequisite. Provide installation instructions (e.g., Qt Online Installer or distro packages) in build docs and README.
-  - Adjust CMake install/package steps to avoid assuming Qt libraries are redistributed; verify RPATH/RUNPATH configuration allows system Qt resolution.
-- **Translations**
-  - Ensure `lrelease` invocation uses Qt 6 binary (`${QTDIR}/bin/lrelease[.exe]` still valid).
-- **Licensing**
-  - Replace the `doc/licenses/Qt5` bundle with the Qt 6 LGPL text (dynamic linking). Update packaging scripts to copy the new folder.
+## 2. CMake and Build System
+- `[done]` Root and child CMake scripts use `find_package(Qt6 ...)` and link Qt 6 targets; Qt 5 option removed.
+- `[done]` Windows post-build steps share `ipponboard_add_windeploy()` helper to wrap `windeployqt` with the required MSVC environment, avoiding per-target boilerplate.
+- `[todo]` Increase `QT_DISABLE_DEPRECATED_BEFORE` once remaining source updates are ready to expose additional Qt 6 warnings.
+- `[todo]` Re-audit subdirectory `CMakeLists.txt` for obsolete include hacks and unused Qt modules (for example XmlPatterns).
+- `[todo]` Regenerate build trees with `cmake --fresh` on Linux and Windows to verify no stale cache assumptions remain.
 
-## 5. Documentation & Scripts
-- Refresh `HOW_TO_BUILD.md`, `README.md`, and `doc/USER_MANUAL-*.md` to reference Qt 6.9.2 installation steps (`aqtinstall`, Qt online installer), covering Linux prerequisite installation rather than bundling.
-- Remove Qt 5 build instructions entirely where Qt 6 steps replace them; note the migration in `CHANGELOG.md` / `TODO.md`.
-- Consider an ADR documenting the decision to drop Qt 5 compatibility (per contribution guidelines).
+## 3. Source Code Migration
+- `[done]` Resolved initial Qt 6 deprecation warnings (`ModeManagerDlg`, `MainWindowTeam` context menus).
+- `[todo]` Remove legacy headers (`<QtGui>`, `<QDesktopWidget>`, `QApplication::desktop()`) and migrate to `QGuiApplication` / `QScreen`.
+- `[todo]` Build with tighter deprecation guards (`-DQT_DISABLE_DEPRECATED_BEFORE=0x060000` or newer) and address resulting warnings (alignment enums, scoped enums, etc.).
+- `[todo]` Validate multimedia behaviour (sound playback, plugin availability) under Qt 6 on Linux and Windows.
+- `[todo]` Re-run clang-format/clang-tidy as needed after code cleanups, keeping repository style.
 
-## 6. Validation & QA
-- Full rebuild on Windows and Linux (Release + Debug).
-- Run automated suite: `cmake --build ... --target IpponboardTest`, then `QT_QPA_PLATFORM=offscreen IPPONBOARD_ENABLE_NETWORK_TESTS=0 ./_bin/Test-release/IpponboardTest`.
-- Manual smoke tests:
-  1. Launch main UI; ensure window layout and fonts unchanged.
-  2. Verify translations load, sounds play, printer preview opens.
-  3. Exercise network update check (with `IPPONBOARD_ENABLE_NETWORK_TESTS=1`).
-- For Windows packaging, install produced setup and confirm runtime dependencies shipped correctly.
+## 4. Packaging and Deployment
+- `[todo]` Windows: drive packaging via `windeployqt`, update `setup/setup.iss`, and align the release workflow.
+- `[todo]` Linux: keep Qt as a system prerequisite; document installation options and verify RPATH/RUNPATH settings for installed binaries.
+- `[todo]` Licensing: replace `doc/licenses/Qt5` with the Qt 6 LGPL bundle and adjust scripts that copy these files.
+- `[todo]` Ensure translation tooling (`lrelease`) uses the Qt 6 binary when generating `.qm` files.
 
-## 7. Risks & Open Questions
-- **Multimedia backend**: Qt 6 may require additional codecs/backends; verify on target OSes.
-- **CI availability**: Ensure hosted agents supply Qt 6.9.2 MSVC 2022 x64 and Linux GCC builds; otherwise add caching/install steps.
-- **Third-party libraries**: Re-test Boost interactions; expect no direct Qt dependency but monitor build warnings.
-- **Toolchain drift**: Qt 6 prefers CMake 3.21+; project already uses 3.28, so no action needed.
+## 5. Documentation and Process
+- `[todo]` Update `HOW_TO_BUILD.md`, `README.md`, user manuals, and contributor docs for the Qt 6 toolchain (Linux, Windows, optional macOS).
+- `[todo]` Record the Qt 6 migration in `CHANGELOG.md` / `TODO.md` and produce an ADR capturing the decision, impact, and rollback plan.
+- `[todo]` Align workflow guidance (`AGENTS.md`, CI tips) with the final packaging/testing steps.
 
-## Appendix A – Files Referencing Qt 5 (as of analysis)
-- Build scripts: `CMakeLists.txt`, `base/CMakeLists.txt`, `core/CMakeLists.txt`, `Widgets/CMakeLists.txt`, `test/CMakeLists.txt`, `build.sh`, `scripts/init_env_cfg.cmd`, `env_cfg.bat`.
-- Packaging: `setup/setup.iss`.
-- Documentation: `HOW_TO_BUILD.md`, `README.md`, `CHANGELOG.md`, `doc/USER_MANUAL-DE.md`, `doc/USER_MANUAL-EN.md`, `doc/licenses/Qt5/`.
-- Misc references: `CONTRIBUTORS.md`, `TODO.md`, `doc/licenses` index.
+## 6. Validation and QA
+- `[done]` Automated Linux tests pass under Qt 6 with network tests disabled.
+- `[todo]` Re-enable network-dependent tests (`IPPONBOARD_ENABLE_NETWORK_TESTS=1`) after verifying Qt 6 behaviour.
+- `[todo]` Execute manual smoke tests (UI layout, translations, audio, printing) on Linux and Windows once code changes settle.
+- `[todo]` Windows packaging smoke test: build installer, install on clean VM, confirm runtime dependencies and licensing documentation.
 
-Keep this playbook updated as individual items are addressed; mark sections complete in the PR checklist once corresponding changes land.
+## 7. Risks and Follow-ups
+- `[review]` Multimedia backend differences (PipeWire vs PulseAudio vs WASAPI) might require additional dependencies; monitor during manual tests.
+- `[review]` Ensure GitHub-hosted runners, especially Windows, consistently expose the required Qt 6 SDK; automate provisioning if necessary.
+- `[review]` Watch third-party library interactions (Boost, Catch2) when enabling stricter Qt deprecation guards.
+
+## Appendix – High-priority Files
+- Build/config: `CMakeLists.txt` (all), `setup/setup.iss`, `scripts/init_env_cfg.cmd`, `env_cfg.bat`, `build.sh`, `build.cmd` (if present).
+- Documentation: `HOW_TO_BUILD.md`, `README.md`, `CHANGELOG.md`, `doc/USER_MANUAL-*.md`, `doc/licenses/*`, `CONTRIBUTING.md`, `AGENTS.md`.
+- Packaging assets: `doc/licenses/`, `setup/resources/`, `.github/workflows/*`.
+
+Update this playbook as tasks move; once the migration is complete, summarize remaining lessons in an ADR and archive the checklist.

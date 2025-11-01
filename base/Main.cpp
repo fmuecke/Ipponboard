@@ -10,11 +10,13 @@
 #include "SplashScreen.h"
 #include "versioninfo.h"
 
+#include <QAbstractButton>
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
 #include <QLocale>
 #include <QMessageBox>
+#include <QPushButton>
 #include <QSettings>
 #include <QTranslator>
 #include <QUrl>
@@ -226,21 +228,29 @@ int main(int argc, char* argv[])
                        "Do you want to download it or visit the project homepage?"));
 
         // show message box
-        auto result =
-            QMessageBox::information(nullptr,
-                                     QCoreApplication::tr("Ipponboard - New Version Available"),
-                                     msg,
-                                     QCoreApplication::tr("Download"),
-                                     QCoreApplication::tr("Visit Homepage"),
-                                     QCoreApplication::tr("Cancel"),
-                                     0,
-                                     2);
+        QMessageBox versionBox(QMessageBox::Information,
+                               QCoreApplication::tr("Ipponboard - New Version Available"),
+                               msg,
+                               QMessageBox::NoButton,
+                               nullptr);
+        QAbstractButton* downloadButton =
+            versionBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
+        QAbstractButton* homepageButton =
+            versionBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
+        versionBox.addButton(QCoreApplication::tr("Cancel"), QMessageBox::RejectRole);
+        if (auto* pushButton = qobject_cast<QPushButton*>(homepageButton))
+        {
+            versionBox.setDefaultButton(pushButton);
+        }
 
-        if (result == 0) // download
+        versionBox.exec();
+        QAbstractButton* clickedButton = versionBox.clickedButton();
+
+        if (clickedButton == downloadButton)
         {
             return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
         }
-        else if (result == 1) // visit homepage
+        else if (clickedButton == homepageButton)
         {
             return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
         }
