@@ -137,7 +137,7 @@ function Run-Tests {
         $env:QT_QPA_FONTDIR = "$env:WINDIR\Fonts"
     }
     if (-not $env:IPPONBOARD_ENABLE_NETWORK_TESTS) {
-        $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 0
+        $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     }
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
