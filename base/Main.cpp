@@ -16,6 +16,7 @@
 #include <QFile>
 #include <QLocale>
 #include <QMessageBox>
+#include <QProcessEnvironment>
 #include <QPushButton>
 #include <QSettings>
 #include <QTranslator>
@@ -157,6 +158,14 @@ void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, con
 
 int main(int argc, char* argv[])
 {
+#if defined(Q_OS_LINUX)
+    // Force XCB only when no platform plugin was chosen already. Wayland or other
+    // backends can be provided via the environment; respect caller choice.
+    if (qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM"))
+    {
+        qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("xcb"));
+    }
+#endif
     QApplication a(argc, argv);
 
     // Open the log file and truncate existing content

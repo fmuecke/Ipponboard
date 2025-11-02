@@ -62,11 +62,11 @@ class MainWindow : public MainWindowBase
 
     /* specific private slots */
     void on_actionManageCategories_triggered();
-    void on_comboBox_weight_currentIndexChanged(const QString&);
-    void on_comboBox_name_second_currentIndexChanged(const QString&);
-    void on_comboBox_name_first_currentIndexChanged(const QString&);
+    void on_comboBox_weight_currentTextChanged(const QString&);
+    void on_comboBox_name_second_currentIndexChanged(int index);
+    void on_comboBox_name_first_currentIndexChanged(int index);
     void on_checkBox_golden_score_clicked(bool checked);
-    void on_comboBox_weight_class_currentIndexChanged(const QString&);
+    void on_comboBox_weight_class_currentTextChanged(const QString&);
 
   private slots:
     void on_actionAutoAdjustPoints_toggled(bool checked) override;

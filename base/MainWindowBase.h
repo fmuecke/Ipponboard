@@ -129,7 +129,7 @@ class MainWindowBase : public QMainWindow,
     virtual void SetShowInfoHeader(bool /*show*/) {}
 
     /* IGoldenScoreView */
-    virtual void UpdateGoldenScoreView() {};
+    virtual void UpdateGoldenScoreView(){};
 
   protected:
     virtual void changeEvent(QEvent*) override;

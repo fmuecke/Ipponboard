@@ -910,7 +910,7 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     UpdateFightNumber_();
 }
 
-void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_host_currentTextChanged(const QString& s)
 {
     m_host = s;
 
@@ -918,7 +918,7 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
     m_pUi->lineEdit_location->setText(m_pClubManager->GetAddress(m_host));
 }
 
-void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::FighterEnum::First, s);
 
@@ -936,7 +936,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
     update_score_screen();
 }
 
-void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
 #if 0

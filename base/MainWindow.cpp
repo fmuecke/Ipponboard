@@ -56,8 +56,8 @@ void MainWindow::Init()
         m_pUi->comboBox_weight_class->addItem(t.ToString());
     }
 
-    // trigger tournament class combobox update
-    on_comboBox_weight_class_currentIndexChanged(m_pUi->comboBox_weight_class->currentText());
+    // trigger loading of tournament class data (also loads class weights and fighter names)
+    on_comboBox_weight_class_currentTextChanged(m_pUi->comboBox_weight_class->currentText());
 
     m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 }
@@ -93,7 +93,7 @@ void MainWindow::on_actionManageCategories_triggered()
         }
 
         m_pUi->comboBox_weight_class->setCurrentIndex(index);
-        on_comboBox_weight_class_currentIndexChanged(currentClass);
+        on_comboBox_weight_class_currentTextChanged(currentClass);
     }
     else
     {
@@ -110,7 +110,7 @@ void MainWindow::on_actionManageFighters_triggered()
     dlg.exec();
 }
 
-void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_weight_currentTextChanged(const QString& s)
 {
     update_fighter_name_completer(s);
 
@@ -120,17 +120,17 @@ void MainWindow::on_comboBox_weight_currentIndexChanged(const QString& s)
     m_pSecondaryView->UpdateView();
 }
 
-void MainWindow::on_comboBox_name_first_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
 {
-    
+    auto s = m_pUi->comboBox_name_first->currentText();
     update_fighters(s);
 
     m_pController->SetFighterName(FighterEnum::First, s);
 }
 
-void MainWindow::on_comboBox_name_second_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
 {
-    
+    auto s = m_pUi->comboBox_name_second->currentText();
     update_fighters(s);
 
     m_pController->SetFighterName(FighterEnum::Second, s);
@@ -163,7 +163,7 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
     }
 }
 
-void MainWindow::on_comboBox_weight_class_currentIndexChanged(const QString& s)
+void MainWindow::on_comboBox_weight_class_currentTextChanged(const QString& s)
 {
     FightCategory category(s);
     m_pCategoryManager->GetCategory(s, category);

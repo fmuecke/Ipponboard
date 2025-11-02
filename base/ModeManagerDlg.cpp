@@ -96,7 +96,7 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
         mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
 }
 
-void ModeManagerDlg::on_comboBox_template_currentIndexChanged(const QString& s)
+void ModeManagerDlg::on_comboBox_template_currentTextChanged(const QString& s)
 {
     if (!has_Mode())
     {
