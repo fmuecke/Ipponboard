@@ -16,6 +16,8 @@ Ipponboard requires the following libraries and tools to be built:
 - [Qt framework](https://www.qt.io/) (required: 5.15.13 or newer; 6.x not yet supported)
   - versions < 5.15.13 can be used to compile, however not all tests are working properly because of missing fixes in the ssl library
 - [CMake](https://cmake.org) (last used: 3.29.x)
+- [Ninja](https://ninja-build.org/) build tool (last used: 1.11)
+- [LLVM lld linker](https://lld.llvm.org/) (last used: 17.x) for faster linking on Linux
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
@@ -70,10 +72,11 @@ Select build mode:
 
 1. Install _Visual Studio_
 2. Install `cmake` and make sure it's available via `%PATH%`
-3. [Build Qt5 framework](#building-qt5-on-windows-1011)
-4. Install _Boost_
-5. Install _Pandoc_ and make sure it's available via `%PATH%`
-6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from Windows PowerShell
+3. Install `ninja` and make sure it's available via `%PATH%`
+4. [Build Qt5 framework](#building-qt5-on-windows-1011)
+5. Install _Boost_
+6. Install _Pandoc_ and make sure it's available via `%PATH%`
+7. [Run `build.ps1`](#run-buildps1-resp-buildsh) from Windows PowerShell
 
 ### Building Qt5 on Windows 10/11
 
@@ -103,9 +106,11 @@ Select build mode:
 ## Building on Linux/Ubuntu/WSL 🐧
 
 
-2. [Build Qt5 framework](#building-qt5-on-ubuntu-wsl) or [use aqt to install Qt5 libraries](#installing-qt5-on-ubuntu-wsl-using-aqt)
+1. Install the `ninja-build` package from your distribution
+2. Install the `lld` package (often `sudo apt install lld`)
+3. [Build Qt5 framework](#building-qt5-on-ubuntu-wsl) or [use aqt to install Qt5 libraries](#installing-qt5-on-ubuntu-wsl-using-aqt)
 
-3. Install _Boost_:
+4. Install _Boost_:
     1. Download the recent version from https://www.boost.org
     2. Extract the archive (no build required as only headers are used)
     3. Specify the path in `env.cfg` (see [build.sh](#run-buildps1-resp-buildsh))

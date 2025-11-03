@@ -6,6 +6,14 @@ function Check-cmake {
     }
 }
 
+function Check-Ninja {
+    $ninja = Get-Command ninja -ErrorAction SilentlyContinue
+    if ($ninja -eq $null) {
+        Write-Host "Ninja not found. Please install Ninja (https://ninja-build.org/) and make sure it is in the PATH."
+        exit 1
+    }
+}
+
 function Init-Environment {
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -103,11 +111,24 @@ function MainLoop {
 }
 
 function Clean-All {
-    # remove _bin and _build directories
-    $dirs = "$IPPONBOARD_ROOT_DIR\_bin", "$IPPONBOARD_ROOT_DIR\_build", "$IPPONBOARD_ROOT_DIR\_output"
+    if (Test-Path $BUILD_DIR) {
+        foreach ($cfg in @("Release", "Debug")) {
+            Write-Host "Cleaning build outputs ($cfg) in $BUILD_DIR"
+            cmake --build "$BUILD_DIR" --config $cfg --target clean | Out-Null
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "WARN: CMake clean failed for configuration $cfg (continuing)."
+            }
+        }
+    }
+    else {
+        Write-Host "Build directory not found: $BUILD_DIR (skipping CMake clean)."
+    }
+
+    Write-Host "Removing binary output directories"
+    $dirs = "$IPPONBOARD_ROOT_DIR\_bin", "$IPPONBOARD_ROOT_DIR\_output"
     foreach ($item in $dirs) {
-        Write-Host "Removing $item"
         if (Test-Path $item) {
+            Write-Host "  Removing $item"
             Remove-Item -Path $item -Recurse -Force -ErrorAction SilentlyContinue
         }
     }
@@ -120,7 +141,7 @@ function Create-Makefiles {
     & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
     if ($LASTEXITCODE -ne 0) { return $false }
     
-    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 17 2022" -A x64 --fresh
+    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Ninja Multi-Config" --fresh
     if ($LASTEXITCODE -ne 0) { return $false }
 }
 
@@ -228,6 +249,7 @@ function Translate-Resources {
 # Main
 try {
     Check-cmake
+    Check-Ninja
     MainLoop
 }
 catch {

@@ -8,6 +8,24 @@ function check_cmake {
     fi
 }
 
+function check_ninja {
+    if ! command -v ninja &> /dev/null
+    then
+        echo "Ninja not found. Please install Ninja (https://ninja-build.org/) and make sure it is in the PATH."
+        exit 1
+    fi
+}
+
+function check_lld {
+    if command -v ld.lld &> /dev/null || command -v lld &> /dev/null
+    then
+        return 0
+    fi
+
+    echo "LLVM lld linker not found. Please install lld (https://lld.llvm.org/) and make sure it is in the PATH."
+    exit 1
+}
+
 function verify_formatting {
     local script_dir
     script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -17,6 +35,10 @@ function verify_formatting {
 }
 
 function init_environment {
+
+    check_cmake
+    check_ninja
+    check_lld
 
 	LOCAL_CONFIG="$PWD/env_cfg.bat"
 	if [ -f "$LOCAL_CONFIG" ]; then
@@ -112,11 +134,20 @@ function main_loop {
 }
 
 function clean_all {
-    # remove _bin and _build directories
-    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$IPPONBOARD_ROOT_DIR/_build" "$OUTPUT_DIR")
+    if [ -d "$BUILD_DIR" ]; then
+        echo "Cleaning build outputs in $BUILD_DIR"
+        if ! cmake --build "$BUILD_DIR" --config $CONFIG --target clean; then
+            echo "WARN: CMake clean failed for $BUILD_DIR (continuing)."
+        fi
+    else
+        echo "Build directory not found: $BUILD_DIR (skipping CMake clean)."
+    fi
+
+    echo "Removing binary output directories"
+    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$OUTPUT_DIR")
     for item in "${dirs[@]}"; do
-        echo "Removing $item"
         if [ -d "$item" ]; then
+            echo "  rm -rf $item"
             rm -rf "$item"
         fi
     done
@@ -128,7 +159,12 @@ function clean_all {
 function create_makefiles {
     ./scripts/create-versioninfo.sh "$IPPONBOARD_ROOT_DIR/base" || return 1
 
-    cmake -S $PWD -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=$CONFIG -G "Unix Makefiles" --fresh
+    cmake -S $PWD -B "$BUILD_DIR" \
+        -DCMAKE_BUILD_TYPE=$CONFIG \
+        -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=lld" \
+        -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld" \
+        -DCMAKE_MODULE_LINKER_FLAGS="-fuse-ld=lld" \
+        -G "Ninja" --fresh
     return $?
 }
 
