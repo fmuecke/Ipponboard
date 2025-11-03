@@ -135,6 +135,6 @@ Breaking-Change (if applicable): <description>
 ## Agent Hints
 
 - Preferred build tooling lives in `build.sh`; it seeds `_build/Ipponboard-Linux` as the CMake build tree and writes binaries into `_bin/<Target>-<CONFIG>` (default config: `release`).
-- To build unit tests from the command line, run `cmake --build _build/Ipponboard-Linux --target IpponboardTest`.
-- Execute the Catch2 suite via `QT_QPA_PLATFORM=offscreen IPPONBOARD_ENABLE_NETWORK_TESTS=0 ./_bin/Test-release/IpponboardTest` so GUI dependencies run headless and opt out of network calls.
-- Network-enabled tests can be reactivated by exporting `IPPONBOARD_ENABLE_NETWORK_TESTS=1` before launching `IpponboardTest`.
+- To build unit tests from the command line, run `cmake --build _build/Ipponboard-Linux --target IpponboardTest` and `--target IpponboardNetworkTest`.
+- Execute the main Catch2 suite via `QT_QPA_PLATFORM=offscreen ./_bin/Test-release/IpponboardTest` so GUI dependencies run headless.
+- Network-dependent checks live in `IpponboardNetworkTest`; run them with `QT_QPA_PLATFORM=offscreen ./_bin/Test-release/IpponboardNetworkTest`.

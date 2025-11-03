@@ -175,10 +175,25 @@ function run_tests {
         return 1
     fi
     pushd "$TEST_BIN_DIR" > /dev/null
+    echo IpponboardTest:
     QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
         QT_LOGGING_RULES=${QT_LOGGING_RULES:-qt.multimedia.symbolsresolver=false} \
-        IPPONBOARD_ENABLE_NETWORK_TESTS=${IPPONBOARD_ENABLE_NETWORK_TESTS:-1} ./IpponboardTest
+        ./IpponboardTest
     success=$?
+
+    if [ $success -eq 0 ]; then
+        net_exe="$TEST_BIN_DIR/IpponboardNetworkTest"
+        if [ -f "$net_exe" ]; then
+            echo IpponboardNetworkTest:
+            QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
+                QT_LOGGING_RULES=${QT_LOGGING_RULES:-qt.multimedia.symbolsresolver=false} \
+                ./IpponboardNetworkTest
+            success=$?
+        else
+            echo "Network test app not found: $net_exe"
+            success=1
+        fi
+    fi
     popd > /dev/null
     return $success
 }
@@ -187,6 +202,7 @@ function build_and_run_tests {
     verify_formatting || return 1
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest -j"$NUM_CORES" || return 1
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest -j"$NUM_CORES" || return 1
 
     run_tests
     return $?

@@ -140,7 +140,7 @@ function Clean-All {
 function Create-Makefiles {
     & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
     if ($LASTEXITCODE -ne 0) { return $false }
-    
+
     cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Ninja Multi-Config" --fresh
     if ($LASTEXITCODE -ne 0) { return $false }
 }
@@ -157,12 +157,21 @@ function Run-Tests {
     if (-not $env:QT_QPA_FONTDIR) {
         $env:QT_QPA_FONTDIR = "$env:WINDIR\Fonts"
     }
-    if (-not $env:IPPONBOARD_ENABLE_NETWORK_TESTS) {
-        $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
-    }
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
-    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
+
+    if ($success) {
+        $networkExe = "$TEST_BIN_DIR\IpponboardNetworkTest.exe"
+        if (-not (Test-Path $networkExe)) {
+            Write-Host "Network test app not found: $networkExe"
+            $success = $false
+        }
+        else {
+            & "$networkExe"
+            $success = ($LASTEXITCODE -eq 0)
+        }
+    }
+
     Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
     Remove-Item Env:QT_QPA_PLATFORM_PLUGIN_PATH -ErrorAction SilentlyContinue
     Remove-Item Env:QT_QPA_FONTDIR -ErrorAction SilentlyContinue
@@ -174,6 +183,10 @@ function Build-and-run-tests {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
+    
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest 
+    if ($LASTEXITCODE -ne 0) { return $false }
+
     $success = Run-Tests
     return $success
 }

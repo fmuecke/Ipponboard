@@ -45,7 +45,7 @@ Legend:
 
 ## 6. Validation and QA
 - `[done]` Automated Linux tests pass under Qt 6 with network tests disabled.
-- `[todo]` Re-enable network-dependent tests (`IPPONBOARD_ENABLE_NETWORK_TESTS=1`) after verifying Qt 6 behaviour.
+- `[done]` Network-dependent tests now live in the always-built `IpponboardNetworkTest` target; run it in network-enabled environments when validating Qt 6 behaviour.
 - `[todo]` Execute manual smoke tests (UI layout, translations, audio, printing) on Linux and Windows once code changes settle.
 - `[todo]` Windows packaging smoke test: build installer, install on clean VM, confirm runtime dependencies and licensing documentation.
 

@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
-option(IPPONBOARD_ENABLE_NETWORK_TESTS "Enable tests requiring network access" OFF)
-
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Define variables for the required MSVC runtime libraries
@@ -91,3 +89,4 @@ add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
 add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)
 add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
 add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
+add_subdirectory(test_network ${CMAKE_BINARY_DIR}/build-TestNetwork)
