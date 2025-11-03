@@ -18,6 +18,7 @@ Ipponboard requires the following libraries and tools to be built:
 - [CMake](https://cmake.org) (last used: 3.29.x)
 - [Ninja](https://ninja-build.org/) build tool (last used: 1.11)
 - [LLVM lld linker](https://lld.llvm.org/) (last used: 17.x) for faster linking on Linux
+- [Git](https://git-scm.com/) (required for downloading third-party sources such as Catch2 during the CMake configure step)
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
@@ -66,6 +67,9 @@ Select build mode:
      (s) switch debug/release
      (q) quit
 ```
+
+> The first configure step will download Catch2 via CMake FetchContent. Ensure outbound network
+> access (or provide a local mirror through the `FETCHCONTENT_SOURCE_DIR_Catch2` cache value) before running `build.sh` / `build.ps1`.
 
 
 ## Building on Windows 10/11

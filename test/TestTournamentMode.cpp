@@ -4,11 +4,11 @@
 
 #include "../core/TournamentMode.cpp"
 #include "../core/TournamentMode.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 #include "TestDataPath.h"
 
 #include <QDir>
 #include <QString>
+#include <catch2/catch_test_macros.hpp>
 #include <iostream>
 
 using namespace Ipponboard;

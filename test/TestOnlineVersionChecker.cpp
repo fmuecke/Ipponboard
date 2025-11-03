@@ -4,13 +4,13 @@
 
 #include "../base/OnlineVersionChecker.cpp"
 #include "../base/OnlineVersionChecker.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 #include "TestDataPath.h"
 #include "TestQtApp.h"
 
 #include <QCoreApplication>
 #include <QString>
 #include <algorithm>
+#include <catch2/catch_test_macros.hpp>
 #include <cctype>
 #include <chrono>
 #include <cstdlib>

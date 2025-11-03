@@ -6,8 +6,8 @@
 #include "../core/Fight.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 
+#include <catch2/catch_test_macros.hpp>
 #include <iostream>
 
 using namespace Ipponboard;

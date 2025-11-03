@@ -4,6 +4,17 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Ipponboard tests
 set(APP_NAME IpponboardTest)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.11.0
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(Catch2)
+
 find_package(Qt6 COMPONENTS Core Network Widgets Multimedia PrintSupport REQUIRED)
 
 if(LINUX)
@@ -19,7 +30,6 @@ else()
 endif()
 
 set(SOURCES
-    IpponboardTest.cpp
     TestFight.cpp
     TestJson.cpp
     TestController.cpp
@@ -36,12 +46,10 @@ set(SOURCES
     TestStateMachine.cpp
     TestTournamentModel.cpp
     TestView.cpp
-    ../util/catch2/catch_amalgamated.cpp
 )
 
-set_property(SOURCE IpponboardTest.cpp PROPERTY SKIP_AUTOMOC ON)
 add_executable(${APP_NAME} ${SOURCES})
-target_link_libraries(${APP_NAME} PRIVATE IpponboardUi)
+target_link_libraries(${APP_NAME} PRIVATE IpponboardUi Catch2::Catch2WithMain)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 target_compile_definitions(${APP_NAME} PRIVATE IPPON_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/TestData")
 

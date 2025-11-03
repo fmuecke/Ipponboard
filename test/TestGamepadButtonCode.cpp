@@ -1,11 +1,12 @@
 #include "../gamepad/Gamepad.h"
-#include "../util/catch2/catch_amalgamated.hpp"
+
+#include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("Gamepad button codes use dedicated POV range")
 {
-    using GamepadLib::Constants::PovCodeBase;
     using GamepadLib::EButton;
     using GamepadLib::Gamepad;
+    using GamepadLib::Constants::PovCodeBase;
 
     SECTION("regular buttons keep their numeric ids")
     {

@@ -4,9 +4,9 @@
 
 #include "../base/VersionComparer.cpp"
 #include "../base/VersionComparer.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 
 #include <QString>
+#include <catch2/catch_test_macros.hpp>
 #include <iostream>
 
 //using namespace Ipponboard;

@@ -1,10 +1,10 @@
 #include "../core/Enums.h"
 #include "../core/Rules.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 #include "ControllerTestHelpers.h"
 
 #include <QStringList>
 #include <QTime>
+#include <catch2/catch_test_macros.hpp>
 
 using namespace Ipponboard;
 using namespace TestSupport;

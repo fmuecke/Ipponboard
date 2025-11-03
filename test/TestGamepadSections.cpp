@@ -1,9 +1,9 @@
 #include "../base/GamepadSectionMapper.h"
 #include "../gamepad/Gamepad.h"
 #include "../gamepad/GamepadTypes.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 
 #include <array>
+#include <catch2/catch_test_macros.hpp>
 #include <optional>
 #include <unordered_set>
 
