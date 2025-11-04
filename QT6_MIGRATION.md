@@ -16,20 +16,21 @@ Legend:
 - `[done]` Local/Linux tests run headless using `QT_QPA_PLATFORM=offscreen` and suppress the Qt Multimedia PipeWire warning.
 - `[done]` Windows PowerShell/CI runs export `QT_QPA_PLATFORM_PLUGIN_PATH=%QTDIR%\plugins\platforms` and `QT_QPA_FONTDIR=%WINDIR%\Fonts` so headless tests load the offscreen plugin and fonts.
 - `[todo]` Confirm Windows GitHub runners provide Qt 6.9.2 MSVC 2022 x64; add installer/cache step if missing.
-- `[todo]` Document required Qt tools (`lrelease`, `windeployqt`, `qtpaths`) and expected directory layout for contributors.
+- `[done]` Documented required Qt helper tools (`lrelease`, `windeployqt`, `qtpaths`) and the standard SDK layout in HOW_TO_BUILD.md.
 
 ## 2. CMake and Build System
 - `[done]` Root and child CMake scripts use `find_package(Qt6 ...)` and link Qt 6 targets; Qt 5 option removed.
 - `[done]` Windows post-build steps share `ipponboard_add_windeploy()` helper to wrap `windeployqt` with the required MSVC environment, avoiding per-target boilerplate.
-- `[todo]` Increase `QT_DISABLE_DEPRECATED_BEFORE` once remaining source updates are ready to expose additional Qt 6 warnings.
-- `[todo]` Re-audit subdirectory `CMakeLists.txt` for obsolete include hacks and unused Qt modules (for example XmlPatterns).
+- `[done]` Increase `QT_DISABLE_DEPRECATED_BEFORE` to `0x060900` to surface Qt 6.9 deprecations during builds.
+- `[done]` Re-audit subdirectory `CMakeLists.txt`: removed Linux-only `-fpermissive` hacks, rely on target-scoped includes/PIC, and confirmed Qt module usage is minimal.
+- `[done]` Require C++20 toolchain-wide; Boost 1.89 resolves prior MSM incompatibility.
 - `[todo]` Regenerate build trees with `cmake --fresh` on Linux and Windows to verify no stale cache assumptions remain.
 
 ## 3. Source Code Migration
 - `[done]` Resolved initial Qt 6 deprecation warnings (`ModeManagerDlg`, `MainWindowTeam` context menus).
-- `[todo]` Remove legacy headers (`<QtGui>`, `<QDesktopWidget>`, `QApplication::desktop()`) and migrate to `QGuiApplication` / `QScreen`.
-- `[todo]` Build with tighter deprecation guards (`-DQT_DISABLE_DEPRECATED_BEFORE=0x060000` or newer) and address resulting warnings (alignment enums, scoped enums, etc.).
-- `[todo]` Validate multimedia behaviour (sound playback, plugin availability) under Qt 6 on Linux and Windows.
+- `[done]` Removed legacy desktop APIs; code paths rely on `QGuiApplication`/`QScreen` and no sources include `<QtGui>` or `QDesktopWidget`.
+- `[done]` Build with tighter deprecation guards (`-DQT_DISABLE_DEPRECATED_BEFORE=0x060900`); no outstanding warnings after recompilation.
+- `[done]` Verified Qt 6.9.2 multimedia stack: application starts, plugins load, and sound playback works on Linux and Windows hosts.
 - `[todo]` Re-run clang-format/clang-tidy as needed after code cleanups, keeping repository style.
 
 ## 4. Packaging and Deployment

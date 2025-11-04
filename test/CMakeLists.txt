@@ -8,10 +8,6 @@ include(IpponboardCatch2)
 
 find_package(Qt6 COMPONENTS Core Network Widgets Multimedia PrintSupport REQUIRED)
 
-if(LINUX)
-    add_compile_options(-fPIC -fpermissive)
-endif()
-
 if(WIN32)
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)

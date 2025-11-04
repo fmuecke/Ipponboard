@@ -6,13 +6,6 @@ set(APP_NAME Ipponboard)
 
 find_package(Qt6 COMPONENTS Widgets PrintSupport Multimedia Network REQUIRED)
 
-if(LINUX)
-    # common include directories
-    include_directories(${ROOT_DIR}/Widgets)
-
-    add_compile_options(-fPIC -fpermissive)
-endif()
-
 set(UI_SOURCES
     AddFighterDlg.cpp
     ClubManager.cpp
@@ -112,6 +105,7 @@ set_target_properties(IpponboardUi PROPERTIES
     AUTOUIC ON
     AUTORCC ON
 )
+set_target_properties(IpponboardUi PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(IpponboardUi
     PUBLIC

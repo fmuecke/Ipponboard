@@ -27,11 +27,11 @@ jobs:
       shell: bash
       run: CLANG_FORMAT=clang-format-14 ./scripts/check-format.sh
     
-    - name: Install boost
+    - name: Install Boost
       uses: MarkusJx/install-boost@v2.4.5
       id: install-boost
       with:
-         boost_version: 1.81.0
+         boost_version: 1.89.0
          platform_version: 20.04
          toolset: gcc
          arch: aarch64

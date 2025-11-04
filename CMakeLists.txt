@@ -74,7 +74,7 @@ message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # Configure c++ language support
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
  
@@ -82,7 +82,7 @@ if (MSVC)
     add_compile_options(/MP)
 endif()
 
-add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x060000)
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x060900)
 # Add targets
 add_subdirectory(gamepad ${CMAKE_BINARY_DIR}/build-Gamepad)
 add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
