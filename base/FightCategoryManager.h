@@ -8,10 +8,10 @@
 #include "../core/FightCategory.h"
 
 #include <QString>
-#include <QTime>
 #include <QStringList>
-#include <string>
+#include <QTime>
 #include <memory>
+#include <string>
 
 // forwards
 class QListWidgetItem;
@@ -21,40 +21,37 @@ namespace Ipponboard
 
 class FightCategoryMgr
 {
-	//Q_OBJECT
-public:
-	static const char* const str_legacyConfigFileName;
-	static const char* const str_configFileName;
+    //Q_OBJECT
+  public:
+    static const char* const str_legacyConfigFileName;
+    static const char* const str_configFileName;
 
-	FightCategoryMgr();
-	virtual ~FightCategoryMgr();
+    FightCategoryMgr();
+    virtual ~FightCategoryMgr();
 
-	typedef std::shared_ptr<FightCategoryMgr> Ptr;
+    typedef std::shared_ptr<FightCategoryMgr> Ptr;
 
-	void LoadCategories();
-	void SaveCategories();
+    void LoadCategories();
+    void SaveCategories();
 
-	bool GetCategory(int index, FightCategory& t) const;
-	bool GetCategory(QString const& name, FightCategory& t) const;
+    bool GetCategory(int index, FightCategory& t) const;
+    bool GetCategory(QString const& name, FightCategory& t) const;
 
-	bool HasCategory(QString const& name) const;
-	void AddCategory(FightCategory const& t);
-	void AddCategory(QString const& name);
-	void UpdateCategory(FightCategory const& t);
-	void UpdateCategory(QString const& oldName, FightCategory const& t);
-	void RenameCategory(QString const& oldName, QString const& newName);
-	void RemoveCategory(QString const& name);
-	int CategoryCount() const { return m_Categories.size(); }
+    bool HasCategory(QString const& name) const;
+    void AddCategory(FightCategory const& t);
+    void AddCategory(QString const& name);
+    void UpdateCategory(FightCategory const& t);
+    void UpdateCategory(QString const& oldName, FightCategory const& t);
+    void RenameCategory(QString const& oldName, QString const& newName);
+    void RemoveCategory(QString const& name);
+    int CategoryCount() const { return m_Categories.size(); }
 
-	bool CategoriesFromString(std::string const& s);
-	std::string ConvertCategoriesToString_WITH_GUI_ERROR();
+  private:
+    void load_default_categories();
 
-private:
-	void load_default_categories();
-
-	FightCategoryList m_Categories;
+    FightCategoryList m_Categories;
 };
 
 } // namespace Ipponboard
 
-#endif  // BASE__FIGHTCATEGORYMANAGER_H_
+#endif // BASE__FIGHTCATEGORYMANAGER_H_

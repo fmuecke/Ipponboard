@@ -10,21 +10,26 @@ function Init-Environment {
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Read-Env-Cfg
-    $global:BUILD_DIR="$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
-    $global:CONFIG="release"
-    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
-    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+    $global:BUILD_DIR = "$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
+    $global:CONFIG = "release"
+    $global:BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+}
+
+function Invoke-ClangFormatCheck {
+    & "$PSScriptRoot\scripts\check-format.ps1"
+    return ($LASTEXITCODE -eq 0)
 }
 
 # Read settings from env_cfg.cmd file. The settings are in the format "set VAR=VALUE"
 function Read-Env-Cfg {
-	$env_cfg = Get-Content .\env_cfg.bat
-	foreach ($line in $env_cfg) {
+    $env_cfg = Get-Content .\env_cfg.bat
+    foreach ($line in $env_cfg) {
         if ($line -match '^set "(.*)=(.*)"\s*$') {
             Set-Variable -Name $matches[1] -Value $matches[2] -Scope Global
             Write-Host "Setting $($matches[1]) to $($matches[2])"
-		}
-	}
+        }
+    }
 }
 
 function Show-Menu {
@@ -69,8 +74,8 @@ function Execute-And-Measure {
     & $function
     $end = Get-Date
     $elapsed = $end - $start
-    $formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
-    Write-Host "Elapsed time: $formattedTime"
+    #$formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
+    Write-Host "Elapsed time: $([int]$elapsed.TotalSeconds)s"
     Pause
 }
 
@@ -126,21 +131,24 @@ function Run-Tests {
         return $false
     }
     Set-Location $TEST_BIN_DIR
+    $env:IPPONBOARD_ENABLE_NETWORK_TESTS = 1
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
+    Remove-Item Env:IPPONBOARD_ENABLE_NETWORK_TESTS -ErrorAction SilentlyContinue
     Set-Location -Path $PSScriptRoot
     return $success
 }
 
 function Build-and-run-tests {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
     if ($LASTEXITCODE -ne 0) { return $false }
-
     $success = Run-Tests
     return $success
 }
 
 function Build-ALL {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
@@ -193,12 +201,13 @@ function Build-Setup {
 function Switch-Config {
     if ($global:CONFIG -eq "release") {
         $global:CONFIG = "debug"
-    } else {
+    }
+    else {
         $global:CONFIG = "release"
     }
 
-    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
-    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+    $global:BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
 }
 
 function Translate-Resources {
@@ -210,7 +219,8 @@ function Translate-Resources {
 try {
     Check-cmake
     MainLoop
-} catch {
+}
+catch {
     Write-Host "An error occurred: $_"
     exit 1
 }

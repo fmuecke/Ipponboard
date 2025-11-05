@@ -8,6 +8,14 @@ function check_cmake {
     fi
 }
 
+function verify_formatting {
+    local script_dir
+    script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+    local root="${IPPONBOARD_ROOT_DIR:-$script_dir}"
+    "$root/scripts/check-format.sh"
+    return $?
+}
+
 function init_environment {
 
 	LOCAL_CONFIG="$PWD/env_cfg.bat"
@@ -131,25 +139,27 @@ function run_tests {
         return 1
     fi
     pushd "$TEST_BIN_DIR" > /dev/null
-    "./IpponboardTest"
+    IPPONBOARD_ENABLE_NETWORK_TESTS=${IPPONBOARD_ENABLE_NETWORK_TESTS:-0} ./IpponboardTest
     success=$?
     popd > /dev/null
     return $success
 }
 
 function build_and_run_tests {
+    verify_formatting || return 1
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest -j"$NUM_CORES" || return 1
 
-    run_tests
+    IPPONBOARD_ENABLE_NETWORK_TESTS=1 run_tests
     return $?
 }
 
 function build_all {
+    verify_formatting || return 1
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG -j"$NUM_CORES" || return 1
 
-    run_tests || return $?
+    IPPONBOARD_ENABLE_NETWORK_TESTS=1 run_tests || return $?
     build_doc || return $?
     return 0
 }

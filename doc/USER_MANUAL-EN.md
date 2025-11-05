@@ -266,7 +266,7 @@ Using the *gamepad* 🎮:
   For the *white* fighter the directions are simply mirrored.
 
 - *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
-- *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
+- *Tip:* To find out how the respective gamepad is aligned, you can use diagnostics mode in on the settings page. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
 ## Reset display
 

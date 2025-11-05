@@ -20,6 +20,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Ensure clang-format
+      shell: pwsh
+      run: |
+        if (-not (Get-Command clang-format -ErrorAction SilentlyContinue)) {
+            if (Get-Command choco -ErrorAction SilentlyContinue) {
+                choco install llvm --version=14.0.6 -y --no-progress
+            } else {
+                throw "clang-format not found. Install LLVM clang-format 14 on the runner."
+            }
+        }
+
+    - name: Check formatting
+      shell: pwsh
+      run: ./scripts/check-format.ps1
+
     - name: Install boost
       uses: MarkusJx/install-boost@v2.4.5
       id: install-boost
@@ -45,7 +60,7 @@ jobs:
       run: |
         echo set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}" > ${{ env.ENV_CFG }}
         echo set "QTDIR=${{ env.Qt5_DIR }}" >> ${{ env.ENV_CFG }}
-        echo set "BOOST_DIR=${{ env.BOOST_DIR }} >> ${{ env.ENV_CFG }}
+        echo set "BOOST_DIR=${{ env.BOOST_DIR }}" >> ${{ env.ENV_CFG }}
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
         BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}

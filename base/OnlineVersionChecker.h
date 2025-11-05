@@ -9,35 +9,34 @@
 
 class OnlineVersionChecker
 {
-public:
+  public:
+    OnlineVersionChecker();
 
-	OnlineVersionChecker();
+    enum class State
+    {
+        Empty = 0,
+        UpToDate,
+        NewerAvailable,
+        NewerThanOnlineAvailable
+    };
 
-	enum class State
-	{
-		Empty = 0,
-		UpToDate,
-		NewerAvailable,
-		NewerThanOnlineAvailable
-	};
+    struct OnlineVersion
+    {
+        QString version;
+        QString infoUrl;
+        QString downloadUrl;
+        QString changes_de;
+        QString changes_en;
+        State state;
+    };
 
-	struct OnlineVersion
-	{
-		QString version;
-		QString infoUrl;
-		QString downloadUrl;
-		QString changes_de;
-		QString changes_en;
-		State state;
-	};
+    static OnlineVersion CheckOnlineVersion();
 
-	static OnlineVersion CheckOnlineVersion();
+    static QString get_version_document(QString url);
+    static OnlineVersion parse_version_document(QString jsonDoc);
 
-	static QString get_version_document(QString url);
-	static OnlineVersion parse_version_document(QString jsonDoc);
-
-	static const QString VersionDocumentUrl;
-	static const QString ProjectReleasesUrl;
+    static const QString VersionDocumentUrl;
+    static const QString ProjectReleasesUrl;
 };
 
 #endif // UPDATER_H
