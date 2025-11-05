@@ -36,18 +36,16 @@ jobs:
          toolset: gcc
          arch: aarch64
 
-    - name: Install Qt6
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==3.1.*'
         version: '6.9.3'
-        cache: 'true'
-        cache-key-prefix: 'install-qt-action'
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
-        modules: 'qtmultimedia qtnetworkauth'
-        archives: 'qttranslations qttools qtsvg qtbase'        
+        modules: 'qtimageformats qtmultimedia qtnetworkauth'
+        archives: 'qtwayland qttranslations qttools qtsvg qtbase icu'          
 
     - name: Init variables
       shell: bash
