@@ -53,6 +53,17 @@ More information about usage and configuration is described within the manual:
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt). <br>
 Please acknowledge all the different contributors in [CONTRIBUTORS.md](CONTRIBUTORS.md) - without them Ipponboard would not have been possible.
 
+# Building from source
+
+Ipponboard targets a Qt 6.9.x toolchain with modern C++ (C++20). Quick prerequisites:
+
+- Qt 6.9.2 (desktop kits: `gcc_64` on Linux, `msvc2022_64` on Windows)
+- Boost 1.89 headers
+- CMake ≥ 3.29 with Ninja installed
+- Compilers: gcc 13+ on Linux, Visual Studio 2022 (VC143) on Windows
+
+Full setup instructions live in [HOW_TO_BUILD.md](HOW_TO_BUILD.md); follow those steps for platform-specific guidance.
+
 # Contact
 - source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
 - latest news and downloads: here on github

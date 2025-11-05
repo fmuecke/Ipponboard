@@ -1,11 +1,11 @@
 GENERAL
 -------
 
-Qt is available under a commercial license with various pricing models and packages that meet a variety of needs. Commercial Qt license keeps your code proprietary where only you can control and monetize on your end product’s development, user experience and distribution. You also get great perks like additional functionality, productivity enhancing tools, world-class support and a close strategic relationship with The Qt Company to make sure your product and development goals are met.
+Qt 6 is available under commercial terms or open-source licenses. The commercial Qt license keeps your code proprietary where only you can control and monetize the end product's development, user experience, and distribution. Commercial licensees also receive productivity tools, support, and a strategic relationship with The Qt Company.
 
-Qt has been created under the belief of open development and providing freedom and choice to developers. To support that, The Qt Company also licenses Qt under open source licenses, where most of the functionality is available under LGPLv3. It should be noted that the tools as well as some add-on components are available only under GPLv3. In order to preserve the true meaning of open development and uphold the spirit of free software, it is imperative that the rules and regulations of open source licenses are followed. If you use Qt under open-source licenses, you need to make sure that you comply with all the licenses of the components you use.
+Qt has been created under the belief of open development and providing freedom and choice to developers. To support that, The Qt Company also licenses Qt under open source licenses, where most of the functionality is available under LGPLv3. Some tools and add-on modules are GPLv3 only. If you use Qt under open-source licenses, you must comply with all license obligations that apply to the components you ship.
 
-Qt also contains some 3rd party components that are available under different open-source licenses. Please refer to the documentation for more details on 3rd party licenses used in Qt.
+Qt also ships third-party components under their respective licenses. Refer to the Qt documentation for a comprehensive list.
 
 
 GPLv3 and LGPLv3
@@ -13,7 +13,7 @@ GPLv3 and LGPLv3
 
             GNU LESSER GENERAL PUBLIC LICENSE
 
- The Qt Toolkit is Copyright (C) 2017 The Qt Company Ltd.
+ The Qt Toolkit is Copyright (C) 2024 The Qt Company Ltd.
  Contact: https://www.qt.io/licensing
 
  You may use, distribute and copy the Qt GUI Toolkit under the terms of
@@ -863,4 +863,3 @@ If the Library as you received it specifies that a proxy can decide
 whether future versions of the GNU Lesser General Public License shall
 apply, that proxy's public statement of acceptance of any version is
 permanent authorization for you to choose that version for the Library.
-

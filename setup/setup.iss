@@ -99,10 +99,13 @@ Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags
 Source: "..\_bin\Ipponboard-Release\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\licenses\*.*"; DestDir: "{app}\licenses"; Flags: IgnoreVersion recursesubdirs
-Source: "..\_bin\Ipponboard-Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: IgnoreVersion recursesubdirs
+Source: "..\_bin\Ipponboard-Release\platforms\*.*"; DestDir: "{app}\platforms"; Flags: IgnoreVersion recursesubdirs
+Source: "..\_bin\Ipponboard-Release\styles\*.*"; DestDir: "{app}\styles"; Flags: IgnoreVersion recursesubdirs
+Source: "..\_bin\Ipponboard-Release\tls\*.*"; DestDir: "{app}\tls"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\Qt6*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
@@ -112,6 +115,9 @@ Name: "{app}\lang"
 Name: "{app}\clubs"; Permissions: users-full
 Name: "{app}\templates"; Permissions: users-full
 Name: "{app}\licenses"
+Name: "{app}\platforms"
+Name: "{app}\styles"
+Name: "{app}\tls"
 
 [Icons]
 Name: "{userprograms}\{#MyAppName}\{#MyAppName}"; Filename: "{app}\Ipponboard.exe"; WorkingDir: "{app}"

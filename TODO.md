@@ -26,3 +26,7 @@ H. ✅ Coding Conventions: `.clang-format` and refreshed naming guidance now liv
 H2. Integrate clang-format into the build toolchain (pre-commit/CI) and document installation checks for Windows/Linux scripts so contributors get guided setup.
 
 I. Documentation/ADR: capture legacy decisions (Boost.MSM choice, fighter orientation in View) in short ADRs so future contributors understand the constraints before refactoring.
+
+J. Qt 6 Migration Follow-ups:
+   - 🇱🇮 Document Linux packaging expectations (Qt as prerequisite, RPATH/RUNPATH notes) and verify them during installer docs refresh.
+   - 🔄 Re-enable the Windows CI packaging workflow once a runner is online and keep the uploaded installer as part of release validation.

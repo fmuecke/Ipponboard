@@ -13,7 +13,8 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (fix): Timer does not stop on awasete ippon (#88)
 - (new): log file can be accessed via menu (Help -\> Show Log File)
 - (internal): modularized CMake targets, enforced clang-format in CI, upgraded the Catch2 test suite to v3, and broadened controller/gamepad regression coverage.
-- (internal): standardized builds on Qt 6.9.2, C++20, and Boost 1.89 across Windows and Linux toolchains. Required x64 architecture for Windows builds.
+- (internal): standardized builds on Qt 6.9.2, C++20, and Boost 1.89 across Windows and Linux toolchains. Required x64 architecture for Windows builds and refreshed the Windows installer to ship the Qt 6 runtime stack.
+- (internal): documented the Qt 6 migration (updated manuals/licenses, Qt 6 ADR, CI workflow ready for Ninja-based packaging) to lock in the toolchain change.
 - (internal): improved test coverage for state machine and gamepad input handling.
 - (internal): prepared codebase for future enhancements and easier maintenance.
 
