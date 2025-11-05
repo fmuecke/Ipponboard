@@ -7,7 +7,7 @@ Build system | Compiler | Target system
 Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2017/2019/2022 a.k.a VC14) | Windows 7 and higher, 32 Bit
 Linux (Ubuntu/WSL) | gcc 11 | Linux 64-Bit (experimental)
 
-> Note: Support for Linux builds is still experimental and may lack some features (sound, printing, gamepad).
+> Note: Support for Linux builds is still experimental and may lack some features (printing not 100% functional).
 
 ## Prerequisites
 
@@ -19,6 +19,7 @@ Ipponboard requires the following libraries and tools to be built:
 - [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
+- [LLVM clang-format](https://clang.llvm.org/docs/ClangFormat.html) (required: 14.x) for enforcing layout before builds/PRs
 
 For compilation and configuration of the Qt framework, see the section [Building Qt](#building-qt).
 
@@ -195,4 +196,3 @@ Select build mode:
 1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
 2. Insert the path in the QtCreator debugger options (tab *CDB paths*): e.g., `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator
-

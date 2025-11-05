@@ -17,102 +17,66 @@ if(LINUX)
     add_compile_options(-fPIC -fpermissive)
 endif()
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-if(WIN32)
-    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release)
-    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug)
-else()
-    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-${CMAKE_BUILD_TYPE})
-    message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
-endif()
-
-set(SOURCES
-    #pch.cpp
-    #pch.h
+set(UI_SOURCES
     AddFighterDlg.cpp
+    ClubManager.cpp
+    ClubManagerDlg.cpp
+    ComboBoxDelegate.cpp
+    DonationManager.cpp
+    FightCategoryManager.cpp
+    FightCategoryManagerDlg.cpp
+    GamepadSectionMapper.cpp
+    FightCategoryParser.cpp
+    FighterManager.cpp
+    FighterManagerDlg.cpp
+    MainWindow.cpp
+    MainWindowBase.cpp
+    MainWindowTeam.cpp
+    ModeManagerDlg.cpp
+    OnlineVersionChecker.cpp
+    ScoreScreen.cpp
+    SettingsDlg.cpp
+    SplashScreen.cpp
+    VersionComparer.cpp
+    View.cpp
+    ../util/jsoncpp/json.cpp
+)
+
+set(UI_HEADERS
     AddFighterDlg.h
     Club.h
-    ClubManager.cpp
     ClubManager.h
-    ClubManagerDlg.cpp
     ClubManagerDlg.h
     ClubParser.h
-    ComboBoxDelegate.cpp
     ComboBoxDelegate.h
-    DonationManager.cpp
     DonationManager.h
-    FightCategoryManager.cpp
     FightCategoryManager.h
-    FightCategoryManagerDlg.cpp
     FightCategoryManagerDlg.h
-    FightCategoryParser.cpp
-    FightCategoryParser.h
-    FighterManager.cpp
+    GamepadSectionMapper.h
     FighterManager.h
-    FighterManagerDlg.cpp
     FighterManagerDlg.h
+    MainWindow.h
+    MainWindowBase.h
+    MainWindowTeam.h
+    ModeManagerDlg.h
+    OnlineVersionChecker.h
+    ScoreScreen.h
+    SettingsDlg.h
+    SplashScreen.h
+    VersionComparer.h
+    View.h
+    ../util/SimpleCsvFile.hpp
     ../util/array_helpers.h
     ../util/path_helpers.h
-    ../Widgets/ScaledImage.h
-    ../Widgets/ScaledText.h
-    ../util/SimpleCsvFile.hpp
-    ../core/Controller.h
-    ../core/Enums.h
-    ../core/Fight.h
-    ../core/FightCategory.h
-    ../core/iController.h
-    ../core/iControllerCore.h
-    ../core/Score.h
-    ../core/StateMachine.h
-    ../core/Tournament.h
-    ../core/Fighter.h
-    ../core/TournamentMode.h
-    ../core/TournamentModel.h
+    ../util/qt_helpers.hpp
+    ../util/json.hpp
     ../core/ControllerConfig.h
-    ../core/Rules.h
-    ipponboard.qrc
-    Main.cpp
-    MainWindow.cpp
-    MainWindow.h
-    MainWindowBase.cpp
-    MainWindowBase.h
-    MainWindowTeam.cpp
-    MainWindowTeam.h
-    ModeManagerDlg.cpp
-    ModeManagerDlg.h
-    #qrc_ipponboard.cpp
-    ScoreScreen.cpp
-    ScoreScreen.h
-    SettingsDlg.cpp
-    SettingsDlg.h
-    SplashScreen.cpp
-    SplashScreen.h
-    OnlineVersionChecker.cpp
-    OnlineVersionChecker.h
-    VersionComparer.cpp
-    VersionComparer.h
     ../core/iGoldenScoreView.h
     ../core/iView.h
-    ../util/json.hpp
-    versioninfo.h
-    View.cpp
-    View.h
-    ../util/jsoncpp/json.cpp
-    ../util/qt_helpers.hpp
-    ../Widgets/ScaledImage.cpp
-    ../Widgets/ScaledText.cpp
-    ../core/Controller.cpp
-    ../core/FightCategory.cpp
-    ../core/Fighter.cpp
-    ../core/Fight.cpp
-    ../core/Score.cpp
-    ../core/StateMachine.cpp
-    ../core/TournamentMode.cpp
-    ../core/TournamentModel.cpp
-    ../core/Rules.cpp
+)
+
+set(UI_RESOURCES
+    ipponboard.qrc
 )
 
 set(FORMS
@@ -140,7 +104,48 @@ set(OTHER
 source_group("UI Forms" FILES ${FORMS})
 source_group("Other Files" FILES ${OTHER})
 
-add_executable(${APP_NAME} WIN32 ${SOURCES} ${FORMS} ${OTHER})
+add_library(IpponboardUi STATIC
+    ${UI_SOURCES}
+    ${UI_HEADERS}
+    ${FORMS}
+    ${UI_RESOURCES}
+)
+
+set_target_properties(IpponboardUi PROPERTIES
+    AUTOMOC ON
+    AUTOUIC ON
+    AUTORCC ON
+)
+
+target_include_directories(IpponboardUi
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${ROOT_DIR}/Widgets
+        ${ROOT_DIR}/core
+        ${ROOT_DIR}/util
+        ${BOOST_DIR}
+)
+
+target_link_libraries(IpponboardUi
+    PUBLIC
+        IpponboardCore
+        IpponboardWidgets
+        IpponboardGamepad
+        Qt5::Widgets
+        Qt5::XmlPatterns
+        Qt5::PrintSupport
+        Qt5::Multimedia
+)
+
+if(WIN32)
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release)
+    set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug)
+else()
+    set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-${CMAKE_BUILD_TYPE})
+    message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
+endif()
+
+add_executable(${APP_NAME} WIN32 Main.cpp ${OTHER})
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${APP_NAME})
 
 if(MSVC)
@@ -155,8 +160,10 @@ else()
     set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endif()
 
-#target_precompile_headers(${APP_NAME} PRIVATE pch.h)
-target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
+target_link_libraries(${APP_NAME}
+    PRIVATE
+        IpponboardUi
+)
 
 # Copy data files
 add_custom_command(TARGET ${APP_NAME} POST_BUILD
@@ -213,5 +220,5 @@ else()
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
     )
     
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+    target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
 endif()

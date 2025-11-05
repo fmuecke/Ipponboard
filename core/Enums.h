@@ -11,66 +11,66 @@
 namespace Ipponboard
 {
 
-enum  FighterEnum
+enum FighterEnum
 {
     Nobody = -1,
-	First = 0,
-	Second = 1,
-	_MAX
+    First = 0,
+    Second = 1,
+    _MAX
 };
 
 inline FighterEnum GetUkeFromTori(FighterEnum tori)
 {
-	return (tori == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
+    return (tori == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
 }
 
 enum EAction
 {
-	eAction_NONE,
-	eAction_Hajime_Mate,
-	eAction_OsaeKomi_Toketa,
-	eAction_SonoMama_Yoshi,
-	eAction_Yuko,
-	eAction_Wazaari,
-	eAction_Ippon,
-	eAction_Shido,
-	eAction_Hansokumake,
-	eAction_SetOsaekomi,
-	eAction_ResetAll,
-	eAction_ResetOsaeKomi,
-	eAction_ResetMainTimer
+    eAction_NONE,
+    eAction_Hajime_Mate,
+    eAction_OsaeKomi_Toketa,
+    eAction_SonoMama_Yoshi,
+    eAction_Yuko,
+    eAction_Wazaari,
+    eAction_Ippon,
+    eAction_Shido,
+    eAction_Hansokumake,
+    eAction_SetOsaekomi,
+    eAction_ResetAll,
+    eAction_ResetOsaeKomi,
+    eAction_ResetMainTimer
 };
 
 enum EState
 {
-	eState_UNDEFINED = -1,
-	eState_TimerStopped = 0,
-	eState_TimerRunning,
-	eState_Holding,
-	eState_SonoMama
+    eState_UNDEFINED = -1,
+    eState_TimerStopped = 0,
+    eState_TimerRunning,
+    eState_Holding,
+    eState_SonoMama
 };
 
 enum EHoldState
 {
-	eHoldState_off = 0,
-	eHoldState_on,
-	eHoldState_pause
+    eHoldState_off = 0,
+    eHoldState_on,
+    eHoldState_pause
 };
 
 enum ETimer
 {
-	eTimer_Main = 0,
-	eTimer_Hold
+    eTimer_Main = 0,
+    eTimer_Hold
 };
 
 enum EOption
 {
-	eOption_Invalid = -1,
-	//eOption_AutoAdjustPoints = 0,
-	eOption_AllSubscoresCount = 2,
-	eOption_MAX
+    eOption_Invalid = -1,
+    //eOption_AutoAdjustPoints = 0,
+    eOption_AllSubscoresCount = 2,
+    eOption_MAX
 };
 
-}
+} // namespace Ipponboard
 
-#endif  // BASE__ENUMS_H_
+#endif // BASE__ENUMS_H_

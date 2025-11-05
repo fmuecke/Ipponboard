@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
+option(IPPONBOARD_ENABLE_NETWORK_TESTS "Enable tests requiring network access" OFF)
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
     include(InstallRequiredSystemLibraries)
@@ -72,10 +74,16 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Add targets
-add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
-add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
-if(MSVC)
-add_subdirectory(GamepadDemo ${CMAKE_BINARY_DIR}/build-GamepadDemo)
+ 
+if (MSVC)
+    add_compile_options(/MP)
 endif()
+
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F02)
+# Add targets
+add_subdirectory(gamepad ${CMAKE_BINARY_DIR}/build-Gamepad)
+add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
+add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)
+add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
+add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
+

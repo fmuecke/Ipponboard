@@ -33,5 +33,25 @@ Start reading our code and you'll get the hang of it. We optimize for readabilit
 
 > _This is open source software. Consider the people who will read your code, and make it look nice for them. It's sort of like driving a car: Perhaps you love doing donuts when you're alone, but with passengers the goal is to make the ride as smooth as possible._
 
+### Naming guidelines
+
+The code base leans on Qt's conventions with a few project-specific tweaks:
+
+- **Types** (`class`, `struct`, `enum class`, `namespace`): PascalCase (`TournamentModel`, `ScaledImage`).
+- **Public interfaces** (member/static/free functions visible to other translation units): PascalCase (`StartTimer()`, `CreateModel()`).
+- **Private/Protected helpers**: lowerCamelCase (`startTimerInternal()`).
+- **Member data**: prefix private members with `m_` (`m_scoreBoard`). Public or struct-like members should stay rare; when needed use lowerCamelCase and document mutability.
+- **Constants**: prefer `constexpr`/`const` named in PascalCase (`DefaultFightTime`). `enum class` values stay PascalCase.
+- **Macros/defines**: SCREAMING_SNAKE_CASE and kept as a last resort.
+
+Document new patterns when they emerge so contributors stay aligned.
+
+### Formatting
+
+- Run `clang-format` (LLVM 14+) with the repository's `.clang-format` on every C++ header/implementation you touch before committing.
+- Scope formatting to the lines you change to avoid massive churn in legacy files (`clang-format -i file.cpp` works fine after staging).
+- The config derives from Qt-style expectations (tabs for indentation, braces on their own line) and keeps includes unsorted by default to respect existing grouping.
+- For bulk reformatting discuss first; prefer incremental cleanup when altering code paths.
+
 Thanks! ❤️ ❤️ ❤️<br>
 Florian Mücke

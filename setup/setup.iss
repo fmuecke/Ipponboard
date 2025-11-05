@@ -20,8 +20,8 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
-#define MyAppCopyright "2010-2025 Florian Mücke "
-#define MyAppAuthor "Florian Mücke"
+#define MyAppCopyright "2010-2025 Florian Mï¿½cke "
+#define MyAppAuthor "Florian Mï¿½cke"
 
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -75,11 +75,11 @@ Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License_en.txt"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: "License_de.txt"
 
 [CustomMessages]
-de.ViewProgram=%1 öffnen
+de.ViewProgram=%1 ï¿½ffnen
 en.ViewProgram=Open %1
 ;de.Survey=Meinungsumfrage
 ;en.Survey=Feedback/Survey
-de.UninstallKeepSettings=Möchten Sie die Programmeinstellungen für eine spätere Installation aufheben?
+de.UninstallKeepSettings=Mï¿½chten Sie die Programmeinstellungen fï¿½r eine spï¿½tere Installation aufheben?
 en.UninstallKeepSettings=Do you want to keep your settings for a later installation?
 ;en.VCmsg=Installing Microsoft Visual C++ Minimum Runtime...
 ;de.VCmsg=Installiere Microsoft Visual C++ Minimum Runtime...
@@ -89,7 +89,6 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 
 [Files]
 Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\_bin\GamepadDemo-Release\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
 Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en

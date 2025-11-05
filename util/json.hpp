@@ -13,103 +13,100 @@
 
 namespace fm
 {
-    namespace fs = std::filesystem;
+namespace fs = std::filesystem;
 
-    namespace Json
-	{
-		using ::Json::Value;
-		
-		class Exception : public std::exception
-		{
-		public:
-			explicit Exception(std::string const& message) : exception(), m_message(message)
-			{
-			}
+namespace Json
+{
+using ::Json::Value;
 
-            virtual const char * what() const noexcept override
-			{
-				return m_message.c_str();
-			}
+class Exception : public std::exception
+{
+  public:
+    explicit Exception(std::string const& message) : exception(), m_message(message) {}
 
-		private:
-			std::string m_message;
-		};
+    virtual const char* what() const noexcept override { return m_message.c_str(); }
 
-		class FileNotFoundException : public Exception
-		{
-		public:
-			explicit FileNotFoundException(const char * const & file) : Exception(std::string("File not found: ") + file)
-			{}
-		};
+  private:
+    std::string m_message;
+};
 
-		class FileAccessException : public Exception
-		{
-		public:
-			explicit FileAccessException(const char * const & file) : Exception(std::string("Access denied: ") + file)
-			{}
-		};
+class FileNotFoundException : public Exception
+{
+  public:
+    explicit FileNotFoundException(const char* const& file)
+        : Exception(std::string("File not found: ") + file)
+    {
+    }
+};
 
-        static Json::Value ReadString(const std::string& str)
-        {
-            // skip byte-order-mark
-            auto content = str;
-            if (str[0] == static_cast<char>(0xEF) &&
-                str[1] == static_cast<char>(0xBB) &&
-                str[2] == static_cast<char>(0xBF))
-            {
-                content = str.substr(3);
-            }
+class FileAccessException : public Exception
+{
+  public:
+    explicit FileAccessException(const char* const& file)
+        : Exception(std::string("Access denied: ") + file)
+    {
+    }
+};
 
-            ::Json::Reader reader;
-            Json::Value json;
+static Json::Value ReadString(const std::string& str)
+{
+    // skip byte-order-mark
+    auto content = str;
+    if (str[0] == static_cast<char>(0xEF) && str[1] == static_cast<char>(0xBB) &&
+        str[2] == static_cast<char>(0xBF))
+    {
+        content = str.substr(3);
+    }
 
-            if (!reader.parse(content, json))
-            {
-                std::string message = "Invalid JSON:\n";
-                message.append(reader.getFormattedErrorMessages());
-                throw Exception(message);
-            }
+    ::Json::Reader reader;
+    Json::Value json;
 
-            return json;
-        }
+    if (!reader.parse(content, json))
+    {
+        std::string message = "Invalid JSON:\n";
+        message.append(reader.getFormattedErrorMessages());
+        throw Exception(message);
+    }
 
-		static Json::Value ReadFile(const char * const & file)
-		{
-			if (!fs::exists(fs::path(file)))
-			{
-				throw FileNotFoundException(file);
-			}
+    return json;
+}
 
-			std::ifstream t(file, std::ifstream::binary);
-			std::stringstream buffer;
-			buffer << t.rdbuf();
+static Json::Value ReadFile(const char* const& file)
+{
+    if (!fs::exists(fs::path(file)))
+    {
+        throw FileNotFoundException(file);
+    }
 
-			// skip byte-order-mark
-			auto content = buffer.str();
-			buffer.clear();
+    std::ifstream t(file, std::ifstream::binary);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
 
-            if (content[0] == static_cast<char>(0xEF) &&
-                content[1] == static_cast<char>(0xBB) &&
-                content[2] == static_cast<char>(0xBF))
-			{
-				content = content.substr(3);
-			}
+    // skip byte-order-mark
+    auto content = buffer.str();
+    buffer.clear();
 
-			try
-			{
-				return ReadString(content);
-			}
-			catch (Exception const& e)
-			{
-				std::string message = "Error parsing file '";
-				message.append(file);
-				message.append("':\n");
-				message.append(e.what());
-				throw Exception(message);
-			}
-		}
+    if (content[0] == static_cast<char>(0xEF) && content[1] == static_cast<char>(0xBB) &&
+        content[2] == static_cast<char>(0xBF))
+    {
+        content = content.substr(3);
+    }
 
-    /* UNUSED functions
+    try
+    {
+        return ReadString(content);
+    }
+    catch (Exception const& e)
+    {
+        std::string message = "Error parsing file '";
+        message.append(file);
+        message.append("':\n");
+        message.append(e.what());
+        throw Exception(message);
+    }
+}
+
+/* UNUSED functions
         static void WriteFile(const char * const & file, std::string const& str, bool writeBom = true)
 		{
 			try
@@ -156,6 +153,5 @@ namespace fm
 			return true;
 		}
     */
-    }
-}
-
+} // namespace Json
+} // namespace fm

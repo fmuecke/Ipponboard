@@ -6,6 +6,6 @@
 
 enum class EditionType
 {
-	Single,
-	Team
+    Single,
+    Team
 };
