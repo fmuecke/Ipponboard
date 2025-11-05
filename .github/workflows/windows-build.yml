@@ -2,9 +2,9 @@ name: Qt6 CI
 
 on:
   push:
-    branches: [ "use_qt5" ]
+    branches: [ "vNEXT" ]
   pull_request:
-    branches: [ "use_qt5" ]
+    branches: [ "vNEXT" ]
 
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
       id: install-boost
       with:
          boost_version: 1.89.0
-         platform_version: 2019
+         platform_version: 2022
          toolset: msvc
          
     - name: Install Qt6

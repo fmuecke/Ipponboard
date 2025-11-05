@@ -32,7 +32,7 @@ jobs:
       id: install-boost
       with:
          boost_version: 1.89.0
-         platform_version: 20.04
+         platform_version: 22.04
          toolset: gcc
          arch: aarch64
 
