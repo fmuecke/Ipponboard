@@ -2,9 +2,9 @@ name: Linux CI build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "vNEXT" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "vNEXT" ]
 
 jobs:
   build:
