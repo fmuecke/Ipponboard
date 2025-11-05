@@ -95,7 +95,7 @@ Select build mode:
 4. Install Qt 6.9.x via the Qt Online Installer or `aqtinstall` (recommended kits: `msvc2022_64`)
 5. Install _Boost_ 1.89 (headers-only usage; binaries not required)
 6. Install _Pandoc_ and make sure it's available via `%PATH%`
-7. [Run `build.ps1`](#run-buildps1-resp-buildsh) from Windows PowerShell
+7. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2022** (or the equivalent Developer PowerShell).
 
 ### Installing Qt 6 on Windows 10/11
 

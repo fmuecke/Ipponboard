@@ -15,6 +15,9 @@ function Check-Ninja {
 }
 
 function Init-Environment {
+    if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
+        throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2022"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
+    }
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Read-Env-Cfg
@@ -157,6 +160,7 @@ function Run-Tests {
     if (-not $env:QT_QPA_FONTDIR) {
         $env:QT_QPA_FONTDIR = "$env:WINDIR\Fonts"
     }
+    Write-Host "$exe"
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
 
@@ -167,6 +171,7 @@ function Run-Tests {
             $success = $false
         }
         else {
+            Write-Host "$networkExe"
             & "$networkExe"
             $success = ($LASTEXITCODE -eq 0)
         }
