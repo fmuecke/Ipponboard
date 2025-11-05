@@ -9,9 +9,9 @@
 #include "../util/DialogResult.h"
 
 #include <QDialog>
+#include <QString>
+#include <QStringList>
 #include <memory>
-
-class QStringList;
 
 namespace Ui
 {
@@ -31,7 +31,7 @@ class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::Tourn
   private slots:
     // comboBoxes
     void on_comboBox_mode_currentIndexChanged(int i);
-    void on_comboBox_template_currentIndexChanged(QString const& s);
+    void on_comboBox_template_currentTextChanged(QString const& s);
     void on_comboBox_rules_currentIndexChanged(int);
     // checkBoxes
     void on_checkBox_timeOverrides_toggled(bool checked);

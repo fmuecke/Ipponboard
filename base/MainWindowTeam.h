@@ -99,19 +99,19 @@ class MainWindowTeam : public MainWindowBase
     void on_button_prev_clicked();
     void on_button_next_clicked();
     void on_comboBox_mode_currentIndexChanged(int i);
-    void on_comboBox_club_host_currentIndexChanged(const QString& s);
-    void on_comboBox_club_home_currentIndexChanged(const QString& s);
-    void on_comboBox_club_guest_currentIndexChanged(const QString& s);
+    void on_comboBox_club_host_currentTextChanged(const QString& s);
+    void on_comboBox_club_home_currentTextChanged(const QString& s);
+    void on_comboBox_club_guest_currentTextChanged(const QString& s);
     void on_actionPrint_triggered();
     void on_actionExport_triggered();
     void on_button_golden_score_toggled(bool);
 
     //void on_actionManage_Classes_triggered();
-    //void on_comboBox_weight_currentIndexChanged(const QString&);
-    //void on_comboBox_name_second_currentIndexChanged(const QString&);
-    //void on_comboBox_name_first_currentIndexChanged(const QString&);
+    //void on_comboBox_weight_currentTextChanged(const QString&);
+    //void on_comboBox_name_second_currentTextChanged(const QString&);
+    //void on_comboBox_name_first_currentTextChanged(const QString&);
     //void on_checkBox_golden_score_clicked(bool checked);
-    //void on_comboBox_weight_class_currentIndexChanged(const QString&);
+    //void on_comboBox_weight_class_currentTextChanged(const QString&);
 
     void on_actionReset_Scores_triggered();
     virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
@@ -119,8 +119,9 @@ class MainWindowTeam : public MainWindowBase
   private:
     void update_weights(QString const& weightString);
     void on_tableView_customContextMenuRequested(QTableView* pTableView, QPoint const& pos,
-                                                 const char* copySlot, const char* pasteSlot,
-                                                 const char* clearSlot);
+                                                 void (MainWindowTeam::*copySlot)(),
+                                                 void (MainWindowTeam::*pasteSlot)(),
+                                                 void (MainWindowTeam::*clearSlot)());
     void copy_cell_content(QTableView* pTableView);
     void paste_cell_content(QTableView* pTableView);
     void clear_cell_content(QTableView* pTableView);

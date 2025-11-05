@@ -27,7 +27,6 @@
 #include <QCompleter>
 #include <QDebug>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFileDialog>
 #include <QFontDialog>
@@ -911,7 +910,7 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     UpdateFightNumber_();
 }
 
-void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_host_currentTextChanged(const QString& s)
 {
     m_host = s;
 
@@ -919,7 +918,7 @@ void MainWindowTeam::on_comboBox_club_host_currentIndexChanged(const QString& s)
     m_pUi->lineEdit_location->setText(m_pClubManager->GetAddress(m_host));
 }
 
-void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::FighterEnum::First, s);
 
@@ -937,7 +936,7 @@ void MainWindowTeam::on_comboBox_club_home_currentIndexChanged(const QString& s)
     update_score_screen();
 }
 
-void MainWindowTeam::on_comboBox_club_guest_currentIndexChanged(const QString& s)
+void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
 {
     m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
 #if 0
@@ -1136,9 +1135,9 @@ void MainWindowTeam::on_actionScore_Control_triggered()
 
 void MainWindowTeam::on_tableView_customContextMenuRequested(QTableView* pTableView,
                                                              QPoint const& pos,
-                                                             const char* copySlot,
-                                                             const char* pasteSlot,
-                                                             const char* clearSlot)
+                                                             void (MainWindowTeam::*copySlot)(),
+                                                             void (MainWindowTeam::*pasteSlot)(),
+                                                             void (MainWindowTeam::*clearSlot)())
 {
     QMenu menu;
     QModelIndex index = pTableView->indexAt(pos);
@@ -1180,15 +1179,20 @@ void MainWindowTeam::on_tableView_customContextMenuRequested(QTableView* pTableV
         QIcon copyIcon(":/res/icons/copy_cells.png");
         QIcon pasteIcon(":/res/icons/paste.png");
         QIcon clearIcon(":/res/icons/clear_cells.png");
-        QAction* pAction = nullptr;
-        pAction = menu.addAction(copyIcon, tr("Copy"), this, copySlot, QKeySequence::Copy);
-        pAction->setDisabled(!copyAllowed);
+        QAction* copyAction = menu.addAction(copyIcon, tr("Copy"));
+        copyAction->setShortcut(QKeySequence::Copy);
+        copyAction->setDisabled(!copyAllowed);
+        connect(copyAction, &QAction::triggered, this, copySlot);
 
-        pAction = menu.addAction(pasteIcon, tr("Paste"), this, pasteSlot, QKeySequence::Paste);
-        pAction->setDisabled(!pasteAllowed);
+        QAction* pasteAction = menu.addAction(pasteIcon, tr("Paste"));
+        pasteAction->setShortcut(QKeySequence::Paste);
+        pasteAction->setDisabled(!pasteAllowed);
+        connect(pasteAction, &QAction::triggered, this, pasteSlot);
 
-        pAction = menu.addAction(clearIcon, tr("Clear"), this, clearSlot, QKeySequence::Delete);
-        pAction->setDisabled(!clearAllowed);
+        QAction* clearAction = menu.addAction(clearIcon, tr("Clear"));
+        clearAction->setShortcut(QKeySequence::Delete);
+        clearAction->setDisabled(!clearAllowed);
+        connect(clearAction, &QAction::triggered, this, clearSlot);
 
         menu.exec(QCursor::pos());
     }
@@ -1198,18 +1202,18 @@ void MainWindowTeam::on_tableView_tournament_list1_customContextMenuRequested(QP
 {
     on_tableView_customContextMenuRequested(m_pUi->tableView_tournament_list1,
                                             pos,
-                                            SLOT(slot_copy_cell_content_list1()),
-                                            SLOT(slot_paste_cell_content_list1()),
-                                            SLOT(slot_clear_cell_content_list1()));
+                                            &MainWindowTeam::slot_copy_cell_content_list1,
+                                            &MainWindowTeam::slot_paste_cell_content_list1,
+                                            &MainWindowTeam::slot_clear_cell_content_list1);
 }
 
 void MainWindowTeam::on_tableView_tournament_list2_customContextMenuRequested(QPoint const& pos)
 {
     on_tableView_customContextMenuRequested(m_pUi->tableView_tournament_list2,
                                             pos,
-                                            SLOT(slot_copy_cell_content_list2()),
-                                            SLOT(slot_paste_cell_content_list2()),
-                                            SLOT(slot_clear_cell_content_list2()));
+                                            &MainWindowTeam::slot_copy_cell_content_list2,
+                                            &MainWindowTeam::slot_paste_cell_content_list2,
+                                            &MainWindowTeam::slot_clear_cell_content_list2);
 }
 
 void MainWindowTeam::copy_cell_content(QTableView* pTableView)

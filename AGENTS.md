@@ -1,3 +1,8 @@
+> **NON-NEGOTIABLE REMINDER:**  
+> **NEVER run `git commit` without asking the user for explicit approval right before the commit.**  
+> Before every commit attempt: ❶ pause coding, ❷ request approval, ❸ record it in `docs/agent_commit_checklist.md`, ❹ only then run the commit helper.  
+> If no approval exists, stop immediately.
+
 ## Purpose
 
 Work as a **C++ expert** using modern best practices, TDD/BDD, and safe handling of legacy code. Deliver clean, maintainable solutions. **Follow the existing project style** (clang-format/clang-tidy, EditorConfig, existing patterns).
@@ -61,6 +66,9 @@ Start implementation **only after** receiving a `GO` or requested changes.
 
 ### 2) Implementation after approval
 
+- Pause before committing: wait for **explicit commit approval** every time, even if earlier steps were green-lit.
+- After receiving approval, update `docs/agent_commit_checklist.md` with the session details **before** invoking any commit command.
+- Use the provided helper script `scripts/agent_git_commit.sh` instead of calling `git commit` directly.
 - Write tests first: unit + optionally BDD specs (Gherkin/Approval/Golden).
 - Keep commits small and green.
 - Only refactor with existing test coverage or after adding characterization tests.
@@ -96,8 +104,7 @@ All code and documentation (comments) must use **US English**.
 
 ## Code commits
 
-Ask before committing
-
+- **Never commit without explicit approval for that commit.**
 - Use this enforced fomat:
 
 ```markdown
@@ -128,6 +135,6 @@ Breaking-Change (if applicable): <description>
 ## Agent Hints
 
 - Preferred build tooling lives in `build.sh`; it seeds `_build/Ipponboard-Linux` as the CMake build tree and writes binaries into `_bin/<Target>-<CONFIG>` (default config: `release`).
-- To build unit tests from the command line, run `cmake --build _build/Ipponboard-Linux --target IpponboardTest`.
-- Execute the Catch2 suite via `QT_QPA_PLATFORM=offscreen IPPONBOARD_ENABLE_NETWORK_TESTS=0 ./_bin/Test-release/IpponboardTest` so GUI dependencies run headless and opt out of network calls.
-- Network-enabled tests can be reactivated by exporting `IPPONBOARD_ENABLE_NETWORK_TESTS=1` before launching `IpponboardTest`.
+- To build unit tests from the command line, run `cmake --build _build/Ipponboard-Linux --target IpponboardTest` and `--target IpponboardNetworkTest`.
+- Execute the main Catch2 suite via `QT_QPA_PLATFORM=offscreen ./_bin/Test-release/IpponboardTest` so GUI dependencies run headless.
+- Network-dependent checks live in `IpponboardNetworkTest`; run them with `QT_QPA_PLATFORM=offscreen ./_bin/Test-release/IpponboardNetworkTest`.

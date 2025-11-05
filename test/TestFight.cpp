@@ -9,7 +9,8 @@
 #include "../core/Rules.h"
 #include "../core/Score.cpp"
 #include "../core/Score.h"
-#include "../util/catch2/catch_amalgamated.hpp"
+
+#include <catch2/catch_test_macros.hpp>
 
 using Ipponboard::Fight;
 using Ipponboard::FighterEnum;

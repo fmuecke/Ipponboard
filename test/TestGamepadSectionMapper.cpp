@@ -1,6 +1,8 @@
 #include "../base/GamepadSectionMapper.h"
 #include "../core/Enums.h"
-#include "../util/catch2/catch_amalgamated.hpp"
+
+#include <catch2/catch_approx.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 using Catch::Approx;
 using Ipponboard::GamepadSectionMapper;

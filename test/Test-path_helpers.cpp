@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "../util/catch2/catch_amalgamated.hpp"
 #include "../util/path_helpers.h"
+
+#include <catch2/catch_test_macros.hpp>
 
 #ifndef EXPERIMENTAL
 

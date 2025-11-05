@@ -3,10 +3,10 @@
 // found in the LICENSE.txt file.
 
 #include "../base/RawInputCapture.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 
 #include <algorithm>
 #include <array>
+#include <catch2/catch_test_macros.hpp>
 #include <optional>
 #include <vector>
 

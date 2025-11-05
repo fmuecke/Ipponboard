@@ -9,6 +9,7 @@
 
 //#include <QCoreApplication>
 //#include <QMessageBox>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QEventLoop>
@@ -18,6 +19,7 @@
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QScopedPointer>
 #include <QString>
 #include <QStringList>
 
@@ -27,6 +29,20 @@ const QString OnlineVersionChecker::ProjectReleasesUrl =
     "https://github.com/fmuecke/Ipponboard/releases";
 
 OnlineVersionChecker::OnlineVersionChecker() {}
+
+namespace
+{
+QNetworkAccessManager& sharedNetworkAccessManager()
+{
+    static QNetworkAccessManager* manager = []
+    {
+        auto* instance = new QNetworkAccessManager();
+        instance->setAutoDeleteReplies(false);
+        return instance;
+    }();
+    return *manager;
+}
+} // namespace
 
 QString GetJsonValue(QJsonObject obj, QString path)
 {
@@ -106,12 +122,16 @@ QString OnlineVersionChecker::get_version_document(QString url)
         }
     }
 
-    QNetworkAccessManager manager;
+    QNetworkAccessManager& manager = sharedNetworkAccessManager();
     QNetworkRequest request(url);
-    QNetworkReply* reply = manager.get(request);
+
+    QNetworkReply* const rawReply = manager.get(request);
+    QScopedPointer<QNetworkReply> reply(rawReply);
+    // Detach from manager so scoped pointer owns lifetime and avoids double deletes.
+    rawReply->setParent(nullptr);
 
     QEventLoop loop;
-    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    QObject::connect(rawReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     QString jsonDocument;
@@ -124,7 +144,6 @@ QString OnlineVersionChecker::get_version_document(QString url)
         qDebug() << "Error retrieving JSON document:" << reply->errorString();
     }
 
-    reply->deleteLater();
     return jsonDocument;
 }
 

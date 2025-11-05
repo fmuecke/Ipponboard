@@ -1,7 +1,8 @@
 #include "../Widgets/ScaledText.h"
 #include "../base/View.h"
-#include "../util/catch2/catch_amalgamated.hpp"
 #include "ControllerTestHelpers.h"
+
+#include <catch2/catch_test_macros.hpp>
 
 using namespace Ipponboard;
 using namespace TestSupport;

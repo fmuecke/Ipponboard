@@ -39,10 +39,10 @@
 #include <QApplication>
 #include <QColorDialog>
 #include <QComboBox>
-#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFontDialog>
+#include <QGuiApplication>
 #include <QInputDialog>
 #include <QLabel>
 #include <QMessageBox>
@@ -53,7 +53,6 @@
 #include <QString>
 #include <QTimer>
 #include <QTranslator>
-#include <QtGui/QApplication>
 //#include <QSplashScreen>
 #include <QAbstractItemModel>
 #include <QDialog>
@@ -74,8 +73,7 @@
 #include <QTableWidgetItem>
 #include <QTime>
 #include <QVector>
-#include <QtGui/QWidget>
-#include <QtGui>
+#include <QWidget>
 #pragma warning(default : 4127)
 
 //

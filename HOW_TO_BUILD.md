@@ -4,24 +4,42 @@ To build Ipponboard, there are currently two recommended development platforms:
 
 Build system | Compiler | Target system
 -- | -- | --
-Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2017/2019/2022 a.k.a VC14) | Windows 7 and higher, 32 Bit
-Linux (Ubuntu/WSL) | gcc 11 | Linux 64-Bit (experimental)
+Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2022 a.k.a. VC143, 64-bit) | Windows 10 and higher, 64-bit
+Linux (Ubuntu/WSL2) | gcc 13 (or newer) | Linux 64-bit (WSL2 or desktop)
 
 > Note: Support for Linux builds is still experimental and may lack some features (printing not 100% functional).
 
 ## Prerequisites
 
-Ipponboard requires the following libraries and tools to be built: 
+Ipponboard now targets a pure Qt 6 toolchain and requires the following libraries and tools to be built:
 
-- [Qt framework](https://www.qt.io/) (required: 5.15.13 or newer; 6.x not yet supported)
-  - versions < 5.15.13 can be used to compile, however not all tests are working properly because of missing fixes in the ssl library
+- [Qt framework](https://www.qt.io/) (required: 6.9.2; newer Qt 6 minor releases are usually fine)
 - [CMake](https://cmake.org) (last used: 3.29.x)
-- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.81)
+- [Ninja](https://ninja-build.org/) build tool (last used: 1.11)
+- [LLVM lld linker](https://lld.llvm.org/) (last used: 17.x) for faster linking on Linux
+- [Git](https://git-scm.com/) (required for downloading third-party sources such as Catch2 during the CMake configure step)
+- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.89)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
 - [LLVM clang-format](https://clang.llvm.org/docs/ClangFormat.html) (required: 14.x) for enforcing layout before builds/PRs
 
 For compilation and configuration of the Qt framework, see the section [Building Qt](#building-qt).
+
+### Qt SDK layout and helper tools
+
+The build scripts assume a standard Qt directory layout:
+
+```
+<QTDIR>/
+  bin/          # executables such as lrelease, windeployqt, qtpaths, lupdate
+  lib/          # Qt libraries
+  plugins/      # platform, multimedia, printsupport plugins
+  translations/ # shipped Qt translation catalogues
+```
+
+- Keep `<QTDIR>/bin` on your `PATH` (or call the tools via their absolute path) so `scripts/create-versioninfo.*`, translation targets, and packaging steps can find `qtpaths`, `lrelease`, and `windeployqt`.
+- On Linux/WSL, `qtpaths --plugin-dir` is used to locate runtime plugins; make sure it points to the same Qt installation that CMake consumes.
+- On Windows, `windeployqt` is invoked from the build scripts and packaging workflow; confirm it matches the `msvc2022_64` kit you installed.
 
 ## Run `build.ps1` resp. `build.sh`
 
@@ -43,8 +61,8 @@ Modify those according to your environment. After that, you may try building ;).
 > build.ps1
 Current config (debug):
 
-     QTDIR     : c:\devtools\qt5\Qt5.15.13-x86-msvc2022
-     BOOST_DIR : c:\devtools\boost_1_81_0
+     QTDIR     : c:\devtools\qt\6.9.2\msvc2022_64
+     BOOST_DIR : c:\devtools\boost_1_89_0
      ROOT_DIR  : c:\dev\_cpp\Ipponboard
      BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
      BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
@@ -65,49 +83,39 @@ Select build mode:
      (q) quit
 ```
 
+> The first configure step will download Catch2 via CMake FetchContent. Ensure outbound network
+> access (or provide a local mirror through the `FETCHCONTENT_SOURCE_DIR_Catch2` cache value) before running `build.sh` / `build.ps1`.
+
 
 ## Building on Windows 10/11
 
-1. Install _Visual Studio_
+1. Install _Visual Studio 2022_ (Desktop development with C++) with the x64 toolset
 2. Install `cmake` and make sure it's available via `%PATH%`
-3. [Build Qt5 framework](#building-qt5-on-windows-1011)
-4. Install _Boost_
-5. Install _Pandoc_ and make sure it's available via `%PATH%`
-6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from Windows PowerShell
+3. Install `ninja` and make sure it's available via `%PATH%`
+4. Install Qt 6.9.x via the Qt Online Installer or `aqtinstall` (recommended kits: `msvc2022_64`)
+5. Install _Boost_ 1.89 (headers-only usage; binaries not required)
+6. Install _Pandoc_ and make sure it's available via `%PATH%`
+7. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2022** (or the equivalent Developer PowerShell).
 
-### Building Qt5 on Windows 10/11
+### Installing Qt 6 on Windows 10/11
 
-1. Install Python2 <br>
-    `winget install python.python.2`
-
-2. Get `qt-erverywhere-opensource-src-5.15.*.zip` from https://download.qt.io/official_releases/qt/5.15/
-
-3. Extract archive
-
-4. Configure
-
-    1. Open x86 Native Tools Command Prompt for Visual Studio
-
-    2. Add to environment path before running `configure.bat`: `set PATH=c:\Python27;%PATH%`
-
-    3. `.\configure -prefix Qt5.15.13 -opensource -confirm-license -platform win32-msvc -debug-and-release -shared -silent -nomake examples -nomake tests -no-dbus -schannel -mp`
-
-5. Compile & link <br>
-    `jom`
-
-6. Install in prefix path directory <br>
-    `jom install`
+1. (Optional) For scripted installs, ensure Python 3 is available and install [`aqtinstall`](https://github.com/miurahr/aqtinstall) via `pip install -U pip aqtinstall`.
+2. Download the Qt Online Installer from https://www.qt.io/download or use `aqtinstall`.
+3. Install the `Qt/6.9.x/msvc2022_64` component (debug+release).
+4. Ensure `QTDIR` in `env_cfg.bat` points to the chosen installation.
 
 ----
 
 ## Building on Linux/Ubuntu/WSL 🐧
 
 
-2. [Build Qt5 framework](#building-qt5-on-ubuntu-wsl) or [use aqt to install Qt5 libraries](#installing-qt5-on-ubuntu-wsl-using-aqt)
+1. Install the `ninja-build` package from your distribution
+2. Install the `lld` package (often `sudo apt install lld`)
+3. Install Qt 6.9.x via the Qt Online Installer (under WSL2) or [use aqtinstall](#installing-qt-6-on-ubuntu-wsl-using-aqt)
 
-3. Install _Boost_:
+4. Install _Boost_ 1.89:
     1. Download the recent version from https://www.boost.org
-    2. Extract the archive (no build required as only headers are used)
+    2. Build & install into a user-writable prefix (e.g. `~/devtools/boost_1_89_0`) or extract headers only
     3. Specify the path in `env.cfg` (see [build.sh](#run-buildps1-resp-buildsh))
 
 4. Install _Pandoc_ 
@@ -115,56 +123,21 @@ Select build mode:
 5. [Run `./build.sh` from bash](#run-buildps1-resp-buildsh)
 
 
-### Building Qt5 on Ubuntu (WSL)
-
-1. Install development tools (if needed) <br>
-
-    ```
-    sudo apt-get update
-    sudo apt-get install build-essential libgl1-mesa-dev libgstreamer-gl1.0-0 libpulse-dev libxcb-glx0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxkbcommon-x11-0 libxcb-xkb-dev -y
-    ```
-
-1. Get `qt-erverywhere-opensource-src-5.15.*.tar.xz` from https://download.qt.io/official_releases/qt/5.15/
-
-    _Note:_ Be sure to get at least Qt5.15.10 because of incompatibility with OpenSSL runtime library references (see https://bugreports.qt.io/browse/QTBUG-115146, https://gist.github.com/seyedmmousavi/b1f6681eb37f3edbe3dcabb6e89c5d43)
-
-
-1. Extract the archive: 
-
-    ```
-    tar xf /mnt/c/Users/fmuec/Downloads/qt-everywhere-opensource-src-5.15.*.tar.xz
-    ```
+### Installing Qt 6 on Ubuntu/WSL2
 
 1. Install dependencies (required for audio, printing, and PDF export):
 
     ```
-    sudo apt get install gperf pkg-config bison flex libdbus-1-dev libasound2-dev libcups2-dev libpulse-dev bison flex
+    sudo apt-get update
+    sudo apt-get install build-essential libgl1-mesa-dev libgstreamer-gl1.0-0 libpulse-dev libxcb-glx0 libxcb-icccm4 \
+        libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 \
+        libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxkbcommon-x11-0 \
+        libxcb-xkb-dev
     ```
 
-    TODO: ??? sudo apt install libpulse-mainloop-glib0
-    libnss3-dev nodejs python2 
+2. Install Qt via binary packages using `aqtinstall` (recommended).
 
-1. Configure Qt build
-
-    ```
-    ./configure -prefix /usr/local/Qt5.15.13 -opensource -confirm-license -shared -silent -nomake examples -nomake tests -skip qtdoc -skip qtwebengine -openssl-runtime -cups
-    ```
-
-1. Compile & link
-
-    ```
-    gmake -jX
-    ```
-
-    with X being the number of your processor cores
-
-1. Install
-
-    ```
-    sudo gmake install
-    ```
-
-### Installing Qt5 on Ubuntu (WSL) using `aqt`
+### Installing Qt 6 on Ubuntu (WSL) using `aqt`
 
 1. Get aqt ([another qt installer](https://github.com/miurahr/aqtinstall))
 
@@ -178,7 +151,7 @@ Select build mode:
     Check https://ddalcino.github.io/aqt-list-server/ and get the install command:
 
     ```
-    aqt install-qt linux desktop 5.15.2 gcc_64
+    aqt install-qt linux desktop 6.9.2 gcc_64
     aqt install-tool linux desktop tools_cmake
     ```
 
@@ -186,10 +159,10 @@ Select build mode:
 
 1. Download and install [QCreator](https://github.com/qt-creator/qt-creator/releases/)
 2. Configure the Qt environment
-3. Open `base/CmakeLists.txt` with QtCreator
-4. Make sure that `QTDIR` points to the respective Qt installation
+3. Open the top-level `CMakeLists.txt` with QtCreator
+4. Ensure that `QTDIR` is exported in the environment for your kit
 5. Add `BOOST_DIR` to the environment variables of the project
-6. Define the boolean key `USE_QT5=ON` if you want to use Qt5 (use Qt4 otherwise)
+6. Confirm the kit uses a compiler with C++20 support (MSVC 2022 or gcc 13+)
 
 ### Configuring CDB Debugger
 

@@ -10,9 +10,9 @@
 
 #include <QColorDialog>
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFile>
+#include <QGuiApplication>
 #include <QIntValidator>
 #include <QLabel>
 #include <QLineEdit>
@@ -25,6 +25,7 @@
 #include <limits>
 #include <memory>
 #include <vector>
+
 
 using namespace Ipponboard;
 

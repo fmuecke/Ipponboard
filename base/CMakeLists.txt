@@ -4,18 +4,7 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Ipponboard main application
 set(APP_NAME Ipponboard)
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
-
-if(LINUX)
-    # common include directories
-    include_directories(${ROOT_DIR}/Widgets)
-    include_directories(${Qt5Widgets_INCLUDE_DIRS})
-    include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
-    include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
-    include_directories(${Qt5Multimedia_INCLUDE_DIRS})
-   
-    add_compile_options(-fPIC -fpermissive)
-endif()
+find_package(Qt6 COMPONENTS Widgets PrintSupport Multimedia Network REQUIRED)
 
 set(UI_SOURCES
     AddFighterDlg.cpp
@@ -116,6 +105,7 @@ set_target_properties(IpponboardUi PROPERTIES
     AUTOUIC ON
     AUTORCC ON
 )
+set_target_properties(IpponboardUi PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(IpponboardUi
     PUBLIC
@@ -131,10 +121,10 @@ target_link_libraries(IpponboardUi
         IpponboardCore
         IpponboardWidgets
         IpponboardGamepad
-        Qt5::Widgets
-        Qt5::XmlPatterns
-        Qt5::PrintSupport
-        Qt5::Multimedia
+        Qt6::Widgets
+        Qt6::PrintSupport
+        Qt6::Multimedia
+        Qt6::Network
 )
 
 if(WIN32)
@@ -181,37 +171,8 @@ if(MSVC)
         COMMAND ${QTDIR}/bin/lrelease.exe -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
         COMMAND ${QTDIR}/bin/lrelease.exe -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
     )
-
-    # Copy msvc runtime dlls
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/concrt140.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/concrt140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/msvcp140.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/msvcp140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/msvcp140_1.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/msvcp140_1d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/msvcp140_2.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/msvcp140_2d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/msvcp140_atomic_wait.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/msvcp140d_atomic_wait.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/msvcp140_codecvt_ids.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/msvcp140d_codecvt_ids.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC143.CRT/vcruntime140.dll,/debug_nonredist/x86/Microsoft.VC143.DebugCRT/vcruntime140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    )
-
-    # Copy Qt5 runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
-    )
+    target_link_libraries(${APP_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)
+    ipponboard_add_windeploy(${APP_NAME})
 else()
     # Compile and copy translation files
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
@@ -219,6 +180,6 @@ else()
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
     )
-    
-    target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+
+    target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)
 endif()
