@@ -38,17 +38,16 @@ jobs:
 
     - name: Install Qt6
       uses: jurplel/install-qt-action@v3
-      id: install-qt
       with:
         aqtversion: '==3.1.*'
-        version: '6.9.2'
+        version: '6.9.3'
         cache: 'true'
-        cache-key-prefix: 'install-qt-action'        
+        cache-key-prefix: 'install-qt-action'
         host: 'linux'
         target: 'desktop'
-        arch: 'gcc_64'
-        #tools: 'tools_cmake'
-        #archives: 'qtxmlpatterns qttranslation qtmultimedia qtbase icu '
+        arch: 'linux_gcc_64'
+        modules: 'qtmultimedia qtnetworkauth'
+        archives: 'qttranslations qttools qtsvg qtbase'        
 
     - name: Init variables
       shell: bash
