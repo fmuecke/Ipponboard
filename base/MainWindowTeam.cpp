@@ -16,9 +16,12 @@
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
 #include "../core/TournamentModel.h"
+#include "TournamentSerialization.h"
+
 #ifdef _WIN32
 #include "../gamepad/gamepad.h"
 #endif
+
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 
@@ -46,6 +49,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <algorithm>
+
 
 namespace StrTags
 {
@@ -56,7 +61,11 @@ static const char* const host = "Host";
 using namespace FMlib;
 using namespace Ipponboard;
 
-namespace { bool initialized = false; }
+namespace
+{
+	bool initialized = false;
+	constexpr auto SaveDateFormat = "dd.MM.yyyy";
+}
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
@@ -177,7 +186,7 @@ void MainWindowTeam::Init()
 
 	//m_pUi->button_pause->click();	// we start with pause!
 
-	m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
+	m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
 	update_window_title();
 }
 
@@ -186,7 +195,7 @@ void MainWindowTeam::update_window_title()
 	setWindowTitle(
 		QCoreApplication::applicationName() + " v" +
 		QCoreApplication::applicationVersion() +
-		(m_saveFilePath == QDir::homePath() + "/" + AUTOSAVE_FILENAME ? "" : " - " + QFileInfo(m_saveFilePath).fileName()));
+		(m_saveFilePath == QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename ? "" : " - " + QFileInfo(m_saveFilePath).fileName()));
 }
 
 void MainWindowTeam::UpdateGoldenScoreView()
@@ -210,16 +219,13 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 	const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
 
-	if (event->matches(QKeySequence::Save)) {
-		on_actionSave_File_triggered();
-	}
-	else if (event->matches(QKeySequence::SaveAs))
+	if (event->matches(QKeySequence::SaveAs))
 	{
-		on_actionSave_File_As_triggered();
+		on_actionSave_As_triggered();
 	}
 	else if (event->matches(QKeySequence::Open))
 	{
-		on_actionOpen_File_triggered();
+		on_actionLoad_triggered();
 	}
 
 	//FIXME: copy and paste handling should be part of the table class!
@@ -670,200 +676,144 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	m_htmlScore.replace("%SECOND_ROUND%", scoreData);
 
-	const QString copyright = tr("List generated with Ipponboard v") +
+const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
 							  ", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
     m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
 }
 
-QJsonDocument MainWindowTeam::CreateTournamentSaveFile_() const
+TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSaveData_() const
 {
-	QJsonObject saveObject = QJsonObject();
-	QJsonObject tmodeobj = QJsonObject();
+	TournamentSerialization::TournamentSaveData data;
+	data.fileVersion = QString::fromLatin1(TournamentSerialization::TournamentSaveFileVersion);
+	data.host = m_pUi->comboBox_club_host->currentText();
+	data.date = m_pUi->dateEdit->text();
+	data.location = m_pUi->lineEdit_location->text();
+	data.home = m_pUi->comboBox_club_home->currentText();
+	data.guest = m_pUi->comboBox_club_guest->currentText();
+	data.currentRound = m_pController->GetCurrentRound();
+	data.currentFight = m_pController->GetCurrentFight();
+	data.infoTextFg = MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb();
+	data.infoTextBg = MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb();
+	data.firstFg = MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb();
+	data.firstBg = MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb();
+	data.secondFg = MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb();
+	data.secondBg = MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb();
 
-	//bump file version number after making changes to the save file structure and make sure to have as much compatibility to prev versions as possible
-	saveObject.insert("FileVersion", SAVEFILE_VERSION);
-	saveObject.insert("Host", m_pUi->comboBox_club_host->currentText());
-	saveObject.insert("Date", m_pUi->dateEdit->text());
-	saveObject.insert("Location", m_pUi->lineEdit_location->text());
-	saveObject.insert("Home", m_pUi->comboBox_club_home->currentText());
-	saveObject.insert("Guest", m_pUi->comboBox_club_guest->currentText());
-	saveObject.insert("CurrentRound", m_pController->GetCurrentRound());
-	saveObject.insert("CurrentFight", m_pController->GetCurrentFight());
-	saveObject.insert("FgColorInfoText", (int)MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb());
-	saveObject.insert("BgColorInfoText", (int)MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb());
-	saveObject.insert("FgColorFirst", (int)MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb());
-	saveObject.insert("BgColorFirst", (int)MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb());
-	saveObject.insert("FgColorSecond", (int)MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb());
-	saveObject.insert("BgColorSecond", (int)MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb());
-	
-	TournamentMode curmodeinfo;
-	for (TournamentMode m : m_modes) if (m.id == m_currentMode) curmodeinfo = m;
-	tmodeobj.insert("ID", curmodeinfo.id);
-	tmodeobj.insert(curmodeinfo.str_Title, curmodeinfo.title);
-	tmodeobj.insert(curmodeinfo.str_SubTitle, curmodeinfo.subTitle);
-	tmodeobj.insert(curmodeinfo.str_Template, curmodeinfo.listTemplate);
-	tmodeobj.insert(curmodeinfo.str_Weights, curmodeinfo.weights);
-	tmodeobj.insert(curmodeinfo.str_WeightsAreDoubled, curmodeinfo.weightsAreDoubled);
-	tmodeobj.insert(curmodeinfo.str_Rounds, curmodeinfo.nRounds);
-	tmodeobj.insert(curmodeinfo.str_FightTimeInSeconds, curmodeinfo.fightTimeInSeconds);
-	tmodeobj.insert(curmodeinfo.str_FightTimeOverrides, curmodeinfo.GetFightTimeOverridesString());
-	tmodeobj.insert(curmodeinfo.str_Rules, curmodeinfo.rules);
-	tmodeobj.insert(curmodeinfo.str_Options, curmodeinfo.options);
-	saveObject.insert("TournamentMode", tmodeobj);
-
-	QJsonArray tournamentarr = QJsonArray();
-	for (int roundnr = 0; roundnr < m_pController->GetRoundCount(); roundnr++)
+	for (const auto& mode : m_modes)
 	{
-		QJsonArray roundarr = QJsonArray();
-		for (int fightnr = 0; fightnr < m_pController->GetFightCount(); fightnr++)
+		if (mode.id == m_currentMode)
 		{
-			const auto& fight = m_pController->GetFight(roundnr, fightnr);
-			QJsonObject fightobj = QJsonObject();
-			fightobj.insert("Weight", fight.weight);
-			fightobj.insert("SecondsElapsed", fight.GetSecondsElapsed());
-			fightobj.insert("RoundTimeSeconds", fight.GetRoundSeconds());
-			fightobj.insert("IsGoldenScore", fight.IsGoldenScore());
-			fightobj.insert("IsSaved", fight.is_saved);
-
-			QJsonObject fighter1obj = QJsonObject();
-			fighter1obj.insert("Name", fight.GetFighter(FighterEnum::First).name);
-			fighter1obj.insert("Club", fight.GetFighter(FighterEnum::First).club);
-			fighter1obj.insert("Ippon", fight.GetScore1().Value(Score::Point::Ippon));
-			fighter1obj.insert("Wazaari", fight.GetScore1().Value(Score::Point::Wazaari));
-			fighter1obj.insert("Yuko", fight.GetScore1().Value(Score::Point::Yuko));
-			fighter1obj.insert("Shido", fight.GetScore1().Value(Score::Point::Shido));
-			fighter1obj.insert("Hansokumake", fight.GetScore1().Value(Score::Point::Hansokumake));
-			fightobj.insert("FirstFighter", fighter1obj);
-
-			QJsonObject fighter2obj = QJsonObject();
-			fighter2obj.insert("Name", fight.GetFighter(FighterEnum::Second).name);
-			fighter2obj.insert("Club", fight.GetFighter(FighterEnum::Second).club);
-			fighter2obj.insert("Ippon", fight.GetScore2().Value(Score::Point::Ippon));
-			fighter2obj.insert("Wazaari", fight.GetScore2().Value(Score::Point::Wazaari));
-			fighter2obj.insert("Yuko", fight.GetScore2().Value(Score::Point::Yuko));
-			fighter2obj.insert("Shido", fight.GetScore2().Value(Score::Point::Shido));
-			fighter2obj.insert("Hansokumake", fight.GetScore2().Value(Score::Point::Hansokumake));
-			fightobj.insert("SecondFighter", fighter2obj);
-
-			roundarr.append(fightobj);
+			data.mode = mode;
+			break;
 		}
-		tournamentarr.append(roundarr);
 	}
-	saveObject.insert("Rounds", tournamentarr);
-	
-	QJsonDocument doc = QJsonDocument(saveObject);
 
-	return doc;
+	const auto roundCount = m_pController->GetRoundCount();
+	const auto fightsPerRound = m_pController->GetFightCount();
+	data.rounds.resize(roundCount);
+	for (int roundIndex = 0; roundIndex < roundCount; ++roundIndex)
+	{
+		auto& round = data.rounds[roundIndex];
+		round.reserve(fightsPerRound);
+		for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
+		{
+			round.push_back(m_pController->GetFight(roundIndex, fightIndex));
+		}
+	}
+
+	return data;
 }
 
-int MainWindowTeam::ParseTournamentSaveFile_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
+QByteArray MainWindowTeam::GetTournamentAsJson_() const
 {
-	QJsonObject saveobject = doc.object();
+	return TournamentSerialization::ToJson(CollectTournamentSaveData_()).toJson(QJsonDocument::Indented);
+}
 
-	//bump file version number after making changes to the save file structure and make sure to have as much compatibility to prev versions as possible
-	if (saveobject["FileVersion"].toString() != SAVEFILE_VERSION && !loadWithIncompatibleVersion)
+int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
+{
+	TournamentSerialization::TournamentSaveData data;
+	const auto result = TournamentSerialization::CreateFromJson(
+		doc,
+		TournamentSerialization::TournamentSaveFileVersion, 
+		loadWithIncompatibleVersion, 
+		data);
+
+	if (result != 0)
 	{
-		return 1;
+		return result;
 	}
-	
-	if (m_pUi->comboBox_club_host->findText(saveobject["Host"].toString()) == -1)
-		m_pClubManager->AddClub(Club(saveobject["Host"].toString(), "clubs\\default.png"));
 
-	if (m_pUi->comboBox_club_home->findText(saveobject["Home"].toString()) == -1)
-		m_pClubManager->AddClub(Club(saveobject["Home"].toString(), "clubs\\default.png"));
+	if (m_pUi->comboBox_club_host->findText(data.host) == -1)
+	{
+		m_pClubManager->AddClub(Club(data.host, "clubs\\default.png"));
+	}
 
-	if (m_pUi->comboBox_club_guest->findText(saveobject["Guest"].toString()) == -1)
-		m_pClubManager->AddClub(Club(saveobject["Guest"].toString(), "clubs\\default.png"));
+	if (m_pUi->comboBox_club_home->findText(data.home) == -1)
+	{
+		m_pClubManager->AddClub(Club(data.home, "clubs\\default.png"));
+	}
+
+	if (m_pUi->comboBox_club_guest->findText(data.guest) == -1)
+	{
+		m_pClubManager->AddClub(Club(data.guest, "clubs\\default.png"));
+	}
 
 	update_club_views();
 
-	m_pUi->comboBox_club_host->setCurrentText(saveobject["Host"].toString());
-	m_pUi->dateEdit->setDate(QDate::fromString(saveobject["Date"].toString(), "dd.MM.yyyy"));
-	m_pUi->lineEdit_location->setText(saveobject["Location"].toString());
-	m_pUi->comboBox_club_home->setCurrentText(saveobject["Home"].toString());
-	m_pUi->comboBox_club_guest->setCurrentText(saveobject["Guest"].toString());
+	m_pUi->comboBox_club_host->setCurrentText(data.host);
+	m_pUi->dateEdit->setDate(QDate::fromString(data.date, SaveDateFormat));
+	m_pUi->lineEdit_location->setText(data.location);
+	m_pUi->comboBox_club_home->setCurrentText(data.home);
+	m_pUi->comboBox_club_guest->setCurrentText(data.guest);
 
-	QJsonObject tmodeobj = saveobject["TournamentMode"].toObject();
-	auto curmode = std::find_if(m_modes.begin(), m_modes.end(),
-		[&](const TournamentMode& m) {return m.id == tmodeobj["ID"].toString(); });
+	const auto existingMode = std::find_if(
+		m_modes.begin(),
+		m_modes.end(),
+		[&](const TournamentMode& mode) { return mode.id == data.mode.id; });
 
-	if (curmode != m_modes.end() &&
-		curmode->listTemplate == tmodeobj[curmode->str_Template].toString() &&
-		curmode->weights == tmodeobj[curmode->str_Weights].toString() &&
-		curmode->weightsAreDoubled == tmodeobj[curmode->str_WeightsAreDoubled].toString() &&
-		curmode->nRounds == tmodeobj[curmode->str_Rounds].toString() &&
-		curmode->fightTimeInSeconds == tmodeobj[curmode->str_FightTimeInSeconds].toString() &&
-		curmode->GetFightTimeOverridesString() == tmodeobj[curmode->str_FightTimeOverrides].toString() &&
-		curmode->rules == tmodeobj[curmode->str_Rules].toString() &&
-		curmode->options == tmodeobj[curmode->str_Options].toString())
+	const auto overridesString = data.mode.GetFightTimeOverridesString();
+	const auto matchesExisting = existingMode != m_modes.end() &&
+		existingMode->title == data.mode.title &&
+		existingMode->subTitle == data.mode.subTitle &&
+		existingMode->listTemplate == data.mode.listTemplate &&
+		existingMode->weights == data.mode.weights &&
+		existingMode->weightsAreDoubled == data.mode.weightsAreDoubled &&
+		existingMode->nRounds == data.mode.nRounds &&
+		existingMode->fightTimeInSeconds == data.mode.fightTimeInSeconds &&
+		existingMode->GetFightTimeOverridesString() == overridesString &&
+		existingMode->rules == data.mode.rules &&
+		existingMode->options == data.mode.options;
+
+	if (matchesExisting)
 	{
-		auto index = m_pUi->comboBox_mode->findData(QVariant(curmode->id));
+		auto index = m_pUi->comboBox_mode->findData(QVariant(existingMode->id));
 		index = index == -1 ? 0 : index;
 		m_pUi->comboBox_mode->setCurrentIndex(index);
 	}
 	else
 	{
-		TournamentMode newmode = TournamentMode();
-		newmode.id = tmodeobj["ID"].toString();
-		newmode.title = tmodeobj[newmode.str_Title].toString();
-		newmode.subTitle = tmodeobj[newmode.str_SubTitle].toString();
-		newmode.listTemplate = tmodeobj[newmode.str_Template].toString();
-		newmode.weights = tmodeobj[newmode.str_Weights].toString();
-		newmode.weightsAreDoubled = tmodeobj[newmode.str_WeightsAreDoubled].toBool();
-		newmode.nRounds = qBound(0, tmodeobj[newmode.str_Rounds].toInt(), 10);
-		newmode.fightTimeInSeconds = qBound(0, tmodeobj[newmode.str_FightTimeInSeconds].toInt(), 3600);
-		newmode.ExtractFightTimeOverrides(tmodeobj[newmode.str_FightTimeOverrides].toString(), newmode.fightTimeOverrides);
-		newmode.rules = tmodeobj[newmode.str_Rules].toString();
-		newmode.options = tmodeobj[newmode.str_Options].toString();
-
-		m_modes.push_back(newmode);
-		m_pUi->comboBox_mode->addItem(newmode.Description(), QVariant(newmode.id));
-		m_pUi->comboBox_mode->setCurrentIndex(m_pUi->comboBox_mode->findData(QVariant(newmode.id)));
+		TournamentMode newMode = data.mode;
+		m_modes.push_back(newMode);
+		m_pUi->comboBox_mode->addItem(newMode.Description(), QVariant(newMode.id));
+		m_pUi->comboBox_mode->setCurrentIndex(m_pUi->comboBox_mode->findData(QVariant(newMode.id)));
 	}
 
-	QJsonArray tournamentarr = saveobject["Rounds"].toArray();
-	for (int roundnr = 0; roundnr < tournamentarr.size(); roundnr++)
+	for (std::size_t roundIndex = 0; roundIndex < data.rounds.size(); ++roundIndex)
 	{
-		QJsonArray roundarr = tournamentarr.at(roundnr).toArray();
-		for (int fightnr = 0; fightnr < roundarr.size(); fightnr++)
+		const auto& round = data.rounds[roundIndex];
+		for (std::size_t fightIndex = 0; fightIndex < round.size(); ++fightIndex)
 		{
-			QJsonObject fightobj = roundarr.at(fightnr).toObject();
-			Fight newfight = Fight();
-			newfight.weight = fightobj["Weight"].toString();
-			newfight.SetSecondsElapsed(qBound(0, fightobj["SecondsElapsed"].toInt(), 3600));
-			newfight.SetRoundTime(qBound(0, fightobj["RoundTimeSeconds"].toInt(), 3600));
-			newfight.SetGoldenScore(fightobj["IsGoldenScore"].toBool());
-			newfight.is_saved = fightobj["IsSaved"].toBool();
-
-			QJsonObject fighter1obj = fightobj["FirstFighter"].toObject();
-			newfight.fighters[0].name = fighter1obj["Name"].toString();
-			newfight.fighters[0].club = fighter1obj["Club"].toString();
-			newfight.GetScore1().SetValue(Score::Point::Ippon, qBound(0, fighter1obj["Ippon"].toInt(), 1));
-			newfight.GetScore1().SetValue(Score::Point::Wazaari, qBound(0, fighter1obj["Wazaari"].toInt(), 100));
-			newfight.GetScore1().SetValue(Score::Point::Yuko, qBound(0, fighter1obj["Yuko"].toInt(), 100));
-			newfight.GetScore1().SetValue(Score::Point::Shido, qBound(0, fighter1obj["Shido"].toInt(), 4));
-			newfight.GetScore1().SetValue(Score::Point::Hansokumake, qBound(0, fighter1obj["Hansokumake"].toInt(), 1));
-
-			QJsonObject fighter2obj = fightobj["SecondFighter"].toObject();
-			newfight.fighters[1].name = fighter2obj["Name"].toString();
-			newfight.fighters[1].club = fighter2obj["Club"].toString();
-			newfight.GetScore2().SetValue(Score::Point::Ippon, qBound(0, fighter2obj["Ippon"].toInt(), 1));
-			newfight.GetScore2().SetValue(Score::Point::Wazaari, qBound(0, fighter2obj["Wazaari"].toInt(), 100));
-			newfight.GetScore2().SetValue(Score::Point::Yuko, qBound(0, fighter2obj["Yuko"].toInt(), 100));
-			newfight.GetScore2().SetValue(Score::Point::Shido, qBound(0, fighter2obj["Shido"].toInt(), 4));
-			newfight.GetScore2().SetValue(Score::Point::Hansokumake, qBound(0, fighter2obj["Hansokumake"].toInt(), 100));
-
-			m_pController->SetFight(roundnr, fightnr, newfight);
+			m_pController->SetFight(static_cast<int>(roundIndex), static_cast<int>(fightIndex), round[fightIndex]);
 		}
 	}
 
-	m_pController->SetCurrentRound(qBound(0, saveobject["CurrentRound"].toInt(), 100));
-	m_pController->SetCurrentFight(qBound(0, saveobject["CurrentFight"].toInt(), 100));
+	m_pController->SetCurrentRound(data.currentRound);
+	m_pController->SetCurrentFight(data.currentFight);
 
-	MainWindowBase::update_info_text_color(QColor::fromRgba(QRgb(saveobject["FgColorInfoText"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorInfoText"].toInt())));
-	MainWindowBase::update_text_color_first(QColor::fromRgba(QRgb(saveobject["FgColorFirst"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorFirst"].toInt())));
-	MainWindowBase::update_text_color_second(QColor::fromRgba(QRgb(saveobject["FgColorSecond"].toInt())), QColor::fromRgba(QRgb(saveobject["BgColorSecond"].toInt())));
+	MainWindowBase::update_info_text_color(QColor::fromRgba(data.infoTextFg), QColor::fromRgba(data.infoTextBg));
+	MainWindowBase::update_text_color_first(QColor::fromRgba(data.firstFg), QColor::fromRgba(data.firstBg));
+	MainWindowBase::update_text_color_second(QColor::fromRgba(data.secondFg), QColor::fromRgba(data.secondBg));
 
 	return 0;
 }
@@ -877,49 +827,49 @@ void MainWindowTeam::on_actionNew_triggered()
 		QMessageBox::Yes,
 		QMessageBox::No) == QMessageBox::No) return;
 
-	m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
+	m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
 	update_window_title();
 	on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
 }
 
-void MainWindowTeam::on_actionSave_File_triggered()
-{
-	if (m_saveFilePath == QDir::homePath() + "/" + AUTOSAVE_FILENAME)
-	{
-		QString fileName = QFileDialog::getSaveFileName(this,
-			tr("Save file as..."),
-			m_saveFilePath,
-			tr("JSON File (*.json)"));
-		if (fileName == "") return;
-		m_saveFilePath = fileName;
-		update_window_title();
-	}
-	QFile file = QFile(m_saveFilePath);
-	QJsonDocument doc = CreateTournamentSaveFile_();
-	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
-	{
-		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
-	}
-	else
-	{
-		QMessageBox::warning(this, tr("Error!"), tr("The match could not be saved!"));
-	}
-	file.flush();
-	file.close();
-}
+// void MainWindowTeam::on_actionSave_File_triggered()
+// {
+// 	if (m_saveFilePath == QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename)
+// 	{
+// 		QString fileName = QFileDialog::getSaveFileName(this,
+// 			tr("Save file as..."),
+// 			m_saveFilePath,
+// 			tr("JSON File (*.json)"));
+// 		if (fileName == "") return;
+// 		m_saveFilePath = fileName;
+// 		update_window_title();
+// 	}
+// 	QFile file = QFile(m_saveFilePath);
+// 	auto jsonDoc = GetTournamentAsJson_();
+// 	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
+// 	{
+// 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
+// 	}
+// 	else
+// 	{
+// 		QMessageBox::warning(this, tr("Error!"), tr("The match could not be saved!"));
+// 	}
+// 	file.flush();
+// 	file.close();
+// }
 
-void MainWindowTeam::on_actionSave_File_As_triggered()
+void MainWindowTeam::on_actionSave_As_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
-		tr("Save file to..."),
+		tr("Save tournament as..."),
 		m_saveFilePath,
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
 
 	QFile file = QFile(fileName);
-	QJsonDocument doc = CreateTournamentSaveFile_();
-	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(doc.toJson(QJsonDocument::Indented)) > 0)
+	auto jsonDoc = GetTournamentAsJson_();
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
 	{
 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
 	}
@@ -931,10 +881,10 @@ void MainWindowTeam::on_actionSave_File_As_triggered()
 	file.close();
 }
 
-void MainWindowTeam::on_actionOpen_File_triggered()
+void MainWindowTeam::on_actionLoad_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
-		tr("Open file..."),
+		tr("Load tournament from..."),
 		m_saveFilePath,
 		tr("JSON File (*.json)"));
 
@@ -943,7 +893,7 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 	if (QMessageBox::question(
 		this,
 		tr("Discard tournament?"),
-		tr("This will discard any unsaved changes from your current tournament. Proceed?"),
+        tr("Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?"),
 		QMessageBox::Yes,
 		QMessageBox::No) == QMessageBox::No) return;
 
@@ -965,7 +915,7 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 		QMessageBox::warning(this, tr("Error while parsing JSON!"), err.errorString());
 		return;
 	}
-	int result = ParseTournamentSaveFile_(doc);
+	int result = LoadTournamentFromJson_(doc);
 
 	if (result == 1)
 	{
@@ -976,7 +926,7 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 			QMessageBox::Yes,
 			QMessageBox::No) == QMessageBox::Yes)
 		{
-			result = ParseTournamentSaveFile_(doc, true);
+			result = LoadTournamentFromJson_(doc, true);
 		}
 		else
 		{
@@ -995,7 +945,7 @@ void MainWindowTeam::on_actionOpen_File_triggered()
 	default:
 		QMessageBox::warning(this, tr("Error!"), tr("Error while parsing data!"));
 		// reset in case of corrupted state after error
-		m_saveFilePath = QDir::homePath() + "/" + AUTOSAVE_FILENAME;
+		m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
 		update_window_title();
 		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
 		break;
@@ -1153,7 +1103,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	QFile file = QFile(m_saveFilePath);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		qint64 bytes = file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
+		qint64 bytes = file.write(GetTournamentAsJson_());
 		if (bytes > 0)
 		{
 			qDebug() << "Autosave successful:" << m_saveFilePath;
@@ -1191,7 +1141,7 @@ void MainWindowTeam::on_button_next_clicked()
 	QFile file = QFile(m_saveFilePath);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		qint64 bytes = file.write(CreateTournamentSaveFile_().toJson(QJsonDocument::Indented));
+		qint64 bytes = file.write(GetTournamentAsJson_());
 		if (bytes > 0)
 		{
 			qDebug() << "Autosave successful:" << m_saveFilePath;

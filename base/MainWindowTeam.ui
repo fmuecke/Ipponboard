@@ -1209,16 +1209,15 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menuTournament">
     <property name="title">
-     <string>File</string>
+     <string>Tournament</string>
     </property>
     <addaction name="actionImport_Fighters"/>
     <addaction name="separator"/>
     <addaction name="actionNew"/>
-    <addaction name="actionOpen_File"/>
-    <addaction name="actionSave_File"/>
-    <addaction name="actionSave_File_As"/>
+    <addaction name="actionLoad"/>
+    <addaction name="actionSave_As"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
     <addaction name="actionExport"/>
@@ -1285,7 +1284,7 @@
     <addaction name="actionTest_Gong"/>
     <addaction name="actionReset_Scores"/>
    </widget>
-   <addaction name="menuFile"/>
+   <addaction name="menuTournament"/>
    <addaction name="menuView"/>
    <addaction name="menuManage"/>
    <addaction name="menuSettings"/>
@@ -1624,19 +1623,14 @@
     <string>F1</string>
    </property>
   </action>
-  <action name="actionSave_File">
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </action>
-  <action name="actionSave_File_As">
+  <action name="actionSave_As">
    <property name="text">
     <string>Save As...</string>
    </property>
   </action>
-  <action name="actionOpen_File">
+  <action name="actionLoad">
    <property name="text">
-    <string>Open...</string>
+    <string>Load...</string>
    </property>
   </action>
   <action name="actionNew">
