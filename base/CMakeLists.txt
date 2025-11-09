@@ -81,6 +81,8 @@ set(SOURCES
     MainWindowBase.h
     MainWindowTeam.cpp
     MainWindowTeam.h
+    TournamentSerialization.cpp
+    TournamentSerialization.h
     ModeManagerDlg.cpp
     ModeManagerDlg.h
     #qrc_ipponboard.cpp

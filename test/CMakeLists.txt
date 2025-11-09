@@ -39,6 +39,7 @@ set(SOURCES
     TestOnlineVersionChecker.cpp
     Test-path_helpers.cpp
     TestVersionComparer.cpp
+    TestTournamentSerialization.cpp
 )
 
 add_executable(${APP_NAME} ${SOURCES})
@@ -71,7 +72,7 @@ if(MSVC)
     )
 
     # Copy required QT runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::XmlPatterns)
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
@@ -84,7 +85,7 @@ if(MSVC)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
     )
 else()
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::XmlPatterns Qt5::Network Qt5::Core)
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::XmlPatterns Qt5::Network Qt5::Core Qt5::Gui)
 #    find_package(OpenSSL REQUIRED)
 #    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()

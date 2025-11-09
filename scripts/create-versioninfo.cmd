@@ -17,7 +17,7 @@ echo Using: BASE_DIR=%BASE_DIR%
 :: --> CHANGE VERSION HERE:
 SET VER1=2
 SET VER2=4
-SET VER3=0
+SET VER3=2
 SET "TAG="
 :: that's it. <--
 
@@ -106,11 +106,11 @@ ECHO     BLOCK "StringFileInfo">>%RC_FILE%
 ECHO     BEGIN>>%RC_FILE%
 ECHO         BLOCK "040004b0">>%RC_FILE%
 ECHO         BEGIN>>%RC_FILE%
-ECHO             VALUE "CompanyName", "Florian Mücke">>%RC_FILE%
+ECHO             VALUE "CompanyName", "Florian Mï¿½cke">>%RC_FILE%
 ECHO             VALUE "FileDescription", "Ipponboard">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mï¿½cke">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
 if "%TAG%"=="" (

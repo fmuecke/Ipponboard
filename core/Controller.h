@@ -148,6 +148,8 @@ public:
 				  int wazaari1 = -1, int ippon1 = -1, int shido1 = -1,
 				  int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1,
 				  int ippon2 = -1, int shido2 = -1, int hansokumake2 = -1);
+	void SetFight(unsigned int tournament_index, unsigned int fight_index,
+		Ipponboard::Fight fight);
 	Ipponboard::Fight const& GetFight(unsigned int tournament_index, unsigned int fight_index) const;
 	void SetFighterName(Ipponboard::FighterEnum whos, const QString& name);
 

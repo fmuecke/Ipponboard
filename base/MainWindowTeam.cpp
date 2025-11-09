@@ -16,9 +16,12 @@
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
 #include "../core/TournamentModel.h"
+#include "TournamentSerialization.h"
+
 #ifdef _WIN32
 #include "../gamepad/gamepad.h"
 #endif
+
 #include "../util/path_helpers.h"
 #include "../Widgets/ScaledImage.h"
 
@@ -43,6 +46,11 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QUrl>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <algorithm>
+
 
 namespace StrTags
 {
@@ -53,7 +61,11 @@ static const char* const host = "Host";
 using namespace FMlib;
 using namespace Ipponboard;
 
-namespace { bool initialized = false; }
+namespace
+{
+	bool initialized = false;
+	constexpr auto SaveDateFormat = "dd.MM.yyyy";
+}
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
 	: MainWindowBase(parent)
@@ -83,7 +95,7 @@ void MainWindowTeam::LoadModes(Ipponboard::TournamentMode::List modes, QString s
 	{
 		m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
 	}
-
+	
 	initialized = true;
 
 	auto index = m_pUi->comboBox_mode->findData(QVariant(selectedMode));
@@ -173,7 +185,11 @@ void MainWindowTeam::Init()
 	UpdateButtonText_();
 
 	//m_pUi->button_pause->click();	// we start with pause!
+
+	load_autosave_if_available();
 }
+
+
 
 void MainWindowTeam::UpdateGoldenScoreView()
 {
@@ -195,6 +211,15 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 {
 	const bool isCtrlPressed = event->modifiers().testFlag(Qt::ControlModifier);
 	const bool isAltPressed = event->modifiers().testFlag(Qt::AltModifier);
+
+	if (event->matches(QKeySequence::SaveAs))
+	{
+		on_actionSave_As_triggered();
+	}
+	else if (event->matches(QKeySequence::Open))
+	{
+		on_actionLoad_triggered();
+	}
 
 	//FIXME: copy and paste handling should be part of the table class!
 	if (m_pUi->tabWidget->currentWidget() == m_pUi->tab_view)
@@ -644,10 +669,314 @@ void MainWindowTeam::WriteScoreToHtml_()
 
 	m_htmlScore.replace("%SECOND_ROUND%", scoreData);
 
-	const QString copyright = tr("List generated with Ipponboard v") +
+const QString copyright = tr("List generated with Ipponboard v") +
 							  QApplication::applicationVersion() +
 							  ", &copy; " + QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
     m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
+}
+
+TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSaveData_() const
+{
+	TournamentSerialization::TournamentSaveData saveData;
+	saveData.fileVersion = QString::fromLatin1(TournamentSerialization::TournamentSaveFileVersion);
+	saveData.host = m_pUi->comboBox_club_host->currentText();
+	saveData.date = m_pUi->dateEdit->text();
+	saveData.location = m_pUi->lineEdit_location->text();
+	saveData.home = m_pUi->comboBox_club_home->currentText();
+	saveData.guest = m_pUi->comboBox_club_guest->currentText();
+	saveData.currentRound = m_pController->GetCurrentRound();
+	saveData.currentFight = m_pController->GetCurrentFight();
+	saveData.infoTextFg = MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb();
+	saveData.infoTextBg = MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb();
+	saveData.firstFg = MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb();
+	saveData.firstBg = MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb();
+	saveData.secondFg = MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb();
+	saveData.secondBg = MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb();
+
+	for (const auto& mode : m_modes)
+	{
+		if (mode.id == m_currentMode)
+		{
+			saveData.mode = mode;
+			break;
+		}
+	}
+
+	const auto roundCount = m_pController->GetRoundCount();
+	const auto fightsPerRound = m_pController->GetFightCount();
+	saveData.rounds.resize(roundCount);
+	for (int roundIndex = 0; roundIndex < roundCount; ++roundIndex)
+	{
+		auto& round = saveData.rounds[roundIndex];
+		round.reserve(fightsPerRound);
+		for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
+		{
+			round.push_back(m_pController->GetFight(roundIndex, fightIndex));
+		}
+	}
+
+	return saveData;
+}
+
+QByteArray MainWindowTeam::GetTournamentAsJson_() const
+{
+	return TournamentSerialization::ToJson(CollectTournamentSaveData_()).toJson(QJsonDocument::Indented);
+}
+
+int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
+{
+	TournamentSerialization::TournamentSaveData saveData;
+	const auto result = TournamentSerialization::CreateFromJson(
+		doc,
+		TournamentSerialization::TournamentSaveFileVersion, 
+		loadWithIncompatibleVersion, 
+		saveData);
+
+	if (result != 0)
+	{
+		return result;
+	}
+
+	if (m_pUi->comboBox_club_host->findText(saveData.host) == -1)
+	{
+		m_pClubManager->AddClub(Club(saveData.host, "clubs\\default.png"));
+	}
+
+	if (m_pUi->comboBox_club_home->findText(saveData.home) == -1)
+	{
+		m_pClubManager->AddClub(Club(saveData.home, "clubs\\default.png"));
+	}
+
+	if (m_pUi->comboBox_club_guest->findText(saveData.guest) == -1)
+	{
+		m_pClubManager->AddClub(Club(saveData.guest, "clubs\\default.png"));
+	}
+
+	update_club_views();
+
+	m_pUi->comboBox_club_host->setCurrentText(saveData.host);
+	m_pUi->dateEdit->setDate(QDate::fromString(saveData.date, SaveDateFormat));
+	m_pUi->lineEdit_location->setText(saveData.location);
+	m_pUi->comboBox_club_home->setCurrentText(saveData.home);
+	m_pUi->comboBox_club_guest->setCurrentText(saveData.guest);
+
+	const auto existingMode = std::find_if(
+		m_modes.begin(),
+		m_modes.end(),
+		[&](const TournamentMode& mode) { return mode.id == saveData.mode.id; });
+
+	const auto overridesString = saveData.mode.GetFightTimeOverridesString();
+	const auto matchesExisting = existingMode != m_modes.end() &&
+		existingMode->title == saveData.mode.title &&
+		existingMode->subTitle == saveData.mode.subTitle &&
+		existingMode->listTemplate == saveData.mode.listTemplate &&
+		existingMode->weights == saveData.mode.weights &&
+		existingMode->weightsAreDoubled == saveData.mode.weightsAreDoubled &&
+		existingMode->nRounds == saveData.mode.nRounds &&
+		existingMode->fightTimeInSeconds == saveData.mode.fightTimeInSeconds &&
+		existingMode->GetFightTimeOverridesString() == overridesString &&
+		existingMode->rules == saveData.mode.rules &&
+		existingMode->options == saveData.mode.options;
+
+	if (matchesExisting)
+	{
+		auto index = m_pUi->comboBox_mode->findData(QVariant(existingMode->id));
+		index = index == -1 ? 0 : index;
+		m_pUi->comboBox_mode->setCurrentIndex(index);
+	}
+	else
+	{
+		TournamentMode newMode = saveData.mode;
+		m_modes.push_back(newMode);
+		m_pUi->comboBox_mode->addItem(newMode.Description(), QVariant(newMode.id));
+		m_pUi->comboBox_mode->setCurrentIndex(m_pUi->comboBox_mode->findData(QVariant(newMode.id)));
+	}
+
+	for (std::size_t roundIndex = 0; roundIndex < saveData.rounds.size(); ++roundIndex)
+	{
+		const auto& round = saveData.rounds[roundIndex];
+		for (std::size_t fightIndex = 0; fightIndex < round.size(); ++fightIndex)
+		{
+			m_pController->SetFight(static_cast<int>(roundIndex), static_cast<int>(fightIndex), round[fightIndex]);
+		}
+	}
+
+	m_pController->SetCurrentRound(saveData.currentRound);
+	m_pController->SetCurrentFight(saveData.currentFight);
+
+	MainWindowBase::update_info_text_color(QColor::fromRgba(saveData.infoTextFg), QColor::fromRgba(saveData.infoTextBg));
+	MainWindowBase::update_text_color_first(QColor::fromRgba(saveData.firstFg), QColor::fromRgba(saveData.firstBg));
+	MainWindowBase::update_text_color_second(QColor::fromRgba(saveData.secondFg), QColor::fromRgba(saveData.secondBg));
+
+	return 0;
+}
+
+
+QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
+
+{
+	QFile file = QFile(filename);
+	auto jsonDoc = GetTournamentAsJson_();
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
+	{
+		file.flush();
+		file.close();
+		qDebug() << "Saved tournament successfully to" << filename;
+		return QString();
+	}
+	else
+	{
+		QString errorMsg = tr("The tournament could not be saved to %1").arg(filename);
+		qWarning() << errorMsg;
+		return errorMsg;
+	}
+}
+
+void MainWindowTeam::load_autosave_if_available()
+{
+	const auto autoSavePath = fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename);
+	QJsonDocument document;
+	QString errorMessage;
+	const auto status = TournamentSerialization::ReadSaveFile(
+		autoSavePath,
+		document,
+		&errorMessage);
+
+	if (status == TournamentSerialization::ReadSaveFileStatus::FileNotFound)
+	{
+		return;
+	}
+
+	if (status != TournamentSerialization::ReadSaveFileStatus::Success)
+	{
+		if (errorMessage.isEmpty())
+		{
+			qWarning() << "Autosave file could not be read:" << autoSavePath;
+		}
+		else
+		{
+			qWarning() << "Autosave file could not be read:" << errorMessage;
+		}
+		return;
+	}
+
+	auto loadResult = LoadTournamentFromJson_(document);
+	if (loadResult == 1)
+	{
+		loadResult = LoadTournamentFromJson_(document, true);
+	}
+
+	if (loadResult == 0)
+	{
+		qInfo() << "Loaded autosave from" << autoSavePath;
+		return;
+	}
+
+	qWarning() << "Autosave document could not be applied";
+}
+
+void MainWindowTeam::on_actionNew_triggered()
+{
+	if (QMessageBox::question(
+		this,
+		tr("Discard tournament?"),
+		tr("This will discard any unsaved changes from your current tournament. Proceed?"),
+		QMessageBox::Yes,
+		QMessageBox::No) == QMessageBox::No) return;
+
+	on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
+}
+
+void MainWindowTeam::on_actionSave_As_triggered()
+{
+	const auto initialFileName = QString("%1-%2_vs_%3.json")
+		.arg(QDate::currentDate().toString(Qt::ISODate))
+		.arg(m_pUi->comboBox_club_home->currentText())
+		.arg(m_pUi->comboBox_club_guest->currentText());
+	
+	QString initialPath = fm::GetAppConfigFilePath(initialFileName);
+	
+	QString fileName = QFileDialog::getSaveFileName(this,
+		tr("Save tournament as..."),
+		initialPath,
+		tr("JSON File (*.json)"));
+
+	if (fileName == "") return;
+
+	const QString& errorMsg = SaveTournamentToFile_(fileName);
+
+	if (errorMsg.isEmpty())
+	{
+		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
+	}
+	else
+	{
+		QMessageBox::warning(this, tr("Error!"), errorMsg);
+	}
+}
+
+void MainWindowTeam::on_actionLoad_triggered()
+{
+	QString fileName = QFileDialog::getOpenFileName(this,
+		tr("Load tournament from..."),
+		fm::GetAppConfigDir(),
+		tr("JSON File (*.json)"));
+
+	if (fileName == "") return;
+
+	if (QMessageBox::question(
+		this,
+		tr("Discard tournament?"),
+        tr("Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?"),
+		QMessageBox::Yes,
+		QMessageBox::No) == QMessageBox::No) return;
+
+	QFile file = QFile(fileName);
+
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QMessageBox::warning(this, tr("Error!"), tr("File could not be opened!"));
+		return;
+	}
+	
+	QString val = file.readAll();
+	file.close();
+
+	QJsonParseError err;
+	QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8(), &err);
+	if (err.error)
+	{
+		QMessageBox::warning(this, tr("Error while parsing JSON!"), err.errorString());
+		return;
+	}
+	int result = LoadTournamentFromJson_(doc);
+
+	if (result == 1)
+	{
+		if (QMessageBox::question(
+			this,
+			tr("File Version mismatch"),
+			tr("This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!"),
+			QMessageBox::Yes,
+			QMessageBox::No) == QMessageBox::Yes)
+		{
+			result = LoadTournamentFromJson_(doc, true);
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	if (result == 0)
+	{
+		QMessageBox::information(this, tr("Success!"), tr("The match was loaded successfully!"));
+	}
+	else
+	{
+		QMessageBox::warning(this, tr("Error!"), tr("Error while parsing data!"));
+		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
+	}
 }
 
 void MainWindowTeam::on_actionReset_Scores_triggered()
@@ -797,6 +1126,8 @@ void MainWindowTeam::on_button_prev_clicked()
 
 	m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
+	
+	SaveTournamentToFile_(fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -815,6 +1146,8 @@ void MainWindowTeam::on_button_next_clicked()
 
 	// reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
+
+	SaveTournamentToFile_(fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)

@@ -8,6 +8,7 @@
 #include "../base/MainWindowBase.h"
 #include "../core/Fight.h"
 #include "../core/TournamentMode.h"
+#include "TournamentSerialization.h"
 
 #include <memory>
 
@@ -23,6 +24,7 @@ class MainWindowTeam : public MainWindowBase
 {
 	Q_OBJECT
 public:
+
 	explicit MainWindowTeam(QWidget* parent = nullptr);
 	virtual ~MainWindowTeam();
 
@@ -63,8 +65,13 @@ private:
 	void UpdateButtonText_();
 	void update_score_screen();
 	void WriteScoreToHtml_();
+	QByteArray GetTournamentAsJson_() const;
+	int LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
+	QString SaveTournamentToFile_(QString const& filename);
+	void load_autosave_if_available();
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
+	Ipponboard::TournamentSerialization::TournamentSaveData CollectTournamentSaveData_() const;
 	//void update_fighter_name_completer(const QString& weight);
 	//void update_fighters(const QString& s);
 
@@ -99,6 +106,9 @@ private slots:
 	void on_comboBox_club_host_currentIndexChanged(const QString& s);
 	void on_comboBox_club_home_currentIndexChanged(const QString& s);
 	void on_comboBox_club_guest_currentIndexChanged(const QString& s);
+	void on_actionNew_triggered();
+	void on_actionSave_As_triggered();
+	void on_actionLoad_triggered();
 	void on_actionPrint_triggered();
 	void on_actionExport_triggered();
 	void on_button_golden_score_toggled(bool);

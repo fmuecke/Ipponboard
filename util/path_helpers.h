@@ -14,6 +14,7 @@
 #include <QCoreApplication>
 #include <QFile>
 #include <QDir>
+#include <QStandardPaths>
 #include <QDebug>
 #include <string>
 
@@ -64,7 +65,39 @@ private:
 };
 #endif
 
-const QString GetSettingsFilePath(const char* fileName)
+QString GetAppDir()
+{
+	return QCoreApplication::applicationDirPath();
+}
+
+QString GetAppConfigDir()
+{
+	auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+	QDir().mkpath(configDir); // make sure directory exists
+	return configDir;
+}
+
+QString GetAppDataDir()
+{
+	auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	QDir().mkpath(dataDir); // make sure directory exists
+	return dataDir;
+}
+
+QString GetAppConfigFilePath(QString fileName)
+{
+	auto configPath = GetAppConfigDir();
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+}
+
+QString GetAppDataFilePath(QString fileName)
+{
+	auto configPath = GetAppDataDir();
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+}
+
+//TODO: deprecate this and use GetAppConfigFilePath instead!
+const QString GetSettingsFilePath(QString fileName)
 {
 #define EXPERIMENTAL 1
 

@@ -315,7 +315,7 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Neue Kategorie hinzufügen</translation>
@@ -332,7 +332,7 @@
         <translation>Diese Kategorie existiert bereits. Bitte wählen Sie einen anderen Namen.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+120"/>
         <source>This name is already taken!</source>
         <translation>Dieser Name ist bereits vergeben!</translation>
     </message>
@@ -902,7 +902,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+345"/>
+        <location filename="../base/MainWindow.cpp" line="+355"/>
         <source>Auto adjust points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -945,7 +945,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+322"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+347"/>
         <source>Home</source>
         <translation>Heim</translation>
     </message>
@@ -961,13 +961,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation> (gespeichert)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+64"/>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+1"/>
+        <location line="+65"/>
         <source>Next</source>
         <translation>Nächster</translation>
     </message>
@@ -993,7 +987,7 @@ Mögliche Spezifikatorens sind: %1</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+10"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+314"/>
         <source>Reset Scores</source>
         <translation>Tabelle zurücksetzten</translation>
     </message>
@@ -1003,7 +997,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+124"/>
         <source>Show results</source>
         <translation>Ergebnis anzeigen</translation>
     </message>
@@ -1013,12 +1007,35 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <source>Open file...</source>
+        <translation type="vanished">Datei öffnen...</translation>
+    </message>
+    <message>
+        <source>Save file to...</source>
+        <translation type="vanished">Datei speichern...</translation>
+    </message>
+    <message>
+        <source>Save file as...</source>
+        <translation type="vanished">Datei speichern als...</translation>
+    </message>
+    <message>
+        <location line="+196"/>
         <source>Export file to...</source>
         <translation>Datei exportieren nach...</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-412"/>
+        <location line="+21"/>
+        <source>JSON File (*.json)</source>
+        <translation>JSON-Datei (*.json)</translation>
+    </message>
+    <message>
+        <location line="-94"/>
+        <source>The tournament could not be saved to %1</source>
+        <translation>Das Tunier konnte nicht nach %1 gespeichert werden</translation>
+    </message>
+    <message>
+        <location line="+486"/>
         <source>ScoreList_</source>
         <translation>Punktestand_</translation>
     </message>
@@ -1028,7 +1045,89 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>PDF-Datei (*.pdf);;HTML-Datei (*.html)</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="-406"/>
+        <source>Saved!</source>
+        <translation>Gespeichert!</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The match was saved successfully!</source>
+        <translation>Die Begegnung wurde erfolgreich gespeichert!</translation>
+    </message>
+    <message>
+        <source>The match could not be saved!</source>
+        <translation type="vanished">Die Begegnung konnte nicht gespeichert werden!</translation>
+    </message>
+    <message>
+        <location line="-28"/>
+        <location line="+47"/>
+        <source>Discard tournament?</source>
+        <translation>Begegnung verwerfen?</translation>
+    </message>
+    <message>
+        <location line="-46"/>
+        <source>This will discard any unsaved changes from your current tournament. Proceed?</source>
+        <translation>Alle ungespeicherten Änderungen werden verworfen. Fortfahren?</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Save tournament as...</source>
+        <translation>Wettkampf speichern als...</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <location line="+24"/>
+        <location line="+39"/>
+        <source>Error!</source>
+        <translation>Fehler!</translation>
+    </message>
+    <message>
+        <location line="-56"/>
+        <source>Load tournament from...</source>
+        <translation>Wettkampf laden von...</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?</source>
+        <translation>Beim Laden einer Tournier-Datei werden alle ungespeicherten Änderungen am aktuellen Turnier verworfen. Fortfahren?</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>File could not be opened!</source>
+        <translation>Datei konnte nicht geöffnet werden!</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Error while parsing JSON!</source>
+        <translation>Fehler JSON Format!</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>File Version mismatch</source>
+        <translation>Dateiversion ist unterschiedlich</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!</source>
+        <translation>Diese Datei wurde mit einer neueren Version von Ipponboard gespeichert und könnte nicht kompatibel sein. Möchten Sie diese Datei trotzdem laden? Das könnte zu einem korruptem Zustand führen!</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Success!</source>
+        <translation>Speichern erfolgreich!</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The match was loaded successfully!</source>
+        <translation>Die Begegnung wurde erfolgreich geladen!</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error while parsing data!</source>
+        <translation>Fehler beim Verarbeiten der Daten!</translation>
+    </message>
+    <message>
+        <location line="+388"/>
         <source>Set Weights</source>
         <translation>Gewichtsklassen festlegen</translation>
     </message>
@@ -1096,6 +1195,26 @@ Mögliche Spezifikatorens sind: %1</translation>
         <location filename="../base/MainWindowTeam.ui"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
+    </message>
+    <message>
+        <location/>
+        <source>New</source>
+        <translation>Neu</translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation type="vanished">Öffnen...</translation>
+    </message>
+    <message>
+        <location/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1240"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save As...</source>
+        <translation>Speichern als...</translation>
     </message>
     <message>
         <location/>
@@ -1238,9 +1357,8 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="vanished">Datei</translation>
     </message>
     <message>
         <location/>
@@ -1492,6 +1610,16 @@ Mögliche Spezifikatorens sind: %1</translation>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
+    <message>
+        <location/>
+        <source>Tournament</source>
+        <translation>Turnier</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Load...</source>
+        <translation>Laden...</translation>
+    </message>
 </context>
 <context>
     <name>ModeManagerDlg</name>
@@ -1612,7 +1740,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Alle Unterbewertungen zählen</translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+167"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+159"/>
         <source>*new*</source>
         <translation>*neu*</translation>
     </message>
@@ -1640,7 +1768,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+201"/>
+        <location filename="../base/Main.cpp" line="+202"/>
         <source>en</source>
         <translation>de</translation>
     </message>
@@ -1674,7 +1802,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location line="-149"/>
         <source>the score board for judoka by judoka</source>
         <translation>die Wettkampfanzeige von Judoka für Judoka</translation>
     </message>
@@ -1738,17 +1866,17 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Vielen Dank!</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+118"/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Version %1 verfügbar (aktuell in Verwendung: %2)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1330"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-370"/>
         <source>Error reading mode configurations</source>
         <translation>Fehler beim Lesen der Moduskonfigurationen</translation>
     </message>
     <message>
-        <location line="+614"/>
+        <location line="+905"/>
         <source>Error writing mode configurations</source>
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
@@ -1756,14 +1884,14 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
-        <location line="+32"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+180"/>
+        <location line="+33"/>
         <location line="+21"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="-53"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1771,7 +1899,7 @@ Restoring defaults.</source>
         <translation>Fehler beim Laden der Wettkampfkategorien: %1 Stelle Standards wieder her.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+33"/>
         <source>Unable to parse fight categories:
 %1
 
