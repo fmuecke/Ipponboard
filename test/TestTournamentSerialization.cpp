@@ -5,9 +5,12 @@
 #include "TestData/IpponboardAutosaveJson.h"
 
 #include <QColor>
+#include <QDir>
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QString>
+#include <QTemporaryDir>
 
 using namespace Ipponboard;
 using namespace Ipponboard::TournamentSerialization;
@@ -176,4 +179,56 @@ TEST_CASE("CreateFromJson reports version mismatch")
 	REQUIRE(acceptance == 0);
 	CHECK(parsed.fileVersion == "2.0");
 	CHECK(parsed.mode.id == baseData.mode.id);
+}
+
+SCENARIO("Autosave files on disk can be read back into JSON documents")
+{
+	GIVEN("a persisted autosave file containing the latest tournament state")
+	{
+		QTemporaryDir tempDir;
+		REQUIRE(tempDir.isValid());
+
+		const auto filePath = tempDir.filePath("Ipponboard-autosave.json");
+		QFile file(filePath);
+		REQUIRE(file.open(QIODevice::WriteOnly | QIODevice::Truncate));
+		file.write(TestData::IpponboardAutosaveJson);
+		file.close();
+
+		QJsonDocument document;
+		QString error;
+		const auto status = TournamentSerialization::ReadSaveFile(
+			filePath,
+			document,
+			&error);
+
+		REQUIRE(status == TournamentSerialization::ReadSaveFileStatus::Success);
+		REQUIRE(error.isEmpty());
+
+		TournamentSaveData parsed;
+		const auto parseResult = TournamentSerialization::CreateFromJson(
+			document,
+			TournamentSerialization::TournamentSaveFileVersion,
+			false,
+			parsed);
+
+		REQUIRE(parseResult == 0);
+		CHECK(parsed.host == "Entenhausen");
+		CHECK(parsed.home == "Entenhausen");
+		CHECK(parsed.guest == "The Daltons");
+	}
+
+	GIVEN("no autosave file exists at the expected location")
+	{
+		const auto nonexistentPath = QDir::temp().filePath("not-there/Ipponboard-autosave.json");
+		QJsonDocument document;
+		QString error;
+		const auto status = TournamentSerialization::ReadSaveFile(
+			nonexistentPath,
+			document,
+			&error);
+
+		CHECK(status == TournamentSerialization::ReadSaveFileStatus::FileNotFound);
+		CHECK(document.isNull());
+		CHECK(error.isEmpty());
+	}
 }

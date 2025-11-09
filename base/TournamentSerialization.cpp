@@ -3,8 +3,11 @@
 
 #include "TournamentSerialization.h"
 
+#include <QFile>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonParseError>
 #include <QtGlobal>
 
 #include <utility>
@@ -205,8 +208,54 @@ int CreateFromJson(const QJsonDocument& doc,
 		}
 	}
 
-	data = std::move(parsed);
+data = std::move(parsed);
 	return 0;
+}
+
+ReadSaveFileStatus ReadSaveFile(
+	const QString& filePath,
+	QJsonDocument& document,
+	QString* errorMessage)
+{
+	document = QJsonDocument();
+
+	QFile file(filePath);
+	if (!file.exists())
+	{
+		if (errorMessage != nullptr)
+		{
+			errorMessage->clear();
+		}
+		return ReadSaveFileStatus::FileNotFound;
+	}
+
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		if (errorMessage != nullptr)
+		{
+			*errorMessage = file.errorString();
+		}
+		return ReadSaveFileStatus::OpenError;
+	}
+
+	const auto bytes = file.readAll();
+	QJsonParseError parseError;
+	const auto parsed = QJsonDocument::fromJson(bytes, &parseError);
+	if (parseError.error != QJsonParseError::NoError)
+	{
+		if (errorMessage != nullptr)
+		{
+			*errorMessage = parseError.errorString();
+		}
+		return ReadSaveFileStatus::ParseError;
+	}
+
+	document = parsed;
+	if (errorMessage != nullptr)
+	{
+		errorMessage->clear();
+	}
+	return ReadSaveFileStatus::Success;
 }
 
 } // namespace Ipponboard::TournamentSerialization

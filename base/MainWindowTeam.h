@@ -60,7 +60,6 @@ private:
 	virtual void update_views() override;
 
 	// specific methods
-	void update_window_title();
 	void update_club_views();
 	void UpdateFightNumber_();
 	void UpdateButtonText_();
@@ -68,6 +67,8 @@ private:
 	void WriteScoreToHtml_();
 	QByteArray GetTournamentAsJson_() const;
 	int LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
+	QString SaveTournamentToFile_(QString const& filename);
+	void load_autosave_if_available();
 	virtual void write_specific_settings(QSettings& settings) final;
 	virtual void read_specific_settings(QSettings& settings) final;
 	Ipponboard::TournamentSerialization::TournamentSaveData CollectTournamentSaveData_() const;
@@ -141,7 +142,6 @@ private:
 	QString m_htmlScore;
 	QString m_currentMode;
 	QString m_host;
-	QString m_saveFilePath;
 
 	//std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
 	QStringList m_FighterNamesHome;

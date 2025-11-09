@@ -64,7 +64,18 @@ private:
 };
 #endif
 
-const QString GetSettingsFilePath(const char* fileName)
+
+//TODO: use QStandardPaths to get config directory
+// // Get the standard config location
+// QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+// // Windows: C:/Users/<USER>/AppData/Local/<APPNAME>
+// // Linux: ~/.config/<APPNAME>
+
+// // Ensure the directory exists
+// QDir dir(configPath);
+// if (!dir.exists()) dir.mkpath(".");
+
+const QString GetSettingsFilePath(QString fileName)
 {
 #define EXPERIMENTAL 1
 

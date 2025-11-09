@@ -17,6 +17,14 @@ namespace Ipponboard::TournamentSerialization
 inline constexpr const char* TournamentSaveFileVersion = "1.0";
 inline constexpr const char* AutoSaveFilename = "Ipponboard-autosave.json";
 
+enum class ReadSaveFileStatus
+{
+	Success,
+	FileNotFound,
+	OpenError,
+	ParseError
+};
+
 struct TournamentSaveData
 {
 	QString fileVersion { QString::fromLatin1(TournamentSaveFileVersion) };
@@ -44,6 +52,10 @@ int CreateFromJson(const QJsonDocument& doc,
 						bool loadWithIncompatibleVersion,
 						TournamentSaveData& data);
 
-}
+[[nodiscard]] ReadSaveFileStatus ReadSaveFile(
+	const QString& filePath,
+	QJsonDocument& document,
+	QString* errorMessage = nullptr);
 
+}
 

@@ -186,17 +186,10 @@ void MainWindowTeam::Init()
 
 	//m_pUi->button_pause->click();	// we start with pause!
 
-	m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
-	update_window_title();
+	load_autosave_if_available();
 }
 
-void MainWindowTeam::update_window_title()
-{
-	setWindowTitle(
-		QCoreApplication::applicationName() + " v" +
-		QCoreApplication::applicationVersion() +
-		(m_saveFilePath == QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename ? "" : " - " + QFileInfo(m_saveFilePath).fileName()));
-}
+
 
 void MainWindowTeam::UpdateGoldenScoreView()
 {
@@ -818,6 +811,70 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
 	return 0;
 }
 
+
+QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
+
+{
+	QFile file = QFile(filename);
+	auto jsonDoc = GetTournamentAsJson_();
+	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
+	{
+		file.flush();
+		file.close();
+		qDebug() << "Saved tournament successfully to" << filename;
+		return QString();
+	}
+	else
+	{
+		QString errorMsg = tr("The tournament could not be saved to %1").arg(filename);
+		qWarning() << errorMsg;
+		return errorMsg;
+	}
+}
+
+void MainWindowTeam::load_autosave_if_available()
+{
+	const auto autoSavePath = fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename);
+	QJsonDocument document;
+	QString errorMessage;
+	const auto status = TournamentSerialization::ReadSaveFile(
+		autoSavePath,
+		document,
+		&errorMessage);
+
+	if (status == TournamentSerialization::ReadSaveFileStatus::FileNotFound)
+	{
+		return;
+	}
+
+	if (status != TournamentSerialization::ReadSaveFileStatus::Success)
+	{
+		if (errorMessage.isEmpty())
+		{
+			qWarning() << "Autosave file could not be read:" << autoSavePath;
+		}
+		else
+		{
+			qWarning() << "Autosave file could not be read:" << errorMessage;
+		}
+		return;
+	}
+
+	auto loadResult = LoadTournamentFromJson_(document);
+	if (loadResult == 1)
+	{
+		loadResult = LoadTournamentFromJson_(document, true);
+	}
+
+	if (loadResult == 0)
+	{
+		qInfo() << "Loaded autosave from" << autoSavePath;
+		return;
+	}
+
+	qWarning() << "Autosave document could not be applied";
+}
+
 void MainWindowTeam::on_actionNew_triggered()
 {
 	if (QMessageBox::question(
@@ -827,65 +884,42 @@ void MainWindowTeam::on_actionNew_triggered()
 		QMessageBox::Yes,
 		QMessageBox::No) == QMessageBox::No) return;
 
-	m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
-	update_window_title();
 	on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
 }
 
-// void MainWindowTeam::on_actionSave_File_triggered()
-// {
-// 	if (m_saveFilePath == QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename)
-// 	{
-// 		QString fileName = QFileDialog::getSaveFileName(this,
-// 			tr("Save file as..."),
-// 			m_saveFilePath,
-// 			tr("JSON File (*.json)"));
-// 		if (fileName == "") return;
-// 		m_saveFilePath = fileName;
-// 		update_window_title();
-// 	}
-// 	QFile file = QFile(m_saveFilePath);
-// 	auto jsonDoc = GetTournamentAsJson_();
-// 	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
-// 	{
-// 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
-// 	}
-// 	else
-// 	{
-// 		QMessageBox::warning(this, tr("Error!"), tr("The match could not be saved!"));
-// 	}
-// 	file.flush();
-// 	file.close();
-// }
-
 void MainWindowTeam::on_actionSave_As_triggered()
 {
+	const auto initialFileName = QString("%1-%2_vs_%3.json")
+		.arg(QDate::currentDate().toString(Qt::ISODate))
+		.arg(m_pUi->comboBox_club_home->currentText())
+		.arg(m_pUi->comboBox_club_guest->currentText());
+	
+	QString initialPath = fm::GetSettingsFilePath(initialFileName);
+	
 	QString fileName = QFileDialog::getSaveFileName(this,
 		tr("Save tournament as..."),
-		m_saveFilePath,
+		initialPath,
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
 
-	QFile file = QFile(fileName);
-	auto jsonDoc = GetTournamentAsJson_();
-	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
+	const QString& errorMsg = SaveTournamentToFile_(fileName);
+
+	if (errorMsg.isEmpty())
 	{
 		QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
 	}
 	else
 	{
-		QMessageBox::warning(this, tr("Error!"), tr("The match could not be saved!"));
+		QMessageBox::warning(this, tr("Error!"), errorMsg);
 	}
-	file.flush();
-	file.close();
 }
 
 void MainWindowTeam::on_actionLoad_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
 		tr("Load tournament from..."),
-		m_saveFilePath,
+		fm::GetSettingsFilePath(""),
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
@@ -934,21 +968,14 @@ void MainWindowTeam::on_actionLoad_triggered()
 		}
 	}
 
-	switch (result)
+	if (result == 0)
 	{
-	case 0:
-		m_saveFilePath = fileName;
-		update_window_title();
 		QMessageBox::information(this, tr("Success!"), tr("The match was loaded successfully!"));
-		break;
-
-	default:
+	}
+	else
+	{
 		QMessageBox::warning(this, tr("Error!"), tr("Error while parsing data!"));
-		// reset in case of corrupted state after error
-		m_saveFilePath = QDir::homePath() + "/" + TournamentSerialization::AutoSaveFilename;
-		update_window_title();
 		on_comboBox_mode_currentIndexChanged(m_pUi->comboBox_mode->currentIndex());
-		break;
 	}
 }
 
@@ -1100,24 +1127,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 	
-	QFile file = QFile(m_saveFilePath);
-	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-	{
-		qint64 bytes = file.write(GetTournamentAsJson_());
-		if (bytes > 0)
-		{
-			qDebug() << "Autosave successful:" << m_saveFilePath;
-		}
-		else
-		{
-			qWarning() << "Autosave failed: write error";
-		}
-		file.close();
-	}
-	else
-	{
-		qWarning() << "Autosave failed:" << file.errorString();
-	}
+	SaveTournamentToFile_(fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -1137,25 +1147,7 @@ void MainWindowTeam::on_button_next_clicked()
 	// reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 
-	
-	QFile file = QFile(m_saveFilePath);
-	if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-	{
-		qint64 bytes = file.write(GetTournamentAsJson_());
-		if (bytes > 0)
-		{
-			qDebug() << "Autosave successful:" << m_saveFilePath;
-		}
-		else
-		{
-			qWarning() << "Autosave failed: write error";
-		}
-		file.close();
-	}
-	else
-	{
-		qWarning() << "Autosave failed:" << file.errorString();
-	}
+	SaveTournamentToFile_(fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
