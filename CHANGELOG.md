@@ -2,6 +2,11 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+## Version 2.4.2 (2025-11-09)
+- (new): Tournaments are automatically saved and restored on restart. (resolves #39).
+- (new): Tournaments can be saved and loaded manually via ~~File~~ _Tournament_ menu.
+- (fix): Timer now stops on awasete ippn (fixes #88)
+
 ## Version 2.4.0 (2025-02-09)
 - (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
 - (new): added shortcuts to start single or team mode from splashscreen (1, 2)
