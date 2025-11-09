@@ -677,37 +677,37 @@ const QString copyright = tr("List generated with Ipponboard v") +
 
 TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSaveData_() const
 {
-	TournamentSerialization::TournamentSaveData data;
-	data.fileVersion = QString::fromLatin1(TournamentSerialization::TournamentSaveFileVersion);
-	data.host = m_pUi->comboBox_club_host->currentText();
-	data.date = m_pUi->dateEdit->text();
-	data.location = m_pUi->lineEdit_location->text();
-	data.home = m_pUi->comboBox_club_home->currentText();
-	data.guest = m_pUi->comboBox_club_guest->currentText();
-	data.currentRound = m_pController->GetCurrentRound();
-	data.currentFight = m_pController->GetCurrentFight();
-	data.infoTextFg = MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb();
-	data.infoTextBg = MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb();
-	data.firstFg = MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb();
-	data.firstBg = MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb();
-	data.secondFg = MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb();
-	data.secondBg = MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb();
+	TournamentSerialization::TournamentSaveData saveData;
+	saveData.fileVersion = QString::fromLatin1(TournamentSerialization::TournamentSaveFileVersion);
+	saveData.host = m_pUi->comboBox_club_host->currentText();
+	saveData.date = m_pUi->dateEdit->text();
+	saveData.location = m_pUi->lineEdit_location->text();
+	saveData.home = m_pUi->comboBox_club_home->currentText();
+	saveData.guest = m_pUi->comboBox_club_guest->currentText();
+	saveData.currentRound = m_pController->GetCurrentRound();
+	saveData.currentFight = m_pController->GetCurrentFight();
+	saveData.infoTextFg = MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb();
+	saveData.infoTextBg = MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb();
+	saveData.firstFg = MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb();
+	saveData.firstBg = MainWindowBase::m_pPrimaryView->GetTextBgColorFirst().rgb();
+	saveData.secondFg = MainWindowBase::m_pPrimaryView->GetTextColorSecond().rgb();
+	saveData.secondBg = MainWindowBase::m_pPrimaryView->GetTextBgColorSecond().rgb();
 
 	for (const auto& mode : m_modes)
 	{
 		if (mode.id == m_currentMode)
 		{
-			data.mode = mode;
+			saveData.mode = mode;
 			break;
 		}
 	}
 
 	const auto roundCount = m_pController->GetRoundCount();
 	const auto fightsPerRound = m_pController->GetFightCount();
-	data.rounds.resize(roundCount);
+	saveData.rounds.resize(roundCount);
 	for (int roundIndex = 0; roundIndex < roundCount; ++roundIndex)
 	{
-		auto& round = data.rounds[roundIndex];
+		auto& round = saveData.rounds[roundIndex];
 		round.reserve(fightsPerRound);
 		for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
 		{
@@ -715,7 +715,7 @@ TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSav
 		}
 	}
 
-	return data;
+	return saveData;
 }
 
 QByteArray MainWindowTeam::GetTournamentAsJson_() const
@@ -725,58 +725,58 @@ QByteArray MainWindowTeam::GetTournamentAsJson_() const
 
 int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
 {
-	TournamentSerialization::TournamentSaveData data;
+	TournamentSerialization::TournamentSaveData saveData;
 	const auto result = TournamentSerialization::CreateFromJson(
 		doc,
 		TournamentSerialization::TournamentSaveFileVersion, 
 		loadWithIncompatibleVersion, 
-		data);
+		saveData);
 
 	if (result != 0)
 	{
 		return result;
 	}
 
-	if (m_pUi->comboBox_club_host->findText(data.host) == -1)
+	if (m_pUi->comboBox_club_host->findText(saveData.host) == -1)
 	{
-		m_pClubManager->AddClub(Club(data.host, "clubs\\default.png"));
+		m_pClubManager->AddClub(Club(saveData.host, "clubs\\default.png"));
 	}
 
-	if (m_pUi->comboBox_club_home->findText(data.home) == -1)
+	if (m_pUi->comboBox_club_home->findText(saveData.home) == -1)
 	{
-		m_pClubManager->AddClub(Club(data.home, "clubs\\default.png"));
+		m_pClubManager->AddClub(Club(saveData.home, "clubs\\default.png"));
 	}
 
-	if (m_pUi->comboBox_club_guest->findText(data.guest) == -1)
+	if (m_pUi->comboBox_club_guest->findText(saveData.guest) == -1)
 	{
-		m_pClubManager->AddClub(Club(data.guest, "clubs\\default.png"));
+		m_pClubManager->AddClub(Club(saveData.guest, "clubs\\default.png"));
 	}
 
 	update_club_views();
 
-	m_pUi->comboBox_club_host->setCurrentText(data.host);
-	m_pUi->dateEdit->setDate(QDate::fromString(data.date, SaveDateFormat));
-	m_pUi->lineEdit_location->setText(data.location);
-	m_pUi->comboBox_club_home->setCurrentText(data.home);
-	m_pUi->comboBox_club_guest->setCurrentText(data.guest);
+	m_pUi->comboBox_club_host->setCurrentText(saveData.host);
+	m_pUi->dateEdit->setDate(QDate::fromString(saveData.date, SaveDateFormat));
+	m_pUi->lineEdit_location->setText(saveData.location);
+	m_pUi->comboBox_club_home->setCurrentText(saveData.home);
+	m_pUi->comboBox_club_guest->setCurrentText(saveData.guest);
 
 	const auto existingMode = std::find_if(
 		m_modes.begin(),
 		m_modes.end(),
-		[&](const TournamentMode& mode) { return mode.id == data.mode.id; });
+		[&](const TournamentMode& mode) { return mode.id == saveData.mode.id; });
 
-	const auto overridesString = data.mode.GetFightTimeOverridesString();
+	const auto overridesString = saveData.mode.GetFightTimeOverridesString();
 	const auto matchesExisting = existingMode != m_modes.end() &&
-		existingMode->title == data.mode.title &&
-		existingMode->subTitle == data.mode.subTitle &&
-		existingMode->listTemplate == data.mode.listTemplate &&
-		existingMode->weights == data.mode.weights &&
-		existingMode->weightsAreDoubled == data.mode.weightsAreDoubled &&
-		existingMode->nRounds == data.mode.nRounds &&
-		existingMode->fightTimeInSeconds == data.mode.fightTimeInSeconds &&
+		existingMode->title == saveData.mode.title &&
+		existingMode->subTitle == saveData.mode.subTitle &&
+		existingMode->listTemplate == saveData.mode.listTemplate &&
+		existingMode->weights == saveData.mode.weights &&
+		existingMode->weightsAreDoubled == saveData.mode.weightsAreDoubled &&
+		existingMode->nRounds == saveData.mode.nRounds &&
+		existingMode->fightTimeInSeconds == saveData.mode.fightTimeInSeconds &&
 		existingMode->GetFightTimeOverridesString() == overridesString &&
-		existingMode->rules == data.mode.rules &&
-		existingMode->options == data.mode.options;
+		existingMode->rules == saveData.mode.rules &&
+		existingMode->options == saveData.mode.options;
 
 	if (matchesExisting)
 	{
@@ -786,27 +786,27 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
 	}
 	else
 	{
-		TournamentMode newMode = data.mode;
+		TournamentMode newMode = saveData.mode;
 		m_modes.push_back(newMode);
 		m_pUi->comboBox_mode->addItem(newMode.Description(), QVariant(newMode.id));
 		m_pUi->comboBox_mode->setCurrentIndex(m_pUi->comboBox_mode->findData(QVariant(newMode.id)));
 	}
 
-	for (std::size_t roundIndex = 0; roundIndex < data.rounds.size(); ++roundIndex)
+	for (std::size_t roundIndex = 0; roundIndex < saveData.rounds.size(); ++roundIndex)
 	{
-		const auto& round = data.rounds[roundIndex];
+		const auto& round = saveData.rounds[roundIndex];
 		for (std::size_t fightIndex = 0; fightIndex < round.size(); ++fightIndex)
 		{
 			m_pController->SetFight(static_cast<int>(roundIndex), static_cast<int>(fightIndex), round[fightIndex]);
 		}
 	}
 
-	m_pController->SetCurrentRound(data.currentRound);
-	m_pController->SetCurrentFight(data.currentFight);
+	m_pController->SetCurrentRound(saveData.currentRound);
+	m_pController->SetCurrentFight(saveData.currentFight);
 
-	MainWindowBase::update_info_text_color(QColor::fromRgba(data.infoTextFg), QColor::fromRgba(data.infoTextBg));
-	MainWindowBase::update_text_color_first(QColor::fromRgba(data.firstFg), QColor::fromRgba(data.firstBg));
-	MainWindowBase::update_text_color_second(QColor::fromRgba(data.secondFg), QColor::fromRgba(data.secondBg));
+	MainWindowBase::update_info_text_color(QColor::fromRgba(saveData.infoTextFg), QColor::fromRgba(saveData.infoTextBg));
+	MainWindowBase::update_text_color_first(QColor::fromRgba(saveData.firstFg), QColor::fromRgba(saveData.firstBg));
+	MainWindowBase::update_text_color_second(QColor::fromRgba(saveData.secondFg), QColor::fromRgba(saveData.secondBg));
 
 	return 0;
 }
