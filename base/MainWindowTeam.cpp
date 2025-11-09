@@ -834,7 +834,7 @@ QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
 
 void MainWindowTeam::load_autosave_if_available()
 {
-	const auto autoSavePath = fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename);
+	const auto autoSavePath = fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename);
 	QJsonDocument document;
 	QString errorMessage;
 	const auto status = TournamentSerialization::ReadSaveFile(
@@ -894,7 +894,7 @@ void MainWindowTeam::on_actionSave_As_triggered()
 		.arg(m_pUi->comboBox_club_home->currentText())
 		.arg(m_pUi->comboBox_club_guest->currentText());
 	
-	QString initialPath = fm::GetSettingsFilePath(initialFileName);
+	QString initialPath = fm::GetAppConfigFilePath(initialFileName);
 	
 	QString fileName = QFileDialog::getSaveFileName(this,
 		tr("Save tournament as..."),
@@ -919,7 +919,7 @@ void MainWindowTeam::on_actionLoad_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
 		tr("Load tournament from..."),
-		fm::GetSettingsFilePath(""),
+		fm::GetAppConfigDir(),
 		tr("JSON File (*.json)"));
 
 	if (fileName == "") return;
@@ -1127,7 +1127,7 @@ void MainWindowTeam::on_button_prev_clicked()
 	m_pController->PrevFight();
 	//m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 	
-	SaveTournamentToFile_(fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+	SaveTournamentToFile_(fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -1147,7 +1147,7 @@ void MainWindowTeam::on_button_next_clicked()
 	// reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 
-	SaveTournamentToFile_(fm::GetSettingsFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+	SaveTournamentToFile_(fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)

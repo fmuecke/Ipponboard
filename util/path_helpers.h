@@ -14,6 +14,7 @@
 #include <QCoreApplication>
 #include <QFile>
 #include <QDir>
+#include <QStandardPaths>
 #include <QDebug>
 #include <string>
 
@@ -64,17 +65,38 @@ private:
 };
 #endif
 
+QString GetAppDir()
+{
+	return QCoreApplication::applicationDirPath();
+}
 
-//TODO: use QStandardPaths to get config directory
-// // Get the standard config location
-// QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
-// // Windows: C:/Users/<USER>/AppData/Local/<APPNAME>
-// // Linux: ~/.config/<APPNAME>
+QString GetAppConfigDir()
+{
+	auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+	QDir().mkpath(configDir); // make sure directory exists
+	return configDir;
+}
 
-// // Ensure the directory exists
-// QDir dir(configPath);
-// if (!dir.exists()) dir.mkpath(".");
+QString GetAppDataDir()
+{
+	auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	QDir().mkpath(dataDir); // make sure directory exists
+	return dataDir;
+}
 
+QString GetAppConfigFilePath(QString fileName)
+{
+	auto configPath = GetAppConfigDir();
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+}
+
+QString GetAppDataFilePath(QString fileName)
+{
+	auto configPath = GetAppDataDir();
+	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+}
+
+//TODO: deprecate this and use GetAppConfigFilePath instead!
 const QString GetSettingsFilePath(QString fileName)
 {
 #define EXPERIMENTAL 1
