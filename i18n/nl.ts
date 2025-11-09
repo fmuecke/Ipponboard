@@ -305,7 +305,7 @@
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <location line="+13"/>
         <source>Add new category</source>
         <translation>Nieuwe categorie toevoegen</translation>
@@ -322,7 +322,7 @@
         <translation>Deze categorie bestaat reeds. Kies een andere naam aub.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+120"/>
         <source>This name is already taken!</source>
         <translation>Deze naam is reeds in gebruik!</translation>
     </message>
@@ -901,7 +901,7 @@ Geldige velden zijn: %1</translation>
         <translation>Gebruik IJF 2018-regels</translation>
     </message>
     <message>
-        <location filename="../base/MainWindow.cpp" line="+345"/>
+        <location filename="../base/MainWindow.cpp" line="+355"/>
         <source>Auto adjust points</source>
         <translation>Auto aanpassen punten</translation>
     </message>
@@ -949,7 +949,7 @@ Geldige velden zijn: %1</translation>
     <name>MainWindowTeam</name>
     <message>
         <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+322"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+347"/>
         <source>Home</source>
         <translation>Thuis</translation>
     </message>
@@ -997,17 +997,106 @@ Geldige velden zijn: %1</translation>
     </message>
     <message>
         <location filename="../base/MainWindowTeam.ui"/>
-        <location filename="../base/MainWindowTeam.cpp" line="+10"/>
+        <location filename="../base/MainWindowTeam.cpp" line="+314"/>
         <source>Reset Scores</source>
         <translation>Scores Herstellen</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="+1"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-157"/>
+        <source>The tournament could not be saved to %1</source>
+        <translation>Het toernooi kon niet worden opgeslagen in %1</translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <location line="+47"/>
+        <source>Discard tournament?</source>
+        <translation>Toernooi afgelasten?</translation>
+    </message>
+    <message>
+        <location line="-46"/>
+        <source>This will discard any unsaved changes from your current tournament. Proceed?</source>
+        <translation>Hiermee worden alle niet-opgeslagen wijzigingen in uw huidige toernooi verwijderd. Wilt u doorgaan?</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Save tournament as...</source>
+        <translation>Toernooi opslaan als...</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+21"/>
+        <source>JSON File (*.json)</source>
+        <translation>JSON-Bestand (*.json)</translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Saved!</source>
+        <translation>Opgeslagen!</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The match was saved successfully!</source>
+        <translation>De wedstrijd is succesvol opgeslagen!</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <location line="+24"/>
+        <location line="+39"/>
+        <source>Error!</source>
+        <translation>Fout!</translation>
+    </message>
+    <message>
+        <location line="-56"/>
+        <source>Load tournament from...</source>
+        <translation>Wedstrijd laden van...</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?</source>
+        <translation>Als je een toernooibestand laadt, worden alle niet-opgeslagen wijzigingen in je huidige toernooi verwijderd. Wil je doorgaan?</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>File could not be opened!</source>
+        <translation>Bestand kan niet worden geopend!</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Error while parsing JSON!</source>
+        <translation>Fout bij het parseren van JSON!</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>File Version mismatch</source>
+        <translation>Bestandsversie komt niet overeen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!</source>
+        <translation>Dit bestand is opgeslagen met een nieuwere versie van Ipponboard en is mogelijk niet compatibel met deze versie. Wilt u dit bestand toch laden? Dit kan leiden tot een beschadigde toernooistatus!</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Success!</source>
+        <translation>Opslaan gelukt!</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The match was loaded successfully!</source>
+        <translation>De wedstrijd is succesvol geladen!</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error while parsing data!</source>
+        <translation>Fout bij het parseren van gegevens!</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Really reset complete score table?</source>
         <translation>Volledige scoretabel echt resetten?</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+124"/>
         <source>Show results</source>
         <translation>Toon resultaten</translation>
     </message>
@@ -1017,7 +1106,7 @@ Geldige velden zijn: %1</translation>
         <translation>Resultaten verbergen</translation>
     </message>
     <message>
-        <location line="+189"/>
+        <location line="+196"/>
         <source>Export file to...</source>
         <translation>Bestand exporteren naar ...</translation>
     </message>
@@ -1242,11 +1331,6 @@ Geldige velden zijn: %1</translation>
         <location/>
         <source>Reset</source>
         <translation>Herstellen</translation>
-    </message>
-    <message>
-        <location/>
-        <source>File</source>
-        <translation></translation>
     </message>
     <message>
         <location/>
@@ -1502,6 +1586,26 @@ Geldige velden zijn: %1</translation>
         <source>Choose Dutch as program language</source>
         <translation>Kies Nederlands als programmeertaal</translation>
     </message>
+    <message>
+        <location/>
+        <source>Tournament</source>
+        <translation>Toernooi</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save As...</source>
+        <translation>Opslaan als...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Load...</source>
+        <translation>Laden...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>New</source>
+        <translation>Nieuw</translation>
+    </message>
 </context>
 <context>
     <name>ModeManagerDlg</name>
@@ -1622,7 +1726,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Alle subscores tellen</translation>
     </message>
     <message>
-        <location filename="../base/ModeManagerDlg.cpp" line="+167"/>
+        <location filename="../base/ModeManagerDlg.cpp" line="+159"/>
         <source>*new*</source>
         <translation>*nieuwe*</translation>
     </message>
@@ -1650,7 +1754,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+201"/>
+        <location filename="../base/Main.cpp" line="+202"/>
         <source>en</source>
         <translation></translation>
     </message>
@@ -1684,7 +1788,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location line="-149"/>
         <source>the score board for judoka by judoka</source>
         <translation>het scorebord voor judoka door judoka</translation>
     </message>
@@ -1747,17 +1851,17 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Veel dank!</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+118"/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Versie %1 beschikbaar (momenteel gebruikt: %2)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.cpp" line="-1330"/>
+        <location filename="../base/MainWindowTeam.cpp" line="-1610"/>
         <source>Error reading mode configurations</source>
         <translation>Fout bij lezen van modusconfiguraties</translation>
     </message>
     <message>
-        <location line="+614"/>
+        <location line="+905"/>
         <source>Error writing mode configurations</source>
         <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
@@ -1765,8 +1869,8 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="+175"/>
-        <location line="+32"/>
+        <location filename="../base/FightCategoryManager.cpp" line="+180"/>
+        <location line="+33"/>
         <location line="+21"/>
         <source>Error</source>
         <translation>Fout</translation>
@@ -1812,7 +1916,7 @@ Lijn %2 heeft %3 items, in plaats van %4 zoals in voorgaande lijnen</translation
         <translation type="obsolete">Kan bestand %1 niet openen om weg te bewerken</translation>
     </message>
     <message>
-        <location filename="../base/FightCategoryManager.cpp" line="-52"/>
+        <location filename="../base/FightCategoryManager.cpp" line="-53"/>
         <source>Unable to load fight categories:
 %1
 
@@ -1823,7 +1927,7 @@ Restoring defaults.</source>
 Standaardwaarden herstellen.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+33"/>
         <source>Unable to parse fight categories:
 %1
 
