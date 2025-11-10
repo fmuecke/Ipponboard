@@ -2,7 +2,6 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
-
 ## Version vNEXT (unreleased)
 - (new): full support for multiple gamepads/controllers with independent mappings and configurations
   - full Linux support
@@ -17,6 +16,11 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (internal): documented the Qt 6 migration (updated manuals/licenses, Qt 6 ADR, CI workflow ready for Ninja-based packaging) to lock in the toolchain change.
 - (internal): improved test coverage for state machine and gamepad input handling.
 - (internal): prepared codebase for future enhancements and easier maintenance.
+
+## Version 2.4.2 (2025-11-09)
+- (new): Tournaments are automatically saved and restored on restart. (resolves #39).
+- (new): Tournaments can be saved and loaded manually via ~~File~~ _Tournament_ menu.
+- (fix): Timer now stops on awasete ippn (fixes #88)
 
 ## Version 2.4.0 (2025-02-09)
 - (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)

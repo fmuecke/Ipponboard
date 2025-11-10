@@ -47,6 +47,9 @@ set(UI_HEADERS
     MainWindow.h
     MainWindowBase.h
     MainWindowTeam.h
+    TournamentSerialization.cpp
+    TournamentSerialization.h
+    ModeManagerDlg.cpp
     ModeManagerDlg.h
     OnlineVersionChecker.h
     ScoreScreen.h

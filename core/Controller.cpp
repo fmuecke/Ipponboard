@@ -1006,6 +1006,17 @@ void Controller::SetFight(unsigned int round_index, unsigned int fight_index, co
 }
 
 //=========================================================
+void Controller::SetFight(
+	unsigned int round_index, unsigned int fight_index,
+	Fight fight)
+//=========================================================
+{
+	m_Tournament[round_index]->at(fight_index) = fight;
+
+	update_views();
+}
+
+//=========================================================
 Ipponboard::Fight const& Controller::GetFight(unsigned int round_index,
                                               unsigned int fight_index) const
 //=========================================================

@@ -17,22 +17,23 @@ else()
 endif()
 
 set(SOURCES
-    TestFight.cpp
-    TestJson.cpp
+    Test-path_helpers.cpp
     TestController.cpp
-    TestRules.cpp
-    TestScore.cpp
-    TestTournamentMode.cpp
-    TestInputBindingResolver.cpp
-    TestRawInputCapture.cpp
+    TestFight.cpp
     TestGamepadSectionMapper.cpp
     TestGamepadSections.cpp
-    Test-path_helpers.cpp
-    TestVersionComparer.cpp
+    TestInputBindingResolver.cpp
+    TestJson.cpp
+    TestRawInputCapture.cpp
+    TestRules.cpp
+    TestScore.cpp
     TestStateMachine.cpp
+    TestTournamentMode.cpp
     TestTournamentModel.cpp
-    TestView.cpp
+    TestTournamentSerialization.cpp
     TestOnlineVersionChecker.cpp
+    TestVersionComparer.cpp
+    TestView.cpp
 )
 
 add_executable(${APP_NAME} ${SOURCES})

@@ -317,3 +317,4 @@ Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
 
     return m_DefaultMode;
 }
+
