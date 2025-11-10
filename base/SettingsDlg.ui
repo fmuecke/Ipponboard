@@ -3,7 +3,7 @@
  <class>SettingsDlg</class>
  <widget class="QDialog" name="SettingsDlg">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModality::ApplicationModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -73,23 +73,7 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="1">
-           <widget class="QCheckBox" name="checkBox_secondary_view_custom_size">
-            <property name="toolTip">
-             <string notr="true"/>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Use custom size</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
+          <item row="1" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1,0,1">
             <property name="spacing">
              <number>6</number>
@@ -115,7 +99,7 @@
                <string>Width</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -137,7 +121,7 @@
                </size>
               </property>
               <property name="inputMethodHints">
-               <set>Qt::ImhDigitsOnly</set>
+               <set>Qt::InputMethodHint::ImhDigitsOnly</set>
               </property>
              </widget>
             </item>
@@ -156,7 +140,7 @@
                <string>Height</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -184,11 +168,27 @@
                </size>
               </property>
               <property name="inputMethodHints">
-               <set>Qt::ImhDigitsOnly</set>
+               <set>Qt::InputMethodHint::ImhDigitsOnly</set>
               </property>
              </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="checkBox_secondary_view_custom_size">
+            <property name="toolTip">
+             <string notr="true"/>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LayoutDirection::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Use custom size</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -204,7 +204,7 @@
          <property name="checkable">
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0" columnstretch="0,0,0,0">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0" columnstretch="0,1,0,1">
           <item row="3" column="2">
            <widget class="QLabel" name="label_guest">
             <property name="toolTip">
@@ -218,7 +218,7 @@
           <item row="3" column="0">
            <widget class="QLabel" name="label_text_gong">
             <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+             <enum>QFrame::Shape::NoFrame</enum>
             </property>
             <property name="text">
              <string>Mat Signal</string>
@@ -315,10 +315,10 @@
                 <normaloff>:/res/icons/play.png</normaloff>:/res/icons/play.png</iconset>
               </property>
               <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextBesideIcon</enum>
+               <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
               </property>
               <property name="arrowType">
-               <enum>Qt::NoArrow</enum>
+               <enum>Qt::ArrowType::NoArrow</enum>
               </property>
              </widget>
             </item>
@@ -435,7 +435,7 @@
             <item>
              <spacer name="verticalSpacer">
               <property name="orientation">
-               <enum>Qt::Vertical</enum>
+               <enum>Qt::Orientation::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -453,7 +453,7 @@
               <item>
                <widget class="QFontComboBox" name="fontComboBox_infoHeader">
                 <property name="fontFilters">
-                 <set>QFontComboBox::ScalableFonts</set>
+                 <set>QFontComboBox::FontFilter::ScalableFonts</set>
                 </property>
                </widget>
               </item>
@@ -562,7 +562,7 @@
             <item>
              <widget class="QFontComboBox" name="fontComboBox_fighters">
               <property name="fontFilters">
-               <set>QFontComboBox::ScalableFonts</set>
+               <set>QFontComboBox::FontFilter::ScalableFonts</set>
               </property>
              </widget>
             </item>
@@ -675,7 +675,7 @@
        <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -1153,7 +1153,7 @@
        <item>
         <spacer name="verticalSpacer_raw">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -1183,19 +1183,19 @@
           <bool>true</bool>
          </property>
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::Shape::StyledPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
+          <enum>QFrame::Shadow::Sunken</enum>
          </property>
          <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAsNeeded</enum>
+          <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAsNeeded</enum>
+          <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
          </property>
          <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
+          <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
          </property>
          <property name="showDropIndicator" stdset="0">
           <bool>false</bool>
@@ -1207,13 +1207,13 @@
           <bool>true</bool>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
+          <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
          </property>
          <property name="showGrid">
           <bool>true</bool>
          </property>
          <property name="gridStyle">
-          <enum>Qt::SolidLine</enum>
+          <enum>Qt::PenStyle::SolidLine</enum>
          </property>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>
@@ -1484,10 +1484,10 @@
           <bool>false</bool>
          </property>
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="standardButtons">
-          <set>QDialogButtonBox::RestoreDefaults</set>
+          <set>QDialogButtonBox::StandardButton::RestoreDefaults</set>
          </property>
         </widget>
        </item>
@@ -1522,10 +1522,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>
@@ -1541,13 +1541,66 @@
  </customwidgets>
  <tabstops>
   <tabstop>tab_pane</tabstop>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>comboBox_screen</tabstop>
+  <tabstop>checkBox_secondary_view_custom_size</tabstop>
   <tabstop>lineEdit_fixedsize_width</tabstop>
   <tabstop>lineEdit_fixedsize_height</tabstop>
+  <tabstop>comboBox_mat</tabstop>
+  <tabstop>comboBox_sound_time_ends</tabstop>
+  <tabstop>toolButton_play_gong</tabstop>
+  <tabstop>lineEdit_labelHome</tabstop>
+  <tabstop>lineEdit_labelGuest</tabstop>
+  <tabstop>toolButton_text_color</tabstop>
+  <tabstop>toolButton_text_background</tabstop>
+  <tabstop>fontComboBox_infoHeader</tabstop>
   <tabstop>checkBox_text_bold</tabstop>
   <tabstop>checkBox_text_italic</tabstop>
+  <tabstop>toolButton_text_color_first</tabstop>
+  <tabstop>toolButton_text_background_first</tabstop>
+  <tabstop>toolButton_text_color_second</tabstop>
+  <tabstop>toolButton_text_background_second</tabstop>
+  <tabstop>fontComboBox_fighters</tabstop>
+  <tabstop>checkBox_fighters_bold</tabstop>
+  <tabstop>checkBox_fighters_italic</tabstop>
+  <tabstop>lineEdit_raw_hajime_mate</tabstop>
+  <tabstop>pushButton_capture_raw_hajime_mate</tabstop>
+  <tabstop>lineEdit_raw_reset_first</tabstop>
+  <tabstop>pushButton_capture_raw_reset_first</tabstop>
+  <tabstop>lineEdit_raw_reset_second</tabstop>
+  <tabstop>pushButton_capture_raw_reset_second</tabstop>
+  <tabstop>lineEdit_raw_pause</tabstop>
+  <tabstop>pushButton_capture_raw_pause</tabstop>
+  <tabstop>lineEdit_raw_prev</tabstop>
+  <tabstop>pushButton_capture_raw_prev</tabstop>
+  <tabstop>lineEdit_raw_next</tabstop>
+  <tabstop>pushButton_capture_raw_next</tabstop>
+  <tabstop>lineEdit_raw_osaekomi_first</tabstop>
+  <tabstop>pushButton_capture_raw_osaekomi_first</tabstop>
+  <tabstop>lineEdit_raw_reset_hold_first</tabstop>
+  <tabstop>pushButton_capture_raw_reset_hold_first</tabstop>
+  <tabstop>lineEdit_raw_hansokumake_first</tabstop>
+  <tabstop>pushButton_capture_raw_hansokumake_first</tabstop>
+  <tabstop>lineEdit_raw_osaekomi_second</tabstop>
+  <tabstop>pushButton_capture_raw_osaekomi_second</tabstop>
+  <tabstop>lineEdit_raw_reset_hold_second</tabstop>
+  <tabstop>pushButton_capture_raw_reset_hold_second</tabstop>
+  <tabstop>lineEdit_raw_hansokumake_second</tabstop>
+  <tabstop>pushButton_capture_raw_hansokumake_second</tabstop>
+  <tabstop>lineEdit_raw_axis_left_x</tabstop>
+  <tabstop>pushButton_capture_raw_axis_left_x</tabstop>
+  <tabstop>checkBox_raw_axis_left_x_invert</tabstop>
+  <tabstop>lineEdit_raw_axis_left_y</tabstop>
+  <tabstop>pushButton_capture_raw_axis_left_y</tabstop>
+  <tabstop>checkBox_raw_axis_left_y_invert</tabstop>
+  <tabstop>lineEdit_raw_axis_right_x</tabstop>
+  <tabstop>pushButton_capture_raw_axis_right_x</tabstop>
+  <tabstop>checkBox_raw_axis_right_x_invert</tabstop>
+  <tabstop>lineEdit_raw_axis_right_y</tabstop>
+  <tabstop>pushButton_capture_raw_axis_right_y</tabstop>
+  <tabstop>checkBox_raw_axis_right_y_invert</tabstop>
+  <tabstop>toolButton_test_raw_mapping</tabstop>
   <tabstop>tableWidget_keys</tabstop>
-  <tabstop>buttonBox_3</tabstop>
+  <tabstop>lineEdit_dataExchangeFormat</tabstop>
  </tabstops>
  <resources>
   <include location="ipponboard.qrc"/>
