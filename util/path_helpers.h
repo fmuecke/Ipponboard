@@ -6,8 +6,9 @@
 #define UTIL__PATH_HELPERS_H_
 
 #ifdef _WIN32
-#include <Windows.h>
 #include <Shlobj.h>
+#include <Windows.h>
+
 //#	pragma comment(lib,"Shell32.lib")
 #endif
 
@@ -17,7 +18,6 @@
 #include <QFile>
 #include <QStandardPaths>
 #include <string>
-
 
 namespace fm
 {
@@ -45,23 +45,11 @@ struct KnownFolders
     static QString get_ProgramData() { return get_folder(FOLDERID_ProgramData); }
     static QString get_ProgramFiles() { return get_folder(FOLDERID_ProgramFiles); }
 #ifdef _WIN64
-    static QString get_ProgramFilesX64()
-    {
-        return get_folder(FOLDERID_ProgramFilesX64);
-    }
+    static QString get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
 #endif
-    static QString get_ProgramFilesX86()
-    {
-        return get_folder(FOLDERID_ProgramFilesX86);
-    }
-    static QString get_RoamingAppData()
-    {
-        return get_folder(FOLDERID_RoamingAppData);
-    }
-    static QString get_ProgramFilesCommon()
-    {
-        return get_folder(FOLDERID_ProgramFilesCommon);
-    }
+    static QString get_ProgramFilesX86() { return get_folder(FOLDERID_ProgramFilesX86); }
+    static QString get_RoamingAppData() { return get_folder(FOLDERID_RoamingAppData); }
+    static QString get_ProgramFilesCommon() { return get_folder(FOLDERID_ProgramFilesCommon); }
 
   private:
     static QString get_folder(GUID folderId)
@@ -78,35 +66,32 @@ struct KnownFolders
 };
 #endif
 
-QString GetAppDir()
-{
-	return QCoreApplication::applicationDirPath();
-}
+QString GetAppDir() { return QCoreApplication::applicationDirPath(); }
 
 QString GetAppConfigDir()
 {
-	auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
-	QDir().mkpath(configDir); // make sure directory exists
-	return configDir;
+    auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    QDir().mkpath(configDir); // make sure directory exists
+    return configDir;
 }
 
 QString GetAppDataDir()
 {
-	auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-	QDir().mkpath(dataDir); // make sure directory exists
-	return dataDir;
+    auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir().mkpath(dataDir); // make sure directory exists
+    return dataDir;
 }
 
 QString GetAppConfigFilePath(QString fileName)
 {
-	auto configPath = GetAppConfigDir();
-	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+    auto configPath = GetAppConfigDir();
+    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
 }
 
 QString GetAppDataFilePath(QString fileName)
 {
-	auto configPath = GetAppDataDir();
-	return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+    auto configPath = GetAppDataDir();
+    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
 }
 
 //TODO: deprecate this and use GetAppConfigFilePath instead!
