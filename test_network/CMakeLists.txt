@@ -18,7 +18,7 @@ add_executable(${APP_NAME} TestOnlineVersionChecker_network.cpp)
 target_link_libraries(${APP_NAME} PRIVATE IpponboardUi Catch2::Catch2WithMain)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../test)
 target_compile_definitions(${APP_NAME}
-    PRIVATE IPPON_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../test/TestData")
+    PRIVATE IPPONBOARD_TESTDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../test/TestData")
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES

@@ -9,8 +9,6 @@
 
 //#include <QCoreApplication>
 //#include <QMessageBox>
-#include <QCoreApplication>
-#include <QDebug>
 #include <QElapsedTimer>
 #include <QEventLoop>
 #include <QFile>
@@ -27,6 +25,52 @@ const QString OnlineVersionChecker::VersionDocumentUrl =
     "https://api.github.com/repos/fmuecke/Ipponboard/releases/latest";
 const QString OnlineVersionChecker::ProjectReleasesUrl =
     "https://github.com/fmuecke/Ipponboard/releases";
+
+namespace
+{
+
+[[nodiscard]] QString selectPreferredWin32AssetUrl(const QJsonArray& assets)
+{
+    QString archiveUrl;
+
+    for (const auto& assetValue : assets)
+    {
+        if (!assetValue.isObject())
+        {
+            continue;
+        }
+
+        const auto asset = assetValue.toObject();
+        const auto name = asset.value(QStringLiteral("name")).toString();
+        const auto url = asset.value(QStringLiteral("browser_download_url")).toString();
+        const auto contentType = asset.value(QStringLiteral("content_type")).toString();
+
+        if (url.isEmpty())
+        {
+            continue;
+        }
+
+        const auto lowerName = name.toLower();
+        const bool isExe = lowerName.endsWith(QStringLiteral(".exe")) ||
+                           contentType == QStringLiteral("application/x-msdownload");
+        const bool isWinArchive = lowerName.contains(QStringLiteral("win32")) &&
+                                  lowerName.endsWith(QStringLiteral(".7z"));
+
+        if (isExe)
+        {
+            return url;
+        }
+
+        if (isWinArchive && archiveUrl.isEmpty())
+        {
+            archiveUrl = url;
+        }
+    }
+
+    return archiveUrl;
+}
+
+} // namespace
 
 OnlineVersionChecker::OnlineVersionChecker() {}
 
@@ -154,8 +198,30 @@ OnlineVersionChecker::OnlineVersion OnlineVersionChecker::parse_version_document
 
     OnlineVersion versionInfo;
     versionInfo.version = GetJsonValue(json, "name");
-    versionInfo.infoUrl = "https://github.com/fmuecke/Ipponboard/releases/latest";
-    versionInfo.downloadUrl = GetJsonValue(json, "assets[0].browser_download_url");
+    QString releasePage = GetJsonValue(json, "html_url");
+    if (releasePage.isEmpty())
+    {
+        releasePage = ProjectReleasesUrl;
+    }
+
+    versionInfo.infoUrl = releasePage;
+
+#if defined(Q_OS_WIN)
+    versionInfo.downloadUrl = releasePage;
+
+    if (json.contains("assets"))
+    {
+        const auto assets = json.value("assets").toArray();
+        const auto preferredAsset = selectPreferredWin32AssetUrl(assets);
+        if (!preferredAsset.isEmpty())
+        {
+            versionInfo.downloadUrl = preferredAsset;
+        }
+    }
+#else
+    versionInfo.downloadUrl = releasePage;
+#endif
+
     versionInfo.changes_en = GetJsonValue(json, "body");
     versionInfo.changes_de = versionInfo.changes_en;
     return versionInfo;

@@ -4,7 +4,7 @@
 
 #include "../base/OnlineVersionChecker.cpp"
 #include "../base/OnlineVersionChecker.h"
-#include "TestDataPath.h"
+#include "TestDataPaths.h"
 #include "TestQtApp.h"
 
 #include <QCoreApplication>

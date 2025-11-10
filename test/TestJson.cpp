@@ -4,7 +4,7 @@
 
 #include "../util/json.hpp"
 #include "../util/jsoncpp/json.cpp"
-#include "TestDataPath.h"
+#include "TestDataPaths.h"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -12,11 +12,12 @@ TEST_CASE("[json] read file")
 {
     try
     {
-        const auto fileWithBom = ippn_test_data_string("utf8_with_bom.json");
-        const auto fileUtf8 = ippn_test_data_string("utf8.json");
-
-        auto value1 = fm::Json::ReadFile(fileWithBom.c_str());
-        auto value2 = fm::Json::ReadFile(fileUtf8.c_str());
+        const auto utf8BomPath =
+            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8_with_bom.json"));
+        const auto utf8Path =
+            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8.json"));
+        auto value1 = fm::Json::ReadFile(utf8BomPath.c_str());
+        auto value2 = fm::Json::ReadFile(utf8Path.c_str());
 
         REQUIRE(value1.toStyledString() == value2.toStyledString());
     }
@@ -36,8 +37,9 @@ TEST_CASE("[json] read string")
     try
     {
         auto value1 = fm::Json::ReadString(str);
-        const auto fileUtf8 = ippn_test_data_string("utf8.json");
-        auto value2 = fm::Json::ReadFile(fileUtf8.c_str());
+        const auto utf8Path =
+            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8.json"));
+        auto value2 = fm::Json::ReadFile(utf8Path.c_str());
 
         REQUIRE(value1.toStyledString() == value2.toStyledString());
     }
