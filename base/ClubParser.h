@@ -5,12 +5,12 @@
 #ifndef CLUBPARSER_H
 #define CLUBPARSER_H
 
-#include "Club.h"
 #include "../util/json.hpp"
 #include "../util/qt_helpers.hpp"
+#include "Club.h"
 
-#include <QString>
 #include <QSettings>
+#include <QString>
 #include <QStringList>
 
 namespace ClubParser
@@ -20,72 +20,70 @@ namespace Tags
 {
 static const char* Address = "Address";
 static const char* LogoFile = "LogoFile";
-}
+} // namespace Tags
 
 static Ipponboard::ClubList ParseJsonFile(QString filePath)
 {
-	Ipponboard::ClubList clubs;
+    Ipponboard::ClubList clubs;
 
-	auto const& jsonClubs = fm::Json::ReadFile(filePath.toStdString().c_str());
+    auto const& jsonClubs = fm::Json::ReadFile(filePath.toStdString().c_str());
 
-	for (auto const & jsonClub : jsonClubs)
-	{
-		Ipponboard::Club club;
-		club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
-		club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
-		club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
+    for (auto const& jsonClub : jsonClubs)
+    {
+        Ipponboard::Club club;
+        club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
+        club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
+        club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
 
-		clubs.push_back(club);
-	}
+        clubs.push_back(club);
+    }
 
-	return clubs;
+    return clubs;
 }
 
 static Ipponboard::ClubList ParseIniFile(QString filePath)
 {
-	QSettings settings(filePath, QSettings::IniFormat);
-	settings.setIniCodec("UTF-8");
+    QSettings settings(filePath, QSettings::IniFormat);
 
-	Ipponboard::ClubList clubs;
+    Ipponboard::ClubList clubs;
 
-	for (auto const & group : settings.childGroups())
-	{
-		settings.beginGroup(group);
-		Ipponboard::Club club;
-		club.name = group;
+    for (auto const& group : settings.childGroups())
+    {
+        settings.beginGroup(group);
+        Ipponboard::Club club;
+        club.name = group;
 
-		if (settings.contains(Tags::Address))
-		{
-			club.address = settings.value(Tags::Address).toString();
-		}
+        if (settings.contains(Tags::Address))
+        {
+            club.address = settings.value(Tags::Address).toString();
+        }
 
-		if (settings.contains(Tags::LogoFile))
-		{
-			club.logoFile = settings.value(Tags::LogoFile).toString();
-		}
+        if (settings.contains(Tags::LogoFile))
+        {
+            club.logoFile = settings.value(Tags::LogoFile).toString();
+        }
 
-		settings.endGroup();
+        settings.endGroup();
 
-		clubs.push_back(club);
-	}
+        clubs.push_back(club);
+    }
 
-	return clubs;
+    return clubs;
 }
 
 static void ToIniFile(QString filePath, Ipponboard::ClubList const& clubs)
 {
-	QSettings settings(filePath, QSettings::IniFormat);
-	settings.setIniCodec("UTF-8");
+    QSettings settings(filePath, QSettings::IniFormat);
 
-	settings.clear();
+    settings.clear();
 
-	for (auto const & club : clubs)
-	{
-		settings.beginGroup(club.name);
-		settings.setValue(Tags::Address, club.address);
-		settings.setValue(Tags::LogoFile, club.logoFile);
-		settings.endGroup();
-	}
+    for (auto const& club : clubs)
+    {
+        settings.beginGroup(club.name);
+        settings.setValue(Tags::Address, club.address);
+        settings.setValue(Tags::LogoFile, club.logoFile);
+        settings.endGroup();
+    }
 }
 
 /*
@@ -107,6 +105,6 @@ static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& 
 }
 */
 
-}
+} // namespace ClubParser
 
 #endif // CLUBPARSER_H

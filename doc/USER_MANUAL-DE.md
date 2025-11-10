@@ -50,11 +50,11 @@ Die Binärdateien des Ipponboard-Projekts werden unter der folgenden Lizenz ver�
 Ipponboard verwendet die folgenden Komponenten von Drittanbietern, die unter den angegebenen Lizenzen lizenziert sind. Alle Lizenzdateien sind auch im Ordner `licenses` des Ipponboard-Installationspfads gespeichert.
 
 - **[Qt Framework](http://www.qtproject.org)**
-  - Lizenziert unter [LGPLv3 mit Ausnahme](licenses/Qt5/LICENSE.GPL3-EXCEPT).
-  - Der Quellcode kann von [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/) bezogen werden.
+  - Lizenziert unter [LGPLv3 mit Ausnahme](licenses/Qt6/LICENSE.GPL3-EXCEPT).
+  - Der Quellcode kann von [https://download.qt.io/official_releases/qt/6.9](https://download.qt.io/official_releases/qt/6.9/) bezogen werden.
   - Es wurden keine Änderungen am Qt-Quellcode vorgenommen.
   - Diese Anwendung verlinkt dynamisch zu den Qt-Bibliotheken. Sie haben die Freiheit, die von dieser Anwendung verwendeten Qt-Bibliotheken durch Ihre eigenen modifizierten Versionen zu ersetzen.
-  - Für weitere Details beachten Sie den Lizenztext [LGPL v3](licenses/Qt5/LICENSE) im `licenses`-Ordner oder online unter [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
+  - Für weitere Details beachten Sie den Lizenztext [LGPL v3](licenses/Qt6/LICENSE) im `licenses`-Ordner oder online unter [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
 
 - **[Boost C++ Bibliotheken](http://www.boost.org)**
   - Lizenziert unter [Boost Software License](licenses/boost/LICENSE_1_0.txt).
@@ -309,7 +309,7 @@ Für den weißen Kämpfer sind die Richtungen einfach spiegelverkehrt.
 > werden.
 > 
 > *Tipp:* Um herauszufinden, wie das jeweilige Gampad ausgerichtet ist, kann
-> man das mitgelieferte Programm `GamepadDemo.exe` verwenden. Dort sieht man, 
+> man dies über den Dignostic-Button in den Eigenschaften herausfinden. Dort sieht man, 
 > wie die jeweiligen Achsen ausgerichtet sind und wie die Knöpfe intern
 > nummeriert sind.
 

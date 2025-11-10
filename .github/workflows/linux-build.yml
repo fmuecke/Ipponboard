@@ -2,9 +2,9 @@ name: Linux CI build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "vNEXT" ]
   pull_request:
-    branches: [ "main", "vNEXT" ]    
+    branches: [ "main", "vNEXT" ]
 
 jobs:
   build:
@@ -16,35 +16,47 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install clang-format
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-format-14 ninja-build
+
+    - name: Check formatting
+      shell: bash
+      run: CLANG_FORMAT=clang-format-14 ./scripts/check-format.sh
     
-    - name: Install boost
+    - name: Install Boost
       uses: MarkusJx/install-boost@v2.4.5
       id: install-boost
       with:
-         boost_version: 1.81.0
-         platform_version: 20.04
+         boost_version: 1.89.0
+         platform_version: 22.04
          toolset: gcc
          arch: aarch64
 
-    - name: Install Qt5
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
-      id: install-qt
       with:
         aqtversion: '==3.1.*'
-        version: '5.15.2'
-        cache: 'true'
-        cache-key-prefix: 'install-qt-action'        
+        version: '6.9.3'
         host: 'linux'
         target: 'desktop'
-        arch: 'gcc_64'
-        #tools: 'tools_cmake'
-        #archives: 'qtxmlpatterns qttranslation qtmultimedia qtbase icu '
+        arch: 'linux_gcc_64'
+        modules: 'qtimageformats qtmultimedia qtnetworkauth'
+        archives: 'qtwayland qttranslations qttools qtsvg qtbase icu'          
 
     - name: Init variables
       shell: bash
       run: |
+        QT_ROOT="${Qt6_DIR:-${Qt5_DIR:-${QT_ROOT_DIR:-}}}"
+        if [ -z "$QT_ROOT" ]; then
+          echo "Qt installation path not found"
+          exit 1
+        fi
         echo 'set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}"' > ${{ env.ENV_CFG }}
-        echo 'set "LINUX_QTDIR=${{ env.Qt5_DIR }}"' >> ${{ env.ENV_CFG }}
+        echo "set \"LINUX_QTDIR=$QT_ROOT\"" >> ${{ env.ENV_CFG }}
         echo 'set "LINUX_BOOST_DIR=${{ env.BOOST_DIR }}/include"' >>${{ env.ENV_CFG }}
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
@@ -56,7 +68,7 @@ jobs:
 
     - name: Create makefile
       shell: bash
-      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard-Linux" -DCMAKE_BUILD_TYPE=${{env.CONFIG}}
+      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard-Linux" -G Ninja -DCMAKE_BUILD_TYPE=${{env.CONFIG}}
 
     - name: Build Tests
       shell: bash
@@ -67,7 +79,7 @@ jobs:
       continue-on-error: true
       run: |
         cd ./_bin/Test-${{env.CONFIG}}
-        ./IpponboardTest
+        QT_LOGGING_RULES='qt.multimedia.symbolsresolver=false' QT_QPA_PLATFORM=offscreen ./IpponboardTest
 
     - name: Build Ipponboard
       shell: bash

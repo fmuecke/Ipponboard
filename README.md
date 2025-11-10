@@ -16,7 +16,11 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 - Reliability, ease and straightforward in use
 - Everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
 - Whole fight control can be done by a single person instead of three (clocks, list handling, scores)
-- Thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mous cursor
+- Thanks to the innovative gamepad control you can keep track of the fight instead of looking for your mouse cursor
+
+> **Note**
+>
+> The gamepad backend on Linux currently binds the first joystick exposed under `/dev/input` and ignores additional devices. If you need multi-controller support please file an issue or reach out.
 
 ## Even more features
 
@@ -48,6 +52,17 @@ More information about usage and configuration is described within the manual:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE.txt](LICENSE.txt). <br>
 Please acknowledge all the different contributors in [CONTRIBUTORS.md](CONTRIBUTORS.md) - without them Ipponboard would not have been possible.
+
+# Building from source
+
+Ipponboard targets a Qt 6.9.x toolchain with modern C++ (C++20). Quick prerequisites:
+
+- Qt 6.9.2 (desktop kits: `gcc_64` on Linux, `msvc2022_64` on Windows)
+- Boost 1.89 headers
+- CMake ≥ 3.29 with Ninja installed
+- Compilers: gcc 13+ on Linux, Visual Studio 2022 (VC143) on Windows
+
+Full setup instructions live in [HOW_TO_BUILD.md](HOW_TO_BUILD.md); follow those steps for platform-specific guidance.
 
 # Contact
 - source code repository: https://github.com/fmuecke/Ipponboard (you are right there)

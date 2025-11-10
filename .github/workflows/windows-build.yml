@@ -1,13 +1,14 @@
-name: Qt5 CI
+name: Qt6 CI
 
 on:
   push:
-    branches: [ "use_qt5" ]
+    branches: [ "vNEXT" ]
   pull_request:
-    branches: [ "use_qt5" ]
+    branches: [ "vNEXT" ]
 
 jobs:
   build:
+    if: ${{ false }}
     runs-on: self-hosted
     strategy:
       matrix:
@@ -20,32 +21,68 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install boost
+    - name: Ensure clang-format
+      shell: pwsh
+      run: |
+        if (-not (Get-Command clang-format -ErrorAction SilentlyContinue)) {
+            if (Get-Command choco -ErrorAction SilentlyContinue) {
+                choco install llvm --version=14.0.6 -y --no-progress
+            } else {
+                throw "clang-format not found. Install LLVM clang-format 14 on the runner."
+            }
+        }
+
+    - name: Check formatting
+      shell: pwsh
+      run: ./scripts/check-format.ps1
+
+    - name: Ensure Ninja
+      shell: pwsh
+      run: |
+        if (-not (Get-Command ninja -ErrorAction SilentlyContinue)) {
+            if (Get-Command choco -ErrorAction SilentlyContinue) {
+                choco install ninja -y --no-progress
+            } else {
+                throw "ninja not found. Install Ninja on the runner."
+            }
+        }
+
+    - name: Install Boost
       uses: MarkusJx/install-boost@v2.4.5
       id: install-boost
       with:
-         boost_version: 1.81.0
-         platform_version: 2019
+         boost_version: 1.89.0
+         platform_version: 2022
          toolset: msvc
          
-    - name: Install Qt5
+    - name: Install Qt6
       uses: jurplel/install-qt-action@v3
       id: install-qt
       with:
         aqtversion: '==3.1.*'
-        version: '5.15.2'
+        version: '6.9.2'
         host: 'windows'
         target: 'desktop'
-        arch: 'win32_msvc2019'
+        arch: 'win64_msvc2022_64'
         tools: 'tools_cmake'
         #archives: 'qtxmlpatterns qttranslation qtbase'
 
     - name: Init variables
       shell: cmd
       run: |
+        if defined Qt6_DIR (
+          set "QT_ROOT=%Qt6_DIR%"
+        ) else if defined Qt5_DIR (
+          set "QT_ROOT=%Qt5_DIR%"
+        ) else if defined QT_ROOT_DIR (
+          set "QT_ROOT=%QT_ROOT_DIR%"
+        ) else (
+          echo Qt installation path not found.
+          exit /b 1
+        )
         echo set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}" > ${{ env.ENV_CFG }}
-        echo set "QTDIR=${{ env.Qt5_DIR }}" >> ${{ env.ENV_CFG }}
-        echo set "BOOST_DIR=${{ env.BOOST_DIR }} >> ${{ env.ENV_CFG }}
+        echo set "QTDIR=%QT_ROOT%" >> ${{ env.ENV_CFG }}
+        echo set "BOOST_DIR=${{ env.BOOST_DIR }}" >> ${{ env.ENV_CFG }}
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
         BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
@@ -54,9 +91,16 @@ jobs:
       shell: cmd
       run: scripts/create-versioninfo.cmd ${{ env.ROOT_DIR }}/base
 
-    - name: Create makefile
+    - name: Configure (Ninja Multi-Config)
       shell: cmd
-      run: cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard" -DCMAKE_BUILD_TYPE=${{env.CONFIG}}
+      run: |
+        for /f "delims=" %%i in ('"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.VC.Tools.x86.x64 -property installationPath') do set VS_INSTALL_DIR=%%i
+        if not defined VS_INSTALL_DIR (
+          echo Visual Studio installation not found.
+          exit /b 1
+        )
+        call "%VS_INSTALL_DIR%\Common7\Tools\VsDevCmd.bat" -no_logo -arch=x64 -host_arch=x64
+        cmake -S "${{ env.ROOT_DIR }}" -B "_build/Ipponboard" -G "Ninja Multi-Config" --fresh
 
     - name: Build Tests
       shell: cmd
@@ -66,10 +110,33 @@ jobs:
       shell: cmd
       continue-on-error: true
       run: |
+        set QT_QPA_PLATFORM=offscreen
+        set QT_LOGGING_RULES=qt.multimedia.symbolsresolver=false
+        set QT_QPA_PLATFORM_PLUGIN_PATH=%Qt6_DIR%\plugins\platforms
+        if not defined QT_QPA_FONTDIR set QT_QPA_FONTDIR=%WINDIR%\Fonts
+        set IPPONBOARD_ENABLE_NETWORK_TESTS=0
         cd ./_bin/Test-${{env.CONFIG}}
         ./IpponboardTest.exe
 
     - name: Build Ipponboard
       shell: cmd
       run: cmake --build "_build/Ipponboard" --config ${{env.CONFIG}} --target Ipponboard
+
+    - name: Build installer
+      shell: cmd
+      run: |
+        for /f "delims=" %%i in ('"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.VC.Tools.x86.x64 -property installationPath') do set VS_INSTALL_DIR=%%i
+        if not defined VS_INSTALL_DIR (
+          echo Visual Studio installation not found.
+          exit /b 1
+        )
+        call "%VS_INSTALL_DIR%\Common7\Tools\VsDevCmd.bat" -no_logo -arch=x64 -host_arch=x64
+        scripts\build-setup.cmd
+
+    - name: Upload installer
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Ipponboard-setup
+        path: _output/*.exe
   

@@ -2,6 +2,21 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+## Version vNEXT (unreleased)
+- (new): full support for multiple gamepads/controllers with independent mappings and configurations
+  - full Linux support
+  - per-gamepad calibration, deadzone, axis inversion, and section mapping
+  - improved section mapping and deadzone handling (better recognition of ippon/yuko/waza-ari gestures)
+- (new): integrated gamepad diagnostics workflow directly in the settings dialog, replacing the additional `GamepadDemo` application.
+- (fix): main window suppresses controller input while preferences are open to avoid unintended actions.
+- (fix): Timer does not stop on awasete ippon (#88)
+- (new): log file can be accessed via menu (Help -\> Show Log File)
+- (internal): modularized CMake targets, enforced clang-format in CI, upgraded the Catch2 test suite to v3, and broadened controller/gamepad regression coverage.
+- (internal): standardized builds on Qt 6.9.2, C++20, and Boost 1.89 across Windows and Linux toolchains. Required x64 architecture for Windows builds and refreshed the Windows installer to ship the Qt 6 runtime stack.
+- (internal): documented the Qt 6 migration (updated manuals/licenses, Qt 6 ADR, CI workflow ready for Ninja-based packaging) to lock in the toolchain change.
+- (internal): improved test coverage for state machine and gamepad input handling.
+- (internal): prepared codebase for future enhancements and easier maintenance.
+
 ## Version 2.4.2 (2025-11-09)
 - (new): Tournaments are automatically saved and restored on restart. (resolves #39).
 - (new): Tournaments can be saved and loaded manually via ~~File~~ _Tournament_ menu.

@@ -20,7 +20,6 @@
 .vs/
 .vscode/
 /**/CMakeFiles/
-/**/GamepadDemo_autogen/
 /**/Makefile
 /**/Makefile.Debug
 /**/Makefile.Release
@@ -39,7 +38,6 @@ base/Ipponboard.rc
 base/Ipponboard_team.rc
 base/pch.h.cpp
 base/versioninfo.h
-build-GamepadDemo-*/
 doc/*.aux
 doc/*.out
 doc/*.pdf

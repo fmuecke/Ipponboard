@@ -2,12 +2,18 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
+    if(NOT DEFINED MSVC_REDIST_DIR AND DEFINED ENV{VCToolsRedistDir})
+        set(MSVC_REDIST_DIR $ENV{VCToolsRedistDir})
+    endif()
     include(InstallRequiredSystemLibraries)
     if(NOT DEFINED MSVC_REDIST_DIR)
         message(FATAL_ERROR "MSVC_REDIST_DIR not defined. See InstallRequiredSystemLibraries.cmake in Visual Studio installation.")
     endif()
+    include(IpponboardDeploy REQUIRED)
 endif()
 
 # Read variables from config
@@ -30,7 +36,6 @@ if(MSVC)
     endif()
     set(QTDIR ${CFG_QTDIR})
 else()
-    set(USE_QT5 ON)
     if(NOT DEFINED CFG_LINUX_QTDIR)
         message(FATAL_ERROR "LINUX_QTDIR not configured in env_cfg.bat")
     endif()
@@ -69,13 +74,19 @@ message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # Configure c++ language support
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Add targets
-add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
-add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
-if(MSVC)
-add_subdirectory(GamepadDemo ${CMAKE_BINARY_DIR}/build-GamepadDemo)
+ 
+if (MSVC)
+    add_compile_options(/MP)
 endif()
+
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x060900)
+# Add targets
+add_subdirectory(gamepad ${CMAKE_BINARY_DIR}/build-Gamepad)
+add_subdirectory(core ${CMAKE_BINARY_DIR}/build-Core)
+add_subdirectory(Widgets ${CMAKE_BINARY_DIR}/build-Widgets)
+add_subdirectory(base ${CMAKE_BINARY_DIR}/build-Ipponboard)
+add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)
+add_subdirectory(test_network ${CMAKE_BINARY_DIR}/build-TestNetwork)

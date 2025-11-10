@@ -51,11 +51,11 @@ _Copyright © 2009-today Florian Mücke and [individual contibutors](https://git
 Ipponboard uses the following third-party components, which are licensed under the specified types. All license files are also stored in the `licenses` folder of the Ipponboard installation path.
 
 - **[Qt Framework](http://www.qtproject.org)**
-  - Licensed under [LGPLv3 with Exception](licenses/Qt5/LICENSE.GPL3-EXCEPT).
-  - Source code can be obtained from [https://download.qt.io/archive/qt/5.15](https://download.qt.io/archive/qt/5.15/).
+  - Licensed under [LGPLv3 with Exception](licenses/Qt6/LICENSE.GPL3-EXCEPT).
+  - Source code can be obtained from [https://download.qt.io/official_releases/qt/6.9](https://download.qt.io/official_releases/qt/6.9/).
   - No modifications were made to the Qt source code.
   - This application dynamically links to the Qt libraries. You have the freedom to replace the Qt libraries used by this application with your own modified versions.
-  - For more details, refer to the [LGPL v3](licenses/Qt5/LICENSE) license text included in the `licenses` folder or available online at [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
+  - For more details, refer to the [LGPL v3](licenses/Qt6/LICENSE) license text included in the `licenses` folder or available online at [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
 
 - **[Boost C++ libraries](http://www.boost.org)**
   - Licensed under [Boost Software License](licenses/boost/LICENSE_1_0.txt).
@@ -266,7 +266,7 @@ Using the *gamepad* 🎮:
   For the *white* fighter the directions are simply mirrored.
 
 - *Caution:* Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
-- *Tip:* To find out how the respective gamepad is aligned, you can use the included program `GamepadDemo.exe`. There you can see how the respective axes are aligned and how the buttons are numbered internally.
+- *Tip:* To find out how the respective gamepad is aligned, you can use diagnostics mode in on the settings page. There you can see how the respective axes are aligned and how the buttons are numbered internally.
 
 ## Reset display
 

@@ -6,25 +6,41 @@ function Check-cmake {
     }
 }
 
+function Check-Ninja {
+    $ninja = Get-Command ninja -ErrorAction SilentlyContinue
+    if ($ninja -eq $null) {
+        Write-Host "Ninja not found. Please install Ninja (https://ninja-build.org/) and make sure it is in the PATH."
+        exit 1
+    }
+}
+
 function Init-Environment {
+    if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
+        throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2022"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
+    }
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Read-Env-Cfg
-    $global:BUILD_DIR="$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
-    $global:CONFIG="release"
-    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
-    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+    $global:BUILD_DIR = "$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
+    $global:CONFIG = "release"
+    $global:BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+}
+
+function Invoke-ClangFormatCheck {
+    & "$PSScriptRoot\scripts\check-format.ps1"
+    return ($LASTEXITCODE -eq 0)
 }
 
 # Read settings from env_cfg.cmd file. The settings are in the format "set VAR=VALUE"
 function Read-Env-Cfg {
-	$env_cfg = Get-Content .\env_cfg.bat
-	foreach ($line in $env_cfg) {
+    $env_cfg = Get-Content .\env_cfg.bat
+    foreach ($line in $env_cfg) {
         if ($line -match '^set "(.*)=(.*)"\s*$') {
             Set-Variable -Name $matches[1] -Value $matches[2] -Scope Global
             Write-Host "Setting $($matches[1]) to $($matches[2])"
-		}
-	}
+        }
+    }
 }
 
 function Show-Menu {
@@ -69,8 +85,8 @@ function Execute-And-Measure {
     & $function
     $end = Get-Date
     $elapsed = $end - $start
-    $formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
-    Write-Host "Elapsed time: $formattedTime"
+    #$formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
+    Write-Host "Elapsed time: $([int]$elapsed.TotalSeconds)s"
     Pause
 }
 
@@ -98,11 +114,24 @@ function MainLoop {
 }
 
 function Clean-All {
-    # remove _bin and _build directories
-    $dirs = "$IPPONBOARD_ROOT_DIR\_bin", "$IPPONBOARD_ROOT_DIR\_build", "$IPPONBOARD_ROOT_DIR\_output"
+    if (Test-Path $BUILD_DIR) {
+        foreach ($cfg in @("Release", "Debug")) {
+            Write-Host "Cleaning build outputs ($cfg) in $BUILD_DIR"
+            cmake --build "$BUILD_DIR" --config $cfg --target clean | Out-Null
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "WARN: CMake clean failed for configuration $cfg (continuing)."
+            }
+        }
+    }
+    else {
+        Write-Host "Build directory not found: $BUILD_DIR (skipping CMake clean)."
+    }
+
+    Write-Host "Removing binary output directories"
+    $dirs = "$IPPONBOARD_ROOT_DIR\_bin", "$IPPONBOARD_ROOT_DIR\_output"
     foreach ($item in $dirs) {
-        Write-Host "Removing $item"
         if (Test-Path $item) {
+            Write-Host "  Removing $item"
             Remove-Item -Path $item -Recurse -Force -ErrorAction SilentlyContinue
         }
     }
@@ -114,8 +143,8 @@ function Clean-All {
 function Create-Makefiles {
     & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
     if ($LASTEXITCODE -ne 0) { return $false }
-    
-    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 17 2022" -A Win32 --fresh
+
+    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Ninja Multi-Config" --fresh
     if ($LASTEXITCODE -ne 0) { return $false }
 }
 
@@ -126,14 +155,41 @@ function Run-Tests {
         return $false
     }
     Set-Location $TEST_BIN_DIR
+    $env:QT_QPA_PLATFORM = "offscreen"
+    $env:QT_QPA_PLATFORM_PLUGIN_PATH = "$QTDIR\plugins\platforms"
+    if (-not $env:QT_QPA_FONTDIR) {
+        $env:QT_QPA_FONTDIR = "$env:WINDIR\Fonts"
+    }
+    Write-Host "$exe"
     & "$exe"
     $success = ($LASTEXITCODE -eq 0)
+
+    if ($success) {
+        $networkExe = "$TEST_BIN_DIR\IpponboardNetworkTest.exe"
+        if (-not (Test-Path $networkExe)) {
+            Write-Host "Network test app not found: $networkExe"
+            $success = $false
+        }
+        else {
+            Write-Host "$networkExe"
+            & "$networkExe"
+            $success = ($LASTEXITCODE -eq 0)
+        }
+    }
+
+    Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_PLATFORM_PLUGIN_PATH -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_FONTDIR -ErrorAction SilentlyContinue
     Set-Location -Path $PSScriptRoot
     return $success
 }
 
 function Build-and-run-tests {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
+    if ($LASTEXITCODE -ne 0) { return $false }
+    
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest 
     if ($LASTEXITCODE -ne 0) { return $false }
 
     $success = Run-Tests
@@ -141,6 +197,7 @@ function Build-and-run-tests {
 }
 
 function Build-ALL {
+    if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
     
@@ -193,12 +250,13 @@ function Build-Setup {
 function Switch-Config {
     if ($global:CONFIG -eq "release") {
         $global:CONFIG = "debug"
-    } else {
+    }
+    else {
         $global:CONFIG = "release"
     }
 
-    $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
-    $global:TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
+    $global:BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
+    $global:TEST_BIN_DIR = "$IPPONBOARD_ROOT_DIR\_bin\Test-$CONFIG"
 }
 
 function Translate-Resources {
@@ -209,8 +267,10 @@ function Translate-Resources {
 # Main
 try {
     Check-cmake
+    Check-Ninja
     MainLoop
-} catch {
+}
+catch {
     Write-Host "An error occurred: $_"
     exit 1
 }

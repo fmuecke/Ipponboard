@@ -13,82 +13,74 @@
 //
 // STL
 //
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <array>
-#include <set>
-#include <map>
-#include <string>
 #include <algorithm>
+#include <array>
+#include <fstream>
 #include <functional>
-#include <utility>
+#include <iostream>
+#include <map>
 #include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 //
 // boost
 //
-#include <boost/utility.hpp>
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS		// needed for msm
-#define BOOST_MPL_LIMIT_VECTOR_SIZE	50			// needed for msm
-#define BOOST_MPL_LIMIT_MAP_SIZE		50			// needed for msm
-#include <boost/msm/back/state_machine.hpp>
-#include <boost/msm/front/state_machine_def.hpp>
+#include "../core/MsmIncludes.h"
 
+#include <boost/utility.hpp>
 
 //
 // QT
 //
-#pragma warning (disable: 4127)  // conditional expression is constant
-#include <QObject>
-#include <QString>
+#pragma warning(disable : 4127) // conditional expression is constant
 #include <QApplication>
-#include <QPushButton>
+#include <QColorDialog>
+#include <QComboBox>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFontDialog>
+#include <QGuiApplication>
+#include <QInputDialog>
 #include <QLabel>
 #include <QMessageBox>
-#include <QFileDialog>
-#include <QTimer>
-#include <QSound>
-#include <QFileInfo>
-#include <QtGui/QApplication>
-#include <QTranslator>
-#include <QComboBox>
-#include <QDesktopWidget>
-#include <QFontDialog>
-#include <QColorDialog>
-#include <QInputDialog>
+#include <QObject>
+#include <QPushButton>
 #include <QSettings>
+#include <QSoundEffect>
+#include <QString>
 #include <QTimer>
+#include <QTranslator>
 //#include <QSplashScreen>
-#include <QPainter>
-#include <QtGui>
-#include <QStringList>
-#include <QList>
-#include <QVector>
-#include <QSize>
-#include <QTime>
-#include <QFontDatabase>
-#include <QMenu>
-#include <QDialog>
-#include <QMainWindow>
-#include <QTableWidgetItem>
-#include <QtGui/QWidget>
-#include <QImage>
-#include <QResizeEvent>
-#include <QFont>
 #include <QAbstractItemModel>
-#include <QLineEdit>
-#include <QMouseEvent>
-#include <QFile>
+#include <QDialog>
 #include <QDir>
-#pragma warning (default: 4127)
+#include <QFile>
+#include <QFont>
+#include <QFontDatabase>
+#include <QImage>
+#include <QLineEdit>
+#include <QList>
+#include <QMainWindow>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QResizeEvent>
+#include <QSize>
+#include <QStringList>
+#include <QTableWidgetItem>
+#include <QTime>
+#include <QVector>
+#include <QWidget>
+#pragma warning(default : 4127)
 
 //
 // custom
 //
 //#include "../util/qstring_serialization.h"
 
-
 #endif // __cplusplus
 
-#endif  // BASE__PCH_H_
+#endif // BASE__PCH_H_

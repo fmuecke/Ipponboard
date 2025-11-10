@@ -8,13 +8,43 @@ function check_cmake {
     fi
 }
 
+function check_ninja {
+    if ! command -v ninja &> /dev/null
+    then
+        echo "Ninja not found. Please install Ninja (https://ninja-build.org/) and make sure it is in the PATH."
+        exit 1
+    fi
+}
+
+function check_lld {
+    if command -v ld.lld &> /dev/null || command -v lld &> /dev/null
+    then
+        return 0
+    fi
+
+    echo "LLVM lld linker not found. Please install lld (https://lld.llvm.org/) and make sure it is in the PATH."
+    exit 1
+}
+
+function verify_formatting {
+    local script_dir
+    script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+    local root="${IPPONBOARD_ROOT_DIR:-$script_dir}"
+    "$root/scripts/check-format.sh"
+    return $?
+}
+
 function init_environment {
+
+    check_cmake
+    check_ninja
+    check_lld
 
 	LOCAL_CONFIG="$PWD/env_cfg.bat"
 	if [ -f "$LOCAL_CONFIG" ]; then
 		source "$LOCAL_CONFIG"
 	else
-		echo "set \"LINUX_QTDIR=/usr/local/Qt5.15.13\"" >> "$LOCAL_CONFIG"
+		echo "set \"LINUX_QTDIR=\$HOME/Qt/6.9.2/gcc_64\"" >> "$LOCAL_CONFIG"
 		echo "set \"LINUX_BOOST_DIR=/home/user/devtools/boost_1_81_0\"" >> "$LOCAL_CONFIG"
 		echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
 		read -p "Press enter to continue"
@@ -104,11 +134,20 @@ function main_loop {
 }
 
 function clean_all {
-    # remove _bin and _build directories
-    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$IPPONBOARD_ROOT_DIR/_build" "$OUTPUT_DIR")
+    if [ -d "$BUILD_DIR" ]; then
+        echo "Cleaning build outputs in $BUILD_DIR"
+        if ! cmake --build "$BUILD_DIR" --config $CONFIG --target clean; then
+            echo "WARN: CMake clean failed for $BUILD_DIR (continuing)."
+        fi
+    else
+        echo "Build directory not found: $BUILD_DIR (skipping CMake clean)."
+    fi
+
+    echo "Removing binary output directories"
+    dirs=("$IPPONBOARD_ROOT_DIR/_bin" "$OUTPUT_DIR")
     for item in "${dirs[@]}"; do
-        echo "Removing $item"
         if [ -d "$item" ]; then
+            echo "  rm -rf $item"
             rm -rf "$item"
         fi
     done
@@ -120,7 +159,12 @@ function clean_all {
 function create_makefiles {
     ./scripts/create-versioninfo.sh "$IPPONBOARD_ROOT_DIR/base" || return 1
 
-    cmake -S $PWD -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=$CONFIG -G "Unix Makefiles" --fresh
+    cmake -S $PWD -B "$BUILD_DIR" \
+        -DCMAKE_BUILD_TYPE=$CONFIG \
+        -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=lld" \
+        -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld" \
+        -DCMAKE_MODULE_LINKER_FLAGS="-fuse-ld=lld" \
+        -G "Ninja" --fresh
     return $?
 }
 
@@ -131,21 +175,41 @@ function run_tests {
         return 1
     fi
     pushd "$TEST_BIN_DIR" > /dev/null
-    "./IpponboardTest"
+    echo IpponboardTest:
+    QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
+        QT_LOGGING_RULES=${QT_LOGGING_RULES:-qt.multimedia.symbolsresolver=false} \
+        ./IpponboardTest
     success=$?
+
+    if [ $success -eq 0 ]; then
+        net_exe="$TEST_BIN_DIR/IpponboardNetworkTest"
+        if [ -f "$net_exe" ]; then
+            echo IpponboardNetworkTest:
+            QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen} \
+                QT_LOGGING_RULES=${QT_LOGGING_RULES:-qt.multimedia.symbolsresolver=false} \
+                ./IpponboardNetworkTest
+            success=$?
+        else
+            echo "Network test app not found: $net_exe"
+            success=1
+        fi
+    fi
     popd > /dev/null
     return $success
 }
 
 function build_and_run_tests {
+    verify_formatting || return 1
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest -j"$NUM_CORES" || return 1
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest -j"$NUM_CORES" || return 1
 
     run_tests
     return $?
 }
 
 function build_all {
+    verify_formatting || return 1
     NUM_CORES=$(nproc)
     cmake --build "$BUILD_DIR" --config $CONFIG -j"$NUM_CORES" || return 1
 
