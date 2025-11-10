@@ -257,10 +257,12 @@ int main(int argc, char* argv[])
 
         if (clickedButton == downloadButton)
         {
+            qDebug() << "Opening download URL:" << onlineVersion.downloadUrl;
             return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
         }
         else if (clickedButton == homepageButton)
         {
+            qDebug() << "Opening homepage URL:" << onlineVersion.infoUrl;
             return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
         }
     }
