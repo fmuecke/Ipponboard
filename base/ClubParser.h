@@ -5,13 +5,17 @@
 #ifndef CLUBPARSER_H
 #define CLUBPARSER_H
 
-#include "../util/json.hpp"
-#include "../util/qt_helpers.hpp"
 #include "Club.h"
 
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
 #include <QSettings>
 #include <QString>
 #include <QStringList>
+#include <stdexcept>
 
 namespace ClubParser
 {
@@ -26,14 +30,37 @@ static Ipponboard::ClubList ParseJsonFile(QString filePath)
 {
     Ipponboard::ClubList clubs;
 
-    auto const& jsonClubs = fm::Json::ReadFile(filePath.toStdString().c_str());
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        throw std::runtime_error(
+            QStringLiteral("Unable to open club configuration '%1'").arg(filePath).toStdString());
+    }
+
+    QJsonParseError parseError{};
+    const auto document = QJsonDocument::fromJson(file.readAll(), &parseError);
+    if (parseError.error != QJsonParseError::NoError)
+    {
+        throw std::runtime_error(QStringLiteral("Invalid club JSON '%1': %2")
+                                     .arg(filePath, parseError.errorString())
+                                     .toStdString());
+    }
+
+    if (!document.isArray())
+    {
+        throw std::runtime_error(
+            QStringLiteral("Expected JSON array in '%1'").arg(filePath).toStdString());
+    }
+
+    const auto jsonClubs = document.array();
 
     for (auto const& jsonClub : jsonClubs)
     {
+        const auto clubObject = jsonClub.toObject();
         Ipponboard::Club club;
-        club.name = fm::qt::from_utf8_str(jsonClub["name"].asString());
-        club.address = fm::qt::from_utf8_str(jsonClub["address"].asString());
-        club.logoFile = fm::qt::from_utf8_str(jsonClub["image"].asString());
+        club.name = clubObject.value(QStringLiteral("name")).toString();
+        club.address = clubObject.value(QStringLiteral("address")).toString();
+        club.logoFile = clubObject.value(QStringLiteral("image")).toString();
 
         clubs.push_back(club);
     }
@@ -85,25 +112,6 @@ static void ToIniFile(QString filePath, Ipponboard::ClubList const& clubs)
         settings.endGroup();
     }
 }
-
-/*
-static void ToJsonFile_UNUSED(const char* filePath, Ipponboard::ClubList const& clubs)
-{
-	fm::Json::Value jsonClubs;
-
-	for (Ipponboard::Club const & club : clubs)
-	{
-		fm::Json::Value jsonClub;
-		jsonClub["name"] = fm::qt::to_utf8_str(club.name);
-		jsonClub["address"] = fm::qt::to_utf8_str(club.address);
-		jsonClub["image"] = fm::qt::to_utf8_str(club.logoFile);
-
-		jsonClubs.append(jsonClub);
-	}
-
-	fm::Json::WriteFile(filePath, jsonClubs);
-}
-*/
 
 } // namespace ClubParser
 

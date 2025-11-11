@@ -63,8 +63,6 @@ Ipponboard uses the following third-party components, which are licensed under t
 - **Microsoft Visual C++ CRT**
   - Licensed under [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt).
 
-- **[JsonCpp](https://github.com/open-source-parsers/jsoncpp)** by Baptiste Lepilleur
-  - Licensed under [MIT License](licenses/jsoncpp/LICENSE).
 
 - **Sound files**
   - Created for Ipponboard from different samples; see [Attribution.txt](sounds/attribution.txt)

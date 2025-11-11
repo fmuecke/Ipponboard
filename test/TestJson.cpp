@@ -2,49 +2,50 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "../util/json.hpp"
-#include "../util/jsoncpp/json.cpp"
 #include "TestDataPaths.h"
 
+#include <QByteArray>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonParseError>
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("[json] read file")
+namespace
 {
-    try
-    {
-        const auto utf8BomPath =
-            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8_with_bom.json"));
-        const auto utf8Path =
-            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8.json"));
-        auto value1 = fm::Json::ReadFile(utf8BomPath.c_str());
-        auto value2 = fm::Json::ReadFile(utf8Path.c_str());
 
-        REQUIRE(value1.toStyledString() == value2.toStyledString());
-    }
-    catch (std::exception const& e)
-    {
-        REQUIRE(e.what() == 0);
-    }
+[[nodiscard]] QJsonDocument readJsonDocument(const QString& relativePath)
+{
+    const auto absolutePath = Ipponboard::TestSupport::ResolveTestDataPath(relativePath);
+    QFile file(absolutePath);
+    REQUIRE(file.open(QIODevice::ReadOnly));
+
+    QJsonParseError parseError{};
+    const auto document = QJsonDocument::fromJson(file.readAll(), &parseError);
+    REQUIRE(parseError.error == QJsonParseError::NoError);
+
+    return document;
 }
 
-TEST_CASE("[json] write file") {}
+} // namespace
 
-TEST_CASE("[json] read string")
+TEST_CASE("[json] read file with BOM")
 {
-    auto str = "[{\"string\": \"Florian Mücke\", \"int\": 300, \"double\": 3.1415, 	\"array\": "
-               "[1,2,3,4,5] }]";
+    const auto bomDoc = readJsonDocument(QStringLiteral("utf8_with_bom.json"));
+    const auto plainDoc = readJsonDocument(QStringLiteral("utf8.json"));
 
-    try
-    {
-        auto value1 = fm::Json::ReadString(str);
-        const auto utf8Path =
-            Ipponboard::TestSupport::ResolveTestDataPathStd(QStringLiteral("utf8.json"));
-        auto value2 = fm::Json::ReadFile(utf8Path.c_str());
+    REQUIRE(bomDoc.toJson(QJsonDocument::Indented) == plainDoc.toJson(QJsonDocument::Indented));
+}
 
-        REQUIRE(value1.toStyledString() == value2.toStyledString());
-    }
-    catch (std::exception const& e)
-    {
-        REQUIRE(e.what() == 0);
-    }
+TEST_CASE("[json] parse string")
+{
+    const QByteArray jsonBytes("[{\"string\": \"Florian Mücke\", \"int\": 300, \"double\": 3.1415, "
+                               "\"array\": [1,2,3,4,5]}]");
+
+    QJsonParseError parseError{};
+    const auto fromString = QJsonDocument::fromJson(jsonBytes, &parseError);
+    REQUIRE(parseError.error == QJsonParseError::NoError);
+
+    const auto fromFile = readJsonDocument(QStringLiteral("utf8.json"));
+
+    REQUIRE(fromString.toJson(QJsonDocument::Indented) == fromFile.toJson(QJsonDocument::Indented));
 }

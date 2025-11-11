@@ -28,7 +28,6 @@ set(UI_SOURCES
     SplashScreen.cpp
     VersionComparer.cpp
     View.cpp
-    ../util/jsoncpp/json.cpp
 )
 
 set(UI_HEADERS
@@ -60,8 +59,6 @@ set(UI_HEADERS
     ../util/SimpleCsvFile.hpp
     ../util/array_helpers.h
     ../util/path_helpers.h
-    ../util/qt_helpers.hpp
-    ../util/json.hpp
     ../core/ControllerConfig.h
     ../core/iGoldenScoreView.h
     ../core/iView.h
