@@ -104,6 +104,7 @@ Source: "..\_bin\Ipponboard-Release\plugins\*.*"; DestDir: "{app}\plugins"; Flag
 Source: "..\_bin\Ipponboard-Release\Qt5*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]

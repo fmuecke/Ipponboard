@@ -2,6 +2,9 @@
 
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
+## Version 2.4.2 (2025-12-02)
+- (fix): including missing vcruntime140.dll in setup and 7z distribution (fixes #102)
+
 ## Version 2.4.2 (2025-11-09)
 - (new): Tournaments are automatically saved and restored on restart. (resolves #39).
 - (new): Tournaments can be saved and loaded manually via ~~File~~ _Tournament_ menu.
