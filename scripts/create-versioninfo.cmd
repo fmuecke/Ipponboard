@@ -86,7 +86,7 @@ ECHO //>%RC_FILE%
 ECHO // FILE IS GENERATED - DO NOT CHANGE!!>>%RC_FILE%
 ECHO //>>%RC_FILE%
 ECHO #include ^<winver.h^>>>%RC_FILE%
-ECHO #pragma code_page(1252)>>%RC_FILE%
+ECHO #pragma code_page(65001)>>%RC_FILE%
 ECHO 101 ICON "images/ipponboard.ico">>%RC_FILE%
 ECHO /////////////////////////////////////////////////////////////////////////////>>%RC_FILE%
 ECHO VS_VERSION_INFO VERSIONINFO>>%RC_FILE%
@@ -106,11 +106,11 @@ ECHO     BLOCK "StringFileInfo">>%RC_FILE%
 ECHO     BEGIN>>%RC_FILE%
 ECHO         BLOCK "040004b0">>%RC_FILE%
 ECHO         BEGIN>>%RC_FILE%
-ECHO             VALUE "CompanyName", "Florian M�cke">>%RC_FILE%
+ECHO             VALUE "CompanyName", "Florian Mücke">>%RC_FILE%
 ECHO             VALUE "FileDescription", "Ipponboard">>%RC_FILE%
 ECHO             VALUE "FileVersion", "%VER1%.%VER2%.%VER3%.%VER4%">>%RC_FILE%
 ECHO             VALUE "InternalName", "Ipponboard.exe">>%RC_FILE%
-ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian M�cke">>%RC_FILE%
+ECHO             VALUE "LegalCopyright", "Copyright (C) 2010-%DATE:~-4% Florian Mücke">>%RC_FILE%
 ECHO             VALUE "OriginalFilename", "Ipponboard.exe">>%RC_FILE%
 ECHO             VALUE "ProductName", "Ipponboard">>%RC_FILE%
 if "%TAG%"=="" (
