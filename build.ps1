@@ -115,7 +115,7 @@ function Create-Makefiles {
     & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
     if ($LASTEXITCODE -ne 0) { return $false }
     
-    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 17 2022" -A Win32 --fresh
+    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 18 2026" -A Win32 --fresh
     if ($LASTEXITCODE -ne 0) { return $false }
 }
 
