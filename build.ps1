@@ -16,7 +16,7 @@ function Check-Ninja {
 
 function Init-Environment {
     if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
-        throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2022"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
+        throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2026"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
     }
     & .\scripts\init_env_cfg.cmd 
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
