@@ -5,81 +5,35 @@
 #ifndef BASE__PCH_H_
 #define BASE__PCH_H_
 
-/* Add C includes here */
+#include "pch_core.h"
 
 #if defined __cplusplus
-/* Add C++ includes here */
 
-//
-// STL
-//
-#include <algorithm>
-#include <array>
-#include <fstream>
-#include <functional>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <set>
-#include <string>
-#include <utility>
-#include <vector>
-
-//
-// boost
-//
-#include "../core/MsmIncludes.h"
-
-#include <boost/utility.hpp>
-
-//
-// QT
-//
+#if defined(QT_WIDGETS_LIB)
 #pragma warning(disable : 4127) // conditional expression is constant
 #include <QApplication>
-#include <QColorDialog>
 #include <QComboBox>
+#include <QDesktopServices>
+#include <QDialog>
 #include <QFileDialog>
-#include <QFileInfo>
-#include <QFontDialog>
 #include <QGuiApplication>
 #include <QInputDialog>
 #include <QLabel>
-#include <QMessageBox>
-#include <QObject>
-#include <QPushButton>
-#include <QSettings>
-#include <QSoundEffect>
-#include <QString>
-#include <QTimer>
-#include <QTranslator>
-//#include <QSplashScreen>
-#include <QAbstractItemModel>
-#include <QDialog>
-#include <QDir>
-#include <QFile>
-#include <QFont>
-#include <QFontDatabase>
-#include <QImage>
-#include <QLineEdit>
 #include <QList>
 #include <QMainWindow>
 #include <QMenu>
+#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPushButton>
 #include <QResizeEvent>
-#include <QSize>
-#include <QStringList>
+#if defined(QT_MULTIMEDIA_LIB)
+#include <QSoundEffect>
+#endif
 #include <QTableWidgetItem>
-#include <QTime>
-#include <QVector>
 #include <QWidget>
 #pragma warning(default : 4127)
-
-//
-// custom
-//
-//#include "../util/qstring_serialization.h"
+#endif
 
 #endif // __cplusplus
 

@@ -127,6 +127,9 @@ target_link_libraries(IpponboardUi
         Qt6::Network
 )
 
+target_precompile_headers(IpponboardUi
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")
+
 if(WIN32)
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Ipponboard-Release)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Ipponboard-Debug)
@@ -154,6 +157,9 @@ target_link_libraries(${APP_NAME}
     PRIVATE
         IpponboardUi
 )
+
+target_precompile_headers(${APP_NAME}
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")
 
 # Copy data files
 add_custom_command(TARGET ${APP_NAME} POST_BUILD

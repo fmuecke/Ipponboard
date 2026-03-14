@@ -24,3 +24,6 @@ target_link_libraries(IpponboardWidgets
     PUBLIC
         Qt6::Widgets
 )
+
+target_precompile_headers(IpponboardWidgets
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")

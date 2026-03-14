@@ -4,8 +4,6 @@ set(APP_NAME IpponboardNetworkTest)
 
 include(IpponboardCatch2)
 
-find_package(Qt6 COMPONENTS Core Network Widgets Multimedia PrintSupport REQUIRED)
-
 if(WIN32)
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)
@@ -19,6 +17,8 @@ target_link_libraries(${APP_NAME} PRIVATE IpponboardUi Catch2::Catch2WithMain)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../test)
 target_compile_definitions(${APP_NAME}
     PRIVATE IPPONBOARD_TESTDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../test/TestData")
+target_precompile_headers(${APP_NAME}
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -39,8 +39,5 @@ add_custom_command(TARGET ${APP_NAME} POST_BUILD
             "$<TARGET_FILE_DIR:${APP_NAME}>/TestData")
 
 if(MSVC)
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::Multimedia Qt6::Network Qt6::PrintSupport Qt6::Core)
     ipponboard_add_windeploy(${APP_NAME})
-else()
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::Network Qt6::Core Qt6::Multimedia Qt6::Widgets Qt6::PrintSupport)
 endif()

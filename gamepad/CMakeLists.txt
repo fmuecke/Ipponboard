@@ -26,3 +26,6 @@ endif()
 set_target_properties(IpponboardGamepad PROPERTIES
     POSITION_INDEPENDENT_CODE ON
 )
+
+target_precompile_headers(IpponboardGamepad
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_STD}>")

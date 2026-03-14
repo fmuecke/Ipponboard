@@ -26,3 +26,6 @@ set_target_properties(IpponboardCore PROPERTIES
 
 target_include_directories(IpponboardCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${BOOST_DIR})
 target_link_libraries(IpponboardCore PUBLIC Qt6::Core Qt6::Multimedia Qt6::Widgets)
+
+target_precompile_headers(IpponboardCore
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_CORE}>")

@@ -6,8 +6,6 @@ set(APP_NAME IpponboardTest)
 
 include(IpponboardCatch2)
 
-find_package(Qt6 COMPONENTS Core Network Widgets Multimedia PrintSupport REQUIRED)
-
 if(WIN32)
     set(OUTPUT_DIR ${ROOT_DIR}/_bin/Test-Release)
     set(OUTPUT_DIR_DEBUG ${ROOT_DIR}/_bin/Test-Debug)
@@ -40,6 +38,8 @@ add_executable(${APP_NAME} ${SOURCES})
 target_link_libraries(${APP_NAME} PRIVATE IpponboardUi Catch2::Catch2WithMain)
 target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 target_compile_definitions(${APP_NAME} PRIVATE IPPONBOARD_TESTDATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/TestData\")
+target_precompile_headers(${APP_NAME}
+    PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")
 
 if (MSVC)
     set_target_properties(${APP_NAME} PROPERTIES
@@ -68,11 +68,5 @@ if(MSVC)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x64/Microsoft.VC145.CRT/vcruntime140.dll,/debug_nonredist/x64/Microsoft.VC145.DebugCRT/vcruntime140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
     )
 
-    # Deploy Qt runtime
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::Multimedia Qt6::Network Qt6::PrintSupport Qt6::Core)
     ipponboard_add_windeploy(${APP_NAME})
-else()
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::Network Qt6::Core Qt6::Multimedia Qt6::Widgets Qt6::PrintSupport)
-#    find_package(OpenSSL REQUIRED)
-#    target_link_libraries(${APP_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 endif()

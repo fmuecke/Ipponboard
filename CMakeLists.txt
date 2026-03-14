@@ -70,6 +70,11 @@ endif()
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 
+set(PCH_HEADER_STD ${ROOT_DIR}/base/pch_std.h)
+set(PCH_HEADER_COMMON ${ROOT_DIR}/base/pch_core.h)
+set(PCH_HEADER_CORE ${ROOT_DIR}/base/pch_core_boost.h)
+set(PCH_HEADER_WIDGETS ${ROOT_DIR}/base/pch.h)
+
 # Restrict multi configurations to Release and Debug
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
@@ -81,6 +86,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if (MSVC)
     add_compile_options(/MP)
 endif()
+
+set(CMAKE_AUTOGEN_PARALLEL $ENV{NUMBER_OF_PROCESSORS})
 
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x060900)
 # Add targets
