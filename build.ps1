@@ -44,6 +44,7 @@ function Read-Env-Cfg {
 }
 
 function Show-Menu {
+    Write-Progress -Completed
     Clear-Host
 
     $menu = @"
