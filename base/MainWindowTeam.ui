@@ -37,7 +37,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="ipponboard.qrc">
-    <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
+    <normaloff>:/res/images/logo.png</normaloff>:/res/images/lgog.png</iconset>
   </property>
   <property name="statusTip">
    <string notr="true"/>

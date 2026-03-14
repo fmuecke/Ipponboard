@@ -3,6 +3,8 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
+- (mod): manual now looks more professional
+- (new): whole new logo for Ipponboard
 - (new): full support for multiple gamepads/controllers with independent mappings and configurations
   - full Linux support
   - per-gamepad calibration, deadzone, axis inversion, and section mapping
