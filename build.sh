@@ -240,9 +240,9 @@ function build_doc {
 
     echo "Creating Docs..."
     BASE_DIR="$IPPONBOARD_ROOT_DIR/doc"
-    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --metadata=title:Anleitung --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --metadata=title:"User Manual" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --css="$BASE_DIR/Ipponboard.css" --self-contained || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
 
     echo "Copying license files..."
     cp -r "$BASE_DIR/licenses" "$BIN_DIR/licenses" || return $?

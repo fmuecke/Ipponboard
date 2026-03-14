@@ -22,9 +22,9 @@ if errorlevel 1 (
 )
 
 echo Creating Docs...
-pandoc -s "%BASE_DIR%\USER_MANUAL-DE.md" -o "%OUTPUT_DIR%\Anleitung.html" --metadata=title:Anleitung --css="%BASE_DIR%\Ipponboard.css" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
-pandoc -s "%BASE_DIR%\USER_MANUAL-EN.md" -o "%OUTPUT_DIR%\User-Manual.html" --metadata=title:"User Manual" --css="%BASE_DIR%\Ipponboard.css" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
-pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%BASE_DIR%\Ipponboard.css" --self-contained || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\USER_MANUAL-DE.md" -o "%OUTPUT_DIR%\Anleitung.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --self-contained --toc --toc-depth=3 || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\USER_MANUAL-EN.md" -o "%OUTPUT_DIR%\User-Manual.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --self-contained || exit /b %errorlevel%
 
 echo Copying license files...
 robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\licenses" >nul || exit /b %errorlevel%

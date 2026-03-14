@@ -1,38 +1,17 @@
-<p style="font-size:3em;text-align:center">Ipponboard</p>
-<p style="font-style:italic;text-align:center">Die 🥋Judo-Wettkampfanzeige</p>
+---
+title: Ipponboard - Anleitung
+subtitle: Die 🥋 Judo-Wettkampfanzeige
+---
 
-## Inhalt
-
-- **[Allgemeines](#allgemeines)**
-  - [Lizenzbedingungen](#lizenzbedingungen)
-  - [Danksagung](#danksagung)
-  - [Systemvoraussetzungen](#systemvoraussetzungen)
-  - [Änderungshistorie](#änderungshistorie)
-  - [Feedback & Kontakt](#feedback)
-- **[Funktionsweise und Einstellungen](#funktionsweise-und-einstellungen)**
-  - [Anzeigen](#anzeigen)
-    - [Primäre Anzeige](#primäre-anzeige)
-    - [Sekundäre (externe) Anzeige](#sekundäre-externe-anzeige)
-  - [Programmeinstellungen](#programmeinstellungen)
-- **[Steuerung](#steuerung)**
-  - [Funktionsweise der Steuerung](#funktionsweise-der-steuerung)
-    - [Maus-Steuerung](#maus-steuerung)
-	- [Gamepad-Steuerung](#gamepad-steuerung)
-- **[Besonderheiten](#besonderheiten)**
-  - [Sono-mama/Yoshi](#sono-mamayoshi)
-- **[Hilfestellung / Troubleshooting](#hilfestellung-troubleshooting)**
-  - [Computer für Zweischirmbetrieb vorbereiten](#computer-für-zweischirmbetrieb-vorbereiten)
-  - [Kommandozeilenparameter](#Kommandozeilenparameter)
-  
 # Allgemeines
 
 ## Lizenzbedingungen
   
 Ipponboard wurde entwickelt von Florian Mücke.
 
-*Copyright © 2009-today Florian Mücke und einige [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md).*
+*Copyright © 2009-2026 Florian Mücke und einige [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md).*
    
-**Ipponboard Binaries**
+**Ipponboard Binärdateien**
 
 > **Ipponboard darf frei auf beliebig vielen Rechnern verwendet und das
 > Programm in unveränderter Form unentgeltlich an Dritte weitergeben werden.** 

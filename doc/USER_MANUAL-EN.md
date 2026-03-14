@@ -1,31 +1,7 @@
-<p style="font-size:3em;text-align:center">Ipponboard</p>
-<p style="font-style:italic;text-align:center">The 🥋Judo Score Board</p>
-
-## Content
-
-- **[General](#general)**
-  - [License terms](#license-terms)
-  - [Acknowledgements](#acknowledgements)
-  - [System requirements](#system-requirements)
-  - [Version history](#version-history)
-  - [Feedback & contact](#feedback--contact)
-- **[Operation & Settings](#operation--settings)**
-  - [Displays](#displays)
-    - [Primary display](#primary-display)
-    - [Secondary/external display](#secondaryexternal-display)
-  - [Program settings](#program-settings)
-- **[Controlling Iponboard](#controlling-ipponboard)**
-  - [Gampad rocks!](#gampad-rocks)
-  - [Working with mouse, keyboard or gamepad](#working-with-mouse-keyboard-or-gamepad)
-  - [Awarding and undoing points](#awarding-and-undoing-points)
-  - [Reset display](#reset-display)
-  - [Start/stop main timer (*Hajime/Matte*)](#startstop-main-timer-hajimematte)
-  - [Start/stop hold timer (*Osaekomi/Toketa*)](#startstop-hold-timer-osaekomitoketa)
-  - [Reset hold timer](#reset-hold-timer)
-  - [Sono-mama/Yoshi](#sono-mamayoshi)
-- **[Troubleshooting](#troubleshooting)**
-  - [Preparing for dual screen operation](#preparing-for-dual-screen-operation)
-  - [Command line parameters](#command-line-parameters)
+---
+title: Ipponboard - User Manual
+subtitle: The 🥋 Judo Score Board
+---
 
 # General
 
@@ -33,7 +9,7 @@
   
 Ipponboard was written and developed by Florian Mücke.
 
-_Copyright © 2009-today Florian Mücke and [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md)._
+_Copyright © 2009-2026 Florian Mücke and [individual contibutors](https://github.com/fmuecke/Ipponboard/blob/main/CONTRIBUTORS.md)._
 
 ### Ipponboard binaries
 
