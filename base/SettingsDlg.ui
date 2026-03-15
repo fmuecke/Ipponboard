@@ -69,12 +69,104 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_screen"/>
+             <widget class="QComboBox" name="comboBox_screen">
+              <item>
+               <property name="text">
+                <string>custom</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1,0,1">
+          <item row="1" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1,1,1">
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_offsetX">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>X offset</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_offsetX">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string notr="true">0</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_offsetY">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Y offset</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_offsetY">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string notr="true">0</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,1,1,1">
             <property name="spacing">
              <number>6</number>
             </property>
@@ -173,22 +265,6 @@
              </widget>
             </item>
            </layout>
-          </item>
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="checkBox_secondary_view_custom_size">
-            <property name="toolTip">
-             <string notr="true"/>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LayoutDirection::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Use custom size</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -1542,9 +1618,10 @@
  <tabstops>
   <tabstop>tab_pane</tabstop>
   <tabstop>comboBox_screen</tabstop>
-  <tabstop>checkBox_secondary_view_custom_size</tabstop>
   <tabstop>lineEdit_fixedsize_width</tabstop>
   <tabstop>lineEdit_fixedsize_height</tabstop>
+  <tabstop>lineEdit_offsetX</tabstop>
+  <tabstop>lineEdit_offsetY</tabstop>
   <tabstop>comboBox_mat</tabstop>
   <tabstop>comboBox_sound_time_ends</tabstop>
   <tabstop>toolButton_play_gong</tabstop>

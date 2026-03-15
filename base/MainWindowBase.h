@@ -13,6 +13,7 @@
 #include "FighterManager.h"
 
 #include <QMainWindow>
+#include <QPoint>
 #include <memory>
 #include <vector>
 
@@ -43,6 +44,7 @@ static const char* const str_normal_round_time = "Normal";
 static const char* const str_tag_Main = "Main";
 static const char* const str_tag_SecondScreen = "SecondScreen";
 static const char* const str_tag_SecondScreenSize = "SecondScreenSize";
+static const char* const str_tag_SecondScreenOffset = "SecondScreenOffset";
 static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
@@ -129,7 +131,7 @@ class MainWindowBase : public QMainWindow,
     virtual void SetShowInfoHeader(bool /*show*/) {}
 
     /* IGoldenScoreView */
-    virtual void UpdateGoldenScoreView(){};
+    virtual void UpdateGoldenScoreView() {};
 
   protected:
     virtual void changeEvent(QEvent*) override;
@@ -201,6 +203,7 @@ class MainWindowBase : public QMainWindow,
     QFont m_FighterNameFont;
     int m_secondScreenNo;
     QSize m_secondScreenSize;
+    QPoint m_secondScreenOffset;
     Ipponboard::ControllerConfig m_controllerCfg;
 
   private:

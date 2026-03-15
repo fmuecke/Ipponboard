@@ -22,10 +22,10 @@
 #include <QSoundEffect>
 #include <QStringList>
 #include <QUrl>
+#include <algorithm>
 #include <limits>
 #include <memory>
 #include <vector>
-
 
 using namespace Ipponboard;
 
@@ -533,23 +533,34 @@ SettingsDlg::~SettingsDlg()
     delete ui;
 }
 
-void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions)
+void SettingsDlg::SetScreensSettings(int screen, const QSize& dimensions, const QPoint& offset)
 {
-    Q_ASSERT(screen < ui->comboBox_screen->count());
-    ui->comboBox_screen->setCurrentIndex(screen);
+    const bool hasCustomSize = (screen < 0);
 
-    if (dimensions.isNull())
     {
-        ui->checkBox_secondary_view_custom_size->setChecked(false);
+        QSignalBlocker blocker(ui->comboBox_screen);
+        if (hasCustomSize)
+        {
+            ui->comboBox_screen->setCurrentIndex(0);
+        }
+        else
+        {
+            const int availableScreens = ui->comboBox_screen->count() - 1;
+            const bool hasScreens = availableScreens > 0;
+            const int clampedIndex = hasScreens ? std::clamp(screen, 0, availableScreens - 1) : -1;
+            ui->comboBox_screen->setCurrentIndex(hasScreens ? clampedIndex + 1 : 0);
+        }
     }
-    else
-    {
-        ui->checkBox_secondary_view_custom_size->setChecked(true);
-        ui->lineEdit_fixedsize_width->setText(QString::number(dimensions.width()));
-        ui->lineEdit_fixedsize_height->setText(QString::number(dimensions.height()));
-        ui->lineEdit_fixedsize_width->setEnabled(true);
-        ui->lineEdit_fixedsize_height->setEnabled(true);
-    }
+
+    updateCustomSizeUiState(hasCustomSize);
+
+    const auto resolvedSize =
+        hasCustomSize ? dimensions : screenSizeForIndex(ui->comboBox_screen->currentIndex());
+    ui->lineEdit_fixedsize_width->setText(QString::number(resolvedSize.width()));
+    ui->lineEdit_fixedsize_height->setText(QString::number(resolvedSize.height()));
+
+    ui->lineEdit_offsetX->setText(QString::number(offset.x()));
+    ui->lineEdit_offsetY->setText(QString::number(offset.y()));
 }
 
 void SettingsDlg::SetInfoHeaderSettings(const QFont& font, const QColor& color,
@@ -615,14 +626,34 @@ void SettingsDlg::SetGongFile(const QString& path)
         ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
-int SettingsDlg::GetSelectedScreen() const { return ui->comboBox_screen->currentIndex(); }
+int SettingsDlg::GetSelectedScreen() const
+{
+    const int index = ui->comboBox_screen->currentIndex();
+    if (index <= 0)
+    {
+        return -1;
+    }
+    return index - 1;
+}
 
 QSize SettingsDlg::GetSize() const
 {
+    if (ui->comboBox_screen->currentIndex() != 0)
+    {
+        return QSize(0, 0);
+    }
     QSize s;
     s.setWidth(ui->lineEdit_fixedsize_width->text().toInt());
     s.setHeight(ui->lineEdit_fixedsize_height->text().toInt());
     return s;
+}
+
+QPoint SettingsDlg::GetOffset() const
+{
+    QPoint offset;
+    offset.setX(ui->lineEdit_offsetX->text().toInt());
+    offset.setY(ui->lineEdit_offsetY->text().toInt());
+    return offset;
 }
 
 QFont SettingsDlg::GetInfoHeaderFont() const
@@ -909,18 +940,15 @@ void Ipponboard::SettingsDlg::on_comboBox_mat_editTextChanged(QString text)
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void Ipponboard::SettingsDlg::on_checkBox_secondary_view_custom_size_toggled(bool checked)
+void SettingsDlg::on_comboBox_screen_currentIndexChanged(int index)
 {
-    ui->lineEdit_fixedsize_width->setEnabled(checked);
-    ui->lineEdit_fixedsize_height->setEnabled(checked);
-    ui->label_screen_width->setEnabled(checked);
-    ui->label_screen_height->setEnabled(checked);
-
-    if (!checked)
-    {
-        ui->lineEdit_fixedsize_width->setText("0");
-        ui->lineEdit_fixedsize_height->setText("0");
-    }
+    const bool customSizeSelected = (index == 0);
+    updateCustomSizeUiState(customSizeSelected);
+    const auto size = customSizeSelected ? QSize(ui->lineEdit_fixedsize_width->text().toInt(),
+                                                 ui->lineEdit_fixedsize_height->text().toInt())
+                                         : screenSizeForIndex(index);
+    ui->lineEdit_fixedsize_width->setText(QString::number(size.width()));
+    ui->lineEdit_fixedsize_height->setText(QString::number(size.height()));
 }
 void SettingsDlg::prime_raw_capture()
 {
@@ -1137,4 +1165,28 @@ QString SettingsDlg::describe_section_action(
 
     const QString mode = action.revoke ? tr("revoke") : tr("award");
     return tr("(%1) %2").arg(mode, actionName);
+}
+
+void SettingsDlg::updateCustomSizeUiState(bool customSelected)
+{
+    ui->lineEdit_fixedsize_width->setEnabled(customSelected);
+    ui->lineEdit_fixedsize_height->setEnabled(customSelected);
+    ui->label_screen_width->setEnabled(customSelected);
+    ui->label_screen_height->setEnabled(customSelected);
+}
+
+QSize SettingsDlg::screenSizeForIndex(int comboIndex) const
+{
+    if (comboIndex <= 0)
+    {
+        return QSize(0, 0);
+    }
+    const auto screens = QGuiApplication::screens();
+    const int screenIdx = comboIndex - 1;
+    if (screenIdx < 0 || screenIdx >= screens.size())
+    {
+        return QSize(0, 0);
+    }
+    const auto geometry = screens.at(screenIdx)->geometry();
+    return geometry.size();
 }

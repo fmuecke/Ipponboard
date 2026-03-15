@@ -10,6 +10,7 @@
 #include "RawInputCapture.h"
 
 #include <QDialog>
+#include <QPoint>
 #include <QSoundEffect>
 #include <QString>
 #include <QStringList>
@@ -48,7 +49,8 @@ class SettingsDlg : public QDialog
     SettingsDlg(EditionType edition, QWidget* parent = 0);
     ~SettingsDlg();
 
-    void SetScreensSettings(int screen, const QSize& dimensions); // zero dimensions means auto size
+    void SetScreensSettings(int screen, const QSize& dimensions,
+                            const QPoint& offset); // zero dimensions means auto size
     void SetInfoHeaderSettings(const QFont& font, const QColor& color, const QColor& background);
     void SetFighterNameFont(const QFont& font);
     void SetTextColorsFirst(const QColor& color, const QColor& background);
@@ -58,6 +60,7 @@ class SettingsDlg : public QDialog
 
     int GetSelectedScreen() const;
     QSize GetSize() const;
+    QPoint GetOffset() const;
     QFont GetInfoHeaderFont() const;
     QFont GetFighterNameFont() const;
     QColor GetInfoTextColor() const;
@@ -119,6 +122,8 @@ class SettingsDlg : public QDialog
     [[nodiscard]] QStringList describe_axes_state() const;
     [[nodiscard]] QString describe_section_action(
         const GamepadSectionMapper::SectionAction& action) const;
+    void updateCustomSizeUiState(bool customSelected);
+    QSize screenSizeForIndex(int comboIndex) const;
 
   private:
     EditionType m_edition;
@@ -153,7 +158,7 @@ class SettingsDlg : public QDialog
     void on_toolButton_play_gong_pressed();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
-    void on_checkBox_secondary_view_custom_size_toggled(bool checked);
+    void on_comboBox_screen_currentIndexChanged(int index);
     void on_raw_capture_timeout();
     void on_toolButton_test_raw_mapping_toggled(bool checked);
 };

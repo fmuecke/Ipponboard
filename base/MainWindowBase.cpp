@@ -44,7 +44,8 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_weights(),
       m_FighterNameFont("Calibri", 12, QFont::Bold, false),
       m_secondScreenNo(0),
-      m_secondScreenSize(),
+      m_secondScreenSize(0, 0),
+      m_secondScreenOffset(0, 0),
       m_controllerCfg(),
       m_pGamepad(new Gamepad())
 {
@@ -92,6 +93,7 @@ void MainWindowBase::Init()
 
     m_pSecondaryView.reset(
         new View(m_pController->GetIController(), Edition(), View::eTypeSecondary));
+    m_pSecondaryView->setWindowFlag(Qt::FramelessWindowHint, true);
 
     // clear data
     m_pController->ClearFightsAndResetTimers();
@@ -431,6 +433,7 @@ void MainWindowBase::write_settings()
         settings.setValue(str_tag_Language, m_Language);
         settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
         settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
+        settings.setValue(str_tag_SecondScreenOffset, m_secondScreenOffset);
     }
     settings.endGroup();
 
@@ -549,6 +552,13 @@ void MainWindowBase::read_settings()
 
         m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
         m_secondScreenSize = settings.value(str_tag_SecondScreenSize, QSize(0, 0)).toSize();
+        m_secondScreenOffset = settings.value(str_tag_SecondScreenOffset, QPoint(0, 0)).toPoint();
+        if (m_secondScreenNo >= 0 && !m_secondScreenSize.isNull())
+        {
+            qInfo()
+                << "Detected legacy second screen size for fullscreen setup; resetting to auto.";
+            m_secondScreenSize = QSize(0, 0);
+        }
         update_statebar();
     }
     settings.endGroup();
@@ -790,7 +800,7 @@ void MainWindowBase::on_actionPreferences_triggered()
                            m_pPrimaryView->GetTextBgColorFirst());
     dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
                             m_pPrimaryView->GetTextBgColorSecond());
-    dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize);
+    dlg.SetScreensSettings(m_secondScreenNo, m_secondScreenSize, m_secondScreenOffset);
     dlg.SetGamepad(m_pGamepad.get());
     dlg.SetControllerConfig(&m_controllerCfg);
     dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
@@ -812,6 +822,7 @@ void MainWindowBase::on_actionPreferences_triggered()
 
         m_secondScreenNo = dlg.GetSelectedScreen();
         m_secondScreenSize = dlg.GetSize();
+        m_secondScreenOffset = dlg.GetOffset();
 
         dlg.GetControllerConfig(&m_controllerCfg);
         // apply settings to gamepad
@@ -837,19 +848,27 @@ void MainWindowBase::on_actionPreferences_triggered()
 
 void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {
-    const auto nScreens = QGuiApplication::screens().size();
-    if (nScreens > 0 && nScreens > m_secondScreenNo)
+    const auto screens = QGuiApplication::screens();
+    QPoint screenOrigin(0, 0);
+    bool hasTargetScreen = false;
+    if (!screens.isEmpty() && m_secondScreenNo >= 0 && m_secondScreenNo < screens.size())
     {
-        auto screenRes = QGuiApplication::screens().at(m_secondScreenNo)->geometry();
-        pView->move(QPoint(screenRes.x(), screenRes.y()));
+        const auto screenRes = screens.at(m_secondScreenNo)->geometry();
+        screenOrigin = screenRes.topLeft();
+        hasTargetScreen = true;
     }
+
+    const QPoint targetPos =
+        hasTargetScreen ? screenOrigin + m_secondScreenOffset : m_secondScreenOffset;
 
     if (m_secondScreenSize.isNull())
     {
         pView->showFullScreen();
+        pView->move(targetPos);
     }
     else
     {
+        pView->move(targetPos);
         pView->resize(m_secondScreenSize);
         pView->show();
     }
