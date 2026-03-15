@@ -44,7 +44,6 @@ function Read-Env-Cfg {
 }
 
 function Show-Menu {
-    Write-Progress -Completed
     Clear-Host
 
     $menu = @"
@@ -133,12 +132,12 @@ function Clean-All {
     foreach ($item in $dirs) {
         if (Test-Path $item) {
             Write-Host "  Removing $item"
-            Remove-Item -Path $item -Recurse -Force -ErrorAction SilentlyContinue
+            Remove-Item -Path $item -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
         }
     }
 
     Write-Host "Removing versioninfo.h"
-    Remove-Item -Path "$IPPONBOARD_ROOT_DIR\base\versioninfo.h" -ErrorAction SilentlyContinue
+    Remove-Item -Path "$IPPONBOARD_ROOT_DIR\base\versioninfo.h" -ErrorAction SilentlyContinue | Out-Null
 }
 
 function Create-Makefiles {
@@ -178,9 +177,9 @@ function Run-Tests {
         }
     }
 
-    Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
-    Remove-Item Env:QT_QPA_PLATFORM_PLUGIN_PATH -ErrorAction SilentlyContinue
-    Remove-Item Env:QT_QPA_FONTDIR -ErrorAction SilentlyContinue
+    Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue | Out-Null
+    Remove-Item Env:QT_QPA_PLATFORM_PLUGIN_PATH -ErrorAction SilentlyContinue | Out-Null
+    Remove-Item Env:QT_QPA_FONTDIR -ErrorAction SilentlyContinue | Out-Null
     Set-Location -Path $PSScriptRoot
     return $success
 }
