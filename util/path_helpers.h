@@ -5,19 +5,13 @@
 #ifndef UTIL__PATH_HELPERS_H_
 #define UTIL__PATH_HELPERS_H_
 
-#ifdef _WIN32
-#include <Shlobj.h>
-#include <Windows.h>
-
-//#	pragma comment(lib,"Shell32.lib")
-#endif
-
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QProcessEnvironment>
 #include <QStandardPaths>
 #include <string>
+#include <utility>
 
 namespace fm
 {
@@ -25,109 +19,66 @@ namespace fm
 namespace
 {
 
-#ifdef _WIN32
-
-struct KnownFolders
+QString ensureDirectory(QString directory)
 {
-    // reference: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
-
-    static QString get_AppDataDesktop() { return get_folder(FOLDERID_AppDataDesktop); }
-    static QString get_AppDataDocuments() { return get_folder(FOLDERID_AppDataDocuments); }
-    static QString get_AppDataProgramData() { return get_folder(FOLDERID_AppDataProgramData); }
-    static QString get_ApplicationShortcuts() { return get_folder(FOLDERID_ApplicationShortcuts); }
-    static QString get_Desktop() { return get_folder(FOLDERID_Desktop); }
-    static QString get_Documents() { return get_folder(FOLDERID_Documents); }
-    static QString get_DocumentsLibrary() { return get_folder(FOLDERID_DocumentsLibrary); }
-    static QString get_Downloads() { return get_folder(FOLDERID_Downloads); }
-    static QString get_LocalAppData() { return get_folder(FOLDERID_LocalAppData); }
-    static QString get_LocalAppDataLow() { return get_folder(FOLDERID_LocalAppDataLow); }
-    static QString get_Profile() { return get_folder(FOLDERID_Profile); }
-    static QString get_ProgramData() { return get_folder(FOLDERID_ProgramData); }
-    static QString get_ProgramFiles() { return get_folder(FOLDERID_ProgramFiles); }
-#ifdef _WIN64
-    static QString get_ProgramFilesX64() { return get_folder(FOLDERID_ProgramFilesX64); }
-#endif
-    static QString get_ProgramFilesX86() { return get_folder(FOLDERID_ProgramFilesX86); }
-    static QString get_RoamingAppData() { return get_folder(FOLDERID_RoamingAppData); }
-    static QString get_ProgramFilesCommon() { return get_folder(FOLDERID_ProgramFilesCommon); }
-
-  private:
-    static QString get_folder(GUID folderId)
+    if (!directory.isEmpty())
     {
-        PWSTR folder{ nullptr };
-        QString result;
-        if (SUCCEEDED(::SHGetKnownFolderPath(folderId, 0, nullptr, &folder)))
-        {
-            result = QDir::toNativeSeparators(QString::fromWCharArray(folder));
-        }
-        ::CoTaskMemFree(folder);
-        return result;
+        QDir().mkpath(directory); // make sure directory exists
     }
-};
-#endif
-
-QString GetAppDir() { return QCoreApplication::applicationDirPath(); }
+    return directory;
+}
 
 QString GetAppConfigDir()
 {
-    auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
-    QDir().mkpath(configDir); // make sure directory exists
-    return configDir;
+#ifdef Q_OS_WIN
+    const auto roamingBase = qEnvironmentVariable("APPDATA");
+    if (!roamingBase.isEmpty())
+    {
+        return ensureDirectory(QDir(QDir::fromNativeSeparators(roamingBase))
+                                   .filePath(QCoreApplication::applicationName()));
+    }
+#endif
+    return ensureDirectory(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
 }
 
-QString GetAppDataDir()
+QString GetAppLocalDataDir()
 {
-    auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir().mkpath(dataDir); // make sure directory exists
-    return dataDir;
+#ifdef Q_OS_WIN
+    const auto localBase = qEnvironmentVariable("LOCALAPPDATA");
+    if (!localBase.isEmpty())
+    {
+        return ensureDirectory(QDir(QDir::fromNativeSeparators(localBase))
+                                   .filePath(QCoreApplication::applicationName()));
+    }
+#endif
+    return ensureDirectory(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 }
 
 QString GetAppConfigFilePath(QString fileName)
 {
     auto configPath = GetAppConfigDir();
-    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+    return QDir::toNativeSeparators(QDir(configPath).filePath(std::move(fileName)));
 }
 
-QString GetAppDataFilePath(QString fileName)
+QString GetAppDirFilePath(QString fileName)
 {
-    auto configPath = GetAppDataDir();
-    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
+    auto dataPath = QCoreApplication::applicationDirPath();
+    return QDir::toNativeSeparators(QDir(dataPath).filePath(std::move(fileName)));
 }
 
-//TODO: deprecate this and use GetAppConfigFilePath instead!
-const QString GetSettingsFilePath(QString fileName)
+QString ResolveConfigFileForRead(QString fileName)
 {
-#define EXPERIMENTAL 1
-
-#ifdef EXPERIMENTAL
-    // use current application directory
-    QString configPath = QCoreApplication::applicationDirPath();
-    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
-#else
-#ifdef _WIN32
-    // (1) use file in common app data
-    // (2) create file or error
-
-    QString basePath = KnownFolders::get_LocalAppData();
-    QDir baseDir(basePath);
-    if (!baseDir.exists())
+    const auto userConfigFile = GetAppConfigFilePath(fileName);
+    if (QFile::exists(userConfigFile))
     {
-        qInfo() << "Using settings file path: " << basePath;
-        return fileName;
+        return userConfigFile;
     }
 
-    QString configPath = baseDir.filePath("Ipponboard");
-    if (!QDir(configPath).exists() && !baseDir.mkpath(configPath))
-    {
-        return fileName;
-    }
-
-    return QDir::toNativeSeparators(QDir(configPath).filePath(fileName));
-#endif
-#endif
+    return GetAppDirFilePath(std::move(fileName));
 }
 
 } // anonymous namespace
 } // namespace fm
 
 #endif // UTIL__PATH_HELPERS_H_
+

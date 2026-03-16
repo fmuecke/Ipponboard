@@ -7,48 +7,84 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QUuid>
 #include <catch2/catch_test_macros.hpp>
 
-#ifndef EXPERIMENTAL
-
-#ifdef _WIN32
-
-TEST_CASE("GetSettingsFilePath: returns back empty filename")
+TEST_CASE("[PathHelpers] Settings helper uses config directory")
 {
-    auto path = fm::GetSettingsFilePath("");
-    REQUIRE_FALSE(path.isEmpty());
-    INFO(path.toStdString());
-    REQUIRE(path.indexOf("\\Ipponboard") == path.size() - 11);
+    auto& app = ensure_qt_app();
+    app.setApplicationName(QStringLiteral("IpponboardTestApp"));
+    const auto expectedDir = fm::GetAppConfigDir();
+    const auto settingsPath = fm::GetAppConfigFilePath(QStringLiteral("example.ini"));
+    INFO("Settings path: " + settingsPath.toStdString());
+    REQUIRE(settingsPath ==
+            QDir::toNativeSeparators(QDir(expectedDir).filePath(QStringLiteral("example.ini"))));
 }
 
-TEST_CASE("GetSettingsFilePath: returns a non empty value")
+TEST_CASE("[PathHelpers] Local data helper uses AppLocalDataLocation")
 {
-    auto path = fm::GetSettingsFilePath("somefile.ext");
-    REQUIRE_FALSE(path.isEmpty());
-    INFO(path.toStdString());
-    REQUIRE(path.indexOf("\\Ipponboard\\somefile.ext") != -1);
+    auto& app = ensure_qt_app();
+    app.setApplicationName(QStringLiteral("IpponboardTestApp"));
+    const auto localDir = fm::GetAppLocalDataDir();
+    const auto expectedLocal =
+        QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    INFO("Local data dir: " + localDir.toStdString());
+    REQUIRE_FALSE(localDir.isEmpty());
+    REQUIRE(localDir == expectedLocal);
+    REQUIRE(QFileInfo(localDir).isWritable());
+}
+TEST_CASE("[PathHelpers] ResolveConfigFileForRead prefers user config")
+{
+    auto& app = ensure_qt_app();
+    app.setApplicationName(QStringLiteral("IpponboardTestApp"));
+
+    const auto fileName = QStringLiteral("resolve_read_prefer_user_%1.config")
+                              .arg(QUuid::createUuid().toString(QUuid::WithoutBraces));
+
+    const auto userConfigPath = fm::GetAppConfigFilePath(fileName);
+    const auto appDirPath = fm::GetAppDirFilePath(fileName);
+
+    QFile::remove(userConfigPath);
+    QFile::remove(appDirPath);
+
+    QFile appFile(appDirPath);
+    if (appFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        appFile.write("app");
+        appFile.close();
+    }
+
+    QFile userFile(userConfigPath);
+    REQUIRE(userFile.open(QIODevice::WriteOnly | QIODevice::Truncate));
+    userFile.write("user");
+    userFile.close();
+
+    const auto resolved = fm::ResolveConfigFileForRead(fileName);
+    REQUIRE(resolved == userConfigPath);
+
+    QFile::remove(userConfigPath);
+    QFile::remove(appDirPath);
 }
 
-TEST_CASE("KnowFolders: Desktop returns path to desktop")
+TEST_CASE("[PathHelpers] ResolveConfigFileForRead falls back to app directory")
 {
-    auto folder = fm::KnownFolders::get_Desktop();
-    auto pos = folder.indexOf("Desktop");
-    INFO(folder.toStdString());
-    REQUIRE(pos == folder.size() - 7);
-}
+    auto& app = ensure_qt_app();
+    app.setApplicationName(QStringLiteral("IpponboardTestApp"));
 
-TEST_CASE("KnowFolders: LocalAppData returns valid path ")
-{
-    auto folder = fm::KnownFolders::get_LocalAppData();
-    INFO(folder.toStdString());
-    auto pos = folder.indexOf("AppData\\Local");
-    REQUIRE(pos != -1);
-}
+    const auto fileName = QStringLiteral("resolve_read_fallback_%1.config")
+                              .arg(QUuid::createUuid().toString(QUuid::WithoutBraces));
 
-#endif
-#endif
+    const auto userConfigPath = fm::GetAppConfigFilePath(fileName);
+    const auto appDirPath = fm::GetAppDirFilePath(fileName);
+
+    QFile::remove(userConfigPath);
+
+    const auto resolved = fm::ResolveConfigFileForRead(fileName);
+    REQUIRE(resolved == appDirPath);
+}
 
 TEST_CASE("[PathHelpers] Enumerate storage locations")
 {
@@ -64,17 +100,32 @@ TEST_CASE("[PathHelpers] Enumerate storage locations")
 
     REQUIRE(QCoreApplication::applicationName().length() > 0); // application name must be set
 
-    const auto configDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    const auto configDir = fm::GetAppConfigDir();
     INFO("Config / autosave directory: " + configDir.toStdString());
     REQUIRE_FALSE(configDir.isEmpty());
     REQUIRE(QDir().mkpath(configDir));
     REQUIRE(QFileInfo(configDir).isWritable());
+    const auto nativeConfigDir = QDir::toNativeSeparators(configDir);
+#ifdef Q_OS_WIN
+    REQUIRE(nativeConfigDir.contains(QStringLiteral("AppData\\Roaming")));
+#else
+    const auto expectedConfig = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    REQUIRE(configDir == expectedConfig);
+#endif
 
-    const auto dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    INFO("User data directory: " + dataDir.toStdString());
-    REQUIRE_FALSE(dataDir.isEmpty());
-    REQUIRE(QDir().mkpath(dataDir));
-    REQUIRE(QFileInfo(dataDir).isWritable());
+    const auto localDataDir = fm::GetAppLocalDataDir();
+    INFO("Static data directory: " + localDataDir.toStdString());
+    REQUIRE_FALSE(localDataDir.isEmpty());
+    REQUIRE(QDir().mkpath(localDataDir));
+    REQUIRE(QFileInfo(localDataDir).isWritable());
+    const auto nativeLocalDir = QDir::toNativeSeparators(localDataDir);
+#ifdef Q_OS_WIN
+    REQUIRE(nativeLocalDir.contains(QStringLiteral("AppData\\Local")));
+#else
+    const auto expectedLocal =
+        QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    REQUIRE(localDataDir == expectedLocal);
+#endif
 
 #ifdef _WIN32
     INFO("Platform: Windows");

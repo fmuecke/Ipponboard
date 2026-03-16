@@ -36,7 +36,7 @@ class MainWindowTeam : public MainWindowBase
     virtual EditionType Edition() const final { return EditionType::Team; }
     virtual const char* EditionName() const final { return "Team Edition"; }
     virtual const char* EditionNameShort() const final { return "Team"; }
-    static const char* ModeConfigurationFileName() { return "TournamentModes.ini"; }
+    static const char* ModeConfigurationFileName() { return "tournament_modes.config"; }
 
     void LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode);
 

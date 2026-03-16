@@ -47,8 +47,6 @@ class FightCategoryMgr
     int CategoryCount() const { return m_Categories.size(); }
 
   private:
-    void load_default_categories();
-
     FightCategoryList m_Categories;
 };
 

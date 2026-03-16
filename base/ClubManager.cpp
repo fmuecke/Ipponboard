@@ -12,8 +12,6 @@
 #include <algorithm>
 
 using namespace Ipponboard;
-const char* const ClubManager::str_legacy_filename_club_definitions =
-    "clubs.json"; // used up to version 1.10
 const char* const ClubManager::str_clubs_settingsFile = "clubs.config";
 
 //---------------------------------------------------------
@@ -107,28 +105,16 @@ void ClubManager::SortClubs()
 void ClubManager::LoadClubs_()
 //---------------------------------------------------------
 {
-    auto config = fm::GetSettingsFilePath(str_clubs_settingsFile);
+    auto configFile = fm::ResolveConfigFileForRead(str_clubs_settingsFile);
 
-    if (QFile::exists(config))
+    qInfo() << "Reading clubs from config:" << configFile;
+    if (QFile::exists(configFile))
     {
-        m_Clubs = ClubParser::ParseIniFile(config);
+        m_Clubs = ClubParser::ParseIniFile(configFile);
     }
     else
     {
-        // load legacy settings for conversion
-        qWarning() << QString("%1 missing. Trying to load legacy %2")
-                          .arg(str_clubs_settingsFile)
-                          .arg(str_legacy_filename_club_definitions);
-        try
-        {
-            auto legacyConfig = fm::GetSettingsFilePath(str_legacy_filename_club_definitions);
-            m_Clubs = ClubParser::ParseJsonFile(legacyConfig);
-        }
-        catch (std::exception const& e)
-        {
-            QMessageBox::critical(
-                nullptr, QString("Internal error"), QString::fromStdString(e.what()));
-        }
+        qWarning() << "Unable to load clubs:" << configFile;
     }
 }
 
@@ -141,8 +127,7 @@ void ClubManager::SaveClubs_()
         return;
     }
 
-    // make an archive
-    auto filePath = fm::GetSettingsFilePath(str_clubs_settingsFile);
+    auto filePath = fm::GetAppConfigFilePath(str_clubs_settingsFile);
 
     try
     {

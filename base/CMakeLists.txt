@@ -86,7 +86,8 @@ set(FORMS
 
 set(OTHER
     Ipponboard.rc
-    TournamentModes.ini
+    tournament_modes.config
+	categories.config
 	clubs.config
 )
 
@@ -163,8 +164,9 @@ target_precompile_headers(${APP_NAME}
 
 # Copy data files
 add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/TournamentModes.ini" "$<TARGET_FILE_DIR:${APP_NAME}>"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "$<TARGET_FILE_DIR:${APP_NAME}>/clubs"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "$<TARGET_FILE_DIR:${APP_NAME}>/templates"
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/sounds" "$<TARGET_FILE_DIR:${APP_NAME}>/sounds"

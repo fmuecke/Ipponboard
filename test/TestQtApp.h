@@ -38,5 +38,7 @@ inline QApplication& ensure_qt_app()
     static char appName[] = "test";
     static char* argv[] = { appName, nullptr };
     static QApplication* app = new QApplication(argc, argv);
+    QCoreApplication::setOrganizationName(QString());
+    QCoreApplication::setOrganizationDomain(QString());
     return *app;
 }

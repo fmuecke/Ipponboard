@@ -21,29 +21,29 @@ struct IpponboardTest
         TournamentMode tm;
         errorMsg.clear();
 
-		config.beginGroup(group);
-		bool readSuccess = TournamentMode::parse_current_group(config, tm, Ipponboard::TestSupport::TestDataDirectory(), errorMsg);
-		config.endGroup();
-		return readSuccess;
-	}
-
+        config.beginGroup(group);
+        bool readSuccess = TournamentMode::parse_current_group(
+            config, tm, Ipponboard::TestSupport::TestDataDirectory(), errorMsg);
+        config.endGroup();
+        return readSuccess;
+    }
 };
 
 TEST_CASE("[TournamentMode] Test_parse_current_group")
 {
-	const auto iniFile = Ipponboard::TestSupport::ResolveTestDataPath(QStringLiteral("TournamentModes-test.ini"));
-	QSettings config(iniFile, QSettings::IniFormat);
-	QStringList groups;
-	groups
-			<< "basic"
-			<< "with_weights_doubled"
-			<< "with_time_overrides"
-			<< "template_not_found"
-			<< "no_title"
-			<< "no_weights"
-			<< "no_rounds"
-			<< "no_template"
-			<< "no_fight_time";
+    const auto iniFile =
+        Ipponboard::TestSupport::ResolveTestDataPath(QStringLiteral("TournamentModes-test.ini"));
+    QSettings config(iniFile, QSettings::IniFormat);
+    QStringList groups;
+    groups << "basic"
+           << "with_weights_doubled"
+           << "with_time_overrides"
+           << "template_not_found"
+           << "no_title"
+           << "no_weights"
+           << "no_rounds"
+           << "no_template"
+           << "no_fight_time";
 
     REQUIRE(groups.count() == config.childGroups().count());
 
@@ -85,4 +85,3 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
     INFO(errorMsg.toStdString());
     REQUIRE_FALSE(success);
 }
-

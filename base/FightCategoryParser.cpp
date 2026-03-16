@@ -5,10 +5,6 @@
 #include "FightCategoryParser.h"
 
 #include <QFile>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonParseError>
 #include <QSettings>
 #include <stdexcept>
 
@@ -74,50 +70,4 @@ Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& f
     }
 
     return categories;
-}
-
-Ipponboard::FightCategoryList ParseJson(const QJsonArray& json)
-{
-    Ipponboard::FightCategoryList categories;
-
-    for (const auto& jsonCat : json)
-    {
-        const auto object = jsonCat.toObject();
-        Ipponboard::FightCategory cat(object.value(QStringLiteral("name")).toString());
-        cat.SetRoundTime(object.value(QStringLiteral("round_time_secs")).toInt());
-        cat.SetGoldenScoreTime(object.value(QStringLiteral("golden_score_time_secs")).toInt());
-        cat.SetWeights(object.value(QStringLiteral("weights")).toString());
-
-        categories.push_back(cat);
-    }
-
-    return categories;
-}
-
-// May throw exception!
-Ipponboard::FightCategoryList FightCategoryParser::ParseJsonFile(const QString& file)
-{
-    QFile legacyFile(file);
-    if (!legacyFile.open(QIODevice::ReadOnly))
-    {
-        throw std::runtime_error(
-            QStringLiteral("Unable to open legacy fight categories '%1'").arg(file).toStdString());
-    }
-
-    QJsonParseError parseError{};
-    const auto document = QJsonDocument::fromJson(legacyFile.readAll(), &parseError);
-    if (parseError.error != QJsonParseError::NoError)
-    {
-        throw std::runtime_error(QStringLiteral("Invalid fight categories JSON '%1': %2")
-                                     .arg(file, parseError.errorString())
-                                     .toStdString());
-    }
-
-    if (!document.isArray())
-    {
-        throw std::runtime_error(
-            QStringLiteral("Expected fight category array in '%1'").arg(file).toStdString());
-    }
-
-    return ParseJson(document.array());
 }

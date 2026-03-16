@@ -26,14 +26,20 @@
 #include <QDebug>
 #include <QTextStream>
 
-#ifndef _WIN32
 #ifndef NO_ERROR
 #define NO_ERROR 0
 #endif
 #ifndef ERROR_INVALID_PARAMETER
 #define ERROR_INVALID_PARAMETER 1
 #endif
-#endif
+
+namespace
+{
+QString logFilePath()
+{
+    return fm::GetAppConfigFilePath(QCoreApplication::applicationName() + ".log");
+}
+} // namespace
 
 void LangNotFound(const QString& fileName)
 {
@@ -148,7 +154,7 @@ void CustomMessageHandler(QtMsgType type, const QMessageLogContext& context, con
                          .arg(logLevel)
                          .arg(msg);
 
-    QFile logFile(QCoreApplication::applicationName() + ".log");
+    QFile logFile(logFilePath());
     if (logFile.open(QIODevice::WriteOnly | QIODevice::Append))
     {
         QTextStream out(&logFile);
@@ -168,19 +174,19 @@ int main(int argc, char* argv[])
 #endif
     QApplication a(argc, argv);
 
+    QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
+    QCoreApplication::setOrganizationName(QString());
+    QCoreApplication::setOrganizationDomain(QString());
+    QCoreApplication::setApplicationName("Ipponboard");
+
     // Open the log file and truncate existing content
-    QFile logFile(QCoreApplication::applicationName() + ".log");
+    QFile logFile(logFilePath());
     if (logFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         logFile.close(); // Close file after truncating
     }
 
     qInstallMessageHandler(CustomMessageHandler);
-
-    QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-    QCoreApplication::setOrganizationName(QString::fromUtf8("Florian Mücke"));
-    QCoreApplication::setOrganizationDomain("github.com/fmuecke/Ipponboard");
-    QCoreApplication::setApplicationName("Ipponboard");
 
     qInfo() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
 
@@ -203,8 +209,15 @@ int main(int argc, char* argv[])
     QString langStr = QLocale::system().name();
     langStr.truncate(langStr.lastIndexOf('_'));
 
-    qInfo() << "Reading settings from: " << fm::GetSettingsFilePath("Ipponboard.ini");
-    QSettings settings(fm::GetSettingsFilePath("Ipponboard.ini"), QSettings::IniFormat, &a);
+    auto settingsFile = fm::ResolveConfigFileForRead(MainWindowBase::GetConfigFileName());
+    qInfo() << "Reading settings from: " << settingsFile;
+
+    if (!QFile::exists(settingsFile))
+    {
+        qWarning() << "Unable to load config:" << settingsFile;
+    }
+
+    QSettings settings(settingsFile, QSettings::IniFormat, &a);
     settings.beginGroup(str_tag_Main);
 
     if (settings.contains(str_tag_Language))

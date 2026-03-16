@@ -115,7 +115,7 @@ void MainWindowBase::Init()
     m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
 }
 
-QString MainWindowBase::GetConfigFileName() const { return "Ipponboard.ini"; }
+QString MainWindowBase::GetConfigFileName() { return "Ipponboard.config"; }
 
 QString MainWindowBase::GetFighterFileName() const
 {
@@ -303,8 +303,8 @@ void MainWindowBase::on_actionUser_Manual_triggered()
 
 void MainWindowBase::on_actionView_Logfile_triggered()
 {
-    QUrl url(QCoreApplication::applicationDirPath() + tr("/Ipponboard.log"));
-    QDesktopServices::openUrl(url);
+    const auto logPath = fm::GetAppConfigFilePath(QCoreApplication::applicationName() + ".log");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(logPath));
 
     // TODO: open log file in Log Window
 }
@@ -422,7 +422,7 @@ void MainWindowBase::on_actionRules2025_triggered(bool checked)
 
 void MainWindowBase::write_settings()
 {
-    QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
+    QString iniFile(fm::GetAppConfigFilePath(GetConfigFileName().toLatin1()));
     QSettings settings(iniFile, QSettings::IniFormat, this);
     qInfo() << "Writing settings to " << iniFile;
 
@@ -524,7 +524,7 @@ void MainWindowBase::write_settings()
     settings.beginGroup(str_tag_Sounds);
     {
         settings.remove("");
-        settings.setValue(str_tag_sound_time_ends, m_pController->GetGongFile());
+        settings.setValue(str_tag_sound_timer_ends, m_pController->GetGongFile());
     }
     settings.endGroup();
 
@@ -538,7 +538,7 @@ void MainWindowBase::write_settings()
 
 void MainWindowBase::read_settings()
 {
-    QString iniFile(fm::GetSettingsFilePath(GetConfigFileName().toLatin1()));
+    QString iniFile(fm::ResolveConfigFileForRead(GetConfigFileName()));
     QSettings settings(iniFile, QSettings::IniFormat, this);
     qInfo() << "Reading settings from " << iniFile;
 
@@ -727,7 +727,7 @@ void MainWindowBase::read_settings()
     settings.beginGroup(str_tag_Sounds);
     {
         m_pController->SetGongFile(
-            settings.value(str_tag_sound_time_ends, "sounds/gong.wav").toString());
+            settings.value(str_tag_sound_timer_ends, "sounds/gong.wav").toString());
     }
     settings.endGroup();
 
@@ -744,7 +744,7 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-    QString csvFile(fm::GetSettingsFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetAppConfigFilePath(GetFighterFileName().toLatin1()));
 
     QString errorMsg;
 
@@ -762,7 +762,7 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-    QString csvFile(fm::GetSettingsFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetAppConfigFilePath(GetFighterFileName().toLatin1()));
     QString errorMsg;
 
     if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))

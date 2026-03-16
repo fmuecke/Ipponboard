@@ -104,7 +104,7 @@ static const char* const str_tag_axisRightInvertX = "AxisRightInvertX";
 static const char* const str_tag_axisRightInvertY = "AxisRightInvertY";
 static const char* const str_tag_Sounds = "Sounds";
 static const char* const str_tag_Options = "Options";
-static const char* const str_tag_sound_time_ends = "TimeEnds";
+static const char* const str_tag_sound_timer_ends = "TimerEnds";
 static const char* const str_tag_rules = "Rules";
 static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
 
@@ -119,7 +119,7 @@ class MainWindowBase : public QMainWindow,
 
     virtual void Init();
 
-    QString GetConfigFileName() const;
+    static QString GetConfigFileName();
     QString GetFighterFileName() const;
     virtual EditionType Edition() const = 0;
     virtual const char* EditionName() const = 0;

@@ -14,9 +14,6 @@ class FightCategoryParser
   public:
     FightCategoryParser();
 
-    //> legacy (old format)
-    static Ipponboard::FightCategoryList ParseJsonFile(const QString& file);
-
     // Qt settings format
     static Ipponboard::FightCategoryList ParseIniFile(const QString& file);
     static void ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories);

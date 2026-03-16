@@ -5,6 +5,12 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 ## Version vNEXT (unreleased)
 - (new): added button to switch sides/colors in settings dialog
 - (new): secondary screen can be positioned with custom offsets
+- (mod): **breaking change** following best practice and separating program from user data:
+  - User settings are now stored in `%APPDATA%\Ipponboard` on Windows and `~/.config/Ipponboard` on Linux, while bundled default files remain in the application directory and are used as fallback.
+- (mod): **breaking change** the config files use a consistent naming (extension `.config`)
+  - `TournamentModes.ini` &rarr; `%APPDATA%\Ipponboard\tournament_modes.config`
+  - `Ipponboard.ini` &rarr; `%APPDATA%\Ipponboard\Ipponboard.config`
+  - The old files may still remain but won't be used or migrated automatically.
 - (mod): manual now looks more professional
 - (new): whole new logo for Ipponboard
 - (new): full support for multiple gamepads/controllers with independent mappings and configurations

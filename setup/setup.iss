@@ -90,10 +90,11 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 [Files]
 Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\_bin\Ipponboard-Release\categories.config"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\_bin\Ipponboard-Release\tournament_modes.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
 Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\_bin\Ipponboard-Release\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
@@ -139,8 +140,8 @@ Root: "HKCU"; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "In
 Root: "HKCU"; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey
 
 [INI]
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: de; Languages: de;
-Filename: {app}\Ipponboard.ini; Section: Main; Key: Language; String: en; Languages: en;
+Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: de; Languages: de;
+Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: en; Languages: en;
 
 [UnInstallDelete]
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}"
