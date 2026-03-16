@@ -156,6 +156,7 @@ class SettingsDlg : public QDialog
     void on_fontComboBox_infoHeader_currentFontChanged(QFont f);
     void on_fontComboBox_fighters_currentFontChanged(QFont f);
     void on_toolButton_play_gong_pressed();
+    void on_toolButton_switchSides_pressed();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
     void on_comboBox_screen_currentIndexChanged(int index);

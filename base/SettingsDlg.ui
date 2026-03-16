@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
-    <height>540</height>
+    <width>716</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -562,7 +562,7 @@
          <property name="title">
           <string>Fonts &amp;&amp; Colors (Fighters)</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,1,0">
+         <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1">
           <item row="3" column="1">
            <widget class="QPushButton" name="toolButton_text_color_first">
             <property name="maximumSize">
@@ -745,6 +745,30 @@
             </property>
            </widget>
           </item>
+          <item row="5" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <item>
+             <widget class="QToolButton" name="toolButton_switchSides">
+              <property name="text">
+               <string>Switch sides</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
        </item>
@@ -796,7 +820,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_raw_reset_first">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset all (1/2)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Reset all (1/2)</string>
               </property>
              </widget>
             </item>

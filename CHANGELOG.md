@@ -3,6 +3,7 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
+- (new): added button to switch sides/colors in settings dialog
 - (new): secondary screen can be positioned with custom offsets
 - (mod): manual now looks more professional
 - (new): whole new logo for Ipponboard

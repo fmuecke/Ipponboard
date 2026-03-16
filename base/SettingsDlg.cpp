@@ -242,7 +242,7 @@ void SettingsDlg::initialize_raw_bindings()
         if (binding.lineEdit)
         {
             binding.lineEdit->setValidator(validator);
-            binding.lineEdit->setPlaceholderText(tr("-1"));
+            binding.lineEdit->setPlaceholderText("-1");
         }
 
         if (binding.captureButton)
@@ -904,6 +904,16 @@ void Ipponboard::SettingsDlg::on_toolButton_text_background_second_pressed()
         ui->text_color_second->SetColor(ui->text_color_second->GetColor(), col);
 }
 
+void SettingsDlg::on_toolButton_switchSides_pressed()
+{
+    const auto firstFg = ui->text_color_first->GetColor();
+    const auto firstBg = ui->text_color_first->GetBgColor();
+    const auto secondFg = ui->text_color_second->GetColor();
+    const auto secondBg = ui->text_color_second->GetBgColor();
+    ui->text_color_first->SetColor(secondFg, secondBg);
+    ui->text_color_second->SetColor(firstFg, firstBg);
+}
+
 void Ipponboard::SettingsDlg::on_checkBox_text_bold_toggled(bool checked)
 {
     QFont f = ui->text_text_sample->font();
@@ -1122,7 +1132,7 @@ QStringList SettingsDlg::describe_axes_state() const
     const auto currSectionXY = m_gamepad->GetSection(EAxis::X, EAxis::Y);
     QString mapping =
         currSectionXY == 0 ? tr("Neutral") : describe_section_action(actions[currSectionXY]);
-    result << tr("%1: %2 (X=%4, Y=%6)")
+    result << QString("%1: %2 (X=%4, Y=%6)")
                   .arg(tr("Left stick"),
                        mapping,
                        QString::number(m_gamepad->GetPos(EAxis::X)),
@@ -1130,7 +1140,7 @@ QStringList SettingsDlg::describe_axes_state() const
 
     const auto currSectionRZ = m_gamepad->GetSection(EAxis::R, EAxis::Z);
     mapping = currSectionRZ == 0 ? tr("Neutral") : describe_section_action(actions[currSectionRZ]);
-    result << tr("%1: %2 (R=%4, Z=%6)")
+    result << QString("%1: %2 (R=%4, Z=%6)")
                   .arg(tr("Right stick"),
                        mapping,
                        QString::number(m_gamepad->GetPos(EAxis::R)),
@@ -1147,24 +1157,24 @@ QString SettingsDlg::describe_section_action(
     switch (action.action)
     {
     case eAction_Ippon:
-        actionName = tr("Ippon");
+        actionName = "Ippon";
         break;
     case eAction_Wazaari:
-        actionName = tr("Wazaari");
+        actionName = "Wazaari";
         break;
     case eAction_Yuko:
-        actionName = tr("Yuko");
+        actionName = "Yuko";
         break;
     case eAction_Shido:
-        actionName = tr("Shido");
+        actionName = "Shido";
         break;
     default:
-        actionName = tr("Unknown");
+        actionName = "Unknown";
         break;
     }
 
     const QString mode = action.revoke ? tr("revoke") : tr("award");
-    return tr("(%1) %2").arg(mode, actionName);
+    return QString("(%1) %2").arg(mode, actionName);
 }
 
 void SettingsDlg::updateCustomSizeUiState(bool customSelected)
