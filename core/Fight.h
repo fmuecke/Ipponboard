@@ -22,17 +22,14 @@ struct SimpleFighter
 
 class Fight
 {
-private:
-	enum
-	{
-		eScore_Ippon = 10,
-		eScore_Wazaari = 7,
-		eScore_Yuko = 5,
-		eScore_Hantai = 1,
-		eScore_Shido = 1,
-		eScore_Hikewake = 0,
-		eScore_Lost = 0
-	};
+public:
+    static constexpr int eScore_Ippon = 10;
+    static constexpr int eScore_Wazaari = 7;
+    static constexpr int eScore_Yuko = 5;
+    static constexpr int eScore_Hantai = 1;
+    static constexpr int eScore_Shido = 1;
+    static constexpr int eScore_Hikewake = 0;
+    static constexpr int eScore_Lost = 0;
 
 	bool _isGoldenScore { false };
 

@@ -301,6 +301,45 @@ Note: the time must be specified in seconds alone</string>
        </property>
       </widget>
      </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="toolTip">
+        <string></string>
+       </property>
+       <property name="text">
+        <string>Score Points</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="checkBox_scorePointsOverrides">
+         <property name="toolTip">
+          <string>Sub-scores have an override</string>
+         </property>
+         <property name="text">
+          <string>Sub-scores have an override</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_scorePointsOverrides">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>The overrides should be something like this:
+"I:100;W:10;Y:1;Ha:1;S:1;Hi:0;L:0"
+(&lt;identifier&gt;:&lt;points&gt;;&lt;identifier&gt;...)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -330,6 +369,7 @@ Note: the time must be specified in seconds alone</string>
   <tabstop>spinBox_rounds</tabstop>
   <tabstop>spinBox_fightTimeSeconds</tabstop>
   <tabstop>lineEdit_timeOverrides</tabstop>
+  <tabstop>lineEdit_scorePointsOverrides</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>

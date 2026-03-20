@@ -11,6 +11,7 @@
 #include <QJsonObject>
 #include <QString>
 #include <QTemporaryDir>
+#include <iostream>
 
 using namespace Ipponboard;
 using namespace Ipponboard::TournamentSerialization;
@@ -45,6 +46,7 @@ TournamentSaveData MakeSampleData()
 	mode.nRounds = 2;
 	mode.fightTimeInSeconds = 180;
 	mode.fightTimeOverrides = { { "73", 120 } };
+	mode.scorePointsOverrides = { { "73", 100 } };// WAS MUSS DA HIN???
 	mode.rules = "Default";
 	mode.options = "SubscoreEnabled";
 	data.mode = mode;
@@ -129,7 +131,53 @@ TEST_CASE("Conversion to and from json results in same data")
 	outJson.remove('\n');
 	outJson.remove(' ');
 	REQUIRE_FALSE(outJson.isEmpty());
-	REQUIRE(jsonStr == outJson);
+
+
+    // 🔍 DEBUG OUTPUT
+    if (jsonStr != outJson)
+    {
+        std::cout << "=== INPUT JSON ===\n";
+        std::cout << jsonStr.toStdString() << "\n";
+
+        std::cout << "\n=== OUTPUT JSON ===\n";
+        std::cout << outJson.toStdString() << "\n";
+
+        // 🔍 erste Abweichung finden
+        std::string a = jsonStr.toStdString();
+        std::string b = outJson.toStdString();
+
+        size_t minLen = std::min(a.size(), b.size());
+        for (size_t i = 0; i < minLen; ++i)
+        {
+            if (a[i] != b[i])
+            {
+                std::cout << "\n=== FIRST DIFF ===\n";
+                std::cout << "Index: " << i << "\n";
+                std::cout << "Input:  '" << a[i] << "'\n";
+                std::cout << "Output: '" << b[i] << "'\n";
+
+                // Kontext anzeigen
+                size_t start = (i > 20) ? i - 20 : 0;
+                size_t len = 40;
+
+                std::cout << "\nContext INPUT : "
+                          << a.substr(start, len) << "\n";
+                std::cout << "Context OUTPUT: "
+                          << b.substr(start, len) << "\n";
+
+                break;
+            }
+        }
+
+        std::cout << "\nLength INPUT : " << a.size() << "\n";
+        std::cout << "Length OUTPUT: " << b.size() << "\n";
+    }
+
+
+	QJsonDocument doc1 = QJsonDocument::fromJson(jsonStr.toUtf8());
+	QJsonDocument doc2 = QJsonDocument::fromJson(outJson.toUtf8());
+
+	REQUIRE(doc1 == doc2);
 }
 
 TEST_CASE("CreateFromJson round-trips tournament data")

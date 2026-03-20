@@ -37,6 +37,7 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 			<< "basic"
 			<< "with_weights_doubled"
 			<< "with_time_overrides"
+			<< "with_scorepoints_overrides"
 			<< "template_not_found"
 			<< "no_title"
 			<< "no_weights"
@@ -57,6 +58,10 @@ TEST_CASE("[TournamentMode] Test_parse_current_group")
 	REQUIRE(success);
 
 	success = IpponboardTest::parse_group(config, "with_time_overrides", errorMsg);
+	INFO(errorMsg.toStdString());
+	REQUIRE(success);
+
+	success = IpponboardTest::parse_group(config, "with_scorepoints_overrides", errorMsg);
 	INFO(errorMsg.toStdString());
 	REQUIRE(success);
 

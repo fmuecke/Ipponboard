@@ -88,6 +88,17 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
 		m_pUi->lineEdit_timeOverrides->setText(QString());
 	}
 
+	if (!mode.scorePointsOverrides.empty())
+	{
+		m_pUi->checkBox_scorePointsOverrides->setChecked(true);
+		m_pUi->lineEdit_scorePointsOverrides->setText(mode.GetScorePointsOverridesString());
+	}
+	else
+	{
+		m_pUi->checkBox_scorePointsOverrides->setChecked(false);
+		m_pUi->lineEdit_scorePointsOverrides->setText(QString());
+	}
+
 	auto rulesIndex = m_pUi->comboBox_rules->findText(mode.rules);
 
 	if (rulesIndex != -1)
@@ -128,6 +139,16 @@ void ModeManagerDlg::on_checkBox_timeOverrides_toggled(bool checked)
 	}
 
 	m_pUi->lineEdit_timeOverrides->setEnabled(checked);
+}
+
+void ModeManagerDlg::on_checkBox_scorePointsOverrides_toggled(bool checked)
+{
+	if (!has_Mode())
+	{
+		return;
+	}
+
+	m_pUi->lineEdit_scorePointsOverrides->setEnabled(checked);
 }
 
 void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
@@ -279,6 +300,25 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
 	else
 	{
 		m_pUi->lineEdit_timeOverrides->setStyleSheet("color : red;");
+	}
+}
+
+void ModeManagerDlg::on_lineEdit_scorePointsOverrides_textChanged(const QString& s)
+{
+	if (!has_Mode())
+	{
+		return;
+	}
+
+	auto& mode = GetCurrentMode();
+
+	if (s.isEmpty() || TournamentMode::ExtractScorePointsOverrides(s, mode.scorePointsOverrides))
+	{
+		m_pUi->lineEdit_scorePointsOverrides->setStyleSheet("color : black;");
+	}
+	else
+	{
+		m_pUi->lineEdit_scorePointsOverrides->setStyleSheet("color : red;");
 	}
 }
 

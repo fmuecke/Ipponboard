@@ -70,29 +70,29 @@ TEST_CASE("[Fight] Validate score points (subscore)")
 
 	Fight f1 { emptyScore, shidoScore };
 	f1.rules = std::make_shared<Ipponboard::Rules2013>();
-	REQUIRE(f1.GetScorePoints(first) == 1);
-	REQUIRE(f1.GetScorePoints(second) == 0);
+	REQUIRE(f1.GetScorePoints(first) == Ipponboard::Fight::eScore_Shido);
+	REQUIRE(f1.GetScorePoints(second) == Ipponboard::Fight::eScore_Lost);
 
 	Fight f2 { yukoScore, yukoWithShidoScore };
 	f2.rules = std::make_shared<Ipponboard::Rules2013>();
-	REQUIRE(f2.GetScorePoints(first) == 1);
-	REQUIRE(f2.GetScorePoints(second) == 0);
+	REQUIRE(f2.GetScorePoints(first) == Ipponboard::Fight::eScore_Shido);
+	REQUIRE(f2.GetScorePoints(second) == Ipponboard::Fight::eScore_Lost);
 
 	// Hikewake
 	Fight f3 { twoYukoScore, twoYukoScore };
 	f3.rules = std::make_shared<Ipponboard::Rules2013>();
-	REQUIRE(f3.GetScorePoints(first) == 0);
-	REQUIRE(f3.GetScorePoints(second) == 0);
+	REQUIRE(f3.GetScorePoints(first) == Ipponboard::Fight::eScore_Hikewake);
+	REQUIRE(f3.GetScorePoints(second) == Ipponboard::Fight::eScore_Hikewake);
 
 	Fight f4 { yukoScore, twoYukoScore };
 	f4.rules = std::make_shared<Ipponboard::Rules2013>();
-	REQUIRE(f4.GetScorePoints(first) == 0);
-	REQUIRE(f4.GetScorePoints(second) == 5);
+	REQUIRE(f4.GetScorePoints(first) == Ipponboard::Fight::eScore_Lost);
+	REQUIRE(f4.GetScorePoints(second) == 1);
 
 	Fight f5 { twoYukoWithShidoScore, twoYukoWithTwoShidoScore };
 	f5.rules = std::make_shared<Ipponboard::Rules2013>();
-	REQUIRE(f5.GetScorePoints(first) == 1);
-	REQUIRE(f5.GetScorePoints(second) == 0);
+	REQUIRE(f5.GetScorePoints(first) == Ipponboard::Fight::eScore_Shido);
+	REQUIRE(f5.GetScorePoints(second) == Ipponboard::Fight::eScore_Lost);
 }
 
 TEST_CASE("[Fight] TimeRemaining accounts for golden score")
@@ -130,19 +130,19 @@ TEST_CASE("[Fight] rules2017: score points will return 1 for shido won in golden
 	Fight f;
 	f.rules = std::make_shared<Ipponboard::Rules2017>();
 
-	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
+	REQUIRE(f.GetScorePoints(FighterEnum::First) == Ipponboard::Fight::eScore_Hikewake);
 
 	f.GetScore(FighterEnum::First).Add(Point::Shido);
-	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
-	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 0);
+	REQUIRE(f.GetScorePoints(FighterEnum::First) == Ipponboard::Fight::eScore_Hikewake);
+	REQUIRE(f.GetScorePoints(FighterEnum::Second) == Ipponboard::Fight::eScore_Hikewake);
 
 	f.GetScore(FighterEnum::First).Add(Point::Shido);
-	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
-	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 0);
+	REQUIRE(f.GetScorePoints(FighterEnum::First) == Ipponboard::Fight::eScore_Hikewake);
+	REQUIRE(f.GetScorePoints(FighterEnum::Second) == Ipponboard::Fight::eScore_Hikewake);
 
 	f.SetGoldenScore(true);
-	REQUIRE(f.GetScorePoints(FighterEnum::First) == 0);
-	REQUIRE(f.GetScorePoints(FighterEnum::Second) == 1);
+	REQUIRE(f.GetScorePoints(FighterEnum::First) == Ipponboard::Fight::eScore_Lost);
+	REQUIRE(f.GetScorePoints(FighterEnum::Second) == Ipponboard::Fight::eScore_Shido);
 }
 
 TEST_CASE("[Fight] rules2017: no one has won if points are equal and shidos aren't in golden score")

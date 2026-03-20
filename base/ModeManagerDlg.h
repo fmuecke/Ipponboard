@@ -36,6 +36,7 @@ private slots:
 	void on_comboBox_rules_currentIndexChanged(int);
 	// checkBoxes
 	void on_checkBox_timeOverrides_toggled(bool checked);
+	void on_checkBox_scorePointsOverrides_toggled(bool checked);
 	void on_checkBox_doubleWeights_toggled(bool checked);
 	void on_checkBox_allSubscoresCount_toggled(bool checked);
 	// buttons
@@ -50,6 +51,7 @@ private slots:
 	void on_lineEdit_title_textChanged(QString const& s);
 	void on_lineEdit_subtitle_textChanged(QString const& s);
 	void on_lineEdit_timeOverrides_textChanged(QString const& s);
+	void on_lineEdit_scorePointsOverrides_textChanged(QString const& s);
 
 private:
 	void update_fights_per_round(Ipponboard::TournamentMode const& mode);
