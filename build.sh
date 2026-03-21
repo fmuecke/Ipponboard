@@ -45,7 +45,6 @@ function init_environment {
 		source "$LOCAL_CONFIG"
 	else
 		echo "set \"LINUX_QTDIR=\$HOME/Qt/6.9.2/gcc_64\"" >> "$LOCAL_CONFIG"
-		echo "set \"LINUX_BOOST_DIR=/home/user/devtools/boost_1_81_0\"" >> "$LOCAL_CONFIG"
 		echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
 		read -p "Press enter to continue"
 		exit 1
@@ -56,7 +55,6 @@ function init_environment {
     export CONFIG="release"
     export IPPONBOARD_ROOT_DIR="$PWD"
     export QTDIR="$LINUX_QTDIR"
-    export BOOST_DIR="$LINUX_BOOST_DIR"
     export BUILD_DIR="$IPPONBOARD_ROOT_DIR/_build/Ipponboard-Linux"
     export BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Ipponboard-$CONFIG"
     export TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Test-$CONFIG"
@@ -77,7 +75,6 @@ function show_menu {
     Current config ($CONFIG):
 
         QTDIR     : $QTDIR
-        BOOST_DIR : $BOOST_DIR
         ROOT_DIR  : $IPPONBOARD_ROOT_DIR
         BUILD_DIR : $BUILD_DIR
         BIN_DIR   : $BIN_DIR

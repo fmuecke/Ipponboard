@@ -264,6 +264,30 @@ TEST_CASE("[Controller] Open ended golden score increments main timer")
     CHECK(controller.GetCurrentState() == eState_TimerRunning);
 }
 
+TEST_CASE("[Controller] Golden score hold scoring keeps fight active until decisive score")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    auto rules = std::make_shared<Ipponboard::ClassicRules>();
+    controller.SetRules(rules);
+    controller.SetAutoAdjustPoints(true);
+    controller.SetGoldenScore(true);
+
+    fixture.startFight();
+    fixture.beginHold(FighterEnum::First);
+
+    const auto yukoAt = rules->GetOsaekomiValue(Score::Point::Yuko);
+    const auto wazaariAt = rules->GetOsaekomiValue(Score::Point::Wazaari);
+
+    fixture.advanceHoldTime(yukoAt);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Yuko) == 1);
+    CHECK(controller.GetCurrentState() == eState_Holding);
+
+    fixture.advanceHoldTime(wazaariAt - yukoAt);
+    CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 1);
+    CHECK(controller.GetCurrentState() == eState_Holding);
+}
+
 TEST_CASE("[Controller] Auto adjust points option toggles")
 {
     ControllerFixture fixture;

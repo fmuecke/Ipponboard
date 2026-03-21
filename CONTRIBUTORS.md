@@ -14,7 +14,6 @@ Your contributions, whether big or small, are greatly appreciated!
 
 - **Heini Schäfer** - for the idea, the incentive, the criticism and the know-how
 - **My wife Anja** - for her patience
-- **Christophe Henry** - for 'boost::msm
 - **TSV Königsbrunn, Post SV Telekom Augsburg, TSV Peiting, TSV München-Grosshadern, 
  DJK Ingolstadt, PSV München, TSV Mainburg** - and many more clubs for their trust and feedback.
  

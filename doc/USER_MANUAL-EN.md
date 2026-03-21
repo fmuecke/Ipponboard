@@ -33,9 +33,6 @@ Ipponboard uses the following third-party components, which are licensed under t
   - This application dynamically links to the Qt libraries. You have the freedom to replace the Qt libraries used by this application with your own modified versions.
   - For more details, refer to the [LGPL v3](licenses/Qt6/LICENSE) license text included in the `licenses` folder or available online at [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html).
 
-- **[Boost C++ libraries](http://www.boost.org)**
-  - Licensed under [Boost Software License](licenses/boost/LICENSE_1_0.txt).
-
 - **Microsoft Visual C++ CRT**
   - Licensed under [Visual Studio 2013 Redistributables License](licenses/MSVC/redist.txt).
 
@@ -59,7 +56,6 @@ My special thanks go to the following people who contributed significantly to it
 
 - Heini Schäfer - for the idea, the incentive, the criticism and the know-how
 - My wife Anja for her patience
-- Christophe Henry - for 'boost::msm
 - as well as the following clubs for trust and feedback: 
   *TSV Königsbrunn, Post SV Telekom Augsburg, TSV Peiting, TSV München-Grosshadern, 
  DJK Ingolstadt, PSV München, TSV Mainburg*, and many more.

@@ -58,7 +58,7 @@ TEST_CASE("[StateMachine] Ippon stops both timers and ends the fight")
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Ippon());
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerStopped);
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
 }
 
 TEST_CASE("[StateMachine] Wazaari below match point keeps timers running")
@@ -74,7 +74,7 @@ TEST_CASE("[StateMachine] Wazaari below match point keeps timers running")
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Wazaari() == 1);
     REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
     REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerRunning);
+    REQUIRE(fixture.machine.current_state() == eState_TimerRunning);
 }
 
 TEST_CASE("[StateMachine] Wazaari match point stops the fight")
@@ -93,7 +93,7 @@ TEST_CASE("[StateMachine] Wazaari match point stops the fight")
             fixture.core.GetRules()->GetMaxWazaariCount());
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerStopped);
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
 }
 
 TEST_CASE("[StateMachine] Wazaari blocked when awasete is disabled and max reached")
@@ -110,7 +110,7 @@ TEST_CASE("[StateMachine] Wazaari blocked when awasete is disabled and max reach
 
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Wazaari() == 2);
     REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerRunning);
+    REQUIRE(fixture.machine.current_state() == eState_TimerRunning);
 }
 
 TEST_CASE("[StateMachine] Shido match point awards opponent and stops timers")
@@ -130,7 +130,7 @@ TEST_CASE("[StateMachine] Shido match point awards opponent and stops timers")
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Ippon());
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
     REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerStopped);
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
 }
 
 TEST_CASE("[StateMachine] Revoke wazaari restores score without side effects")
@@ -144,7 +144,7 @@ TEST_CASE("[StateMachine] Revoke wazaari restores score without side effects")
 
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Wazaari() == 0);
     REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
-    REQUIRE(EState(fixture.machine.current_state()[0]) == eState_TimerStopped);
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
 }
 
 TEST_CASE("[StateMachine] Revoke shido removes automatic opponent points")
@@ -165,6 +165,84 @@ TEST_CASE("[StateMachine] Revoke shido removes automatic opponent points")
 
     REQUIRE(fixture.core.mutable_score(FighterEnum::Second).Shido() == 1);
     REQUIRE(fixture.core.mutable_score(FighterEnum::First).Yuko() == 0);
+}
+
+TEST_CASE("[StateMachine] Finish while running stops timers and saves the fight")
+{
+    StateMachineFixture fixture;
+    fixture.core.set_time(eTimer_Main, 90);
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.core.clear_observations();
+
+    fixture.process(IpponboardSM_::Finish{});
+
+    REQUIRE(fixture.core.fight_saved);
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
+}
+
+TEST_CASE("[StateMachine] Reset while running resets fight and returns to stopped")
+{
+    StateMachineFixture fixture;
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.core.clear_observations();
+
+    fixture.process(IpponboardSM_::Reset{});
+
+    REQUIRE(fixture.core.fight_reset);
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
+}
+
+TEST_CASE("[StateMachine] Hold release resumes running when main time is left")
+{
+    StateMachineFixture fixture;
+    fixture.core.set_time(eTimer_Main, 15);
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.process(IpponboardSM_::Osaekomi_Toketa{});
+    fixture.core.clear_observations();
+
+    fixture.process(IpponboardSM_::Osaekomi_Toketa{});
+
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
+    REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
+    REQUIRE(fixture.machine.current_state() == eState_TimerRunning);
+}
+
+TEST_CASE("[StateMachine] Hold release stops the fight when main time is up")
+{
+    StateMachineFixture fixture;
+    fixture.core.set_time(eTimer_Main, 0);
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.process(IpponboardSM_::Osaekomi_Toketa{});
+    fixture.core.clear_observations();
+
+    fixture.process(IpponboardSM_::Osaekomi_Toketa{});
+
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
+    REQUIRE_FALSE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
+}
+
+TEST_CASE("[StateMachine] Hansokumake awards opponent ippon and stops timers")
+{
+    StateMachineFixture fixture;
+    fixture.core.set_time(eTimer_Main, 60);
+
+    fixture.process(IpponboardSM_::Hajime_Mate{});
+    fixture.core.clear_observations();
+
+    fixture.process(IpponboardSM_::Hansokumake(FighterEnum::Second));
+
+    REQUIRE(fixture.core.mutable_score(FighterEnum::Second).Hansokumake());
+    REQUIRE(fixture.core.mutable_score(FighterEnum::First).Ippon());
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Main));
+    REQUIRE(fixture.core.timer_event_occurred(TimerEventType::Stop, eTimer_Hold));
+    REQUIRE(fixture.machine.current_state() == eState_TimerStopped);
 }
 
 TEST_CASE("[StateMachine] Hold time auto-adjust awards progressive scores")

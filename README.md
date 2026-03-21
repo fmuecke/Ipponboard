@@ -58,7 +58,6 @@ Please acknowledge all the different contributors in [CONTRIBUTORS.md](CONTRIBUT
 Ipponboard targets a Qt 6.9.x toolchain with modern C++ (C++20). Quick prerequisites:
 
 - Qt 6.9.2 (desktop kits: `gcc_64` on Linux, `msvc2022_64` on Windows)
-- Boost 1.89 headers
 - CMake ≥ 3.29 with Ninja installed
 - Compilers: gcc 13+ on Linux, Visual Studio 2022 (VC143) on Windows
 
