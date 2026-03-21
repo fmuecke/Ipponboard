@@ -1,3 +1,10 @@
+#
+# Ipponboard build script
+#
+
+# suppresses hanging progress bars
+$ProgressPreference = 'SilentlyContinue'
+
 function Check-cmake {
     $cmake = Get-Command cmake -ErrorAction SilentlyContinue
     if ($cmake -eq $null) {
