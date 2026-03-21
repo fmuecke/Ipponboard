@@ -427,10 +427,6 @@ Geldige velden zijn: %1</target>
     <target>Ctrl+O</target>
 </phrase>
 <phrase>
-    <source>Save</source>
-    <target>Opslaan</target>
-</phrase>
-<phrase>
     <source>Ctrl+S</source>
     <target>Ctrl+S</target>
 </phrase>
@@ -665,10 +661,6 @@ Geldige velden zijn: %1</target>
 <phrase>
     <source> (saved)</source>
     <target></target>
-</phrase>
-<phrase>
-    <source>Save</source>
-    <target>Opslaan</target>
 </phrase>
 <phrase>
     <source>Next</source>

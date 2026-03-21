@@ -410,7 +410,7 @@ void FighterManagerDlg::on_pushButton_settings_pressed()
     // at least 3 parts must be set (first, last, ...)
     while (ok && (!isValidSeparator || dataParts.size() < 3))
     {
-        QMessageBox::critical(this, tr(""), tr("Invalid format. Please correct your input."));
+        QMessageBox::critical(this, "", tr("Invalid format. Please correct your input."));
 
         inputString =
             QInputDialog::getText(this, dlgTitle, dlgMsg, QLineEdit::Normal, inputString, &ok);

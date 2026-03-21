@@ -75,38 +75,38 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
 int ShowSplashScreen()
 {
-    auto t1 = QCoreApplication::tr("the score board for judoka by judoka");
-    auto t2 = QCoreApplication::tr("Judo is part of our lives.");
-    auto t3 = QCoreApplication::tr(
-        "Therefore, Ipponboard is not just a simple Judo display program, but developed with "
-        "passion by judoka for judoka. It was intended to not just support the people at the "
-        "timekeeper table, but also for the trainers, the audience and the fighters themselves.");
-    auto t4 = QCoreApplication::tr(
-        "Ipponboard is not only clearly readable but also revolutionary easy and intuitive to use. "
-        "Therefore, it is appreciated by clubs and organizations around the world and has been "
-        "used for many years at major championships.");
-    //auto t5 = QCoreApplication::tr("This version can be used without restriction. Copying in unchanged form is permitted.");
-    auto t5 = QCoreApplication::tr("If you like Ipponboard, please support its development by:");
-    auto t6 = QCoreApplication::tr("feedback");
-    auto t7 = QCoreApplication::tr("wishes and suggestions");
-    auto t8 = QCoreApplication::tr("or by giving appreciative donations");
+    /*
+Ipponboard – the judo scoreboard by judoka for judoka
 
-    auto text = QString("<html><body><p><big><span "
-                        "style=\"color:#336699;font-weight:bold\">Ipponboard</span> - %1</big></p>"
-                        "<blockquote><p><em><b>%2</b> %3 %4</em></p></blockquote>"
-                        "<p>%5<ul>"
-                        "<li>%6</li>"
-                        "<li>%7</li>"
-                        "<li>%8</li></ul></p>")
-                    .arg(t1, t2, t3, t4, t5, t6, t7, t8);
+Judo is part of our lives. That is why Ipponboard was created by judoka for judoka.
+It supports timekeepers, coaches, competitors, and the audience — clearly readable and easy to use.
+Today Ipponboard is used by clubs and organizers around the world.
 
-    auto t10 = QCoreApplication::tr("For more see the");
-    auto t11 = QCoreApplication::tr("Ipponboard project on GitHub");
-    auto t12 = QCoreApplication::tr("Thank you very much!");
+If you like Ipponboard, please support its development:
 
-    text += QString("%10 <a href=\"https://github.com/fmuecke/Ipponboard\">%11</a>."
-                    "<p><em>%12</em></p></body></html>")
-                .arg(t10, t11, t12);
+• Feedback and suggestions
+• Report issues
+• A donation to support the project
+
+More information on GitHub.
+*/
+
+    auto title = QCoreApplication::tr("the 🥋 Judo scoreboard");
+    auto story = QCoreApplication::tr(
+        "Developed by judoka for judoka.<br/>"
+        "Clear and easy to use — for timekeepers, coaches, competitors, and the audience.");
+    auto callForSupprt = QCoreApplication::tr("Support the project:");
+    auto howToSupport = QCoreApplication::tr("Feedback · Report issues · Donations");
+    auto github = QCoreApplication::tr("More on %1.")
+                      .arg("<a href=\"https://github.com/fmuecke/Ipponboard\">GitHub</a>");
+
+    auto text = QString("<html><body style=\"margin: 10;text-align: left;\"><p><br/><big><span "
+                        "style=\"color:#336699;font-weight:bold\"><em>Ipponboard</em></"
+                        "span> - <b>%1</b></big></p>")
+                    .arg(title);
+    text += QString("<p>%1</p>").arg(story);
+    text += QString("<p><b>%1</b><br/>%2</p>").arg(callForSupprt, howToSupport);
+    text += QString("<p>%1</p></body></html>").arg(github);
 
     SplashScreen::Data splashData;
     splashData.text = text;

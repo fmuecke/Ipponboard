@@ -70,7 +70,7 @@ void FightCategoryManagerDlg::on_pushButton_add_pressed()
     while (ok && m_pClassMgr->HasCategory(name))
     {
         QMessageBox::critical(
-            this, tr(""), tr("This category already exists. Please choose an other name."));
+            this, "", tr("This category already exists. Please choose an other name."));
 
         name = QInputDialog::getText(this,
                                      tr("Add new category"),

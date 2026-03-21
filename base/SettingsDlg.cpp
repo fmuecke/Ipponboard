@@ -288,7 +288,7 @@ void SettingsDlg::initialize_raw_bindings()
         if (binding.lineEdit)
         {
             binding.lineEdit->setValidator(validator);
-            binding.lineEdit->setPlaceholderText(tr("-1"));
+            binding.lineEdit->setPlaceholderText("-1");
         }
 
         if (binding.captureButton)

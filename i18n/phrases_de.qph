@@ -1,0 +1,869 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en_US" language="de_DE">
+<phrase>
+    <source>saved</source>
+    <target>gespeichert</target>
+</phrase>
+<phrase>
+    <source>Sub score</source>
+    <target>Unterbewertung</target>
+</phrase>
+<phrase>
+    <source>Wins</source>
+    <target>Siege</target>
+</phrase>
+<phrase>
+    <source>Rounds</source>
+    <target>Runden</target>
+</phrase>
+<phrase>
+    <source>Ippon</source>
+    <target>Ippon</target>
+</phrase>
+<phrase>
+    <source>Shido</source>
+    <target>Shido</target>
+</phrase>
+<phrase>
+    <source>Wazaari</source>
+    <target>Wazaari</target>
+</phrase>
+<phrase>
+    <source>Yuko</source>
+    <target>Yuko</target>
+</phrase>
+<phrase>
+    <source>About</source>
+    <target>Über</target>
+</phrase>
+<phrase>
+    <source>About Ipponboard</source>
+    <target>Über Ipponboard</target>
+</phrase>
+<phrase>
+    <source>Activate Golden Score</source>
+    <target>Golden-Score einschalten</target>
+</phrase>
+<phrase>
+    <source>Add</source>
+    <target>Hinzufügen</target>
+</phrase>
+<phrase>
+    <source>Add Fighter</source>
+    <target>Kämpfer hinzufügen</target>
+</phrase>
+<phrase>
+    <source>Add new category</source>
+    <target>Neue Kategorie hinzufügen</target>
+</phrase>
+<phrase>
+    <source>Address</source>
+    <target>Adresse</target>
+</phrase>
+<phrase>
+    <source>All sub-scores count</source>
+    <target>Alle Unterbewertungen zählen</target>
+</phrase>
+<phrase>
+    <source>Auto adjust points</source>
+    <target>Wertungen automatisch setzen</target>
+</phrase>
+<phrase>
+    <source>Auto Adjust Points</source>
+    <target>Wertungen automatisch setzen</target>
+</phrase>
+<phrase>
+    <source>Backspace</source>
+    <target>Rücktaste</target>
+</phrase>
+<phrase>
+    <source>Board</source>
+    <target>Anzeigetafel</target>
+</phrase>
+<phrase>
+    <source>bold</source>
+    <target>fett</target>
+</phrase>
+<phrase>
+    <source>Cancel</source>
+    <target>Abbrechen</target>
+</phrase>
+<phrase>
+    <source>Categories</source>
+    <target>Kategorien</target>
+</phrase>
+<phrase>
+    <source>Category</source>
+    <target>Kategorie</target>
+</phrase>
+<phrase>
+    <source>Class</source>
+    <target>Klasse</target>
+</phrase>
+<phrase>
+    <source>Classic Rules</source>
+    <target>Klassische Regeln</target>
+</phrase>
+<phrase>
+    <source>Clear</source>
+    <target>Löschen</target>
+</phrase>
+<phrase>
+    <source>Club/Team</source>
+    <target>Verein/Mannschaft</target>
+</phrase>
+<phrase>
+    <source>Clubs</source>
+    <target>Vereine</target>
+</phrase>
+<phrase>
+    <source>Contribute</source>
+    <target>Beitragen</target>
+</phrase>
+<phrase>
+    <source>Controller</source>
+    <target>Steuerung</target>
+</phrase>
+<phrase>
+    <source>Copy</source>
+    <target>Kopieren</target>
+</phrase>
+<phrase>
+    <source>Ctrl</source>
+    <target>Strg</target>
+</phrase>
+<phrase>
+    <source>Date</source>
+    <target>Datum</target>
+</phrase>
+<phrase>
+    <source>Details</source>
+    <target>Details</target>
+</phrase>
+<phrase>
+    <source>secondary screen</source>
+    <target>Sekundäre Anzeige</target>
+</phrase>
+<phrase>
+    <source>Down</source>
+    <target>Runter</target>
+</phrase>
+<phrase>
+    <source>Download</source>
+    <target>Herunterladen</target>
+</phrase>
+<phrase>
+    <source>Dutch</source>
+    <target>Niederländisch</target>
+</phrase>
+<phrase>
+    <source>End Ipponboard</source>
+    <target>Ipponboard beenden</target>
+</phrase>
+<phrase>
+    <source>Error</source>
+    <target>Fehler</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>Beenden</target>
+</phrase>
+<phrase>
+    <source>Export fighters</source>
+    <target>Kämpfer exportieren</target>
+</phrase>
+<phrase>
+    <source>Extended</source>
+    <target>Erweitert</target>
+</phrase>
+<phrase>
+    <source>F1</source>
+    <target>F1</target>
+</phrase>
+<phrase>
+    <source>F10</source>
+    <target>F10</target>
+</phrase>
+<phrase>
+    <source>F11</source>
+    <target>F11</target>
+</phrase>
+<phrase>
+    <source>F2</source>
+    <target>F2</target>
+</phrase>
+<phrase>
+    <source>F4</source>
+    <target>F4</target>
+</phrase>
+<phrase>
+    <source>F5</source>
+    <target>F5</target>
+</phrase>
+<phrase>
+    <source>F6</source>
+    <target>F6</target>
+</phrase>
+<phrase>
+    <source>F7</source>
+    <target>F7</target>
+</phrase>
+<phrase>
+    <source>F8</source>
+    <target>F8</target>
+</phrase>
+<phrase>
+    <source>F9</source>
+    <target>F9</target>
+</phrase>
+<phrase>
+    <source>feedback</source>
+    <target>Feedback</target>
+</phrase>
+<phrase>
+    <source>Fight</source>
+    <target>Kampf</target>
+</phrase>
+<phrase>
+    <source>Fight Categories</source>
+    <target>Kategorien</target>
+</phrase>
+<phrase>
+    <source>Fight Time</source>
+    <target>Kampfzeit</target>
+</phrase>
+<phrase>
+    <source>Fighters</source>
+    <target>Kämpfer</target>
+</phrase>
+<phrase>
+    <source>FIGHTS_PER_ROUND</source>
+    <target>Kämpfe pro Runde</target>
+</phrase>
+<phrase>
+    <source>File</source>
+    <target>Datei</target>
+</phrase>
+<phrase>
+    <source>Final score:</source>
+    <target>Endstand:</target>
+</phrase>
+<phrase>
+    <source>First</source>
+    <target>Erster</target>
+</phrase>
+<phrase>
+    <source>FIRST FIGHTER</source>
+    <target>ERSTER KÄMPFER</target>
+</phrase>
+<phrase>
+    <source>First Fighter</source>
+    <target>Erster Kämpfer</target>
+</phrase>
+<phrase>
+    <source>First Fighter (first last)</source>
+    <target>Erster Kämpfer (Vorname Nachname)</target>
+</phrase>
+<phrase>
+    <source>First Name</source>
+    <target>Vorname</target>
+</phrase>
+<phrase>
+    <source>First name</source>
+    <target>Vorname</target>
+</phrase>
+<phrase>
+    <source>Firstname Lastname</source>
+    <target>Vorname Nachname</target>
+</phrase>
+<phrase>
+    <source>Fonts &amp;&amp; Colors</source>
+    <target>Schriften &amp;&amp; Farben</target>
+</phrase>
+<phrase>
+    <source>Form</source>
+    <target>Mannschaftswertung</target>
+</phrase>
+<phrase>
+    <source>Gamepad</source>
+    <target>Gamepad</target>
+</phrase>
+<phrase>
+    <source>General</source>
+    <target>Allgemein</target>
+</phrase>
+<phrase>
+    <source>Golden Score</source>
+    <target>Golden-Score</target>
+</phrase>
+<phrase>
+    <source>Golden Score Time</source>
+    <target>Golden-Score Zeit</target>
+</phrase>
+<phrase>
+    <source>GS</source>
+    <target>GS</target>
+</phrase>
+<phrase>
+    <source>GS Time</source>
+    <target>GS Zeit</target>
+</phrase>
+<phrase>
+    <source>Guest</source>
+    <target>Gast</target>
+</phrase>
+<phrase>
+    <source>Guest Label</source>
+    <target>Gast-Beschriftung</target>
+</phrase>
+<phrase>
+    <source>Hajime/Mate</source>
+    <target>Hajime/Mate</target>
+</phrase>
+<phrase>
+    <source>Hansokumake</source>
+    <target>Hansokumake</target>
+</phrase>
+<phrase>
+    <source>Height</source>
+    <target>Höhe</target>
+</phrase>
+<phrase>
+    <source>Hide results</source>
+    <target>Ergebnis verstecken</target>
+</phrase>
+<phrase>
+    <source>Home</source>
+    <target>Heim</target>
+</phrase>
+<phrase>
+    <source>Host</source>
+    <target>Ausrichter</target>
+</phrase>
+<phrase>
+    <source>Rules</source>
+    <target>Regeln</target>
+</phrase>
+<phrase>
+    <source>Import fighters</source>
+    <target>Kämpfer importieren</target>
+</phrase>
+<phrase>
+    <source>Import Fighters</source>
+    <target>Kämpfer importieren</target>
+</phrase>
+<phrase>
+    <source>Info Bar</source>
+    <target>Info-Zeile</target>
+</phrase>
+<phrase>
+    <source>Invert R axis</source>
+    <target>R-Achse invertieren</target>
+</phrase>
+<phrase>
+    <source>Invert X axis</source>
+    <target>X-Achse invertieren</target>
+</phrase>
+<phrase>
+    <source>Invert Y axis</source>
+    <target>Y-Achse invertieren</target>
+</phrase>
+<phrase>
+    <source>Invert Z axis</source>
+    <target>Z-Achse invertieren</target>
+</phrase>
+<phrase>
+    <source>Ipponboard</source>
+    <target>Ipponboard</target>
+</phrase>
+<phrase>
+    <source>Ipponboard project</source>
+    <target>Ipponboard-Projekt</target>
+</phrase>
+<phrase>
+    <source>italic</source>
+    <target>kursiv</target>
+</phrase>
+<phrase>
+    <source>Keep</source>
+    <target>Behalten</target>
+</phrase>
+<phrase>
+    <source>Key</source>
+    <target>Taste</target>
+</phrase>
+<phrase>
+    <source>Keyboard</source>
+    <target>Tastatur</target>
+</phrase>
+<phrase>
+    <source>Language</source>
+    <target>Sprache</target>
+</phrase>
+<phrase>
+    <source>Last Name</source>
+    <target>Nachname</target>
+</phrase>
+<phrase>
+    <source>Last name</source>
+    <target>Nachname</target>
+</phrase>
+<phrase>
+    <source>Leave Ipponboard</source>
+    <target>Ipponboard verlassen</target>
+</phrase>
+<phrase>
+    <source>Left</source>
+    <target>Links</target>
+</phrase>
+<phrase>
+    <source>List</source>
+    <target>Liste</target>
+</phrase>
+<phrase>
+    <source>List (Ctrl+1)</source>
+    <target>Liste (Strg+1)</target>
+</phrase>
+<phrase>
+    <source>Load Demo Data</source>
+    <target>Beispieldaten laden</target>
+</phrase>
+<phrase>
+    <source>Location</source>
+    <target>Ort</target>
+</phrase>
+<phrase>
+    <source>Logo</source>
+    <target>Wappen</target>
+</phrase>
+<phrase>
+    <source>Manage</source>
+    <target>Verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage Clubs</source>
+    <target>Vereine verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage fight categories</source>
+    <target>Kategorien und Gewichtsklassen verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage Fight Categories</source>
+    <target>Kategorien verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage fighters</source>
+    <target>Kämpfer verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage Fighters</source>
+    <target>Kämpfer verwalten</target>
+</phrase>
+<phrase>
+    <source>Manage tournament modes</source>
+    <target>Die Wettkampfmodi verwalten</target>
+</phrase>
+<phrase>
+    <source>Mat</source>
+    <target>Matte</target>
+</phrase>
+<phrase>
+    <source>Mat Label</source>
+    <target>Mattenbeschriftung</target>
+</phrase>
+<phrase>
+    <source>Mat Signal</source>
+    <target>Mattensignal</target>
+</phrase>
+<phrase>
+    <source>min</source>
+    <target>Min</target>
+</phrase>
+<phrase>
+    <source>Mode</source>
+    <target>Modus</target>
+</phrase>
+<phrase>
+    <source>Mode Management</source>
+    <target>Modusverwaltung</target>
+</phrase>
+<phrase>
+    <source>Modes</source>
+    <target>Modusverwaltung</target>
+</phrase>
+<phrase>
+    <source>Modifier</source>
+    <target>Modifizierer</target>
+</phrase>
+<phrase>
+    <source>Name</source>
+    <target>Name</target>
+</phrase>
+<phrase>
+    <source>New</source>
+    <target>Neu</target>
+</phrase>
+<phrase>
+    <source>Next</source>
+    <target>Nächster</target>
+</phrase>
+<phrase>
+    <source>Next fight</source>
+    <target>Nächster Kampf</target>
+</phrase>
+<phrase>
+    <source>Ok</source>
+    <target>Ok</target>
+</phrase>
+<phrase>
+    <source>Open</source>
+    <target>Öffnen</target>
+</phrase>
+<phrase>
+    <source>Options</source>
+    <target>Optionen</target>
+</phrase>
+<phrase>
+    <source>Options:</source>
+    <target>Optionen:</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa</source>
+    <target>Osaekomi/Toketa</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa (blue)</source>
+    <target>Osaekomi/Toketa (Blau)</target>
+</phrase>
+<phrase>
+    <source>Osaekomi/Toketa (white)</source>
+    <target>Osaekomi/Toketa (Weiß)</target>
+</phrase>
+<phrase>
+    <source>Paste</source>
+    <target>Einfügen</target>
+</phrase>
+<phrase>
+    <source>Pause screen</source>
+    <target>Pause-Bildschirm</target>
+</phrase>
+<phrase>
+    <source>Play</source>
+    <target>Abspielen</target>
+</phrase>
+<phrase>
+    <source>Play Mat Signal</source>
+    <target>Mattensignal</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>Einstellungen</target>
+</phrase>
+<phrase>
+    <source>Prev</source>
+    <target>Vorheriger</target>
+</phrase>
+<phrase>
+    <source>Prev fight</source>
+    <target>Vorheriger Kampf</target>
+</phrase>
+<phrase>
+    <source>Previous</source>
+    <target>Vorheriger</target>
+</phrase>
+<phrase>
+    <source>Print</source>
+    <target>Drucken</target>
+</phrase>
+<phrase>
+    <source>Remaining</source>
+    <target>Restzeit</target>
+</phrase>
+<phrase>
+    <source>Remove</source>
+    <target>Entfernen</target>
+</phrase>
+<phrase>
+    <source>Remove item</source>
+    <target>Eintrag entfernen</target>
+</phrase>
+<phrase>
+    <source>Report a Bug</source>
+    <target>Fehler melden</target>
+</phrase>
+<phrase>
+    <source>Reset</source>
+    <target>Zurücksetzen</target>
+</phrase>
+<phrase>
+    <source>Reset all</source>
+    <target>Zurücksetzen (ALLES)</target>
+</phrase>
+<phrase>
+    <source>Reset all
+(two buttons needed)</source>
+    <target>Alles zurücksetzen
+(benötigt zwei Knöpfe)</target>
+</phrase>
+<phrase>
+    <source>Reset Hold Time</source>
+    <target>Haltegriff zurücksetzen</target>
+</phrase>
+<phrase>
+    <source>Reset hold time</source>
+    <target>Haltezeit zurücksetzen</target>
+</phrase>
+<phrase>
+    <source>Reset Scores</source>
+    <target>Punktestand zurücksetzten</target>
+</phrase>
+<phrase>
+    <source>Result Screen</source>
+    <target>Zwischenstand-Anzeige</target>
+</phrase>
+<phrase>
+    <source>Results as PDF</source>
+    <target>Ergebnisliste als PDF</target>
+</phrase>
+<phrase>
+    <source>Right</source>
+    <target>Rechts</target>
+</phrase>
+<phrase>
+    <source>Round</source>
+    <target>Runde</target>
+</phrase>
+<phrase>
+    <source>Round Time</source>
+    <target>Rundenzeit</target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>Speichern</target>
+</phrase>
+<phrase>
+    <source>Score</source>
+    <target>UB</target>
+</phrase>
+<phrase>
+    <source>Score after 1st round:</source>
+    <target>Punktestand nach 1ter Runde:</target>
+</phrase>
+<phrase>
+    <source>Score board (Ctrl+2)</source>
+    <target>Punktetafel (Strg+2)</target>
+</phrase>
+<phrase>
+    <source>ScoreList_</source>
+    <target>Punktestand_</target>
+</phrase>
+<phrase>
+    <source>Screen</source>
+    <target>Bildschirm</target>
+</phrase>
+<phrase>
+    <source>sec</source>
+    <target>Sek</target>
+</phrase>
+<phrase>
+    <source>Second</source>
+    <target>Zweiter</target>
+</phrase>
+<phrase>
+    <source>Second Fighter</source>
+    <target>Zweiter Kämpfer</target>
+</phrase>
+<phrase>
+    <source>SECOND FIGHTER</source>
+    <target>ZWEITER KÄMPFER</target>
+</phrase>
+<phrase>
+    <source>Secondary Display</source>
+    <target>Sekundäre Anzeige</target>
+</phrase>
+<phrase>
+    <source>Secondary View</source>
+    <target>Sekundäre Anzeige</target>
+</phrase>
+<phrase>
+    <source>Select Club Emblem</source>
+    <target>Vereinslogo auswählen</target>
+</phrase>
+<phrase>
+    <source>Select Color</source>
+    <target>Farbe wählen</target>
+</phrase>
+<phrase>
+    <source>Select Font</source>
+    <target>Schriftart wählen</target>
+</phrase>
+<phrase>
+    <source>Select program language</source>
+    <target>Programmsprache festlegen</target>
+</phrase>
+<phrase>
+    <source>Set Hold Timer</source>
+    <target>Haltegriffzeit setzen</target>
+</phrase>
+<phrase>
+    <source>Set Main Timer</source>
+    <target>Kampfzeit setzen</target>
+</phrase>
+<phrase>
+    <source>Set Round Time</source>
+    <target>Rundenzeit setzen</target>
+</phrase>
+<phrase>
+    <source>Set time</source>
+    <target>Zeit setzen</target>
+</phrase>
+<phrase>
+    <source>Set Value</source>
+    <target>Wert setzen</target>
+</phrase>
+<phrase>
+    <source>Set Weights</source>
+    <target>Gewichtsklassen festlegen</target>
+</phrase>
+<phrase>
+    <source>Sets the background color</source>
+    <target>Setzt die Hintergrundfarbe</target>
+</phrase>
+<phrase>
+    <source>Sets the foreground color</source>
+    <target>Setzt die Vordergrundfarbe</target>
+</phrase>
+<phrase>
+    <source>Settings</source>
+    <target>Einstellungen</target>
+</phrase>
+<phrase>
+    <source>Show result screen (F4)</source>
+    <target>Zwischenstand anzeigen (F4)</target>
+</phrase>
+<phrase>
+    <source>Show results</source>
+    <target>Ergebnis anzeigen</target>
+</phrase>
+<phrase>
+    <source>Show Results</source>
+    <target>Ergebnis anzeigen</target>
+</phrase>
+<phrase>
+    <source>Show Secondary View</source>
+    <target>Sekundäre Anzeige anzeigen</target>
+</phrase>
+<phrase>
+    <source>Signal</source>
+    <target>Signal</target>
+</phrase>
+<phrase>
+    <source>Size</source>
+    <target>Auflösung</target>
+</phrase>
+<phrase>
+    <source>Space</source>
+    <target>Leertaste</target>
+</phrase>
+<phrase>
+    <source>Single Tournament</source>
+    <target>Einzelwettkampf</target>
+</phrase>
+<phrase>
+    <source>Team Tournament</source>
+    <target>Mannschaftswettkampf</target>
+</phrase>
+<phrase>
+    <source>Subtitle</source>
+    <target>Untertitel</target>
+</phrase>
+<phrase>
+    <source>Switch to Score Table</source>
+    <target>Zur Punktetabelle wechseln</target>
+</phrase>
+<phrase>
+    <source>Swith to Score Control</source>
+    <target>Zum Bedienfeld wechseln</target>
+</phrase>
+<phrase>
+    <source>Template</source>
+    <target>Vorlage</target>
+</phrase>
+<phrase>
+    <source>fight duration</source>
+    <target>Kampfzeit</target>
+</phrase>
+<phrase>
+    <source>tie</source>
+    <target>Unentschieden</target>
+</phrase>
+<phrase>
+    <source>Time</source>
+    <target>Zeit</target>
+</phrase>
+<phrase>
+    <source>Timers</source>
+    <target>Zeitnehmer</target>
+</phrase>
+<phrase>
+    <source>Title</source>
+    <target>Titel</target>
+</phrase>
+<phrase>
+    <source>Toggle Golden Score mode</source>
+    <target>Golden Score umschalten</target>
+</phrase>
+<phrase>
+    <source>Tournament</source>
+    <target>Turnier</target>
+</phrase>
+<phrase>
+    <source>Use overrides</source>
+    <target>Ausnahmen verwenden</target>
+</phrase>
+<phrase>
+    <source>User Manual</source>
+    <target>Anleitung</target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target>Anzeige</target>
+</phrase>
+<phrase>
+    <source>Homepage</source>
+    <target>Homepage</target>
+</phrase>
+<phrase>
+    <source>Weight</source>
+    <target>Gewicht</target>
+</phrase>
+<phrase>
+    <source>Weight Class</source>
+    <target>Gewichtsklasse</target>
+</phrase>
+<phrase>
+    <source>Weight Classes</source>
+    <target>Gewichtsklassen</target>
+</phrase>
+<phrase>
+    <source>Weights</source>
+    <target>Gewichtsklassen</target>
+</phrase>
+<phrase>
+    <source>Weights count twice</source>
+    <target>Klassen doppelt belegt</target>
+</phrase>
+<phrase>
+    <source>Width</source>
+    <target>Breite</target>
+</phrase>
+<phrase>
+    <source>Won</source>
+    <target>Sieg</target>
+</phrase>
+<phrase>
+    <source>Club</source>
+    <target>Verein</target>
+</phrase>
+</QPH>

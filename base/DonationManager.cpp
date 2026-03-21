@@ -21,20 +21,20 @@ QString DonationManager::GetDonationLabel()
     static const char* const DonationLabels[] = {
         QT_TRANSLATE_NOOP("DonationLabel", "Contribute"),
         QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard rocks!"),
-        QT_TRANSLATE_NOOP("DonationLabel", "It really saves my day"),
+        QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard really saves my day"),
         QT_TRANSLATE_NOOP("DonationLabel", "Donate a beer (or two)"),
-        QT_TRANSLATE_NOOP("DonationLabel", "Buy me a coffee"),
-        QT_TRANSLATE_NOOP("DonationLabel", "Buy me a pizza"),
+        QT_TRANSLATE_NOOP("DonationLabel", "Buy them a coffee"),
+        QT_TRANSLATE_NOOP("DonationLabel", "Treat them to a pizza"),
         QT_TRANSLATE_NOOP("DonationLabel", "Best score board ever!"),
         QT_TRANSLATE_NOOP("DonationLabel", "I really love Ipponboard!"),
         QT_TRANSLATE_NOOP("DonationLabel", "Support future development"),
         QT_TRANSLATE_NOOP("DonationLabel", "Ipponboard is awesome!"),
-        QT_TRANSLATE_NOOP("DonationLabel", "Show me appreciation and donate a buck"),
+        QT_TRANSLATE_NOOP("DonationLabel", "Show appreciation and donate a buck"),
         QT_TRANSLATE_NOOP("DonationLabel", "I want more features!"),
         QT_TRANSLATE_NOOP("DonationLabel", "Please fix this bug..."),
-        QT_TRANSLATE_NOOP("DonationLabel", "Please keep Ipponboard alive!"),
-        QT_TRANSLATE_NOOP("DonationLabel", "Thanks for investing your time!"), // yes,
-        QT_TRANSLATE_NOOP("DonationLabel", "Thanks for investing your time!")
+        QT_TRANSLATE_NOOP("DonationLabel", "Help keep Ipponboard going"),
+        QT_TRANSLATE_NOOP("DonationLabel", "Thanks for the great work"), // yes,
+        QT_TRANSLATE_NOOP("DonationLabel", "Thanks for your work")
     };
 
     std::random_device rd;
@@ -45,7 +45,4 @@ QString DonationManager::GetDonationLabel()
                                                    DonationLabels[distribution(generator)]);
 }
 
-void DonationManager::OpenUrl()
-{
-    QDesktopServices::openUrl(QUrl(DonationUrl));
-}
+void DonationManager::OpenUrl() { QDesktopServices::openUrl(QUrl(DonationUrl)); }
