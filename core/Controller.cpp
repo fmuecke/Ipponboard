@@ -302,10 +302,10 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
     // - and the timer is not stopped
     //
     if (current_fight().IsGoldenScore() && action != eAction_Hajime_Mate &&
-        action != eAction_Shido && eState_TimerStopped != EState(m_pSM->current_state()[0]))
+        action != eAction_Shido && eState_TimerStopped != m_pSM->current_state())
     {
         // Note: In golden score the hold should not end after the first scored point!
-        if (eState_Holding != EState(m_pSM->current_state()[0]))
+        if (eState_Holding != m_pSM->current_state())
         {
             auto ruleSet = GetRules();
 
@@ -317,7 +317,7 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
     }
 
     // set current state
-    m_State = EState(m_pSM->current_state()[0]);
+    m_State = m_pSM->current_state();
 
     update_views();
 }
@@ -661,10 +661,7 @@ void Controller::SetGoldenScore(bool isGS)
     update_views();
 }
 
-std::shared_ptr<AbstractRules> Controller::GetRules() const
-{
-    return m_rules;
-}
+std::shared_ptr<AbstractRules> Controller::GetRules() const { return m_rules; }
 
 void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 {
@@ -679,15 +676,9 @@ void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
     }
 }
 
-bool Controller::IsAutoAdjustPoints() const
-{
-    return m_isAutoAdjustPoints;
-}
+bool Controller::IsAutoAdjustPoints() const { return m_isAutoAdjustPoints; }
 
-void Controller::SetAutoAdjustPoints(bool isActive)
-{
-    m_isAutoAdjustPoints = isActive;
-}
+void Controller::SetAutoAdjustPoints(bool isActive) { m_isAutoAdjustPoints = isActive; }
 
 //=========================================================
 void Controller::SetOption(EOption option, bool isSet)
@@ -758,10 +749,7 @@ void Controller::RegisterView(IView* pView)
     // do not call UpdateViews here as views may not have been fully created
 }
 
-void Controller::RegisterView(IGoldenScoreView* pView)
-{
-    m_goldenScoreViews.insert(pView);
-}
+void Controller::RegisterView(IGoldenScoreView* pView) { m_goldenScoreViews.insert(pView); }
 
 //=========================================================
 void Controller::start_timer(ETimer t)
@@ -928,7 +916,7 @@ void Controller::applyFightChange()
         m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
     }
 
-    m_State = EState(m_pSM->current_state()[0]);
+    m_State = m_pSM->current_state();
     Q_ASSERT(eState_TimerStopped == m_State);
 
     update_views();
@@ -1006,14 +994,12 @@ void Controller::SetFight(unsigned int round_index, unsigned int fight_index, co
 }
 
 //=========================================================
-void Controller::SetFight(
-	unsigned int round_index, unsigned int fight_index,
-	Fight fight)
+void Controller::SetFight(unsigned int round_index, unsigned int fight_index, Fight fight)
 //=========================================================
 {
-	m_Tournament[round_index]->at(fight_index) = fight;
+    m_Tournament[round_index]->at(fight_index) = fight;
 
-	update_views();
+    update_views();
 }
 
 //=========================================================
@@ -1118,7 +1104,7 @@ void Controller::update_main_time()
             if (isTimeUp)
             {
                 m_pSM->process_event(IpponboardSM_::TimeEndedEvent());
-                m_State = EState(m_pSM->current_state()[0]);
+                m_State = m_pSM->current_state();
                 Gong();
             }
         }
@@ -1144,7 +1130,7 @@ void Controller::update_hold_time()
                      m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
     {
         m_pSM->process_event(IpponboardSM_::HoldTimeEvent(secs, m_Tori));
-        m_State = EState(m_pSM->current_state()[0]);
+        m_State = m_pSM->current_state();
 
         if (eState_TimerStopped == m_State)
             Gong();

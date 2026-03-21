@@ -1,52 +1,26 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
 #ifndef BASE__STATEMACHINE_H_
 #define BASE__STATEMACHINE_H_
 
-#pragma warning(                                                                                   \
-    disable : 4512 4127 4100) // warning C4512: assignment operator could not be generated, C4100: unreferenced formal parameter
-#include "MsmIncludes.h"
-#pragma warning(default : 4512 4127 4100)
-
-// workaround for following error:
-//   boost/type_traits/detail/has_binary_operator.hp(50): Parse error at "BOOST_JOIN"
-#ifndef Q_MOC_RUN
-
 #include "Enums.h"
 #include "Score.h"
 #include "iControllerCore.h"
 
-#include <iostream>
-#include <string>
-
-namespace msm = boost::msm;
-
 namespace Ipponboard
 {
-// forwards
-class Controller;
 
-static char const* const state_names[] = { "Stopped", "Running", "Ended", "Holding" };
-static char const* const point_type_names[] = {
-    "Ippon", "Wazaari", "Yuko", "Shido", "Hansokumake"
-};
-static char const* const fighter_type_names[] = { "first", "second" };
-static char const* const timer_type_names[] = { "main", "hold", "all" };
-
-class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
+class IpponboardSM_
 {
   public:
     IpponboardSM_(IControllerCore* core) : m_pCore(core) {}
-    IpponboardSM_() : m_pCore(0) {}
+    IpponboardSM_() : m_pCore(nullptr) {}
 
     void SetCore(IControllerCore* core) { m_pCore = core; }
-    virtual ~IpponboardSM_() {}
+    virtual ~IpponboardSM_() = default;
 
-    //
-    // events
-    //
     struct Reset
     {
     };
@@ -79,7 +53,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Ippon,
+            type = static_cast<short>(Ipponboard::Score::Point::Ippon),
             revoke = false
         };
     };
@@ -87,7 +61,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Wazaari,
+            type = static_cast<short>(Ipponboard::Score::Point::Wazaari),
             revoke = false
         };
     };
@@ -95,7 +69,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Yuko,
+            type = static_cast<short>(Ipponboard::Score::Point::Yuko),
             revoke = false
         };
     };
@@ -103,7 +77,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Shido,
+            type = static_cast<short>(Ipponboard::Score::Point::Shido),
             revoke = false
         };
     };
@@ -111,7 +85,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Hansokumake,
+            type = static_cast<short>(Ipponboard::Score::Point::Hansokumake),
             revoke = false
         };
     };
@@ -119,7 +93,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Ippon,
+            type = static_cast<short>(Ipponboard::Score::Point::Ippon),
             revoke = true
         };
     };
@@ -127,7 +101,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Wazaari,
+            type = static_cast<short>(Ipponboard::Score::Point::Wazaari),
             revoke = true
         };
     };
@@ -135,7 +109,7 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
         enum
         {
-            type = (short)Ipponboard::Score::Point::Yuko,
+            type = static_cast<short>(Ipponboard::Score::Point::Yuko),
             revoke = true
         };
     };
@@ -143,16 +117,16 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     {
     };
 
-    typedef PointEvent<ippon_type> Ippon;
-    typedef PointEvent<wazaari_type> Wazaari;
-    typedef PointEvent<yuko_type> Yuko;
-    typedef PointEvent<shido_type> Shido;
-    typedef PointEvent<hansokumake_type> Hansokumake;
+    using Ippon = PointEvent<ippon_type>;
+    using Wazaari = PointEvent<wazaari_type>;
+    using Yuko = PointEvent<yuko_type>;
+    using Shido = PointEvent<shido_type>;
+    using Hansokumake = PointEvent<hansokumake_type>;
 
-    typedef PointEvent<revoke_ippon_type> RevokeIppon;
-    typedef PointEvent<revoke_wazaari_type> RevokeWazaari;
-    typedef PointEvent<revoke_yuko_type> RevokeYuko;
-    typedef PointEvent<revoke_shido_hm_type> RevokeShidoHM;
+    using RevokeIppon = PointEvent<revoke_ippon_type>;
+    using RevokeWazaari = PointEvent<revoke_wazaari_type>;
+    using RevokeYuko = PointEvent<revoke_yuko_type>;
+    using RevokeShidoHM = PointEvent<revoke_shido_hm_type>;
 
     template <typename T> struct TimeEvent
     {
@@ -167,53 +141,20 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
             type = Ipponboard::eTimer_Hold
         };
     };
-    typedef TimeEvent<hold_timer_type> HoldTimeEvent;
+    using HoldTimeEvent = TimeEvent<hold_timer_type>;
 
     struct TimeEndedEvent
     {
     };
 
-    //
-    // states
-    //
+    void reset(Reset const& evt);
+    void save(Finish const& evt);
 
-    // Stopped
-    struct Stopped : public msm::front::state<>
-    {
-    };
-
-    // Running
-    struct Running : public msm::front::state<>
-    {
-    };
-
-    // Ended
-    struct Ended : public msm::front::state<>
-    {
-    };
-
-    // Holding
-    struct Holding : public msm::front::state<>
-    {
-    };
-
-    // Initial state
-    typedef Stopped initial_state;
-
-    //--------------------
-    // transition actions
-    //--------------------
-    void reset(Reset const& /*evt*/);
-    void save(Finish const& /*evt*/);
-
-    void stop_timer(Osaekomi_Toketa const& /*evt*/);
-    void stop_timer(TimeEndedEvent const& /*evt*/);
-    void stop_timer(Hajime_Mate const& /*evt*/);
-    void stop_timer(Finish const& /*evt*/);
-    template <typename T> void stop_timer(T const& /*evt*/)
-    {
-        m_pCore->stop_timer(ETimer(T::type));
-    }
+    void stop_timer(Osaekomi_Toketa const& evt);
+    void stop_timer(TimeEndedEvent const& evt);
+    void stop_timer(Hajime_Mate const& evt);
+    void stop_timer(Finish const& evt);
+    template <typename T> void stop_timer(T const&) { m_pCore->stop_timer(ETimer(T::type)); }
 
     void add_point(Ippon const& evt);
     void add_point(Shido const& evt);
@@ -222,14 +163,14 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     void add_point(HoldTimeEvent const& evt);
     template <typename T> void add_point(PointEvent<T> const& evt)
     {
-#pragma warning(disable : 4127) // conditional expression is constant
-
         if (T::revoke)
+        {
             Score_(evt.tori).Remove(Score::Point(T::type));
+        }
         else
+        {
             Score_(evt.tori).Add(Score::Point(T::type));
-
-#pragma warning(default : 4127)
+        }
     }
     template <typename T> void add_point_stop_timer(T const& evt)
     {
@@ -238,29 +179,14 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
         m_pCore->stop_timer(eTimer_Main);
     }
 
-    void start_timer(Hajime_Mate const& /*evt*/);
-    void start_timer(Osaekomi_Toketa const& /*evt*/);
-    //template<typename T>
-    //void start_timer(T const& /*evt*/);
-    //not used currently...
-    //{
-    //	m_pCore->StartTimer_( ETimer(T::type) );
-    //}
+    void start_timer(Hajime_Mate const& evt);
+    void start_timer(Osaekomi_Toketa const& evt);
 
-    void yoshi(Osaekomi_Toketa const& /*evt*/);
+    void yoshi(Osaekomi_Toketa const& evt);
 
-    //------------------
-    // guard conditions
-    //------------------
-    template <class T> bool time_is_left(T const& /*evt*/)
-    {
-        return 0 != m_pCore->get_time(eTimer_Main);
-    }
+    template <class T> bool time_is_left(T const&) { return 0 != m_pCore->get_time(eTimer_Main); }
 
-    template <class T> bool time_is_up(T const& /*evt*/)
-    {
-        return 0 == m_pCore->get_time(eTimer_Main);
-    }
+    template <class T> bool time_is_up(T const&) { return 0 == m_pCore->get_time(eTimer_Main); }
 
     bool wazaari_is_match_point(Wazaari const& evt);
     bool can_add_wazaari(Wazaari const& evt);
@@ -273,98 +199,46 @@ class IpponboardSM_ : public msm::front::state_machine_def<IpponboardSM_>
     bool shido_is_match_point(Shido const& evt);
     bool can_take_shido(Shido const& evt);
 
-    typedef Ipponboard::IpponboardSM_ sm; // makes transition table cleaner
-
-    // Transition table for board
-    struct transition_table
-        : boost::mpl::vector<
-              //		Start		Event			Next	  Action				Guard
-              //	  +---------+---------------+-----------+-------------------+-----------------------+
-              a_row<Stopped, Hajime_Mate, Running, &sm::start_timer>,
-              //row < Stopped , Shido			, Stopped	, &sm::add_point	, &sm::has_enough_shido	>,
-              row<Stopped, Shido, Stopped, &sm::add_point, &sm::can_take_shido>,
-              a_row<Stopped, Hansokumake, Stopped, &sm::add_point>,
-              a_row<Stopped, Reset, Stopped, &sm::reset>,
-              a_row<Stopped, Finish, Stopped, &sm::save>,
-              //row < Stopped , Osaekomi_Toketa, Holding	, &sm::yoshi		, &sm::is_sonomama		>,
-              a_row<Stopped, Osaekomi_Toketa, Holding, &sm::yoshi>, // JUST FOR CONVENIENCE !!!
-              a_row<Stopped, RevokeShidoHM, Stopped, &sm::add_point>,
-              a_row<Stopped, RevokeWazaari, Stopped, &sm::add_point>,
-              a_row<Stopped, RevokeYuko, Stopped, &sm::add_point>,
-              a_row<Stopped, Ippon, Stopped, &sm::add_point>,       // just to correct values...
-              a_row<Stopped, RevokeIppon, Stopped, &sm::add_point>, // just to correct values...
-              row<Stopped, Wazaari, Stopped, &sm::add_point,
-                  &sm::can_add_wazaari>,                     // just to correct values...
-              a_row<Stopped, Yuko, Stopped, &sm::add_point>, // just to correct values...
-              //	  +---------+---------------+-----------+-------------------+-----------------------+
-              a_row<Running, Hajime_Mate, Stopped, &sm::stop_timer>,
-              a_row<Running, TimeEndedEvent, Stopped, &sm::stop_timer>,
-              a_row<Running, Ippon, Stopped, &sm::add_point>,
-              row<Running, Wazaari, Running, &sm::add_point, &sm::can_add_wazaari>,
-              row<Running, Wazaari, Stopped, &sm::add_point_stop_timer,
-                  &sm::wazaari_is_match_point>,
-              a_row<Running, Yuko, Running, &sm::add_point>,
-              a_row<Running, Reset, Stopped, &sm::reset>,
-              a_row<Running, Finish, Stopped, &sm::stop_timer>,
-              a_row<Running, Osaekomi_Toketa, Holding, &sm::start_timer>,
-              a_row<Running, RevokeWazaari, Running, &sm::add_point>,
-              a_row<Running, RevokeYuko, Running, &sm::add_point>,
-              a_row<Running, RevokeShidoHM, Running, &sm::add_point>, // just to correct values...
-              a_row<Running, Hansokumake, Stopped, &sm::add_point>,   // just to correct values...
-              row<Running, Shido, Running, &sm::add_point,
-                  &sm::can_take_shido>, // just to correct values...
-              row<Running, Shido, Stopped, &sm::add_point_stop_timer,
-                  &sm::shido_is_match_point>, // just to correct values...
-              //	  +---------+---------------+-----------+-------------------+-----------------------+
-              row<Holding, Osaekomi_Toketa, Running, &sm::stop_timer, &sm::time_is_left>,
-              row<Holding, Osaekomi_Toketa, Stopped, &sm::stop_timer, &sm::time_is_up>,
-              a_row<Holding, Hajime_Mate, Stopped, &sm::stop_timer>,
-              a_row<Holding, Reset, Stopped, &sm::reset>,
-              a_row<Holding, Finish, Stopped, &sm::stop_timer>,
-              a_row<Holding, Hansokumake, Stopped, &sm::add_point>,
-              a_row<Holding, Ippon, Stopped, &sm::add_point>,
-              a_row<Holding, Wazaari, Holding, &sm::add_point>, // just to correct values...
-              a_row<Holding, Yuko, Holding, &sm::add_point>,    // just to correct values...
-              row<Holding, Shido, Holding, &sm::add_point,
-                  &sm::can_take_shido>,                               // just to correct values...
-              a_row<Holding, RevokeWazaari, Holding, &sm::add_point>, // just to correct values...
-              a_row<Holding, RevokeYuko, Holding, &sm::add_point>,    // just to correct values...
-              a_row<Holding, RevokeShidoHM, Holding, &sm::add_point>, // just to correct values...
-              //
-              // Note: Transitions are processed bottom up!
-              row<Holding, HoldTimeEvent, Holding, &sm::add_point, &sm::has_YukoTime>,
-              row<Holding, HoldTimeEvent, Holding, &sm::add_point, &sm::has_WazaariTime>,
-              row<Holding, HoldTimeEvent, Stopped, &sm::add_point_stop_timer, &sm::has_AwaseteTime>,
-              row<Holding, HoldTimeEvent, Stopped, &sm::add_point_stop_timer, &sm::has_IpponTime>
-              //	  +---------+---------------+-----------+-------------------+----------------------+
-              >
-    {
-    };
-    // Replaces the default no-transition response.
-    template <typename FSM, typename Event> void no_transition(Event const&, FSM&, int /*state*/)
-    {
-        //		e;
-        //		std::cout << "no transition from state " << state
-        //			<< " on event " << typeid(e).name() << std::endl;
-    }
-
   private:
-    inline Score& Score_(FighterEnum who)
-    {
-        return m_pCore->get_score(who);
-    }
-    inline const Score& Score_(FighterEnum who) const
-    {
-        return m_pCore->get_score(who);
-    }
+    inline Score& Score_(FighterEnum who) { return m_pCore->get_score(who); }
+    inline const Score& Score_(FighterEnum who) const { return m_pCore->get_score(who); }
 
     IControllerCore* m_pCore;
 };
 
-typedef msm::back::state_machine<IpponboardSM_> IpponboardSM;
+class IpponboardSM : public IpponboardSM_
+{
+  public:
+    IpponboardSM() { start(); }
+    explicit IpponboardSM(IControllerCore* core) : IpponboardSM_(core) { start(); }
+
+    void start() noexcept;
+
+    void process_event(Reset const& evt);
+    void process_event(Finish const& evt);
+    void process_event(Hajime_Mate const& evt);
+    void process_event(Osaekomi_Toketa const& evt);
+    void process_event(Ippon const& evt);
+    void process_event(Wazaari const& evt);
+    void process_event(Yuko const& evt);
+    void process_event(Shido const& evt);
+    void process_event(Hansokumake const& evt);
+    void process_event(RevokeIppon const& evt);
+    void process_event(RevokeWazaari const& evt);
+    void process_event(RevokeYuko const& evt);
+    void process_event(RevokeShidoHM const& evt);
+    void process_event(HoldTimeEvent const& evt);
+    void process_event(TimeEndedEvent const& evt);
+
+    [[nodiscard]] EState current_state() const noexcept { return m_currentState; }
+
+  private:
+    [[nodiscard]] EState state() const noexcept;
+    void set_state(EState state) noexcept;
+
+    EState m_currentState{ eState_TimerStopped };
+};
 
 } // namespace Ipponboard
-
-#endif // Q_MOC_RUN
 
 #endif // BASE__STATEMACHINE_H_

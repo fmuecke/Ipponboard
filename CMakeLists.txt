@@ -45,19 +45,6 @@ message(STATUS "Using: QTDIR = ${QTDIR}")
 set(CMAKE_PREFIX_PATH ${QTDIR})
 set(CMAKE_LIBRARY_PATH ${QTDIR}/lib)
 
-# Check if BOOST_DIR is configured
-if(MSVC)
-    if(NOT DEFINED CFG_BOOST_DIR)
-        message(FATAL_ERROR "BOOST_DIR not configured in env_cfg.bat")
-    endif()
-    set(BOOST_DIR ${CFG_BOOST_DIR})
-else()
-    if(NOT DEFINED BOOST_DIR)
-	set(BOOST_DIR ${CFG_LINUX_BOOST_DIR})
-	endif()
-endif()
-message(STATUS "Using: BOOST_DIR = ${BOOST_DIR}")
-
 # Check if INNO_DIR is configured
 if(WIN32)
     if(NOT DEFINED CFG_INNO_DIR)
@@ -72,7 +59,7 @@ message(STATUS "Using: ROOT_DIR = ${ROOT_DIR}")
 
 set(PCH_HEADER_STD ${ROOT_DIR}/base/pch_std.h)
 set(PCH_HEADER_COMMON ${ROOT_DIR}/base/pch_core.h)
-set(PCH_HEADER_CORE ${ROOT_DIR}/base/pch_core_boost.h)
+set(PCH_HEADER_CORE ${ROOT_DIR}/base/pch_core.h)
 set(PCH_HEADER_WIDGETS ${ROOT_DIR}/base/pch.h)
 
 # Restrict multi configurations to Release and Debug

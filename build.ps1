@@ -58,7 +58,6 @@ function Show-Menu {
     Current config ($CONFIG):
 
         QTDIR     : $QTDIR
-        BOOST_DIR : $BOOST_DIR
         ROOT_DIR  : $IPPONBOARD_ROOT_DIR
         BUILD_DIR : $BUILD_DIR
         BIN_DIR   : $BIN_DIR

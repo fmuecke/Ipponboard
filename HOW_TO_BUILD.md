@@ -18,7 +18,6 @@ Ipponboard now targets a pure Qt 6 toolchain and requires the following librarie
 - [Ninja](https://ninja-build.org/) build tool (last used: 1.11)
 - [LLVM lld linker](https://lld.llvm.org/) (last used: 17.x) for faster linking on Linux
 - [Git](https://git-scm.com/) (required for downloading third-party sources such as Catch2 during the CMake configure step)
-- [Boost C++ Libraries](http://www.boost.org/) (last used: 1.89)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
 - [LLVM clang-format](https://clang.llvm.org/docs/ClangFormat.html) (required: 14.x) for enforcing layout before builds/PRs
@@ -62,7 +61,6 @@ Modify those according to your environment. After that, you may try building ;).
 Current config (debug):
 
      QTDIR     : c:\devtools\qt\6.9.2\msvc2022_64
-     BOOST_DIR : c:\devtools\boost_1_89_0
      ROOT_DIR  : c:\dev\_cpp\Ipponboard
      BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
      BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
@@ -93,9 +91,8 @@ Select build mode:
 2. Install `cmake` and make sure it's available via `%PATH%`
 3. Install `ninja` and make sure it's available via `%PATH%`
 4. Install Qt 6.9.x via the Qt Online Installer or `aqtinstall` (recommended kits: `msvc2022_64`)
-5. Install _Boost_ 1.89 (headers-only usage; binaries not required)
-6. Install _Pandoc_ and make sure it's available via `%PATH%`
-7. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2022** (or the equivalent Developer PowerShell).
+5. Install _Pandoc_ and make sure it's available via `%PATH%`
+6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2022** (or the equivalent Developer PowerShell).
 
 ### Installing Qt 6 on Windows 10/11
 
@@ -112,11 +109,6 @@ Select build mode:
 1. Install the `ninja-build` package from your distribution
 2. Install the `lld` package (often `sudo apt install lld`)
 3. Install Qt 6.9.x via the Qt Online Installer (under WSL2) or [use aqtinstall](#installing-qt-6-on-ubuntu-wsl-using-aqt)
-
-4. Install _Boost_ 1.89:
-    1. Download the recent version from https://www.boost.org
-    2. Build & install into a user-writable prefix (e.g. `~/devtools/boost_1_89_0`) or extract headers only
-    3. Specify the path in `env.cfg` (see [build.sh](#run-buildps1-resp-buildsh))
 
 4. Install _Pandoc_ 
 
@@ -161,8 +153,7 @@ Select build mode:
 2. Configure the Qt environment
 3. Open the top-level `CMakeLists.txt` with QtCreator
 4. Ensure that `QTDIR` is exported in the environment for your kit
-5. Add `BOOST_DIR` to the environment variables of the project
-6. Confirm the kit uses a compiler with C++20 support (MSVC 2022 or gcc 13+)
+5. Confirm the kit uses a compiler with C++20 support (MSVC 2022 or gcc 13+)
 
 ### Configuring CDB Debugger
 

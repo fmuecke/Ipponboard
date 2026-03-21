@@ -36,7 +36,6 @@ set(SOURCES
 
 add_executable(${APP_NAME} ${SOURCES})
 target_link_libraries(${APP_NAME} PRIVATE IpponboardUi Catch2::Catch2WithMain)
-target_include_directories(${APP_NAME} PRIVATE ${BOOST_DIR})
 target_compile_definitions(${APP_NAME} PRIVATE IPPONBOARD_TESTDATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/TestData\")
 target_precompile_headers(${APP_NAME}
     PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")

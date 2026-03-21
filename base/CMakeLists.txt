@@ -114,7 +114,6 @@ target_include_directories(IpponboardUi
         ${ROOT_DIR}/Widgets
         ${ROOT_DIR}/core
         ${ROOT_DIR}/util
-        ${BOOST_DIR}
 )
 
 target_link_libraries(IpponboardUi
