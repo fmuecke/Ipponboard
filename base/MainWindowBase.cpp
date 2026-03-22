@@ -346,7 +346,13 @@ void MainWindowBase::change_theme()
 {
     ui_check_theme_items();
 
+    qDebug() << "setting color theme...";
+    qDebug() << "style:" << qApp->style()->objectName();
+    qDebug() << "scheme before:" << qApp->styleHints()->colorScheme();
+
     QGuiApplication::styleHints()->setColorScheme(m_Theme);
+
+    qDebug() << "scheme after:" << qApp->styleHints()->colorScheme();
 }
 
 void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)

@@ -3,7 +3,7 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
-- (new): added support for dark mode (can be toggled in settings)
+- (new): added support for dark mode (does not yet work with linux)
 - (internal): rewrote internal state machine and removed dependency to Boost MSM (simplifies build and maintenance, improves testability and extensibility)
 - (new): added button to switch sides/colors in settings dialog
 - (new): secondary screen can be positioned with custom offsets
