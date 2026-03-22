@@ -53,6 +53,27 @@ TEST_CASE("[Controller] Golden score wazaari revocation")
     REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
 }
 
+TEST_CASE("[Controller] Golden score shido revocation keeps the fight running")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    controller.SetRules(std::make_shared<ClassicRules>());
+    controller.SetRoundTime(QTime(0, 0, 45));
+    controller.SetGoldenScore(true);
+
+    controller.DoAction(eAction_Wazaari, FighterEnum::First);
+    controller.DoAction(eAction_Shido, FighterEnum::Second);
+    controller.DoAction(eAction_Shido, FighterEnum::Second);
+    REQUIRE(controller.GetScore(FighterEnum::Second, Score::Point::Shido) == 2);
+
+    controller.DoAction(eAction_Hajime_Mate);
+    REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
+
+    controller.DoAction(eAction_Shido, FighterEnum::Second, true);
+    REQUIRE(controller.GetScore(FighterEnum::Second, Score::Point::Shido) == 1);
+    REQUIRE(controller.GetCurrentState() == eState_TimerRunning);
+}
+
 TEST_CASE("[Controller] Hold scoring awards points over time")
 {
     ControllerFixture fixture;
@@ -143,6 +164,24 @@ TEST_CASE("[Controller] Auto adjust second hold delivers awasete ippon")
 
     CHECK(controller.GetScore(FighterEnum::First, Score::Point::Wazaari) == 2);
     CHECK(controller.GetScore(FighterEnum::First, Score::Point::Ippon) == 1);
+    CHECK(controller.GetCurrentState() == eState_TimerStopped);
+}
+
+TEST_CASE("[Controller] Hold owner follows engine state across fight changes")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initTournament(1, { QStringLiteral("-60"), QStringLiteral("-66") });
+
+    fixture.startFight();
+    fixture.beginHold(FighterEnum::Second);
+
+    REQUIRE(controller.GetLastHolder() == FighterEnum::Second);
+    REQUIRE(controller.GetLead() == FighterEnum::Second);
+
+    controller.NextFight();
+
+    CHECK(controller.GetLastHolder() == FighterEnum::Nobody);
     CHECK(controller.GetCurrentState() == eState_TimerStopped);
 }
 

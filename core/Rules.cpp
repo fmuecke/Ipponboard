@@ -19,10 +19,14 @@ AbstractRules::AbstractRules() {}
 
 int Ipponboard::AbstractRules::CompareScore(const Fight& f) const
 {
-    using Point = Score::Point;
+    return CompareScore(
+        f.GetScore(FighterEnum::First), f.GetScore(FighterEnum::Second), f.IsGoldenScore());
+}
 
-    auto lhs = f.GetScore(FighterEnum::First);
-    auto rhs = f.GetScore(FighterEnum::Second);
+int Ipponboard::AbstractRules::CompareScore(const Score& lhs, const Score& rhs,
+                                            bool isGoldenScore) const
+{
+    using Point = Score::Point;
 
     if (lhs.Value(Point::Hansokumake) < rhs.Value(Point::Hansokumake))
     {
@@ -65,7 +69,7 @@ int Ipponboard::AbstractRules::CompareScore(const Fight& f) const
     }
 
     // shidos are not compared as they result in concrete points
-    if (!IsOption_ShidoAddsPoint() && (IsOption_ShidoScoreCounts() || f.IsGoldenScore()))
+    if (!IsOption_ShidoAddsPoint() && (IsOption_ShidoScoreCounts() || isGoldenScore))
     {
         if (lhs.Value(Point::Shido) < rhs.Value(Point::Shido))
         {

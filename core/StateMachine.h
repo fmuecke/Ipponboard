@@ -17,22 +17,31 @@ class IpponboardSM
   public:
     explicit IpponboardSM(IControllerCore& core) : m_core(core) {}
 
-    void PerformAction(EAction action, FighterEnum who = FighterEnum::First);
-    void RevokeAction(EAction action, FighterEnum who = FighterEnum::First);
-    void Finish();
+    void ToggleMainTimer();
+    void BeginHold(FighterEnum who);
+    void EndHold();
+    void SetHoldOwner(FighterEnum who);
+    void ClearHoldOwner();
+    void AwardPoint(Score::Point point, FighterEnum who);
+    void RevokePoint(Score::Point point, FighterEnum who);
+    void AwardShido(FighterEnum who);
+    void RevokeShido(FighterEnum who);
+    void RevokeHansokumake(FighterEnum who);
+    void AwardHansokumake(FighterEnum who);
+    void ResetFight();
+    void FinishFight();
     void OnMainTimerElapsed();
-    void OnHoldTimerTick(int seconds, FighterEnum who);
+    void OnHoldTimerTick(int seconds);
 
     [[nodiscard]] EState CurrentState() const noexcept { return m_state; }
+    [[nodiscard]] FighterEnum CurrentHolder() const noexcept { return m_holder; }
 
   private:
-    void handleFightAction(EAction action, FighterEnum who);
-    void handleRevokeAction(EAction action, FighterEnum who);
-    void handleMainTimerToggle();
-    void handleHoldToggle();
     void handleRunningWazaari(FighterEnum who);
     void handleRunningShido(FighterEnum who);
-    void maybeStopForGoldenScore(EAction action);
+    void maybeStopForGoldenScore(Score::Point point);
+    void maybeStopForGoldenScoreAfterPenalty();
+    void stopFight();
 
     void resetFight();
     void saveFight();
@@ -55,7 +64,7 @@ class IpponboardSM
     [[nodiscard]] bool isShidoMatchPoint(FighterEnum who) const;
     [[nodiscard]] bool hasIpponTime(int seconds) const;
     [[nodiscard]] bool hasWazaariTime(int seconds) const;
-    [[nodiscard]] bool hasAwaseteTime(int seconds, FighterEnum who) const;
+    [[nodiscard]] bool hasAwaseteTime(int seconds) const;
     [[nodiscard]] bool hasYukoTime(int seconds) const;
     [[nodiscard]] bool mainTimeIsUp() const;
     [[nodiscard]] int compareScore() const;
@@ -65,6 +74,7 @@ class IpponboardSM
 
     IControllerCore& m_core;
     EState m_state{ eState_TimerStopped };
+    FighterEnum m_holder{ FighterEnum::Nobody };
 };
 
 } // namespace Ipponboard

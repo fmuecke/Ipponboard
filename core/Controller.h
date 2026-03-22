@@ -199,7 +199,6 @@ class Controller : public QObject, public IController, public IControllerCore
     TimerService m_timerService;
     QTime m_mainTime;
     QTime m_holdTime; // needed when side is not chosen yet
-    Ipponboard::FighterEnum m_Tori;
     std::set<IView*> m_views;
     std::set<IGoldenScoreView*> m_goldenScoreViews;
     QString m_Message;

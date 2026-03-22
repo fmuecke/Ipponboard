@@ -45,6 +45,7 @@ class AbstractRules
     virtual bool IsOption_OpenEndGoldenScore() const { return true; }
 
     virtual int CompareScore(const Fight& f) const;
+    int CompareScore(const Score& lhs, const Score& rhs, bool isGoldenScore) const;
     virtual int GetMaxShidoCount() const { return 3; }
     virtual int GetMaxWazaariCount() const { return 2; }
     virtual int GetOsaekomiValue(Ipponboard::Score::Point p) const = 0;

@@ -47,7 +47,6 @@ Controller::Controller()
       m_timerService(this),
       m_mainTime(0, 0, 0, 0),
       m_holdTime(0, 0, 0, 0),
-      m_Tori(FighterEnum::Nobody),
       m_isSonoMama(false),
       m_roundTime(0, 0, 0, 0),
       m_options(0),
@@ -198,11 +197,23 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         switch (action)
         {
         case eAction_Yuko:
+            m_pSM->RevokePoint(Score::Point::Yuko, whos);
+            break;
+
         case eAction_Wazaari:
+            m_pSM->RevokePoint(Score::Point::Wazaari, whos);
+            break;
+
         case eAction_Ippon:
+            m_pSM->RevokePoint(Score::Point::Ippon, whos);
+            break;
+
         case eAction_Shido:
+            m_pSM->RevokeShido(whos);
+            break;
+
         case eAction_Hansokumake:
-            m_pSM->RevokeAction(action, whos);
+            m_pSM->RevokeHansokumake(whos);
             break;
 
         case eAction_ResetOsaeKomi:
@@ -223,26 +234,43 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         {
         case eAction_Hajime_Mate:
             m_isSonoMama = (eState_Holding == m_State);
-            m_pSM->PerformAction(action, whos);
+            m_pSM->ToggleMainTimer();
             break;
 
         case eAction_OsaeKomi_Toketa:
-            m_pSM->PerformAction(action, whos);
-            m_Tori = whos;
+            if (eState_Holding == m_State)
+                m_pSM->EndHold();
+            else
+                m_pSM->BeginHold(whos);
             m_isSonoMama = false;
             break;
 
         case eAction_Yuko:
+            m_pSM->AwardPoint(Score::Point::Yuko, whos);
+            break;
+
         case eAction_Wazaari:
+            m_pSM->AwardPoint(Score::Point::Wazaari, whos);
+            break;
+
         case eAction_Ippon:
+            m_pSM->AwardPoint(Score::Point::Ippon, whos);
+            break;
+
         case eAction_Shido:
+            m_pSM->AwardShido(whos);
+            break;
+
         case eAction_Hansokumake:
+            m_pSM->AwardHansokumake(whos);
+            break;
+
         case eAction_ResetAll:
-            m_pSM->PerformAction(action, whos);
+            m_pSM->ResetFight();
             break;
 
         case eAction_SetOsaekomi:
-            m_Tori = whos;
+            m_pSM->SetHoldOwner(whos);
             break;
 
         default:
@@ -313,7 +341,7 @@ FighterEnum Controller::GetLead() const
 
     case eState_SonoMama:
     case eState_Holding:
-        winner = m_Tori;
+        winner = m_pSM->CurrentHolder();
         break;
 
     default:
@@ -327,7 +355,7 @@ FighterEnum Controller::GetLead() const
 Ipponboard::FighterEnum Controller::GetLastHolder() const
 //=========================================================
 {
-    return m_Tori;
+    return m_pSM->CurrentHolder();
 }
 
 //=========================================================
@@ -340,7 +368,7 @@ void Controller::reset_timers()
 
     m_timerService.stopTimer(eTimer_Hold);
     reset_timer_value(eTimer_Hold);
-    m_Tori = FighterEnum::Nobody;
+    m_pSM->ClearHoldOwner();
 
     m_isSonoMama = false;
 }
@@ -370,7 +398,7 @@ void Controller::reset_timer_value(Ipponboard::ETimer timer)
         m_holdTime.setHMS(0, 0, 0, 0);
 
         if (!m_timerService.isActive(eTimer_Hold))
-            m_Tori = FighterEnum::Nobody;
+            m_pSM->ClearHoldOwner();
     }
 }
 
@@ -720,7 +748,6 @@ void Controller::reset_fight()
 {
     m_timerService.stopTimer(eTimer_Hold);
     m_timerService.stopTimer(eTimer_Main);
-    m_Tori = FighterEnum::Nobody;
     m_isSonoMama = false;
 
     m_repository.resetFightData(
@@ -791,7 +818,7 @@ void Controller::NextFight()
 {
     // move to Stopped state
     // (will stop all timers and thus save the current fight)
-    m_pSM->Finish();
+    m_pSM->FinishFight();
 
     const auto previousRound = m_navigator.currentRound();
     const auto previousFight = m_navigator.currentFight();
@@ -810,7 +837,7 @@ void Controller::PrevFight()
 {
     // move to Stopped state
     // (will stop all timers and thus save the current fight)
-    m_pSM->Finish();
+    m_pSM->FinishFight();
 
     const auto previousRound = m_navigator.currentRound();
     const auto previousFight = m_navigator.currentFight();
@@ -851,6 +878,7 @@ void Controller::applyFightChange()
         m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
     }
 
+    m_pSM->ClearHoldOwner();
     m_State = m_pSM->CurrentState();
     Q_ASSERT(eState_TimerStopped == m_State);
 
@@ -1064,7 +1092,7 @@ void Controller::update_hold_time()
                      m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs ||
                      m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
     {
-        m_pSM->OnHoldTimerTick(secs, m_Tori);
+        m_pSM->OnHoldTimerTick(secs);
         m_State = m_pSM->CurrentState();
 
         if (eState_TimerStopped == m_State)
