@@ -8,8 +8,12 @@ set(SOURCES
 
 if(WIN32)
     list(APPEND SOURCES GamepadWin.cpp GamepadWin.h)
-else()
+elseif(APPLE)
+    list(APPEND SOURCES GamepadNull.cpp GamepadNull.h)
+elseif(UNIX)
     list(APPEND SOURCES GamepadLinux.cpp GamepadLinux.h)
+else()
+    message(FATAL_ERROR "Unsupported platform")
 endif()
 
 add_library(IpponboardGamepad STATIC ${SOURCES})

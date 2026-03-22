@@ -5,6 +5,10 @@ cmake_minimum_required(VERSION 3.28)
 set(APP_NAME Ipponboard)
 
 find_package(Qt6 COMPONENTS Widgets PrintSupport Multimedia Network REQUIRED)
+find_program(QT_LRELEASE_EXECUTABLE
+    NAMES lrelease lrelease.exe
+    HINTS "${QTDIR}/bin"
+    REQUIRED)
 
 set(UI_SOURCES
     AddFighterDlg.cpp
@@ -85,11 +89,14 @@ set(FORMS
 )
 
 set(OTHER
-    Ipponboard.rc
     tournament_modes.config
 	categories.config
 	clubs.config
 )
+
+if(WIN32)
+    list(PREPEND OTHER Ipponboard.rc)
+endif()
 
 source_group("UI Forms" FILES ${FORMS})
 source_group("Other Files" FILES ${OTHER})
@@ -138,7 +145,11 @@ else()
     message(STATUS "Using: OUTPUT_DIR = ${OUTPUT_DIR} (${APP_NAME})")
 endif()
 
-add_executable(${APP_NAME} WIN32 Main.cpp ${OTHER})
+if(APPLE)
+    add_executable(${APP_NAME} MACOSX_BUNDLE Main.cpp ${OTHER})
+else()
+    add_executable(${APP_NAME} WIN32 Main.cpp ${OTHER})
+endif()
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${APP_NAME})
 
 if(MSVC)
@@ -170,22 +181,16 @@ add_custom_command(TARGET ${APP_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "$<TARGET_FILE_DIR:${APP_NAME}>/templates"
 )
 
+# Compile and copy translation files
+add_custom_command(TARGET ${APP_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/lang"
+    COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
+    COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
+)
+
 if(MSVC)
-    # Compile and copy translation files
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/lang"
-        COMMAND ${QTDIR}/bin/lrelease.exe -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
-        COMMAND ${QTDIR}/bin/lrelease.exe -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
-    )
     target_link_libraries(${APP_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)
     ipponboard_add_windeploy(${APP_NAME})
 else()
-    # Compile and copy translation files
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/lang"
-        COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
-        COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
-    )
-
     target_link_libraries(${APP_NAME} PRIVATE IpponboardCore Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)
 endif()
