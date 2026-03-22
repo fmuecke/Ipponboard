@@ -55,13 +55,11 @@ Controller::Controller()
       m_labelGuest("GUEST")
 //=========================================================
 {
-    m_pSM = std::make_unique<IpponboardSM>();
-    m_pSM->SetCore(this);
+    m_pSM = std::make_unique<IpponboardSM>(*this);
 
     InitTournament(m_mode);
 
     reset();
-    m_pSM->start();
 
     connect(&m_timerService, &TimerService::mainTimeout, this, &Controller::update_main_time);
     connect(&m_timerService, &TimerService::holdTimeout, this, &Controller::update_hold_time);
@@ -200,20 +198,11 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         switch (action)
         {
         case eAction_Yuko:
-            m_pSM->process_event(IpponboardSM_::RevokeYuko(whos));
-            break;
-
         case eAction_Wazaari:
-            m_pSM->process_event(IpponboardSM_::RevokeWazaari(whos));
-            break;
-
         case eAction_Ippon:
-            m_pSM->process_event(IpponboardSM_::RevokeIppon(whos));
-            break;
-
         case eAction_Shido:
         case eAction_Hansokumake:
-            m_pSM->process_event(IpponboardSM_::RevokeShidoHM(whos));
+            m_pSM->RevokeAction(action, whos);
             break;
 
         case eAction_ResetOsaeKomi:
@@ -233,46 +222,27 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         switch (action)
         {
         case eAction_Hajime_Mate:
-            if (eState_Holding == m_State)
-                m_isSonoMama = true;
-            else
-                m_isSonoMama = false;
-
-            m_pSM->process_event(IpponboardSM_::Hajime_Mate());
+            m_isSonoMama = (eState_Holding == m_State);
+            m_pSM->PerformAction(action, whos);
             break;
 
         case eAction_OsaeKomi_Toketa:
-            m_pSM->process_event(IpponboardSM_::Osaekomi_Toketa());
+            m_pSM->PerformAction(action, whos);
             m_Tori = whos;
             m_isSonoMama = false;
             break;
 
         case eAction_Yuko:
-            m_pSM->process_event(IpponboardSM_::Yuko(whos));
-            break;
-
         case eAction_Wazaari:
-            m_pSM->process_event(IpponboardSM_::Wazaari(whos));
-            break;
-
         case eAction_Ippon:
-            m_pSM->process_event(IpponboardSM_::Ippon(whos));
-            break;
-
         case eAction_Shido:
-            m_pSM->process_event(IpponboardSM_::Shido(whos));
-            break;
-
         case eAction_Hansokumake:
-            m_pSM->process_event(IpponboardSM_::Hansokumake(whos));
+        case eAction_ResetAll:
+            m_pSM->PerformAction(action, whos);
             break;
 
         case eAction_SetOsaekomi:
             m_Tori = whos;
-            break;
-
-        case eAction_ResetAll:
-            m_pSM->process_event(IpponboardSM_::Reset());
             break;
 
         default:
@@ -281,43 +251,8 @@ void Controller::DoAction(EAction action, FighterEnum whos, bool doRevoke)
         }
     }
 
-    //	if( eState_SonoMama == m_State && action != eAction_SonoMama_Yoshi )
-    //		return;
-    //
-
-    //
-    // handle golden score
-    //
-    // TODO: use state machine
-    //
-    // test cases:
-    // (1) when golden score is active, wazaari or any other (except shido) will stop main timer
-    // (2) main timer can be started, even if points are unequal (e.g. 1 shido) - no matter if GS or not
-    // (3) main timer will not be stopped after the first achieved point in osaekomi in GS
-    //
-    // Do stop main timer if
-    // - golden score is active
-    // - we were not trying to start the timer itself
-    // - if point <> shidos are changeed
-    // - and the timer is not stopped
-    //
-    if (current_fight().IsGoldenScore() && action != eAction_Hajime_Mate &&
-        action != eAction_Shido && eState_TimerStopped != m_pSM->current_state())
-    {
-        // Note: In golden score the hold should not end after the first scored point!
-        if (eState_Holding != m_pSM->current_state())
-        {
-            auto ruleSet = GetRules();
-
-            if (ruleSet->CompareScore(current_fight()) != 0)
-            {
-                m_pSM->process_event(IpponboardSM_::Hajime_Mate());
-            }
-        }
-    }
-
     // set current state
-    m_State = m_pSM->current_state();
+    m_State = m_pSM->CurrentState();
 
     update_views();
 }
@@ -856,7 +791,7 @@ void Controller::NextFight()
 {
     // move to Stopped state
     // (will stop all timers and thus save the current fight)
-    m_pSM->process_event(IpponboardSM_::Finish());
+    m_pSM->Finish();
 
     const auto previousRound = m_navigator.currentRound();
     const auto previousFight = m_navigator.currentFight();
@@ -875,7 +810,7 @@ void Controller::PrevFight()
 {
     // move to Stopped state
     // (will stop all timers and thus save the current fight)
-    m_pSM->process_event(IpponboardSM_::Finish());
+    m_pSM->Finish();
 
     const auto previousRound = m_navigator.currentRound();
     const auto previousFight = m_navigator.currentFight();
@@ -916,7 +851,7 @@ void Controller::applyFightChange()
         m_mainTime = QTime(0, 0, 0, 0).addSecs(current_fight().GetRemainingTime());
     }
 
-    m_State = m_pSM->current_state();
+    m_State = m_pSM->CurrentState();
     Q_ASSERT(eState_TimerStopped == m_State);
 
     update_views();
@@ -1103,8 +1038,8 @@ void Controller::update_main_time()
         {
             if (isTimeUp)
             {
-                m_pSM->process_event(IpponboardSM_::TimeEndedEvent());
-                m_State = m_pSM->current_state();
+                m_pSM->OnMainTimerElapsed();
+                m_State = m_pSM->CurrentState();
                 Gong();
             }
         }
@@ -1129,8 +1064,8 @@ void Controller::update_hold_time()
                      m_rules->GetOsaekomiValue(Score::Point::Wazaari) == secs ||
                      m_rules->GetOsaekomiValue(Score::Point::Ippon) == secs))
     {
-        m_pSM->process_event(IpponboardSM_::HoldTimeEvent(secs, m_Tori));
-        m_State = m_pSM->current_state();
+        m_pSM->OnHoldTimerTick(secs, m_Tori);
+        m_State = m_pSM->CurrentState();
 
         if (eState_TimerStopped == m_State)
             Gong();

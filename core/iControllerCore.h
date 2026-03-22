@@ -15,11 +15,12 @@ namespace Ipponboard
 
 // forwards
 class IView;
+class IpponboardSM;
 
 class IControllerCore
 {
 
-    friend class IpponboardSM_;
+    friend class IpponboardSM;
 
   private:
     virtual void start_timer(ETimer) = 0;
