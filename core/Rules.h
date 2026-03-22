@@ -63,11 +63,11 @@ class ClassicRules : public AbstractRules
     ClassicRules() {}
 
     static const char* const StaticName;
-    virtual const char* Name() const final { return StaticName; }
-    virtual bool IsOption_OpenEndGoldenScore() const final { return false; }
-    virtual bool IsOption_ShidoAddsPoint() const final { return true; }
+    const char* Name() const final { return StaticName; }
+    bool IsOption_OpenEndGoldenScore() const final { return false; }
+    bool IsOption_ShidoAddsPoint() const final { return true; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -93,9 +93,9 @@ class Rules2013 : public AbstractRules
 
     static const char* const StaticName;
 
-    virtual const char* Name() const final { return StaticName; }
+    const char* Name() const final { return StaticName; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -120,14 +120,14 @@ class Rules2017 : public AbstractRules
     Rules2017() {}
 
     static const char* const StaticName;
-    virtual const char* Name() const final { return StaticName; }
-    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
-    virtual bool IsOption_HasYuko() const final { return false; }
-    virtual bool IsOption_AwaseteIppon() const { return false; }
-    virtual bool IsAwaseteIppon(Score const&) const final { return false; }
-    virtual int GetMaxShidoCount() const final { return 2; }
+    const char* Name() const final { return StaticName; }
+    bool IsOption_ShidoScoreCounts() const final { return false; }
+    bool IsOption_HasYuko() const final { return false; }
+    bool IsOption_AwaseteIppon() const override { return false; }
+    bool IsAwaseteIppon(Score const&) const final { return false; }
+    int GetMaxShidoCount() const final { return 2; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -142,7 +142,7 @@ class Rules2017 : public AbstractRules
         }
     }
 
-    virtual int GetMaxWazaariCount() const final { return INT32_MAX; }
+    int GetMaxWazaariCount() const final { return INT32_MAX; }
 };
 
 class Rules2017U15 : public AbstractRules
@@ -151,14 +151,14 @@ class Rules2017U15 : public AbstractRules
     Rules2017U15() {}
 
     static const char* const StaticName;
-    virtual const char* Name() const final { return StaticName; }
-    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
-    virtual bool IsOption_HasYuko() const final { return false; }
-    virtual bool IsOption_AwaseteIppon() const { return false; }
-    virtual bool IsAwaseteIppon(Score const&) const final { return false; }
-    virtual int GetMaxShidoCount() const final { return 3; }
+    const char* Name() const final { return StaticName; }
+    bool IsOption_ShidoScoreCounts() const final { return false; }
+    bool IsOption_HasYuko() const final { return false; }
+    bool IsOption_AwaseteIppon() const override { return false; }
+    bool IsAwaseteIppon(Score const&) const final { return false; }
+    int GetMaxShidoCount() const final { return 3; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -173,7 +173,7 @@ class Rules2017U15 : public AbstractRules
         }
     }
 
-    virtual int GetMaxWazaariCount() const final { return INT32_MAX; }
+    int GetMaxWazaariCount() const final { return INT32_MAX; }
 };
 
 class Rules2018 : public AbstractRules
@@ -182,13 +182,13 @@ class Rules2018 : public AbstractRules
     Rules2018() {}
 
     static const char* const StaticName;
-    virtual const char* Name() const final { return StaticName; }
-    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
-    virtual bool IsOption_HasYuko() const final { return false; }
-    virtual bool IsOption_AwaseteIppon() const { return true; }
-    virtual int GetMaxShidoCount() const final { return 2; }
+    const char* Name() const final { return StaticName; }
+    bool IsOption_ShidoScoreCounts() const final { return false; }
+    bool IsOption_HasYuko() const final { return false; }
+    bool IsOption_AwaseteIppon() const override { return true; }
+    int GetMaxShidoCount() const final { return 2; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -203,7 +203,7 @@ class Rules2018 : public AbstractRules
         }
     }
 
-    virtual int GetMaxWazaariCount() const final { return 2; }
+    int GetMaxWazaariCount() const final { return 2; }
 };
 
 class Rules2025 : public AbstractRules
@@ -212,13 +212,13 @@ class Rules2025 : public AbstractRules
     Rules2025() {}
 
     static const char* const StaticName;
-    virtual const char* Name() const final { return StaticName; }
-    virtual bool IsOption_ShidoScoreCounts() const final { return false; }
-    virtual bool IsOption_HasYuko() const final { return true; }
-    virtual bool IsOption_AwaseteIppon() const { return true; }
-    virtual int GetMaxShidoCount() const final { return 2; }
+    const char* Name() const final { return StaticName; }
+    bool IsOption_ShidoScoreCounts() const final { return false; }
+    bool IsOption_HasYuko() const final { return true; }
+    bool IsOption_AwaseteIppon() const override { return true; }
+    int GetMaxShidoCount() const final { return 2; }
 
-    virtual int GetOsaekomiValue(Score::Point p) const final
+    int GetOsaekomiValue(Score::Point p) const final
     {
         switch (p)
         {
@@ -236,7 +236,7 @@ class Rules2025 : public AbstractRules
         }
     }
 
-    virtual int GetMaxWazaariCount() const final { return 2; }
+    int GetMaxWazaariCount() const final { return 2; }
 };
 
 class RulesFactory

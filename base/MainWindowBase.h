@@ -119,7 +119,7 @@ class MainWindowBase : public QMainWindow,
 
   public:
     explicit MainWindowBase(QWidget* parent = nullptr);
-    virtual ~MainWindowBase();
+    ~MainWindowBase() override;
 
     virtual void Init();
 
@@ -130,12 +130,12 @@ class MainWindowBase : public QMainWindow,
     virtual const char* EditionNameShort() const = 0;
 
     /* IView */
-    virtual void UpdateView();
-    virtual void Reset() {}
-    virtual void SetShowInfoHeader(bool /*show*/) {}
+    void UpdateView() override;
+    void Reset() override {}
+    void SetShowInfoHeader(bool /*show*/) override {}
 
     /* IGoldenScoreView */
-    virtual void UpdateGoldenScoreView() {};
+    void UpdateGoldenScoreView() override{};
 
   protected:
     virtual void changeEvent(QEvent*) override;
