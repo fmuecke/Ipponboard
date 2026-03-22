@@ -186,13 +186,29 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
 
 struct StateMachineFixture
 {
-    StateMachineFixture()
+    StateMachineFixture() : machine(core) {}
+
+    void action(Ipponboard::EAction action,
+                Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool revoke = false)
     {
-        machine.SetCore(&core);
-        machine.start();
+        if (revoke)
+        {
+            machine.RevokeAction(action, who);
+        }
+        else
+        {
+            machine.PerformAction(action, who);
+        }
     }
 
-    template <typename Event> void process(Event const& event) { machine.process_event(event); }
+    void finish() { machine.Finish(); }
+
+    void onMainTimerElapsed() { machine.OnMainTimerElapsed(); }
+
+    void onHoldTimerTick(int seconds, Ipponboard::FighterEnum who)
+    {
+        machine.OnHoldTimerTick(seconds, who);
+    }
 
     RecordingControllerCore core;
     Ipponboard::IpponboardSM machine;
