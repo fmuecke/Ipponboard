@@ -286,6 +286,13 @@ void MainWindow::ui_check_language_items()
     // don't forget second implementation!
 }
 
+void MainWindow::ui_check_theme_items()
+{
+    m_pUi->actionThemeAutomatic->setChecked(m_Theme == Qt::ColorScheme::Unknown);
+    m_pUi->actionThemeDark->setChecked(m_Theme == Qt::ColorScheme::Dark);
+    m_pUi->actionThemeLight->setChecked(m_Theme == Qt::ColorScheme::Light);
+}
+
 void MainWindow::ui_check_rules_items()
 {
     auto rules = m_pController->GetRules();

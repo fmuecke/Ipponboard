@@ -473,6 +473,13 @@ void MainWindowTeam::ui_check_language_items()
     // don't forget second implementation!
 }
 
+void MainWindowTeam::ui_check_theme_items()
+{
+    m_pUi->actionThemeAutomatic->setChecked(m_Theme == Qt::ColorScheme::Unknown);
+    m_pUi->actionThemeDark->setChecked(m_Theme == Qt::ColorScheme::Dark);
+    m_pUi->actionThemeLight->setChecked(m_Theme == Qt::ColorScheme::Light);
+}
+
 void MainWindowTeam::ui_check_show_secondary_view(bool checked) const
 {
     m_pUi->actionShow_SecondaryView->setChecked(checked);

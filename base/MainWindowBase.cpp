@@ -1,4 +1,4 @@
-﻿// Copyright 2018-2025 Florian Muecke. All rights reserved.
+// Copyright 2018-2025 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -26,6 +26,7 @@
 #include <QSettings>
 #include <QString>
 #include <QStyle>
+#include <QStyleHints>
 #include <QTimer>
 #include <QUrl>
 
@@ -40,6 +41,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_pController(new Ipponboard::Controller()),
       m_fighterManager(),
       m_Language("en"),
+      m_Theme(Qt::ColorScheme::Unknown),
       m_MatLabel("  Ipponboard   "),
       m_weights(),
       m_FighterNameFont("Calibri", 12, QFont::Bold, false),
@@ -101,6 +103,7 @@ void MainWindowBase::Init()
     // Load settings
     read_settings();
 
+    change_theme();
     change_lang(true);
 
     // Init gamepad
@@ -339,6 +342,13 @@ void MainWindowBase::change_lang(bool beQuiet)
     }
 }
 
+void MainWindowBase::change_theme()
+{
+    ui_check_theme_items();
+
+    QGuiApplication::styleHints()->setColorScheme(m_Theme);
+}
+
 void MainWindowBase::on_actionLang_Deutsch_triggered(bool val)
 {
     if (val)
@@ -363,6 +373,45 @@ void MainWindowBase::on_actionLang_Dutch_triggered(bool val)
     {
         m_Language = "nl";
         change_lang();
+    }
+}
+
+void MainWindowBase::on_actionThemeAutomatic_triggered(bool val)
+{
+    if (val)
+    {
+        m_Theme = Qt::ColorScheme::Unknown;
+        change_theme();
+    }
+    else
+    {
+        ui_check_theme_items();
+    }
+}
+
+void MainWindowBase::on_actionThemeDark_triggered(bool val)
+{
+    if (val)
+    {
+        m_Theme = Qt::ColorScheme::Dark;
+        change_theme();
+    }
+    else
+    {
+        ui_check_theme_items();
+    }
+}
+
+void MainWindowBase::on_actionThemeLight_triggered(bool val)
+{
+    if (val)
+    {
+        m_Theme = Qt::ColorScheme::Light;
+        change_theme();
+    }
+    else
+    {
+        ui_check_theme_items();
     }
 }
 
@@ -431,6 +480,7 @@ void MainWindowBase::write_settings()
         settings.remove("");
         settings.setValue(str_tag_Version, VersionInfo::VersionStr);
         settings.setValue(str_tag_Language, m_Language);
+        settings.setValue(str_tag_Theme, static_cast<int>(m_Theme));
         settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
         settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
         settings.setValue(str_tag_SecondScreenOffset, m_secondScreenOffset);
@@ -549,7 +599,11 @@ void MainWindowBase::read_settings()
         QString langStr = QLocale::system().name();
         langStr.truncate(langStr.lastIndexOf('_'));
         m_Language = settings.value(str_tag_Language, langStr).toString();
-
+        auto themeVal =
+            settings.value(str_tag_Theme, static_cast<int>(Qt::ColorScheme::Unknown)).toInt();
+        m_Theme = (themeVal == 1 || themeVal == 2) ? static_cast<Qt::ColorScheme>(themeVal)
+                                                   : Qt::ColorScheme::Unknown;
+        QGuiApplication::styleHints()->setColorScheme(m_Theme);
         m_secondScreenNo = settings.value(str_tag_SecondScreen, 0).toInt();
         m_secondScreenSize = settings.value(str_tag_SecondScreenSize, QSize(0, 0)).toSize();
         m_secondScreenOffset = settings.value(str_tag_SecondScreenOffset, QPoint(0, 0)).toPoint();

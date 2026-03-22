@@ -205,9 +205,10 @@ int main(int argc, char* argv[])
         parser.showHelp(ERROR_INVALID_PARAMETER);
     }
 
-    // read language code
+    // read language and theme settings
     QString langStr = QLocale::system().name();
     langStr.truncate(langStr.lastIndexOf('_'));
+    auto theme = Qt::ColorScheme::Unknown;
 
     auto settingsFile = fm::ResolveConfigFileForRead(MainWindowBase::GetConfigFileName());
     qInfo() << "Reading settings from: " << settingsFile;
@@ -225,7 +226,18 @@ int main(int argc, char* argv[])
         langStr = settings.value(str_tag_Language).toString();
     }
 
+    if (settings.contains(str_tag_Theme))
+    {
+        auto val = settings.value(str_tag_Theme).toInt();
+        if (val == 1 || val == 2)
+        {
+            theme = static_cast<Qt::ColorScheme>(val);
+        }
+    }
+
     settings.endGroup();
+
+    a.styleHints()->setColorScheme(theme);
 
     QTranslator translator; // Note: this object needs to remain in scope.
     SetTranslation(a, translator, langStr);

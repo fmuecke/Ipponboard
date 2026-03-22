@@ -8,8 +8,10 @@
 #include "../core/Rules.h"
 #include "ui_ModeManagerDlg.h"
 
+#include <QApplication>
 #include <QComboBox>
 #include <QMessageBox>
+#include <QPalette>
 #include <QStringList>
 #include <QUuid>
 
@@ -282,23 +284,28 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
     }
 
     auto& mode = GetCurrentMode();
+    QPalette palette(m_pUi->lineEdit_timeOverrides->palette());
 
     if (s.isEmpty() || TournamentMode::ExtractFightTimeOverrides(s, mode.fightTimeOverrides))
     {
-        m_pUi->lineEdit_timeOverrides->setStyleSheet("color : black;");
+        palette.setColor(
+            QPalette::Text,
+            QApplication::palette(m_pUi->lineEdit_timeOverrides).color(QPalette::Text));
     }
     else
     {
-        m_pUi->lineEdit_timeOverrides->setStyleSheet("color : red;");
+        palette.setColor(QPalette::Text, Qt::red);
     }
+
+    m_pUi->lineEdit_timeOverrides->setPalette(palette);
 }
 
 void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
 {
-    auto text = mode.nRounds > 1 ? QString("%1 fights total, %2 per round")
+    auto text = mode.nRounds > 1 ? tr("%1 fights total, %2 per round")
                                        .arg(mode.FightsPerRound() * mode.nRounds)
                                        .arg(mode.FightsPerRound())
-            : QString("%1 fights total").arg(mode.FightsPerRound());
+                                 : tr("%1 fights total").arg(mode.FightsPerRound());
 
     m_pUi->label_fightsPerRound->setText(text);
 }
@@ -317,4 +324,3 @@ Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
 
     return m_DefaultMode;
 }
-

@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -14,6 +14,7 @@
 
 #include <QMainWindow>
 #include <QPoint>
+#include <QStyleHints>
 #include <memory>
 #include <vector>
 
@@ -32,6 +33,7 @@ class ClubManager;
 class FightCategoryMgr;
 class ScoreScreen;
 } // namespace Ipponboard
+class QApplication;
 class QSettings;
 
 namespace GamepadLib
@@ -49,6 +51,7 @@ static const char* const str_tag_MatLabel = "MatLabel";
 static const char* const str_tag_LabelHome = "LabelHome";
 static const char* const str_tag_LabelGuest = "LabelGuest";
 static const char* const str_tag_Language = "Language";
+static const char* const str_tag_Theme = "Theme";
 static const char* const str_tag_Version = "Version";
 static const char* const str_tag_Fonts = "Fonts";
 static const char* const str_tag_TextFont1 = "TextFont1";
@@ -113,6 +116,7 @@ class MainWindowBase : public QMainWindow,
                        public Ipponboard::IGoldenScoreView
 {
     Q_OBJECT
+
   public:
     explicit MainWindowBase(QWidget* parent = nullptr);
     virtual ~MainWindowBase();
@@ -152,6 +156,7 @@ class MainWindowBase : public QMainWindow,
     virtual void attach_primary_view() = 0;
     virtual void retranslate_Ui() = 0;
     virtual void ui_check_language_items() = 0;
+    virtual void ui_check_theme_items() = 0;
     virtual void ui_check_rules_items() = 0;
     virtual void ui_check_show_secondary_view(bool checked) const = 0;
 
@@ -159,6 +164,7 @@ class MainWindowBase : public QMainWindow,
     virtual void write_specific_settings(QSettings& settings);
     virtual void read_specific_settings(QSettings& settings);
     void change_lang(bool beQuiet = false);
+    void change_theme();
     void show_hide_view() const;
 
   protected slots:
@@ -174,6 +180,9 @@ class MainWindowBase : public QMainWindow,
     void on_actionLang_English_triggered(bool);
     void on_actionLang_Deutsch_triggered(bool);
     void on_actionLang_Dutch_triggered(bool);
+    void on_actionThemeAutomatic_triggered(bool);
+    void on_actionThemeDark_triggered(bool);
+    void on_actionThemeLight_triggered(bool);
     void on_actionRulesClassic_triggered(bool);
     void on_actionRules2013_triggered(bool);
     void on_actionRules2017_triggered(bool);
@@ -198,6 +207,7 @@ class MainWindowBase : public QMainWindow,
     std::shared_ptr<Ipponboard::Controller> m_pController;
     Ipponboard::FighterManager m_fighterManager;
     QString m_Language;
+    Qt::ColorScheme m_Theme;
     QString m_MatLabel;
     QString m_weights;
     QFont m_FighterNameFont;

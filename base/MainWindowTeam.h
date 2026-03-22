@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Florian Muecke. All rights reserved.
+// Copyright 2018 Florian Muecke. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
@@ -48,6 +48,7 @@ class MainWindowTeam : public MainWindowBase
     virtual void attach_primary_view() final;
     virtual void retranslate_Ui() final;
     virtual void ui_check_language_items() final;
+    virtual void ui_check_theme_items() final;
     virtual void ui_check_rules_items() final
     {
         //FIXME

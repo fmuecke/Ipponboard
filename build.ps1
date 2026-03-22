@@ -75,10 +75,11 @@ function Show-Menu {
         (8) build setup
         (9) clean build with setup (release)
         (s) switch debug/release
-        (q) quit
+        (q) quit      
 "@
 
     Write-Host $menu
+    Write-Host ""
 }
 
 # write a function that takes another function from this scruipt as a parameter and calls it and measures the time it took
