@@ -29,39 +29,39 @@ class MainWindowTeam : public MainWindowBase
 
   public:
     explicit MainWindowTeam(QWidget* parent = nullptr);
-    virtual ~MainWindowTeam();
+    ~MainWindowTeam() override;
 
-    virtual void Init() final;
+    void Init() final;
 
-    virtual EditionType Edition() const final { return EditionType::Team; }
-    virtual const char* EditionName() const final { return "Team Mode"; }
-    virtual const char* EditionNameShort() const final { return "Team"; }
+    EditionType Edition() const final { return EditionType::Team; }
+    const char* EditionName() const final { return "Team Mode"; }
+    const char* EditionNameShort() const final { return "Team"; }
     static const char* ModeConfigurationFileName() { return "tournament_modes.config"; }
 
     void LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode);
 
   protected:
-    virtual void UpdateGoldenScoreView() final;
+    void UpdateGoldenScoreView() final;
     //virtual void changeEvent(QEvent* e) override;
-    virtual void closeEvent(QCloseEvent* event) override;
-    virtual void keyPressEvent(QKeyEvent* event) override;
-    virtual void attach_primary_view() final;
-    virtual void retranslate_Ui() final;
-    virtual void ui_check_language_items() final;
-    virtual void ui_check_theme_items() final;
-    virtual void ui_check_rules_items() final
+    void closeEvent(QCloseEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
+    void attach_primary_view() final;
+    void retranslate_Ui() final;
+    void ui_check_language_items() final;
+    void ui_check_theme_items() final;
+    void ui_check_rules_items() final
     {
         //FIXME
     }
-    virtual void ui_check_show_secondary_view(bool checked) const final;
+    void ui_check_show_secondary_view(bool checked) const final;
 
   private:
     static QStringList get_list_templates();
     void update_info_text_color(const QColor& color, const QColor& bgColor) override;
     void update_text_color_first(const QColor& color, const QColor& bgColor) override;
     void update_text_color_second(const QColor& color, const QColor& bgColor) override;
-    virtual void update_fighter_name_font(const QFont&) override;
-    virtual void update_views() override;
+    void update_fighter_name_font(const QFont&) override;
+    void update_views() override;
 
     // specific methods
     void update_club_views();
@@ -73,14 +73,14 @@ class MainWindowTeam : public MainWindowBase
     int LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
     QString SaveTournamentToFile_(QString const& filename);
     void load_autosave_if_available();
-    virtual void write_settings() const final;
-    virtual void read_settings() final;
+    void write_settings() const final;
+    void read_settings() final;
     Ipponboard::TournamentSerialization::TournamentSaveData CollectTournamentSaveData_() const;
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);
 
     /* base class slot overrides */
-    virtual void on_actionManageFighters_triggered() override;
+    void on_actionManageFighters_triggered() override;
 
   private slots:
     void on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos);
@@ -126,7 +126,7 @@ class MainWindowTeam : public MainWindowBase
     //void on_comboBox_weight_class_currentTextChanged(const QString&);
 
     void on_actionReset_Scores_triggered();
-    virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
+    bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
 
   private:
     void update_weights(QString const& weightString);

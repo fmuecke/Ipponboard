@@ -52,51 +52,51 @@ class Controller : public QObject, public IController, public IControllerCore
     static const char* const msg_Winner;
 
     Controller();
-    virtual ~Controller();
+    ~Controller() override;
 
     // --- IController ---
     //FIXME: use override/final
     void InitTournament(TournamentMode const& mode);
-    void RegisterView(IView* pView);
-    void RegisterView(IGoldenScoreView* pView);
-    int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const;
+    void RegisterView(IView* pView) override;
+    void RegisterView(IGoldenScoreView* pView) override;
+    int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const override;
     void DoAction(Ipponboard::EAction action,
                   Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First,
-                  bool doRevoke = false);
-    Ipponboard::EState GetCurrentState() const { return m_State; }
-    Ipponboard::FighterEnum GetLead() const;
-    Ipponboard::FighterEnum GetLastHolder() const;
-    QString GetTimeText(Ipponboard::ETimer timer) const;
-    QString GetFighterName(Ipponboard::FighterEnum who) const;
-    QString GetFighterLastName(Ipponboard::FighterEnum) const;
-    QString GetFighterFirstName(Ipponboard::FighterEnum) const;
-    QString GetFighterClub(Ipponboard::FighterEnum who) const;
-    QString const& GetWeight() const;
-    QString GetMessage() const;
-    int GetTeamScore(Ipponboard::FighterEnum who) const;
-    void SetTimerValue(Ipponboard::ETimer timer, const QString& value);
-    void SetRoundTime(const QString& value);
+                  bool doRevoke = false) override;
+    Ipponboard::EState GetCurrentState() const override { return m_State; }
+    Ipponboard::FighterEnum GetLead() const override;
+    Ipponboard::FighterEnum GetLastHolder() const override;
+    QString GetTimeText(Ipponboard::ETimer timer) const override;
+    QString GetFighterName(Ipponboard::FighterEnum who) const override;
+    QString GetFighterLastName(Ipponboard::FighterEnum) const override;
+    QString GetFighterFirstName(Ipponboard::FighterEnum) const override;
+    QString GetFighterClub(Ipponboard::FighterEnum who) const override;
+    QString const& GetWeight() const override;
+    QString GetMessage() const override;
+    int GetTeamScore(Ipponboard::FighterEnum who) const override;
+    void SetTimerValue(Ipponboard::ETimer timer, const QString& value) override;
+    void SetRoundTime(const QString& value) override;
     QString GetFightTimeString() const;
     int GetFightDuration(QString const& weight) const;
     void SetRoundTime(const QTime& time);
     void OverrideRoundTimeOfFightMode(int fightTimeSecs);
     //FIXME: int GetRound() const;
-    void SetWeightClass(QString const& c);
-    QString const& GetCategoryName() const
+    void SetWeightClass(QString const& c) override;
+    QString const& GetCategoryName() const override
     {
         return m_weight_class;
     } //TODO: weight class should be part of tournament!
-    void SetGoldenScore(bool isGS);
-    bool IsGoldenScore() const { return is_golden_score(); }
-    void SetRules(std::shared_ptr<AbstractRules> rules);
-    virtual std::shared_ptr<AbstractRules> GetRules() const override;
+    void SetGoldenScore(bool isGS) override;
+    bool IsGoldenScore() const override { return is_golden_score(); }
+    void SetRules(std::shared_ptr<AbstractRules> rules) override;
+    std::shared_ptr<AbstractRules> GetRules() const override;
     bool IsAutoAdjustPoints() const final;
     void SetAutoAdjustPoints(bool isActive) final;
-    void SetOption(Ipponboard::EOption option, bool isSet);
-    bool GetOption(Ipponboard::EOption option) const;
-    QString GetHomeLabel() const { return m_labelHome; }
-    QString GetGuestLabel() const { return m_labelGuest; }
-    void SetLabels(QString const& home, QString const& guest);
+    void SetOption(Ipponboard::EOption option, bool isSet) override;
+    bool GetOption(Ipponboard::EOption option) const override;
+    QString GetHomeLabel() const override { return m_labelHome; }
+    QString GetGuestLabel() const override { return m_labelGuest; }
+    void SetLabels(QString const& home, QString const& guest) override;
 
     void Gong() const;
     // Allows tests to advance timers deterministically without relying on QTimer events.
