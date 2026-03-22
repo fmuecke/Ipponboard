@@ -2,6 +2,8 @@
 
 #if defined(_WIN32)
 #include "GamepadWin.h"
+#elif defined(__APPLE__)
+#include "GamepadNull.h"
 #else
 #include "GamepadLinux.h"
 #endif
@@ -46,6 +48,8 @@ std::unique_ptr<GamepadBackend> make_default_backend()
 {
 #if defined(_WIN32)
     return std::make_unique<GamepadWin>();
+#elif defined(__APPLE__)
+    return std::make_unique<GamepadNull>();
 #else
     return std::make_unique<GamepadLinux>();
 #endif

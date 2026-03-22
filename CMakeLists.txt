@@ -17,7 +17,12 @@ if(MSVC)
 endif()
 
 # Read variables from config
-file(STRINGS "env_cfg.bat" CONFIG_OUTPUT)
+set(IPPONBOARD_ENV_CONFIG "${CMAKE_CURRENT_SOURCE_DIR}/env_cfg.bat")
+if(NOT EXISTS "${IPPONBOARD_ENV_CONFIG}")
+    message(FATAL_ERROR "Missing configuration file: ${IPPONBOARD_ENV_CONFIG}")
+endif()
+
+file(STRINGS "${IPPONBOARD_ENV_CONFIG}" CONFIG_OUTPUT)
 
 # Process each line to extract variables
 string(REPLACE "\n" ";" CONFIG_LINES "${CONFIG_OUTPUT}")
@@ -34,15 +39,22 @@ if(MSVC)
     if(NOT DEFINED CFG_QTDIR)
         message(FATAL_ERROR "QTDIR not configured in env_cfg.bat")
     endif()
-    set(QTDIR ${CFG_QTDIR})
-else()
+    set(QTDIR "${CFG_QTDIR}")
+elseif(APPLE)
+    if(NOT DEFINED CFG_MACOS_QTDIR)
+        message(FATAL_ERROR "MACOS_QTDIR not configured in env_cfg.bat")
+    endif()
+    set(QTDIR "${CFG_MACOS_QTDIR}")
+elseif(UNIX)
     if(NOT DEFINED CFG_LINUX_QTDIR)
         message(FATAL_ERROR "LINUX_QTDIR not configured in env_cfg.bat")
     endif()
-    set(QTDIR ${CFG_LINUX_QTDIR})
+    set(QTDIR "${CFG_LINUX_QTDIR}")
+else()
+    message(FATAL_ERROR "Unsupported platform")
 endif()
 message(STATUS "Using: QTDIR = ${QTDIR}")
-set(CMAKE_PREFIX_PATH ${QTDIR})
+list(PREPEND CMAKE_PREFIX_PATH "${QTDIR}")
 set(CMAKE_LIBRARY_PATH ${QTDIR}/lib)
 
 # Check if INNO_DIR is configured
@@ -63,7 +75,10 @@ set(PCH_HEADER_CORE ${ROOT_DIR}/base/pch_core.h)
 set(PCH_HEADER_WIDGETS ${ROOT_DIR}/base/pch.h)
 
 # Restrict multi configurations to Release and Debug
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if(IS_MULTI_CONFIG)
+    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+endif()
 
 # Configure c++ language support
 set(CMAKE_CXX_STANDARD 20)
