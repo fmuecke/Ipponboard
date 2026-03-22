@@ -4,24 +4,216 @@
 
 #include "StateMachine.h"
 
-#include "Fight.h"
+#include "Rules.h"
 
 using namespace Ipponboard;
 using Point = Score::Point;
 
-void IpponboardSM::PerformAction(EAction action, FighterEnum who)
+void IpponboardSM::ToggleMainTimer()
 {
-    handleFightAction(action, who);
-    maybeStopForGoldenScore(action);
+    switch (m_state)
+    {
+    case eState_TimerStopped:
+        startMainTimer();
+        m_state = eState_TimerRunning;
+        break;
+
+    case eState_TimerRunning:
+    case eState_Holding:
+        stopMainTimer();
+        m_state = eState_TimerStopped;
+        break;
+
+    default:
+        break;
+    }
 }
 
-void IpponboardSM::RevokeAction(EAction action, FighterEnum who)
+void IpponboardSM::BeginHold(FighterEnum who)
 {
-    handleRevokeAction(action, who);
-    maybeStopForGoldenScore(action);
+    m_holder = who;
+
+    switch (m_state)
+    {
+    case eState_TimerStopped:
+        m_core.start_timer(eTimer_Main);
+        startHoldTimer();
+        m_state = eState_Holding;
+        break;
+
+    case eState_TimerRunning:
+        startHoldTimer();
+        m_state = eState_Holding;
+        break;
+
+    default:
+        break;
+    }
 }
 
-void IpponboardSM::Finish()
+void IpponboardSM::EndHold()
+{
+    if (m_state != eState_Holding)
+    {
+        return;
+    }
+
+    stopHoldTimer();
+    m_state = mainTimeIsUp() ? eState_TimerStopped : eState_TimerRunning;
+}
+
+void IpponboardSM::SetHoldOwner(FighterEnum who) { m_holder = who; }
+
+void IpponboardSM::ClearHoldOwner() { m_holder = FighterEnum::Nobody; }
+
+void IpponboardSM::AwardPoint(Score::Point point, FighterEnum who)
+{
+    switch (point)
+    {
+    case Point::Yuko:
+        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+            m_state == eState_Holding)
+        {
+            awardPoint(point, who);
+            maybeStopForGoldenScore(point);
+        }
+        break;
+
+    case Point::Wazaari:
+        switch (m_state)
+        {
+        case eState_TimerStopped:
+            if (canAddWazaari(who))
+            {
+                awardPoint(point, who);
+            }
+            break;
+
+        case eState_TimerRunning:
+            handleRunningWazaari(who);
+            break;
+
+        case eState_Holding:
+            awardPoint(point, who);
+            break;
+
+        default:
+            break;
+        }
+        maybeStopForGoldenScore(point);
+        break;
+
+    case Point::Ippon:
+        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+            m_state == eState_Holding)
+        {
+            awardIppon(who);
+            m_state = eState_TimerStopped;
+        }
+        break;
+
+    case Point::Shido:
+        AwardShido(who);
+        break;
+
+    case Point::Hansokumake:
+        AwardHansokumake(who);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void IpponboardSM::RevokePoint(Score::Point point, FighterEnum who)
+{
+    switch (point)
+    {
+    case Point::Yuko:
+    case Point::Wazaari:
+        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+            m_state == eState_Holding)
+        {
+            revokePoint(point, who);
+            maybeStopForGoldenScore(point);
+        }
+        break;
+
+    case Point::Ippon:
+        if (m_state == eState_TimerStopped)
+        {
+            revokePoint(point, who);
+            maybeStopForGoldenScore(point);
+        }
+        break;
+
+    default:
+        break;
+    }
+}
+
+void IpponboardSM::AwardShido(FighterEnum who)
+{
+    switch (m_state)
+    {
+    case eState_TimerStopped:
+    case eState_Holding:
+        if (canTakeShido(who))
+        {
+            awardShido(who);
+        }
+        break;
+
+    case eState_TimerRunning:
+        handleRunningShido(who);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void IpponboardSM::RevokeShido(FighterEnum who)
+{
+    if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+        m_state == eState_Holding)
+    {
+        revokeShidoOrHansokumake(who);
+    }
+}
+
+void IpponboardSM::RevokeHansokumake(FighterEnum who)
+{
+    if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+        m_state == eState_Holding)
+    {
+        revokeShidoOrHansokumake(who);
+        maybeStopForGoldenScoreAfterPenalty();
+    }
+}
+
+void IpponboardSM::AwardHansokumake(FighterEnum who)
+{
+    if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+        m_state == eState_Holding)
+    {
+        awardHansokumake(who);
+        m_state = eState_TimerStopped;
+    }
+}
+
+void IpponboardSM::ResetFight()
+{
+    if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
+        m_state == eState_Holding)
+    {
+        resetFight();
+        m_state = eState_TimerStopped;
+        ClearHoldOwner();
+    }
+}
+
+void IpponboardSM::FinishFight()
 {
     switch (m_state)
     {
@@ -50,218 +242,30 @@ void IpponboardSM::OnMainTimerElapsed()
     }
 }
 
-void IpponboardSM::OnHoldTimerTick(int seconds, FighterEnum who)
+void IpponboardSM::OnHoldTimerTick(int seconds)
 {
-    if (m_state != eState_Holding)
+    if (m_state != eState_Holding || m_holder == FighterEnum::Nobody)
     {
         return;
     }
 
     if (hasIpponTime(seconds))
     {
-        applyHoldScore(seconds, who);
-        stopAllTimers();
-        m_state = eState_TimerStopped;
+        applyHoldScore(seconds, m_holder);
+        stopFight();
     }
-    else if (hasAwaseteTime(seconds, who))
+    else if (hasAwaseteTime(seconds))
     {
-        applyHoldScore(seconds, who);
-        stopAllTimers();
-        m_state = eState_TimerStopped;
+        applyHoldScore(seconds, m_holder);
+        stopFight();
     }
     else if (hasWazaariTime(seconds))
     {
-        applyHoldScore(seconds, who);
+        applyHoldScore(seconds, m_holder);
     }
     else if (hasYukoTime(seconds))
     {
-        applyHoldScore(seconds, who);
-    }
-}
-
-void IpponboardSM::handleFightAction(EAction action, FighterEnum who)
-{
-    switch (action)
-    {
-    case eAction_Hajime_Mate:
-        handleMainTimerToggle();
-        break;
-
-    case eAction_OsaeKomi_Toketa:
-        handleHoldToggle();
-        break;
-
-    case eAction_Yuko:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            awardPoint(Point::Yuko, who);
-        }
-        break;
-
-    case eAction_Wazaari:
-        switch (m_state)
-        {
-        case eState_TimerStopped:
-            if (canAddWazaari(who))
-            {
-                awardPoint(Point::Wazaari, who);
-            }
-            break;
-
-        case eState_TimerRunning:
-            handleRunningWazaari(who);
-            break;
-
-        case eState_Holding:
-            awardPoint(Point::Wazaari, who);
-            break;
-
-        default:
-            break;
-        }
-        break;
-
-    case eAction_Ippon:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            awardIppon(who);
-            m_state = eState_TimerStopped;
-        }
-        break;
-
-    case eAction_Shido:
-        switch (m_state)
-        {
-        case eState_TimerStopped:
-        case eState_Holding:
-            if (canTakeShido(who))
-            {
-                awardShido(who);
-            }
-            break;
-
-        case eState_TimerRunning:
-            handleRunningShido(who);
-            break;
-
-        default:
-            break;
-        }
-        break;
-
-    case eAction_Hansokumake:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            awardHansokumake(who);
-            m_state = eState_TimerStopped;
-        }
-        break;
-
-    case eAction_ResetAll:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            resetFight();
-            m_state = eState_TimerStopped;
-        }
-        break;
-
-    case eAction_SetOsaekomi:
-    case eAction_ResetOsaeKomi:
-    case eAction_ResetMainTimer:
-    case eAction_SonoMama_Yoshi:
-    case eAction_NONE:
-    default:
-        break;
-    }
-}
-
-void IpponboardSM::handleRevokeAction(EAction action, FighterEnum who)
-{
-    switch (action)
-    {
-    case eAction_Yuko:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            revokePoint(Point::Yuko, who);
-        }
-        break;
-
-    case eAction_Wazaari:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            revokePoint(Point::Wazaari, who);
-        }
-        break;
-
-    case eAction_Ippon:
-        if (m_state == eState_TimerStopped)
-        {
-            revokePoint(Point::Ippon, who);
-        }
-        break;
-
-    case eAction_Shido:
-    case eAction_Hansokumake:
-        if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
-            m_state == eState_Holding)
-        {
-            revokeShidoOrHansokumake(who);
-        }
-        break;
-
-    default:
-        break;
-    }
-}
-
-void IpponboardSM::handleMainTimerToggle()
-{
-    switch (m_state)
-    {
-    case eState_TimerStopped:
-        startMainTimer();
-        m_state = eState_TimerRunning;
-        break;
-
-    case eState_TimerRunning:
-    case eState_Holding:
-        stopMainTimer();
-        m_state = eState_TimerStopped;
-        break;
-
-    default:
-        break;
-    }
-}
-
-void IpponboardSM::handleHoldToggle()
-{
-    switch (m_state)
-    {
-    case eState_TimerStopped:
-        m_core.start_timer(eTimer_Main);
-        startHoldTimer();
-        m_state = eState_Holding;
-        break;
-
-    case eState_TimerRunning:
-        startHoldTimer();
-        m_state = eState_Holding;
-        break;
-
-    case eState_Holding:
-        stopHoldTimer();
-        m_state = mainTimeIsUp() ? eState_TimerStopped : eState_TimerRunning;
-        break;
-
-    default:
-        break;
+        applyHoldScore(seconds, m_holder);
     }
 }
 
@@ -270,8 +274,7 @@ void IpponboardSM::handleRunningWazaari(FighterEnum who)
     if (isWazaariMatchPoint(who))
     {
         awardPoint(Point::Wazaari, who);
-        stopAllTimers();
-        m_state = eState_TimerStopped;
+        stopFight();
     }
     else if (canAddWazaari(who))
     {
@@ -284,8 +287,7 @@ void IpponboardSM::handleRunningShido(FighterEnum who)
     if (isShidoMatchPoint(who))
     {
         awardShido(who);
-        stopAllTimers();
-        m_state = eState_TimerStopped;
+        stopFight();
     }
     else if (canTakeShido(who))
     {
@@ -293,14 +295,14 @@ void IpponboardSM::handleRunningShido(FighterEnum who)
     }
 }
 
-void IpponboardSM::maybeStopForGoldenScore(EAction action)
+void IpponboardSM::maybeStopForGoldenScore(Score::Point point)
 {
     if (!m_core.is_golden_score())
     {
         return;
     }
 
-    if (action == eAction_Hajime_Mate || action == eAction_Shido)
+    if (point == Point::Shido)
     {
         return;
     }
@@ -315,6 +317,31 @@ void IpponboardSM::maybeStopForGoldenScore(EAction action)
         stopMainTimer();
         m_state = eState_TimerStopped;
     }
+}
+
+void IpponboardSM::maybeStopForGoldenScoreAfterPenalty()
+{
+    if (!m_core.is_golden_score())
+    {
+        return;
+    }
+
+    if (m_state != eState_TimerRunning)
+    {
+        return;
+    }
+
+    if (compareScore() != 0)
+    {
+        stopMainTimer();
+        m_state = eState_TimerStopped;
+    }
+}
+
+void IpponboardSM::stopFight()
+{
+    stopAllTimers();
+    m_state = eState_TimerStopped;
 }
 
 void IpponboardSM::resetFight() { m_core.reset_fight(); }
@@ -493,10 +520,11 @@ bool IpponboardSM::hasWazaariTime(int seconds) const
     return m_core.GetRules()->GetOsaekomiValue(Point::Wazaari) == seconds;
 }
 
-bool IpponboardSM::hasAwaseteTime(int seconds, FighterEnum who) const
+bool IpponboardSM::hasAwaseteTime(int seconds) const
 {
     auto rules = m_core.GetRules();
-    if (rules->IsOption_AwaseteIppon() && score(who).Wazaari() != 0)
+    if (rules->IsOption_AwaseteIppon() && m_holder != FighterEnum::Nobody &&
+        score(m_holder).Wazaari() != 0)
     {
         return rules->GetOsaekomiValue(Point::Wazaari) == seconds;
     }
@@ -513,8 +541,6 @@ bool IpponboardSM::mainTimeIsUp() const { return m_core.get_time(eTimer_Main) ==
 
 int IpponboardSM::compareScore() const
 {
-    Fight snapshot(score(FighterEnum::First), score(FighterEnum::Second));
-    snapshot.SetGoldenScore(m_core.is_golden_score());
-    snapshot.rules = m_core.GetRules();
-    return snapshot.rules->CompareScore(snapshot);
+    return m_core.GetRules()->CompareScore(
+        score(FighterEnum::First), score(FighterEnum::Second), m_core.is_golden_score());
 }

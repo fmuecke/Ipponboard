@@ -188,27 +188,41 @@ struct StateMachineFixture
 {
     StateMachineFixture() : machine(core) {}
 
-    void action(Ipponboard::EAction action,
-                Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First, bool revoke = false)
+    void toggleMainTimer() { machine.ToggleMainTimer(); }
+
+    void beginHold(Ipponboard::FighterEnum who) { machine.BeginHold(who); }
+
+    void endHold() { machine.EndHold(); }
+
+    void setHoldOwner(Ipponboard::FighterEnum who) { machine.SetHoldOwner(who); }
+
+    void clearHoldOwner() { machine.ClearHoldOwner(); }
+
+    void awardPoint(Ipponboard::Score::Point point, Ipponboard::FighterEnum who)
     {
-        if (revoke)
-        {
-            machine.RevokeAction(action, who);
-        }
-        else
-        {
-            machine.PerformAction(action, who);
-        }
+        machine.AwardPoint(point, who);
     }
 
-    void finish() { machine.Finish(); }
+    void revokePoint(Ipponboard::Score::Point point, Ipponboard::FighterEnum who)
+    {
+        machine.RevokePoint(point, who);
+    }
+
+    void awardShido(Ipponboard::FighterEnum who) { machine.AwardShido(who); }
+
+    void revokeShido(Ipponboard::FighterEnum who) { machine.RevokeShido(who); }
+
+    void revokeHansokumake(Ipponboard::FighterEnum who) { machine.RevokeHansokumake(who); }
+
+    void awardHansokumake(Ipponboard::FighterEnum who) { machine.AwardHansokumake(who); }
+
+    void resetFight() { machine.ResetFight(); }
+
+    void finishFight() { machine.FinishFight(); }
 
     void onMainTimerElapsed() { machine.OnMainTimerElapsed(); }
 
-    void onHoldTimerTick(int seconds, Ipponboard::FighterEnum who)
-    {
-        machine.OnHoldTimerTick(seconds, who);
-    }
+    void onHoldTimerTick(int seconds) { machine.OnHoldTimerTick(seconds); }
 
     RecordingControllerCore core;
     Ipponboard::IpponboardSM machine;
