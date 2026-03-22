@@ -34,6 +34,7 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPdfWriter>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <QSettings>
@@ -671,7 +672,11 @@ void MainWindowTeam::WriteScoreToHtml_()
     const QString copyright =
         tr("List generated with Ipponboard v") + QApplication::applicationVersion() + ", &copy; " +
         QApplication::organizationName() + ", 2010-" + VersionInfo::CopyrightYear;
-    m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
+
+    m_htmlScore.replace("</body>",
+                        "<br/><p style=\"font-size:5pt; color:#aaaaaa; "
+                        "margin-top:3mm; margin-bottom:0;\">" +
+                            copyright + "</p></body>");
 }
 
 TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSaveData_() const
@@ -1346,17 +1351,38 @@ void MainWindowTeam::on_actionExport_triggered()
         }
         else
         {
-            QPrinter printer(QPrinter::HighResolution);
-            //TODO: fix margins? (printable area is somehow smaller than with Qt4...)
-            //TODO: use QPdfWriter?
-            printer.setFullPage(true);
-            printer.setPageOrientation(QPageLayout::Landscape);
-            printer.setOutputFormat(QPrinter::PdfFormat);
-            printer.setPageSize(QPageSize(QPageSize::A4));
-            printer.setPageMargins(QMarginsF(0, 0, 0, 0), QPageLayout::Millimeter);
-            printer.setOutputFileName(fileName);
+            if (!fileName.endsWith(".pdf"))
+            {
+                fileName += ".pdf";
+            }
+            // QPrinter printer(QPrinter::HighResolution);
+            // //TODO: fix margins? (printable area is somehow smaller than with Qt4...)
+            // //TODO: use QPdfWriter?
+            // printer.setFullPage(true);
+            // printer.setPageOrientation(QPageLayout::Landscape);
+            // printer.setOutputFormat(QPrinter::PdfFormat);
+            // printer.setPageSize(QPageSize(QPageSize::A4));
+            // printer.setPageMargins(QMarginsF(0, 0, 0, 0), QPageLayout::Millimeter);
+            // printer.setOutputFileName(fileName);
+            // QTextEdit edit(m_htmlScore, this);
+            // edit.document()->print(&printer);
+
+            QPdfWriter pdfWriter(fileName);
+            pdfWriter.setPageSize(QPageSize(QPageSize::A4));
+            pdfWriter.setPageOrientation(QPageLayout::Landscape);
+            pdfWriter.setResolution(150); // Niedrigere DPI = größerer Viewport
+
+            QPageLayout layout;
+            layout.setPageSize(QPageSize(QPageSize::A4));
+            layout.setOrientation(QPageLayout::Landscape);
+            layout.setMargins(QMarginsF(0, 0, 0, 0));
+            layout.setMode(QPageLayout::FullPageMode);
+            pdfWriter.setPageLayout(layout);
+
             QTextEdit edit(m_htmlScore, this);
-            edit.document()->print(&printer);
+            edit.document()->setPageSize(
+                pdfWriter.pageLayout().fullRectPixels(pdfWriter.resolution()).size());
+            edit.document()->print(&pdfWriter);
         }
 
         QApplication::restoreOverrideCursor();
