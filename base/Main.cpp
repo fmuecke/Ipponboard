@@ -6,21 +6,16 @@
 #include "MainWindowTeam.h"
 //#include "../core/TournamentMode.h"
 #include "../util/path_helpers.h"
-#include "OnlineVersionChecker.h"
 #include "SplashScreen.h"
 #include "versioninfo.h"
 
-#include <QAbstractButton>
 #include <QApplication>
-#include <QDesktopServices>
 #include <QFile>
 #include <QLocale>
 #include <QMessageBox>
 #include <QProcessEnvironment>
-#include <QPushButton>
 #include <QSettings>
 #include <QTranslator>
-#include <QUrl>
 //#include <QtextCodec>
 #include <QCommandLineParser>
 #include <QDebug>
@@ -241,56 +236,6 @@ int main(int argc, char* argv[])
 
     QTranslator translator; // Note: this object needs to remain in scope.
     SetTranslation(a, translator, langStr);
-
-    auto onlineVersion = OnlineVersionChecker::CheckOnlineVersion();
-    if (onlineVersion.state == OnlineVersionChecker::State::NewerAvailable)
-    {
-        // format message
-        QString changes = QString(": <br><br><tt>%1</tt><br>")
-                              .arg(QCoreApplication::tr("en") == "de" ? onlineVersion.changes_de
-                                                                      : onlineVersion.changes_en);
-        changes.replace("\n", "<br>");
-
-        QString msg = QString("<p>%1 %2</p>")
-                          .arg(QCoreApplication::tr("Version %1 available (currently using: %2)")
-                                   .arg(QString("<b>%1</b>").arg(onlineVersion.version))
-                                   .arg(QCoreApplication::applicationVersion()))
-                          .arg(changes);
-
-        msg += QString("<p>%1</p>")
-                   .arg(QCoreApplication::tr(
-                       "Do you want to download it or visit the project homepage?"));
-
-        // show message box
-        QMessageBox versionBox(QMessageBox::Information,
-                               QCoreApplication::tr("Ipponboard - New Version Available"),
-                               msg,
-                               QMessageBox::NoButton,
-                               nullptr);
-        QAbstractButton* downloadButton =
-            versionBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
-        QAbstractButton* homepageButton =
-            versionBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
-        versionBox.addButton(QCoreApplication::tr("Cancel"), QMessageBox::RejectRole);
-        if (auto* pushButton = qobject_cast<QPushButton*>(homepageButton))
-        {
-            versionBox.setDefaultButton(pushButton);
-        }
-
-        versionBox.exec();
-        QAbstractButton* clickedButton = versionBox.clickedButton();
-
-        if (clickedButton == downloadButton)
-        {
-            qDebug() << "Opening download URL:" << onlineVersion.downloadUrl;
-            return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
-        }
-        else if (clickedButton == homepageButton)
-        {
-            qDebug() << "Opening homepage URL:" << onlineVersion.infoUrl;
-            return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
-        }
-    }
 
     int dlgResult{ 0 };
 

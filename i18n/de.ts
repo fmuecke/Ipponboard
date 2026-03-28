@@ -423,7 +423,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Knopf %1 (Code %2)</translation>
     </message>
     <message>
-        <location line="+554"/>
+        <location line="+564"/>
         <source>Buttons: %1</source>
         <translation>Knöpfe: %1</translation>
     </message>
@@ -433,7 +433,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Knöpfe: keine</translation>
     </message>
     <message>
-        <location line="-897"/>
+        <location line="-907"/>
         <location line="+162"/>
         <location line="+67"/>
         <source>Cancel</source>
@@ -468,17 +468,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zuordnung konfiguriert (Code %1)</translation>
     </message>
     <message>
-        <location line="+498"/>
+        <location line="+508"/>
         <source>Diagnostics stopped.</source>
         <translation>Diagnose angehalten.</translation>
     </message>
     <message>
-        <location line="-927"/>
+        <location line="-937"/>
         <source>FIRST FIGHTER</source>
         <translation>ERSTER KÄMPFER</translation>
     </message>
     <message>
-        <location line="+1020"/>
+        <location line="+1030"/>
         <source>Gamepad not ready for diagnostics.</source>
         <translation>Gamepad ist für Diagnose nicht bereit.</translation>
     </message>
@@ -488,7 +488,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gamepad bereit für Aufzeichnung: %1</translation>
     </message>
     <message>
-        <location line="-610"/>
+        <location line="-620"/>
         <source>Hajime / Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
@@ -503,30 +503,30 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Hansokumake (rechts)</translation>
     </message>
     <message>
-        <location line="+900"/>
+        <location line="+910"/>
         <source>Left stick</source>
         <translation>Joystick links</translation>
     </message>
     <message>
-        <location line="-731"/>
+        <location line="-741"/>
         <source>Move the desired axis on the controller.</source>
         <translation>Bewege die gewünschte Axe auf dem Controller.</translation>
     </message>
     <message>
-        <location line="+729"/>
+        <location line="+739"/>
         <location line="+8"/>
         <source>Neutral</source>
         <translation>Neutral</translation>
     </message>
     <message>
-        <location line="-946"/>
+        <location line="-956"/>
         <source>Next fight</source>
         <translation>Nächster Kampf</translation>
     </message>
     <message>
         <location line="+122"/>
         <location line="+61"/>
-        <location line="+409"/>
+        <location line="+419"/>
         <location line="+20"/>
         <source>No gamepad detected for capture.</source>
         <translation>Kein Gamepad zum Aufzeichnen gefunden.</translation>
@@ -537,7 +537,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kein Gamepad für Diagnose gefunden.</translation>
     </message>
     <message>
-        <location line="-915"/>
+        <location line="-925"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -637,18 +637,18 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Haltezeit-Reset (rechts)</translation>
     </message>
     <message>
-        <location line="+916"/>
+        <location line="+926"/>
         <source>Right stick</source>
         <translation>Joystick rechts</translation>
     </message>
     <message>
-        <location line="-1069"/>
+        <location line="-1079"/>
         <source>SECOND FIGHTER</source>
         <translation>ZWEITER KÄMPFER</translation>
     </message>
     <message>
         <location line="-21"/>
-        <location line="+942"/>
+        <location line="+952"/>
         <source>Show pressed buttons</source>
         <translation>Gedrückte Knöpfe anzeigen</translation>
     </message>
@@ -704,17 +704,17 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../base/MainWindow.ui" line="+506"/>
-        <source>&amp;About</source>
-        <translation>Ü&amp;ber</translation>
-    </message>
-    <message>
-        <location line="-9"/>
+        <location filename="../base/MainWindow.ui" line="+497"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location line="+320"/>
+        <location line="+9"/>
+        <source>&amp;Help</source>
+        <translation>&amp;Hilfe</translation>
+    </message>
+    <message>
+        <location line="+312"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
@@ -734,22 +734,22 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>&amp;Anzeige</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-317"/>
         <source>/</source>
         <translation>/</translation>
     </message>
     <message>
-        <location line="+432"/>
+        <location line="+433"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
     <message>
-        <location line="-297"/>
+        <location line="-298"/>
         <source>Activate Golden Score</source>
         <translation>Golden-Score einschalten</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+524"/>
         <source>Auto Award Points</source>
         <translation>Wertungen automatisch setzen</translation>
     </message>
@@ -764,17 +764,22 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kategorien</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-502"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location line="+428"/>
+        <location line="+429"/>
         <source>Change Background</source>
         <translation>Hintergrund ändern</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+312"/>
+        <source>Check for Updates</source>
+        <translation>Auf Update prüfen</translation>
+    </message>
+    <message>
+        <location line="-140"/>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
@@ -815,12 +820,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Strg+S</translation>
     </message>
     <message>
-        <location line="-487"/>
+        <location line="-488"/>
         <source>Display secondary screen</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
     <message>
-        <location line="+730"/>
+        <location line="+731"/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
@@ -845,7 +850,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kämpfer</translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-296"/>
         <source>First Fighter (first last)</source>
         <translation>Erster Kämpfer (Vorname Nachname)</translation>
     </message>
@@ -855,7 +860,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Golden-Score</translation>
     </message>
     <message>
-        <location line="+536"/>
+        <location line="+537"/>
         <source>IJF Rules 2013</source>
         <translation>2013er IJF Regeln</translation>
     </message>
@@ -885,12 +890,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Info-Zeile</translation>
     </message>
     <message>
-        <location line="-873"/>
+        <location line="-874"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
     <message>
-        <location line="+502"/>
+        <location line="+503"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
@@ -925,12 +930,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location line="-419"/>
+        <location line="-420"/>
         <source>Options:</source>
         <translation>Optionen:</translation>
     </message>
     <message>
-        <location line="+519"/>
+        <location line="+520"/>
         <source>Play Mat Signal</source>
         <translation>Mattensignal</translation>
     </message>
@@ -940,12 +945,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="-413"/>
+        <location line="-414"/>
         <source>Plays the signal sound file</source>
         <translation>Spielt das Mattensignal ab</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+431"/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
@@ -961,22 +966,22 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-390"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+296"/>
+        <location line="+297"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-300"/>
         <source>Reset all clocks and scores</source>
         <translation>Alle Uhren und Punkte zurücksetzen</translation>
     </message>
     <message>
-        <location line="+165"/>
+        <location line="+166"/>
         <source>Rules</source>
         <translation>Regeln</translation>
     </message>
@@ -986,13 +991,13 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-145"/>
         <source>Second Fighter (first last)</source>
         <translation>Zweiter Kämpfer (Vorname Nachname)</translation>
     </message>
     <message>
         <location line="-337"/>
-        <location line="+524"/>
+        <location line="+525"/>
         <source>Secondary Display</source>
         <translation>Sekundäre Anzeige</translation>
     </message>
@@ -1037,12 +1042,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zeigt/versteckt die Info-Zeile mit den Optionen und aktiven Regeln.</translation>
     </message>
     <message>
-        <location line="-622"/>
+        <location line="-623"/>
         <source>Signal</source>
         <translation>Signal</translation>
     </message>
     <message>
-        <location line="+267"/>
+        <location line="+268"/>
         <source>Theme</source>
         <translation>Farbschema</translation>
     </message>
@@ -1102,12 +1107,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="-370"/>
+        <location line="-371"/>
         <source>Weight Class</source>
         <translation>Gewichtsklasse</translation>
     </message>
     <message>
-        <location line="+720"/>
+        <location line="+721"/>
         <source>dark</source>
         <translation>dunkel</translation>
     </message>
@@ -1125,7 +1130,7 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+303"/>
+        <location filename="../base/MainWindowBase.cpp" line="+372"/>
         <source>/User-Manual.html</source>
         <translation>/Anleitung.html</translation>
     </message>
@@ -1140,7 +1145,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location line="+782"/>
+        <location line="+794"/>
         <location line="+23"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -1156,7 +1161,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ändere Wert in (ss):</translation>
     </message>
     <message>
-        <location line="-1060"/>
+        <location line="-1077"/>
         <source>Unnamed controller</source>
         <translation>Unbenannter Controller</translation>
     </message>
@@ -1169,12 +1174,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation> (gespeichert)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1505"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1507"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Info-Titelzeitle</translation>
     </message>
     <message>
-        <location line="-1013"/>
+        <location line="-1015"/>
         <location line="+226"/>
         <source>(Sub score)</source>
         <translation>(Unterbewertung)</translation>
@@ -1191,12 +1196,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>1/10</translation>
     </message>
     <message>
-        <location line="+243"/>
-        <source>About</source>
-        <translation>Über</translation>
-    </message>
-    <message>
-        <location line="+120"/>
+        <location line="+365"/>
         <source>About Ipponboard</source>
         <translation>Über Ipponboard</translation>
     </message>
@@ -1206,7 +1206,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Wertungen automatisch setzen</translation>
     </message>
     <message>
-        <location line="-855"/>
+        <location line="-857"/>
         <source>Board</source>
         <translation>Anzeigetafel</translation>
     </message>
@@ -1216,7 +1216,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>In eine leere Auswahl kann nicht eingefügt werden!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+844"/>
+        <location filename="../base/MainWindowTeam.ui" line="+916"/>
+        <source>Check for Updates</source>
+        <translation>Auf Update prüfen</translation>
+    </message>
+    <message>
+        <location line="-70"/>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
@@ -1231,12 +1236,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Vereine</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-301"/>
         <source>Continue with next fight (current data will be saved)</source>
         <translation>Mit dem nächsten Kampf fortfahren (aktueller Punktestand wird gespeichert)</translation>
     </message>
     <message>
-        <location line="+333"/>
+        <location line="+335"/>
         <source>Controller</source>
         <translation>Steuerung</translation>
     </message>
@@ -1246,12 +1251,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-874"/>
+        <location filename="../base/MainWindowTeam.ui" line="-876"/>
         <source>Copy &amp;&amp; switch guest</source>
         <translation>Kopieren (und Gäste tauschen)</translation>
     </message>
     <message>
-        <location line="+1013"/>
+        <location line="+1015"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
@@ -1281,7 +1286,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Strg+S</translation>
     </message>
     <message>
-        <location line="-1093"/>
+        <location line="-1095"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -1292,12 +1297,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Begegnung verwerfen?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1378"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1380"/>
         <source>Dutch</source>
         <translation>Niederländisch</translation>
     </message>
     <message>
-        <location line="-1294"/>
+        <location line="-1296"/>
         <source>Edit guest team</source>
         <translation>Gast-Mannschaft bearbeiten</translation>
     </message>
@@ -1307,7 +1312,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Heim-Mannschaft bearbeiten</translation>
     </message>
     <message>
-        <location line="+1047"/>
+        <location line="+1049"/>
         <source>End Ipponboard</source>
         <translation>Ipponboard beenden</translation>
     </message>
@@ -1349,12 +1354,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>F2</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-400"/>
         <source>Fight</source>
         <translation>Kampf</translation>
     </message>
     <message>
-        <location line="+602"/>
+        <location line="+604"/>
         <source>Fighters</source>
         <translation>Kämpfer</translation>
     </message>
@@ -1379,7 +1384,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Fehler beim Öffnen der Datei</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-935"/>
+        <location filename="../base/MainWindowTeam.ui" line="-937"/>
         <source>Final score:</source>
         <translation>Endstand:</translation>
     </message>
@@ -1395,12 +1400,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gast</translation>
     </message>
     <message>
+        <location line="+1044"/>
+        <source>Help</source>
+        <translation>Hilfe</translation>
+    </message>
+    <message>
         <location filename="../base/MainWindowTeam.cpp" line="+781"/>
         <source>Hide results</source>
         <translation>Ergebnis verstecken</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-17"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1061"/>
         <location filename="../base/MainWindowTeam.cpp" line="-782"/>
         <source>Home</source>
         <translation>Heim</translation>
@@ -1411,12 +1421,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Ausrichter</translation>
     </message>
     <message>
-        <location line="+1311"/>
+        <location line="+1313"/>
         <source>Import Fighters</source>
         <translation>Kämpfer importieren</translation>
     </message>
     <message>
-        <location line="-1530"/>
+        <location line="-1532"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
@@ -1432,12 +1442,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>JSON-Datei (*.json)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1203"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1205"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="-1127"/>
+        <location line="-1129"/>
         <source>List</source>
         <translation>Liste</translation>
     </message>
@@ -1452,7 +1462,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Liste erzeugt mit Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1301"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1303"/>
         <source>Load Demo Data</source>
         <translation>Beispieldaten laden</translation>
     </message>
@@ -1472,12 +1482,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Beim Laden einer Tournier-Datei werden alle ungespeicherten Änderungen am aktuellen Turnier verworfen. Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1367"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1369"/>
         <source>Location</source>
         <translation>Ort</translation>
     </message>
     <message>
-        <location line="+978"/>
+        <location line="+980"/>
         <source>Manage</source>
         <translation>Verwalten</translation>
     </message>
@@ -1492,12 +1502,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Die Wettkampfmodi verwalten</translation>
     </message>
     <message>
-        <location line="-1326"/>
+        <location line="-1328"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location line="+1323"/>
+        <location line="+1325"/>
         <source>Modes</source>
         <translation>Modusverwaltung</translation>
     </message>
@@ -1543,17 +1553,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="-374"/>
+        <location line="-376"/>
         <source>Previous</source>
         <translation>Vorheriger</translation>
     </message>
     <message>
-        <location line="+394"/>
+        <location line="+396"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location line="-397"/>
+        <location line="-399"/>
         <source>Re-load previous fight data (Note: the current data will be saved)</source>
         <translation>Daten des vorherigen Kampfes laden (Hinweis: die aktuellen Daten werden gespeichert)</translation>
     </message>
@@ -1563,39 +1573,39 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Wirklich die komplette Punktetabelle zurücksetzen?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+418"/>
+        <location filename="../base/MainWindowTeam.ui" line="+420"/>
         <source>Report a Bug</source>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location line="-267"/>
+        <location line="-269"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+193"/>
         <location filename="../base/MainWindowTeam.cpp" line="-1"/>
         <source>Reset Scores</source>
         <translation>Punktestand zurücksetzten</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-196"/>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
         <translation>Setzt den aktuellen Punktestand und alle Uhren zurück (Ctrl + Backspace)</translation>
     </message>
     <message>
-        <location line="+258"/>
+        <location line="+260"/>
         <location line="+3"/>
         <source>Results as PDF</source>
         <translation>Ergebnisliste als PDF</translation>
     </message>
     <message>
-        <location line="-525"/>
+        <location line="-527"/>
         <source>Round</source>
         <translation>Runde</translation>
     </message>
     <message>
-        <location line="+396"/>
+        <location line="+398"/>
         <location filename="../base/MainWindowTeam.cpp" line="-487"/>
         <source>Save</source>
         <translation>Speichern</translation>
@@ -1616,7 +1626,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Gespeichert!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1237"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1239"/>
         <source>Score after 1st round:</source>
         <translation>Punktestand nach 1ter Runde:</translation>
     </message>
@@ -1631,7 +1641,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Punktestand_</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+495"/>
+        <location filename="../base/MainWindowTeam.ui" line="+497"/>
         <source>Select program language</source>
         <translation>Programmsprache festlegen</translation>
     </message>
@@ -1691,17 +1701,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="-403"/>
+        <location line="-405"/>
         <source>Show Results</source>
         <translation>Ergebnis anzeigen</translation>
     </message>
     <message>
-        <location line="+515"/>
+        <location line="+517"/>
         <source>Show Secondary View</source>
         <translation>Sekundäre Anzeige anzeigen</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-520"/>
         <source>Show result screen (F4)</source>
         <translation>Zwischenstand anzeigen (F4)</translation>
     </message>
@@ -1716,7 +1726,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Speichern erfolgreich!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+699"/>
+        <location filename="../base/MainWindowTeam.ui" line="+701"/>
         <source>Switch to Score Table</source>
         <translation>Zur Punktetabelle wechseln</translation>
     </message>
@@ -1776,12 +1786,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zeitnehmer</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-146"/>
         <source>Toggle Golden Score mode</source>
         <translation>Golden Score umschalten</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+226"/>
         <source>Toggles secodary screen view</source>
         <translation>Schaltet die sekundäre Anzeige an/aus</translation>
     </message>
@@ -1791,12 +1801,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-313"/>
         <source>Tournament</source>
         <translation>Turnier</translation>
     </message>
     <message>
-        <location line="+442"/>
+        <location line="+444"/>
         <source>User Manual</source>
         <translation>Anleitung</translation>
     </message>
@@ -1806,12 +1816,17 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+445"/>
+        <source>View Logfile</source>
+        <translation>Logdatei öffnen</translation>
+    </message>
+    <message>
+        <location line="-340"/>
         <source>Visit Homepage</source>
         <translation>Homepage besuchen</translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-1024"/>
         <source>Weights</source>
         <translation>Gewichtsklassen</translation>
     </message>
@@ -1821,7 +1836,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Sie müssen die %1 Klassen getrennt durch &apos;;&apos; angeben!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1317"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1319"/>
         <source>dark</source>
         <translation>dunkel</translation>
     </message>
@@ -2001,17 +2016,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+276"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <location line="-181"/>
+        <location filename="../base/Main.cpp" line="+90"/>
         <source>Developed by judoka for judoka.&lt;br/&gt;Clear and easy to use — for timekeepers, coaches, competitors, and the audience.</source>
         <translation>Entwickelt von Judoka für Judoka.&lt;br/&gt;Klar ablesbar und einfach zu bedienen – für Zeitnehmer, Trainer, Kämpfer und Publikum.</translation>
     </message>
     <message>
-        <location line="+168"/>
+        <location filename="../base/MainWindowBase.cpp" line="-62"/>
         <source>Do you want to download it or visit the project homepage?</source>
         <translation>Möchtest du sie gleich herunterladen oder zuerst die Homepage besuchen?</translation>
     </message>
@@ -2031,17 +2041,22 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Fehler beim Schreiben der Moduskonfiguration</translation>
     </message>
     <message>
-        <location filename="../base/Main.cpp" line="-174"/>
+        <location filename="../base/Main.cpp" line="+4"/>
         <source>Feedback · Report issues · Donations</source>
         <translation>Feedback · Probleme melden · Spenden</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location filename="../base/MainWindowBase.cpp" line="+3"/>
+        <source>Ignore</source>
+        <translation>Ignorieren</translation>
+    </message>
+    <message>
+        <location line="-10"/>
         <source>Ipponboard - New Version Available</source>
         <translation>Ipponboard - Neue Version verfügbar</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location filename="../base/Main.cpp" line="+1"/>
         <source>More on %1.</source>
         <translation>Mehr auf %1.</translation>
     </message>
@@ -2051,22 +2066,27 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Unterstütze das Projekt:</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location filename="../base/MainWindowBase.cpp" line="-7"/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Version %1 verfügbar (aktuell in Verwendung: %2)</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>Visit Homepage</source>
         <translation>Seite besuchen</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-27"/>
+        <source>You are already using the latest version</source>
+        <translation>Du verwendest bereits die aktuellste Version</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>en</source>
         <translation>de</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location filename="../base/Main.cpp" line="-4"/>
         <source>the 🥋 Judo scoreboard</source>
         <translation>die 🥋 Judo-Wettkampfanzeige</translation>
     </message>
@@ -2205,7 +2225,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Aufzeichnen</translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+425"/>
+        <source>Check for new version on startup</source>
+        <translation>Ipponboard beim Start auf Updates prüfen</translation>
+    </message>
+    <message>
+        <location line="-149"/>
         <location line="+20"/>
         <source>Ctrl</source>
         <translation>Strg</translation>
@@ -2284,12 +2309,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>F9</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+96"/>
         <source>Fighter import/export format</source>
         <translation>Format für Kämpferim-/-export</translation>
     </message>
     <message>
-        <location line="-670"/>
+        <location line="-695"/>
         <source>First Fighter (left controller side)</source>
         <translation>Erster Kämpfer (linke Controllerseite)</translation>
     </message>
@@ -2304,23 +2329,24 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Schriften &amp;&amp; Farben (allgemein)</translation>
     </message>
     <message>
-        <location line="+1185"/>
+        <location line="+1210"/>
         <source>Format specifier for fighter import and export</source>
         <translation>Formatspezifikation for den Kämpferim- und -export</translation>
     </message>
     <message>
-        <location line="-808"/>
+        <location line="-833"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
         <location line="-746"/>
         <location line="+757"/>
+        <location line="+797"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location line="-517"/>
+        <location line="-1314"/>
         <source>Guest Label</source>
         <translation>Gast-Beschriftung</translation>
     </message>
@@ -2347,7 +2373,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>&quot;Heim&quot;-Beschriftung</translation>
     </message>
     <message>
-        <location line="+702"/>
+        <location line="+1214"/>
+        <source>Import/Export</source>
+        <translation>Import/Export</translation>
+    </message>
+    <message>
+        <location line="-512"/>
         <location line="+7"/>
         <location line="+29"/>
         <location line="+24"/>
@@ -2644,12 +2675,12 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>fett</translation>
     </message>
     <message>
-        <location line="+966"/>
+        <location line="+991"/>
         <source>club;firstname;lastname;weight</source>
         <translation>Verein;Vorname;Nachname;Gewicht</translation>
     </message>
     <message>
-        <location line="-1539"/>
+        <location line="-1564"/>
         <source>custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>

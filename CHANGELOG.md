@@ -3,6 +3,7 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
+- (new): automatic update check can be disabled and manually triggered via menu (About -\> Check for Updates)
 - (new): added support for dark mode (does not yet work with linux)
 - (internal): rewrote internal state machine and removed dependency to Boost MSM (simplifies build and maintenance, improves testability and extensibility)
 - (new): added button to switch sides/colors in settings dialog

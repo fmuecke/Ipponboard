@@ -1209,13 +1209,15 @@
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>About</string>
+     <string>Help</string>
     </property>
     <addaction name="actionAbout_Ipponboard"/>
     <addaction name="actionUser_Manual"/>
     <addaction name="separator"/>
     <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionOnline_Feedback"/>
+    <addaction name="actionCheck_for_Updates"/>
+    <addaction name="actionView_Logfile"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1655,6 +1657,16 @@
   <action name="actionNew">
    <property name="text">
     <string>New</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_Updates">
+   <property name="text">
+    <string>Check for Updates</string>
+   </property>
+  </action>
+  <action name="actionView_Logfile">
+   <property name="text">
+    <string>View Logfile</string>
    </property>
   </action>
  </widget>

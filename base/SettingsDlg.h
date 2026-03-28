@@ -57,6 +57,7 @@ class SettingsDlg : public QDialog
     void SetTextColorsSecond(const QColor& color, const QColor& background);
     void SetLabels(QString const& mat, QString const& home, QString const& guest);
     void SetGongFile(const QString& path);
+    void SetCheckVersionOnStartup(bool checkOnStartup);
 
     int GetSelectedScreen() const;
     QSize GetSize() const;
@@ -73,6 +74,7 @@ class SettingsDlg : public QDialog
     QString GetHomeLabel() const;
     QString GetGuestLabel() const;
     QString GetGongFile() const;
+    bool GetCheckVersionOnStartup() const;
 
     void SetControllerConfig(const ControllerConfig* pConfig);
     void GetControllerConfig(ControllerConfig* pConfig);

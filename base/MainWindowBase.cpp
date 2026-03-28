@@ -5,6 +5,7 @@
 #include "MainWindowBase.h"
 
 #include "../base/InputBindingResolver.h"
+#include "../base/OnlineVersionChecker.h"
 #include "../base/SettingsDlg.h"
 #include "../base/versioninfo.h"
 #include "../core/Controller.h"
@@ -22,6 +23,7 @@
 #include <QGuiApplication>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QPushButton>
 #include <QScreen>
 #include <QSettings>
 #include <QString>
@@ -33,6 +35,68 @@
 using namespace GamepadLib;
 using namespace Ipponboard;
 using Point = Score::Point;
+
+namespace
+{
+void RunVersionCheckFlow(QWidget* parent, bool notifyWhenUpToDate)
+{
+    auto onlineVersion = OnlineVersionChecker::CheckOnlineVersion();
+    if (onlineVersion.state != OnlineVersionChecker::State::NewerAvailable)
+    {
+        if (notifyWhenUpToDate)
+        {
+            QMessageBox::information(
+                parent,
+                QCoreApplication::applicationName(),
+                QCoreApplication::tr("You are already using the latest version"));
+        }
+        return;
+    }
+
+    const QString changes =
+        (QCoreApplication::tr("en") == "de" ? onlineVersion.changes_de : onlineVersion.changes_en)
+            .trimmed();
+
+    const QString msg =
+        QString("%1\n\n%2\n\n*%3*")
+            .arg(QCoreApplication::tr("Version %1 available (currently using: %2)")
+                     .arg(QString("**%1**").arg(onlineVersion.version))
+                     .arg(QString("`%1`").arg(QCoreApplication::applicationVersion())))
+            .arg(changes)
+            .arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
+
+    QMessageBox versionBox(QMessageBox::Information,
+                           QCoreApplication::tr("Ipponboard - New Version Available"),
+                           msg,
+                           QMessageBox::NoButton,
+                           parent);
+    versionBox.setTextFormat(Qt::MarkdownText);
+    versionBox.setTextInteractionFlags(Qt::TextBrowserInteraction);
+    QAbstractButton* downloadButton =
+        versionBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
+    QAbstractButton* homepageButton =
+        versionBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
+    versionBox.addButton(QCoreApplication::tr("Ignore"), QMessageBox::RejectRole);
+    if (auto* pushButton = qobject_cast<QPushButton*>(homepageButton))
+    {
+        versionBox.setDefaultButton(pushButton);
+    }
+
+    versionBox.exec();
+    QAbstractButton* clickedButton = versionBox.clickedButton();
+
+    if (clickedButton == downloadButton)
+    {
+        qDebug() << "Opening download URL:" << onlineVersion.downloadUrl;
+        QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
+    }
+    else if (clickedButton == homepageButton)
+    {
+        qDebug() << "Opening homepage URL:" << onlineVersion.infoUrl;
+        QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
+    }
+}
+} // namespace
 
 MainWindowBase::MainWindowBase(QWidget* parent)
     : QMainWindow(parent),
@@ -116,6 +180,11 @@ void MainWindowBase::Init()
     m_pController->RegisterView(m_pSecondaryView.get());
     m_pController->RegisterView(static_cast<IView*>(this));
     m_pController->RegisterView(static_cast<IGoldenScoreView*>(this));
+
+    if (m_checkVersionOnStartup)
+    {
+        RunVersionCheckFlow(this, false);
+    }
 }
 
 QString MainWindowBase::GetConfigFileName() { return "Ipponboard.config"; }
@@ -490,6 +559,7 @@ void MainWindowBase::write_settings()
         settings.setValue(str_tag_SecondScreen, m_secondScreenNo);
         settings.setValue(str_tag_SecondScreenSize, m_secondScreenSize);
         settings.setValue(str_tag_SecondScreenOffset, m_secondScreenOffset);
+        settings.setValue(str_tag_checkVersionOnStartup, m_checkVersionOnStartup);
     }
     settings.endGroup();
 
@@ -619,6 +689,7 @@ void MainWindowBase::read_settings()
                 << "Detected legacy second screen size for fullscreen setup; resetting to auto.";
             m_secondScreenSize = QSize(0, 0);
         }
+        m_checkVersionOnStartup = settings.value(str_tag_checkVersionOnStartup, true).toBool();
         update_statebar();
     }
     settings.endGroup();
@@ -865,6 +936,7 @@ void MainWindowBase::on_actionPreferences_triggered()
     dlg.SetControllerConfig(&m_controllerCfg);
     dlg.SetLabels(m_MatLabel, m_pController->GetHomeLabel(), m_pController->GetGuestLabel());
     dlg.SetGongFile(m_pController->GetGongFile());
+    dlg.SetCheckVersionOnStartup(m_checkVersionOnStartup);
 
     const bool wasSuppressed = is_input_suppressed();
     set_input_suppressed(true);
@@ -893,6 +965,7 @@ void MainWindowBase::on_actionPreferences_triggered()
         //#endif
         m_MatLabel = dlg.GetMatLabel();
         m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());
+        m_checkVersionOnStartup = dlg.GetCheckVersionOnStartup();
 
         m_pPrimaryView->SetMat(m_MatLabel);
         m_pSecondaryView->SetMat(m_MatLabel);
@@ -905,6 +978,8 @@ void MainWindowBase::on_actionPreferences_triggered()
         update_views();
     }
 }
+
+void MainWindowBase::on_actionCheck_for_Updates_triggered() { RunVersionCheckFlow(this, true); }
 
 void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {

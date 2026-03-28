@@ -110,6 +110,7 @@ static const char* const str_tag_Options = "Options";
 static const char* const str_tag_sound_timer_ends = "TimerEnds";
 static const char* const str_tag_rules = "Rules";
 static const char* const str_tag_autoAdjustPoints = "AutoAdjustPoints";
+static const char* const str_tag_checkVersionOnStartup = "CheckVersionOnStartup";
 
 class MainWindowBase : public QMainWindow,
                        public Ipponboard::IView,
@@ -194,6 +195,7 @@ class MainWindowBase : public QMainWindow,
     void on_actionAbout_Ipponboard_triggered();
     void on_actionUser_Manual_triggered();
     void on_actionView_Logfile_triggered();
+    void on_actionCheck_for_Updates_triggered();
     virtual void on_actionManageFighters_triggered() {}
     virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
@@ -219,6 +221,7 @@ class MainWindowBase : public QMainWindow,
   private:
     std::unique_ptr<GamepadLib::Gamepad> m_pGamepad;
     bool m_isInputSuppressed{ false };
+    bool m_checkVersionOnStartup{ true };
 };
 
 #endif // BASE__MAINWINDOW_BASE_H_

@@ -626,6 +626,11 @@ void SettingsDlg::SetGongFile(const QString& path)
         ui->comboBox_sound_time_ends->setCurrentIndex(index);
 }
 
+void SettingsDlg::SetCheckVersionOnStartup(bool checkOnStartup)
+{
+    ui->checkBox_checkVersionOnStartup->setChecked(checkOnStartup);
+}
+
 int SettingsDlg::GetSelectedScreen() const
 {
     const int index = ui->comboBox_screen->currentIndex();
@@ -692,6 +697,11 @@ QString SettingsDlg::GetGongFile() const
 {
     QString path = QDir::currentPath() + "/sounds/";
     return path + ui->comboBox_sound_time_ends->currentText();
+}
+
+bool SettingsDlg::GetCheckVersionOnStartup() const
+{
+    return ui->checkBox_checkVersionOnStartup->isChecked();
 }
 
 void SettingsDlg::on_buttonBox_accepted() { accept(); }

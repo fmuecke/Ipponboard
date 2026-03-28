@@ -423,7 +423,7 @@ Geldige velden zijn: %1</translation>
         <translation>Knop %1 (code %2)</translation>
     </message>
     <message>
-        <location line="+554"/>
+        <location line="+564"/>
         <source>Buttons: %1</source>
         <translation>Knoppen: %1</translation>
     </message>
@@ -433,7 +433,7 @@ Geldige velden zijn: %1</translation>
         <translation>Knoppen: geen</translation>
     </message>
     <message>
-        <location line="-897"/>
+        <location line="-907"/>
         <location line="+162"/>
         <location line="+67"/>
         <source>Cancel</source>
@@ -468,17 +468,17 @@ Geldige velden zijn: %1</translation>
         <translation>Geconfigureerde koppeling (code %1)</translation>
     </message>
     <message>
-        <location line="+498"/>
+        <location line="+508"/>
         <source>Diagnostics stopped.</source>
         <translation>De diagnose is gestopt.</translation>
     </message>
     <message>
-        <location line="-927"/>
+        <location line="-937"/>
         <source>FIRST FIGHTER</source>
         <translation>Eerste Deelnemer</translation>
     </message>
     <message>
-        <location line="+1020"/>
+        <location line="+1030"/>
         <source>Gamepad not ready for diagnostics.</source>
         <translation>De gamepad is niet gereed voor diagnose.</translation>
     </message>
@@ -488,7 +488,7 @@ Geldige velden zijn: %1</translation>
         <translation>Gamepad klaar om te worden vastgelegd: %1</translation>
     </message>
     <message>
-        <location line="-610"/>
+        <location line="-620"/>
         <source>Hajime / Mate</source>
         <translation>Hajime/Mate</translation>
     </message>
@@ -503,30 +503,30 @@ Geldige velden zijn: %1</translation>
         <translation>Hansokumake (rechts)</translation>
     </message>
     <message>
-        <location line="+900"/>
+        <location line="+910"/>
         <source>Left stick</source>
         <translation>Linker joystick</translation>
     </message>
     <message>
-        <location line="-731"/>
+        <location line="-741"/>
         <source>Move the desired axis on the controller.</source>
         <translation>Verplaats de gewenste as op de controller.</translation>
     </message>
     <message>
-        <location line="+729"/>
+        <location line="+739"/>
         <location line="+8"/>
         <source>Neutral</source>
         <translation>Neutraal</translation>
     </message>
     <message>
-        <location line="-946"/>
+        <location line="-956"/>
         <source>Next fight</source>
         <translation>Volgende Wedstrijd</translation>
     </message>
     <message>
         <location line="+122"/>
         <location line="+61"/>
-        <location line="+409"/>
+        <location line="+419"/>
         <location line="+20"/>
         <source>No gamepad detected for capture.</source>
         <translation>Er is geen gamepad gedetecteerd voor opname.</translation>
@@ -537,7 +537,7 @@ Geldige velden zijn: %1</translation>
         <translation>Er is geen gamepad gevonden voor diagnose.</translation>
     </message>
     <message>
-        <location line="-915"/>
+        <location line="-925"/>
         <source>Ok</source>
         <translation>OK</translation>
     </message>
@@ -637,18 +637,18 @@ Geldige velden zijn: %1</translation>
         <translation>Osaekomi-tijd herstellen (rechts)</translation>
     </message>
     <message>
-        <location line="+916"/>
+        <location line="+926"/>
         <source>Right stick</source>
         <translation>Rechter joystick</translation>
     </message>
     <message>
-        <location line="-1069"/>
+        <location line="-1079"/>
         <source>SECOND FIGHTER</source>
         <translation>Tweede Deelnemer</translation>
     </message>
     <message>
         <location line="-21"/>
-        <location line="+942"/>
+        <location line="+952"/>
         <source>Show pressed buttons</source>
         <translation>Gedruktte knoppen weergeven</translation>
     </message>
@@ -704,17 +704,17 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../base/MainWindow.ui" line="+506"/>
-        <source>&amp;About</source>
-        <translation>&amp;Over</translation>
-    </message>
-    <message>
-        <location line="-9"/>
+        <location filename="../base/MainWindow.ui" line="+497"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <location line="+320"/>
+        <location line="+9"/>
+        <source>&amp;Help</source>
+        <translation>&amp;Hulp</translation>
+    </message>
+    <message>
+        <location line="+312"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Informatiebanner</translation>
     </message>
@@ -734,22 +734,22 @@ Geldige velden zijn: %1</translation>
         <translation>&amp;Bekijken</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-317"/>
         <source>/</source>
         <translation>/</translation>
     </message>
     <message>
-        <location line="+432"/>
+        <location line="+433"/>
         <source>About Ipponboard</source>
         <translation>Over Ipponboard</translation>
     </message>
     <message>
-        <location line="-297"/>
+        <location line="-298"/>
         <source>Activate Golden Score</source>
         <translation>Activeer Golden Score Tijd</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+524"/>
         <source>Auto Award Points</source>
         <translation>Auto aanpassen punten</translation>
     </message>
@@ -764,17 +764,22 @@ Geldige velden zijn: %1</translation>
         <translation>Categorieën</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-502"/>
         <source>Category</source>
         <translation>Categorie</translation>
     </message>
     <message>
-        <location line="+428"/>
+        <location line="+429"/>
         <source>Change Background</source>
         <translation>Achtergrond wijzigen</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+312"/>
+        <source>Check for Updates</source>
+        <translation>Controleer op updates</translation>
+    </message>
+    <message>
+        <location line="-140"/>
         <source>Choose Dutch as program language</source>
         <translation>Kies Nederlands als programmeertaal</translation>
     </message>
@@ -815,12 +820,12 @@ Geldige velden zijn: %1</translation>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location line="-487"/>
+        <location line="-488"/>
         <source>Display secondary screen</source>
         <translation>Toon tweede scherm</translation>
     </message>
     <message>
-        <location line="+730"/>
+        <location line="+731"/>
         <source>Dutch</source>
         <translation>Nederlands</translation>
     </message>
@@ -845,7 +850,7 @@ Geldige velden zijn: %1</translation>
         <translation>Deelnemers</translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-296"/>
         <source>First Fighter (first last)</source>
         <translation>Eerste Deelnemer (Voornaam Achternaam)</translation>
     </message>
@@ -855,7 +860,7 @@ Geldige velden zijn: %1</translation>
         <translation>Golden Score</translation>
     </message>
     <message>
-        <location line="+536"/>
+        <location line="+537"/>
         <source>IJF Rules 2013</source>
         <translation>IJF Regles 2013</translation>
     </message>
@@ -885,12 +890,12 @@ Geldige velden zijn: %1</translation>
         <translation>Info Balk</translation>
     </message>
     <message>
-        <location line="-873"/>
+        <location line="-874"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
     <message>
-        <location line="+502"/>
+        <location line="+503"/>
         <source>Language</source>
         <translation>Taal</translation>
     </message>
@@ -925,12 +930,12 @@ Geldige velden zijn: %1</translation>
         <translation>Openen</translation>
     </message>
     <message>
-        <location line="-419"/>
+        <location line="-420"/>
         <source>Options:</source>
         <translation>Opties:</translation>
     </message>
     <message>
-        <location line="+519"/>
+        <location line="+520"/>
         <source>Play Mat Signal</source>
         <translation>Signaal Afspelen</translation>
     </message>
@@ -940,12 +945,12 @@ Geldige velden zijn: %1</translation>
         <translation>Speelt het geluidssignaal af</translation>
     </message>
     <message>
-        <location line="-413"/>
+        <location line="-414"/>
         <source>Plays the signal sound file</source>
         <translation>Speel het geluidssignaal</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+431"/>
         <source>Preferences</source>
         <translation>Voorkeuren</translation>
     </message>
@@ -961,22 +966,22 @@ Geldige velden zijn: %1</translation>
         <translation>Meld een bug</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-390"/>
         <source>Reset</source>
         <translation>Herstel</translation>
     </message>
     <message>
-        <location line="+296"/>
+        <location line="+297"/>
         <source>Reset Scores</source>
         <translation>Scores Herstellen</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-300"/>
         <source>Reset all clocks and scores</source>
         <translation>Herstel alle tijden en scores</translation>
     </message>
     <message>
-        <location line="+165"/>
+        <location line="+166"/>
         <source>Rules</source>
         <translation>Regels</translation>
     </message>
@@ -986,13 +991,13 @@ Geldige velden zijn: %1</translation>
         <translation>Opslaan</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-145"/>
         <source>Second Fighter (first last)</source>
         <translation>Tweede Deelnemer (Voornaam Achternaam)</translation>
     </message>
     <message>
         <location line="-337"/>
-        <location line="+524"/>
+        <location line="+525"/>
         <source>Secondary Display</source>
         <translation>Tweede Scherm</translation>
     </message>
@@ -1037,12 +1042,12 @@ Geldige velden zijn: %1</translation>
         <translation>Toont / verbergt de infobalk met de huidige opties en regels.</translation>
     </message>
     <message>
-        <location line="-622"/>
+        <location line="-623"/>
         <source>Signal</source>
         <translation>Signaal</translation>
     </message>
     <message>
-        <location line="+267"/>
+        <location line="+268"/>
         <source>Theme</source>
         <translation>Kleurenschema</translation>
     </message>
@@ -1102,12 +1107,12 @@ Geldige velden zijn: %1</translation>
         <translation>Bezoek Homepage</translation>
     </message>
     <message>
-        <location line="-370"/>
+        <location line="-371"/>
         <source>Weight Class</source>
         <translation>Gewichtsklasse</translation>
     </message>
     <message>
-        <location line="+720"/>
+        <location line="+721"/>
         <source>dark</source>
         <translation>donker</translation>
     </message>
@@ -1125,7 +1130,7 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <location filename="../base/MainWindowBase.cpp" line="+303"/>
+        <location filename="../base/MainWindowBase.cpp" line="+372"/>
         <source>/User-Manual.html</source>
         <translation>/User-Manual.html</translation>
     </message>
@@ -1140,7 +1145,7 @@ Geldige velden zijn: %1</translation>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
     <message>
-        <location line="+782"/>
+        <location line="+794"/>
         <location line="+23"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -1156,7 +1161,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (ss):</translation>
     </message>
     <message>
-        <location line="-1060"/>
+        <location line="-1077"/>
         <source>Unnamed controller</source>
         <translation>Controller zonder naam</translation>
     </message>
@@ -1169,12 +1174,12 @@ Geldige velden zijn: %1</translation>
         <translation> (opslaaned)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1505"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1507"/>
         <source>&amp;Info Header</source>
         <translation>&amp;Informatiebanner</translation>
     </message>
     <message>
-        <location line="-1013"/>
+        <location line="-1015"/>
         <location line="+226"/>
         <source>(Sub score)</source>
         <translation>(Subscore)</translation>
@@ -1191,12 +1196,7 @@ Geldige velden zijn: %1</translation>
         <translation>1/10</translation>
     </message>
     <message>
-        <location line="+243"/>
-        <source>About</source>
-        <translation>Over</translation>
-    </message>
-    <message>
-        <location line="+120"/>
+        <location line="+365"/>
         <source>About Ipponboard</source>
         <translation>Over Ipponboard</translation>
     </message>
@@ -1206,7 +1206,7 @@ Geldige velden zijn: %1</translation>
         <translation>Auto aanpassen punten</translation>
     </message>
     <message>
-        <location line="-855"/>
+        <location line="-857"/>
         <source>Board</source>
         <translation>Bord</translation>
     </message>
@@ -1216,7 +1216,12 @@ Geldige velden zijn: %1</translation>
         <translation>Kan niet in een lege selectie plakken!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+844"/>
+        <location filename="../base/MainWindowTeam.ui" line="+916"/>
+        <source>Check for Updates</source>
+        <translation>Controleer op updates</translation>
+    </message>
+    <message>
+        <location line="-70"/>
         <source>Choose Dutch as program language</source>
         <translation>Kies Nederlands als programmeertaal</translation>
     </message>
@@ -1231,13 +1236,13 @@ Geldige velden zijn: %1</translation>
         <translation>Clubs</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-301"/>
         <source>Continue with next fight (current data will be saved)</source>
         <translatorcomment>strijd?</translatorcomment>
         <translation>Doorgaan met volgende strijd (huidige gegevens worden opgeslagen)</translation>
     </message>
     <message>
-        <location line="+333"/>
+        <location line="+335"/>
         <source>Controller</source>
         <translation>Controller</translation>
     </message>
@@ -1247,12 +1252,12 @@ Geldige velden zijn: %1</translation>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-874"/>
+        <location filename="../base/MainWindowTeam.ui" line="-876"/>
         <source>Copy &amp;&amp; switch guest</source>
         <translation>Kopieer &amp;&amp; switch guest</translation>
     </message>
     <message>
-        <location line="+1013"/>
+        <location line="+1015"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
@@ -1282,7 +1287,7 @@ Geldige velden zijn: %1</translation>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location line="-1093"/>
+        <location line="-1095"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -1293,12 +1298,12 @@ Geldige velden zijn: %1</translation>
         <translation>Toernooi afgelasten?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1378"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1380"/>
         <source>Dutch</source>
         <translation>Nederlands</translation>
     </message>
     <message>
-        <location line="-1294"/>
+        <location line="-1296"/>
         <source>Edit guest team</source>
         <translation>Gastteam bewerken</translation>
     </message>
@@ -1308,7 +1313,7 @@ Geldige velden zijn: %1</translation>
         <translation>Bewerk thuisploeg</translation>
     </message>
     <message>
-        <location line="+1047"/>
+        <location line="+1049"/>
         <source>End Ipponboard</source>
         <translation>Afrit Ipponboard</translation>
     </message>
@@ -1350,12 +1355,12 @@ Geldige velden zijn: %1</translation>
         <translation>F2</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-400"/>
         <source>Fight</source>
         <translation>Ontmoeting</translation>
     </message>
     <message>
-        <location line="+602"/>
+        <location line="+604"/>
         <source>Fighters</source>
         <translation>Deelnemers</translation>
     </message>
@@ -1380,7 +1385,7 @@ Geldige velden zijn: %1</translation>
         <translation>Bestand open fout</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-935"/>
+        <location filename="../base/MainWindowTeam.ui" line="-937"/>
         <source>Final score:</source>
         <translation>Eindscore:</translation>
     </message>
@@ -1396,12 +1401,17 @@ Geldige velden zijn: %1</translation>
         <translation>Gasten</translation>
     </message>
     <message>
+        <location line="+1044"/>
+        <source>Help</source>
+        <translation>Hulp</translation>
+    </message>
+    <message>
         <location filename="../base/MainWindowTeam.cpp" line="+781"/>
         <source>Hide results</source>
         <translation>Resultaten verbergen</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-17"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1061"/>
         <location filename="../base/MainWindowTeam.cpp" line="-782"/>
         <source>Home</source>
         <translation>Thuis</translation>
@@ -1412,12 +1422,12 @@ Geldige velden zijn: %1</translation>
         <translation>Gastheer</translation>
     </message>
     <message>
-        <location line="+1311"/>
+        <location line="+1313"/>
         <source>Import Fighters</source>
         <translation>Importeer Deelnemers</translation>
     </message>
     <message>
-        <location line="-1530"/>
+        <location line="-1532"/>
         <source>Ipponboard</source>
         <translation>Ipponboard</translation>
     </message>
@@ -1433,12 +1443,12 @@ Geldige velden zijn: %1</translation>
         <translation>JSON-Bestand (*.json)</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1203"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1205"/>
         <source>Language</source>
         <translation>Taal</translation>
     </message>
     <message>
-        <location line="-1127"/>
+        <location line="-1129"/>
         <source>List</source>
         <translation>Lijst</translation>
     </message>
@@ -1453,7 +1463,7 @@ Geldige velden zijn: %1</translation>
         <translation>Lijst gegenereerd met Ipponboard v</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1301"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1303"/>
         <source>Load Demo Data</source>
         <translation>Laad de Demodata</translation>
     </message>
@@ -1473,12 +1483,12 @@ Geldige velden zijn: %1</translation>
         <translation>Als je een toernooibestand laadt, worden alle niet-opgeslagen wijzigingen in je huidige toernooi verwijderd. Wil je doorgaan?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1367"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1369"/>
         <source>Location</source>
         <translation>Plaats</translation>
     </message>
     <message>
-        <location line="+978"/>
+        <location line="+980"/>
         <source>Manage</source>
         <translation>Bewerken</translation>
     </message>
@@ -1493,12 +1503,12 @@ Geldige velden zijn: %1</translation>
         <translation>Beheer toernooimodi</translation>
     </message>
     <message>
-        <location line="-1326"/>
+        <location line="-1328"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location line="+1323"/>
+        <location line="+1325"/>
         <source>Modes</source>
         <translation>Modi</translation>
     </message>
@@ -1544,17 +1554,17 @@ Geldige velden zijn: %1</translation>
         <translation>Voorkeuren</translation>
     </message>
     <message>
-        <location line="-374"/>
+        <location line="-376"/>
         <source>Previous</source>
         <translation>Vorige</translation>
     </message>
     <message>
-        <location line="+394"/>
+        <location line="+396"/>
         <source>Print</source>
         <translation>Printen</translation>
     </message>
     <message>
-        <location line="-397"/>
+        <location line="-399"/>
         <source>Re-load previous fight data (Note: the current data will be saved)</source>
         <translation>Eerdere vechtgegevens opnieuw laden (Opmerking: de huidige gegevens worden opgeslagen)</translation>
     </message>
@@ -1564,39 +1574,39 @@ Geldige velden zijn: %1</translation>
         <translation>Volledige scoretabel echt resetten?</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+418"/>
+        <location filename="../base/MainWindowTeam.ui" line="+420"/>
         <source>Report a Bug</source>
         <translation>Meld een bug</translation>
     </message>
     <message>
-        <location line="-267"/>
+        <location line="-269"/>
         <source>Reset</source>
         <translation>Herstellen</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+193"/>
         <location filename="../base/MainWindowTeam.cpp" line="-1"/>
         <source>Reset Scores</source>
         <translation>Scores Herstellen</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-196"/>
         <source>Reset current scores and timers (Ctrl + Backspace)</source>
         <translation>Reset huidige scores en timers (Ctrl + Backspace)</translation>
     </message>
     <message>
-        <location line="+258"/>
+        <location line="+260"/>
         <location line="+3"/>
         <source>Results as PDF</source>
         <translation>Resultaten als PDF</translation>
     </message>
     <message>
-        <location line="-525"/>
+        <location line="-527"/>
         <source>Round</source>
         <translation>Ronde</translation>
     </message>
     <message>
-        <location line="+396"/>
+        <location line="+398"/>
         <location filename="../base/MainWindowTeam.cpp" line="-487"/>
         <source>Save</source>
         <translation>Opslaan</translation>
@@ -1617,7 +1627,7 @@ Geldige velden zijn: %1</translation>
         <translation>Opgeslagen!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="-1237"/>
+        <location filename="../base/MainWindowTeam.ui" line="-1239"/>
         <source>Score after 1st round:</source>
         <translation>Scoren na de eerste ronde:</translation>
     </message>
@@ -1632,7 +1642,7 @@ Geldige velden zijn: %1</translation>
         <translation>ScoreLijst_</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+495"/>
+        <location filename="../base/MainWindowTeam.ui" line="+497"/>
         <source>Select program language</source>
         <translation>Selecteer taal</translation>
     </message>
@@ -1692,17 +1702,17 @@ Geldige velden zijn: %1</translation>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location line="-403"/>
+        <location line="-405"/>
         <source>Show Results</source>
         <translation>Toon resultaten</translation>
     </message>
     <message>
-        <location line="+515"/>
+        <location line="+517"/>
         <source>Show Secondary View</source>
         <translation>Toon tweede scherm</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-520"/>
         <source>Show result screen (F4)</source>
         <translation>Toon resultatenscherm (F4)</translation>
     </message>
@@ -1717,7 +1727,7 @@ Geldige velden zijn: %1</translation>
         <translation>Opslaan gelukt!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+699"/>
+        <location filename="../base/MainWindowTeam.ui" line="+701"/>
         <source>Switch to Score Table</source>
         <translation>Schakelen naar scoretabel</translation>
     </message>
@@ -1777,13 +1787,13 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-146"/>
         <source>Toggle Golden Score mode</source>
         <translatorcomment>wijze?</translatorcomment>
         <translation>Schakelen Golden Score wijze</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+226"/>
         <source>Toggles secodary screen view</source>
         <translation>Schakelen naar het beelds van het tweede scherm</translation>
     </message>
@@ -1793,12 +1803,12 @@ Geldige velden zijn: %1</translation>
         <translation>Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-313"/>
         <source>Tournament</source>
         <translation>Toernooi</translation>
     </message>
     <message>
-        <location line="+442"/>
+        <location line="+444"/>
         <source>User Manual</source>
         <translation>Instructies</translation>
     </message>
@@ -1808,12 +1818,17 @@ Geldige velden zijn: %1</translation>
         <translation>Bekijken</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+445"/>
+        <source>View Logfile</source>
+        <translation>Logbestand bekijken</translation>
+    </message>
+    <message>
+        <location line="-340"/>
         <source>Visit Homepage</source>
         <translation>Bezoek Homepage</translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-1024"/>
         <source>Weights</source>
         <translation>Gewichten</translation>
     </message>
@@ -1823,7 +1838,7 @@ Geldige velden zijn: %1</translation>
         <translation>U moet%1 gewichtsklassen opgeven, gescheiden door &apos;;&apos;!</translation>
     </message>
     <message>
-        <location filename="../base/MainWindowTeam.ui" line="+1317"/>
+        <location filename="../base/MainWindowTeam.ui" line="+1319"/>
         <source>dark</source>
         <translation>donker</translation>
     </message>
@@ -2003,17 +2018,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../base/Main.cpp" line="+276"/>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <location line="-181"/>
+        <location filename="../base/Main.cpp" line="+90"/>
         <source>Developed by judoka for judoka.&lt;br/&gt;Clear and easy to use — for timekeepers, coaches, competitors, and the audience.</source>
         <translation>Ontwikkeld door judoka&apos;s voor judoka&apos;s.&lt;br/&gt;Duidelijk afleesbaar en eenvoudig in gebruik – voor tijdwaarnemers, trainers, judoka&apos;s en het publiek.</translation>
     </message>
     <message>
-        <location line="+168"/>
+        <location filename="../base/MainWindowBase.cpp" line="-62"/>
         <source>Do you want to download it or visit the project homepage?</source>
         <translation>Wil je het downloaden of de startpagina van het project bezoeken?</translation>
     </message>
@@ -2033,17 +2043,22 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Fout bij het schrijven van modusconfiguraties</translation>
     </message>
     <message>
-        <location filename="../base/Main.cpp" line="-174"/>
+        <location filename="../base/Main.cpp" line="+4"/>
         <source>Feedback · Report issues · Donations</source>
         <translation>Feedback · Problemen melden · Donaties</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location filename="../base/MainWindowBase.cpp" line="+3"/>
+        <source>Ignore</source>
+        <translation>Negeren</translation>
+    </message>
+    <message>
+        <location line="-10"/>
         <source>Ipponboard - New Version Available</source>
         <translation>Ipponboard - Nieuwe Versie Beschikbaar</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location filename="../base/Main.cpp" line="+1"/>
         <source>More on %1.</source>
         <translation>Meer op %1.</translation>
     </message>
@@ -2053,22 +2068,27 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Steun het project:</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location filename="../base/MainWindowBase.cpp" line="-7"/>
         <source>Version %1 available (currently using: %2)</source>
         <translation>Versie %1 beschikbaar (momenteel gebruikt: %2)</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>Visit Homepage</source>
         <translation>Bezoek Homepage</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-27"/>
+        <source>You are already using the latest version</source>
+        <translation>Je gebruikt al de nieuwste versie</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>en</source>
         <translation>en</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location filename="../base/Main.cpp" line="-4"/>
         <source>the 🥋 Judo scoreboard</source>
         <translation>het 🥋 judowedstrijdprogramma</translation>
     </message>
@@ -2207,7 +2227,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Vastleggen</translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+425"/>
+        <source>Check for new version on startup</source>
+        <translation>Controleer Ipponboard bij het opstarten op updates</translation>
+    </message>
+    <message>
+        <location line="-149"/>
         <location line="+20"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
@@ -2286,12 +2311,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>F9</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+96"/>
         <source>Fighter import/export format</source>
         <translation>Formaat Importeren/Exporteren Deelnemers</translation>
     </message>
     <message>
-        <location line="-670"/>
+        <location line="-695"/>
         <source>First Fighter (left controller side)</source>
         <translation>Eerste vechter (linkerkant van de controller)</translation>
     </message>
@@ -2306,23 +2331,24 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Lettertypen &amp;&amp; Kleuren (Hoofdpagina)</translation>
     </message>
     <message>
-        <location line="+1185"/>
+        <location line="+1210"/>
         <source>Format specifier for fighter import and export</source>
         <translation>Specifieer formaat voor importeren en exporteren van deelnemers</translation>
     </message>
     <message>
-        <location line="-808"/>
+        <location line="-833"/>
         <source>Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
         <location line="-746"/>
         <location line="+757"/>
+        <location line="+797"/>
         <source>General</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location line="-517"/>
+        <location line="-1314"/>
         <source>Guest Label</source>
         <translation>Gastenlabel</translation>
     </message>
@@ -2349,7 +2375,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Thuislabel</translation>
     </message>
     <message>
-        <location line="+702"/>
+        <location line="+1214"/>
+        <source>Import/Export</source>
+        <translation>Import/Export</translation>
+    </message>
+    <message>
+        <location line="-512"/>
         <location line="+7"/>
         <location line="+29"/>
         <location line="+24"/>
@@ -2646,12 +2677,12 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Vet</translation>
     </message>
     <message>
-        <location line="+966"/>
+        <location line="+991"/>
         <source>club;firstname;lastname;weight</source>
         <translation>club;voornaam;achternaam;gewicht</translation>
     </message>
     <message>
-        <location line="-1539"/>
+        <location line="-1564"/>
         <source>custom</source>
         <translation>Aangepast</translation>
     </message>
