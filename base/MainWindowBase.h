@@ -11,6 +11,7 @@
 #include "../core/iView.h"
 #include "../util/helpers.hpp"
 #include "FighterManager.h"
+#include "OnlineVersionChecker.h"
 
 #include <QMainWindow>
 #include <QPoint>
@@ -34,6 +35,7 @@ class FightCategoryMgr;
 class ScoreScreen;
 } // namespace Ipponboard
 class QApplication;
+class QLabel;
 class QSettings;
 
 namespace GamepadLib
@@ -167,6 +169,11 @@ class MainWindowBase : public QMainWindow,
     void change_lang(bool beQuiet = false);
     void change_theme();
     void show_hide_view() const;
+    void ensureVersionStatusLabel();
+    void startVersionCheck();
+    void applyVersionStatus(const OnlineVersionChecker::OnlineVersion& onlineVersion);
+    void showVersionDialog();
+    void updateVersionStatusText();
 
   protected slots:
     void on_actionSet_Main_Timer_triggered();
@@ -195,7 +202,6 @@ class MainWindowBase : public QMainWindow,
     void on_actionAbout_Ipponboard_triggered();
     void on_actionUser_Manual_triggered();
     void on_actionView_Logfile_triggered();
-    void on_actionCheck_for_Updates_triggered();
     virtual void on_actionManageFighters_triggered() {}
     virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
@@ -220,8 +226,12 @@ class MainWindowBase : public QMainWindow,
 
   private:
     std::unique_ptr<GamepadLib::Gamepad> m_pGamepad;
+    QLabel* m_pVersionStatusLabel{ nullptr };
+    OnlineVersionChecker::OnlineVersion m_latestOnlineVersion;
     bool m_isInputSuppressed{ false };
     bool m_checkVersionOnStartup{ true };
+    bool m_isVersionCheckInProgress{ false };
+    OnlineVersionChecker::State m_versionStatusState{ OnlineVersionChecker::State::Empty };
 };
 
 #endif // BASE__MAINWINDOW_BASE_H_

@@ -17,6 +17,7 @@
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QObject>
 #include <QScopedPointer>
 #include <QString>
 #include <QStringList>
@@ -85,6 +86,50 @@ QNetworkAccessManager& sharedNetworkAccessManager()
         return instance;
     }();
     return *manager;
+}
+
+OnlineVersionChecker::OnlineVersion FinalizeOnlineVersion(QString jsonDocument)
+{
+    OnlineVersionChecker::OnlineVersion onlineVersion;
+    if (jsonDocument.isEmpty())
+    {
+        return onlineVersion;
+    }
+
+    onlineVersion = OnlineVersionChecker::parse_version_document(jsonDocument);
+    if (onlineVersion.version.isEmpty())
+    {
+        return onlineVersion;
+    }
+
+    qDebug() << "online version string:" << onlineVersion.version
+             << "( current:" << QString(VersionInfo::VersionStr) << ")";
+
+    //#if _DEBUG
+    //    qDebug() << "in debug there is always a newer version!";
+    //    if (true)
+    //#else
+    if (VersionComparer::IsVersionLess(VersionInfo::VersionStr,
+                                       onlineVersion.version.toStdString()))
+    //#endif
+    {
+        qInfo() << "newer version" << onlineVersion.version << "available";
+        onlineVersion.state = OnlineVersionChecker::State::NewerAvailable;
+    }
+    else if (VersionComparer::IsVersionLess(onlineVersion.version.toStdString(),
+                                            VersionInfo::VersionStr))
+    {
+        qInfo() << "current version" << VersionInfo::VersionStr << "is newer than online version"
+                << onlineVersion.version;
+        onlineVersion.state = OnlineVersionChecker::State::NewerThanOnlineAvailable;
+    }
+    else
+    {
+        qInfo() << "no newer version available";
+        onlineVersion.state = OnlineVersionChecker::State::UpToDate;
+    }
+
+    return onlineVersion;
 }
 } // namespace
 
@@ -234,42 +279,46 @@ OnlineVersionChecker::OnlineVersion OnlineVersionChecker::CheckOnlineVersion()
     QElapsedTimer timer;
     timer.start();
 
-    auto doc = get_version_document(VersionDocumentUrl);
-    if (doc.isEmpty())
+    const auto onlineVersion = FinalizeOnlineVersion(get_version_document(VersionDocumentUrl));
+    if (onlineVersion.version.isEmpty())
     {
         qDebug() << "checking took:" << timer.elapsed() << "ms (empty document)";
-        return OnlineVersion();
+        return onlineVersion;
     }
 
-    auto onlineVersion = parse_version_document(doc);
-    if (!onlineVersion.version.isEmpty())
-    {
-        qDebug() << "online version string:" << onlineVersion.version
-                 << "( current:" << QString(VersionInfo::VersionStr) << ")";
-        qDebug() << "checking took " << timer.elapsed() << "ms";
-
-        if (VersionComparer::IsVersionLess(VersionInfo::VersionStr,
-                                           onlineVersion.version.toStdString()))
-        {
-            qInfo() << "newer version" << onlineVersion.version << "available";
-            onlineVersion.state = State::NewerAvailable;
-        }
-        else
-        {
-            if (VersionComparer::IsVersionLess(onlineVersion.version.toStdString(),
-                                               VersionInfo::VersionStr))
-            {
-                qInfo() << "current version" << VersionInfo::VersionStr
-                        << "is newer than online version" << onlineVersion.version;
-                onlineVersion.state = State::NewerThanOnlineAvailable;
-            }
-            else
-            {
-                qInfo() << "no newer version available";
-                onlineVersion.state = State::UpToDate;
-            }
-        }
-    }
-
+    qDebug() << "checking took " << timer.elapsed() << "ms";
     return onlineVersion;
+}
+
+void OnlineVersionChecker::CheckOnlineVersionAsync(QObject* context, VersionCheckCallback callback)
+{
+    if (context == nullptr || !callback)
+    {
+        return;
+    }
+
+    qInfo() << "Checking for updated version...";
+
+    QNetworkAccessManager& manager = sharedNetworkAccessManager();
+    QNetworkRequest request(VersionDocumentUrl);
+    QNetworkReply* const reply = manager.get(request);
+
+    QObject::connect(reply,
+                     &QNetworkReply::finished,
+                     context,
+                     [reply, callback]() mutable
+                     {
+                         QString jsonDocument;
+                         if (reply->error() == QNetworkReply::NoError)
+                         {
+                             jsonDocument = reply->readAll();
+                         }
+                         else
+                         {
+                             qDebug() << "Error retrieving JSON document:" << reply->errorString();
+                         }
+
+                         reply->deleteLater();
+                         callback(FinalizeOnlineVersion(jsonDocument));
+                     });
 }

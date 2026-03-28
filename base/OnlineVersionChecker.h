@@ -6,6 +6,9 @@
 #define UPDATER_H
 
 #include <QString>
+#include <functional>
+
+class QObject;
 
 class OnlineVersionChecker
 {
@@ -27,10 +30,13 @@ class OnlineVersionChecker
         QString downloadUrl;
         QString changes_de;
         QString changes_en;
-        State state;
+        State state{ State::Empty };
     };
 
+    using VersionCheckCallback = std::function<void(OnlineVersion)>;
+
     static OnlineVersion CheckOnlineVersion();
+    static void CheckOnlineVersionAsync(QObject* context, VersionCheckCallback callback);
 
     static QString get_version_document(QString url);
     static OnlineVersion parse_version_document(QString jsonDoc);

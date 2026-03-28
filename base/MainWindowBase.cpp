@@ -22,6 +22,8 @@
 #include <QDesktopServices>
 #include <QGuiApplication>
 #include <QInputDialog>
+#include <QLabel>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QScreen>
@@ -35,68 +37,6 @@
 using namespace GamepadLib;
 using namespace Ipponboard;
 using Point = Score::Point;
-
-namespace
-{
-void RunVersionCheckFlow(QWidget* parent, bool notifyWhenUpToDate)
-{
-    auto onlineVersion = OnlineVersionChecker::CheckOnlineVersion();
-    if (onlineVersion.state != OnlineVersionChecker::State::NewerAvailable)
-    {
-        if (notifyWhenUpToDate)
-        {
-            QMessageBox::information(
-                parent,
-                QCoreApplication::applicationName(),
-                QCoreApplication::tr("You are already using the latest version"));
-        }
-        return;
-    }
-
-    const QString changes =
-        (QCoreApplication::tr("en") == "de" ? onlineVersion.changes_de : onlineVersion.changes_en)
-            .trimmed();
-
-    const QString msg =
-        QString("%1\n\n%2\n\n*%3*")
-            .arg(QCoreApplication::tr("Version %1 available (currently using: %2)")
-                     .arg(QString("**%1**").arg(onlineVersion.version))
-                     .arg(QString("`%1`").arg(QCoreApplication::applicationVersion())))
-            .arg(changes)
-            .arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
-
-    QMessageBox versionBox(QMessageBox::Information,
-                           QCoreApplication::tr("Ipponboard - New Version Available"),
-                           msg,
-                           QMessageBox::NoButton,
-                           parent);
-    versionBox.setTextFormat(Qt::MarkdownText);
-    versionBox.setTextInteractionFlags(Qt::TextBrowserInteraction);
-    QAbstractButton* downloadButton =
-        versionBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
-    QAbstractButton* homepageButton =
-        versionBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
-    versionBox.addButton(QCoreApplication::tr("Ignore"), QMessageBox::RejectRole);
-    if (auto* pushButton = qobject_cast<QPushButton*>(homepageButton))
-    {
-        versionBox.setDefaultButton(pushButton);
-    }
-
-    versionBox.exec();
-    QAbstractButton* clickedButton = versionBox.clickedButton();
-
-    if (clickedButton == downloadButton)
-    {
-        qDebug() << "Opening download URL:" << onlineVersion.downloadUrl;
-        QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
-    }
-    else if (clickedButton == homepageButton)
-    {
-        qDebug() << "Opening homepage URL:" << onlineVersion.infoUrl;
-        QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
-    }
-}
-} // namespace
 
 MainWindowBase::MainWindowBase(QWidget* parent)
     : QMainWindow(parent),
@@ -140,8 +80,7 @@ MainWindowBase::~MainWindowBase() {}
 
 void MainWindowBase::Init()
 {
-    setWindowTitle(QCoreApplication::applicationName() + " v" +
-                   QCoreApplication::applicationVersion());
+    setWindowTitle(QCoreApplication::applicationName());
 
     setWindowFlags(Qt::Window);
     //setWindowState(Qt::WindowMaximized);
@@ -175,6 +114,7 @@ void MainWindowBase::Init()
     connect(timer, &QTimer::timeout, this, &MainWindowBase::EvaluateInput);
     timer->start(75);
     update_statebar();
+    ensureVersionStatusLabel();
 
     m_pController->RegisterView(m_pPrimaryView.get());
     m_pController->RegisterView(m_pSecondaryView.get());
@@ -183,8 +123,181 @@ void MainWindowBase::Init()
 
     if (m_checkVersionOnStartup)
     {
-        RunVersionCheckFlow(this, false);
+        startVersionCheck();
     }
+}
+
+void MainWindowBase::ensureVersionStatusLabel()
+{
+    if (m_pVersionStatusLabel != nullptr)
+    {
+        return;
+    }
+
+    auto* label = new QLabel(menuBar());
+    label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    label->setMargin(4);
+    label->setMinimumWidth(220);
+    label->setTextFormat(Qt::RichText);
+    label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    label->setOpenExternalLinks(false);
+    label->setVisible(false);
+    connect(label,
+            &QLabel::linkActivated,
+            this,
+            [this](const QString&)
+            {
+                if (m_versionStatusState == OnlineVersionChecker::State::NewerAvailable)
+                {
+                    showVersionDialog();
+                }
+            });
+    menuBar()->setCornerWidget(label, Qt::TopRightCorner);
+    m_pVersionStatusLabel = label;
+
+    updateVersionStatusText();
+}
+
+void MainWindowBase::startVersionCheck()
+{
+    ensureVersionStatusLabel();
+    if (m_isVersionCheckInProgress)
+    {
+        updateVersionStatusText();
+        return;
+    }
+
+    m_isVersionCheckInProgress = true;
+    updateVersionStatusText();
+
+    OnlineVersionChecker::CheckOnlineVersionAsync(
+        this,
+        [this](OnlineVersionChecker::OnlineVersion onlineVersion)
+        { applyVersionStatus(onlineVersion); });
+}
+
+void MainWindowBase::applyVersionStatus(const OnlineVersionChecker::OnlineVersion& onlineVersion)
+{
+    m_latestOnlineVersion = onlineVersion;
+    m_isVersionCheckInProgress = false;
+    m_versionStatusState = onlineVersion.state;
+    updateVersionStatusText();
+}
+
+void MainWindowBase::showVersionDialog()
+{
+    if (m_versionStatusState != OnlineVersionChecker::State::NewerAvailable)
+    {
+        return;
+    }
+
+    const QString changes = (QCoreApplication::tr("en") == "de" ? m_latestOnlineVersion.changes_de
+                                                                : m_latestOnlineVersion.changes_en)
+                                .trimmed();
+
+    const QString msg =
+        QString("%1\n\n%2\n\n*%3*")
+            .arg(QCoreApplication::tr("Version %1 available (currently using: %2)")
+                     .arg(QString("**%1**").arg(m_latestOnlineVersion.version))
+                     .arg(QString("`%1`").arg(QCoreApplication::applicationVersion())))
+            .arg(changes)
+            .arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
+
+    QMessageBox versionBox(QMessageBox::Information,
+                           QCoreApplication::tr("Ipponboard - New Version Available"),
+                           msg,
+                           QMessageBox::NoButton,
+                           this);
+    versionBox.setTextFormat(Qt::MarkdownText);
+    versionBox.setTextInteractionFlags(Qt::TextBrowserInteraction);
+    QAbstractButton* downloadButton =
+        versionBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
+    QAbstractButton* homepageButton =
+        versionBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
+    versionBox.addButton(QCoreApplication::tr("Ignore"), QMessageBox::RejectRole);
+    if (auto* pushButton = qobject_cast<QPushButton*>(homepageButton))
+    {
+        versionBox.setDefaultButton(pushButton);
+    }
+
+    versionBox.exec();
+    QAbstractButton* clickedButton = versionBox.clickedButton();
+
+    if (clickedButton == downloadButton)
+    {
+        qDebug() << "Opening download URL:" << m_latestOnlineVersion.downloadUrl;
+        QDesktopServices::openUrl(QUrl(m_latestOnlineVersion.downloadUrl));
+    }
+    else if (clickedButton == homepageButton)
+    {
+        qDebug() << "Opening homepage URL:" << m_latestOnlineVersion.infoUrl;
+        QDesktopServices::openUrl(QUrl(m_latestOnlineVersion.infoUrl));
+    }
+}
+
+void MainWindowBase::updateVersionStatusText()
+{
+    if (m_pVersionStatusLabel == nullptr)
+        return;
+
+    QString text = "v" + QCoreApplication::applicationVersion();
+    QString toolTip;
+
+    if (!m_checkVersionOnStartup)
+    {
+        toolTip = tr("Online version check is disabled in the settings.");
+    }
+    else
+    {
+        if (m_isVersionCheckInProgress)
+        {
+            text = tr("Checking for updated version...");
+        }
+        else
+        {
+            switch (m_versionStatusState)
+            {
+            case OnlineVersionChecker::State::NewerAvailable:
+                text = QStringLiteral("<a href=\"show-version-dialog\">%1</a>")
+                           .arg(tr("Version %1 available!").arg(m_latestOnlineVersion.version));
+                toolTip = tr("Click the link for details");
+                break;
+
+            case OnlineVersionChecker::State::UpToDate:
+                text += QString(" (%1)").arg(tr("latest"));
+                toolTip = tr("Version is up to date.");
+                break;
+
+            case OnlineVersionChecker::State::NewerThanOnlineAvailable:
+                text += QString(" (%1)").arg(tr("newer"));
+                toolTip = tr("Version is newer than online.");
+                break;
+
+            case OnlineVersionChecker::State::Empty:
+            default:
+                toolTip = tr("Online version check failed. See log for details.");
+                break;
+            }
+        }
+    }
+    const QPalette pal = m_pVersionStatusLabel->style()->standardPalette();
+    const QColor textColor = pal.color(QPalette::Active, QPalette::WindowText);
+    const QColor dimmedColor = pal.color(QPalette::Disabled, QPalette::WindowText);
+    const QColor linkColor = pal.color(QPalette::Active, QPalette::Link);
+
+    m_pVersionStatusLabel->setText(text);
+    m_pVersionStatusLabel->setToolTip(toolTip);
+    m_pVersionStatusLabel->setTextInteractionFlags(
+        m_versionStatusState == OnlineVersionChecker::State::NewerAvailable
+            ? Qt::TextBrowserInteraction
+            : Qt::NoTextInteraction);
+    m_pVersionStatusLabel->setStyleSheet(
+        m_versionStatusState == OnlineVersionChecker::State::NewerAvailable
+            ? QStringLiteral("QLabel { padding: 4px; color: %1; } "
+                             "QLabel a { color: %2; text-decoration: underline; }")
+                  .arg(textColor.name(), linkColor.name())
+            : QStringLiteral("QLabel { padding: 4px; color: %1; }").arg(dimmedColor.name()));
+    m_pVersionStatusLabel->setVisible(!text.isEmpty());
 }
 
 QString MainWindowBase::GetConfigFileName() { return "Ipponboard.config"; }
@@ -204,6 +317,7 @@ void MainWindowBase::changeEvent(QEvent* e)
     {
     case QEvent::LanguageChange:
         retranslate_Ui();
+        updateVersionStatusText();
         break;
 
     default:
@@ -978,8 +1092,6 @@ void MainWindowBase::on_actionPreferences_triggered()
         update_views();
     }
 }
-
-void MainWindowBase::on_actionCheck_for_Updates_triggered() { RunVersionCheckFlow(this, true); }
 
 void MainWindowBase::update_screen_visibility(QWidget* pView) const
 {

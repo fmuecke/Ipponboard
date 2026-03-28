@@ -510,7 +510,6 @@
     <addaction name="separator"/>
     <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionOnline_Feedback"/>
-    <addaction name="actionCheck_for_Updates"/>
     <addaction name="actionView_Logfile"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -985,11 +984,6 @@
    </property>
    <property name="text">
     <string>light</string>
-   </property>
-  </action>
-  <action name="actionCheck_for_Updates">
-   <property name="text">
-    <string>Check for Updates</string>
    </property>
   </action>
  </widget>

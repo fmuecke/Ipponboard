@@ -614,10 +614,6 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Hintergrund ändern</translation>
     </message>
     <message>
-        <source>Check for Updates</source>
-        <translation>Auf Update prüfen</translation>
-    </message>
-    <message>
         <source>Choose Dutch as program language</source>
         <translation>Niederländisch als Programmsprache wählen</translation>
     </message>
@@ -905,6 +901,22 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Über %1</translation>
     </message>
     <message>
+        <source>Checking for updated version...</source>
+        <translation>Prüfe auf neuere Version...</translation>
+    </message>
+    <message>
+        <source>Click the link for details</source>
+        <translation>Link klicken für Details</translation>
+    </message>
+    <message>
+        <source>Online version check failed. See log for details.</source>
+        <translation>Online-Versionsprüfung fehlgeschlagen. Siehe Log für mehr Details.</translation>
+    </message>
+    <message>
+        <source>Online version check is disabled in the settings.</source>
+        <translation>Online-Versionsprüfung ist in den Settings deaktiviert.</translation>
+    </message>
+    <message>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -923,6 +935,26 @@ Mögliche Spezifikatorens sind: %1</translation>
     <message>
         <source>Unnamed controller</source>
         <translation>Unbenannter Controller</translation>
+    </message>
+    <message>
+        <source>Version %1 available!</source>
+        <translation>Version %1 verfügbar!</translation>
+    </message>
+    <message>
+        <source>Version is newer than online.</source>
+        <translation>Die Version ist neuer als online.</translation>
+    </message>
+    <message>
+        <source>Version is up to date.</source>
+        <translation>Version ist aktuell.</translation>
+    </message>
+    <message>
+        <source>latest</source>
+        <translation>neuste</translation>
+    </message>
+    <message>
+        <source>newer</source>
+        <translation>neuer</translation>
     </message>
 </context>
 <context>
@@ -962,10 +994,6 @@ Mögliche Spezifikatorens sind: %1</translation>
     <message>
         <source>Can not paste into an empty selection!</source>
         <translation>In eine leere Auswahl kann nicht eingefügt werden!</translation>
-    </message>
-    <message>
-        <source>Check for Updates</source>
-        <translation>Auf Update prüfen</translation>
     </message>
     <message>
         <source>Choose Dutch as program language</source>
@@ -1642,10 +1670,6 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
     <message>
         <source>Visit Homepage</source>
         <translation>Seite besuchen</translation>
-    </message>
-    <message>
-        <source>You are already using the latest version</source>
-        <translation>Du verwendest bereits die aktuellste Version</translation>
     </message>
     <message>
         <source>en</source>

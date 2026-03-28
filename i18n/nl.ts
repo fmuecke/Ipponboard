@@ -614,10 +614,6 @@ Geldige velden zijn: %1</translation>
         <translation>Achtergrond wijzigen</translation>
     </message>
     <message>
-        <source>Check for Updates</source>
-        <translation>Controleer op updates</translation>
-    </message>
-    <message>
         <source>Choose Dutch as program language</source>
         <translation>Kies Nederlands als programmeertaal</translation>
     </message>
@@ -905,6 +901,22 @@ Geldige velden zijn: %1</translation>
         <translation>Over %1</translation>
     </message>
     <message>
+        <source>Checking for updated version...</source>
+        <translation>Er wordt gezocht naar een nieuwere versie...</translation>
+    </message>
+    <message>
+        <source>Click the link for details</source>
+        <translation>Klik op de link voor meer informatie</translation>
+    </message>
+    <message>
+        <source>Online version check failed. See log for details.</source>
+        <translation>Het controleren van de onlineversie is mislukt. Raadpleeg het logboek voor meer informatie.</translation>
+    </message>
+    <message>
+        <source>Online version check is disabled in the settings.</source>
+        <translation>De online versiecontrole is uitgeschakeld in de instellingen.</translation>
+    </message>
+    <message>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
@@ -923,6 +935,26 @@ Geldige velden zijn: %1</translation>
     <message>
         <source>Unnamed controller</source>
         <translation>Controller zonder naam</translation>
+    </message>
+    <message>
+        <source>Version %1 available!</source>
+        <translation>Versie %1 beschikbaar!</translation>
+    </message>
+    <message>
+        <source>Version is newer than online.</source>
+        <translation>Deze versie is nieuwer dan de online versie.</translation>
+    </message>
+    <message>
+        <source>Version is up to date.</source>
+        <translation>De versie is up-to-date.</translation>
+    </message>
+    <message>
+        <source>latest</source>
+        <translation>nieuwste</translation>
+    </message>
+    <message>
+        <source>newer</source>
+        <translation>nieuwere</translation>
     </message>
 </context>
 <context>
@@ -962,10 +994,6 @@ Geldige velden zijn: %1</translation>
     <message>
         <source>Can not paste into an empty selection!</source>
         <translation>Kan niet in een lege selectie plakken!</translation>
-    </message>
-    <message>
-        <source>Check for Updates</source>
-        <translation>Controleer op updates</translation>
     </message>
     <message>
         <source>Choose Dutch as program language</source>
@@ -1644,10 +1672,6 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
     <message>
         <source>Visit Homepage</source>
         <translation>Bezoek Homepage</translation>
-    </message>
-    <message>
-        <source>You are already using the latest version</source>
-        <translation>Je gebruikt al de nieuwste versie</translation>
     </message>
     <message>
         <source>en</source>
