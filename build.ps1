@@ -210,6 +210,7 @@ function Build-ALL {
     
     $success = Run-Tests
     if (-not $success) { return $false }
+    $success
 
     $success = Build-Doc
     return $success
