@@ -146,7 +146,14 @@ else()
 endif()
 
 if(APPLE)
+    set(MACOS_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/images/ipponboard.icns")
+
     add_executable(${APP_NAME} MACOSX_BUNDLE Main.cpp ${OTHER})
+    target_sources(${APP_NAME} PRIVATE "${MACOS_BUNDLE_ICON}")
+    set_source_files_properties("${MACOS_BUNDLE_ICON}" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    set_target_properties(${APP_NAME} PROPERTIES
+        MACOSX_BUNDLE_ICON_FILE "ipponboard.icns"
+    )
 else()
     add_executable(${APP_NAME} WIN32 Main.cpp ${OTHER})
 endif()
@@ -172,21 +179,45 @@ target_link_libraries(${APP_NAME}
 target_precompile_headers(${APP_NAME}
     PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PCH_HEADER_WIDGETS}>")
 
-# Copy data files
-add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "$<TARGET_FILE_DIR:${APP_NAME}>/clubs"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "$<TARGET_FILE_DIR:${APP_NAME}>/templates"
-)
+if(APPLE)
+    set(APP_RESOURCE_DIR "$<TARGET_BUNDLE_DIR:${APP_NAME}>/Contents/Resources")
 
-# Compile and copy translation files
-add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/lang"
-    COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
-    COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
-)
+    # Copy immutable bundle resources into Contents/Resources on macOS.
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${APP_RESOURCE_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "${APP_RESOURCE_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "${APP_RESOURCE_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "${APP_RESOURCE_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "${APP_RESOURCE_DIR}/clubs"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "${APP_RESOURCE_DIR}/templates"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/sounds" "${APP_RESOURCE_DIR}/sounds"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${ROOT_DIR}/doc/licenses" "${APP_RESOURCE_DIR}/licenses"
+    )
+
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${APP_RESOURCE_DIR}/lang"
+        COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/de.ts -qm ${APP_RESOURCE_DIR}/lang/de.qm
+        COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm ${APP_RESOURCE_DIR}/lang/nl.qm
+    )
+else()
+    # Copy data files
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
+	    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "$<TARGET_FILE_DIR:${APP_NAME}>/clubs"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/templates" "$<TARGET_FILE_DIR:${APP_NAME}>/templates"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/sounds" "$<TARGET_FILE_DIR:${APP_NAME}>/sounds"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${ROOT_DIR}/doc/licenses" "$<TARGET_FILE_DIR:${APP_NAME}>/licenses"
+    )
+
+    # Compile and copy translation files
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/lang"
+        COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
+        COMMAND ${QT_LRELEASE_EXECUTABLE} -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
+    )
+endif()
 
 if(MSVC)
     target_link_libraries(${APP_NAME} PRIVATE Qt6::Core Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network)

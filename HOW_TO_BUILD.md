@@ -114,6 +114,16 @@ Select build mode:
 
 5. [Run `./build.sh` from bash](#run-buildps1-resp-buildsh)
 
+### macOS bundle paths
+
+For macOS builds, Ipponboard uses the standard app bundle split:
+
+- Executables live under `Ipponboard.app/Contents/MacOS`
+- Immutable app assets such as translations, templates, sounds, shipped config seeds, and the generated HTML manual live under `Ipponboard.app/Contents/Resources`
+- User-writable configuration and generated data are resolved at runtime through `QStandardPaths`, not written back into the app bundle
+
+`pandoc` is required on macOS as well so `build.sh` can generate `User-Manual.html` etc. and copy it into the app bundle resources.
+
 
 ### Installing Qt 6 on Ubuntu/WSL2
 

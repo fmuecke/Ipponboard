@@ -311,8 +311,13 @@ function build_doc {
     pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
     pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
 
-    echo "Copying license files..."
-    cp -r "$BASE_DIR/licenses" "$BIN_DIR/licenses" || return $?
+    if [ "$IPPONBOARD_PLATFORM" = "macos" ]; then
+        local bundle_resources="$BIN_DIR/Ipponboard.app/Contents/Resources"
+        mkdir -p "$bundle_resources" || return $?
+        cp "$BIN_DIR/Anleitung.html" "$bundle_resources/Anleitung.html" || return $?
+        cp "$BIN_DIR/User-Manual.html" "$bundle_resources/User-Manual.html" || return $?
+        cp "$BIN_DIR/CHANGELOG.html" "$bundle_resources/CHANGELOG.html" || return $?
+    fi
     echo "done."
     return 0
 }
