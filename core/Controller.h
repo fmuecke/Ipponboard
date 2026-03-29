@@ -156,8 +156,8 @@ class Controller : public QObject, public IController, public IControllerCore
     void CopyAndSwitchGuestFighters();
     PTournamentModel GetTournamentScoreModel(int which = 0);
 
-    void SetGongFile(const QString&);
-    QString const& GetGongFile() const;
+    void SetMatSignal(const QString&);
+    QString const& GetMatSignal() const;
 
   private slots:
     void update_main_time();
@@ -202,7 +202,7 @@ class Controller : public QObject, public IController, public IControllerCore
     std::set<IView*> m_views;
     std::set<IGoldenScoreView*> m_goldenScoreViews;
     QString m_Message;
-    QString m_gongFile;
+    QString m_matSignal;
     bool m_isSonoMama;
     QTime m_roundTime;
     QString m_weight_class;

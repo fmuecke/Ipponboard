@@ -57,4 +57,15 @@
         <file>emblems/bjv-logo.png</file>
         <file>emblems/djb-logo.png</file>
     </qresource>
+	<qresource prefix="/sounds">
+        <file alias="Applause">sounds/applause.wav</file>
+        <file alias="Bell">sounds/bell.wav</file>
+        <file alias="Boxing bell double">sounds/boxing-bell-double.wav</file>
+        <file alias="Buzzer">sounds/buzzer.wav</file>
+        <file alias="Clapping">sounds/clapping.wav</file>
+        <file alias="Gong">sounds/gong.wav</file>
+        <file alias="Horn">sounds/horn.wav</file>
+        <file alias="Metal bowl">sounds/metal-bowl.wav</file>
+        <file alias="The end">sounds/the-end.wav</file>
+	</qresource>
 </RCC>

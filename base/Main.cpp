@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
     QApplication a(argc, argv);
 
     QCoreApplication::setApplicationVersion(VersionInfo::VersionStr);
-    QCoreApplication::setOrganizationName(QString());
+    QCoreApplication::setOrganizationName("fmuecke");
     QCoreApplication::setOrganizationDomain(QString());
     QCoreApplication::setApplicationName("Ipponboard");
 
@@ -201,41 +201,22 @@ int main(int argc, char* argv[])
     }
 
     // read language and theme settings
+    qInfo() << "Reading user settings";
+    QSettings settings;
+
     QString langStr = QLocale::system().name();
     langStr.truncate(langStr.lastIndexOf('_'));
-    auto theme = Qt::ColorScheme::Unknown;
-
-    auto settingsFile = fm::ResolveConfigFileForRead(MainWindowBase::GetConfigFileName());
-    qInfo() << "Reading settings from: " << settingsFile;
-
-    if (!QFile::exists(settingsFile))
-    {
-        qWarning() << "Unable to load config:" << settingsFile;
-    }
-
-    QSettings settings(settingsFile, QSettings::IniFormat, &a);
-    settings.beginGroup(str_tag_Main);
-
-    if (settings.contains(str_tag_Language))
-    {
-        langStr = settings.value(str_tag_Language).toString();
-    }
-
-    if (settings.contains(str_tag_Theme))
-    {
-        auto val = settings.value(str_tag_Theme).toInt();
-        if (val == 1 || val == 2)
-        {
-            theme = static_cast<Qt::ColorScheme>(val);
-        }
-    }
-
-    settings.endGroup();
-
-    a.styleHints()->setColorScheme(theme);
-
+    langStr = settings.value(QString(settings::str_Main) + "/" + settings::str_Language, langStr)
+                  .toString();
     QTranslator translator; // Note: this object needs to remain in scope.
     SetTranslation(a, translator, langStr);
+
+    auto theme = static_cast<Qt::ColorScheme>(
+        settings
+            .value(QString(settings::str_Main) + "/" + settings::str_Theme,
+                   (int)Qt::ColorScheme::Unknown)
+            .toInt());
+    a.styleHints()->setColorScheme(theme);
 
     int dlgResult{ 0 };
 

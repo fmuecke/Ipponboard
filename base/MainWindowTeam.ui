@@ -1211,11 +1211,11 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_Ipponboard"/>
     <addaction name="actionUser_Manual"/>
     <addaction name="separator"/>
-    <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionOnline_Feedback"/>
+    <addaction name="actionVisit_Project_Homepage"/>
+    <addaction name="actionAbout_Ipponboard"/>
     <addaction name="actionView_Logfile"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -1274,8 +1274,8 @@
     <addaction name="actionManageFighters"/>
     <addaction name="actionManage_Clubs"/>
     <addaction name="menuTimers"/>
-    <addaction name="actionTest_Gong"/>
     <addaction name="actionReset_Scores"/>
+    <addaction name="actionTest_Gong"/>
    </widget>
    <addaction name="menuTournament"/>
    <addaction name="menuView"/>

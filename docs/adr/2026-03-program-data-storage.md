@@ -8,6 +8,8 @@
 
 Ipponboard currently lacks a documented contract for where installers place the executable payload and where the application persists configuration files and user-generated data. Windows customers expect Ipponboard to be installable without administrative rights, and Linux users increasingly rely on sandboxed package managers that respect the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/latest/). Without an explicit decision, packaging scripts, runtime code, and support documentation risk diverging, which complicates migration and end-user support.
 
+In addition to installation and configuration paths, the application also needs a consistent model for domain data such as clubs, fighters, logos, and weight classes. These data sets are not the same as application settings. Ipponboard ships with defaults, but users must be able to extend or override them without modifying the installed bundle. If the application writes directly into bundled files, updates become fragile, packaged builds become harder to support, and read-only deployment targets such as signed app bundles or Qt resources become impractical.
+
 ## Decision
 
 Adopt user-scoped storage anchored to the operating system's standard application data directories:
@@ -21,6 +23,31 @@ Adopt user-scoped storage anchored to the operating system's standard applicatio
 
 Installers/scripts must create these directories on first run with user-only permissions, migrate legacy content into the new locations when detected, and update documentation accordingly.
 
+For domain data, separate shipped defaults from user-specific overrides:
+
+- **Shipped defaults, read-only**
+  - Store immutable default domain data inside the application bundle, preferably in Qt resources under `:/...`.
+  - Examples:
+    - `:/data/clubs.json`
+    - `:/data/weightclasses.json`
+    - `:/logos/...`
+- **User-specific overrides, writable**
+  - Store user-provided or user-modified domain data under `QStandardPaths::AppDataLocation`.
+  - Examples:
+    - `AppDataLocation/clubs.json`
+    - `AppDataLocation/weightclasses.json`
+    - `AppDataLocation/logos/...`
+
+At startup, the application must resolve domain data in this order:
+
+1. Load shipped defaults.
+2. Load user-specific overrides.
+3. Apply user-specific overrides on top of the shipped defaults.
+
+The application must never patch bundled defaults in place. Updates may replace bundled defaults, but user-specific overrides remain external and take precedence at runtime.
+
+`QSettings` remains reserved for persistent application settings such as window geometry, theme, language selection, recent printer choice, and similar UI or runtime preferences. Domain data such as fighters, clubs, logos, and weight classes must not be stored in `QSettings`.
+
 ## Consequences
 
 ### Positive
@@ -28,12 +55,17 @@ Installers/scripts must create these directories on first run with user-only per
 - Aligns with Microsoft and freedesktop guidelines, enabling non-administrative installs and predictable backups.
 - Keeps user data separate from executables, simplifying updates and allowing clean uninstall without losing profiles when requested.
 - Enables roaming of preferences on Windows through `%APPDATA%` while keeping large binaries local to each workstation.
+- Allows the application to ship curated defaults while still supporting user customization without mutating the installed bundle.
+- Works with read-only deployment models such as Qt resources, signed bundles, and sandboxed package formats.
+- Makes migration and support easier because the precedence rule for defaults versus overrides is explicit.
 
 ### Negative/Risks
 
 - Linux packages distributed via system package managers (e.g., `.deb`, Flatpak) may prefer `/usr` or sandbox paths; installers must translate these rules or document deviations.
 - Existing installs that wrote beside the executable must be migrated carefully to prevent data loss.
 - WSL inherits the host Windows filesystem semantics; installers must normalize path handling to avoid mixing Windows-style environment variables with POSIX paths.
+- Merge behavior for domain data must be defined per file type. Some assets may be additive, while others may require key-based replacement or explicit deletion markers.
+- Resource-based defaults are easy to read but cannot be edited in place, so development and migration tooling must support exporting or inspecting effective merged data when needed.
 
 ## Rollback Strategy
 

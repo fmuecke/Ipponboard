@@ -321,28 +321,34 @@ QStringList MainWindowTeam::get_list_templates()
     return dir.entryList(filters, QDir::Files, QDir::Name);
 }
 
-void MainWindowTeam::write_specific_settings(QSettings& settings)
+void MainWindowTeam::write_settings() const
 {
-    settings.beginGroup(EditionNameShort());
+    MainWindowBase::write_settings();
+
+    QSettings settings;
+    settings.beginGroup(EditionName());
     {
         settings.remove("");
         settings.setValue(StrTags::mode, m_currentMode);
         settings.setValue(StrTags::host, m_host);
-        settings.setValue(str_tag_LabelHome, m_pController->GetHomeLabel());
-        settings.setValue(str_tag_LabelGuest, m_pController->GetGuestLabel());
+        settings.setValue(settings::str_LabelHome, m_pController->GetHomeLabel());
+        settings.setValue(settings::str_LabelGuest, m_pController->GetGuestLabel());
     }
     settings.endGroup();
 }
 
-void MainWindowTeam::read_specific_settings(QSettings& settings)
+void MainWindowTeam::read_settings()
 {
-    settings.beginGroup(EditionNameShort());
+    MainWindowBase::read_settings();
+
+    QSettings settings;
+    settings.beginGroup(EditionName());
     {
         m_currentMode = settings.value(StrTags::mode, "").toString();
         m_host = settings.value(StrTags::host, "").toString();
 
-        m_pController->SetLabels(settings.value(str_tag_LabelHome, tr("Home")).toString(),
-                                 settings.value(str_tag_LabelGuest, tr("Guest")).toString());
+        m_pController->SetLabels(settings.value(settings::str_LabelHome, tr("Home")).toString(),
+                                 settings.value(settings::str_LabelGuest, tr("Guest")).toString());
     }
     settings.endGroup();
 }

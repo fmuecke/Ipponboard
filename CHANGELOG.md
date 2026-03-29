@@ -3,6 +3,8 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
+- (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macos)
+- (mod): optimized layout of the settings dialog
 - (new): automatic update check is now asynchronous and can be disabled in the settings
 - (new): added support for dark mode (does not yet work with linux)
 - (internal): rewrote internal state machine and removed dependency to Boost MSM (simplifies build and maintenance, improves testability and extensibility)
@@ -12,7 +14,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
   - User settings are now stored in `%APPDATA%\Ipponboard` on Windows and `~/.config/Ipponboard` on Linux, while bundled default files remain in the application directory and are used as fallback.
 - (mod): **breaking change** the config files use a consistent naming (extension `.config`)
   - `TournamentModes.ini` &rarr; `%APPDATA%\Ipponboard\tournament_modes.config`
-  - `Ipponboard.ini` &rarr; `%APPDATA%\Ipponboard\Ipponboard.config`
+  - `Ipponboard.ini` &rarr; user settings (e.g. registry on Windows)
   - The old files may still remain but won't be used or migrated automatically.
 - (mod): manual now looks more professional
 - (new): whole new logo for Ipponboard
@@ -23,7 +25,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (new): integrated gamepad diagnostics workflow directly in the settings dialog, replacing the additional `GamepadDemo` application.
 - (fix): main window suppresses controller input while preferences are open to avoid unintended actions.
 - (fix): Timer does not stop on awasete ippon (#88)
-- (new): log file can be accessed via menu (Help -\> Show Log File)
+- (new): log file can be accessed via menu (Help &rarr; Show Log File)
 - (internal): modularized CMake targets, enforced clang-format in CI, upgraded the Catch2 test suite to v3, and broadened controller/gamepad regression coverage.
 - (internal): standardized builds on Qt 6.9.2, C++20 across Windows and Linux toolchains. Required x64 architecture for Windows builds and refreshed the Windows installer to ship the Qt 6 runtime stack.
 - (internal): documented the Qt 6 migration (updated manuals/licenses, Qt 6 ADR, CI workflow ready for Ninja-based packaging) to lock in the toolchain change.

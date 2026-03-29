@@ -505,11 +505,11 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="actionAbout_Ipponboard"/>
     <addaction name="actionUser_Manual"/>
     <addaction name="separator"/>
-    <addaction name="actionVisit_Project_Homepage"/>
     <addaction name="actionOnline_Feedback"/>
+    <addaction name="actionVisit_Project_Homepage"/>
+    <addaction name="actionAbout_Ipponboard"/>
     <addaction name="actionView_Logfile"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -555,12 +555,12 @@
      <addaction name="actionThemeLight"/>
     </widget>
     <addaction name="separator"/>
-    <addaction name="actionAutoAdjustPoints"/>
-    <addaction name="menuRules"/>
-    <addaction name="separator"/>
     <addaction name="actionPreferences"/>
     <addaction name="menuLanguages"/>
     <addaction name="menuTheme"/>
+    <addaction name="separator"/>
+    <addaction name="menuRules"/>
+    <addaction name="actionAutoAdjustPoints"/>
    </widget>
    <widget class="QMenu" name="menuManage">
     <property name="enabled">

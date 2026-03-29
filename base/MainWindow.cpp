@@ -395,28 +395,34 @@ void MainWindow::on_toolButton_viewSecondaryScreen_toggled()
     on_actionShow_SecondaryView_triggered();
 }
 
-void MainWindow::write_specific_settings(QSettings& settings)
+void MainWindow::write_settings() const
 {
-    settings.beginGroup(EditionNameShort());
+    MainWindowBase::write_settings();
+
+    QSettings settings;
+    settings.beginGroup(EditionName());
     {
         settings.remove("");
-        settings.setValue(str_tag_MatLabel, m_MatLabel);
-        settings.setValue(str_tag_rules, m_pController->GetRules()->Name());
+        settings.setValue(settings::str_MatLabel, m_MatLabel);
+        settings.setValue(settings::str_rules, m_pController->GetRules()->Name());
     }
     settings.endGroup();
 }
 
-void MainWindow::read_specific_settings(QSettings& settings)
+void MainWindow::read_settings()
 {
-    settings.beginGroup(EditionNameShort());
+    MainWindowBase::read_settings();
+
+    QSettings settings;
+    settings.beginGroup(EditionName());
     {
-        m_MatLabel = settings.value(str_tag_MatLabel, "Ipponboard")
+        m_MatLabel = settings.value(settings::str_MatLabel, "Ipponboard")
                          .toString(); // value is also in settings dialog!
         m_pPrimaryView->SetMat(m_MatLabel);
         m_pSecondaryView->SetMat(m_MatLabel);
 
         // rules
-        auto rules = RulesFactory::Create(settings.value(str_tag_rules).toString());
+        auto rules = RulesFactory::Create(settings.value(settings::str_rules).toString());
         m_pController->SetRules(rules);
     }
     settings.endGroup();

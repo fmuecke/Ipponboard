@@ -34,7 +34,7 @@ class MainWindowTeam : public MainWindowBase
     virtual void Init() final;
 
     virtual EditionType Edition() const final { return EditionType::Team; }
-    virtual const char* EditionName() const final { return "Team Edition"; }
+    virtual const char* EditionName() const final { return "Team Mode"; }
     virtual const char* EditionNameShort() const final { return "Team"; }
     static const char* ModeConfigurationFileName() { return "tournament_modes.config"; }
 
@@ -73,8 +73,8 @@ class MainWindowTeam : public MainWindowBase
     int LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
     QString SaveTournamentToFile_(QString const& filename);
     void load_autosave_if_available();
-    virtual void write_specific_settings(QSettings& settings) final;
-    virtual void read_specific_settings(QSettings& settings) final;
+    virtual void write_settings() const final;
+    virtual void read_settings() final;
     Ipponboard::TournamentSerialization::TournamentSaveData CollectTournamentSaveData_() const;
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);

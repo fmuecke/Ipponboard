@@ -25,7 +25,7 @@ class MainWindow : public MainWindowBase
     virtual void Init() final;
 
     virtual EditionType Edition() const final { return EditionType::Single; }
-    virtual const char* EditionName() const final { return "Single Edition"; }
+    virtual const char* EditionName() const final { return "Single Mode"; }
     virtual const char* EditionNameShort() const final { return "Single"; }
 
   protected:
@@ -33,8 +33,8 @@ class MainWindow : public MainWindowBase
     //virtual void changeEvent(QEvent* e) override;
     //virtual void closeEvent(QCloseEvent* event) override;
     //virtual void keyPressEvent(QKeyEvent* event) override;
-    virtual void write_specific_settings(QSettings& settings) final;
-    virtual void read_specific_settings(QSettings& settings) final;
+    virtual void write_settings() const final;
+    virtual void read_settings() final;
     virtual void update_statebar() override;
     virtual void attach_primary_view() final;
     virtual void retranslate_Ui() final;

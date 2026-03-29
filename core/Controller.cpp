@@ -675,7 +675,7 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
-    if (m_gongFile.isEmpty())
+    if (m_matSignal.isEmpty())
     {
         return;
     }
@@ -687,7 +687,9 @@ void Controller::Gong() const
 
     auto* effect = m_gongEffect.get();
     effect->stop();
-    const auto source = QUrl::fromLocalFile(m_gongFile);
+
+    qDebug() << "Playing sound " << m_matSignal;
+    const auto source = QUrl("qrc:/sounds/" + m_matSignal);
     if (effect->source() != source)
     {
         effect->setSource(source);
@@ -1029,17 +1031,17 @@ PTournamentModel Controller::GetTournamentScoreModel(int which)
 }
 
 //=========================================================
-void Controller::SetGongFile(const QString& s)
+void Controller::SetMatSignal(const QString& s)
 //=========================================================
 {
-    m_gongFile = s;
+    m_matSignal = s;
 }
 
 //=========================================================
-QString const& Controller::GetGongFile() const
+QString const& Controller::GetMatSignal() const
 //=========================================================
 {
-    return m_gongFile;
+    return m_matSignal;
 }
 
 //=========================================================

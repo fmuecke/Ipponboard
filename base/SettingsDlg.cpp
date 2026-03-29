@@ -87,11 +87,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
                                               QString::number(res.height())));
     }
 
-    QDir dir(QDir::currentPath() + "/sounds");
-    QStringList nameFilters;
-    nameFilters << "*.wav";
-    dir.setNameFilters(nameFilters);
-    QStringList sounds(dir.entryList(QDir::Files));
+    QDir dir(":/sounds");
+    QStringList sounds = dir.entryList(QDir::Files);
     ui->comboBox_sound_time_ends->addItems(sounds);
 
     // keyboard page
@@ -610,7 +607,7 @@ void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString con
     ui->lineEdit_labelGuest->setText(guest);
 }
 
-void SettingsDlg::SetGongFile(const QString& path)
+void SettingsDlg::SetMatSignal(const QString& path)
 {
     int pos = path.lastIndexOf('/', -1);
     QString filename;
@@ -693,11 +690,7 @@ QString SettingsDlg::GetHomeLabel() const { return ui->lineEdit_labelHome->text(
 
 QString SettingsDlg::GetGuestLabel() const { return ui->lineEdit_labelGuest->text(); }
 
-QString SettingsDlg::GetGongFile() const
-{
-    QString path = QDir::currentPath() + "/sounds/";
-    return path + ui->comboBox_sound_time_ends->currentText();
-}
+QString SettingsDlg::GetMatSignal() const { return ui->comboBox_sound_time_ends->currentText(); }
 
 bool SettingsDlg::GetCheckVersionOnStartup() const
 {
@@ -838,10 +831,10 @@ void SettingsDlg::changeEvent(QEvent* e)
 
 void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 {
-    QString path = QDir::currentPath() + "/sounds/" + ui->comboBox_sound_time_ends->currentText();
+    QString path = "qrc:/sounds/" + ui->comboBox_sound_time_ends->currentText();
     qDebug() << "Playing sound from file:" << path;
     m_previewEffect.stop();
-    m_previewEffect.setSource(QUrl::fromLocalFile(path));
+    m_previewEffect.setSource(QUrl(path));
     m_previewEffect.play();
 }
 

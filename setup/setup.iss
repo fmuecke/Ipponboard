@@ -20,6 +20,7 @@
 #pragma message "Simple version info:   " + MySimpleAppVersion
 
 #define MyAppName "Ipponboard"
+#define MyAppOrg "fmuecke"
 #define MyAppCopyright "2010-2026 Florian Mücke "
 #define MyAppAuthor "Florian Mücke"
 
@@ -96,7 +97,7 @@ Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: Ig
 Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
 Source: "..\_bin\Ipponboard-Release\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
-Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
+;Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\licenses\*.*"; DestDir: "{app}\licenses"; Flags: IgnoreVersion recursesubdirs
@@ -111,7 +112,7 @@ Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: 
 
 [Dirs]
 ;Name: {commonappdata}\Ipponboard; Permissions: users-full
-Name: "{app}\sounds"
+;Name: "{app}\sounds"
 Name: "{app}\lang"
 Name: "{app}\clubs"; Permissions: users-full
 Name: "{app}\templates"; Permissions: users-full
@@ -136,12 +137,14 @@ Filename: {app}\Ipponboard.exe; Description: {cm:LaunchProgram,{#MyAppName}}; Fl
 ;Filename: "{tmp}\vcredist_x86.exe"; Parameters: "/install /quiet /norestart"; StatusMsg: "{#VCmsg}"; Check: VCRedistNeedsInstall; WorkingDir: {tmp};
 
 [Registry]
-Root: "HKCU"; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey
-Root: "HKCU"; Subkey: "Software\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey
+Root: "HKCU"; Subkey: "Software\{#MyAppOrg}\{#MyAppName}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Flags: deletekey
+Root: "HKCU"; Subkey: "Software\{#MyAppOrg}\{#MyAppName}"; ValueType: string; ValueName: "InstalledVersion"; ValueData: "{#MySimpleAppVersion}"; Flags: deletekey
+Root: "HKCU"; SubKey: "Software\{#MyAppOrg}\{#MyAppName}\Main"; ValueType: string; ValueName: "Language"; ValueData: "en"; Languages: en;
+Root: "HKCU"; SubKey: "Software\{#MyAppOrg}\{#MyAppName}\Main"; ValueType: string; ValueName: "Language"; ValueData: "de"; Languages: de;
 
-[INI]
-Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: de; Languages: de;
-Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: en; Languages: en;
+;[INI]
+;Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: de; Languages: de;
+;Filename: {app}\Ipponboard.config; Section: Main; Key: Language; String: en; Languages: en;
 
 [UnInstallDelete]
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}"
