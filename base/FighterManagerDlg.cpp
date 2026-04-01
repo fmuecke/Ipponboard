@@ -5,6 +5,7 @@
 #include "FighterManagerDlg.h"
 
 #include "../core/Fighter.h"
+#include "../util/path_helpers.h"
 #include "AddFighterDlg.h"
 #include "FighterManager.h"
 #include "ui_FighterManagerDlg.h"
@@ -230,7 +231,7 @@ void FighterManagerDlg::on_pushButton_import_pressed()
     const QString fileName =
         QFileDialog::getOpenFileName(this,
                                      tr("Select CSV file with fighters"),
-                                     QCoreApplication::applicationDirPath(),
+                                     fm::GetConfigDir(),
                                      tr("CSV files (*.csv);;Text files (*.txt)"),
                                      nullptr,
                                      QFileDialog::ReadOnly);
@@ -264,7 +265,7 @@ void FighterManagerDlg::on_pushButton_export_pressed()
     const QString fileName =
         QFileDialog::getSaveFileName(this,
                                      tr("Name CSV file to store fighters in"),
-                                     QCoreApplication::applicationDirPath(),
+                                     fm::GetConfigDir(),
                                      tr("CSV files (*.csv);;Text files (*.txt)"));
 
     if (!fileName.isEmpty())

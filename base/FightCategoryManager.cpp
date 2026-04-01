@@ -155,6 +155,6 @@ void FightCategoryMgr::SaveCategories()
 //---------------------------------------------------------
 {
     qInfo() << "Saving categories to:" << str_configFileName;
-    auto filePath{ fm::GetAppConfigFilePath(str_configFileName) };
+    auto filePath{ fm::GetConfigFilePath(str_configFileName) };
     FightCategoryParser::ToIniFile(filePath, m_Categories);
 }

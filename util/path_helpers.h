@@ -8,77 +8,137 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
-#include <QProcessEnvironment>
+#include <QFileInfo>
 #include <QStandardPaths>
-#include <string>
 #include <utility>
 
 namespace fm
 {
 
-namespace
-{
-
-QString ensureDirectory(QString directory)
+inline QString ensureDirectory(QString directory)
 {
     if (!directory.isEmpty())
     {
-        QDir().mkpath(directory); // make sure directory exists
+        QDir().mkpath(directory);
     }
     return directory;
 }
 
-QString GetAppConfigDir()
+inline QString GetProgramDataDirForExecutableDir(QString executableDir,
+                                                 bool preferBundleResources = false)
 {
-#ifdef Q_OS_WIN
-    const auto roamingBase = qEnvironmentVariable("APPDATA");
-    if (!roamingBase.isEmpty())
+    const auto cleanedExecutableDir = QDir::cleanPath(std::move(executableDir));
+
+    if (preferBundleResources)
     {
-        return ensureDirectory(QDir(QDir::fromNativeSeparators(roamingBase))
-                                   .filePath(QCoreApplication::applicationName()));
+        const auto resourcesDir =
+            QDir(cleanedExecutableDir).absoluteFilePath(QStringLiteral("../Resources"));
+        const QFileInfo resourcesInfo(resourcesDir);
+
+        if (resourcesInfo.exists() && resourcesInfo.isDir())
+        {
+            return QDir::cleanPath(resourcesInfo.absoluteFilePath());
+        }
     }
+
+    return cleanedExecutableDir;
+}
+
+inline QString GetProgramDataDir()
+{
+#if defined(Q_OS_MACOS)
+    constexpr bool kPreferBundleResources = true;
+#else
+    constexpr bool kPreferBundleResources = false;
 #endif
+
+    return GetProgramDataDirForExecutableDir(QCoreApplication::applicationDirPath(),
+                                             kPreferBundleResources);
+}
+
+inline QString GetProgramDataFilePath(QString fileName)
+{
+    const auto programDataDir = GetProgramDataDir();
+    return QDir::toNativeSeparators(QDir(programDataDir).filePath(std::move(fileName)));
+}
+
+inline QString GetConfigDir()
+{
     return ensureDirectory(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
 }
 
-QString GetAppLocalDataDir()
+inline QString GetLocalDataDir()
 {
-#ifdef Q_OS_WIN
-    const auto localBase = qEnvironmentVariable("LOCALAPPDATA");
-    if (!localBase.isEmpty())
-    {
-        return ensureDirectory(QDir(QDir::fromNativeSeparators(localBase))
-                                   .filePath(QCoreApplication::applicationName()));
-    }
-#endif
     return ensureDirectory(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 }
 
-QString GetAppConfigFilePath(QString fileName)
+inline QString GetConfigFilePath(QString fileName)
 {
-    auto configPath = GetAppConfigDir();
+    const auto configPath = GetConfigDir();
     return QDir::toNativeSeparators(QDir(configPath).filePath(std::move(fileName)));
 }
 
-QString GetAppDirFilePath(QString fileName)
+inline QString GetLocalDataFilePath(QString fileName)
 {
-    auto dataPath = QCoreApplication::applicationDirPath();
-    return QDir::toNativeSeparators(QDir(dataPath).filePath(std::move(fileName)));
+    const auto localDataPath = GetLocalDataDir();
+    return QDir::toNativeSeparators(QDir(localDataPath).filePath(std::move(fileName)));
 }
 
-QString ResolveConfigFileForRead(QString fileName)
+inline QString ResolveConfigFileForRead(QString fileName)
 {
-    const auto userConfigFile = GetAppConfigFilePath(fileName);
+    const auto userConfigFile = GetConfigFilePath(fileName);
     if (QFile::exists(userConfigFile))
     {
         return userConfigFile;
     }
 
-    return GetAppDirFilePath(std::move(fileName));
+    return GetProgramDataFilePath(std::move(fileName));
 }
 
-} // anonymous namespace
+inline QString ResolveAssetReference(QString reference, QString ownerDir)
+{
+    if (reference.isEmpty())
+    {
+        return reference;
+    }
+
+    if (reference.startsWith(QStringLiteral(":/")) || QFileInfo(reference).isAbsolute())
+    {
+        return reference;
+    }
+
+    reference.replace(QChar('\\'), QChar('/'));
+
+    if (!ownerDir.isEmpty())
+    {
+        const auto ownerRelativePath = QDir::toNativeSeparators(QDir(ownerDir).filePath(reference));
+        if (QFile::exists(ownerRelativePath))
+        {
+            return ownerRelativePath;
+        }
+    }
+
+    return GetProgramDataFilePath(std::move(reference));
+}
+
+inline QString ResolveConfigOwnedAsset(QString configFilePath, QString relativeReference)
+{
+    if (relativeReference.isEmpty())
+    {
+        return relativeReference;
+    }
+
+    if (relativeReference.startsWith(QStringLiteral(":/")) ||
+        QFileInfo(relativeReference).isAbsolute())
+    {
+        return relativeReference;
+    }
+
+    const QFileInfo configInfo(configFilePath);
+    const auto ownerDir = configInfo.exists() ? configInfo.dir().absolutePath() : GetConfigDir();
+    return ResolveAssetReference(std::move(relativeReference), ownerDir);
+}
+
 } // namespace fm
 
 #endif // UTIL__PATH_HELPERS_H_
-

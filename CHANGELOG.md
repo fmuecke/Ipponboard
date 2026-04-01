@@ -3,15 +3,17 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
-- (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macos)
+- (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macOS)
 - (mod): optimized layout of the settings dialog
 - (new): automatic update check is now asynchronous and can be disabled in the settings
 - (new): added support for dark mode (does not yet work with linux)
 - (internal): rewrote internal state machine and removed dependency to Boost MSM (simplifies build and maintenance, improves testability and extensibility)
+- (new): experimental support/build for macOS (no gamepad support so far)
 - (new): added button to switch sides/colors in settings dialog
 - (new): secondary screen can be positioned with custom offsets
 - (mod): **breaking change** following best practice and separating program from user data:
   - User settings are now stored in `%APPDATA%\Ipponboard` on Windows and `~/.config/Ipponboard` on Linux, while bundled default files remain in the application directory and are used as fallback.
+- (fix): fixed path resolution for config-owned assets so club logos and custom team templates continue to load correctly from user configuration folders.
 - (mod): **breaking change** the config files use a consistent naming (extension `.config`)
   - `TournamentModes.ini` &rarr; `%APPDATA%\Ipponboard\tournament_modes.config`
   - `Ipponboard.ini` &rarr; user settings (e.g. registry on Windows)

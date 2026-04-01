@@ -20,10 +20,12 @@ struct IpponboardTest
     {
         TournamentMode tm;
         errorMsg.clear();
+        const auto configFilePath = Ipponboard::TestSupport::ResolveTestDataPath(
+            QStringLiteral("TournamentModes-test.ini"));
 
         config.beginGroup(group);
-        bool readSuccess = TournamentMode::parse_current_group(
-            config, tm, Ipponboard::TestSupport::TestDataDirectory(), errorMsg);
+        bool readSuccess =
+            TournamentMode::parse_current_group(config, tm, configFilePath, errorMsg);
         config.endGroup();
         return readSuccess;
     }

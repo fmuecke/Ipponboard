@@ -61,7 +61,7 @@ class TournamentMode
 
   private:
     static bool parse_current_group(QSettings const& config, TournamentMode& tm,
-                                    QString templateDir, QString& errorMsg);
+                                    QString const& configFilePath, QString& errorMsg);
 
     static bool verify_child_keys(QStringList const& childKeys, QString& errorMsg);
 

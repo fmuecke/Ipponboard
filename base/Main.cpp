@@ -13,7 +13,6 @@
 #include <QFile>
 #include <QLocale>
 #include <QMessageBox>
-#include <QProcessEnvironment>
 #include <QSettings>
 #include <QTranslator>
 //#include <QtextCodec>
@@ -32,7 +31,7 @@ namespace
 {
 QString logFilePath()
 {
-    return fm::GetAppConfigFilePath(QCoreApplication::applicationName() + ".log");
+    return fm::GetLocalDataFilePath(QCoreApplication::applicationName() + ".log");
 }
 } // namespace
 
@@ -55,15 +54,15 @@ void SetTranslation(QApplication& app, QTranslator& translator, QString const& l
 
     if (langStr == QString("de") || langStr == QString("nl"))
     {
-        const QString& langPath = QCoreApplication::applicationDirPath() + QString("/lang");
+        const auto langPath = fm::GetProgramDataFilePath(QString("lang/%1.qm").arg(langStr));
 
-        if (translator.load(langStr, langPath))
+        if (translator.load(langPath))
         {
             app.installTranslator(&translator);
         }
         else
         {
-            LangNotFound(langStr);
+            LangNotFound(langPath);
         }
     }
 }

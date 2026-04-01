@@ -481,13 +481,13 @@ void MainWindowBase::on_actionAbout_Ipponboard_triggered()
 
 void MainWindowBase::on_actionUser_Manual_triggered()
 {
-    QUrl url(QCoreApplication::applicationDirPath() + tr("/User-Manual.html"));
-    QDesktopServices::openUrl(url);
+    const auto manualPath = fm::GetProgramDataFilePath(tr("User-Manual.html"));
+    QDesktopServices::openUrl(QUrl::fromLocalFile(manualPath));
 }
 
 void MainWindowBase::on_actionView_Logfile_triggered()
 {
-    const auto logPath = fm::GetAppConfigFilePath(QCoreApplication::applicationName() + ".log");
+    const auto logPath = fm::GetLocalDataFilePath(QCoreApplication::applicationName() + ".log");
     QDesktopServices::openUrl(QUrl::fromLocalFile(logPath));
 
     // TODO: open log file in Log Window
@@ -982,7 +982,7 @@ void MainWindowBase::read_settings()
 
 void MainWindowBase::load_fighters()
 {
-    QString csvFile(fm::GetAppConfigFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetConfigFilePath(GetFighterFileName().toLatin1()));
 
     QString errorMsg;
 
@@ -1000,7 +1000,7 @@ void MainWindowBase::load_fighters()
 
 void MainWindowBase::save_fighters()
 {
-    QString csvFile(fm::GetAppConfigFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetConfigFilePath(GetFighterFileName().toLatin1()));
     QString errorMsg;
 
     if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))

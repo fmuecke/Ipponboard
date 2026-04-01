@@ -49,10 +49,12 @@ bool ClubManager::GetClub(int index, Ipponboard::Club& club) const
 QString ClubManager::GetLogo(const QString& clubName) const
 //---------------------------------------------------------
 {
+    const auto configFile = fm::GetConfigFilePath(str_clubs_settingsFile);
+
     for (unsigned i(0); i < m_Clubs.size(); ++i)
     {
         if (clubName == m_Clubs.at(i).name)
-            return m_Clubs.at(i).logoFile;
+            return fm::ResolveConfigOwnedAsset(configFile, m_Clubs.at(i).logoFile);
     }
 
     return QString();
@@ -127,7 +129,7 @@ void ClubManager::SaveClubs_()
         return;
     }
 
-    auto filePath = fm::GetAppConfigFilePath(str_clubs_settingsFile);
+    auto filePath = fm::GetConfigFilePath(str_clubs_settingsFile);
 
     try
     {

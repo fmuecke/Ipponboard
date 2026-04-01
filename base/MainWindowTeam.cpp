@@ -30,6 +30,7 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QFontDialog>
 #include <QInputDialog>
 #include <QMenu>
@@ -56,6 +57,22 @@ namespace
 {
 bool initialized = false;
 constexpr auto SaveDateFormat = "dd.MM.yyyy";
+
+QString configTemplatesDir()
+{
+    return QDir(fm::GetConfigDir()).filePath(TournamentMode::str_TemplateDirName);
+}
+
+QString programTemplatesDir()
+{
+    return QDir(fm::GetProgramDataDir()).filePath(TournamentMode::str_TemplateDirName);
+}
+
+QStringList listTemplateNames(const QString& templateDir)
+{
+    QDir dir(templateDir);
+    return dir.entryList(QStringList{ QStringLiteral("*.html") }, QDir::Files, QDir::Name);
+}
 } // namespace
 
 MainWindowTeam::MainWindowTeam(QWidget* parent)
@@ -315,10 +332,18 @@ void MainWindowTeam::keyPressEvent(QKeyEvent* event)
 
 QStringList MainWindowTeam::get_list_templates()
 {
-    QDir dir(TournamentMode::str_TemplateDirName);
-    QStringList filters;
-    filters.append("*.html");
-    return dir.entryList(filters, QDir::Files, QDir::Name);
+    QStringList templates = listTemplateNames(configTemplatesDir());
+
+    for (const auto& templateName : listTemplateNames(programTemplatesDir()))
+    {
+        if (!templates.contains(templateName))
+        {
+            templates.append(templateName);
+        }
+    }
+
+    templates.sort();
+    return templates;
 }
 
 void MainWindowTeam::write_settings() const
@@ -406,7 +431,7 @@ void MainWindowTeam::update_club_views()
     {
         Ipponboard::Club club;
         m_pClubManager->GetClub(i, club);
-        QIcon icon(club.logoFile);
+        QIcon icon(m_pClubManager->GetLogo(club.name));
         m_pUi->comboBox_club_host->addItem(icon, club.name);
         m_pUi->comboBox_club_home->addItem(icon, club.name);
         m_pUi->comboBox_club_guest->addItem(icon, club.name);
@@ -588,7 +613,8 @@ void MainWindowTeam::WriteScoreToHtml_()
 {
     QString modeText = get_full_mode_title(m_currentMode);
     QString templateFile = get_template_file(m_currentMode);
-    const QString filePath(fm::GetAppConfigFilePath(templateFile.toStdString().c_str()));
+    const auto modeConfigFile = fm::GetConfigFilePath(MainWindowTeam::ModeConfigurationFileName());
+    const auto filePath = fm::ResolveConfigOwnedAsset(modeConfigFile, templateFile);
 
     QFile file(filePath);
 
@@ -745,17 +771,17 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
 
     if (m_pUi->comboBox_club_host->findText(saveData.host) == -1)
     {
-        m_pClubManager->AddClub(Club(saveData.host, "clubs\\default.png"));
+        m_pClubManager->AddClub(Club(saveData.host, "clubs/default.png"));
     }
 
     if (m_pUi->comboBox_club_home->findText(saveData.home) == -1)
     {
-        m_pClubManager->AddClub(Club(saveData.home, "clubs\\default.png"));
+        m_pClubManager->AddClub(Club(saveData.home, "clubs/default.png"));
     }
 
     if (m_pUi->comboBox_club_guest->findText(saveData.guest) == -1)
     {
-        m_pClubManager->AddClub(Club(saveData.guest, "clubs\\default.png"));
+        m_pClubManager->AddClub(Club(saveData.guest, "clubs/default.png"));
     }
 
     update_club_views();
@@ -843,7 +869,7 @@ QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
 
 void MainWindowTeam::load_autosave_if_available()
 {
-    const auto autoSavePath = fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename);
+    const auto autoSavePath = fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename);
     QJsonDocument document;
     QString errorMessage;
     const auto status =
@@ -902,7 +928,7 @@ void MainWindowTeam::on_actionSave_As_triggered()
                                      .arg(m_pUi->comboBox_club_home->currentText())
                                      .arg(m_pUi->comboBox_club_guest->currentText());
 
-    QString initialPath = fm::GetAppConfigFilePath(initialFileName);
+    QString initialPath = fm::GetConfigFilePath(initialFileName);
 
     QString fileName = QFileDialog::getSaveFileName(
         this, tr("Save tournament as..."), initialPath, tr("JSON File (*.json)"));
@@ -925,7 +951,7 @@ void MainWindowTeam::on_actionSave_As_triggered()
 void MainWindowTeam::on_actionLoad_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
-        this, tr("Load tournament from..."), fm::GetAppConfigDir(), tr("JSON File (*.json)"));
+        this, tr("Load tournament from..."), fm::GetConfigDir(), tr("JSON File (*.json)"));
 
     if (fileName == "")
         return;
@@ -1044,7 +1070,7 @@ void MainWindowTeam::on_actionManageModes_triggered()
     {
         QString errMsg;
 
-        auto configFile = fm::GetAppConfigFilePath(MainWindowTeam::ModeConfigurationFileName());
+        auto configFile = fm::GetConfigFilePath(MainWindowTeam::ModeConfigurationFileName());
         qInfo() << "Writing tournament modes to user config:" << configFile;
 
         if (!Ipponboard::TournamentMode::WriteModes(configFile, dlg.Result(), errMsg))
@@ -1142,7 +1168,7 @@ void MainWindowTeam::on_button_prev_clicked()
     //m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 
     SaveTournamentToFile_(
-        fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+        fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -1163,7 +1189,7 @@ void MainWindowTeam::on_button_next_clicked()
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 
     SaveTournamentToFile_(
-        fm::GetAppConfigFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+        fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
@@ -1727,10 +1753,22 @@ QString MainWindowTeam::get_template_file(QString const& modeId) const
 
     if (iter != end(m_modes))
     {
-        return QString("%1/%2").arg(TournamentMode::str_TemplateDirName, iter->listTemplate);
+        return qualify_template_reference(iter->listTemplate);
     }
 
     return QString();
+}
+
+QString MainWindowTeam::qualify_template_reference(QString const& templateReference)
+{
+    if (templateReference.startsWith(QStringLiteral(":/")) ||
+        QFileInfo(templateReference).isAbsolute() || templateReference.contains(QChar('/')) ||
+        templateReference.contains(QChar('\\')))
+    {
+        return templateReference;
+    }
+
+    return QString("%1/%2").arg(TournamentMode::str_TemplateDirName, templateReference);
 }
 
 QString MainWindowTeam::get_full_mode_title(QString const& modeId) const

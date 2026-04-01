@@ -4,6 +4,7 @@
 
 #include "TournamentMode.h"
 
+#include "../util/path_helpers.h"
 #include "Rules.h"
 
 #include <QDebug>
@@ -76,7 +77,7 @@ bool TournamentMode::ReadModes(const QString& filename, TournamentMode::List& mo
         TournamentMode mode;
 
         config.beginGroup(group);
-        bool readSuccess = parse_current_group(config, mode, str_TemplateDirName, errorMsg);
+        bool readSuccess = parse_current_group(config, mode, filename, errorMsg);
         config.endGroup();
 
         if (!readSuccess)
@@ -265,7 +266,7 @@ bool TournamentMode::ExtractFightTimeOverrides(const QString& overridesString,
 }
 
 bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode& mode,
-                                         QString templateDir, QString& errorMsg)
+                                         QString const& configFilePath, QString& errorMsg)
 {
     if (!verify_child_keys(config.childKeys(), errorMsg))
     {
@@ -306,7 +307,13 @@ bool TournamentMode::parse_current_group(QSettings const& config, TournamentMode
     }
     else
     {
-        QString templateFile = QDir(templateDir).filePath(mode.listTemplate);
+        const QString templateReference =
+            mode.listTemplate.contains(QChar('/')) ||
+                    mode.listTemplate.contains(QDir::separator()) ||
+                    mode.listTemplate.startsWith(QStringLiteral(":/"))
+                ? mode.listTemplate
+                : QDir(TournamentMode::str_TemplateDirName).filePath(mode.listTemplate);
+        const QString templateFile = fm::ResolveConfigOwnedAsset(configFilePath, templateReference);
         QFile listTemplate(templateFile);
 
         if (!listTemplate.exists())

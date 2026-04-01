@@ -27,6 +27,8 @@ class MainWindowTeam : public MainWindowBase
 {
     Q_OBJECT
 
+    friend struct MainWindowTeamTest;
+
   public:
     explicit MainWindowTeam(QWidget* parent = nullptr);
     ~MainWindowTeam() override;
@@ -138,6 +140,7 @@ class MainWindowTeam : public MainWindowBase
     void copy_cell_content(QTableView* pTableView);
     void paste_cell_content(QTableView* pTableView);
     void clear_cell_content(QTableView* pTableView);
+    static QString qualify_template_reference(QString const& templateReference);
     QString get_template_file(QString const& mode) const;
     QString get_full_mode_title(QString const& mode) const;
 

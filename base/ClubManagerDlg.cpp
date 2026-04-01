@@ -4,6 +4,7 @@
 
 #include "ClubManagerDlg.h"
 
+#include "../util/path_helpers.h"
 #include "ClubManager.h"
 #include "ui_ClubManagerDlg.h"
 
@@ -12,6 +13,18 @@
 #include <memory>
 
 using namespace Ipponboard;
+
+namespace
+{
+QString clubsConfigFilePath() { return fm::GetConfigFilePath(ClubManager::str_clubs_settingsFile); }
+
+QString resolveClubLogoPath(const QString& storedPath)
+{
+    return fm::ResolveConfigOwnedAsset(clubsConfigFilePath(), storedPath);
+}
+
+QString defaultClubLogoPath() { return resolveClubLogoPath(QStringLiteral("clubs/default.png")); }
+} // namespace
 
 //---------------------------------------------------------
 ClubManagerDlg::ClubManagerDlg(std::shared_ptr<ClubManager> pMgr, QWidget* parent)
@@ -82,7 +95,8 @@ void ClubManagerDlg::select_club(int index)
             ui->lineEdit_name->setText(club.name);
             ui->lineEdit_logoFile->setText(club.logoFile);
             ui->lineEdit_address->setText(club.address);
-            ui->scaledImage_logo->UpdateImage(club.logoFile);
+            //TODO: why was this line removed?
+            //ui->scaledImage_logo->UpdateImage(club.logoFile);
         }
     }
 
@@ -94,17 +108,18 @@ void ClubManagerDlg::update_ui()
 //---------------------------------------------------------
 {
     const QString fileName = ui->lineEdit_logoFile->text();
+    const QString resolvedFileName = resolveClubLogoPath(fileName);
     QPalette palette(ui->lineEdit_logoFile->palette());
 
-    if (QFile::exists(fileName))
+    if (QFile::exists(resolvedFileName))
     {
         palette.setColor(QPalette::Text, Qt::black);
-        ui->scaledImage_logo->UpdateImage(fileName);
+        ui->scaledImage_logo->UpdateImage(resolvedFileName);
     }
     else
     {
         palette.setColor(QPalette::Text, Qt::red);
-        ui->scaledImage_logo->UpdateImage("clubs\\default.png");
+        ui->scaledImage_logo->UpdateImage(defaultClubLogoPath());
     }
 
     ui->lineEdit_logoFile->setPalette(palette);
@@ -128,7 +143,7 @@ void ClubManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
     // add empty club
-    Ipponboard::Club club("--> new <--", "clubs\\default.png");
+    Ipponboard::Club club("--> new <--", "clubs/default.png");
     m_pClubMgr->AddClub(club);
     ui->comboBox_club->addItem(club.name);
     int index = ui->comboBox_club->findText(club.name);
@@ -193,7 +208,7 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
     QString fileName =
         QFileDialog::getOpenFileName(this,
                                      tr("Select Club Emblem"),
-                                     ui->lineEdit_logoFile->text(),
+                                     resolveClubLogoPath(ui->lineEdit_logoFile->text()),
                                      tr("PNG files (*.png);;Image files (*.png *.xpm *.jpg)"),
                                      nullptr,
                                      QFileDialog::ReadOnly);
@@ -209,12 +224,21 @@ void ClubManagerDlg::on_pushButton_browseLogo_pressed()
         }
         else
         {
-            // store releative path if possible
-            QDir appDir(QCoreApplication::applicationDirPath());
-            fileName = appDir.relativeFilePath(fileName);
+            const QDir configDir(fm::GetConfigDir());
+            const auto absoluteFilePath = QFileInfo(fileName).absoluteFilePath();
+
+            if (absoluteFilePath.startsWith(configDir.absolutePath() + QDir::separator()) ||
+                absoluteFilePath == configDir.absolutePath())
+            {
+                fileName = configDir.relativeFilePath(absoluteFilePath);
+            }
+            else
+            {
+                fileName = absoluteFilePath;
+            }
 
             ui->lineEdit_logoFile->setText(fileName);
-            ui->scaledImage_logo->UpdateImage(fileName);
+            ui->scaledImage_logo->UpdateImage(resolveClubLogoPath(fileName));
         }
     }
 }

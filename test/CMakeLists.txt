@@ -15,6 +15,8 @@ else()
 endif()
 
 set(SOURCES
+    TestClubManager.cpp
+    TestMainWindowTeam.cpp
     Test-path_helpers.cpp
     TestController.cpp
     TestFight.cpp

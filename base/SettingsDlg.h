@@ -88,7 +88,7 @@ class SettingsDlg : public QDialog
     {
         QLineEdit* lineEdit;
         QPushButton* captureButton;
-        int ControllerConfig::* configMember;
+        int ControllerConfig::*configMember;
         QString description;
     };
 
@@ -97,9 +97,9 @@ class SettingsDlg : public QDialog
         QLineEdit* lineEdit;
         QPushButton* captureButton;
         QCheckBox* invertCheckBox;
-        int ControllerConfig::* codeMember;
-        bool ControllerConfig::* invertMember;
-        bool ControllerConfig::* legacyInvertMember;
+        int ControllerConfig::*codeMember;
+        bool ControllerConfig::*invertMember;
+        bool ControllerConfig::*legacyInvertMember;
     };
 
     enum class CaptureMode
@@ -162,7 +162,7 @@ class SettingsDlg : public QDialog
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
     void on_comboBox_screen_currentIndexChanged(int index);
-    void on_raw_capture_timeout();
+    void handle_raw_capture_timeout();
     void on_toolButton_test_raw_mapping_toggled(bool checked);
 };
 

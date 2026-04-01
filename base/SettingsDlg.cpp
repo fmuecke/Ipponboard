@@ -174,7 +174,7 @@ void SettingsDlg::initialize_raw_bindings()
 {
     m_rawCaptureTimer.setInterval(50);
     m_rawCaptureTimer.setSingleShot(false);
-    connect(&m_rawCaptureTimer, &QTimer::timeout, this, &SettingsDlg::on_raw_capture_timeout);
+    connect(&m_rawCaptureTimer, &QTimer::timeout, this, &SettingsDlg::handle_raw_capture_timeout);
 
     m_rawDiagnosticsTimer.setInterval(150);
     m_rawDiagnosticsTimer.setSingleShot(false);
@@ -1005,7 +1005,7 @@ void SettingsDlg::stop_raw_diagnostics(bool quiet)
     }
 }
 
-void SettingsDlg::on_raw_capture_timeout()
+void SettingsDlg::handle_raw_capture_timeout()
 {
     switch (m_captureMode)
     {
