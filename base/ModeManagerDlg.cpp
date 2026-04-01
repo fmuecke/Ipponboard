@@ -6,6 +6,7 @@
 
 #include "../core/Enums.h"
 #include "../core/Rules.h"
+#include "../util/theme_colors.h"
 #include "ui_ModeManagerDlg.h"
 
 #include <QApplication>
@@ -294,7 +295,8 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
     }
     else
     {
-        palette.setColor(QPalette::Text, Qt::red);
+        palette.setColor(QPalette::Text,
+                         fm::GetValidationErrorColor(m_pUi->lineEdit_timeOverrides));
     }
 
     m_pUi->lineEdit_timeOverrides->setPalette(palette);

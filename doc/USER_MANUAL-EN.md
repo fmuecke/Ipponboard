@@ -130,7 +130,6 @@ The primary display serves as the central control unit for the Ipponboard operat
 - change fight information (mat number, current weight class)
 
 ![Primary display](images/main-screen-EN.png)
-Whizzard of Oz.
 
 ### Secondary/external display
 

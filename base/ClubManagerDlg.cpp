@@ -5,6 +5,7 @@
 #include "ClubManagerDlg.h"
 
 #include "../util/path_helpers.h"
+#include "../util/theme_colors.h"
 #include "ClubManager.h"
 #include "ui_ClubManagerDlg.h"
 
@@ -113,12 +114,12 @@ void ClubManagerDlg::update_ui()
 
     if (QFile::exists(resolvedFileName))
     {
-        palette.setColor(QPalette::Text, Qt::black);
+        palette.setColor(QPalette::Text, fm::GetThemeTextColor(ui->lineEdit_logoFile));
         ui->scaledImage_logo->UpdateImage(resolvedFileName);
     }
     else
     {
-        palette.setColor(QPalette::Text, Qt::red);
+        palette.setColor(QPalette::Text, fm::GetValidationErrorColor(ui->lineEdit_logoFile));
         ui->scaledImage_logo->UpdateImage(defaultClubLogoPath());
     }
 

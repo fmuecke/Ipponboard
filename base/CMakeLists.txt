@@ -63,6 +63,7 @@ set(UI_HEADERS
     ../util/SimpleCsvFile.hpp
     ../util/array_helpers.h
     ../util/path_helpers.h
+    ../util/theme_colors.h
     ../core/ControllerConfig.h
     ../core/iGoldenScoreView.h
     ../core/iView.h

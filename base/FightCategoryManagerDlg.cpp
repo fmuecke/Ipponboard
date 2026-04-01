@@ -4,6 +4,7 @@
 
 #include "FightCategoryManagerDlg.h"
 
+#include "../util/theme_colors.h"
 #include "ui_FightCategoryManagerDlg.h"
 
 #include <QInputDialog>
@@ -209,12 +210,12 @@ void FightCategoryManagerDlg::on_treeWidget_classes_itemChanged(QTreeWidgetItem*
 
     if (matches)
     {
-        brush.setColor(Qt::black);
+        brush.setColor(fm::GetThemeTextColor(ui->treeWidget_classes));
         m_pClassMgr->UpdateCategory(cat);
     }
     else
     {
-        brush.setColor(Qt::red);
+        brush.setColor(fm::GetValidationErrorColor(ui->treeWidget_classes));
     }
 
     pItem->setForeground(column, brush);
