@@ -80,19 +80,22 @@
        <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="tabPosition">
-       <enum>QTabWidget::TabPosition::West</enum>
+       <enum>QTabWidget::TabPosition::East</enum>
       </property>
       <property name="tabShape">
-       <enum>QTabWidget::TabShape::Triangular</enum>
+       <enum>QTabWidget::TabShape::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
         <width>24</width>
         <height>24</height>
        </size>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::TextElideMode::ElideNone</enum>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -269,16 +272,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="5" colspan="4">
-           <widget class="QLineEdit" name="lineEdit_location">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="4">
            <widget class="QLabel" name="label_location">
             <property name="text">
@@ -309,6 +302,16 @@
               <width>16</width>
               <height>16</height>
              </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="5">
+           <widget class="QLineEdit" name="lineEdit_location">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -913,8 +916,8 @@
                <widget class="ScaledImage" name="widget_currentRound" native="true">
                 <property name="minimumSize">
                  <size>
-                  <width>20</width>
-                  <height>20</height>
+                  <width>24</width>
+                  <height>24</height>
                  </size>
                 </property>
                </widget>
@@ -960,7 +963,7 @@
                <widget class="QLabel" name="label_fight">
                 <property name="font">
                  <font>
-                  <pointsize>10</pointsize>
+                  <pointsize>12</pointsize>
                   <italic>false</italic>
                   <bold>true</bold>
                  </font>
@@ -970,6 +973,27 @@
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_saved">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::Shape::NoFrame</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Shadow::Plain</enum>
+                </property>
+                <property name="text">
+                 <string>(saved)</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1046,7 +1070,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>32</height>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="focusPolicy">
@@ -1538,7 +1562,7 @@
      <normaloff>:/res/images/logo_team.png</normaloff>:/res/images/logo_team.png</iconset>
    </property>
    <property name="text">
-    <string>Swith to Score Control</string>
+    <string>Switch to Score Board</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>

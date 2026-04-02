@@ -893,10 +893,6 @@ Geldige velden zijn: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <source>/User-Manual.html</source>
-        <translation>/User-Manual.html</translation>
-    </message>
-    <message>
         <source>About %1</source>
         <translation>Over %1</translation>
     </message>
@@ -937,6 +933,10 @@ Geldige velden zijn: %1</translation>
         <translation>Controller zonder naam</translation>
     </message>
     <message>
+        <source>User-Manual.html</source>
+        <translation>User-Manual.html</translation>
+    </message>
+    <message>
         <source>Version %1 available!</source>
         <translation>Versie %1 beschikbaar!</translation>
     </message>
@@ -974,6 +974,10 @@ Geldige velden zijn: %1</translation>
     <message>
         <source>(Wins)</source>
         <translation>(Overwinningen)</translation>
+    </message>
+    <message>
+        <source>(saved)</source>
+        <translation>(opslaaned)</translation>
     </message>
     <message>
         <source>1/10</source>
@@ -1393,12 +1397,12 @@ Geldige velden zijn: %1</translation>
         <translation>Opslaan gelukt!</translation>
     </message>
     <message>
-        <source>Switch to Score Table</source>
-        <translation>Schakelen naar scoretabel</translation>
+        <source>Switch to Score Board</source>
+        <translation>Schakelen naar scoreboard</translation>
     </message>
     <message>
-        <source>Swith to Score Control</source>
-        <translation>Schakel over naar Score Control</translation>
+        <source>Switch to Score Table</source>
+        <translation>Schakelen naar scoretabel</translation>
     </message>
     <message>
         <source>The match was loaded successfully!</source>

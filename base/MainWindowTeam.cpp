@@ -462,14 +462,10 @@ void MainWindowTeam::UpdateFightNumber_()
             .is_saved;
 
     QString formatStr("%1 / %2");
-
-    if (isSaved)
-    {
-        formatStr.append(tr(" (saved)"));
-    }
-
     m_pUi->label_fight->setText(formatStr.arg(QString::number(currentFight))
                                     .arg(QString::number(m_pController->GetFightCount())));
+
+    m_pUi->label_saved->setText(isSaved ? tr("(saved)") : "");
 
     const int currentRound = m_pController->GetCurrentRound();
 

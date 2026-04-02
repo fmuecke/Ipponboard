@@ -893,10 +893,6 @@ Mögliche Spezifikatorens sind: %1</translation>
 <context>
     <name>MainWindowBase</name>
     <message>
-        <source>/User-Manual.html</source>
-        <translation>/Anleitung.html</translation>
-    </message>
-    <message>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
@@ -937,6 +933,10 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Unbenannter Controller</translation>
     </message>
     <message>
+        <source>User-Manual.html</source>
+        <translation>Anleitung.html</translation>
+    </message>
+    <message>
         <source>Version %1 available!</source>
         <translation>Version %1 verfügbar!</translation>
     </message>
@@ -974,6 +974,10 @@ Mögliche Spezifikatorens sind: %1</translation>
     <message>
         <source>(Wins)</source>
         <translation>(Siege)</translation>
+    </message>
+    <message>
+        <source>(saved)</source>
+        <translation>(gespeichert)</translation>
     </message>
     <message>
         <source>1/10</source>
@@ -1392,12 +1396,12 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Speichern erfolgreich!</translation>
     </message>
     <message>
-        <source>Switch to Score Table</source>
-        <translation>Zur Punktetabelle wechseln</translation>
+        <source>Switch to Score Board</source>
+        <translation>Zum Board wechseln</translation>
     </message>
     <message>
-        <source>Swith to Score Control</source>
-        <translation>Zum Bedienfeld wechseln</translation>
+        <source>Switch to Score Table</source>
+        <translation>Zur Punktetabelle wechseln</translation>
     </message>
     <message>
         <source>The match was loaded successfully!</source>
