@@ -55,6 +55,10 @@
         <translation>Naam</translation>
     </message>
     <message>
+        <source>Note: club changes become visible after restarting Ipponboard</source>
+        <translation>Opmerking: bij wijzigingen in de club moet Ipponboard opnieuw worden opgestart</translation>
+    </message>
+    <message>
         <source>PNG files (*.png);;Image files (*.png *.xpm *.jpg)</source>
         <translation>PNG bestanden(*.png);;Afbeelding bestanden (*.png *.xpm *.jpg)</translation>
     </message>
