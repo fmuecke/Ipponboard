@@ -4,7 +4,7 @@
 
 #include "FighterManagerDlg.h"
 
-#include "../core/Fighter.h"
+#include "../core/Athlete.h"
 #include "../util/path_helpers.h"
 #include "AddFighterDlg.h"
 #include "FighterManager.h"
@@ -115,19 +115,19 @@ void FighterManagerDlg::on_pushButton_add_pressed()
         return;
     }
 
-    Ipponboard::Fighter fighter = dlg.GetFighter();
-    m_manager.m_fighters.insert(fighter);
+    Ipponboard::Athlete athlete = dlg.GetFighter();
+    m_manager.m_athletes.insert(athlete);
 
     QStringList contents;
 
     for (int i = 0; i < eColumn_MAX; ++i)
         contents.append("");
 
-    contents[eColumn_club] = fighter.club;
-    //TODO: contents[eColumn_category] = fighter.category;
-    contents[eColumn_weight] = fighter.weight;
-    contents[eColumn_firstName] = fighter.first_name;
-    contents[eColumn_lastName] = fighter.last_name;
+    contents[eColumn_club] = athlete.club;
+    //TODO: contents[eColumn_category] = athlete.category;
+    contents[eColumn_weight] = athlete.weight;
+    contents[eColumn_firstName] = athlete.first_name;
+    contents[eColumn_lastName] = athlete.last_name;
 
     QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
     pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
@@ -156,9 +156,9 @@ void FighterManagerDlg::populate_view()
     }
 
     std::for_each(
-        begin(m_manager.m_fighters),
-        end(m_manager.m_fighters),
-        [&](Ipponboard::Fighter const& f)
+        begin(m_manager.m_athletes),
+        end(m_manager.m_athletes),
+        [&](Ipponboard::Athlete const& f)
         {
             bool skipItem = true;
 
@@ -230,7 +230,7 @@ void FighterManagerDlg::on_pushButton_import_pressed()
 {
     const QString fileName =
         QFileDialog::getOpenFileName(this,
-                                     tr("Select CSV file with fighters"),
+                                     tr("Select CSV file with athletes"),
                                      fm::GetConfigDir(),
                                      tr("CSV files (*.csv);;Text files (*.txt)"),
                                      nullptr,
@@ -264,7 +264,7 @@ void FighterManagerDlg::on_pushButton_export_pressed()
 {
     const QString fileName =
         QFileDialog::getSaveFileName(this,
-                                     tr("Name CSV file to store fighters in"),
+                                     tr("Name CSV file to store athletes in"),
                                      fm::GetConfigDir(),
                                      tr("CSV files (*.csv);;Text files (*.txt)"));
 
@@ -297,16 +297,15 @@ void FighterManagerDlg::on_pushButton_remove_pressed()
     //if (pItem)
     for (QTreeWidgetItem* pItem : selectedItems)
     {
-        Ipponboard::Fighter currentFighter(pItem->text(eColumn_firstName),
-                                           pItem->text(eColumn_lastName));
-        currentFighter.club = pItem->text(eColumn_club);
-        currentFighter.weight = pItem->text(eColumn_weight);
-        //TODO: currentFighter.category = pItem->text(eColumn_category);
+        Ipponboard::Athlete current(pItem->text(eColumn_firstName), pItem->text(eColumn_lastName));
+        current.club = pItem->text(eColumn_club);
+        current.weight = pItem->text(eColumn_weight);
+        //TODO: current.category = pItem->text(eColumn_category);
 
         ui->treeWidget_fighters->takeTopLevelItem(
             ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
-        m_manager.RemoveFighter(currentFighter);
+        m_manager.RemoveFighter(current);
 
         delete pItem;
     }
@@ -324,10 +323,10 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
         QString weight = pItem->text(eColumn_weight);
         //TODO: QString category = pItem->text(eColumn_category);
 
-        Ipponboard::Fighter changedFighter(firstName, lastName);
-        changedFighter.club = club;
-        changedFighter.weight = weight;
-        //TODO: changedFighter.category = category;
+        Ipponboard::Athlete changed(firstName, lastName);
+        changed.club = club;
+        changed.weight = weight;
+        //TODO: changed.category = category;
 
         qDebug("enum value: %i", column);
 
@@ -358,25 +357,25 @@ void FighterManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
             break;
         }
 
-        Ipponboard::Fighter originalFighter(firstName, lastName);
-        originalFighter.club = club;
-        originalFighter.weight = weight;
-        //TODO: originalFighter.category = category;
+        Ipponboard::Athlete original(firstName, lastName);
+        original.club = club;
+        original.weight = weight;
+        //TODO: original.category = category;
 
-        if (!m_manager.RemoveFighter(originalFighter))
+        if (!m_manager.RemoveFighter(original))
         {
-            qDebug("error: original fighter not found!");
+            qDebug("error: original athlete not found!");
         }
 
-        if (!m_manager.AddFighter(changedFighter))
+        if (!m_manager.AddFighter(changed))
         {
             ui->treeWidget_fighters->takeTopLevelItem(
                 ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
 
             // due to duplicate entry
             qDebug("removed changed entry due to duplicate: %s %s",
-                   changedFighter.first_name.toLatin1().data(),
-                   changedFighter.last_name.toLatin1().data());
+                   changed.first_name.toLatin1().data(),
+                   changed.last_name.toLatin1().data());
         }
     }
 }

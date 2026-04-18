@@ -5,7 +5,7 @@
 #ifndef _BASE_FIGHTERMANAGER_H
 #define _BASE_FIGHTERMANAGER_H
 
-#include "../core/Fighter.h"
+#include "../core/Athlete.h"
 
 #include <QString>
 #include <QStringList>
@@ -40,12 +40,12 @@ class FighterManager
     bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
     bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
-    bool AddFighter(Ipponboard::Fighter f);
-    bool RemoveFighter(Ipponboard::Fighter f);
+    bool AddFighter(Ipponboard::Athlete f);
+    bool RemoveFighter(Ipponboard::Athlete f);
     QStringList GetClubFighterNames(QString const& filter) const;
 
     //private:
-    std::set<Ipponboard::Fighter> m_fighters; //TODO: encapsulate
+    std::set<Ipponboard::Athlete> m_athletes; //TODO: encapsulate
   private:
 };
 

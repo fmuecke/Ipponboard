@@ -4,7 +4,7 @@
 
 #include "AddFighterDlg.h"
 
-#include "../core/Fighter.h"
+#include "../core/Athlete.h"
 #include "ui_AddFighterDlg.h"
 
 using namespace Ipponboard;
@@ -14,10 +14,7 @@ AddFighterDlg::AddFighterDlg(QWidget* parent) : QDialog(parent), ui(new Ui::AddF
     ui->setupUi(this);
 }
 
-AddFighterDlg::~AddFighterDlg()
-{
-    delete ui;
-}
+AddFighterDlg::~AddFighterDlg() { delete ui; }
 
 void AddFighterDlg::SetClubs(QStringList clubs)
 {
@@ -26,9 +23,9 @@ void AddFighterDlg::SetClubs(QStringList clubs)
     ui->comboBox_club->setCurrentIndex(0);
 }
 
-Ipponboard::Fighter AddFighterDlg::GetFighter() const
+Ipponboard::Athlete AddFighterDlg::GetFighter() const
 {
-    Fighter f(ui->lineEdit_firstname->text(), ui->lineEdit_lastname->text());
+    Athlete f(ui->lineEdit_firstname->text(), ui->lineEdit_lastname->text());
     //TODO: f.category = ui->comboBox_category->currentText();
     f.club = ui->comboBox_club->currentText();
     f.weight = ui->lineEdit_weight->text();

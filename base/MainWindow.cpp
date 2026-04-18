@@ -8,8 +8,8 @@
 #include "../base/FightCategoryManagerDlg.h"
 #include "../base/FighterManagerDlg.h"
 #include "../base/View.h"
+#include "../core/Athlete.h"
 #include "../core/Controller.h"
-#include "../core/Fighter.h"
 #include "ui_MainWindow.h"
 
 #include <QColorDialog>
@@ -189,11 +189,11 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
     // filter fighters for suitable
     m_CurrentFighterNames.clear();
 
-    for (const Ipponboard::Fighter& f : m_fighterManager.m_fighters)
+    for (const auto& a : m_fighterManager.m_athletes)
     {
-        if (f.weight == weight || f.weight.isEmpty())
+        if (a.weight == weight || a.weight.isEmpty())
         {
-            const QString fullName = QString("%1 %2").arg(f.first_name, f.last_name);
+            const QString fullName = QString("%1 %2").arg(a.first_name, a.last_name);
 
             m_CurrentFighterNames.push_back(fullName);
         }
@@ -228,12 +228,11 @@ void MainWindow::update_fighters(const QString& s)
     const QString club; // TODO: later
     const QString category = m_pUi->comboBox_weight_class->currentText();
 
-    Ipponboard::Fighter fNew(firstName, lastName);
-    fNew.club = club;
-    fNew.weight = weight;
-    fNew.category = category;
-
-    m_fighterManager.AddFighter(fNew); // only adds fighter if new
+    Ipponboard::Athlete newAthlete(firstName, lastName);
+    newAthlete.club = club;
+    newAthlete.weight = weight;
+    newAthlete.category = category;
+    m_fighterManager.AddFighter(newAthlete); // only adds fighter if new
 }
 
 void MainWindow::update_statebar()

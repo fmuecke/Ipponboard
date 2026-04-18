@@ -14,7 +14,7 @@ class AddFighterDlg;
 
 namespace Ipponboard
 {
-class Fighter;
+class Athlete;
 }
 
 class AddFighterDlg : public QDialog
@@ -26,7 +26,7 @@ class AddFighterDlg : public QDialog
     ~AddFighterDlg();
 
     void SetClubs(QStringList clubs);
-    Ipponboard::Fighter GetFighter() const;
+    Ipponboard::Athlete GetFighter() const;
 
   private:
     Ui::AddFighterDlg* ui;

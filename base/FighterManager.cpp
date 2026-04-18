@@ -39,7 +39,7 @@ QString FighterManager::DefaultExportFormat()
     return ret;
 }
 
-FighterManager::FighterManager() : m_fighters() {}
+FighterManager::FighterManager() : m_athletes() {}
 
 QString FighterManager::GetSpecifierDescription()
 {
@@ -144,9 +144,9 @@ bool FighterManager::ImportFighters(QString const& fileName, QString const& form
         return false;
     }
 
-    //NO, don't do it: m_fighters.clear();
+    //NO, don't do it: m_athletes.clear();
 
-    const size_t oldCount = m_fighters.size();
+    const size_t oldCount = m_athletes.size();
 
     for (QStringList const& line : data)
     {
@@ -156,16 +156,16 @@ bool FighterManager::ImportFighters(QString const& fileName, QString const& form
         QString weight = -1 != weightPos ? line[weightPos] : "";
         QString category = -1 != categoryPos ? line[categoryPos] : "";
 
-        Ipponboard::Fighter fighter(firstName, lastName);
-        fighter.club = club;
-        fighter.weight = weight;
-        fighter.category = category;
+        Ipponboard::Athlete athlete(firstName, lastName);
+        athlete.club = club;
+        athlete.weight = weight;
+        athlete.category = category;
 
-        m_fighters.insert(fighter);
+        m_athletes.insert(athlete);
     }
 
     errorMsg =
-        QObject::tr("Imported %1 new fighters.").arg(QString::number(m_fighters.size() - oldCount));
+        QObject::tr("Imported %1 new athletes.").arg(QString::number(m_athletes.size() - oldCount));
 
     return true;
 }
@@ -201,7 +201,7 @@ bool FighterManager::ExportFighters(QString const& fileName, QString const& form
 
     QStringList data;
 
-    for (Ipponboard::Fighter const& f : m_fighters)
+    for (Ipponboard::Athlete const& f : m_athletes)
     {
         QString line;
 
@@ -247,26 +247,23 @@ bool FighterManager::ExportFighters(QString const& fileName, QString const& form
     }
 
     errorMsg =
-        QObject::tr("Successfully exported %1 fighters.").arg(QString::number(m_fighters.size()));
+        QObject::tr("Successfully exported %1 fighters.").arg(QString::number(m_athletes.size()));
 
     return true;
 }
 
-bool FighterManager::AddFighter(Fighter f)
-{
-    return m_fighters.insert(f).second;
-}
+bool FighterManager::AddFighter(Athlete f) { return m_athletes.insert(f).second; }
 
-bool FighterManager::RemoveFighter(Fighter f)
+bool FighterManager::RemoveFighter(Athlete f)
 {
-    auto iter = std::find(begin(m_fighters), end(m_fighters), f);
+    auto iter = std::find(begin(m_athletes), end(m_athletes), f);
 
-    if (iter == end(m_fighters))
+    if (iter == end(m_athletes))
     {
         return false;
     }
 
-    m_fighters.erase(iter);
+    m_athletes.erase(iter);
 
     return true;
 }
@@ -274,9 +271,9 @@ bool FighterManager::RemoveFighter(Fighter f)
 QStringList FighterManager::GetClubFighterNames(const QString& club) const
 {
     QStringList ret;
-    std::for_each(begin(m_fighters),
-                  end(m_fighters),
-                  [&](Ipponboard::Fighter const& f)
+    std::for_each(begin(m_athletes),
+                  end(m_athletes),
+                  [&](Ipponboard::Athlete const& f)
                   {
                       if (f.club == club)
                       {
