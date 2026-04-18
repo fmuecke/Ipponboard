@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CatchQtStringMaker.h"
+
 #include <QApplication>
 #include <QCoreApplication>
 #include <QMessageLogContext>
