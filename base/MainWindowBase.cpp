@@ -43,7 +43,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_pPrimaryView(),
       m_pSecondaryView(),
       m_pController(new Ipponboard::Controller()),
-      m_fighterManager(),
+      m_athleteManager(),
       m_Language("en"),
       m_Theme(Qt::ColorScheme::Unknown),
       m_MatLabel("  Ipponboard   "),
@@ -992,7 +992,7 @@ void MainWindowBase::load_fighters()
         return;
     }
 
-    if (!m_fighterManager.ImportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+    if (!m_athleteManager.ImportFighters(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
     {
         QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
     }
@@ -1003,7 +1003,7 @@ void MainWindowBase::save_fighters()
     QString csvFile(fm::GetConfigFilePath(GetFighterFileName().toLatin1()));
     QString errorMsg;
 
-    if (!m_fighterManager.ExportFighters(csvFile, FighterManager::DefaultExportFormat(), errorMsg))
+    if (!m_athleteManager.ExportFighters(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
     {
         QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
     }

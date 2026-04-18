@@ -10,7 +10,7 @@
 #include "../core/iGoldenScoreView.h"
 #include "../core/iView.h"
 #include "../util/helpers.hpp"
-#include "FighterManager.h"
+#include "AthleteManager.h"
 #include "OnlineVersionChecker.h"
 
 #include <QMainWindow>
@@ -27,7 +27,7 @@ namespace Ui
 } // namespace Ui
 namespace Ipponboard
 {
-class Fighter;
+class Athlete;
 class View;
 class Controller;
 class ClubManager;
@@ -142,7 +142,7 @@ class MainWindowBase : public QMainWindow,
     void SetShowInfoHeader(bool /*show*/) override {}
 
     /* IGoldenScoreView */
-    void UpdateGoldenScoreView() override{};
+    void UpdateGoldenScoreView() override {};
 
   protected:
     virtual void changeEvent(QEvent*) override;
@@ -215,7 +215,7 @@ class MainWindowBase : public QMainWindow,
     std::shared_ptr<Ipponboard::View> m_pPrimaryView;
     std::shared_ptr<Ipponboard::View> m_pSecondaryView;
     std::shared_ptr<Ipponboard::Controller> m_pController;
-    Ipponboard::FighterManager m_fighterManager;
+    Ipponboard::AthleteManager m_athleteManager;
     QString m_Language;
     Qt::ColorScheme m_Theme;
     QString m_MatLabel;

@@ -4,9 +4,9 @@
 
 #include "MainWindow.h"
 
+#include "../base/AthleteManagerDlg.h"
 #include "../base/FightCategoryManager.h"
 #include "../base/FightCategoryManagerDlg.h"
-#include "../base/FighterManagerDlg.h"
 #include "../base/View.h"
 #include "../core/Athlete.h"
 #include "../core/Controller.h"
@@ -106,7 +106,7 @@ void MainWindow::on_actionManageFighters_triggered()
 {
     MainWindowBase::on_actionManageFighters_triggered();
 
-    FighterManagerDlg dlg(m_fighterManager, this);
+    AthleteManagerDlg dlg(m_athleteManager, this);
     dlg.exec();
 }
 
@@ -189,7 +189,7 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
     // filter fighters for suitable
     m_CurrentFighterNames.clear();
 
-    for (const auto& a : m_fighterManager.m_athletes)
+    for (const auto& a : m_athleteManager.m_athletes)
     {
         if (a.weight == weight || a.weight.isEmpty())
         {
@@ -232,7 +232,7 @@ void MainWindow::update_fighters(const QString& s)
     newAthlete.club = club;
     newAthlete.weight = weight;
     newAthlete.category = category;
-    m_fighterManager.AddFighter(newAthlete); // only adds fighter if new
+    m_athleteManager.AddFighter(newAthlete); // only adds fighter if new
 }
 
 void MainWindow::update_statebar()

@@ -20,8 +20,8 @@ set(UI_SOURCES
     FightCategoryManagerDlg.cpp
     GamepadSectionMapper.cpp
     FightCategoryParser.cpp
-    FighterManager.cpp
-    FighterManagerDlg.cpp
+    AthleteManager.cpp
+    AthleteManagerDlg.cpp
     MainWindow.cpp
     MainWindowBase.cpp
     MainWindowTeam.cpp
@@ -45,8 +45,8 @@ set(UI_HEADERS
     FightCategoryManager.h
     FightCategoryManagerDlg.h
     GamepadSectionMapper.h
-    FighterManager.h
-    FighterManagerDlg.h
+    AthleteManager.h
+    AthleteManager.h
     MainWindow.h
     MainWindowBase.h
     MainWindowTeam.h
@@ -76,7 +76,7 @@ set(UI_RESOURCES
 set(FORMS
     AddFighterDlg.ui
     ClubManagerDlg.ui
-    FighterManagerDlg.ui
+    AthleteManagerDlg.ui
     FightCategoryManagerDlg.ui
     MainWindow.ui
     MainWindowTeam.ui

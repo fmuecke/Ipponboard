@@ -8,7 +8,7 @@ set(CORE_SOURCES
     Controller.cpp
     Fight.cpp
     FightCategory.cpp
-    Fighter.cpp
+    Athlete.cpp
     Rules.cpp
     TimerService.cpp
     TournamentNavigator.cpp

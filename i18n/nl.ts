@@ -238,7 +238,7 @@
     </message>
 </context>
 <context>
-    <name>FighterManagerDlg</name>
+    <name>AthleteManagerDlg</name>
     <message>
         <source>&amp;Add</source>
         <translation>&amp;Toevoegen</translation>

@@ -5,10 +5,10 @@
 #include "MainWindowTeam.h"
 
 #include "../Widgets/ScaledImage.h"
+#include "../base/AthleteManagerDlg.h"
 #include "../base/ClubManager.h"
 #include "../base/ClubManagerDlg.h"
 #include "../base/ComboBoxDelegate.h"
-#include "../base/FighterManagerDlg.h"
 #include "../base/InputBindingResolver.h"
 #include "../base/View.h"
 #include "../base/versioninfo.h"
@@ -43,6 +43,7 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QUrl>
+
 
 namespace StrTags
 {
@@ -382,7 +383,7 @@ void MainWindowTeam::on_actionManageFighters_triggered()
 {
     MainWindowBase::on_actionManageFighters_triggered();
 
-    FighterManagerDlg dlg(m_fighterManager, this);
+    AthleteManagerDlg dlg(m_athleteManager, this);
     dlg.exec();
 }
 
@@ -1302,7 +1303,7 @@ void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+		pCbx->SetItems(m_athleteManager.GetClubFighterNames(s));
 	}
 
 #endif
@@ -1319,7 +1320,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(s));
+		pCbx->SetItems(m_athleteManager.GetClubFighterNames(s));
 	}
 
 #endif
@@ -1431,8 +1432,8 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_home->currentText();
 
-	FighterManagerDlg dlg(m_fighterManager, this);
-	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
+	AthleteManagerDlg dlg(m_athleteManager, this);
+	dlg.SetFilter(AthleteManagerDlg::eColumn_club, club);
 	dlg.exec();
 
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
@@ -1441,7 +1442,7 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
+		pCbx->SetItems(m_athleteManager.GetClubFighterNames(club));
 	}
 
 #endif
@@ -1453,8 +1454,8 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 	MainWindowBase::on_actionManageFighters_triggered();
 	const QString club = m_pUi->comboBox_club_guest->currentText();
 
-	FighterManagerDlg dlg(m_fighterManager, this);
-	dlg.SetFilter(FighterManagerDlg::eColumn_club, club);
+	AthleteManagerDlg dlg(m_athleteManager, this);
+	dlg.SetFilter(AthleteManagerDlg::eColumn_club, club);
 	dlg.exec();
 
 	auto pCbx = dynamic_cast<ComboBoxDelegate*>(
@@ -1463,7 +1464,7 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_fighterManager.GetClubFighterNames(club));
+		pCbx->SetItems(m_athleteManager.GetClubFighterNames(club));
 	}
 
 #endif
