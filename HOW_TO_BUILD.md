@@ -2,10 +2,10 @@
 
 To build Ipponboard, there are currently two recommended development platforms:
 
-Build system | Compiler | Target system
--- | -- | --
-Windows 10/11 | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2022 a.k.a. VC143, 64-bit) | Windows 10 and higher, 64-bit
-Linux (Ubuntu/WSL2) | gcc 13 (or newer) | Linux 64-bit (WSL2 or desktop)
+| Build system        | Compiler                                                                                           | Target system                  |
+| ------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Windows 10/11       | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2022 a.k.a. VC143, 64-bit) | Windows 10 and higher, 64-bit  |
+| Linux (Ubuntu/WSL2) | gcc 13 (or newer)                                                                                  | Linux 64-bit (WSL2 or desktop) |
 
 > Note: Support for Linux builds is still experimental and may lack some features (printing not 100% functional).
 
@@ -45,7 +45,6 @@ The build scripts assume a standard Qt directory layout:
 _Note:_ Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
 Be sure to enable powershell script execution on windows via `Set-ExecutionPolicy -ExecutionPolicy Unrestricted` in an admin console.
 
-
 The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
 
 ```
@@ -54,7 +53,7 @@ Please configure paths in "env_cfg.bat" first!
 Press any key to continue . . .
 ```
 
-Modify those according to your environment. After that, you may try building ;)... 
+Modify those according to your environment. After that, you may try building ;)...
 
 ```
 > build.ps1
@@ -84,7 +83,6 @@ Select build mode:
 > The first configure step will download Catch2 via CMake FetchContent. Ensure outbound network
 > access (or provide a local mirror through the `FETCHCONTENT_SOURCE_DIR_Catch2` cache value) before running `build.sh` / `build.ps1`.
 
-
 ## Building on Windows 10/11
 
 1. Install _Visual Studio 2022_ (Desktop development with C++) with the x64 toolset
@@ -101,16 +99,15 @@ Select build mode:
 3. Install the `Qt/6.9.x/msvc2022_64` component (debug+release).
 4. Ensure `QTDIR` in `env_cfg.bat` points to the chosen installation.
 
-----
+---
 
 ## Building on Linux/Ubuntu/WSL 🐧
-
 
 1. Install the `ninja-build` package from your distribution
 2. Install the `lld` package (often `sudo apt install lld`)
 3. Install Qt 6.9.x via the Qt Online Installer (under WSL2) or [use aqtinstall](#installing-qt-6-on-ubuntu-wsl-using-aqt)
 
-4. Install _Pandoc_ 
+4. Install _Pandoc_
 
 5. [Run `./build.sh` from bash](#run-buildps1-resp-buildsh)
 
@@ -124,18 +121,17 @@ For macOS builds, Ipponboard uses the standard app bundle split:
 
 `pandoc` is required on macOS as well so `build.sh` can generate `User-Manual.html` etc. and copy it into the app bundle resources.
 
-
 ### Installing Qt 6 on Ubuntu/WSL2
 
 1. Install dependencies (required for audio, printing, and PDF export):
 
-    ```
-    sudo apt-get update
-    sudo apt-get install build-essential libgl1-mesa-dev libgstreamer-gl1.0-0 libpulse-dev libxcb-glx0 libxcb-icccm4 \
-        libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 \
-        libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxkbcommon-x11-0 \
-        libxcb-xkb-dev
-    ```
+   ```
+   sudo apt-get update
+   sudo apt-get install build-essential libgl1-mesa-dev libgstreamer-gl1.0-0 libpulse-dev libxcb-glx0 libxcb-icccm4 \
+       libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-render0 libxcb-shape0 libxcb-shm0 \
+       libxcb-sync1 libxcb-util1 libxcb-xfixes0 libxcb-xinerama0 libxcb1 libxkbcommon-dev libxkbcommon-x11-0 \
+       libxcb-xkb-dev
+   ```
 
 2. Install Qt via binary packages using `aqtinstall` (recommended).
 
@@ -143,21 +139,21 @@ For macOS builds, Ipponboard uses the standard app bundle split:
 
 1. Get aqt ([another qt installer](https://github.com/miurahr/aqtinstall))
 
-    ```
-    pip install -U pip
-    pip install aqtinstall
-    ```
+   ```
+   pip install -U pip
+   pip install aqtinstall
+   ```
 
 2. Get the latest Qt version
 
-    Check https://ddalcino.github.io/aqt-list-server/ and get the install command:
+   Check https://ddalcino.github.io/aqt-list-server/ and get the install command:
 
-    ```
-    aqt install-qt linux desktop 6.9.2 gcc_64
-    aqt install-tool linux desktop tools_cmake
-    ```
+   ```
+   aqt install-qt linux desktop 6.9.2 gcc_64
+   aqt install-tool linux desktop tools_cmake
+   ```
 
-## Using *QtCreator* to develop Ipponboard
+## Using _QtCreator_ to develop Ipponboard
 
 1. Download and install [QCreator](https://github.com/qt-creator/qt-creator/releases/)
 2. Configure the Qt environment
@@ -167,6 +163,6 @@ For macOS builds, Ipponboard uses the standard app bundle split:
 
 ### Configuring CDB Debugger
 
-1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the *Debugging Tools*
-2. Insert the path in the QtCreator debugger options (tab *CDB paths*): e.g., `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
+1. [Download Windows 10 SDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) and be sure to install the _Debugging Tools_
+2. Insert the path in the QtCreator debugger options (tab _CDB paths_): e.g., `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`
 3. Restart QtCreator

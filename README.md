@@ -1,17 +1,17 @@
 [![Linux CI build](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml/badge.svg)](https://github.com/fmuecke/Ipponboard/actions/workflows/linux-build.yml)
 
-[What's 🆕?](CHANGELOG.md) 
+[What's 🆕?](CHANGELOG.md)
 
 # Content
 
-- [Why it's *so* cool!](#why-its-so-cool)
+- [Why it's _so_ cool!](#why-its-so-cool)
 - [Getting started](#getting-started)
 
 Ipponboard is a score board specially designed for Judo tournaments that features an innovative control via gamepad, mouse, or keyboard. The main goals in its development were good readability and easy, intuitive control.
 
 ![Screenshot](https://ipponboard.koe-judo.de/wp-content/uploads/2011/12/Ipponboard-the-judo-score-board-and-timer-300x169.jpg)
 
-# Why it's *so* cool!
+# Why it's _so_ cool!
 
 - Reliability, ease and straightforward in use
 - Everything in view: clocks, scores, fighters, lists – as well as for the audience, coaches and the fighters
@@ -36,10 +36,12 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 You can download and install the latest version from ipponboard.koe-judo.de or build Ipponboard from source.
 
 Basic requirements to get started:
+
 - Computer/laptop with Windows operating system
 - A big computer or TV screen
 
 More information about usage and configuration is described within the manual:
+
 - [German manual](doc/USER_MANUAL-DE.md)
 - [English manual](doc/USER_MANUAL-EN.md)
 
@@ -64,6 +66,7 @@ Ipponboard targets a Qt 6.9.x toolchain with modern C++ (C++20). Quick prerequ
 Full setup instructions live in [HOW_TO_BUILD.md](HOW_TO_BUILD.md); follow those steps for platform-specific guidance.
 
 # Contact
+
 - source code repository: https://github.com/fmuecke/Ipponboard (you are right there)
 - latest news and downloads: here on github
 - contact the author (Florian Mücke): i p p o n b o a r d i n f o AT g m a i l DOT c o m

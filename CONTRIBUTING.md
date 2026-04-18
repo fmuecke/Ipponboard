@@ -8,7 +8,7 @@ You can conribute to Ipponboard in lots of different ways:
 - Test the program
 - Contribute code
 - Specify requiremens (e.g. new or different rule sets)
-- Submit club logos and information 
+- Submit club logos and information
 
 I want you to be able contribute your ideas and input that you're exited about. So, don't hesitate and get in contact.
 
@@ -18,13 +18,13 @@ Please refer to the [HOW_TO_BUILD](HOW_TO_BUILD.md) document to get you started.
 
 ## Submitting changes
 
-- Please use [pull requests](http://help.github.com/pull-requests/) with a clear list of what you've done. 
+- Please use [pull requests](http://help.github.com/pull-requests/) with a clear list of what you've done.
 - Please follow our coding conventions (below)
 - Make sure all of your commits are atomic (one feature per commit).
 - Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
 
       $ git commit -m "A brief summary of the commit
-      > 
+      >
       > A paragraph describing what changed and its impact."
 
 ## Coding conventions

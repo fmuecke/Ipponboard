@@ -53,6 +53,7 @@ Prepare a plan message in this format:
 
 ```markdown
 PLAN
+
 - Context: <short summary>
 - Goal: <specific measurable goal>
 - Approach: <steps, incl. tests>
@@ -60,7 +61,7 @@ PLAN
 - Estimate: <rough size>
 - Needs: <decisions/info required>
 - Alternatives: <2–3 alternatives with short evaluation>
-````
+```
 
 Start implementation **only after** receiving a `GO` or requested changes.
 

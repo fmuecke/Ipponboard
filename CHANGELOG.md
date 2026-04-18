@@ -3,6 +3,7 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
+
 - (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macOS)
 - (mod): optimized layout of the settings dialog
 - (new): automatic update check is now asynchronous and can be disabled in the settings
@@ -35,11 +36,13 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (internal): prepared codebase for future enhancements and easier maintenance.
 
 ## Version 2.4.2 (2025-11-09)
+
 - (new): Tournaments are automatically saved and restored on restart. (resolves #39).
 - (new): Tournaments can be saved and loaded manually via ~~File~~ _Tournament_ menu.
 - (fix): Timer now stops on awasete ippn (fixes #88)
 
 ## Version 2.4.0 (2025-02-09)
+
 - (new): eight new mat signal sounds (applause, bell, boxing-bell, clapping, gong, horn, metal-bowl, the-end)
 - (new): added shortcuts to start single or team mode from splashscreen (1, 2)
 - (mod): updated single tournament weight and age classes
@@ -50,10 +53,12 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (fix): tournament mode data were overwritten when switching through the modes
 
 ## Version 2.3-experimental (2025-01-19)
+
 - (new): added IJF-2025 rules which re-introduced yuko
 - (mod): usign IJF-2025 rules for per default
 
 ## Version 2.2-internal (2023-xx-yy)
+
 - (fix): consistenly named labels for categories and classes
 - (new): experimental support for Linux builds (no printing or gamepad so far)
 - (mod): Updated InnoSetup installation engine to v6.x: --> Installer will not run with Windows Vista or unpatched Windows 7 anymore!
@@ -68,7 +73,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
   - "--mode single" directly starts in single tournament mode
 - (fix): single tournament: fighter lists are reloaded after opening the fighter manager
 - (mod): simplified adding new fighters in the fighter manager (TODO merge branch)
-  - use *del* key to remove and *ins* key to add
+  - use _del_ key to remove and _ins_ key to add
 
 ## Version 2.0 (2021-01-10; 3158e7af7289af1e8bbb30cf8a8e919cdaf6e507)
 
@@ -85,7 +90,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 
 - (fix): resetting main timer to correct value after switching fight classes or using Golden Score
 - (fix): starting timer is not only possible if points are equal (Golden Score mode)
-- (new): team tournament now supports Golden Score 
+- (new): team tournament now supports Golden Score
 
 ## Version 1.8-beta3 (2017-03-25; 1e6f077)
 
@@ -111,11 +116,11 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 
 - (new): support for IJF rules of 2017
 - (new): added info bar that shows the current options and used rules and if the second srceen is active
-- (mod): current rules can be switched live 
+- (mod): current rules can be switched live
 - (mod): released with full installer again
 - (mod): switched installation from per machtine to per user
 - (mod): removed portable mode
-- (fix): installs into user's local app data; no admin rights required for install; 
+- (fix): installs into user's local app data; no admin rights required for install;
 - (fix): here a bug, there a bug
 
 ## Version 1.6.0 (2015-04-18)
@@ -144,8 +149,8 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 
 ## Version 1.4 (2014-04-13; a2f23e1)
 
-*Team edition valid until 01/2015**
-    
+**Team edition valid until 01/2015**
+
 - (new): tournament modes can be configured nicely within the program (Management -\> Modes)
 - (mod): removed menu entry to set the round time in team edition as it was confusing with the new mode management
 - (mod): changed the type of the internal label of the tournament modes from string to an unique identifier
@@ -159,7 +164,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 ## Version 1.3.3 (2014-03-26; 844c934)
 
 **Team edition valid until 01/2015**
-  
+
 - (mod): (!) deactivated fighter management for team edition - feature not 100% convincing (yet)
 - (fix): rules and other options were not properly propagated to fights
 - (fix): view was not updated in some cases
@@ -184,7 +189,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 ## Version 1.2.2 (2014-02-07; 611be16)
 
 **Team edition valid until 01/2014**
-  
+
 - (mod): all leagues use the 2013 IJF rules per default
 - (mod): reduced expiration countdown time to 7 seconds (from 15)
 - (fix): updated to Qt 4.8.5 and VC12, still supporting Windows XP
@@ -234,7 +239,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 - (fix): the hold color was not properly reset after a reset
 - (fix): fixed some portable installation issues
 
-## Older versions 
+## Older versions
 
 Until 2011-01-03
 
