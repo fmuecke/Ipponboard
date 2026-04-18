@@ -460,6 +460,7 @@ void MainWindowTeam::UpdateFightNumber_()
     const bool isSaved =
         m_pController->GetFight(m_pController->GetCurrentRound(), m_pController->GetCurrentFight())
             .is_saved;
+    m_pUi->label_saved->setVisible(isSaved);
 
     QString formatStr("%1 / %2");
     m_pUi->label_fight->setText(formatStr.arg(QString::number(currentFight))
