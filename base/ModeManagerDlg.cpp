@@ -18,10 +18,10 @@
 
 using namespace Ipponboard;
 
-ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes, QStringList const& templates,
+ModeManagerDlg::ModeManagerDlg(CompetitionMode::List const& modes, QStringList const& templates,
                                QString const& currentModeId, QWidget* parent)
     : QDialog(parent),
-      fm::DialogResult<TournamentMode::List>(modes),
+      fm::DialogResult<CompetitionMode::List>(modes),
       m_pUi(new Ui::ModeManagerDlg),
       m_currentIndex(-1)
 {
@@ -33,7 +33,7 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes, QStringList co
     m_pUi->comboBox_rules->clear();
     m_pUi->comboBox_rules->addItems(RulesFactory::GetNames());
 
-    m_DefaultMode = TournamentMode::Default();
+    m_DefaultMode = CompetitionMode::Default();
 
     if (!m_dialogData.empty())
     {
@@ -41,7 +41,7 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes, QStringList co
 
         for (size_t i = 0; i < m_dialogData.size(); ++i)
         {
-            TournamentMode const& mode = m_dialogData[i];
+            CompetitionMode const& mode = m_dialogData[i];
             m_pUi->comboBox_mode->addItem(mode.Description(), QVariant(mode.id));
 
             if (mode.id == currentModeId)
@@ -96,7 +96,7 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     }
 
     m_pUi->checkBox_allSubscoresCount->setChecked(
-        mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+        mode.IsOptionSet(CompetitionMode::str_Option_AllSubscoresCount));
 }
 
 void ModeManagerDlg::on_comboBox_template_currentTextChanged(const QString& s)
@@ -151,12 +151,12 @@ void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
     }
 
     auto& mode = GetCurrentMode();
-    mode.SetOption(TournamentMode::str_Option_AllSubscoresCount, checked);
+    mode.SetOption(CompetitionMode::str_Option_AllSubscoresCount, checked);
 }
 
 void ModeManagerDlg::on_toolButton_add_clicked()
 {
-    auto mode = TournamentMode::Default();
+    auto mode = CompetitionMode::Default();
     mode.title = tr("*new*");
     mode.listTemplate = m_pUi->comboBox_template->itemText(0);
 
@@ -195,7 +195,7 @@ void ModeManagerDlg::on_toolButton_remove_clicked()
         auto id = m_pUi->comboBox_mode->itemData(m_currentIndex).toString();
         auto pos = std::find_if(begin(m_dialogData),
                                 end(m_dialogData),
-                                [&](TournamentMode const& mode) { return mode.id == id; });
+                                [&](CompetitionMode const& mode) { return mode.id == id; });
 
         if (pos != end(m_dialogData))
         {
@@ -287,7 +287,7 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
     auto& mode = GetCurrentMode();
     QPalette palette(m_pUi->lineEdit_timeOverrides->palette());
 
-    if (s.isEmpty() || TournamentMode::ExtractFightTimeOverrides(s, mode.fightTimeOverrides))
+    if (s.isEmpty() || CompetitionMode::ExtractFightTimeOverrides(s, mode.fightTimeOverrides))
     {
         palette.setColor(
             QPalette::Text,
@@ -302,7 +302,7 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
     m_pUi->lineEdit_timeOverrides->setPalette(palette);
 }
 
-void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
+void ModeManagerDlg::update_fights_per_round(const CompetitionMode& mode)
 {
     auto text = mode.nRounds > 1 ? tr("%1 fights total, %2 per round")
                                        .arg(mode.FightsPerRound() * mode.nRounds)
@@ -312,7 +312,7 @@ void ModeManagerDlg::update_fights_per_round(const TournamentMode& mode)
     m_pUi->label_fightsPerRound->setText(text);
 }
 
-Ipponboard::TournamentMode& ModeManagerDlg::GetMode(int i)
+Ipponboard::CompetitionMode& ModeManagerDlg::GetMode(int i)
 {
     QString id = m_pUi->comboBox_mode->itemData(i).toString();
 

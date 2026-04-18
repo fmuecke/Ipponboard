@@ -1,5 +1,6 @@
-#include "../base/TournamentSerialization.cpp" // for access to internals
-#include "../base/TournamentSerialization.h"
+#include "../base/CompetitionSerialization.cpp" // for access to internals
+#include "../base/CompetitionSerialization.h"
+#include "CatchQtStringMaker.h"
 #include "TestData/IpponboardAutosaveJson.h"
 
 #include <QColor>
@@ -12,14 +13,14 @@
 #include <catch2/catch_test_macros.hpp>
 
 using namespace Ipponboard;
-using namespace Ipponboard::TournamentSerialization;
+using namespace Ipponboard::CompetitionSerialization;
 
 namespace
 {
-TournamentSaveData MakeSampleData()
+CompetitionSaveData MakeSampleData()
 {
-    TournamentSaveData data;
-    data.fileVersion = QString::fromLatin1(TournamentSaveFileVersion);
+    CompetitionSaveData data;
+    data.fileVersion = QString::fromLatin1(CompetitionSaveFileVersion);
     data.host = "Host Club";
     data.date = "01.02.2024";
     data.location = "Sample City";
@@ -34,7 +35,7 @@ TournamentSaveData MakeSampleData()
     data.secondFg = QColor(Qt::black).rgb();
     data.secondBg = QColor(Qt::red).rgb();
 
-    TournamentMode mode;
+    CompetitionMode mode;
     mode.id = "mode-1";
     mode.title = "League";
     mode.subTitle = "Season";
@@ -83,7 +84,7 @@ TournamentSaveData MakeSampleData()
 TEST_CASE("ToJson serializes provided data")
 {
     const auto data = MakeSampleData();
-    const auto document = TournamentSerialization::ToJson(data);
+    const auto document = CompetitionSerialization::ToJson(data);
     const auto object = document.object();
 
     REQUIRE(object["Host"].toString() == data.host);
@@ -106,37 +107,32 @@ TEST_CASE("ToJson serializes provided data")
 
 TEST_CASE("Conversion to and from json results in same data")
 {
-    QString jsonStr(TestData::IpponboardAutosaveJson);
-    jsonStr.remove('\r'); // normalize line endings
-    jsonStr.remove('\n');
-    jsonStr.remove(' ');
+    const QString jsonStr(TestData::IpponboardAutosaveJson);
     REQUIRE_FALSE(jsonStr.isEmpty());
 
     QJsonParseError err;
     QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &err);
     REQUIRE(err.error == QJsonParseError::NoError);
 
-    TournamentSaveData data;
+    CompetitionSaveData data;
     const auto result =
-        TournamentSerialization::CreateFromJson(doc, TournamentSaveFileVersion, false, data);
+        CompetitionSerialization::CreateFromJson(doc, CompetitionSaveFileVersion, false, data);
     REQUIRE(result == 0);
 
-    QString outJson(TournamentSerialization::ToJson(data).toJson(QJsonDocument::Indented));
-    outJson.remove('\r'); // normalize line endings
-    outJson.remove('\n');
-    outJson.remove(' ');
-    REQUIRE_FALSE(outJson.isEmpty());
-    REQUIRE(jsonStr == outJson);
+    const auto outDoc = CompetitionSerialization::ToJson(data);
+    REQUIRE_FALSE(outDoc.isNull());
+    REQUIRE(doc.toJson(QJsonDocument::Compact).toStdString() ==
+            outDoc.toJson(QJsonDocument::Compact).toStdString());
 }
 
-TEST_CASE("CreateFromJson round-trips tournament data")
+TEST_CASE("CreateFromJson round-trips competition data")
 {
     const auto original = MakeSampleData();
-    const auto document = TournamentSerialization::ToJson(original);
+    const auto document = CompetitionSerialization::ToJson(original);
 
-    TournamentSaveData parsed;
-    const auto result =
-        TournamentSerialization::CreateFromJson(document, TournamentSaveFileVersion, false, parsed);
+    CompetitionSaveData parsed;
+    const auto result = CompetitionSerialization::CreateFromJson(
+        document, CompetitionSaveFileVersion, false, parsed);
 
     REQUIRE(result == 0);
     CHECK(parsed.host == original.host);
@@ -151,19 +147,19 @@ TEST_CASE("CreateFromJson round-trips tournament data")
 TEST_CASE("CreateFromJson reports version mismatch")
 {
     const auto baseData = MakeSampleData();
-    const auto document = TournamentSerialization::ToJson(baseData);
+    const auto document = CompetitionSerialization::ToJson(baseData);
 
     auto mismatchingObject = document.object();
     mismatchingObject["FileVersion"] = "2.0";
     const QJsonDocument mismatchingDoc(mismatchingObject);
 
-    TournamentSaveData parsed;
-    const auto refusal = TournamentSerialization::CreateFromJson(
-        mismatchingDoc, QString::fromLatin1(TournamentSaveFileVersion), false, parsed);
+    CompetitionSaveData parsed;
+    const auto refusal = CompetitionSerialization::CreateFromJson(
+        mismatchingDoc, QString::fromLatin1(CompetitionSaveFileVersion), false, parsed);
     REQUIRE(refusal == 1);
 
-    const auto acceptance = TournamentSerialization::CreateFromJson(
-        mismatchingDoc, QString::fromLatin1(TournamentSaveFileVersion), true, parsed);
+    const auto acceptance = CompetitionSerialization::CreateFromJson(
+        mismatchingDoc, QString::fromLatin1(CompetitionSaveFileVersion), true, parsed);
     REQUIRE(acceptance == 0);
     CHECK(parsed.fileVersion == "2.0");
     CHECK(parsed.mode.id == baseData.mode.id);
@@ -171,7 +167,7 @@ TEST_CASE("CreateFromJson reports version mismatch")
 
 SCENARIO("Autosave files on disk can be read back into JSON documents")
 {
-    GIVEN("a persisted autosave file containing the latest tournament state")
+    GIVEN("a persisted autosave file containing the latest competition state")
     {
         QTemporaryDir tempDir;
         REQUIRE(tempDir.isValid());
@@ -184,14 +180,14 @@ SCENARIO("Autosave files on disk can be read back into JSON documents")
 
         QJsonDocument document;
         QString error;
-        const auto status = TournamentSerialization::ReadSaveFile(filePath, document, &error);
+        const auto status = CompetitionSerialization::ReadSaveFile(filePath, document, &error);
 
-        REQUIRE(status == TournamentSerialization::ReadSaveFileStatus::Success);
+        REQUIRE(status == CompetitionSerialization::ReadSaveFileStatus::Success);
         REQUIRE(error.isEmpty());
 
-        TournamentSaveData parsed;
-        const auto parseResult = TournamentSerialization::CreateFromJson(
-            document, TournamentSerialization::TournamentSaveFileVersion, false, parsed);
+        CompetitionSaveData parsed;
+        const auto parseResult = CompetitionSerialization::CreateFromJson(
+            document, CompetitionSerialization::CompetitionSaveFileVersion, false, parsed);
 
         REQUIRE(parseResult == 0);
         CHECK(parsed.host == "Entenhausen");
@@ -205,9 +201,9 @@ SCENARIO("Autosave files on disk can be read back into JSON documents")
         QJsonDocument document;
         QString error;
         const auto status =
-            TournamentSerialization::ReadSaveFile(nonexistentPath, document, &error);
+            CompetitionSerialization::ReadSaveFile(nonexistentPath, document, &error);
 
-        CHECK(status == TournamentSerialization::ReadSaveFileStatus::FileNotFound);
+        CHECK(status == CompetitionSerialization::ReadSaveFileStatus::FileNotFound);
         CHECK(document.isNull());
         CHECK(error.isEmpty());
     }

@@ -109,7 +109,7 @@
     <target>Doneer een biertje (of twee)</target>
 </phrase>
 <phrase>
-    <source>Tournaments are less work now</source>
+    <source>Competitions are less work now</source>
     <target>Toernooien zijn nu minder werk</target>
 </phrase>
 <phrase>
@@ -1063,7 +1063,7 @@ Geldige velden zijn: %1</target>
     <target></target>
 </phrase>
 <phrase>
-    <source>Manage tournament modes</source>
+    <source>Manage competition modes</source>
     <target></target>
 </phrase>
 <phrase>
@@ -1685,7 +1685,7 @@ Restoring defaults.</source>
     <target></target>
 </phrase>
 <phrase>
-    <source>Ok, start Single Tournament</source>
+    <source>Ok, start Single Competition</source>
     <target></target>
 </phrase>
 <phrase>
@@ -1693,7 +1693,7 @@ Restoring defaults.</source>
     <target></target>
 </phrase>
 <phrase>
-    <source>Ok, start Team Tournament</source>
+    <source>Ok, start Team Competition</source>
     <target></target>
 </phrase>
 <phrase>
@@ -1965,7 +1965,7 @@ Restoring defaults.</source>
     <target>Welkom bij Ipponboard!</target>
 </phrase>
 <phrase>
-    <source>Ok, start Single Tournament</source>
+    <source>Ok, start Single Competition</source>
     <target>Oké, start een enkel toernooi</target>
 </phrase>
 </QPH>

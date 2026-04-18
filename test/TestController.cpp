@@ -171,7 +171,7 @@ TEST_CASE("[Controller] Hold owner follows engine state across fight changes")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(1, { QStringLiteral("-60"), QStringLiteral("-66") });
+    fixture.initCompetition(1, { QStringLiteral("-60"), QStringLiteral("-66") });
 
     fixture.startFight();
     fixture.beginHold(FighterEnum::Second);
@@ -189,7 +189,7 @@ TEST_CASE("[Controller] NextFight advances across rounds")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(2, { QStringLiteral("-60"), QStringLiteral("-66") });
+    fixture.initCompetition(2, { QStringLiteral("-60"), QStringLiteral("-66") });
 
     REQUIRE(controller.GetRoundCount() == 2);
     REQUIRE(controller.GetFightCount() == 2);
@@ -209,7 +209,7 @@ TEST_CASE("[Controller] PrevFight wraps to previous round")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(2, { QStringLiteral("-60"), QStringLiteral("-66") });
+    fixture.initCompetition(2, { QStringLiteral("-60"), QStringLiteral("-66") });
 
     controller.SetCurrentRound(1);
     controller.SetCurrentFight(0);
@@ -230,7 +230,7 @@ TEST_CASE("[Controller] Save fight persists elapsed time and saved flag")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(1, { QStringLiteral("-60") });
+    fixture.initCompetition(1, { QStringLiteral("-60") });
 
     controller.SetRoundTime(QTime(0, 0, 3));
     controller.DoAction(eAction_Hajime_Mate);
@@ -247,7 +247,7 @@ TEST_CASE("[Controller] Reset main timer restores clock only")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(1, { QStringLiteral("-60") });
+    fixture.initCompetition(1, { QStringLiteral("-60") });
 
     controller.DoAction(eAction_Wazaari, FighterEnum::First);
     controller.DoAction(eAction_Shido, FighterEnum::Second);
@@ -271,7 +271,7 @@ TEST_CASE("[Controller] Reset fight clears scores and timers")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(1, { QStringLiteral("-60") });
+    fixture.initCompetition(1, { QStringLiteral("-60") });
 
     controller.DoAction(eAction_Wazaari, FighterEnum::First);
     controller.DoAction(eAction_Shido, FighterEnum::Second);
@@ -292,7 +292,7 @@ TEST_CASE("[Controller] Open ended golden score increments main timer")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    fixture.initTournament(1, { QStringLiteral("-60") });
+    fixture.initCompetition(1, { QStringLiteral("-60") });
 
     controller.SetGoldenScore(true);
     controller.DoAction(eAction_Hajime_Mate);

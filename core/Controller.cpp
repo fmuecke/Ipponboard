@@ -4,12 +4,12 @@
 
 #include "Controller.h"
 
+#include "CompetitionMode.h"
+#include "CompetitionModel.h"
 #include "Enums.h"
 #include "Rules.h"
 #include "Score.h"
 #include "StateMachine.h"
-#include "TournamentMode.h"
-#include "TournamentModel.h"
 #include "iGoldenScoreView.h"
 #include "iView.h"
 
@@ -38,10 +38,10 @@ const char* const emptyFighterName = "--";
 //=========================================================
 Controller::Controller()
     : m_mode(),
-      m_Tournament(),
-      m_TournamentModels(),
-      m_navigator(m_Tournament),
-      m_repository(m_Tournament, m_TournamentModels),
+      m_Competition(),
+      m_CompetitionModels(),
+      m_navigator(m_Competition),
+      m_repository(m_Competition, m_CompetitionModels),
       m_pSM(nullptr),
       m_State(eState_TimerStopped),
       m_timerService(this),
@@ -56,7 +56,7 @@ Controller::Controller()
 {
     m_pSM = std::make_unique<IpponboardSM>(*this);
 
-    InitTournament(m_mode);
+    InitCompetition(m_mode);
 
     reset();
 
@@ -95,21 +95,21 @@ Controller::~Controller()
 }
 
 //=========================================================
-void Controller::InitTournament(TournamentMode const& mode)
+void Controller::InitCompetition(CompetitionMode const& mode)
 //=========================================================
 {
-    m_TournamentModels.clear();
-    m_Tournament.clear();
+    m_CompetitionModels.clear();
+    m_Competition.clear();
 
     m_mode = mode;
     m_rules = RulesFactory::Create(m_mode.rules);
-    m_rules->SetCountSubscores(m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+    m_rules->SetCountSubscores(m_mode.IsOptionSet(CompetitionMode::str_Option_AllSubscoresCount));
 
     QStringList actualWeights = m_mode.weights.split(';');
 
     for (int round = 0; round < m_mode.nRounds; ++round)
     {
-        PTournamentRound pRound(new TournamentRound());
+        PCompetitionRound pRound(new CompetitionRound());
 
         for (int fightNo = 0; fightNo < m_mode.FightsPerRound(); ++fightNo)
         {
@@ -121,7 +121,7 @@ void Controller::InitTournament(TournamentMode const& mode)
             fight.SetRoundTime(m_mode.GetFightDuration(weight));
             fight.rules = m_rules;
             fight.rules->SetCountSubscores(
-                m_mode.IsOptionSet(TournamentMode::str_Option_AllSubscoresCount));
+                m_mode.IsOptionSet(CompetitionMode::str_Option_AllSubscoresCount));
 
             SimpleFighter emptyFighter;
             emptyFighter.name = emptyFighterName;
@@ -131,12 +131,12 @@ void Controller::InitTournament(TournamentMode const& mode)
             pRound->emplace_back(fight);
         }
 
-        m_Tournament.push_back(pRound);
+        m_Competition.push_back(pRound);
 
-        PTournamentModel pModel(new TournamentModel(pRound));
+        PCompetitionModel pModel(new CompetitionModel(pRound));
         pModel->SetNumRows(m_mode.FightsPerRound());
 
-        m_TournamentModels.push_back(pModel);
+        m_CompetitionModels.push_back(pModel);
     }
 
     // set options AFTER configuring fights
@@ -331,7 +331,7 @@ FighterEnum Controller::GetLead() const
                 }
                 else
                 {
-                    // equal ==> golden score in single tournament (Hantai is no more)
+                    // equal ==> golden score in single competition (Hantai is no more)
                 }
             }
         }
@@ -517,13 +517,13 @@ int Controller::GetTeamScore(Ipponboard::FighterEnum who) const
 {
     int score(0);
 
-    for (size_t round(0); round < m_Tournament.size(); ++round)
+    for (size_t round(0); round < m_Competition.size(); ++round)
     {
-        for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
+        for (size_t fight(0); fight < m_Competition[0]->size(); ++fight)
         {
-            if (m_Tournament[round]->at(fight).is_saved)
+            if (m_Competition[round]->at(fight).is_saved)
             {
-                score += m_Tournament[round]->at(fight).HasWon(who);
+                score += m_Competition[round]->at(fight).HasWon(who);
             }
         }
     }
@@ -630,7 +630,7 @@ void Controller::SetRules(std::shared_ptr<AbstractRules> rules)
 {
     m_rules = rules;
 
-    for (auto const& pRound : m_Tournament)
+    for (auto const& pRound : m_Competition)
     {
         for (auto& fight : *pRound)
         {
@@ -917,11 +917,11 @@ void Controller::SetClub(Ipponboard::FighterEnum who, const QString& clubName)
 {
     Q_ASSERT(who == Ipponboard::FighterEnum::First || who == Ipponboard::FighterEnum::Second);
 
-    for (unsigned int round(0); round < m_Tournament.size(); ++round)
+    for (unsigned int round(0); round < m_Competition.size(); ++round)
     {
-        for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
+        for (size_t fight(0); fight < m_Competition[0]->size(); ++fight)
         {
-            m_Tournament[round]->at(fight).GetFighter(who).club = clubName;
+            m_Competition[round]->at(fight).GetFighter(who).club = clubName;
         }
     }
 
@@ -962,7 +962,7 @@ void Controller::SetFight(unsigned int round_index, unsigned int fight_index, co
 void Controller::SetFight(unsigned int round_index, unsigned int fight_index, Fight fight)
 //=========================================================
 {
-    m_Tournament[round_index]->at(fight_index) = fight;
+    m_Competition[round_index]->at(fight_index) = fight;
 
     update_views();
 }
@@ -995,39 +995,39 @@ void Controller::SetWeights(QStringList const& weights)
 void Controller::CopyAndSwitchGuestFighters()
 //=========================================================
 {
-    if (m_Tournament.size() != 2)
+    if (m_Competition.size() != 2)
     {
         throw std::exception(); // FIXME: use correct exception!
     }
 
     for (int fight(0); fight < GetFightCount() - 1; ++fight)
     {
-        m_Tournament[1]->at(fight).fighters[FighterEnum::First] =
-            m_Tournament[0]->at(fight).fighters[FighterEnum::First];
+        m_Competition[1]->at(fight).fighters[FighterEnum::First] =
+            m_Competition[0]->at(fight).fighters[FighterEnum::First];
 
-        m_Tournament[1]->at(fight + 1).fighters[FighterEnum::First] =
-            m_Tournament[0]->at(fight + 1).fighters[FighterEnum::First];
+        m_Competition[1]->at(fight + 1).fighters[FighterEnum::First] =
+            m_Competition[0]->at(fight + 1).fighters[FighterEnum::First];
 
-        m_Tournament[1]->at(fight + 1).fighters[FighterEnum::Second] =
-            m_Tournament[0]->at(fight).fighters[FighterEnum::Second];
+        m_Competition[1]->at(fight + 1).fighters[FighterEnum::Second] =
+            m_Competition[0]->at(fight).fighters[FighterEnum::Second];
 
-        m_Tournament[1]->at(fight).fighters[FighterEnum::Second] =
-            m_Tournament[0]->at(fight + 1).fighters[FighterEnum::Second];
+        m_Competition[1]->at(fight).fighters[FighterEnum::Second] =
+            m_Competition[0]->at(fight + 1).fighters[FighterEnum::Second];
 
         ++fight;
     }
 
-    m_TournamentModels[1]->SetDataChanged();
+    m_CompetitionModels[1]->SetDataChanged();
 }
 
 //=========================================================
-PTournamentModel Controller::GetTournamentScoreModel(int which)
+PCompetitionModel Controller::GetCompetitionScoreModel(int which)
 //=========================================================
 {
-    if ((size_t)which < m_TournamentModels.size() && which > 0)
-        return m_TournamentModels[which];
+    if ((size_t)which < m_CompetitionModels.size() && which > 0)
+        return m_CompetitionModels[which];
 
-    return m_TournamentModels[0];
+    return m_CompetitionModels[0];
 }
 
 //=========================================================

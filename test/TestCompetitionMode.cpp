@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "../core/TournamentMode.cpp"
-#include "../core/TournamentMode.h"
+#include "../core/CompetitionMode.cpp"
+#include "../core/CompetitionMode.h"
 #include "TestDataPaths.h"
 
 #include <QDir>
@@ -18,23 +18,23 @@ struct IpponboardTest
 
     static bool parse_group(QSettings& config, QString const& group, QString& errorMsg)
     {
-        TournamentMode tm;
+        CompetitionMode tm;
         errorMsg.clear();
         const auto configFilePath = Ipponboard::TestSupport::ResolveTestDataPath(
-            QStringLiteral("TournamentModes-test.ini"));
+            QStringLiteral("CompetitionModes-test.ini"));
 
         config.beginGroup(group);
         bool readSuccess =
-            TournamentMode::parse_current_group(config, tm, configFilePath, errorMsg);
+            CompetitionMode::parse_current_group(config, tm, configFilePath, errorMsg);
         config.endGroup();
         return readSuccess;
     }
 };
 
-TEST_CASE("[TournamentMode] Test_parse_current_group")
+TEST_CASE("[CompetitionMode] Test_parse_current_group")
 {
     const auto iniFile =
-        Ipponboard::TestSupport::ResolveTestDataPath(QStringLiteral("TournamentModes-test.ini"));
+        Ipponboard::TestSupport::ResolveTestDataPath(QStringLiteral("CompetitionModes-test.ini"));
     QSettings config(iniFile, QSettings::IniFormat);
     QStringList groups;
     groups << "basic"

@@ -378,7 +378,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
             }
         ]
     ],
-    "TournamentMode": {
+    "CompetitionMode": {
         "FightTimeInSeconds": 240,
         "FightTimeOverrides": "",
         "ID": "fd2a6412-dd1a-4e4c-b257-197feb8799b1",

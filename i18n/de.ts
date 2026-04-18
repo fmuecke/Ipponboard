@@ -1060,7 +1060,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Datum</translation>
     </message>
     <message>
-        <source>Discard tournament?</source>
+        <source>Discard competition?</source>
         <translation>Begegnung verwerfen?</translation>
     </message>
     <message>
@@ -1196,7 +1196,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Beispieldaten laden</translation>
     </message>
     <message>
-        <source>Load tournament from...</source>
+        <source>Load competition from...</source>
         <translation>Wettkampf laden von...</translation>
     </message>
     <message>
@@ -1204,7 +1204,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Laden...</translation>
     </message>
     <message>
-        <source>Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?</source>
+        <source>Loading a competition file will discard any unsaved changes from your current competition. Proceed?</source>
         <translation>Beim Laden einer Tournier-Datei werden alle ungespeicherten Änderungen am aktuellen Turnier verworfen. Fortfahren?</translation>
     </message>
     <message>
@@ -1220,7 +1220,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Vereine verwalten</translation>
     </message>
     <message>
-        <source>Manage tournament modes</source>
+        <source>Manage competition modes</source>
         <translation>Die Wettkampfmodi verwalten</translation>
     </message>
     <message>
@@ -1312,7 +1312,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Speichern als...</translation>
     </message>
     <message>
-        <source>Save tournament as...</source>
+        <source>Save competition as...</source>
         <translation>Wettkampf speichern als...</translation>
     </message>
     <message>
@@ -1416,7 +1416,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Die Begegnung wurde erfolgreich gespeichert!</translation>
     </message>
     <message>
-        <source>The tournament could not be saved to %1</source>
+        <source>The competition could not be saved to %1</source>
         <translation>Das Tunier konnte nicht nach %1 gespeichert werden</translation>
     </message>
     <message>
@@ -1436,11 +1436,11 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Zum Einfügen gibt es nicht genügend Daten in der Zwischenablage!</translation>
     </message>
     <message>
-        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!</source>
+        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Competition State!</source>
         <translation>Diese Datei wurde mit einer neueren Version von Ipponboard gespeichert und könnte nicht kompatibel sein. Möchten Sie diese Datei trotzdem laden? Das könnte zu einem korruptem Zustand führen!</translation>
     </message>
     <message>
-        <source>This will discard any unsaved changes from your current tournament. Proceed?</source>
+        <source>This will discard any unsaved changes from your current competition. Proceed?</source>
         <translation>Alle ungespeicherten Änderungen werden verworfen. Fortfahren?</translation>
     </message>
     <message>
@@ -1460,7 +1460,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Schaltet die Informationstitelleiste (Matte, Kategorie/Gewichtsklasse) an und aus</translation>
     </message>
     <message>
-        <source>Tournament</source>
+        <source>Competition</source>
         <translation>Turnier</translation>
     </message>
     <message>
@@ -2153,7 +2153,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Ich möchte meine Unterstützung zeigen, weil Ipponboard wirklich hilfreich ist.</translation>
     </message>
     <message>
-        <source>Individual Tournament</source>
+        <source>Individual Competition</source>
         <translation>Einzelwettkampf</translation>
     </message>
     <message>
@@ -2161,7 +2161,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Einzelbegegnungen</translation>
     </message>
     <message>
-        <source>Team Tournament</source>
+        <source>Team Competition</source>
         <translation>Mannschaftswettkampf</translation>
     </message>
     <message>
@@ -2174,7 +2174,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
     </message>
 </context>
 <context>
-    <name>TournamentModel</name>
+    <name>CompetitionModel</name>
     <message>
         <source>Firstname Lastname</source>
         <translation>Vorname Nachname</translation>

@@ -28,9 +28,9 @@ set(SOURCES
     TestRules.cpp
     TestScore.cpp
     TestStateMachine.cpp
-    TestTournamentMode.cpp
-    TestTournamentModel.cpp
-    TestTournamentSerialization.cpp
+    TestCompetitionMode.cpp
+    TestCompetitionModel.cpp
+    TestCompetitionSerialization.cpp
     TestOnlineVersionChecker.cpp
     TestVersionComparer.cpp
     TestView.cpp

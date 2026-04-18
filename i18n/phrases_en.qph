@@ -461,7 +461,7 @@
     <target>Kämpfer verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage tournament modes</source>
+    <source>Manage competition modes</source>
     <target>Die Wettkampfmodi verwalten</target>
 </phrase>
 <phrase>
@@ -767,11 +767,11 @@
     <target>Leertaste</target>
 </phrase>
 <phrase>
-    <source>Single Tournament</source>
+    <source>Single Competition</source>
     <target>Einzelwettkampf</target>
 </phrase>
 <phrase>
-    <source>Team Tournament</source>
+    <source>Team Competition</source>
     <target>Mannschaftswettkampf</target>
 </phrase>
 <phrase>
@@ -815,7 +815,7 @@
     <target>Golden Score umschalten</target>
 </phrase>
 <phrase>
-    <source>Tournament</source>
+    <source>Competition</source>
     <target>Turnier</target>
 </phrase>
 <phrase>

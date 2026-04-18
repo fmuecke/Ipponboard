@@ -201,7 +201,7 @@ TEST_CASE("[PathHelpers] ResolveConfigOwnedAsset prefers config-owned files and 
     Q_UNUSED(app);
 
     const auto configFilePath = fm::GetConfigFilePath(QStringLiteral("clubs.config"));
-    const auto userRelative = QStringLiteral("TestData/TournamentModes-test.ini");
+    const auto userRelative = QStringLiteral("TestData/CompetitionModes-test.ini");
     const auto userRelativePath = QDir(fm::GetConfigDir()).filePath(userRelative);
     const auto programRelativePath = fm::GetProgramDataFilePath(userRelative);
 

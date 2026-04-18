@@ -1,13 +1,13 @@
 #pragma once
 
+#include "../core/CompetitionMode.h"
+#include "../core/CompetitionModel.h"
 #include "../core/Controller.h"
 #include "../core/Enums.h"
 #include "../core/Fight.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
 #include "../core/StateMachine.h"
-#include "../core/TournamentMode.h"
-#include "../core/TournamentModel.h"
 #include "TestQtApp.h"
 
 #include <QTime>
@@ -29,13 +29,13 @@ struct ControllerFixture
     QCoreApplication& app;
     Ipponboard::Controller controller;
 
-    void initTournament(int rounds, const QStringList& weights)
+    void initCompetition(int rounds, const QStringList& weights)
     {
-        Ipponboard::TournamentMode mode;
+        Ipponboard::CompetitionMode mode;
         mode.nRounds = rounds;
         mode.weights = weights.join(';');
         mode.fightTimeInSeconds = 30;
-        controller.InitTournament(mode);
+        controller.InitCompetition(mode);
     }
 
     void startFight() { controller.DoAction(Ipponboard::eAction_Hajime_Mate); }

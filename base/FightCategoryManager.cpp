@@ -72,7 +72,7 @@ bool FightCategoryMgr::HasCategory(QString const& name) const
     // or use operator overloading...
     //
     // return std::find_if( m_Classes.begin(), m_Classes.end(),
-    //		[name](TournamentClass t)->bool { return t.name == name; }
+    //		[name](CompetitionClass t)->bool { return t.name == name; }
 
     return std::find(m_Categories.begin(), m_Categories.end(), name) != m_Categories.end();
 }

@@ -2,8 +2,8 @@ A. ✅ Modularise CMake: completed by introducing dedicated `IpponboardCore`, `I
 
 B. Controller Decomposition:
 ✅ Characterised fight navigation (`NextFight`/`PrevFight`) with unit tests covering round transitions and golden-score resets.
-✅ Introduced `TournamentNavigator` to own round/fight indices and drive controller updates.
-✅ Added `TournamentRepository` to manage fight persistence (`save`, `reset`, `clear`) and called from controller.
+✅ Introduced `CompetitionNavigator` to own round/fight indices and drive controller updates.
+✅ Added `CompetitionRepository` to manage fight persistence (`save`, `reset`, `clear`) and called from controller.
 Next: evaluate remaining responsibilities (view fan-out, rules/options plumbing) for similar extraction.
 
 C. State Machine Clarity: the Boost.MSM table in core/StateMachine.h:220 is hard to reason about. Introduce named transition helpers or wrap MSM events in a thin façade so guard/action ordering becomes explicit, easing future rule tweaks.
@@ -17,7 +17,7 @@ F. ✅ Modernise Qt Usage: audited remaining modules; legacy SIGNAL/SLOT, QRegEx
 F2. Qt Thread Storage shutdown noise: investigate the lingering `QThreadStorage ... destroyed` warning that appears after tests to confirm no latent lifecycle issues before moving to Qt6.
 
 G. Testing Strategy:
-✅ Extended controller fixture tests to cover fight navigation, save/reset flows, and option toggles. 2. Add characterisation tests for `TournamentModel` sorting/filtering and the score view presenters before touching their internals. 3. For UI-heavy dialogs, prefer presenter/adapter tests (e.g., `SettingsDlg` sound preview, `ClubManagerDlg` file handling) instead of QWidget assertions.
+✅ Extended controller fixture tests to cover fight navigation, save/reset flows, and option toggles. 2. Add characterisation tests for `CompetitionModel` sorting/filtering and the score view presenters before touching their internals. 3. For UI-heavy dialogs, prefer presenter/adapter tests (e.g., `SettingsDlg` sound preview, `ClubManagerDlg` file handling) instead of QWidget assertions.
 
 H. ✅ Coding Conventions: `.clang-format` and refreshed naming guidance now live in the repo. Next push is enforcing RAII/[[nodiscard]] rules per core/Score.h style and untangling `../` includes via target dirs.
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Tournament.h"
-#include "TournamentModel.h"
+#include "Competition.h"
+#include "CompetitionModel.h"
 
 #include <QStringList>
 #include <memory>
@@ -10,13 +10,13 @@ namespace Ipponboard
 {
 
 class AbstractRules;
-class TournamentMode;
+class CompetitionMode;
 
-class TournamentRepository
+class CompetitionRepository
 {
   public:
-    TournamentRepository(Tournament& tournament,
-                         std::vector<std::shared_ptr<TournamentModel>>& models);
+    CompetitionRepository(Competition& competition,
+                          std::vector<std::shared_ptr<CompetitionModel>>& models);
 
     Fight& fight(unsigned int round, unsigned int index);
     Fight const& fight(unsigned int round, unsigned int index) const;
@@ -28,19 +28,19 @@ class TournamentRepository
                   int ippon2, int shido2, int hansokumake2,
                   std::shared_ptr<AbstractRules> const& rules, const QString& emptyName);
 
-    void clearAllFights(std::shared_ptr<AbstractRules> const& rules, const TournamentMode& mode,
+    void clearAllFights(std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode,
                         const QString& emptyName);
 
     void saveFight(unsigned int round, unsigned int fight, int elapsedSeconds);
 
     void resetFightData(unsigned int round, unsigned int fight,
-                        std::shared_ptr<AbstractRules> const& rules, const TournamentMode& mode);
+                        std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode);
 
-    void setWeights(const QStringList& weights, const TournamentMode& mode);
+    void setWeights(const QStringList& weights, const CompetitionMode& mode);
 
   private:
-    Tournament& m_tournament;
-    std::vector<std::shared_ptr<TournamentModel>>& m_models;
+    Competition& m_tournament;
+    std::vector<std::shared_ptr<CompetitionModel>>& m_models;
 };
 
 } // namespace Ipponboard

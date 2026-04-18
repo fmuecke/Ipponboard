@@ -37,7 +37,7 @@ Start reading our code and you'll get the hang of it. We optimize for readabilit
 
 The code base leans on Qt's conventions with a few project-specific tweaks:
 
-- **Types** (`class`, `struct`, `enum class`, `namespace`): PascalCase (`TournamentModel`, `ScaledImage`).
+- **Types** (`class`, `struct`, `enum class`, `namespace`): PascalCase (`CompetitionModel`, `ScaledImage`).
 - **Public interfaces** (member/static/free functions visible to other translation units): PascalCase (`StartTimer()`, `CreateModel()`).
 - **Private/Protected helpers**: lowerCamelCase (`startTimerInternal()`).
 - **Member data**: prefix private members with `m_` (`m_scoreBoard`). Public or struct-like members should stay rare; when needed use lowerCamelCase and document mutability.

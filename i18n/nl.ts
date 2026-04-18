@@ -1061,7 +1061,7 @@ Geldige velden zijn: %1</translation>
         <translation>Datum</translation>
     </message>
     <message>
-        <source>Discard tournament?</source>
+        <source>Discard competition?</source>
         <translation>Toernooi afgelasten?</translation>
     </message>
     <message>
@@ -1197,7 +1197,7 @@ Geldige velden zijn: %1</translation>
         <translation>Laad de Demodata</translation>
     </message>
     <message>
-        <source>Load tournament from...</source>
+        <source>Load competition from...</source>
         <translation>Wedstrijd laden van...</translation>
     </message>
     <message>
@@ -1205,7 +1205,7 @@ Geldige velden zijn: %1</translation>
         <translation>Laden...</translation>
     </message>
     <message>
-        <source>Loading a tournament file will discard any unsaved changes from your current tournament. Proceed?</source>
+        <source>Loading a competition file will discard any unsaved changes from your current competition. Proceed?</source>
         <translation>Als je een toernooibestand laadt, worden alle niet-opgeslagen wijzigingen in je huidige toernooi verwijderd. Wil je doorgaan?</translation>
     </message>
     <message>
@@ -1221,7 +1221,7 @@ Geldige velden zijn: %1</translation>
         <translation>Bewerk Clubs</translation>
     </message>
     <message>
-        <source>Manage tournament modes</source>
+        <source>Manage competition modes</source>
         <translation>Beheer toernooimodi</translation>
     </message>
     <message>
@@ -1313,7 +1313,7 @@ Geldige velden zijn: %1</translation>
         <translation>Opslaan als...</translation>
     </message>
     <message>
-        <source>Save tournament as...</source>
+        <source>Save competition as...</source>
         <translation>Toernooi opslaan als...</translation>
     </message>
     <message>
@@ -1417,7 +1417,7 @@ Geldige velden zijn: %1</translation>
         <translation>De wedstrijd is succesvol opgeslagen!</translation>
     </message>
     <message>
-        <source>The tournament could not be saved to %1</source>
+        <source>The competition could not be saved to %1</source>
         <translation>Het toernooi kon niet worden opgeslagen in %1</translation>
     </message>
     <message>
@@ -1437,11 +1437,11 @@ Geldige velden zijn: %1</translation>
         <translation>Er zijn te weinig gegevens voor de selectie op het klembord!</translation>
     </message>
     <message>
-        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Tournament State!</source>
+        <source>This file was saved with a newer version of Ipponboard and may not be compatible with this version. Do you want to try to load this file anyway? This could lead to a corrupted Competition State!</source>
         <translation>Dit bestand is opgeslagen met een nieuwere versie van Ipponboard en is mogelijk niet compatibel met deze versie. Wilt u dit bestand toch laden? Dit kan leiden tot een beschadigde toernooistatus!</translation>
     </message>
     <message>
-        <source>This will discard any unsaved changes from your current tournament. Proceed?</source>
+        <source>This will discard any unsaved changes from your current competition. Proceed?</source>
         <translation>Hiermee worden alle niet-opgeslagen wijzigingen in uw huidige toernooi verwijderd. Wilt u doorgaan?</translation>
     </message>
     <message>
@@ -1462,7 +1462,7 @@ Geldige velden zijn: %1</translation>
         <translation>Schakel de Informatiebanner (Mat en categorie/gewichtsklasse) aan/uit</translation>
     </message>
     <message>
-        <source>Tournament</source>
+        <source>Competition</source>
         <translation>Toernooi</translation>
     </message>
     <message>
@@ -2155,7 +2155,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Ik wil mijn steun te betuigen als Ipponboard is echt nuttig.</translation>
     </message>
     <message>
-        <source>Individual Tournament</source>
+        <source>Individual Competition</source>
         <translation>Individueel toernooi</translation>
     </message>
     <message>
@@ -2163,7 +2163,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
         <translation>Enkelwedstrijden</translation>
     </message>
     <message>
-        <source>Team Tournament</source>
+        <source>Team Competition</source>
         <translation>Teamwedstrijd</translation>
     </message>
     <message>
@@ -2176,7 +2176,7 @@ Opmerking: de tijd moet in seconden alleen worden opgegeven</translation>
     </message>
 </context>
 <context>
-    <name>TournamentModel</name>
+    <name>CompetitionModel</name>
     <message>
         <source>Firstname Lastname</source>
         <translation>Voornaam Achternaam</translation>

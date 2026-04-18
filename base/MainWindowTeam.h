@@ -6,9 +6,9 @@
 #define TEAM_EDITION_MAINWINDOW_H_
 
 #include "../base/MainWindowBase.h"
+#include "../core/CompetitionMode.h"
 #include "../core/Fight.h"
-#include "../core/TournamentMode.h"
-#include "TournamentSerialization.h"
+#include "CompetitionSerialization.h"
 
 #include <memory>
 
@@ -38,9 +38,9 @@ class MainWindowTeam : public MainWindowBase
     EditionType Edition() const final { return EditionType::Team; }
     const char* EditionName() const final { return "Team Mode"; }
     const char* EditionNameShort() const final { return "Team"; }
-    static const char* ModeConfigurationFileName() { return "tournament_modes.config"; }
+    static const char* ModeConfigurationFileName() { return "competition_modes.config"; }
 
-    void LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode);
+    void LoadModes(Ipponboard::CompetitionMode::List modes, QString selectedMode);
 
   protected:
     void UpdateGoldenScoreView() final;
@@ -71,13 +71,13 @@ class MainWindowTeam : public MainWindowBase
     void UpdateButtonText_();
     void update_score_screen();
     void WriteScoreToHtml_();
-    QByteArray GetTournamentAsJson_() const;
-    int LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
-    QString SaveTournamentToFile_(QString const& filename);
+    QByteArray GetCompetitionAsJson_() const;
+    int LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion = false);
+    QString SaveCompetitionToFile_(QString const& filename);
     void load_autosave_if_available();
     void write_settings() const final;
     void read_settings() final;
-    Ipponboard::TournamentSerialization::TournamentSaveData CollectTournamentSaveData_() const;
+    Ipponboard::CompetitionSerialization::CompetitionSaveData CollectCompetitionSaveData_() const;
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);
 
@@ -154,7 +154,7 @@ class MainWindowTeam : public MainWindowBase
     //std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
     QStringList m_FighterNamesHome;
     QStringList m_FighterNamesGuest;
-    Ipponboard::TournamentMode::List m_modes;
+    Ipponboard::CompetitionMode::List m_modes;
     QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
 };
 

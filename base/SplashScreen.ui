@@ -149,7 +149,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </font>
        </property>
        <property name="text">
-        <string>Individual Tournament</string>
+        <string>Individual Competition</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -168,7 +168,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <bool>false</bool>
        </property>
        <property name="description">
-        <string>Single matches</string>
+        <string>Individual contests</string>
        </property>
       </widget>
      </item>
@@ -199,7 +199,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <enum>Qt::LayoutDirection::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>Team Tournament</string>
+        <string>Team Competition</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -224,7 +224,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <bool>false</bool>
        </property>
        <property name="description">
-        <string>Team matches</string>
+        <string>Team contests</string>
        </property>
       </widget>
      </item>

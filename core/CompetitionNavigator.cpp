@@ -1,4 +1,4 @@
-#include "TournamentNavigator.h"
+#include "CompetitionNavigator.h"
 
 namespace Ipponboard
 {
@@ -8,14 +8,14 @@ namespace
 constexpr unsigned int kDefaultIndex = 0;
 }
 
-TournamentNavigator::TournamentNavigator(Tournament& tournament) : m_tournament(tournament) {}
+CompetitionNavigator::CompetitionNavigator(Competition& competition) : m_tournament(competition) {}
 
-unsigned int TournamentNavigator::roundCount() const
+unsigned int CompetitionNavigator::roundCount() const
 {
     return static_cast<unsigned int>(m_tournament.size());
 }
 
-unsigned int TournamentNavigator::fightCount() const
+unsigned int CompetitionNavigator::fightCount() const
 {
     if (m_tournament.empty())
     {
@@ -25,13 +25,13 @@ unsigned int TournamentNavigator::fightCount() const
     return static_cast<unsigned int>(m_tournament.front()->size());
 }
 
-void TournamentNavigator::reset()
+void CompetitionNavigator::reset()
 {
     m_currentRound = kDefaultIndex;
     m_currentFight = kDefaultIndex;
 }
 
-void TournamentNavigator::setCurrentRound(unsigned int index)
+void CompetitionNavigator::setCurrentRound(unsigned int index)
 {
     if (index < roundCount())
     {
@@ -43,7 +43,7 @@ void TournamentNavigator::setCurrentRound(unsigned int index)
     }
 }
 
-void TournamentNavigator::setCurrentFight(unsigned int index)
+void CompetitionNavigator::setCurrentFight(unsigned int index)
 {
     if (fightCount() == 0)
     {
@@ -61,7 +61,7 @@ void TournamentNavigator::setCurrentFight(unsigned int index)
     }
 }
 
-void TournamentNavigator::nextFight()
+void CompetitionNavigator::nextFight()
 {
     if (fightCount() == 0)
     {
@@ -81,7 +81,7 @@ void TournamentNavigator::nextFight()
     }
 }
 
-void TournamentNavigator::prevFight()
+void CompetitionNavigator::prevFight()
 {
     if (fightCount() == 0)
     {

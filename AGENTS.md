@@ -29,7 +29,7 @@ Work as a **C++ expert** using modern best practices, TDD/BDD, and safe handling
 
 Align with Qt-style defaults while keeping the project’s current usage consistent:
 
-- **Types**: PascalCase (`TournamentModel`, `ScaledImage`).
+- **Types**: PascalCase (`CompetitionModel`, `ScaledImage`).
 - **Public API functions**: PascalCase (`StartTimer()`, `UpdateScore()`), including statics and free helpers exposed across modules.
 - **Private/Protected helpers**: lowerCamelCase (`startTimerInternal()`).
 - **Member data**: prefix private members with `m_` (`m_scoreBoard`). Public data members should be rare; when needed keep them lowerCamelCase and document mutability.

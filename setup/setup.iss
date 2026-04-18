@@ -92,7 +92,7 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\categories.config"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\_bin\Ipponboard-Release\tournament_modes.config"; DestDir: "{app}"; Flags: promptifolder
+Source: "..\_bin\Ipponboard-Release\competition_modes.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
 Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
 Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion

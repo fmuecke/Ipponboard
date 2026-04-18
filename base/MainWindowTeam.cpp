@@ -12,14 +12,14 @@
 #include "../base/InputBindingResolver.h"
 #include "../base/View.h"
 #include "../base/versioninfo.h"
+#include "../core/CompetitionModel.h"
 #include "../core/Controller.h"
 #include "../core/ControllerConfig.h"
-#include "../core/TournamentModel.h"
 #include "../gamepad/Gamepad.h"
 #include "../util/path_helpers.h"
+#include "CompetitionSerialization.h"
 #include "ModeManagerDlg.h"
 #include "ScoreScreen.h"
-#include "TournamentSerialization.h"
 #include "ui_MainWindowTeam.h"
 
 #include <QClipboard>
@@ -44,7 +44,6 @@
 #include <QTimer>
 #include <QUrl>
 
-
 namespace StrTags
 {
 static const char* const mode = "Mode";
@@ -61,12 +60,12 @@ constexpr auto SaveDateFormat = "dd.MM.yyyy";
 
 QString configTemplatesDir()
 {
-    return QDir(fm::GetConfigDir()).filePath(TournamentMode::str_TemplateDirName);
+    return QDir(fm::GetConfigDir()).filePath(CompetitionMode::str_TemplateDirName);
 }
 
 QString programTemplatesDir()
 {
-    return QDir(fm::GetProgramDataDir()).filePath(TournamentMode::str_TemplateDirName);
+    return QDir(fm::GetProgramDataDir()).filePath(CompetitionMode::str_TemplateDirName);
 }
 
 QStringList listTemplateNames(const QString& templateDir)
@@ -93,7 +92,7 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
 
 MainWindowTeam::~MainWindowTeam() {}
 
-void MainWindowTeam::LoadModes(Ipponboard::TournamentMode::List modes, QString selectedMode)
+void MainWindowTeam::LoadModes(Ipponboard::CompetitionMode::List modes, QString selectedMode)
 {
     m_pUi->comboBox_mode->clear();
     m_modes.swap(modes);
@@ -130,16 +129,16 @@ void MainWindowTeam::Init()
     m_pScoreScreen->setStyleSheet(m_pUi->frame_primary_view->styleSheet());
 
     //
-    // load tournament modes
+    // load competition modes
     //
     QString errMsg;
-    Ipponboard::TournamentMode::List modes;
+    Ipponboard::CompetitionMode::List modes;
     auto configFile = fm::ResolveConfigFileForRead(MainWindowTeam::ModeConfigurationFileName());
 
-    qInfo() << "Reading tournament modes from config:" << configFile;
+    qInfo() << "Reading competition modes from config:" << configFile;
     if (QFile::exists(configFile))
     {
-        if (!Ipponboard::TournamentMode::ReadModes(configFile, modes, errMsg))
+        if (!Ipponboard::CompetitionMode::ReadModes(configFile, modes, errMsg))
         {
             QMessageBox::critical(
                 nullptr, QCoreApplication::tr("Error reading mode configurations"), errMsg);
@@ -151,7 +150,7 @@ void MainWindowTeam::Init()
     }
     else
     {
-        qWarning() << "Error loading tournament modes:" << configFile;
+        qWarning() << "Error loading competition modes:" << configFile;
     }
 
     //
@@ -175,16 +174,16 @@ void MainWindowTeam::Init()
 	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
 	auto cbxFightersGuest = new ComboBoxDelegate(this);
 	cbxFightersGuest->SetItems(m_FighterNamesGuest);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(TournamentModel::eCol_name2, cbxFightersGuest);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxFightersHome);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxFightersHome);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxFightersGuest);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxFightersGuest);
 #endif
     // make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(
-        TournamentModel::eCol_name1, QHeaderView::Stretch);
+        CompetitionModel::eCol_name1, QHeaderView::Stretch);
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(
-        TournamentModel::eCol_name2, QHeaderView::Stretch);
+        CompetitionModel::eCol_name2, QHeaderView::Stretch);
 
     // TEMP: hide weight cotrol
     //	m_pUi->label_weight->hide();
@@ -637,19 +636,19 @@ void MainWindowTeam::WriteScoreToHtml_()
     m_htmlScore.replace("%GUEST%", m_pUi->comboBox_club_guest->currentText());
 
     // intermediate score
-    auto wins1st = m_pController->GetTournamentScoreModel(0)->GetTotalWins();
+    auto wins1st = m_pController->GetCompetitionScoreModel(0)->GetTotalWins();
     m_htmlScore.replace("%WINS_HOME%", QString::number(wins1st.first));
     m_htmlScore.replace("%WINS_GUEST%", QString::number(wins1st.second));
-    auto score1st = m_pController->GetTournamentScoreModel(0)->GetTotalScore();
+    auto score1st = m_pController->GetCompetitionScoreModel(0)->GetTotalScore();
     m_htmlScore.replace("%SCORE_HOME%", QString::number(score1st.first));
     m_htmlScore.replace("%SCORE_GUEST%", QString::number(score1st.second));
 
     // final score
     auto wins2nd = m_pController->GetRoundCount() > 1
-                       ? m_pController->GetTournamentScoreModel(1)->GetTotalWins()
+                       ? m_pController->GetCompetitionScoreModel(1)->GetTotalWins()
                        : std::make_pair<unsigned int, unsigned int>(0, 0);
     auto score2nd = m_pController->GetRoundCount() > 1
-                        ? m_pController->GetTournamentScoreModel(1)->GetTotalScore()
+                        ? m_pController->GetCompetitionScoreModel(1)->GetTotalScore()
                         : std::make_pair<unsigned int, unsigned int>(0, 0);
     auto totalWins = std::make_pair(wins1st.first + wins2nd.first, wins1st.second + wins2nd.second);
     auto totalScore =
@@ -704,10 +703,11 @@ void MainWindowTeam::WriteScoreToHtml_()
     m_htmlScore.replace("</body>", "<br/><small><center>" + copyright + "</center></small></body>");
 }
 
-TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSaveData_() const
+CompetitionSerialization::CompetitionSaveData MainWindowTeam::CollectCompetitionSaveData_() const
 {
-    TournamentSerialization::TournamentSaveData saveData;
-    saveData.fileVersion = QString::fromLatin1(TournamentSerialization::TournamentSaveFileVersion);
+    CompetitionSerialization::CompetitionSaveData saveData;
+    saveData.fileVersion =
+        QString::fromLatin1(CompetitionSerialization::CompetitionSaveFileVersion);
     saveData.host = m_pUi->comboBox_club_host->currentText();
     saveData.date = m_pUi->dateEdit->text();
     saveData.location = m_pUi->lineEdit_location->text();
@@ -747,20 +747,20 @@ TournamentSerialization::TournamentSaveData MainWindowTeam::CollectTournamentSav
     return saveData;
 }
 
-QByteArray MainWindowTeam::GetTournamentAsJson_() const
+QByteArray MainWindowTeam::GetCompetitionAsJson_() const
 {
-    return TournamentSerialization::ToJson(CollectTournamentSaveData_())
+    return CompetitionSerialization::ToJson(CollectCompetitionSaveData_())
         .toJson(QJsonDocument::Indented);
 }
 
-int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
+int MainWindowTeam::LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIncompatibleVersion)
 {
-    TournamentSerialization::TournamentSaveData saveData;
-    const auto result =
-        TournamentSerialization::CreateFromJson(doc,
-                                                TournamentSerialization::TournamentSaveFileVersion,
-                                                loadWithIncompatibleVersion,
-                                                saveData);
+    CompetitionSerialization::CompetitionSaveData saveData;
+    const auto result = CompetitionSerialization::CreateFromJson(
+        doc,
+        CompetitionSerialization::CompetitionSaveFileVersion,
+        loadWithIncompatibleVersion,
+        saveData);
 
     if (result != 0)
     {
@@ -793,7 +793,7 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
     const auto existingMode =
         std::find_if(m_modes.begin(),
                      m_modes.end(),
-                     [&](const TournamentMode& mode) { return mode.id == saveData.mode.id; });
+                     [&](const CompetitionMode& mode) { return mode.id == saveData.mode.id; });
 
     const auto overridesString = saveData.mode.GetFightTimeOverridesString();
     const auto matchesExisting =
@@ -816,7 +816,7 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
     }
     else
     {
-        TournamentMode newMode = saveData.mode;
+        CompetitionMode newMode = saveData.mode;
         m_modes.push_back(newMode);
         m_pUi->comboBox_mode->addItem(newMode.Description(), QVariant(newMode.id));
         m_pUi->comboBox_mode->setCurrentIndex(m_pUi->comboBox_mode->findData(QVariant(newMode.id)));
@@ -845,21 +845,21 @@ int MainWindowTeam::LoadTournamentFromJson_(QJsonDocument& doc, bool loadWithInc
     return 0;
 }
 
-QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
+QString MainWindowTeam::SaveCompetitionToFile_(QString const& filename)
 
 {
     QFile file = QFile(filename);
-    auto jsonDoc = GetTournamentAsJson_();
+    auto jsonDoc = GetCompetitionAsJson_();
     if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) && file.write(jsonDoc) > 0)
     {
         file.flush();
         file.close();
-        qDebug() << "Saved tournament successfully to" << filename;
+        qDebug() << "Saved competition successfully to" << filename;
         return QString();
     }
     else
     {
-        QString errorMsg = tr("The tournament could not be saved to %1").arg(filename);
+        QString errorMsg = tr("The competition could not be saved to %1").arg(filename);
         qWarning() << errorMsg;
         return errorMsg;
     }
@@ -867,18 +867,18 @@ QString MainWindowTeam::SaveTournamentToFile_(QString const& filename)
 
 void MainWindowTeam::load_autosave_if_available()
 {
-    const auto autoSavePath = fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename);
+    const auto autoSavePath = fm::GetLocalDataFilePath(CompetitionSerialization::AutoSaveFilename);
     QJsonDocument document;
     QString errorMessage;
     const auto status =
-        TournamentSerialization::ReadSaveFile(autoSavePath, document, &errorMessage);
+        CompetitionSerialization::ReadSaveFile(autoSavePath, document, &errorMessage);
 
-    if (status == TournamentSerialization::ReadSaveFileStatus::FileNotFound)
+    if (status == CompetitionSerialization::ReadSaveFileStatus::FileNotFound)
     {
         return;
     }
 
-    if (status != TournamentSerialization::ReadSaveFileStatus::Success)
+    if (status != CompetitionSerialization::ReadSaveFileStatus::Success)
     {
         if (errorMessage.isEmpty())
         {
@@ -891,10 +891,10 @@ void MainWindowTeam::load_autosave_if_available()
         return;
     }
 
-    auto loadResult = LoadTournamentFromJson_(document);
+    auto loadResult = LoadCompetitionFromJson_(document);
     if (loadResult == 1)
     {
-        loadResult = LoadTournamentFromJson_(document, true);
+        loadResult = LoadCompetitionFromJson_(document, true);
     }
 
     if (loadResult == 0)
@@ -910,8 +910,8 @@ void MainWindowTeam::on_actionNew_triggered()
 {
     if (QMessageBox::question(
             this,
-            tr("Discard tournament?"),
-            tr("This will discard any unsaved changes from your current tournament. Proceed?"),
+            tr("Discard competition?"),
+            tr("This will discard any unsaved changes from your current competition. Proceed?"),
             QMessageBox::Yes,
             QMessageBox::No) == QMessageBox::No)
         return;
@@ -929,12 +929,12 @@ void MainWindowTeam::on_actionSave_As_triggered()
     QString initialPath = fm::GetConfigFilePath(initialFileName);
 
     QString fileName = QFileDialog::getSaveFileName(
-        this, tr("Save tournament as..."), initialPath, tr("JSON File (*.json)"));
+        this, tr("Save competition as..."), initialPath, tr("JSON File (*.json)"));
 
     if (fileName == "")
         return;
 
-    const QString& errorMsg = SaveTournamentToFile_(fileName);
+    const QString& errorMsg = SaveCompetitionToFile_(fileName);
 
     if (errorMsg.isEmpty())
     {
@@ -949,15 +949,15 @@ void MainWindowTeam::on_actionSave_As_triggered()
 void MainWindowTeam::on_actionLoad_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
-        this, tr("Load tournament from..."), fm::GetConfigDir(), tr("JSON File (*.json)"));
+        this, tr("Load competition from..."), fm::GetConfigDir(), tr("JSON File (*.json)"));
 
     if (fileName == "")
         return;
 
     if (QMessageBox::question(this,
-                              tr("Discard tournament?"),
-                              tr("Loading a tournament file will discard any unsaved changes from "
-                                 "your current tournament. Proceed?"),
+                              tr("Discard competition?"),
+                              tr("Loading a competition file will discard any unsaved changes from "
+                                 "your current competition. Proceed?"),
                               QMessageBox::Yes,
                               QMessageBox::No) == QMessageBox::No)
         return;
@@ -980,7 +980,7 @@ void MainWindowTeam::on_actionLoad_triggered()
         QMessageBox::warning(this, tr("Error while parsing JSON!"), err.errorString());
         return;
     }
-    int result = LoadTournamentFromJson_(doc);
+    int result = LoadCompetitionFromJson_(doc);
 
     if (result == 1)
     {
@@ -989,11 +989,11 @@ void MainWindowTeam::on_actionLoad_triggered()
                 tr("File Version mismatch"),
                 tr("This file was saved with a newer version of Ipponboard and may not be "
                    "compatible with this version. Do you want to try to load this file anyway? "
-                   "This could lead to a corrupted Tournament State!"),
+                   "This could lead to a corrupted Competition State!"),
                 QMessageBox::Yes,
                 QMessageBox::No) == QMessageBox::Yes)
         {
-            result = LoadTournamentFromJson_(doc, true);
+            result = LoadCompetitionFromJson_(doc, true);
         }
         else
         {
@@ -1069,9 +1069,9 @@ void MainWindowTeam::on_actionManageModes_triggered()
         QString errMsg;
 
         auto configFile = fm::GetConfigFilePath(MainWindowTeam::ModeConfigurationFileName());
-        qInfo() << "Writing tournament modes to user config:" << configFile;
+        qInfo() << "Writing competition modes to user config:" << configFile;
 
-        if (!Ipponboard::TournamentMode::WriteModes(configFile, dlg.Result(), errMsg))
+        if (!Ipponboard::CompetitionMode::WriteModes(configFile, dlg.Result(), errMsg))
         {
             qCritical() << "Error writing mode configurations to" << configFile;
             QMessageBox::critical(
@@ -1095,7 +1095,7 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
     //const QString modeBayernliga("bayernliga_m");
 
     //auto iter = std::find_if(begin(m_modes), end(m_modes),
-    //	[&](TournamentMode const& mode)
+    //	[&](CompetitionMode const& mode)
     //{
     //	return mode.name == modeBayernliga;
     //});
@@ -1103,7 +1103,7 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
     //if (iter == end(m_modes) || m_pUi->comboBox_mode->findText(iter->Description()) < 0)
     //{
     //	QMessageBox::critical(this, tr("Load demo data error"),
-    //		tr("Tournament mode settings for [%1] could not be found.").arg(modeBayernliga));
+    //		tr("Competition mode settings for [%1] could not be found.").arg(modeBayernliga));
 
     //	return;
     //}
@@ -1112,7 +1112,7 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
     //m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
     //m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
-    //m_pController->InitTournament(*iter);
+    //m_pController->InitCompetition(*iter);
     //update_weights("-90;+90;-73;-66;-81");
     //m_pController->SetFight(0, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Oliver Salz", "TSV Brunnstadt",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
     //m_pController->SetFight(0, 1, "-90", "Max Grünert", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
@@ -1165,8 +1165,8 @@ void MainWindowTeam::on_button_prev_clicked()
     m_pController->PrevFight();
     //m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 
-    SaveTournamentToFile_(
-        fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+    SaveCompetitionToFile_(
+        fm::GetLocalDataFilePath(CompetitionSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_button_next_clicked()
@@ -1186,8 +1186,8 @@ void MainWindowTeam::on_button_next_clicked()
     // reset osaekomi view (to reset active colors of previous fight)
     m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
 
-    SaveTournamentToFile_(
-        fm::GetLocalDataFilePath(TournamentSerialization::AutoSaveFilename)); // autosave
+    SaveCompetitionToFile_(
+        fm::GetLocalDataFilePath(CompetitionSerialization::AutoSaveFilename)); // autosave
 }
 
 void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
@@ -1205,11 +1205,11 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
 
     auto iter = std::find_if(begin(m_modes),
                              end(m_modes),
-                             [&](TournamentMode const& mode) { return mode.id == m_currentMode; });
+                             [&](CompetitionMode const& mode) { return mode.id == m_currentMode; });
 
     if (iter != end(m_modes))
     {
-        m_pController->InitTournament(*iter);
+        m_pController->InitCompetition(*iter);
         update_weights(iter->weights); // TODO: don't set weights twice
 
         // disable "copy & switch" button if no duplicate weight classes are used (issue #42)
@@ -1228,10 +1228,10 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     }
 
     // update table views
-    m_pUi->tableView_tournament_list1->setModel(m_pController->GetTournamentScoreModel(0).get());
+    m_pUi->tableView_tournament_list1->setModel(m_pController->GetCompetitionScoreModel(0).get());
     m_pUi->tableView_tournament_list1->resizeColumnsToContents();
 
-    m_pController->GetTournamentScoreModel(0)->SetExternalDisplays(
+    m_pController->GetCompetitionScoreModel(0)->SetExternalDisplays(
         m_pUi->lineEdit_wins_intermediate, m_pUi->lineEdit_score_intermediate);
 
     m_pUi->tableView_tournament_list1->selectRow(0);
@@ -1251,20 +1251,20 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     else
     {
         m_pUi->tableView_tournament_list2->setModel(
-            m_pController->GetTournamentScoreModel(1).get());
+            m_pController->GetCompetitionScoreModel(1).get());
         m_pUi->tableView_tournament_list2->resizeColumnsToContents();
-        m_pController->GetTournamentScoreModel(1)->SetExternalDisplays(m_pUi->lineEdit_wins,
-                                                                       m_pUi->lineEdit_score);
+        m_pController->GetCompetitionScoreModel(1)->SetExternalDisplays(m_pUi->lineEdit_wins,
+                                                                        m_pUi->lineEdit_score);
 
-        m_pController->GetTournamentScoreModel(1)->SetIntermediateModel(
-            m_pController->GetTournamentScoreModel(0).get());
+        m_pController->GetCompetitionScoreModel(1)->SetIntermediateModel(
+            m_pController->GetCompetitionScoreModel(0).get());
 
         m_pUi->tableView_tournament_list2->selectRow(0);
 
         m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(
-            TournamentModel::eCol_name1, QHeaderView::Stretch);
+            CompetitionModel::eCol_name1, QHeaderView::Stretch);
         m_pUi->tableView_tournament_list2->horizontalHeader()->setSectionResizeMode(
-            TournamentModel::eCol_name2, QHeaderView::Stretch);
+            CompetitionModel::eCol_name2, QHeaderView::Stretch);
 
         m_pUi->tableView_tournament_list2->show();
         m_pUi->label_final_score->show();
@@ -1299,7 +1299,7 @@ void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name1));
+							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(CompetitionModel::eCol_name1));
 
 	if (pCbx)
 	{
@@ -1316,7 +1316,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
     m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
-							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(TournamentModel::eCol_name2));
+							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(CompetitionModel::eCol_name2));
 
 	if (pCbx)
 	{
@@ -1438,7 +1438,7 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>(
 								 m_pUi->tableView_tournament_list1->
-								 itemDelegateForColumn(TournamentModel::eCol_name1));
+								 itemDelegateForColumn(CompetitionModel::eCol_name1));
 
 	if (pCbx)
 	{
@@ -1460,7 +1460,7 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 
 	auto pCbx = dynamic_cast<ComboBoxDelegate*>(
 					m_pUi->tableView_tournament_list2->
-					itemDelegateForColumn(TournamentModel::eCol_name2));
+					itemDelegateForColumn(CompetitionModel::eCol_name2));
 
 	if (pCbx)
 	{
@@ -1543,8 +1543,8 @@ void MainWindowTeam::on_tableView_customContextMenuRequested(QTableView* pTableV
 
     // Paste is only allowed for the name cells
     // and if the clipboard is not empty
-    const bool pasteAllowed = (selection[0].column() == TournamentModel::eCol_name1 ||
-                               selection[0].column() == TournamentModel::eCol_name2) &&
+    const bool pasteAllowed = (selection[0].column() == CompetitionModel::eCol_name1 ||
+                               selection[0].column() == CompetitionModel::eCol_name2) &&
                               !QApplication::clipboard()->text().isEmpty();
 
     const bool clearAllowed = copyAllowed;
@@ -1677,8 +1677,8 @@ void MainWindowTeam::paste_cell_content(QTableView* pTableView)
 
     for (QModelIndex index : selection)
     {
-        if (index.column() == TournamentModel::eCol_name1 ||
-            index.column() == TournamentModel::eCol_name2)
+        if (index.column() == CompetitionModel::eCol_name1 ||
+            index.column() == CompetitionModel::eCol_name2)
         {
             pTableView->model()->setData(index, lines[lineNo], Qt::EditRole);
             ++lineNo;
@@ -1747,7 +1747,7 @@ QString MainWindowTeam::get_template_file(QString const& modeId) const
 {
     // TODO: use binary seach as the container is already sorted
     auto iter = std::find_if(
-        begin(m_modes), end(m_modes), [&](TournamentMode const& m) { return m.id == modeId; });
+        begin(m_modes), end(m_modes), [&](CompetitionMode const& m) { return m.id == modeId; });
 
     if (iter != end(m_modes))
     {
@@ -1766,7 +1766,7 @@ QString MainWindowTeam::qualify_template_reference(QString const& templateRefere
         return templateReference;
     }
 
-    return QString("%1/%2").arg(TournamentMode::str_TemplateDirName, templateReference);
+    return QString("%1/%2").arg(CompetitionMode::str_TemplateDirName, templateReference);
 }
 
 QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
@@ -1775,7 +1775,7 @@ QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
 
     // TODO: use binary seach as the container is already sorted
     auto iter = std::find_if(
-        begin(m_modes), end(m_modes), [&](TournamentMode const& tm) { return tm.id == modeId; });
+        begin(m_modes), end(m_modes), [&](CompetitionMode const& tm) { return tm.id == modeId; });
 
     if (iter != end(m_modes))
     {

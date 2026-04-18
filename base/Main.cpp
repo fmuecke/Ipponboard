@@ -4,7 +4,7 @@
 
 #include "MainWindow.h"
 #include "MainWindowTeam.h"
-//#include "../core/TournamentMode.h"
+//#include "../core/CompetitionMode.h"
 #include "../util/path_helpers.h"
 #include "SplashScreen.h"
 #include "versioninfo.h"

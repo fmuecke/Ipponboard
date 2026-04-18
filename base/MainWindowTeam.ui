@@ -1216,9 +1216,9 @@
      <height>33</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuTournament">
+   <widget class="QMenu" name="menuCompetition">
     <property name="title">
-     <string>Tournament</string>
+     <string>Competition</string>
     </property>
     <addaction name="actionImport_Fighters"/>
     <addaction name="separator"/>
@@ -1301,7 +1301,7 @@
     <addaction name="actionReset_Scores"/>
     <addaction name="actionTest_Gong"/>
    </widget>
-   <addaction name="menuTournament"/>
+   <addaction name="menuCompetition"/>
    <addaction name="menuView"/>
    <addaction name="menuManage"/>
    <addaction name="menuSettings"/>
@@ -1596,7 +1596,7 @@
     <string>Modes</string>
    </property>
    <property name="toolTip">
-    <string>Manage tournament modes</string>
+    <string>Manage competition modes</string>
    </property>
   </action>
   <action name="actionLang_Dutch">

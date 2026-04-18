@@ -5,7 +5,7 @@
 #ifndef MODEMANAGERDLG_H
 #define MODEMANAGERDLG_H
 
-#include "../core/TournamentMode.h"
+#include "../core/CompetitionMode.h"
 #include "../util/DialogResult.h"
 
 #include <QDialog>
@@ -18,12 +18,12 @@ namespace Ui
 class ModeManagerDlg;
 }
 
-class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::TournamentMode::List>
+class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::CompetitionMode::List>
 {
     Q_OBJECT
 
   public:
-    explicit ModeManagerDlg(Ipponboard::TournamentMode::List const& modes,
+    explicit ModeManagerDlg(Ipponboard::CompetitionMode::List const& modes,
                             QStringList const& templates, QString const& currentModeId,
                             QWidget* parent = 0);
     ~ModeManagerDlg();
@@ -51,12 +51,12 @@ class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::Tourn
     void on_lineEdit_timeOverrides_textChanged(QString const& s);
 
   private:
-    void update_fights_per_round(Ipponboard::TournamentMode const& mode);
+    void update_fights_per_round(Ipponboard::CompetitionMode const& mode);
     bool has_Mode() const { return m_currentIndex != -1; }
 
-    Ipponboard::TournamentMode& GetMode(int i);
-    Ipponboard::TournamentMode& GetCurrentMode() { return GetMode(m_currentIndex); }
-    Ipponboard::TournamentMode m_DefaultMode{};
+    Ipponboard::CompetitionMode& GetMode(int i);
+    Ipponboard::CompetitionMode& GetCurrentMode() { return GetMode(m_currentIndex); }
+    Ipponboard::CompetitionMode m_DefaultMode{};
     std::shared_ptr<Ui::ModeManagerDlg> m_pUi; //TODO: use unique_ptr
     int m_currentIndex;
 };

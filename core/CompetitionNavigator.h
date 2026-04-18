@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Tournament.h"
+#include "Competition.h"
 
 namespace Ipponboard
 {
 
-class TournamentNavigator
+class CompetitionNavigator
 {
   public:
-    explicit TournamentNavigator(Tournament& tournament);
+    explicit CompetitionNavigator(Competition& competition);
 
     unsigned int currentRound() const { return m_currentRound; }
     unsigned int currentFight() const { return m_currentFight; }
@@ -25,7 +25,7 @@ class TournamentNavigator
     void reset();
 
   private:
-    Tournament& m_tournament;
+    Competition& m_tournament;
     unsigned int m_currentRound{ 0 };
     unsigned int m_currentFight{ 0 };
 };

@@ -1,28 +1,29 @@
-#include "TournamentRepository.h"
+#include "CompetitionRepository.h"
 
+#include "CompetitionMode.h"
 #include "Fight.h"
-#include "TournamentMode.h"
+
 
 namespace Ipponboard
 {
 
-TournamentRepository::TournamentRepository(Tournament& tournament,
-                                           std::vector<std::shared_ptr<TournamentModel>>& models)
-    : m_tournament(tournament), m_models(models)
+CompetitionRepository::CompetitionRepository(Competition& competition,
+                                             std::vector<std::shared_ptr<CompetitionModel>>& models)
+    : m_tournament(competition), m_models(models)
 {
 }
 
-Fight& TournamentRepository::fight(unsigned int round, unsigned int index)
-{
-    return m_tournament.at(round)->at(index);
-}
-
-Fight const& TournamentRepository::fight(unsigned int round, unsigned int index) const
+Fight& CompetitionRepository::fight(unsigned int round, unsigned int index)
 {
     return m_tournament.at(round)->at(index);
 }
 
-void TournamentRepository::setFight(
+Fight const& CompetitionRepository::fight(unsigned int round, unsigned int index) const
+{
+    return m_tournament.at(round)->at(index);
+}
+
+void CompetitionRepository::setFight(
     unsigned int round_index, unsigned int fight_index, const QString& weight,
     const QString& first_player_name, const QString& first_player_club,
     const QString& second_player_name, const QString& second_player_club, int yuko1, int wazaari1,
@@ -109,8 +110,8 @@ void TournamentRepository::setFight(
     m_models[round_index]->SetDataChanged();
 }
 
-void TournamentRepository::clearAllFights(std::shared_ptr<AbstractRules> const& rules,
-                                          const TournamentMode& mode, const QString& emptyName)
+void CompetitionRepository::clearAllFights(std::shared_ptr<AbstractRules> const& rules,
+                                           const CompetitionMode& mode, const QString& emptyName)
 {
     if (m_tournament.empty())
     {
@@ -149,17 +150,17 @@ void TournamentRepository::clearAllFights(std::shared_ptr<AbstractRules> const& 
     }
 }
 
-void TournamentRepository::saveFight(unsigned int round, unsigned int fightIndex,
-                                     int elapsedSeconds)
+void CompetitionRepository::saveFight(unsigned int round, unsigned int fightIndex,
+                                      int elapsedSeconds)
 {
     Fight& current = fight(round, fightIndex);
     current.SetSecondsElapsed(elapsedSeconds);
     current.is_saved = true;
 }
 
-void TournamentRepository::resetFightData(unsigned int round, unsigned int fightIndex,
-                                          std::shared_ptr<AbstractRules> const& rules,
-                                          const TournamentMode& mode)
+void CompetitionRepository::resetFightData(unsigned int round, unsigned int fightIndex,
+                                           std::shared_ptr<AbstractRules> const& rules,
+                                           const CompetitionMode& mode)
 {
     Fight& current = fight(round, fightIndex);
     current.GetScore1().Clear();
@@ -171,7 +172,7 @@ void TournamentRepository::resetFightData(unsigned int round, unsigned int fight
     current.SetRoundTime(mode.GetFightDuration(current.weight));
 }
 
-void TournamentRepository::setWeights(const QStringList& weights, const TournamentMode& mode)
+void CompetitionRepository::setWeights(const QStringList& weights, const CompetitionMode& mode)
 {
     if (m_tournament.empty())
     {

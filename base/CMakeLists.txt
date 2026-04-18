@@ -50,8 +50,8 @@ set(UI_HEADERS
     MainWindow.h
     MainWindowBase.h
     MainWindowTeam.h
-    TournamentSerialization.cpp
-    TournamentSerialization.h
+    CompetitionSerialization.cpp
+    CompetitionSerialization.h
     ModeManagerDlg.cpp
     ModeManagerDlg.h
     OnlineVersionChecker.h
@@ -90,7 +90,7 @@ set(FORMS
 )
 
 set(OTHER
-    tournament_modes.config
+    competition_modes.config
 	categories.config
 	clubs.config
 )
@@ -186,7 +186,7 @@ if(APPLE)
     # Copy immutable bundle resources into Contents/Resources on macOS.
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory "${APP_RESOURCE_DIR}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "${APP_RESOURCE_DIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/competition_modes.config" "${APP_RESOURCE_DIR}"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "${APP_RESOURCE_DIR}"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "${APP_RESOURCE_DIR}"
         COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "${APP_RESOURCE_DIR}/clubs"
@@ -203,7 +203,7 @@ if(APPLE)
 else()
     # Copy data files
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/tournament_modes.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/competition_modes.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/clubs.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
 	    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/categories.config" "$<TARGET_FILE_DIR:${APP_NAME}>"
         COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/clubs" "$<TARGET_FILE_DIR:${APP_NAME}>/clubs"

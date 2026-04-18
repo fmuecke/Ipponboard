@@ -7,9 +7,9 @@ using namespace TestSupport;
 
 namespace
 {
-TournamentMode simple_mode()
+CompetitionMode simple_mode()
 {
-    TournamentMode mode;
+    CompetitionMode mode;
     mode.id = "test-mode";
     mode.title = "Test";
     mode.weights = "-60;-73";
@@ -20,18 +20,18 @@ TournamentMode simple_mode()
 }
 } // namespace
 
-TEST_CASE("[TournamentModel] Aggregates wins and score across fights")
+TEST_CASE("[CompetitionModel] Aggregates wins and score across fights")
 {
     ControllerFixture fixture;
     auto mode = simple_mode();
 
-    fixture.controller.InitTournament(mode);
+    fixture.controller.InitCompetition(mode);
 
     fixture.controller.SetFight(0, 0, "-60", "Alice", "", "Bob", "", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
     fixture.controller.SetFight(0, 1, "-73", "Carol", "", "Dave", "", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 
-    auto model = fixture.controller.GetTournamentScoreModel();
+    auto model = fixture.controller.GetCompetitionScoreModel();
 
     auto wins = model->GetTotalWins();
     REQUIRE(wins.first == 1);
@@ -42,21 +42,21 @@ TEST_CASE("[TournamentModel] Aggregates wins and score across fights")
     REQUIRE(scores.second == 7);
 }
 
-TEST_CASE("[TournamentModel] Data returns fight details for display role")
+TEST_CASE("[CompetitionModel] Data returns fight details for display role")
 {
     ControllerFixture fixture;
     auto mode = simple_mode();
 
-    fixture.controller.InitTournament(mode);
+    fixture.controller.InitCompetition(mode);
 
     fixture.controller.SetFight(
         0, 0, "-60", "Alice", "Club A", "Bob", "Club B", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    auto model = fixture.controller.GetTournamentScoreModel();
+    auto model = fixture.controller.GetCompetitionScoreModel();
 
-    QModelIndex weightIdx = model->index(0, TournamentModel::eCol_weight);
-    QModelIndex nameIdx = model->index(0, TournamentModel::eCol_name1);
-    QModelIndex wazaariIdx = model->index(0, TournamentModel::eCol_wazaari1);
+    QModelIndex weightIdx = model->index(0, CompetitionModel::eCol_weight);
+    QModelIndex nameIdx = model->index(0, CompetitionModel::eCol_name1);
+    QModelIndex wazaariIdx = model->index(0, CompetitionModel::eCol_wazaari1);
 
     REQUIRE(model->data(weightIdx, Qt::DisplayRole).toString() == "-60");
     REQUIRE(model->data(nameIdx, Qt::DisplayRole).toString() == "Alice");

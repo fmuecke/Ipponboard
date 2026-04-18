@@ -48,7 +48,7 @@ void MainWindow::Init()
 
     MainWindowBase::Init();
 
-    // init tournament classes (if there are none present)
+    // init competition classes (if there are none present)
     for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
     {
         FightCategory t("");
@@ -56,7 +56,7 @@ void MainWindow::Init()
         m_pUi->comboBox_weight_class->addItem(t.ToString());
     }
 
-    // trigger loading of tournament class data (also loads class weights and fighter names)
+    // trigger loading of competition class data (also loads class weights and fighter names)
     on_comboBox_weight_class_currentTextChanged(m_pUi->comboBox_weight_class->currentText());
 
     m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());

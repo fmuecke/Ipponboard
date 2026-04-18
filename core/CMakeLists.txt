@@ -11,12 +11,12 @@ set(CORE_SOURCES
     Athlete.cpp
     Rules.cpp
     TimerService.cpp
-    TournamentNavigator.cpp
-    TournamentRepository.cpp
+    CompetitionNavigator.cpp
+    CompetitionRepository.cpp
     Score.cpp
     StateMachine.cpp
-    TournamentModel.cpp
-    TournamentMode.cpp
+    CompetitionModel.cpp
+    CompetitionMode.cpp
 )
 
 add_library(IpponboardCore STATIC ${CORE_SOURCES})

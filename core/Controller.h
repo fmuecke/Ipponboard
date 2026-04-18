@@ -5,14 +5,14 @@
 #ifndef BASE__CONTROLLER_H_
 #define BASE__CONTROLLER_H_
 
+#include "Competition.h"
+#include "CompetitionMode.h"
+#include "CompetitionModel.h"
+#include "CompetitionNavigator.h"
+#include "CompetitionRepository.h"
 #include "Score.h"
 #include "StateMachine.h"
 #include "TimerService.h"
-#include "Tournament.h"
-#include "TournamentMode.h"
-#include "TournamentModel.h"
-#include "TournamentNavigator.h"
-#include "TournamentRepository.h"
 #include "iController.h"
 #include "iControllerCore.h"
 
@@ -25,7 +25,7 @@
 
 // forwards
 class QSoundEffect;
-//class TournamentModel;
+//class CompetitionModel;
 
 namespace Ipponboard
 {
@@ -56,7 +56,7 @@ class Controller : public QObject, public IController, public IControllerCore
 
     // --- IController ---
     //FIXME: use override/final
-    void InitTournament(TournamentMode const& mode);
+    void InitCompetition(CompetitionMode const& mode);
     void RegisterView(IView* pView) override;
     void RegisterView(IGoldenScoreView* pView) override;
     int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const override;
@@ -85,7 +85,7 @@ class Controller : public QObject, public IController, public IControllerCore
     QString const& GetCategoryName() const override
     {
         return m_weight_class;
-    } //TODO: weight class should be part of tournament!
+    } //TODO: weight class should be part of competition!
     void SetGoldenScore(bool isGS) override;
     bool IsGoldenScore() const override { return is_golden_score(); }
     void SetRules(std::shared_ptr<AbstractRules> rules) override;
@@ -154,7 +154,7 @@ class Controller : public QObject, public IController, public IControllerCore
 
     void SetWeights(QStringList const& weights);
     void CopyAndSwitchGuestFighters();
-    PTournamentModel GetTournamentScoreModel(int which = 0);
+    PCompetitionModel GetCompetitionScoreModel(int which = 0);
 
     void SetMatSignal(const QString&);
     QString const& GetMatSignal() const;
@@ -180,19 +180,19 @@ class Controller : public QObject, public IController, public IControllerCore
 
     inline Ipponboard::Fight& current_fight()
     {
-        return m_Tournament.at(m_navigator.currentRound())->at(m_navigator.currentFight());
+        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentFight());
     }
 
     inline Ipponboard::Fight const& current_fight() const
     {
-        return m_Tournament.at(m_navigator.currentRound())->at(m_navigator.currentFight());
+        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentFight());
     }
 
-    Ipponboard::TournamentMode m_mode;
-    Ipponboard::Tournament m_Tournament;
-    std::vector<std::shared_ptr<TournamentModel>> m_TournamentModels;
-    TournamentNavigator m_navigator;
-    TournamentRepository m_repository;
+    Ipponboard::CompetitionMode m_mode;
+    Ipponboard::Competition m_Competition;
+    std::vector<std::shared_ptr<CompetitionModel>> m_CompetitionModels;
+    CompetitionNavigator m_navigator;
+    CompetitionRepository m_repository;
 
     std::unique_ptr<Ipponboard::IpponboardSM> m_pSM;
     Ipponboard::EState m_State;
