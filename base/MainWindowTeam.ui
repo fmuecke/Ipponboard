@@ -86,7 +86,7 @@
        <enum>QTabWidget::TabShape::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -123,31 +123,6 @@
           <property name="spacing">
            <number>6</number>
           </property>
-          <item row="0" column="5">
-           <widget class="QDateEdit" name="dateEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
-            <property name="buttonSymbols">
-             <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-            </property>
-            <property name="accelerated">
-             <bool>false</bool>
-            </property>
-            <property name="calendarPopup">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_home">
             <property name="text">
@@ -182,19 +157,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="comboBox_club_host">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>16</width>
-              <height>16</height>
-             </size>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="3">
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -208,15 +170,14 @@
             </property>
            </spacer>
           </item>
-          <item row="0" column="4">
-           <widget class="QLabel" name="label_date">
-            <property name="text">
-             <string>Date</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0" colspan="9">
            <widget class="Line" name="line">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>16</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
             </property>
@@ -249,13 +210,6 @@
            <widget class="QLabel" name="label_mode">
             <property name="text">
              <string>Mode</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_host">
-            <property name="text">
-             <string>Host</string>
             </property>
            </widget>
           </item>
@@ -312,6 +266,61 @@
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_host">
+            <property name="text">
+             <string>Host</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_date">
+            <property name="text">
+             <string>Date</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QComboBox" name="comboBox_club_host">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDateEdit" name="dateEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+            </property>
+            <property name="accelerated">
+             <bool>false</bool>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="timeSpec">
+             <enum>Qt::TimeSpec::LocalTime</enum>
             </property>
            </widget>
           </item>
@@ -1699,8 +1708,8 @@
  </customwidgets>
  <tabstops>
   <tabstop>comboBox_mode</tabstop>
-  <tabstop>dateEdit</tabstop>
   <tabstop>comboBox_club_host</tabstop>
+  <tabstop>dateEdit</tabstop>
   <tabstop>lineEdit_location</tabstop>
   <tabstop>comboBox_club_home</tabstop>
   <tabstop>toolButton_team_home</tabstop>
