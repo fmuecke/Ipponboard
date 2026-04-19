@@ -249,28 +249,32 @@ void View::UpdateView()
     //
     // fighter names
     //
-    ui->text_lastname_first->SetText(m_pController->GetFighterLastName(GVF_(FighterEnum::First)),
-                                     ScaledText::eSize_uppercase);
-    ui->text_lastname_second->SetText(m_pController->GetFighterLastName(GVF_(FighterEnum::Second)),
-                                      ScaledText::eSize_uppercase);
-    ui->text_firstname_first->SetText(m_pController->GetFighterFirstName(GVF_(FighterEnum::First)),
-                                      ScaledText::eSize_uppercase);
+    ui->text_lastname_first->SetText(
+        m_pController->GetAthleteLastName(MapDisplayPositionToContestSide(ContestSide::SideA)),
+        ScaledText::eSize_uppercase);
+    ui->text_lastname_second->SetText(
+        m_pController->GetAthleteLastName(MapDisplayPositionToContestSide(ContestSide::SideB)),
+        ScaledText::eSize_uppercase);
+    ui->text_firstname_first->SetText(
+        m_pController->GetAthleteFirstName(MapDisplayPositionToContestSide(ContestSide::SideA)),
+        ScaledText::eSize_uppercase);
     ui->text_firstname_second->SetText(
-        m_pController->GetFighterFirstName(GVF_(FighterEnum::Second)), ScaledText::eSize_uppercase);
+        m_pController->GetAthleteFirstName(MapDisplayPositionToContestSide(ContestSide::SideB)),
+        ScaledText::eSize_uppercase);
 
-    // first score
-    update_ippon(FighterEnum::First);
-    update_wazaari(FighterEnum::First);
-    update_yuko(FighterEnum::First);
-    update_shido(FighterEnum::First);
-    update_hansokumake(FighterEnum::First);
+    // side A score
+    update_ippon(ContestSide::SideA);
+    update_wazaari(ContestSide::SideA);
+    update_yuko(ContestSide::SideA);
+    update_shido(ContestSide::SideA);
+    update_hansokumake(ContestSide::SideA);
 
-    // second score
-    update_ippon(FighterEnum::Second);
-    update_wazaari(FighterEnum::Second);
-    update_yuko(FighterEnum::Second);
-    update_shido(FighterEnum::Second);
-    update_hansokumake(FighterEnum::Second);
+    // side B score
+    update_ippon(ContestSide::SideB);
+    update_wazaari(ContestSide::SideB);
+    update_yuko(ContestSide::SideB);
+    update_shido(ContestSide::SideB);
+    update_hansokumake(ContestSide::SideB);
 
     update_team_score();
 
@@ -279,9 +283,9 @@ void View::UpdateView()
     //
     ui->text_main_clock->SetText(m_pController->GetTimeText(eTimer_Main), ScaledText::eSize_full);
 
-    const FighterEnum holder(m_pController->GetLastHolder());
+    const ContestSide holder(m_pController->GetCurrentHoldSide());
 
-    if (FighterEnum::Nobody == holder && is_secondary())
+    if (ContestSide::None == holder && is_secondary())
     {
         ui->layout_info->setStretchFactor(ui->layout_osaekomi, 0);
     }
@@ -482,7 +486,7 @@ void View::mousePressEvent(QMouseEvent* event)
 {
     Q_ASSERT(m_pController && "IBController not set!");
 
-    FighterEnum whos(FighterEnum::Nobody);
+    ContestSide whos(ContestSide::None);
     EAction action(eAction_NONE);
     const bool doRevoke = event->button() & Qt::RightButton;
 
@@ -523,10 +527,11 @@ void View::mousePressEvent(QMouseEvent* event)
             }
             else
             {
-                whos = FighterEnum::First;
+                whos = ContestSide::SideA;
 
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                    GVF_(FighterEnum::First) != m_pController->GetLead())
+                    MapDisplayPositionToContestSide(ContestSide::SideA) !=
+                        m_pController->GetLeadingSide())
                 {
                     action = eAction_SetOsaekomi;
                 }
@@ -544,10 +549,11 @@ void View::mousePressEvent(QMouseEvent* event)
             }
             else
             {
-                whos = FighterEnum::Second;
+                whos = ContestSide::SideB;
 
                 if (eState_Holding == m_pController->GetCurrentState() &&
-                    GVF_(FighterEnum::Second) != m_pController->GetLead())
+                    MapDisplayPositionToContestSide(ContestSide::SideB) !=
+                        m_pController->GetLeadingSide())
                 {
                     action = eAction_SetOsaekomi;
                 }
@@ -559,32 +565,32 @@ void View::mousePressEvent(QMouseEvent* event)
         }
         else if (textChild == ui->text_ippon_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Ippon;
         }
         else if (textChild == ui->text_ippon_first)
         {
-            whos = FighterEnum::First;
+            whos = ContestSide::SideA;
             action = eAction_Ippon;
         }
         else if (textChild == ui->text_wazaari_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Wazaari;
         }
         else if (textChild == ui->text_wazaari_first)
         {
-            whos = FighterEnum::First;
+            whos = ContestSide::SideA;
             action = eAction_Wazaari;
         }
         else if (textChild == ui->text_yuko_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Yuko;
         }
         else if (textChild == ui->text_yuko_first)
         {
-            whos = FighterEnum::First;
+            whos = ContestSide::SideA;
             action = eAction_Yuko;
         }
 
@@ -597,29 +603,29 @@ void View::mousePressEvent(QMouseEvent* event)
     {
         if (imageChild == ui->image_shido1_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Shido;
         }
         else if (imageChild == ui->image_shido3_second || imageChild == ui->image_shido2_second ||
                  imageChild == ui->image_shido1_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Shido;
         }
         else if (imageChild == ui->image_shido3_first || imageChild == ui->image_shido2_first ||
                  imageChild == ui->image_shido1_first)
         {
-            whos = FighterEnum::First;
+            whos = ContestSide::SideA;
             action = eAction_Shido;
         }
         else if (imageChild == ui->image_hansokumake_second)
         {
-            whos = FighterEnum::Second;
+            whos = ContestSide::SideB;
             action = eAction_Hansokumake;
         }
         else if (imageChild == ui->image_hansokumake_first)
         {
-            whos = FighterEnum::First;
+            whos = ContestSide::SideA;
             action = eAction_Hansokumake;
         }
 
@@ -629,7 +635,10 @@ void View::mousePressEvent(QMouseEvent* event)
         //}
     }
 
-    whos = GVF_(whos); // get correct fighter for display
+    if (IsContestSide(whos))
+    {
+        whos = MapDisplayPositionToContestSide(whos);
+    }
     m_pController->DoAction(action, whos, doRevoke);
 }
 
@@ -637,21 +646,21 @@ void View::mousePressEvent(QMouseEvent* event)
 void View::setOsaekomiFirst_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First, false /*doRevoke*/);
+    m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideA, false /*doRevoke*/);
 }
 
 //=========================================================
 void View::setOsaekomiSecond_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second, false /*doRevoke*/);
+    m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideB, false /*doRevoke*/);
 }
 
 //=========================================================
 void View::resetMainTimerValue_()
 //=========================================================
 {
-    m_pController->DoAction(eAction_ResetMainTimer, FighterEnum::Nobody, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetMainTimer, ContestSide::None, true /*doRevoke*/);
 }
 
 //=========================================================
@@ -687,13 +696,13 @@ void View::blink_()
 
     if (is_secondary())
     {
-        update_ippon(FighterEnum::First);
-        update_ippon(FighterEnum::Second);
+        update_ippon(ContestSide::SideA);
+        update_ippon(ContestSide::SideB);
     }
 }
 
 //=========================================================
-void View::update_ippon(Ipponboard::FighterEnum who) const
+void View::update_ippon(Ipponboard::ContestSide who) const
 //=========================================================
 {
     auto digit_ippon = ui->text_ippon_first;
@@ -702,9 +711,9 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
     auto wazaariLabel = ui->text_wazaari_desc1;
     auto yukoLabel = ui->text_yuko_desc1;
     auto scoreLayout = ui->layout_score_first;
-    FighterEnum uke(FighterEnum::Second);
+    ContestSide opposingSide(ContestSide::SideB);
 
-    if (uke == who)
+    if (opposingSide == who)
     {
         scoreLayout = ui->layout_score_second;
         digit_ippon = ui->text_ippon_second;
@@ -712,10 +721,10 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
         digit_yuko = ui->text_yuko_second;
         wazaariLabel = ui->text_wazaari_desc2;
         yukoLabel = ui->text_yuko_desc2;
-        uke = FighterEnum::First;
+        opposingSide = ContestSide::SideA;
     }
 
-    const int score = m_pController->GetScore(GVF_(who), Point::Ippon);
+    const int score = m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Ippon);
 
     if (score != 0)
     {
@@ -768,9 +777,10 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
     }
     else
     {
-        const int score_uke = m_pController->GetScore(GVF_(uke), Point::Ippon);
+        const int opposingScore =
+            m_pController->GetScore(MapDisplayPositionToContestSide(opposingSide), Point::Ippon);
 
-        if (m_pBlinkTimer->isActive() && 0 == score_uke)
+        if (m_pBlinkTimer->isActive() && 0 == opposingScore)
         {
             m_pBlinkTimer->stop();
         }
@@ -809,41 +819,41 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 }
 
 //=========================================================
-void View::update_wazaari(Ipponboard::FighterEnum who) const
+void View::update_wazaari(Ipponboard::ContestSide who) const
 //=========================================================
 {
     ScaledText* digit(ui->text_wazaari_first);
 
-    if (FighterEnum::Second == who)
+    if (ContestSide::SideB == who)
         digit = ui->text_wazaari_second;
 
-    const int score = m_pController->GetScore(GVF_(who), Point::Wazaari);
+    const int score = m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Wazaari);
     //digit->setDigitCount( score > 9 ? 2 : 1 );
     digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
 
 //=========================================================
-void View::update_yuko(Ipponboard::FighterEnum who) const
+void View::update_yuko(Ipponboard::ContestSide who) const
 //=========================================================
 {
     ScaledText* digit(ui->text_yuko_first);
 
-    if (FighterEnum::Second == who)
+    if (ContestSide::SideB == who)
         digit = ui->text_yuko_second;
 
-    const int score = m_pController->GetScore(GVF_(who), Point::Yuko);
+    const int score = m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Yuko);
     digit->SetText(QString::number(score), ScaledText::eSize_full);
 }
 
 //=========================================================
-void View::update_shido(Ipponboard::FighterEnum who) const
+void View::update_shido(Ipponboard::ContestSide who) const
 //=========================================================
 {
     ScaledImage* pImage1(nullptr);
     ScaledImage* pImage2(nullptr);
     ScaledImage* pImage3(nullptr);
 
-    if (FighterEnum::First == who)
+    if (ContestSide::SideA == who)
     {
         pImage1 = ui->image_shido1_first;
         pImage2 = ui->image_shido2_first;
@@ -856,7 +866,7 @@ void View::update_shido(Ipponboard::FighterEnum who) const
         pImage3 = ui->image_shido3_second;
     }
 
-    const int score = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score = m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Shido);
 
     pImage3->UpdateImage(score >= 3 ? kImageOn : eTypePrimary == m_Type ? kImageOff : kImageEmpty);
     pImage2->UpdateImage(score >= 2 ? kImageOn : eTypePrimary == m_Type ? kImageOff : kImageEmpty);
@@ -864,18 +874,20 @@ void View::update_shido(Ipponboard::FighterEnum who) const
 }
 
 //=========================================================
-void View::update_hansokumake(Ipponboard::FighterEnum who) const
+void View::update_hansokumake(Ipponboard::ContestSide who) const
 //=========================================================
 {
     ScaledImage* pImage(ui->image_hansokumake_first);
 
-    if (FighterEnum::Second == who)
+    if (ContestSide::SideB == who)
     {
         pImage = ui->image_hansokumake_second;
     }
 
-    const int score_hansokumake = m_pController->GetScore(GVF_(who), Point::Hansokumake);
-    const int score_shido = m_pController->GetScore(GVF_(who), Point::Shido);
+    const int score_hansokumake =
+        m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Hansokumake);
+    const int score_shido =
+        m_pController->GetScore(MapDisplayPositionToContestSide(who), Point::Shido);
 
     if (score_hansokumake > 0 || score_shido == m_pController->GetRules()->GetMaxShidoCount() + 1)
     {
@@ -906,11 +918,13 @@ void View::update_team_score() const
         }
 
         ui->text_score_team_first->SetText(
-            QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::First))),
+            QString::number(
+                m_pController->GetTeamScore(MapDisplayPositionToContestSide(ContestSide::SideA))),
             ScaledText::eSize_full);
 
         ui->text_score_team_second->SetText(
-            QString::number(m_pController->GetTeamScore(GVF_(FighterEnum::Second))),
+            QString::number(
+                m_pController->GetTeamScore(MapDisplayPositionToContestSide(ContestSide::SideB))),
             ScaledText::eSize_full);
     }
     else
@@ -923,12 +937,12 @@ void View::update_team_score() const
 }
 
 //=========================================================
-void View::update_hold_clock(FighterEnum holder, EHoldState state) const
+void View::update_hold_clock(ContestSide holder, EHoldState state) const
 //=========================================================
 {
     const QString value(m_pController->GetTimeText(eTimer_Hold));
-    const FighterEnum first = GVF_(FighterEnum::First);
-    const FighterEnum second = GVF_(FighterEnum::Second);
+    const ContestSide sideA = MapDisplayPositionToContestSide(ContestSide::SideA);
+    const ContestSide sideB = MapDisplayPositionToContestSide(ContestSide::SideB);
 
     struct ColorPair
     {
@@ -938,38 +952,41 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
         QColor bg;
     };
 
-    ColorPair hold_clock_colors[3][2];
-    hold_clock_colors[eHoldState_on][FighterEnum::First] =
+    ColorPair hold_clock_colors[3][ToIndex(ContestSide::Count)];
+    hold_clock_colors[eHoldState_on][ToIndex(ContestSide::SideA)] =
         ColorPair(m_TextColorFirst, m_TextBgColorFirst);
-    hold_clock_colors[eHoldState_on][FighterEnum::Second] =
+    hold_clock_colors[eHoldState_on][ToIndex(ContestSide::SideB)] =
         ColorPair(m_TextColorSecond, m_TextBgColorSecond);
-    hold_clock_colors[eHoldState_off][FighterEnum::First] = ColorPair(Qt::gray, Qt::black);
-    hold_clock_colors[eHoldState_off][FighterEnum::Second] = ColorPair(Qt::gray, Qt::black);
-    hold_clock_colors[eHoldState_pause][FighterEnum::First] =
+    hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideA)] = ColorPair(Qt::gray, Qt::black);
+    hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideB)] = ColorPair(Qt::gray, Qt::black);
+    hold_clock_colors[eHoldState_pause][ToIndex(ContestSide::SideA)] =
         ColorPair(Qt::lightGray, m_TextBgColorFirst);
-    hold_clock_colors[eHoldState_pause][FighterEnum::Second] =
+    hold_clock_colors[eHoldState_pause][ToIndex(ContestSide::SideB)] =
         ColorPair(Qt::darkGray, m_TextBgColorSecond);
 
-    ScaledText* pClocks[2] = { ui->text_hold_clock_first, ui->text_hold_clock_second };
+    ScaledText* pClocks[ToIndex(ContestSide::Count)] = { ui->text_hold_clock_first,
+                                                         ui->text_hold_clock_second };
 
     // reset drawing first
-    pClocks[first]->SetColor(hold_clock_colors[eHoldState_off][FighterEnum::First].fg,
-                             hold_clock_colors[eHoldState_off][FighterEnum::First].bg);
+    pClocks[ToIndex(sideA)]->SetColor(
+        hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideA)].fg,
+        hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideA)].bg);
 
-    pClocks[second]->SetColor(hold_clock_colors[eHoldState_off][FighterEnum::Second].fg,
-                              hold_clock_colors[eHoldState_off][FighterEnum::Second].bg);
+    pClocks[ToIndex(sideB)]->SetColor(
+        hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideB)].fg,
+        hold_clock_colors[eHoldState_off][ToIndex(ContestSide::SideB)].bg);
 
-    pClocks[first]->SetText("00", ScaledText::eSize_full);
-    pClocks[second]->SetText("00", ScaledText::eSize_full);
+    pClocks[ToIndex(sideA)]->SetText("00", ScaledText::eSize_full);
+    pClocks[ToIndex(sideB)]->SetText("00", ScaledText::eSize_full);
     ui->image_sand_clock->SetBgColor(Qt::black);
 
     // no one holding?
-    if (FighterEnum::Nobody == holder)
+    if (ContestSide::None == holder)
     {
         if (is_secondary())
         {
-            pClocks[FighterEnum::First]->SetText("", ScaledText::eSize_full);
-            pClocks[FighterEnum::Second]->SetText("", ScaledText::eSize_full);
+            pClocks[ToIndex(ContestSide::SideA)]->SetText("", ScaledText::eSize_full);
+            pClocks[ToIndex(ContestSide::SideB)]->SetText("", ScaledText::eSize_full);
             ui->image_sand_clock->UpdateImage(":res/images/off_empty.png");
         }
 
@@ -979,21 +996,25 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
     // set spectial hold states
     if (eHoldState_on == state)
     {
-        pClocks[GVF_(holder)]->SetColor(hold_clock_colors[eHoldState_on][holder].fg,
-                                        hold_clock_colors[eHoldState_on][holder].bg);
+        const auto mappedHolder = MapDisplayPositionToContestSide(holder);
+        pClocks[ToIndex(mappedHolder)]->SetColor(
+            hold_clock_colors[eHoldState_on][ToIndex(holder)].fg,
+            hold_clock_colors[eHoldState_on][ToIndex(holder)].bg);
 
-        pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
+        pClocks[ToIndex(mappedHolder)]->SetText(value, ScaledText::eSize_full);
 
-        ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][holder].bg);
+        ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][ToIndex(holder)].bg);
     }
     else if (eHoldState_pause == state)
     {
-        pClocks[GVF_(holder)]->SetColor(hold_clock_colors[eHoldState_pause][holder].fg,
-                                        hold_clock_colors[eHoldState_pause][holder].bg);
+        const auto mappedHolder = MapDisplayPositionToContestSide(holder);
+        pClocks[ToIndex(mappedHolder)]->SetColor(
+            hold_clock_colors[eHoldState_pause][ToIndex(holder)].fg,
+            hold_clock_colors[eHoldState_pause][ToIndex(holder)].bg);
 
-        pClocks[GVF_(holder)]->SetText(value, ScaledText::eSize_full);
+        pClocks[ToIndex(mappedHolder)]->SetText(value, ScaledText::eSize_full);
 
-        ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][holder].bg);
+        ui->image_sand_clock->SetBgColor(hold_clock_colors[eHoldState_on][ToIndex(holder)].bg);
     }
     else
     {
@@ -1008,12 +1029,12 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
         //		ui->layout_info->setStretchFactor(ui->layout_name_first, 4);
         //		ui->layout_info->setStretchFactor(ui->layout_name_second, 4);
 
-        if (FighterEnum::First == holder)
+        if (ContestSide::SideA == holder)
         {
             ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 7);
             ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 0);
         }
-        else if (FighterEnum::Second == holder)
+        else if (ContestSide::SideB == holder)
         {
             ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_first, 0);
             ui->layout_osaekomi->setStretchFactor(ui->text_hold_clock_second, 7);
@@ -1026,15 +1047,21 @@ void View::update_hold_clock(FighterEnum holder, EHoldState state) const
 }
 
 //=========================================================
-Ipponboard::FighterEnum View::GVF_(const Ipponboard::FighterEnum f) const
+Ipponboard::ContestSide View::MapDisplayPositionToContestSide(
+    const Ipponboard::ContestSide side) const
 //=========================================================
 {
-    if (!is_secondary())
+    if (!IsContestSide(side))
     {
-        return (f == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
+        return side;
     }
 
-    return f;
+    if (!is_secondary())
+    {
+        return OpposingSide(side);
+    }
+
+    return side;
 }
 
 //=========================================================

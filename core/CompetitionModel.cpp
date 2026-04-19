@@ -18,7 +18,7 @@ enum
 };
 
 //=========================================================
-CompetitionModel::CompetitionModel(Ipponboard::PCompetitionRound pCompetition, QObject* parent)
+CompetitionModel::CompetitionModel(Ipponboard::PContestRound pCompetition, QObject* parent)
     //=========================================================
     : QAbstractTableModel(parent),
       m_pCompetitionRound(pCompetition),
@@ -132,68 +132,75 @@ QVariant CompetitionModel::data(const QModelIndex& index, int role) const
         {
             const int row = index.row();
 
-            const Ipponboard::Fight& fight = m_pCompetitionRound->at(row);
+            const Ipponboard::Contest& contest = m_pCompetitionRound->at(row);
 
             switch (index.column())
             {
             case eCol_weight:
-                return fight.weight;
+                return contest.weight;
 
             case eCol_name1:
-                return fight.fighters[0].name;
+                return contest.GetAthlete(Ipponboard::ContestSide::SideA).name;
 
             case eCol_yuko1:
-                return display_string(fight.is_saved, fight.GetScore1().Yuko());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideA).Yuko());
 
             case eCol_wazaari1:
-                return display_string(fight.is_saved, fight.GetScore1().Wazaari());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideA).Wazaari());
 
             case eCol_ippon1:
-                return fight.GetScore1().Ippon() ? "1" : "";
+                return contest.GetScore(Ipponboard::ContestSide::SideA).Ippon() ? "1" : "";
 
             case eCol_hansokumake1:
-                return fight.GetScore1().Hansokumake() ? "1" : "";
+                return contest.GetScore(Ipponboard::ContestSide::SideA).Hansokumake() ? "1" : "";
 
             case eCol_shido1:
-                return display_string(fight.is_saved, fight.GetScore1().Shido());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideA).Shido());
 
             case eCol_won1:
-                return display_string(fight.is_saved, fight.HasWon(Ipponboard::FighterEnum::First));
+                return display_string(contest.is_saved,
+                                      contest.HasWon(Ipponboard::ContestSide::SideA));
 
             case eCol_score1:
-                return display_string(fight.is_saved,
-                                      fight.GetScorePoints(Ipponboard::FighterEnum::First));
+                return display_string(contest.is_saved,
+                                      contest.GetScorePoints(Ipponboard::ContestSide::SideA));
 
             case eCol_name2:
-                return fight.fighters[1].name;
+                return contest.GetAthlete(Ipponboard::ContestSide::SideB).name;
 
             case eCol_yuko2:
-                return display_string(fight.is_saved, fight.GetScore2().Yuko());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideB).Yuko());
 
             case eCol_wazaari2:
-                return display_string(fight.is_saved, fight.GetScore2().Wazaari());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideB).Wazaari());
 
             case eCol_ippon2:
-                return fight.GetScore2().Ippon() ? "1" : "";
+                return contest.GetScore(Ipponboard::ContestSide::SideB).Ippon() ? "1" : "";
 
             case eCol_hansokumake2:
-                return fight.GetScore2().Hansokumake() ? "1" : "";
+                return contest.GetScore(Ipponboard::ContestSide::SideB).Hansokumake() ? "1" : "";
 
             case eCol_shido2:
-                return display_string(fight.is_saved, fight.GetScore2().Shido());
+                return display_string(contest.is_saved,
+                                      contest.GetScore(Ipponboard::ContestSide::SideB).Shido());
 
             case eCol_won2:
-                return display_string(fight.is_saved,
-                                      fight.HasWon(Ipponboard::FighterEnum::Second));
+                return display_string(contest.is_saved,
+                                      contest.HasWon(Ipponboard::ContestSide::SideB));
 
             case eCol_score2:
-                return display_string(fight.is_saved,
-                                      fight.GetScorePoints(Ipponboard::FighterEnum::Second));
+                return display_string(contest.is_saved,
+                                      contest.GetScorePoints(Ipponboard::ContestSide::SideB));
 
             case eCol_time_remaining:
             {
                 // get time display
-                return fight.GetTimeRemainingString();
+                return contest.GetTimeRemainingString();
             }
 
             case eCol_time:
@@ -222,9 +229,9 @@ QVariant CompetitionModel::data(const QModelIndex& index, int role) const
                                       QString::number(score.second));
 
                 // get time display
-                QString ret = fight.GetTotalTimeElapsedString();
+                QString ret = contest.GetTotalTimeElapsedString();
 
-                if (ret == QString("0:00") && !fight.is_saved)
+                if (ret == QString("0:00") && !contest.is_saved)
                 {
                     return QString();
                 }
@@ -303,41 +310,46 @@ bool CompetitionModel::setData(const QModelIndex& index, const QVariant& value, 
     {
         const int row = index.row();
 
-        Ipponboard::Fight& fight = m_pCompetitionRound->at(row);
+        Ipponboard::Contest& contest = m_pCompetitionRound->at(row);
 
         switch (index.column())
         {
         case eCol_weight:
-            fight.weight = value.toString();
+            contest.weight = value.toString();
             result = true;
             break;
 
         case eCol_name1:
-            fight.fighters[0].name = value.toString();
+            contest.GetAthlete(Ipponboard::ContestSide::SideA).name = value.toString();
             result = true;
             break;
 
         case eCol_yuko1:
-            fight.GetScore1().SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideA)
+                .SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
             result = true;
             break;
 
         case eCol_wazaari1:
-            fight.GetScore1().SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideA)
+                .SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
             result = true;
             break;
 
         case eCol_ippon1:
-            fight.GetScore1().SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideA)
+                .SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
             result = true;
             break;
 
         case eCol_hansokumake1:
-            fight.GetScore1().SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideA)
+                .SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
             break;
 
         case eCol_shido1:
-            fight.GetScore1().SetValue(Ipponboard::Score::Point::Shido, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideA)
+                .SetValue(Ipponboard::Score::Point::Shido, value.toInt());
             break;
 
         case eCol_won1:
@@ -346,32 +358,37 @@ bool CompetitionModel::setData(const QModelIndex& index, const QVariant& value, 
             break;
 
         case eCol_name2:
-            fight.fighters[1].name = value.toString();
+            contest.GetAthlete(Ipponboard::ContestSide::SideB).name = value.toString();
             result = true;
             break;
 
         case eCol_yuko2:
-            fight.GetScore2().SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideB)
+                .SetValue(Ipponboard::Score::Point::Yuko, value.toInt());
             result = true;
             break;
 
         case eCol_wazaari2:
-            fight.GetScore2().SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideB)
+                .SetValue(Ipponboard::Score::Point::Wazaari, value.toInt());
             result = true;
             break;
 
         case eCol_ippon2:
-            fight.GetScore2().SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideB)
+                .SetValue(Ipponboard::Score::Point::Ippon, value.toInt());
             result = true;
             break;
 
         case eCol_hansokumake2:
-            fight.GetScore2().SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideB)
+                .SetValue(Ipponboard::Score::Point::Hansokumake, value.toInt());
             result = true;
             break;
 
         case eCol_shido2:
-            fight.GetScore2().SetValue(Ipponboard::Score::Point::Shido, value.toInt());
+            contest.GetScore(Ipponboard::ContestSide::SideB)
+                .SetValue(Ipponboard::Score::Point::Shido, value.toInt());
             result = true;
             break;
 
@@ -387,7 +404,7 @@ bool CompetitionModel::setData(const QModelIndex& index, const QVariant& value, 
 
         case eCol_time:
         {
-            result = fight.SetElapsedFromTotalTime(value.toString());
+            result = contest.SetElapsedFromTotalTime(value.toString());
             break;
         }
 
@@ -454,8 +471,8 @@ std::pair<unsigned, unsigned> CompetitionModel::GetTotalWins() const
 
     for (int i(0); i < m_nRows; ++i)
     {
-        wins1 += m_pCompetitionRound->at(i).HasWon(Ipponboard::FighterEnum::First);
-        wins2 += m_pCompetitionRound->at(i).HasWon(Ipponboard::FighterEnum::Second);
+        wins1 += m_pCompetitionRound->at(i).HasWon(Ipponboard::ContestSide::SideA);
+        wins2 += m_pCompetitionRound->at(i).HasWon(Ipponboard::ContestSide::SideB);
     }
 
     return std::make_pair(wins1, wins2);
@@ -470,16 +487,16 @@ std::pair<unsigned, unsigned> CompetitionModel::GetTotalScore() const
 
     for (int i(0); i < m_nRows; ++i)
     {
-        score1 += m_pCompetitionRound->at(i).GetScorePoints(Ipponboard::FighterEnum::First);
-        score2 += m_pCompetitionRound->at(i).GetScorePoints(Ipponboard::FighterEnum::Second);
+        score1 += m_pCompetitionRound->at(i).GetScorePoints(Ipponboard::ContestSide::SideA);
+        score2 += m_pCompetitionRound->at(i).GetScorePoints(Ipponboard::ContestSide::SideB);
     }
 
     return std::make_pair(score1, score2);
 }
 
-QString CompetitionModel::display_string(bool isFightSaved, int number)
+QString CompetitionModel::display_string(bool isContestSaved, int number)
 {
-    if (isFightSaved || number != 0)
+    if (isContestSaved || number != 0)
     {
         return QString::number(number);
     }

@@ -14,22 +14,24 @@ CompetitionMode simple_mode()
     mode.title = "Test";
     mode.weights = "-60;-73";
     mode.nRounds = 1;
-    mode.fightTimeInSeconds = 180;
+    mode.timeInSeconds = 180;
     mode.weightsAreDoubled = false;
     return mode;
 }
 } // namespace
 
-TEST_CASE("[CompetitionModel] Aggregates wins and score across fights")
+TEST_CASE("[CompetitionModel] Aggregates wins and score across contests")
 {
     ControllerFixture fixture;
     auto mode = simple_mode();
 
     fixture.controller.InitCompetition(mode);
 
-    fixture.controller.SetFight(0, 0, "-60", "Alice", "", "Bob", "", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    fixture.controller.SetContest(
+        0, 0, "-60", "Alice", "", "Bob", "", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
-    fixture.controller.SetFight(0, 1, "-73", "Carol", "", "Dave", "", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+    fixture.controller.SetContest(
+        0, 1, "-73", "Carol", "", "Dave", "", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 
     auto model = fixture.controller.GetCompetitionScoreModel();
 
@@ -42,14 +44,14 @@ TEST_CASE("[CompetitionModel] Aggregates wins and score across fights")
     REQUIRE(scores.second == 7);
 }
 
-TEST_CASE("[CompetitionModel] Data returns fight details for display role")
+TEST_CASE("[CompetitionModel] Data returns contest details for display role")
 {
     ControllerFixture fixture;
     auto mode = simple_mode();
 
     fixture.controller.InitCompetition(mode);
 
-    fixture.controller.SetFight(
+    fixture.controller.SetContest(
         0, 0, "-60", "Alice", "Club A", "Bob", "Club B", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
     auto model = fixture.controller.GetCompetitionScoreModel();

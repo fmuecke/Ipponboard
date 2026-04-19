@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QString>
 #include <QTemporaryDir>
+#include <QTemporaryFile>
 #include <catch2/catch_test_macros.hpp>
 
 using namespace Ipponboard;
@@ -27,7 +28,7 @@ CompetitionSaveData MakeSampleData()
     data.home = "Home Club";
     data.guest = "Guest Club";
     data.currentRound = 1;
-    data.currentFight = 2;
+    data.currentContest = 2;
     data.infoTextFg = QColor(Qt::yellow).rgb();
     data.infoTextBg = QColor(Qt::black).rgb();
     data.firstFg = QColor(Qt::white).rgb();
@@ -43,39 +44,39 @@ CompetitionSaveData MakeSampleData()
     mode.weights = "60,66,73";
     mode.weightsAreDoubled = true;
     mode.nRounds = 2;
-    mode.fightTimeInSeconds = 180;
-    mode.fightTimeOverrides = { { "73", 120 } };
+    mode.timeInSeconds = 180;
+    mode.contestTimeOverrides = { { "73", 120 } };
     mode.rules = "Default";
     mode.options = "SubscoreEnabled";
     data.mode = mode;
 
-    Fight firstFight;
-    firstFight.weight = "60";
-    firstFight.SetSecondsElapsed(45);
-    firstFight.SetRoundTime(180);
-    firstFight.SetGoldenScore(true);
-    firstFight.is_saved = true;
-    firstFight.fighters[0].name = "First One";
-    firstFight.fighters[0].club = "Home Club";
-    firstFight.GetScore1().SetValue(Score::Point::Ippon, 1);
-    firstFight.fighters[1].name = "Second One";
-    firstFight.fighters[1].club = "Guest Club";
-    firstFight.GetScore2().SetValue(Score::Point::Wazaari, 2);
+    Contest firstContest;
+    firstContest.weight = "60";
+    firstContest.SetSecondsElapsed(45);
+    firstContest.SetRoundTime(180);
+    firstContest.SetGoldenScore(true);
+    firstContest.is_saved = true;
+    firstContest.GetAthlete(ContestSide::SideA).name = "First One";
+    firstContest.GetAthlete(ContestSide::SideA).club = "Home Club";
+    firstContest.GetScore(ContestSide::SideA).SetValue(Score::Point::Ippon, 1);
+    firstContest.GetAthlete(ContestSide::SideB).name = "Second One";
+    firstContest.GetAthlete(ContestSide::SideB).club = "Guest Club";
+    firstContest.GetScore(ContestSide::SideB).SetValue(Score::Point::Wazaari, 2);
 
-    Fight secondFight;
-    secondFight.weight = "66";
-    secondFight.SetSecondsElapsed(100);
-    secondFight.SetRoundTime(180);
-    secondFight.SetGoldenScore(false);
-    secondFight.is_saved = false;
-    secondFight.fighters[0].name = "Home Fighter";
-    secondFight.fighters[0].club = "Home Club";
-    secondFight.GetScore1().SetValue(Score::Point::Shido, 1);
-    secondFight.fighters[1].name = "Guest Fighter";
-    secondFight.fighters[1].club = "Guest Club";
-    secondFight.GetScore2().SetValue(Score::Point::Yuko, 3);
+    Contest secondContest;
+    secondContest.weight = "66";
+    secondContest.SetSecondsElapsed(100);
+    secondContest.SetRoundTime(180);
+    secondContest.SetGoldenScore(false);
+    secondContest.is_saved = false;
+    secondContest.GetAthlete(ContestSide::SideA).name = "Home Fighter";
+    secondContest.GetAthlete(ContestSide::SideA).club = "Home Club";
+    secondContest.GetScore(ContestSide::SideA).SetValue(Score::Point::Shido, 1);
+    secondContest.GetAthlete(ContestSide::SideB).name = "Guest Fighter";
+    secondContest.GetAthlete(ContestSide::SideB).club = "Guest Club";
+    secondContest.GetScore(ContestSide::SideB).SetValue(Score::Point::Yuko, 3);
 
-    data.rounds = { { firstFight, secondFight }, { secondFight } };
+    data.rounds = { { firstContest, secondContest }, { secondContest } };
 
     return data;
 }
@@ -96,13 +97,13 @@ TEST_CASE("ToJson serializes provided data")
     const auto rounds = object["Rounds"].toArray();
     REQUIRE(rounds.size() == static_cast<int>(data.rounds.size()));
 
-    const auto firstFight = rounds.first().toArray().first().toObject();
-    CHECK(firstFight["Weight"].toString() == data.rounds.front().front().weight);
-    CHECK(firstFight["IsGoldenScore"].toBool() == data.rounds.front().front().IsGoldenScore());
-    CHECK(firstFight["FirstFighter"].toObject()["Name"].toString() ==
-          data.rounds.front().front().GetFighter(FighterEnum::First).name);
-    CHECK(firstFight["SecondFighter"].toObject()["Wazaari"].toInt() ==
-          data.rounds.front().front().GetScore2().Value(Score::Point::Wazaari));
+    const auto firstContest = rounds.first().toArray().first().toObject();
+    CHECK(firstContest["Weight"].toString() == data.rounds.front().front().weight);
+    CHECK(firstContest["IsGoldenScore"].toBool() == data.rounds.front().front().IsGoldenScore());
+    CHECK(firstContest["SideA"].toObject()["Name"].toString() ==
+          data.rounds.front().front().GetAthlete(ContestSide::SideA).name);
+    CHECK(firstContest["SideB"].toObject()["Wazaari"].toInt() ==
+          data.rounds.front().front().GetScore(ContestSide::SideB).Value(Score::Point::Wazaari));
 }
 
 TEST_CASE("Conversion to and from json results in same data")
@@ -121,8 +122,7 @@ TEST_CASE("Conversion to and from json results in same data")
 
     const auto outDoc = CompetitionSerialization::ToJson(data);
     REQUIRE_FALSE(outDoc.isNull());
-    REQUIRE(doc.toJson(QJsonDocument::Compact).toStdString() ==
-            outDoc.toJson(QJsonDocument::Compact).toStdString());
+    REQUIRE(doc == outDoc);
 }
 
 TEST_CASE("CreateFromJson round-trips competition data")
@@ -139,8 +139,9 @@ TEST_CASE("CreateFromJson round-trips competition data")
     CHECK(parsed.guest == original.guest);
     CHECK(parsed.mode.id == original.mode.id);
     REQUIRE(parsed.rounds.size() == original.rounds.size());
-    CHECK(parsed.rounds.front().front().GetScore2().Value(Score::Point::Wazaari) ==
-          original.rounds.front().front().GetScore2().Value(Score::Point::Wazaari));
+    CHECK(
+        parsed.rounds.front().front().GetScore(ContestSide::SideB).Value(Score::Point::Wazaari) ==
+        original.rounds.front().front().GetScore(ContestSide::SideB).Value(Score::Point::Wazaari));
     CHECK(parsed.rounds.back().size() == original.rounds.back().size());
 }
 
@@ -169,12 +170,10 @@ SCENARIO("Autosave files on disk can be read back into JSON documents")
 {
     GIVEN("a persisted autosave file containing the latest competition state")
     {
-        QTemporaryDir tempDir;
-        REQUIRE(tempDir.isValid());
-
-        const auto filePath = tempDir.filePath("Ipponboard-autosave.json");
-        QFile file(filePath);
-        REQUIRE(file.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        QTemporaryFile file(QDir::temp().filePath("Ipponboard-autosave-XXXXXX.json"));
+        file.setAutoRemove(true);
+        REQUIRE(file.open());
+        const auto filePath = file.fileName();
         file.write(TestData::IpponboardAutosaveJson);
         file.close();
 

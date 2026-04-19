@@ -37,8 +37,8 @@ class CompetitionMode
     static QString const& str_Options;
     static QString const& str_Rules;
     static QString const& str_Rounds;
-    static QString const& str_FightTimeInSeconds;
-    static QString const& str_FightTimeOverrides;
+    static QString const& str_TimeInSeconds;
+    static QString const& str_TimeOverrides;
     static QString const& str_WeightsAreDoubled;
     static QString const& str_none;
     static QString const& str_Option_AllSubscoresCount;
@@ -56,8 +56,8 @@ class CompetitionMode
     int GetFightDuration(QString const& weight) const;
     bool IsOptionSet(QString const& option) const;
     void SetOption(QString const& option, bool checked);
-    QString GetFightTimeOverridesString() const;
-    static bool ExtractFightTimeOverrides(QString const& overridesString, OverridesList& overrides);
+    QString GetTimeOverridesString() const;
+    static bool ExtractTimeOverrides(QString const& overridesString, OverridesList& overrides);
 
   private:
     static bool parse_current_group(QSettings const& config, CompetitionMode& tm,
@@ -73,9 +73,9 @@ class CompetitionMode
     QString listTemplate;
     QString options;
     QString rules{ RulesFactory::GetDefaultName() };
-    OverridesList fightTimeOverrides;
+    OverridesList contestTimeOverrides;
     int nRounds;
-    int fightTimeInSeconds; // TODO: rename to duration!
+    int timeInSeconds; // TODO: rename to duration!
     bool weightsAreDoubled;
 };
 

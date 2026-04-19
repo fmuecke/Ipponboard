@@ -8,27 +8,27 @@ namespace
 constexpr unsigned int kDefaultIndex = 0;
 }
 
-CompetitionNavigator::CompetitionNavigator(Competition& competition) : m_tournament(competition) {}
+CompetitionNavigator::CompetitionNavigator(Competition& competition) : m_competition(competition) {}
 
 unsigned int CompetitionNavigator::roundCount() const
 {
-    return static_cast<unsigned int>(m_tournament.size());
+    return static_cast<unsigned int>(m_competition.size());
 }
 
-unsigned int CompetitionNavigator::fightCount() const
+unsigned int CompetitionNavigator::contestCount() const
 {
-    if (m_tournament.empty())
+    if (m_competition.empty())
     {
         return 0;
     }
 
-    return static_cast<unsigned int>(m_tournament.front()->size());
+    return static_cast<unsigned int>(m_competition.front()->size());
 }
 
 void CompetitionNavigator::reset()
 {
     m_currentRound = kDefaultIndex;
-    m_currentFight = kDefaultIndex;
+    m_currentContest = kDefaultIndex;
 }
 
 void CompetitionNavigator::setCurrentRound(unsigned int index)
@@ -36,68 +36,68 @@ void CompetitionNavigator::setCurrentRound(unsigned int index)
     if (index < roundCount())
     {
         m_currentRound = index;
-        if (m_currentFight >= fightCount())
+        if (m_currentContest >= contestCount())
         {
-            m_currentFight = fightCount() > 0 ? fightCount() - 1 : 0;
+            m_currentContest = contestCount() > 0 ? contestCount() - 1 : 0;
         }
     }
 }
 
-void CompetitionNavigator::setCurrentFight(unsigned int index)
+void CompetitionNavigator::setCurrentContest(unsigned int index)
 {
-    if (fightCount() == 0)
+    if (contestCount() == 0)
     {
-        m_currentFight = 0;
+        m_currentContest = 0;
         return;
     }
 
-    if (index < fightCount())
+    if (index < contestCount())
     {
-        m_currentFight = index;
+        m_currentContest = index;
     }
     else
     {
-        m_currentFight = fightCount() - 1;
+        m_currentContest = contestCount() - 1;
     }
 }
 
-void CompetitionNavigator::nextFight()
+void CompetitionNavigator::nextContest()
 {
-    if (fightCount() == 0)
+    if (contestCount() == 0)
     {
         return;
     }
 
-    if (m_currentFight + 1 < fightCount())
+    if (m_currentContest + 1 < contestCount())
     {
-        ++m_currentFight;
+        ++m_currentContest;
         return;
     }
 
     if (m_currentRound + 1 < roundCount())
     {
         ++m_currentRound;
-        m_currentFight = kDefaultIndex;
+        m_currentContest = kDefaultIndex;
     }
 }
 
-void CompetitionNavigator::prevFight()
+void CompetitionNavigator::prevContest()
 {
-    if (fightCount() == 0)
+    if (contestCount() == 0)
     {
         return;
     }
 
-    if (m_currentFight > 0)
+    if (m_currentContest > 0)
     {
-        --m_currentFight;
+        --m_currentContest;
         return;
     }
 
     if (m_currentRound > 0)
     {
         --m_currentRound;
-        m_currentFight = fightCount() > 0 ? fightCount() - 1 : 0;
+        m_currentContest = contestCount() > 0 ? contestCount() - 1 : 0;
     }
 }
 

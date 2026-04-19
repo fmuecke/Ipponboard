@@ -29,7 +29,7 @@ void IpponboardSM::ToggleMainTimer()
     }
 }
 
-void IpponboardSM::BeginHold(FighterEnum who)
+void IpponboardSM::BeginHold(ContestSide who)
 {
     m_holder = who;
 
@@ -62,11 +62,11 @@ void IpponboardSM::EndHold()
     m_state = mainTimeIsUp() ? eState_TimerStopped : eState_TimerRunning;
 }
 
-void IpponboardSM::SetHoldOwner(FighterEnum who) { m_holder = who; }
+void IpponboardSM::SetHoldOwner(ContestSide who) { m_holder = who; }
 
-void IpponboardSM::ClearHoldOwner() { m_holder = FighterEnum::Nobody; }
+void IpponboardSM::ClearHoldOwner() { m_holder = ContestSide::None; }
 
-void IpponboardSM::AwardPoint(Score::Point point, FighterEnum who)
+void IpponboardSM::AwardPoint(Score::Point point, ContestSide who)
 {
     switch (point)
     {
@@ -125,7 +125,7 @@ void IpponboardSM::AwardPoint(Score::Point point, FighterEnum who)
     }
 }
 
-void IpponboardSM::RevokePoint(Score::Point point, FighterEnum who)
+void IpponboardSM::RevokePoint(Score::Point point, ContestSide who)
 {
     switch (point)
     {
@@ -152,7 +152,7 @@ void IpponboardSM::RevokePoint(Score::Point point, FighterEnum who)
     }
 }
 
-void IpponboardSM::AwardShido(FighterEnum who)
+void IpponboardSM::AwardShido(ContestSide who)
 {
     switch (m_state)
     {
@@ -173,7 +173,7 @@ void IpponboardSM::AwardShido(FighterEnum who)
     }
 }
 
-void IpponboardSM::RevokeShido(FighterEnum who)
+void IpponboardSM::RevokeShido(ContestSide who)
 {
     if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
         m_state == eState_Holding)
@@ -182,7 +182,7 @@ void IpponboardSM::RevokeShido(FighterEnum who)
     }
 }
 
-void IpponboardSM::RevokeHansokumake(FighterEnum who)
+void IpponboardSM::RevokeHansokumake(ContestSide who)
 {
     if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
         m_state == eState_Holding)
@@ -192,7 +192,7 @@ void IpponboardSM::RevokeHansokumake(FighterEnum who)
     }
 }
 
-void IpponboardSM::AwardHansokumake(FighterEnum who)
+void IpponboardSM::AwardHansokumake(ContestSide who)
 {
     if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
         m_state == eState_Holding)
@@ -202,29 +202,29 @@ void IpponboardSM::AwardHansokumake(FighterEnum who)
     }
 }
 
-void IpponboardSM::ResetFight()
+void IpponboardSM::ResetContest()
 {
     if (m_state == eState_TimerStopped || m_state == eState_TimerRunning ||
         m_state == eState_Holding)
     {
-        resetFight();
+        resetContest();
         m_state = eState_TimerStopped;
         ClearHoldOwner();
     }
 }
 
-void IpponboardSM::FinishFight()
+void IpponboardSM::FinishContest()
 {
     switch (m_state)
     {
     case eState_TimerStopped:
-        saveFight();
+        saveContest();
         break;
 
     case eState_TimerRunning:
     case eState_Holding:
         stopAllTimers();
-        saveFight();
+        saveContest();
         m_state = eState_TimerStopped;
         break;
 
@@ -244,7 +244,7 @@ void IpponboardSM::OnMainTimerElapsed()
 
 void IpponboardSM::OnHoldTimerTick(int seconds)
 {
-    if (m_state != eState_Holding || m_holder == FighterEnum::Nobody)
+    if (m_state != eState_Holding || m_holder == ContestSide::None)
     {
         return;
     }
@@ -269,7 +269,7 @@ void IpponboardSM::OnHoldTimerTick(int seconds)
     }
 }
 
-void IpponboardSM::handleRunningWazaari(FighterEnum who)
+void IpponboardSM::handleRunningWazaari(ContestSide who)
 {
     if (isWazaariMatchPoint(who))
     {
@@ -282,7 +282,7 @@ void IpponboardSM::handleRunningWazaari(FighterEnum who)
     }
 }
 
-void IpponboardSM::handleRunningShido(FighterEnum who)
+void IpponboardSM::handleRunningShido(ContestSide who)
 {
     if (isShidoMatchPoint(who))
     {
@@ -344,9 +344,9 @@ void IpponboardSM::stopFight()
     m_state = eState_TimerStopped;
 }
 
-void IpponboardSM::resetFight() { m_core.reset_fight(); }
+void IpponboardSM::resetContest() { m_core.reset_contest(); }
 
-void IpponboardSM::saveFight() { m_core.save_fight(); }
+void IpponboardSM::saveContest() { m_core.save_contest(); }
 
 void IpponboardSM::startMainTimer()
 {
@@ -366,23 +366,23 @@ void IpponboardSM::stopAllTimers()
     m_core.stop_timer(eTimer_Main);
 }
 
-void IpponboardSM::awardPoint(Score::Point point, FighterEnum who) { score(who).Add(point); }
+void IpponboardSM::awardPoint(Score::Point point, ContestSide who) { score(who).Add(point); }
 
-void IpponboardSM::revokePoint(Score::Point point, FighterEnum who) { score(who).Remove(point); }
+void IpponboardSM::revokePoint(Score::Point point, ContestSide who) { score(who).Remove(point); }
 
-void IpponboardSM::awardIppon(FighterEnum who)
+void IpponboardSM::awardIppon(ContestSide who)
 {
     awardPoint(Point::Ippon, who);
     stopAllTimers();
 }
 
-void IpponboardSM::awardShido(FighterEnum who)
+void IpponboardSM::awardShido(ContestSide who)
 {
     auto rules = m_core.GetRules();
 
     if (m_core.is_auto_adjust())
     {
-        FighterEnum uke = GetUkeFromTori(who);
+        ContestSide uke = OpposingSide(who);
         auto maxShidoCount = rules->GetMaxShidoCount();
 
         if (maxShidoCount == score(who).Shido())
@@ -411,9 +411,9 @@ void IpponboardSM::awardShido(FighterEnum who)
     score(who).Add(Point::Shido);
 }
 
-void IpponboardSM::revokeShidoOrHansokumake(FighterEnum who)
+void IpponboardSM::revokeShidoOrHansokumake(ContestSide who)
 {
-    FighterEnum uke = GetUkeFromTori(who);
+    ContestSide uke = OpposingSide(who);
 
     if (score(who).Hansokumake())
     {
@@ -454,15 +454,15 @@ void IpponboardSM::revokeShidoOrHansokumake(FighterEnum who)
     score(who).Remove(Point::Shido);
 }
 
-void IpponboardSM::awardHansokumake(FighterEnum who)
+void IpponboardSM::awardHansokumake(ContestSide who)
 {
-    FighterEnum uke = GetUkeFromTori(who);
+    ContestSide uke = OpposingSide(who);
     score(uke).Add(Point::Ippon);
     score(who).Add(Point::Hansokumake);
     stopAllTimers();
 }
 
-void IpponboardSM::applyHoldScore(int seconds, FighterEnum who)
+void IpponboardSM::applyHoldScore(int seconds, ContestSide who)
 {
     auto rules = m_core.GetRules();
 
@@ -487,25 +487,25 @@ void IpponboardSM::applyHoldScore(int seconds, FighterEnum who)
     }
 }
 
-bool IpponboardSM::canAddWazaari(FighterEnum who) const
+bool IpponboardSM::canAddWazaari(ContestSide who) const
 {
     auto rules = m_core.GetRules();
     return rules->IsOption_AwaseteIppon() || score(who).Wazaari() < rules->GetMaxWazaariCount();
 }
 
-bool IpponboardSM::isWazaariMatchPoint(FighterEnum who) const
+bool IpponboardSM::isWazaariMatchPoint(ContestSide who) const
 {
     auto rules = m_core.GetRules();
     return rules->IsOption_AwaseteIppon() &&
            score(who).Wazaari() == rules->GetMaxWazaariCount() - 1;
 }
 
-bool IpponboardSM::canTakeShido(FighterEnum who) const
+bool IpponboardSM::canTakeShido(ContestSide who) const
 {
     return score(who).Shido() <= m_core.GetRules()->GetMaxShidoCount();
 }
 
-bool IpponboardSM::isShidoMatchPoint(FighterEnum who) const
+bool IpponboardSM::isShidoMatchPoint(ContestSide who) const
 {
     return score(who).Shido() == m_core.GetRules()->GetMaxShidoCount();
 }
@@ -523,7 +523,7 @@ bool IpponboardSM::hasWazaariTime(int seconds) const
 bool IpponboardSM::hasAwaseteTime(int seconds) const
 {
     auto rules = m_core.GetRules();
-    if (rules->IsOption_AwaseteIppon() && m_holder != FighterEnum::Nobody &&
+    if (rules->IsOption_AwaseteIppon() && m_holder != ContestSide::None &&
         score(m_holder).Wazaari() != 0)
     {
         return rules->GetOsaekomiValue(Point::Wazaari) == seconds;
@@ -542,5 +542,5 @@ bool IpponboardSM::mainTimeIsUp() const { return m_core.get_time(eTimer_Main) ==
 int IpponboardSM::compareScore() const
 {
     return m_core.GetRules()->CompareScore(
-        score(FighterEnum::First), score(FighterEnum::Second), m_core.is_golden_score());
+        score(ContestSide::SideA), score(ContestSide::SideB), m_core.is_golden_score());
 }

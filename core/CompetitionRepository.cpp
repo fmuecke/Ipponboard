@@ -1,170 +1,170 @@
 #include "CompetitionRepository.h"
 
 #include "CompetitionMode.h"
-#include "Fight.h"
-
+#include "Contest.h"
 
 namespace Ipponboard
 {
 
 CompetitionRepository::CompetitionRepository(Competition& competition,
                                              std::vector<std::shared_ptr<CompetitionModel>>& models)
-    : m_tournament(competition), m_models(models)
+    : m_competition(competition), m_models(models)
 {
 }
 
-Fight& CompetitionRepository::fight(unsigned int round, unsigned int index)
+Contest& CompetitionRepository::contest(unsigned int round, unsigned int index)
 {
-    return m_tournament.at(round)->at(index);
+    return m_competition.at(round)->at(index);
 }
 
-Fight const& CompetitionRepository::fight(unsigned int round, unsigned int index) const
+Contest const& CompetitionRepository::contest(unsigned int round, unsigned int index) const
 {
-    return m_tournament.at(round)->at(index);
+    return m_competition.at(round)->at(index);
 }
 
-void CompetitionRepository::setFight(
-    unsigned int round_index, unsigned int fight_index, const QString& weight,
-    const QString& first_player_name, const QString& first_player_club,
-    const QString& second_player_name, const QString& second_player_club, int yuko1, int wazaari1,
-    int ippon1, int shido1, int hansokumake1, int yuko2, int wazaari2, int ippon2, int shido2,
-    int hansokumake2, std::shared_ptr<AbstractRules> const& rules, const QString& emptyName)
+void CompetitionRepository::setContest(
+    unsigned int roundIndex, unsigned int contestIndex, const QString& weight,
+    const QString& sideAName, const QString& sideAClub, const QString& sideBName,
+    const QString& sideBClub, int yukoSideA, int wazaariSideA, int ipponSideA, int shidoSideA,
+    int hansokumakeSideA, int yukoSideB, int wazaariSideB, int ipponSideB, int shidoSideB,
+    int hansokumakeSideB, std::shared_ptr<AbstractRules> const& rules, const QString& emptyName)
 {
-    Fight& target = fight(round_index, fight_index);
+    Contest& target = contest(roundIndex, contestIndex);
     target.weight = weight;
     target.SetSecondsElapsed(0);
     target.rules = rules;
 
-    auto First = FighterEnum::First;
-    auto Second = FighterEnum::Second;
+    auto sideA = ContestSide::SideA;
+    auto sideB = ContestSide::SideB;
     auto Yuko = Score::Point::Yuko;
     auto Wazaari = Score::Point::Wazaari;
     auto Ippon = Score::Point::Ippon;
     auto Shido = Score::Point::Shido;
     auto Hansokumake = Score::Point::Hansokumake;
 
-    target.fighters[First].name = first_player_name.isEmpty() ? emptyName : first_player_name;
-    target.fighters[First].club = first_player_club;
-    target.GetScore1().Clear();
+    target.GetAthlete(sideA).name = sideAName.isEmpty() ? emptyName : sideAName;
+    target.GetAthlete(sideA).club = sideAClub;
+    target.GetScore(sideA).Clear();
 
-    while (yuko1 != -1 && yuko1 > 0)
+    while (yukoSideA != -1 && yukoSideA > 0)
     {
-        target.GetScore1().Add(Yuko);
-        --yuko1;
+        target.GetScore(sideA).Add(Yuko);
+        --yukoSideA;
     }
 
-    while (wazaari1 != -1 && wazaari1 > 0)
+    while (wazaariSideA != -1 && wazaariSideA > 0)
     {
-        target.GetScore1().Add(Wazaari);
-        --wazaari1;
+        target.GetScore(sideA).Add(Wazaari);
+        --wazaariSideA;
     }
 
-    if (ippon1 > 0)
+    if (ipponSideA > 0)
     {
-        target.GetScore1().Add(Ippon);
+        target.GetScore(sideA).Add(Ippon);
     }
 
-    while (shido1 != -1 && shido1 > 0)
+    while (shidoSideA != -1 && shidoSideA > 0)
     {
-        target.GetScore1().Add(Shido);
-        --shido1;
+        target.GetScore(sideA).Add(Shido);
+        --shidoSideA;
     }
 
-    if (hansokumake1 > 0)
+    if (hansokumakeSideA > 0)
     {
-        target.GetScore1().Add(Hansokumake);
+        target.GetScore(sideA).Add(Hansokumake);
     }
 
-    target.fighters[Second].name = second_player_name.isEmpty() ? emptyName : second_player_name;
-    target.fighters[Second].club = second_player_club;
-    target.GetScore2().Clear();
+    target.GetAthlete(sideB).name = sideBName.isEmpty() ? emptyName : sideBName;
+    target.GetAthlete(sideB).club = sideBClub;
+    target.GetScore(sideB).Clear();
 
-    while (yuko2 != -1 && yuko2 > 0)
+    while (yukoSideB != -1 && yukoSideB > 0)
     {
-        target.GetScore2().Add(Yuko);
-        --yuko2;
+        target.GetScore(sideB).Add(Yuko);
+        --yukoSideB;
     }
 
-    while (wazaari2 != -1 && wazaari2 > 0)
+    while (wazaariSideB != -1 && wazaariSideB > 0)
     {
-        target.GetScore2().Add(Wazaari);
-        --wazaari2;
+        target.GetScore(sideB).Add(Wazaari);
+        --wazaariSideB;
     }
 
-    if (ippon2 > 0)
+    if (ipponSideB > 0)
     {
-        target.GetScore2().Add(Ippon);
+        target.GetScore(sideB).Add(Ippon);
     }
 
-    while (shido2 != -1 && shido2 > 0)
+    while (shidoSideB != -1 && shidoSideB > 0)
     {
-        target.GetScore2().Add(Shido);
-        --shido2;
+        target.GetScore(sideB).Add(Shido);
+        --shidoSideB;
     }
 
-    if (hansokumake2 > 0)
+    if (hansokumakeSideB > 0)
     {
-        target.GetScore1().Add(Hansokumake);
+        target.GetScore(sideB).Add(Hansokumake);
     }
 
-    m_models[round_index]->SetDataChanged();
+    m_models[roundIndex]->SetDataChanged();
 }
 
 void CompetitionRepository::clearAllFights(std::shared_ptr<AbstractRules> const& rules,
                                            const CompetitionMode& mode, const QString& emptyName)
 {
-    if (m_tournament.empty())
+    if (m_competition.empty())
     {
         return;
     }
 
-    for (unsigned int round = 0; round < m_tournament.size(); ++round)
+    for (unsigned int round = 0; round < m_competition.size(); ++round)
     {
-        for (unsigned int fightIndex = 0; fightIndex < m_tournament.front()->size(); ++fightIndex)
+        for (unsigned int contestIndex = 0; contestIndex < m_competition.front()->size();
+             ++contestIndex)
         {
-            setFight(round,
-                     fightIndex,
-                     QString(),
-                     QString(),
-                     QString(),
-                     QString(),
-                     QString(),
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     0,
-                     rules,
-                     emptyName);
-            Fight& f = fight(round, fightIndex);
-            f.SetRoundTime(mode.GetFightDuration(f.weight));
-            f.SetSecondsElapsed(0);
-            f.SetGoldenScore(false);
-            f.is_saved = false;
+            setContest(round,
+                       contestIndex,
+                       QString(),
+                       QString(),
+                       QString(),
+                       QString(),
+                       QString(),
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       0,
+                       rules,
+                       emptyName);
+            Contest& storedContest = contest(round, contestIndex);
+            storedContest.SetRoundTime(mode.GetFightDuration(storedContest.weight));
+            storedContest.SetSecondsElapsed(0);
+            storedContest.SetGoldenScore(false);
+            storedContest.is_saved = false;
         }
     }
 }
 
-void CompetitionRepository::saveFight(unsigned int round, unsigned int fightIndex,
-                                      int elapsedSeconds)
+void CompetitionRepository::saveContest(unsigned int round, unsigned int contestIndex,
+                                        int elapsedSeconds)
 {
-    Fight& current = fight(round, fightIndex);
+    Contest& current = contest(round, contestIndex);
     current.SetSecondsElapsed(elapsedSeconds);
     current.is_saved = true;
 }
 
-void CompetitionRepository::resetFightData(unsigned int round, unsigned int fightIndex,
-                                           std::shared_ptr<AbstractRules> const& rules,
-                                           const CompetitionMode& mode)
+void CompetitionRepository::resetContestData(unsigned int round, unsigned int contestIndex,
+                                             std::shared_ptr<AbstractRules> const& rules,
+                                             const CompetitionMode& mode)
 {
-    Fight& current = fight(round, fightIndex);
-    current.GetScore1().Clear();
-    current.GetScore2().Clear();
+    Contest& current = contest(round, contestIndex);
+    current.GetScore(ContestSide::SideA).Clear();
+    current.GetScore(ContestSide::SideB).Clear();
     current.SetSecondsElapsed(0);
     current.SetGoldenScore(false);
     current.is_saved = false;
@@ -174,37 +174,37 @@ void CompetitionRepository::resetFightData(unsigned int round, unsigned int figh
 
 void CompetitionRepository::setWeights(const QStringList& weights, const CompetitionMode& mode)
 {
-    if (m_tournament.empty())
+    if (m_competition.empty())
     {
         return;
     }
 
-    const auto fightsPerRound = static_cast<int>(m_tournament.front()->size());
+    const auto contestsPerRound = static_cast<int>(m_competition.front()->size());
 
-    auto applyWeight = [&](Fight& fight, const QString& weight)
+    auto applyWeight = [&](Contest& contest, const QString& weight)
     {
-        fight.weight = weight;
-        fight.SetRoundTime(mode.GetFightDuration(weight));
+        contest.weight = weight;
+        contest.SetRoundTime(mode.GetFightDuration(weight));
     };
 
-    if (weights.count() == fightsPerRound)
+    if (weights.count() == contestsPerRound)
     {
-        for (auto& round : m_tournament)
+        for (auto& round : m_competition)
         {
-            for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
+            for (int contestIndex = 0; contestIndex < contestsPerRound; ++contestIndex)
             {
-                applyWeight(round->at(fightIndex), weights.at(fightIndex));
+                applyWeight(round->at(contestIndex), weights.at(contestIndex));
             }
         }
     }
     else
     {
-        for (auto& round : m_tournament)
+        for (auto& round : m_competition)
         {
-            for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
+            for (int contestIndex = 0; contestIndex < contestsPerRound; ++contestIndex)
             {
-                const QString& weight = weights.at(fightIndex / 2);
-                applyWeight(round->at(fightIndex), weight);
+                const QString& weight = weights.at(contestIndex / 2);
+                applyWeight(round->at(contestIndex), weight);
             }
         }
     }

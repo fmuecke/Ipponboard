@@ -4,7 +4,7 @@
 #pragma once
 
 #include "../core/CompetitionMode.h"
-#include "../core/Fight.h"
+#include "../core/Contest.h"
 
 #include <QColor>
 #include <QJsonDocument>
@@ -13,7 +13,7 @@
 
 namespace Ipponboard::CompetitionSerialization
 {
-inline constexpr const char* CompetitionSaveFileVersion = "2";
+inline constexpr const char* CompetitionSaveFileVersion = "3";
 inline constexpr const char* AutoSaveFilename = "Ipponboard-autosave.json";
 
 enum class ReadSaveFileStatus
@@ -33,7 +33,7 @@ struct CompetitionSaveData
     QString home;
     QString guest;
     int currentRound{ 0 };
-    int currentFight{ 0 };
+    int currentContest{ 0 };
     QRgb infoTextFg{ 0 };
     QRgb infoTextBg{ 0 };
     QRgb firstFg{ 0 };
@@ -41,7 +41,7 @@ struct CompetitionSaveData
     QRgb secondFg{ 0 };
     QRgb secondBg{ 0 };
     CompetitionMode mode;
-    std::vector<std::vector<Fight>> rounds;
+    std::vector<std::vector<Contest>> rounds;
 };
 
 QJsonDocument ToJson(const CompetitionSaveData& data);

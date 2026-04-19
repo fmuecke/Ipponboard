@@ -7,7 +7,7 @@
 
 #include "../base/MainWindowBase.h"
 #include "../core/CompetitionMode.h"
-#include "../core/Fight.h"
+#include "../core/Contest.h"
 #include "CompetitionSerialization.h"
 
 #include <memory>
@@ -156,7 +156,7 @@ class MainWindowTeam : public MainWindowBase
     QStringList m_FighterNamesHome;
     QStringList m_FighterNamesGuest;
     Ipponboard::CompetitionMode::List m_modes;
-    QString GetRoundDataAsHtml(const Ipponboard::Fight& fight, int fightNo);
+    QString GetRoundDataAsHtml(const Ipponboard::Contest& contest, int contestNo);
 };
 
 #endif // TEAM_EDITION_MAINWINDOW_H_

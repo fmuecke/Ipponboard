@@ -2,9 +2,9 @@
 
 #include "../core/CompetitionMode.h"
 #include "../core/CompetitionModel.h"
+#include "../core/Contest.h"
 #include "../core/Controller.h"
 #include "../core/Enums.h"
-#include "../core/Fight.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
 #include "../core/StateMachine.h"
@@ -34,7 +34,7 @@ struct ControllerFixture
         Ipponboard::CompetitionMode mode;
         mode.nRounds = rounds;
         mode.weights = weights.join(';');
-        mode.fightTimeInSeconds = 30;
+        mode.timeInSeconds = 30;
         controller.InitCompetition(mode);
     }
 
@@ -45,7 +45,7 @@ struct ControllerFixture
         controller.AdvanceTimerTicks(Ipponboard::eTimer_Main, ticks);
     }
 
-    void beginHold(Ipponboard::FighterEnum tori)
+    void beginHold(Ipponboard::ContestSide tori)
     {
         controller.DoAction(Ipponboard::eAction_OsaeKomi_Toketa, tori);
     }
@@ -88,9 +88,9 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
         timer_events.push_back({ TimerEventType::Stop, timer });
     }
 
-    void save_fight() override { fight_saved = true; }
+    void save_contest() override { contest_saved = true; }
 
-    void reset_fight() override { fight_reset = true; }
+    void reset_contest() override { contest_reset = true; }
 
     void reset_timer(Ipponboard::ETimer timer) override
     {
@@ -98,12 +98,12 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
         time_values[static_cast<int>(timer)] = 0;
     }
 
-    Ipponboard::Score& get_score(Ipponboard::FighterEnum who) override
+    Ipponboard::Score& get_score(Ipponboard::ContestSide who) override
     {
         return scores[static_cast<int>(who)];
     }
 
-    Ipponboard::Score const& get_score(Ipponboard::FighterEnum who) const override
+    Ipponboard::Score const& get_score(Ipponboard::ContestSide who) const override
     {
         return scores[static_cast<int>(who)];
     }
@@ -144,7 +144,7 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
         options = std::set<Ipponboard::EOption>(opts);
     }
 
-    Ipponboard::Score& mutable_score(Ipponboard::FighterEnum who)
+    Ipponboard::Score& mutable_score(Ipponboard::ContestSide who)
     {
         return scores[static_cast<int>(who)];
     }
@@ -154,8 +154,8 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
     void clear_observations()
     {
         clear_timer_events();
-        fight_saved = false;
-        fight_reset = false;
+        contest_saved = false;
+        contest_reset = false;
     }
 
     bool timer_event_occurred(TimerEventType type, Ipponboard::ETimer timer) const
@@ -171,12 +171,12 @@ struct RecordingControllerCore : public Ipponboard::IControllerCore
     }
 
     std::vector<TimerEvent> timer_events;
-    bool fight_saved{ false };
-    bool fight_reset{ false };
+    bool contest_saved{ false };
+    bool contest_reset{ false };
 
   private:
     int time_values[2];
-    Ipponboard::Score scores[static_cast<int>(Ipponboard::FighterEnum::_MAX)];
+    Ipponboard::Score scores[static_cast<int>(Ipponboard::ContestSide::Count)];
     bool sonomama{ false };
     bool golden_score{ false };
     bool auto_adjust{ true };
@@ -190,35 +190,35 @@ struct StateMachineFixture
 
     void toggleMainTimer() { machine.ToggleMainTimer(); }
 
-    void beginHold(Ipponboard::FighterEnum who) { machine.BeginHold(who); }
+    void beginHold(Ipponboard::ContestSide who) { machine.BeginHold(who); }
 
     void endHold() { machine.EndHold(); }
 
-    void setHoldOwner(Ipponboard::FighterEnum who) { machine.SetHoldOwner(who); }
+    void setHoldOwner(Ipponboard::ContestSide who) { machine.SetHoldOwner(who); }
 
     void clearHoldOwner() { machine.ClearHoldOwner(); }
 
-    void awardPoint(Ipponboard::Score::Point point, Ipponboard::FighterEnum who)
+    void awardPoint(Ipponboard::Score::Point point, Ipponboard::ContestSide who)
     {
         machine.AwardPoint(point, who);
     }
 
-    void revokePoint(Ipponboard::Score::Point point, Ipponboard::FighterEnum who)
+    void revokePoint(Ipponboard::Score::Point point, Ipponboard::ContestSide who)
     {
         machine.RevokePoint(point, who);
     }
 
-    void awardShido(Ipponboard::FighterEnum who) { machine.AwardShido(who); }
+    void awardShido(Ipponboard::ContestSide who) { machine.AwardShido(who); }
 
-    void revokeShido(Ipponboard::FighterEnum who) { machine.RevokeShido(who); }
+    void revokeShido(Ipponboard::ContestSide who) { machine.RevokeShido(who); }
 
-    void revokeHansokumake(Ipponboard::FighterEnum who) { machine.RevokeHansokumake(who); }
+    void revokeHansokumake(Ipponboard::ContestSide who) { machine.RevokeHansokumake(who); }
 
-    void awardHansokumake(Ipponboard::FighterEnum who) { machine.AwardHansokumake(who); }
+    void awardHansokumake(Ipponboard::ContestSide who) { machine.AwardHansokumake(who); }
 
-    void resetFight() { machine.ResetFight(); }
+    void resetContest() { machine.ResetContest(); }
 
-    void finishFight() { machine.FinishFight(); }
+    void finishContest() { machine.FinishContest(); }
 
     void onMainTimerElapsed() { machine.OnMainTimerElapsed(); }
 

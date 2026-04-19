@@ -18,28 +18,29 @@ class CompetitionRepository
     CompetitionRepository(Competition& competition,
                           std::vector<std::shared_ptr<CompetitionModel>>& models);
 
-    Fight& fight(unsigned int round, unsigned int index);
-    Fight const& fight(unsigned int round, unsigned int index) const;
+    Contest& contest(unsigned int round, unsigned int index);
+    Contest const& contest(unsigned int round, unsigned int index) const;
 
-    void setFight(unsigned int round_index, unsigned int fight_index, const QString& weight,
-                  const QString& first_player_name, const QString& first_player_club,
-                  const QString& second_player_name, const QString& second_player_club, int yuko1,
-                  int wazaari1, int ippon1, int shido1, int hansokumake1, int yuko2, int wazaari2,
-                  int ippon2, int shido2, int hansokumake2,
-                  std::shared_ptr<AbstractRules> const& rules, const QString& emptyName);
+    void setContest(unsigned int roundIndex, unsigned int contestIndex, const QString& weight,
+                    const QString& sideAName, const QString& sideAClub, const QString& sideBName,
+                    const QString& sideBClub, int yukoSideA, int wazaariSideA, int ipponSideA,
+                    int shidoSideA, int hansokumakeSideA, int yukoSideB, int wazaariSideB,
+                    int ipponSideB, int shidoSideB, int hansokumakeSideB,
+                    std::shared_ptr<AbstractRules> const& rules, const QString& emptyName);
 
     void clearAllFights(std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode,
                         const QString& emptyName);
 
-    void saveFight(unsigned int round, unsigned int fight, int elapsedSeconds);
+    void saveContest(unsigned int round, unsigned int contest, int elapsedSeconds);
 
-    void resetFightData(unsigned int round, unsigned int fight,
-                        std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode);
+    void resetContestData(unsigned int round, unsigned int contest,
+                          std::shared_ptr<AbstractRules> const& rules,
+                          const CompetitionMode& mode);
 
     void setWeights(const QStringList& weights, const CompetitionMode& mode);
 
   private:
-    Competition& m_tournament;
+    Competition& m_competition;
     std::vector<std::shared_ptr<CompetitionModel>>& m_models;
 };
 

@@ -25,11 +25,11 @@ class IControllerCore
   private:
     virtual void start_timer(ETimer) = 0;
     virtual void stop_timer(ETimer) = 0;
-    virtual void save_fight() = 0;
-    virtual void reset_fight() = 0;
+    virtual void save_contest() = 0;
+    virtual void reset_contest() = 0;
     virtual void reset_timer(ETimer) = 0;
-    virtual Score& get_score(Ipponboard::FighterEnum who) = 0;
-    virtual Score const& get_score(Ipponboard::FighterEnum who) const = 0;
+    virtual Score& get_score(Ipponboard::ContestSide who) = 0;
+    virtual Score const& get_score(Ipponboard::ContestSide who) const = 0;
     virtual int get_time(ETimer) const = 0;
     virtual bool is_sonomama() const = 0;
     virtual bool is_golden_score() const = 0;

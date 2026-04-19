@@ -952,7 +952,7 @@
                  <enum>QFrame::Shadow::Plain</enum>
                 </property>
                 <property name="text">
-                 <string>Fight</string>
+                 <string>Competition</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -1576,7 +1576,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Fighters</string>
+    <string>Athletes</string>
    </property>
   </action>
   <action name="actionImport_Fighters">
@@ -1588,7 +1588,7 @@
      <normaloff>:/res/icons/import_list.png</normaloff>:/res/icons/import_list.png</iconset>
    </property>
    <property name="text">
-    <string>Import Fighters</string>
+    <string>Import Athletes</string>
    </property>
   </action>
   <action name="actionManageModes">

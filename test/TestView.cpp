@@ -16,15 +16,15 @@ QString scaled_text(const ScaledText* widget)
 }
 } // namespace
 
-TEST_CASE("[View] Updates fighter names from controller state")
+TEST_CASE("[View] Updates athlete names from controller state")
 {
     QApplication& app = ensure_qt_app();
     Q_UNUSED(app);
 
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    controller.SetFighterName(FighterEnum::First, QStringLiteral("Alice Smith"));
-    controller.SetFighterName(FighterEnum::Second, QStringLiteral("Bob Jones"));
+    controller.SetAthleteName(ContestSide::SideA, QStringLiteral("Alice Smith"));
+    controller.SetAthleteName(ContestSide::SideB, QStringLiteral("Bob Jones"));
 
     View view(controller.GetIController(), EditionType::Single, View::eTypePrimary);
     controller.RegisterView(&view);
@@ -53,8 +53,8 @@ TEST_CASE("[View] Reflects score and timers after controller actions")
 
     ControllerFixture fixture;
     auto& controller = fixture.controller;
-    controller.SetFighterName(FighterEnum::First, QStringLiteral("Alice"));
-    controller.SetFighterName(FighterEnum::Second, QStringLiteral("Bob"));
+    controller.SetAthleteName(ContestSide::SideA, QStringLiteral("Alice"));
+    controller.SetAthleteName(ContestSide::SideB, QStringLiteral("Bob"));
 
     View view(controller.GetIController(), EditionType::Single, View::eTypePrimary);
     controller.RegisterView(&view);
@@ -62,8 +62,8 @@ TEST_CASE("[View] Reflects score and timers after controller actions")
     controller.SetRoundTime(QTime(0, 0, 10));
     controller.DoAction(eAction_Hajime_Mate);
     controller.AdvanceTimerTicks(eTimer_Main, 3);
-    controller.DoAction(eAction_Wazaari, FighterEnum::First);
-    controller.DoAction(eAction_Shido, FighterEnum::Second);
+    controller.DoAction(eAction_Wazaari, ContestSide::SideA);
+    controller.DoAction(eAction_Shido, ContestSide::SideB);
 
     view.UpdateView();
 

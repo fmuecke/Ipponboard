@@ -50,7 +50,7 @@ class View : public QWidget, public IView
     void SetShowInfoHeader(bool show) override;
 
     // others
-    void SetMessageText(Ipponboard::FighterEnum who, const QString& msg) const;
+    void SetMessageText(Ipponboard::ContestSide who, const QString& msg) const;
     const QFont& GetInfoHeaderFont() const { return m_InfoHeaderFont; }
     const QFont& GetFighterNameFont() const { return m_FighterNameFont; }
     const QFont& GetDigitFont() const { return m_DigitFont; }
@@ -87,14 +87,14 @@ class View : public QWidget, public IView
     void blink_();
 
   private:
-    void update_ippon(Ipponboard::FighterEnum) const;
-    void update_wazaari(Ipponboard::FighterEnum) const;
-    void update_yuko(Ipponboard::FighterEnum) const;
-    void update_shido(Ipponboard::FighterEnum) const;
-    void update_hansokumake(Ipponboard::FighterEnum) const;
+    void update_ippon(Ipponboard::ContestSide) const;
+    void update_wazaari(Ipponboard::ContestSide) const;
+    void update_yuko(Ipponboard::ContestSide) const;
+    void update_shido(Ipponboard::ContestSide) const;
+    void update_hansokumake(Ipponboard::ContestSide) const;
     void update_team_score() const;
-    void update_hold_clock(const FighterEnum holder, EHoldState state) const;
-    Ipponboard::FighterEnum GVF_(const Ipponboard::FighterEnum f) const; // GetViewFighter
+    void update_hold_clock(Ipponboard::ContestSide holder, EHoldState state) const;
+    Ipponboard::ContestSide MapDisplayPositionToContestSide(Ipponboard::ContestSide side) const;
     bool is_secondary() const;
     const QColor& get_color(const ColorType t) const;
     void update_colors();

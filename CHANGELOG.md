@@ -3,7 +3,10 @@
 For most recent changes see the project on github: [https://github.com/fmuecke/Ipponboard](https://github.com/fmuecke/Ipponboard)
 
 ## Version vNEXT (unreleased)
-
+- (internal): IJF compliant domain language terms
+- (mod): using canonical IJF terms (old terms in braces):
+  - athlete (fighter), competition (tournament)
+- (new): autosave files are checked for compatibility before loading (version needs to match)
 - (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macOS)
 - (mod): optimized layout of the settings dialog
 - (new): automatic update check is now asynchronous and can be disabled in the settings

@@ -11,17 +11,37 @@
 namespace Ipponboard
 {
 
-enum FighterEnum
+enum class ContestSide
 {
-    Nobody = -1,
-    First = 0,
-    Second = 1,
-    _MAX
+    None = -1,
+    SideA = 0,
+    SideB = 1,
+    Count
 };
 
-inline FighterEnum GetUkeFromTori(FighterEnum tori)
+constexpr bool IsContestSide(ContestSide side)
 {
-    return (tori == FighterEnum::First) ? FighterEnum::Second : FighterEnum::First;
+    return side == ContestSide::SideA || side == ContestSide::SideB;
+}
+
+constexpr int ToIndex(ContestSide side)
+{
+    return static_cast<int>(side);
+}
+
+inline ContestSide OpposingSide(ContestSide side)
+{
+    if (side == ContestSide::SideA)
+    {
+        return ContestSide::SideB;
+    }
+
+    if (side == ContestSide::SideB)
+    {
+        return ContestSide::SideA;
+    }
+
+    return side;
 }
 
 enum EAction

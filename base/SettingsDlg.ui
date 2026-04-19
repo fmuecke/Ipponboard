@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>716</width>
+    <width>720</width>
     <height>544</height>
    </rect>
   </property>
@@ -274,7 +274,7 @@
            <property name="checkable">
             <bool>false</bool>
            </property>
-           <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0" columnstretch="0,0,0,0">
+           <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0" columnstretch="0,0">
             <item row="4" column="0">
              <widget class="QLabel" name="label_text_gong">
               <property name="frameShape">
@@ -423,7 +423,7 @@
             <bool>true</bool>
            </property>
            <property name="title">
-            <string>Fonts &amp;&amp; Colors (Fighters)</string>
+            <string>Fonts &amp;&amp; Colors (Athletes)</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
@@ -800,7 +800,7 @@
       <attribute name="title">
        <string>Gamepad</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_raw" stretch="0,0,0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_raw" stretch="0,0,0,0">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="bottomMargin">
@@ -939,175 +939,59 @@
          <item>
           <widget class="QGroupBox" name="groupBox_first_2">
            <property name="title">
-            <string>First Fighter (left controller side)</string>
+            <string>Side A Athlete (left controller side)</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_9">
-            <item row="1" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_reset_hold_first">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_osaekomi_first"/>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_raw_hansokumake_first">
-              <property name="text">
-               <string>Hansokumake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_reset_hold_first"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_hansokumake_first"/>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_raw_osaekomi_first">
-              <property name="text">
-               <string>Osaekomi/Toketa</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_hansokumake_first">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_raw_reset_hold_first">
-              <property name="text">
-               <string>Reset hold time</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_osaekomi_first">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_second_2">
-           <property name="title">
-            <string>Second Fighter (right controller side)</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_11">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_raw_osaekomi_second">
-              <property name="text">
-               <string>Osaekomi/Toketa</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_osaekomi_second">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_raw_reset_hold_second">
-              <property name="text">
-               <string>Reset hold time</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_osaekomi_second"/>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_hansokumake_second">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_raw_hansokumake_second">
-              <property name="text">
-               <string>Hansokumake</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="pushButton_capture_raw_reset_hold_second">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_hansokumake_second"/>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_raw_reset_hold_second"/>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="groupBox_raw_axes_left">
-           <property name="title">
-            <string>Joystick Axes (left)</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_raw_axes" columnstretch="0,0,0,0">
-            <item row="0" column="2">
-             <widget class="QCheckBox" name="checkBox_raw_axis_left_x_invert">
-              <property name="text">
-               <string>Invert</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QCheckBox" name="checkBox_raw_axis_left_y_invert">
-              <property name="text">
-               <string>Invert</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QPushButton" name="pushButton_capture_raw_axis_left_y">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
+            <item row="4" column="3">
              <widget class="QPushButton" name="pushButton_capture_raw_axis_left_x">
               <property name="text">
                <string>Capture</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_raw_axis_left_y">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_raw_axis_left_x">
               <property name="text">
-               <string>Left Y</string>
+               <string>X Axis</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="1" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_reset_hold_first">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_hansokumake_first">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_osaekomi_first">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_raw_axis_left_y">
+              <property name="text">
+               <string>Y Axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_axis_left_y">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2">
              <widget class="QLineEdit" name="lineEdit_raw_axis_left_y">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1117,7 +1001,14 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_raw_axis_left_y_invert">
+              <property name="text">
+               <string>Invert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
              <widget class="QLineEdit" name="lineEdit_raw_axis_left_x">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1127,10 +1018,47 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_raw_axis_left_x">
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkBox_raw_axis_left_x_invert">
               <property name="text">
-               <string>Left X</string>
+               <string>Invert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_hansokumake_first"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_reset_hold_first"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_osaekomi_first"/>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_osaekomi_first">
+              <property name="text">
+               <string>Osaekomi/Toketa</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_reset_hold_first">
+              <property name="text">
+               <string>Reset hold time</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_hansokumake_first">
+              <property name="text">
+               <string>Hansokumake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="3">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Points/Penalties (left joystick axes):</string>
               </property>
              </widget>
             </item>
@@ -1138,15 +1066,84 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_raw_axes_right">
+          <widget class="QGroupBox" name="groupBox_second_2">
            <property name="title">
-            <string>Joystick Axes (right)</string>
+            <string>Side B Athlete (right controller side)</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item row="0" column="1">
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="2" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_hansokumake_second"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_reset_hold_second">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_axis_right_x">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_osaekomi_second"/>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkBox_raw_axis_right_x_invert">
+              <property name="text">
+               <string>Invert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_osaekomi_second">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_raw_axis_right_x">
+              <property name="text">
+               <string>X Axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_hansokumake_second">
+              <property name="text">
+               <string>Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="lineEdit_raw_reset_hold_second"/>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_osaekomi_second">
+              <property name="text">
+               <string>Osaekomi/Toketa</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_hansokumake_second">
+              <property name="text">
+               <string>Hansokumake</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLabel" name="label_raw_reset_hold_second">
+              <property name="text">
+               <string>Reset hold time</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
              <widget class="QLineEdit" name="lineEdit_raw_axis_right_x">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1156,35 +1153,21 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="5" column="0">
              <widget class="QLabel" name="label_raw_axis_right_y">
               <property name="text">
-               <string>Right Y</string>
+               <string>Y Axis</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QCheckBox" name="checkBox_raw_axis_right_x_invert">
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_raw_axis_right_y_invert">
               <property name="text">
                <string>Invert</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="3">
-             <widget class="QPushButton" name="pushButton_capture_raw_axis_right_y">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QPushButton" name="pushButton_capture_raw_axis_right_x">
-              <property name="text">
-               <string>Capture</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
+            <item row="5" column="2">
              <widget class="QLineEdit" name="lineEdit_raw_axis_right_y">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1194,17 +1177,17 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QCheckBox" name="checkBox_raw_axis_right_y_invert">
+            <item row="5" column="3">
+             <widget class="QPushButton" name="pushButton_capture_raw_axis_right_y">
               <property name="text">
-               <string>Invert</string>
+               <string>Capture</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_raw_axis_right_x">
+            <item row="3" column="0" colspan="4">
+             <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>Right X</string>
+               <string>Points/Penalties (right joystick axes):</string>
               </property>
              </widget>
             </item>
@@ -1634,7 +1617,7 @@
              <string>Format specifier for fighter import and export</string>
             </property>
             <property name="text">
-             <string>Fighter import/export format</string>
+             <string>Athlete import/export format</string>
             </property>
            </widget>
           </item>
@@ -1689,8 +1672,8 @@
   <tabstop>tab_pane</tabstop>
   <tabstop>comboBox_screen</tabstop>
   <tabstop>lineEdit_fixedsize_width</tabstop>
-  <tabstop>lineEdit_fixedsize_height</tabstop>
   <tabstop>lineEdit_offsetX</tabstop>
+  <tabstop>lineEdit_fixedsize_height</tabstop>
   <tabstop>lineEdit_offsetY</tabstop>
   <tabstop>comboBox_mat</tabstop>
   <tabstop>lineEdit_labelHome</tabstop>
@@ -1728,16 +1711,24 @@
   <tabstop>pushButton_capture_raw_reset_hold_first</tabstop>
   <tabstop>lineEdit_raw_hansokumake_first</tabstop>
   <tabstop>pushButton_capture_raw_hansokumake_first</tabstop>
+  <tabstop>checkBox_raw_axis_left_x_invert</tabstop>
+  <tabstop>lineEdit_raw_axis_left_x</tabstop>
+  <tabstop>pushButton_capture_raw_axis_left_x</tabstop>
+  <tabstop>checkBox_raw_axis_left_y_invert</tabstop>
+  <tabstop>lineEdit_raw_axis_left_y</tabstop>
+  <tabstop>pushButton_capture_raw_axis_left_y</tabstop>
   <tabstop>lineEdit_raw_osaekomi_second</tabstop>
   <tabstop>pushButton_capture_raw_osaekomi_second</tabstop>
   <tabstop>lineEdit_raw_reset_hold_second</tabstop>
   <tabstop>pushButton_capture_raw_reset_hold_second</tabstop>
   <tabstop>lineEdit_raw_hansokumake_second</tabstop>
   <tabstop>pushButton_capture_raw_hansokumake_second</tabstop>
-  <tabstop>lineEdit_raw_axis_left_x</tabstop>
-  <tabstop>lineEdit_raw_axis_left_y</tabstop>
+  <tabstop>checkBox_raw_axis_right_x_invert</tabstop>
   <tabstop>lineEdit_raw_axis_right_x</tabstop>
+  <tabstop>pushButton_capture_raw_axis_right_x</tabstop>
+  <tabstop>checkBox_raw_axis_right_y_invert</tabstop>
   <tabstop>lineEdit_raw_axis_right_y</tabstop>
+  <tabstop>pushButton_capture_raw_axis_right_y</tabstop>
   <tabstop>toolButton_test_raw_mapping</tabstop>
   <tabstop>tableWidget_keys</tabstop>
   <tabstop>checkBox_checkVersionOnStartup</tabstop>

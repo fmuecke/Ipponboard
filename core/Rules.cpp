@@ -4,7 +4,7 @@
 
 #include "Rules.h"
 
-#include "Fight.h"
+#include "Contest.h"
 
 using namespace Ipponboard;
 
@@ -17,10 +17,11 @@ const char* const ClassicRules::StaticName = "Classic";
 
 AbstractRules::AbstractRules() {}
 
-int Ipponboard::AbstractRules::CompareScore(const Fight& f) const
+int Ipponboard::AbstractRules::CompareScore(const Contest& contest) const
 {
-    return CompareScore(
-        f.GetScore(FighterEnum::First), f.GetScore(FighterEnum::Second), f.IsGoldenScore());
+    return CompareScore(contest.GetScore(ContestSide::SideA),
+                        contest.GetScore(ContestSide::SideB),
+                        contest.IsGoldenScore());
 }
 
 int Ipponboard::AbstractRules::CompareScore(const Score& lhs, const Score& rhs,

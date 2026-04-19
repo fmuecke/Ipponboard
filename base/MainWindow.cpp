@@ -125,7 +125,7 @@ void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
     auto s = m_pUi->comboBox_name_first->currentText();
     update_fighters(s);
 
-    m_pController->SetFighterName(FighterEnum::First, s);
+    m_pController->SetAthleteName(ContestSide::SideA, s);
 }
 
 void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
@@ -133,7 +133,7 @@ void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
     auto s = m_pUi->comboBox_name_second->currentText();
     update_fighters(s);
 
-    m_pController->SetFighterName(FighterEnum::Second, s);
+    m_pController->SetAthleteName(ContestSide::SideB, s);
 }
 
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)

@@ -5,7 +5,7 @@
 #ifndef BASE__TOURNAMENT_H_
 #define BASE__TOURNAMENT_H_
 
-#include "Fight.h"
+#include "Contest.h"
 #include "Score.h"
 
 #include <QString>
@@ -15,9 +15,9 @@
 namespace Ipponboard
 {
 
-typedef std::vector<Fight> CompetitionRound;
-typedef std::shared_ptr<CompetitionRound> PCompetitionRound;
-typedef std::vector<PCompetitionRound> Competition;
+typedef std::vector<Contest> ContestRound;
+typedef std::shared_ptr<ContestRound> PContestRound;
+typedef std::vector<PContestRound> Competition;
 
 } // namespace Ipponboard
 

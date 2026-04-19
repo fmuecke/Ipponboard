@@ -38,7 +38,7 @@ class CompetitionModel : public QAbstractTableModel
         eCol_MAX
     };
 
-    explicit CompetitionModel(Ipponboard::PCompetitionRound pCompetition, QObject* parent = 0);
+    explicit CompetitionModel(Ipponboard::PContestRound pCompetition, QObject* parent = 0);
     virtual ~CompetitionModel();
 
     void SetNumRows(int rows)
@@ -75,9 +75,9 @@ class CompetitionModel : public QAbstractTableModel
   private slots:
 
   private:
-    static QString display_string(bool isFightSaved, int number);
+    static QString display_string(bool isContestSaved, int number);
 
-    Ipponboard::PCompetitionRound m_pCompetitionRound;
+    Ipponboard::PContestRound m_pCompetitionRound;
     CompetitionModel* m_pIntermediateModel;
     int m_nRows;
     QString m_HeaderData[eCol_MAX];

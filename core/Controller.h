@@ -59,25 +59,25 @@ class Controller : public QObject, public IController, public IControllerCore
     void InitCompetition(CompetitionMode const& mode);
     void RegisterView(IView* pView) override;
     void RegisterView(IGoldenScoreView* pView) override;
-    int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const override;
+    int GetScore(Ipponboard::ContestSide whos, Ipponboard::Score::Point point) const override;
     void DoAction(Ipponboard::EAction action,
-                  Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First,
+                  Ipponboard::ContestSide who = Ipponboard::ContestSide::SideA,
                   bool doRevoke = false) override;
     Ipponboard::EState GetCurrentState() const override { return m_State; }
-    Ipponboard::FighterEnum GetLead() const override;
-    Ipponboard::FighterEnum GetLastHolder() const override;
+    Ipponboard::ContestSide GetLeadingSide() const override;
+    Ipponboard::ContestSide GetCurrentHoldSide() const override;
     QString GetTimeText(Ipponboard::ETimer timer) const override;
-    QString GetFighterName(Ipponboard::FighterEnum who) const override;
-    QString GetFighterLastName(Ipponboard::FighterEnum) const override;
-    QString GetFighterFirstName(Ipponboard::FighterEnum) const override;
-    QString GetFighterClub(Ipponboard::FighterEnum who) const override;
+    QString GetAthleteName(Ipponboard::ContestSide who) const override;
+    QString GetAthleteLastName(Ipponboard::ContestSide) const override;
+    QString GetAthleteFirstName(Ipponboard::ContestSide) const override;
+    QString GetAthleteClub(Ipponboard::ContestSide who) const override;
     QString const& GetWeight() const override;
     QString GetMessage() const override;
-    int GetTeamScore(Ipponboard::FighterEnum who) const override;
+    int GetTeamScore(Ipponboard::ContestSide who) const override;
     void SetTimerValue(Ipponboard::ETimer timer, const QString& value) override;
     void SetRoundTime(const QString& value) override;
-    QString GetFightTimeString() const;
-    int GetFightDuration(QString const& weight) const;
+    QString GetTimeOverridesString() const;
+    int GetContestDuration(QString const& weight) const;
     void SetRoundTime(const QTime& time);
     void OverrideRoundTimeOfFightMode(int fightTimeSecs);
     //FIXME: int GetRound() const;
@@ -109,11 +109,11 @@ class Controller : public QObject, public IController, public IControllerCore
   private:
     void start_timer(ETimer t) final;
     void stop_timer(ETimer t) final;
-    void save_fight() final;
-    void reset_fight() final;
+    void save_contest() final;
+    void reset_contest() final;
     void reset_timer(ETimer) final;
-    Score& get_score(Ipponboard::FighterEnum who) final;
-    Score const& get_score(Ipponboard::FighterEnum who) const final;
+    Score& get_score(Ipponboard::ContestSide who) final;
+    Score const& get_score(Ipponboard::ContestSide who) const final;
     int get_time(ETimer) const final;
     bool is_sonomama() const final;
     bool is_golden_score() const final;
@@ -125,32 +125,31 @@ class Controller : public QObject, public IController, public IControllerCore
 
   public:
     // --- other functions ---
-    int GetFightCount() const { return static_cast<int>(m_navigator.fightCount()); }
+    int GetContestCount() const { return static_cast<int>(m_navigator.contestCount()); }
 
     int GetRoundCount() const { return static_cast<int>(m_navigator.roundCount()); }
 
-    void NextFight();
-    void PrevFight();
-    void SetCurrentFight(unsigned int index);
+    void NextContest();
+    void PrevContest();
+    void SetCurrentContest(unsigned int index);
 
-    int GetCurrentFight() const { return static_cast<int>(m_navigator.currentFight()); }
+    int GetCurrentContest() const { return static_cast<int>(m_navigator.currentContest()); }
 
     void SetCurrentRound(unsigned int index);
 
     int GetCurrentRound() const { return static_cast<int>(m_navigator.currentRound()); }
 
     void ClearFightsAndResetTimers();
-    void SetClub(Ipponboard::FighterEnum whos, const QString& clubName);
-    void SetFight(unsigned int round_index, unsigned int fight_index, Fight fight);
-    void SetFight(unsigned int tournament_index, unsigned int fight_index, const QString& weight,
-                  const QString& first_player_name, const QString& first_player_club,
-                  const QString& second_player_name, const QString& second_player_club,
-                  int yuko1 = -1, int wazaari1 = -1, int ippon1 = -1, int shido1 = -1,
-                  int hansokumake1 = -1, int yuko2 = -1, int wazaari2 = -1, int ippon2 = -1,
-                  int shido2 = -1, int hansokumake2 = -1);
-    Ipponboard::Fight const& GetFight(unsigned int tournament_index,
-                                      unsigned int fight_index) const;
-    void SetFighterName(Ipponboard::FighterEnum whos, const QString& name);
+    void SetClub(Ipponboard::ContestSide whos, const QString& clubName);
+    void SetContest(unsigned int roundIndex, unsigned int contestIndex, Contest contest);
+    void SetContest(unsigned int roundIndex, unsigned int contestIndex, const QString& weight,
+                    const QString& sideAName, const QString& sideAClub, const QString& sideBName,
+                    const QString& sideBClub, int yukoSideA = -1, int wazaariSideA = -1,
+                    int ipponSideA = -1, int shidoSideA = -1, int hansokumakeSideA = -1,
+                    int yukoSideB = -1, int wazaariSideB = -1, int ipponSideB = -1,
+                    int shidoSideB = -1, int hansokumakeSideB = -1);
+    Ipponboard::Contest const& GetContest(unsigned int roundIndex, unsigned int contestIndex) const;
+    void SetAthleteName(Ipponboard::ContestSide whos, const QString& name);
 
     void SetWeights(QStringList const& weights);
     void CopyAndSwitchGuestFighters();
@@ -164,8 +163,8 @@ class Controller : public QObject, public IController, public IControllerCore
     void update_hold_time();
 
   private:
-    //	void AddPoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
-    //	void RemovePoint_( Ipponboard::FighterEnum whos, Ipponboard::Score::Point point );
+    //	void AddPoint_( Ipponboard::ContestSide whos, Ipponboard::Score::Point point );
+    //	void RemovePoint_( Ipponboard::ContestSide whos, Ipponboard::Score::Point point );
     //	void StartStopTimer_( Ipponboard::ETimer timer );
     //	void UpdatePointsFromHoldTimer_();
     //	void CorrectState_();
@@ -178,14 +177,14 @@ class Controller : public QObject, public IController, public IControllerCore
     void reset();
     void reset_timer_value(Ipponboard::ETimer timer);
 
-    inline Ipponboard::Fight& current_fight()
+    inline Ipponboard::Contest& current_contest()
     {
-        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentFight());
+        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentContest());
     }
 
-    inline Ipponboard::Fight const& current_fight() const
+    inline Ipponboard::Contest const& current_contest() const
     {
-        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentFight());
+        return m_Competition.at(m_navigator.currentRound())->at(m_navigator.currentContest());
     }
 
     Ipponboard::CompetitionMode m_mode;
@@ -213,7 +212,7 @@ class Controller : public QObject, public IController, public IControllerCore
     mutable std::unique_ptr<QSoundEffect> m_gongEffect;
     void reset_timers();
     std::shared_ptr<AbstractRules> m_rules;
-    void applyFightChange();
+    void applyContestChange();
 };
 } // namespace Ipponboard
 

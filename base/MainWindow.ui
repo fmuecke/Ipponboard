@@ -434,7 +434,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>First Fighter (first last)</string>
+         <string>Athlete 1 (first last)</string>
         </property>
        </widget>
       </item>
@@ -455,7 +455,7 @@
          <enum>QFrame::Shadow::Plain</enum>
         </property>
         <property name="text">
-         <string>Second Fighter (first last)</string>
+         <string>Athlete 2 (first last)</string>
         </property>
        </widget>
       </item>
@@ -729,10 +729,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Fighters</string>
+    <string>Athletes</string>
    </property>
    <property name="toolTip">
-    <string>Manage fighters</string>
+    <string>Manage atheletes</string>
    </property>
   </action>
   <action name="actionDrucken">

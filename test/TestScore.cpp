@@ -2,13 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "../core/Contest.h"
 #include "../core/Enums.h"
-#include "../core/Fight.h"
 #include "../core/Rules.h"
 #include "../core/Score.h"
 
 #include <catch2/catch_test_macros.hpp>
 #include <iostream>
+
 
 using namespace Ipponboard;
 using Point = Score::Point;
@@ -16,7 +17,7 @@ using Point = Score::Point;
 bool IsScoreLess(std::shared_ptr<Ipponboard::AbstractRules> pRules, Score const& lhs,
                  Score const& rhs)
 {
-    Fight f{ lhs, rhs };
+    Contest f{ lhs, rhs };
     return pRules->CompareScore(f) > 0;
 }
 
@@ -72,7 +73,7 @@ TEST_CASE("[Score] Shido rules for fights")
 //	REQUIRE_FALSE(two.IsLess(one));
 //}
 
-TEST_CASE("[Score] Each fighter can have Hansokumake")
+TEST_CASE("[Score] Each contest side can have Hansokumake")
 {
     Score score1;
     Score score2;
@@ -159,15 +160,15 @@ TEST_CASE("[Score] rules 2017: first shido does count in golden score")
 {
     auto rules = std::make_shared<Ipponboard::Rules2017>();
 
-    Fight f;
+    Contest f;
     f.SetGoldenScore(true);
 
     REQUIRE(rules->CompareScore(f) == 0);
 
-    f.GetScore(FighterEnum::First).Add(Point::Shido);
+    f.GetScore(ContestSide::SideA).Add(Point::Shido);
     REQUIRE(rules->CompareScore(f) > 0);
 
-    f.GetScore(FighterEnum::First).Add(Point::Shido);
+    f.GetScore(ContestSide::SideA).Add(Point::Shido);
     REQUIRE(rules->CompareScore(f) > 0);
 }
 

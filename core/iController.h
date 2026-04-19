@@ -23,21 +23,21 @@ class IController
   public:
     virtual void RegisterView(IView* pView) = 0;
     virtual void RegisterView(IGoldenScoreView* pView) = 0;
-    virtual int GetScore(Ipponboard::FighterEnum whos, Ipponboard::Score::Point point) const = 0;
+    virtual int GetScore(Ipponboard::ContestSide whos, Ipponboard::Score::Point point) const = 0;
     virtual void DoAction(Ipponboard::EAction action,
-                          Ipponboard::FighterEnum who = Ipponboard::FighterEnum::First,
+                          Ipponboard::ContestSide who = Ipponboard::ContestSide::SideA,
                           bool doRevoke = false) = 0;
     virtual Ipponboard::EState GetCurrentState() const = 0;
-    virtual Ipponboard::FighterEnum GetLead() const = 0;
-    virtual Ipponboard::FighterEnum GetLastHolder() const = 0;
+    virtual Ipponboard::ContestSide GetLeadingSide() const = 0;
+    virtual Ipponboard::ContestSide GetCurrentHoldSide() const = 0;
     virtual QString GetTimeText(Ipponboard::ETimer timer) const = 0;
-    virtual QString GetFighterName(Ipponboard::FighterEnum) const = 0;
-    virtual QString GetFighterLastName(Ipponboard::FighterEnum) const = 0;
-    virtual QString GetFighterFirstName(Ipponboard::FighterEnum) const = 0;
-    virtual QString GetFighterClub(Ipponboard::FighterEnum) const = 0;
+    virtual QString GetAthleteName(Ipponboard::ContestSide) const = 0;
+    virtual QString GetAthleteLastName(Ipponboard::ContestSide) const = 0;
+    virtual QString GetAthleteFirstName(Ipponboard::ContestSide) const = 0;
+    virtual QString GetAthleteClub(Ipponboard::ContestSide) const = 0;
     virtual QString const& GetWeight() const = 0;
     virtual QString GetMessage() const = 0;
-    virtual int GetTeamScore(Ipponboard::FighterEnum) const = 0;
+    virtual int GetTeamScore(Ipponboard::ContestSide) const = 0;
     virtual void SetTimerValue(Ipponboard::ETimer timer, const QString& value) = 0;
     virtual void SetRoundTime(const QString& value) = 0;
     //FIXME: virtual int GetRound() const = 0;

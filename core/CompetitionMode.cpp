@@ -16,7 +16,6 @@
 #include <QStringList>
 #include <QUuid>
 
-
 using namespace Ipponboard;
 
 QString const& CompetitionMode::str_TemplateDirName("templates");
@@ -24,11 +23,11 @@ QString const& CompetitionMode::str_Title("Title");
 QString const& CompetitionMode::str_SubTitle("SubTitle");
 QString const& CompetitionMode::str_Weights("Weights");
 QString const& CompetitionMode::str_Template("Template");
-QString const& CompetitionMode::str_FightTimeOverrides("FightTimeOverrides");
+QString const& CompetitionMode::str_TimeOverrides("TimeOverrides");
 QString const& CompetitionMode::str_Options("Options");
 QString const& CompetitionMode::str_Rounds("Rounds");
 QString const& CompetitionMode::str_Rules("Rules");
-QString const& CompetitionMode::str_FightTimeInSeconds("FightTimeInSeconds");
+QString const& CompetitionMode::str_TimeInSeconds("TimeInSeconds");
 QString const& CompetitionMode::str_WeightsAreDoubled("WeightsAreDoubled");
 QString const& CompetitionMode::str_Option_AllSubscoresCount("AllSubscoresCount");
 
@@ -39,9 +38,9 @@ CompetitionMode::CompetitionMode()
       weights(),
       listTemplate(),
       options(),
-      fightTimeOverrides(),
+      contestTimeOverrides(),
       nRounds(1),
-      fightTimeInSeconds(240),
+      timeInSeconds(240),
       weightsAreDoubled(false)
 {
 }
@@ -125,11 +124,11 @@ bool CompetitionMode::WriteModes(const QString& filename, CompetitionMode::List 
         config.setValue(str_Weights, mode.weights);
         config.setValue(str_Template, mode.listTemplate);
         config.setValue(str_Rounds, mode.nRounds);
-        config.setValue(str_FightTimeInSeconds, mode.fightTimeInSeconds);
+        config.setValue(str_TimeInSeconds, mode.timeInSeconds);
         config.setValue(str_WeightsAreDoubled, mode.weightsAreDoubled);
         config.setValue(str_Options, mode.options);
         config.setValue(str_Rules, mode.rules);
-        config.setValue(str_FightTimeOverrides, mode.GetFightTimeOverridesString());
+        config.setValue(str_TimeOverrides, mode.GetTimeOverridesString());
 
         config.endGroup();
     }
@@ -145,7 +144,7 @@ CompetitionMode CompetitionMode::Default()
     mode.id = mode.id.mid(1, mode.id.length() - 2); // remove "{}"
     mode.title = "*new*";
     mode.weights = "-66;-73;-81;-90;+90";
-    mode.fightTimeInSeconds = 240;
+    mode.timeInSeconds = 240;
     mode.nRounds = 2;
     mode.weightsAreDoubled = true;
     //mode.listTemplate = m_pUi->comboBox_template->itemText(0);
@@ -177,7 +176,7 @@ int CompetitionMode::FightsPerRound() const
 
 int CompetitionMode::GetFightDuration(const QString& weight) const
 {
-    for (auto it = begin(fightTimeOverrides); it != end(fightTimeOverrides); ++it)
+    for (auto it = begin(contestTimeOverrides); it != end(contestTimeOverrides); ++it)
     {
         if (weight.contains(it->first))
         {
@@ -185,7 +184,7 @@ int CompetitionMode::GetFightDuration(const QString& weight) const
         }
     }
 
-    return fightTimeInSeconds;
+    return timeInSeconds;
 }
 
 bool CompetitionMode::IsOptionSet(QString const& option) const
@@ -220,11 +219,11 @@ void CompetitionMode::SetOption(QString const& option, bool checked)
     options.remove(QRegularExpression(QStringLiteral(";$")));
 }
 
-QString CompetitionMode::GetFightTimeOverridesString() const
+QString CompetitionMode::GetTimeOverridesString() const
 {
     QString ret;
 
-    for (auto const& p : fightTimeOverrides)
+    for (auto const& p : contestTimeOverrides)
     {
         if (!ret.isEmpty())
         {
@@ -237,8 +236,7 @@ QString CompetitionMode::GetFightTimeOverridesString() const
     return ret;
 }
 
-bool CompetitionMode::ExtractFightTimeOverrides(const QString& overridesString,
-                                                OverridesList& overrides)
+bool CompetitionMode::ExtractTimeOverrides(const QString& overridesString, OverridesList& overrides)
 {
     static const QRegularExpression overridesPattern(
         QStringLiteral("^(?:\\w+:\\d+;)*(?:\\w+:\\d+)$"));
@@ -288,12 +286,12 @@ bool CompetitionMode::parse_current_group(QSettings const& config, CompetitionMo
         mode.nRounds > 2
             ? 2
             : mode.nRounds; // restrict to two rounds for now as the lists do not handle more
-    mode.fightTimeInSeconds = config.value(CompetitionMode::str_FightTimeInSeconds).toUInt();
+    mode.timeInSeconds = config.value(CompetitionMode::str_TimeInSeconds).toUInt();
     mode.weightsAreDoubled = config.value(CompetitionMode::str_WeightsAreDoubled, false).toBool();
     mode.options = config.value(CompetitionMode::str_Options, QString()).toString();
     mode.rules = config.value(CompetitionMode::str_Rules, mode.rules).toString();
-    const QString fightTimeOverridesString =
-        config.value(CompetitionMode::str_FightTimeOverrides).toString();
+    const QString contestTimeOverridesString =
+        config.value(CompetitionMode::str_TimeOverrides).toString();
 
     if (mode.weights.isEmpty())
     {
@@ -339,9 +337,9 @@ bool CompetitionMode::parse_current_group(QSettings const& config, CompetitionMo
         return false;
     }
 
-    if (mode.fightTimeInSeconds == 0)
+    if (mode.timeInSeconds == 0)
     {
-        errorMsg = err.arg(CompetitionMode::str_FightTimeInSeconds, config.group());
+        errorMsg = err.arg(CompetitionMode::str_TimeInSeconds, config.group());
         return false;
     }
 
@@ -351,17 +349,17 @@ bool CompetitionMode::parse_current_group(QSettings const& config, CompetitionMo
         return false;
     }
 
-    if (!fightTimeOverridesString.isEmpty())
+    if (!contestTimeOverridesString.isEmpty())
     {
-        if (!ExtractFightTimeOverrides(fightTimeOverridesString, mode.fightTimeOverrides))
+        if (!ExtractTimeOverrides(contestTimeOverridesString, mode.contestTimeOverrides))
         {
-            errorMsg = errInvalid.arg(CompetitionMode::str_FightTimeOverrides, config.group());
+            errorMsg = errInvalid.arg(CompetitionMode::str_TimeOverrides, config.group());
             return false;
         }
 
-        if (mode.fightTimeOverrides.empty())
+        if (mode.contestTimeOverrides.empty())
         {
-            errorMsg = errInvalid.arg(CompetitionMode::str_FightTimeOverrides, config.group());
+            errorMsg = errInvalid.arg(CompetitionMode::str_TimeOverrides, config.group());
             return false;
         }
     }
@@ -372,11 +370,10 @@ bool CompetitionMode::parse_current_group(QSettings const& config, CompetitionMo
 bool CompetitionMode::verify_child_keys(QStringList const& childKeys, QString& errorMsg)
 {
     QStringList mandatoryKeys;
-    mandatoryKeys << str_Title << str_Weights << str_Template << str_Rounds
-                  << str_FightTimeInSeconds;
+    mandatoryKeys << str_Title << str_Weights << str_Template << str_Rounds << str_TimeInSeconds;
 
     QStringList optionalKeys;
-    optionalKeys << str_SubTitle << str_FightTimeOverrides << str_WeightsAreDoubled << str_Rules
+    optionalKeys << str_TimeOverrides << str_SubTitle << str_WeightsAreDoubled << str_Rules
                  << str_Options;
 
     for (QString const& key : childKeys)

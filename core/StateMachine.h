@@ -18,50 +18,50 @@ class IpponboardSM
     explicit IpponboardSM(IControllerCore& core) : m_core(core) {}
 
     void ToggleMainTimer();
-    void BeginHold(FighterEnum who);
+    void BeginHold(ContestSide who);
     void EndHold();
-    void SetHoldOwner(FighterEnum who);
+    void SetHoldOwner(ContestSide who);
     void ClearHoldOwner();
-    void AwardPoint(Score::Point point, FighterEnum who);
-    void RevokePoint(Score::Point point, FighterEnum who);
-    void AwardShido(FighterEnum who);
-    void RevokeShido(FighterEnum who);
-    void RevokeHansokumake(FighterEnum who);
-    void AwardHansokumake(FighterEnum who);
-    void ResetFight();
-    void FinishFight();
+    void AwardPoint(Score::Point point, ContestSide who);
+    void RevokePoint(Score::Point point, ContestSide who);
+    void AwardShido(ContestSide who);
+    void RevokeShido(ContestSide who);
+    void RevokeHansokumake(ContestSide who);
+    void AwardHansokumake(ContestSide who);
+    void ResetContest();
+    void FinishContest();
     void OnMainTimerElapsed();
     void OnHoldTimerTick(int seconds);
 
     [[nodiscard]] EState CurrentState() const noexcept { return m_state; }
-    [[nodiscard]] FighterEnum CurrentHolder() const noexcept { return m_holder; }
+    [[nodiscard]] ContestSide CurrentHoldSide() const noexcept { return m_holder; }
 
   private:
-    void handleRunningWazaari(FighterEnum who);
-    void handleRunningShido(FighterEnum who);
+    void handleRunningWazaari(ContestSide who);
+    void handleRunningShido(ContestSide who);
     void maybeStopForGoldenScore(Score::Point point);
     void maybeStopForGoldenScoreAfterPenalty();
     void stopFight();
 
-    void resetFight();
-    void saveFight();
+    void resetContest();
+    void saveContest();
     void startMainTimer();
     void stopMainTimer();
     void startHoldTimer();
     void stopHoldTimer();
     void stopAllTimers();
-    void awardPoint(Score::Point point, FighterEnum who);
-    void revokePoint(Score::Point point, FighterEnum who);
-    void awardIppon(FighterEnum who);
-    void awardShido(FighterEnum who);
-    void revokeShidoOrHansokumake(FighterEnum who);
-    void awardHansokumake(FighterEnum who);
-    void applyHoldScore(int seconds, FighterEnum who);
+    void awardPoint(Score::Point point, ContestSide who);
+    void revokePoint(Score::Point point, ContestSide who);
+    void awardIppon(ContestSide who);
+    void awardShido(ContestSide who);
+    void revokeShidoOrHansokumake(ContestSide who);
+    void awardHansokumake(ContestSide who);
+    void applyHoldScore(int seconds, ContestSide who);
 
-    [[nodiscard]] bool canAddWazaari(FighterEnum who) const;
-    [[nodiscard]] bool isWazaariMatchPoint(FighterEnum who) const;
-    [[nodiscard]] bool canTakeShido(FighterEnum who) const;
-    [[nodiscard]] bool isShidoMatchPoint(FighterEnum who) const;
+    [[nodiscard]] bool canAddWazaari(ContestSide who) const;
+    [[nodiscard]] bool isWazaariMatchPoint(ContestSide who) const;
+    [[nodiscard]] bool canTakeShido(ContestSide who) const;
+    [[nodiscard]] bool isShidoMatchPoint(ContestSide who) const;
     [[nodiscard]] bool hasIpponTime(int seconds) const;
     [[nodiscard]] bool hasWazaariTime(int seconds) const;
     [[nodiscard]] bool hasAwaseteTime(int seconds) const;
@@ -69,12 +69,12 @@ class IpponboardSM
     [[nodiscard]] bool mainTimeIsUp() const;
     [[nodiscard]] int compareScore() const;
 
-    [[nodiscard]] Score& score(FighterEnum who) { return m_core.get_score(who); }
-    [[nodiscard]] const Score& score(FighterEnum who) const { return m_core.get_score(who); }
+    [[nodiscard]] Score& score(ContestSide who) { return m_core.get_score(who); }
+    [[nodiscard]] const Score& score(ContestSide who) const { return m_core.get_score(who); }
 
     IControllerCore& m_core;
     EState m_state{ eState_TimerStopped };
-    FighterEnum m_holder{ FighterEnum::Nobody };
+    ContestSide m_holder{ ContestSide::None };
 };
 
 } // namespace Ipponboard

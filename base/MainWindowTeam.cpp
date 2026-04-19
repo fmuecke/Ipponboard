@@ -455,16 +455,17 @@ void MainWindowTeam::update_club_views()
 
 void MainWindowTeam::UpdateFightNumber_()
 {
-    const int currentFight = m_pController->GetCurrentFight() + 1;
+    const int currentContest = m_pController->GetCurrentContest() + 1;
 
     const bool isSaved =
-        m_pController->GetFight(m_pController->GetCurrentRound(), m_pController->GetCurrentFight())
+        m_pController
+            ->GetContest(m_pController->GetCurrentRound(), m_pController->GetCurrentContest())
             .is_saved;
     m_pUi->label_saved->setVisible(isSaved);
 
     QString formatStr("%1 / %2");
-    m_pUi->label_fight->setText(formatStr.arg(QString::number(currentFight))
-                                    .arg(QString::number(m_pController->GetFightCount())));
+    m_pUi->label_fight->setText(formatStr.arg(QString::number(currentContest))
+                                    .arg(QString::number(m_pController->GetContestCount())));
 
     m_pUi->label_saved->setText(isSaved ? tr("(saved)") : "");
 
@@ -516,23 +517,24 @@ void MainWindowTeam::ui_check_show_secondary_view(bool checked) const
 void MainWindowTeam::UpdateButtonText_()
 {
     const bool isSaved =
-        m_pController->GetFight(m_pController->GetCurrentRound(), m_pController->GetCurrentFight())
+        m_pController
+            ->GetContest(m_pController->GetCurrentRound(), m_pController->GetCurrentContest())
             .is_saved;
 
-    const bool isLastFight =
-        m_pController->GetCurrentFight() == m_pController->GetFightCount() - 1 &&
+    const bool isLastContest =
+        m_pController->GetCurrentContest() == m_pController->GetContestCount() - 1 &&
         m_pController->GetCurrentRound() == m_pController->GetRoundCount() - 1;
 
-    const bool isFirstFight =
-        m_pController->GetCurrentFight() == 0 && m_pController->GetCurrentRound() == 0;
+    const bool isFirstContest =
+        m_pController->GetCurrentContest() == 0 && m_pController->GetCurrentRound() == 0;
 
     QString textSave = tr("Save");
     QString textNext = tr("Next");
 
     m_pUi->button_next->setEnabled(true);
-    m_pUi->button_prev->setEnabled(!isFirstFight);
+    m_pUi->button_prev->setEnabled(!isFirstContest);
 
-    if (isLastFight)
+    if (isLastContest)
     {
         m_pUi->button_next->setText(textSave);
 
@@ -555,52 +557,49 @@ void MainWindowTeam::update_score_screen()
     const QString logo_home = m_pClubManager->GetLogo(home);
     const QString logo_guest = m_pClubManager->GetLogo(guest);
     m_pScoreScreen->SetLogos(logo_home, logo_guest);
-    const int score_first = m_pController->GetTeamScore(Ipponboard::FighterEnum::First);
-    const int score_second = m_pController->GetTeamScore(Ipponboard::FighterEnum::Second);
+    const int score_first = m_pController->GetTeamScore(Ipponboard::ContestSide::SideA);
+    const int score_second = m_pController->GetTeamScore(Ipponboard::ContestSide::SideB);
     m_pScoreScreen->SetScore(score_first, score_second);
 
     m_pScoreScreen->update();
 }
 
-QString MainWindowTeam::GetRoundDataAsHtml(const Fight& fight, int fightNo)
+QString MainWindowTeam::GetRoundDataAsHtml(const Contest& contest, int contestNo)
 {
     // little helper to hide initial zeros for early print outs
     auto getNum = [&](int val)
-    { return (!fight.is_saved && val == 0) ? QString() : QString::number(val); };
+    { return (!contest.is_saved && val == 0) ? QString() : QString::number(val); };
 
-    auto getTime = [&](QString const& timeStr) { return !fight.is_saved ? QString() : timeStr; };
+    auto getTime = [&](QString const& timeStr) { return !contest.is_saved ? QString() : timeStr; };
 
-    auto first = FighterEnum::First;
-    auto second = FighterEnum::Second;
-    auto const& score_first = fight.GetScore1();
-    auto const& score_second = fight.GetScore2();
+    auto sideA = ContestSide::SideA;
+    auto sideB = ContestSide::SideB;
+    auto const& score_first = contest.GetScore(sideA);
+    auto const& score_second = contest.GetScore(sideB);
 
     QString roundData("<tr>");
 
-    roundData.append("<td><center>" + QString::number(fightNo + 1) + "</center></td>");  // number
-    roundData.append("<td><center>" + fight.weight + "</center></td>");                  // weight
-    roundData.append("<td><center>" + fight.fighters[first].name + "</center></td>");    // name
+    roundData.append("<td><center>" + QString::number(contestNo + 1) + "</center></td>");
+    roundData.append("<td><center>" + contest.weight + "</center></td>");
+    roundData.append("<td><center>" + contest.GetAthlete(sideA).name + "</center></td>");
     roundData.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>");   // I
     roundData.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
     roundData.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>");    // Y
     roundData.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>");   // S
-    roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>"); // H
-    roundData.append("<td><center>" + getNum(fight.HasWon(first)) + "</center></td>");       // won
-    roundData.append("<td><center>" + getNum(fight.GetScorePoints(first)) +
-                     "</center></td>");                                                   // score
-    roundData.append("<td><center>" + fight.fighters[second].name + "</center></td>");    // name
+    roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>");
+    roundData.append("<td><center>" + getNum(contest.HasWon(sideA)) + "</center></td>");
+    roundData.append("<td><center>" + getNum(contest.GetScorePoints(sideA)) + "</center></td>");
+    roundData.append("<td><center>" + contest.GetAthlete(sideB).name + "</center></td>");
     roundData.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>");   // I
     roundData.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
     roundData.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>");    // Y
     roundData.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>");   // S
-    roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>"); // H
-    roundData.append("<td><center>" + getNum(fight.HasWon(second)) + "</center></td>");       // won
-    roundData.append("<td><center>" + getNum(fight.GetScorePoints(second)) +
-                     "</center></td>"); // score
-    roundData.append("<td><center>" + getTime(fight.GetTimeRemainingString()) +
-                     "</center></td>"); // time
-    roundData.append("<td><center>" + getTime(fight.GetTotalTimeElapsedString()) +
-                     "</center></td>"); // time
+    roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>");
+    roundData.append("<td><center>" + getNum(contest.HasWon(sideB)) + "</center></td>");
+    roundData.append("<td><center>" + getNum(contest.GetScorePoints(sideB)) + "</center></td>");
+    roundData.append("<td><center>" + getTime(contest.GetTimeRemainingString()) + "</center></td>");
+    roundData.append("<td><center>" + getTime(contest.GetTotalTimeElapsedString()) +
+                     "</center></td>");
     roundData.append("</tr>\n");
 
     return roundData;
@@ -675,10 +674,10 @@ void MainWindowTeam::WriteScoreToHtml_()
     // first round
     QString scoreData;
 
-    for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+    for (int contestNo(0); contestNo < m_pController->GetContestCount(); ++contestNo)
     {
-        const auto& fight = m_pController->GetFight(0, fightNo);
-        scoreData.append(GetRoundDataAsHtml(fight, fightNo));
+        const auto& contest = m_pController->GetContest(0, contestNo);
+        scoreData.append(GetRoundDataAsHtml(contest, contestNo));
     }
 
     m_htmlScore.replace("%FIRST_ROUND%", scoreData);
@@ -688,10 +687,11 @@ void MainWindowTeam::WriteScoreToHtml_()
 
     for (int roundNo(1); roundNo < m_pController->GetRoundCount(); ++roundNo)
     {
-        for (int fightNo(0); fightNo < m_pController->GetFightCount(); ++fightNo)
+        for (int contestNo(0); contestNo < m_pController->GetContestCount(); ++contestNo)
         {
-            const auto& fight = m_pController->GetFight(roundNo, fightNo);
-            scoreData.append(GetRoundDataAsHtml(fight, fightNo + m_pController->GetFightCount()));
+            const auto& contest = m_pController->GetContest(roundNo, contestNo);
+            scoreData.append(
+                GetRoundDataAsHtml(contest, contestNo + m_pController->GetContestCount()));
         }
     }
 
@@ -714,7 +714,7 @@ CompetitionSerialization::CompetitionSaveData MainWindowTeam::CollectCompetition
     saveData.home = m_pUi->comboBox_club_home->currentText();
     saveData.guest = m_pUi->comboBox_club_guest->currentText();
     saveData.currentRound = m_pController->GetCurrentRound();
-    saveData.currentFight = m_pController->GetCurrentFight();
+    saveData.currentContest = m_pController->GetCurrentContest();
     saveData.infoTextFg = MainWindowBase::m_pPrimaryView->GetInfoTextColor().rgb();
     saveData.infoTextBg = MainWindowBase::m_pPrimaryView->GetInfoTextBgColor().rgb();
     saveData.firstFg = MainWindowBase::m_pPrimaryView->GetTextColorFirst().rgb();
@@ -732,7 +732,7 @@ CompetitionSerialization::CompetitionSaveData MainWindowTeam::CollectCompetition
     }
 
     const auto roundCount = m_pController->GetRoundCount();
-    const auto fightsPerRound = m_pController->GetFightCount();
+    const auto fightsPerRound = m_pController->GetContestCount();
     saveData.rounds.resize(roundCount);
     for (int roundIndex = 0; roundIndex < roundCount; ++roundIndex)
     {
@@ -740,7 +740,7 @@ CompetitionSerialization::CompetitionSaveData MainWindowTeam::CollectCompetition
         round.reserve(fightsPerRound);
         for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
         {
-            round.push_back(m_pController->GetFight(roundIndex, fightIndex));
+            round.push_back(m_pController->GetContest(roundIndex, fightIndex));
         }
     }
 
@@ -795,7 +795,7 @@ int MainWindowTeam::LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIn
                      m_modes.end(),
                      [&](const CompetitionMode& mode) { return mode.id == saveData.mode.id; });
 
-    const auto overridesString = saveData.mode.GetFightTimeOverridesString();
+    const auto overridesString = saveData.mode.GetTimeOverridesString();
     const auto matchesExisting =
         existingMode != m_modes.end() && existingMode->title == saveData.mode.title &&
         existingMode->subTitle == saveData.mode.subTitle &&
@@ -803,8 +803,8 @@ int MainWindowTeam::LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIn
         existingMode->weights == saveData.mode.weights &&
         existingMode->weightsAreDoubled == saveData.mode.weightsAreDoubled &&
         existingMode->nRounds == saveData.mode.nRounds &&
-        existingMode->fightTimeInSeconds == saveData.mode.fightTimeInSeconds &&
-        existingMode->GetFightTimeOverridesString() == overridesString &&
+        existingMode->timeInSeconds == saveData.mode.timeInSeconds &&
+        existingMode->GetTimeOverridesString() == overridesString &&
         existingMode->rules == saveData.mode.rules &&
         existingMode->options == saveData.mode.options;
 
@@ -827,13 +827,13 @@ int MainWindowTeam::LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIn
         const auto& round = saveData.rounds[roundIndex];
         for (std::size_t fightIndex = 0; fightIndex < round.size(); ++fightIndex)
         {
-            m_pController->SetFight(
+            m_pController->SetContest(
                 static_cast<int>(roundIndex), static_cast<int>(fightIndex), round[fightIndex]);
         }
     }
 
     m_pController->SetCurrentRound(saveData.currentRound);
-    m_pController->SetCurrentFight(saveData.currentFight);
+    m_pController->SetCurrentContest(saveData.currentContest);
 
     MainWindowBase::update_info_text_color(QColor::fromRgba(saveData.infoTextFg),
                                            QColor::fromRgba(saveData.infoTextBg));
@@ -1172,7 +1172,7 @@ void MainWindowTeam::on_button_prev_clicked()
     //if (0 == m_pController->GetCurrentFightIndex())
     //	return;
 
-    m_pController->PrevFight();
+    m_pController->PrevContest();
     //m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
 
     SaveCompetitionToFile_(
@@ -1191,10 +1191,10 @@ void MainWindowTeam::on_button_next_clicked()
 		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
 	}
 	*/
-    m_pController->NextFight();
+    m_pController->NextContest();
 
     // reset osaekomi view (to reset active colors of previous fight)
-    m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true /*doRevoke*/);
+    m_pController->DoAction(eAction_ResetOsaeKomi, ContestSide::None, true /*doRevoke*/);
 
     SaveCompetitionToFile_(
         fm::GetLocalDataFilePath(CompetitionSerialization::AutoSaveFilename)); // autosave
@@ -1305,7 +1305,7 @@ void MainWindowTeam::on_comboBox_club_host_currentTextChanged(const QString& s)
 
 void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 {
-    m_pController->SetClub(Ipponboard::FighterEnum::First, s);
+    m_pController->SetClub(Ipponboard::ContestSide::SideA, s);
 
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
@@ -1323,7 +1323,7 @@ void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 
 void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
 {
-    m_pController->SetClub(Ipponboard::FighterEnum::Second, s);
+    m_pController->SetClub(Ipponboard::ContestSide::SideB, s);
 #if 0
 	ComboBoxDelegate* pCbx = dynamic_cast<ComboBoxDelegate*>
 							 (m_pUi->tableView_tournament_list1->itemDelegateForColumn(CompetitionModel::eCol_name2));
@@ -1420,13 +1420,13 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 
     if (ok)
     {
-        if (m_pController->GetFightCount() / 2 - 1 != weights.count(';') &&
-            m_pController->GetFightCount() - 1 != weights.count(';'))
+        if (m_pController->GetContestCount() / 2 - 1 != weights.count(';') &&
+            m_pController->GetContestCount() - 1 != weights.count(';'))
         {
             QMessageBox::critical(this,
                                   "Wrong values",
                                   tr("You need to specify %1 weight classes separated by ';'!")
-                                      .arg(QString::number(m_pController->GetFightCount())));
+                                      .arg(QString::number(m_pController->GetContestCount())));
             on_toolButton_weights_pressed();
         }
         else
@@ -1499,7 +1499,7 @@ void MainWindowTeam::on_actionSet_Round_Time_triggered()
                                          tr("Set Value"),
                                          tr("Set value to (m:ss):"),
                                          QLineEdit::Normal,
-                                         m_pController->GetFightTimeString(),
+                                         m_pController->GetTimeOverridesString(),
                                          &ok);
 
     if (ok)

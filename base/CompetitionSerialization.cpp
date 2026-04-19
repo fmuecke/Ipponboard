@@ -27,8 +27,8 @@ constexpr auto str_Wazaari = "Wazaari";
 constexpr auto str_Yuko = "Yuko";
 constexpr auto str_Shido = "Shido";
 constexpr auto str_Hansokumake = "Hansokumake";
-constexpr auto str_FirstFighter = "FirstFighter";
-constexpr auto str_SecondFighter = "SecondFighter";
+constexpr auto str_SideA = "SideA";
+constexpr auto str_SideB = "SideB";
 
 constexpr auto str_CompetitionMode = "CompetitionMode";
 constexpr auto str_Rounds = "Rounds";
@@ -40,7 +40,9 @@ constexpr auto str_Location = "Location";
 constexpr auto str_Home = "Home";
 constexpr auto str_Guest = "Guest";
 constexpr auto str_CurrentRound = "CurrentRound";
-constexpr auto str_CurrentFight = "CurrentFight";
+constexpr auto str_CurrentContest = "CurrentContest";
+constexpr auto str_TimeInSeconds = "TimeInSeconds";
+constexpr auto str_TimeOverrides = "TimeOverrides";
 constexpr auto str_FgColorInfoText = "FgColorInfoText";
 constexpr auto str_BgColorInfoText = "BgColorInfoText";
 constexpr auto str_FgColorFirst = "FgColorFirst";
@@ -58,7 +60,7 @@ QJsonDocument ToJson(const CompetitionSaveData& data)
     saveObject.insert(str_Home, data.home);
     saveObject.insert(str_Guest, data.guest);
     saveObject.insert(str_CurrentRound, data.currentRound);
-    saveObject.insert(str_CurrentFight, data.currentFight);
+    saveObject.insert(str_CurrentContest, data.currentContest);
     saveObject.insert(str_FgColorInfoText, static_cast<int>(data.infoTextFg));
     saveObject.insert(str_BgColorInfoText, static_cast<int>(data.infoTextBg));
     saveObject.insert(str_FgColorFirst, static_cast<int>(data.firstFg));
@@ -75,8 +77,8 @@ QJsonDocument ToJson(const CompetitionSaveData& data)
     modeObject.insert(mode.str_Weights, mode.weights);
     modeObject.insert(mode.str_WeightsAreDoubled, mode.weightsAreDoubled);
     modeObject.insert(mode.str_Rounds, mode.nRounds);
-    modeObject.insert(mode.str_FightTimeInSeconds, mode.fightTimeInSeconds);
-    modeObject.insert(mode.str_FightTimeOverrides, mode.GetFightTimeOverridesString());
+    modeObject.insert(str_TimeInSeconds, mode.timeInSeconds);
+    modeObject.insert(str_TimeOverrides, mode.GetTimeOverridesString());
     modeObject.insert(mode.str_Rules, mode.rules);
     modeObject.insert(mode.str_Options, mode.options);
     saveObject.insert(str_CompetitionMode, modeObject);
@@ -85,39 +87,49 @@ QJsonDocument ToJson(const CompetitionSaveData& data)
     for (const auto& round : data.rounds)
     {
         QJsonArray roundArray;
-        for (const auto& fight : round)
+        for (const auto& contest : round)
         {
-            QJsonObject fightObject;
+            QJsonObject contestObject;
 
-            fightObject.insert(str_Weight, fight.weight);
-            fightObject.insert(str_SecondsElapsed, fight.GetSecondsElapsed());
-            fightObject.insert(str_RoundTimeSeconds, fight.GetRoundSeconds());
-            fightObject.insert(str_IsGoldenScore, fight.IsGoldenScore());
-            fightObject.insert(str_IsSaved, fight.is_saved);
+            contestObject.insert(str_Weight, contest.weight);
+            contestObject.insert(str_SecondsElapsed, contest.GetSecondsElapsed());
+            contestObject.insert(str_RoundTimeSeconds, contest.GetRoundSeconds());
+            contestObject.insert(str_IsGoldenScore, contest.IsGoldenScore());
+            contestObject.insert(str_IsSaved, contest.is_saved);
 
-            QJsonObject firstFighter;
-            firstFighter.insert(str_Name, fight.GetFighter(FighterEnum::First).name);
-            firstFighter.insert(str_Club, fight.GetFighter(FighterEnum::First).club);
-            firstFighter.insert(str_Ippon, fight.GetScore1().Value(Score::Point::Ippon));
-            firstFighter.insert(str_Wazaari, fight.GetScore1().Value(Score::Point::Wazaari));
-            firstFighter.insert(str_Yuko, fight.GetScore1().Value(Score::Point::Yuko));
-            firstFighter.insert(str_Shido, fight.GetScore1().Value(Score::Point::Shido));
-            firstFighter.insert(str_Hansokumake,
-                                fight.GetScore1().Value(Score::Point::Hansokumake));
-            fightObject.insert(str_FirstFighter, firstFighter);
+            QJsonObject sideAObject;
+            sideAObject.insert(str_Name, contest.GetAthlete(ContestSide::SideA).name);
+            sideAObject.insert(str_Club, contest.GetAthlete(ContestSide::SideA).club);
+            sideAObject.insert(str_Ippon,
+                               contest.GetScore(ContestSide::SideA).Value(Score::Point::Ippon));
+            sideAObject.insert(str_Wazaari,
+                               contest.GetScore(ContestSide::SideA).Value(Score::Point::Wazaari));
+            sideAObject.insert(str_Yuko,
+                               contest.GetScore(ContestSide::SideA).Value(Score::Point::Yuko));
+            sideAObject.insert(str_Shido,
+                               contest.GetScore(ContestSide::SideA).Value(Score::Point::Shido));
+            sideAObject.insert(
+                str_Hansokumake,
+                contest.GetScore(ContestSide::SideA).Value(Score::Point::Hansokumake));
+            contestObject.insert(str_SideA, sideAObject);
 
-            QJsonObject secondFighter;
-            secondFighter.insert(str_Name, fight.GetFighter(FighterEnum::Second).name);
-            secondFighter.insert(str_Club, fight.GetFighter(FighterEnum::Second).club);
-            secondFighter.insert(str_Ippon, fight.GetScore2().Value(Score::Point::Ippon));
-            secondFighter.insert(str_Wazaari, fight.GetScore2().Value(Score::Point::Wazaari));
-            secondFighter.insert(str_Yuko, fight.GetScore2().Value(Score::Point::Yuko));
-            secondFighter.insert(str_Shido, fight.GetScore2().Value(Score::Point::Shido));
-            secondFighter.insert(str_Hansokumake,
-                                 fight.GetScore2().Value(Score::Point::Hansokumake));
-            fightObject.insert(str_SecondFighter, secondFighter);
+            QJsonObject sideBObject;
+            sideBObject.insert(str_Name, contest.GetAthlete(ContestSide::SideB).name);
+            sideBObject.insert(str_Club, contest.GetAthlete(ContestSide::SideB).club);
+            sideBObject.insert(str_Ippon,
+                               contest.GetScore(ContestSide::SideB).Value(Score::Point::Ippon));
+            sideBObject.insert(str_Wazaari,
+                               contest.GetScore(ContestSide::SideB).Value(Score::Point::Wazaari));
+            sideBObject.insert(str_Yuko,
+                               contest.GetScore(ContestSide::SideB).Value(Score::Point::Yuko));
+            sideBObject.insert(str_Shido,
+                               contest.GetScore(ContestSide::SideB).Value(Score::Point::Shido));
+            sideBObject.insert(
+                str_Hansokumake,
+                contest.GetScore(ContestSide::SideB).Value(Score::Point::Hansokumake));
+            contestObject.insert(str_SideB, sideBObject);
 
-            roundArray.append(fightObject);
+            roundArray.append(contestObject);
         }
         tournamentArray.append(roundArray);
     }
@@ -145,7 +157,7 @@ int CreateFromJson(const QJsonDocument& doc, const QString& expectedVersion,
     parsed.home = saveObject[str_Home].toString();
     parsed.guest = saveObject[str_Guest].toString();
     parsed.currentRound = qBound(0, saveObject[str_CurrentRound].toInt(), 100);
-    parsed.currentFight = qBound(0, saveObject[str_CurrentFight].toInt(), 100);
+    parsed.currentContest = qBound(0, saveObject[str_CurrentContest].toInt(), 100);
     parsed.infoTextFg = static_cast<QRgb>(saveObject[str_FgColorInfoText].toInt());
     parsed.infoTextBg = static_cast<QRgb>(saveObject[str_BgColorInfoText].toInt());
     parsed.firstFg = static_cast<QRgb>(saveObject[str_FgColorFirst].toInt());
@@ -162,9 +174,8 @@ int CreateFromJson(const QJsonDocument& doc, const QString& expectedVersion,
     mode.weights = modeObject[mode.str_Weights].toString();
     mode.weightsAreDoubled = modeObject[mode.str_WeightsAreDoubled].toBool();
     mode.nRounds = qBound(0, modeObject[mode.str_Rounds].toInt(), 10);
-    mode.fightTimeInSeconds = qBound(0, modeObject[mode.str_FightTimeInSeconds].toInt(), 3600);
-    mode.ExtractFightTimeOverrides(modeObject[mode.str_FightTimeOverrides].toString(),
-                                   mode.fightTimeOverrides);
+    mode.timeInSeconds = qBound(0, modeObject[str_TimeInSeconds].toInt(), 3600);
+    mode.ExtractTimeOverrides(modeObject[str_TimeOverrides].toString(), mode.contestTimeOverrides);
     mode.rules = modeObject[mode.str_Rules].toString();
     mode.options = modeObject[mode.str_Options].toString();
     parsed.mode = mode;
@@ -176,45 +187,47 @@ int CreateFromJson(const QJsonDocument& doc, const QString& expectedVersion,
         const QJsonArray roundArray = roundsArray.at(roundIndex).toArray();
         auto& round = parsed.rounds[roundIndex];
         round.reserve(roundArray.size());
-        for (int fightIndex = 0; fightIndex < roundArray.size(); ++fightIndex)
+        for (int contestIndex = 0; contestIndex < roundArray.size(); ++contestIndex)
         {
-            const QJsonObject fightObject = roundArray.at(fightIndex).toObject();
-            Fight fight;
-            fight.weight = fightObject[str_Weight].toString();
-            fight.SetSecondsElapsed(qBound(0, fightObject[str_SecondsElapsed].toInt(), 3600));
-            fight.SetRoundTime(qBound(0, fightObject[str_RoundTimeSeconds].toInt(), 3600));
-            fight.SetGoldenScore(fightObject[str_IsGoldenScore].toBool());
-            fight.is_saved = fightObject[str_IsSaved].toBool();
+            const QJsonObject contestObject = roundArray.at(contestIndex).toObject();
+            Contest contest;
+            contest.weight = contestObject[str_Weight].toString();
+            contest.SetSecondsElapsed(qBound(0, contestObject[str_SecondsElapsed].toInt(), 3600));
+            contest.SetRoundTime(qBound(0, contestObject[str_RoundTimeSeconds].toInt(), 3600));
+            contest.SetGoldenScore(contestObject[str_IsGoldenScore].toBool());
+            contest.is_saved = contestObject[str_IsSaved].toBool();
 
-            const QJsonObject firstFighter = fightObject[str_FirstFighter].toObject();
-            fight.fighters[0].name = firstFighter[str_Name].toString();
-            fight.fighters[0].club = firstFighter[str_Club].toString();
-            fight.GetScore1().SetValue(Score::Point::Ippon,
-                                       qBound(0, firstFighter[str_Ippon].toInt(), 1));
-            fight.GetScore1().SetValue(Score::Point::Wazaari,
-                                       qBound(0, firstFighter[str_Wazaari].toInt(), 100));
-            fight.GetScore1().SetValue(Score::Point::Yuko,
-                                       qBound(0, firstFighter[str_Yuko].toInt(), 100));
-            fight.GetScore1().SetValue(Score::Point::Shido,
-                                       qBound(0, firstFighter[str_Shido].toInt(), 4));
-            fight.GetScore1().SetValue(Score::Point::Hansokumake,
-                                       qBound(0, firstFighter[str_Hansokumake].toInt(), 1));
+            const QJsonObject sideAObject = contestObject[str_SideA].toObject();
+            contest.GetAthlete(ContestSide::SideA).name = sideAObject[str_Name].toString();
+            contest.GetAthlete(ContestSide::SideA).club = sideAObject[str_Club].toString();
+            contest.GetScore(ContestSide::SideA)
+                .SetValue(Score::Point::Ippon, qBound(0, sideAObject[str_Ippon].toInt(), 1));
+            contest.GetScore(ContestSide::SideA)
+                .SetValue(Score::Point::Wazaari, qBound(0, sideAObject[str_Wazaari].toInt(), 100));
+            contest.GetScore(ContestSide::SideA)
+                .SetValue(Score::Point::Yuko, qBound(0, sideAObject[str_Yuko].toInt(), 100));
+            contest.GetScore(ContestSide::SideA)
+                .SetValue(Score::Point::Shido, qBound(0, sideAObject[str_Shido].toInt(), 4));
+            contest.GetScore(ContestSide::SideA)
+                .SetValue(Score::Point::Hansokumake,
+                          qBound(0, sideAObject[str_Hansokumake].toInt(), 1));
 
-            const QJsonObject secondFighter = fightObject[str_SecondFighter].toObject();
-            fight.fighters[1].name = secondFighter[str_Name].toString();
-            fight.fighters[1].club = secondFighter[str_Club].toString();
-            fight.GetScore2().SetValue(Score::Point::Ippon,
-                                       qBound(0, secondFighter[str_Ippon].toInt(), 1));
-            fight.GetScore2().SetValue(Score::Point::Wazaari,
-                                       qBound(0, secondFighter[str_Wazaari].toInt(), 100));
-            fight.GetScore2().SetValue(Score::Point::Yuko,
-                                       qBound(0, secondFighter[str_Yuko].toInt(), 100));
-            fight.GetScore2().SetValue(Score::Point::Shido,
-                                       qBound(0, secondFighter[str_Shido].toInt(), 4));
-            fight.GetScore2().SetValue(Score::Point::Hansokumake,
-                                       qBound(0, secondFighter[str_Hansokumake].toInt(), 100));
+            const QJsonObject sideBObject = contestObject[str_SideB].toObject();
+            contest.GetAthlete(ContestSide::SideB).name = sideBObject[str_Name].toString();
+            contest.GetAthlete(ContestSide::SideB).club = sideBObject[str_Club].toString();
+            contest.GetScore(ContestSide::SideB)
+                .SetValue(Score::Point::Ippon, qBound(0, sideBObject[str_Ippon].toInt(), 1));
+            contest.GetScore(ContestSide::SideB)
+                .SetValue(Score::Point::Wazaari, qBound(0, sideBObject[str_Wazaari].toInt(), 100));
+            contest.GetScore(ContestSide::SideB)
+                .SetValue(Score::Point::Yuko, qBound(0, sideBObject[str_Yuko].toInt(), 100));
+            contest.GetScore(ContestSide::SideB)
+                .SetValue(Score::Point::Shido, qBound(0, sideBObject[str_Shido].toInt(), 4));
+            contest.GetScore(ContestSide::SideB)
+                .SetValue(Score::Point::Hansokumake,
+                          qBound(0, sideBObject[str_Hansokumake].toInt(), 100));
 
-            round.push_back(std::move(fight));
+            round.push_back(std::move(contest));
         }
     }
 

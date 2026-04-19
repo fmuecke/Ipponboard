@@ -11,13 +11,13 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
     "BgColorFirst": -1,
     "BgColorInfoText": -16777216,
     "BgColorSecond": -16776961,
-    "CurrentFight": 1,
+    "CurrentContest": 1,
     "CurrentRound": 0,
     "Date": "6 Nov 2025",
     "FgColorFirst": -16777216,
     "FgColorInfoText": -160,
     "FgColorSecond": -1,
-    "FileVersion": "2",
+    "FileVersion": "3",
     "Guest": "The Daltons",
     "Home": "Entenhausen",
     "Host": "Entenhausen",
@@ -25,7 +25,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
     "Rounds": [
         [
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -37,7 +37,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 1,
@@ -50,7 +50,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-60kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -62,7 +62,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -75,7 +75,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-66kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -87,7 +87,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -100,7 +100,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-73kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -112,7 +112,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -125,7 +125,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-81kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -137,7 +137,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -150,7 +150,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-90kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -162,7 +162,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -175,7 +175,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-100kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -187,7 +187,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -202,7 +202,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
         ],
         [
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -214,7 +214,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 1,
@@ -227,7 +227,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-60kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -239,7 +239,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -252,7 +252,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-66kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -264,7 +264,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -277,7 +277,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-73kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -289,7 +289,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 1,
                     "Ippon": 0,
@@ -302,7 +302,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-81kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -314,7 +314,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 1,
@@ -327,7 +327,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-90kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -339,7 +339,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -352,7 +352,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "Weight": "-100kg"
             },
             {
-                "FirstFighter": {
+                "SideA": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -364,7 +364,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
                 "IsGoldenScore": false,
                 "IsSaved": true,
                 "RoundTimeSeconds": 240,
-                "SecondFighter": {
+                "SideB": {
                     "Club": "",
                     "Hansokumake": 0,
                     "Ippon": 0,
@@ -379,8 +379,8 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
         ]
     ],
     "CompetitionMode": {
-        "FightTimeInSeconds": 240,
-        "FightTimeOverrides": "",
+        "TimeInSeconds": 240,
+        "TimeOverrides": "",
         "ID": "fd2a6412-dd1a-4e4c-b257-197feb8799b1",
         "Options": "",
         "Rounds": 2,

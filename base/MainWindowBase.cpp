@@ -343,14 +343,14 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     switch (event->key())
     {
     case Qt::Key_Space:
-        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
+        m_pController->DoAction(eAction_Hajime_Mate, ContestSide::None);
         qDebug() << "Action [ Hajime/Mate ] was triggered by keyboard";
         break;
 
     case Qt::Key_Backspace:
         if (isCtrlPressed)
         {
-            m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
+            m_pController->DoAction(eAction_ResetAll, ContestSide::None);
             qDebug() << "Action [ Reset ] was triggered by keyboard";
         }
 
@@ -359,13 +359,13 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Left:
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-            FighterEnum::First != m_pController->GetLead())
+            ContestSide::SideA != m_pController->GetLeadingSide())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
+            m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideA);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideA);
         }
 
         qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
@@ -376,13 +376,13 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Right:
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-            FighterEnum::Second != m_pController->GetLead())
+            ContestSide::SideB != m_pController->GetLeadingSide())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
+            m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideB);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideB);
         }
 
         qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
@@ -393,55 +393,55 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Down:
         //if (isCtrlPressed)
         {
-            m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Nobody, true);
+            m_pController->DoAction(eAction_ResetOsaeKomi, ContestSide::None, true);
             qDebug() << "Action [ Reset Osaekomi ] was triggered by keyboard";
         }
         break;
 
     case Qt::Key_F5:
-        m_pController->DoAction(eAction_Ippon, FighterEnum::First, isCtrlPressed);
+        m_pController->DoAction(eAction_Ippon, ContestSide::SideA, isCtrlPressed);
         qDebug() << "Action [ Ippon for fighter1, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F6:
-        m_pController->DoAction(eAction_Wazaari, FighterEnum::First, isCtrlPressed);
+        m_pController->DoAction(eAction_Wazaari, ContestSide::SideA, isCtrlPressed);
         qDebug() << "Action [ Wazaari for fighter1, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F7:
-        m_pController->DoAction(eAction_Yuko, FighterEnum::First, isCtrlPressed);
+        m_pController->DoAction(eAction_Yuko, ContestSide::SideA, isCtrlPressed);
         qDebug() << "Action [ Yuko for fighter1, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F8:
-        m_pController->DoAction(eAction_Shido, FighterEnum::First, isCtrlPressed);
+        m_pController->DoAction(eAction_Shido, ContestSide::SideA, isCtrlPressed);
         qDebug() << "Action [ Shido for fighter1, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F9:
-        m_pController->DoAction(eAction_Ippon, FighterEnum::Second, isCtrlPressed);
+        m_pController->DoAction(eAction_Ippon, ContestSide::SideB, isCtrlPressed);
         qDebug() << "Action [ Ippon for fighter2, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F10:
-        m_pController->DoAction(eAction_Wazaari, FighterEnum::Second, isCtrlPressed);
+        m_pController->DoAction(eAction_Wazaari, ContestSide::SideB, isCtrlPressed);
         qDebug() << "Action [ Wazaari for fighter2, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F11:
-        m_pController->DoAction(eAction_Yuko, FighterEnum::Second, isCtrlPressed);
+        m_pController->DoAction(eAction_Yuko, ContestSide::SideB, isCtrlPressed);
         qDebug() << "Action [ Yuko for fighter2, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F12:
-        m_pController->DoAction(eAction_Shido, FighterEnum::Second, isCtrlPressed);
+        m_pController->DoAction(eAction_Shido, ContestSide::SideB, isCtrlPressed);
         qDebug() << "Action [ Shido for fighter2, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
@@ -1177,64 +1177,64 @@ void MainWindowBase::EvaluateInput()
 
     if (wasPressed(m_controllerCfg.button_hajime_mate_raw, m_controllerCfg.button_hajime_mate))
     {
-        m_pController->DoAction(eAction_Hajime_Mate, FighterEnum::Nobody);
+        m_pController->DoAction(eAction_Hajime_Mate, ContestSide::None);
     }
     else if (wasPressed(m_controllerCfg.button_reset_hold_first_raw,
                         m_controllerCfg.button_reset_hold_first))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::First, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, ContestSide::SideA, true);
     }
     else if (wasPressed(m_controllerCfg.button_reset_hold_second_raw,
                         m_controllerCfg.button_reset_hold_second))
     {
-        m_pController->DoAction(eAction_ResetOsaeKomi, FighterEnum::Second, true);
+        m_pController->DoAction(eAction_ResetOsaeKomi, ContestSide::SideB, true);
     }
     else if (wasPressed(m_controllerCfg.button_osaekomi_toketa_first_raw,
                         m_controllerCfg.button_osaekomi_toketa_first))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-            FighterEnum::First != m_pController->GetLead())
+            ContestSide::SideA != m_pController->GetLeadingSide())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::First);
+            m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideA);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::First);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideA);
         }
     }
     else if (wasPressed(m_controllerCfg.button_osaekomi_toketa_second_raw,
                         m_controllerCfg.button_osaekomi_toketa_second))
     {
         if (eState_Holding == m_pController->GetCurrentState() &&
-            FighterEnum::Second != m_pController->GetLead())
+            ContestSide::SideB != m_pController->GetLeadingSide())
         {
-            m_pController->DoAction(eAction_SetOsaekomi, FighterEnum::Second);
+            m_pController->DoAction(eAction_SetOsaekomi, ContestSide::SideB);
         }
         else
         {
-            m_pController->DoAction(eAction_OsaeKomi_Toketa, FighterEnum::Second);
+            m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideB);
         }
     }
     // reset
     else if (isPressed(m_controllerCfg.button_reset_raw, m_controllerCfg.button_reset) &&
              isPressed(m_controllerCfg.button_reset2_raw, m_controllerCfg.button_reset_2))
     {
-        m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody);
+        m_pController->DoAction(eAction_ResetAll, ContestSide::None);
     }
 
     // hansokumake fighter1
     else if (wasPressed(m_controllerCfg.button_hansokumake_first_raw,
                         m_controllerCfg.button_hansokumake_first))
     {
-        const bool revoke(m_pController->GetScore(FighterEnum::First, Point::Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, FighterEnum::First, revoke);
+        const bool revoke(m_pController->GetScore(ContestSide::SideA, Point::Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, ContestSide::SideA, revoke);
     }
     // hansokumake fighter2
     else if (wasPressed(m_controllerCfg.button_hansokumake_second_raw,
                         m_controllerCfg.button_hansokumake_second))
     {
-        const bool revoke(m_pController->GetScore(FighterEnum::Second, Point::Hansokumake) != 0);
-        m_pController->DoAction(eAction_Hansokumake, FighterEnum::Second, revoke);
+        const bool revoke(m_pController->GetScore(ContestSide::SideB, Point::Hansokumake) != 0);
+        m_pController->DoAction(eAction_Hansokumake, ContestSide::SideB, revoke);
     }
     else
     {
@@ -1245,7 +1245,7 @@ void MainWindowBase::EvaluateInput()
         if (lastSectionXY != currSectionXY && currSectionXY != 0)
         {
             const auto& action = actions[currSectionXY];
-            m_pController->DoAction(action.action, FighterEnum::First, action.revoke);
+            m_pController->DoAction(action.action, ContestSide::SideA, action.revoke);
             return;
         }
 
@@ -1254,7 +1254,7 @@ void MainWindowBase::EvaluateInput()
         if (lastSectionRZ != currSectionRZ && currSectionRZ != 0)
         {
             const auto& action = actions[currSectionRZ];
-            m_pController->DoAction(action.action, FighterEnum::First, action.revoke);
+            m_pController->DoAction(action.action, ContestSide::SideA, action.revoke);
             return;
         }
     }
@@ -1293,7 +1293,7 @@ void MainWindowBase::on_button_reset_clicked()
     //							   tr("Really reset current fight?"),
     //							   QMessageBox::No | QMessageBox::Yes );
     //	if( QMessageBox::Yes == answer )
-    m_pController->DoAction(eAction_ResetAll, FighterEnum::Nobody, false);
+    m_pController->DoAction(eAction_ResetAll, ContestSide::None, false);
 }
 
 void MainWindowBase::on_action_Info_Header_triggered(bool val)

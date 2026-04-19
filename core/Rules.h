@@ -13,7 +13,7 @@
 
 namespace Ipponboard
 {
-class Fight;
+class Contest;
 class AbstractRules
 {
   public:
@@ -44,7 +44,7 @@ class AbstractRules
     virtual bool IsOption_HasYuko() const { return true; }
     virtual bool IsOption_OpenEndGoldenScore() const { return true; }
 
-    virtual int CompareScore(const Fight& f) const;
+    virtual int CompareScore(const Contest& contest) const;
     int CompareScore(const Score& lhs, const Score& rhs, bool isGoldenScore) const;
     virtual int GetMaxShidoCount() const { return 3; }
     virtual int GetMaxWazaariCount() const { return 2; }
