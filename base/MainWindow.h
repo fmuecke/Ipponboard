@@ -48,15 +48,15 @@ class MainWindow : public MainWindowBase
     //void update_info_text_color(const QColor& color, const QColor& bgColor) override;
     //void update_text_color_first(const QColor& color, const QColor& bgColor) override;
     //void update_text_color_second(const QColor& color, const QColor& bgColor) override;
-    //virtual void update_fighter_name_font(const QFont&) override;
+    //virtual void update_athlete_name_font(const QFont&) override;
     //virtual void update_views() override;
 
     /* specific private methods */
-    void update_fighter_name_completer(const QString& weight);
-    void update_fighters(const QString& s);
+    void update_athlete_name_completer(const QString& weight);
+    void update_athletes(const QString& s);
 
     /* base class slot overrides */
-    void on_actionManageFighters_triggered() override;
+    void on_actionManageAthletes_triggered() override;
 
   protected slots:
     //virtual bool EvaluateSpecificInput(GamepadLib::Gamepad const* pGamepad) override;
@@ -77,8 +77,8 @@ class MainWindow : public MainWindowBase
   private:
     /* member */
     std::unique_ptr<Ui::MainWindow> m_pUi;
-    std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
-    QStringList m_CurrentFighterNames;
+    std::shared_ptr<Ipponboard::ContestCategoryMgr> m_pCategoryManager;
+    QStringList m_CurrentAthleteNames;
 };
 
 #endif // BASIC_EDITION_MAINWINDOW_H_

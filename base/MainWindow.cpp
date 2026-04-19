@@ -5,8 +5,8 @@
 #include "MainWindow.h"
 
 #include "../base/AthleteManagerDlg.h"
-#include "../base/FightCategoryManager.h"
-#include "../base/FightCategoryManagerDlg.h"
+#include "../base/ContestCategoryManager.h"
+#include "../base/ContestCategoryManagerDlg.h"
 #include "../base/View.h"
 #include "../core/Athlete.h"
 #include "../core/Controller.h"
@@ -44,19 +44,19 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::Init()
 {
-    m_pCategoryManager.reset(new FightCategoryMgr());
+    m_pCategoryManager.reset(new ContestCategoryMgr());
 
     MainWindowBase::Init();
 
     // init competition classes (if there are none present)
     for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
     {
-        FightCategory t("");
+        ContestCategory t("");
         m_pCategoryManager->GetCategory(i, t);
         m_pUi->comboBox_weight_class->addItem(t.ToString());
     }
 
-    // trigger loading of competition class data (also loads class weights and fighter names)
+    // trigger loading of competition class data (also loads class weights and athlete names)
     on_comboBox_weight_class_currentTextChanged(m_pUi->comboBox_weight_class->currentText());
 
     m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
@@ -67,7 +67,7 @@ void MainWindow::on_actionManageCategories_triggered()
     //save categories before editing
     m_pCategoryManager->SaveCategories();
 
-    FightCategoryManagerDlg dlg(m_pCategoryManager, this);
+    ContestCategoryManagerDlg dlg(m_pCategoryManager, this);
 
     if (QDialog::Accepted == dlg.exec())
     {
@@ -79,7 +79,7 @@ void MainWindow::on_actionManageCategories_triggered()
 
         for (int i(0); i < m_pCategoryManager->CategoryCount(); ++i)
         {
-            FightCategory t("");
+            ContestCategory t("");
             m_pCategoryManager->GetCategory(i, t);
             m_pUi->comboBox_weight_class->addItem(t.ToString());
         }
@@ -102,9 +102,9 @@ void MainWindow::on_actionManageCategories_triggered()
     }
 }
 
-void MainWindow::on_actionManageFighters_triggered()
+void MainWindow::on_actionManageAthletes_triggered()
 {
-    MainWindowBase::on_actionManageFighters_triggered();
+    MainWindowBase::on_actionManageAthletes_triggered();
 
     AthleteManagerDlg dlg(m_athleteManager, this);
     dlg.exec();
@@ -112,7 +112,7 @@ void MainWindow::on_actionManageFighters_triggered()
 
 void MainWindow::on_comboBox_weight_currentTextChanged(const QString& s)
 {
-    update_fighter_name_completer(s);
+    update_athlete_name_completer(s);
 
     m_pPrimaryView->SetWeight(s);
     m_pSecondaryView->SetWeight(s);
@@ -123,7 +123,7 @@ void MainWindow::on_comboBox_weight_currentTextChanged(const QString& s)
 void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
 {
     auto s = m_pUi->comboBox_name_first->currentText();
-    update_fighters(s);
+    update_athletes(s);
 
     m_pController->SetAthleteName(ContestSide::SideA, s);
 }
@@ -131,7 +131,7 @@ void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
 void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
 {
     auto s = m_pUi->comboBox_name_second->currentText();
-    update_fighters(s);
+    update_athletes(s);
 
     m_pController->SetAthleteName(ContestSide::SideB, s);
 }
@@ -139,7 +139,7 @@ void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
 void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 {
     const QString name = m_pUi->comboBox_weight_class->currentText();
-    FightCategory t(name);
+    ContestCategory t(name);
     m_pCategoryManager->GetCategory(name, t);
 
     m_pController->SetGoldenScore(checked);
@@ -165,7 +165,7 @@ void MainWindow::on_checkBox_golden_score_clicked(bool checked)
 
 void MainWindow::on_comboBox_weight_class_currentTextChanged(const QString& s)
 {
-    FightCategory category(s);
+    ContestCategory category(s);
     m_pCategoryManager->GetCategory(s, category);
 
     // add weights
@@ -175,7 +175,7 @@ void MainWindow::on_comboBox_weight_class_currentTextChanged(const QString& s)
     // trigger round time update
     on_checkBox_golden_score_clicked(m_pUi->checkBox_golden_score->checkState());
 
-    m_pController->OverrideRoundTimeOfFightMode(category.GetRoundTime());
+    m_pController->OverrideRoundTimeOfContestMode(category.GetRoundTime());
     m_pController->DoAction(Ipponboard::eAction_ResetAll);
 
     m_pPrimaryView->SetCategory(s);
@@ -184,10 +184,10 @@ void MainWindow::on_comboBox_weight_class_currentTextChanged(const QString& s)
     m_pSecondaryView->UpdateView();
 }
 
-void MainWindow::update_fighter_name_completer(const QString& weight)
+void MainWindow::update_athlete_name_completer(const QString& weight)
 {
-    // filter fighters for suitable
-    m_CurrentFighterNames.clear();
+    // filter athletes for suitable
+    m_CurrentAthleteNames.clear();
 
     for (const auto& a : m_athleteManager.m_athletes)
     {
@@ -195,20 +195,20 @@ void MainWindow::update_fighter_name_completer(const QString& weight)
         {
             const QString fullName = QString("%1 %2").arg(a.first_name, a.last_name);
 
-            m_CurrentFighterNames.push_back(fullName);
+            m_CurrentAthleteNames.push_back(fullName);
         }
     }
 
-    m_CurrentFighterNames.sort();
+    m_CurrentAthleteNames.sort();
 
     m_pUi->comboBox_name_first->clear();
-    m_pUi->comboBox_name_first->addItems(m_CurrentFighterNames);
+    m_pUi->comboBox_name_first->addItems(m_CurrentAthleteNames);
 
     m_pUi->comboBox_name_second->clear();
-    m_pUi->comboBox_name_second->addItems(m_CurrentFighterNames);
+    m_pUi->comboBox_name_second->addItems(m_CurrentAthleteNames);
 }
 
-void MainWindow::update_fighters(const QString& s)
+void MainWindow::update_athletes(const QString& s)
 {
     if (s.isEmpty())
         return;
@@ -232,7 +232,7 @@ void MainWindow::update_fighters(const QString& s)
     newAthlete.club = club;
     newAthlete.weight = weight;
     newAthlete.category = category;
-    m_athleteManager.AddFighter(newAthlete); // only adds fighter if new
+    m_athleteManager.AddAthlete(newAthlete); // only adds athlete if new
 }
 
 void MainWindow::update_statebar()

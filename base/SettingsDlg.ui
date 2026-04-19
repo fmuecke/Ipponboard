@@ -608,21 +608,21 @@
                <number>0</number>
               </property>
               <item>
-               <widget class="QFontComboBox" name="fontComboBox_fighters">
+               <widget class="QFontComboBox" name="fontComboBox_athletes">
                 <property name="fontFilters">
                  <set>QFontComboBox::FontFilter::ScalableFonts</set>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_fighters_bold">
+               <widget class="QCheckBox" name="checkBox_athletes_bold">
                 <property name="text">
                  <string>bold</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_fighters_italic">
+               <widget class="QCheckBox" name="checkBox_athletes_italic">
                 <property name="text">
                  <string>italic</string>
                 </property>
@@ -894,14 +894,14 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_raw_next">
               <property name="text">
-               <string>Next fight</string>
+               <string>Next contest</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_raw_prev">
               <property name="text">
-               <string>Prev fight</string>
+               <string>Prev contest</string>
               </property>
              </widget>
             </item>
@@ -932,7 +932,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_fighter_controls">
+        <layout class="QHBoxLayout" name="horizontalLayout_athlete_controls">
          <property name="bottomMargin">
           <number>0</number>
          </property>
@@ -1614,7 +1614,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="toolTip">
-             <string>Format specifier for fighter import and export</string>
+             <string>Format specifier for athlete import and export</string>
             </property>
             <property name="text">
              <string>Athlete import/export format</string>
@@ -1684,9 +1684,9 @@
   <tabstop>toolButton_text_background_first</tabstop>
   <tabstop>toolButton_text_color_second</tabstop>
   <tabstop>toolButton_text_background_second</tabstop>
-  <tabstop>fontComboBox_fighters</tabstop>
-  <tabstop>checkBox_fighters_bold</tabstop>
-  <tabstop>checkBox_fighters_italic</tabstop>
+  <tabstop>fontComboBox_athletes</tabstop>
+  <tabstop>checkBox_athletes_bold</tabstop>
+  <tabstop>checkBox_athletes_italic</tabstop>
   <tabstop>toolButton_switchSides</tabstop>
   <tabstop>toolButton_text_color</tabstop>
   <tabstop>toolButton_text_background</tabstop>

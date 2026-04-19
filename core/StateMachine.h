@@ -41,7 +41,7 @@ class IpponboardSM
     void handleRunningShido(ContestSide who);
     void maybeStopForGoldenScore(Score::Point point);
     void maybeStopForGoldenScoreAfterPenalty();
-    void stopFight();
+    void stopContest();
 
     void resetContest();
     void saveContest();

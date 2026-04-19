@@ -111,14 +111,14 @@ void Controller::InitCompetition(CompetitionMode const& mode)
     {
         PContestRound pRound(new ContestRound());
 
-        for (int contestNo = 0; contestNo < m_mode.FightsPerRound(); ++contestNo)
+        for (int contestNo = 0; contestNo < m_mode.ContestsPerRound(); ++contestNo)
         {
             QString weight =
                 m_mode.weightsAreDoubled ? actualWeights[contestNo / 2] : actualWeights[contestNo];
 
             Contest contest;
             contest.weight = weight;
-            contest.SetRoundTime(m_mode.GetFightDuration(weight));
+            contest.SetRoundTime(m_mode.GetContestDuration(weight));
             contest.rules = m_rules;
             contest.rules->SetCountSubscores(
                 m_mode.IsOptionSet(CompetitionMode::str_Option_AllSubscoresCount));
@@ -134,17 +134,17 @@ void Controller::InitCompetition(CompetitionMode const& mode)
         m_Competition.push_back(pRound);
 
         PCompetitionModel pModel(new CompetitionModel(pRound));
-        pModel->SetNumRows(m_mode.FightsPerRound());
+        pModel->SetNumRows(m_mode.ContestsPerRound());
 
         m_CompetitionModels.push_back(pModel);
     }
 
-    // set options AFTER configuring fights
+    // set options AFTER configuring contests
 
     m_navigator.reset();
 
     // set time and update views
-    SetRoundTime(QTime(0, 0, 0, 0).addSecs(m_mode.GetFightDuration(current_contest().weight)));
+    SetRoundTime(QTime(0, 0, 0, 0).addSecs(m_mode.GetContestDuration(current_contest().weight)));
 }
 
 //=========================================================
@@ -375,7 +375,7 @@ void Controller::reset_timers()
 void Controller::reset()
 //=========================================================
 {
-    ClearFightsAndResetTimers();
+    ClearContestsAndResetTimers();
     SetContest(0, 0, "-XX", tr("Side A"), "", tr("Side B"), "");
 
     update_views();
@@ -518,11 +518,11 @@ int Controller::GetTeamScore(Ipponboard::ContestSide who) const
 
     for (size_t round(0); round < m_Competition.size(); ++round)
     {
-        for (size_t fight(0); fight < m_Competition[0]->size(); ++fight)
+        for (size_t contest(0); contest < m_Competition[0]->size(); ++contest)
         {
-            if (m_Competition[round]->at(fight).is_saved)
+            if (m_Competition[round]->at(contest).is_saved)
             {
-                score += m_Competition[round]->at(fight).HasWon(who);
+                score += m_Competition[round]->at(contest).HasWon(who);
             }
         }
     }
@@ -572,9 +572,9 @@ void Controller::SetRoundTime(QTime const& time)
     update_views();
 }
 
-void Controller::OverrideRoundTimeOfFightMode(int fightTimeSecs)
+void Controller::OverrideRoundTimeOfContestMode(int contestTimeSecs)
 {
-    m_mode.timeInSeconds = fightTimeSecs;
+    m_mode.timeInSeconds = contestTimeSecs;
 }
 
 //=========================================================
@@ -595,7 +595,7 @@ QString Controller::GetTimeOverridesString() const
 int Controller::GetContestDuration(QString const& weight) const
 //=========================================================
 {
-    return m_mode.GetFightDuration(weight);
+    return m_mode.GetContestDuration(weight);
 }
 
 //=========================================================
@@ -870,7 +870,7 @@ void Controller::applyContestChange()
     }
 
     m_holdTime = QTime(0, 0, 0, 0);
-    m_roundTime = QTime(0, 0, 0, 0).addSecs(m_mode.GetFightDuration(current_contest().weight));
+    m_roundTime = QTime(0, 0, 0, 0).addSecs(m_mode.GetContestDuration(current_contest().weight));
 
     if (current_contest().IsGoldenScore())
     {
@@ -901,12 +901,12 @@ void Controller::SetCurrentRound(unsigned int index)
 }
 
 //=========================================================
-void Controller::ClearFightsAndResetTimers()
+void Controller::ClearContestsAndResetTimers()
 //=========================================================
 {
     reset_timers();
 
-    m_repository.clearAllFights(m_rules, m_mode, emptyAthleteName);
+    m_repository.clearAllContests(m_rules, m_mode, emptyAthleteName);
 
     m_navigator.reset();
     applyContestChange();
@@ -920,9 +920,9 @@ void Controller::SetClub(Ipponboard::ContestSide who, const QString& clubName)
 
     for (unsigned int round(0); round < m_Competition.size(); ++round)
     {
-        for (size_t fight(0); fight < m_Competition[0]->size(); ++fight)
+        for (size_t contest(0); contest < m_Competition[0]->size(); ++contest)
         {
-            m_Competition[round]->at(fight).GetAthlete(who).club = clubName;
+            m_Competition[round]->at(contest).GetAthlete(who).club = clubName;
         }
     }
 
@@ -994,7 +994,7 @@ void Controller::SetWeights(QStringList const& weights)
 }
 
 //=========================================================
-void Controller::CopyAndSwitchGuestFighters()
+void Controller::CopyAndSwitchGuestAthletes()
 //=========================================================
 {
     if (m_Competition.size() != 2)

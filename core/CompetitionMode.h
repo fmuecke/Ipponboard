@@ -52,8 +52,8 @@ class CompetitionMode
     bool operator<(CompetitionMode const& other) const;
 
     QString Description() const;
-    int FightsPerRound() const;
-    int GetFightDuration(QString const& weight) const;
+    int ContestsPerRound() const;
+    int GetContestDuration(QString const& weight) const;
     bool IsOptionSet(QString const& option) const;
     void SetOption(QString const& option, bool checked);
     QString GetTimeOverridesString() const;

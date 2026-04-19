@@ -62,12 +62,12 @@ class MainWindowTeam : public MainWindowBase
     void update_info_text_color(const QColor& color, const QColor& bgColor) override;
     void update_text_color_first(const QColor& color, const QColor& bgColor) override;
     void update_text_color_second(const QColor& color, const QColor& bgColor) override;
-    void update_fighter_name_font(const QFont&) override;
+    void update_athlete_name_font(const QFont&) override;
     void update_views() override;
 
     // specific methods
     void update_club_views();
-    void UpdateFightNumber_();
+    void UpdateContestNumber_();
     void UpdateButtonText_();
     void update_score_screen();
     void WriteScoreToHtml_();
@@ -79,11 +79,11 @@ class MainWindowTeam : public MainWindowBase
     void read_settings() final;
     Ipponboard::CompetitionSerialization::CompetitionSaveData CollectCompetitionSaveData_() const;
     static bool hasCompatibleSaveFileVersion(QString const& fileVersion);
-    //void update_fighter_name_completer(const QString& weight);
-    //void update_fighters(const QString& s);
+    //void update_athlete_name_completer(const QString& weight);
+    //void update_athletes(const QString& s);
 
     /* base class slot overrides */
-    void on_actionManageFighters_triggered() override;
+    void on_actionManageAthletes_triggered() override;
 
   private slots:
     void on_tableView_tournament_list1_customContextMenuRequested(QPoint const& pos);
@@ -152,9 +152,9 @@ class MainWindowTeam : public MainWindowBase
     QString m_currentMode;
     QString m_host;
 
-    //std::shared_ptr<Ipponboard::FightCategoryMgr> m_pCategoryManager;
-    QStringList m_FighterNamesHome;
-    QStringList m_FighterNamesGuest;
+    //std::shared_ptr<Ipponboard::ContestCategoryMgr> m_pCategoryManager;
+    QStringList m_AthleteNamesHome;
+    QStringList m_AthleteNamesGuest;
     Ipponboard::CompetitionMode::List m_modes;
     QString GetRoundDataAsHtml(const Ipponboard::Contest& contest, int contestNo);
 };

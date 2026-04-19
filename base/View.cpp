@@ -37,7 +37,7 @@ View::View(IController* pController, EditionType edition, EType type, QWidget* p
       m_pController(pController),
       ui(new Ui::ScoreViewHorizontal),
       m_InfoHeaderFont("Calibri", 12, QFont::Bold, false),
-      m_FighterNameFont("Calibri", 12, QFont::Bold, true),
+      m_AthleteNameFont("Calibri", 12, QFont::Bold, true),
       m_DigitFont("Calibri", 12, QFont::Bold, false),
       m_TextColorFirst(Qt::black),
       m_TextBgColorFirst(Qt::white),
@@ -217,7 +217,7 @@ void View::UpdateView()
     // display weight class
     if (m_Edition == EditionType::Team)
     {
-        QString infoText /*(tr("Fight ").toUpper())*/;
+        QString infoText /*(tr("Contest ").toUpper())*/;
         //infoText += QString::number(m_pController->GetRound()) + ": ";
         infoText += m_pController->GetWeight();
         ui->text_weight->SetText(infoText, ScaledText::eSize_normal);
@@ -247,7 +247,7 @@ void View::UpdateView()
     }
 
     //
-    // fighter names
+    // athlete names
     //
     ui->text_lastname_first->SetText(
         m_pController->GetAthleteLastName(MapDisplayPositionToContestSide(ContestSide::SideA)),
@@ -325,7 +325,7 @@ void View::UpdateView()
     }
 
     // time is up?
-    //const FighterEnum lead( m_pController->GetLead() );
+    //const ContestSide lead( m_pController->GetLead() );
     //if ( eState_TimerEnded == m_pController->GetCurrentState() )
     //{
     //	// something to do here?
@@ -374,10 +374,10 @@ void View::SetInfoHeaderFont(const QFont& font)
 }
 
 //=========================================================
-void View::SetFighterNameFont(const QFont& font)
+void View::SetAthleteNameFont(const QFont& font)
 //=========================================================
 {
-    m_FighterNameFont = font;
+    m_AthleteNameFont = font;
 
     ui->text_lastname_second->setAlignment(Qt::AlignLeft);
     ui->text_firstname_second->setAlignment(Qt::AlignLeft);

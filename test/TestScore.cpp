@@ -10,7 +10,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <iostream>
 
-
 using namespace Ipponboard;
 using Point = Score::Point;
 
@@ -21,7 +20,7 @@ bool IsScoreLess(std::shared_ptr<Ipponboard::AbstractRules> pRules, Score const&
     return pRules->CompareScore(f) > 0;
 }
 
-TEST_CASE("[Score] Shido rules for fights")
+TEST_CASE("[Score] Shido rules for contests")
 {
     auto empty = Score();
     auto shido = Score().Add(Point::Shido);

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Manage Fighters</string>
+   <string>Manage Athletes</string>
   </property>
   <property name="windowIcon">
    <iconset resource="ipponboard.qrc">
@@ -32,7 +32,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeWidget" name="treeWidget_fighters">
+    <widget class="QTreeWidget" name="treeWidget_athletes">
      <property name="mouseTracking">
       <bool>false</bool>
      </property>
@@ -84,7 +84,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_import">
        <property name="toolTip">
-        <string>Import fighters</string>
+        <string>Import athletes</string>
        </property>
        <property name="text">
         <string>&amp;Import</string>
@@ -101,7 +101,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_export">
        <property name="toolTip">
-        <string>Export fighters</string>
+        <string>Export athletes</string>
        </property>
        <property name="text">
         <string>E&amp;xport</string>
@@ -154,7 +154,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_add">
        <property name="toolTip">
-        <string>Add a new fighter</string>
+        <string>Add a new athelete</string>
        </property>
        <property name="text">
         <string>&amp;Add</string>

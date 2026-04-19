@@ -38,7 +38,7 @@ struct ControllerFixture
         controller.InitCompetition(mode);
     }
 
-    void startFight() { controller.DoAction(Ipponboard::eAction_Hajime_Mate); }
+    void startContest() { controller.DoAction(Ipponboard::eAction_Hajime_Mate); }
 
     void advanceMainTime(int ticks)
     {

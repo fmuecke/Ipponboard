@@ -202,7 +202,7 @@ TEST_CASE("[StateMachine] Finish while running stops timers and saves the contes
     REQUIRE(fixture.machine.CurrentState() == eState_TimerStopped);
 }
 
-TEST_CASE("[StateMachine] Reset while running resets fight and returns to stopped")
+TEST_CASE("[StateMachine] Reset while running resets contest and returns to stopped")
 {
     StateMachineFixture fixture;
 
@@ -231,7 +231,7 @@ TEST_CASE("[StateMachine] Hold release resumes running when main time is left")
     REQUIRE(fixture.machine.CurrentState() == eState_TimerRunning);
 }
 
-TEST_CASE("[StateMachine] Hold release stops the fight when main time is up")
+TEST_CASE("[StateMachine] Hold release stops the contest when main time is up")
 {
     StateMachineFixture fixture;
     fixture.core.set_time(eTimer_Main, 0);

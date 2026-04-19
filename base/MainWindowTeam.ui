@@ -960,7 +960,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_fight">
+               <widget class="QLabel" name="label_contest">
                 <property name="font">
                  <font>
                   <pointsize>12</pointsize>
@@ -1042,7 +1042,7 @@
                  <enum>Qt::FocusPolicy::NoFocus</enum>
                 </property>
                 <property name="toolTip">
-                 <string>Re-load previous fight data (Note: the current data will be saved)</string>
+                 <string>Re-load previous contest data (Note: the current data will be saved)</string>
                 </property>
                 <property name="text">
                  <string>Previous</string>
@@ -1077,7 +1077,7 @@
                  <enum>Qt::FocusPolicy::NoFocus</enum>
                 </property>
                 <property name="toolTip">
-                 <string>Continue with next fight (current data will be saved)</string>
+                 <string>Continue with next contest (current data will be saved)</string>
                 </property>
                 <property name="text">
                  <string notr="true">Next</string>
@@ -1220,7 +1220,7 @@
     <property name="title">
      <string>Competition</string>
     </property>
-    <addaction name="actionImport_Fighters"/>
+    <addaction name="actionImport_Athletes"/>
     <addaction name="separator"/>
     <addaction name="actionNew"/>
     <addaction name="actionLoad"/>
@@ -1295,7 +1295,7 @@
      <addaction name="actionSet_Main_Timer"/>
     </widget>
     <addaction name="actionManageModes"/>
-    <addaction name="actionManageFighters"/>
+    <addaction name="actionManageAthletes"/>
     <addaction name="actionManage_Clubs"/>
     <addaction name="menuTimers"/>
     <addaction name="actionReset_Scores"/>
@@ -1538,7 +1538,7 @@
     <string>Set Round Time</string>
    </property>
    <property name="toolTip">
-    <string>Set round time for all fights</string>
+    <string>Set round time for all contests</string>
    </property>
   </action>
   <action name="actionScore_Screen">
@@ -1571,7 +1571,7 @@
     <enum>Qt::ShortcutContext::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionManageFighters">
+  <action name="actionManageAthletes">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -1579,7 +1579,7 @@
     <string>Athletes</string>
    </property>
   </action>
-  <action name="actionImport_Fighters">
+  <action name="actionImport_Athletes">
    <property name="enabled">
     <bool>false</bool>
    </property>

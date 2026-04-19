@@ -19,7 +19,7 @@ set(SOURCES
     TestMainWindowTeam.cpp
     Test-path_helpers.cpp
     TestController.cpp
-    TestFight.cpp
+    TestContest.cpp
     TestGamepadSectionMapper.cpp
     TestGamepadSections.cpp
     TestInputBindingResolver.cpp

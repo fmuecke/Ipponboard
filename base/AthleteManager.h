@@ -36,12 +36,12 @@ class AthleteManager
 
     static QString DefaultExportFormat();
 
-    bool ImportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
-    bool ExportFighters(QString const& fileName, QString const& formatStr, QString& errorMsg);
+    bool ImportAthletes(QString const& fileName, QString const& formatStr, QString& errorMsg);
+    bool ExportAthletes(QString const& fileName, QString const& formatStr, QString& errorMsg);
 
-    bool AddFighter(Ipponboard::Athlete f);
-    bool RemoveFighter(Ipponboard::Athlete f);
-    QStringList GetClubFighterNames(QString const& filter) const;
+    bool AddAthlete(Ipponboard::Athlete f);
+    bool RemoveAthlete(Ipponboard::Athlete f);
+    QStringList GetClubAthleteNames(QString const& filter) const;
 
     //private:
     std::set<Ipponboard::Athlete> m_athletes; //TODO: encapsulate

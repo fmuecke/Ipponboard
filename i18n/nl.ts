@@ -151,7 +151,7 @@
     </message>
 </context>
 <context>
-    <name>FightCategoryManagerDlg</name>
+    <name>ContestCategoryManagerDlg</name>
     <message>
         <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
         <translation>0:00 Golden Score tijd betekent geen tijdslimiet in de Golden Score (of er is geen Golden Score)</translation>
@@ -193,7 +193,7 @@
         <translation>Voer gewichtsklassen/groepen in, gescheiden door “;”</translation>
     </message>
     <message>
-        <source>Manage Fight Categories</source>
+        <source>Manage Contest Categories</source>
         <translation>Bewerk wedstrijdcategorieën</translation>
     </message>
     <message>
@@ -1109,7 +1109,7 @@ Geldige velden zijn: %1</translation>
         <translation>F2</translation>
     </message>
     <message>
-        <source>Fight</source>
+        <source>Contest</source>
         <translation>Ontmoeting</translation>
     </message>
     <message>
@@ -1541,7 +1541,7 @@ Geldige velden zijn: %1</translation>
         <translation>GEVECHTEN_PER_RONDE</translation>
     </message>
     <message>
-        <source>Fight Time</source>
+        <source>Contest Duration</source>
         <translation>Vechttijd</translation>
     </message>
     <message>

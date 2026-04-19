@@ -52,7 +52,7 @@ class SettingsDlg : public QDialog
     void SetScreensSettings(int screen, const QSize& dimensions,
                             const QPoint& offset); // zero dimensions means auto size
     void SetInfoHeaderSettings(const QFont& font, const QColor& color, const QColor& background);
-    void SetFighterNameFont(const QFont& font);
+    void SetAthleteNameFont(const QFont& font);
     void SetTextColorsFirst(const QColor& color, const QColor& background);
     void SetTextColorsSecond(const QColor& color, const QColor& background);
     void SetLabels(QString const& mat, QString const& home, QString const& guest);
@@ -63,7 +63,7 @@ class SettingsDlg : public QDialog
     QSize GetSize() const;
     QPoint GetOffset() const;
     QFont GetInfoHeaderFont() const;
-    QFont GetFighterNameFont() const;
+    QFont GetAthleteNameFont() const;
     QColor GetInfoTextColor() const;
     QColor GetTextColorFirst() const;
     QColor GetTextColorSecond() const;
@@ -88,7 +88,7 @@ class SettingsDlg : public QDialog
     {
         QLineEdit* lineEdit;
         QPushButton* captureButton;
-        int ControllerConfig::*configMember;
+        int ControllerConfig::* configMember;
         QString description;
     };
 
@@ -97,9 +97,9 @@ class SettingsDlg : public QDialog
         QLineEdit* lineEdit;
         QPushButton* captureButton;
         QCheckBox* invertCheckBox;
-        int ControllerConfig::*codeMember;
-        bool ControllerConfig::*invertMember;
-        bool ControllerConfig::*legacyInvertMember;
+        int ControllerConfig::* codeMember;
+        bool ControllerConfig::* invertMember;
+        bool ControllerConfig::* legacyInvertMember;
     };
 
     enum class CaptureMode
@@ -145,8 +145,8 @@ class SettingsDlg : public QDialog
 
   private slots:
     void on_comboBox_mat_editTextChanged(QString);
-    void on_checkBox_fighters_italic_toggled(bool checked);
-    void on_checkBox_fighters_bold_toggled(bool checked);
+    void on_checkBox_athletes_italic_toggled(bool checked);
+    void on_checkBox_athletes_bold_toggled(bool checked);
     void on_checkBox_text_italic_toggled(bool checked);
     void on_checkBox_text_bold_toggled(bool checked);
     void on_toolButton_text_background_second_pressed();
@@ -156,7 +156,7 @@ class SettingsDlg : public QDialog
     void on_toolButton_text_background_pressed(); //TODO: somehow the buttons stay pressed...
     void on_toolButton_text_color_pressed();      //TODO: somehow the buttons stay pressed...
     void on_fontComboBox_infoHeader_currentFontChanged(QFont f);
-    void on_fontComboBox_fighters_currentFontChanged(QFont f);
+    void on_fontComboBox_athletes_currentFontChanged(QFont f);
     void on_toolButton_play_gong_pressed();
     void on_toolButton_switchSides_pressed();
     void on_buttonBox_rejected();

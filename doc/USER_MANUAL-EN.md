@@ -96,42 +96,42 @@ Questions or suggestions for improvement may be directed to:
 
 # Operation & Settings
 
-Ipponboard is an advanced display system for managing fight time time and points, designed specifically for judo competition. During the development, special attention has been and will be paid to:
+Ipponboard is an advanced display system for managing contest time time and points, designed specifically for judo competition. During the development, special attention has been and will be paid to:
 
 - Excellent readability
 - Easy handling
 - Uncomplicated use
 
-The program is basically operated from a PC (laptop) and controlled with mouse or gamepad. Ipponboard manages two displays, an external one for the the fighters/supervisors/audience and one for the timekeepers. The display of the timekeeper is mirrored, so that it can be better assigned to the fighters.
+The program is basically operated from a PC (laptop) and controlled with mouse or gamepad. Ipponboard manages two displays, an external one for the the athletes/supervisors/audience and one for the timekeepers. The display of the timekeeper is mirrored, so that it can be better assigned to the athletes.
 
 ## Displays
 
-Ipponboard uses two customized displays to provide the best possible comfort for the operators on one side and the fighters/referees and spectators on the other.
+Ipponboard uses two customized displays to provide the best possible comfort for the operators on one side and the athletes/referees and spectators on the other.
 
 Each display consists mainly of five areas:
 
-- Fight time: this is located at the bottom of the display. If the fight is interrupted the fight time is displayed in red, otherwise in yellow.
-- Scores: The scores are grouped on the side of the respective fighter and in the respective color combination (white on blue or black on white).
+- Contest time/duration: this is located at the bottom of the display. If the contest is interrupted the contest time is displayed in red, otherwise in yellow.
+- Scores: The scores are grouped on the side of the respective athlete and in the respective color combination (white on blue or black on white).
 - Penalties are symbolized by red dots
 - Holding time
-- Fight information (mat number, current weight class)
-- Names of the fighters
+- Contest information (mat number, current weight class)
+- Names of the athletes
 
 ### Primary display
 
 The primary display serves as the central control unit for the Ipponboard operator. On it all information is available and adjustable:
 
-- Start/stop/(reset) fight and hold time
-- Reset fight
-- change names of fighters
+- Start/stop/(reset) contest and hold time
+- Reset contest
+- change names of athletes
 - Set/reset scores
-- change fight information (mat number, current weight class)
+- change contest information (mat number, current weight class)
 
 ![Primary display](images/main-screen-EN.png)
 
 ### Secondary/external display
 
-In contrast to the primary display, the secondary display shows only those details that are details that are essential for the fight:
+In contrast to the primary display, the secondary display shows only those details that are details that are essential for the contest:
 
 - Only the scores up to Waza-ari (Ippon is superimposed flashing)
 - Only the active penalties
@@ -153,7 +153,7 @@ The program settings can be found in the application menu under _Settings_. They
 
 - Configure secondary display
 - Change colors and font for info area
-- Change colors for fighters/ratings
+- Change colors for athletes/ratings
 - Select sound file for timekeeper table signal
 
 ![General setting dialog](images/settings_general-EN.png)
@@ -177,9 +177,9 @@ Even if the control by mouse is very intuitive and catchy, my experiences have s
 
 1. _Everything under control_
 
-   With a standard USB gamepad, all essential functions can be accessed at the touch of a button - whether it's the hold display, fight time, scores or penalties. The left hand is responsible for the left fighter and the right hand for the right.
+   With a standard USB gamepad, all essential functions can be accessed at the touch of a button - whether it's the hold display, contest time, scores or penalties. The left hand is responsible for the left athlete (side A) and the right hand for the right (side B).
 
-2. _Full concentration on the fight_.
+2. _Full concentration on the contest_.
 
    The eye does not have to constantly switch back and forth between the scoreboard and the mat. Scores can be entered directly and there is no need to constantly search for the mouse pointer and awkwardly move it to the score symbol. A press of a button and an occasional cursory check is all that is needed.
 
@@ -214,7 +214,7 @@ Using the _mouse_ 🐭:
 
 Using the _gamepad_ 🎮:
 
-- Points are awarded using the two analog sticks. For the _blue_ fighter, the following directions correspond to the respective points:
+- Points are awarded using the two analog sticks. For the _side A_ (blue), the following directions correspond to the respective points:
 
   ![Gamepad button layout](images/Analogstick.png)
 
@@ -230,7 +230,7 @@ Using the _gamepad_ 🎮:
   | Shido -            | &searr; right bottom |
   | Hansokumake toggle | press stick          |
 
-  For the _white_ fighter the directions are simply mirrored.
+  For the _side B_ (white) the directions are simply mirrored.
 
 - _Caution:_ Please pay attention to how the respective axes of the gamepad are configured. You may have to invert them in the settings.
 - _Tip:_ To find out how the respective gamepad is aligned, you can use diagnostics mode in on the settings page. There you can see how the respective axes are aligned and how the buttons are numbered internally.
@@ -249,7 +249,7 @@ Using the _gamepad_ 🎮:
 
 Using the _mouse_ 🐭:
 
-- The fight time can be started (yellow) and stopped (red) with a left click.
+- The contest time can be started (yellow) and stopped (red) with a left click.
 
 Using the _gamepad_ 🎮:
 
@@ -265,9 +265,9 @@ Using the _mouse_ 🐭:
 
 Using the _gamepad_ 🎮:
 
-- The hold time is set by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the blue fighter and the right one for the white fighter. The button mapping can be changed via the settings.
+- The hold time is set by pressing the rear upper fire button (`button 7` and `button 8`). Thereby the left one is for the side A (blue) and the right one for the side B (white). The button mapping can be changed via the settings.
 - Pressing the hold key again will stop the hold (_Toketa_).
-- If the button for the other fighter is pressed, it can be switched and the hold will then apply to that fighter.
+- If the button for the other side is pressed, it can be switched and the hold will then apply to that side.
 
 ## Reset hold timer
 

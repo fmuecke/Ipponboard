@@ -31,7 +31,7 @@ class Athlete;
 class View;
 class Controller;
 class ClubManager;
-class FightCategoryMgr;
+class ContestCategoryMgr;
 class ScoreScreen;
 } // namespace Ipponboard
 class QApplication;
@@ -60,7 +60,7 @@ constexpr auto str_Theme = "Theme";
 constexpr auto str_Version = "Version";
 constexpr auto str_Fonts = "Fonts";
 constexpr auto str_TextFont1 = "TextFont1";
-constexpr auto str_FighterNameFont = "FighterNameFont";
+constexpr auto str_AthleteNameFont = "AthleteNameFont";
 constexpr auto str_DigitFont = "DigitFont";
 constexpr auto str_Colors = "Colors";
 constexpr auto str_InfoTextColor = "InfoTextColor";
@@ -131,7 +131,7 @@ class MainWindowBase : public QMainWindow,
     virtual void Init();
 
     static QString GetConfigFileName();
-    QString GetFighterFileName() const;
+    QString GetAthletesFileName() const;
     virtual EditionType Edition() const = 0;
     virtual const char* EditionName() const = 0;
     virtual const char* EditionNameShort() const = 0;
@@ -151,15 +151,15 @@ class MainWindowBase : public QMainWindow,
 
     virtual void write_settings() const;
     virtual void read_settings();
-    void load_fighters();
-    void save_fighters();
+    void load_athletes();
+    void save_athletes();
     virtual void update_views();
     virtual void update_screen_visibility(QWidget* pView) const;
     virtual void update_statebar();
     virtual void update_info_text_color(const QColor& color, const QColor& bgColor);
     virtual void update_text_color_first(const QColor& color, const QColor& bgColor);
     virtual void update_text_color_second(const QColor& color, const QColor& bgColor);
-    virtual void update_fighter_name_font(const QFont&);
+    virtual void update_athlete_name_font(const QFont&);
     virtual void attach_primary_view() = 0;
     virtual void retranslate_Ui() = 0;
     virtual void ui_check_language_items() = 0;
@@ -204,7 +204,7 @@ class MainWindowBase : public QMainWindow,
     void on_actionAbout_Ipponboard_triggered();
     void on_actionUser_Manual_triggered();
     void on_actionView_Logfile_triggered();
-    virtual void on_actionManageFighters_triggered() {}
+    virtual void on_actionManageAthletes_triggered() {}
     virtual void on_actionAutoAdjustPoints_toggled(bool checked);
 
   protected:
@@ -220,7 +220,7 @@ class MainWindowBase : public QMainWindow,
     Qt::ColorScheme m_Theme;
     QString m_MatLabel;
     QString m_weights;
-    QFont m_FighterNameFont;
+    QFont m_AthleteNameFont;
     int m_secondScreenNo;
     QSize m_secondScreenSize;
     QPoint m_secondScreenOffset;

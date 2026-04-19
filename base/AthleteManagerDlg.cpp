@@ -2,18 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
+#include "AthleteManagerDlg.h"
+
 #include "../core/Athlete.h"
 #include "../util/path_helpers.h"
-#include "AddFighterDlg.h"
+#include "AddAthleteDlg.h"
 #include "AthleteManager.h"
-#include "AthleteManagerDlg.h"
 #include "ui_AthleteManagerDlg.h"
 
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QPlainTextEdit>
-
 
 //using namespace Ipponboard;
 
@@ -33,7 +33,7 @@ AthleteManagerDlg::AthleteManagerDlg(Ipponboard::AthleteManager& manager, QWidge
     ui->pushButton_settings->hide();
 
     // set columns
-    auto headerItem = ui->treeWidget_fighters->headerItem();
+    auto headerItem = ui->treeWidget_athletes->headerItem();
     headerItem->setText(eColumn_club, tr("Club/Team"));
     //TODO: headerItem->setText(eColumn_category, tr("Category"));
     headerItem->setText(eColumn_weight, tr("Weight"));
@@ -41,14 +41,14 @@ AthleteManagerDlg::AthleteManagerDlg(Ipponboard::AthleteManager& manager, QWidge
     headerItem->setText(eColumn_lastName, tr("Last Name"));
 
     // adjust column widths
-    ui->treeWidget_fighters->setColumnWidth(eColumn_club, 150);
-    //TODO: ui->treeWidget_fighters->setColumnWidth(eColumn_category, 60);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_weight, 50);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_firstName, 100);
-    ui->treeWidget_fighters->setColumnWidth(eColumn_lastName, 100);
-    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_firstName,
+    ui->treeWidget_athletes->setColumnWidth(eColumn_club, 150);
+    //TODO: ui->treeWidget_athletes->setColumnWidth(eColumn_category, 60);
+    ui->treeWidget_athletes->setColumnWidth(eColumn_weight, 50);
+    ui->treeWidget_athletes->setColumnWidth(eColumn_firstName, 100);
+    ui->treeWidget_athletes->setColumnWidth(eColumn_lastName, 100);
+    ui->treeWidget_athletes->header()->setSectionResizeMode(eColumn_firstName,
                                                             QHeaderView::Stretch);
-    ui->treeWidget_fighters->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
+    ui->treeWidget_athletes->header()->setSectionResizeMode(eColumn_lastName, QHeaderView::Stretch);
 
     populate_view();
 }
@@ -67,7 +67,7 @@ void AthleteManagerDlg::SetFilter(AthleteManagerDlg::EColumn column, const QStri
     if (column >= 0 && column < eColumn_MAX)
     {
         m_filter = std::make_pair(column, value);
-        ui->treeWidget_fighters->hideColumn(m_filter.first);
+        ui->treeWidget_athletes->hideColumn(m_filter.first);
 
         populate_view();
     }
@@ -94,7 +94,7 @@ void AthleteManagerDlg::changeEvent(QEvent* e)
 void AthleteManagerDlg::on_pushButton_add_pressed()
 //---------------------------------------------------------
 {
-    AddFighterDlg dlg(this);
+    AddAthleteDlg dlg(this);
 
     QStringList clubs;
 
@@ -115,7 +115,7 @@ void AthleteManagerDlg::on_pushButton_add_pressed()
         return;
     }
 
-    Ipponboard::Athlete athlete = dlg.GetFighter();
+    Ipponboard::Athlete athlete = dlg.GetAthlete();
     m_manager.m_athletes.insert(athlete);
 
     QStringList contents;
@@ -131,21 +131,21 @@ void AthleteManagerDlg::on_pushButton_add_pressed()
 
     QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
     pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-    ui->treeWidget_fighters->addTopLevelItem(pItem);
+    ui->treeWidget_athletes->addTopLevelItem(pItem);
 }
 
 //---------------------------------------------------------
 void AthleteManagerDlg::populate_view()
 //---------------------------------------------------------
 {
-    ui->treeWidget_fighters->clear();
+    ui->treeWidget_athletes->clear();
 
     const bool hasFilter = !m_filter.second.isEmpty();
 
     if (hasFilter)
     {
         const QString filterInfo = QString("%0: %1").arg(
-            ui->treeWidget_fighters->headerItem()->text(m_filter.first), m_filter.second);
+            ui->treeWidget_athletes->headerItem()->text(m_filter.first), m_filter.second);
 
         ui->label_filterinfo->setText(filterInfo);
         ui->label_filterinfo->show();
@@ -219,7 +219,7 @@ void AthleteManagerDlg::populate_view()
 
                 QTreeWidgetItem* pItem = new QTreeWidgetItem(contents, QTreeWidgetItem::UserType);
                 pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-                ui->treeWidget_fighters->addTopLevelItem(pItem);
+                ui->treeWidget_athletes->addTopLevelItem(pItem);
             }
         });
 }
@@ -243,11 +243,11 @@ void AthleteManagerDlg::on_pushButton_import_pressed()
 
         QString errorMsg;
 
-        if (m_manager.ImportFighters(fileName, m_formatStr, errorMsg))
+        if (m_manager.ImportAthletes(fileName, m_formatStr, errorMsg))
         {
             QMessageBox::information(this, QCoreApplication::applicationName(), errorMsg);
 
-            //TODO?: update_fighter_name_completer(m_pUi->comboBox_weight->currentText());
+            //TODO?: update_athlete_name_completer(m_pUi->comboBox_weight->currentText());
         }
         else
         {
@@ -275,7 +275,7 @@ void AthleteManagerDlg::on_pushButton_export_pressed()
 
         QString errorMsg;
 
-        if (m_manager.ExportFighters(fileName, m_formatStr, errorMsg))
+        if (m_manager.ExportAthletes(fileName, m_formatStr, errorMsg))
         {
             QMessageBox::information(this, QCoreApplication::applicationName(), errorMsg);
         }
@@ -290,9 +290,9 @@ void AthleteManagerDlg::on_pushButton_export_pressed()
 void AthleteManagerDlg::on_pushButton_remove_pressed()
 //---------------------------------------------------------
 {
-    auto selectedItems = ui->treeWidget_fighters->selectedItems();
+    auto selectedItems = ui->treeWidget_athletes->selectedItems();
 
-    //QTreeWidgetItem* pItem = ui->treeWidget_fighters->currentItem();
+    //QTreeWidgetItem* pItem = ui->treeWidget_athletes->currentItem();
 
     //if (pItem)
     for (QTreeWidgetItem* pItem : selectedItems)
@@ -302,17 +302,17 @@ void AthleteManagerDlg::on_pushButton_remove_pressed()
         current.weight = pItem->text(eColumn_weight);
         //TODO: current.category = pItem->text(eColumn_category);
 
-        ui->treeWidget_fighters->takeTopLevelItem(
-            ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+        ui->treeWidget_athletes->takeTopLevelItem(
+            ui->treeWidget_athletes->indexOfTopLevelItem(pItem));
 
-        m_manager.RemoveFighter(current);
+        m_manager.RemoveAthlete(current);
 
         delete pItem;
     }
 }
 
 //---------------------------------------------------------
-void AthleteManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pItem, int column)
+void AthleteManagerDlg::on_treeWidget_athletes_itemChanged(QTreeWidgetItem* pItem, int column)
 //---------------------------------------------------------
 {
     if (pItem)
@@ -362,15 +362,15 @@ void AthleteManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
         original.weight = weight;
         //TODO: original.category = category;
 
-        if (!m_manager.RemoveFighter(original))
+        if (!m_manager.RemoveAthlete(original))
         {
             qDebug("error: original athlete not found!");
         }
 
-        if (!m_manager.AddFighter(changed))
+        if (!m_manager.AddAthlete(changed))
         {
-            ui->treeWidget_fighters->takeTopLevelItem(
-                ui->treeWidget_fighters->indexOfTopLevelItem(pItem));
+            ui->treeWidget_athletes->takeTopLevelItem(
+                ui->treeWidget_athletes->indexOfTopLevelItem(pItem));
 
             // due to duplicate entry
             qDebug("removed changed entry due to duplicate: %s %s",
@@ -380,7 +380,7 @@ void AthleteManagerDlg::on_treeWidget_fighters_itemChanged(QTreeWidgetItem* pIte
     }
 }
 
-void AthleteManagerDlg::on_treeWidget_fighters_itemClicked(QTreeWidgetItem* item, int column)
+void AthleteManagerDlg::on_treeWidget_athletes_itemClicked(QTreeWidgetItem* item, int column)
 {
     m_tmpData = item->text(column);
     qDebug("data: %s", m_tmpData.toLatin1().data());

@@ -28,14 +28,13 @@ class CompetitionRepository
                     int ipponSideB, int shidoSideB, int hansokumakeSideB,
                     std::shared_ptr<AbstractRules> const& rules, const QString& emptyName);
 
-    void clearAllFights(std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode,
-                        const QString& emptyName);
+    void clearAllContests(std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode,
+                          const QString& emptyName);
 
     void saveContest(unsigned int round, unsigned int contest, int elapsedSeconds);
 
     void resetContestData(unsigned int round, unsigned int contest,
-                          std::shared_ptr<AbstractRules> const& rules,
-                          const CompetitionMode& mode);
+                          std::shared_ptr<AbstractRules> const& rules, const CompetitionMode& mode);
 
     void setWeights(const QStringList& weights, const CompetitionMode& mode);
 

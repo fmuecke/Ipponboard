@@ -48,7 +48,7 @@ MainWindowBase::MainWindowBase(QWidget* parent)
       m_Theme(Qt::ColorScheme::Unknown),
       m_MatLabel("  Ipponboard   "),
       m_weights(),
-      m_FighterNameFont("Calibri", 12, QFont::Bold, false),
+      m_AthleteNameFont("Calibri", 12, QFont::Bold, false),
       m_secondScreenNo(0),
       m_secondScreenSize(0, 0),
       m_secondScreenOffset(0, 0),
@@ -89,7 +89,7 @@ void MainWindowBase::Init()
     auto rect = QGuiApplication::screens().first()->availableGeometry();
     this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), rect));
 
-    load_fighters();
+    load_athletes();
 
     // Setup views
     m_pPrimaryView.reset(new View(m_pController->GetIController(), Edition(), View::eTypePrimary));
@@ -101,7 +101,7 @@ void MainWindowBase::Init()
     m_pSecondaryView->setWindowFlag(Qt::FramelessWindowHint, true);
 
     // clear data
-    m_pController->ClearFightsAndResetTimers();
+    m_pController->ClearContestsAndResetTimers();
 
     // Load settings
     read_settings();
@@ -300,9 +300,9 @@ void MainWindowBase::updateVersionStatusText()
     m_pVersionStatusLabel->setVisible(!text.isEmpty());
 }
 
-QString MainWindowBase::GetFighterFileName() const
+QString MainWindowBase::GetAthletesFileName() const
 {
-    return QString("Fighters%1.csv").arg(EditionNameShort());
+    return QString("Athletes%1.csv").arg(EditionNameShort());
 }
 
 void MainWindowBase::UpdateView() { update_views(); }
@@ -326,7 +326,7 @@ void MainWindowBase::changeEvent(QEvent* e)
 void MainWindowBase::closeEvent(QCloseEvent* event)
 {
     write_settings();
-    save_fighters();
+    save_athletes();
 
     if (m_pSecondaryView)
     {
@@ -368,7 +368,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
             m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideA);
         }
 
-        qDebug() << "Action [ Osaekomi/Toketa for fighter1 ] was triggered by keyboard";
+        qDebug() << "Action [ Osaekomi/Toketa for side A ] was triggered by keyboard";
     }
 
     break;
@@ -385,7 +385,7 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
             m_pController->DoAction(eAction_OsaeKomi_Toketa, ContestSide::SideB);
         }
 
-        qDebug() << "Action [ Osaekomi/Toketa for fighter2 ] was triggered by keyboard";
+        qDebug() << "Action [ Osaekomi/Toketa for side B ] was triggered by keyboard";
     }
 
     break;
@@ -400,49 +400,49 @@ void MainWindowBase::keyPressEvent(QKeyEvent* event)
 
     case Qt::Key_F5:
         m_pController->DoAction(eAction_Ippon, ContestSide::SideA, isCtrlPressed);
-        qDebug() << "Action [ Ippon for fighter1, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Ippon for side A, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F6:
         m_pController->DoAction(eAction_Wazaari, ContestSide::SideA, isCtrlPressed);
-        qDebug() << "Action [ Wazaari for fighter1, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Wazaari for side A, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F7:
         m_pController->DoAction(eAction_Yuko, ContestSide::SideA, isCtrlPressed);
-        qDebug() << "Action [ Yuko for fighter1, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Yuko for side A, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F8:
         m_pController->DoAction(eAction_Shido, ContestSide::SideA, isCtrlPressed);
-        qDebug() << "Action [ Shido for fighter1, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Shido for side A, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F9:
         m_pController->DoAction(eAction_Ippon, ContestSide::SideB, isCtrlPressed);
-        qDebug() << "Action [ Ippon for fighter2, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Ippon for side B, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F10:
         m_pController->DoAction(eAction_Wazaari, ContestSide::SideB, isCtrlPressed);
-        qDebug() << "Action [ Wazaari for fighter2, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Wazaari for side B, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F11:
         m_pController->DoAction(eAction_Yuko, ContestSide::SideB, isCtrlPressed);
-        qDebug() << "Action [ Yuko for fighter2, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Yuko for side B, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
     case Qt::Key_F12:
         m_pController->DoAction(eAction_Shido, ContestSide::SideB, isCtrlPressed);
-        qDebug() << "Action [ Shido for fighter2, revoke=" << isCtrlPressed
+        qDebug() << "Action [ Shido for side B, revoke=" << isCtrlPressed
                  << "] was triggered by keyboard";
         break;
 
@@ -679,7 +679,7 @@ void MainWindowBase::write_settings() const
     {
         settings.remove("");
         settings.setValue(settings::str_TextFont1, m_pPrimaryView->GetInfoHeaderFont().toString());
-        settings.setValue(settings::str_FighterNameFont, m_FighterNameFont.toString());
+        settings.setValue(settings::str_AthleteNameFont, m_AthleteNameFont.toString());
         settings.setValue(settings::str_DigitFont, m_pPrimaryView->GetDigitFont().toString());
     }
     settings.endGroup();
@@ -822,9 +822,9 @@ void MainWindowBase::read_settings()
         pV->SetInfoHeaderFont(pV->GetInfoHeaderFont());
         sV->SetInfoHeaderFont(sV->GetInfoHeaderFont());
 
-        font = pV->GetFighterNameFont();
-        font.fromString(settings.value(settings::str_FighterNameFont, font.toString()).toString());
-        update_fighter_name_font(font);
+        font = pV->GetAthleteNameFont();
+        font.fromString(settings.value(settings::str_AthleteNameFont, font.toString()).toString());
+        update_athlete_name_font(font);
 
         font = pV->GetDigitFont();
         font.fromString(settings.value(settings::str_DigitFont, font.toString()).toString());
@@ -980,9 +980,9 @@ void MainWindowBase::read_settings()
     update_views();
 }
 
-void MainWindowBase::load_fighters()
+void MainWindowBase::load_athletes()
 {
-    QString csvFile(fm::GetConfigFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetConfigFilePath(GetAthletesFileName().toLatin1()));
 
     QString errorMsg;
 
@@ -992,18 +992,18 @@ void MainWindowBase::load_fighters()
         return;
     }
 
-    if (!m_athleteManager.ImportFighters(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
+    if (!m_athleteManager.ImportAthletes(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
     {
         QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
     }
 }
 
-void MainWindowBase::save_fighters()
+void MainWindowBase::save_athletes()
 {
-    QString csvFile(fm::GetConfigFilePath(GetFighterFileName().toLatin1()));
+    QString csvFile(fm::GetConfigFilePath(GetAthletesFileName().toLatin1()));
     QString errorMsg;
 
-    if (!m_athleteManager.ExportFighters(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
+    if (!m_athleteManager.ExportAthletes(csvFile, AthleteManager::DefaultExportFormat(), errorMsg))
     {
         QMessageBox::critical(this, QCoreApplication::applicationName(), errorMsg);
     }
@@ -1033,7 +1033,7 @@ void MainWindowBase::on_actionPreferences_triggered()
                               m_pPrimaryView->GetInfoTextColor(),
                               m_pPrimaryView->GetInfoTextBgColor());
 
-    dlg.SetFighterNameFont(m_FighterNameFont);
+    dlg.SetAthleteNameFont(m_AthleteNameFont);
     dlg.SetTextColorsFirst(m_pPrimaryView->GetTextColorFirst(),
                            m_pPrimaryView->GetTextBgColorFirst());
     dlg.SetTextColorsSecond(m_pPrimaryView->GetTextColorSecond(),
@@ -1054,7 +1054,7 @@ void MainWindowBase::on_actionPreferences_triggered()
     {
         m_pPrimaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
         m_pSecondaryView->SetInfoHeaderFont(dlg.GetInfoHeaderFont());
-        update_fighter_name_font(dlg.GetFighterNameFont());
+        update_athlete_name_font(dlg.GetAthleteNameFont());
         update_info_text_color(dlg.GetInfoTextColor(), dlg.GetInfoTextBgColor());
         update_text_color_first(dlg.GetTextColorFirst(), dlg.GetTextBgColorFirst());
         update_text_color_second(dlg.GetTextColorSecond(), dlg.GetTextBgColorSecond());
@@ -1222,14 +1222,14 @@ void MainWindowBase::EvaluateInput()
         m_pController->DoAction(eAction_ResetAll, ContestSide::None);
     }
 
-    // hansokumake fighter1
+    // hansokumake side A
     else if (wasPressed(m_controllerCfg.button_hansokumake_first_raw,
                         m_controllerCfg.button_hansokumake_first))
     {
         const bool revoke(m_pController->GetScore(ContestSide::SideA, Point::Hansokumake) != 0);
         m_pController->DoAction(eAction_Hansokumake, ContestSide::SideA, revoke);
     }
-    // hansokumake fighter2
+    // hansokumake sode B
     else if (wasPressed(m_controllerCfg.button_hansokumake_second_raw,
                         m_controllerCfg.button_hansokumake_second))
     {
@@ -1278,11 +1278,11 @@ void MainWindowBase::update_text_color_second(const QColor& color, const QColor&
     m_pSecondaryView->SetTextColorSecond(color, bgColor);
 }
 
-void MainWindowBase::update_fighter_name_font(const QFont& font)
+void MainWindowBase::update_athlete_name_font(const QFont& font)
 {
-    m_FighterNameFont = font;
-    m_pPrimaryView->SetFighterNameFont(font);
-    m_pSecondaryView->SetFighterNameFont(font);
+    m_AthleteNameFont = font;
+    m_pPrimaryView->SetAthleteNameFont(font);
+    m_pSecondaryView->SetAthleteNameFont(font);
 }
 
 void MainWindowBase::on_button_reset_clicked()
@@ -1290,7 +1290,7 @@ void MainWindowBase::on_button_reset_clicked()
     //	QMessageBox::StandardButton answer =
     //		QMessageBox::question( this,
     //							   tr("Reset"),
-    //							   tr("Really reset current fight?"),
+    //							   tr("Really reset current contest?"),
     //							   QMessageBox::No | QMessageBox::Yes );
     //	if( QMessageBox::Yes == answer )
     m_pController->DoAction(eAction_ResetAll, ContestSide::None, false);

@@ -7,7 +7,7 @@
 #include "../core/Score.h"
 
 #include <catch2/catch_test_macros.hpp>
-//#include "../core/Fight.h"
+//#include "../core/Contest.h"
 
 #include <iostream>
 

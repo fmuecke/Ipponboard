@@ -45,7 +45,7 @@ TEST_CASE("[CompetitionMode] Test_parse_current_group")
            << "no_weights"
            << "no_rounds"
            << "no_template"
-           << "no_fight_time";
+           << "no_contest_time";
 
     REQUIRE(groups.count() == config.childGroups().count());
 
@@ -83,7 +83,7 @@ TEST_CASE("[CompetitionMode] Test_parse_current_group")
     INFO(errorMsg.toStdString());
     REQUIRE_FALSE(success);
 
-    success = IpponboardTest::parse_group(config, "no_fight_time", errorMsg);
+    success = IpponboardTest::parse_group(config, "no_contest_time", errorMsg);
     INFO(errorMsg.toStdString());
     REQUIRE_FALSE(success);
 }

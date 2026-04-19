@@ -24,10 +24,7 @@ constexpr bool IsContestSide(ContestSide side)
     return side == ContestSide::SideA || side == ContestSide::SideB;
 }
 
-constexpr int ToIndex(ContestSide side)
-{
-    return static_cast<int>(side);
-}
+constexpr int ToIndex(ContestSide side) { return static_cast<int>(side); }
 
 inline ContestSide OpposingSide(ContestSide side)
 {

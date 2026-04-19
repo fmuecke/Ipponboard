@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "../util/SimpleCsvFile.hpp"
 #include "AthleteManager.h"
+
+#include "../util/SimpleCsvFile.hpp"
 
 #include <QObject> // needed for tr()
 #include <QStringList>
 #include <algorithm>
-
 
 using namespace Ipponboard;
 
@@ -109,7 +109,7 @@ bool Ipponboard::AthleteManager::DetermineSeparator(const QString& str, QString&
     return true;
 }
 
-bool AthleteManager::ImportFighters(QString const& fileName, QString const& formatStr,
+bool AthleteManager::ImportAthletes(QString const& fileName, QString const& formatStr,
                                     QString& errorMsg)
 {
     errorMsg.clear();
@@ -170,7 +170,7 @@ bool AthleteManager::ImportFighters(QString const& fileName, QString const& form
     return true;
 }
 
-bool AthleteManager::ExportFighters(QString const& fileName, QString const& formatStr,
+bool AthleteManager::ExportAthletes(QString const& fileName, QString const& formatStr,
                                     QString& errorMsg)
 {
     errorMsg.clear();
@@ -247,14 +247,14 @@ bool AthleteManager::ExportFighters(QString const& fileName, QString const& form
     }
 
     errorMsg =
-        QObject::tr("Successfully exported %1 fighters.").arg(QString::number(m_athletes.size()));
+        QObject::tr("Successfully exported %1 athletes.").arg(QString::number(m_athletes.size()));
 
     return true;
 }
 
-bool AthleteManager::AddFighter(Athlete f) { return m_athletes.insert(f).second; }
+bool AthleteManager::AddAthlete(Athlete f) { return m_athletes.insert(f).second; }
 
-bool AthleteManager::RemoveFighter(Athlete f)
+bool AthleteManager::RemoveAthlete(Athlete f)
 {
     auto iter = std::find(begin(m_athletes), end(m_athletes), f);
 
@@ -268,7 +268,7 @@ bool AthleteManager::RemoveFighter(Athlete f)
     return true;
 }
 
-QStringList AthleteManager::GetClubFighterNames(const QString& club) const
+QStringList AthleteManager::GetClubAthleteNames(const QString& club) const
 {
     QStringList ret;
     std::for_each(begin(m_athletes),

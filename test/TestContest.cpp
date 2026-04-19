@@ -162,10 +162,10 @@ TEST_CASE(
 
 //TEST_CASE("Setting negative seconds enabled golden score")
 //{
-//    Fight f;
-//    f.SetSecondsElapsed(-5);
-//    REQUIRE(f.IsGoldenScore());
+//    Contest c;
+//    c.SetSecondsElapsed(-5);
+//    REQUIRE(c.IsGoldenScore());
 
-//    f.SetSecondsElapsed(5);
-//    REQUIRE_FALSE(f.IsGoldenScore());
+//    c.SetSecondsElapsed(5);
+//    REQUIRE_FALSE(c.IsGoldenScore());
 //}

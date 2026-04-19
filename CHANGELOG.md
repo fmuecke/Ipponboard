@@ -5,7 +5,7 @@ For most recent changes see the project on github: [https://github.com/fmuecke/I
 ## Version vNEXT (unreleased)
 - (internal): IJF compliant domain language terms
 - (mod): using canonical IJF terms (old terms in braces):
-  - athlete (fighter), competition (tournament)
+  - athlete (fighter), competition (tournament), contest (fight)
 - (new): autosave files are checked for compatibility before loading (version needs to match)
 - (mod): using sounds from internal resources instead of external files (improves reliability and simplifies installation for linux and macOS)
 - (mod): optimized layout of the settings dialog

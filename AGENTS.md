@@ -33,7 +33,7 @@ Align with Qt-style defaults while keeping the project’s current usage consist
 - **Public API functions**: PascalCase (`StartTimer()`, `UpdateScore()`), including statics and free helpers exposed across modules.
 - **Private/Protected helpers**: lowerCamelCase (`startTimerInternal()`).
 - **Member data**: prefix private members with `m_` (`m_scoreBoard`). Public data members should be rare; when needed keep them lowerCamelCase and document mutability.
-- **Constants**: prefer `constexpr`/`const` named in PascalCase (`DefaultFightTime`). `enum class` values remain PascalCase.
+- **Constants**: prefer `constexpr`/`const` named in PascalCase (`DefaultContestTime`). `enum class` values remain PascalCase.
 - **Macros/defines**: SCREAMING_SNAKE_CASE; avoid unless absolutely required.
 - **Signals/slots**: follow Qt lowerCamelCase (`scoreUpdated`).
 

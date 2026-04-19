@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE.txt file.
 
-#include "FightCategoryParser.h"
+#include "ContestCategoryParser.h"
 
 #include <QFile>
 #include <QSettings>
@@ -15,10 +15,10 @@ static const char* const RoundTime = "RoundTimeInSecs";
 static const char* const GoldenScoreTime = "GoldenScoreTimeInSecs";
 } // namespace Tags
 
-FightCategoryParser::FightCategoryParser() {}
+ContestCategoryParser::ContestCategoryParser() {}
 
-void FightCategoryParser::ToIniFile(const QString& file,
-                                    Ipponboard::FightCategoryList const& categories)
+void ContestCategoryParser::ToIniFile(const QString& file,
+                                      Ipponboard::CategoryList const& categories)
 {
     QSettings settings(file, QSettings::IniFormat);
     settings.clear();
@@ -35,15 +35,15 @@ void FightCategoryParser::ToIniFile(const QString& file,
     }
 }
 
-Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& file)
+Ipponboard::CategoryList ContestCategoryParser::ParseIniFile(QString const& file)
 {
     QSettings settings(file, QSettings::IniFormat);
 
-    Ipponboard::FightCategoryList categories;
+    Ipponboard::CategoryList categories;
 
     for (auto const& group : settings.childGroups())
     {
-        Ipponboard::FightCategory cat(group);
+        Ipponboard::ContestCategory cat(group);
         settings.beginGroup(group);
         {
             if (settings.contains(Tags::RoundTime))

@@ -83,8 +83,8 @@ MainWindowTeam::MainWindowTeam(QWidget* parent)
       m_htmlScore(),
       m_currentMode(),
       m_host(),
-      m_FighterNamesHome(),
-      m_FighterNamesGuest(),
+      m_AthleteNamesHome(),
+      m_AthleteNamesGuest(),
       m_modes()
 {
     m_pUi->setupUi(this);
@@ -161,23 +161,23 @@ void MainWindowTeam::Init()
 
     //m_pUi->comboBox_club_guest->setCurrentIndex(0);
 
-    // set fighter comboboxes
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Florian Münz"));
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Wolfgang Schmalhans"));
-    //m_FighterNamesHome.push_back(QString::fromUtf8("Tino Rucksack"));
+    // set athlete comboboxes
+    //m_AthleteNamesHome.push_back(QString::fromUtf8("Florian Münz"));
+    //m_AthleteNamesHome.push_back(QString::fromUtf8("Wolfgang Schmalhans"));
+    //m_AthleteNamesHome.push_back(QString::fromUtf8("Tino Rucksack"));
 #if 0
-	auto cbxFightersHome = new ComboBoxDelegate(this);
-	cbxFightersHome->SetItems(m_FighterNamesHome);
+	auto cbxAthletesHome = new ComboBoxDelegate(this);
+	cbxAthletesHome->SetItems(m_AthleteNamesHome);
 
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
-	//m_FighterNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
-	auto cbxFightersGuest = new ComboBoxDelegate(this);
-	cbxFightersGuest->SetItems(m_FighterNamesGuest);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxFightersHome);
-	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxFightersGuest);
-	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxFightersGuest);
+	//m_AthleteNamesGuest.push_back(QString::fromUtf8("Hans Dampf"));
+	//m_AthleteNamesGuest.push_back(QString::fromUtf8("Hans Wurst"));
+	//m_AthleteNamesGuest.push_back(QString::fromUtf8("Hans Im Glück"));
+	auto cbxAthletesGuest = new ComboBoxDelegate(this);
+	cbxAthletesGuest->SetItems(m_AthleteNamesGuest);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxAthletesHome);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name1, cbxAthletesHome);
+	m_pUi->tableView_tournament_list1->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxAthletesGuest);
+	m_pUi->tableView_tournament_list2->setItemDelegateForColumn(CompetitionModel::eCol_name2, cbxAthletesGuest);
 #endif
     // make name columns auto-resizable
     m_pUi->tableView_tournament_list1->horizontalHeader()->setSectionResizeMode(
@@ -197,7 +197,7 @@ void MainWindowTeam::Init()
 
     m_pUi->actionAutoAdjustPoints->setChecked(m_pController->IsAutoAdjustPoints());
 
-    UpdateFightNumber_();
+    UpdateContestNumber_();
     UpdateButtonText_();
 
     //m_pUi->button_pause->click();	// we start with pause!
@@ -378,9 +378,9 @@ void MainWindowTeam::read_settings()
     settings.endGroup();
 }
 
-void MainWindowTeam::on_actionManageFighters_triggered()
+void MainWindowTeam::on_actionManageAthletes_triggered()
 {
-    MainWindowBase::on_actionManageFighters_triggered();
+    MainWindowBase::on_actionManageAthletes_triggered();
 
     AthleteManagerDlg dlg(m_athleteManager, this);
     dlg.exec();
@@ -404,9 +404,9 @@ void MainWindowTeam::update_text_color_second(const QColor& color, const QColor&
     m_pScoreScreen->SetTextColorSecond(color, bgColor);
 }
 
-void MainWindowTeam::update_fighter_name_font(const QFont& font)
+void MainWindowTeam::update_athlete_name_font(const QFont& font)
 {
-    MainWindowBase::update_fighter_name_font(font);
+    MainWindowBase::update_athlete_name_font(font);
     m_pScoreScreen->SetTextFont(font);
 }
 
@@ -415,7 +415,7 @@ void MainWindowTeam::update_views()
     MainWindowBase::update_views();
     update_score_screen(); // TODO: should be an IView!
 
-    UpdateFightNumber_();
+    UpdateContestNumber_();
     UpdateButtonText_();
 }
 
@@ -453,7 +453,7 @@ void MainWindowTeam::update_club_views()
     m_pUi->lineEdit_location->setText(m_pClubManager->GetAddress(m_host));
 }
 
-void MainWindowTeam::UpdateFightNumber_()
+void MainWindowTeam::UpdateContestNumber_()
 {
     const int currentContest = m_pController->GetCurrentContest() + 1;
 
@@ -464,8 +464,8 @@ void MainWindowTeam::UpdateFightNumber_()
     m_pUi->label_saved->setVisible(isSaved);
 
     QString formatStr("%1 / %2");
-    m_pUi->label_fight->setText(formatStr.arg(QString::number(currentContest))
-                                    .arg(QString::number(m_pController->GetContestCount())));
+    m_pUi->label_contest->setText(formatStr.arg(QString::number(currentContest))
+                                      .arg(QString::number(m_pController->GetContestCount())));
 
     m_pUi->label_saved->setText(isSaved ? tr("(saved)") : "");
 
@@ -732,15 +732,15 @@ CompetitionSerialization::CompetitionSaveData MainWindowTeam::CollectCompetition
     }
 
     const auto roundCount = m_pController->GetRoundCount();
-    const auto fightsPerRound = m_pController->GetContestCount();
+    const auto contestsPerRound = m_pController->GetContestCount();
     saveData.rounds.resize(roundCount);
     for (int roundIndex = 0; roundIndex < roundCount; ++roundIndex)
     {
         auto& round = saveData.rounds[roundIndex];
-        round.reserve(fightsPerRound);
-        for (int fightIndex = 0; fightIndex < fightsPerRound; ++fightIndex)
+        round.reserve(contestsPerRound);
+        for (int contestIndex = 0; contestIndex < contestsPerRound; ++contestIndex)
         {
-            round.push_back(m_pController->GetContest(roundIndex, fightIndex));
+            round.push_back(m_pController->GetContest(roundIndex, contestIndex));
         }
     }
 
@@ -825,10 +825,10 @@ int MainWindowTeam::LoadCompetitionFromJson_(QJsonDocument& doc, bool loadWithIn
     for (std::size_t roundIndex = 0; roundIndex < saveData.rounds.size(); ++roundIndex)
     {
         const auto& round = saveData.rounds[roundIndex];
-        for (std::size_t fightIndex = 0; fightIndex < round.size(); ++fightIndex)
+        for (std::size_t contestIndex = 0; contestIndex < round.size(); ++contestIndex)
         {
             m_pController->SetContest(
-                static_cast<int>(roundIndex), static_cast<int>(fightIndex), round[fightIndex]);
+                static_cast<int>(roundIndex), static_cast<int>(contestIndex), round[contestIndex]);
         }
     }
 
@@ -1029,10 +1029,10 @@ void MainWindowTeam::on_actionReset_Scores_triggered()
                              tr("Really reset complete score table?"),
                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
-        m_pController->ClearFightsAndResetTimers();
+        m_pController->ClearContestsAndResetTimers();
     }
 
-    UpdateFightNumber_();
+    UpdateContestNumber_();
     UpdateButtonText_();
 }
 
@@ -1121,31 +1121,31 @@ void MainWindowTeam::on_actionLoad_Demo_Data_triggered()
     //int modeIndex = m_pUi->comboBox_mode->findText(iter->Description());
     //m_pUi->comboBox_mode->setCurrentIndex(modeIndex);
 
-    //m_pController->ClearFights();																				//  Y  W  I  S  H  Y  W  I  S  H
+    //m_pController->ClearContests();																				//  Y  W  I  S  H  Y  W  I  S  H
     //m_pController->InitCompetition(*iter);
     //update_weights("-90;+90;-73;-66;-81");
-    //m_pController->SetFight(0, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Oliver Salz", "TSV Brunnstadt",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 1, "-90", "Max Grünert", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
-    //m_pController->SetFight(0, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
-    //m_pController->SetFight(0, 3, "+90", "Hans Neumeier", "TG Eierstatt", "Anderas Mader", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 4, "-73", "Bogdan Mahl", "TG Eierstatt", "Christopher Benka", "TSV Brunnstadt"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
-    //m_pController->SetFight(0, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 6, "-66", "Thomas Keil", "TG Eierstatt", "Arthur Sichelstein", "TSV Brunnstadt",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 7, "-66", "Werner Bogner", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 8, "-81", "Hans Schmieder", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
-    //m_pController->SetFight(0, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Oliver Salz", "TSV Brunnstadt",			3, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 1, "-90", "Max Grünert", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",			3, 2, 0, 0, 0, 0, 0, 0, 1, 0);
+    //m_pController->SetContest(0, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 1, 0, 0, 0, 1, 1, 0);
+    //m_pController->SetContest(0, 3, "+90", "Hans Neumeier", "TG Eierstatt", "Anderas Mader", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 4, "-73", "Bogdan Mahl", "TG Eierstatt", "Christopher Benka", "TSV Brunnstadt"	,		2, 0, 1, 1, 0, 0, 0, 0, 3, 0);
+    //m_pController->SetContest(0, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 6, "-66", "Thomas Keil", "TG Eierstatt", "Arthur Sichelstein", "TSV Brunnstadt",			2, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 7, "-66", "Werner Bogner", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 1, 0, 0, 2, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 8, "-81", "Hans Schmieder", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 1, 1, 1, 0, 1, 0, 0, 0, 0);
+    //m_pController->SetContest(0, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",			1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
     ////  Y  W  I  S  H  Y  W  I  S  H
-    //m_pController->SetFight(1, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(1, 1, "-90", "Max Grunert", "TG Eierstatt", "Florian Kütz", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(1, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Andreas Mader", "TSV Brunnstadt",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(1, 3, "+90", "Hans Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
-    //m_pController->SetFight(1, 4, "-73", "Christian Feigl", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
-    //m_pController->SetFight(1, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Christopher Beier", "TSV Brunnstadt",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
-    //m_pController->SetFight(1, 6, "-66", "Adam Herzog", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-    //m_pController->SetFight(1, 7, "-66", "Maxim Selwitschka", "TG Eierstatt", "Jonas Alwetter", "TSV Brunnstadt",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
-    //m_pController->SetFight(1, 8, "-81", "Piotr Makaritsch", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
-    //m_pController->SetFight(1, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
-    ////m_pController->SetCurrentFight(0);
+    //m_pController->SetContest(1, 0, "-90", "Sven Hölzl", "TG Eierstatt", "Marc Schälzig", "TSV Brunnstadt",		0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(1, 1, "-90", "Max Grunert", "TG Eierstatt", "Florian Kütz", "TSV Brunnstadt",		0, 1, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(1, 2, "+90", "Lukas Neumaier", "TG Eierstatt", "Andreas Mader", "TSV Brunnstadt",	1, 2, 0, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(1, 3, "+90", "Hans Neumaier", "TG Eierstatt", "Daniel Nusenstein", "TSV Brunnstadt",	0, 0, 0, 2, 0, 0, 0, 1, 2, 0);
+    //m_pController->SetContest(1, 4, "-73", "Christian Feigl", "TG Eierstatt", "Jan-Michael Köbinger", "TSV Brunnstadt",	2, 1, 0, 1, 0, 0, 0, 0, 1, 0);
+    //m_pController->SetContest(1, 5, "-73", "Peter Sellmaier", "TG Eierstatt", "Christopher Beier", "TSV Brunnstadt",	0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+    //m_pController->SetContest(1, 6, "-66", "Adam Herzog", "TG Eierstatt", "Thomas Schamberger", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+    //m_pController->SetContest(1, 7, "-66", "Maxim Selwitschka", "TG Eierstatt", "Jonas Alwetter", "TSV Brunnstadt",	0, 1, 1, 0, 0, 1, 0, 0, 0, 0);
+    //m_pController->SetContest(1, 8, "-81", "Piotr Makaritsch", "TG Eierstatt", "Georg Beier", "TSV Brunnstadt",		0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+    //m_pController->SetContest(1, 9, "-81", "Axel Neumaier", "TG Eierstatt", "Gerhard Westerner", "TSV Brunnstadt",	0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+    ////m_pController->SetCurrentContest(0);
 
     //m_pUi->tableView_tournament_list1->viewport()->update();
     //m_pUi->tableView_tournament_list2->viewport()->update();
@@ -1169,11 +1169,11 @@ void MainWindowTeam::on_button_pause_clicked()
 
 void MainWindowTeam::on_button_prev_clicked()
 {
-    //if (0 == m_pController->GetCurrentFightIndex())
+    //if (0 == m_pController->GetCurrentContestIndex())
     //	return;
 
     m_pController->PrevContest();
-    //m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() - 1);
+    //m_pController->SetCurrentContest(m_pController->GetCurrentContestIndex() - 1);
 
     SaveCompetitionToFile_(
         fm::GetLocalDataFilePath(CompetitionSerialization::AutoSaveFilename)); // autosave
@@ -1182,18 +1182,18 @@ void MainWindowTeam::on_button_prev_clicked()
 void MainWindowTeam::on_button_next_clicked()
 {
     /*
-	if (m_pController->GetCurrentFightIndex() == m_pController->GetFightCount() - 1)
+	if (m_pController->GetCurrentContestIndex() == m_pController->GetContestCount() - 1)
 	{
-		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex());
+		m_pController->SetCurrentContest(m_pController->GetCurrentContestIndex());
 	}
 	else
 	{
-		m_pController->SetCurrentFight(m_pController->GetCurrentFightIndex() + 1);
+		m_pController->SetCurrentContest(m_pController->GetCurrentContestIndex() + 1);
 	}
 	*/
     m_pController->NextContest();
 
-    // reset osaekomi view (to reset active colors of previous fight)
+    // reset osaekomi view (to reset active colors of previous contest)
     m_pController->DoAction(eAction_ResetOsaeKomi, ContestSide::None, true /*doRevoke*/);
 
     SaveCompetitionToFile_(
@@ -1292,7 +1292,7 @@ void MainWindowTeam::on_comboBox_mode_currentIndexChanged(int i)
     m_pPrimaryView->UpdateView();
     m_pSecondaryView->UpdateView();
 
-    UpdateFightNumber_();
+    UpdateContestNumber_();
 }
 
 void MainWindowTeam::on_comboBox_club_host_currentTextChanged(const QString& s)
@@ -1313,7 +1313,7 @@ void MainWindowTeam::on_comboBox_club_home_currentTextChanged(const QString& s)
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_athleteManager.GetClubFighterNames(s));
+		pCbx->SetItems(m_athleteManager.GetClubAthleteNames(s));
 	}
 
 #endif
@@ -1330,7 +1330,7 @@ void MainWindowTeam::on_comboBox_club_guest_currentTextChanged(const QString& s)
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_athleteManager.GetClubFighterNames(s));
+		pCbx->SetItems(m_athleteManager.GetClubAthleteNames(s));
 	}
 
 #endif
@@ -1439,7 +1439,7 @@ void MainWindowTeam::on_toolButton_weights_pressed()
 void MainWindowTeam::on_toolButton_team_home_pressed()
 {
 #if 0
-	MainWindowBase::on_actionManageFighters_triggered();
+	MainWindowBase::on_actionManageAthletes_triggered();
 	const QString club = m_pUi->comboBox_club_home->currentText();
 
 	AthleteManagerDlg dlg(m_athleteManager, this);
@@ -1452,7 +1452,7 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_athleteManager.GetClubFighterNames(club));
+		pCbx->SetItems(m_athleteManager.GetClubAthleteNames(club));
 	}
 
 #endif
@@ -1461,7 +1461,7 @@ void MainWindowTeam::on_toolButton_team_home_pressed()
 void MainWindowTeam::on_toolButton_team_guest_pressed()
 {
 #if 0
-	MainWindowBase::on_actionManageFighters_triggered();
+	MainWindowBase::on_actionManageAthletes_triggered();
 	const QString club = m_pUi->comboBox_club_guest->currentText();
 
 	AthleteManagerDlg dlg(m_athleteManager, this);
@@ -1474,7 +1474,7 @@ void MainWindowTeam::on_toolButton_team_guest_pressed()
 
 	if (pCbx)
 	{
-		pCbx->SetItems(m_athleteManager.GetClubFighterNames(club));
+		pCbx->SetItems(m_athleteManager.GetClubAthleteNames(club));
 	}
 
 #endif
@@ -1488,7 +1488,7 @@ void MainWindowTeam::update_weights(QString const& weightString)
 
 void MainWindowTeam::on_pushButton_copySwitched_pressed()
 {
-    m_pController->CopyAndSwitchGuestFighters();
+    m_pController->CopyAndSwitchGuestAthletes();
 }
 
 void MainWindowTeam::on_actionSet_Round_Time_triggered()
@@ -1799,5 +1799,5 @@ QString MainWindowTeam::get_full_mode_title(QString const& modeId) const
         }
     }
 
-    return tr("Ipponboard fight list %1").arg(year);
+    return tr("Ipponboard draw %1").arg(year);
 }

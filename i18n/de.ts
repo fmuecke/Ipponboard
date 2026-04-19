@@ -151,7 +151,7 @@
     </message>
 </context>
 <context>
-    <name>FightCategoryManagerDlg</name>
+    <name>ContestCategoryManagerDlg</name>
     <message>
         <source>0:00 Golden Score Time means Golden Score has no end (or there is no Golden Score at all)</source>
         <translation>0:00 Golden Score Zeit bedeutet kein Zeitlimit im Golden Score (oder es gibt keinen Golden Score)</translation>
@@ -193,7 +193,7 @@
         <translation>Gewichtsklassen/Gruppen getrennt durch &quot;;&quot; eingeben</translation>
     </message>
     <message>
-        <source>Manage Fight Categories</source>
+        <source>Manage Contest Categories</source>
         <translation>Kategorien verwalten</translation>
     </message>
     <message>
@@ -252,7 +252,7 @@
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <source>Add a new fighter</source>
+        <source>Add a new athlete</source>
         <translation>Neuen Kämpfer hinzufügen</translation>
     </message>
     <message>
@@ -1108,7 +1108,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>F2</translation>
     </message>
     <message>
-        <source>Fight</source>
+        <source>Contest</source>
         <translation>Kampf</translation>
     </message>
     <message>
@@ -1539,7 +1539,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Kämpfe pro Runde</translation>
     </message>
     <message>
-        <source>Fight Time</source>
+        <source>Contest Duration</source>
         <translation>Kampfzeit</translation>
     </message>
     <message>

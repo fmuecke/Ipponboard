@@ -190,11 +190,11 @@ void SettingsDlg::initialize_raw_bindings()
         { ui->lineEdit_raw_next,
           ui->pushButton_capture_raw_next,
           &ControllerConfig::button_next_raw,
-          tr("Next fight") },
+          tr("Next contest") },
         { ui->lineEdit_raw_prev,
           ui->pushButton_capture_raw_prev,
           &ControllerConfig::button_prev_raw,
-          tr("Previous fight") },
+          tr("Previous contest") },
         { ui->lineEdit_raw_pause,
           ui->pushButton_capture_raw_pause,
           &ControllerConfig::button_pause_raw,
@@ -569,11 +569,11 @@ void SettingsDlg::SetInfoHeaderSettings(const QFont& font, const QColor& color,
     ui->checkBox_text_italic->setChecked(font.italic());
 }
 
-void SettingsDlg::SetFighterNameFont(const QFont& font)
+void SettingsDlg::SetAthleteNameFont(const QFont& font)
 {
-    ui->fontComboBox_fighters->setCurrentFont(font);
-    ui->checkBox_fighters_bold->setChecked(font.bold());
-    ui->checkBox_fighters_italic->setChecked(font.italic());
+    ui->fontComboBox_athletes->setCurrentFont(font);
+    ui->checkBox_athletes_bold->setChecked(font.bold());
+    ui->checkBox_athletes_italic->setChecked(font.italic());
     ui->text_color_first->SetFont(font);
     ui->text_color_second->SetFont(font);
 }
@@ -666,11 +666,11 @@ QFont SettingsDlg::GetInfoHeaderFont() const
     return f;
 }
 
-QFont SettingsDlg::GetFighterNameFont() const
+QFont SettingsDlg::GetAthleteNameFont() const
 {
-    QFont f = ui->fontComboBox_fighters->currentFont();
-    f.setBold(ui->checkBox_fighters_bold->isChecked());
-    f.setItalic(ui->checkBox_fighters_italic->isChecked());
+    QFont f = ui->fontComboBox_athletes->currentFont();
+    f.setBold(ui->checkBox_athletes_bold->isChecked());
+    f.setItalic(ui->checkBox_athletes_italic->isChecked());
     return f;
 }
 
@@ -845,10 +845,10 @@ void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(QFon
     ui->text_text_sample->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_fontComboBox_fighters_currentFontChanged(QFont f)
+void Ipponboard::SettingsDlg::on_fontComboBox_athletes_currentFontChanged(QFont f)
 {
-    f.setBold(ui->checkBox_fighters_bold->isChecked());
-    f.setItalic(ui->checkBox_fighters_italic->isChecked());
+    f.setBold(ui->checkBox_athletes_bold->isChecked());
+    f.setItalic(ui->checkBox_athletes_italic->isChecked());
     ui->text_color_first->SetFont(f);
     ui->text_color_second->SetFont(f);
 }
@@ -931,7 +931,7 @@ void Ipponboard::SettingsDlg::on_checkBox_text_italic_toggled(bool checked)
     ui->text_text_sample->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
+void Ipponboard::SettingsDlg::on_checkBox_athletes_bold_toggled(bool checked)
 {
     QFont f = ui->text_color_first->font();
     f.setBold(checked);
@@ -939,7 +939,7 @@ void Ipponboard::SettingsDlg::on_checkBox_fighters_bold_toggled(bool checked)
     ui->text_color_second->SetFont(f);
 }
 
-void Ipponboard::SettingsDlg::on_checkBox_fighters_italic_toggled(bool checked)
+void Ipponboard::SettingsDlg::on_checkBox_athletes_italic_toggled(bool checked)
 {
     QFont f = ui->text_color_first->font();
     f.setItalic(checked);

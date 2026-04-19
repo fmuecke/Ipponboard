@@ -570,7 +570,7 @@
      <string>&amp;Manage</string>
     </property>
     <addaction name="actionVereine"/>
-    <addaction name="actionManageFighters"/>
+    <addaction name="actionManageAthletes"/>
     <addaction name="actionManageCategories"/>
     <addaction name="separator"/>
     <addaction name="actionSet_Hold_Timer"/>
@@ -724,7 +724,7 @@
     <string>Clubs</string>
    </property>
   </action>
-  <action name="actionManageFighters">
+  <action name="actionManageAthletes">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -752,7 +752,7 @@
     <string>Categories</string>
    </property>
    <property name="toolTip">
-    <string>Manage fight categories</string>
+    <string>Manage contest categories</string>
    </property>
   </action>
   <action name="actionOnline_Feedback">

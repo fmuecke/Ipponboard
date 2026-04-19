@@ -163,7 +163,7 @@ QString CompetitionMode::Description() const
     return subTitle.isEmpty() ? title : QString("%1 - %2").arg(title, subTitle);
 }
 
-int CompetitionMode::FightsPerRound() const
+int CompetitionMode::ContestsPerRound() const
 {
     if (weights.isEmpty())
     {
@@ -174,7 +174,7 @@ int CompetitionMode::FightsPerRound() const
     return weightsAreDoubled ? nWeights * 2 : nWeights;
 }
 
-int CompetitionMode::GetFightDuration(const QString& weight) const
+int CompetitionMode::GetContestDuration(const QString& weight) const
 {
     for (auto it = begin(contestTimeOverrides); it != end(contestTimeOverrides); ++it)
     {

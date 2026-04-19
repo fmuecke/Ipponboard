@@ -42,8 +42,8 @@ class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::Compe
     void on_toolButton_remove_clicked();
     // spin controls
     void on_spinBox_rounds_valueChanged(int i);
-    void on_spinBox_fightTimeSeconds_valueChanged(int i);
-    void on_spinBox_fightTimeMinutes_valueChanged(int i);
+    void on_spinBox_contestTimeSeconds_valueChanged(int i);
+    void on_spinBox_contestTimeMinutes_valueChanged(int i);
     // line edits
     void on_lineEdit_weights_textChanged(QString const& s);
     void on_lineEdit_title_textChanged(QString const& s);
@@ -51,7 +51,7 @@ class ModeManagerDlg : public QDialog, public fm::DialogResult<Ipponboard::Compe
     void on_lineEdit_timeOverrides_textChanged(QString const& s);
 
   private:
-    void update_fights_per_round(Ipponboard::CompetitionMode const& mode);
+    void update_contests_per_round(Ipponboard::CompetitionMode const& mode);
     bool has_Mode() const { return m_currentIndex != -1; }
 
     Ipponboard::CompetitionMode& GetMode(int i);

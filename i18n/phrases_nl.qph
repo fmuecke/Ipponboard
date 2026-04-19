@@ -145,7 +145,7 @@
     <target>Bedankt voor het investeren van je tijd!</target>
 </phrase>
 <phrase>
-    <source>Manage Fight Categories</source>
+    <source>Manage Contest Categories</source>
     <target>Bewerk wedstrijdcategorieën</target>
 </phrase>
 <phrase>
@@ -535,11 +535,11 @@ Geldige velden zijn: %1</target>
     <target>Printen</target>
 </phrase>
 <phrase>
-    <source>Fight Categories</source>
+    <source>Contest Categories</source>
     <target>Wedstrijd Categorieën</target>
 </phrase>
 <phrase>
-    <source>Manage fight categories</source>
+    <source>Manage contest categories</source>
     <target>Bewerk Wedstrijdcategorieën</target>
 </phrase>
 <phrase>
@@ -835,7 +835,7 @@ Geldige velden zijn: %1</target>
     <target></target>
 </phrase>
 <phrase>
-    <source>Fight</source>
+    <source>Contest</source>
     <target></target>
 </phrase>
 <phrase>
@@ -1123,7 +1123,7 @@ Geldige velden zijn: %1</target>
     <target></target>
 </phrase>
 <phrase>
-    <source>Fight Time</source>
+    <source>Contest Duration</source>
     <target></target>
 </phrase>
 <phrase>
@@ -1905,7 +1905,7 @@ Restoring defaults.</source>
     <target>Voorlegging</target>
 </phrase>
 <phrase>
-    <source>Fight Time</source>
+    <source>Contest Duration</source>
     <target>Vechttijd</target>
 </phrase>
 <phrase>

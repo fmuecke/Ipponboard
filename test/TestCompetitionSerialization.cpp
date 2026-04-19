@@ -69,10 +69,10 @@ CompetitionSaveData MakeSampleData()
     secondContest.SetRoundTime(180);
     secondContest.SetGoldenScore(false);
     secondContest.is_saved = false;
-    secondContest.GetAthlete(ContestSide::SideA).name = "Home Fighter";
+    secondContest.GetAthlete(ContestSide::SideA).name = "Home Athlete";
     secondContest.GetAthlete(ContestSide::SideA).club = "Home Club";
     secondContest.GetScore(ContestSide::SideA).SetValue(Score::Point::Shido, 1);
-    secondContest.GetAthlete(ContestSide::SideB).name = "Guest Fighter";
+    secondContest.GetAthlete(ContestSide::SideB).name = "Guest Athlete";
     secondContest.GetAthlete(ContestSide::SideB).club = "Guest Club";
     secondContest.GetScore(ContestSide::SideB).SetValue(Score::Point::Yuko, 3);
 

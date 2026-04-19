@@ -52,10 +52,10 @@ class View : public QWidget, public IView
     // others
     void SetMessageText(Ipponboard::ContestSide who, const QString& msg) const;
     const QFont& GetInfoHeaderFont() const { return m_InfoHeaderFont; }
-    const QFont& GetFighterNameFont() const { return m_FighterNameFont; }
+    const QFont& GetAthleteNameFont() const { return m_AthleteNameFont; }
     const QFont& GetDigitFont() const { return m_DigitFont; }
     void SetInfoHeaderFont(const QFont& font);
-    void SetFighterNameFont(const QFont& font);
+    void SetAthleteNameFont(const QFont& font);
     void SetDigitFont(const QFont& font);
     const QColor& GetTextColorFirst() const { return m_TextColorFirst; }
     const QColor& GetTextBgColorFirst() const { return m_TextBgColorFirst; }
@@ -106,7 +106,7 @@ class View : public QWidget, public IView
     Ui::ScoreViewHorizontal* ui;
 
     QFont m_InfoHeaderFont;
-    QFont m_FighterNameFont;
+    QFont m_AthleteNameFont;
     QFont m_DigitFont;
     QColor m_TextColorFirst;
     QColor m_TextBgColorFirst;

@@ -79,7 +79,7 @@ class Controller : public QObject, public IController, public IControllerCore
     QString GetTimeOverridesString() const;
     int GetContestDuration(QString const& weight) const;
     void SetRoundTime(const QTime& time);
-    void OverrideRoundTimeOfFightMode(int fightTimeSecs);
+    void OverrideRoundTimeOfContestMode(int contestTimeSecs);
     //FIXME: int GetRound() const;
     void SetWeightClass(QString const& c) override;
     QString const& GetCategoryName() const override
@@ -139,7 +139,7 @@ class Controller : public QObject, public IController, public IControllerCore
 
     int GetCurrentRound() const { return static_cast<int>(m_navigator.currentRound()); }
 
-    void ClearFightsAndResetTimers();
+    void ClearContestsAndResetTimers();
     void SetClub(Ipponboard::ContestSide whos, const QString& clubName);
     void SetContest(unsigned int roundIndex, unsigned int contestIndex, Contest contest);
     void SetContest(unsigned int roundIndex, unsigned int contestIndex, const QString& weight,
@@ -152,7 +152,7 @@ class Controller : public QObject, public IController, public IControllerCore
     void SetAthleteName(Ipponboard::ContestSide whos, const QString& name);
 
     void SetWeights(QStringList const& weights);
-    void CopyAndSwitchGuestFighters();
+    void CopyAndSwitchGuestAthletes();
     PCompetitionModel GetCompetitionScoreModel(int which = 0);
 
     void SetMatSignal(const QString&);

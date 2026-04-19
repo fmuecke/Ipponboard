@@ -169,7 +169,7 @@
     <target>Beenden</target>
 </phrase>
 <phrase>
-    <source>Export fighters</source>
+    <source>Export athletes</source>
     <target>Kämpfer exportieren</target>
 </phrase>
 <phrase>
@@ -221,19 +221,19 @@
     <target>Feedback</target>
 </phrase>
 <phrase>
-    <source>Fight</source>
+    <source>Contest</source>
     <target>Kampf</target>
 </phrase>
 <phrase>
-    <source>Fight Categories</source>
+    <source>Contest Categories</source>
     <target>Kategorien</target>
 </phrase>
 <phrase>
-    <source>Fight Time</source>
+    <source>Contest Time</source>
     <target>Kampfzeit</target>
 </phrase>
 <phrase>
-    <source>Fighters</source>
+    <source>Athletes</source>
     <target>Kämpfer</target>
 </phrase>
 <phrase>
@@ -445,19 +445,19 @@
     <target>Vereine verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage fight categories</source>
+    <source>Manage contest categories</source>
     <target>Kategorien und Gewichtsklassen verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage Fight Categories</source>
+    <source>Manage Contest Categories</source>
     <target>Kategorien verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage fighters</source>
+    <source>Manage athletes</source>
     <target>Kämpfer verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage Fighters</source>
+    <source>Manage Athletes</source>
     <target>Kämpfer verwalten</target>
 </phrase>
 <phrase>

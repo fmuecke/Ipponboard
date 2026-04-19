@@ -11,15 +11,15 @@ find_program(QT_LRELEASE_EXECUTABLE
     REQUIRED)
 
 set(UI_SOURCES
-    AddFighterDlg.cpp
+    AddAthleteDlg.cpp
     ClubManager.cpp
     ClubManagerDlg.cpp
     ComboBoxDelegate.cpp
     DonationManager.cpp
-    FightCategoryManager.cpp
-    FightCategoryManagerDlg.cpp
+    ContestCategoryManager.cpp
+    ContestCategoryManagerDlg.cpp
     GamepadSectionMapper.cpp
-    FightCategoryParser.cpp
+    ContestCategoryParser.cpp
     AthleteManager.cpp
     AthleteManagerDlg.cpp
     MainWindow.cpp
@@ -35,15 +35,15 @@ set(UI_SOURCES
 )
 
 set(UI_HEADERS
-    AddFighterDlg.h
+    AddAthleteDlg.h
     Club.h
     ClubManager.h
     ClubManagerDlg.h
     ClubParser.h
     ComboBoxDelegate.h
     DonationManager.h
-    FightCategoryManager.h
-    FightCategoryManagerDlg.h
+    ContestCategoryManager.h
+    ContestCategoryManagerDlg.h
     GamepadSectionMapper.h
     AthleteManager.h
     AthleteManager.h
@@ -74,10 +74,10 @@ set(UI_RESOURCES
 )
 
 set(FORMS
-    AddFighterDlg.ui
+    AddAthleteDlg.ui
     ClubManagerDlg.ui
     AthleteManagerDlg.ui
-    FightCategoryManagerDlg.ui
+    ContestCategoryManagerDlg.ui
     MainWindow.ui
     MainWindowTeam.ui
     ModeManagerDlg.ui

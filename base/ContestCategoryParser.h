@@ -5,18 +5,18 @@
 #ifndef FIGHTCATEGORYPARSER_H
 #define FIGHTCATEGORYPARSER_H
 
-#include "../core/FightCategory.h"
+#include "../core/ContestCategory.h"
 
 #include <string>
 
-class FightCategoryParser
+class ContestCategoryParser
 {
   public:
-    FightCategoryParser();
+    ContestCategoryParser();
 
     // Qt settings format
-    static Ipponboard::FightCategoryList ParseIniFile(const QString& file);
-    static void ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories);
+    static Ipponboard::CategoryList ParseIniFile(const QString& file);
+    static void ToIniFile(const QString& file, Ipponboard::CategoryList const& categories);
 };
 
 #endif // FIGHTCATEGORYPARSER_H

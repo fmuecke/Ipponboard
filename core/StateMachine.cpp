@@ -252,12 +252,12 @@ void IpponboardSM::OnHoldTimerTick(int seconds)
     if (hasIpponTime(seconds))
     {
         applyHoldScore(seconds, m_holder);
-        stopFight();
+        stopContest();
     }
     else if (hasAwaseteTime(seconds))
     {
         applyHoldScore(seconds, m_holder);
-        stopFight();
+        stopContest();
     }
     else if (hasWazaariTime(seconds))
     {
@@ -274,7 +274,7 @@ void IpponboardSM::handleRunningWazaari(ContestSide who)
     if (isWazaariMatchPoint(who))
     {
         awardPoint(Point::Wazaari, who);
-        stopFight();
+        stopContest();
     }
     else if (canAddWazaari(who))
     {
@@ -287,7 +287,7 @@ void IpponboardSM::handleRunningShido(ContestSide who)
     if (isShidoMatchPoint(who))
     {
         awardShido(who);
-        stopFight();
+        stopContest();
     }
     else if (canTakeShido(who))
     {
@@ -338,7 +338,7 @@ void IpponboardSM::maybeStopForGoldenScoreAfterPenalty()
     }
 }
 
-void IpponboardSM::stopFight()
+void IpponboardSM::stopContest()
 {
     stopAllTimers();
     m_state = eState_TimerStopped;

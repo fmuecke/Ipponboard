@@ -41,7 +41,7 @@ The code base leans on Qt's conventions with a few project-specific tweaks:
 - **Public interfaces** (member/static/free functions visible to other translation units): PascalCase (`StartTimer()`, `CreateModel()`).
 - **Private/Protected helpers**: lowerCamelCase (`startTimerInternal()`).
 - **Member data**: prefix private members with `m_` (`m_scoreBoard`). Public or struct-like members should stay rare; when needed use lowerCamelCase and document mutability.
-- **Constants**: prefer `constexpr`/`const` named in PascalCase (`DefaultFightTime`). `enum class` values stay PascalCase.
+- **Constants**: prefer `constexpr`/`const` named in PascalCase (`DefaultContestTime`). `enum class` values stay PascalCase.
 - **Macros/defines**: SCREAMING_SNAKE_CASE and kept as a last resort.
 
 Document new patterns when they emerge so contributors stay aligned.

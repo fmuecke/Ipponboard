@@ -65,10 +65,10 @@ void ModeManagerDlg::on_comboBox_mode_currentIndexChanged(int i)
     m_pUi->lineEdit_subtitle->setText(mode.subTitle);
     m_pUi->lineEdit_weights->setText(mode.weights);
     m_pUi->spinBox_rounds->setValue(mode.nRounds);
-    m_pUi->spinBox_fightTimeMinutes->setValue(mode.timeInSeconds / 60);
-    m_pUi->spinBox_fightTimeSeconds->setValue(mode.timeInSeconds % 60);
+    m_pUi->spinBox_contestTimeMinutes->setValue(mode.timeInSeconds / 60);
+    m_pUi->spinBox_contestTimeSeconds->setValue(mode.timeInSeconds % 60);
     m_pUi->checkBox_doubleWeights->setChecked(mode.weightsAreDoubled);
-    update_fights_per_round(mode);
+    update_contests_per_round(mode);
 
     auto templateIndex = m_pUi->comboBox_template->findText(mode.listTemplate);
 
@@ -140,7 +140,7 @@ void ModeManagerDlg::on_checkBox_doubleWeights_toggled(bool checked)
 
     auto& mode = GetCurrentMode();
     mode.weightsAreDoubled = checked;
-    update_fights_per_round(mode);
+    update_contests_per_round(mode);
 }
 
 void ModeManagerDlg::on_checkBox_allSubscoresCount_toggled(bool checked)
@@ -216,10 +216,10 @@ void ModeManagerDlg::on_spinBox_rounds_valueChanged(int i)
 
     auto& mode = GetCurrentMode();
     mode.nRounds = i;
-    update_fights_per_round(mode);
+    update_contests_per_round(mode);
 }
 
-void ModeManagerDlg::on_spinBox_fightTimeMinutes_valueChanged(int i)
+void ModeManagerDlg::on_spinBox_contestTimeMinutes_valueChanged(int i)
 {
     if (!has_Mode())
     {
@@ -227,10 +227,10 @@ void ModeManagerDlg::on_spinBox_fightTimeMinutes_valueChanged(int i)
     }
 
     auto& mode = GetCurrentMode();
-    mode.timeInSeconds = i * 60 + m_pUi->spinBox_fightTimeSeconds->value();
+    mode.timeInSeconds = i * 60 + m_pUi->spinBox_contestTimeSeconds->value();
 }
 
-void ModeManagerDlg::on_spinBox_fightTimeSeconds_valueChanged(int i)
+void ModeManagerDlg::on_spinBox_contestTimeSeconds_valueChanged(int i)
 {
     if (!has_Mode())
     {
@@ -238,7 +238,7 @@ void ModeManagerDlg::on_spinBox_fightTimeSeconds_valueChanged(int i)
     }
 
     auto& mode = GetCurrentMode();
-    mode.timeInSeconds = m_pUi->spinBox_fightTimeMinutes->value() * 60 + i;
+    mode.timeInSeconds = m_pUi->spinBox_contestTimeMinutes->value() * 60 + i;
 }
 
 void ModeManagerDlg::on_lineEdit_weights_textChanged(const QString& s)
@@ -250,7 +250,7 @@ void ModeManagerDlg::on_lineEdit_weights_textChanged(const QString& s)
 
     auto& mode = GetCurrentMode();
     mode.weights = s;
-    update_fights_per_round(mode);
+    update_contests_per_round(mode);
 }
 
 void ModeManagerDlg::on_lineEdit_title_textChanged(const QString& s)
@@ -302,14 +302,14 @@ void ModeManagerDlg::on_lineEdit_timeOverrides_textChanged(const QString& s)
     m_pUi->lineEdit_timeOverrides->setPalette(palette);
 }
 
-void ModeManagerDlg::update_fights_per_round(const CompetitionMode& mode)
+void ModeManagerDlg::update_contests_per_round(const CompetitionMode& mode)
 {
-    auto text = mode.nRounds > 1 ? tr("%1 fights total, %2 per round")
-                                       .arg(mode.FightsPerRound() * mode.nRounds)
-                                       .arg(mode.FightsPerRound())
-                                 : tr("%1 fights total").arg(mode.FightsPerRound());
+    auto text = mode.nRounds > 1 ? tr("%1 contests total, %2 per round")
+                                       .arg(mode.ContestsPerRound() * mode.nRounds)
+                                       .arg(mode.ContestsPerRound())
+                                 : tr("%1 contests total").arg(mode.ContestsPerRound());
 
-    m_pUi->label_fightsPerRound->setText(text);
+    m_pUi->label_contestsPerRound->setText(text);
 }
 
 Ipponboard::CompetitionMode& ModeManagerDlg::GetMode(int i)

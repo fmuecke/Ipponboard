@@ -107,7 +107,7 @@ TEST_CASE("[Controller] Auto adjust hold respects active rule thresholds")
     controller.SetRules(rules);
     controller.SetAutoAdjustPoints(true);
 
-    fixture.startFight();
+    fixture.startContest();
     fixture.beginHold(ContestSide::SideA);
 
     const auto yukoAt = rules->GetOsaekomiValue(Score::Point::Yuko);
@@ -144,7 +144,7 @@ TEST_CASE("[Controller] Auto adjust second hold delivers awasete ippon")
     controller.SetRules(rules);
     controller.SetAutoAdjustPoints(true);
 
-    fixture.startFight();
+    fixture.startContest();
     fixture.beginHold(ContestSide::SideA);
 
     const auto wazaariAt = rules->GetOsaekomiValue(Score::Point::Wazaari);
@@ -173,7 +173,7 @@ TEST_CASE("[Controller] Hold owner follows engine state across contest changes")
     auto& controller = fixture.controller;
     fixture.initCompetition(1, { QStringLiteral("-60"), QStringLiteral("-66") });
 
-    fixture.startFight();
+    fixture.startContest();
     fixture.beginHold(ContestSide::SideB);
 
     REQUIRE(controller.GetCurrentHoldSide() == ContestSide::SideB);
@@ -303,7 +303,7 @@ TEST_CASE("[Controller] Open ended golden score increments main timer")
     CHECK(controller.GetCurrentState() == eState_TimerRunning);
 }
 
-TEST_CASE("[Controller] Golden score hold scoring keeps fight active until decisive score")
+TEST_CASE("[Controller] Golden score hold scoring keeps contest active until decisive score")
 {
     ControllerFixture fixture;
     auto& controller = fixture.controller;
@@ -312,7 +312,7 @@ TEST_CASE("[Controller] Golden score hold scoring keeps fight active until decis
     controller.SetAutoAdjustPoints(true);
     controller.SetGoldenScore(true);
 
-    fixture.startFight();
+    fixture.startContest();
     fixture.beginHold(ContestSide::SideA);
 
     const auto yukoAt = rules->GetOsaekomiValue(Score::Point::Yuko);

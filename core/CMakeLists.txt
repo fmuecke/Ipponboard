@@ -7,7 +7,7 @@ find_package(Qt6 COMPONENTS Core Multimedia Widgets REQUIRED)
 set(CORE_SOURCES
     Controller.cpp
     Contest.cpp
-    FightCategory.cpp
+    ContestCategory.cpp
     Athlete.cpp
     Rules.cpp
     TimerService.cpp

@@ -109,8 +109,8 @@ void CompetitionRepository::setContest(
     m_models[roundIndex]->SetDataChanged();
 }
 
-void CompetitionRepository::clearAllFights(std::shared_ptr<AbstractRules> const& rules,
-                                           const CompetitionMode& mode, const QString& emptyName)
+void CompetitionRepository::clearAllContests(std::shared_ptr<AbstractRules> const& rules,
+                                             const CompetitionMode& mode, const QString& emptyName)
 {
     if (m_competition.empty())
     {
@@ -142,7 +142,7 @@ void CompetitionRepository::clearAllFights(std::shared_ptr<AbstractRules> const&
                        rules,
                        emptyName);
             Contest& storedContest = contest(round, contestIndex);
-            storedContest.SetRoundTime(mode.GetFightDuration(storedContest.weight));
+            storedContest.SetRoundTime(mode.GetContestDuration(storedContest.weight));
             storedContest.SetSecondsElapsed(0);
             storedContest.SetGoldenScore(false);
             storedContest.is_saved = false;
@@ -169,7 +169,7 @@ void CompetitionRepository::resetContestData(unsigned int round, unsigned int co
     current.SetGoldenScore(false);
     current.is_saved = false;
     current.rules = rules;
-    current.SetRoundTime(mode.GetFightDuration(current.weight));
+    current.SetRoundTime(mode.GetContestDuration(current.weight));
 }
 
 void CompetitionRepository::setWeights(const QStringList& weights, const CompetitionMode& mode)
@@ -184,7 +184,7 @@ void CompetitionRepository::setWeights(const QStringList& weights, const Competi
     auto applyWeight = [&](Contest& contest, const QString& weight)
     {
         contest.weight = weight;
-        contest.SetRoundTime(mode.GetFightDuration(weight));
+        contest.SetRoundTime(mode.GetContestDuration(weight));
     };
 
     if (weights.count() == contestsPerRound)

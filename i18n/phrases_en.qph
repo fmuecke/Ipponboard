@@ -221,19 +221,19 @@
     <target>Feedback</target>
 </phrase>
 <phrase>
-    <source>Fight</source>
+    <source>Contest</source>
     <target>Kampf</target>
 </phrase>
 <phrase>
-    <source>Fight Categories</source>
+    <source>Contest Categories</source>
     <target>Kategorien</target>
 </phrase>
 <phrase>
-    <source>Fight Time</source>
+    <source>Contest Duration</source>
     <target>Kampfzeit</target>
 </phrase>
 <phrase>
-    <source>Fighters</source>
+    <source>Athletes</source>
     <target>Kämpfer</target>
 </phrase>
 <phrase>
@@ -449,19 +449,19 @@
     <target>Kategorien und Gewichtsklassen verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage Fight Categories</source>
+    <source>Manage Contest Categories</source>
     <target>Kategorien verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage fighters</source>
+    <source>Manage athletes</source>
     <target>Kämpfer verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage Fighters</source>
+    <source>Manage Athletes</source>
     <target>Kämpfer verwalten</target>
 </phrase>
 <phrase>
-    <source>Manage competition modes</source>
+    <source>Manage contest modes</source>
     <target>Die Wettkampfmodi verwalten</target>
 </phrase>
 <phrase>
