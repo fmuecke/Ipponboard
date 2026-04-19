@@ -6,15 +6,75 @@
 
 using namespace Ipponboard;
 
-Contest::Contest() : weight("-"), rules(new ClassicRules)
+Contest::Contest() : weight("-"), rules(new ClassicRules) { rules->SetCountSubscores(false); }
+
+Score const& Contest::GetScore(ContestSide side) const
 {
-    m_scoresBySide[ToIndex(ContestSide::SideA)] = Score();
-    m_scoresBySide[ToIndex(ContestSide::SideB)] = Score();
+    switch (side)
+    {
+    case ContestSide::SideA:
+        return m_scoreSideA;
+    case ContestSide::SideB:
+        return m_scoreSideB;
+    case ContestSide::None:
+    case ContestSide::Count:
+        InvalidContestSide(side);
+    }
 
-    m_athletesBySide[ToIndex(ContestSide::SideA)] = ContestAthlete();
-    m_athletesBySide[ToIndex(ContestSide::SideB)] = ContestAthlete();
+    InvalidContestSide(side);
+}
 
-    rules->SetCountSubscores(false);
+Score& Contest::GetScore(ContestSide side)
+{
+    switch (side)
+    {
+    case ContestSide::SideA:
+        return m_scoreSideA;
+    case ContestSide::SideB:
+        return m_scoreSideB;
+    case ContestSide::None:
+    case ContestSide::Count:
+        InvalidContestSide(side);
+    }
+
+    InvalidContestSide(side);
+}
+
+ContestAthlete const& Contest::GetAthlete(ContestSide side) const
+{
+    switch (side)
+    {
+    case ContestSide::SideA:
+        return m_athleteSideA;
+    case ContestSide::SideB:
+        return m_athleteSideB;
+    case ContestSide::None:
+    case ContestSide::Count:
+        InvalidContestSide(side);
+    }
+
+    InvalidContestSide(side);
+}
+
+ContestAthlete& Contest::GetAthlete(ContestSide side)
+{
+    switch (side)
+    {
+    case ContestSide::SideA:
+        return m_athleteSideA;
+    case ContestSide::SideB:
+        return m_athleteSideB;
+    case ContestSide::None:
+    case ContestSide::Count:
+        InvalidContestSide(side);
+    }
+
+    InvalidContestSide(side);
+}
+
+void Contest::InvalidContestSide(ContestSide side)
+{
+    qFatal("Invalid ContestSide: %d", static_cast<int>(side));
 }
 
 int Contest::GetSecondsElapsed() const { return m_secondsElapsed; }
@@ -120,27 +180,29 @@ bool Contest::HasWon(ContestSide side) const
 int Contest::GetScorePoints(ContestSide side) const
 {
     const ContestSide otherSide = OpposingSide(side);
+    const auto& score = GetScore(side);
+    const auto& otherScore = GetScore(otherSide);
 
     if (HasWon(side))
     {
-        if (GetScore(side).Ippon() || rules->IsAwaseteIppon(GetScore(side)))
+
+        if (score.Ippon() || rules->IsAwaseteIppon(score))
         {
             return eScore_Ippon;
         }
 
-        if (GetScore(side).Wazaari() > 0 &&
-            GetScore(side).Wazaari() > GetScore(otherSide).Wazaari())
+        if (score.Wazaari() > 0 && score.Wazaari() > otherScore.Wazaari())
         {
             return eScore_Wazaari;
         }
 
-        if (GetScore(side).Yuko() > GetScore(otherSide).Yuko())
+        if (score.Yuko() > otherScore.Yuko())
         {
             return eScore_Yuko;
         }
 
         if ((!rules->IsOption_ShidoAddsPoint() || IsGoldenScore()) &&
-            GetScore(side).Shido() < GetScore(otherSide).Shido())
+            score.Shido() < otherScore.Shido())
         {
             return eScore_Shido;
         }
@@ -153,11 +215,11 @@ int Contest::GetScorePoints(ContestSide side) const
         }
         else if (rules->IsOption_CountSubscores())
         {
-            if (GetScore(side).Wazaari() > GetScore(otherSide).Wazaari())
+            if (score.Wazaari() > otherScore.Wazaari())
             {
                 return eScore_Wazaari;
             }
-            else if (GetScore(side).Yuko() > GetScore(otherSide).Yuko())
+            else if (score.Yuko() > otherScore.Yuko())
             {
                 return eScore_Yuko;
             }

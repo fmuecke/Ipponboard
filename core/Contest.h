@@ -10,8 +10,7 @@
 #include "Rules.h"
 #include "Score.h"
 
-#include <array>
-#include <cassert>
+#include <QtGlobal>
 #include <memory>
 
 namespace Ipponboard
@@ -41,31 +40,14 @@ class Contest
   public:
     Contest();
 
-    Contest(Score const& sideA, Score const& sideB) : m_scoresBySide{ sideA, sideB } {}
+    Contest(Score const& sideA, Score const& sideB) : m_scoreSideA(sideA), m_scoreSideB(sideB) {}
 
-    Score const& GetScore(ContestSide side) const
-    {
-        assert(IsContestSide(side));
-        return m_scoresBySide[ToIndex(side)];
-    }
+    Score const& GetScore(ContestSide side) const;
+    Score& GetScore(ContestSide side);
 
-    Score& GetScore(ContestSide side)
-    {
-        assert(IsContestSide(side));
-        return m_scoresBySide[ToIndex(side)];
-    }
+    ContestAthlete const& GetAthlete(ContestSide side) const;
 
-    ContestAthlete const& GetAthlete(ContestSide side) const
-    {
-        assert(IsContestSide(side));
-        return m_athletesBySide[ToIndex(side)];
-    }
-
-    ContestAthlete& GetAthlete(ContestSide side)
-    {
-        assert(IsContestSide(side));
-        return m_athletesBySide[ToIndex(side)];
-    }
+    ContestAthlete& GetAthlete(ContestSide side);
 
     bool IsGoldenScore() const { return m_isGoldenScore; }
     void SetGoldenScore(bool val) { m_isGoldenScore = val; }
@@ -84,13 +66,17 @@ class Contest
     bool HasWon(ContestSide side) const;
     int GetScorePoints(ContestSide side) const;
 
-    std::array<ContestAthlete, ToIndex(ContestSide::Count)> m_athletesBySide{};
+    ContestAthlete m_athleteSideA{};
+    ContestAthlete m_athleteSideB{};
     QString weight;
     bool is_saved{ false };
     std::shared_ptr<AbstractRules> rules; // TODO: this should be removed if possible
 
   private:
-    std::array<Score, ToIndex(ContestSide::Count)> m_scoresBySide{};
+    [[noreturn]] static void InvalidContestSide(ContestSide side);
+
+    Score m_scoreSideA{};
+    Score m_scoreSideB{};
     int m_secondsElapsed{ 0 };
     int m_roundTimeSeconds{ 0 };
 };

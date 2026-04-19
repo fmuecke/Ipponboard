@@ -557,9 +557,9 @@ void MainWindowTeam::update_score_screen()
     const QString logo_home = m_pClubManager->GetLogo(home);
     const QString logo_guest = m_pClubManager->GetLogo(guest);
     m_pScoreScreen->SetLogos(logo_home, logo_guest);
-    const int score_first = m_pController->GetTeamScore(Ipponboard::ContestSide::SideA);
-    const int score_second = m_pController->GetTeamScore(Ipponboard::ContestSide::SideB);
-    m_pScoreScreen->SetScore(score_first, score_second);
+    const int scoreA = m_pController->GetTeamScore(Ipponboard::ContestSide::SideA);
+    const int scoreB = m_pController->GetTeamScore(Ipponboard::ContestSide::SideB);
+    m_pScoreScreen->SetScore(scoreA, scoreB);
 
     m_pScoreScreen->update();
 }
@@ -571,30 +571,29 @@ QString MainWindowTeam::GetRoundDataAsHtml(const Contest& contest, int contestNo
     { return (!contest.is_saved && val == 0) ? QString() : QString::number(val); };
 
     auto getTime = [&](QString const& timeStr) { return !contest.is_saved ? QString() : timeStr; };
-
     auto sideA = ContestSide::SideA;
     auto sideB = ContestSide::SideB;
-    auto const& score_first = contest.GetScore(sideA);
-    auto const& score_second = contest.GetScore(sideB);
+    auto const& scoreA = contest.GetScore(sideA);
+    auto const& scoreB = contest.GetScore(sideB);
 
     QString roundData("<tr>");
 
     roundData.append("<td><center>" + QString::number(contestNo + 1) + "</center></td>");
     roundData.append("<td><center>" + contest.weight + "</center></td>");
     roundData.append("<td><center>" + contest.GetAthlete(sideA).name + "</center></td>");
-    roundData.append("<td><center>" + getNum(score_first.Ippon()) + "</center></td>");   // I
-    roundData.append("<td><center>" + getNum(score_first.Wazaari()) + "</center></td>"); // W
-    roundData.append("<td><center>" + getNum(score_first.Yuko()) + "</center></td>");    // Y
-    roundData.append("<td><center>" + getNum(score_first.Shido()) + "</center></td>");   // S
-    roundData.append("<td><center>" + getNum(score_first.Hansokumake()) + "</center></td>");
+    roundData.append("<td><center>" + getNum(scoreA.Ippon()) + "</center></td>");   // I
+    roundData.append("<td><center>" + getNum(scoreA.Wazaari()) + "</center></td>"); // W
+    roundData.append("<td><center>" + getNum(scoreA.Yuko()) + "</center></td>");    // Y
+    roundData.append("<td><center>" + getNum(scoreA.Shido()) + "</center></td>");   // S
+    roundData.append("<td><center>" + getNum(scoreA.Hansokumake()) + "</center></td>");
     roundData.append("<td><center>" + getNum(contest.HasWon(sideA)) + "</center></td>");
     roundData.append("<td><center>" + getNum(contest.GetScorePoints(sideA)) + "</center></td>");
     roundData.append("<td><center>" + contest.GetAthlete(sideB).name + "</center></td>");
-    roundData.append("<td><center>" + getNum(score_second.Ippon()) + "</center></td>");   // I
-    roundData.append("<td><center>" + getNum(score_second.Wazaari()) + "</center></td>"); // W
-    roundData.append("<td><center>" + getNum(score_second.Yuko()) + "</center></td>");    // Y
-    roundData.append("<td><center>" + getNum(score_second.Shido()) + "</center></td>");   // S
-    roundData.append("<td><center>" + getNum(score_second.Hansokumake()) + "</center></td>");
+    roundData.append("<td><center>" + getNum(scoreB.Ippon()) + "</center></td>");   // I
+    roundData.append("<td><center>" + getNum(scoreB.Wazaari()) + "</center></td>"); // W
+    roundData.append("<td><center>" + getNum(scoreB.Yuko()) + "</center></td>");    // Y
+    roundData.append("<td><center>" + getNum(scoreB.Shido()) + "</center></td>");   // S
+    roundData.append("<td><center>" + getNum(scoreB.Hansokumake()) + "</center></td>");
     roundData.append("<td><center>" + getNum(contest.HasWon(sideB)) + "</center></td>");
     roundData.append("<td><center>" + getNum(contest.GetScorePoints(sideB)) + "</center></td>");
     roundData.append("<td><center>" + getTime(contest.GetTimeRemainingString()) + "</center></td>");
