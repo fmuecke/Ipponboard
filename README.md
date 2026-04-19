@@ -24,7 +24,7 @@ Ipponboard is a score board specially designed for Judo tournaments that feature
 
 ## Even more features
 
-- Automated list handling for team matches (including PDF export of the results)
+- Automated list handling for team contests (including PDF export of the results)
 - Golden Score automatism
 - Automatic addition of penalties and hold scores
 - New clubs can be easily added with the club manager

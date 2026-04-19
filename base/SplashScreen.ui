@@ -148,8 +148,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="toolTip">
+        <string>Athletes compete as individuals</string>
+       </property>
        <property name="text">
-        <string>Individual Competition</string>
+        <string>Individual</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -168,7 +171,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <bool>false</bool>
        </property>
        <property name="description">
-        <string>Individual contests</string>
+        <string>Athlete vs athlete contests</string>
        </property>
       </widget>
      </item>
@@ -195,11 +198,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="toolTip">
+        <string>Teams compete across multiple contests</string>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::LayoutDirection::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>Team Competition</string>
+        <string>Team</string>
        </property>
        <property name="icon">
         <iconset resource="ipponboard.qrc">
@@ -224,7 +230,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <bool>false</bool>
        </property>
        <property name="description">
-        <string>Team contests</string>
+        <string>Team vs team competition</string>
        </property>
       </widget>
      </item>

@@ -1412,11 +1412,11 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Die Begegnung wurde erfolgreich geladen!</translation>
     </message>
     <message>
-        <source>The match was saved successfully!</source>
+        <source>The team competition was saved successfully!</source>
         <translation>Die Begegnung wurde erfolgreich gespeichert!</translation>
     </message>
     <message>
-        <source>The competition could not be saved to %1</source>
+        <source>The team competition could not be saved to %1</source>
         <translation>Das Tunier konnte nicht nach %1 gespeichert werden</translation>
     </message>
     <message>
@@ -2157,7 +2157,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Einzelwettkampf</translation>
     </message>
     <message>
-        <source>Single matches</source>
+        <source>Individual contest</source>
         <translation>Einzelbegegnungen</translation>
     </message>
     <message>
@@ -2165,7 +2165,7 @@ Hinweis: Die Zeiten müssen vollständig in Sekunden angegeben werden</translati
         <translation>Mannschaftswettkampf</translation>
     </message>
     <message>
-        <source>Team matches</source>
+        <source>Team Contests</source>
         <translation>Teambegegnungen</translation>
     </message>
     <message>

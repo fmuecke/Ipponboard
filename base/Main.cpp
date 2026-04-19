@@ -85,7 +85,7 @@ If you like Ipponboard, please support its development:
 More information on GitHub.
 */
 
-    auto title = QCoreApplication::tr("the 🥋 Judo scoreboard");
+    auto title = QCoreApplication::tr("The 🥋 Judo scoreboard");
     auto story = QCoreApplication::tr(
         "Developed by judoka for judoka.<br/>"
         "Clear and easy to use — for timekeepers, coaches, competitors, and the audience.");
@@ -94,10 +94,10 @@ More information on GitHub.
     auto github = QCoreApplication::tr("More on %1.")
                       .arg("<a href=\"https://github.com/fmuecke/Ipponboard\">GitHub</a>");
 
-    auto text = QString("<html><body style=\"margin: 10;text-align: left;\"><p><br/><big><span "
-                        "style=\"color:#336699;font-weight:bold\"><em>Ipponboard</em></"
-                        "span> - <b>%1</b></big></p>")
-                    .arg(title);
+    auto text =
+        QString(
+            "<html><body style=\"margin: 10;text-align: left;\"><p><br/><big><b>%1</b></big></p>")
+            .arg(title);
     text += QString("<p>%1</p>").arg(story);
     text += QString("<p><b>%1</b><br/>%2</p>").arg(callForSupprt, howToSupport);
     text += QString("<p>%1</p></body></html>").arg(github);

@@ -947,7 +947,8 @@ void MainWindowTeam::on_actionSave_As_triggered()
 
     if (errorMsg.isEmpty())
     {
-        QMessageBox::information(this, tr("Saved!"), tr("The match was saved successfully!"));
+        QMessageBox::information(
+            this, tr("Saved!"), tr("The team competition was saved successfully!"));
     }
     else
     {
@@ -1012,7 +1013,8 @@ void MainWindowTeam::on_actionLoad_triggered()
 
     if (result == 0)
     {
-        QMessageBox::information(this, tr("Success!"), tr("The match was loaded successfully!"));
+        QMessageBox::information(
+            this, tr("Success!"), tr("The team competition was loaded successfully!"));
     }
     else
     {

@@ -71,8 +71,8 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent)
     }
 
     ui->text_text_sample->SetText("  Ipponboard   ");
-    ui->text_color_first->SetText(tr("FIRST FIGHTER"));
-    ui->text_color_second->SetText(tr("SECOND FIGHTER"));
+    ui->text_color_first->SetText(tr("SIDE A"));
+    ui->text_color_second->SetText(tr("SIDE B"));
 
     // num screens
     int numScreens = QGuiApplication::screens().count();
@@ -194,7 +194,7 @@ void SettingsDlg::initialize_raw_bindings()
         { ui->lineEdit_raw_prev,
           ui->pushButton_capture_raw_prev,
           &ControllerConfig::button_prev_raw,
-          tr("Previous contest") },
+          tr("Prev contest") },
         { ui->lineEdit_raw_pause,
           ui->pushButton_capture_raw_pause,
           &ControllerConfig::button_pause_raw,
