@@ -11,10 +11,9 @@
 #include <QString>
 #include <vector>
 
-
 namespace Ipponboard::CompetitionSerialization
 {
-inline constexpr const char* CompetitionSaveFileVersion = "1.0";
+inline constexpr const char* CompetitionSaveFileVersion = "2";
 inline constexpr const char* AutoSaveFilename = "Ipponboard-autosave.json";
 
 enum class ReadSaveFileStatus

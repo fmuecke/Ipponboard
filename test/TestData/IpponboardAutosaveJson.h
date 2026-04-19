@@ -17,7 +17,7 @@ inline constexpr const char* IpponboardAutosaveJson = R"IPPON(
     "FgColorFirst": -16777216,
     "FgColorInfoText": -160,
     "FgColorSecond": -1,
-    "FileVersion": "1.0",
+    "FileVersion": "2",
     "Guest": "The Daltons",
     "Home": "Entenhausen",
     "Host": "Entenhausen",

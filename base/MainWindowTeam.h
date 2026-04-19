@@ -78,6 +78,7 @@ class MainWindowTeam : public MainWindowBase
     void write_settings() const final;
     void read_settings() final;
     Ipponboard::CompetitionSerialization::CompetitionSaveData CollectCompetitionSaveData_() const;
+    static bool hasCompatibleSaveFileVersion(QString const& fileVersion);
     //void update_fighter_name_completer(const QString& weight);
     //void update_fighters(const QString& s);
 

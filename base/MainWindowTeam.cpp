@@ -891,12 +891,17 @@ void MainWindowTeam::load_autosave_if_available()
         return;
     }
 
-    auto loadResult = LoadCompetitionFromJson_(document);
-    if (loadResult == 1)
+    const auto fileVersion = document.object().value(QStringLiteral("FileVersion")).toString();
+    if (!hasCompatibleSaveFileVersion(fileVersion))
     {
-        loadResult = LoadCompetitionFromJson_(document, true);
+        qWarning() << "Skipping autosave due to incompatible file version:" << fileVersion
+                   << "(expected"
+                   << QString::fromLatin1(CompetitionSerialization::CompetitionSaveFileVersion)
+                   << ")" << autoSavePath;
+        return;
     }
 
+    const auto loadResult = LoadCompetitionFromJson_(document);
     if (loadResult == 0)
     {
         qInfo() << "Loaded autosave from" << autoSavePath;
@@ -904,6 +909,11 @@ void MainWindowTeam::load_autosave_if_available()
     }
 
     qWarning() << "Autosave document could not be applied";
+}
+
+bool MainWindowTeam::hasCompatibleSaveFileVersion(QString const& fileVersion)
+{
+    return fileVersion == QString::fromLatin1(CompetitionSerialization::CompetitionSaveFileVersion);
 }
 
 void MainWindowTeam::on_actionNew_triggered()

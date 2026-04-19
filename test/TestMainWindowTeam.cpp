@@ -15,6 +15,11 @@ struct MainWindowTeamTest
     {
         return MainWindowTeam::qualify_template_reference(templateReference);
     }
+
+    static bool hasCompatibleSaveFileVersion(QString const& fileVersion)
+    {
+        return MainWindowTeam::hasCompatibleSaveFileVersion(fileVersion);
+    }
 };
 
 TEST_CASE("[MainWindowTeam] Template references preserve explicit paths")
@@ -30,4 +35,13 @@ TEST_CASE("[MainWindowTeam] Template references preserve explicit paths")
             QStringLiteral("../custom/output.html"));
     REQUIRE(MainWindowTeamTest::qualifyTemplateReference(QStringLiteral(
                 ":/templates/resource.html")) == QStringLiteral(":/templates/resource.html"));
+}
+
+TEST_CASE("[MainWindowTeam] Autosave version compatibility is strict")
+{
+    REQUIRE(MainWindowTeamTest::hasCompatibleSaveFileVersion(
+        QString::fromLatin1(Ipponboard::CompetitionSerialization::CompetitionSaveFileVersion)));
+    REQUIRE_FALSE(
+        MainWindowTeamTest::hasCompatibleSaveFileVersion(QStringLiteral("definitely-not-current")));
+    REQUIRE_FALSE(MainWindowTeamTest::hasCompatibleSaveFileVersion(QString()));
 }
