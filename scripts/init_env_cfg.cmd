@@ -8,10 +8,10 @@ if exist "%LOCAL_CONFIG%" (
 ) else (
   echo @echo off > "%LOCAL_CONFIG%"
   echo :: Configure dependency paths below  >> "%LOCAL_CONFIG%"
-  echo set "IPPONBOARD_ROOT_DIR=c:\dev\_cpp\Ipponboard" >> "%LOCAL_CONFIG%"
-  echo set "QTDIR=c:\devtools\qt5\Qt5.15.13-x86-msvc2022" >> "%LOCAL_CONFIG%"  
-  echo set "BOOST_DIR=c:\devtools\boost_1_81_0" >> "%LOCAL_CONFIG%"
-  echo set "INNO_DIR=c:\Program Files (x86)\Inno Setup 6" >> "%LOCAL_CONFIG%"
+  echo set "IPPONBOARD_ROOT_DIR=C:\dev\git\github\Ipponboard-frk-mue" >> "%LOCAL_CONFIG%"
+  echo set "QTDIR=C:\dev\tools\qt-5.15.17-x86" >> "%LOCAL_CONFIG%"  
+  echo set "BOOST_DIR=C:\dev\tools\boost_1_87_0" >> "%LOCAL_CONFIG%"
+  echo set "INNO_DIR=C:\dev\tools\Inno Setup 7" >> "%LOCAL_CONFIG%"
   echo Please configure dependency paths in "%LOCAL_CONFIG%" first!
   pause
   exit /b 1
