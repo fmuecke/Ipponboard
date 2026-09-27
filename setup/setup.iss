@@ -91,9 +91,9 @@ en.UninstallKeepSettings=Do you want to keep your settings for a later installat
 Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\GamepadDemo-Release\GamepadDemo.exe"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
-Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
-Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: replacesameversion; Languages: de
+Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: replacesameversion; Languages: en
+Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\_bin\Ipponboard-Release\TournamentModes.ini"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
@@ -102,9 +102,9 @@ Source: "..\_bin\Ipponboard-Release\lang\*.*"; DestDir: "{app}\lang\"; Flags: Ig
 Source: "..\_bin\Ipponboard-Release\licenses\*.*"; DestDir: "{app}\licenses"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\Qt5*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
+Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion
+Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
