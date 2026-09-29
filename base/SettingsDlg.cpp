@@ -404,6 +404,11 @@ void SettingsDlg::SetControllerConfig(const ControllerConfig* pConfig)
 		ui->checkBox_invert_y_axis->setChecked(pConfig->axis_inverted_Y);
 		ui->checkBox_invert_r_axis->setChecked(pConfig->axis_inverted_R);
 		ui->checkBox_invert_z_axis->setChecked(pConfig->axis_inverted_Z);
+
+		ui->comboBox_axis_x->setCurrentIndex(pConfig->axis_X);
+		ui->comboBox_axis_y->setCurrentIndex(pConfig->axis_Y);
+		ui->comboBox_axis_r->setCurrentIndex(pConfig->axis_R);
+		ui->comboBox_axis_z->setCurrentIndex(pConfig->axis_Z);
 	}
 }
 
@@ -453,6 +458,11 @@ void SettingsDlg::GetControllerConfig(ControllerConfig* pConfig)
 		pConfig->axis_inverted_Y = ui->checkBox_invert_y_axis->isChecked();
 		pConfig->axis_inverted_R = ui->checkBox_invert_r_axis->isChecked();
 		pConfig->axis_inverted_Z = ui->checkBox_invert_z_axis->isChecked();
+
+		pConfig->axis_X = ui->comboBox_axis_x->currentIndex();
+		pConfig->axis_Y = ui->comboBox_axis_y->currentIndex();
+		pConfig->axis_R = ui->comboBox_axis_r->currentIndex();
+		pConfig->axis_Z = ui->comboBox_axis_z->currentIndex();
 	}
 }
 

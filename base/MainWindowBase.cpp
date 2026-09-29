@@ -487,6 +487,10 @@ void MainWindowBase::write_settings()
 		settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
 		settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
 		settings.setValue(str_tag_invertZ, m_controllerCfg.axis_inverted_Z);
+		settings.setValue(str_tag_axisX, m_controllerCfg.axis_X);
+		settings.setValue(str_tag_axisY, m_controllerCfg.axis_Y);
+		settings.setValue(str_tag_axisR, m_controllerCfg.axis_R);
+		settings.setValue(str_tag_axisZ, m_controllerCfg.axis_Z);
 	}
 	settings.endGroup();
 
@@ -645,11 +649,41 @@ void MainWindowBase::read_settings()
 		m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
 		m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
 		m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
+
+		m_controllerCfg.axis_X =
+			settings.value(str_tag_axisX, 0).toInt();
+
+		m_controllerCfg.axis_Y =
+			settings.value(str_tag_axisY, 1).toInt();
+
+		m_controllerCfg.axis_R =
+			settings.value(str_tag_axisR, 3).toInt();
+
+		m_controllerCfg.axis_Z =
+			settings.value(str_tag_axisZ, 2).toInt();
+
 		// apply settings to gamepad controller
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_X, m_controllerCfg.axis_inverted_X);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_X,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_X));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_Y,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_Y));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_R,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_R));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_Z,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_Z));
+
 	}
 	settings.endGroup();
 #endif
@@ -759,6 +793,23 @@ void MainWindowBase::on_actionPreferences_triggered()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_X,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_X));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_Y,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_Y));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_R,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_R));
+
+		m_pGamepad->SetAxisMapping(
+			FMlib::Gamepad::eAxis_Z,
+			static_cast<FMlib::Gamepad::EAxis>(m_controllerCfg.axis_Z));
+
 #endif
 		m_MatLabel = dlg.GetMatLabel();
 		m_pController->SetLabels(dlg.GetHomeLabel(), dlg.GetGuestLabel());

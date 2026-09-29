@@ -10,6 +10,7 @@
 #include <bitset>
 #include <cmath>
 #include <cassert>
+#include <array>
 
 #include <Windows.h>
 #include <Mmsystem.h>
@@ -228,6 +229,11 @@ public:
 	void SetInverted(EAxis axis, bool val = true)
 	{
 		m_invertedAxes.set(axis, val);
+	}
+
+	void SetAxisMapping(EAxis axis, EAxis mappedAxis)
+	{
+		m_axisMapping[axis] = mappedAxis;
 	}
 
 	bool IsInverted(EAxis axis) const
@@ -585,6 +591,7 @@ private:
 
     unsigned int m_currentId{0};
     std::bitset<eAxis_MAX> m_invertedAxes{0};
+    std::array<EAxis, eAxis_MAX> m_axisMapping;
 
     JOYCAPSW m_caps{0};
     JOYINFOEX m_data{0};
