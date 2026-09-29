@@ -200,6 +200,11 @@ function Build-Doc {
 }
 
 function Build-Setup {
+    if ($CONFIG -ne "release") {
+        Write-Host "Setup can only be built in release config (current: $CONFIG). Use menu option (s) to switch."
+        return $false
+    }
+
     & .\scripts\build-setup.cmd
     return ($LASTEXITCODE -eq 0)
 }
