@@ -275,17 +275,37 @@ public:
 		return (m_data.dwButtons & button_code[b]) > 0;
 	}
 
+	DWORD GetAxisPos(const JOYINFOEX& data, EAxis axis) const
+	{
+		switch (axis)
+		{
+		case eAxis_X: return data.dwXpos;
+		case eAxis_Y: return data.dwYpos;
+		case eAxis_Z: return data.dwZpos;
+		case eAxis_R: return data.dwRpos;
+		case eAxis_U: return data.dwUpos;
+		case eAxis_V: return data.dwVpos;
+		default:      return 0;
+		}
+	}
+
 	bool WasSectionEnteredXY(float min, float max) const
 	{
 		const int lastX = m_invertedAxes.test(eAxis_X) ?
-						  eMax - m_lastData.dwXpos : m_lastData.dwXpos;
-		const int lastY = m_invertedAxes.test(eAxis_Y) ?
-						  eMax - m_lastData.dwYpos : m_lastData.dwYpos;
+						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_X]) :
+						  GetAxisPos(m_lastData, m_axisMapping[eAxis_X]);
 
-		int curX = m_invertedAxes.test(eAxis_X) ?
-				   eMax - m_data.dwXpos : m_data.dwXpos;
-		int curY = m_invertedAxes.test(eAxis_Y) ?
-				   eMax - m_data.dwYpos : m_data.dwYpos;
+		const int lastY = m_invertedAxes.test(eAxis_Y) ?
+						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_Y]) :
+						  GetAxisPos(m_lastData, m_axisMapping[eAxis_Y]);
+
+		const int curX = m_invertedAxes.test(eAxis_X) ?
+						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_X]) :
+						 GetAxisPos(m_data, m_axisMapping[eAxis_X]);
+
+		const int curY = m_invertedAxes.test(eAxis_Y) ?
+						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_Y]) :
+						 GetAxisPos(m_data, m_axisMapping[eAxis_Y]);
 
 		const float lastAlpha = GetAngle<float>(
 									lastX - eMid, lastY - eMid, 1.02f, eMid);
@@ -312,14 +332,18 @@ public:
 	bool WasSectionEnteredRZ(float min, float max) const
 	{
 		const int lastR = m_invertedAxes.test(eAxis_R) ?
-						  eMax - m_lastData.dwRpos : m_lastData.dwRpos;
+						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_R]) :
+						  GetAxisPos(m_lastData, m_axisMapping[eAxis_R]);
 		const int lastZ = m_invertedAxes.test(eAxis_Z) ?
-						  eMax - m_lastData.dwZpos : m_lastData.dwZpos;
+						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_Z]) :
+						  GetAxisPos(m_lastData, m_axisMapping[eAxis_Z]);
 
-		int curR = m_invertedAxes.test(eAxis_R) ?
-				   eMax - m_data.dwRpos : m_data.dwRpos;
-		int curZ = m_invertedAxes.test(eAxis_Z) ?
-				   eMax - m_data.dwZpos : m_data.dwZpos;
+		const int curR = m_invertedAxes.test(eAxis_R) ?
+						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_R]) :
+						 GetAxisPos(m_data, m_axisMapping[eAxis_R]);
+		const int curZ = m_invertedAxes.test(eAxis_Z) ?
+						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_Z]) :
+						 GetAxisPos(m_data, m_axisMapping[eAxis_Z]);
 
 		const float lastAlpha = GetAngle<float>(
 									lastR - eMid, lastZ - eMid, 1.02f, eMid);
