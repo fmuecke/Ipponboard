@@ -220,7 +220,7 @@ void MainWindow::update_fighters(const QString& s)
 	QString firstName = s;
 	QString lastName;
 
-	int pos = s.indexOf(' ');
+	const auto pos = s.indexOf(' ');
 
 	if (pos < s.size())
 	{

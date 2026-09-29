@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
 
 		QPushButton* downloadBtn = msgBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
 		QPushButton* homepageBtn = msgBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
-		QPushButton* cancelBtn = msgBox.addButton(QCoreApplication::tr("Cancel"), QMessageBox::RejectRole);
+		msgBox.addButton(QCoreApplication::tr("Cancel"), QMessageBox::RejectRole);
 
 		msgBox.setDefaultButton(downloadBtn);
 		msgBox.exec();

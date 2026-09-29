@@ -44,7 +44,7 @@ ModeManagerDlg::ModeManagerDlg(TournamentMode::List const& modes,
 
 			if (mode.id == currentModeId)
 			{
-				pos = i;
+				pos = static_cast<int>(i);
 			}
 		}
 

@@ -101,7 +101,7 @@ SettingsDlg::SettingsDlg(EditionType edition, QWidget* parent) :
 	ui->comboBox_hansokumake_second->addItems(buttons);
 
 	// num screens
-    int numScreens = QGuiApplication::screens().count();
+    const auto numScreens = QGuiApplication::screens().count();
 
     for (int i(1); i <= numScreens; ++i)
 	{
@@ -278,7 +278,7 @@ void SettingsDlg::SetLabels(QString const& mat, QString const& home, QString con
 
 void SettingsDlg::SetGongFile(const QString& path)
 {
-	int pos = path.lastIndexOf('/', -1);
+	const auto pos = path.lastIndexOf('/', -1);
 	QString filename;
 
 	if (-1 != pos)

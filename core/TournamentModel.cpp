@@ -19,7 +19,7 @@ TournamentModel::TournamentModel(Ipponboard::PTournamentRound pTournament, QObje
 	: QAbstractTableModel(parent)
 	, m_pTournamentRound(pTournament)
 	, m_pIntermediateModel(0)
-	, m_nRows(pTournament->size())
+	, m_nRows(static_cast<int>(pTournament->size()))
 	//, m_HeaderData()
 	//, m_HeaderSizes()
 	, m_pEditWins(0)

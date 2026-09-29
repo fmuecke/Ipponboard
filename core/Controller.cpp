@@ -463,7 +463,7 @@ QString Controller::GetFighterName(FighterEnum who) const
 				   ->at(m_currentFight).GetFighter(who).name;
 
 	// shorten name
-	const int pos = name.indexOf(' ');
+	const auto pos = name.indexOf(' ');
 
 	if (pos != -1)
 	{
@@ -483,7 +483,7 @@ QString Controller::GetFighterLastName(Ipponboard::FighterEnum who) const
 				   ->at(m_currentFight).GetFighter(who).name;
 
 	// get last name
-	const int pos = name.indexOf(' ');
+	const auto pos = name.indexOf(' ');
 
 	if (pos != -1)
 	{
@@ -503,7 +503,7 @@ QString Controller::GetFighterFirstName(Ipponboard::FighterEnum who) const
 				   ->at(m_currentFight).GetFighter(who).name;
 
 	// get first name
-	const int pos = name.indexOf(' ');
+	const auto pos = name.indexOf(' ');
 
 	if (pos != -1)
 	{
@@ -948,7 +948,7 @@ void Controller::ClearFightsAndResetTimers()
 	{
 		for (size_t fight(0); fight < m_Tournament[0]->size(); ++fight)
 		{
-			SetFight(round, fight, "", "", "", "", "");
+			SetFight(round, static_cast<unsigned int>(fight), "", "", "", "", "");
 			m_Tournament[round]->at(fight).SetSecondsElapsed(0);
 		}
 	}

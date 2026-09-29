@@ -40,7 +40,7 @@ namespace SimpleCsvFile
 
         QTextStream in(&file);
         int lineNo = 0;
-        int itemsPerLine = 0;
+        qsizetype itemsPerLine = 0;
 
         for (QString line = in.readLine(); !line.isNull(); ++lineNo)
         {

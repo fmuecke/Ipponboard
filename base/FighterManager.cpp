@@ -135,11 +135,11 @@ bool FighterManager::ImportFighters(
 
 	// determine tag positions
 	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
+	const qsizetype firstNamePos = tags.indexOf(str_FIRSTNAME);
+	const qsizetype lastNamePos = tags.indexOf(str_LASTNAME);
+	const qsizetype clubPos = tags.indexOf(str_CLUB);
+	const qsizetype weightPos = tags.indexOf(str_WEIGHT);
+	const qsizetype categoryPos = tags.indexOf(str_CATEGORY);
 
 	if (-1 == firstNamePos || -1 == lastNamePos)
 	{
@@ -207,11 +207,11 @@ bool FighterManager::ExportFighters(
 
 	// determine tag positions
 	const QStringList tags = formatStr.split(sep);
-	const int firstNamePos = tags.indexOf(str_FIRSTNAME);
-	const int lastNamePos = tags.indexOf(str_LASTNAME);
-	const int clubPos = tags.indexOf(str_CLUB);
-	const int weightPos = tags.indexOf(str_WEIGHT);
-	const int categoryPos = tags.indexOf(str_CATEGORY);
+	const qsizetype firstNamePos = tags.indexOf(str_FIRSTNAME);
+	const qsizetype lastNamePos = tags.indexOf(str_LASTNAME);
+	const qsizetype clubPos = tags.indexOf(str_CLUB);
+	const qsizetype weightPos = tags.indexOf(str_WEIGHT);
+	const qsizetype categoryPos = tags.indexOf(str_CATEGORY);
 
 	QStringList data;
 

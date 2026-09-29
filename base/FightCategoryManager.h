@@ -44,7 +44,7 @@ public:
 	void UpdateCategory(QString const& oldName, FightCategory const& t);
 	void RenameCategory(QString const& oldName, QString const& newName);
 	void RemoveCategory(QString const& name);
-	int CategoryCount() const { return m_Categories.size(); }
+	int CategoryCount() const { return static_cast<int>(m_Categories.size()); }
 
 	bool CategoriesFromString(std::string const& s);
 	std::string ConvertCategoriesToString_WITH_GUI_ERROR();

@@ -173,7 +173,7 @@ int TournamentMode::FightsPerRound() const
 	}
 
 	const auto nWeights = weights.split(';').count();
-	return weightsAreDoubled ? nWeights * 2 : nWeights;
+	return static_cast<int>(weightsAreDoubled ? nWeights * 2 : nWeights);
 }
 
 int TournamentMode::GetFightDuration(const QString& weight) const

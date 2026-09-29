@@ -40,7 +40,7 @@ QString DonationManager::GetDonationLabel()
 
 	std::random_device rd;
 	std::mt19937 generator(rd());
-	std::uniform_int_distribution<> distribution(0, fm::array_size(DonationLabels) - 1);
+	std::uniform_int_distribution<std::size_t> distribution(0, fm::array_size(DonationLabels) - 1);
 
 	return QCoreApplication::instance()->translate("DonationLabel", DonationLabels[distribution(generator)]);
 }

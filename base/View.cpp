@@ -700,12 +700,10 @@ void View::update_ippon(Ipponboard::FighterEnum who) const
 	auto digit_yuko = ui->text_yuko_first;
 	auto wazaariLabel = ui->text_wazaari_desc1;
 	auto yukoLabel = ui->text_yuko_desc1;
-	auto scoreLayout = ui->layout_score_first;
 	FighterEnum uke(FighterEnum::Second);
 
 	if (uke == who)
 	{
-		scoreLayout = ui->layout_score_second;
 		digit_ippon = ui->text_ippon_second;
 		digit_wazaari = ui->text_wazaari_second;
 		digit_yuko = ui->text_yuko_second;
