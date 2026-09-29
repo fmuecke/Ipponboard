@@ -11,6 +11,7 @@
 #include <QDir>
 #include <QUuid>
 #include <QSettings>
+#include <QRegularExpression>
 #include <regex>
 #include <QDebug>
 
@@ -61,7 +62,7 @@ bool TournamentMode::ReadModes(
 	}
 
 	QSettings config(filename, QSettings::IniFormat, nullptr);
-	config.setIniCodec("UTF-8");
+	
 	QStringList groups = config.childGroups();
 
 	if (groups.isEmpty())
@@ -114,7 +115,7 @@ bool TournamentMode::WriteModes(const QString& filename, TournamentMode::List co
 	}
 
 	QSettings config(filename, QSettings::IniFormat, nullptr);
-	config.setIniCodec("UTF-8");
+	
 
 	for (auto const & mode : modes)
 	{
@@ -216,8 +217,8 @@ void TournamentMode::SetOption(QString const& option, bool checked)
 	}
 
 	options.replace(";;", ";");
-	options.remove(QRegExp("^;"));
-	options.remove(QRegExp(";$"));
+	options.remove(QRegularExpression("^;"));
+	options.remove(QRegularExpression(";$"));
 }
 
 QString TournamentMode::GetFightTimeOverridesString() const

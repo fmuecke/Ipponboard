@@ -14,8 +14,9 @@ function init_environment {
 	if [ -f "$LOCAL_CONFIG" ]; then
 		source "$LOCAL_CONFIG"
 	else
-		echo "set \"LINUX_QTDIR=/usr/local/Qt5.15.13\"" >> "$LOCAL_CONFIG"
-		echo "set \"LINUX_BOOST_DIR=/home/user/devtools/boost_1_81_0\"" >> "$LOCAL_CONFIG"
+	  #echo "set \"LINUX_QTDIR=/usr/lib/qt5\"" >> "$LOCAL_CONFIG"
+  	echo "set \"LINUX_QTDIR=/usr/lib/qt6\"" >> "$LOCAL_CONFIG"
+  	echo "set \"LINUX_BOOST_DIR=/usr/include/boost\"" >> "$LOCAL_CONFIG"
 		echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
 		read -p "Press enter to continue"
 		exit 1
@@ -31,6 +32,8 @@ function init_environment {
     export BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Ipponboard-$CONFIG"
     export TEST_BIN_DIR="$IPPONBOARD_ROOT_DIR/_bin/Test-$CONFIG"
     export OUTPUT_DIR="$IPPONBOARD_ROOT_DIR/_output"
+    # Add Qt6 bin directory to PATH for tools like lrelease
+    export PATH="/usr/lib/qt6/bin:$PATH"
 }
 
 function read_env_cfg {
@@ -73,6 +76,7 @@ function execute_and_measure {
 
     start_time=$(date +%s)
     $function
+    echo "Step $choice finished."
     end_time=$(date +%s)
 
     elapsed_time=$(expr $end_time - $start_time)
@@ -98,7 +102,7 @@ function main_loop {
             '9') execute_and_measure clean_build_with_archive ;;
             's') switch_config ;;
             'q') break ;;
-            *) echo "Invalid choice" ;;
+            *) echo "Invalid choice" >&2 continue ;;
         esac
     done
 }
@@ -120,6 +124,7 @@ function clean_all {
 function create_makefiles {
     ./scripts/create-versioninfo.sh "$IPPONBOARD_ROOT_DIR/base" || return 1
 
+    #echo "-> cmake -S $PWD -B \"$BUILD_DIR\" -DCMAKE_BUILD_TYPE=$CONFIG -G \"Unix Makefiles\" --fresh"
     cmake -S $PWD -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=$CONFIG -G "Unix Makefiles" --fresh
     return $?
 }
@@ -139,6 +144,7 @@ function run_tests {
 
 function build_and_run_tests {
     NUM_CORES=$(nproc)
+    #echo "-> cmake --build \"$BUILD_DIR\" --config $CONFIG --target IpponboardTest -j$NUM_CORES"
     cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest -j"$NUM_CORES" || return 1
 
     run_tests
@@ -147,6 +153,7 @@ function build_and_run_tests {
 
 function build_all {
     NUM_CORES=$(nproc)
+    #echo "-> cmake --build \"$BUILD_DIR\" --config $CONFIG -j$NUM_CORES"
     cmake --build "$BUILD_DIR" --config $CONFIG -j"$NUM_CORES" || return 1
 
     run_tests || return $?
@@ -176,9 +183,12 @@ function build_doc {
 
     echo "Creating Docs..."
     BASE_DIR="$IPPONBOARD_ROOT_DIR/doc"
-    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --metadata=title:Anleitung --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --metadata=title:"User Manual" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --css="$BASE_DIR/Ipponboard.css" --self-contained || return $?
+    #echo "-> pandoc -s \"$BASE_DIR/USER_MANUAL-DE.md\" -o \"$BIN_DIR/Anleitung.html\" --metadata=title:Anleitung --css=\"$BASE_DIR/Ipponboard.css\" --resource-path=\"$BASE_DIR\" --embed-resources --standalone"
+    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --metadata=title:Anleitung --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --embed-resources --standalone || return $?
+    #echo "-> pandoc -s \"$BASE_DIR/USER_MANUAL-EN.md\" -o \"$BIN_DIR/User-Manual.html\" --metadata=title:\"User Manual\" --css=\"$BASE_DIR/Ipponboard.css\" --resource-path=\"$BASE_DIR\" --embed-resources --standalone"
+    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --metadata=title:"User Manual" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --embed-resources --standalone || return $?
+    #echo "-> pandoc -s \"CHANGELOG.md\" -o \"$BIN_DIR/CHANGELOG.html\" --css=\"$BASE_DIR/Ipponboard.css\" --embed-resources --standalone"
+    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --css="$BASE_DIR/Ipponboard.css" --embed-resources --standalone || return $?
 
     echo "Copying license files..."
     cp -r "$BASE_DIR/licenses" "$BIN_DIR/licenses" || return $?
@@ -191,7 +201,9 @@ function translate_resources {
     read -p "Press enter to continue"
 
     mkdir -p "$BIN_DIR/lang"
+    #echo "-> Running lrelease for German translations..."
     "$QTDIR/bin/lrelease" -compress "$PWD/i18n/de.ts" -qm "$BIN_DIR/lang/de.qm" || return $?
+    #echo "-> Running lrelease for Dutch translations..."
     "$QTDIR/bin/lrelease" -compress "$PWD/i18n/nl.ts" -qm "$BIN_DIR/lang/nl.qm" || return $?
     return 0
 }
@@ -200,13 +212,14 @@ function make_archive {
     ARCH=$(uname -m)
     SYSTEM=$(uname -s)
     RELEASE=$(uname -r)
-    
+
     # Ipponboard-Release-Linux-x86_64-5.15.153.1-microsoft-standard-WSL2
     ARCHIVE_NAME="$OUTPUT_DIR/Ipponboard-$SYSTEM-$ARCH-$RELEASE-$CONFIG.7z"
     if [ -f "$ARCHIVE_NAME" ]; then
         rm "$ARCHIVE_NAME"
     fi
     echo "Creating archive $ARCHIVE_NAME"
+    #echo "-> 7z a \"$ARCHIVE_NAME\" \"$BIN_DIR/*\" -bso0 -bsp1"
     7z a "$ARCHIVE_NAME" "$BIN_DIR/*" -bso0 -bsp1 || return $?
     ARCHIVESIZE=$(du -b "$ARCHIVE_NAME" | awk '{print $1}')
     echo "Archive created with $ARCHIVESIZE bytes"
@@ -214,7 +227,7 @@ function make_archive {
 }
 
 function clean_build_with_archive {
-    
+
     if [ "$CONFIG" != "release" ]; then
         switch_config
     fi
@@ -222,7 +235,7 @@ function clean_build_with_archive {
     create_makefiles || return $?
     build_all || return $?
     make_archive || return $?
-    
+
     return 0
 }
 

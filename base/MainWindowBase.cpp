@@ -17,10 +17,8 @@
 #include "../util/path_helpers.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSettings>

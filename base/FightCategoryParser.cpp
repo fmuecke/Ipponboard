@@ -23,7 +23,7 @@ FightCategoryParser::FightCategoryParser()
 void FightCategoryParser::ToIniFile(const QString& file, Ipponboard::FightCategoryList const& categories)
 {
 	QSettings settings(file, QSettings::IniFormat);
-	settings.setIniCodec("UTF-8");
+	
 	settings.clear();
 
 	for (auto const & cat : categories)
@@ -41,7 +41,7 @@ void FightCategoryParser::ToIniFile(const QString& file, Ipponboard::FightCatego
 Ipponboard::FightCategoryList FightCategoryParser::ParseIniFile(QString const& file)
 {
 	QSettings settings(file, QSettings::IniFormat);
-	settings.setIniCodec("UTF-8");
+	
 
 	Ipponboard::FightCategoryList categories;
 

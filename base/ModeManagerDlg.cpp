@@ -170,14 +170,14 @@ void ModeManagerDlg::on_toolButton_add_clicked()
 
 void ModeManagerDlg::on_toolButton_remove_clicked()
 {
-	auto answer = QMessageBox::question(
-					  this,
-					  tr("Remove item"),
-					  tr("Really remove \"%1\"?").arg(m_pUi->comboBox_mode->currentText()),
-					  tr("Remove"),
-					  tr("Keep"));
+	QMessageBox::StandardButton answer = QMessageBox::question(
+				  this,
+				  tr("Remove item"),
+				  tr("Really remove \"%1\"?").arg(m_pUi->comboBox_mode->currentText()),
+				  QMessageBox::Yes | QMessageBox::No,
+				  QMessageBox::No);
 
-	if (answer == 0)
+	if (answer == QMessageBox::Yes)
 	{
 		auto id = m_pUi->comboBox_mode->itemData(m_currentIndex).toString();
 		auto pos = std::find_if(begin(m_dialogData), end(m_dialogData), [&](TournamentMode const & mode)

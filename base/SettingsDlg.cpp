@@ -10,11 +10,10 @@
 #include "../core/ControllerConfig.h"
 
 #include <QStringList>
-#include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
 #include <QScreen>
-#include <QSound>
+#include "../util/SoundHelper.h"
 #include <QColorDialog>
 #include <QDebug>
 
@@ -479,7 +478,7 @@ void Ipponboard::SettingsDlg::on_toolButton_play_gong_pressed()
 	QString path = QDir::currentPath() + "/sounds/" +
 				   ui->comboBox_sound_time_ends->currentText();
 	qDebug() << "Playing sound from file:" << path;
-	QSound::play(path);
+	Ipponboard::SoundHelper::playSound(path);
 }
 
 void Ipponboard::SettingsDlg::on_fontComboBox_infoHeader_currentFontChanged(

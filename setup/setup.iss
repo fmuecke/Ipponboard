@@ -28,6 +28,15 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 #define MyAppID "{1CE3EDF1-161E-414B-ACFA-1FA01B6686A7}"
 
+
+
+; Qt6 builds are 64-bit, Qt5 builds are 32-bit (see CMakeLists.txt / build.ps1)
+#ifdef USE_QT6
+#define SetupArch "x64"
+#else
+#define SetupArch "x32"
+#endif
+
 [Setup]
 AppID={{#MyAppID}
 AppName={#MyAppName}
@@ -41,11 +50,11 @@ AppCopyright=Copyright (C) {#MyAppCopyright}
 DefaultDirName={localappdata}\{#MyAppName}
 DisableProgramGroupPage=yes
 ;OutputBaseFilename={#MyAppName}-{#MySimpleAppVersion}-Setup
-OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
+OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup-{#SetupArch}
 Compression=lzma2/ultra64
 SolidCompression=true
 InternalCompressLevel=ultra64
-;MinVersion=0,6.0.6001sp2 ;; not recommended anymore. 
+;MinVersion=0,6.0.6001sp2 ;; not recommended anymore.
 ShowLanguageDialog=no
 ;WizardImageFile=compiler:wizmodernimage-IS.bmp
 WizardImageFile=images\install_bg.bmp
@@ -101,7 +110,11 @@ Source: "..\_bin\Ipponboard-Release\templates\*.*"; DestDir: "{app}\templates\";
 Source: "..\_bin\Ipponboard-Release\lang\*.*"; DestDir: "{app}\lang\"; Flags: IgnoreVersion promptifolder
 Source: "..\_bin\Ipponboard-Release\licenses\*.*"; DestDir: "{app}\licenses"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: IgnoreVersion recursesubdirs
+#ifdef USE_QT6
+Source: "..\_bin\Ipponboard-Release\Qt6*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+#else
 Source: "..\_bin\Ipponboard-Release\Qt5*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
+#endif
 Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
 Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion
 Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
@@ -148,9 +161,9 @@ begin
   Result := True;
   if RegKeyExists(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppID}_is1') then
   begin
-    case MsgBox('Ipponboard is alread installed.'#13#10'Do you want to continue and overwrite older files?', mbConfirmation, MB_YESNO) of 
+    case MsgBox('Ipponboard is alread installed.'#13#10'Do you want to continue and overwrite older files?', mbConfirmation, MB_YESNO) of
       IDYES: ; // how to call the uninstall command -->  https://stackoverflow.com/questions/2000296/how-to-automatically-uninstall-previous-installed-version-in-inno-setup
-      IDNO: Result := False; 
+      IDNO: Result := False;
     end;
   end;
 end;

@@ -11,7 +11,7 @@
 #include <set>
 
 class QString;
-class QStringList;
+#include <QStringList>
 
 namespace Ipponboard
 {

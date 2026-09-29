@@ -48,17 +48,13 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QTimer>
-#include <QSound>
 #include <QFileInfo>
-#include <QtGui/QApplication>
 #include <QTranslator>
 #include <QComboBox>
-#include <QDesktopWidget>
 #include <QFontDialog>
 #include <QColorDialog>
 #include <QInputDialog>
 #include <QSettings>
-#include <QTimer>
 //#include <QSplashScreen>
 #include <QPainter>
 #include <QtGui>
@@ -72,7 +68,7 @@
 #include <QDialog>
 #include <QMainWindow>
 #include <QTableWidgetItem>
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QImage>
 #include <QResizeEvent>
 #include <QFont>

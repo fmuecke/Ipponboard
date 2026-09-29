@@ -2,6 +2,18 @@ cmake_minimum_required(VERSION 3.28)
 
 project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
+# Define a compiler database for clang validation via my IDE
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Erstellt den Symlink sofort während der CMake-Generierung
+if(CMAKE_EXPORT_COMPILE_COMMANDS AND NOT WIN32)
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E create_symlink
+            "${CMAKE_BINARY_DIR}/compile_commands.json"
+            "${CMAKE_SOURCE_DIR}/compile_commands.json"
+    )
+endif()
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
     include(InstallRequiredSystemLibraries)
@@ -30,7 +42,6 @@ if(MSVC)
     endif()
     set(QTDIR ${CFG_QTDIR})
 else()
-    set(USE_QT5 ON)
     if(NOT DEFINED CFG_LINUX_QTDIR)
         message(FATAL_ERROR "LINUX_QTDIR not configured in env_cfg.bat")
     endif()
@@ -40,6 +51,21 @@ message(STATUS "Using: QTDIR = ${QTDIR}")
 set(CMAKE_PREFIX_PATH ${QTDIR})
 set(CMAKE_LIBRARY_PATH ${QTDIR}/lib)
 
+set(USE_QT6_DEFAULT OFF)
+if(QTDIR MATCHES "qt[\\/-]*6")
+    set(USE_QT6_DEFAULT ON)
+endif()
+option(USE_QT6 "Use Qt6 instead of Qt5" ${USE_QT6_DEFAULT})
+
+# Qt6 is only available as 64-bit, Qt5 only as 32-bit
+if(USE_QT6 AND NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message(FATAL_ERROR "Qt6 requires a 64-bit build.")
+endif()
+if(NOT USE_QT6 AND NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+	message(FATAL_ERROR "Qt5 requires a 32-bit build.")
+endif()
+
+# Add targets
 # Check if BOOST_DIR is configured
 if(MSVC)
     if(NOT DEFINED CFG_BOOST_DIR)
@@ -72,6 +98,8 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/FixQtImportedConfigs.cmake)
 
 # Add targets
 add_subdirectory(test ${CMAKE_BINARY_DIR}/build-Test)

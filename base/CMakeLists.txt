@@ -4,16 +4,30 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Ipponboard main application
 set(APP_NAME Ipponboard)
 
-find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)	
+if(USE_QT6)
+    find_package(Qt6 6.2 COMPONENTS Widgets PrintSupport Multimedia REQUIRED)
+    find_package(Qt6 6.2 COMPONENTS Core5Compat REQUIRED)
+else()
+    find_package(Qt5 5.15.2 COMPONENTS Widgets XmlPatterns PrintSupport Multimedia REQUIRED)
+endif()
+
+fix_qt_imported_configs(${QTDIR})
 
 if(LINUX)
     # common include directories
     include_directories(${ROOT_DIR}/Widgets)
-    include_directories(${Qt5Widgets_INCLUDE_DIRS})
-    include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
-    include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
-    include_directories(${Qt5Multimedia_INCLUDE_DIRS})
-   
+    if(USE_QT6)
+        include_directories(${Qt6Widgets_INCLUDE_DIRS})
+        include_directories(${Qt6PrintSupport_INCLUDE_DIRS})
+        include_directories(${Qt6Multimedia_INCLUDE_DIRS})
+        include_directories(${Qt6Core5Compat_INCLUDE_DIRS})
+    else()
+        include_directories(${Qt5Widgets_INCLUDE_DIRS})
+        include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
+        include_directories(${Qt5XmlPatterns_INCLUDE_DIRS})
+        include_directories(${Qt5Multimedia_INCLUDE_DIRS})
+    endif()
+
     add_compile_options(-fPIC -fpermissive)
 endif()
 
@@ -188,25 +202,49 @@ if(MSVC)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MSVC_REDIST_DIR}$<IF:$<CONFIG:Release>,/x86/Microsoft.VC145.CRT/vcruntime140.dll,/debug_nonredist/x86/Microsoft.VC145.DebugCRT/vcruntime140d.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
     )
 
-    # Copy Qt5 runtime dlls
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
-    )
+    if(USE_QT6)
+        # Copy Qt6 runtime dlls
+        target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network Qt6::Core5Compat)
+        add_custom_command(TARGET ${APP_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Core.dll,Qt6Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Gui.dll,Qt6Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Multimedia.dll,Qt6Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Network.dll,Qt6Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Widgets.dll,Qt6Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6PrintSupport.dll,Qt6PrintSupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Core5Compat.dll,Qt6Core5Compatd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            #COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+            #COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qmodernwindowsstyle.dll,qmodernwindowsstyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+            #COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+            #COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/tls"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/tls/$<IF:$<CONFIG:Release>,qopensslbackend.dll,qopensslbackendd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/tls"
+        )
+    else()
+        # Copy Qt5 runtime dlls
+        target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+        add_custom_command(TARGET ${APP_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Multimedia.dll,Qt5Multimediad.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Network.dll,Qt5Networkd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5PrintSupport.dll,Qt5PrintSupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5XmlPatterns.dll,Qt5XmlPatternsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/printsupport/$<IF:$<CONFIG:Release>,windowsprintersupport.dll,windowsprintersupportd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/printsupport"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/styles/$<IF:$<CONFIG:Release>,qwindowsvistastyle.dll,qwindowsvistastyled.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/styles"
+            COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/audio/$<IF:$<CONFIG:Release>,qtaudio_windows.dll,qtaudio_windowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/audio"
+        )
+    endif()
 else()
     # Compile and copy translation files
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
@@ -214,6 +252,10 @@ else()
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/de.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/de.qm
         COMMAND ${QTDIR}/bin/lrelease -compress -silent ${ROOT_DIR}/i18n/nl.ts -qm $<TARGET_FILE_DIR:${APP_NAME}>/lang/nl.qm
     )
-    
-    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+
+    if(USE_QT6)
+        target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::PrintSupport Qt6::Multimedia Qt6::Network Qt6::Core5Compat)
+    else()
+        target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets Qt5::XmlPatterns Qt5::PrintSupport Qt5::Multimedia)
+    endif()
 endif()

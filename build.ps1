@@ -7,9 +7,12 @@ function Check-cmake {
 }
 
 function Init-Environment {
-    & .\scripts\init_env_cfg.cmd 
+    & .\scripts\init_env_cfg.cmd
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
     Read-Env-Cfg
+    if ($QTDIR -match "qt[\\/-]*6") { $global:USE_QT6 = $true } else { $global:USE_QT6 = $false }
+
     $global:BUILD_DIR="$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
     $global:CONFIG="release"
     $global:BIN_DIR="$IPPONBOARD_ROOT_DIR\_bin\Ipponboard-$CONFIG"
@@ -67,6 +70,7 @@ function Execute-And-Measure {
 
     $start = Get-Date
     & $function
+    Write-Host "Step $choice finished."
     $end = Get-Date
     $elapsed = $end - $start
     $formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
@@ -114,8 +118,17 @@ function Clean-All {
 function Create-Makefiles {
     & .\scripts\create-versioninfo.cmd "$IPPONBOARD_ROOT_DIR\base"
     if ($LASTEXITCODE -ne 0) { return $false }
-    
-    cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 18 2026" -A Win32 --fresh
+
+    if ($USE_QT6)
+    {
+      Write-Host "Running CMake: cmake -S $IPPONBOARD_ROOT_DIR -B $BUILD_DIR -G \"Visual Studio 18 2026\" -A x64 --fresh"
+      & cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 18 2026" -A x64 --fresh
+    }
+    else
+    {
+      Write-Host "Running CMake: cmake -S $IPPONBOARD_ROOT_DIR -B $BUILD_DIR -G \"Visual Studio 18 2026\" -A Win32 --fresh"
+      & cmake -S "$IPPONBOARD_ROOT_DIR" -B "$BUILD_DIR" -G "Visual Studio 18 2026" -A Win32 --fresh
+    }
     if ($LASTEXITCODE -ne 0) { return $false }
 }
 
@@ -133,7 +146,8 @@ function Run-Tests {
 }
 
 function Build-and-run-tests {
-    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
+    Write-Host "Running: cmake --build \"$BUILD_DIR\" --config $CONFIG --target IpponboardTest"
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest
     if ($LASTEXITCODE -ne 0) { return $false }
 
     $success = Run-Tests
@@ -143,7 +157,7 @@ function Build-and-run-tests {
 function Build-ALL {
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
-    
+
     $success = Run-Tests
     if (-not $success) { return $false }
 

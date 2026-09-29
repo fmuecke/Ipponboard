@@ -141,7 +141,9 @@ void ScaledText::paintEvent(QPaintEvent* event)
 			line.setLeadingIncluded(false);
 
             const QRectF textRect = line.naturalTextRect();
-            Q_ASSERT(textRect == m_pLayout->boundingRect());
+            // NOTE: naturalTextRect (exact ascent + descent) and
+            // QTextLayout::boundingRect() (line height, rounded up to whole
+            // pixels) legitimately differ - do not assert equality here.
 
             auto w = textRect.width();
             auto h = textRect.height();

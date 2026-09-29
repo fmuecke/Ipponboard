@@ -4,7 +4,14 @@ cmake_minimum_required(VERSION 3.28)
 # CMake configuration for Gamepad Demo
 set(APP_NAME GamepadDemo)
 
-find_package(Qt5 5.12.9 COMPONENTS Core Gui Widgets REQUIRED)
+if(USE_QT6)
+    find_package(Qt6 6.2 COMPONENTS Core Gui Widgets REQUIRED)
+    find_package(Qt6 6.2 COMPONENTS Core5Compat REQUIRED)
+else()
+    find_package(Qt5 5.12.9 COMPONENTS Core Gui Widgets REQUIRED)
+endif()
+
+fix_qt_imported_configs(${QTDIR})
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -49,12 +56,25 @@ if(MSVC)
 endif()
 
 # Copy required runtime dlls
-target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets)
-add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    # Copy Qt5 runtime dlls
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
-)
+if(USE_QT6)
+    target_link_libraries(${APP_NAME} PRIVATE Qt6::Widgets Qt6::Core5Compat)
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        # Copy Qt6 runtime dlls
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Core.dll,Qt6Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Gui.dll,Qt6Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Widgets.dll,Qt6Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt6Core5Compat.dll,Qt6Core5Compatd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+    )
+else()
+    target_link_libraries(${APP_NAME} PRIVATE Qt5::Widgets)
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD
+        # Copy Qt5 runtime dlls
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Core.dll,Qt5Cored.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Gui.dll,Qt5Guid.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/bin/$<IF:$<CONFIG:Release>,Qt5Widgets.dll,Qt5Widgetsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QTDIR}/plugins/platforms/$<IF:$<CONFIG:Release>,qwindows.dll,qwindowsd.dll> "$<TARGET_FILE_DIR:${APP_NAME}>/plugins/platforms"
+    )
+endif()

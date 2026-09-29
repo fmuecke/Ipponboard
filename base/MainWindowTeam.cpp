@@ -31,7 +31,6 @@
 #include <QCompleter>
 #include <QDebug>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFileDialog>
 #include <QFontDialog>
@@ -1517,13 +1516,25 @@ void MainWindowTeam::on_tableView_customContextMenuRequested(
 		QIcon pasteIcon(":/res/icons/paste.png");
 		QIcon clearIcon(":/res/icons/clear_cells.png");
 		QAction* pAction = nullptr;
-		pAction = menu.addAction(copyIcon, tr("Copy"), this, copySlot, QKeySequence::Copy);
+		#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			pAction = menu.addAction(copyIcon, tr("Copy"), QKeySequence::Copy, this, copySlot);
+		#else
+			pAction = menu.addAction(copyIcon, tr("Copy"), this, copySlot, QKeySequence::Copy);
+		#endif
 		pAction->setDisabled(!copyAllowed);
 
-		pAction = menu.addAction(pasteIcon, tr("Paste"), this, pasteSlot, QKeySequence::Paste);
+		#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			pAction = menu.addAction(pasteIcon, tr("Paste"), QKeySequence::Paste, this, pasteSlot);
+		#else
+			pAction = menu.addAction(pasteIcon, tr("Paste"), this, pasteSlot, QKeySequence::Paste);
+		#endif
 		pAction->setDisabled(!pasteAllowed);
 
-		pAction = menu.addAction(clearIcon, tr("Clear"), this, clearSlot, QKeySequence::Delete);
+		#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			pAction = menu.addAction(clearIcon, tr("Clear"), QKeySequence::Delete, this, clearSlot);
+		#else
+			pAction = menu.addAction(clearIcon, tr("Clear"), this, clearSlot, QKeySequence::Delete);
+		#endif
 		pAction->setDisabled(!clearAllowed);
 
 		menu.exec(QCursor::pos());

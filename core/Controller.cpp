@@ -13,7 +13,7 @@
 #include "Rules.h"
 
 #include <QTimer>
-#include <QSound>
+#include "../util/SoundHelper.h"
 #include <QFileInfo>
 #include <QMessageBox>
 
@@ -716,7 +716,7 @@ void Controller::SetLabels(const QString& home, const QString& guest)
 void Controller::Gong() const
 //=========================================================
 {
-	QSound::play(m_gongFile);
+	Ipponboard::SoundHelper::playSound(m_gongFile);
 }
 
 //=========================================================

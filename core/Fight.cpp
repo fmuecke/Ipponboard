@@ -63,10 +63,10 @@ QString Fight::GetTotalTimeElapsedString() const
 	int minutes = elapsed / 60;
 	int seconds = elapsed % 60;
 
-	return QString("%1:%3%4").arg(
-			   QString::number(minutes),
-			   seconds < 10 ? "0" : "",
-			   QString::number(seconds));
+	return QString("%1:%2%3").arg(
+			   QString::number(minutes))
+			   .arg(seconds < 10 ? "0" : "")
+			   .arg(QString::number(seconds));
 }
 
 bool Fight::SetElapsedFromTotalTime(QString s)
@@ -109,10 +109,10 @@ QString Fight::GetTimeRemainingString() const
 	auto seconds = time_remaining % 60;
 
 	return QString("%1%2:%3%4").arg(
-			   isGoldenScore ? "-" : "",
-			   QString::number(minutes),
-			   seconds < 10 ? "0" : "",
-			   QString::number(seconds));
+			   isGoldenScore ? "-" : "")
+			   .arg(QString::number(minutes))
+			   .arg(seconds < 10 ? "0" : "")
+			   .arg(QString::number(seconds));
 }
 
 bool Fight::HasWon(FighterEnum who) const

@@ -18,6 +18,8 @@
 #include <QSettings>
 #include <QFile>
 #include <QLocale>
+#include <QAbstractButton>
+#include <QPushButton>
 //#include <QtextCodec>
 #include <QCommandLineParser>
 #include <QDebug>
@@ -209,20 +211,25 @@ int main(int argc, char* argv[])
 		msg += QString("<p>%1</p>").arg(QCoreApplication::tr("Do you want to download it or visit the project homepage?"));
 
 		// show message box
-		auto result = QMessageBox::information(
-			nullptr,
-			QCoreApplication::tr("Ipponboard - New Version Available"),
-			msg,
-			QCoreApplication::tr("Download"),
-			QCoreApplication::tr("Visit Homepage"),
-			QCoreApplication::tr("Cancel"),
-			0, 2);
+		QMessageBox msgBox;
+		msgBox.setWindowTitle(QCoreApplication::tr("Ipponboard - New Version Available"));
+		msgBox.setText(msg);
+		msgBox.setIcon(QMessageBox::Information);
 
-		if (result == 0) // download
+		QPushButton* downloadBtn = msgBox.addButton(QCoreApplication::tr("Download"), QMessageBox::ActionRole);
+		QPushButton* homepageBtn = msgBox.addButton(QCoreApplication::tr("Visit Homepage"), QMessageBox::ActionRole);
+		QPushButton* cancelBtn = msgBox.addButton(QCoreApplication::tr("Cancel"), QMessageBox::RejectRole);
+
+		msgBox.setDefaultButton(downloadBtn);
+		msgBox.exec();
+
+		QAbstractButton* clickedBtn = msgBox.clickedButton();
+
+		if (clickedBtn == static_cast<QAbstractButton*>(downloadBtn)) // download
 		{
 			return QDesktopServices::openUrl(QUrl(onlineVersion.downloadUrl));
 		}
-		else if (result == 1) // visit homepage
+		else if (clickedBtn == static_cast<QAbstractButton*>(homepageBtn)) // visit homepage
 		{
 			return QDesktopServices::openUrl(QUrl(onlineVersion.infoUrl));
 		}

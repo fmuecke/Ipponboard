@@ -22,7 +22,6 @@
 
 // forwards
 class QTimer;
-class QSound;
 //class TournamentModel;
 
 namespace Ipponboard
