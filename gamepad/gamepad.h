@@ -413,7 +413,7 @@ public:
 	unsigned GetXPos() const
 	{
 		if (m_invertedAxes.test(eAxis_X))
-			return 65535 - m_data.dwXpos;
+			return eMax - m_data.dwXpos;
 
 		return m_data.dwXpos;
 	}
@@ -421,7 +421,7 @@ public:
 	unsigned GetYPos() const
 	{
 		if (m_invertedAxes.test(eAxis_Y))
-			return 65535 - m_data.dwYpos;
+			return eMax - m_data.dwYpos;
 
 		return m_data.dwYpos;
 	}
@@ -429,7 +429,7 @@ public:
 	unsigned GetZPos() const
 	{
 		if (m_invertedAxes.test(eAxis_Z))
-			return 65535 - m_data.dwZpos;
+			return eMax - m_data.dwZpos;
 
 		return m_data.dwZpos;
 	}
@@ -437,14 +437,14 @@ public:
 	unsigned GetRPos() const
 	{
 		if (m_invertedAxes.test(eAxis_R))
-			return 65535 - m_data.dwRpos;
+			return eMax - m_data.dwRpos;
 
 		return m_data.dwRpos;
 	}
 	unsigned GetUPos() const
 	{
 		if (m_invertedAxes.test(eAxis_U))
-			return 65535 - m_data.dwUpos;
+			return eMax - m_data.dwUpos;
 
 		return m_data.dwUpos;
 	}
@@ -452,7 +452,7 @@ public:
 	unsigned GetVPos() const
 	{
 		if (m_invertedAxes.test(eAxis_V))
-			return 65535 - m_data.dwVpos;
+			return eMax - m_data.dwVpos;
 
 		return m_data.dwVpos;
 	}
