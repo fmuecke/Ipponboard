@@ -2068,6 +2068,41 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
         <location/>
+        <source>Axes selection: left stick</source>
+        <translation>Achsauswahl: linker Stick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes selection: right stick</source>
+        <translation>Achsauswahl: rechter Stick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (x)</source>
+        <translation>Vertikal (x)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (y)</source>
+        <translation>Horizontal (y)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (r)</source>
+        <translation>Vertikal (r)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (z)</source>
+        <translation>Horizontal (z)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes Inversion</source>
+        <translation>Achsen invertieren</translation>
+    </message>
+    <message>
+        <location/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>

@@ -951,14 +951,14 @@
             <item row="4" column="0" colspan="2">
              <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>Axes selection: left Stick</string>
+               <string>Axes selection: left stick</string>
               </property>
              </widget>
             </item>
             <item row="5" column="0">
              <widget class="QLabel" name="label_axis_x">
               <property name="text">
-               <string>vertical(x)</string>
+               <string>Vertical (x)</string>
               </property>
              </widget>
             </item>
@@ -999,7 +999,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="label_axis_y">
               <property name="text">
-               <string>horizontal(y)</string>
+               <string>Horizontal (y)</string>
               </property>
              </widget>
             </item>
@@ -1147,14 +1147,14 @@
             <item row="4" column="0" colspan="2">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Axes selection: right Stick</string>
+               <string>Axes selection: right stick</string>
               </property>
              </widget>
             </item>
             <item row="5" column="0">
              <widget class="QLabel" name="label_axis_r">
               <property name="text">
-               <string>vertical(r)</string>
+               <string>Vertical (r)</string>
               </property>
              </widget>
             </item>
@@ -1195,7 +1195,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="label_axis_z">
               <property name="text">
-               <string>horizontal(z)</string>
+               <string>Horizontal (z)</string>
               </property>
              </widget>
             </item>
