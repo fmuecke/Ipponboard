@@ -6,7 +6,7 @@ B. Controller Decomposition:
 ✅ Added `CompetitionRepository` to manage fight persistence (`save`, `reset`, `clear`) and called from controller.
 Next: evaluate remaining responsibilities (view fan-out, rules/options plumbing) for similar extraction.
 
-C. State Machine Clarity: the Boost.MSM table in core/StateMachine.h:220 is hard to reason about. Introduce named transition helpers or wrap MSM events in a thin façade so guard/action ordering becomes explicit, easing future rule tweaks.
+C. ✅ State Machine Clarity: completed — the Boost.MSM dependency was removed with the state-machine rewrite (see CHANGELOG vNEXT); core/StateMachine.h is now Boost-free and easier to reason about.
 
 D. Qt Abstraction: base/View.cpp mixes narration logic (GVF\_ swaps) with direct widget manipulations. Extract a presenter or view-model that transforms controller state into a simple struct; the QWidget then just renders it. This reduces Qt test coupling and clarifies the fighter-swapping behaviour.
 
@@ -23,7 +23,7 @@ H. ✅ Coding Conventions: `.clang-format` and refreshed naming guidance now liv
 
 H2. Integrate clang-format into the build toolchain (pre-commit/CI) and document installation checks for Windows/Linux scripts so contributors get guided setup.
 
-I. Documentation/ADR: capture legacy decisions (Boost.MSM choice, fighter orientation in View) in short ADRs so future contributors understand the constraints before refactoring.
+I. Documentation/ADR: capture legacy decisions (fighter orientation in View) in short ADRs so future contributors understand the constraints before refactoring.
 
 J. Qt 6 Migration Follow-ups:
 
