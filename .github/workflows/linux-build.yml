@@ -27,15 +27,6 @@ jobs:
       shell: bash
       run: CLANG_FORMAT=clang-format-14 ./scripts/check-format.sh
     
-    - name: Install Boost
-      uses: MarkusJx/install-boost@v2.4.5
-      id: install-boost
-      with:
-         boost_version: 1.89.0
-         platform_version: 22.04
-         toolset: gcc
-         arch: aarch64
-
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
@@ -57,10 +48,8 @@ jobs:
         fi
         echo 'set "IPPONBOARD_ROOT_DIR=${{ env.ROOT_DIR }}"' > ${{ env.ENV_CFG }}
         echo "set \"LINUX_QTDIR=$QT_ROOT\"" >> ${{ env.ENV_CFG }}
-        echo 'set "LINUX_BOOST_DIR=${{ env.BOOST_DIR }}/include"' >>${{ env.ENV_CFG }}
       env:
         ENV_CFG: ${{ github.workspace }}/env_cfg.bat
-        BOOST_DIR: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
     - name: Create version info
       shell: bash
