@@ -924,7 +924,7 @@ Geldige velden zijn: %1</translation>
         <translation>/User-Manual.html</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+772"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Tijd instellen</translation>
@@ -940,7 +940,7 @@ Geldige velden zijn: %1</translation>
         <translation>Tijd instellen naar (m:ss):</translation>
     </message>
     <message>
-        <location line="-718"/>
+        <location line="-769"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Start de applicatie opnieuw, zodat de wijziging van kracht kan worden.</translation>
     </message>
@@ -2183,9 +2183,8 @@ Restoring defaults.</source>
         <translation>Hansokumake</translation>
     </message>
     <message>
-        <location/>
         <source>Axes used for points: X/Y</source>
-        <translation>Assen voor de punten: X/Y</translation>
+        <translation type="vanished">Assen voor de punten: X/Y</translation>
     </message>
     <message>
         <location/>
@@ -2213,9 +2212,8 @@ Restoring defaults.</source>
         <translation>R as omkeren</translation>
     </message>
     <message>
-        <location/>
         <source>Axes used for points: Z/R</source>
-        <translation>Assen gebruikt voor punten: Z/R</translation>
+        <translation type="vanished">Assen gebruikt voor punten: Z/R</translation>
     </message>
     <message>
         <location/>
@@ -2411,6 +2409,78 @@ Restoring defaults.</source>
         <location/>
         <source>club;firstname;lastname;weight</source>
         <translation>club;voornaam;achternaam;gewicht</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes selection: left stick</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Assen selecteren: linker joystick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (x)</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Verticaal (x)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>X</source>
+        <translation>X</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Z</source>
+        <translation>Z</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R</source>
+        <translation>R</translation>
+    </message>
+    <message>
+        <location/>
+        <source>U</source>
+        <translation>U</translation>
+    </message>
+    <message>
+        <location/>
+        <source>V</source>
+        <translation>V</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (y)</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Horizontaal (y)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes Inversion</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Assen inverteren</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes selection: right stick</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Assen selecteren: rechter joystick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (r)</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Verticaal (r)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (z)</source>
+        <translatorcomment>created by DeepL</translatorcomment>
+        <translation>Horizontaal (z)</translation>
     </message>
 </context>
 <context>
