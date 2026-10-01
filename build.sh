@@ -185,11 +185,14 @@ function main_loop {
 }
 
 function clean_all {
-    if [ -d "$BUILD_DIR" ]; then
+    if [ -d "$BUILD_DIR" ] && [ -f "$BUILD_DIR/build.ninja" ]; then
         echo "Cleaning build outputs in $BUILD_DIR"
         if ! cmake --build "$BUILD_DIR" --config $CONFIG --target clean; then
-            echo "WARN: CMake clean failed for $BUILD_DIR (continuing)."
+            echo "WARN: CMake clean failed for $BUILD_DIR (continuing). Hint: run 'create makefiles' to recreate the build configuration."
         fi
+    elif [ -d "$BUILD_DIR" ]; then
+        echo "Build directory not configured (no build.ninja): $BUILD_DIR (skipping CMake clean)."
+        echo "Hint: run 'create makefiles' to configure the build directory."
     else
         echo "Build directory not found: $BUILD_DIR (skipping CMake clean)."
     fi
