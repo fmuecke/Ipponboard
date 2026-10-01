@@ -63,11 +63,9 @@ function verify_formatting {
 
 function create_default_env_cfg {
     local local_config="$1"
+    local profile="${2:-}"
 
-    cat > "$local_config" <<EOF_CFG
-set "LINUX_QTDIR=\$HOME/Qt/6.9.2/gcc_64"
-set "MACOS_QTDIR=\$HOME/Qt/6.9.2/macos"
-EOF_CFG
+    ./scripts/init_env_cfg.sh "$profile" "$local_config"
 }
 
 function init_environment {
@@ -76,20 +74,21 @@ function init_environment {
     check_ninja
     check_lld
 
+    local profile="${1:-}"
     LOCAL_CONFIG="$PWD/env_cfg.bat"
-    if [ -f "$LOCAL_CONFIG" ]; then
-        source "$LOCAL_CONFIG"
-    else
-        create_default_env_cfg "$LOCAL_CONFIG"
-        echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
+    if [ -n "$profile" ]; then
+        create_default_env_cfg "$LOCAL_CONFIG" "$profile" || exit 1
+    elif [ ! -f "$LOCAL_CONFIG" ]; then
+        echo "Missing \"$LOCAL_CONFIG\". Create it with ./build.sh [deb|rh|macos|home|ud]."
         read -p "Press enter to continue"
         exit 1
     fi
+    source "$LOCAL_CONFIG"
 
     if [ $? -ne 0 ]; then exit $?; fi
     read_env_cfg
     export CONFIG="release"
-    export IPPONBOARD_ROOT_DIR="$PWD"
+    export IPPONBOARD_ROOT_DIR="${IPPONBOARD_ROOT_DIR:-$PWD}"
     export QTDIR="${!IPPONBOARD_QTDIR_VAR}"
     if [ -z "$QTDIR" ]; then
         echo "Missing $IPPONBOARD_QTDIR_VAR in $LOCAL_CONFIG"
@@ -154,6 +153,7 @@ function execute_and_measure {
 
     start_time=$(date +%s)
     $function
+    echo "Step $choice finished."
     end_time=$(date +%s)
 
     elapsed_time=$(expr $end_time - $start_time)
@@ -162,7 +162,7 @@ function execute_and_measure {
 }
 
 function main_loop {
-    init_environment
+    init_environment "${1:-}"
 
     while true; do
         show_menu
@@ -179,7 +179,7 @@ function main_loop {
             9) execute_and_measure clean_build_with_archive ;;
             s) switch_config ;;
             q) break ;;
-            *) echo "Invalid choice" ;;
+            *) echo "Invalid choice" >&2 continue ;;
         esac
     done
 }
@@ -374,4 +374,4 @@ function switch_config {
 
 # Main
 check_cmake
-main_loop
+main_loop "$@"

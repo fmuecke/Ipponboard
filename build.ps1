@@ -25,7 +25,7 @@ function Init-Environment {
     if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
         throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2026"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
     }
-    & .\scripts\init_env_cfg.cmd 
+    & .\scripts\init_env_cfg.cmd
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Read-Env-Cfg
     $global:BUILD_DIR = "$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
@@ -75,7 +75,7 @@ function Show-Menu {
         (8) build setup
         (9) clean build with setup (release)
         (s) switch debug/release
-        (q) quit      
+        (q) quit
 "@
 
     Write-Host $menu
@@ -90,6 +90,7 @@ function Execute-And-Measure {
 
     $start = Get-Date
     & $function
+    Write-Host "Step $choice finished."
     $end = Get-Date
     $elapsed = $end - $start
     #$formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
@@ -193,10 +194,10 @@ function Run-Tests {
 
 function Build-and-run-tests {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
-    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest
     if ($LASTEXITCODE -ne 0) { return $false }
-    
-    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest 
+
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest
     if ($LASTEXITCODE -ne 0) { return $false }
 
     $success = Run-Tests
@@ -207,7 +208,7 @@ function Build-ALL {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
-    
+
     $success = Run-Tests
     if (-not $success) { return $false }
     $success

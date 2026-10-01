@@ -45,7 +45,7 @@ The build scripts assume a standard Qt directory layout:
 _Note:_ Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
 Be sure to enable powershell script execution on windows via `Set-ExecutionPolicy -ExecutionPolicy Unrestricted` in an admin console.
 
-The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
+The first run of `build.ps1` will create a file to configure the paths to the above libraries
 
 ```
 > build.ps1
@@ -54,6 +54,18 @@ Press any key to continue . . .
 ```
 
 Modify those according to your environment. After that, you may try building ;)...
+
+On Linux/macOS `build.sh` generates `env_cfg.bat` from a profile. The profile is mandatory when `env_cfg.bat` does not exist yet:
+
+```
+> ./build.sh deb          # Debian/Ubuntu Qt packages (QTDIR=/usr/lib/qt6)
+> ./build.sh rh           # Red Hat/Fedora Qt packages (QTDIR=/usr/lib64/qt6)
+> ./build.sh macos        # Homebrew Qt (QTDIR=/usr/local/opt/qt)
+> ./build.sh home         # latest Qt below $HOME/Qt via symlink $HOME/Qt/latest
+> ./build.sh ud           # user defined; suggests QTDIR per package manager
+```
+
+A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The `ud` profile suggests `QTDIR` based on the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). The `home` profile points the symlink `$HOME/Qt/latest` to the newest version directory below `$HOME/Qt` and sets `QTDIR=$HOME/Qt/latest/<kit>` (`gcc_64` on Linux, `macos` on macOS). On Windows, run `scripts\init_env_cfg.cmd ud` to be prompted for `QTDIR`, `IPPONBOARD_ROOT_DIR` and `INNO_DIR`.
 
 ```
 > build.ps1
