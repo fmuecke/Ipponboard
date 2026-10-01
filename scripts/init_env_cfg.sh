@@ -2,13 +2,12 @@
 
 # Generates the local dependency configuration (env_cfg.bat).
 #
-# Usage: init_env_cfg.sh <apt|dnf|brew|home|ud> [output-file]
+# Usage: init_env_cfg.sh <apt|dnf|brew|ud> [output-file]
 #
 # Profiles:
 #   apt   Qt from Debian/Ubuntu packages (QTDIR=/usr/lib/qt6)
 #   dnf   Qt from Red Hat/Fedora packages (QTDIR=/usr/lib64/qt6)
 #   brew  Qt from Homebrew (QTDIR=brew --prefix qt)
-#   home  latest Qt installation below $HOME/Qt via symlink $HOME/Qt/latest
 #   ud    user defined; prompts for QTDIR and IPPONBOARD_ROOT_DIR and
 #         suggests defaults (QTDIR per detected package manager)
 #
@@ -23,11 +22,9 @@ function detect_platform {
     case "$(uname -s)" in
         Darwin)
             QTDIR_VAR="MACOS_QTDIR"
-            QT_KIT_DIR="macos"
             ;;
         Linux)
             QTDIR_VAR="LINUX_QTDIR"
-            QT_KIT_DIR="gcc_64"
             ;;
         *)
             echo "ERROR: unsupported platform: $(uname -s)" >&2
@@ -48,36 +45,6 @@ set "$QTDIR_VAR=$qtdir"
 EOF_CFG
 }
 
-# Resolves the latest Qt installation below $HOME/Qt and points the
-# symlink $HOME/Qt/latest at its version directory.
-function resolve_home_qtdir {
-    local qt_base="$HOME/Qt"
-    local latest_version
-    latest_version=$(find "$qt_base" -mindepth 1 -maxdepth 1 -type d -name '[0-9]*' 2>/dev/null | sort -V | tail -n 1)
-
-    if [ -z "$latest_version" ]; then
-        echo "ERROR: no Qt version directory found below $qt_base" >&2
-        return 1
-    fi
-
-    if ! ln -sfn "$latest_version" "$qt_base/latest"; then
-        echo "ERROR: failed to create symlink $qt_base/latest" >&2
-        return 1
-    fi
-
-    local qtdir="$qt_base/latest/$QT_KIT_DIR"
-    if [ ! -d "$qtdir" ]; then
-        echo "ERROR: kit directory not found below $latest_version (expected $QT_KIT_DIR)" >&2
-        return 1
-    fi
-
-    echo "$qtdir"
-    return 0
-}
-
-# Suggests a QTDIR for the given package manager (dnf, apt, brew).
-# Without argument the package manager in use is detected:
-# dnf -> /usr/lib64/qt6, apt -> /usr/lib/qt6, Homebrew -> Qt prefix.
 function detect_default_qtdir {
     local manager="${1:-}"
 
@@ -119,7 +86,7 @@ function main {
     root_dir=$(cd "$(dirname "$output")" && pwd)
 
     if [ -z "$profile" ]; then
-        echo "ERROR: missing profile (usage: init_env_cfg.sh <apt|dnf|brew|home|ud> [output-file])" >&2
+        echo "ERROR: missing profile (usage: init_env_cfg.sh <apt|dnf|brew|ud> [output-file])" >&2
         return 1
     fi
 
@@ -130,9 +97,6 @@ function main {
     case "$profile" in
         apt|dnf|brew)
             qtdir=$(detect_default_qtdir "$profile") || return 1
-            ;;
-        home)
-            qtdir=$(resolve_home_qtdir) || return 1
             ;;
         ud)
             local default_qtdir=""
@@ -156,7 +120,7 @@ function main {
             fi
             ;;
         *)
-            echo "ERROR: unknown profile '$profile' (use apt, dnf, brew, home or ud)" >&2
+            echo "ERROR: unknown profile '$profile' (use apt, dnf, brew or ud)" >&2
             return 1
             ;;
     esac

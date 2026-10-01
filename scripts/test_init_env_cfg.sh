@@ -15,11 +15,9 @@ FAILURES=0
 case "$(uname -s)" in
     Darwin)
         QTDIR_VAR="MACOS_QTDIR"
-        KIT_DIR="macos"
         ;;
     *)
         QTDIR_VAR="LINUX_QTDIR"
-        KIT_DIR="gcc_64"
         ;;
 esac
 
@@ -119,25 +117,7 @@ assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
 # --- legacy profile names are rejected
 assert_fails "legacy profile deb fails" "$GENERATOR" deb "$OUT"
 assert_fails "legacy profile macos fails" "$GENERATOR" macos "$OUT"
-
-# --- home picks the newest version and creates the symlink
-FAKE_HOME="$WORK_DIR/home"
-mkdir -p "$FAKE_HOME/Qt/5.15.2/gcc_64" "$FAKE_HOME/Qt/5.15.2/macos"
-mkdir -p "$FAKE_HOME/Qt/6.9.2/gcc_64" "$FAKE_HOME/Qt/6.9.2/macos"
-mkdir -p "$FAKE_HOME/Qt/6.11.2/gcc_64" "$FAKE_HOME/Qt/6.11.2/macos"
-assert_succeeds "profile home succeeds" env HOME="$FAKE_HOME" "$GENERATOR" home "$OUT"
-if [ "$(readlink "$FAKE_HOME/Qt/latest")" = "$FAKE_HOME/Qt/6.11.2" ]; then
-    report 0 "symlink Qt/latest points to 6.11.2"
-else
-    report 1 "symlink Qt/latest points to 6.11.2"
-fi
-assert_contains "$OUT" "set \"$QTDIR_VAR=$FAKE_HOME/Qt/latest/$KIT_DIR\""
-assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
-
-# --- home fails when no version directory exists
-EMPTY_HOME="$WORK_DIR/empty-home"
-mkdir -p "$EMPTY_HOME/Qt"
-assert_fails "profile home fails without Qt versions" env HOME="$EMPTY_HOME" "$GENERATOR" home "$OUT"
+assert_fails "legacy profile home fails" "$GENERATOR" home "$OUT"
 
 # --- ud prompts for QTDIR and IPPONBOARD_ROOT_DIR
 UD_QT="$WORK_DIR/ud-qt"
