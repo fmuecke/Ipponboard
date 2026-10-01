@@ -16,12 +16,10 @@ case "$(uname -s)" in
     Darwin)
         QTDIR_VAR="MACOS_QTDIR"
         KIT_DIR="macos"
-        PLATFORM_NAME="macos"
         ;;
     *)
         QTDIR_VAR="LINUX_QTDIR"
         KIT_DIR="gcc_64"
-        PLATFORM_NAME="linux"
         ;;
 esac
 

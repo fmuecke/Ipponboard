@@ -22,12 +22,10 @@ set -u
 function detect_platform {
     case "$(uname -s)" in
         Darwin)
-            PLATFORM_NAME="macos"
             QTDIR_VAR="MACOS_QTDIR"
             QT_KIT_DIR="macos"
             ;;
         Linux)
-            PLATFORM_NAME="linux"
             QTDIR_VAR="LINUX_QTDIR"
             QT_KIT_DIR="gcc_64"
             ;;
