@@ -44,7 +44,7 @@ function Init-Environment {
 }
 
 function Invoke-ClangFormatCheck {
-    & "$PSScriptRoot\scripts\check-format.ps1"
+    & "$PSScriptRoot\scripts\check-format.ps1" -ClangFormat $CLANGFORMAT
     return ($LASTEXITCODE -eq 0)
 }
 
@@ -66,11 +66,12 @@ function Show-Menu {
 
     Current config ($CONFIG):
 
-        QTDIR     : $QTDIR
-        ROOT_DIR  : $IPPONBOARD_ROOT_DIR
-        BUILD_DIR : $BUILD_DIR
-        BIN_DIR   : $BIN_DIR
-        INNO_DIR  : $INNO_DIR
+        QTDIR      : $QTDIR
+        ROOT_DIR   : $IPPONBOARD_ROOT_DIR
+        BUILD_DIR  : $BUILD_DIR
+        BIN_DIR    : $BIN_DIR
+        INNO_DIR   : $INNO_DIR
+        CLANGFORMAT: $CLANGFORMAT
 
     Select build mode:
 
