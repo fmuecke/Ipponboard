@@ -2,19 +2,17 @@
 
 set LOCAL_CONFIG=%~dp0..\env_cfg.bat
 
+if "%~1"=="" goto load_config
 if /i "%~1"=="ud" goto user_defined
+echo ERROR: unknown profile "%~1" (use ud)
+exit /b 1
 
+:load_config
 if exist "%LOCAL_CONFIG%" (
   call "%LOCAL_CONFIG%"
   echo;
 ) else (
-  echo @echo off > "%LOCAL_CONFIG%"
-  echo :: Configure dependency paths below  >> "%LOCAL_CONFIG%"
-  echo set "IPPONBOARD_ROOT_DIR=c:\dev\_cpp\Ipponboard" >> "%LOCAL_CONFIG%"
-  echo set "QTDIR=C:\Qt\6.9.2\msvc2022_64" >> "%LOCAL_CONFIG%"  
-  echo set "INNO_DIR=c:\Program Files (x86)\Inno Setup 6" >> "%LOCAL_CONFIG%"
-  echo Please configure dependency paths in "%LOCAL_CONFIG%" first!
-  pause
+  echo ERROR: missing "%LOCAL_CONFIG%". Create it with build.ps1 -Profile ud or init_env_cfg.cmd ud.
   exit /b 1
 )
 exit /b 0

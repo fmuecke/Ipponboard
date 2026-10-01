@@ -2,6 +2,11 @@
 # Ipponboard build script
 #
 
+param(
+    # Profile for generating env_cfg.bat (shadows the automatic $PROFILE variable).
+    [string]$Profile
+)
+
 # suppresses hanging progress bars
 $ProgressPreference = 'SilentlyContinue'
 
@@ -25,8 +30,12 @@ function Init-Environment {
     if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
         throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2026"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
     }
-    & .\scripts\init_env_cfg.cmd
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    if ($Profile) {
+        & .\scripts\init_env_cfg.cmd $Profile
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    } elseif (-not (Test-Path .\env_cfg.bat)) {
+        throw 'Missing "env_cfg.bat". Create it with build.ps1 -Profile ud.'
+    }
     Read-Env-Cfg
     $global:BUILD_DIR = "$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
     $global:CONFIG = "release"

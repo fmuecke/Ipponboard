@@ -45,15 +45,14 @@ The build scripts assume a standard Qt directory layout:
 _Note:_ Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
 Be sure to enable powershell script execution on windows via `Set-ExecutionPolicy -ExecutionPolicy Unrestricted` in an admin console.
 
-The first run of `build.ps1` will create a file to configure the paths to the above libraries
+Without an existing `env_cfg.bat`, `build.ps1` must be started with a profile that generates it (`-Profile ud` prompts for the paths); with an existing `env_cfg.bat` it is used as-is:
 
 ```
 > build.ps1
-Please configure paths in "env_cfg.bat" first!
-Press any key to continue . . .
+Missing "env_cfg.bat". Create it with build.ps1 -Profile ud.
 ```
 
-Modify those according to your environment. After that, you may try building ;)...
+Enter the paths at the prompts (or edit `env_cfg.bat` afterwards). After that, you may try building ;)...
 
 On Linux/macOS `build.sh` generates `env_cfg.bat` from a profile. The profile is mandatory when `env_cfg.bat` does not exist yet:
 
@@ -65,7 +64,7 @@ On Linux/macOS `build.sh` generates `env_cfg.bat` from a profile. The profile is
 > ./build.sh ud           # user defined; suggests QTDIR per package manager
 ```
 
-A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The profiles `apt`, `dnf` and `brew` select these package-manager defaults explicitly; `ud` suggests them based on the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). The `home` profile points the symlink `$HOME/Qt/latest` to the newest version directory below `$HOME/Qt` and sets `QTDIR=$HOME/Qt/latest/<kit>` (`gcc_64` on Linux, `macos` on macOS). On Windows, run `scripts\init_env_cfg.cmd ud` to be prompted for `QTDIR`, `IPPONBOARD_ROOT_DIR` and `INNO_DIR`.
+A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The profiles `apt`, `dnf` and `brew` select these package-manager defaults explicitly; `ud` suggests them based on the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). The `home` profile points the symlink `$HOME/Qt/latest` to the newest version directory below `$HOME/Qt` and sets `QTDIR=$HOME/Qt/latest/<kit>` (`gcc_64` on Linux, `macos` on macOS). On Windows, `build.ps1 -Profile ud` (or `scripts\init_env_cfg.cmd ud`) prompts for `QTDIR`, `IPPONBOARD_ROOT_DIR` and `INNO_DIR`.
 
 ```
 > build.ps1
