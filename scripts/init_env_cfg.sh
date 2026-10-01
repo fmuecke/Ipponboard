@@ -2,12 +2,12 @@
 
 # Generates the local dependency configuration (env_cfg.bat).
 #
-# Usage: init_env_cfg.sh <deb|rh|macos|home|ud> [output-file]
+# Usage: init_env_cfg.sh <apt|dnf|brew|home|ud> [output-file]
 #
 # Profiles:
-#   deb   Linux with Debian/Ubuntu Qt packages (QTDIR=/usr/lib/qt6)
-#   rh    Linux with Red Hat/Fedora Qt packages (QTDIR=/usr/lib64/qt6)
-#   macos macOS with Homebrew Qt (QTDIR=/usr/local/opt/qt)
+#   apt   Qt from Debian/Ubuntu packages (QTDIR=/usr/lib/qt6)
+#   dnf   Qt from Red Hat/Fedora packages (QTDIR=/usr/lib64/qt6)
+#   brew  Qt from Homebrew (QTDIR=brew --prefix qt)
 #   home  latest Qt installation below $HOME/Qt via symlink $HOME/Qt/latest
 #   ud    user defined; prompts for QTDIR and IPPONBOARD_ROOT_DIR and
 #         suggests defaults (QTDIR per detected package manager)
@@ -77,20 +77,40 @@ function resolve_home_qtdir {
     return 0
 }
 
-# Suggests a QTDIR based on the package manager in use:
+# Suggests a QTDIR for the given package manager (dnf, apt, brew).
+# Without argument the package manager in use is detected:
 # dnf -> /usr/lib64/qt6, apt -> /usr/lib/qt6, Homebrew -> Qt prefix.
 function detect_default_qtdir {
-    if command -v dnf > /dev/null 2>&1; then
-        echo "/usr/lib64/qt6"
-    elif command -v apt > /dev/null 2>&1; then
-        echo "/usr/lib/qt6"
-    elif command -v brew > /dev/null 2>&1; then
-        local brew_qtdir
-        brew_qtdir=$(brew --prefix qt 2> /dev/null)
-        echo "${brew_qtdir:-/usr/local/opt/qt}"
-    else
-        return 1
+    local manager="${1:-}"
+
+    if [ -z "$manager" ]; then
+        if command -v dnf > /dev/null 2>&1; then
+            manager="dnf"
+        elif command -v apt > /dev/null 2>&1; then
+            manager="apt"
+        elif command -v brew > /dev/null 2>&1; then
+            manager="brew"
+        else
+            return 1
+        fi
     fi
+
+    case "$manager" in
+        dnf)
+            echo "/usr/lib64/qt6"
+            ;;
+        apt)
+            echo "/usr/lib/qt6"
+            ;;
+        brew)
+            local brew_qtdir
+            brew_qtdir=$(brew --prefix qt 2> /dev/null)
+            echo "${brew_qtdir:-/usr/local/opt/qt}"
+            ;;
+        *)
+            return 1
+            ;;
+    esac
     return 0
 }
 
@@ -101,7 +121,7 @@ function main {
     root_dir=$(cd "$(dirname "$output")" && pwd)
 
     if [ -z "$profile" ]; then
-        echo "ERROR: missing profile (usage: init_env_cfg.sh <deb|rh|macos|home|ud> [output-file])" >&2
+        echo "ERROR: missing profile (usage: init_env_cfg.sh <apt|dnf|brew|home|ud> [output-file])" >&2
         return 1
     fi
 
@@ -110,26 +130,8 @@ function main {
     local qtdir=""
     local user_root=""
     case "$profile" in
-        deb)
-            if [ "$PLATFORM_NAME" != "linux" ]; then
-                echo "ERROR: profile 'deb' requires Linux (detected: $PLATFORM_NAME)" >&2
-                return 1
-            fi
-            qtdir="/usr/lib/qt6"
-            ;;
-        rh)
-            if [ "$PLATFORM_NAME" != "linux" ]; then
-                echo "ERROR: profile 'rh' requires Linux (detected: $PLATFORM_NAME)" >&2
-                return 1
-            fi
-            qtdir="/usr/lib64/qt6"
-            ;;
-        macos)
-            if [ "$PLATFORM_NAME" != "macos" ]; then
-                echo "ERROR: profile 'macos' requires macOS (detected: $PLATFORM_NAME)" >&2
-                return 1
-            fi
-            qtdir="/usr/local/opt/qt"
+        apt|dnf|brew)
+            qtdir=$(detect_default_qtdir "$profile") || return 1
             ;;
         home)
             qtdir=$(resolve_home_qtdir) || return 1
@@ -156,7 +158,7 @@ function main {
             fi
             ;;
         *)
-            echo "ERROR: unknown profile '$profile' (use deb, rh, macos, home or ud)" >&2
+            echo "ERROR: unknown profile '$profile' (use apt, dnf, brew, home or ud)" >&2
             return 1
             ;;
     esac

@@ -108,24 +108,19 @@ else
     report 0 "no output file is created without a profile"
 fi
 
-# --- deb
-if [ "$PLATFORM_NAME" = "linux" ]; then
-    assert_succeeds "profile deb succeeds" "$GENERATOR" deb "$OUT"
-    assert_contains "$OUT" 'set "LINUX_QTDIR=/usr/lib/qt6"'
-    assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
-    assert_cfg_format "$OUT"
+# --- apt and dnf map to the distro Qt paths
+assert_succeeds "profile apt succeeds" "$GENERATOR" apt "$OUT"
+assert_contains "$OUT" "set \"$QTDIR_VAR=/usr/lib/qt6\""
+assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
+assert_cfg_format "$OUT"
 
-    # --- rh
-    assert_succeeds "profile rh succeeds" "$GENERATOR" rh "$OUT"
-    assert_contains "$OUT" 'set "LINUX_QTDIR=/usr/lib64/qt6"'
-    assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
+assert_succeeds "profile dnf succeeds" "$GENERATOR" dnf "$OUT"
+assert_contains "$OUT" "set \"$QTDIR_VAR=/usr/lib64/qt6\""
+assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
 
-    # --- macos is rejected on Linux
-    assert_fails "profile macos fails on Linux" "$GENERATOR" macos "$OUT"
-else
-    assert_fails "profile deb fails on macOS" "$GENERATOR" deb "$OUT"
-    assert_fails "profile rh fails on macOS" "$GENERATOR" rh "$OUT"
-fi
+# --- legacy profile names are rejected
+assert_fails "legacy profile deb fails" "$GENERATOR" deb "$OUT"
+assert_fails "legacy profile macos fails" "$GENERATOR" macos "$OUT"
 
 # --- home picks the newest version and creates the symlink
 FAKE_HOME="$WORK_DIR/home"
@@ -171,9 +166,22 @@ BREW_QT="$WORK_DIR/brew-qt"
 mkdir -p "$STUB_BIN" "$BREW_QT"
 
 function pkg_manager_suggestion {
-    env PATH="$STUB_BIN" "$(command -v bash)" -c "source '$GENERATOR'; detect_default_qtdir" 2> /dev/null
+    env PATH="$STUB_BIN" "$(command -v bash)" -c "source '$GENERATOR'; detect_default_qtdir ${1:-}" 2> /dev/null
 }
 
+# --- explicit package manager selection
+if [ "$(pkg_manager_suggestion dnf)" = "/usr/lib64/qt6" ]; then
+    report 0 "dnf selection suggests /usr/lib64/qt6"
+else
+    report 1 "dnf selection suggests /usr/lib64/qt6"
+fi
+if [ "$(pkg_manager_suggestion apt)" = "/usr/lib/qt6" ]; then
+    report 0 "apt selection suggests /usr/lib/qt6"
+else
+    report 1 "apt selection suggests /usr/lib/qt6"
+fi
+
+# --- auto detection
 touch "$STUB_BIN/dnf" "$STUB_BIN/apt"
 chmod +x "$STUB_BIN/dnf" "$STUB_BIN/apt"
 if [ "$(pkg_manager_suggestion)" = "/usr/lib64/qt6" ]; then
@@ -216,24 +224,30 @@ EOF_UNAME
 chmod +x "$STUB_BIN/brew" "$STUB_BIN/uname"
 ln -sf "$(command -v dirname)" "$STUB_BIN/dirname"
 ln -sf "$(command -v cat)" "$STUB_BIN/cat"
+rm -f "$OUT"
 assert_succeeds "profile ud with suggested QTDIR succeeds" \
     bash -c "printf '\n\n' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
 assert_contains "$OUT" "set \"LINUX_QTDIR=$BREW_QT\""
 assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
 
+# --- profile brew uses the brew prefix
+assert_succeeds "profile brew uses the brew prefix" \
+    env PATH="$STUB_BIN" "$GENERATOR" brew "$OUT"
+assert_contains "$OUT" "set \"LINUX_QTDIR=$BREW_QT\""
+
 # --- a profile overwrites an existing configuration
-assert_succeeds "overwrite succeeds" "$GENERATOR" deb "$OUT"
-assert_contains "$OUT" 'set "LINUX_QTDIR=/usr/lib/qt6"'
+assert_succeeds "overwrite succeeds" "$GENERATOR" apt "$OUT"
+assert_contains "$OUT" "set \"$QTDIR_VAR=/usr/lib/qt6\""
 assert_not_contains "$OUT" "$UD_QT"
 
 # --- unknown profiles fail without touching the configuration
 assert_fails "unknown profile fails" "$GENERATOR" bogus "$OUT"
-assert_contains "$OUT" 'set "LINUX_QTDIR=/usr/lib/qt6"'
+assert_contains "$OUT" "set \"$QTDIR_VAR=/usr/lib/qt6\""
 
 # --- default output file is env_cfg.bat in the working directory
 rm -f "$OUT"
-assert_succeeds "default output path succeeds" bash -c "cd '$REPO_DIR' && '$GENERATOR' deb"
-assert_contains "$OUT" 'set "LINUX_QTDIR=/usr/lib/qt6"'
+assert_succeeds "default output path succeeds" bash -c "cd '$REPO_DIR' && '$GENERATOR' apt"
+assert_contains "$OUT" "set \"$QTDIR_VAR=/usr/lib/qt6\""
 
 echo
 echo "$TESTS tests, $FAILURES failures"

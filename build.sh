@@ -79,7 +79,7 @@ function init_environment {
     if [ -n "$profile" ]; then
         create_default_env_cfg "$LOCAL_CONFIG" "$profile" || exit 1
     elif [ ! -f "$LOCAL_CONFIG" ]; then
-        echo "Missing \"$LOCAL_CONFIG\". Create it with ./build.sh [deb|rh|macos|home|ud]."
+        echo "Missing \"$LOCAL_CONFIG\". Create it with ./build.sh [apt|dnf|brew|home|ud]."
         read -p "Press enter to continue"
         exit 1
     fi
