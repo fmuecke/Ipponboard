@@ -326,13 +326,8 @@ function build_doc {
 }
 
 function translate_resources {
-    echo "not iplemented yet"
-    read -p "Press enter to continue"
-
-    mkdir -p "$BIN_DIR/lang"
-    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/de.ts" -qm "$BIN_DIR/lang/de.qm" || return $?
-    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/nl.ts" -qm "$BIN_DIR/lang/nl.qm" || return $?
-    return 0
+    ./scripts/translate.sh
+    return $?
 }
 
 function make_archive {
