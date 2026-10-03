@@ -2,9 +2,9 @@
 
 Always update this file _before_ running any commit command. Reset the status to `PENDING` immediately after the commit is finished.
 
-- Current approval status: APPROVED
-- Last approval message: Comitte und danach ändere beide Skripte gemeinsam auf --embed-resources --standalone und commite dies ebenfalls
-- Approval timestamp (UTC): 2026-10-03 08:37:29 UTC
+- Current approval status: PENDING
+- Last approval message: (copy the user's exact approval words here)
+- Approval timestamp (UTC): (record after approval)
 
 Steps before committing:
 
