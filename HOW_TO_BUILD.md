@@ -63,7 +63,7 @@ On Linux/macOS `build.sh` generates `env_cfg.bat` from a profile. The profile is
 > ./build.sh ud           # user defined; suggests QTDIR per package manager
 ```
 
-A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The profiles `apt`, `dnf` and `brew` select these package-manager defaults explicitly; `ud` suggests them based on the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). On Windows, `build.ps1 -Profile ud` (or `scripts\init_env_cfg.cmd ud`) prompts for `QTDIR`, `IPPONBOARD_ROOT_DIR`, `INNO_DIR` and `CLANGFORMAT_BINARY`.
+A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The profiles `apt`, `dnf` and `brew` select these package-manager defaults explicitly; `ud` prefers the values of an existing `env_cfg.bat` as suggestions and falls back to the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). On Windows, `build.ps1 -Profile ud` (or `scripts\init_env_cfg.cmd ud`) prompts for `QTDIR`, `IPPONBOARD_ROOT_DIR`, `INNO_DIR` and `CLANGFORMAT_BINARY`, preferring the values of an existing `env_cfg.bat` as suggestions.
 
 ```
 > build.ps1
