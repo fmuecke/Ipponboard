@@ -23,7 +23,12 @@ if not exist "%QT_BIN_DIR%\lrelease.exe" (
   exit /b 1
 )
 
-"%QT_BIN_DIR%\lupdate" -no-obsolete -locations none -no-recursive -sort-messages "%IPPONBOARD_ROOT_DIR%\base" "%IPPONBOARD_ROOT_DIR%\core" "%IPPONBOARD_ROOT_DIR%\Widgets" -ts "%IPPONBOARD_ROOT_DIR%\i18n\de.ts" -ts "%IPPONBOARD_ROOT_DIR%\i18n\nl.ts"
+rem -sort-messages is not supported by older lupdate versions; use it only if available
+set "SORT_OPTION="
+"%QT_BIN_DIR%\lupdate" -help 2>&1 | findstr /c:"sort-messages" >nul
+if not errorlevel 1 set "SORT_OPTION=-sort-messages"
+
+"%QT_BIN_DIR%\lupdate" -no-obsolete -locations none -no-recursive %SORT_OPTION% "%IPPONBOARD_ROOT_DIR%\base" "%IPPONBOARD_ROOT_DIR%\core" "%IPPONBOARD_ROOT_DIR%\Widgets" -ts "%IPPONBOARD_ROOT_DIR%\i18n\de.ts" -ts "%IPPONBOARD_ROOT_DIR%\i18n\nl.ts"
 if errorlevel 1 exit /b 1
 
 pause

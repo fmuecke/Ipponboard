@@ -52,7 +52,13 @@ for tool in "$LINGUIST" "$LRELEASE"; do
     fi
 done
 
-"$LUPDATE" -no-obsolete -locations none -no-recursive -sort-messages \
+# -sort-messages is not supported by older lupdate versions; use it only if available
+SORT_OPTION=""
+if "$LUPDATE" -help 2>&1 | grep -q "sort-messages"; then
+    SORT_OPTION="-sort-messages"
+fi
+
+"$LUPDATE" -no-obsolete -locations none -no-recursive $SORT_OPTION \
     "$IPPONBOARD_ROOT_DIR/base" "$IPPONBOARD_ROOT_DIR/core" "$IPPONBOARD_ROOT_DIR/Widgets" \
     -ts "$IPPONBOARD_ROOT_DIR/i18n/de.ts" -ts "$IPPONBOARD_ROOT_DIR/i18n/nl.ts" || exit 1
 
