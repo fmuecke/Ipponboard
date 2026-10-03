@@ -2,9 +2,9 @@
 
 Always update this file _before_ running any commit command. Reset the status to `PENDING` immediately after the commit is finished.
 
-- Current approval status: PENDING
-- Last approval message: Zeige mir das commit-Kommando, du kannst ja nicht committen.
-- Approval timestamp (UTC): 2026-10-03 07:03:14 UTC
+- Current approval status: APPROVED
+- Last approval message: committe mit Text "Suggest the current directory as IPPONBOARD_ROOT_DIR in Windows build"
+- Approval timestamp (UTC): 2026-10-03 08:00:26 UTC
 
 Steps before committing:
 
