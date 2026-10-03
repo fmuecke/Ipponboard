@@ -3,8 +3,8 @@
 Always update this file _before_ running any commit command. Reset the status to `PENDING` immediately after the commit is finished.
 
 - Current approval status: APPROVED
-- Last approval message: committe mit Text "Suggest the current directory as IPPONBOARD_ROOT_DIR in Windows build"
-- Approval timestamp (UTC): 2026-10-03 08:00:26 UTC
+- Last approval message: Comitte und danach ändere beide Skripte gemeinsam auf --embed-resources --standalone und commite dies ebenfalls
+- Approval timestamp (UTC): 2026-10-03 08:33:09 UTC
 
 Steps before committing:
 
