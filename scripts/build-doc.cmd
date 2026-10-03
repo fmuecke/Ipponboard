@@ -21,10 +21,15 @@ if errorlevel 1 (
   exit /b 1
 )
 
+:: pandoc < 2.19 knows only --self-contained, newer versions deprecated it
+set "EMBED_OPTION=--self-contained"
+pandoc --help 2>&1 | findstr /c:"embed-resources" >nul
+if not errorlevel 1 set "EMBED_OPTION=--embed-resources --standalone"
+
 echo Creating Docs...
-pandoc -s "%BASE_DIR%\USER_MANUAL-DE.md" -o "%OUTPUT_DIR%\Anleitung.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --embed-resources --standalone --toc --toc-depth=3 || exit /b %errorlevel%
-pandoc -s "%BASE_DIR%\USER_MANUAL-EN.md" -o "%OUTPUT_DIR%\User-Manual.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --embed-resources --standalone || exit /b %errorlevel%
-pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" --embed-resources --standalone || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\USER_MANUAL-DE.md" -o "%OUTPUT_DIR%\Anleitung.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" %EMBED_OPTION% --toc --toc-depth=3 || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\USER_MANUAL-EN.md" -o "%OUTPUT_DIR%\User-Manual.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" %EMBED_OPTION% || exit /b %errorlevel%
+pandoc -s "%BASE_DIR%\..\CHANGELOG.md" -o "%OUTPUT_DIR%\CHANGELOG.html" --css="%BASE_DIR%\Ipponboard.css" --template="%BASE_DIR%\pandoc-template.html" --resource-path="%BASE_DIR%" %EMBED_OPTION% || exit /b %errorlevel%
 
 echo Copying license files...
 robocopy /mir /nfl /njs /njh /ndl /np "%BASE_DIR%\licenses" "%OUTPUT_DIR%\licenses" >nul || exit /b %errorlevel%
