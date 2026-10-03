@@ -9,7 +9,8 @@
 #   dnf   Qt from Red Hat/Fedora packages (QTDIR=/usr/lib64/qt6)
 #   brew  Qt from Homebrew (QTDIR=brew --prefix qt)
 #   ud    user defined; prompts for QTDIR and IPPONBOARD_ROOT_DIR and
-#         suggests defaults (QTDIR per detected package manager)
+#         suggests defaults (existing env_cfg.bat values first, then QTDIR
+#         per detected package manager)
 #
 # The profile is mandatory; the output file is overwritten.
 # IPPONBOARD_ROOT_DIR defaults to the directory of the output file.
@@ -79,6 +80,29 @@ function detect_default_qtdir {
     return 0
 }
 
+# Reads a value from an existing env_cfg.bat (set "KEY=VALUE" lines).
+function read_cfg_value {
+    local file="$1"
+    local key="$2"
+    local line name value
+
+    while IFS= read -r line; do
+        case "$line" in
+            set\ \"*\"*)
+                name="${line#set \"}"
+                name="${name%%=*}"
+                if [ "$name" = "$key" ]; then
+                    value="${line#*=}"
+                    value="${value%\"}"
+                    echo "$value"
+                    return 0
+                fi
+                ;;
+        esac
+    done < "$file"
+    return 1
+}
+
 function main {
     local profile="${1:-}"
     local output="${2:-$PWD/env_cfg.bat}"
@@ -101,7 +125,17 @@ function main {
         ud)
             local default_qtdir=""
             local input_qtdir=""
+            local cfg_value=""
             default_qtdir=$(detect_default_qtdir) || true
+            if [ -f "$output" ]; then
+                cfg_value=$(read_cfg_value "$output" "IPPONBOARD_ROOT_DIR") || true
+                root_dir="${cfg_value:-$root_dir}"
+                cfg_value=$(read_cfg_value "$output" "$QTDIR_VAR") || true
+                if [ -z "$cfg_value" ]; then
+                    cfg_value=$(read_cfg_value "$output" "QTDIR") || true
+                fi
+                default_qtdir="${cfg_value:-$default_qtdir}"
+            fi
             if [ -n "$default_qtdir" ]; then
                 read -r -p "QTDIR [$default_qtdir]: " input_qtdir
                 qtdir="${input_qtdir:-$default_qtdir}"

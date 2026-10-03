@@ -130,6 +130,8 @@ assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$UD_ROOT\""
 assert_cfg_format "$OUT"
 
 # --- ud with empty root falls back to the output file directory
+# (without an existing configuration)
+rm -f "$OUT"
 assert_succeeds "profile ud with default root succeeds" \
     bash -c "printf '%s\n\n' '$UD_QT' | '$GENERATOR' ud '$OUT'"
 assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
@@ -212,6 +214,34 @@ assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
 assert_succeeds "profile brew uses the brew prefix" \
     env PATH="$STUB_BIN" "$GENERATOR" brew "$OUT"
 assert_contains "$OUT" "set \"LINUX_QTDIR=$BREW_QT\""
+
+# --- values of an existing configuration are the suggestions for ud
+assert_succeeds "seed existing configuration" \
+    bash -c "printf '%s\n%s\n' '$UD_QT' '$UD_ROOT' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
+assert_succeeds "profile ud keeps existing values on empty input" \
+    bash -c "printf '\n\n' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
+assert_contains "$OUT" "set \"LINUX_QTDIR=$UD_QT\""
+assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$UD_ROOT\""
+
+assert_succeeds "profile ud input overrides existing values" \
+    bash -c "printf '%s\n%s\n' '$BREW_QT' '$REPO_DIR' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
+assert_contains "$OUT" "set \"LINUX_QTDIR=$BREW_QT\""
+assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
+
+# --- existing configuration without known keys falls back to the defaults
+printf 'set "SOMETHING=else"\n' > "$OUT"
+assert_succeeds "profile ud without known keys uses defaults" \
+    bash -c "printf '\n\n' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
+assert_contains "$OUT" "set \"LINUX_QTDIR=$BREW_QT\""
+assert_contains "$OUT" "set \"IPPONBOARD_ROOT_DIR=$REPO_DIR\""
+
+# --- a plain QTDIR key of an existing configuration is honored too
+FOREIGN_QT="$WORK_DIR/foreign-qt"
+mkdir -p "$FOREIGN_QT"
+printf 'set "QTDIR=%s"\n' "$FOREIGN_QT" > "$OUT"
+assert_succeeds "profile ud honors the QTDIR key" \
+    bash -c "printf '\n\n' | env PATH='$STUB_BIN' '$GENERATOR' ud '$OUT'"
+assert_contains "$OUT" "set \"LINUX_QTDIR=$FOREIGN_QT\""
 
 # --- a profile overwrites an existing configuration
 assert_succeeds "overwrite succeeds" "$GENERATOR" apt "$OUT"
