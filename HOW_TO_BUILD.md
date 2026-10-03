@@ -37,6 +37,7 @@ The build scripts assume a standard Qt directory layout:
 ```
 
 - Keep `<QTDIR>/bin` on your `PATH` (or call the tools via their absolute path) so `scripts/create-versioninfo.*`, translation targets, and packaging steps can find `qtpaths`, `lrelease`, and `windeployqt`.
+- If `QTDIR` points at the root of a Qt installer tree (e.g. `/opt/Qt/6.8.3`), the translation tools are resolved from the kit directory below (e.g. `gcc_64/bin`).
 - On Linux/WSL, `qtpaths --plugin-dir` is used to locate runtime plugins; make sure it points to the same Qt installation that CMake consumes.
 - On Windows, `windeployqt` is invoked from the build scripts and packaging workflow; confirm it matches the `msvc2022_64` kit you installed.
 

@@ -17,13 +17,37 @@ if [ -z "${IPPONBOARD_ROOT_DIR:-}" ]; then
     exit 1
 fi
 
-LUPDATE="$QTDIR/bin/lupdate"
-LINGUIST="$QTDIR/bin/linguist"
-LRELEASE="$QTDIR/bin/lrelease"
+# Resolves the Qt tool directory below QTDIR: either $QTDIR/bin or the kit
+# directory of a Qt installer tree (e.g. $QTDIR/gcc_64/bin).
+function resolve_qt_bin_dir {
+    if [ -x "$QTDIR/bin/lupdate" ]; then
+        echo "$QTDIR/bin"
+        return 0
+    fi
 
-for tool in "$LUPDATE" "$LINGUIST" "$LRELEASE"; do
+    local kit
+    for kit in gcc_64 clang_64 macos; do
+        if [ -x "$QTDIR/$kit/bin/lupdate" ]; then
+            echo "$QTDIR/$kit/bin"
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+QT_BIN_DIR=$(resolve_qt_bin_dir) || {
+    echo "ERROR: lupdate not found in $QTDIR/bin or $QTDIR/<kit>/bin. QTDIR must point at the Qt installation configured in env_cfg.bat." >&2
+    exit 1
+}
+
+LUPDATE="$QT_BIN_DIR/lupdate"
+LINGUIST="$QT_BIN_DIR/linguist"
+LRELEASE="$QT_BIN_DIR/lrelease"
+
+for tool in "$LINGUIST" "$LRELEASE"; do
     if [ ! -x "$tool" ]; then
-        echo "ERROR: $tool not found. It must belong to the Qt installation configured in env_cfg.bat." >&2
+        echo "ERROR: $tool not found in $QT_BIN_DIR. It must belong to the Qt installation configured in env_cfg.bat." >&2
         exit 1
     fi
 done
