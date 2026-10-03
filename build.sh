@@ -311,9 +311,9 @@ function build_doc {
     echo "Creating Docs..."
     BASE_DIR="$IPPONBOARD_ROOT_DIR/doc"
     mkdir -p "$BIN_DIR" || return $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained --toc --toc-depth=3 || return $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "$IPPONBOARD_ROOT_DIR/CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --embed-resources --standalone --toc --toc-depth=3 || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --embed-resources --standalone || return $?
+    pandoc -s "$IPPONBOARD_ROOT_DIR/CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --embed-resources --standalone || return $?
 
     echo "Copying license files..."
     rm -rf "$BIN_DIR/licenses" || return $?
