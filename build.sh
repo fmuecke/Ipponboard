@@ -63,11 +63,9 @@ function verify_formatting {
 
 function create_default_env_cfg {
     local local_config="$1"
+    local profile="${2:-}"
 
-    cat > "$local_config" <<EOF_CFG
-set "LINUX_QTDIR=\$HOME/Qt/6.9.2/gcc_64"
-set "MACOS_QTDIR=\$HOME/Qt/6.9.2/macos"
-EOF_CFG
+    ./scripts/init_env_cfg.sh "$profile" "$local_config"
 }
 
 function init_environment {
@@ -76,20 +74,21 @@ function init_environment {
     check_ninja
     check_lld
 
+    local profile="${1:-}"
     LOCAL_CONFIG="$PWD/env_cfg.bat"
-    if [ -f "$LOCAL_CONFIG" ]; then
-        source "$LOCAL_CONFIG"
-    else
-        create_default_env_cfg "$LOCAL_CONFIG"
-        echo "Please configure dependency paths in \"$LOCAL_CONFIG\" first!"
+    if [ -n "$profile" ]; then
+        create_default_env_cfg "$LOCAL_CONFIG" "$profile" || exit 1
+    elif [ ! -f "$LOCAL_CONFIG" ]; then
+        echo "Missing \"$LOCAL_CONFIG\". Create it with ./build.sh [apt|dnf|brew|ud]."
         read -p "Press enter to continue"
         exit 1
     fi
+    source "$LOCAL_CONFIG"
 
     if [ $? -ne 0 ]; then exit $?; fi
     read_env_cfg
     export CONFIG="release"
-    export IPPONBOARD_ROOT_DIR="$PWD"
+    export IPPONBOARD_ROOT_DIR="${IPPONBOARD_ROOT_DIR:-$PWD}"
     export QTDIR="${!IPPONBOARD_QTDIR_VAR}"
     if [ -z "$QTDIR" ]; then
         echo "Missing $IPPONBOARD_QTDIR_VAR in $LOCAL_CONFIG"
@@ -154,6 +153,7 @@ function execute_and_measure {
 
     start_time=$(date +%s)
     $function
+    echo "Step $choice finished."
     end_time=$(date +%s)
 
     elapsed_time=$(expr $end_time - $start_time)
@@ -162,7 +162,7 @@ function execute_and_measure {
 }
 
 function main_loop {
-    init_environment
+    init_environment "${1:-}"
 
     while true; do
         show_menu
@@ -179,17 +179,20 @@ function main_loop {
             9) execute_and_measure clean_build_with_archive ;;
             s) switch_config ;;
             q) break ;;
-            *) echo "Invalid choice" ;;
+            *) echo "Invalid choice" >&2 continue ;;
         esac
     done
 }
 
 function clean_all {
-    if [ -d "$BUILD_DIR" ]; then
+    if [ -d "$BUILD_DIR" ] && [ -f "$BUILD_DIR/build.ninja" ]; then
         echo "Cleaning build outputs in $BUILD_DIR"
         if ! cmake --build "$BUILD_DIR" --config $CONFIG --target clean; then
-            echo "WARN: CMake clean failed for $BUILD_DIR (continuing)."
+            echo "WARN: CMake clean failed for $BUILD_DIR (continuing). Hint: run 'create makefiles' to recreate the build configuration."
         fi
+    elif [ -d "$BUILD_DIR" ]; then
+        echo "Build directory not configured (no build.ninja): $BUILD_DIR (skipping CMake clean)."
+        echo "Hint: run 'create makefiles' to configure the build directory."
     else
         echo "Build directory not found: $BUILD_DIR (skipping CMake clean)."
     fi
@@ -307,9 +310,19 @@ function build_doc {
 
     echo "Creating Docs..."
     BASE_DIR="$IPPONBOARD_ROOT_DIR/doc"
-    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
-    pandoc -s "CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" --self-contained || return $?
+    # pandoc < 2.19 knows only --self-contained, newer versions deprecated it
+    local embed_option="--self-contained"
+    if pandoc --help 2>&1 | grep -q "embed-resources"; then
+        embed_option="--embed-resources --standalone"
+    fi
+    mkdir -p "$BIN_DIR" || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-DE.md" -o "$BIN_DIR/Anleitung.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" $embed_option --toc --toc-depth=3 || return $?
+    pandoc -s "$BASE_DIR/USER_MANUAL-EN.md" -o "$BIN_DIR/User-Manual.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" $embed_option || return $?
+    pandoc -s "$IPPONBOARD_ROOT_DIR/CHANGELOG.md" -o "$BIN_DIR/CHANGELOG.html" --template="$BASE_DIR/pandoc-template.html" --css="$BASE_DIR/Ipponboard.css" --resource-path="$BASE_DIR" $embed_option || return $?
+
+    echo "Copying license files..."
+    rm -rf "$BIN_DIR/licenses" || return $?
+    cp -R "$BASE_DIR/licenses" "$BIN_DIR/licenses" || return $?
 
     if [ "$IPPONBOARD_PLATFORM" = "macos" ]; then
         local bundle_resources="$BIN_DIR/Ipponboard.app/Contents/Resources"
@@ -323,13 +336,8 @@ function build_doc {
 }
 
 function translate_resources {
-    echo "not iplemented yet"
-    read -p "Press enter to continue"
-
-    mkdir -p "$BIN_DIR/lang"
-    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/de.ts" -qm "$BIN_DIR/lang/de.qm" || return $?
-    "$QTDIR/bin/lrelease" -compress "$PWD/i18n/nl.ts" -qm "$BIN_DIR/lang/nl.qm" || return $?
-    return 0
+    ./scripts/translate.sh
+    return $?
 }
 
 function make_archive {
@@ -374,4 +382,4 @@ function switch_config {
 
 # Main
 check_cmake
-main_loop
+main_loop "$@"
