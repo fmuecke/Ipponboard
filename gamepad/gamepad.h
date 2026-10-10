@@ -291,19 +291,19 @@ public:
 
 	bool WasSectionEnteredXY(float min, float max) const
 	{
-		const int lastX = m_invertedAxes.test(eAxis_X) ?
+		const int lastX = m_invertedAxes.test(m_axisMapping[eAxis_X]) ?
 						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_X]) :
 						  GetAxisPos(m_lastData, m_axisMapping[eAxis_X]);
 
-		const int lastY = m_invertedAxes.test(eAxis_Y) ?
+		const int lastY = m_invertedAxes.test(m_axisMapping[eAxis_Y]) ?
 						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_Y]) :
 						  GetAxisPos(m_lastData, m_axisMapping[eAxis_Y]);
 
-		const int curX = m_invertedAxes.test(eAxis_X) ?
+		const int curX = m_invertedAxes.test(m_axisMapping[eAxis_X]) ?
 						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_X]) :
 						 GetAxisPos(m_data, m_axisMapping[eAxis_X]);
 
-		const int curY = m_invertedAxes.test(eAxis_Y) ?
+		const int curY = m_invertedAxes.test(m_axisMapping[eAxis_Y]) ?
 						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_Y]) :
 						 GetAxisPos(m_data, m_axisMapping[eAxis_Y]);
 
@@ -331,17 +331,17 @@ public:
 
 	bool WasSectionEnteredRZ(float min, float max) const
 	{
-		const int lastR = m_invertedAxes.test(eAxis_R) ?
+		const int lastR = m_invertedAxes.test(m_axisMapping[eAxis_R]) ?
 						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_R]) :
 						  GetAxisPos(m_lastData, m_axisMapping[eAxis_R]);
-		const int lastZ = m_invertedAxes.test(eAxis_Z) ?
+		const int lastZ = m_invertedAxes.test(m_axisMapping[eAxis_Z]) ?
 						  eMax - GetAxisPos(m_lastData, m_axisMapping[eAxis_Z]) :
 						  GetAxisPos(m_lastData, m_axisMapping[eAxis_Z]);
 
-		const int curR = m_invertedAxes.test(eAxis_R) ?
+		const int curR = m_invertedAxes.test(m_axisMapping[eAxis_R]) ?
 						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_R]) :
 						 GetAxisPos(m_data, m_axisMapping[eAxis_R]);
-		const int curZ = m_invertedAxes.test(eAxis_Z) ?
+		const int curZ = m_invertedAxes.test(m_axisMapping[eAxis_Z]) ?
 						 eMax - GetAxisPos(m_data, m_axisMapping[eAxis_Z]) :
 						 GetAxisPos(m_data, m_axisMapping[eAxis_Z]);
 
