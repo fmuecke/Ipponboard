@@ -487,6 +487,8 @@ void MainWindowBase::write_settings()
 		settings.setValue(str_tag_invertY, m_controllerCfg.axis_inverted_Y);
 		settings.setValue(str_tag_invertR, m_controllerCfg.axis_inverted_R);
 		settings.setValue(str_tag_invertZ, m_controllerCfg.axis_inverted_Z);
+		settings.setValue(str_tag_invertU, m_controllerCfg.axis_inverted_U);
+		settings.setValue(str_tag_invertV, m_controllerCfg.axis_inverted_V);
 		settings.setValue(str_tag_axisX, m_controllerCfg.axis_X);
 		settings.setValue(str_tag_axisY, m_controllerCfg.axis_Y);
 		settings.setValue(str_tag_axisR, m_controllerCfg.axis_R);
@@ -649,6 +651,8 @@ void MainWindowBase::read_settings()
 		m_controllerCfg.axis_inverted_Y = settings.value(str_tag_invertY, true).toBool();
 		m_controllerCfg.axis_inverted_R = settings.value(str_tag_invertR, true).toBool();
 		m_controllerCfg.axis_inverted_Z = settings.value(str_tag_invertZ, true).toBool();
+		m_controllerCfg.axis_inverted_U = settings.value(str_tag_invertU, true).toBool();
+		m_controllerCfg.axis_inverted_V = settings.value(str_tag_invertV, true).toBool();
 
 		m_controllerCfg.axis_X =
 			settings.value(str_tag_axisX, 0).toInt();
@@ -667,6 +671,8 @@ void MainWindowBase::read_settings()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_U, m_controllerCfg.axis_inverted_U);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_V, m_controllerCfg.axis_inverted_V);
 
 		m_pGamepad->SetAxisMapping(
 			FMlib::Gamepad::eAxis_X,
@@ -793,6 +799,8 @@ void MainWindowBase::on_actionPreferences_triggered()
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Y, m_controllerCfg.axis_inverted_Y);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_R, m_controllerCfg.axis_inverted_R);
 		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_Z, m_controllerCfg.axis_inverted_Z);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_U, m_controllerCfg.axis_inverted_U);
+		m_pGamepad->SetInverted(FMlib::Gamepad::eAxis_V, m_controllerCfg.axis_inverted_V);
 
 		m_pGamepad->SetAxisMapping(
 			FMlib::Gamepad::eAxis_X,

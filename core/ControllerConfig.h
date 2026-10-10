@@ -27,6 +27,8 @@ struct ControllerConfig
 		, axis_inverted_Y(false)
 		, axis_inverted_R(false)
 		, axis_inverted_Z(false)
+		, axis_inverted_U(false)
+		, axis_inverted_V(false)
 		, axis_X(0)
 		, axis_Y(1)
 		, axis_R(3)
@@ -62,6 +64,8 @@ struct ControllerConfig
 	bool axis_inverted_Y;
 	bool axis_inverted_R;
 	bool axis_inverted_Z;
+	bool axis_inverted_U;
+	bool axis_inverted_V;
 
 	int axis_X;
 	int axis_Y;
