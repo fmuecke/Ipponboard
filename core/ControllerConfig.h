@@ -27,6 +27,12 @@ struct ControllerConfig
 		, axis_inverted_Y(false)
 		, axis_inverted_R(false)
 		, axis_inverted_Z(false)
+		, axis_inverted_U(false)
+		, axis_inverted_V(false)
+		, axis_X(0)
+		, axis_Y(1)
+		, axis_R(3)
+		, axis_Z(2)
 		, key_hajime_mate(-1)
 		, key_reset(-1)
 		, key_reset_2(-1)
@@ -58,6 +64,13 @@ struct ControllerConfig
 	bool axis_inverted_Y;
 	bool axis_inverted_R;
 	bool axis_inverted_Z;
+	bool axis_inverted_U;
+	bool axis_inverted_V;
+
+	int axis_X;
+	int axis_Y;
+	int axis_R;
+	int axis_Z;
 
 	int key_hajime_mate;
 	int key_reset;

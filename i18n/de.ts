@@ -920,7 +920,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>/Anleitung.html</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+772"/>
         <location line="+24"/>
         <source>Set Value</source>
         <translation>Wert setzen</translation>
@@ -936,7 +936,7 @@ Mögliche Spezifikatorens sind: %1</translation>
         <translation>Setze Wert auf (m:ss):</translation>
     </message>
     <message>
-        <location line="-718"/>
+        <location line="-769"/>
         <source>Please restart the application so that the change can take effect.</source>
         <translation>Bitte starten Sie das Programm neu, damit die Änderungen wirksam werden.</translation>
     </message>
@@ -2068,6 +2068,41 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
     </message>
     <message>
         <location/>
+        <source>Axes selection: left stick</source>
+        <translation>Achsauswahl: linker Stick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes selection: right stick</source>
+        <translation>Achsauswahl: rechter Stick</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (x)</source>
+        <translation>Vertikal (x)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (y)</source>
+        <translation>Horizontal (y)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Vertical (r)</source>
+        <translation>Vertikal (r)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Horizontal (z)</source>
+        <translation>Horizontal (z)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Axes Inversion</source>
+        <translation>Achsen invertieren</translation>
+    </message>
+    <message>
+        <location/>
         <source>Mat</source>
         <translation>Matte</translation>
     </message>
@@ -2179,9 +2214,8 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Hansokumake</translation>
     </message>
     <message>
-        <location/>
         <source>Axes used for points: X/Y</source>
-        <translation>Achsen für die Wertungen: X/Y</translation>
+        <translation type="vanished">Achsen für die Wertungen: X/Y</translation>
     </message>
     <message>
         <location/>
@@ -2234,9 +2268,8 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <translation>Z-Achse invertieren</translation>
     </message>
     <message>
-        <location/>
         <source>Axes used for points: Z/R</source>
-        <translation>Achsen für die Wertungen: Z/R</translation>
+        <translation type="vanished">Achsen für die Wertungen: Z/R</translation>
     </message>
     <message>
         <location/>
@@ -2427,6 +2460,36 @@ Zeile %2 hat %3 statt %4 Elemente wie in den Zeilen davor</translation>
         <location/>
         <source>Key</source>
         <translation>Taste</translation>
+    </message>
+    <message>
+        <location/>
+        <source>X</source>
+        <translation>X</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Z</source>
+        <translation>Z</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R</source>
+        <translation>R</translation>
+    </message>
+    <message>
+        <location/>
+        <source>U</source>
+        <translation>U</translation>
+    </message>
+    <message>
+        <location/>
+        <source>V</source>
+        <translation>V</translation>
     </message>
 </context>
 <context>

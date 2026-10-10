@@ -935,13 +935,6 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="0" colspan="2">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Axes used for points: X/Y</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="0">
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
@@ -955,20 +948,95 @@
               </property>
              </spacer>
             </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="checkBox_invert_y_axis">
+            <item row="4" column="0" colspan="2">
+             <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>Invert Y axis</string>
+               <string>Axes selection: left stick</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QCheckBox" name="checkBox_invert_x_axis">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_axis_x">
               <property name="text">
-               <string>Invert X axis</string>
+               <string>Vertical (x)</string>
               </property>
              </widget>
             </item>
+			<item row="5" column="1">
+			 <widget class="QComboBox" name="comboBox_axis_x">
+			  <item>
+			   <property name="text">
+				<string>X</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Y</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Z</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>R</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>U</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>V</string>
+			   </property>
+			  </item>
+			 </widget>
+			</item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_axis_y">
+              <property name="text">
+               <string>Horizontal (y)</string>
+              </property>
+             </widget>
+            </item>
+			<item row="6" column="1">
+			 <widget class="QComboBox" name="comboBox_axis_y">
+			  <item>
+			   <property name="text">
+				<string>X</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Y</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Z</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>R</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>U</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>V</string>
+			   </property>
+			  </item>
+			 </widget>
+			</item>
            </layout>
           </widget>
          </item>
@@ -1029,27 +1097,6 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QCheckBox" name="checkBox_invert_z_axis">
-              <property name="text">
-               <string>Invert Z axis</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="checkBox_invert_r_axis">
-              <property name="text">
-               <string>Invert R axis</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0" colspan="2">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>Axes used for points: Z/R</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="0">
              <spacer name="horizontalSpacer_3">
               <property name="orientation">
@@ -1063,11 +1110,164 @@
               </property>
              </spacer>
             </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Axes selection: right stick</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_axis_r">
+              <property name="text">
+               <string>Vertical (r)</string>
+              </property>
+             </widget>
+            </item>
+			<item row="5" column="1">
+			 <widget class="QComboBox" name="comboBox_axis_r">
+			  <item>
+			   <property name="text">
+				<string>X</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Y</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Z</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>R</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>U</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>V</string>
+			   </property>
+			  </item>
+			 </widget>
+			</item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_axis_z">
+              <property name="text">
+               <string>Horizontal (z)</string>
+              </property>
+             </widget>
+            </item>
+			<item row="6" column="1">
+			 <widget class="QComboBox" name="comboBox_axis_z">
+			  <item>
+			   <property name="text">
+				<string>X</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Y</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>Z</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>R</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>U</string>
+			   </property>
+			  </item>
+			  <item>
+			   <property name="text">
+				<string>V</string>
+			   </property>
+			  </item>
+			 </widget>
+			</item>
            </layout>
           </widget>
          </item>
         </layout>
        </item>
+
+       <item row="3" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_inverted_axes">
+           <property name="title">
+            <string>Axes Inversion</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_8">
+
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="checkBox_invert_x_axis">
+              <property name="text">
+               <string>Invert X axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBox_invert_y_axis">
+              <property name="text">
+               <string>Invert Y axis</string>
+              </property>
+             </widget>
+            </item>
+
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_r_axis">
+              <property name="text">
+               <string>Invert R axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_invert_z_axis">
+              <property name="text">
+               <string>Invert Z axis</string>
+              </property>
+             </widget>
+            </item>
+
+            <item row="0" column="2">
+             <widget class="QCheckBox" name="checkBox_invert_u_axis">
+              <property name="text">
+               <string>Invert U axis</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="checkBox_invert_v_axis">
+              <property name="text">
+               <string>Invert V axis</string>
+              </property>
+             </widget>
+            </item>
+
+		   </layout>
+		  </widget>
+         </item>
+        </layout>
+       </item>
+
        <item row="6" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
