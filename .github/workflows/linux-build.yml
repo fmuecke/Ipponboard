@@ -15,22 +15,22 @@ jobs:
       CONFIG: Release
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Install clang-format
       shell: bash
       run: |
         sudo apt-get update
-        sudo apt-get install -y clang-format-14 ninja-build
+        sudo apt-get install -y clang-format-19 ninja-build
 
     - name: Check formatting
       shell: bash
-      run: CLANG_FORMAT=clang-format-14 ./scripts/check-format.sh
+      run: CLANG_FORMAT=clang-format-19 ./scripts/check-format.sh
     
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4.4.1
       with:
-        aqtversion: '==3.1.*'
+        aqtversion: '==3.3.*'
         version: '6.9.3'
         host: 'linux'
         target: 'desktop'

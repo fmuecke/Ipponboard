@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <stdexcept>
 
-
 using namespace Ipponboard;
 
 const char* const ContestCategoryMgr::str_configFileName = "categories.config";
