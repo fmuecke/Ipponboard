@@ -7,8 +7,11 @@ set(APP_NAME Ipponboard)
 find_package(Qt6 COMPONENTS Widgets PrintSupport Multimedia Network REQUIRED)
 find_program(QT_LRELEASE_EXECUTABLE
     NAMES lrelease lrelease.exe
-    HINTS "${QTDIR}/bin"
-    REQUIRED)
+    PATHS "${QTDIR}/bin"
+    NO_DEFAULT_PATH)
+if(NOT QT_LRELEASE_EXECUTABLE)
+    message(FATAL_ERROR "lrelease not found in ${QTDIR}/bin. It must belong to the Qt installation configured in env_cfg.bat.")
+endif()
 
 set(UI_SOURCES
     AddAthleteDlg.cpp

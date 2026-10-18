@@ -11,7 +11,7 @@ $requiredMinor = 0
 
 $cmd = Get-Command $ClangFormat -ErrorAction SilentlyContinue
 if ($null -eq $cmd) {
-    Write-Error "clang-format not found. Install LLVM clang-format $requiredMajor.x and ensure it is on PATH."
+    Write-Error "clang-format not found. Set CLANGFORMAT_BINARY in env_cfg.bat, set CLANG_FORMAT, or install LLVM clang-format $requiredMajor.x or later on PATH."
     exit 1
 }
 

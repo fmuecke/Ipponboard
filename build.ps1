@@ -2,6 +2,11 @@
 # Ipponboard build script
 #
 
+param(
+    # Profile for generating env_cfg.bat (shadows the automatic $PROFILE variable).
+    [string]$Profile
+)
+
 # suppresses hanging progress bars
 $ProgressPreference = 'SilentlyContinue'
 
@@ -25,8 +30,12 @@ function Init-Environment {
     if (-not (Get-Command cl.exe -ErrorAction SilentlyContinue)) {
         throw "cl.exe not found on PATH. Run build.ps1 from the ""x64 Native Tools Command Prompt for VS 2026"" (or the equivalent Developer PowerShell) so the MSVC environment is loaded."
     }
-    & .\scripts\init_env_cfg.cmd 
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    if ($Profile) {
+        & .\scripts\init_env_cfg.cmd $Profile
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    } elseif (-not (Test-Path .\env_cfg.bat)) {
+        throw 'Missing "env_cfg.bat". Create it with build.ps1 -Profile ud.'
+    }
     Read-Env-Cfg
     $global:BUILD_DIR = "$IPPONBOARD_ROOT_DIR\_build\build-Ipponboard"
     $global:CONFIG = "release"
@@ -35,7 +44,7 @@ function Init-Environment {
 }
 
 function Invoke-ClangFormatCheck {
-    & "$PSScriptRoot\scripts\check-format.ps1"
+    & "$PSScriptRoot\scripts\check-format.ps1" -ClangFormat $CLANGFORMAT_BINARY
     return ($LASTEXITCODE -eq 0)
 }
 
@@ -57,11 +66,12 @@ function Show-Menu {
 
     Current config ($CONFIG):
 
-        QTDIR     : $QTDIR
-        ROOT_DIR  : $IPPONBOARD_ROOT_DIR
-        BUILD_DIR : $BUILD_DIR
-        BIN_DIR   : $BIN_DIR
-        INNO_DIR  : $INNO_DIR
+        QTDIR             : $QTDIR
+        ROOT_DIR          : $IPPONBOARD_ROOT_DIR
+        BUILD_DIR         : $BUILD_DIR
+        BIN_DIR           : $BIN_DIR
+        INNO_DIR          : $INNO_DIR
+        CLANGFORMAT_BINARY: $CLANGFORMAT_BINARY
 
     Select build mode:
 
@@ -75,7 +85,7 @@ function Show-Menu {
         (8) build setup
         (9) clean build with setup (release)
         (s) switch debug/release
-        (q) quit      
+        (q) quit
 "@
 
     Write-Host $menu
@@ -90,6 +100,7 @@ function Execute-And-Measure {
 
     $start = Get-Date
     & $function
+    Write-Host "Step $choice finished."
     $end = Get-Date
     $elapsed = $end - $start
     #$formattedTime = '{0:hh\:mm\:ss\.fff}' -f $elapsed
@@ -193,10 +204,10 @@ function Run-Tests {
 
 function Build-and-run-tests {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
-    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest 
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardTest
     if ($LASTEXITCODE -ne 0) { return $false }
-    
-    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest 
+
+    cmake --build "$BUILD_DIR" --config $CONFIG --target IpponboardNetworkTest
     if ($LASTEXITCODE -ne 0) { return $false }
 
     $success = Run-Tests
@@ -207,7 +218,7 @@ function Build-ALL {
     if (-not (Invoke-ClangFormatCheck)) { return $false }
     cmake --build "$BUILD_DIR" --config $CONFIG
     if ($LASTEXITCODE -ne 0) { return $false }
-    
+
     $success = Run-Tests
     if (-not $success) { return $false }
     $success
