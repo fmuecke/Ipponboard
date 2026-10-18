@@ -19,7 +19,7 @@ jobs:
       CONFIG: Release
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Ensure clang-format
       shell: pwsh
@@ -48,10 +48,10 @@ jobs:
         }
 
     - name: Install Qt6
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4.4.1
       id: install-qt
       with:
-        aqtversion: '==3.1.*'
+        aqtversion: '==3.3.*'
         version: '6.9.2'
         host: 'windows'
         target: 'desktop'
