@@ -9,7 +9,6 @@
 #include <QResizeEvent>
 #include <QWidget>
 
-
 class ScaledImage : public QWidget
 {
     Q_OBJECT

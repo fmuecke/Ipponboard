@@ -46,20 +46,13 @@ class GamepadNull : public GamepadBackend
     static constexpr std::wstring_view ProductNameValue = L"Gamepad unavailable on macOS";
 
     std::array<unsigned, EAxis::MaxValue> m_axisValues{
-        Constants::MidPos,
-        Constants::MidPos,
-        Constants::MidPos,
-        Constants::MidPos,
-        Constants::MidPos,
-        Constants::MidPos,
+        Constants::MidPos, Constants::MidPos, Constants::MidPos,
+        Constants::MidPos, Constants::MidPos, Constants::MidPos,
     };
     std::array<UnsignedPair, EAxis::MaxValue> m_ranges{
-        UnsignedPair{ 0u, Constants::MaxPos },
-        UnsignedPair{ 0u, Constants::MaxPos },
-        UnsignedPair{ 0u, Constants::MaxPos },
-        UnsignedPair{ 0u, Constants::MaxPos },
-        UnsignedPair{ 0u, Constants::MaxPos },
-        UnsignedPair{ 0u, Constants::MaxPos },
+        UnsignedPair{ 0u, Constants::MaxPos }, UnsignedPair{ 0u, Constants::MaxPos },
+        UnsignedPair{ 0u, Constants::MaxPos }, UnsignedPair{ 0u, Constants::MaxPos },
+        UnsignedPair{ 0u, Constants::MaxPos }, UnsignedPair{ 0u, Constants::MaxPos },
     };
     std::unordered_set<std::uint16_t> m_buttons;
     EGamepadState m_state{ EGamepadState::no_driver };

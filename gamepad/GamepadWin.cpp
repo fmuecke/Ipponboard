@@ -173,10 +173,7 @@ std::optional<int> GamepadWin::RawAxisCode(EAxis axis) const
     return m_axisCodes[idx];
 }
 
-const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const
-{
-    return m_buttons;
-}
+const std::unordered_set<std::uint16_t>& GamepadWin::CurrentButtons() const { return m_buttons; }
 
 const std::unordered_set<std::uint16_t>& GamepadWin::PreviousButtons() const
 {

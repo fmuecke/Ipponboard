@@ -23,10 +23,7 @@ SplashScreen::SplashScreen(Data const& data, QWidget* parent)
     setWindowFlags(Qt::Window);
 }
 
-SplashScreen::~SplashScreen()
-{
-    delete ui;
-}
+SplashScreen::~SplashScreen() { delete ui; }
 
 void SplashScreen::SetImageStyleSheet(QString const& /*text*/)
 {
@@ -49,20 +46,11 @@ void SplashScreen::changeEvent(QEvent* e)
     }
 }
 
-void SplashScreen::on_commandLinkButton_startSingleVersion_pressed()
-{
-    accept();
-}
+void SplashScreen::on_commandLinkButton_startSingleVersion_pressed() { accept(); }
 
-void SplashScreen::on_commandLinkButton_startTeamVersion_pressed()
-{
-    done(QDialog::Accepted + 1);
-}
+void SplashScreen::on_commandLinkButton_startTeamVersion_pressed() { done(QDialog::Accepted + 1); }
 
-void SplashScreen::on_commandLinkButton_donate_pressed()
-{
-    DonationManager::OpenUrl();
-}
+void SplashScreen::on_commandLinkButton_donate_pressed() { DonationManager::OpenUrl(); }
 
 //void SplashScreen::on_commandLinkButton_cancel_pressed()
 //{

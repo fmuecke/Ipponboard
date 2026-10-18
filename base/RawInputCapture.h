@@ -89,8 +89,7 @@ using RawInputCapture = BasicRawInputCapture<GamepadLib::Gamepad>;
 template <class Provider> class BasicRawAxisCapture
 {
   public:
-    BasicRawAxisCapture(Provider& provider,
-                        std::vector<GamepadLib::EAxis> axes,
+    BasicRawAxisCapture(Provider& provider, std::vector<GamepadLib::EAxis> axes,
                         unsigned threshold = 2000u) noexcept;
 
     void Prime();
@@ -110,7 +109,10 @@ template <class Provider>
 inline BasicRawAxisCapture<Provider>::BasicRawAxisCapture(Provider& provider,
                                                           std::vector<GamepadLib::EAxis> axes,
                                                           unsigned threshold) noexcept
-    : m_provider(&provider), m_axes(std::move(axes)), m_lastValues{}, m_threshold(threshold),
+    : m_provider(&provider),
+      m_axes(std::move(axes)),
+      m_lastValues{},
+      m_threshold(threshold),
       m_primed(false)
 {
     m_lastValues.fill(0u);
@@ -152,8 +154,8 @@ template <class Provider> inline std::optional<int> BasicRawAxisCapture<Provider
     {
         const auto current = read_axis(axis);
         const auto last = m_lastValues[static_cast<std::size_t>(axis)];
-        const unsigned delta = static_cast<unsigned>(std::abs(static_cast<int>(current) -
-                                                              static_cast<int>(last)));
+        const unsigned delta =
+            static_cast<unsigned>(std::abs(static_cast<int>(current) - static_cast<int>(last)));
 
         if (delta > bestDelta)
         {

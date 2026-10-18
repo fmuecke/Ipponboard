@@ -41,23 +41,15 @@ jobs:
         run: |
           if (-not (Get-Command clang-format -ErrorAction SilentlyContinue)) {
               if (Get-Command choco -ErrorAction SilentlyContinue) {
-                  choco install llvm --version=14.0.6 -y --no-progress
+                  choco install llvm --version=19.1.7 -y --no-progress
               } else {
-                  throw "clang-format not found. Install LLVM clang-format 14 on the runner."
+                  throw "clang-format not found. Install LLVM clang-format 19 on the runner."
               }
           }
 
       - name: Check formatting
         shell: pwsh
         run: ./scripts/check-format.ps1
-
-      - name: Install Boost
-        uses: MarkusJx/install-boost@v2.4.5
-        id: install-boost
-        with:
-           boost_version: 1.89.0
-           platform_version: 2019
-           toolset: msvc
 
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
@@ -85,7 +77,6 @@ jobs:
           )
           echo set "IPPONBOARD_ROOT_DIR=${{ github.workspace }}" > %ENV_CFG%
           echo set "QTDIR=%QT_ROOT%" >> %ENV_CFG%
-          echo set "BOOST_DIR=${{ steps.install-boost.outputs.BOOST_ROOT }}" >> %ENV_CFG%
         env:
           ENV_CFG: ${{ github.workspace }}/env_cfg.bat
 
