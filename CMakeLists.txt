@@ -53,6 +53,19 @@ elseif(UNIX)
 else()
     message(FATAL_ERROR "Unsupported platform")
 endif()
+
+# Accept QTDIR pointing at the root of a Qt installer tree and normalize it
+# to the kit directory (e.g. <root>/gcc_64) that provides the Qt CMake packages.
+if(NOT EXISTS "${QTDIR}/lib/cmake/Qt6")
+    foreach(kit_dir gcc_64 clang_64 macos msvc2022_64 msvc2019_64 mingw_64 win64_msvc2022_64 win64_mingw)
+        if(EXISTS "${QTDIR}/${kit_dir}/lib/cmake/Qt6")
+            message(STATUS "QTDIR: using kit directory ${QTDIR}/${kit_dir}")
+            set(QTDIR "${QTDIR}/${kit_dir}")
+            break()
+        endif()
+    endforeach()
+endif()
+
 message(STATUS "Using: QTDIR = ${QTDIR}")
 list(PREPEND CMAKE_PREFIX_PATH "${QTDIR}")
 set(CMAKE_LIBRARY_PATH ${QTDIR}/lib)

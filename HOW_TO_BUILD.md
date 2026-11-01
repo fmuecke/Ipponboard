@@ -2,12 +2,13 @@
 
 To build Ipponboard, there are currently two recommended development platforms:
 
-| Build system        | Compiler                                                                                           | Target system                  |
-| ------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------ |
-| Windows 10/11       | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (last used: VS 2022 a.k.a. VC143, 64-bit) | Windows 10 and higher, 64-bit  |
-| Linux (Ubuntu/WSL2) | gcc 13 (or newer)                                                                                  | Linux 64-bit (WSL2 or desktop) |
+| Build system        | Compiler                                                                                              | Target system                  |
+| ------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Windows 10/11       | [Microsoft Visual Studio C++](https://aka.ms/buildtools) (VS 2026, MSVC 2026, 64-bit)                 | Windows 10 and higher, 64-bit  |
+| Linux (Ubuntu/WSL2) | gcc 13 (or newer)                                                                                     | Linux 64-bit (WSL2 or desktop) |
+| macOS               | AppleClang (via the Xcode command line tools)                                                         | macOS (arm64/x86_64)           |
 
-> Note: Support for Linux builds is still experimental and may lack some features (printing not 100% functional).
+> Note: On Linux, printing is not 100% functional.
 
 ## Prerequisites
 
@@ -19,6 +20,7 @@ Ipponboard now targets a pure Qt 6 toolchain and requires the following librarie
 - [LLVM lld linker](https://lld.llvm.org/) (last used: 17.x) for faster linking on Linux
 - [Git](https://git-scm.com/) (required for downloading third-party sources such as Catch2 during the CMake configure step)
 - [Pandoc](https://pandoc.org/) to build the HTML manual
+- [7-Zip](https://www.7-zip.org/) (`7z`, package `p7zip` on Linux/macOS) to build the release archive on Linux/macOS (menu option 8)
 - [Inno Setup](https://jrsoftware.org/isinfo.php) to create the setup on Windows (last used: 6.0)
 - [LLVM clang-format](https://clang.llvm.org/docs/ClangFormat.html) (required: 14.x) for enforcing layout before builds/PRs
 
@@ -37,33 +39,59 @@ The build scripts assume a standard Qt directory layout:
 ```
 
 - Keep `<QTDIR>/bin` on your `PATH` (or call the tools via their absolute path) so `scripts/create-versioninfo.*`, translation targets, and packaging steps can find `qtpaths`, `lrelease`, and `windeployqt`.
+- If `QTDIR` points at the root of a Qt installer tree (e.g. `/opt/Qt/6.8.3`), the translation tools are resolved from the kit directory below (e.g. `gcc_64/bin`) and CMake normalizes `QTDIR` to that kit directory.
 - On Linux/WSL, `qtpaths --plugin-dir` is used to locate runtime plugins; make sure it points to the same Qt installation that CMake consumes.
-- On Windows, `windeployqt` is invoked from the build scripts and packaging workflow; confirm it matches the `msvc2022_64` kit you installed.
+- On Windows, `windeployqt` is invoked from the build scripts and packaging workflow; confirm it matches the `msvc2026_64` kit you installed.
 
 ## Run `build.ps1` resp. `build.sh`
 
 _Note:_ Before executing the build script be sure to install all required dependencies like explained in [Building on Windows](#building-on-windows-1011) and [Building on Linux](#building-on-linuxubuntuwsl-).
 Be sure to enable powershell script execution on windows via `Set-ExecutionPolicy -ExecutionPolicy Unrestricted` in an admin console.
 
-The first run of `build.ps1` (`build.sh` on Linux) will create a file to configure the paths to the above libraries
+Without an existing `env_cfg.bat`, `build.ps1` must be started with a profile that generates it (`-Profile ud` prompts for the paths); with an existing `env_cfg.bat` it is used as-is:
 
 ```
 > build.ps1
-Please configure paths in "env_cfg.bat" first!
-Press any key to continue . . .
+Missing "env_cfg.bat". Create it with build.ps1 -Profile ud.
 ```
 
-Modify those according to your environment. After that, you may try building ;)...
+Enter the paths at the prompts (or edit `env_cfg.bat` afterwards). After that, you may try building ;)...
+
+On Linux/macOS `build.sh` generates `env_cfg.bat` from a profile. The profile is mandatory when `env_cfg.bat` does not exist yet:
+
+```
+> ./build.sh apt          # Debian/Ubuntu Qt packages (QTDIR=/usr/lib/qt6)
+> ./build.sh dnf          # Red Hat/Fedora Qt packages (QTDIR=/usr/lib64/qt6)
+> ./build.sh brew         # Homebrew Qt (QTDIR=brew --prefix qt)
+> ./build.sh ud           # user defined; suggests QTDIR per package manager
+```
+
+A profile argument (re-)creates `env_cfg.bat`; `IPPONBOARD_ROOT_DIR` defaults to the repository directory and only `ud` prompts for it. The profiles `apt`, `dnf` and `brew` select these package-manager defaults explicitly; `ud` prefers the values of an existing `env_cfg.bat` as suggestions and falls back to the package manager in use: `dnf` yields `/usr/lib64/qt6`, `apt` yields `/usr/lib/qt6` and Homebrew yields `brew --prefix qt` (fallback `/usr/local/opt/qt`). On Windows, `build.ps1 -Profile ud` (or `scripts\init_env_cfg.cmd ud`) prompts for `QTDIR`, `IPPONBOARD_ROOT_DIR`, `INNO_DIR` and `CLANGFORMAT_BINARY`, preferring the values of an existing `env_cfg.bat` as suggestions.
+
+### Platform differences in the build process
+
+`env_cfg.bat` is shared between platforms: it uses the Windows `set "VAR=VALUE"` syntax and is parsed by `build.sh` as well, so the same configuration file works for both `build.ps1` and `build.sh`. The scripts differ in these aspects:
+
+| Aspect | Windows (`build.ps1`) | Linux/macOS (`build.sh`) |
+| ------ | --------------------- | ------------------------ |
+| Build directory | `_build\\build-Ipponboard` | `_build/Ipponboard-Linux` resp. `_build/Ipponboard-MacOS` |
+| CMake generator | `Ninja Multi-Config` | `Ninja` (single-config) |
+| Configuration | selected via `--config` (`release`/`debug`) | via `CMAKE_BUILD_TYPE` (`release` is the default; switch with menu option `s`) |
+| Linker | MSVC default linker | `lld` (`-fuse-ld=lld`; the script aborts if `lld` is missing) |
+| Menu option 8 | build setup (Inno Setup) | make archive (7z) |
+| Menu option 9 | clean build with setup (release) | clean build; make archive (release only) |
+| clang-format binary | `CLANGFORMAT_BINARY` from `env_cfg.bat` (passed to `scripts/check-format.ps1`) | `CLANG_FORMAT` environment variable (default: `clang-format` from `PATH`) |
 
 ```
 > build.ps1
 Current config (debug):
 
-     QTDIR     : c:\devtools\qt\6.9.2\msvc2022_64
+     QTDIR     : c:\devtools\qt\6.9.2\msvc2026_64
      ROOT_DIR  : c:\dev\_cpp\Ipponboard
      BUILD_DIR : c:\dev\_cpp\Ipponboard\_build\build-Ipponboard
      BIN_DIR   : c:\dev\_cpp\Ipponboard\_bin\Ipponboard-debug
      INNO_DIR  : c:\Program Files (x86)\Inno Setup 6
+     CLANGFORMAT_BINARY: c:\Program Files\LLVM\bin\clang-format.exe
 
 Select build mode:
 
@@ -80,23 +108,50 @@ Select build mode:
      (q) quit
 ```
 
+
+On Linux/macOS the menu looks similar, but option 8 creates a 7z archive of the binary output and option 9 performs a clean build and then creates the archive (release only):
+
+```
+> ./build.sh
+Current config (release):
+
+    QTDIR     : /opt/Qt/6.9.2/gcc_64
+    ROOT_DIR  : /home/user/dev/Ipponboard
+    BUILD_DIR : /home/user/dev/Ipponboard/_build/Ipponboard-Linux
+    BIN_DIR   : /home/user/dev/Ipponboard/_bin/Ipponboard-release
+
+Select build mode:
+
+    (1) clean ALL
+    (2) create makefiles
+    (3) tests only
+    (4) build all
+    (5) run Ipponboard
+    (6) build doc
+    (7) translate resources
+    (8) make archive
+    (9) clean build; make archive (release only)
+    (s) switch debug/release
+    (q) quit
+```
+
 > The first configure step will download Catch2 via CMake FetchContent. Ensure outbound network
 > access (or provide a local mirror through the `FETCHCONTENT_SOURCE_DIR_Catch2` cache value) before running `build.sh` / `build.ps1`.
 
 ## Building on Windows 10/11
 
-1. Install _Visual Studio 2022_ (Desktop development with C++) with the x64 toolset
+1. Install _Visual Studio 2026_ (Desktop development with C++) with the x64 toolset
 2. Install `cmake` and make sure it's available via `%PATH%`
 3. Install `ninja` and make sure it's available via `%PATH%`
-4. Install Qt 6.9.x via the Qt Online Installer or `aqtinstall` (recommended kits: `msvc2022_64`)
+4. Install Qt 6.9.x via the Qt Online Installer or `aqtinstall` (recommended kits: `msvc2026_64`)
 5. Install _Pandoc_ and make sure it's available via `%PATH%`
-6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2022** (or the equivalent Developer PowerShell).
+6. [Run `build.ps1`](#run-buildps1-resp-buildsh) from the **x64 Native Tools Command Prompt for VS 2026** (or the equivalent Developer PowerShell).
 
 ### Installing Qt 6 on Windows 10/11
 
 1. (Optional) For scripted installs, ensure Python 3 is available and install [`aqtinstall`](https://github.com/miurahr/aqtinstall) via `pip install -U pip aqtinstall`.
 2. Download the Qt Online Installer from https://www.qt.io/download or use `aqtinstall`.
-3. Install the `Qt/6.9.x/msvc2022_64` component (debug+release).
+3. Install the `Qt/6.9.x/msvc2026_64` component (debug+release).
 4. Ensure `QTDIR` in `env_cfg.bat` points to the chosen installation.
 
 ---
@@ -159,7 +214,7 @@ For macOS builds, Ipponboard uses the standard app bundle split:
 2. Configure the Qt environment
 3. Open the top-level `CMakeLists.txt` with QtCreator
 4. Ensure that `QTDIR` is exported in the environment for your kit
-5. Confirm the kit uses a compiler with C++20 support (MSVC 2022 or gcc 13+)
+5. Confirm the kit uses a compiler with C++20 support (MSVC 2026 or gcc 13+)
 
 ### Configuring CDB Debugger
 

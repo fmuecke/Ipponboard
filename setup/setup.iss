@@ -46,7 +46,7 @@ OutputBaseFilename={#MyAppName}-{#MyAppVersion}-setup
 Compression=lzma2/ultra64
 SolidCompression=true
 InternalCompressLevel=ultra64
-;MinVersion=0,6.0.6001sp2 ;; not recommended anymore. 
+;MinVersion=0,6.0.6001sp2 ;; not recommended anymore.
 ShowLanguageDialog=no
 ;WizardImageFile=compiler:wizmodernimage-IS.bmp
 WizardImageFile=images\install_bg.bmp
@@ -93,9 +93,9 @@ Source: "..\_bin\Ipponboard-Release\Ipponboard.exe"; DestDir: "{app}"; Flags: Ig
 Source: "..\_bin\Ipponboard-Release\clubs.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\categories.config"; DestDir: "{app}"; Flags: promptifolder
 Source: "..\_bin\Ipponboard-Release\competition_modes.config"; DestDir: "{app}"; Flags: promptifolder
-Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: de
-Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion; Languages: en
-Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\Anleitung.html"; DestDir: "{app}"; Flags: replacesameversion; Languages: de
+Source: "..\_bin\Ipponboard-Release\User-Manual.html"; DestDir: "{app}"; Flags: replacesameversion; Languages: en
+Source: "..\_bin\Ipponboard-Release\CHANGELOG.html"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\_bin\Ipponboard-Release\clubs\*.*"; DestDir: "{app}\clubs\"; Flags: ignoreversion promptifolder
 ;Source: "..\_bin\Ipponboard-Release\sounds\*.*"; DestDir: "{app}\sounds\"; Flags: ignoreversion promptifolder
 Source: "..\_bin\Ipponboard-Release\templates\*.*"; DestDir: "{app}\templates\"; Flags: ignoreversion promptifolder
@@ -105,9 +105,9 @@ Source: "..\_bin\Ipponboard-Release\platforms\*.*"; DestDir: "{app}\platforms"; 
 Source: "..\_bin\Ipponboard-Release\styles\*.*"; DestDir: "{app}\styles"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\tls\*.*"; DestDir: "{app}\tls"; Flags: IgnoreVersion recursesubdirs
 Source: "..\_bin\Ipponboard-Release\Qt6*.dll"; DestDir: "{app}"; Flags: IgnoreVersion promptifolder
-Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
-Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion replacesameversion
+Source: "..\_bin\Ipponboard-Release\concrt140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
+Source: "..\_bin\Ipponboard-Release\msvcp140*.dll"; DestDir: "{app}"; Flags: IgnoreVersion
+Source: "..\_bin\Ipponboard-Release\vcruntime140.dll"; DestDir: "{app}"; Flags: IgnoreVersion
 ;Source: "vcredist_x86.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 [Dirs]
@@ -156,9 +156,9 @@ begin
   Result := True;
   if RegKeyExists(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppID}_is1') then
   begin
-    case MsgBox('Ipponboard is alread installed.'#13#10'Do you want to continue and overwrite older files?', mbConfirmation, MB_YESNO) of 
+    case MsgBox('Ipponboard is alread installed.'#13#10'Do you want to continue and overwrite older files?', mbConfirmation, MB_YESNO) of
       IDYES: ; // how to call the uninstall command -->  https://stackoverflow.com/questions/2000296/how-to-automatically-uninstall-previous-installed-version-in-inno-setup
-      IDNO: Result := False; 
+      IDNO: Result := False;
     end;
   end;
 end;
