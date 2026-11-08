@@ -5,7 +5,6 @@
 #ifndef TOURNAMENTMODE_H
 #define TOURNAMENTMODE_H
 
-#include "Enums.h"
 #include "Rules.h"
 
 #include <QString>
