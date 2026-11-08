@@ -4,6 +4,20 @@ project(Ipponboard-Main VERSION 2.2.0 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+# Export compile commands for Clang/clangd tooling.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+if(UNIX AND NOT CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
+    if(IS_SYMLINK "${CMAKE_SOURCE_DIR}/compile_commands.json")
+        file(REMOVE "${CMAKE_SOURCE_DIR}/compile_commands.json")
+    endif()
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/compile_commands.json")
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} -E create_symlink
+                "${CMAKE_BINARY_DIR}/compile_commands.json"
+                "${CMAKE_SOURCE_DIR}/compile_commands.json")
+    endif()
+endif()
+
 # Define variables for the required MSVC runtime libraries
 if(MSVC)
     if(NOT DEFINED MSVC_REDIST_DIR AND DEFINED ENV{VCToolsRedistDir})
