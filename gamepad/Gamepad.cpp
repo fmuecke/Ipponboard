@@ -8,9 +8,6 @@
 #include "GamepadLinux.h"
 #endif
 
-#include <algorithm>
-#include <cmath>
-#include <string>
 #include <unordered_set>
 
 namespace GamepadLib
