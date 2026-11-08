@@ -18,6 +18,7 @@ class AbstractRules
 {
   public:
     AbstractRules();
+    virtual ~AbstractRules() = default;
 
     virtual const char* Name() const = 0;
 

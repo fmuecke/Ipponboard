@@ -30,6 +30,7 @@ const QString OnlineVersionChecker::ProjectReleasesUrl =
 namespace
 {
 
+#if defined(Q_OS_WIN)
 [[nodiscard]] QString selectPreferredWin32AssetUrl(const QJsonArray& assets)
 {
     QString archiveUrl;
@@ -70,6 +71,7 @@ namespace
 
     return archiveUrl;
 }
+#endif
 
 } // namespace
 

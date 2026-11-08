@@ -1002,7 +1002,7 @@ void Controller::CopyAndSwitchGuestAthletes()
         throw std::exception(); // FIXME: use correct exception!
     }
 
-    for (int contestIndex(0); contestIndex < GetContestCount() - 1; ++contestIndex)
+    for (int contestIndex(0); contestIndex < GetContestCount() - 1; contestIndex += 2)
     {
         m_Competition[1]->at(contestIndex).GetAthlete(ContestSide::SideA) =
             m_Competition[0]->at(contestIndex).GetAthlete(ContestSide::SideA);
@@ -1016,7 +1016,6 @@ void Controller::CopyAndSwitchGuestAthletes()
         m_Competition[1]->at(contestIndex).GetAthlete(ContestSide::SideB) =
             m_Competition[0]->at(contestIndex + 1).GetAthlete(ContestSide::SideB);
 
-        ++contestIndex;
     }
 
     m_CompetitionModels[1]->SetDataChanged();
