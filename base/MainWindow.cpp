@@ -26,10 +26,6 @@
 #include <QTimer>
 #include <QUrl>
 
-namespace StrTags
-{
-static const char* const edition = "Basic Edition";
-}
 
 using namespace GamepadLib;
 using namespace Ipponboard;
@@ -120,7 +116,7 @@ void MainWindow::on_comboBox_weight_currentTextChanged(const QString& s)
     m_pSecondaryView->UpdateView();
 }
 
-void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
+void MainWindow::on_comboBox_name_first_currentIndexChanged(int)
 {
     auto s = m_pUi->comboBox_name_first->currentText();
     update_athletes(s);
@@ -128,7 +124,7 @@ void MainWindow::on_comboBox_name_first_currentIndexChanged(int index)
     m_pController->SetAthleteName(ContestSide::SideA, s);
 }
 
-void MainWindow::on_comboBox_name_second_currentIndexChanged(int index)
+void MainWindow::on_comboBox_name_second_currentIndexChanged(int)
 {
     auto s = m_pUi->comboBox_name_second->currentText();
     update_athletes(s);
