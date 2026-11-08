@@ -338,3 +338,38 @@ TEST_CASE("[Controller] Auto adjust points option toggles")
     controller.SetAutoAdjustPoints(true);
     CHECK(controller.IsAutoAdjustPoints());
 }
+
+TEST_CASE("[Controller] CopyAndSwitchGuestAthletes processes adjacent pairs")
+{
+    ControllerFixture fixture;
+    auto& controller = fixture.controller;
+    fixture.initCompetition(2, { QStringLiteral("-60"), QStringLiteral("-66"),
+                                 QStringLiteral("-73"), QStringLiteral("-81"),
+                                 QStringLiteral("+90") });
+
+    for (unsigned int contestIndex = 0; contestIndex < 5; ++contestIndex)
+    {
+        const auto sideAName = QStringLiteral("A%1").arg(contestIndex);
+        const auto sideBName = QStringLiteral("B%1").arg(contestIndex);
+        controller.SetContest(0,
+                              contestIndex,
+                              QStringLiteral("-60"),
+                              sideAName,
+                              QStringLiteral("A club"),
+                              sideBName,
+                              QStringLiteral("B club"));
+    }
+
+    controller.CopyAndSwitchGuestAthletes();
+
+    CHECK(controller.GetContest(1, 0).GetAthlete(ContestSide::SideA).name == QStringLiteral("A0"));
+    CHECK(controller.GetContest(1, 0).GetAthlete(ContestSide::SideB).name == QStringLiteral("B1"));
+    CHECK(controller.GetContest(1, 1).GetAthlete(ContestSide::SideA).name == QStringLiteral("A1"));
+    CHECK(controller.GetContest(1, 1).GetAthlete(ContestSide::SideB).name == QStringLiteral("B0"));
+    CHECK(controller.GetContest(1, 2).GetAthlete(ContestSide::SideA).name == QStringLiteral("A2"));
+    CHECK(controller.GetContest(1, 2).GetAthlete(ContestSide::SideB).name == QStringLiteral("B3"));
+    CHECK(controller.GetContest(1, 3).GetAthlete(ContestSide::SideA).name == QStringLiteral("A3"));
+    CHECK(controller.GetContest(1, 3).GetAthlete(ContestSide::SideB).name == QStringLiteral("B2"));
+    CHECK(controller.GetContest(1, 4).GetAthlete(ContestSide::SideA).name == QStringLiteral("--"));
+    CHECK(controller.GetContest(1, 4).GetAthlete(ContestSide::SideB).name == QStringLiteral("--"));
+}
