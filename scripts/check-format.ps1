@@ -6,7 +6,7 @@ if (-not $ClangFormat -or $ClangFormat.Trim() -eq "") {
     $ClangFormat = "clang-format"
 }
 
-$requiredMajor = 14
+$requiredMajor = 19
 $requiredMinor = 0
 
 $cmd = Get-Command $ClangFormat -ErrorAction SilentlyContinue

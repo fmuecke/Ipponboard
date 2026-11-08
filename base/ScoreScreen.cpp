@@ -35,10 +35,7 @@ ScoreScreen::ScoreScreen(QWidget* parent) : QWidget(parent), ui(new Ui::ScoreScr
     //ui->text_club_guest->setAlignment(Qt::AlignLeft);
 }
 
-ScoreScreen::~ScoreScreen()
-{
-    delete ui;
-}
+ScoreScreen::~ScoreScreen() { delete ui; }
 
 //---------------------------------------------------------
 void ScoreScreen::SetClubs(const QString& first, const QString& second)

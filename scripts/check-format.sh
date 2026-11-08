@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CLANG_FORMAT=${CLANG_FORMAT:-clang-format}
-REQUIRED_VERSION_MAJOR=14
+REQUIRED_VERSION_MAJOR=19
 REQUIRED_VERSION_MINOR=0
 
 if ! command -v "$CLANG_FORMAT" >/dev/null 2>&1; then

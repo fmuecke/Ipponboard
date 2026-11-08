@@ -5,12 +5,8 @@
 
 namespace Catch
 {
-template<>
-struct StringMaker<QString>
+template <> struct StringMaker<QString>
 {
-    static std::string convert(const QString& value)
-    {
-        return value.toUtf8().toStdString();
-    }
+    static std::string convert(const QString& value) { return value.toUtf8().toStdString(); }
 };
 } // namespace Catch
