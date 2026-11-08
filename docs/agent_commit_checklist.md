@@ -3,16 +3,15 @@
 ## Current session
 
 - Current approval status: APPROVED
-- Last approval message: "commit now" (explicit commit approval for CMAKE_EXPORT_COMPILE_COMMANDS plus compile_commands.json symlink)
+- Last approval message: "committe die Anderungen" (explicit approval to commit the Clang warning cleanup)
 - Approval timestamp: 2026-11-08 UTC
-- Approver: repository owner (ralf), via chat instruction "commit now"
+- Approver: repository owner (ralf), via chat instruction "committe die Anderungen"
 
 ## Changes in this commit
 
-- CMakeLists.txt: set CMAKE_EXPORT_COMPILE_COMMANDS ON for Clang/clangd tooling
-- CMakeLists.txt: create source-tree compile_commands.json symlink on UNIX out-of-source configures
-- .gitignore: ignore generated compile_commands.json symlink
-- Validation: fresh Ninja configure to /tmp/ipponboard-cc-check succeeded; compile_commands.json generated and symlink resolved; validation artifacts removed
+- base/MainWindow.cpp: remove the unused edition constant and unused parameter names
+- test/TestInputBindingResolver.cpp: remove the unnecessary raw predicate lambda capture
+- Validation: Clang build succeeded; the targeted Catch2 test passed (3 assertions); CRLF-aware diff check passed
 
 ## Notes
 

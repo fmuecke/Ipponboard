@@ -19,7 +19,7 @@ SCENARIO("Raw bindings are prioritised over legacy button mappings")
         WHEN("the raw predicate reports a press")
         {
             bool fallbackCalled = false;
-            const auto rawPredicate = [rawCode](std::uint16_t code) { return code == rawCode; };
+            const auto rawPredicate = [](std::uint16_t code) { return code == rawCode; };
             const auto fallbackPredicate = [&fallbackCalled](GamepadLib::EButton)
             {
                 fallbackCalled = true;
