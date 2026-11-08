@@ -1,8 +1,6 @@
 #pragma once
 
 #include "../core/CompetitionMode.h"
-#include "../core/CompetitionModel.h"
-#include "../core/Contest.h"
 #include "../core/Controller.h"
 #include "../core/Enums.h"
 #include "../core/Rules.h"
